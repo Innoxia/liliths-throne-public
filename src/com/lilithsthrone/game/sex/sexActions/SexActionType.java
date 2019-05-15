@@ -40,6 +40,14 @@ public enum SexActionType {
 	/**Special miscellaneous actions such as stopping sex.*/
 	SPECIAL;
 	
+	/**
+	 * @return True if this action <b>could</b> be a penetrating one.
+	 *  If the ongoing action involves no penetration, such as penis being rubbed over pussy without being inserted (there are none at the time of this method being created in v0.3.0.6), then this will not be accurate.
+	 */
+	public boolean isPenetratingOption() {
+		return this == START_ONGOING || this == ONGOING;
+	}
+	
 	public boolean isOrgasmOption() {
 		return this == ORGASM || this == ORGASM_NO_AROUSAL_RESET;
 	}

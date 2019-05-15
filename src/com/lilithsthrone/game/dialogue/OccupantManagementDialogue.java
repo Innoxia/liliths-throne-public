@@ -71,36 +71,36 @@ public class OccupantManagementDialogue {
 		return Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
 	}
 	
-	public static DialogueNodeOld getSlaveryOverviewDialogue() {
+	public static DialogueNode getSlaveryOverviewDialogue() {
 		dayNumber = Main.game.getDayNumber();
 		return OCCUPANT_OVERVIEW;
 	}
 	
-	public static DialogueNodeOld getSlaveryManagementInspectSlaveDialogue(NPC slave) {
+	public static DialogueNode getSlaveryManagementInspectSlaveDialogue(NPC slave) {
 		Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave);
 		CharactersPresentDialogue.resetContent(slave);
 		return SLAVE_MANAGEMENT_INSPECT;
 	}
 	
-	public static DialogueNodeOld getSlaveryManagementSlaveJobsDialogue(NPC slave) {
+	public static DialogueNode getSlaveryManagementSlaveJobsDialogue(NPC slave) {
 		Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave);
 		CharactersPresentDialogue.resetContent(slave);
 		return SLAVE_MANAGEMENT_JOBS;
 	}
 	
-	public static DialogueNodeOld getSlaveryManagementSlavePermissionsDialogue(NPC slave) {
+	public static DialogueNode getSlaveryManagementSlavePermissionsDialogue(NPC slave) {
 		Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave);
 		CharactersPresentDialogue.resetContent(slave);
 		return SLAVE_MANAGEMENT_PERMISSIONS;
 	}
 	
-	public static DialogueNodeOld getSlaveryManagementDialogue(NPC slaveTrader) {
+	public static DialogueNode getSlaveryManagementDialogue(NPC slaveTrader) {
 		Main.game.getDialogueFlags().setSlaveTrader(slaveTrader);
 		slaveListManagementOverview = true;
 		return SLAVE_LIST_MANAGEMENT;
 	}
 	
-	public static DialogueNodeOld getSlaveryRoomListDialogue(NPC slaveTrader) {
+	public static DialogueNode getSlaveryRoomListDialogue(NPC slaveTrader) {
 		Main.game.getDialogueFlags().setSlaveTrader(slaveTrader);
 		slaveListManagementOverview = false;
 		return SLAVE_LIST;
@@ -128,7 +128,7 @@ public class OccupantManagementDialogue {
 		} else if (index == 2) {
 			return new Response("Slave List", "Enter the slave management screen.", SLAVE_LIST_MANAGEMENT) {
 				@Override
-				public DialogueNodeOld getNextDialogue() {
+				public DialogueNode getNextDialogue() {
 					return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getDialogueFlags().getSlaveTrader());
 				}
 				@Override
@@ -144,7 +144,7 @@ public class OccupantManagementDialogue {
 			} else if(Main.game.getOccupancyUtil().getGeneratedBalance()>0) {
 				return new Response("Collect: "+UtilText.formatAsMoney(Main.game.getOccupancyUtil().getGeneratedBalance(), "span"), "Collect the money that you've earned through your slaves' activities.",  OCCUPANT_OVERVIEW) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getCurrentDialogueNode();
 					}
 					@Override
@@ -161,7 +161,7 @@ public class OccupantManagementDialogue {
 				
 				return new Response("Pay: "+UtilText.formatAsMoney(Math.abs(Main.game.getOccupancyUtil().getGeneratedBalance()), "span", Colour.GENERIC_BAD), "Pay off the accumulated debt from the upkeep of your slaves and rooms.",  OCCUPANT_OVERVIEW) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getCurrentDialogueNode();
 					}
 					@Override
@@ -174,7 +174,7 @@ public class OccupantManagementDialogue {
 		} else if (index == 0) {
 			return new Response("Back", "Exit the room upgrades screen.", OCCUPANT_OVERVIEW) {
 				@Override
-				public DialogueNodeOld getNextDialogue() {
+				public DialogueNode getNextDialogue() {
 					return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 				}
 				@Override
@@ -189,8 +189,7 @@ public class OccupantManagementDialogue {
 		}
 	}
 	
-	public static final DialogueNodeOld OCCUPANT_OVERVIEW = new DialogueNodeOld("Slavery Overview", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_OVERVIEW = new DialogueNode("Slavery Overview", ".", true) {
 		
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -343,16 +342,10 @@ public class OccupantManagementDialogue {
 		public Response getResponse(int responseTab, int index) {
 			return getSlaveryResponse(index);
 		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
-		}
 	};
 	
 	
-	public static final DialogueNodeOld ROOM_MANAGEMENT = new DialogueNodeOld("Room Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_MANAGEMENT = new DialogueNode("Room Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -394,11 +387,6 @@ public class OccupantManagementDialogue {
 				return null;
 			}
 		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
-		}
 	};
 	
 	private static String getRoomHeader() {
@@ -435,14 +423,14 @@ public class OccupantManagementDialogue {
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:4px; margin-top:4px; "+(!occupants.isEmpty()?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:15%; float:left; margin:0; padding:0;'>"
-							+ "<span style='color:"+place.getColour().toWebHexString()+";'>"+place.getName()+"</span><br/>"
+							+ "<span style='color:"+place.getColourString()+";'>"+place.getName()+"</span><br/>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>");
 		
 		int i=0;
 		for(NPC occupant : occupants) {
 			if(occupant.isSlave()) {
-				miscDialogueSB.append("<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName()+"</b>"+(i+1==occupants.size()?"":"<br/>"));
+				miscDialogueSB.append("<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName(true)+"</b>"+(i+1==occupants.size()?"":"<br/>"));
 				i++;
 			}
 		}
@@ -494,8 +482,8 @@ public class OccupantManagementDialogue {
 				Cell[][] cellGrid = Main.game.getWorlds().get(wt).getCellGrid();
 				for(int i = 0; i< cellGrid.length; i++) {
 					for(int j = 0; j < cellGrid[0].length; j++) {
-						if(cellGrid[i][j].getPlace().getPlaceType()!=PlaceType.LILAYA_HOME_CORRIDOR
-								&& cellGrid[i][j].getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE) {
+						if(!cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.LILAYA_HOME_CORRIDOR)
+								&& !cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.GENERIC_IMPASSABLE)) {
 							importantCells.add(cellGrid[i][j]);
 						}
 					}
@@ -542,8 +530,7 @@ public class OccupantManagementDialogue {
 	
 	public static Cell cellToInspect;
 	
-	public static final DialogueNodeOld ROOM_UPGRADES = new DialogueNodeOld("Room Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_UPGRADES = new DialogueNode("Room Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -602,7 +589,7 @@ public class OccupantManagementDialogue {
 			List<NPC> occupants = Main.game.getCharactersTreatingCellAsHome(cellToInspect);
 			for(NPC occupant : occupants) {
 				if(occupant.isSlave()) {
-					UtilText.nodeContentSB.append("<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName()+"</b>"+(i+1==occupants.size()?"":"<br/>"));
+					UtilText.nodeContentSB.append("<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName(true)+"</b>"+(i+1==occupants.size()?"":"<br/>"));
 					i++;
 				}
 			}
@@ -697,7 +684,7 @@ public class OccupantManagementDialogue {
 					return new Response("Collect: "+UtilText.formatAsMoney(Main.game.getOccupancyUtil().getGeneratedBalance(), "span"),
 							"Collect the money that you've earned through your slaves' activities.",  ROOM_UPGRADES) {
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getCurrentDialogueNode();
 						}
 						@Override
@@ -715,7 +702,7 @@ public class OccupantManagementDialogue {
 					return new Response("Pay: "+UtilText.formatAsMoney(Math.abs(Main.game.getOccupancyUtil().getGeneratedBalance()), "span", Colour.GENERIC_BAD),
 							"Pay off the accumulated debt from the upkeep of your slaves and rooms.",  ROOM_UPGRADES) {
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getCurrentDialogueNode();
 						}
 						@Override
@@ -728,7 +715,7 @@ public class OccupantManagementDialogue {
 			} else if(index==0) {
 				return new Response("Back", "Return to the previous screen.", ROOM_UPGRADES) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
@@ -736,17 +723,11 @@ public class OccupantManagementDialogue {
 				return null;
 			}
 		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
-		}
 	};
 	
 
 
-	public static final DialogueNodeOld ROOM_UPGRADES_MANAGEMENT = new DialogueNodeOld("Room Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM_UPGRADES_MANAGEMENT = new DialogueNode("Room Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -773,7 +754,7 @@ public class OccupantManagementDialogue {
 					return new Response("Collect: "+UtilText.formatAsMoney(Main.game.getOccupancyUtil().getGeneratedBalance(), "span"),
 							"Collect the money that you've earned through your slaves' activities.",  ROOM_UPGRADES_MANAGEMENT) {
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getCurrentDialogueNode();
 						}
 						@Override
@@ -791,7 +772,7 @@ public class OccupantManagementDialogue {
 					return new Response("Pay: "+UtilText.formatAsMoney(Math.abs(Main.game.getOccupancyUtil().getGeneratedBalance()), "span", Colour.GENERIC_BAD),
 							"Pay off the accumulated debt from the upkeep of your slaves and rooms.",  ROOM_UPGRADES_MANAGEMENT) {
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getCurrentDialogueNode();
 						}
 						@Override
@@ -806,11 +787,6 @@ public class OccupantManagementDialogue {
 			} else {
 				return null;
 			}
-		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
 		}
 	};
 	
@@ -1003,8 +979,7 @@ public class OccupantManagementDialogue {
 	}
 	
 	
-	private static final DialogueNodeOld SLAVE_LIST = new DialogueNodeOld("Slave & Occupant Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	private static final DialogueNode SLAVE_LIST = new DialogueNode("Slave & Occupant Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -1072,7 +1047,7 @@ public class OccupantManagementDialogue {
 								i++;
 							}
 						} catch (Exception e) {
-							System.err.println("Main.game.getNPCById("+id+") returning null in method: SLAVE_LIST.getResponse()");
+							Util.logGetNpcByIdError("SLAVE_LIST.getResponse()", id);
 						}
 					}
 				}
@@ -1203,7 +1178,7 @@ public class OccupantManagementDialogue {
 							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 						}
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							if(slaveListManagementOverview) {
 								return SLAVE_LIST_MANAGEMENT;
 							} else {
@@ -1274,7 +1249,7 @@ public class OccupantManagementDialogue {
 							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 						}
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							if(slaveListManagementOverview) {
 								return SLAVE_LIST_MANAGEMENT;
 							} else {
@@ -1288,16 +1263,10 @@ public class OccupantManagementDialogue {
 				}
 			}
 		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
-		}
 	};
 	
 
-	public static final DialogueNodeOld SLAVE_LIST_MANAGEMENT = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_LIST_MANAGEMENT = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -1317,11 +1286,6 @@ public class OccupantManagementDialogue {
 			} else {
 				return SLAVE_LIST.getResponse(responseTab, index);
 			}
-		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
 		}
 	};
 	
@@ -1377,13 +1341,13 @@ public class OccupantManagementDialogue {
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
-							+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b><br/>"
+							+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName(true)+"</b><br/>"
 							+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"
 								+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName(slave):slave.getSubspecies().getSingularMaleName(slave)))+"</span><br/>"
 							+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
-							+ "<b style='color:"+slave.getLocationPlace().getColour().toWebHexString()+";'>"+slave.getLocationPlace().getName()+"</b>"
+							+ "<b style='color:"+slave.getLocationPlace().getColourString()+";'>"+slave.getLocationPlace().getName()+"</b>"
 							+",<br/>"
 							+ "<span style='color:"+slave.getWorldLocation().getColour().toWebHexString()+";'>"+slave.getWorldLocation().getName()+"</span>"
 						+ "</div>"
@@ -1404,9 +1368,9 @@ public class OccupantManagementDialogue {
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ (Main.game.getDialogueFlags().getSlaveTrader()!=null
 								?(slaveOwned
-										?UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)
-										:UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()), "b", Colour.GENERIC_ARCANE))
-								:UtilText.formatAsMoney(slave.getValueAsSlave()))+"<br/>"
+										?UtilText.formatAsMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)
+										:UtilText.formatAsMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()), "b", Colour.GENERIC_ARCANE))
+								:UtilText.formatAsMoney(slave.getValueAsSlave(true)))+"<br/>"
 							+ "<b>"+Util.capitaliseSentence(slave.getSlaveJob().getName(slave))+"</b><br/>"
 							+ UtilText.formatAsMoney(slave.getSlaveJob().getFinalDailyIncomeAfterModifiers(slave))+"/day"
 						+"</div>");
@@ -1451,7 +1415,7 @@ public class OccupantManagementDialogue {
 						
 					+ "<div id='"+slave.getId()+"_TRADER_TRANSFER' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>");
 			
-			if(Main.game.getPlayer().getMoney() < ((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()))) {
+			if(Main.game.getPlayer().getMoney() < ((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()))) {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_BUY_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuyDisabled()+"</div></div>");
 			} else {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_BUY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuy()+"</div></div>");
@@ -1471,7 +1435,7 @@ public class OccupantManagementDialogue {
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
-							+ "<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName()+"</b><br/>"
+							+ "<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName(true)+"</b><br/>"
 							+ "<span style='color:"+occupant.getRace().getColour().toWebHexString()+";'>"
 								+Util.capitaliseSentence((occupant.isFeminine()?occupant.getSubspecies().getSingularFemaleName(occupant):occupant.getSubspecies().getSingularMaleName(occupant)))+"</span><br/>"
 							+ "<span style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(occupant.getGender().getName())+"</span>"
@@ -1481,7 +1445,7 @@ public class OccupantManagementDialogue {
 								?"<b style='color:"+Colour.BASE_GREY.toWebHexString()+";'>At Work</b>"
 										+",<br/>"
 										+ "<span style='color:"+WorldType.DOMINION.getColour().toWebHexString()+";'>"+WorldType.DOMINION.getName()+"</span>"
-								:"<b style='color:"+occupant.getLocationPlace().getColour().toWebHexString()+";'>"+occupant.getLocationPlace().getName()+"</b>"
+								:"<b style='color:"+occupant.getLocationPlace().getColourString()+";'>"+occupant.getLocationPlace().getName()+"</b>"
 									+",<br/>"
 									+ "<span style='color:"+occupant.getWorldLocation().getColour().toWebHexString()+";'>"+occupant.getWorldLocation().getName()+"</span>")
 						+ "</div>"
@@ -1546,7 +1510,7 @@ public class OccupantManagementDialogue {
 					// Core naming information:
 					+"<div class='container-full-width' style='margin-bottom:0;'>"
 						+ "<div style='width:50%; float:left; font-weight:bold; margin:0; padding:0;'>"
-							+ "Slave's Name"
+							+ "Slave's Name and Surname"
 						+ "</div>"
 						+ "<div style='width:50%; float:left; font-weight:bold; margin:0; padding:0;'>"
 							+ UtilText.parse(character, "What [npc.she] calls you")
@@ -1554,8 +1518,12 @@ public class OccupantManagementDialogue {
 					+ "</div>"
 					+"<div class='container-full-width inner' style='padding:8px;'>"
 						+ "<div style='width:49%; float:left; font-weight:bold; margin:0 1% 0 0; padding:0;'>"
-							+ "<form style='float:left; width:90%; margin:0; padding:0;'><input type='text' id='slaveNameInput' value='"+ UtilText.parseForHTMLDisplay(character.getName())+ "' style='width:100%; margin:0; padding:0;'></form>"
-							+ "<div class='SM-button' id='"+character.getId()+"_RENAME' style='float:left; width:9%; height:28px; line-height:28px; margin:0 0 0 1%; padding:0;'>"
+							+ "<form style='float:left; width:39%; margin:0; padding:0;'><input type='text' id='slaveNameInput' value='"+ UtilText.parseForHTMLDisplay(character.getName(true))+ "' style='width:100%; margin:0; padding:0;'></form>"
+							+ "<div class='SM-button' id='"+character.getId()+"_RENAME' style='float:left; width:9%; height:28px; line-height:28px; margin:0 1% 0 1%; padding:0;'>"
+								+ "&#10003;"
+							+ "</div>"
+							+ "<form style='float:left; width:40%; margin:0; padding:0;'><input type='text' id='slaveSurnameInput' value='"+ UtilText.parseForHTMLDisplay(character.getSurname())+ "' style='width:100%; margin:0; padding:0;'></form>"
+							+ "<div class='SM-button' id='"+character.getId()+"_RENAME_SURNAME' style='float:left; width:9%; height:28px; line-height:28px; margin:0 0 0 1%; padding:0;'>"
 								+ "&#10003;"
 							+ "</div>"
 						+ "</div>"
@@ -1590,7 +1558,7 @@ public class OccupantManagementDialogue {
 					+ "</div>"
 					+"<div class='container-full-width'>"
 						+"<div style='width:30%; float:left; margin:0; padding:0;'>"
-							+ "<b style='color:"+character.getLocationPlace().getColour().toWebHexString()+";'>"+character.getLocationPlace().getName()+"</b>"
+							+ "<b style='color:"+character.getLocationPlace().getColourString()+";'>"+character.getLocationPlace().getName()+"</b>"
 							+",<br/>"
 							+ "<span style='color:"+character.getWorldLocation().getColour().toWebHexString()+";'>"+character.getWorldLocation().getName()+"</span>"
 						+ "</div>"
@@ -1612,7 +1580,7 @@ public class OccupantManagementDialogue {
 							+ UtilText.formatAsMoney(character.getSlaveJob().getFinalDailyIncomeAfterModifiers(character))+"/day"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-							+ UtilText.formatAsMoney(character.getValueAsSlave())
+							+ UtilText.formatAsMoney(character.getValueAsSlave(true))
 						+"</div>"
 					+ "</div>");
 
@@ -1656,8 +1624,7 @@ public class OccupantManagementDialogue {
 	/**
 	 * <b>Use getSlaveryManagementDetailedDialogue(NPC slave) to initialise this!!!</b>
 	 */
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_INSPECT = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_INSPECT = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -1701,18 +1668,12 @@ public class OccupantManagementDialogue {
 		}
 		
 		@Override
-		public boolean isMapDisabled() {
-			return true;
-		}
-		
-		@Override
 		public boolean reloadOnRestore() {
 			return true;
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_JOBS = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_JOBS = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -1844,7 +1805,7 @@ public class OccupantManagementDialogue {
 				// Job Settings:
 				if(isCurrentJob) {
 					for(SlaveJobSetting setting : job.getMutualSettings()) {
-						boolean settingActive = character.getSlaveJobSettings().contains(setting);
+						boolean settingActive = character.hasSlaveJobSetting(setting);
 						
 						UtilText.nodeContentSB.append("<div class='container-full-width inner' style='"+(!isCurrentJob?"background:#1B1B1B;":"")+"'>"
 														+"<div style='width:20%; float:left; margin:0; padding:0;"+(!isCurrentJob?"color:#777;":(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":""))+"'>"
@@ -1870,7 +1831,7 @@ public class OccupantManagementDialogue {
 														+"</b></div>");
 						
 						for(SlaveJobSetting setting : entry.getValue()) {
-							boolean settingActive = character.getSlaveJobSettings().contains(setting);
+							boolean settingActive = character.hasSlaveJobSetting(setting);
 							
 							UtilText.nodeContentSB.append("<div style='width:20%; float:left; margin:0; padding:0;"+(!isCurrentJob?"color:#777;":(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":""))+"'>"
 																+ setting.getName()
@@ -1909,18 +1870,12 @@ public class OccupantManagementDialogue {
 		}
 		
 		@Override
-		public boolean isMapDisabled() {
-			return true;
-		}
-		
-		@Override
 		public boolean reloadOnRestore() {
 			return true;
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_PERMISSIONS = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_PERMISSIONS = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -1992,11 +1947,6 @@ public class OccupantManagementDialogue {
 		}
 		
 		@Override
-		public boolean isMapDisabled() {
-			return true;
-		}
-		
-		@Override
 		public boolean reloadOnRestore() {
 			return true;
 		}
@@ -2045,7 +1995,7 @@ public class OccupantManagementDialogue {
 						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues("SLIME"));
 					} else {
 						for(BodyPartInterface bp : BodyChanging.getTarget().getAllBodyParts()){
-							if(bp.getType().getBodyCoveringType(BodyChanging.getTarget())!=null
+							if(bp.getBodyCoveringType(BodyChanging.getTarget())!=null
 									&& !(bp instanceof Hair)
 									&& !(bp instanceof Eye)) {
 								
@@ -2056,10 +2006,10 @@ public class OccupantManagementDialogue {
 									name = "vagina";
 								}
 								
-								if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType(BodyChanging.getTarget()))) {
-									CoveringsNamesMap.get(bp.getType().getBodyCoveringType(BodyChanging.getTarget())).add(name);
+								if(CoveringsNamesMap.containsKey(bp.getBodyCoveringType(BodyChanging.getTarget()))) {
+									CoveringsNamesMap.get(bp.getBodyCoveringType(BodyChanging.getTarget())).add(name);
 								} else {
-									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(BodyChanging.getTarget()), Util.newArrayListOfValues(name));
+									CoveringsNamesMap.put(bp.getBodyCoveringType(BodyChanging.getTarget()), Util.newArrayListOfValues(name));
 								}
 							}
 						}
@@ -2067,6 +2017,9 @@ public class OccupantManagementDialogue {
 						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues("mouth"));
 						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues("nipples"));
 						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues("tongue"));
+						if(BodyChanging.getTarget().hasBreastsCrotch()) {
+							CoveringsNamesMap.put(BodyCoveringType.NIPPLES_CROTCH, Util.newArrayListOfValues("crotch nipples"));
+						}
 					}
 				}
 			};
@@ -2081,7 +2034,7 @@ public class OccupantManagementDialogue {
 		} else if (index == 0) {
 			return new Response("Back", "Return to the slave management screen.",  SLAVE_LIST) {
 				@Override
-				public DialogueNodeOld getNextDialogue() {
+				public DialogueNode getNextDialogue() {
 					if(slaveListManagementOverview) {
 						return SLAVE_LIST_MANAGEMENT;
 					} else {
@@ -2099,8 +2052,7 @@ public class OccupantManagementDialogue {
 		}
 	}
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_MAKEUP = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_COSMETICS_MAKEUP = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2157,8 +2109,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_HAIR = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_COSMETICS_HAIR = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2183,7 +2134,7 @@ public class OccupantManagementDialogue {
 					
 					+(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
 						?CharacterModificationUtils.getKatesDivCoveringsNew(
-								true, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairType().getBodyCoveringType(BodyChanging.getTarget())).getType(),
+								true, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairCovering()).getType(),
 								UtilText.parse(BodyChanging.getTarget(), "[npc.Hair] Colour"),
 								"All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
 						:"")
@@ -2208,8 +2159,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_PIERCINGS = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_COSMETICS_PIERCINGS = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2264,8 +2214,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_EYES = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_COSMETICS_EYES = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2286,7 +2235,7 @@ public class OccupantManagementDialogue {
 					+ "</h6>"
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyChanging.getTarget().getEyeType().getBodyCoveringType(BodyChanging.getTarget()), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
+							true, BodyChanging.getTarget().getEyeCovering(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
@@ -2313,8 +2262,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_COVERINGS = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_COSMETICS_COVERINGS = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2354,6 +2302,10 @@ public class OccupantManagementDialogue {
 				} else if(bct == BodyCoveringType.NIPPLES) {
 					title = "Nipples";
 					description = "This is the skin that's currently covering [npc.namePos] nipples and areolae. The secondary colour determines what [npc.her] nipples' inner-walls look like (if they are fuckable).";
+					
+				} else if(bct == BodyCoveringType.NIPPLES_CROTCH) {
+					title = "Crotch Nipples";
+					description = "This is the skin that's currently covering the nipples and areolae on [npc.namePos] [npc.crotchBoobs]. The secondary colour determines what [npc.her] nipples' inner-walls look like (if they are fuckable).";
 					
 				} else if(bct == BodyCoveringType.MOUTH) {
 					title = "Lips & Throat";
@@ -2399,8 +2351,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_OTHER = new DialogueNodeOld("Slave Management", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_COSMETICS_OTHER = new DialogueNode("Slave Management", ".", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2422,20 +2373,20 @@ public class OccupantManagementDialogue {
 					+CharacterModificationUtils.getKatesDivAnalBleaching("Anal bleaching", "Anal bleaching is the process of lightening the colour of the skin around the anus, to make it more uniform with the surrounding area.")
 
 					+(Main.game.isFacialHairEnabled()
-							? CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on [npc.namePos] face." 
+							? CharacterModificationUtils.getKatesDivFacialHair(true, "Facial hair", "The body hair found on [npc.namePos] face." 
 									+ (Main.game.isFemaleFacialHairEnabled() ? "" : " Feminine characters cannot grow facial hair."))
 							:"")
 					
 					+(Main.game.isPubicHairEnabled()
-							?CharacterModificationUtils.getKatesDivPubicHair("Pubic hair", "The body hair found in the genital area; located on and around [npc.namePos] sex organs and crotch.")
+							?CharacterModificationUtils.getKatesDivPubicHair(true, "Pubic hair", "The body hair found in the genital area; located on and around [npc.namePos] sex organs and crotch.")
 							:"")
 					
 					+(Main.game.isBodyHairEnabled()
-							?CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in [npc.namePos] armpits.")
+							?CharacterModificationUtils.getKatesDivUnderarmHair(true, "Underarm hair", "The body hair found in [npc.namePos] armpits.")
 							:"")
 					
 					+(Main.game.isAssHairEnabled()
-							?CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around [npc.namePos] asshole.")
+							?CharacterModificationUtils.getKatesDivAssHair(true, "Ass hair", "The body hair found around [npc.namePos] asshole.")
 							:"")
 					);
 			
@@ -2471,8 +2422,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_TATTOOS = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_TATTOOS = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -2517,8 +2467,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_TATTOOS_ADD = new DialogueNodeOld("Succubi's Secrets", "-", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_TATTOOS_ADD = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
 		public String getLabel() {
@@ -2572,8 +2521,7 @@ public class OccupantManagementDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVE_MANAGEMENT_PERKS = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode SLAVE_MANAGEMENT_PERKS = new DialogueNode("", "", true) {
 
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
@@ -2647,11 +2595,6 @@ public class OccupantManagementDialogue {
 			}
 			
 			return SLAVE_LIST.getResponse(responseTab, index);
-		}
-		
-		@Override
-		public boolean isMapDisabled() {
-			return true;
 		}
 		
 		@Override

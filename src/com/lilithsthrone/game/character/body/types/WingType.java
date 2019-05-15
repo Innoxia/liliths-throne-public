@@ -12,17 +12,21 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum WingType implements BodyPartTypeInterface {
+	
 	NONE(null, null, false),
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true),
 
 	DEMON_FEATHERED(BodyCoveringType.DEMON_FEATHER, Race.DEMON, true),
 
-	ANGEL(BodyCoveringType.ANGEL_FEATHER, Race.ANGEL, true);
+	ANGEL(BodyCoveringType.ANGEL_FEATHER, Race.ANGEL, true),
+
+	PEGASUS(BodyCoveringType.FEATHERS, Race.HORSE_MORPH, true),
+	;
 
 	private BodyCoveringType skinType;
 	private Race race;
@@ -78,6 +82,8 @@ public enum WingType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("demonic", "feathered");
 			case NONE:
 				return "";
+			case PEGASUS:
+				return UtilText.returnStringAtRandom("feathered");
 		}
 		return "";
 	}
@@ -93,6 +99,8 @@ public enum WingType implements BodyPartTypeInterface {
 				return "demonic feathered";
 			case NONE:
 				return "none";
+			case PEGASUS:
+				return "pegasus feathered";
 		}
 		return "";
 	}

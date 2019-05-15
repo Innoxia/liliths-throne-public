@@ -3,14 +3,15 @@ package com.lilithsthrone.game.sex.sexActions.submission;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -27,33 +28,33 @@ public class FortressMalesLeaderSA {
 	
 	public static boolean isBothTargetsUsed() {
 		try {
-			return Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0
-					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
+			return Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0
+					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK_SECOND), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
 		} catch(Exception ex) {
 			return true;
 		}
 	}
 	
 	public static GameCharacter getBreedingTarget() {
-		return Sex.getCharactersHavingOngoingActionWith(Main.game.getFortressMalesLeader(), SexAreaPenetration.PENIS).isEmpty()
+		return Sex.getCharactersHavingOngoingActionWith(Main.game.getNpc(FortressMalesLeader.class), SexAreaPenetration.PENIS).isEmpty()
 				?null
-				:Sex.getCharactersHavingOngoingActionWith(Main.game.getFortressMalesLeader(), SexAreaPenetration.PENIS).get(0);
+				:Sex.getCharactersHavingOngoingActionWith(Main.game.getNpc(FortressMalesLeader.class), SexAreaPenetration.PENIS).get(0);
 	}
 	
 	private static GameCharacter getOtherTarget() {
 		try {
 			GameCharacter otherTarget = null;
 			if(getBreedingTarget()==null) {
-				if(Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0) {
-					otherTarget = Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND);
+				if(Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0) {
+					otherTarget = Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK_SECOND);
 				} else {
-					otherTarget = Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK);
+					otherTarget = Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK);
 				}
 				
 			} else {
-				otherTarget = Sex.getSexPositionSlot(getBreedingTarget())==SexPositionSlot.MISSIONARY_ON_BACK
-						?Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND)
-						:Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK);
+				otherTarget = Sex.getSexPositionSlot(getBreedingTarget())==SexSlotBipeds.MISSIONARY_ON_BACK
+						?Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK_SECOND)
+						:Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK);
 			}
 			
 			if(!otherTarget.hasVagina() || !otherTarget.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
@@ -87,11 +88,11 @@ public class FortressMalesLeaderSA {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOtherTarget()==null
-					&& (Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader()).getActionType()==SexActionType.ORGASM
-						|| Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
+					&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class)).getActionType()==SexActionType.ORGASM
+						|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
 					&& !isBothTargetsUsed()
 					&& Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())==1
-					&& Sex.getCharacterPerformingAction().equals(Main.game.getFortressMalesLeader());
+					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(FortressMalesLeader.class));
 		}
 
 		@Override
@@ -114,7 +115,7 @@ public class FortressMalesLeaderSA {
 
 		@Override
 		public void applyEffects(){
-			Main.game.getFortressMalesLeader().fillCumToMaxStorage();
+			Main.game.getNpc(FortressMalesLeader.class).fillCumToMaxStorage();
 		}
 	};
 	
@@ -139,11 +140,11 @@ public class FortressMalesLeaderSA {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOtherTarget()!=null
-					&& (Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader()).getActionType()==SexActionType.ORGASM
-						|| Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
+					&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class)).getActionType()==SexActionType.ORGASM
+						|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
 					&& !isBothTargetsUsed()
 					&& Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())==1
-					&& Sex.getCharacterPerformingAction().equals(Main.game.getFortressMalesLeader());
+					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(FortressMalesLeader.class));
 		}
 
 		@Override
@@ -170,7 +171,7 @@ public class FortressMalesLeaderSA {
 		
 		@Override
 		public void applyEffects(){
-			Main.game.getFortressMalesLeader().fillCumToMaxStorage();
+			Main.game.getNpc(FortressMalesLeader.class).fillCumToMaxStorage();
 			GameCharacter otherTarget = getOtherTarget();
 			
 			otherTarget.displaceClothingForAccess(CoverableArea.VAGINA);
@@ -218,11 +219,11 @@ public class FortressMalesLeaderSA {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOtherTarget()==null
-					&& (Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader()).getActionType()==SexActionType.ORGASM
-						|| Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
+					&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class)).getActionType()==SexActionType.ORGASM
+						|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
 					&& !isBothTargetsUsed()
 					&& Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())==1
-					&& Sex.getCharacterPerformingAction().equals(Main.game.getFortressMalesLeader());
+					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(FortressMalesLeader.class));
 		}
 
 		@Override
@@ -245,7 +246,7 @@ public class FortressMalesLeaderSA {
 
 		@Override
 		public void applyEffects(){
-			Main.game.getFortressMalesLeader().fillCumToMaxStorage();
+			Main.game.getNpc(FortressMalesLeader.class).fillCumToMaxStorage();
 		}
 	};
 	
@@ -270,11 +271,11 @@ public class FortressMalesLeaderSA {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOtherTarget()!=null
-					&& (Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader()).getActionType()==SexActionType.ORGASM
-							|| Sex.getLastUsedSexAction(Main.game.getFortressMalesLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
+					&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class)).getActionType()==SexActionType.ORGASM
+							|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressMalesLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
 					&& !isBothTargetsUsed()
 					&& Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())==1
-					&& Sex.getCharacterPerformingAction().equals(Main.game.getFortressMalesLeader());
+					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(FortressMalesLeader.class));
 		}
 
 		@Override
@@ -300,7 +301,7 @@ public class FortressMalesLeaderSA {
 		
 		@Override
 		public void applyEffects(){
-			Main.game.getFortressMalesLeader().fillCumToMaxStorage();
+			Main.game.getNpc(FortressMalesLeader.class).fillCumToMaxStorage();
 			GameCharacter otherTarget = getOtherTarget();
 
 			otherTarget.displaceClothingForAccess(CoverableArea.VAGINA);

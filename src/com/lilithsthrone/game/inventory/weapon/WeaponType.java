@@ -20,6 +20,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -287,10 +288,10 @@ public class WeaponType {
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_MELEE_WEAPON, TFPotency.MAJOR_BOOST, 0),
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_MELEE_WEAPON, TFPotency.MAJOR_BOOST, 0)),
 			null,
-			ColourListPresets.JUST_BLACK.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.JUST_STEEL.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_BLACK,
+			ColourListPresets.ALL,
+			ColourListPresets.JUST_STEEL,
+			ColourListPresets.ALL_METAL,
 			Util.newArrayListOfValues(
 					ItemTag.SOLD_BY_VICKY,
 					ItemTag.WEAPON_BLADE)) {
@@ -368,10 +369,10 @@ public class WeaponType {
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0),
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_CHANCE, TFPotency.MAJOR_BOOST, 0)),
 			null,
-			ColourListPresets.JUST_BLACK.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.JUST_STEEL.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_BLACK,
+			ColourListPresets.ALL,
+			ColourListPresets.JUST_STEEL,
+			ColourListPresets.ALL_METAL,
 			Util.newArrayListOfValues(
 					ItemTag.SOLD_BY_VICKY,
 					ItemTag.WEAPON_BLADE)) {
@@ -430,7 +431,7 @@ public class WeaponType {
 			"Buckler",
 			"Bucklers",
 			"Bash",
-			"A small metal shield, measuring 45cm in diameter, and gripped in one hand by means of a handle positioned behind the boss."
+			"A small metal shield, measuring "+ Units.size(45, Units.UnitType.LONG) +" in diameter, and gripped in one hand by means of a handle positioned behind the boss."
 					+ " Shields such as this one are typically enchanted to help the wielder resist a certain type of arcane damage.",
 			"buckler",
 			"buckler",
@@ -451,10 +452,10 @@ public class WeaponType {
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_PHYSICAL, TFPotency.MAJOR_BOOST, 0),
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_PHYSICAL, TFPotency.MAJOR_BOOST, 0)),
 			null,
-			ColourListPresets.JUST_STEEL.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
-			ColourListPresets.JUST_STEEL.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_STEEL,
+			ColourListPresets.ALL_METAL,
+			ColourListPresets.JUST_STEEL,
+			ColourListPresets.ALL_METAL,
 			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
 
 		@Override
@@ -673,7 +674,9 @@ public class WeaponType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
+			Util.newArrayListOfValues(
+					ItemTag.REMOVE_FROM_DEBUG_SPAWNER
+					)) {
 
 		@Override
 		public String equipText(GameCharacter character) {
@@ -895,7 +898,7 @@ public class WeaponType {
 		@Override
 
 		public String getDescription() {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP)) {
 				return "A short-handled feather duster, ideal for keeping a house clean, but not much use in combat..."
 						+ " [Ashley.speech(A feather duster: the epitome of romance, at least for those who don't know anything about their lover, other than that they're the person who keeps the house clean.)]";
 //						+ " Surely, that's all that's going on with their lives, right?)]";
@@ -1027,7 +1030,7 @@ public class WeaponType {
 	};
 	
 	public static List<AbstractWeaponType> rareWeapons = new ArrayList<>();
-	public static List<AbstractWeaponType> allweapons = new ArrayList<>();
+	private static List<AbstractWeaponType> allWeapons = new ArrayList<>();
 	public static List<AbstractWeaponType> moddedWeapons = new ArrayList<>();
 	
 	public static Map<AbstractWeaponType, String> weaponToIdMap = new HashMap<>();
@@ -1064,10 +1067,9 @@ public class WeaponType {
 								if (innerDirectoryListing != null) {
 									for (File innerChild : innerDirectoryListing) {
 										try {
-											AbstractWeaponType ct = new AbstractWeaponType(innerChild) {};
-											moddedWeapons.add(ct);
 											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-//													System.out.println(id);
+											AbstractWeaponType ct = new AbstractWeaponType(innerChild, modAuthorDirectory.getName()) {};
+											moddedWeapons.add(ct);
 											weaponToIdMap.put(ct, id);
 											idToWeaponMap.put(id, ct);
 										} catch(Exception ex) {
@@ -1082,7 +1084,7 @@ public class WeaponType {
 			}
 		}
 		
-		allweapons.addAll(moddedWeapons);
+		allWeapons.addAll(moddedWeapons);
 		
 		
 		// Add in external res clothing:
@@ -1100,10 +1102,9 @@ public class WeaponType {
 								if (innerDirectoryListing != null) {
 									for (File innerChild : innerDirectoryListing) {
 										try {
-											AbstractWeaponType ct = new AbstractWeaponType(innerChild) {};
-											allweapons.add(ct);
 											String id = authorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-		//											System.out.println(id);
+											AbstractWeaponType ct = new AbstractWeaponType(innerChild, authorDirectory.getName()) {};
+											allWeapons.add(ct);
 											weaponToIdMap.put(ct, id);
 											idToWeaponMap.put(id, ct);
 										} catch(Exception ex) {
@@ -1133,12 +1134,10 @@ public class WeaponType {
 					weaponToIdMap.put(weapon, f.getName());
 					idToWeaponMap.put(f.getName(), weapon);
 					
-					if(weapon != MAIN_WESTERN_KKP) {
-						allweapons.add(weapon);
-					
-						if (weapon.getRarity() == Rarity.RARE) {
-							rareWeapons.add(weapon);
-						}
+					allWeapons.add(weapon);
+				
+					if (weapon.getRarity() == Rarity.RARE) {
+						rareWeapons.add(weapon);
 					}
 					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
@@ -1146,5 +1145,9 @@ public class WeaponType {
 				}
 			}
 		}
+	}
+
+	public static List<AbstractWeaponType> getAllWeapons() {
+		return allWeapons;
 	}
 }

@@ -6,16 +6,17 @@ import java.util.Set;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.2.8
- * @version 0.2.8
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Clitoris implements BodyPartInterface {
+
 	
 	protected int clitSize;
 	protected int girth;
@@ -471,6 +472,14 @@ public class Clitoris implements BodyPartInterface {
 		
 		// Catch:
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Clitoris.class) && getType().getRace().isBestialPartsAvailable();
 	}
 	
 }

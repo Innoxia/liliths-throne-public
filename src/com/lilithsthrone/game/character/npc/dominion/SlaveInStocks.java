@@ -2,25 +2,28 @@ package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -28,8 +31,15 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.SlavePermission;
+import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -53,7 +63,7 @@ public class SlaveInStocks extends NPC {
 	}
 	
 	public SlaveInStocks(Gender gender, boolean isImported) {
-		super(isImported, null, "",
+		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS, false);
@@ -67,105 +77,22 @@ public class SlaveInStocks extends NPC {
 			
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
-				switch(s) {
-					// No spawn chance:
-					case ANGEL:
-					case DEMON:
-					case HARPY:
-					case HARPY_RAVEN:
-					case HARPY_BALD_EAGLE:
-					case HUMAN:
-					case IMP:
-					case IMP_ALPHA:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_FENNEC:
-					case SLIME:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-						break;
+				if(s==Subspecies.REINDEER_MORPH
+						&& Main.game.getSeason()==Season.WINTER
+						&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
+					addToSubspeciesMap(10, gender, s, availableRaces);
 					
-					// Special spawns:
-					case REINDEER_MORPH:
-						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-							addToSubspeciesMap(10, gender, s, availableRaces);
-						}
-						break;
-						
-					// Rare spawns:
-					case ALLIGATOR_MORPH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case BAT_MORPH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case RAT_MORPH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-						
-					// Common spawns:
-					case CAT_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LYNX:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LEOPARD_SNOW:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LEOPARD:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_LION:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_TIGER:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_CHEETAH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case CAT_MORPH_CARACAL:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case COW_MORPH:
+				} else if(s.getRace()!=Race.DEMON
+						&& s.getRace()!=Race.ANGEL
+						&& s.getRace()!=Race.ELEMENTAL
+						&& s!=Subspecies.FOX_ASCENDANT
+						&& s!=Subspecies.FOX_ASCENDANT_FENNEC
+						&& s!=Subspecies.SLIME) {
+					if(Subspecies.getMainSubspeciesOfRace(s.getRace())==s) {
 						addToSubspeciesMap(10, gender, s, availableRaces);
-						break;
-					case DOG_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
-					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case DOG_MORPH_BORDER_COLLIE:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case FOX_MORPH:
-						addToSubspeciesMap(10, gender, s, availableRaces);
-						break;
-					case FOX_MORPH_FENNEC:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case HORSE_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
-					case HORSE_MORPH_ZEBRA:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case SQUIRREL_MORPH:
-						addToSubspeciesMap(10, gender, s, availableRaces);
-						break;
-					case WOLF_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
-					case RABBIT_MORPH:
+					} else {
 						addToSubspeciesMap(3, gender, s, availableRaces);
-						break;
-					case RABBIT_MORPH_LOP:
-						addToSubspeciesMap(3, gender, s, availableRaces);
-						break;
+					}
 				}
 			}
 			
@@ -207,23 +134,33 @@ public class SlaveInStocks extends NPC {
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 
-			equipClothing(true, true, true, true);
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
 			CharacterUtils.applyMakeup(this, true);
+
+
+			if(Math.random()<0.8f) {
+				this.addSlaveJobSettings(SlaveJobSetting.SEX_ORAL);
+				this.setFaceVirgin(false);
+			}
 			
-			this.addSlaveJobSettings(SlaveJobSetting.SEX_ORAL);
-			
-			if(Math.random()>0.4f) {
+			if(Math.random()<0.6f) {
 				this.addSlaveJobSettings(SlaveJobSetting.SEX_ANAL);
+				this.setAssVirgin(false);
 			}
 			
 			if(!this.hasVagina()) {
 				this.addSlaveJobSettings(SlaveJobSetting.SEX_ANAL);
+				this.setAssVirgin(false);
 			} else {
-				if(Math.random()>0.4f) {
+				if(Math.random()<0.6f) {
 					this.addSlaveJobSettings(SlaveJobSetting.SEX_VAGINAL);
+					this.setVaginaVirgin(false);
 				}
 			}
+			
+			this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_BODY);
+			this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES);
 			
 			this.setPlayerKnowsName(true);
 			
@@ -243,7 +180,7 @@ public class SlaveInStocks extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, this);
 	}
 	
@@ -289,7 +226,43 @@ public class SlaveInStocks extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null; //TODO
+	}
+	
+	@Override
+	public void hourlyUpdate() {
+		if(Main.game.isStarted() && !Main.game.getCharactersPresent().contains(this)) {
+			float chanceToBeUsed = (12 - Main.game.getHourOfDay()%12)/12f;
+			if(Math.random()<chanceToBeUsed) {
+//				System.out.println("generated!");
+				GenericSexualPartner stocksPartner;
+				if(Math.random()<0.25f) {
+					stocksPartner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, this.getWorldLocation(), this.getLocation(), false);
+				} else {
+					stocksPartner = new GenericSexualPartner(Gender.M_P_MALE, this.getWorldLocation(), this.getLocation(), false);
+				}
+//				try {
+//					Main.game.addNPC(stocksPartner, false);
+//				} catch (Exception e1) {
+//					e1.printStackTrace();
+//				}
+				
+				if(!Main.game.getCharactersPresent().contains(this)) {
+					if(this.hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL)) {
+						this.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS));
+					}
+					if(this.hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL)) {
+						this.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS));
+					}
+					if(this.hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL)) {
+						this.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS));
+					}
+				}
+				
+//				System.out.println("hmm  " + Main.game.banishNPC(stocksPartner));
+				
+			}
+		}
 	}
 }

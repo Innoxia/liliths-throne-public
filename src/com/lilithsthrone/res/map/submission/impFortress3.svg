@@ -1,104 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="100%"
-   height="100%"
-   viewBox="0 0 64.000001 64.000001"
-   id="svg4311"
-   version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="impFortress3.svg">
-  <defs
-     id="defs4313">
-    <linearGradient
-       inkscape:collect="always"
-       id="impFortress3Gradient">
-      <stop
-         style="stop-color:#ff5555;stop-opacity:1"
-         offset="0"
-         id="stop4184" />
-      <stop
-         style="stop-color:#ff8080;stop-opacity:1"
-         offset="1"
-         id="stop4186" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#impFortress3Gradient"
-       id="linearGradient15"
-       x1="29.499998"
-       y1="1025.4872"
-       x2="44.125"
-       y2="1003.3622"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.2884366,0,0,1.290513,-9.2250812,-296.31254)" />
-  </defs>
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="8.0000004"
-     inkscape:cx="41.775914"
-     inkscape:cy="34.006196"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     units="px"
-     inkscape:window-width="2560"
-     inkscape:window-height="1388"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     showguides="false" />
-  <metadata
-     id="metadata4316">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-988.36216)"
-     style="display:inline">
-    <ellipse
-       ry="30.381458"
-       rx="30.382944"
-       cy="1020.3683"
-       cx="32.000488"
-       id="ellipse4146"
-       style="display:inline;fill:url(#linearGradient15);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5.4000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
-       style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 44.539062,17.914062 -5.132812,0.03125 0.07617,3.298829 -4.230469,-0.05469 0,-3.175781 -5.390625,0.03516 0.142578,3.234375 -4.386718,0.101563 -0.04297,-3.34961 -5.166016,0.07227 -0.08789,8.152344 3.96875,-0.04492 L 19.625,53.25 l 25.75,0 -4.335938,-27.037109 3.625,-0.08789 z m -7.866727,35.115729 -7.6875,0.0625 c -0.772815,-12.280914 8.140325,-11.810641 7.6875,-0.0625 z"
-       transform="translate(0,988.36216)"
-       id="path4941"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccccccccccccccc" />
-    <path
-       style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.86349124px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 32.795004,1007.4847 0,-11.79916 c 0,0 2.613884,-1.19805 3.726822,-1.11596 1.169726,0.0864 2.949576,2.00112 4.110938,2.21062 1.35154,0.2438 3.759746,-0.2375 3.759746,-0.2375 0,0 -2.527532,1.7109 -3.776175,1.977 -1.178335,0.2511 -2.753663,-1.2644 -3.929744,-0.9943 -1.106353,0.2541 -3.845427,1.94595 -3.845427,1.94595"
-       id="path4943"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccsscssc" />
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="impFortress3Gradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#impFortress3Gradient"/>
+    </defs>
+    <g fill-rule="evenodd" transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" rx="30.383" ry="30.381"/>
+        <path fill="#fff" stroke="#fff" d="M44.54 1006.276l-5.134.031.076 3.3-4.23-.055v-3.176l-5.39.035.142 3.234-4.387.102-.043-3.35-5.166.073-.088 8.152 3.97-.045-4.665 27.035h25.75l-4.336-27.037 3.625-.088zm-7.868 35.116l-7.687.062c-.773-12.28 8.14-11.81 7.687-.062z"/>
+        <path fill="#fff" stroke="#fff" stroke-width=".863" d="M32.795 1007.485v-11.8s2.614-1.198 3.727-1.115c1.17.086 2.95 2 4.11 2.21 1.352.244 3.76-.237 3.76-.237s-2.527 1.71-3.776 1.977c-1.178.25-2.753-1.265-3.93-.995-1.106.255-3.845 1.946-3.845 1.946"/>
+    </g>
 </svg>

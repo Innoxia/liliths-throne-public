@@ -8,7 +8,7 @@ package com.lilithsthrone.game.inventory;
 public class AbstractCoreType {
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		return true;
 	}
 	

@@ -2,8 +2,9 @@ package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -22,12 +23,11 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class HarpyNestsDialogue {
 	
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("Harpy Nests", "Harpy Nests", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OUTSIDE = new DialogueNode("Harpy Nests", "Harpy Nests", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -97,12 +97,11 @@ public class HarpyNestsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENTRANCE_ENFORCER_POST = new DialogueNodeOld("Enforcer post", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE_ENFORCER_POST = new DialogueNode("Enforcer post", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -170,7 +169,7 @@ public class HarpyNestsDialogue {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.hasHarpyNestAccess);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.BOOK_HARPY), false, true));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.getLoreBook(Subspecies.HARPY)), false, true));
 						}
 					};
 					
@@ -210,12 +209,11 @@ public class HarpyNestsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENTRANCE_ENFORCER_POST_ASK_FOR_ACCESS = new DialogueNodeOld("Enforcer post", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE_ENFORCER_POST_ASK_FOR_ACCESS = new DialogueNode("Enforcer post", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -329,12 +327,11 @@ public class HarpyNestsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS = new DialogueNodeOld("Enforcer post", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS = new DialogueNode("Enforcer post", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -416,12 +413,11 @@ public class HarpyNestsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENTRANCE_ENFORCER_POST_COMPLETED_PACIFICATION = new DialogueNodeOld("Enforcer post", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENTRANCE_ENFORCER_POST_COMPLETED_PACIFICATION = new DialogueNode("Enforcer post", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -477,12 +473,11 @@ public class HarpyNestsDialogue {
 	};
 	
 	
-	public static final DialogueNodeOld WALKWAY = new DialogueNodeOld("Walkway", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WALKWAY = new DialogueNode("Walkway", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -581,7 +576,7 @@ public class HarpyNestsDialogue {
 							"Although you've pacified the harpy nests, you're sure that you can find a harpy who's looking for a confrontation..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter(true);
+									DialogueNode dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter(true);
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};
@@ -592,7 +587,7 @@ public class HarpyNestsDialogue {
 							"Explore the walkways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+									DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};
@@ -603,12 +598,11 @@ public class HarpyNestsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld WALKWAY_BRIDGE = new DialogueNodeOld("Walkway Bridge", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode WALKWAY_BRIDGE = new DialogueNode("Walkway Bridge", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -707,7 +701,7 @@ public class HarpyNestsDialogue {
 							"Although you've pacified the harpy nests, you're sure that you can find a harpy who's looking for a confrontation..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter(true);
+									DialogueNode dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter(true);
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};
@@ -718,7 +712,7 @@ public class HarpyNestsDialogue {
 							"Explore the walkways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+									DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};

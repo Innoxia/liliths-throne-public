@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.npcDialogue;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -11,126 +10,77 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.10
- * @version 0.2.10
+ * @version 0.3.1
  * @author Innoxia
  */
 public class OccupantDialogue {
+	
+	private static GameCharacter targetedCharacterForSex;
+	private static NPC companionCharacter;
+	private static List<NPC> charactersPresent;
+	private static boolean isApartment;
+	
+	public static void initDialogue(NPC targetedOccupant, boolean isApartment) {
+		Main.game.setActiveNPC(targetedOccupant);
+		targetedCharacterForSex = targetedOccupant;
+
+		if(Main.game.getPlayer().hasCompanions()) {
+			companionCharacter = (NPC) Main.game.getPlayer().getMainCompanion();
+		} else if(Main.game.getCharactersPresent().size()>1) {
+			companionCharacter = Main.game.getCharactersPresent().stream().filter((npc) -> !npc.equals(occupant())).findFirst().get();
+		} else {
+			companionCharacter = null;
+		}
+		
+		charactersPresent = Main.game.getCharactersPresent();
+		
+		OccupantDialogue.isApartment = isApartment;
+	}
+	
+	private static DialogueNode getAfterSexDialogue() {
+		if(isApartment) {
+			return APARTMENT_AFTER_SEX;
+		} else {
+			return AFTER_SEX;
+		}
+	}
 	
 	private static NPC occupant() {
 		return Main.game.getActiveNPC();
 	}
 	
-	private static boolean hasJob() {
-		return !occupant().getHistory().isLowlife();
+//	private static NPC companion() {
+//		return (NPC) Main.game.getPlayer().getMainCompanion();
+//	}
+	
+	private static NPC nonSexTargetedCharacter() {
+		if(targetedCharacterForSex.equals(occupant())) {
+			return (NPC) Main.game.getPlayer().getMainCompanion();
+		} else {
+			return occupant();
+		}
 	}
 	
-	private static String getFooterText() {
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("<p style='text-align:center;'><i>");
-		AffectionLevel al = occupant().getAffectionLevel(Main.game.getPlayer());
-		switch(al) {
-			case NEGATIVE_FIVE_LOATHE:
-				if(occupant().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("Even though [npc.name] seems to <i style='color:"+al.getColour().toWebHexString()+";'>loathe</i> you, you can tell that [npc.sheIs] still attracted to you.");
-				} else {
-					sb.append("[npc.Name] seems to <i style='color:"+al.getColour().toWebHexString()+";'>loathe</i> you.");
-				}
-				break;
-			case NEGATIVE_FOUR_HATE:
-				if(occupant().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("Even though [npc.name] seems to <i style='color:"+al.getColour().toWebHexString()+";'>hate</i> you, you can tell that [npc.sheIs] still attracted to you.");
-				} else {
-					sb.append("[npc.Name] seems to <i style='color:"+al.getColour().toWebHexString()+";'>hate</i> you.");
-				}
-				break;
-			case NEGATIVE_THREE_STRONG_DISLIKE:
-				if(occupant().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("Even though [npc.name] seems to <i style='color:"+al.getColour().toWebHexString()+";'>strongly dislike</i> you, you can tell that [npc.sheIs] still attracted to you.");
-				} else {
-					sb.append("[npc.Name] seems to <i style='color:"+al.getColour().toWebHexString()+";'>strongly dislike</i> you.");
-				}
-				break;
-			case NEGATIVE_TWO_DISLIKE:
-				if(occupant().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("Even though [npc.name] seems to <i style='color:"+al.getColour().toWebHexString()+";'>dislike</i> you, you can tell that [npc.sheIs] still attracted to you.");
-				} else {
-					sb.append("[npc.Name] seems to <i style='color:"+al.getColour().toWebHexString()+";'>dislike</i> you.");
-				}
-				break;
-			case NEGATIVE_ONE_ANNOYED:
-				if(occupant().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("Even though [npc.name] seems to be <i style='color:"+al.getColour().toWebHexString()+";'>annoyed</i> with you, you can tell that [npc.sheIs] still attracted to you.");
-				} else {
-					sb.append("[npc.Name] seems to be <i style='color:"+al.getColour().toWebHexString()+";'>annoyed</i> with you.");
-				}
-				break;
-			case ZERO_NEUTRAL:
-				if(occupant().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] is acting in an <i style='color:"+al.getColour().toWebHexString()+";'>amicable, flirtatious</i> manner towards you.");
-				} else {
-					sb.append("[npc.Name] is acting in an <i style='color:"+al.getColour().toWebHexString()+";'>amicable</i> manner towards you.");
-				}
-				break;
-			case POSITIVE_ONE_FRIENDLY:
-				if(occupant().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] is acting in a <i style='color:"+al.getColour().toWebHexString()+";'>friendly, flirtatious</i> manner towards you.");
-				} else {
-					sb.append("[npc.Name] is acting in a <i style='color:"+al.getColour().toWebHexString()+";'>friendly</i> manner towards you.");
-				}
-				break;
-			case POSITIVE_TWO_LIKE:
-				if(occupant().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>likes you</i>, and sees you as more than just a friend.");
-				} else {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>likes you</i>, and sees you as a close friend.");
-				}
-				break;
-			case POSITIVE_THREE_CARING:
-				if(occupant().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>cares about you a lot</i>, and is deeply attracted towards you.");
-				} else {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>cares about you a lot</i>, and considers you to be [npc.her] best friend.");
-				}
-				break;
-			case POSITIVE_FOUR_LOVE:
-				if(occupant().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("You can tell from the way that [npc.she] looks at you that [npc.name] <i style='color:"+al.getColour().toWebHexString()+";'>loves you</i>.");
-				} else {
-					sb.append("You can tell that [npc.name] <i style='color:"+al.getColour().toWebHexString()+";'>loves you</i> in a purely platonic manner.");
-				}
-				break;
-			case POSITIVE_FIVE_WORSHIP:
-				if(occupant().isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and is head-over-heels in love with you.");
-				} else {
-					sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and would do almost anything you asked of [npc.herHim].");
-				}
-				break;
-		}
-		sb.append("</i></p>");
-		
-		return UtilText.parse(occupant(), sb.toString());
+	private static boolean hasJob() {
+		return occupant().hasJob();
 	}
 	
 	private static void applyReactionReset() {
@@ -142,11 +92,24 @@ public class OccupantDialogue {
 		}
 		occupant().removeFlag(NPCFlagValue.occupantHasNewJob);
 	}
+
+	private static String getTextFilePath() {
+		if(occupant().isRelatedTo(Main.game.getPlayer())) {
+			return "characters/offspring/occupant";
+		} else {
+			return "misc/friendlyOccupantDialogue";
+		}
+	}
+
+	private static String getThreesomeTextFilePath() {
+		if(occupant().isRelatedTo(Main.game.getPlayer()) || (companionCharacter!=null && companionCharacter.isRelatedTo(Main.game.getPlayer()))) {
+			return "characters/offspring/occupant";
+		} else {
+			return "misc/friendlyOccupantDialogue";
+		}
+	}
 	
-	//TODO most important: add hooks to dominion tiles and set active character
-	
-	public static final DialogueNodeOld OCCUPANT_START = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_START = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel() {
@@ -157,32 +120,32 @@ public class OccupantDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_START", occupant()));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_START", occupant()));
 			
 			if(occupant().isVisiblyPregnant()) {
 				if(!occupant().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_START_PREGNANCY_REVEAL", occupant()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_START_PREGNANCY_REVEAL", occupant()));
 				} else {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_START_STILL_PREGNANT", occupant()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_START_STILL_PREGNANT", occupant()));
 				}
 			}
 			
 			if(Main.game.getPlayer().isVisiblyPregnant()) {
 				if(!Main.game.getPlayer().isCharacterReactedToPregnancy(occupant())) {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_START_PLAYER_PREGNANCY", occupant()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_START_PLAYER_PREGNANCY", occupant()));
 				} else {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_START_CONTINUED_PLAYER_PREGNANCY", occupant()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_START_CONTINUED_PLAYER_PREGNANCY", occupant()));
 				}
 			}
 			
 			if(occupant().hasFlag(NPCFlagValue.occupantHasNewJob)) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_START_FINISH_WITH_NEW_JOB", occupant()));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_START_FINISH_WITH_NEW_JOB", occupant()));
 				
 			} else {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_START_FINISH", occupant()));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_START_FINISH", occupant()));
 			}
 			
-			UtilText.nodeContentSB.append(getFooterText());
+			UtilText.nodeContentSB.append(occupant().getPlayerRelationStatusDescription());
 			
 			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
 		}
@@ -325,7 +288,7 @@ public class OccupantDialogue {
 							public void effects() {
 								applyReactionReset();
 								Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_KICK_OUT", occupant()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_KICK_OUT", occupant()));
 								Main.game.getPlayer().removeFriendlyOccupant(occupant());
 								Main.game.banishNPC(occupant());
 							}
@@ -333,7 +296,7 @@ public class OccupantDialogue {
 					}
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
+					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							applyReactionReset();
@@ -346,8 +309,6 @@ public class OccupantDialogue {
 				}
 			
 			} else if(responseTab == 1) {
-				List<GameCharacter> companions = Main.game.getPlayer().getCompanions();
-				
 				if (index == 1) {
 					if(!occupant().isAttractedTo(Main.game.getPlayer())) {
 						return new Response("Sex", UtilText.parse(occupant(), "[npc.Name] is not attracted to you..."), null);
@@ -355,12 +316,18 @@ public class OccupantDialogue {
 					} else {
 						return new ResponseSex("Sex", "Have sex with [npc.name].", 
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								null,
-								null,
-								AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_START", occupant())) {
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										Util.newArrayListOfValues(occupant()),
+										Main.game.getPlayer().getCompanions(),
+										null) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
+								getAfterSexDialogue(),
+								UtilText.parseFromXMLFile(getTextFilePath(), "SEX_START", occupant())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -370,6 +337,154 @@ public class OccupantDialogue {
 					}
 					
 				} else if (index == 2) {
+					if(companionCharacter==null || charactersPresent.size()<2) {
+						return new Response("Spitroast (front)", "You'd need a third person to be present in order to get a spitroast going...", null);
+						
+					} else if(targetedCharacterForSex.isPlayer()) {
+						return new Response("Spitroast (front)", "You cannot target yourself for this action!", null);
+						
+					} else if(!occupant().isAttractedTo(Main.game.getPlayer())) {
+						if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Spitroast (front)", UtilText.parse(companionCharacter, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
+						} else {
+							return new Response("Spitroast (front)", UtilText.parse(occupant(), "[npc.Name] is not attracted to you, and so would be unwilling to participate in a threesome..."), null);
+						}
+						
+					} else if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Spitroast (front)", UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
+						
+					} else if(!companionCharacter.isAttractedTo(occupant())) {
+						return new Response("Spitroast (front)",
+								UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to [npc2.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								null);
+
+					} else if(!occupant().isAttractedTo(companionCharacter)) {
+						return new Response("Spitroast (front)",
+								UtilText.parse(companionCharacter, occupant(), "[npc2.Name] is not attracted to [npc.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								null);
+						
+					} else {
+						return new ResponseSex(
+								"Spitroast (front)",
+								UtilText.parse(targetedCharacterForSex, nonSexTargetedCharacter(), "Move around in front of [npc.name] so that you can use [npc.her] mouth while [npc2.name] takes [npc.her] rear."),
+								null, null, null, null, null, null,
+								true, true,
+								new SMGeneric(
+										Util.newArrayListOfValues(nonSexTargetedCharacter(), Main.game.getPlayer()),
+										Util.newArrayListOfValues(targetedCharacterForSex),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
+								getAfterSexDialogue(),
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_FRONT_START", targetedCharacterForSex, nonSexTargetedCharacter())) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+							}
+						};
+					}
+				
+				} else if (index == 3) {
+					if(companionCharacter==null || charactersPresent.size()<2) {
+						return new Response("Spitroast (behind)", "You'd need a third person to be present in order to get a spitroast going...", null);
+						
+					} else if(targetedCharacterForSex.isPlayer()) {
+						return new Response("Spitroast (behind)", "You cannot target yourself for this action!", null);
+						
+					} else if(!occupant().isAttractedTo(Main.game.getPlayer())) {
+						if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Spitroast (behind)", UtilText.parse(companionCharacter, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
+						} else {
+							return new Response("Spitroast (behind)", UtilText.parse(occupant(), "[npc.Name] is not attracted to you, and so would be unwilling to participate in a threesome..."), null);
+						}
+						
+					} else if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Spitroast (behind)", UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
+						
+					} else if(!companionCharacter.isAttractedTo(occupant())) {
+						return new Response("Spitroast (front)",
+								UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to [npc2.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								null);
+
+					} else if(!occupant().isAttractedTo(companionCharacter)) {
+						return new Response("Spitroast (front)",
+								UtilText.parse(companionCharacter, occupant(), "[npc2.Name] is not attracted to [npc.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								null);
+						
+					} else {
+						return new ResponseSex(
+								"Spitroast (behind)",
+								UtilText.parse(targetedCharacterForSex, nonSexTargetedCharacter(), "Move around behind [npc.name] so that you can use [npc.her] rear while [npc2.name] takes [npc.her] mouth."),
+								null, null, null, null, null, null,
+								true, true,
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer(), nonSexTargetedCharacter()),
+										Util.newArrayListOfValues(targetedCharacterForSex),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
+								getAfterSexDialogue(),
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_BEHIND_START", targetedCharacterForSex, nonSexTargetedCharacter())) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+							}
+						};
+					}
+				
+				} else if (index == 4) {
+					if(companionCharacter==null || charactersPresent.size()<2) {
+						return new Response("Side-by-side (as dom)", "You'd need a third person to be present in order to get a spitroast going...", null);
+						
+					} else if(targetedCharacterForSex.isPlayer()) {
+						return new Response("Side-by-side (as dom)", "You cannot target yourself for this action!", null);
+						
+					} else if(!occupant().isAttractedTo(Main.game.getPlayer())) {
+						if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Side-by-side (as dom)", UtilText.parse(companionCharacter, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
+						} else {
+							return new Response("Side-by-side (as dom)", UtilText.parse(occupant(), "[npc.Name] is not attracted to you, and so would be unwilling to participate in a threesome..."), null);
+						}
+						
+					} else if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Side-by-side (as dom)", UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
+						
+					} else {
+						return new ResponseSex("Side-by-side (as dom)",
+								UtilText.parse(targetedCharacterForSex, nonSexTargetedCharacter(), "Push [npc.name] and [npc2.name] down onto all fours, before kneeling behind [npc.name], ready to fuck them both side-by-side."),
+								null, null, null, null, null, null,
+								true, false,
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										Util.newArrayListOfValues(targetedCharacterForSex, nonSexTargetedCharacter()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
+								getAfterSexDialogue(),
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_START", targetedCharacterForSex, nonSexTargetedCharacter())) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+							}
+						};
+					}
+				
+				} else if (index == 6) {
 					if(!occupant().isAttractedTo(Main.game.getPlayer())) {
 						return new Response("Submissive sex", "[npc.Name] is not too keen on having sex with you, so you'd need to be the dom...", null);
 						
@@ -377,12 +492,17 @@ public class OccupantDialogue {
 						return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								null,
-								null,
-								AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_AS_SUB_START", occupant())) {
+								new SMGeneric(
+										Util.newArrayListOfValues(occupant()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										null,
+										Main.game.getPlayer().getCompanions()) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
+								getAfterSexDialogue(), UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", occupant())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -392,69 +512,183 @@ public class OccupantDialogue {
 						
 					}
 					
-				} else if (index == 3) {
-					if(!companions.isEmpty()) {
-						if(!companions.get(0).isAttractedTo(Main.game.getPlayer()) && !occupant().isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Spitroasted", UtilText.parse(companions.get(0), occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
-							
+				} else if (index == 7) {
+					if(companionCharacter==null || charactersPresent.size()<2) {
+						return new Response("Spitroasted (front)", "You'd a third person to be present in order to get spitroasted...", null);
+						
+					} else if(targetedCharacterForSex.isPlayer()) {
+						return new Response("Spitroasted (front)", "You cannot target yourself for this action!", null);
+						
+					} else if(!occupant().isAttractedTo(Main.game.getPlayer())) {
+						if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Spitroasted (front)", UtilText.parse(companionCharacter, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
 						} else {
-							return new ResponseSex("Spitroasted",
-									UtilText.parse(companions.get(0), occupant(), "Let [npc.name] and [npc2.name] spitroast you."),
-									null, null, null, null, null, null,
-									true, true,
-									new SMDoggy(
-											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexPositionSlot.DOGGY_INFRONT),
-													new Value<>(occupant(), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-									null,
-									null,
-									AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SPITROASTED_START", companions.get(0), occupant())) {
-								@Override
-								public void effects() {
-									applyReactionReset();
-								}
-							};
+							return new Response("Spitroasted (front)", UtilText.parse(occupant(), "[npc.Name] is not attracted to you, and so would be unwilling to participate in a threesome..."), null);
 						}
 						
-					} else {
-						return new Response("Spitroasted", "You'd need to bring someone along with you in order to get spitroasted...", null);
-					}
-				
-				} else if (index == 4) {
-					if(!companions.isEmpty()) {
-						if(!companions.get(0).isAttractedTo(Main.game.getPlayer()) && !occupant().isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Side-by-side", UtilText.parse(companions.get(0), occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
-							
-						} else {
-							return new ResponseSex("Side-by-side",
-									UtilText.parse(companions.get(0), occupant(), "Push [npc1.name] and [npc2.name] down onto all fours and get ready to fuck them side-by-side."),
-									null, null, null, null, null, null,
-									true, false,
-									new SMDoggy(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-													new Value<>(occupant(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-									null,
-									null,
-									AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
-								@Override
-								public void effects() {
-									applyReactionReset();
-								}
-							};
-						}
+					} else if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Spitroasted (front)", UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
 						
 					} else {
-						return new Response("Side-by-side", UtilText.parse( occupant(), "You'd need to bring someone along with you in order to fuck both them and [npc.name] at once..."), null);
+						return new ResponseSex(
+								"Spitroasted (front)",
+								UtilText.parse(targetedCharacterForSex, nonSexTargetedCharacter(), "Get down on all fours facing [npc.name], so that [npc.she] can use your mouth while [npc2.name] takes your rear."),
+								null, null, null, null, null, null,
+								true, true,
+								new SMGeneric(
+										Util.newArrayListOfValues(nonSexTargetedCharacter(), targetedCharacterForSex),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
+								getAfterSexDialogue(),
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", targetedCharacterForSex, nonSexTargetedCharacter())) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+							}
+						};
 					}
 				
+				} else if (index == 8) {
+					if(companionCharacter==null || charactersPresent.size()<2) {
+						return new Response("Spitroast (behind)", "You'd need a third person to be present in order to get a spitroast going...", null);
+						
+					} else if(targetedCharacterForSex.isPlayer()) {
+						return new Response("Spitroasted (behind)", "You cannot target yourself for this action!", null);
+						
+					} else if(!occupant().isAttractedTo(Main.game.getPlayer())) {
+						if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Spitroasted (behind)", UtilText.parse(companionCharacter, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
+						} else {
+							return new Response("Spitroasted (behind)", UtilText.parse(occupant(), "[npc.Name] is not attracted to you, and so would be unwilling to participate in a threesome..."), null);
+						}
+						
+					} else if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Spitroasted (behind)", UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
+						
+					} else {
+						return new ResponseSex(
+								"Spitroasted (behind)",
+								UtilText.parse(targetedCharacterForSex, nonSexTargetedCharacter(), "Get down on all fours and present your rear to [npc.name], so that [npc.she] can fuck you while [npc2.name] uses your mouth."),
+								null, null, null, null, null, null,
+								true, true,
+								new SMGeneric(
+										Util.newArrayListOfValues(targetedCharacterForSex, nonSexTargetedCharacter()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
+								getAfterSexDialogue(),
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", nonSexTargetedCharacter(), targetedCharacterForSex)) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+							}
+						};
+					}
+				
+				} else if (index == 9) {
+					if(companionCharacter==null || charactersPresent.size()<2) {
+						return new Response("Side-by-side (as sub)", UtilText.parse(occupant(), "You'd need a third person to be present in order to get fucked alongside either them or [npc.name]..."), null);
+						
+					} else if(targetedCharacterForSex.isPlayer()) {
+						return new Response("Side-by-side (as sub)", "You cannot target yourself for this action!", null);
+						
+					} else if(!occupant().isAttractedTo(Main.game.getPlayer())) {
+						if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Side-by-side (as sub)", UtilText.parse(companionCharacter, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
+						} else {
+							return new Response("Side-by-side (as sub)", UtilText.parse(occupant(), "[npc.Name] is not attracted to you, and so would be unwilling to participate in a threesome..."), null);
+						}
+						
+					} else if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Side-by-side (as sub)", UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
+						
+					} else if(!companionCharacter.isAttractedTo(occupant())) {
+						return new Response("Side-by-side (as sub)",
+								UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to [npc2.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								null);
+
+					} else if(!occupant().isAttractedTo(companionCharacter)) {
+						return new Response("Side-by-side (as sub)",
+								UtilText.parse(companionCharacter, occupant(), "[npc2.Name] is not attracted to [npc.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								null);
+						
+					} else {
+						return new ResponseSex("Side-by-side (as sub)",
+								UtilText.parse(targetedCharacterForSex, nonSexTargetedCharacter(), "Get down on all fours beside [npc2.name], so that [npc.name] can kneel down behind the two of you, ready to fuck you both side-by-side."),
+								null, null, null, null, null, null,
+								true, false,
+								new SMGeneric(
+										Util.newArrayListOfValues(targetedCharacterForSex),
+										Util.newArrayListOfValues(Main.game.getPlayer(), nonSexTargetedCharacter()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
+								getAfterSexDialogue(),
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_AS_SUB_START", targetedCharacterForSex, nonSexTargetedCharacter())) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+							}
+						};
+					}
+				
+				} else if(index==11) {
+					if(companionCharacter!=null) {
+						return new ResponseEffectsOnly(
+								UtilText.parse(targetedCharacterForSex, "Target: <b style='color:"+targetedCharacterForSex.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b>"),
+								"Cycle the targeted character for group sex.") {
+							@Override
+							public void effects() {
+								for(int i=0; i<charactersPresent.size();i++) {
+									if(charactersPresent.get(i).equals(targetedCharacterForSex)) {
+										if(i==charactersPresent.size()-1) {
+											targetedCharacterForSex = charactersPresent.get(0);
+											if(companionCharacter.equals(targetedCharacterForSex)) {
+												companionCharacter = charactersPresent.get(1);
+											}
+										} else {
+											targetedCharacterForSex = charactersPresent.get(i+1);
+											if(companionCharacter.equals(targetedCharacterForSex)) {
+												companionCharacter = charactersPresent.get((i+2)<charactersPresent.size()?(i+2):0);
+											}
+											break;
+										}
+									}
+								}
+								Main.game.updateResponses();
+							}
+						};
+						
+					} else {
+						return new Response(
+								UtilText.parse(targetedCharacterForSex, "Target: <b>[npc.Name]</b>"),
+								"Cycle the targeted character for group sex.<br/>[style.italicsBad(You'd need to have a companion with you for this action to be unlocked!)]",
+								null); 
+					}
+					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
+					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "LEAVING", occupant()));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "LEAVING", occupant()));
 							applyReactionReset();
 							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 						}
@@ -520,7 +754,7 @@ public class OccupantDialogue {
 						
 					case 7:
 						if(!occupant().isAbleToSelfTransform()) {
-							return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
+							return new Response("Transformations", occupant().getUnableToTransformDescription(), null);
 							
 						} else {
 							return new Response("Transformations",
@@ -539,7 +773,7 @@ public class OccupantDialogue {
 						return new Response("Pet name", "Ask [npc.name] to call you by a different name.", OCCUPANT_CHOOSE_NAME);
 						
 					case 0:
-						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
+						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -557,12 +791,11 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_TALK_LIFE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_TALK_LIFE = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -575,9 +808,9 @@ public class OccupantDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			//TODO talk about life, family, friends, stories
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_TALK_LIFE", occupant()));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_TALK_LIFE", occupant()));
 			
-			UtilText.nodeContentSB.append(getFooterText());
+			UtilText.nodeContentSB.append(occupant().getPlayerRelationStatusDescription());
 			
 			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
 		}
@@ -593,12 +826,11 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_TALK_JOB = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_TALK_JOB = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -612,12 +844,12 @@ public class OccupantDialogue {
 			
 			//TODO talk about either finding job, or job stories
 			if(hasJob()) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_TALK_JOB", occupant()));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_TALK_JOB", occupant()));
 			} else {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_TALK_JOB_HUNTING", occupant()));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_TALK_JOB_HUNTING", occupant()));
 			}
 			
-			UtilText.nodeContentSB.append(getFooterText());
+			UtilText.nodeContentSB.append(occupant().getPlayerRelationStatusDescription());
 			
 			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
 		}
@@ -633,12 +865,11 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_TALK_LILAYA = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_TALK_LILAYA = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -651,9 +882,9 @@ public class OccupantDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			//TODO talk about Lilaya and Rose
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_TALK_LILAYA", occupant()));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_TALK_LILAYA", occupant()));
 			
-			UtilText.nodeContentSB.append(getFooterText());
+			UtilText.nodeContentSB.append(occupant().getPlayerRelationStatusDescription());
 			
 			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
 		}
@@ -669,12 +900,11 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_TALK_SLAVES = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_TALK_SLAVES = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -689,14 +919,14 @@ public class OccupantDialogue {
 			String id = Util.randomItemFrom(Main.game.getPlayer().getSlavesOwned());
 			try {
 				NPC slave = (NPC) Main.game.getNPCById(id);
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_TALK_SLAVES", occupant(), slave));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_TALK_SLAVES", occupant(), slave));
 
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+id+") returning null in method: OCCUPANT_TALK_SLAVES.getContent()");
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_TALK_SLAVES_NULL_SLAVE", occupant()));
+				Util.logGetNpcByIdError("OCCUPANT_TALK_SLAVES.getContent()", id);
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_TALK_SLAVES_NULL_SLAVE", occupant()));
 			}
 			
-			UtilText.nodeContentSB.append(getFooterText());
+			UtilText.nodeContentSB.append(occupant().getPlayerRelationStatusDescription());
 			
 			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
 		}
@@ -712,8 +942,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Finish", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX = new DialogueNode("Finish", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -723,23 +952,23 @@ public class OccupantDialogue {
 		@Override
 		public String getContent() {
 			if(Sex.getAllParticipants().size()>2) {
-				return UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "AFTER_SEX_THREESOME", occupant(), Main.game.getPlayer().getCompanions().get(0));
+				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_THREESOME", occupant(), Main.game.getPlayer().getCompanions().get(0));
 				
-			} else if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
-				return UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "AFTER_SEX", occupant());
+			} else if(Sex.getNumberOfOrgasms(occupant()) >= occupant().getOrgasmsBeforeSatisfied()) {
+				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX", occupant());
 				
 			} else {
-				return UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "AFTER_SEX_NO_ORGASM", occupant());
+				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_NO_ORGASM", occupant());
 			}
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Give [npc.name] some time to rest.", Main.game.getDefaultDialogue()) {
+				return new Response("Leave", "Give [npc.name] some time to rest.", Main.game.getDefaultDialogueNoEncounter()) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "LEAVE_AFTER_SEX", occupant()));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "LEAVE_AFTER_SEX", occupant()));
 					}
 				};
 				
@@ -749,8 +978,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_KICK_OUT = new DialogueNodeOld("Kicking out", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_KICK_OUT = new DialogueNode("Kicking out", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -759,21 +987,20 @@ public class OccupantDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return Main.game.getDefaultDialogue().getResponse(responseTab, index);
+			return Main.game.getDefaultDialogueNoEncounter().getResponse(responseTab, index);
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_MOVE_OUT = new DialogueNodeOld("Moving out", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_MOVE_OUT = new DialogueNode("Moving out", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_MOVE_OUT", occupant());
+			return UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_MOVE_OUT", occupant());
 		}
 
 		@Override
@@ -797,7 +1024,7 @@ public class OccupantDialogue {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_MOVE_OUT_REMOVE_CHARACTER", occupant()));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_MOVE_OUT_REMOVE_CHARACTER", occupant()));
 						Main.game.getPlayer().removeFriendlyOccupant(occupant());
 						Main.game.banishNPC(occupant());
 					}
@@ -809,12 +1036,11 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_MOVE_OUT_APARTMENT = new DialogueNodeOld("Moving out", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_MOVE_OUT_APARTMENT = new DialogueNode("Moving out", "", true, true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 		
 		@Override
@@ -824,7 +1050,7 @@ public class OccupantDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_MOVE_OUT_APARTMENT", occupant());
+			return UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_MOVE_OUT_APARTMENT", occupant());
 		}
 		
 		@Override
@@ -840,8 +1066,7 @@ public class OccupantDialogue {
 
 	private static int sleepTimer = 240;
 	
-	public static final DialogueNodeOld OCCUPANT_APARTMENT = new DialogueNodeOld("Moving out", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_APARTMENT = new DialogueNode("Moving out", "", true) {
 
 		@Override
 		public String getLabel() {
@@ -852,31 +1077,34 @@ public class OccupantDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(occupant().isAtHome()) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_APARTMENT_START", occupant()));
+			if(Main.game.getPlayer().getCompanions().contains(occupant())) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_AS_COMPANION", occupant()));
+				
+			} else if(occupant().isAtHome()) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_START", occupant()));
 				
 				if(occupant().isVisiblyPregnant() && occupant().isCharacterPossiblyFather(Main.game.getPlayer().getId())) {
 					if(!occupant().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_APARTMENT_START_PREGNANCY_REVEAL", occupant()));
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_START_PREGNANCY_REVEAL", occupant()));
 					} else {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_APARTMENT_START_STILL_PREGNANT", occupant()));
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_START_STILL_PREGNANT", occupant()));
 					}
 				}
-	
+				
 				if(Main.game.getPlayer().isVisiblyPregnant() && Main.game.getPlayer().isCharacterPossiblyFather(occupant().getId())) {
 					if(!Main.game.getPlayer().isCharacterReactedToPregnancy(occupant())) {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_APARTMENT_START_PLAYER_PREGNANCY", occupant()));
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_START_PLAYER_PREGNANCY", occupant()));
 					} else {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_APARTMENT_START_CONTINUED_PLAYER_PREGNANCY", occupant()));
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_START_CONTINUED_PLAYER_PREGNANCY", occupant()));
 					}
 				}
 				
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_APARTMENT_START_FINISH", occupant()));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_START_FINISH", occupant()));
 				
-				UtilText.nodeContentSB.append(getFooterText());
+				UtilText.nodeContentSB.append(occupant().getPlayerRelationStatusDescription());
 				
 			} else {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_APARTMENT_NOT_AT_HOME", occupant()));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_NOT_AT_HOME", occupant()));
 			}
 			
 			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
@@ -899,7 +1127,7 @@ public class OccupantDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(!occupant().isAtHome()) {
 				if (index == 1) {
-					return new Response("Leave", "As [npc.name] is not at home right now, there's nothing left to do but head back out into Dominion.", Main.game.getDefaultDialogue());
+					return new Response("Leave", "As [npc.name] is not at home right now, there's nothing left to do but head back out into Dominion.", Main.game.getDefaultDialogueNoEncounter());
 					
 				} else {
 					return null;
@@ -956,11 +1184,11 @@ public class OccupantDialogue {
 						public void effects() {
 							Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 							Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-							Main.game.getPlayer().setLust(0);
+							Main.game.getPlayer().setLustNoText(0);
 							if(Main.game.getPlayer().hasTrait(Perk.JOB_UNEMPLOYED, true)) {
-								Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8 * 60) + sleepTimer);
+								Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED_BOOSTED, (8*60*60) + sleepTimer);
 							} else {
-								Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6 * 60) + sleepTimer);
+								Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6*60*60) + sleepTimer);
 							}
 						}
 					};
@@ -1009,14 +1237,14 @@ public class OccupantDialogue {
 						@Override
 						public void effects() {
 							applyReactionReset();
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_APARTMENT_REMOVE", occupant()));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_REMOVE", occupant()));
 							Main.game.getPlayer().removeFriendlyOccupant(occupant());
 							Main.game.banishNPC(occupant());
 						}
 					};
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
+					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							applyReactionReset();
@@ -1028,123 +1256,18 @@ public class OccupantDialogue {
 				}
 			
 			} else if(responseTab == 1) {
-				List<GameCharacter> companions = Main.game.getPlayer().getCompanions();
-				
-				if (index == 1) {
-					if(!occupant().isAttractedTo(Main.game.getPlayer())) {
-						return new Response("Sex", UtilText.parse(occupant(), "[npc.Name] is not attracted to you..."), null);
-						
-					} else {
-						return new ResponseSex("Sex", "Have sex with [npc.name].", 
-								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								null,
-								null,
-								APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_START", occupant())) {
-							@Override
-							public void effects() {
-								applyReactionReset();
-								Main.game.getTextEndStringBuilder().append(occupant().incrementAffection(Main.game.getPlayer(), 5));
-							}
-						};
-					}
-					
-				} else if (index == 2) {
-					if(!occupant().isAttractedTo(Main.game.getPlayer())) {
-						return new Response("Submissive sex", "[npc.Name] is not too keen on having sex with you, so you'd need to be the dom...", null);
-						
-					} else {
-						return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
-								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(occupant(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								null,
-								null,
-								APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_AS_SUB_START", occupant())) {
-							@Override
-							public void effects() {
-								applyReactionReset();
-								Main.game.getTextEndStringBuilder().append(occupant().incrementAffection(Main.game.getPlayer(), 5));
-							}
-						};
-						
-					}
-					
-				} else if (index == 3) {
-					if(!companions.isEmpty()) {
-						if(!companions.get(0).isAttractedTo(Main.game.getPlayer()) && !occupant().isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Spitroasted", UtilText.parse(companions.get(0), occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
-							
-						} else {
-							return new ResponseSex("Spitroasted",
-									UtilText.parse(companions.get(0), occupant(), "Let [npc.name] and [npc2.name] spitroast you."),
-									null, null, null, null, null, null,
-									true, true,
-									new SMDoggy(
-											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexPositionSlot.DOGGY_INFRONT),
-													new Value<>(occupant(), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-									null,
-									null,
-									APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SPITROASTED_START", companions.get(0), occupant())) {
-								@Override
-								public void effects() {
-									applyReactionReset();
-								}
-							};
-						}
-						
-					} else {
-						return new Response("Spitroasted", "You'd need to bring someone along with you in order to get spitroasted...", null);
-					}
-				
-				} else if (index == 4) {
-					if(!companions.isEmpty()) {
-						if(!companions.get(0).isAttractedTo(Main.game.getPlayer()) && !occupant().isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Side-by-side", UtilText.parse(companions.get(0), occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
-							
-						} else {
-							return new ResponseSex("Side-by-side",
-									UtilText.parse(companions.get(0), occupant(), "Push [npc1.name] and [npc2.name] down onto all fours and get ready to fuck them side-by-side."),
-									null, null, null, null, null, null,
-									true, false,
-									new SMDoggy(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(
-													new Value<>(companions.get(0), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-													new Value<>(occupant(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-									null,
-									null,
-									APARTMENT_AFTER_SEX, UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "SEX_APARTMENT_SIDE_BY_SIDE_START", companions.get(0), occupant())) {
-								@Override
-								public void effects() {
-									applyReactionReset();
-								}
-							};
-						}
-						
-					} else {
-						return new Response("Side-by-side", UtilText.parse( occupant(), "You'd need to bring someone along with you in order to fuck both them and [npc.name] at once..."), null);
-					}
-				
-				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
+				if (index == 0) {
+					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "APARTMENT_LEAVING", occupant()));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_LEAVING", occupant()));
 							applyReactionReset();
 						}
 					};
 					
-				} else  {
-					return null;
+				} else {
+					return OCCUPANT_START.getResponse(responseTab, index);
 				}
-				
 				
 			} else if(responseTab == 2) {
 				switch(index) {
@@ -1201,7 +1324,7 @@ public class OccupantDialogue {
 						
 					case 7:
 						if(!occupant().isAbleToSelfTransform()) {
-							return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
+							return new Response("Transformations", occupant().getUnableToTransformDescription(), null);
 							
 						} else {
 							return new Response("Transformations",
@@ -1217,7 +1340,7 @@ public class OccupantDialogue {
 						}
 						
 					case 0:
-						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogue()) {
+						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -1235,12 +1358,11 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_APARTMENT_TALK_LIFE = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_APARTMENT_TALK_LIFE = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -1252,9 +1374,9 @@ public class OccupantDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_APARTMENT_TALK_LIFE", occupant()));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_TALK_LIFE", occupant()));
 			
-			UtilText.nodeContentSB.append(getFooterText());
+			UtilText.nodeContentSB.append(occupant().getPlayerRelationStatusDescription());
 			
 			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
 		}
@@ -1270,12 +1392,11 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_APARTMENT_TALK_JOB = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_APARTMENT_TALK_JOB = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 		
 		@Override
@@ -1287,9 +1408,9 @@ public class OccupantDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_APARTMENT_TALK_JOB", occupant()));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_TALK_JOB", occupant()));
 			
-			UtilText.nodeContentSB.append(getFooterText());
+			UtilText.nodeContentSB.append(occupant().getPlayerRelationStatusDescription());
 			
 			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
 		}
@@ -1305,12 +1426,11 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_APARTMENT_SLEEP_OVER = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_APARTMENT_SLEEP_OVER = new DialogueNode("", "", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return sleepTimer;
+		public int getSecondsPassed() {
+			return sleepTimer*60;
 		}
 		
 		@Override
@@ -1322,9 +1442,9 @@ public class OccupantDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_APARTMENT_SLEEP_OVER", occupant()));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_SLEEP_OVER", occupant()));
 			
-			UtilText.nodeContentSB.append(getFooterText());
+			UtilText.nodeContentSB.append(occupant().getPlayerRelationStatusDescription());
 			
 			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
 		}
@@ -1340,8 +1460,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP = new DialogueNode("", "", true) {
 
 		@Override
 		public String getLabel(){
@@ -1353,11 +1472,11 @@ public class OccupantDialogue {
 			UtilText.nodeContentSB.setLength(0);
 
 			if(!occupant().isAtHome()) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP_ALONE", occupant()));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP_ALONE", occupant()));
 			
 			} else {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP", occupant()));
-				UtilText.nodeContentSB.append(getFooterText());
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP", occupant()));
+				UtilText.nodeContentSB.append(occupant().getPlayerRelationStatusDescription());
 			}
 			
 			
@@ -1373,7 +1492,7 @@ public class OccupantDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(!occupant().isAtHome()) {
 				if (index == 1) {
-					return new Response("Outside", "You find yourself back outside in the streets of Dominion.", Main.game.getDefaultDialogue());
+					return new Response("Outside", "You find yourself back outside in the streets of Dominion.", Main.game.getDefaultDialogueNoEncounter());
 					
 				} else {
 					return null;
@@ -1384,8 +1503,7 @@ public class OccupantDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld OCCUPANT_APARTMENT_REMOVE = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_APARTMENT_REMOVE = new DialogueNode("", "", false) {
 		
 		@Override
 		public String getContent() {
@@ -1394,12 +1512,11 @@ public class OccupantDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return Main.game.getDefaultDialogue().getResponse(responseTab, index);
+			return Main.game.getDefaultDialogueNoEncounter().getResponse(responseTab, index);
 		}
 	};
 	
-	public static final DialogueNodeOld APARTMENT_AFTER_SEX = new DialogueNodeOld("Finish", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode APARTMENT_AFTER_SEX = new DialogueNode("Finish", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -1409,23 +1526,23 @@ public class OccupantDialogue {
 		@Override
 		public String getContent() {
 			if(Sex.getAllParticipants().size()>2) {
-				return UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "APARTMENT_AFTER_SEX_THREESOME", occupant(), Main.game.getPlayer().getCompanions().get(0));
-				
-			} else if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
-				return UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "APARTMENT_AFTER_SEX", occupant());
+				return UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_AFTER_SEX_THREESOME", occupant(), Main.game.getPlayer().getCompanions().get(0));
+
+			} else if(Sex.getNumberOfOrgasms(occupant()) >= occupant().getOrgasmsBeforeSatisfied()) {
+				return UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_AFTER_SEX", occupant());
 				
 			} else {
-				return UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "APARTMENT_AFTER_SEX_NO_ORGASM", occupant());
+				return UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_AFTER_SEX_NO_ORGASM", occupant());
 			}
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Give [npc.name] some time to rest.", Main.game.getDefaultDialogue()) {
+				return new Response("Leave", "Give [npc.name] some time to rest.", Main.game.getDefaultDialogueNoEncounter()) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/friendlyOccupantDialogue", "APARTMENT_LEAVE_AFTER_SEX", occupant()));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_LEAVE_AFTER_SEX", occupant()));
 					}
 				};
 				
@@ -1439,8 +1556,7 @@ public class OccupantDialogue {
 	// MANAGEMENT DIALOGUES:
 	
 	
-	public static final DialogueNodeOld OCCUPANT_CHOOSE_NAME = new DialogueNodeOld("", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OCCUPANT_CHOOSE_NAME = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getContent() {

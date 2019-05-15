@@ -1,12 +1,14 @@
 package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -34,7 +36,6 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -50,7 +51,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -64,7 +65,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.6
- * @version 0.2.11
+ * @version 0.3
  * @author Innoxia
  */
 public class SlimeQueen extends NPC {
@@ -74,7 +75,7 @@ public class SlimeQueen extends NPC {
 	}
 
 	public SlimeQueen(boolean isImported) {
-		super(isImported, new NameTriplet("Catherine"),
+		super(isImported, new NameTriplet("Catherine"), "Mercier",
 				"The self-proclaimed Slime Queen, Catherine, is a gigantic female slime, who wants to turn as many people into her subjects as possible.",
 				38, Month.JANUARY, 29,
 				15, Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN,
@@ -90,9 +91,17 @@ public class SlimeQueen extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && Subspecies.getFleshSubspecies(this.getBody())!=Subspecies.HUMAN) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && Subspecies.getFleshSubspecies(this)!=Subspecies.HUMAN) {
 			this.setBody(Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN);
 		}
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.2")) {
+			this.setBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay());
+			this.setBreastMilkStorage(Lactation.THREE_DECENT_AMOUNT.getMedianValue());
+			this.setBreastStoredMilk(Lactation.THREE_DECENT_AMOUNT.getMedianValue());
+		}
+		
+		this.setSurname("Mercier");
 	}
 	
 	@Override
@@ -187,10 +196,10 @@ public class SlimeQueen extends NPC {
 		this.setNippleElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
 		this.setNipplePlasticity(OrificePlasticity.FIVE_YIELDING.getValue());
 		
-		this.setBreastLactationRegeneration(FluidRegeneration.ONE_AVERAGE.getValue());
+		this.setBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay());
 		this.setMilkFlavour(FluidFlavour.STRAWBERRY);
-		this.setBreastMilkStorage(Lactation.FIVE_VERY_LARGE_DROOLING.getMedianValue());
-		this.setBreastStoredMilk(Lactation.FIVE_VERY_LARGE_DROOLING.getMedianValue());
+		this.setBreastMilkStorage(Lactation.THREE_DECENT_AMOUNT.getMedianValue());
+		this.setBreastStoredMilk(Lactation.THREE_DECENT_AMOUNT.getMedianValue());
 		
 		// Ass:
 		this.setAssVirgin(false);
@@ -204,9 +213,10 @@ public class SlimeQueen extends NPC {
 		// Anus modifiers
 		
 		// Penis:
+		// For if she grows one:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.FOUR_FAT.getValue());
-		this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
+		this.setPenisSize(40); // Huge due to her size
 		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
 		this.fillCumToMaxStorage();
 		this.setCumFlavour(FluidFlavour.STRAWBERRY);
@@ -227,9 +237,9 @@ public class SlimeQueen extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 		
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 
@@ -268,7 +278,7 @@ public class SlimeQueen extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

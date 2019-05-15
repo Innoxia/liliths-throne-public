@@ -13,7 +13,7 @@ public class Dildo {
 
 	public static Penis dildoTiny = new Penis(
 			PenisType.DILDO,
-			3,
+			8,
 			PenisGirth.ONE_THIN.getValue(),
 			TesticleSize.ONE_TINY.getValue(),
 			0,
@@ -21,7 +21,7 @@ public class Dildo {
 	
 	public static Penis dildoAverage = new Penis(
 			PenisType.DILDO,
-			6,
+			15,
 			PenisGirth.TWO_AVERAGE.getValue(),
 			TesticleSize.TWO_AVERAGE.getValue(),
 			0,
@@ -29,7 +29,7 @@ public class Dildo {
 	
 	public static Penis dildoLarge = new Penis(
 			PenisType.DILDO,
-			10,
+			25,
 			PenisGirth.TWO_AVERAGE.getValue(),
 			TesticleSize.TWO_AVERAGE.getValue(),
 			0,
@@ -37,7 +37,7 @@ public class Dildo {
 	
 	public static Penis dildoHuge = new Penis(
 			PenisType.DILDO,
-			14,
+			35,
 			PenisGirth.THREE_THICK.getValue(),
 			TesticleSize.THREE_LARGE.getValue(),
 			0,
@@ -45,7 +45,7 @@ public class Dildo {
 	
 	public static Penis dildoEnormous = new Penis(
 			PenisType.DILDO,
-			18,
+			45,
 			PenisGirth.THREE_THICK.getValue(),
 			TesticleSize.THREE_LARGE.getValue(),
 			0,
@@ -53,7 +53,7 @@ public class Dildo {
 	
 	public static Penis dildoGigantic = new Penis(
 			PenisType.DILDO,
-			22,
+			55,
 			PenisGirth.FOUR_FAT.getValue(),
 			TesticleSize.FOUR_HUGE.getValue(),
 			0,
@@ -61,7 +61,7 @@ public class Dildo {
 	
 	public static Penis dildoStallion = new Penis(
 			PenisType.DILDO,
-			32,
+			80,
 			PenisGirth.FOUR_FAT.getValue(),
 			TesticleSize.FOUR_HUGE.getValue(),
 			0,

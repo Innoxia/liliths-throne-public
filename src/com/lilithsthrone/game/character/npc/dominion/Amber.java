@@ -2,13 +2,13 @@ package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
 import java.util.List;
-import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -56,7 +56,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -72,11 +72,13 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.dominion.AmberSpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -97,7 +99,7 @@ public class Amber extends NPC {
 	}
 	
 	public Amber(boolean isImported) {
-		super(isImported, new NameTriplet("Amber"),
+		super(isImported, new NameTriplet("Amber"), "Acerbi",
 				"The highest-ranking of Zaranix's maids, Amber is clearly outraged by the fact that you're wandering around her master's house unsupervised.",
 				39, Month.OCTOBER, 17,
 				12, Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
@@ -213,7 +215,7 @@ public class Amber extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.FOUR_FAT);
-		this.setPenisSize(18);
+		this.setPenisSize(25);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(550);
 		this.fillCumToMaxStorage();
@@ -233,9 +235,9 @@ public class Amber extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 		
 		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
 		
@@ -254,7 +256,7 @@ public class Amber extends NPC {
 	}
 
 	@Override
-	public String getName() {
+	public String getName(boolean applyNameAlteringEffects) {
 		if(!playerKnowsName) {
 			return "Fiery Maid";
 			
@@ -291,7 +293,7 @@ public class Amber extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	
@@ -353,8 +355,7 @@ public class Amber extends NPC {
 		}
 	}
 	
-	public static final DialogueNodeOld AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
 
 		@Override
 		public String getContent() {
@@ -381,19 +382,23 @@ public class Amber extends NPC {
 			if(index==1) {
 				return new Response("Continue", "Continue exploring Zaranix's house.", PlaceType.ZARANIX_GF_ENTRANCE.getDialogue(false)) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getPlayer().getLocationPlace().getDialogue(false);
 					}
 				};
 				
 			} if(index==2) {
-				return new ResponseSex("Use Amber", "Have some fun with this fiery maid.",
-						true, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_SUBMISSIVE))),
+				return new ResponseSex("Use Amber",
+						"Have some fun with this fiery maid.",
+						true,
+						false,
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(Amber.class)),
 						null,
-						null, AFTER_SEX_VICTORY, "<p>"
+						null),
+						AFTER_SEX_VICTORY,
+						"<p>"
 							+ "It doesn't look like any of the other maids of the household are coming to help her, so you decide to take this opportunity to have a little fun with Amber."
 							+ " Stepping over to where she's leaning against the wall, you reach forwards and take hold of her arm, before pulling her hand out from under her dress."
 							+ " Denied the freedom to get herself off, Amber pitifully looks up into your eyes, and instead of fury, you see them filled with burning lust."
@@ -408,11 +413,13 @@ public class Amber extends NPC {
 						"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getNpc(Amber.class)),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						null, AFTER_SEX_VICTORY, "<p>"
+						null),
+						AFTER_SEX_VICTORY,
+						"<p>"
 							+ "Despite her currently-defeated state, you find yourself incredibly turned on by Amber's dominant, fiery personality."
 							+ " Not willing to take the dominant role, but with a deep desire to have sex with the now-very-horny succubus, you walk up to where she's leaning against the wall, and sigh,"
 							+ " [pc.speech('Miss Amber' was it? Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
@@ -433,7 +440,7 @@ public class Amber extends NPC {
 					@Override
 					public void effects() {
 						Main.game.saveDialogueNode();
-						BodyChanging.setTarget(Main.game.getAmber());
+						BodyChanging.setTarget(Main.game.getNpc(Amber.class));
 					}
 				};
 				
@@ -443,13 +450,12 @@ public class Amber extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_VICTORY = new DialogueNodeOld("Continue", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_VICTORY = new DialogueNode("Continue", "", true) {
 
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Amber.class)) >= Main.game.getNpc(Amber.class).getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Amber lets out a deeply satisfied sigh, before sinking to the floor in total exhaustion."
@@ -461,7 +467,7 @@ public class Amber extends NPC {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Amber lets out a desperate whine, before sinking to the floor and pressing both of her hands to her groin."
-							+ " Having not orgasmed during sex, she's quite clearly still overcome by her intense lust, and starts frantically masturbating right there on the floor."
+							+ " Having not been satisfied, she's quite clearly still overcome by her intense lust, and starts frantically masturbating right there on the floor."
 							+ " She's obviously not going to pose much of a threat like this, so you turn your attention back towards the task at hand; that of finding Zaranix and rescuing Arthur."
 						+ "</p>");
 			}
@@ -479,7 +485,7 @@ public class Amber extends NPC {
 			if(index==1) {
 				return new Response("Continue", "Continue exploring Zaranix's house.", Main.game.getPlayer().getLocationPlace().getDialogue(false)) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getPlayer().getLocationPlace().getDialogue(false);
 					}
 				};
@@ -490,8 +496,7 @@ public class Amber extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeated", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeated", "", true) {
 
 		@Override
 		public String getContent() {
@@ -518,8 +523,8 @@ public class Amber extends NPC {
 				return new ResponseSex("Used", "Amber starts fucking you.",
 						false, false,
 						new SMAmberDoggyFucked(
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Amber.class), SexSlotBipeds.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
 						null,
 						null, AFTER_SEX_DEFEAT, "<p>"
 							+ "Amber takes a firm grasp of your hips, before roughly lifting your ass a little higher."
@@ -532,8 +537,7 @@ public class Amber extends NPC {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_DEFEAT = new DialogueNodeOld("Used", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_DEFEAT = new DialogueNode("Used", "", true) {
 
 		@Override
 		public String getContent() {
@@ -572,7 +576,7 @@ public class Amber extends NPC {
 	public int getLootMoney() {
 		return 5000;
 	}
-
+	
 	// Sex:
 	
 	@Override
@@ -582,7 +586,7 @@ public class Amber extends NPC {
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexManager().getPosition() == SexPositionType.DOGGY_STYLE) {
+		if(Sex.getSexManager().getPosition() == SexPositionBipeds.DOGGY_STYLE) {
 			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA);
 			} else {
@@ -595,7 +599,7 @@ public class Amber extends NPC {
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(Sex.getSexManager().getPosition() == SexPositionType.DOGGY_STYLE) {
+		if(Sex.getSexManager().getPosition() == SexPositionBipeds.DOGGY_STYLE) {
 			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			} else {
@@ -607,12 +611,8 @@ public class Amber extends NPC {
 	}
 
 	@Override
-	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
-		sexPositionPreferences.clear();
-		
-		sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
-		
-		return sexPositionPreferences;
+	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
+		return slot==SexSlotBipeds.DOGGY_BEHIND;
 	}
 	
 	@Override

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,8 +18,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  * @version 0.2.4
  * @author Innoxia
  */
-public class OrificeVagina implements OrificeInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class OrificeVagina implements OrificeInterface {
 	
 	protected int wetness;
 	protected int elasticity;
@@ -54,60 +52,39 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		this.wetness = Math.max(0, Math.min(wetness, Wetness.SEVEN_DROOLING.getValue()));
 		int wetnessChange = this.wetness - oldWetness;
 		
+		if(owner==null) {
+			return null;
+		}
+		
 		if (!owner.hasVagina()) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(You lack a vagina, so nothing happens...)]</p>";
-				
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] lacks a vagina, so nothing happens...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] [npc.verb(lack)] a vagina, so nothing happens...)]</p>");
 		}
 		
 		if(this.wetness < Wetness.SEVEN_DROOLING.getValue() && owner.getBodyMaterial().isOrificesAlwaysMaximumWetness()) {
 			this.wetness = Wetness.SEVEN_DROOLING.getValue();
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourSex(Due to being made out of "+owner.getBodyMaterial().getName()+", your [pc.pussy] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourSex(Due to being made out of "+owner.getBodyMaterial().getName()+", [npc.namePos] [npc.pussy] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>");
-			}
+			return UtilText.parse(owner,
+					"<p style='text-align:center;'>[style.colourDisabled(Due to being made out of "+owner.getBodyMaterial().getName()+", [npc.namePos] [npc.pussy] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>");
 		}
 		
 		if(wetnessChange == 0) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(Your [pc.pussy]'s wetness doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The wetness of [npc.namePos] [npc.pussy] doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The wetness of [npc.namePos] [npc.pussy] doesn't change...)]</p>");
 		}
 		
 		String wetnessDescriptor = getWetness(owner).getDescriptor();
 		if (wetnessChange > 0) {
-			if (owner.isPlayer()) {
-				return "<p>"
-							+ "Your [pc.eyes] widen as you feel moisture beading around your [pc.pussy], and you let out [pc.a_moan+] as you realise that it's lubricating itself and [style.boldGrow(getting wetter)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " pussy)]!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.NamePos] [npc.eyes] widen as [npc.she] feels moisture beading around [npc.her] [npc.pussy], and [npc.she] lets out [npc.a_moan+] as [npc.she] realises that it's lubricating itself and [style.boldGrow(getting wetter)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " pussy)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.NamePos] [npc.eyes] widen as [npc.she] [npc.verb(feel)] moisture beading around [npc.her] [npc.pussy],"
+							+ " and [npc.she] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(realise)] that it's lubricating itself and [style.boldGrow(getting wetter)].<br/>"
+						+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " pussy)]!"
+					+ "</p>");
 			
 		} else {
-			if (owner.isPlayer()) {
-				return "<p>"
-							+ "You shift about uncomfortably and let out a frustrated groan as you feel your [pc.pussy] [style.boldShrink(getting drier)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " pussy)]!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.Name] shifts about uncomfortably and lets out a frustrated groan as [npc.she] feels [npc.her] [npc.pussy] [style.boldShrink(getting drier)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " pussy)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] [npc.verb(shift)] about uncomfortably and [npc.verb(let)] out a frustrated groan as [npc.she] [npc.verb(feel)] [npc.her] [npc.pussy] [style.boldShrink(getting drier)].<br/>"
+						+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " pussy)]!"
+					+ "</p>");
 		}
 	}
 
@@ -123,13 +100,9 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 
 	@Override
 	public String setCapacity(GameCharacter owner, float capacity, boolean setStretchedValueToNewValue) {
-		if (!owner.hasVagina()) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(You lack a vagina, so nothing happens...)]</p>";
-				
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] lacks a vagina, so nothing happens...)]</p>");
-			}
+		
+		if (owner!=null && !owner.hasVagina()) {
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] [npc.verb(lack)] a vagina, so nothing happens...)]</p>");
 		}
 		
 		float oldCapacity = this.capacity;
@@ -139,42 +112,28 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		}
 		float capacityChange = this.capacity - oldCapacity;
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		if (capacityChange == 0) {
-			if (owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(Your [pc.pussy]'s capacity doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.namePos] [npc.pussy] doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.namePos] [npc.pussy] doesn't change...)]</p>");
 		}
 		
 		String capacityDescriptor = getCapacity().getDescriptor();
 		if (capacityChange > 0) {
-			if (owner.isPlayer()) {
-				return "<p>"
-							+ "You let out a shocked gasp as you feel your [pc.pussy] dilate and stretch out as its internal [style.boldGrow(capacity increases)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " pussy)]!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.Name] lets out a shocked gasp as [npc.she] feels [npc.her] [npc.pussy] dilate and stretch out as its internal [style.boldGrow(capacity increases)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " pussy)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a shocked gasp as [npc.she] [npc.verb(feel)] [npc.her] [npc.pussy] dilate and stretch out as its internal [style.boldGrow(capacity increases)].<br/>"
+						+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " pussy)]!"
+					+ "</p>");
 			
 		} else {
-			if (owner.isPlayer()) {
-				return "<p>"
-							+ "You let out a cry as you feel your [pc.pussy] uncontrollably tighten and clench as its internal [style.boldShrink(capacity decreases)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " pussy)]!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.Name] lets out a cry as [npc.she] feels [npc.her] [npc.pussy] uncontrollably tighten and clench as its internal [style.boldShrink(capacity decreases)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " pussy)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a cry as [npc.she] [npc.verb(feel)] [npc.her] [npc.pussy] uncontrollably tighten and clench as its internal [style.boldShrink(capacity decreases)].<br/>"
+						+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " pussy)]!"
+					+ "</p>");
 		}
 	}
 	
@@ -200,43 +159,28 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		int oldElasticity = this.elasticity;
 		this.elasticity = Math.max(0, Math.min(elasticity, OrificeElasticity.SEVEN_ELASTIC.getValue()));
 		int elasticityChange = this.elasticity - oldElasticity;
+		if(owner==null) {
+			return "";
+		}
 		
 		if (elasticityChange == 0) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(Your [pc.pussy]'s elasticity doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.namePos] [npc.pussy] doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.namePos] [npc.pussy] doesn't change...)]</p>");
 		}
 		
 		String elasticityDescriptor = getElasticity().getDescriptor();
 		if (elasticityChange > 0) {
-			if (owner.isPlayer()) {
-				return "<p>"
-							+ "You let out a little gasp as you feel a strange slackening sensation pulsating deep within your [pc.pussy] as its [style.boldGrow(elasticity increases)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " pussy)]!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange slackening sensation pulsating deep within [npc.her] [npc.pussy] as its [style.boldGrow(elasticity increases)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " pussy)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a little gasp as [npc.she] [npc.verb(feel)] a strange slackening sensation pulsating deep within [npc.her] [npc.pussy] as its [style.boldGrow(elasticity increases)].<br/>"
+						+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " pussy)]!"
+					+ "</p>");
 			
 		} else {
-			if (owner.isPlayer()) {
-				return "<p>"
-							+ "You let out a little gasp as you feel a strange clenching sensation pulsating deep within your [pc.pussy] as its [style.boldShrink(elasticity decreases)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " pussy)]!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] [npc.pussy] as its [style.boldShrink(elasticity decreases)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " pussy)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a little gasp as [npc.she] [npc.verb(feel)] a strange clenching sensation pulsating deep within [npc.her] [npc.pussy] as its [style.boldShrink(elasticity decreases)].<br/>"
+						+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " pussy)]!"
+					+ "</p>");
 		}
 	}
 	
@@ -250,43 +194,28 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		int oldPlasticity = this.plasticity;
 		this.plasticity = Math.max(0, Math.min(plasticity, OrificePlasticity.SEVEN_MOULDABLE.getValue()));
 		int plasticityChange = this.plasticity - oldPlasticity;
+		if(owner==null) {
+			return "";
+		}
 		
 		if (plasticityChange == 0) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(Your [pc.pussy]'s plasticity doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.namePos] [npc.pussy] doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.namePos] [npc.pussy] doesn't change...)]</p>");
 		}
 		
 		String plasticityDescriptor = getPlasticity().getDescriptor();
 		if (plasticityChange > 0) {
-			if (owner.isPlayer()) {
-				return "<p>"
-							+ "You let out a little gasp as you feel a strange moulding sensation pulsating deep within your [pc.pussy] as its [style.boldGrow(plasticity increases)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " pussy)]!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange moulding sensation pulsating deep within [npc.her] [npc.pussy] as its [style.boldGrow(plasticity increases)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " pussy)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a little gasp as [npc.she] [npc.verb(feel)] a strange moulding sensation pulsating deep within [npc.her] [npc.pussy] as its [style.boldGrow(plasticity increases)].<br/>"
+						+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " pussy)]!"
+					+ "</p>");
 			
 		} else {
-			if (owner.isPlayer()) {
-				return "<p>"
-							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your [pc.pussy] as its [style.boldShrink(plasticity decreases)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " pussy)]!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange softening sensation pulsating deep within [npc.her] [pc.pussy] as its [style.boldShrink(plasticity decreases)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " pussy)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a little gasp as [npc.she] [npc.verb(feel)] a strange softening sensation pulsating deep within [npc.her] [pc.pussy] as its [style.boldShrink(plasticity decreases)].<br/>"
+						+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " pussy)]!"
+					+ "</p>");
 		}
 	}
 
@@ -312,6 +241,13 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		}
 		
 		orificeModifiers.add(modifier);
+		
+		if(owner==null) {
+			return "";
+		}
+		if(!owner.hasVagina()) {
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Nothing happens, as [npc.name] [npc.verb(lack)] a vagina...)]</p>");
+		}
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
@@ -366,7 +302,7 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 							+ "</p>";
 				} else {
 					return "<p>"
-								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy], before [npc.her] labia [style.boldGrow(puffs up)] into big, swollen pussy lips.<br/>"
+								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy], before [npc.her] labia [style.boldGrow(puff up)] into big, swollen pussy lips.<br/>"
 								+ "[style.boldSex([npc.NamePos] labia are now extremely swollen and puffy!)]"
 							+ "</p>";
 				}
@@ -383,6 +319,10 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		}
 		
 		orificeModifiers.remove(modifier);
+		
+		if(owner==null) {
+			return "";
+		}
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
@@ -450,7 +390,9 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		return orificeModifiers;
 	}
 	
-
+	public void clearOrificeModifiers() {
+		orificeModifiers.clear();
+	}
 
 	public boolean isSquirter() {
 		return squirter;

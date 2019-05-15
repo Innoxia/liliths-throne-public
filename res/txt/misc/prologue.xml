@@ -85,7 +85,7 @@
 		You allow [prologueMale.name] to pull you into his strong, masculine torso, desperately moaning into his mouth as he dominantly gropes and fondles your body. Breaking off the kiss for a moment, he pulls something out of his pocket, before pushing it into your hands. [prologueMale.speech(I'd rather not, but if you want me to, I can wear this.)]
 	</p>
 	<p>
-		#pc.hasPenis()
+		#IFpc.hasPenis()
 		#THEN
 			You look down to see that you're holding a couple of little square packets - a pair of condoms.
 		#ELSE
@@ -117,7 +117,7 @@
 
 	<htmlContent tag="AFTER_SEX_FEMALE_NOT_SATISFIED"><![CDATA[
 	<p>
-		[prologueFemale.Name] sinks down onto one of the leather sofas with a sigh, [prologueFemale.speech(Fuck... I didn't even get to orgasm... I'm going to finish myself off...)]
+		[prologueFemale.Name] sinks down onto one of the leather sofas with a sigh, [prologueFemale.speech(Fuck... That really wasn't satisfying at all... I'm going to finish myself off...)]
 	</p>
 	<p>
 		Grinning down at her as she starts frantically fingering herself, you reply, [pc.speech(Yeah, sure. I'll catch up with you later!)]
@@ -137,7 +137,7 @@
 
 	<htmlContent tag="AFTER_SEX_MALE_NOT_SATISFIED"><![CDATA[
 	<p>
-		[prologueMale.Name] sinks down onto one of the leather sofas with a sigh, [prologueMale.speech(Fuck... I didn't even get to cum... I'm going to finish myself off...)]
+		[prologueMale.Name] sinks down onto one of the leather sofas with a sigh, [prologueMale.speech(Fuck... That really wasn't satisfying at all... I'm going to finish myself off...)]
 	</p>
 	<p>
 		Grinning down at him as he starts frantically masturbating, you reply, [pc.speech(Yeah, sure. I'll catch up with you later!)]
@@ -147,7 +147,7 @@
 
 	<htmlContent tag="AFTER_SEX"><![CDATA[
 	<p>
-		Leaving your partner behind, you step out of the office, before heading off towards the stage. You don't even manage to get close, however, as after you've taken no more than ten steps, you see your aunt Lily wandering about in front of you. From the way she's frantically wringing her hands and glancing this way and that, you can tell that she's been flustered by something.
+		Leaving your partner behind, you step out of the office, before heading off towards the stage. As you approach the large crowd that's gathered before it, you see your aunt Lily off to one side, pacing impatiently back and forth. From the way she's frantically wringing her hands and glancing this way and that, you can tell that she's been flustered by something.
 	</p>
 	<p>
 		[pc.speech(Hi, Lily!)] you call out, walking towards her.
@@ -192,7 +192,7 @@
 
 	<htmlContent tag="INTRO_SECOND_THOUGHTS"><![CDATA[
 	<p>
-		Leaving your partner behind, you step out of the office, before heading off towards the stage. You don't even manage to get close, however, as after you've taken no more than ten steps, you see your aunt Lily wandering about in front of you. From the way she's frantically wringing her hands and glancing this way and that, you can tell that she's been flustered by something.
+		Leaving your partner behind, you step out of the office, before heading off towards the stage. As you approach the large crowd that's gathered before it, you see your aunt Lily off to one side, pacing impatiently back and forth. From the way she's frantically wringing her hands and glancing this way and that, you can tell that she's been flustered by something.
 	</p>
 	<p>
 		[pc.speech(Hi, Lily!)] you call out, walking towards her.
@@ -635,7 +635,7 @@
 		[pc.speech(Wow, so what is it you do here? You -well, my other aunt, I mean- used to be a researcher at the city museum, but it doesn't look like you share her profession.)]
 	</p>
 	<p>
-		Lilaya drags a chair into the middle of the chalked-out pentagram and starts fiddling with a series of strange-looking spotlights at each of the five corners. As she adjusts her instruments, she motions for you to sit and answers your question, [lilaya.speech(So, the other 'me' is a researcher too? I spend most of my time in here, finding new ways to harness the arcane and infuse it into every-day objects. My mother provides-)] Lilaya cuts her sentence short, obviously saying more than she meant to, before quickly trying to change the topic, [lilaya.speech(L-Look, just sit down there and keep still while I calibrate these!)]
+		Lilaya drags a chair into the middle of the chalked-out pentagram and starts fiddling with a series of strange-looking spotlights at each of the five corners. As she adjusts her instruments, she motions for you to sit and answers your question, [lilaya.speech(So, the other 'me' is a researcher too? I spend most of my time in here, finding new ways to harness the arcane and infuse it into every-day objects. Mommy provides-)] Lilaya cuts her sentence short, obviously saying more than she meant to, before quickly trying to change the topic, [lilaya.speech(L-Look, just sit down there and keep still while I calibrate these!)]
 	</p>
 
 	<p>
@@ -724,7 +724,7 @@
 		Lilaya flicks a switch on one of the spotlights, and the pink mist vanishes from sight. Stepping forwards, you see that she's holding a strange shard of crystal, and you look on in wonder as you see its surface glittering and swirling with images of flames. She takes hold of your wrist with one hand, and with the other, places this 'demonstone' into your open palm. As its surprisingly cool surface comes into contact with your skin, you feel a gentle pulsing force pushing against you, trying to push its way in. You do as Lilaya instructed, and with surprising ease, you allow the demonstone to melt down into arcane energy and enter your body.
 	</p>
 	<p>
-		As a soothing warmth spreads up your arm, it feels like you've done this a thousand times before. You somehow know that you're able to harness its power into what you'd once have called magic. You know that its the same sort of arcane power that's found in that strange thunderstorm, and, indeed, all throughout this world. And, somewhat disturbingly, you know that this 'arcane' is strongly connected to your sexual desires, and if you lose control of it, has the power to corrupt both your mind and body. Putting such dark thoughts aside for now, you twist your hand, eager to try out this new power, and a swirling vortex of flame obediently materialises around your arm. With another motion, you dispel it, and look up to see Lilaya beaming at you in excitement.
+		As a soothing warmth spreads up your arm, it feels like you've done this a thousand times before. You instinctively know that you're able to harness its power into what you'd once have called magic, and that its the same sort of arcane power that's found in that strange thunderstorm, and, indeed, all throughout this world. Eager to try out this new power, you twist your hand, and a swirling vortex of flame immediately materialises around your arm. With another motion, you dispel it, and look up to see Lilaya beaming at you in excitement.
 	</p>
 	]]>
 	</htmlContent>

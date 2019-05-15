@@ -12,9 +12,11 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
+import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -28,8 +30,11 @@ import com.lilithsthrone.utils.Util;
  */
 public class Response {
 	
-	protected String title, tooltipText;
-	protected DialogueNodeOld nextDialogue;
+	public static final int DEFAULT_TIME_PASSED_VALUE = Integer.MIN_VALUE;
+	
+	protected String title;
+	protected String tooltipText;
+	protected DialogueNode nextDialogue;
 	
 	protected List<Fetish> fetishesRequired;
 	protected CorruptionLevel corruptionBypass;
@@ -45,7 +50,7 @@ public class Response {
 	
 	public Response(String title,
 			String tooltipText,
-			DialogueNodeOld nextDialogue) {
+			DialogueNode nextDialogue) {
 		
 		this(title, tooltipText, nextDialogue,
 				null, null,
@@ -54,7 +59,7 @@ public class Response {
 	
 	public Response(String title,
 			String tooltipText,
-			DialogueNodeOld nextDialogue,
+			DialogueNode nextDialogue,
 			List<Fetish> fetishesForUnlock,
 			CorruptionLevel corruptionBypass,
 			List<Perk> perksRequired,
@@ -69,7 +74,7 @@ public class Response {
 	
 	public Response(String title,
 			String tooltipText,
-			DialogueNodeOld nextDialogue, 
+			DialogueNode nextDialogue, 
 			List<Fetish> fetishesForUnlock,
 			CorruptionLevel corruptionBypass,
 			List<Perk> perksRequired,
@@ -112,7 +117,7 @@ public class Response {
 		return tooltipText;
 	}
 
-	public DialogueNodeOld getNextDialogue() {
+	public DialogueNode getNextDialogue() {
 		if(isAvailable() || isAbleToBypass()) {
 			return nextDialogue;
 		} else {
@@ -120,6 +125,15 @@ public class Response {
 		}
 	}
 
+	/**
+	 * When this returns a value other than DEFAULT_TIME_PASSED_VALUE, then it overrides the next DialogueNode's getSecondsPassed method, and is therefore used to determine how much time passes when selecting this Response.
+	 * 
+	 * @return The number of seconds that pass when choosing this response.
+	 */
+	public int getSecondsPassed() {
+		return DEFAULT_TIME_PASSED_VALUE;
+	}
+	
 	public boolean disabledOnNullDialogue(){
 		return true;
 	}
@@ -251,6 +265,18 @@ public class Response {
 		return SB.toString();
 	}
 	
+	private boolean isSwitchOngoingActionAvailable() {
+		if(Sex.getCharacterPerformingAction().isPlayer() && Sex.getSexControl(characterPerformingSexAction).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
+			try {
+				return !Sex.getOngoingActionsMap(Sex.getCharacterPerformingAction()).get(this.sexAreaAccessRequiredForPerformer.get(0)).get(characterTargetedForSexAction).contains(this.sexAreaAccessRequiredForTargeted.get(0));
+			} catch(Exception ex) {
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+	
 	public String getTooltipBlockingList(){
 		SB = new StringBuilder();
 		
@@ -289,12 +315,12 @@ public class Response {
 				SB.append("<br/>"
 						+"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
 						+ " (Race): "
-						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName())+"</span>");
+						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName(false))+"</span>");
 			} else {
 				SB.append("<br/>"
 						+"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
 						+ " (Race): "
-						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName())+"</span>");
+						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName(false))+"</span>");
 			}
 		}
 		
@@ -306,9 +332,11 @@ public class Response {
 				}
 			}
 			boolean penetrationFree = true;
-			for(SexAreaInterface sArea : this.sexAreaAccessRequiredForPerformer) {
-				if(sArea!=null && !sArea.isFree(characterPerformingSexAction)) {
-					penetrationFree = false;
+			if(!isSwitchOngoingActionAvailable()) {
+				for(SexAreaInterface sArea : this.sexAreaAccessRequiredForPerformer) {
+					if(sArea!=null && !sArea.isFree(characterPerformingSexAction)) {
+						penetrationFree = false;
+					}
 				}
 			}
 			
@@ -360,9 +388,11 @@ public class Response {
 				}
 			}
 			boolean orificeFree = true;
-			for(SexAreaInterface sArea : this.sexAreaAccessRequiredForTargeted) {
-				if(sArea!=null && !sArea.isFree(characterTargetedForSexAction)) {
-					orificeFree = false;
+			if(!isSwitchOngoingActionAvailable()) {
+				for(SexAreaInterface sArea : this.sexAreaAccessRequiredForTargeted) {
+					if(sArea!=null && !sArea.isFree(characterTargetedForSexAction)) {
+						orificeFree = false;
+					}
 				}
 			}
 
@@ -501,20 +531,19 @@ public class Response {
 	}
 	
 	public boolean isFemininityInRange() {
-		if(femininityRequired==null)
+		if(femininityRequired==null) {
 			return true;
+		}
 		
 		switch(femininityRequired){
 			case ANDROGYNOUS:
 				return Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.ANDROGYNOUS;
 			case FEMININE:
-				return Main.game.getPlayer().getFemininityValue() >= Femininity.FEMININE.getMinimumFemininity();
 			case FEMININE_STRONG:
-				return Main.game.getPlayer().getFemininityValue() >= Femininity.FEMININE_STRONG.getMinimumFemininity();
+				return Main.game.getPlayer().getFemininityValue() >= femininityRequired.getMinimumFemininity();
 			case MASCULINE:
-				return Main.game.getPlayer().getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity();
 			case MASCULINE_STRONG:
-				return Main.game.getPlayer().getFemininityValue() <= Femininity.MASCULINE_STRONG.getMaximumFemininity();
+				return Main.game.getPlayer().getFemininityValue() <= femininityRequired.getMaximumFemininity();
 			default:
 				return true;
 		}
@@ -540,9 +569,12 @@ public class Response {
 					}
 					return true;
 				case START_ONGOING:
-					for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
-						if(sArea!=null && !sArea.isFree(characterPerformingSexAction)) {
-							return false;
+					// Allow characters who have control to switch from one ongoing penetration to another
+					if(!isSwitchOngoingActionAvailable()) {
+						for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
+							if(sArea!=null && !sArea.isFree(characterPerformingSexAction)) {
+								return false;
+							}
 						}
 					}
 					break;
@@ -591,9 +623,12 @@ public class Response {
 					}
 					return true;
 				case START_ONGOING:
-					for(SexAreaInterface sArea : sexAreaAccessRequiredForTargeted) {
-						if(sArea!=null && !sArea.isFree(characterTargetedForSexAction)) {
-							return false;
+					// Allow characters who have control to switch from one ongoing penetration to another
+					if(!isSwitchOngoingActionAvailable()) {
+						for(SexAreaInterface sArea : sexAreaAccessRequiredForTargeted) {
+							if(sArea!=null && !sArea.isFree(characterTargetedForSexAction)) {
+								return false;
+							}
 						}
 					}
 					break;
@@ -644,5 +679,13 @@ public class Response {
 
 	public Race getRaceRequired() {
 		return raceRequired;
+	}
+
+	public static Response getDisallowedSpittingResponse() {
+		return getDisallowedSpittingResponse("Spit");
+	}
+
+	public static Response getDisallowedSpittingResponse(String desc) {
+		return new Response(desc, "[style.italicsBad(Rejection of TF potions is disabled!)]<br/>Your opponent is forcing you to drink down the potion!", null);
 	}
 }

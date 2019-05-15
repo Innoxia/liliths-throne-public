@@ -1,0 +1,29 @@
+***** MODDING *****
+
+If you want to make mods, make a new folder, using the (hopefully unique) name of your mod. (Like the 'innoxia' folder in this directory.)
+
+Currently supported directories:
+CLOTHING MODS: res/mods/(yourName)/items/clothing
+TATTOO MODS: res/mods/(yourName)/items/tattoos
+WEAPON MODS: res/mods/(yourName)/items/weapons
+
+Just to clarify, (yourName) should be whatever nickname the mod creator is using.
+
+
+Within these mod folders (which you create), place the .xml and .svg files that are needed for each piece of clothing/tattoo.
+
+I've included at least one example in each directory for you to reference. If you need any help, there is a 'mod-discussion' channel in the LT discord. ^^
+
+
+
+***** Optimizing SVG images *****
+
+Once you have made your .svg images, you can optimise them (so that the game runs faster when rendering them), by doing the following:
+
+1) All <flowRoot> elements should be manually removed (open your svg file in a text editor to do this). These are randomly added by Inkscape when dragging things in the editor and serve no purpose since they technically don't even exist in SVG 1.1, which all the files use.
+
+2) Automated optimization can be done using SVGO (note 1), a relatively simple command line tool. The configuration used is included (note 2) and contains instructions on how to use it.
+
+note 1: https://github.com/svg/svgo
+
+note 2: https://github.com/Innoxia/liliths-throne-public/blob/83f67383dc826b097de428813dd93e82a00350f0/svgoConfig.yml

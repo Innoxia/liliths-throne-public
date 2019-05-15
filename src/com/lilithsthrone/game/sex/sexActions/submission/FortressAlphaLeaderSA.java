@@ -3,14 +3,15 @@ package com.lilithsthrone.game.sex.sexActions.submission;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -27,31 +28,31 @@ public class FortressAlphaLeaderSA {
 	
 	public static boolean isBothTargetsUsed() {
 		try {
-			return Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))>0
-					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))>0;
+			return Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))>0
+					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL_TWO), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))>0;
 		} catch(Exception ex) {
 			return true;
 		}
 	}
 	
 	public static GameCharacter getBlowjobTarget() {
-		return Sex.getCharactersHavingOngoingActionWith(Main.game.getFortressAlphaLeader(), SexAreaPenetration.PENIS).isEmpty()
+		return Sex.getCharactersHavingOngoingActionWith(Main.game.getNpc(FortressAlphaLeader.class), SexAreaPenetration.PENIS).isEmpty()
 				?null
-				:Sex.getCharactersHavingOngoingActionWith(Main.game.getFortressAlphaLeader(), SexAreaPenetration.PENIS).get(0);
+				:Sex.getCharactersHavingOngoingActionWith(Main.game.getNpc(FortressAlphaLeader.class), SexAreaPenetration.PENIS).get(0);
 	}
 	
 	private static GameCharacter getOtherTarget() {
 		try {
 			if(getBlowjobTarget()==null) {
-				if(Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))>0) {
-					return Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO);
+				if(Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))>0) {
+					return Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL_TWO);
 				} else {
-					return Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL);
+					return Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL);
 				}
 			}
-			return Sex.getSexPositionSlot(getBlowjobTarget())==SexPositionSlot.KNEELING_PERFORMING_ORAL
-					?Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL_TWO)
-					:Sex.getCharacterInPosition(SexPositionSlot.KNEELING_PERFORMING_ORAL);
+			return Sex.getSexPositionSlot(getBlowjobTarget())==SexSlotBipeds.KNEELING_PERFORMING_ORAL
+					?Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL_TWO)
+					:Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL);
 		} catch(Exception ex) {
 			return null;
 		}
@@ -78,11 +79,11 @@ public class FortressAlphaLeaderSA {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOtherTarget()==null
-					&& (Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.ORGASM
-						|| Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
+					&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.ORGASM
+						|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
 					&& !isBothTargetsUsed()
 					&& Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())==1
-					&& Sex.getCharacterPerformingAction().equals(Main.game.getFortressAlphaLeader());
+					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(FortressAlphaLeader.class));
 		}
 
 		@Override
@@ -119,11 +120,11 @@ public class FortressAlphaLeaderSA {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOtherTarget()!=null
-					&& (Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.ORGASM
-						|| Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
+					&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.ORGASM
+						|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
 					&& !isBothTargetsUsed()
 					&& Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())==1
-					&& Sex.getCharacterPerformingAction().equals(Main.game.getFortressAlphaLeader());
+					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(FortressAlphaLeader.class));
 		}
 
 		@Override
@@ -190,11 +191,11 @@ public class FortressAlphaLeaderSA {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOtherTarget()==null
-					&& (Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.ORGASM
-						|| Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
+					&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.ORGASM
+						|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
 					&& !isBothTargetsUsed()
 					&& Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())==1
-					&& Sex.getCharacterPerformingAction().equals(Main.game.getFortressAlphaLeader());
+					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(FortressAlphaLeader.class));
 		}
 
 		@Override
@@ -232,11 +233,11 @@ public class FortressAlphaLeaderSA {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOtherTarget()!=null
-					&& (Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.ORGASM
-							|| Sex.getLastUsedSexAction(Main.game.getFortressAlphaLeader()).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
+					&& (Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.ORGASM
+							|| Sex.getLastUsedSexAction(Main.game.getNpc(FortressAlphaLeader.class)).getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM)
 					&& !isBothTargetsUsed()
 					&& Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())==1
-					&& Sex.getCharacterPerformingAction().equals(Main.game.getFortressAlphaLeader());
+					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(FortressAlphaLeader.class));
 		}
 
 		@Override

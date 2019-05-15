@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- Dominant sex actions: -->
+	
+	<htmlContent tag="RAPE_START_MILKING_ROOM"><![CDATA[
+	<p>
+		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+			As [npc.name] is locked into the milking machine, [npc.sheIs] left completely powerless as you step around behind [npc.herHim] and reach down to grab [npc.her] [npc.ass+]. Letting out [npc.a_sob+], [npc.she] pleads, [npc.speech(No! Please! Just leave me alone!)]
+		#ELSE
+			As [npc.name] is locked into the milking machine, [npc.sheIs] left completely powerless as you step forwards over the top of [npc.herHim] and press your animalistic [pc.legConfiguration] body down against [npc.her] back. Letting out [npc.a_sob+], [npc.she] pleads, [npc.speech(No! Please! Just leave me alone!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+			Smiling in delight as [npc.name] helplessly tries to break free of the milking machine's restraints, you cruelly tease, [pc.speech(That's right, cry and scream all you want; it's no fun if my victims don't put up a struggle!)]
+		#ELSE
+			Letting out a disappointed sigh as [npc.name] helplessly tries to break free of the milking machine's restraints, you say, [pc.speech(Hush now, [npc.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
+		#ENDIF
+	</p>
+	#IF(npc.getFetishDesire(FETISH_NON_CON_SUB).isPositive())
+		<p>
+			There seems to be something not quite right in the tone of [npc.namePos] voice, as though [npc.sheIs] not genuinely distressed by what's happening to [npc.herHim]. As one of [npc.her] frantic sobs momentarily turns into an excited squeal, you suddenly realise that [npc.sheIs] getting off on the fact that [npc.sheIs] being raped...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_START_MILKING_ROOM"><![CDATA[
+	<p>
+		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+			As [npc.name] is locked into the milking machine, [npc.sheIs] left completely powerless as you step around behind [npc.herHim] and reach down to grab [npc.her] [npc.ass+]. Letting out [npc.a_moan+], [npc.she] pleads, [npc.speech(~Mmm!~ Yes! Fuck me!)]
+		#ELSE
+			As [npc.name] is locked into the milking machine, [npc.sheIs] left completely powerless as you step forwards over the top of [npc.herHim] and press your animalistic [pc.legConfiguration] body down against [npc.her] back. Letting out [npc.a_moan+], [npc.she] pleads, [npc.speech(~Ooh!~ Yes! Mount me and rut me like an animal!)]
+		#ENDIF
+	</p>
+	<p>
+		All too eager to do as [npc.she] asks, you prepare to have your way with [npc.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RAPE_START"><![CDATA[
+	#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_CRAWLING))
+		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+			<p>
+				As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply stepping around behind [npc.herHim] and dropping to your knees, ready to fuck [npc.herHim] in the doggy-style position. Reaching down to grab [npc.her] [npc.ass+], you [npc.moanVerb], [pc.speech(~Mmm!~ This is going to be good!)]
+			</p>
+			<p>
+				[npc.Name] tries to crawl away, but you keep a firm grip on [npc.her] [npc.hips+], preventing [npc.herHim] from escaping. Turning back to try and push you away, [npc.she] [npc.sobs+], [npc.speech(No! Stop! Leave me alone!)]
+			</p>
+		#ELSE
+			<p>
+				As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply stepping over the top of [npc.herHim] with your [pc.legConfiguration] lower body and mounting [npc.herHim]. Pressing your animalistic [pc.legRace]'s body down against [npc.her] back, you [npc.moanVerb], [pc.speech(~Mmm!~ Time to give you a good rutting!)]
+			</p>
+			<p>
+				[npc.Name] tries to crawl away, but with your large feral body over the top of [npc.herHim], you're easily able to prevent [npc.her] escape. Realising that any attempts to flee are useless, [npc.she] gives up and [npc.sobs+], [npc.speech(Please, don't do this! Leave me alone!)]
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Wanting to have some fun with your slave, you step forwards and pull [npc.name] into a dominant, passionate kiss. Almost immediately, [npc.she] desperately tries to push you away, but despite [npc.her] best efforts, all [npc.she] manages to do is temporarily pull away from your kiss. Using this opportunity to take a non-physical approach to deterring you from raping [npc.herHim], [npc.she] desperately pleads, [npc.speech(Please, don't do this! Leave me alone!)]
+		</p>
+	#ENDIF
+	<p>
+		#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+			Smiling in delight as [npc.name] starts to cry, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
+		#ELSE
+			Letting out a disappointed sigh as [npc.name] starts to cry, you say, [pc.speech(Hush now, [npc.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
+		#ENDIF
+	</p>
+	#IF(npc.getFetishDesire(FETISH_NON_CON_SUB).isPositive())
+		<p>
+			There seems to be something not quite right in the tone of [npc.namePos] voice, as though [npc.sheIs] not genuinely distressed by what's happening to [npc.herHim]. As one of [npc.her] frantic sobs momentarily turns into an excited squeal, you suddenly realise that [npc.sheIs] getting off on the fact that [npc.sheIs] being raped...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_START"><![CDATA[
+	#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_CRAWLING))
+		<p>
+			[pc.speech(I know what it is you want,)] you tease, looking down at [npc.name], who, thanks to your order of having to crawl everywhere [npc.she] goes, is on all fours before you. [pc.speech(You just want your [pc.mistress] to give you some attention, don't you?)]
+		</p>
+		<p>
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				[npc.speech(Eugh, I hate you so much...)] [npc.name] remarks, scowling at you for a moment before hungrily gazing up and down over your body and stating, [npc.speech(I guess I have no choice in the matter, do I? Anyway, a good hate-fuck wouldn't be so bad...)]
+			#ELSE
+				#IF(npc.isFeminine())
+					[npc.speech(Yes, [pc.name],)] [npc.name] sensually replies, biting [npc.her] [npc.lip] and letting out a horny moan as [npc.she] looks up at you, [npc.speech(Please, I want you to take me...)]
+				#ELSE
+					[npc.speech(Yes, [pc.name],)] [npc.name] replies, smiling at you and letting out a hungry groan as [npc.she] looks up at you, [npc.speech(Please, I want you to take me...)]
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+				Stepping around behind your submissive slave, you drop to your knees, before taking hold of [npc.her] [npc.hips+] and pulling [npc.herHim] in against your groin. Letting out an especially horny [npc.moan], [npc.she] cries out, [npc.speech(Yes, fuck me like an animal!)]
+			#ELSE
+				Moving around behind your submissive slave, you step forwards over the top of [npc.herHim], before lowering your [pc.legConfiguration] body down to grind against [npc.herHim]. Letting out an especially horny [npc.moan], [npc.she] cries out, [npc.speech(Yes, mount me and rut me like an animal!)]
+			#ENDIF
+		</p>
+		<p>
+			Eager to do as [npc.she] asks, you prepare to start fucking your slave on the floor of [npc.her] room...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(I know what it is you want,)] you tease, stepping forwards and reaching out to take hold of [npc.namePos] [npc.hips+]. [pc.speech(You just want your [pc.mistress] to give you some attention, don't you?)]
+		</p>
+		<p>
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				[npc.speech(Eugh, I hate you so much...)] [npc.name] remarks, scowling at you for a moment before hungrily gazing up and down over your body and stating, [npc.speech(I guess I have no choice in the matter, do I? Anyway, a good hate-fuck wouldn't be so bad...)]
+			#ELSE
+				#IF(npc.isFeminine())
+					[npc.speech(Yes, [pc.name],)] [npc.name] sensually replies, biting [npc.her] [npc.lip] and letting out a horny moan as [npc.she] leans into you, [npc.speech(Please, I want you...)]
+				#ELSE
+					[npc.speech(Yes, [pc.name],)] [npc.name] replies, smiling at you and letting out a hungry groan as [npc.she] leans into you, [npc.speech(Please, I want you...)]
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			As [npc.namePos] warm body presses against yours, you dominantly pull [npc.herHim] in against you and kiss [npc.herHim] fully on the [npc.lips]. Opening [npc.her] mouth to allow your [pc.tongue] to slide in over [npc.hers], [npc.name] lets out a happy, muffled [npc.moan] as the two of you start making out with one another.
+		</p>
+		<p>
+			After just a moment, you find yourself wanting more than just a kiss, and after pulling back, you [pc.moan], [pc.speech(I've got an hour or two to spare, let's make the most of it...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_SPITROAST_FRONT_START"><![CDATA[
+	#VAR
+		var isRape = !npc.isAttractedTo(pc) || !npc.isAttractedTo(npc2);
+	
+		var positioning = "";
+		if(npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL) {
+			positioning = "onto [npc.her] hands and knees ";
+		}
+		var playerPositioning = "Falling to your knees in front of [npc.name], you say,";
+		if(!pc.getLegConfiguration().isBipedalPositionedGenitals()) {
+			playerPositioning = "Turning your [pc.legConfiguration] body to one side, you present your groin to [npc.name], before calling down to [npc.herHim],";
+		}
+	#ENDVAR
+	
+	#IF(!isRape)
+		<p>
+			[pc.speech(You know, I was thinking that the three of us could have some fun together,)] you tease, turning to face [npc.name]. [pc.speech(You want to show [npc2.name] and I what a horny little slave you are, don't you?)]
+		</p>
+		<p>
+			[npc.speech(Yes, [pc.name],)] [npc.name] replies, before submissively pouting as you run your [pc.fingers] over [npc.her] [npc.lips+]. [npc.speech(Would you like to use my mouth?)]
+		</p>
+		<p>
+			[pc.speech(Yes, I'd like that very much,)] you reply, [pc.speech(Get down on all fours now, so that we can all have some fun together.)]
+		</p>
+		<p>
+			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.her] ass.
+			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+					 Sinking down onto [npc2.her] knees behind [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
+				</p>
+				<p>
+					Reaching down to squeeze [npc.namePos] [npc.ass+], [npc2.name] grins as [npc2.her] move is met by a surprised, erotic yelp. Turning [npc.her] head back, [npc.name] raises [npc.her] ass and shakes it from side to side as [npc.she] teases, [npc.speech(Well, aren't you super eager to get a piece of me? Make sure to give me a good, hard fucking while I pleasure [pc.name] with my mouth!)]
+			#ELSE
+					 Stepping forwards so as to position [npc2.her] [npc2.legConfiguration] body over the top of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
+				</p>
+				<p>
+					Grinding [npc2.her] groin down against [npc.namePos] [npc.ass+], [npc2.name] grins as [npc2.her] move is met by a surprised, erotic yelp. With a lewd [npc.moan], [npc.name] raises [npc.her] ass and presses it up against [npc2.namePos] animal-like body as [npc.she] teases, [npc.speech(Well, weren't you super eager to mount me? Make sure to give me a good, hard rutting while I pleasure [pc.name] with my mouth!)]
+			#ENDIF
+		</p>
+		<p>
+			[#playerPositioning] [pc.speech(That's a good [npc.girl]! Now it's time for you to show us what an obedient subby slave you are!)]
+		</p>
+		<p>
+			With an enthusiastic [npc.moan], [npc.name] prepares to be used by the two of you...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(You know, I was thinking that you need to be reminded of the fact that you're nothing more than my property,)] you tease, turning to face [npc.name], [pc.speech(and what better way to do that than for [npc2.name] and I to give you a good fucking?)]
+		</p>
+		<p>
+			[npc.speech([pc.Name], please, don't!)] [npc.name] pleads, turning [npc.her] face away as you reach up to run your [pc.fingers] over [npc.her] [npc.lips+]. [npc.speech(Get away from me!)]
+		</p>
+		<p>
+			#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+				Smiling in delight as [npc.name] starts to panic, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
+			#ELSE
+				Letting out a disappointed sigh as [npc.name] starts to panic, you say, [pc.speech(Hush now, [npc.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
+			#ENDIF
+		</p>
+		<p>
+			Grabbing hold of [npc.her] shoulders, you push [npc.name] down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.her] ass.
+			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+					 Sinking down onto [npc2.her] knees behind [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will soon put you in your place!)]
+				</p>
+				<p>
+					Reaching down to squeeze [npc.namePos] [npc.ass+], [npc2.name] grins as [npc2.her] move is met by a frantic wail.
+			#ELSE
+					 Stepping forwards so as to position [npc2.her] [npc2.legConfiguration] body over the top of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will soon put you in your place!)]
+				</p>
+				<p>
+					Grinding [npc2.her] groin down against [npc.namePos] [npc.ass+], [npc2.name] grins as [npc2.her] move is met by a frantic wail.
+			#ENDIF
+			 With tears in [npc.her] [npc.eyes], [npc.name] tries, to no avail, to crawl away as [npc.she] shrieks, [npc.speech(Stop it! No!)]
+		</p>
+		<p>
+			[#playerPositioning] [pc.speech(Remember that you're nothing but my slave, [npc.girl]! Now it's time to train you to be an obedient whore for your [pc.mistress]!)]
+		</p>
+		<p>
+		#IF(npc.getFetishDesire(FETISH_NON_CON_SUB).isPositive())
+			There seems to be something not quite right in the tone of [npc.namePos] resultant scream, as though [npc.sheIs] not genuinely distressed by what's happening to [npc.herHim]. As one of [npc.her] frantic sobs momentarily turns into an excited squeal, you suddenly realise that [npc.sheIs] getting off on the fact that [npc.sheIs] being raped...
+		#ELSE
+			With a desperate, shuddering scream, [npc.name] does [npc.her] best to resist the advances of the two of you...
+		#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_SPITROAST_BEHIND_START"><![CDATA[
+	#VAR
+		var isRape = !npc.isAttractedTo(pc) || !npc.isAttractedTo(npc2);
+		
+		var positioning = "";
+		if(npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL) {
+			positioning = "onto [npc.her] hands and knees ";
+		}
+		var playerPositioning = "Falling to your knees behind [npc.name], you say,";
+		var playerMounting = "take [npc.herHim]! Make sure to give me a good, hard fucking while I pleasure [npc2.name] with my mouth!";
+		if(!pc.getLegConfiguration().isBipedalPositionedGenitals()) {
+			playerPositioning = "Stepping forwards so that your [pc.legConfiguration] body is over the top of [npc.name], you call down to [npc.herHim],";
+			playerMounting = "mount [npc.herHim]! Make sure to give me a good, hard rutting while I pleasure [npc2.name] with my mouth!";
+		}
+	#ENDVAR
+	
+	#IF(!isRape)
+		<p>
+			[pc.speech(You know, I was thinking that the three of us could have some fun together,)] you tease, turning to face [npc.name]. [pc.speech(You want to show [npc2.name] and I what a horny little sub you are, don't you?)]
+		</p>
+		<p>
+			[npc.speech(Yes, [pc.name],)] [npc.name] replies, before submissively pushing [npc.her] [npc.ass+] out towards you as you turn [npc.herHim] around to position yourself at [npc.her] back. [npc.speech(Would you like to take me from behind?)]
+		</p>
+		<p>
+			[pc.speech(Yes, I'd like that very much,)] you reply, [pc.speech(Get down on all fours now, so that we can all have some fun together.)]
+		</p>
+		<p>
+			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.herHim].
+			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+				 Sinking down onto [npc2.her] knees in front of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
+			</p>
+			<p>
+				Reaching down to run [npc2.her] [npc2.fingers] over [npc.namePos] [npc.lips+], [npc2.name] grins as [npc2.her] move is met by a long, erotic [npc.moan]. Turning [npc.her] head as [npc.she] shifts [npc.her] focus back onto you, [npc.name] raises [npc.her] ass and shakes it from side to side as [npc.she] teases, [npc.speech(Come on, [pc.name], make sure to give me a good, hard fucking while I pleasure [npc2.name] with my mouth!)]
+			#ELSE
+				 Stepping around in front of [npc.name], [npc2.name] turns [npc2.her] [npc2.legConfiguration] body to one side, presenting [npc2.her] groin to [npc.herHim] as [npc.she] [npc2.moansVerb], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
+			</p>
+			<p>
+				Turning [npc.her] head as [npc.she] shifts [npc.her] focus back onto you, [npc.name] raises [npc.her] ass and shakes it from side to side as [npc.she] teases, [npc.speech(Come on, [pc.name], make sure to give me a good, hard fucking while I pleasure [npc2.name] with my mouth!)]
+			#ENDIF
+		</p>
+		<p>
+			[#playerPositioning] [pc.speech(That's a good [npc.girl]! Now it's time for you to show us what an obedient subby slut you are!)]
+		</p>
+		<p>
+			With an enthusiastic [npc.moan], [npc.name] prepares to be used by the two of you...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(You know, I was thinking that you need to be reminded of the fact that you're nothing more than my property,)] you tease, turning to face [npc.name], [pc.speech(and what better way to do that than for [npc2.name] and I to give you a good fucking?)]
+		</p>
+		<p>
+			[npc.speech([pc.Name], please, don't!)] [npc.name] pleads, before trying to pull [npc.her] [npc.ass+] away from you as you turn [npc.herHim] around to position yourself at [npc.her] back. [npc.speech(Get away from me!)]
+		</p>
+		<p>
+			#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+				Smiling in delight as [npc.name] starts to panic, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
+			#ELSE
+				Letting out a disappointed sigh as [npc.name] starts to panic, you say, [pc.speech(Hush now, [npc.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
+			#ENDIF
+		</p>
+		<p>
+			Grabbing hold of [npc.her] shoulders, you push [npc.name] down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.herHim].
+			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+				 Sinking down onto [npc2.her] knees in front of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will soon put you in your place!)]
+			</p>
+			<p>
+				Reaching down to run [npc2.her] [npc2.fingers] over [npc.namePos] [npc.lips+], [npc2.name] grins as [npc2.her] move is met by a frantic wail.
+			#ELSE
+				 Stepping around in front of [npc.name], [npc2.name] turns [npc2.her] [npc2.legConfiguration] body to one side, presenting [npc2.her] groin to [npc.herHim] as [npc.she] [npc2.moansVerb], [npc2.speech(Oh yeah, [pc.name] and I will soon put you in your place!)]
+			</p>
+			<p>
+				Pushing [npc2.her] groin into [npc.namePos] [npc.face+], [npc2.name] grins as [npc2.her] move is met by a frantic wail.
+			#ENDIF
+			 With tears in [npc.her] [npc.eyes], [npc.name] tries, to no avail, to crawl away as [npc.she] shrieks, [npc.speech(Stop it! No!)]
+		</p>
+		<p>
+			[#playerPositioning] [pc.speech(Remember that you're nothing but my slave, [npc.girl]! Now it's time to train you to be an obedient whore for your [pc.mistress]!)]
+		</p>
+		<p>
+		#IF(npc.getFetishDesire(FETISH_NON_CON_SUB).isPositive())
+			There seems to be something not quite right in the tone of [npc.namePos] resultant scream, as though [npc.sheIs] not genuinely distressed by what's happening to [npc.herHim]. As one of [npc.her] frantic sobs momentarily turns into an excited squeal, you suddenly realise that [npc.sheIs] getting off on the fact that [npc.sheIs] being raped...
+		#ELSE
+			With a desperate, shuddering scream, [npc.name] does [npc.her] best to resist the advances of the two of you...
+		#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_SIDE_BY_SIDE_START"><![CDATA[
+	#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc))
+		<p>
+			[pc.speech(You know, I was thinking that I could have some fun with the two of you at once...)] you tease, turning to face both [npc.name] and [npc2.name], before glaring dominantly at the two of them.
+		</p>
+		<p>
+			Sensing what it is that you want, both [npc.name] and [npc2.name] step towards each other, casting submissive glances at you before turning and dropping down onto all fours. Letting out a delighted [pc.moan], you step towards the two of them as they present their rear ends for your use.
+		</p>
+		<p>
+			[npc.speech(Come and take us!)] [npc.name] [npc.moans], looking back over [npc.her] shoulder and seductively biting [npc.her] [npc.lip]. 
+		</p>
+		<p>
+			[npc2.speech(Mmm, yes, put us in our place!)] [npc2.name] joins in, copying [npc.name] as [npc2.she] glances back over [npc2.her] shoulder and bats [npc.her] eyelids at you. 
+		</p>
+		<p>
+			#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+				Dropping down onto your knees behind them, you prepare to do exactly as they say, and, reaching forwards to grab their asses in each [pc.hand], you [pc.moan], [pc.speech(I wonder which of you I'll fuck first...)]
+			#ELSE
+				Stepping forwards and preparing to use your [pc.legConfiguration] body to mount one of them, you wonder out loud, [pc.speech(I wonder which of you I'll rut first...)]
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(You know, I was thinking that I could have some fun with the two of you at once...)] you tease, turning to face both [npc.name] and [npc2.name], before glaring dominantly at the two of them.
+		</p>
+		#IF(!npc.isAttractedTo(pc) && !npc2.isAttractedTo(pc))
+			<p>
+				Sensing what it is that you want, both [npc.name] and [npc2.name] start to back off, casting nervous glances at one another as you quickly move up to stand in front of them. Before they have a chance to struggle or run, you grab them by the shoulders and shove each one down onto all fours in front of you. Letting out a delighted [pc.moan], you step towards the two rear ends now presented for your use.
+			</p>
+			<p>
+				Feeling as though this is the time in which to do something, [npc.name] tries to stand back up, complaining, [npc.speech(S-Stop it, [pc.name]! Can't you see we don't wan-)]
+			</p>
+			<p>
+				#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+					You quickly cut [npc.her] objections off as you reach down and grab the back of [npc.her] neck, before roughly slamming [npc.her] to the floor. Smiling in delight as [npc.name] lets out a panicked cry, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
+				#ELSE
+					You quickly cut [npc.her] objections off as you reach down and grab the back of [npc.her] neck, before forcing [npc.her] to the floor. Tutting in disapproval as [npc.name] lets out a panicked cry, you say, [pc.speech(Hush now, [npc.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
+				#ENDIF
+			</p>
+			<p>
+				[npc2.speech(W-Why don't you just leave the two of us alone?!)] [npc2.name] joins in, trying to stand up for [npc.name] as [npc2.she] glances back over [npc2.her] shoulder to look up at you. 
+			</p>
+			<p>
+				#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+					Ruthlessly kicking [npc2.name] down, you snarl, [pc.speech(Unless you want to be locked in the stocks for an entire week, you'd better shut your mouth, [npc2.bitch]!)]
+				#ELSE
+					Ruthlessly pushing [npc2.namePos] head down, you threaten, [pc.speech(Unless you want to be locked in the stocks for an entire week, you'd better shut it!)]
+				#ENDIF
+			</p>
+			<p>
+				With both [npc.namePos] and [npc2.namePos] resistance now being limited to tears and distressed wails, you're finally ready to start fucking them. With one final threatening snarl, you wonder out loud,
+				#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+					 [pc.speech(Now, which one of you worthless cunts should I fuck first?)]
+				#ELSE
+					 [pc.speech(Now, which one of you should I fuck first?)]
+				#ENDIF
+			</p>
+		#ELSEIF(!npc.isAttractedTo(pc))
+			<p>
+				Sensing what it is that you want, [npc.name] starts to back off, casting a nervous glance at [npc2.name] as you quickly move up to stand in front of them. Sensing that [npc.name] is about to struggle or attempt to flee, you grab [npc.herHim] by the shoulders and shove [npc.herHim] down onto all fours in front of you. Looking down at the rear end now presented for your use, you [pc.moan], [pc.speech(Go on, [npc2.name], join [npc.herHim] in presenting yourselves to me!)]
+			</p>
+			<p>
+				Feeling as though this is the time in which to do something, [npc.name] tries to stand back up, complaining, [npc.speech(S-Stop it, [pc.name]! Can't you see I don't wan-)]
+			</p>
+			<p>
+				#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+					You quickly cut [npc.her] objections off as you reach down and grab the back of [npc.her] neck, before roughly slamming [npc.her] to the floor. Smiling in delight as [npc.name] lets out a panicked cry, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
+				#ELSE
+					You quickly cut [npc.her] objections off as you reach down and grab the back of [npc.her] neck, before forcing [npc.her] to the floor. Tutting in disapproval as [npc.name] lets out a panicked cry, you say, [pc.speech(Hush now, [npc.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
+				#ENDIF
+			</p>
+			<p>
+				[npc2.speech(Don't worry, [npc.name], I'm sure you'll get into it,)] [npc2.name] offers as [npc2.she] drops down beside [npc.herHim]. 
+			</p>
+			<p>
+				With [npc.namePos] resistance now being limited to tears and distressed wails, you're finally ready to start fucking both [npc.herHim] and [npc2.name]. With one final threatening snarl, you wonder out loud,
+				#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+					 [pc.speech(Now, should I fuck the worthless cunt, or the obedient slut first?)]
+				#ELSE
+					 [pc.speech(Now, which one of you should I fuck first?)]
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				Sensing what it is that you want, [npc2.name] starts to back off, casting a nervous glance at [npc.name] as you quickly move up to stand in front of them. Sensing that [npc2.name] is about to struggle or attempt to flee, you grab [npc2.herHim] by the shoulders and shove [npc2.herHim] down onto all fours in front of you. Looking down at the rear end now presented for your use, you [pc.moan], [pc.speech(Go on, [npc.name], join [npc2.herHim] in presenting yourselves to me!)]
+			</p>
+			<p>
+				Feeling as though this is the time in which to do something, [npc2.name] tries to stand back up, complaining, [npc2.speech(S-Stop it, [pc.name]! Can't you see I don't wan-)]
+			</p>
+			<p>
+				#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+					You quickly cut [npc2.her] objections off as you reach down and grab the back of [npc2.her] neck, before roughly slamming [npc2.her] to the floor. Smiling in delight as [npc2.name] lets out a panicked cry, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
+				#ELSE
+					You quickly cut [npc2.her] objections off as you reach down and grab the back of [npc2.her] neck, before forcing [npc2.her] to the floor. Tutting in disapproval as [npc2.name] lets out a panicked cry, you say, [pc.speech(Hush now, [npc2.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
+				#ENDIF
+			</p>
+			<p>
+				[npc.speech(Don't worry, [npc2.name], I'm sure you'll get into it,)] [npc.name] offers as [npc.she] drops down beside [npc2.herHim]. 
+			</p>
+			<p>
+				With [npc2.namePos] resistance now being limited to tears and distressed wails, you're finally ready to start fucking both [npc2.herHim] and [npc.name]. With one final threatening snarl, you wonder out loud,
+				#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+					 [pc.speech(Now, should I fuck the worthless cunt, or the obedient slut first?)]
+				#ELSE
+					 [pc.speech(Now, which one of you should I fuck first?)]
+				#ENDIF
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<!-- END Dominant sex actions -->
+	
+	
+	<!-- Submissive sex actions: -->
+	
+	<htmlContent tag="SEX_AS_SUB_START"><![CDATA[
+	<p>
+		[pc.speech(You know, [npc.name], I just can't stop thinking about you,)] you tease, stepping forwards and reaching out to tease your [pc.fingers] over [npc.her] [npc.breasts]. [pc.speech(I'm sure you'd love the chance to get to fuck your owner, wouldn't you?)]
+	</p>
+	#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+		<p>
+			[npc.speech(You'd let me fuck you?)] [npc.name] asks, barely managing to hide the contempt in [npc.her] voice as [npc.her] [npc.lips] turn up into a snarl.
+		</p>
+		#IF(pc.getFetishDesire(FETISH_MASOCHIST).isPositive())
+			<p>
+				[pc.speech(That's right,)] you confirm, [pc.speech(I can tell that you're just <i>desperate</i> to take out all of your frustrations on me. There's no need for you to hold back; you won't be punished in any way for treating me like your worthless little fuck-toy...)]
+			</p>
+			<p>
+				[npc.speech(In that case, <i>[pc.bitch]</i>,)] [npc.name] spits as [npc.she] reaches up to firmly grab you by the neck, [npc.speech(I'm gonna' hate-fuck you into the ground, you fucking [pc.bitch]! Fuck, I hate you so much...)]
+			</p>
+			<p>
+				[pc.speech(That's right, let it all out!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a degrading manner by your slave. [pc.speech(I'll be a good-)]
+			</p>
+			<p>
+				Your words are interrupted as [npc.name] releases [npc.her] grip on your neck, before suddenly delivering a stinging slap to your face. Through clenched teeth, [npc.she] snarls, [npc.speech(Shut your fucking mouth, you worthless [pc.bitch]!)]
+			</p>
+		#ELSE
+			<p>
+				[pc.speech(That's right,)] you confirm, [pc.speech(I can tell that you're just <i>desperate</i> to take out all of your frustrations on me. You can have your fun with me; you won't get into trouble, I promise...)]
+			</p>
+			<p>
+				[npc.speech(Fine, <i>[pc.bitch]</i>,)] [npc.name] spits as [npc.she] firmly grabs your [pc.hips] and pulls you into [npc.herHim], [npc.speech(I'm gonna' give you a real good hate-fucking!)]
+			</p>
+			<p>
+				[pc.speech(Oh, yes, give it to me!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a manner by your slave.
+			</p>
+			<p>
+				Leaning forwards and pressing [npc.her] [npc.lips+] against yours, [npc.name] gives you a rough, forceful kiss, before pulling back and snarling through clenched teeth, [npc.speech(I've wanted to do this to you for a long time...)]
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			[npc.speech(Oh, you'd like a little role-reversal, would you?)] [npc.name] asks, staring lustfully into your [pc.eyes] as you bite your [pc.lip] and bat your eyelids at [npc.herHim]. [npc.speech(You like the idea of a lowly slave fucking [npc.her] [pc.mistress]?)]
+		</p>
+		<p>
+			[pc.speech(That's right,)] you confirm, [pc.speech(I can tell that you're just <i>desperate</i> for it as well, so why don't you show me what you can do?)]
+		</p>
+		<p>
+			Needing no further encouragement, [npc.name] leans forwards and presses [npc.her] [npc.lips+] against yours, delivering a long, passionate kiss, before pulling back and [npc.moaning], [npc.speech(That's a good [pc.girl], now submit to your slave...)]
+		</p>
+	#ENDIF
+	<p>
+		Letting out an excited [pc.moan], you prepare to be dominantly fucked by your [npc.race] slave... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_SPITROASTED_START"><![CDATA[
+	<p>
+		[pc.speech(You know, I was thinking that the three of us could have some fun together...)] you tease, turning to face both [npc.name] and [npc2.name], before biting your [pc.lip] and putting on your most submissive, seductive look.
+	</p>
+	#IF(npc2.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE && npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+		<p>
+			[npc2.speech(You'd let us fuck you?)] [npc2.name] asks, barely managing to hide the contempt in [npc2.her] voice as [npc2.her] [npc2.lips] turn up into a snarl.
+		</p>
+		#IF(pc.getFetishDesire(FETISH_MASOCHIST).isPositive())
+			<p>
+				[pc.speech(That's right,)] you confirm, [pc.speech(I can tell that you're both just <i>desperate</i> to take out all of your frustrations on me. There's no need for either of you to hold back; you won't be punished in any way for treating me like your worthless little fuck-toy...)]
+			</p>
+			<p>
+				[npc.speech(In that case, <i>[pc.bitch]</i>,)] [npc.name] spits as [npc.she] reaches up to firmly grab you by the neck, [npc.speech(I'm gonna' hate-fuck you into the ground, you fucking [pc.bitch]! Fuck, I hate you so much...)]
+			</p>
+			<p>
+				[pc.speech(That's right, let it all out!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a degrading manner by your slave. [pc.speech(I'll be a good-)]
+			</p>
+			<p>
+				Your words are interrupted as [npc2.name] steps forwards and suddenly delivers a stinging slap to your face. Through clenched teeth, [npc2.she] snarls, [npc2.speech(Shut your fucking mouth, you worthless [pc.bitch]!)]
+			</p>
+		#ELSE
+			<p>
+				[pc.speech(That's right,)] you confirm, [pc.speech(I can tell that you're both just <i>desperate</i> to take out all of your frustrations on me. You can have your fun with me; you won't get into trouble, I promise...)]
+			</p>
+			<p>
+				[npc.speech(Fine, <i>[pc.bitch]</i>,)] [npc.name] spits as [npc.she] firmly grabs your [pc.hips] and pulls you into [npc.herHim], [npc.speech(I'm gonna' give you a real good hate-fucking!)]
+			</p>
+			<p>
+				[pc.speech(Oh, yes, give it to me!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a manner by your
+				#IF(npc.isSlave() && npc2.isSlave())
+					 slaves.
+				#ELSE
+					 slave and companion.
+				#ENDIF
+			</p>
+			<p>
+				Reaching up to grab your chin and turn your head to one side, [npc2.name] presses [npc2.her] [npc2.lips+] against yours, giving you a rough, forceful kiss, before pulling back and snarling through clenched teeth, [npc2.speech(...)]
+			</p>
+		#ENDIF
+	#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+		<p>
+			[npc2.speech(Oh, feeling horny #IF(npc2.isSlave())for your slave#ENDIF, are you, [pc.name]?)] [npc2.name] coyly asks, gazing lustfully into your [pc.eyes] as [npc2.she] steps forwards and places one [npc2.hand] on your [pc.ass+], before giving it a firm squeeze.
+		</p>
+		<p>
+			[npc.speech(You'd let us fuck you?)] [npc2.name] asks, barely managing to hide the contempt in [npc2.her] voice as [npc2.her] [npc2.lips] turn up into a snarl.
+		</p>
+		#IF(pc.getFetishDesire(FETISH_MASOCHIST).isPositive())
+			<p>
+				[pc.speech(That's right,)] you confirm, [pc.speech(I can tell that you're just <i>desperate</i> to take out all of your frustrations on me, [npc.name]. There's no need for you to hold back; you won't be punished in any way for treating me like your worthless little fuck-toy...)]
+			</p>
+			<p>
+				[npc.speech(In that case, <i>[pc.bitch]</i>,)] [npc.name] spits as [npc.she] steps up beside [npc2.name], before reaching up to firmly grab you by the neck. [npc.speech(I'm gonna' hate-fuck you into the ground, you fucking [pc.bitch]! Fuck, I hate you so much...)]
+			</p>
+			<p>
+				[pc.speech(That's right, let it all out!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a degrading manner#IF(npc.isSlave()) by your slave#ENDIF. [pc.speech(I'll be a good-)]
+			</p>
+			<p>
+				Your words are interrupted as [npc.name] releases your neck, before suddenly delivering a stinging slap to your face. Through clenched teeth, [npc.she] snarls, [npc.speech(Shut your fucking mouth, you worthless [pc.bitch]!)]
+			</p>
+		#ELSE
+			<p>
+				[pc.speech(That's right,)] you confirm, [pc.speech(I can tell that you're just <i>desperate</i> to take out all of your frustrations on me, [npc.name]. You can have your fun with me; you won't get into trouble, I promise...)]
+			</p>
+			<p>
+				[npc.speech(Fine, <i>[pc.bitch]</i>,)] [npc.name] spits as [npc.she] steps up beside [npc2.name] to glare into your [pc.eyes]. [npc.speech(I'm gonna' give you a real good hate-fucking!)]
+			</p>
+			<p>
+				[pc.speech(Oh, yes, give it to me!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a manner by your
+				#IF(npc.isSlave())
+					 slave.
+				#ELSE
+					 hateful companion.
+				#ENDIF
+			</p>
+			<p>
+				Reaching up to grab your chin and turn your head to one side, [npc.name] presses [npc.her] [npc.lips+] against yours, giving you a rough, forceful kiss, before pulling back and snarling through clenched teeth, [npc.speech(I've wanted to do this to you for a long time...)]
+			</p>
+		#ENDIF
+	#ELSEIF(npc2.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+		<p>
+			[npc.speech(Oh, feeling horny #IF(npc.isSlave())for your slave#ENDIF, are you, [pc.name]?)] [npc.name] coyly asks, gazing lustfully into your [pc.eyes] as [npc.she] steps forwards and places one [npc.hand] on your [pc.ass+], before giving it a firm squeeze.
+		</p>
+		<p>
+			[npc2.speech(You'd let us fuck you?)] [npc2.name] asks, barely managing to hide the contempt in [npc2.her] voice as [npc2.her] [npc2.lips] turn up into a snarl.
+		</p>
+		#IF(pc.getFetishDesire(FETISH_MASOCHIST).isPositive())
+			<p>
+				[pc.speech(That's right,)] you confirm, [pc.speech(I can tell that you're just <i>desperate</i> to take out all of your frustrations on me, [npc2.name]. There's no need for you to hold back; you won't be punished in any way for treating me like your worthless little fuck-toy...)]
+			</p>
+			<p>
+				[npc2.speech(In that case, <i>[pc.bitch]</i>,)] [npc2.name] spits as [npc2.she] steps up beside [npc.name], before reaching up to firmly grab you by the neck. [npc2.speech(I'm gonna' hate-fuck you into the ground, you fucking [pc.bitch]! Fuck, I hate you so much...)]
+			</p>
+			<p>
+				[pc.speech(That's right, let it all out!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a degrading manner#IF(npc2.isSlave()) by your slave#ENDIF. [pc.speech(I'll be a good-)]
+			</p>
+			<p>
+				Your words are interrupted as [npc2.name] releases your neck, before suddenly delivering a stinging slap to your face. Through clenched teeth, [npc2.she] snarls, [npc2.speech(Shut your fucking mouth, you worthless [pc.bitch]!)]
+			</p>
+		#ELSE
+			<p>
+				[pc.speech(That's right,)] you confirm, [pc.speech(I can tell that you're just <i>desperate</i> to take out all of your frustrations on me, [npc2.name]. You can have your fun with me; you won't get into trouble, I promise...)]
+			</p>
+			<p>
+				[npc2.speech(Fine, <i>[pc.bitch]</i>,)] [npc2.name] spits as [npc2.she] steps up beside [npc.name] to glare into your [pc.eyes]. [npc2.speech(I'm gonna' give you a real good hate-fucking!)]
+			</p>
+			<p>
+				[pc.speech(Oh, yes, give it to me!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a manner by your
+				#IF(npc2.isSlave())
+					 slave.
+				#ELSE
+					 hateful companion.
+				#ENDIF
+			</p>
+			<p>
+				Reaching up to grab your chin and turn your head to one side, [npc2.name] presses [npc2.her] [npc2.lips+] against yours, giving you a rough, forceful kiss, before pulling back and snarling through clenched teeth, [npc2.speech(I've wanted to do this to you for a long time...)]
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			[npc2.speech(Oh, feeling horny #IF(npc2.isSlave())for your #IF(npc.isSlave())slaves#ELSEslave#ENDIF#ENDIF, are you, [pc.name]?)] [npc2.name] coyly asks, gazing lustfully into your [pc.eyes] as [npc2.she] steps forwards and places one [npc2.hand] on your [pc.ass+], before giving it a firm squeeze.
+		</p>
+		<p>
+			[npc.speech([pc.She] just can't resist us,)] [npc.name] states, following [npc2.namePos] lead as [npc.she] moves up beside you, before planting a wet kiss on your [pc.lips+].
+		</p>
+		<p>
+			[npc2.speech(You take [pc.her] mouth,)] [npc2.name] says to [npc.name], [npc2.speech([pc.Her] ass belongs to me.)]
+		</p>
+		<p>
+			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
+		</p>
+	#ENDIF
+	<p>
+		[npc2.speech(You take [pc.her] mouth,)] [npc2.name] says to [npc.name], [npc2.speech([pc.Her] ass belongs to me.)]
+	</p>
+	<p>
+		Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine!)]
+	</p>
+	<p>
+		#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			With agreement from [npc.name], [npc2.name] takes hold of your [pc.hips] and pulls you down onto your knees as [npc2.she] drops down behind you.
+		#ELSE
+			With agreement from [npc.name], [npc2.name] takes hold of your [pc.hips] and pushes you down onto your knees, before stepping forwards and positioning [npc2.her] [npc2.legConfiguration] body over the top of you, ready to mount you.
+		#ENDIF
+	</p>
+	<p>
+		#IF(npc.getLegConfiguration().isBipedalPositionedGenitals() && pc.getLegConfiguration().isBipedalPositionedGenitals())
+			Kneeling down before you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
+		#ELSEIF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+			Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
+		#ELSE
+			Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
+		#ENDIF
+		 With the two of them now ready to start fucking you on either end, you can't help but let out a desperate, horny [pc.moan]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- npc is the one fucking you and npc2 -->
+	<htmlContent tag="SEX_SIDE_BY_SIDE_AS_SUB_START"><![CDATA[
+	<p>
+		[pc.speech(You know, I was thinking that this would be the perfect opportunity for you to have some fun with [npc2.name] and I,)] you tease, turning to face [npc.name] as you ask, [pc.speech(You want to fuck both of us at once, don't you?)]
+	</p>
+	#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+		<p>
+			[npc.speech(You mean you'd let me fuck you?)] [npc.name] asks, barely managing to hide the contempt in [npc.her] voice as [npc.her] [npc.lips] turn up into a snarl.
+		</p>
+		#IF(pc.getFetishDesire(FETISH_MASOCHIST).isPositive())
+			<p>
+				[pc.speech(That's right,)] you confirm, [pc.speech(I can tell that you're just <i>desperate</i> to take out all of your frustrations on me, [npc.name]. There's no need for you to hold back; you won't be punished in any way for treating me like your worthless little fuck-toy...)]
+			</p>
+			<p>
+				[npc.speech(In that case, <i>[pc.bitch]</i>,)] [npc.name] spits as [npc.she] steps up before you and [npc2.name], [npc.speech(I'm gonna' hate-fuck you into the ground, you fucking [pc.bitch]! Fuck, I hate you so much...)]
+			</p>
+			<p>
+				[pc.speech(That's right, let it all out!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a degrading manner#IF(npc.isSlave()) by your slave#ENDIF. [pc.speech(I'll be a good-)]
+			</p>
+			<p>
+				Your words are interrupted as [npc.name] suddenly delivers a stinging slap to your face, before wasting no time in grabbing both you and [npc2.name] by the shoulders and pushing the two of you down onto all fours, side-by-side. Through clenched teeth, [npc.she] snarls, [npc.speech(You keep your fucking mouth shut, [pc.bitch], unless it's to beg for me to fuck you!)]
+			</p>
+		#ELSE
+			<p>
+				[pc.speech(That's right,)] you confirm, [pc.speech(I can tell that you're just <i>desperate</i> to take out all of your frustrations on me, [npc.name]. You can have your fun with me; you won't get into trouble, I promise...)]
+			</p>
+			<p>
+				[npc.speech(Fine, <i>[pc.bitch]</i>,)] [npc.name] spits as [npc2.she] steps up before you and [npc2.name], [npc2.speech(I'm gonna' give you a real good hate-fucking!)]
+			</p>
+			<p>
+				[pc.speech(Oh, yes, give it to me!)] you reply, biting your [pc.lip] in delight as you relish being treated in such a manner by your
+				#IF(npc2.isSlave())
+					 slave.
+				#ELSE
+					 hateful companion.
+				#ENDIF
+			</p>
+			<p>
+				Grabbing both you and [npc2.name] by the shoulders, [npc.name] pushes the two of you down onto all fours, side-by-side, before snarling through clenched teeth, [npc2.speech(I've wanted to do this to you for a long time...)]
+			</p>
+		#ENDIF
+		<p>
+			#IF(npc2.getFetishDesire(FETISH_MASOCHIST).isPositive())
+				[npc2.speech(Don't go easy on me, either!)] [npc2.name] calls out as [npc2.she] glances back over [npc2.her] shoulder and pouts at [npc.name].
+			#ELSE
+				[npc2.speech(Just give [pc.name] most of the rough stuff,)] [npc2.name] says, glancing back over [npc2.her] shoulder to winks at [npc.name].
+			#ENDIF
+		</p>
+		<p>
+			Dropping down onto [npc.her] knees behind the two of you, [npc.name] reaches forwards to grab your asses in each [npc.hand], before delivering a particularly sharp slap to yours as [npc.she] [npc.moans], [npc.speech(I wonder which of you I'll fuck first...)]
+		</p>
+	#ELSE
+		<p>
+			[npc.speech(Oh fuck yeah,)] [npc.name] eagerly replies, wasting no time before grabbing both you and [npc2.name] by the shoulders and pushing the two of you down onto all fours, side-by-side.
+		</p>
+		<p>
+			#IF(pc.isFeminine())
+				[npc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder and seductively biting your [pc.lip].
+			#ELSE
+				[npc.speech(That's right, now come and take us!)] you [pc.moan], looking back over your shoulder to give [npc.name] a charming grin.
+			#ENDIF
+		</p>
+		<p>
+			#IF(npc2.isFeminine())
+				[npc2.speech(That's right, put us in our place!)] [npc2.name] joins in, following your lead as [npc2.she] glances back over [npc2.her] shoulder and bats [npc2.her] eyelids at [npc.name].
+			#ELSE
+				[npc2.speech(That's right, put us in our place!)] [npc2.name] joins in, following your lead as [npc2.she] glances back over [npc2.her] shoulder and winks at [npc.name].
+			#ENDIF
+		</p>
+		<p>
+			Dropping down onto [npc.her] knees behind the two of you, [npc.name] prepares to do exactly as you say, and, reaching forwards to grab your asses in each [npc.hand], [npc.she] [npc.moans], [npc.speech(I wonder which of you I'll fuck first...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- END Submissive sex actions -->
+	
+</dialogue>

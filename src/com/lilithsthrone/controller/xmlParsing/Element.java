@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 
@@ -50,7 +52,16 @@ public class Element {
 			String fileDirectory = xmlFile.getAbsolutePath();
 			Document parsedDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
 			parsedDocument.getDocumentElement().normalize();
-			return new Element(parsedDocument.getDocumentElement(),fileDirectory, parsedDocument);
+			return new Element(parsedDocument.getDocumentElement(), fileDirectory, parsedDocument);
+			
+		} catch(Exception e){
+			throw new XMLLoadException(e);
+		}
+	}
+
+	public static Element getElement(org.w3c.dom.Element w3cElement, String fileDirectory, org.w3c.dom.Document document) throws XMLLoadException{
+		try{
+			return new Element(w3cElement, "", document);
 			
 		} catch(Exception e){
 			throw new XMLLoadException(e);
@@ -75,10 +86,10 @@ public class Element {
 	 * @param name String name of the attribute to return value of
 	 *
 	 * @return Attribute as String, for example:
-	 * {@code <element attribute = "value"></element>} returns "value".
+	 * {@code <element attribute = "value"></element>} returns "value". Returns an empty String if no such attribute was present.
 	 */
 	public String getAttribute(String name) {
-	return innerElement.getAttribute(name);
+		return innerElement.getAttribute(name);
 	}
 
 	/**

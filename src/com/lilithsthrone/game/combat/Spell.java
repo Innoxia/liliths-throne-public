@@ -10,8 +10,6 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.effects.TreeEntry;
@@ -23,6 +21,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -1889,15 +1888,15 @@ public enum Spell {
 					} else if(stealItem && (rnd<0.5 || (clothingToSteal==null))) {
 						AbstractItem item = null;
 						if(!target.getAllItemsInInventory().isEmpty()) {
-							item = target.getAllItemsInInventory().get(Util.random.nextInt(target.getAllItemsInInventory().size()));
+							item = Util.randomItemFrom(target.getAllItemsInInventory().keySet());
 						}
 						AbstractWeapon weapon = null;
 						if(!target.getAllWeaponsInInventory().isEmpty()) {
-							weapon = target.getAllWeaponsInInventory().get(Util.random.nextInt(target.getAllWeaponsInInventory().size()));
+							weapon = Util.randomItemFrom(target.getAllWeaponsInInventory().keySet());
 						}
 						AbstractClothing clothing = null;
 						if(!target.getAllClothingInInventory().isEmpty()) {
-							clothing = target.getAllClothingInInventory().get(Util.random.nextInt(target.getAllClothingInInventory().size()));
+							clothing = Util.randomItemFrom(target.getAllClothingInInventory().keySet());
 						}
 						double itemStealRnd = Math.random();
 						if(item!=null && (itemStealRnd<0.33 || (weapon==null && clothing==null))) {
@@ -2114,7 +2113,7 @@ public enum Spell {
 				if(success) {
 					target.setHealthPercentage(0);
 					target.setManaPercentage(0);
-					target.setLust(100);
+					target.setLustNoText(100);
 					descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 					if(target.isPlayer()) {
 						descriptionSB.append(
@@ -2249,6 +2248,10 @@ public enum Spell {
 					"Lasts for [style.colourGood(3 turns)]")) {
 		
 		@Override
+		public boolean isSpellBook() {
+			return false;
+		}
+		
 		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			descriptionSB.setLength(0);
@@ -2296,6 +2299,10 @@ public enum Spell {
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25)), Util.newArrayListOfValues("Lasts for [style.colourGood(5 turns)]")) {
 		
 		@Override
+		public boolean isSpellBook() {
+			return false;
+		}
+		
 		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			descriptionSB.setLength(0);
@@ -2328,14 +2335,14 @@ public enum Spell {
 	
 
 	
-	DARK_SIREN_BANEFUL_FISSURE(false,
+	DARK_SIREN_SIRENS_CALL(false,
 			SpellSchool.AIR,
 			SpellType.OFFENSIVE,
 			DamageType.PHYSICAL,
 			false,
-			"Baneful Fissure",
-			"dark_siren_baneful_fissure",
-			"Creates a long-lasting fissure in the ground, from which poisonous vapours rise to choke and stifle all nearby enemies.",
+			"Siren's Call",
+			"dark_siren_sirens_call",
+			"Unleashes a reverberating scream, the power of which causes the ground to split open. From this fissure, poisonous vapours rise to choke and stifle all nearby enemies.",
 			10,
 			DamageVariance.NONE,
 			200,
@@ -2345,8 +2352,12 @@ public enum Spell {
 			Util.newArrayListOfValues(
 					"<b>25</b> [style.colourPoison(Poison Damage)] per turn for [style.colourGood(10 turns)]",
 					"Affects [style.colourExcellent(all enemies)]")) {
-		
+
 		@Override
+		public boolean isSpellBook() {
+			return false;
+		}
+		
 		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
 
 			descriptionSB.setLength(0);
@@ -2365,7 +2376,14 @@ public enum Spell {
 										"Concentrating on the immense arcane power within [npc.her] scythe, [npc.name] smites down into the ground beneath [npc2.namePos] [npc2.feet], splitting the earth and summoning forth poison fumes!")
 								+"</p>");
 
-			descriptionSB.append(getDamageDescription(caster, target, damage, true, isCritical));
+			descriptionSB.append(getDamageDescription(caster, target, damage, isHit, isCritical));
+			
+			// If attack hits, apply damage. Status effect always applies.:
+			if (isHit) {
+				if(damage>0) {
+					descriptionSB.append(applyDamage(caster, target, damage));
+				}
+			}
 			
 			if(Combat.getEnemies().contains(target)) {
 				for(NPC combatant : Combat.getEnemies()) {
@@ -2513,12 +2531,8 @@ public enum Spell {
 				System.err.println("Error! Spell icon file does not exist (Trying to read from '"+pathName+"')!");
 			}
 			SVGString = Util.inputStreamToString(is);
-
-			SVGString = SVGString.replaceAll("#ff2a2a", damageType.getMultiplierAttribute().getColour().getShades()[0]);
-			SVGString = SVGString.replaceAll("#ff5555", damageType.getMultiplierAttribute().getColour().getShades()[1]);
-			SVGString = SVGString.replaceAll("#ff8080", damageType.getMultiplierAttribute().getColour().getShades()[2]);
-			SVGString = SVGString.replaceAll("#ffaaaa", damageType.getMultiplierAttribute().getColour().getShades()[3]);
-			SVGString = SVGString.replaceAll("#ffd5d5", damageType.getMultiplierAttribute().getColour().getShades()[4]);
+			
+			SVGString = SvgUtil.colourReplacement(this.toString(), damageType.getMultiplierAttribute().getColour(), SVGString);
 			
 			is.close();
 
@@ -2544,8 +2558,7 @@ public enum Spell {
 		}
 	}
 
-	public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical)
-	{
+	public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 		return applyEffect(caster, target, null, null, isHit, isCritical);
 	}
 
@@ -2553,6 +2566,10 @@ public enum Spell {
 
 	public List<String> getModifiersAsStringList() {
 		return modifiersList;
+	}
+	
+	public boolean isSpellBook() {
+		return true;
 	}
 	
 	public boolean isForbiddenSpell() {
@@ -2654,7 +2671,7 @@ public enum Spell {
 					} else {
 						if(damage>0) {
 							damageCostDescriptionSB.append(UtilText.parse(target,
-									"You [style.boldExcellent(critically)] hit [npc.name] for " + damage + " " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
+									"You [style.boldExcellent(critically)] hit [npc.name] for <b>" + damage + "</b> " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
 						}
 						if(appliesEffects) {
 							damageCostDescriptionSB.append(" You [style.boldExcellent(critically)] cast the spell, doubling its duration!");
@@ -2666,7 +2683,7 @@ public enum Spell {
 					} else {
 						if(damage>0) {
 							damageCostDescriptionSB.append(UtilText.parse(target,
-									"You hit [npc.name] for " + damage + " " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
+									"You hit [npc.name] for <b>" + damage + "</b> " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
 						}
 					}
 				}
@@ -2678,7 +2695,7 @@ public enum Spell {
 					} else {
 						if(damage>0) {
 							damageCostDescriptionSB.append(UtilText.parse(caster, target,
-									"[npc1.Name] [style.boldExcellent(critically)] hits " + (target.isPlayer()?"you":"[npc2.name]")+" for " + damage + " " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
+									"[npc1.Name] [style.boldExcellent(critically)] hits " + (target.isPlayer()?"you":"[npc2.name]")+" for <b>" + damage + "</b> " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
 						}
 						if(appliesEffects) {
 							damageCostDescriptionSB.append(UtilText.parse(caster, " [npc.Name] [style.boldExcellent(critically)] casts the spell, doubling its duration!"));
@@ -2690,7 +2707,7 @@ public enum Spell {
 					} else {
 						if(damage>0) {
 							damageCostDescriptionSB.append(UtilText.parse(caster, target,
-									"[npc1.Name] hits " + (target.isPlayer()?"you":"[npc2.name]")+" for " + damage + " " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
+									"[npc1.Name] hits " + (target.isPlayer()?"you":"[npc2.name]")+" for <b>" + damage + "</b> " + damageType.getMultiplierAttribute().getColouredName("b") + "!"));
 						}
 					}
 				}
@@ -3042,46 +3059,36 @@ public enum Spell {
 	// Combat maneuver compatibility
 	// These functions are almost identical to the ones in CombatMove class,  with modifications to fit spells as necessary. Refer to CombatMove class for information.
 
-	public int getAPCost()
-	{
+	public int getAPCost() {
 		return 1; // Normally just 1 AP.
 	}
 
-	public int getCooldown()
-	{
+	public int getCooldown() {
 		return 0; // Normally no CD.
 	}
 
-	public boolean isCanTargetEnemies()
-	{
+	public boolean isCanTargetEnemies() {
 		return true;
 	}
 
-	public boolean isCanTargetAllies()
-	{
+	public boolean isCanTargetAllies() {
 		return true;
 	}
 
-	public boolean isCanTargetSelf()
-	{
+	public boolean isCanTargetSelf() {
 		return true;
 	}
 
-	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies)
-	{
-		if(isCanTargetAllies() && allies.isEmpty())
-		{
+	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		if(isCanTargetAllies() && allies.isEmpty()) {
 			return 0.0f;
 		}
 		return (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(CombatMoveType.SPELL);
 	}
 
-	public GameCharacter getPreferredTarget(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies)
-	{
-		if(isCanTargetEnemies())
-		{
-			if(CombatMove.shouldBlunder())
-			{
+	public GameCharacter getPreferredTarget(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		if(isCanTargetEnemies()) {
+			if(CombatMove.shouldBlunder()) {
 				return enemies.get(Util.random.nextInt(enemies.size()));
 			}
 			else
@@ -3099,10 +3106,8 @@ public enum Spell {
 				return potentialCharacter;
 			}
 		}
-		if(isCanTargetAllies() && !allies.isEmpty())
-		{
-			if(CombatMove.shouldBlunder())
-			{
+		if(isCanTargetAllies() && !allies.isEmpty()) {
+			if(CombatMove.shouldBlunder()) {
 				return allies.get(Util.random.nextInt(allies.size()));
 			}
 			else
@@ -3123,23 +3128,19 @@ public enum Spell {
 		return source;
 	}
 
-	public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
-	{
+	public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
 		return "Cast "
 				+ "<span style='color:" + getSpellSchool().getColour().toWebHexString() + ";'>"
 				+ getName() + "</span>" + " spell.";
 	}
 
-	public String perform(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
-	{
-		return this.applyEffect(source, target, enemies, allies, true, canCrit(source, target, enemies, allies));
+	public String perform(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		return this.applyEffect(source, target, enemies, allies, true, canCrit(source, this.getDamageType(), target, enemies, allies));
 	}
 
 	// Applies mana cost effects here. If overriden, don't forget to call it unless it's a free spell.
-	public void performOnSelection(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
-	{
-		if(getSpellSchool() == SpellSchool.FIRE)
-		{
+	public void performOnSelection(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		if(getSpellSchool() == SpellSchool.FIRE) {
 			source.burnMana(getModifiedCost(source));
 		}
 		else
@@ -3148,16 +3149,28 @@ public enum Spell {
 		}
 	}
 
-	public void applyDisruption(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
-	{
+	public void applyDisruption(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
 		// Override. Note that disrupted spells don't disrupt their mana.
 	}
 
+    public String getCritRequirements(GameCharacter source, DamageType dt, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    	StringBuilder sb = new StringBuilder();
+    	
+    	if(this.getSpellSchool() == SpellSchool.FIRE) {
+	    	sb.append("This move will critically hit if:<br/>");
+	    	
+	    	sb.append(UtilText.parse(source,
+	    			source.getHealth() == 1
+	    				?"[style.colourExcellent(- [npc.NamePos] energy falls below 25%.)]"
+	    				:"- [npc.NamePos] energy falls below 10%."));
+    	}
+    	
+    	return sb.toString();
+    }
+	
 	//Differs from normal version; spells have special crit requirements.
-	public boolean canCrit(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies)
-	{
-		if(this.getSpellSchool() == SpellSchool.FIRE && source.getHealth() == 1) // Fire school spells crit on 1 health.
-		{
+	public boolean canCrit(GameCharacter source, DamageType dt, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		if(this.getSpellSchool() == SpellSchool.FIRE && source.getHealthPercentage()<=0.25f) { // Fire school spells crit when below 25% health.
 			return true;
 		}
 		return false;

@@ -1,57 +1,74 @@
 package com.lilithsthrone.game.character.body.types;
 
+import com.lilithsthrone.utils.Util;
+
 /**
  * @since 0.2.10
- * @version 0.2.10
+ * @version 0.3.1
  * @author Innoxia
  */
-public enum FootType {
+public class FootType {
 	
-	HUMANOID("humanoid", "foot", "feet", "toe", "toes", "[npc.SheHasFull] human-like feet."),
+	public static AbstractFootType HUMANOID = new AbstractFootType("humanoid",
+			"foot",
+			"feet",
+			Util.newArrayListOfValues("masculine"),
+			Util.newArrayListOfValues("feminine", "soft", "delicate", "slender"),
+			"toe",
+			"toes",
+			Util.newArrayListOfValues("masculine"),
+			Util.newArrayListOfValues("feminine", "soft", "delicate", "slender"),
+			"footjob",
+			"[npc.SheHasFull] human-like feet.",
+			Util.newArrayListOfValues(FootStructure.PLANTIGRADE)) {
+	};
 
-	PAWS("paw-like", "paw", "paws", "toe", "toes", "[npc.SheHasFull] paw-like feet."),
+	public static AbstractFootType PAWS = new AbstractFootType("paw-like",
+			"paw",
+			"paws",
+			Util.newArrayListOfValues("masculine","padded"),
+			Util.newArrayListOfValues("feminine", "soft", "padded", "delicate", "slender"),
+			"toe",
+			"toes",
+			Util.newArrayListOfValues("masculine", "padded"),
+			Util.newArrayListOfValues("feminine", "soft", "padded", "delicate", "slender"),
+			"footjob",
+			"[npc.SheHasFull] paw-like feet.",
+			Util.newArrayListOfValues(
+					FootStructure.PLANTIGRADE,
+					FootStructure.DIGITIGRADE)) {
+	};
 
-	HOOFS("hoof-like", "hoof", "hoofs", "hoof", "hoof", "[npc.SheHasFull] hoofs in place of feet."),
+	public static AbstractFootType HOOFS = new AbstractFootType("hoof-like",
+			"hoof",
+			"hoofs",
+			Util.newArrayListOfValues("masculine","hard"),
+			Util.newArrayListOfValues("feminine", "delicate", "hard"),
+			"hoof",
+			"hoofs",
+			Util.newArrayListOfValues("masculine", "hard"),
+			Util.newArrayListOfValues("feminine", "hard", "delicate"),
+			"hoofjob",
+			"[npc.SheHasFull] hoofs in place of feet.",
+			Util.newArrayListOfValues(
+					FootStructure.UNGULIGRADE)) {
+	};
 
-	TALONS("bird-like", "talon", "talons", "claw", "claws", "[npc.SheHasFull] bird-like talons in place of feet.");
+	public static AbstractFootType TALONS = new AbstractFootType("bird-like",
+			"talon",
+			"talons",
+			Util.newArrayListOfValues("masculine","clawed"),
+			Util.newArrayListOfValues("feminine", "clawed", "slender"),
+			"claw",
+			"claws",
+			Util.newArrayListOfValues("masculine", "sharp"),
+			Util.newArrayListOfValues("feminine", "sharp", "slender"),
+			"clawjob",
+			"[npc.SheHasFull] bird-like talons in place of feet.",
+			Util.newArrayListOfValues(
+					FootStructure.PLANTIGRADE,
+					FootStructure.DIGITIGRADE,
+					FootStructure.UNGULIGRADE)) {
+	};
 	
-	private String typeName;
-	private String singularName;
-	private String pluralName;
-	private String toesSingularName;
-	private String toesPluralName;
-	private String description;
-
-	private FootType(String typeName, String singularName, String pluralName, String toesSingularName, String toesPluralName, String description) {
-		this.typeName = typeName;
-		this.singularName = singularName;
-		this.pluralName = pluralName;
-		this.toesSingularName = toesSingularName;
-		this.toesPluralName = toesPluralName;
-		this.description = description;
-	}
-
-	public String getTypeName() {
-		return typeName;
-	}
-
-	public String getSingularName() {
-		return singularName;
-	}
-
-	public String getPluralName() {
-		return pluralName;
-	}
-
-	public String getToesSingularName() {
-		return toesSingularName;
-	}
-
-	public String getToesPluralName() {
-		return toesPluralName;
-	}
-
-	public String getDescription() {
-		return description;
-	}
 }

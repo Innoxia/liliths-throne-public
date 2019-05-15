@@ -62,11 +62,9 @@ public enum DamageType {
 			SpellSchool.EARTH,
 			DamageType.ENERGY) {
 		@Override
-		public int damageTarget(GameCharacter target, GameCharacter source, int damageAmount)
-		{
+		public int damageTarget(GameCharacter target, GameCharacter source, int damageAmount) {
 			// Flame cloak gives fire melee damage at a cost of arcane.
-			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES))
-			{
+			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES)) {
 				// Burning mana for each melee strike proportional to it's unchanged damage.
 				source.burnMana(damageAmount * 0.25f);
 				// Increasing damage amount by 50%
@@ -76,11 +74,9 @@ public enum DamageType {
 		}
 
 		@Override
-		public DamageType getSuperDamage(GameCharacter target, GameCharacter source)
-		{
+		public DamageType getSuperDamage(GameCharacter target, GameCharacter source) {
 			// Flame cloak gives fire melee damage
-			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES))
-			{
+			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES)) {
 				return FIRE;
 			}
 
@@ -118,11 +114,9 @@ public enum DamageType {
 			SpellSchool.ARCANE,
 			null) {
 		@Override
-		public int damageTarget(GameCharacter target, GameCharacter source, int damageAmount)
-		{
+		public int damageTarget(GameCharacter target, GameCharacter source, int damageAmount) {
 			damageAmount = shieldCheck(target, source, damageAmount);
-			if(damageAmount > 0)
-			{
+			if(damageAmount > 0) {
 				target.setLust(target.getLust()+damageAmount);
 			}
 			return damageAmount;
@@ -189,51 +183,49 @@ public enum DamageType {
 	 */
 	public int damageTarget(GameCharacter target, GameCharacter source, int damageAmount) {
 		damageAmount = shieldCheck(target, source, damageAmount);
-		if(damageAmount > 0)
-		{
+		if(damageAmount > 0) {
 			target.setHealth(target.getHealth()-damageAmount);
 		}
 		return damageAmount;
 	}
 
-	public int shieldCheckNoDamage(GameCharacter target, GameCharacter source, int damageAmount)
-	{
-		if(this.getSuperDamage(target, source) != null)
-		{
+	/**
+	 * @return How much damage this damage type will do vs the target, taking into account the target's shields. <br/>
+	 * <b>Does not</b> deplete the target's shields.
+	 */
+	public int shieldCheckNoDamage(GameCharacter target, GameCharacter source, int damageAmount) {
+		if(this.getSuperDamage(target, source) != null) {
 			damageAmount = this.getSuperDamage(target, source).shieldCheckNoDamage(target, source, damageAmount);
 		}
-		if(target.getShields(this) > 0)
-		{
+		if(target.getShields(this) > 0) {
 			damageAmount -= target.getShields(this);
-			if(damageAmount < 0)
-			{
+			if(damageAmount < 0) {
 				damageAmount = 0;
 			}
 		}
 		return damageAmount;
 	}
 
-	public int shieldCheck(GameCharacter target, GameCharacter source, int damageAmount)
-	{
-		if(this.getSuperDamage(target, source) != null)
-		{
+	/**
+	 * @return How much damage this damage type will do vs the target, taking into account the target's shields. <br/>
+	 * <b>Does</b> deplete the target's shields.
+	 */
+	public int shieldCheck(GameCharacter target, GameCharacter source, int damageAmount) {
+		if(this.getSuperDamage(target, source) != null) {
 			damageAmount = this.getSuperDamage(target, source).shieldCheck(target, source, damageAmount);
 		}
-		if(target.getShields(this) > 0)
-		{
+		if(target.getShields(this) > 0) {
 			int oldShields = target.getShields(this);
 			target.setShields(this, target.getShields(this) - damageAmount);
 			damageAmount -= oldShields;
-			if(damageAmount < 0)
-			{
+			if(damageAmount < 0) {
 				damageAmount = 0;
 			}
 		}
 		return damageAmount;
 	}
 
-	public DamageType getSuperDamage(GameCharacter target, GameCharacter source)
-	{
+	public DamageType getSuperDamage(GameCharacter target, GameCharacter source) {
 		return this.superDamage;
 	}
 	

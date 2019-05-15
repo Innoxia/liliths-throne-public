@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.clothing;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,8 +19,7 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.2.12
  * @author Innoxia, Pimgd
  */
-public class BlockedParts implements Serializable, XMLSaving {
-	private static final long serialVersionUID = 1L;
+public class BlockedParts implements XMLSaving {
 	
 	public DisplacementType displacementType;
 	public List<ClothingAccess> clothingAccessRequired;
@@ -39,7 +37,8 @@ public class BlockedParts implements Serializable, XMLSaving {
 	 * @param clothingAccessBlocked The clothing access that this displacement blocks/reveals.
 	 * @param concealedSlots Slots that are concealed by this displacementType.
 	 */
-	public BlockedParts(DisplacementType displacementType,
+	public BlockedParts(
+			DisplacementType displacementType,
 			List<ClothingAccess> clothingAccessRequired,
 			List<CoverableArea> blockedBodyParts,
 			List<ClothingAccess> clothingAccessBlocked,
@@ -48,28 +47,39 @@ public class BlockedParts implements Serializable, XMLSaving {
 		this.displacementType = displacementType;
 
 		if (clothingAccessRequired != null) {
-			this.clothingAccessRequired = clothingAccessRequired;
+			this.clothingAccessRequired = new ArrayList<>(clothingAccessRequired);
 		} else {
 			this.clothingAccessRequired = new ArrayList<>();
 		}
 		
 		if (blockedBodyParts != null) {
-			this.blockedBodyParts = blockedBodyParts;
+			this.blockedBodyParts = new ArrayList<>(blockedBodyParts);
 		} else {
 			this.blockedBodyParts = new ArrayList<>();
 		}
 		
 		if (clothingAccessBlocked != null) {
-			this.clothingAccessBlocked = clothingAccessBlocked;
+			this.clothingAccessBlocked = new ArrayList<>(clothingAccessBlocked);
 		} else {
 			this.clothingAccessBlocked = new ArrayList<>();
 		}
 		
 		if (concealedSlots != null) {
-			this.concealedSlots = concealedSlots;
+			this.concealedSlots = new ArrayList<>(concealedSlots);
 		} else {
 			this.concealedSlots = new ArrayList<>();
 		}
+	}
+	
+	/**
+	 * @param blockedParts The BlockedParts to copy.
+	 */
+	public BlockedParts(BlockedParts blockedParts) {
+		this(blockedParts.displacementType,
+				blockedParts.clothingAccessRequired,
+				blockedParts.blockedBodyParts,
+				blockedParts.clothingAccessBlocked,
+				blockedParts.concealedSlots);
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -121,10 +131,13 @@ public class BlockedParts implements Serializable, XMLSaving {
 		
 		String errorCode = "Unknown Clothing";
 		Element clothingElement = ((Element) doc.getElementsByTagName("clothing").item(0));
-		if(clothingElement.getElementsByTagName("coreAtributes").getLength()>0) {
-			errorCode = ((Element) clothingElement.getElementsByTagName("coreAtributes").item(0)).getElementsByTagName("name").item(0).getTextContent(); // Support for old versions
-		} else {
-			errorCode = ((Element) clothingElement.getElementsByTagName("coreAttributes").item(0)).getElementsByTagName("name").item(0).getTextContent(); // Fix typo
+		try { // try, as when loaded when not embedded in clothing, the "clothing" element will not be found.
+			if(clothingElement.getElementsByTagName("coreAtributes").getLength()>0) {
+				errorCode = ((Element) clothingElement.getElementsByTagName("coreAtributes").item(0)).getElementsByTagName("name").item(0).getTextContent(); // Support for old versions
+			} else {
+				errorCode = ((Element) clothingElement.getElementsByTagName("coreAttributes").item(0)).getElementsByTagName("name").item(0).getTextContent(); // Fix typo
+			}
+		} catch(Exception ex) {
 		}
 		
 		List<ClothingAccess> loadedClothingAccessRequired = new ArrayList<>();

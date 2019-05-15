@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- Look in the mods folder for a commented version of this. -->
+<outfit>
+	<coreAttributes>
+		<name><![CDATA[generic mugger (masculine)]]></name>
+		
+		<description><![CDATA[Simple clothing, with the possibility of a weapon or two...]]></description>
+		
+		<femininity>MASCULINE</femininity>
+		
+		<worldTypes>
+			<world>DOMINION</world>
+			<world>SUBMISSION</world>
+		</worldTypes>
+		
+		<outfitTypes>
+		  <type>MUGGER</type>
+		</outfitTypes>
+		
+		<acceptableLegConfigurations/>
+		
+		<conditional/>
+		
+		<weight>100</weight>
+	</coreAttributes>
+	
+	<generationAttributes>
+		<clothingConditional1 constant="true"><![CDATA[RND.​nextInt(100)<=75]]></clothingConditional1>
+		<clothingConditional2 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional2> <!-- knuckle dusters or pipe -->
+		<clothingConditional3 constant="true"><![CDATA[RND.​nextInt(100)<=25]]></clothingConditional3>
+		<clothingConditional4 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional4> <!-- weapons -->
+		<clothingConditional5 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></clothingConditional5> <!-- is bipedal -->
+		
+		
+		<presetColourGroup1>
+			<randomColour>CLOTHING_BLACK</randomColour>
+			<randomColour>CLOTHING_GREEN_DRAB</randomColour>
+			<randomColour>CLOTHING_OLIVE</randomColour>
+			<randomColour>CLOTHING_BROWN_VERY_DARK</randomColour>
+		</presetColourGroup1>
+		
+		<presetColourGroup2 values="ALL_METAL"/>
+		
+		<presetColourGroup3>
+			<randomColour>CLOTHING_BLACK</randomColour>
+			<randomColour>CLOTHING_WHITE</randomColour>
+			<randomColour>CLOTHING_BLUE_DARK</randomColour>
+			<randomColour>CLOTHING_BLUE_LIGHT</randomColour>
+		</presetColourGroup3>
+		
+		
+        <mainWeapons>
+			<weapon>
+				<conditional><![CDATA[clothingConditional4 && !clothingConditional2]]></conditional>
+				<type>innoxia_pipe_pipe</type>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+			<weapon>
+				<conditional><![CDATA[clothingConditional4 && clothingConditional2]]></conditional>
+				<type>innoxia_knuckleDusters_knuckle_dusters</type>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+        </mainWeapons>
+		
+        <offhandWeapons>
+			<weapon>
+				<conditional><![CDATA[clothingConditional4 && clothingConditional2 && RND.​nextInt(100)<=50]]></conditional>
+				<type>innoxia_knuckleDusters_knuckle_dusters</type>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+        </offhandWeapons>
+		
+		
+		<guaranteedClothingEquips/>
+		
+		
+		<genericClothingType> <!-- Generic jewellery. -->
+			<itemTags/>
+			<acceptableFemininities>
+				<femininity>ANDROGYNOUS</femininity>
+				<femininity>MASCULINE</femininity>
+			</acceptableFemininities>
+			<slot/>
+			<rarity>COMMON</rarity>
+			<conditional><![CDATA[clothing.getSlot().isJewellery() && (RND.nextInt(100)<=25 || clothing.getSlot()==IS_PIERCING_EAR)]]></conditional>
+			<primaryColours>
+				<colour>presetColourGroup2</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</genericClothingType>
+		
+		
+		<clothingType>
+			<conditional><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL]]></conditional>
+			<types>
+				<type>LEG_CARGO_TROUSERS</type>
+				<type>innoxia_leg_distressed_jeans</type>
+				<type>LEG_JEANS</type>
+			</types>
+			<primaryColours>
+				<colour>CLOTHING_BLACK</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional/>
+			<types>
+				<type>TORSO_TSHIRT</type>
+				<type>TORSO_SHORT_SLEEVE_SHIRT</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[RND.​nextInt(100)<=60]]></conditional>
+			<types>
+				<type>TORSO_OVER_HOODIE</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[clothingConditional3]]></conditional>
+			<types>
+				<type>HAND_WRAPS</type>
+				<type>HAND_FINGERLESS_GLOVES</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup1</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional><![CDATA[RND.​nextInt(100)<=50]]></conditional>
+			<types>
+				<type>MOUTH_BANDANA</type>
+			</types>
+			<primaryColours values="DARK_SHADES"/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<clothingType>
+			<conditional/>
+			<types>
+				<type>GROIN_JOCKSTRAP</type>
+				<type>GROIN_BRIEFS</type>
+				<type>GROIN_BOXERS</type>
+			</types>
+			<primaryColours>
+				<colour>presetColourGroup3</colour>
+			</primaryColours>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<!-- Non-taur socks: -->
+		<clothingType>
+			<conditional><![CDATA[clothingConditional5]]></conditional>
+			<types>
+				<type>SOCK_SOCKS</type>
+			</types>
+			<primaryColours values="BLACK_OR_WHITE"/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+		<!-- Non-taur shoes: -->
+		<clothingType>
+			<conditional><![CDATA[clothingConditional5]]></conditional>
+			<types>
+				<type>FOOT_WORK_BOOTS</type>
+				<type>FOOT_TRAINERS</type>
+			</types>
+			<primaryColours/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		
+	</generationAttributes>
+
+</outfit>

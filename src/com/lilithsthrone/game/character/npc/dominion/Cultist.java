@@ -3,7 +3,6 @@ package com.lilithsthrone.game.character.npc.dominion;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -11,6 +10,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -25,11 +25,13 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -40,31 +42,32 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.88
- * @version 0.2.9
+ * @version 0.3.2
  * @author Innoxia
  */
 public class Cultist extends NPC {
 
 	private boolean requestedAnal = false;
-	private boolean sealedSex = false;
+//	private boolean sealedSex = false;
 
 	public Cultist() {
 		this(false);
 	}
 	
 	public Cultist(boolean isImported) {
-		super(isImported, null,
+		super(isImported, null, null,
 				"",
 				Util.random.nextInt(30)+30, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				15,
@@ -79,9 +82,7 @@ public class Cultist extends NPC {
 		if(!isImported) {
 			setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 	
-			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
-			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-			this.setHomeLocation();
+			this.setLocation(Main.game.getPlayer(), true);
 			
 			// BODY RANDOMISATION:
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
@@ -120,7 +121,7 @@ public class Cultist extends NPC {
 			
 			// CLOTHING:
 			
-			equipClothing(true, true, true, true);
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -147,7 +148,7 @@ public class Cultist extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		List<Colour> colours = new ArrayList<>();
 		colours.add(Colour.CLOTHING_ORANGE);
 		colours.add(Colour.CLOTHING_BLACK);
@@ -173,19 +174,22 @@ public class Cultist extends NPC {
 		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
 		
 		clothingChoices.clear();
-		clothingChoices.add(ClothingType.SOCK_THIGHHIGH_SOCKS);
+		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_sock_thighhigh_socks"));
 		equipClothingFromNowhere(AbstractClothingType.generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), witchColour, false), true, this);
 
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_DRESS, witchColour, false), true, this);
-		equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_HAT, witchColour, false), true, this);
-		
-		if(Math.random()>0.5f) {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS, witchColour, false), true, this);
+		equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", witchColour, false), true, this);
+		if(Math.random()<0.5) {
+			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", witchColour, Colour.CLOTHING_GOLD, witchColour, false), true, this);
 		} else {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WITCH_BOOTS_THIGH_HIGH, witchColour, false), true, this);
+			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", witchColour, Colour.CLOTHING_GOLD, witchColour, false), true, this);
+		}
+		if(Math.random()>0.5f) {
+			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", witchColour, false), true, this);
+		} else {
+			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_boots_thigh_high", witchColour, false), true, this);
 		}
 		
-		if(addWeapons) {
+		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
 		}
 		
@@ -212,14 +216,14 @@ public class Cultist extends NPC {
 	public boolean isUnique() {
 		return false;
 	}
-	
-	public boolean isSealedSex() {
-		return sealedSex;
-	}
-
-	public void setSealedSex(boolean sealedSex) {
-		this.sealedSex = sealedSex;
-	}
+//	
+//	public boolean isSealedSex() {
+//		return sealedSex;
+//	}
+//
+//	public void setSealedSex(boolean sealedSex) {
+//		this.sealedSex = sealedSex;
+//	}
 
 	public boolean isRequestedAnal() {
 		return requestedAnal;
@@ -244,7 +248,7 @@ public class Cultist extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return CultistDialogue.ENCOUNTER_START;
 	}
 
@@ -426,23 +430,17 @@ public class Cultist extends NPC {
 	}
 
 	@Override
-	public Set<SexPositionSlot> getSexPositionPreferences(GameCharacter target) {
-		sexPositionPreferences.clear();
-		
+	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
 		if(Sex.isInForeplay()) {
-			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS);
-			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS);
+			return slot==SexSlotBipeds.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS || slot==SexSlotBipeds.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS;
 		} else {
-			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS);
-			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS);
+			return slot==SexSlotBipeds.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS || slot==SexSlotBipeds.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS;
 		}
-		
-		return sexPositionPreferences;
 	}
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS) {
+		if(Sex.getSexPositionSlot(this)==SexSlotBipeds.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexSlotBipeds.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS) {
 			if(requestedAnal) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS);
 			} else {
@@ -455,7 +453,7 @@ public class Cultist extends NPC {
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS) {
+		if(Sex.getSexPositionSlot(this)==SexSlotBipeds.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexSlotBipeds.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS) {
 			if(requestedAnal) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			} else {
@@ -470,17 +468,22 @@ public class Cultist extends NPC {
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
 			if((Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl()) && !target.isPlayer()) {
-				return "<p>"
+				return UtilText.parse(target,
+						"<p>"
 							+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
 							+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
 							+ " [npc.speech(This is an insult to Lilith...)]"
-						+ "</p>";
+						+ "</p>");
 			} else if (!target.isPlayer()){
-				target.unequipClothingIntoVoid(target.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, equipper);
-				return "<p>"
-							+ "You pull out a condom and try to give it to [npc.name], but she simply laughs in your face before grabbing the little foil packet and tearing it in two,"
+				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
+				if(clothing!=null && clothing.getClothingType().isCondom()) {
+					target.unequipClothingIntoVoid(clothing, true, equipper);
+				}
+				return UtilText.parse(target,
+						"<p>"
+							+ "You pull out a condom and try to give it to [npc.name], but she simply laughs in your face as [npc.she] grabs the little foil packet and tears it in two,"
 							+ " [npc.speech(I don't think so! You're going to take my seed, and you're going to love it!)]"
-						+ "</p>";
+						+ "</p>");
 			}
 		}
 		

@@ -9,7 +9,7 @@
     <description><![CDATA[A pair of barbells which surround each nipple with a cute heart.]]></description>
     
     <physicalResistance>0</physicalResistance>
-    <femininity>ANDROGYNOUS</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
+    <femininity>FEMININE</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
     <slot>PIERCING_NIPPLE</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
     <rarity>COMMON</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
     

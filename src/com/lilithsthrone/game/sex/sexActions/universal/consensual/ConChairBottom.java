@@ -142,15 +142,15 @@ public class ConChairBottom {
 			if(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.NIPPLES)){
 				
 				return UtilText.returnStringAtRandom(
-						"Reaching down, [npc.name] greedily gropes and squeezes at your chest, driving the fabric of your [pc.lowClothing(nipples)] into your [pc.breasts+] as you gasp and squirm under [npc.her] touch.",
+						"Reaching down, [npc.name] greedily gropes and squeezes at your chest, driving the fabric of your [pc.lowClothing(NIPPLES)] into your [pc.breasts+] as you gasp and squirm under [npc.her] touch.",
 								
-						"Your [pc.breasts+] prove to be too tempting a target for [npc.name] to ignore, and [npc.she] eagerly starts pressing [npc.her] [npc.hands+] into the fabric of your [pc.topClothing(nipples)],"
+						"Your [pc.breasts+] prove to be too tempting a target for [npc.name] to ignore, and [npc.she] eagerly starts pressing [npc.her] [npc.hands+] into the fabric of your [pc.topClothing(NIPPLES)],"
 								+ " causing you to let out [pc.a_moan+].",
 						
 						"Your chest heaves up and down as you pant in excitement, drawing [npc.namePos] attention to your [pc.breastRows] [pc.breasts+]."
-								+ " You let out a little gasp as [npc.she] suddenly reaches down and starts groping your [pc.breasts+] through the fabric of your [pc.topClothing(nipples)].",
+								+ " You let out a little gasp as [npc.she] suddenly reaches down and starts groping your [pc.breasts+] through the fabric of your [pc.topClothing(NIPPLES)].",
 						
-						"[pc.A_moan+] escapes from between your [pc.lips+] as [npc.name] starts groping and massaging your [pc.breastRows] [pc.breasts+] through the fabric of your [pc.topClothing(nipples)].");
+						"[pc.A_moan+] escapes from between your [pc.lips+] as [npc.name] starts groping and massaging your [pc.breastRows] [pc.breasts+] through the fabric of your [pc.topClothing(NIPPLES)].");
 				
 			}else{
 				return UtilText.returnStringAtRandom(
@@ -1327,7 +1327,6 @@ public class ConChairBottom {
 				return null;
 			}
 		}
-		
 	};
 	
 	public static final SexAction PLAYER_FEEL_BREASTS = new SexAction(
@@ -1361,15 +1360,15 @@ public class ConChairBottom {
 			if(!Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.NIPPLES)){
 				return UtilText.returnStringAtRandom(
 						"Reaching up to [npc.namePos] chest, you start greedily groping and squeezing at [npc.her] [npc.breasts+],"
-								+ " driving the fabric of [npc.her] [npc.lowClothing(nipples)] into [npc.her] [npc.breasts] and causing [npc.herHim] to gasp and squirm under your touch.",
+								+ " driving the fabric of [npc.her] [npc.lowClothing(NIPPLES)] into [npc.her] [npc.breasts] and causing [npc.herHim] to gasp and squirm under your touch.",
 								
 						"You find yourself unable to resist the temptation of [npc.namePos] [npc.breasts+], and as you reach up to eagerly press your [pc.hands+]"
-								+ " into the fabric of [npc.her] [npc.topClothing(nipples)], [npc.she] lets out [npc.a_moan+].",
+								+ " into the fabric of [npc.her] [npc.topClothing(NIPPLES)], [npc.she] lets out [npc.a_moan+].",
 						
 						"Your attention is suddenly drawn to [npc.namePos] [npc.breastRows] [npc.breasts+], and you find yourself letting out a little [pc.moan] as you reach up and start groping"
-								+ " [npc.her] [npc.breasts+] through the fabric of [npc.her] [npc.topClothing(nipples)].",
+								+ " [npc.her] [npc.breasts+] through the fabric of [npc.her] [npc.topClothing(NIPPLES)].",
 						
-						"[pc.A_moan+] escapes from between [npc.namePos] [npc.lips+] as you reach up to start groping at [npc.her] [npc.breastRows] [npc.breasts+] through the fabric of [npc.her] [npc.topClothing(nipples)].");
+						"[pc.A_moan+] escapes from between [npc.namePos] [npc.lips+] as you reach up to start groping at [npc.her] [npc.breastRows] [npc.breasts+] through the fabric of [npc.her] [npc.topClothing(NIPPLES)].");
 				
 			}else{
 				return UtilText.returnStringAtRandom(

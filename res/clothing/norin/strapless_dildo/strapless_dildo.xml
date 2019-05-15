@@ -6,7 +6,7 @@
     <determiner><![CDATA[a]]></determiner>
     <name><![CDATA[strapless strap-on]]></name>
     <namePlural pluralByDefault="false"><![CDATA[strapless strap-on's]]></namePlural>
-    <description><![CDATA[A 10-inch dildo made of self-cleaning, arcane-cured silicone, which is designed to be worn vaginally. It features a textured clitoral pad, as well as a handle shaped to target the wearer's G-Spot.]]></description>
+    <description><![CDATA[A [unit.size(25)] dildo made of self-cleaning, arcane-cured silicone, which is designed to be worn vaginally. It features a textured clitoral pad, as well as a handle shaped to target the wearer's G-Spot.]]></description>
 
     <physicalResistance>0</physicalResistance>
     <femininity>ANDROGYNOUS</femininity>
@@ -52,6 +52,8 @@
       <tag>PLUGS_VAGINA</tag>
       <tag>REQUIRES_NO_PENIS</tag>
       <tag>DILDO_LARGE</tag>
+      <tag>ENABLE_SEX_EQUIP</tag>
+      <tag>TRANSPARENT</tag>
     </itemTags>
 
   </coreAttributes>

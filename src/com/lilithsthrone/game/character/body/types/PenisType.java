@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -120,33 +120,33 @@ public enum PenisType implements BodyPartTypeInterface {
 					case AVIAN:
 						return UtilText.returnStringAtRandom("avian");
 					case BOVINE:
-						return UtilText.returnStringAtRandom("bovine", "bull-", "bull-like", "bestial");
+						return UtilText.returnStringAtRandom("bovine", "bull-like", "bestial");
 					case CANINE:
-						return UtilText.returnStringAtRandom("canine", "dog-", "dog-like", "bestial");
+						return UtilText.returnStringAtRandom("canine", "dog-like", "bestial");
 					case DEMON_COMMON:
-						return UtilText.returnStringAtRandom("demonic", "demon-");
+						return UtilText.returnStringAtRandom("demonic");
 					case EQUINE:
-						return UtilText.returnStringAtRandom("equine", "horse-", "horse-like", "bestial");
+						return UtilText.returnStringAtRandom("equine", "horse-like", "bestial");
 					case REINDEER_MORPH:
-						return UtilText.returnStringAtRandom("rangiferine", "reindeer-", "reindeer-like", "bestial");
+						return UtilText.returnStringAtRandom("rangiferine", "reindeer-like", "bestial");
 					case FELINE:
-						return UtilText.returnStringAtRandom("feline", "cat-", "cat-like", "bestial");
+						return UtilText.returnStringAtRandom("feline", "cat-like", "bestial");
 					case ALLIGATOR_MORPH:
-						return UtilText.returnStringAtRandom("reptilian", "alligator-", "alligator-like");
+						return UtilText.returnStringAtRandom("reptilian", "alligator-like");
 					case HUMAN:
 						return UtilText.returnStringAtRandom("");
 					case NONE:
 						return UtilText.returnStringAtRandom("");
 					case SQUIRREL:
-						return UtilText.returnStringAtRandom("rodent", "squirrel-", "squirrel-like");
+						return UtilText.returnStringAtRandom("rodent", "squirrel-like");
 					case LUPINE:
-						return UtilText.returnStringAtRandom("lupine", "wolf-", "wolf-like", "bestial");
+						return UtilText.returnStringAtRandom("lupine", "wolf-like", "bestial");
 					case VULPINE:
-						return UtilText.returnStringAtRandom("vulpine", "fox-", "fox-like", "bestial");
+						return UtilText.returnStringAtRandom("vulpine", "fox-like", "bestial");
 					case BAT_MORPH:
 						return UtilText.returnStringAtRandom("bat-", "bat-like");
 					case RAT_MORPH:
-						return UtilText.returnStringAtRandom("rodent", "rat-", "rat-like");
+						return UtilText.returnStringAtRandom("rodent", "rat-like");
 					case RABBIT_MORPH:
 						return UtilText.returnStringAtRandom("rabbit-", "rabbit-like");
 					case DILDO:

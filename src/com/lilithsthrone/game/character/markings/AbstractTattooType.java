@@ -24,6 +24,7 @@ import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -194,11 +195,11 @@ public class AbstractTattooType extends AbstractCoreType {
 			}
 			return result;
 		}
-		return ColourListPresets.valueOf(coloursElement.getAttribute("values")).getPresetColourList();
+		return ColourListPresets.getColourListFromId(coloursElement.getAttribute("values"));
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof AbstractTattooType)
 					&& ((AbstractTattooType)o).isMod()==isMod
@@ -329,7 +330,7 @@ public class AbstractTattooType extends AbstractCoreType {
 						is.close();
 					}
 					
-					s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+					s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 					
 					addSVGStringMapping(colour, colourSecondary, colourTertiary, s);
 					

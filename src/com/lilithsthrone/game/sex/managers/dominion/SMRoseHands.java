@@ -3,9 +3,10 @@ package com.lilithsthrone.game.sex.managers.dominion;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.SexPositionType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 
 /**
  * @since 0.1.7?
@@ -14,8 +15,8 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
  */
 public class SMRoseHands extends SexManagerDefault {
 
-	public SMRoseHands(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.HANDS_ROSE,
+	public SMRoseHands(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPositionBipeds.HANDS_ROSE,
 				dominants,
 				submissives);
 	}
@@ -36,7 +37,7 @@ public class SMRoseHands extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
 		return false;
 	}
 	

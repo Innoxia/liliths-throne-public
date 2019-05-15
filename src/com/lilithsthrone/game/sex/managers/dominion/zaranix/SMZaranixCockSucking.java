@@ -3,10 +3,11 @@ package com.lilithsthrone.game.sex.managers.dominion.zaranix;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.main.Main;
 
 /**
@@ -16,8 +17,8 @@ import com.lilithsthrone.main.Main;
  */
 public class SMZaranixCockSucking extends SexManagerDefault {
 
-	public SMZaranixCockSucking(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.CHAIR_SEX_ORAL,
+	public SMZaranixCockSucking(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPositionBipeds.CHAIR_SEX_ORAL,
 				dominants,
 				submissives);
 	}
@@ -34,7 +35,7 @@ public class SMZaranixCockSucking extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Sex.getNumberOfOrgasms(Main.game.getZaranix())>0;
+		return Sex.getNumberOfOrgasms(Main.game.getNpc(Zaranix.class))>=1;
 	}
 
 }

@@ -2,7 +2,6 @@ package com.lilithsthrone.game.inventory.item;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,6 +15,7 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -24,33 +24,32 @@ import com.lilithsthrone.utils.XMLSaving;
  * @version 0.2.1
  * @author Innoxia
  */
-public class AbstractFilledBreastPump extends AbstractItem implements Serializable, XMLSaving {
+public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving {
 	
-	private static final long serialVersionUID = 1L;
 	
-	private String milkProvidor;
+	private String milkProvider;
 	private FluidMilk milk;
 	private int millilitresStored;
 	
-	public AbstractFilledBreastPump(AbstractItemType itemType, Colour colour, GameCharacter milkProvidor, FluidMilk milk, int millilitresStored) {
+	public AbstractFilledBreastPump(AbstractItemType itemType, Colour colour, GameCharacter milkProvider, FluidMilk milk, int millilitresStored) {
 		super(itemType);
 		
-		this.milkProvidor = milkProvidor.getId();
-		this.milk = new FluidMilk(milk.getType());
-		this.milk.setFlavour(milkProvidor, milk.getFlavour());
+		this.milkProvider = milkProvider.getId();
+		this.milk = new FluidMilk(milk.getType(), milk.isCrotchMilk());
+		this.milk.setFlavour(milkProvider, milk.getFlavour());
 		for(FluidModifier fm : milk.getFluidModifiers()) {
-			this.milk.addFluidModifier(milkProvidor, fm);
+			this.milk.addFluidModifier(milkProvider, fm);
 		}
 		this.colourShade = colour;
 		SVGString = getSVGString(itemType.getPathName(), colour);
 		this.millilitresStored = millilitresStored;
 	}
 	
-	public AbstractFilledBreastPump(AbstractItemType itemType, Colour colour, String milkProvidorId, FluidMilk milk, int millilitresStored) {
+	public AbstractFilledBreastPump(AbstractItemType itemType, Colour colour, String milkProviderId, FluidMilk milk, int millilitresStored) {
 		super(itemType);
 		
-		this.milkProvidor = milkProvidorId;
-		this.milk = new FluidMilk(milk.getType());
+		this.milkProvider = milkProviderId;
+		this.milk = new FluidMilk(milk.getType(), milk.isCrotchMilk());
 		this.milk.setFlavour(null, milk.getFlavour());
 		for(FluidModifier fm : milk.getFluidModifiers()) {
 			this.milk.addFluidModifier(null, fm);
@@ -61,10 +60,10 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof AbstractFilledBreastPump)
-					&& ((AbstractFilledBreastPump)o).getMilkProvidorId().equals(this.getMilkProvidorId())
+					&& ((AbstractFilledBreastPump)o).getMilkProviderId().equals(this.getMilkProviderId())
 					&& ((AbstractFilledBreastPump)o).getMilk().equals(milk);
 		} else {
 			return false;
@@ -74,7 +73,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 	@Override
 	public int hashCode() {
 		int result = super.hashCode();
-		result = 31 * result + milkProvidor.hashCode();
+		result = 31 * result + milkProvider.hashCode();
 		result = 31 * result + milk.hashCode();
 		return result;
 	}
@@ -86,7 +85,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 		
 		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
 		CharacterUtils.addAttribute(doc, element, "colour", String.valueOf(this.getColour()));
-		CharacterUtils.addAttribute(doc, element, "milkProvidor", this.getMilkProvidorId());
+		CharacterUtils.addAttribute(doc, element, "milkProvider", this.getMilkProviderId());
 		CharacterUtils.addAttribute(doc, element, "millilitresStored", String.valueOf(this.getMillilitresStored()));
 		
 		Element innerElement = doc.createElement("itemEffects");
@@ -103,12 +102,16 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 	}
 
 	public static AbstractFilledBreastPump loadFromXML(Element parentElement, Document doc) {
+		String provider = parentElement.getAttribute("milkProvider");
+		if(provider.isEmpty()) {
+			provider = parentElement.getAttribute("milkProvidor"); // Support for old versions in which I could not spell
+		}
 		return new AbstractFilledBreastPump(
 				ItemType.getIdToItemMap().get(parentElement.getAttribute("id")),
 				Colour.valueOf(parentElement.getAttribute("colour")),
-				parentElement.getAttribute("milkProvidor"),
+				provider,
 				((Element) parentElement.getElementsByTagName("milk").item(0)==null
-					?new FluidMilk(FluidType.MILK_HUMAN)
+					?new FluidMilk(FluidType.MILK_HUMAN, false)
 					:FluidMilk.loadFromXML((Element) parentElement.getElementsByTagName("milk").item(0), doc)),
 				(parentElement.getAttribute("millilitresStored").isEmpty()
 					?25
@@ -119,14 +122,8 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
 			String s = Util.inputStreamToString(is);
-
-			for (int i = 0; i <= 14; i++)
-				s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
-			s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-			s = s.replaceAll("#ff5555", colour.getShades()[1]);
-			s = s.replaceAll("#ff8080", colour.getShades()[2]);
-			s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-			s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
+			
+			s = SvgUtil.colourReplacement(String.valueOf(this.hashCode()), colour, s);
 			
 			is.close();
 			
@@ -141,19 +138,19 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 	
 	@Override
 	public String applyEffect(GameCharacter user, GameCharacter target) {
-		return target.ingestFluid(getMilkProvidor(), milk, SexAreaOrifice.MOUTH, millilitresStored)
+		return target.ingestFluid(getMilkProvider(), milk, SexAreaOrifice.MOUTH, millilitresStored)
 				+ target.addItem(AbstractItemType.generateItem(ItemType.MOO_MILKER_EMPTY), false);
 	}
 	
-	public String getMilkProvidorId() {
-		return milkProvidor;
+	public String getMilkProviderId() {
+		return milkProvider;
 	}
 	
-	public GameCharacter getMilkProvidor() {
+	public GameCharacter getMilkProvider() {
 		try {
-			return Main.game.getNPCById(milkProvidor);
+			return Main.game.getNPCById(milkProvider);
 		} catch (Exception e) {
-			System.err.println("Main.game.getNPCById("+milkProvidor+") returning null in method: getMilkProvidor()");
+			Util.logGetNpcByIdError("getMilkProvider()", milkProvider);
 			return null;
 		}
 	}
@@ -168,10 +165,6 @@ public class AbstractFilledBreastPump extends AbstractItem implements Serializab
 
 	public void setMillilitresStored(int millilitresStored) {
 		this.millilitresStored = millilitresStored;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 	
 }

@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -8,6 +9,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -33,6 +35,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -42,7 +45,8 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -65,13 +69,17 @@ public class Alexa extends NPC {
 	}
 	
 	public Alexa(boolean isImported) {
-		super(isImported, new NameTriplet("Alexa"),
+		super(isImported, new NameTriplet("Alexa"), "Earna",
 				"Alexa is an extremely powerful harpy matriarch, and is in control of one of the largest harpy flocks in Dominion."
 						+ " Her beauty rivals that of even the most gorgeous of succubi, which, combined with her sharp mind and regal personality, makes her somewhat of an idol in harpy society.",
 				26, Month.MAY, 3,
 				8, Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ALEXAS_NEST, true);
-
+		
+		if(!isImported) {
+			this.addSpell(Spell.SLAM);
+			this.addSpell(Spell.ARCANE_AROUSAL);
+		}
 	}
 	
 	@Override
@@ -80,6 +88,11 @@ public class Alexa extends NPC {
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")) {
+			this.setAttribute(Attribute.MAJOR_ARCANE, 15f);
+			this.addSpell(Spell.SLAM);
+			this.addSpell(Spell.ARCANE_AROUSAL);
 		}
 	}
 	
@@ -90,7 +103,7 @@ public class Alexa extends NPC {
 		
 		if(setPersona) {
 			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 10f);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 0f);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 15f);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 30f);
 			
 			this.setPersonality(Util.newHashMapOfValues(
@@ -179,9 +192,9 @@ public class Alexa extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 		
 		// Tattoos
 		// Scars
@@ -225,7 +238,7 @@ public class Alexa extends NPC {
 			this.removeAllSlaves();
 			
 			for(int i=0; i<3; i++) {
-				NPC newSlave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+				NPC newSlave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 				try {
 					Main.game.addNPC(newSlave, false);
 				} catch (Exception e) {
@@ -235,7 +248,7 @@ public class Alexa extends NPC {
 				newSlave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 				addSlave(newSlave);
 				newSlave.resetInventory(true);
-				newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getAlexa());
+				newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Alexa.class));
 				newSlave.setPlayerKnowsName(true);
 			}
 		}
@@ -246,7 +259,7 @@ public class Alexa extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 

@@ -2335,7 +2335,7 @@ border-radius:5px;
 	border-radius:5px;
     opacity: 0;
     background-color:yellow;
-    -webkit-animation-name: flashYellow;
+    -webkit-animation-name: flashColour;
     -webkit-animation-duration: 3s;
     -webkit-animation-iteration-count: infinite;
 }
@@ -2355,8 +2355,8 @@ border-radius:5px;
 	left:2px;
 }
 
-@-webkit-keyframes flashYellow {
-    0%   {opacity:0;}
-    50%  {opacity:0.9;}
-    100% {opacity:0;}
+@-webkit-keyframes flashColour {
+    0%   {opacity:0.4;}
+    50%  {opacity:0.95;}
+    100% {opacity:0.4;}
 }

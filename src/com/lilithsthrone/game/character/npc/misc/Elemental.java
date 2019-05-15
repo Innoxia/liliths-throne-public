@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.npc.misc;
 
 import java.time.Month;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -10,6 +11,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -45,7 +47,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.sex.PregnancyDescriptor;
@@ -66,12 +68,11 @@ public class Elemental extends NPC {
 	}
 	
 	public Elemental(Gender gender, GameCharacter summoner, boolean isImported) {
-		super(isImported, null, "", summoner==null?18:summoner.getAgeValue(), summoner==null?Month.JANUARY:summoner.getBirthMonth(), summoner==null?1:summoner.getDayOfBirth(), 20, gender, Subspecies.DEMON, RaceStage.GREATER,
+		super(isImported, null, null, "", summoner==null?18:summoner.getAgeValue(), summoner==null?Month.JANUARY:summoner.getBirthMonth(), summoner==null?1:summoner.getDayOfBirth(), 20, gender, Subspecies.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
 
 		if(!isImported) {
-			this.setWorldLocation(summoner.getWorldLocation());
-			this.setLocation(summoner.getLocation());
+			this.setLocation(summoner, false);
 			
 			setLevel(summoner.getLevel());
 			
@@ -145,9 +146,9 @@ public class Elemental extends NPC {
 		this.setAgeAppearanceDifferenceToAppearAsAge(summoner.getAppearsAsAgeValue());
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.DEMON_COMMON);
-		this.setWingSize(WingSize.TWO_AVERAGE.getValue());
+		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		this.setLegType(LegType.DEMON_COMMON);
-		if(summoner.getHornType()==HornType.NONE || summoner.getHornType().getRace()==Race.DEMON) {
+		if(summoner.getHornType().equals(HornType.NONE) || summoner.getHornType().getRace()==Race.DEMON) {
 			this.setHornType(summoner.getHornType());
 		} else if(this.isFeminine()) {
 			this.setHornType(HornType.SWEPT_BACK);
@@ -215,12 +216,7 @@ public class Elemental extends NPC {
 			// Anus settings and modifiers
 			
 			// Penis:
-//				this.setPenisVirgin(false);
-//				this.setPenisGirth(PenisGirth.TWO_AVERAGE);
-//				this.setPenisSize(8);
-//				this.setTesticleSize(TesticleSize.TWO_AVERAGE);
-//				this.setPenisCumStorage(100);
-//				this.fillCumToMaxStorage();
+			// n/a
 			
 			// Vagina:
 			this.setVaginaVirgin(true);
@@ -237,7 +233,7 @@ public class Elemental extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		// Not needed
 	}
 	
@@ -247,12 +243,21 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
+	public String getSurname() {
+		if(this.getSummoner()!=null) {
+			return this.getSummoner().getNameIgnoresPlayerKnowledge()+"kamu"; // Akkadian for bind
+		} else {
+			return "kamu";
+		}
+	}
+	
+	@Override
 	public String getDescription() {
 		return UtilText.parse(this, getSummoner(), "");
 	}
 	
 	@Override
-	public int getLevel() {
+	protected int getTrueLevel() {
 		if(this.getSummoner()==null) {
 			return level;
 		}
@@ -260,16 +265,21 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
+	public int getLevel() {
+		return getTrueLevel();
+	}
+	
+	@Override
 	public void changeFurryLevel(){
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 	
 	@Override
-	public String rollForPregnancy(GameCharacter partner, int cum) {
+	public String rollForPregnancy(GameCharacter partner, float cum) {
 		return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner)
 				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
 	}
@@ -384,7 +394,7 @@ public class Elemental extends NPC {
 		try {
 			return Main.game.getNPCById(summonerID);
 		} catch (Exception e) {
-//			System.err.println("Main.game.getNPCById("+id+") returning null in method: getSummoner()");
+//			Util.logGetNpcByIdError("getSummoner()", id);
 			return null;
 //			throw new NullPointerException();
 		}

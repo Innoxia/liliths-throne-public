@@ -25,6 +25,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -35,7 +36,6 @@ import com.lilithsthrone.utils.XMLSaving;
  */
 public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	
-	private static final long serialVersionUID = 1L;
 
 	private AbstractTattooType type;
 	
@@ -87,7 +87,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof Tattoo)
 					&& ((Tattoo)o).getType()==type
@@ -232,7 +232,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 				s = Util.inputStreamToString(is);
 				is.close();
 				
-				s = Util.colourReplacement("tattooGlow"+this.getPrimaryColour().toString(), this.getPrimaryColour(), this.getPrimaryColour(), this.getPrimaryColour(), s);
+				s = SvgUtil.colourReplacement("tattooGlow"+this.getPrimaryColour().toString(), this.getPrimaryColour(), this.getPrimaryColour(), this.getPrimaryColour(), s);
 				
 				SVGGlowMap.put(this.getPrimaryColour(), s);
 				

@@ -27,7 +27,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.markings.TattooType;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
@@ -322,11 +322,11 @@ public class EnchantmentDialogue {
 		return inventorySB.toString();
 	}
 
-	public static DialogueNodeOld getEnchantmentMenu(AbstractCoreItem item) {
+	public static DialogueNode getEnchantmentMenu(AbstractCoreItem item) {
 		return getEnchantmentMenu(item, null, null);
 	}
 	
-	public static DialogueNodeOld getEnchantmentMenu(AbstractCoreItem item, GameCharacter tattooBearer, InventorySlot tattooSlot) {
+	public static DialogueNode getEnchantmentMenu(AbstractCoreItem item, GameCharacter tattooBearer, InventorySlot tattooSlot) {
 		EnchantmentDialogue.effects.clear();
 		EnchantmentDialogue.resetEnchantmentVariables();
 		EnchantmentDialogue.initModifiers(item, tattooBearer, tattooSlot);
@@ -339,8 +339,7 @@ public class EnchantmentDialogue {
 	/**
 	 * Use getEnchantmentMenu() to get this DialogueNodeOld when initially opening the Enchantment menu, as it resets all variables for you.
 	 */
-	public static final DialogueNodeOld ENCHANTMENT_MENU = new DialogueNodeOld("Enchantments", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCHANTMENT_MENU = new DialogueNode("Enchantments", "", true) {
 
 		@Override
 		public String getLabel() {
@@ -362,7 +361,7 @@ public class EnchantmentDialogue {
 			if (index == 0) {
 				return new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						if(ingredient instanceof AbstractItem) {
 							return InventoryDialogue.ITEM_INVENTORY;
 							
@@ -477,38 +476,51 @@ public class EnchantmentDialogue {
 		return Main.game.getPlayer().getEssenceCount(ingredient.getRelatedEssence()) >= EnchantingUtils.getCost(ingredient, itemEffects);
 	}
 	
-	public static void craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects) {
+	public static AbstractCoreItem craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		
 		if(ingredient instanceof AbstractItem) {
 			Main.game.getPlayer().removeItem((AbstractItem) ingredient);
 			AbstractItem craftedItem = EnchantingUtils.craftItem(ingredient, effects);
 			Main.game.getPlayer().addItem(craftedItem, false);
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Item Enchanted)]", Util.capitaliseSentence(craftedItem.getName(false, true))), false);
+			finaliseCrafting(ingredient, effects);
+			return craftedItem;
 			
 		} else if(ingredient instanceof AbstractClothing) {
 			Main.game.getPlayer().removeClothing((AbstractClothing) ingredient);
 			AbstractClothing craftedClothing = EnchantingUtils.craftClothing(ingredient, effects);
 			Main.game.getPlayer().addClothing(craftedClothing, false);
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Clothing Enchanted)]", Util.capitaliseSentence(craftedClothing.getName(false, true))), false);
+			finaliseCrafting(ingredient, effects);
+			return craftedClothing;
 			
 		} else if(ingredient instanceof AbstractWeapon) {
 			Main.game.getPlayer().removeWeapon((AbstractWeapon) ingredient);
 			AbstractWeapon craftedWeapon = EnchantingUtils.craftWeapon(ingredient, effects);
 			Main.game.getPlayer().addWeapon(craftedWeapon, false);
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Weapon Enchanted)]", Util.capitaliseSentence(craftedWeapon.getName(false, true))), false);
+			finaliseCrafting(ingredient, effects);
+			return craftedWeapon;
 			
 		} else if(ingredient instanceof Tattoo) {
 			Main.game.getPlayer().incrementMoney(-EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER);
+			Tattoo tattoo;
 			if (EnchantmentDialogue.isEquipped) {
 				EnchantmentDialogue.isEquippedTo.removeTattoo(EnchantmentDialogue.isEquippedIn);
-				EnchantingUtils.craftTattoo(ingredient, effects);
+				tattoo = EnchantingUtils.craftTattoo(ingredient, effects);
 				EnchantmentDialogue.isEquippedTo.addTattoo(EnchantmentDialogue.isEquippedIn, (Tattoo) ingredient);
 			} else {
-				EnchantingUtils.craftTattoo(ingredient, effects);
+				tattoo = EnchantingUtils.craftTattoo(ingredient, effects);
 			}
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Tattoo Enchanted)]", Util.capitaliseSentence(((Tattoo)ingredient).getName())), false);
+			finaliseCrafting(ingredient, effects);
+			return tattoo;
 		}
 		
+		return null;
+	}
+	
+	private static void finaliseCrafting(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		if(!(ingredient instanceof Tattoo)) {
 			Main.game.getPlayer().incrementEssenceCount(ingredient.getRelatedEssence(), -EnchantingUtils.getCost(ingredient, effects), false);
 		}
@@ -601,8 +613,7 @@ public class EnchantmentDialogue {
 	}
 	
 	public static String loadConfirmationName = "", overwriteConfirmationName = "", deleteConfirmationName = "";
-	public static final DialogueNodeOld ENCHANTMENT_SAVE_LOAD = new DialogueNodeOld("Save enchantment files", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ENCHANTMENT_SAVE_LOAD = new DialogueNode("Save enchantment files", "", true) {
 
 		@Override
 		public String getContent() {

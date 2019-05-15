@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +19,11 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.83
- * @version 0.2.7
+ * @version 0.3.1
  * @author Innoxia
  */
-public class FluidCum implements FluidInterface, Serializable, XMLSaving {
-	private static final long serialVersionUID = 1L;
+public class FluidCum implements FluidInterface, XMLSaving {
+
 	
 	protected FluidType type;
 	protected FluidFlavour flavour;
@@ -50,8 +49,8 @@ public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 		
 		Element cumModifiers = doc.createElement("cumModifiers");
 		element.appendChild(cumModifiers);
-		for(FluidModifier fm : FluidModifier.values()) {
-			CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), String.valueOf(this.hasFluidModifier(fm)));
+		for(FluidModifier fm : this.getFluidModifiers()) {
+			CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), "true");
 		}
 		
 		return element;
@@ -85,31 +84,25 @@ public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 		
 		FluidCum fluidCum = new FluidCum(fluidType);
 		
-		fluidCum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
+		String flavourId = cum.getAttribute("flavour");
+		if(flavourId.equalsIgnoreCase("SLIME")) {
+			fluidCum.flavour = FluidFlavour.BUBBLEGUM;
+		} else {
+			fluidCum.flavour = FluidFlavour.valueOf(flavourId);
+		}
 		
-
 		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
-		List<FluidModifier> fluidModifiers = fluidCum.fluidModifiers;
-		
-		Body.handleLoadingOfModifiers(FluidModifier.values(), null, cumModifiers, fluidModifiers);
-		
-//		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
-//		fluidCum.fluidModifiers.clear();
-//		for(FluidModifier fm : FluidModifier.values()) {
-//			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
-//				if (!fluidCum.hasFluidModifier(fm)) {
-//					fluidCum.fluidModifiers.add(fm);
-//				}
-//			} else if (!cumModifiers.getAttribute(fm.toString()).isEmpty()) {
-//				fluidCum.fluidModifiers.remove(fm);
-//			}
-//		}
+		fluidCum.fluidModifiers.clear();
+		if(cumModifiers!=null) {
+			List<FluidModifier> fluidModifiers = fluidCum.fluidModifiers;
+			Body.handleLoadingOfModifiers(FluidModifier.values(), null, cumModifiers, fluidModifiers);
+		}
 		
 		return fluidCum;
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(o instanceof FluidCum){
 			if(((FluidCum)o).getType().equals(this.getType())
 				&& ((FluidCum)o).getFlavour() == this.getFlavour()
@@ -174,7 +167,7 @@ public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 				"hot",
 				modifierDescriptor,
 				flavour.getRandomFlavourDescriptor(),
-				type.getDescriptor(gc));
+				(type.getDescriptor(gc).equals("human")?null:type.getDescriptor(gc)));
 	}
 
 	@Override
@@ -275,14 +268,27 @@ public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 			case HALLUCINOGENIC:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a series of strange pulses shoot up into your [pc.balls], causing you to let out [pc.a_moan+].<br/>"
+								+ "You feel a series of strange pulses shoot down into your [pc.balls], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.cum] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A series of strange pulses shoot up into [npc.namePos] [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "A series of strange pulses shoot down into [npc.namePos] [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
 								+ "[npc.NamePos] [npc.cum] is now [style.boldGrow(psychoactive)]!"
+							+ "</p>");
+				}
+			case MINERAL_OIL:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a soothing warmth flow into your [pc.balls], causing you to let out [pc.a_moan+].<br/>"
+								+ "Your [pc.cum] is now imbued with [style.boldGrow(mineral oil)], and can melt condoms!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A soothing warmth flows into [npc.namePos] [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.cum] is now imbued with [style.boldGrow(mineral oil)], and can melt condoms!"
 							+ "</p>");
 				}
 			case MUSKY:
@@ -335,19 +341,6 @@ public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 							"<p>"
 								+ "A heavy heat slowly rises up into [npc.namePos] [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
 								+ "[npc.NamePos] [npc.cum] is now [style.boldGrow(viscous)]!"
-							+ "</p>");
-				}
-			case MINERAL_OIL:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a prolongued heat flow up into your [pc.balls], causing you to let out [pc.a_moan+].<br/>"
-								+ "Your [pc.cum] is now [style.boldGrow(mineral oil)]!"
-							+ "</p>";
-				} else {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A prolongued heat flows up into [npc.namePos] [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
-								+ "[npc.NamePos] [npc.cum] is now [style.boldGrow(mineral oil)]!"
 							+ "</p>");
 				}
 		}
@@ -510,6 +503,14 @@ public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 	}
 
 	public float getValuePerMl() {
-		return 0.1f + this.getFluidModifiers().size()*0.1f + (this.getFlavour()!=FluidFlavour.CUM?0.5f:0);
+		return (0.1f + (this.getFluidModifiers().size()*0.1f)) * (this.getFlavour()!=FluidFlavour.CUM?1.5f:1);
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(FluidCum.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

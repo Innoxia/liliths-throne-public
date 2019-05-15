@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,8 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
-public class OrificePenisUrethra implements OrificeInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class OrificePenisUrethra implements OrificeInterface {
 	
 	protected int wetness;
 	protected int elasticity;
@@ -184,13 +182,12 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 		int oldElasticity = this.elasticity;
 		this.elasticity = Math.max(0, Math.min(elasticity, OrificeElasticity.SEVEN_ELASTIC.getValue()));
 		int elasticityChange = this.elasticity - oldElasticity;
+		if(owner==null) {
+			return "";
+		}
 		
 		if (elasticityChange == 0) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(Your urethra's elasticity doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.namePos] urethra doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.namePos] urethra doesn't change...)]</p>");
 		}
 		
 		String elasticityDescriptor = getElasticity().getDescriptor();
@@ -297,6 +294,10 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 		
 		orificeModifiers.add(modifier);
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
 				if(owner.isPlayer()) {
@@ -366,6 +367,10 @@ public class OrificePenisUrethra implements OrificeInterface, Serializable {
 		}
 		
 		orificeModifiers.remove(modifier);
+		
+		if(owner==null) {
+			return "";
+		}
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:

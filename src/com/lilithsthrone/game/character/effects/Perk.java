@@ -11,17 +11,19 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum Perk {
@@ -106,8 +108,8 @@ public enum Perk {
 			Util.newArrayListOfValues("[style.boldExcellent(Boosts)] 'Well Rested' bonus")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "With so much free time on your hands, you've managed to improve yourself in several different ways."
-					+ " You also benefit from knowing exactly how best to relax, boosting the bonus you get from sleeping.";
+			return UtilText.parse(owner, "With so much free time on [npc.herPos] hands, [npc.nameHas] managed to improve [npc.herself] in several different ways."
+					+ " [npc.Name] also [npc.verb(benefit)] from knowing exactly how best to relax, boosting the bonus [npc.she] [npc.verb(get)] from sleeping.");
 		}
 	},
 	
@@ -130,8 +132,8 @@ public enum Perk {
 		}
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "From your considerable office experience, you know exactly how to motivate those working beneath you."
-					+ " The stressful work environment has caused you to bottle up a lot of frustration, which manifests in increased critical damage.";
+			return UtilText.parse(owner, "From [npc.herPos] considerable office experience, [npc.name] [npc.verb(know)] exactly how to motivate those working beneath [npc.herPro]."
+					+ " The stressful work environment has caused [npc.herPro] to bottle up a lot of frustration, which manifests in increased critical damage.");
 		}
 	},
 	
@@ -146,8 +148,8 @@ public enum Perk {
 			Util.newArrayListOfValues("[style.boldExcellent(25%)] discount in all stores")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Your student discount has never failed you before!"
-					+ " Along with a guaranteed 25% discount in all stores, you can be confident in your ability to quickly learn new things.";
+			return UtilText.parse(owner, "[npc.NamePos] student discount has never failed [npc.herPro] before!"
+					+ " Along with a guaranteed 25% discount in all stores, [npc.she] can be confident in [npc.herPos] ability to quickly learn new things.");
 		}
 	},
 	
@@ -162,8 +164,8 @@ public enum Perk {
 			Util.newArrayListOfValues("[style.boldExcellent(Double)] length of all spell effects")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You find that your abilities as a musician translate quite well into the art of seduction."
-					+ " You feel the same sort of rhythm in casting spells as you do with music, resulting in all of your spell effects lasting twice as long as usual.";
+			return UtilText.parse(owner, "[npc.Name] [npc.verb(find)] that [npc.herPos] abilities as a musician translate quite well into the art of seduction."
+					+ " [npc.She] [npc.verb(feel)] the same sort of rhythm in casting spells as [npc.she] [npc.do] with music, resulting in all of [npc.herPos] spell effects lasting twice as long as usual.");
 		}
 	},
 	
@@ -178,8 +180,8 @@ public enum Perk {
 			Util.newArrayListOfValues("[style.boldExcellent(Triple)] all slave obedience gains")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You know exactly how to deal with unruly students."
-					+ " Your ability to clearly understand and explain difficult subjects is reflected in a reduced cost of casting spells.";
+			return UtilText.parse(owner, "[npc.Name] [npc.verb(know)] exactly how to deal with unruly students."
+					+ " [npc.HerPos] ability to clearly understand and explain difficult subjects is reflected in a reduced cost of casting spells.");
 		}
 	},
 	
@@ -194,8 +196,8 @@ public enum Perk {
 			Util.newArrayListOfValues("[style.boldExcellent(+25%)] to all experience gains")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You keep a diary of your personal thoughts and encounters, allowing you to reflect upon and learn from your experiences."
-					+ " Your keen interest in books also allows you to quickly read up on the most effective application of spells.";
+			return UtilText.parse(owner, "[npc.Name] [npc.verb(keep)] a diary of [npc.herPos] personal thoughts and encounters, allowing [npc.herPro] to reflect upon and learn from [npc.herPos] experiences."
+					+ " [npc.HerPos] keen interest in books also allows [npc.herPro] to quickly read up on the most effective application of spells.");
 		}
 	},
 
@@ -210,7 +212,7 @@ public enum Perk {
 			Util.newArrayListOfValues("[style.boldExcellent(Double)] all potions effects' strength and length")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Thanks to spending a considerable amount of time tasting food, you have both a significant resistance to poison, as well as the ability to make the most of things that are a culinary marvel.";
+			return UtilText.parse(owner, "Thanks to spending a considerable amount of time tasting food, [npc.name] [npc.has] both a significant resistance to poison, as well as the ability to make the most of things that are a culinary marvel.");
 		}
 	},
 
@@ -228,8 +230,8 @@ public enum Perk {
 			Util.newArrayListOfValues("Your first strike in combat deals [style.boldExcellent(double)] damage")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You've spent a considerable amount of time training to fight, and as a result, you are far stronger and healthier than a normal person."
-					+ " Thanks to this training, you are also able to channel your aggression into your attacks.";
+			return UtilText.parse(owner, "[npc.NameHas] spent a considerable amount of time training to fight, and as a result, [npc.she] [npc.is] far stronger and healthier than a normal person."
+					+ " Thanks to this training, [npc.she] [npc.is] also able to channel [npc.herPos] aggression into [npc.herPos] attacks.");
 		}
 	},
 
@@ -244,7 +246,7 @@ public enum Perk {
 			Util.newArrayListOfValues("All non-zero escape chances in combat are boosted to [style.boldExcellent(100%)]")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You are a world-class sprinter, and have a guaranteed 100% success of escaping any combat situation where running away is an option.";
+			return UtilText.parse(owner, "[npc.Name] [npc.is] a world-class sprinter, and [npc.has] a guaranteed 100% success of escaping any combat situation where running away is an option.");
 		}
 	},
 
@@ -262,8 +264,8 @@ public enum Perk {
 					"[style.boldExcellent(Double)] slave income from maids and butlers")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You are the perfect example of a hard-working maid, and while wearing a complete set of maid's clothes, the bonus that you receive is considerably boosted."
-					+ " You also know how to train butlers and other maids to be exceptional at their jobs.";
+			return UtilText.parse(owner, "[npc.Name] [npc.is] the perfect example of a hard-working maid, and while wearing a complete set of maid's clothes, the bonus that [npc.she] [npc.verb(receive)] is considerably boosted."
+					+ " [npc.She] also [npc.verb(know)] how to train butlers and other maids to be exceptional at their jobs.");
 		}
 	},
 
@@ -281,8 +283,8 @@ public enum Perk {
 					"[style.boldExcellent(Double)] slave income from maids and butlers")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You are the perfect example of a hard-working and composed butler, and while wearing a complete set of butler's clothes, the bonus that you receive is considerably boosted."
-					+ " You also know how to train maids and other butlers to be exceptional at their jobs.";
+			return UtilText.parse(owner, "[npc.name] [npc.is] the perfect example of a hard-working butler, and while wearing a complete set of butler's clothes, the bonus that [npc.she] [npc.verb(receive)] is considerably boosted."
+					+ " [npc.She] also [npc.verb(know)] how to train maids and other butlers to be exceptional at their jobs.");
 		}
 	},
 	
@@ -701,7 +703,7 @@ public enum Perk {
 	ARCANE_CRITICALS(60,
 			true,
 			"arcane precision",
-			PerkCategory.PHYSICAL,
+			PerkCategory.ARCANE,
 			"perks/physical_accurate",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)),
@@ -954,8 +956,7 @@ public enum Perk {
 		}
 
 		@Override
-		public String getDescription(GameCharacter owner)
-		{
+		public String getDescription(GameCharacter owner) {
 			return "You have a formal knowledge of the unarmed combat and know how to do a good hit with just your body even if you aren't the strongest fighter in the world.";
 		}
 	},
@@ -1183,6 +1184,187 @@ public enum Perk {
 					+ " While chuunis may once have been purely delusional, the arcane now lends some truth to their beliefs...");
 		}
 	},
+	
+	// HIDDEN PERKS:
+
+
+	POWER_OF_LIRECEA_1(20,
+			false,
+			"Lirecea's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin1",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldLightBlue(aquatic transformations)] if a [style.boldDemon(demon)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lirecea's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of any aquatic species!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of any aquatic species!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+
+	POWER_OF_LOVIENNE_2(21,
+			false,
+			"Lovienne's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin2",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lyssieth's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+
+	POWER_OF_LASIELLE_3(22,
+			false,
+			"Lasielle's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin3",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lyssieth's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+	
+	POWER_OF_LYSSIETH_4(23,
+			false,
+			"Lyssieth's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin4",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]",
+					"[style.boldExcellent(Immunity)] to [style.boldArcane(Lilith's Command)]")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lyssieth's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+	
+	POWER_OF_LUNETTE_5(24,
+			false,
+			"Lunette's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin5",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lyssieth's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+	
+	POWER_OF_LYXIAS_6(25,
+			false,
+			"Lyxias's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin6",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lyssieth's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+	
+	POWER_OF_LISOPHIA_7(26,
+			false,
+			"Lisophia's Power",
+			PerkCategory.ARCANE,
+			"perks/lilin7",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newArrayListOfValues("[style.boldExcellent(Unlocks)] [style.boldHuman(human transformations)] if a [style.boldDemon(demon)]")) { //TODO
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The essence of Lyssieth's power has been infused into your arcane aura."
+					+ (owner.getSubspeciesOverride()==Subspecies.DEMON
+							?" Her power has additionally enabled you to transform your demonic body into that of a regular human!"
+							:" If you were a demon, this power would enable you to transform your body parts into those of a regular human!"));
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	},
+
 	
 
 	// SPECIFIC TO ELEMENTAL PERK TREE:
@@ -3738,7 +3920,19 @@ public enum Perk {
 	private List<String> extraEffects;
 
 	private List<String> modifiersList;
-
+	
+	public static List<Perk> hiddenPerks;
+	
+	static{
+		hiddenPerks = new ArrayList<>();
+		for(Perk p : Perk.values()) {
+			if(p.isHiddenPerk()) {
+				hiddenPerks.add(p);
+			}
+		}
+		hiddenPerks.sort((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
+	}
+	
 
 	private Perk(int renderingPriority,
 			boolean major,
@@ -3796,12 +3990,8 @@ public enum Perk {
 					System.err.println("Error! Perk icon file does not exist (Trying to read from '"+pathName+"')!");
 				}
 				SVGString = Util.inputStreamToString(is);
-	
-				SVGString = SVGString.replaceAll("#ff2a2a", colour.getShades()[0]);
-				SVGString = SVGString.replaceAll("#ff5555", colour.getShades()[1]);
-				SVGString = SVGString.replaceAll("#ff8080", colour.getShades()[2]);
-				SVGString = SVGString.replaceAll("#ffaaaa", colour.getShades()[3]);
-				SVGString = SVGString.replaceAll("#ffd5d5", colour.getShades()[4]);
+				
+				SVGString = SvgUtil.colourReplacement(this.toString(), colour, SVGString);
 	
 				is.close();
 	
@@ -3823,8 +4013,17 @@ public enum Perk {
 		this.spellUpgrade = spellUpgrade;
 		this.school = school;
 	}
-
+	
+	public static List<Perk> getHiddenPerks() {
+		return hiddenPerks;
+	}
+	
 	public boolean isAlwaysAvailable() {
+		return false;
+	}
+
+	// Override this and return true if the perk is one that is unlock via special in-game events.
+	public boolean isHiddenPerk() {
 		return false;
 	}
 	

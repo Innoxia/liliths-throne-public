@@ -52,6 +52,8 @@ public enum Occupation {
 	
 	NPC_SLIME_QUEEN_GUARD(Perk.JOB_MISC, "slime queen's guard", "-", OccupationTag.HAS_PREREQUISITES),
 	
+	NPC_LILIN(Perk.JOB_MISC, "lilin", "-", OccupationTag.HAS_PREREQUISITES),
+	
 	// NPC histories:
 
 	NPC_UNEMPLOYED(Perk.JOB_UNEMPLOYED, "unemployed", "[npc.NameIsFull] unemployed.", OccupationTag.HAS_PREREQUISITES),
@@ -156,6 +158,8 @@ public enum Occupation {
 			return DayOfWeek.SATURDAY;
 		}
 	},
+
+	NPC_OFFICE_WORKER(Perk.JOB_MISC, "office worker", "-"),
 	
 	NPC_RECEPTIONIST(Perk.JOB_MISC, "receptionist", "-"),
 	
@@ -312,6 +316,7 @@ public enum Occupation {
 	public Perk getAssociatedPerk() {
 		return associatedPerk;
 	}
+	
 	public String getName() {
 		return name;
 	}

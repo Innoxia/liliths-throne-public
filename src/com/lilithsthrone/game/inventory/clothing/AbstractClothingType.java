@@ -13,15 +13,29 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import com.lilithsthrone.controller.xmlParsing.*;
+import com.lilithsthrone.controller.xmlParsing.Element;
+import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
+import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.types.ArmType;
+import com.lilithsthrone.game.character.body.types.FootType;
+import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -40,17 +54,17 @@ import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
-import java.util.function.Consumer;
 
 /**
  * @since 0.1.84
- * @version 0.2.12
+ * @version 0.3.2
  * @author Innoxia, BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord), Pimgd
  */
 public abstract class AbstractClothingType extends AbstractCoreType {
-
-	protected static final long serialVersionUID = 1L;
+	
+	public static final Colour DEFAULT_COLOUR_VALUE = Colour.CLOTHING_BLACK;
 	
 	private String determiner;
 	private String name;
@@ -58,9 +72,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private String description;
 	private String pathName;
 	private String pathNameEquipped;
-
+	private String authorDescription;
+	
 	private boolean plural;
 	private boolean isMod;
+	private boolean isColourDerivedFromPattern;
 	private int baseValue;
 	private int physicalResistance;
 	private int femininityMinimum;
@@ -79,6 +95,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	// Pattern data:
 	private boolean isPatternAvailable;
+	private boolean isPatternAvailableInitCompleted;
 	
 	// Access and block stuff:
 	private List<BlockedParts> blockedPartsList;
@@ -98,6 +115,23 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private List<Colour> availableTertiaryDyeColours;
 	private List<Colour> allAvailableTertiaryColours;
 
+	// Patterns:
+	private float patternChance;
+	private List<Pattern> defaultPatterns;
+	
+	private List<Colour> availablePatternPrimaryColours;
+	private List<Colour> availablePatternPrimaryDyeColours;
+	private List<Colour> allAvailablePatternPrimaryColours;
+	
+	private List<Colour> availablePatternSecondaryColours;
+	private List<Colour> availablePatternSecondaryDyeColours;
+	private List<Colour> allAvailablePatternSecondaryColours;
+	
+	private List<Colour> availablePatternTertiaryColours;
+	private List<Colour> availablePatternTertiaryDyeColours;
+	private List<Colour> allAvailablePatternTertiaryColours;
+
+	// Other:
 	private List<DisplacementType> displacementTypesAvailableWithoutNONE;
 	
 	private List<ItemTag> itemTags;
@@ -185,6 +219,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		this.baseValue = baseValue;
 		
 		this.isMod = false;
+		isColourDerivedFromPattern = false;
 		
 		this.determiner = determiner;
 		this.plural = plural;
@@ -206,6 +241,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		this.pathNameEquipped = pathNameEquipped;
 		
 		this.isPatternAvailable = false;
+		this.isPatternAvailableInitCompleted = false;
 
 		enchantmentLimit = -1;
 		
@@ -242,26 +278,30 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				availableTertiaryColours,
 				availableTertiaryDyeColours);
 		
-		if(itemTags==null) {
-			this.itemTags = new ArrayList<>();
-		} else {
+		patternChance = 0;
+		defaultPatterns = new ArrayList<>(Pattern.getAllDefaultPatterns().values());
+		setUpPatternColours(null, null, null, null, null, null);
+
+		this.itemTags = new ArrayList<>();
+		if(itemTags!=null) {
 			this.itemTags = itemTags;
 		}
-
 		
+		this.authorDescription = ""; // Do not give attribution to Innoxia's items.
+
 		finalSetUp();
 	}
 	
 
 	@SuppressWarnings("deprecation")
-	public AbstractClothingType(File clothingXMLFile) throws XMLLoadException { // Be sure to catch this exception correctly - if it's thrown mod is invalid and should not be continued to load
+	public AbstractClothingType(File clothingXMLFile, String author) throws XMLLoadException { // Be sure to catch this exception correctly - if it's thrown mod is invalid and should not be continued to load
 		boolean debug = false;//clothingXMLFile.getName().contains("distressed");
 		
 		try{
 			Element clothingElement = Element.getDocumentRootElement(clothingXMLFile); // Loads the document and returns the root element - in clothing mods it's <clothing>
 			Element coreAttributes = null;
 			try {
-				coreAttributes = clothingElement.getMandatoryFirstOf("coreAtributes"); // Assuming this element appears just once, get an element by tag. If there's no such element, throw exception and halt loading this mod - it is invalid and continuing may/will cause severe bugs
+				coreAttributes = clothingElement.getMandatoryFirstOf("coreAtributes");
 			} catch (XMLMissingTagException ex) {
 				coreAttributes = clothingElement.getMandatoryFirstOf("coreAttributes");
 			}
@@ -271,6 +311,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				.getAllOf("effect") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
 				.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
 				.map( e -> ItemEffect.loadFromXML(e.getInnerElement(), e.getDocument())) // Take every element and do something with them, return a Stream of results after this action. Here we load item effects and get Stream<ItemEffect>
+				.filter(Objects::nonNull) // Ensure that we only add non-null effects
 				.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<ItemEffect> we need! 
 			
 			if(debug) {
@@ -356,12 +397,12 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 			
 			this.isMod = true;
-
+			
 			this.name =        coreAttributes.getMandatoryFirstOf("name").getTextContent();
 			this.namePlural =  coreAttributes.getMandatoryFirstOf("namePlural").getTextContent();
 			this.description = coreAttributes.getMandatoryFirstOf("description").getTextContent();
 			this.determiner =  coreAttributes.getMandatoryFirstOf("determiner").getTextContent();
-
+			
 			if(debug) {
 				System.out.println("4");
 			}
@@ -369,9 +410,19 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			this.plural =             Boolean.valueOf(coreAttributes.getMandatoryFirstOf("namePlural").getAttribute("pluralByDefault"));
 			this.baseValue =          Integer.valueOf(coreAttributes.getMandatoryFirstOf("value").getTextContent());
 			this.physicalResistance = Integer.valueOf(coreAttributes.getMandatoryFirstOf("physicalResistance").getTextContent());	
-			this.slot =         InventorySlot.valueOf(coreAttributes.getMandatoryFirstOf("slot").getTextContent());
-			this.rarity =              Rarity.valueOf(coreAttributes.getMandatoryFirstOf("rarity").getTextContent());
+			this.slot =       		  InventorySlot.valueOf(coreAttributes.getMandatoryFirstOf("slot").getTextContent());
+			this.rarity =             Rarity.valueOf(coreAttributes.getMandatoryFirstOf("rarity").getTextContent());
 
+			if(coreAttributes.getOptionalFirstOf("clothingAuthorTag").isPresent()) {
+				this.authorDescription = coreAttributes.getMandatoryFirstOf("clothingAuthorTag").getTextContent();
+			} else if(coreAttributes.getOptionalFirstOf("authorTag").isPresent()) {
+				this.authorDescription = coreAttributes.getMandatoryFirstOf("authorTag").getTextContent();
+			} else if(!author.equalsIgnoreCase("innoxia")){
+				this.authorDescription = "A tag discreetly attached to the "+(plural?namePlural:name)+" informs you that "+(plural?"they were":"it was")+" made by a certain '"+Util.capitaliseSentence(author)+"'.";
+			} else {
+				this.authorDescription = "";
+			}
+			
 			this.femininityRestriction = Femininity.valueOf(coreAttributes.getMandatoryFirstOf("femininity").getTextContent());
 			setUpFemininity(this.femininityRestriction);
 
@@ -391,25 +442,25 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				.map(Element::getTextContent).map(ClothingSet::valueOf)
 				.orElse(null);
 
-			this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/" 
+			this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/"
 				+ coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
 
 			this.pathNameEquipped = coreAttributes.getOptionalFirstOf("imageEquippedName")
 				.filter(filterEmptyElements)
-				.map(Element::getTextContent)
+				.map(e -> clothingXMLFile.getParentFile().getAbsolutePath() + "/" + e.getTextContent())
+				.filter(s -> !s.equals(this.pathName)) // if imageEquippedName is the same as imageName, we don't need to load it twice
 				.orElse(null);
+			
 
 			Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
 				String values = colorsElement.getAttribute("values");
 				try {
-					if (values.isEmpty()){
+					if(values.isEmpty()) {
 						return colorsElement.getAllOf("colour").stream()
 								.map(Element::getTextContent).map(Colour::valueOf)
 								.collect(Collectors.toList());
-					}
-					else{
-						return ColourListPresets.valueOf(values)
-								.getPresetColourList();
+					} else {
+						return ColourListPresets.getColourListFromId(values);
 					}
 				} catch (Exception e) {
 					printHelpfulErrorForEnumValueMismatches(e);
@@ -444,7 +495,71 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				importedTertiaryColours,
 				importedTertiaryColoursDye
 			);
+			
+			 if(coreAttributes.getOptionalFirstOf("defaultPatterns").isPresent()) {
+				 patternChance = Float.valueOf(coreAttributes.getMandatoryFirstOf("defaultPatterns").getAttribute("patternChance"));
+				 isColourDerivedFromPattern = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("defaultPatterns").getAttribute("colourNameDerivedFromPattern"));
+				 
+			 } else {
+				 patternChance = 0;
+				 isColourDerivedFromPattern = false;
+			 }
+			
+			Function<Element, List<Pattern> > getPatternsFromElement = (patternsElement) -> { //Helper function to get the patterns
+				try {
+					return patternsElement.getAllOf("pattern").stream()
+							.map(Element::getTextContent).map(Pattern.getAllPatterns()::get)
+							.collect(Collectors.toList());
+				} catch (Exception e) {
+					printHelpfulErrorForEnumValueMismatches(e);
+					throw new IllegalStateException("Pattern tag reading failure: "+patternsElement.getTagName()+" " + e.getMessage(), e);
+				}
+			};
 
+			Function<Element, List<Colour> > getPatternColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
+				String values = colorsElement.getAttribute("values");
+				try {
+					if(values.isEmpty()) {
+						if(colorsElement.getOptionalFirstOf("colour").isPresent()) {
+							return colorsElement.getAllOf("colour").stream()
+									.map(Element::getTextContent).map(Colour::valueOf)
+									.collect(Collectors.toList());
+						} else {
+							return new ArrayList<>(ColourListPresets.ALL);
+						}
+					} else {
+						return new ArrayList<>(ColourListPresets.ALL);
+					}
+				} catch (Exception e) {
+					printHelpfulErrorForEnumValueMismatches(e);
+					throw new IllegalStateException("Colour tag reading failure: "+colorsElement.getTagName()+" " + e.getMessage(), e);
+				}
+			};
+			
+			defaultPatterns = coreAttributes.getOptionalFirstOf("defaultPatterns")
+					.map(getPatternsFromElement::apply)
+					.orElse(new ArrayList<>(Pattern.getAllDefaultPatterns().values()));
+					
+			setUpPatternColours(
+					coreAttributes.getOptionalFirstOf("patternPrimaryColours")
+						.map(getPatternColoursFromElement::apply)
+						.orElse(new ArrayList<>(ColourListPresets.ALL)),
+					coreAttributes.getOptionalFirstOf("patternPrimaryColoursDye")
+						.map(getPatternColoursFromElement::apply)
+						.orElse(null),
+					coreAttributes.getOptionalFirstOf("patternSecondaryColours")
+						.map(getPatternColoursFromElement::apply)
+						.orElse(new ArrayList<>(ColourListPresets.ALL)),
+					coreAttributes.getOptionalFirstOf("patternSecondaryColoursDye")
+						.map(getPatternColoursFromElement::apply)
+						.orElse(null),
+					coreAttributes.getOptionalFirstOf("patternTertiaryColours")
+						.map(getPatternColoursFromElement::apply)
+						.orElse(new ArrayList<>(ColourListPresets.ALL)),
+					coreAttributes.getOptionalFirstOf("patternTertiaryColoursDye")
+						.map(getPatternColoursFromElement::apply)
+						.orElse(null));
+			
 			finalSetUp();
 		}
 		catch(XMLMissingTagException ex){
@@ -480,7 +595,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		this.availablePrimaryColours = new ArrayList<>();
 		if (availablePrimaryColours == null) {
-			this.availablePrimaryColours.add(Colour.CLOTHING_BLACK);
+			this.availablePrimaryColours.add(DEFAULT_COLOUR_VALUE);
 		} else {
 			this.availablePrimaryColours.addAll(availablePrimaryColours);
 		}
@@ -543,14 +658,93 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		this.allAvailableTertiaryColours.addAll(colourSet);
 		this.allAvailableTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
 	}
+	
+	private void setUpPatternColours(List<Colour> availablePatternPrimaryColours,
+			List<Colour> availablePatternPrimaryDyeColours,
+			List<Colour> availablePatternSecondaryColours,
+			List<Colour> availablePatternSecondaryDyeColours,
+			List<Colour> availablePatternTertiaryColours,
+			List<Colour> availablePatternTertiaryDyeColours) {
+		
+		this.availablePatternPrimaryColours = new ArrayList<>();
+		if (availablePatternPrimaryColours != null) {
+			this.availablePatternPrimaryColours.addAll(availablePatternPrimaryColours);
+		} else {
+			this.availablePatternPrimaryColours.addAll(ColourListPresets.ALL);
+		}
+
+		Set<Colour> colourSet = new HashSet<>();
+		
+		this.availablePatternPrimaryDyeColours = new ArrayList<>();
+		if (availablePatternPrimaryDyeColours != null) {
+			this.availablePatternPrimaryDyeColours.addAll(availablePatternPrimaryDyeColours);
+		}
+		
+		this.allAvailablePatternPrimaryColours = new ArrayList<>();
+		colourSet.addAll(this.availablePatternPrimaryColours);
+		if(availablePatternPrimaryDyeColours!=null) {
+			colourSet.addAll(availablePatternPrimaryDyeColours);
+		}
+		this.allAvailablePatternPrimaryColours.addAll(colourSet);
+		this.allAvailablePatternPrimaryColours.sort((c1, c2) -> c1.compareTo(c2));
+		
+		this.availablePatternSecondaryColours = new ArrayList<>();
+		if (availablePatternSecondaryColours != null) {
+			this.availablePatternSecondaryColours.addAll(availablePatternSecondaryColours);
+		} else {
+			this.availablePatternSecondaryColours.addAll(ColourListPresets.ALL);
+		}
+		
+		this.availablePatternSecondaryDyeColours = new ArrayList<>();
+		if (availablePatternSecondaryDyeColours != null) {
+			this.availablePatternSecondaryDyeColours.addAll(availablePatternSecondaryDyeColours);
+		}
+
+		colourSet.clear();
+		this.allAvailablePatternSecondaryColours = new ArrayList<>();
+//		if(availablePatternSecondaryColours!=null) {
+//			colourSet.addAll(availablePatternSecondaryColours);
+//		}
+//		if(availablePatternSecondaryDyeColours!=null) {
+//			colourSet.addAll(availablePatternSecondaryDyeColours);
+//		}
+//		this.allAvailablePatternSecondaryColours.addAll(colourSet);
+		this.allAvailablePatternSecondaryColours.addAll(this.availablePatternSecondaryColours);
+		this.allAvailablePatternSecondaryColours.addAll(this.availablePatternSecondaryDyeColours);
+		this.allAvailablePatternSecondaryColours.sort((c1, c2) -> c1.compareTo(c2));
+
+		
+		this.availablePatternTertiaryColours = new ArrayList<>();
+		if (availablePatternTertiaryColours != null) {
+			this.availablePatternTertiaryColours.addAll(availablePatternTertiaryColours);
+		} else {
+			this.availablePatternTertiaryColours.addAll(ColourListPresets.ALL);
+		}
+		
+		this.availablePatternTertiaryDyeColours = new ArrayList<>();
+		if (availablePatternTertiaryDyeColours != null) {
+			this.availablePatternTertiaryDyeColours.addAll(availablePatternTertiaryDyeColours);
+		}
+
+		colourSet.clear();
+		this.allAvailablePatternTertiaryColours = new ArrayList<>();
+		if(availablePatternTertiaryColours!=null) {
+			colourSet.addAll(availablePatternTertiaryColours);
+		}
+		if(availablePatternTertiaryDyeColours!=null) {
+			colourSet.addAll(availablePatternTertiaryDyeColours);
+		}
+		this.allAvailablePatternTertiaryColours.addAll(colourSet);
+		this.allAvailablePatternTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
+	}
 
 	@SuppressWarnings("rawtypes")
 	private static void printHelpfulErrorForEnumValueMismatches(Exception ex) {
-		Map<Class, Object[]> possibleEnumValues = new HashMap<>();
-		possibleEnumValues.put(ColourListPresets.class, ColourListPresets.values());
+		Map<Class, Set<String>> possibleEnumValues = new HashMap<>();
+		possibleEnumValues.put(ColourListPresets.class, ColourListPresets.getIdToColourListMap().keySet());
 		String exMessage = ex.getMessage();
-		if (exMessage.startsWith("No enum constant")){
-			for (Map.Entry<Class, Object[]> possibleMatch : possibleEnumValues.entrySet()) {
+		if (exMessage.startsWith("No ColourListPreset constant")){
+			for (Entry<Class, Set<String>> possibleMatch : possibleEnumValues.entrySet()) {
 				if (exMessage.contains(possibleMatch.getKey().getCanonicalName())) {
 					StringJoiner valueLister = new StringJoiner(",");
 					Arrays.asList(possibleMatch.getValue()).forEach(enumValue -> valueLister.add(enumValue.toString()));
@@ -572,12 +766,44 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		SVGStringMap = new HashMap<>();
 		SVGStringEquippedMap = new HashMap<>();
 		
+		// Add blocked parts due to sealing or plugging:
+		for(ItemTag tag : this.itemTags) {
+			switch(tag) {
+				case PLUGS_ANUS:
+				case SEALS_ANUS:
+					for(BlockedParts bp : this.blockedPartsList) {
+						if(bp.displacementType==DisplacementType.REMOVE_OR_EQUIP && !bp.blockedBodyParts.contains(CoverableArea.ANUS)) {
+							bp.blockedBodyParts.add(CoverableArea.ANUS);
+						}
+					}
+					break;
+				case PLUGS_NIPPLES:
+				case SEALS_NIPPLES:
+					for(BlockedParts bp : this.blockedPartsList) {
+						if(bp.displacementType==DisplacementType.REMOVE_OR_EQUIP && !bp.blockedBodyParts.contains(CoverableArea.NIPPLES)) {
+							bp.blockedBodyParts.add(CoverableArea.NIPPLES);
+						}
+					}
+					break;
+				case PLUGS_VAGINA:
+				case SEALS_VAGINA:
+					for(BlockedParts bp : this.blockedPartsList) {
+						if(bp.displacementType==DisplacementType.REMOVE_OR_EQUIP && !bp.blockedBodyParts.contains(CoverableArea.VAGINA)) {
+							bp.blockedBodyParts.add(CoverableArea.VAGINA);
+						}
+					}
+					break;
+				default:
+					break;
+			}
+		}
+		
 		// Causes crash if done from here for some reason.
-		//this.isPatternAvailable = this.getSVGImage().contains("label=\"patternLayer\"");
+		//this.isPatternAvailable = this.getSVGImage().contains("id=\"patternLayer\"");
 	}
 	
 	@Override
-	public boolean equals (Object o) { // I know it doesn't include everything, but this should be enough to check for equality.
+	public boolean equals(Object o) { // I know it doesn't include everything, but this should be enough to check for equality.
 		if(super.equals(o)){
 			if(o instanceof AbstractClothingType){
 				if(((AbstractClothingType)o).getName().equals(getName())
@@ -617,67 +843,100 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return result;
 	}
 	
+
+	public static AbstractClothing generateClothing(String clothingTypeId, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
+		return AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), primaryColour, secondaryColour, tertiaryColour, allowRandomEnchantment);
+	}
+	
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
 		Colour c1 = primaryColour;
 		Colour c2 = secondaryColour;
 		Colour c3 = tertiaryColour;
 
-		if (clothingType.getAllAvailablePrimaryColours() != null) {
+		if (primaryColour == null) {
+			if(clothingType.getAvailablePrimaryColours().isEmpty()) {
+				c1 = DEFAULT_COLOUR_VALUE;
+			} else {
+				c1 = Util.randomItemFrom(clothingType.getAvailablePrimaryColours());
+			}
+		} else if (clothingType.getAllAvailablePrimaryColours() != null) {
 			if (!clothingType.getAllAvailablePrimaryColours().contains(primaryColour)) {
-				c1 = clothingType.getAllAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAllAvailablePrimaryColours().size()));
+				c1 = Util.randomItemFrom(clothingType.getAllAvailablePrimaryColours());
 			}
 		}
 		
 		if (secondaryColour == null) {
 			if(clothingType.getAvailableSecondaryColours().isEmpty()) {
-				c2 = Colour.CLOTHING_BLACK;
+				c2 = DEFAULT_COLOUR_VALUE;
 			} else {
-				c2 = clothingType.getAvailableSecondaryColours().get(Util.random.nextInt(clothingType.getAvailableSecondaryColours().size()));
+				List<Colour> secondariesExclusive = new ArrayList<>(clothingType.getAvailableSecondaryColours());
+				if(secondariesExclusive.size()>1) {
+					secondariesExclusive.remove(c1);
+				}
+				c2 = Util.randomItemFrom(secondariesExclusive);
 			}
 		} else if(!clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
 			if(clothingType.getAllAvailableSecondaryColours().isEmpty()) {
-				c2 = Colour.CLOTHING_BLACK;
+				c2 = DEFAULT_COLOUR_VALUE;
 			} else {
-				c2 = clothingType.getAllAvailableSecondaryColours().get(Util.random.nextInt(clothingType.getAllAvailableSecondaryColours().size()));
+				List<Colour> secondariesExclusive = new ArrayList<>(clothingType.getAllAvailableSecondaryColours());
+				if(secondariesExclusive.size()>1) {
+					secondariesExclusive.remove(c1);
+				}
+				c2 = Util.randomItemFrom(secondariesExclusive);
 			}
 		}
 		
 		if (tertiaryColour == null) {
 			if(clothingType.getAvailableTertiaryColours().isEmpty()) {
-				c3 = Colour.CLOTHING_BLACK;
+				c3 = DEFAULT_COLOUR_VALUE;
 			} else {
-				c3 = clothingType.getAvailableTertiaryColours().get(Util.random.nextInt(clothingType.getAvailableTertiaryColours().size()));
+				List<Colour> tertiariesExclusive = new ArrayList<>(clothingType.getAvailableTertiaryColours());
+				if(tertiariesExclusive.size()>2) {
+					tertiariesExclusive.remove(c1);
+					tertiariesExclusive.remove(c2);
+				}
+				c3 = Util.randomItemFrom(tertiariesExclusive);
 			}
 			
 		} else if(!clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
 			if(clothingType.getAllAvailableTertiaryColours().isEmpty()) {
-				c3 = Colour.CLOTHING_BLACK;
+				c3 = DEFAULT_COLOUR_VALUE;
 			} else {
-				c3 = clothingType.getAllAvailableTertiaryColours().get(Util.random.nextInt(clothingType.getAllAvailableTertiaryColours().size()));
+				List<Colour> tertiariesExclusive = new ArrayList<>(clothingType.getAllAvailableTertiaryColours());
+				if(tertiariesExclusive.size()>2) {
+					tertiariesExclusive.remove(c1);
+					tertiariesExclusive.remove(c2);
+				}
+				c3 = Util.randomItemFrom(tertiariesExclusive);
 			}
 		}
 		
-		return new AbstractClothing(clothingType, c1, c2, c3, allowRandomEnchantment) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractClothing(clothingType, c1, c2, c3, allowRandomEnchantment) {};
 	}
 
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colourShade, boolean allowRandomEnchantment) {
 		return AbstractClothingType.generateClothing(clothingType, colourShade, null, null, allowRandomEnchantment);
 	}
 
-	/**
-	 * Allows random enchantment. Uses random colour.
-	 */
+	public static AbstractClothing generateClothing(String clothingTypeId, Colour colourShade, boolean allowRandomEnchantment) {
+		return AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), colourShade, null, null, allowRandomEnchantment);
+	}
+
+	/** Allows random enchantment. Uses random colour.*/
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType) {
 		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())), true);
 	}
 
-	/**
-	 * Uses random colour.
-	 */
+	/** Uses random colour.*/
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, boolean allowRandomEnchantment) {
 		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())), allowRandomEnchantment);
+	}
+
+	/** Uses random colour.*/
+	public static AbstractClothing generateClothing(String clothingTypeId, boolean allowRandomEnchantment) {
+		AbstractClothingType type = ClothingType.getClothingTypeFromId(clothingTypeId);
+		return AbstractClothingType.generateClothing(type, type.getAvailablePrimaryColours().get(Util.random.nextInt(type.getAvailablePrimaryColours().size())), allowRandomEnchantment);
 	}
 	
 	
@@ -689,31 +948,66 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		Colour c2 = secondaryColour;
 		Colour c3 = tertiaryColour;
 
-		if (clothingType.getAllAvailablePrimaryColours() != null) {
+		if (primaryColour == null) {
+			if(clothingType.getAvailablePrimaryColours().isEmpty()) {
+				c1 = DEFAULT_COLOUR_VALUE;
+			} else {
+				c1 = Util.randomItemFrom(clothingType.getAvailablePrimaryColours());
+			}
+		} else if (clothingType.getAllAvailablePrimaryColours() != null) {
 			if (!clothingType.getAllAvailablePrimaryColours().contains(primaryColour)) {
-				c1 = clothingType.getAllAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAllAvailablePrimaryColours().size()));
+				c1 = Util.randomItemFrom(clothingType.getAllAvailablePrimaryColours());
 			}
 		}
 		
-		if (secondaryColour == null || !clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
+		if (secondaryColour == null) {
 			if(clothingType.getAvailableSecondaryColours().isEmpty()) {
-				c2 = Colour.CLOTHING_BLACK;
+				c2 = DEFAULT_COLOUR_VALUE;
 			} else {
-				c2 = clothingType.getAvailableSecondaryColours().get(Util.random.nextInt(clothingType.getAvailableSecondaryColours().size()));
+				List<Colour> secondariesExclusive = new ArrayList<>(clothingType.getAvailableSecondaryColours());
+				if(secondariesExclusive.size()>1) {
+					secondariesExclusive.remove(c1);
+				}
+				c2 = Util.randomItemFrom(secondariesExclusive);
+			}
+		} else if(!clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
+			if(clothingType.getAllAvailableSecondaryColours().isEmpty()) {
+				c2 = DEFAULT_COLOUR_VALUE;
+			} else {
+				List<Colour> secondariesExclusive = new ArrayList<>(clothingType.getAllAvailableSecondaryColours());
+				if(secondariesExclusive.size()>1) {
+					secondariesExclusive.remove(c1);
+				}
+				c2 = Util.randomItemFrom(secondariesExclusive);
 			}
 		}
 		
-		if (tertiaryColour == null || !clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
+		if (tertiaryColour == null) {
 			if(clothingType.getAvailableTertiaryColours().isEmpty()) {
-				c3 = Colour.CLOTHING_BLACK;
+				c3 = DEFAULT_COLOUR_VALUE;
 			} else {
-				c3 = clothingType.getAvailableTertiaryColours().get(Util.random.nextInt(clothingType.getAvailableTertiaryColours().size()));
+				List<Colour> tertiariesExclusive = new ArrayList<>(clothingType.getAvailableTertiaryColours());
+				if(tertiariesExclusive.size()>2) {
+					tertiariesExclusive.remove(c1);
+					tertiariesExclusive.remove(c2);
+				}
+				c3 = Util.randomItemFrom(tertiariesExclusive);
+			}
+			
+		} else if(!clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
+			if(clothingType.getAllAvailableTertiaryColours().isEmpty()) {
+				c3 = DEFAULT_COLOUR_VALUE;
+			} else {
+				List<Colour> tertiariesExclusive = new ArrayList<>(clothingType.getAllAvailableTertiaryColours());
+				if(tertiariesExclusive.size()>2) {
+					tertiariesExclusive.remove(c1);
+					tertiariesExclusive.remove(c2);
+				}
+				c3 = Util.randomItemFrom(tertiariesExclusive);
 			}
 		}
 		
-		return new AbstractClothing(clothingType, c1, c2, c3, effects) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractClothing(clothingType, c1, c2, c3, effects) {};
 	}
 	
 	/**
@@ -721,6 +1015,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	 */
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colour, List<ItemEffect> effects) {
 		return generateClothing(clothingType, colour, null, null, effects);
+	}
+	
+	public static AbstractClothing generateClothing(String clothingTypeId, Colour colour, List<ItemEffect> effects) {
+		return generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), colour, null, null, effects);
 	}
 	
 	/**
@@ -850,6 +1148,16 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public String equipText(GameCharacter clothingOwner, GameCharacter clothingEquipper, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+		if(this.isCondom() && applyEffects) {
+			if(InventoryDialogue.getInventoryNPC()!=null) {
+				return ((NPC) InventoryDialogue.getInventoryNPC()).getCondomEquipEffects(clothingEquipper, clothingOwner, rough);
+			}
+		}
+		
+		if(clothingOwner==null || clothingEquipper==null) {
+			return "";
+		}
+		
 		if(displacementDescriptions!=null && !displacementDescriptions.isEmpty()) {
 			if(clothingOwner.equals(clothingEquipper)) {
 				if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
@@ -861,15 +1169,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			} else {
 				if(rough) {
 					if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
-							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
-						return UtilText.parse(clothingEquipper, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT));
+							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
+						return UtilText.parse(clothingEquipper, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
 					}
 					return UtilText.parse(clothingEquipper, clothingOwner, "[npc.name] [npc.verb(get)] [npc2.name] to equip the "+clothing.getName());
 					
 				} else {
 					if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
-							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
-						return UtilText.parse(clothingEquipper, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
+							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
+						return UtilText.parse(clothingEquipper, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT));
 					}
 					return UtilText.parse(clothingEquipper, clothingOwner, "[npc.name] roughly [npc.verb(force)] [npc2.name] to equip the "+clothing.getName());
 				}
@@ -955,6 +1263,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 
 	public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+		if(clothingOwner==null || clothingRemover==null) {
+			return "";
+		}
+		
 		if(displacementDescriptions!=null && !displacementDescriptions.isEmpty()) {
 			if(clothingOwner.equals(clothingRemover)) {
 				if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
@@ -966,17 +1278,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			} else {
 				if(rough) {
 					if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
-							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
-						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT));
-					}
-					return UtilText.parse(clothingRemover, clothingOwner, "[npc.name] [npc.verb(get)] [npc2.name] to unequip [npc2.her] "+clothing.getName());
-					
-				} else {
-					if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
 							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
 						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
 					}
 					return UtilText.parse(clothingRemover, clothingOwner, "[npc.name] roughly [npc.verb(unequip)] [npc2.namePos] "+clothing.getName());
+					
+				} else {
+					if(displacementDescriptions.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+							&& displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
+						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT));
+					}
+					return UtilText.parse(clothingRemover, clothingOwner, "[npc.name] [npc.verb(get)] [npc2.name] to unequip [npc2.her] "+clothing.getName());
 				}
 			}
 			
@@ -1057,6 +1369,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 
 	public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+		if(clothingOwner==null || clothingRemover==null) {
+			return "";
+		}
+		
 		if(displacementDescriptions!=null && !displacementDescriptions.isEmpty()) {
 			if(clothingOwner.equals(clothingRemover)) {
 				if(displacementDescriptions.containsKey(dt)
@@ -1160,6 +1476,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 
 	public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+		if(clothingOwner==null || clothingRemover==null) {
+			return "";
+		}
+		
 		if(displacementDescriptions!=null && !displacementDescriptions.isEmpty()) {
 			if(clothingOwner.equals(clothingRemover)) {
 				if(displacementDescriptions.containsKey(dt)
@@ -1171,15 +1491,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			} else {
 				if(rough) {
 					if(displacementDescriptions.containsKey(dt)
-							&& displacementDescriptions.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
-						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(dt).get(DisplacementDescriptionType.REPLACEMENT));
+							&& displacementDescriptions.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
+						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(dt).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
 					}
 					return UtilText.parse(clothingRemover, clothingOwner, "[npc.name] "+(clothingRemover.isPlayer()?dt.getOppositeDescription():dt.getOppositeDescriptionThirdPerson())+" [npc2.namePos] "+this.getName());
 					
 				} else {
 					if(displacementDescriptions.containsKey(dt)
-							&& displacementDescriptions.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
-						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(dt).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
+							&& displacementDescriptions.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
+						return UtilText.parse(clothingRemover, clothingOwner, displacementDescriptions.get(dt).get(DisplacementDescriptionType.REPLACEMENT));
 					}
 					return UtilText.parse(clothingRemover, clothingOwner, "[npc.name] roughly "+(clothingRemover.isPlayer()?dt.getOppositeDescription():dt.getOppositeDescriptionThirdPerson())+" [npc2.namePos] "+this.getName());
 				}
@@ -1264,6 +1584,34 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public boolean isCanBeEquipped(GameCharacter clothingOwner) {
 		// This might not be the most efficient way of making this method, but I found it to be easily-readable:
+		BodyPartClothingBlock block = this.getSlot().getBodyPartClothingBlock(clothingOwner);
+		if (block != null && Collections.disjoint(block.getRequiredTags(), this.getItemTags())) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_ARACHNID_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.ARACHNID) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_CEPHALOPOD_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.CEPHALOPOD) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_HARPY_WINGS_EXCLUSIVE) && clothingOwner.getArmType()!=ArmType.HARPY) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_HOOFS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.HOOFS) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_LONG_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL_LONG) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_TALONS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.TALONS) {
+			return false;
+		}
+		if(getItemTags().contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAUR) {
+			return false;
+		}
 		if(clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_NO_PENIS)) {
 			return false;
 		}
@@ -1274,76 +1622,165 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			return false;
 		}
 		if(!clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_VAGINA)) {
+			return false;
+		}
+		if(!clothingOwner.isBreastFuckableNipplePenetration() && this.getItemTags().contains(ItemTag.REQUIRES_FUCKABLE_NIPPLES)) {
+			return false;
+		}
+		if(clothingOwner.getBody().getBodyMaterial().isRequiresPiercing()) {
+			if(this.getSlot()==InventorySlot.PIERCING_EAR && !clothingOwner.isPiercedEar()){
+				return false;
+		
+			} else if(this.getSlot()==InventorySlot.PIERCING_LIP && !clothingOwner.isPiercedLip()){
+				return false;
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_NIPPLE && !clothingOwner.isPiercedNipple()){
+				return false;
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_NOSE && !clothingOwner.isPiercedNose()){
+				return false;
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_PENIS && !clothingOwner.isPiercedPenis()){
+				return false;
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_STOMACH && !clothingOwner.isPiercedNavel()){
+				return false;
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_TONGUE && !clothingOwner.isPiercedTongue()){
+				return false;
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_VAGINA && !clothingOwner.isPiercedVagina()){
+				return false;
+			}
+		}
+		if(this.getSlot()==InventorySlot.PIERCING_PENIS && !clothingOwner.hasPenisIgnoreDildo()){
+			return false;
+			
+		} else if(this.getSlot()==InventorySlot.PIERCING_VAGINA && !clothingOwner.hasVagina()){
+			return false;
+		}
+		
+		if (this.getSlot() == InventorySlot.WINGS && clothingOwner.getWingType()==WingType.NONE) {
+			return false;
+		}
+		if (this.getSlot() == InventorySlot.HORNS && clothingOwner.getHornType().equals(HornType.NONE)) {
+			return false;
+		}
+		if (this.getSlot() == InventorySlot.TAIL && clothingOwner.getTailType()==TailType.NONE) {
 			return false;
 		}
 		return true;
 	}	
 
-	public String getCannotBeEquippedText(GameCharacter clothingOwner) {
+	public String getCannotBeEquippedText(GameCharacter clothingOwner) { // ...
+		BodyPartClothingBlock block = this.getSlot().getBodyPartClothingBlock(clothingOwner);
+		if (block != null && Collections.disjoint(block.getRequiredTags(), this.getItemTags())) {
+			return UtilText.parse("[style.colourBad(" + UtilText.parse(clothingOwner, block.getDescription()) + ")]");
+		}
+		if(getItemTags().contains(ItemTag.FITS_ARACHNID_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.ARACHNID) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for arachnid bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_CEPHALOPOD_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.CEPHALOPOD) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for cephalopod bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_HARPY_WINGS_EXCLUSIVE) && clothingOwner.getArmType()!=ArmType.HARPY) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for arm-wings, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_HOOFS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.HOOFS) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for hoofs, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_LONG_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL_LONG) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for long-tailed bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_TAIL_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAIL) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for tailed bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_TALONS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.TALONS) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for talons, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
+		if(getItemTags().contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAUR) {
+			return UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for taur bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+".");
+		}
 		if(clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_NO_PENIS)) {
-			if(clothingOwner.isPlayer()) {
-				return "You have a penis, which is blocking you from wearing the "+this.getName()+"!";
-			} else {
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] has a penis, which is blocking [npc.herHim] from wearing the "+this.getName()+"!");
-			}
+			return UtilText.parse(clothingOwner, "[npc.NameHasFull] a penis, which is blocking [npc.herHim] from wearing the "+this.getName()+"!");
 		}
-		
 		if(!clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_PENIS)) {
-			if(clothingOwner.isPlayer()) {
-				return "You don't have a penis, so you can't wear the "+this.getName()+"!";
-			} else {
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] doesn't have a penis, so [npc.she] can't wear the "+this.getName()+"!");
-			}
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do]n't have a penis, so [npc.she] can't wear the "+this.getName()+"!");
 		}
-		
 		if(clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_NO_VAGINA)) {
-			if(clothingOwner.isPlayer()) {
-				return "You have a vagina, which is blocking you from wearing the "+this.getName()+"!";
-			} else {
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] has a vagina, which is blocking [npc.herHim] from wearing the "+this.getName()+"!");
-			}
+			return UtilText.parse(clothingOwner, "[npc.NameHasFull] a vagina, which is blocking [npc.herHim] from wearing the "+this.getName()+"!");
 		}
-		
 		if(!clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_VAGINA)) {
-			if(clothingOwner.isPlayer()) {
-				return "You don't have a vagina, so you can't wear the "+this.getName()+"!";
-			} else {
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] doesn't have a vagina, so [npc.she] can't wear the "+this.getName()+"!");
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do]n't have a vagina, so [npc.she] can't wear the "+this.getName()+"!");
+		}
+		if(!clothingOwner.isBreastFuckableNipplePenetration() && this.getItemTags().contains(ItemTag.REQUIRES_FUCKABLE_NIPPLES)) {
+			return UtilText.parse(clothingOwner, "[npc.NamePos] nipples are not fuckable, so [npc.she] can't wear the "+this.getName()+"!");
+		}
+		if(clothingOwner.getBody().getBodyMaterial().isRequiresPiercing()) {
+			if(this.getSlot()==InventorySlot.PIERCING_EAR && !clothingOwner.isPiercedEar()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] ears are not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+		
+			} else if(this.getSlot()==InventorySlot.PIERCING_LIP && !clothingOwner.isPiercedLip()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] lips are not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_NIPPLE && !clothingOwner.isPiercedNipple()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] nipples are not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_NOSE && !clothingOwner.isPiercedNose()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] nose is not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_PENIS && !clothingOwner.isPiercedPenis()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] penis is not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_STOMACH && !clothingOwner.isPiercedNavel()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] navel is not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_TONGUE && !clothingOwner.isPiercedTongue()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] tongue is not pierced, so [npc.she] can't wear the "+this.getName()+"!");
+				
+			} else if(this.getSlot()==InventorySlot.PIERCING_VAGINA && !clothingOwner.isPiercedVagina()){
+				return UtilText.parse(clothingOwner, "[npc.NamePos] vagina is not pierced, so [npc.she] can't wear the "+this.getName()+"!");
 			}
 		}
-		
-		if(clothingOwner.isPlayer()) {
-			return "You cannot wear the "+this.getName()+"!";
-		} else {
-			return UtilText.parse(clothingOwner,
-					"[npc.Name] cannot wear the "+this.getName()+"!");
+		if(this.getSlot()==InventorySlot.PIERCING_PENIS && !clothingOwner.hasPenisIgnoreDildo()){
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have a penis, so [npc.she] can't wear the "+this.getName()+"!");
+			
+		} else if(this.getSlot()==InventorySlot.PIERCING_VAGINA && !clothingOwner.hasVagina()){
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have a vagina, so [npc.she] can't wear the "+this.getName()+"!");
 		}
+		
+		if (this.getSlot() == InventorySlot.WINGS && clothingOwner.getWingType()==WingType.NONE) {
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have any wings, so [npc.she] can't wear the "+this.getName()+"!");
+		}
+		if (this.getSlot() == InventorySlot.HORNS && clothingOwner.getHornType().equals(HornType.NONE)) {
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have any horns, so [npc.she] can't wear the "+this.getName()+"!");
+		}
+		if (this.getSlot() == InventorySlot.TAIL && clothingOwner.getTailType()==TailType.NONE) {
+			return UtilText.parse(clothingOwner, "[npc.Name] [npc.do] not have a tail, so [npc.she] can't wear the "+this.getName()+"!");
+		}
+		return UtilText.parse(clothingOwner, "[npc.Name] cannot wear the "+this.getName()+"!");
 	}
 	
 	public boolean isMufflesSpeech() {
-		return false;
+		return getItemTags().contains(ItemTag.MUFFLES_SPEECH);
 	}
 	
 	public boolean isHindersLegMovement() {
-		return false;
+		return getItemTags().contains(ItemTag.HINDERS_LEG_MOVEMENT);
 	}
 	
 	public boolean isHindersArmMovement() {
-		return false;
+		return getItemTags().contains(ItemTag.HINDERS_ARM_MOVEMENT);
 	}
 	
 	// Getters & setters:
 	
 	public boolean isDiscardedOnUnequip() {
-		return false;
+		return getItemTags().contains(ItemTag.DISCARDED_WHEN_UNEQUIPPED);
 	}
 	
 	public boolean isAbleToBeEquippedDuringSex() {
-		return false;
+		return getItemTags().contains(ItemTag.ENABLE_SEX_EQUIP);
 	}
 	
 	public String getDeterminer() {
@@ -1369,6 +1806,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return description;
 	}
 
+	public String getAuthorDescription() {
+		return authorDescription;
+	}
+
 	public int getFemininityMinimum() {
 		return femininityMinimum;
 	}
@@ -1385,15 +1826,219 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return slot;
 	}
 
-	public List<BlockedParts> getBlockedPartsList() {
+	public List<BlockedParts> getBlockedPartsList(GameCharacter character) {
+		if(character!=null) {
+			boolean replaceCrotchBoobAccess = false;
+			boolean replaceGroinAccess = false;
+			switch(character.getLegConfiguration()) {
+				case BIPEDAL:
+				case TAIL:
+				case TAIL_LONG:
+				case CEPHALOPOD:
+					// These are all in such a position that normal clothing conceals as normal
+					break;
+				case ARACHNID:
+					if(!this.getItemTags().contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
+						// Arachnid crotch boobs are on the front, so that conceals as normal. Genitalia are not concealed.
+						replaceGroinAccess = true;
+					}
+					break;
+				case TAUR:
+					if(!this.getItemTags().contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
+						replaceCrotchBoobAccess = true;
+						replaceGroinAccess = true;
+					}
+					break;
+			}
+			if(replaceGroinAccess
+					&& this.getSlot()!=InventorySlot.ANUS
+					&& this.getSlot()!=InventorySlot.PENIS
+					&& this.getSlot()!=InventorySlot.VAGINA
+					&& this.getSlot()!=InventorySlot.PIERCING_PENIS
+					&& this.getSlot()!=InventorySlot.PIERCING_VAGINA) { // Clothing in groin slots should always be fine, so don't replace their values.
+				boolean cAccess = replaceCrotchBoobAccess;
+				List<BlockedParts> modifiedBlockedParts = new ArrayList<>();
+				for(BlockedParts blockedparts : blockedPartsList) {
+					BlockedParts copy = new BlockedParts(blockedparts);
+					
+					copy.blockedBodyParts = copy.blockedBodyParts.stream().filter(
+						bp ->
+							bp!=CoverableArea.ANUS && bp!=CoverableArea.ASS
+							&& bp!=CoverableArea.FEET && bp!=CoverableArea.LEGS
+							&& bp!=CoverableArea.MOUND && bp!=CoverableArea.PENIS
+							&& bp!=CoverableArea.TESTICLES && bp!=CoverableArea.THIGHS
+							&& bp!=CoverableArea.VAGINA && (!cAccess || (bp!=CoverableArea.BREASTS_CROTCH && bp!=CoverableArea.NIPPLES_CROTCH))
+						).collect(Collectors.toList());
+					
+					copy.clothingAccessRequired = copy.clothingAccessRequired.stream().filter(
+						ca ->
+							ca!=ClothingAccess.ANUS && ca!=ClothingAccess.GROIN
+							&& ca!=ClothingAccess.CALVES && ca!=ClothingAccess.FEET
+							&& ca!=ClothingAccess.LEGS_UP_TO_GROIN && ca!=ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL
+							&& ca!=ClothingAccess.WAIST
+						).collect(Collectors.toList());
+					
+					copy.clothingAccessBlocked = copy.clothingAccessBlocked.stream().filter(
+						ca ->
+							ca!=ClothingAccess.ANUS && ca!=ClothingAccess.GROIN
+							&& ca!=ClothingAccess.CALVES && ca!=ClothingAccess.FEET
+							&& ca!=ClothingAccess.LEGS_UP_TO_GROIN && ca!=ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL
+							&& ca!=ClothingAccess.WAIST
+						).collect(Collectors.toList());
+					
+					copy.concealedSlots = copy.concealedSlots.stream().filter(
+						cs ->
+							cs!=InventorySlot.ANKLE && cs!=InventorySlot.ANUS
+							&& cs!=InventorySlot.FOOT && cs!=InventorySlot.GROIN
+							&& cs!=InventorySlot.LEG && cs!=InventorySlot.PENIS
+							&& cs!=InventorySlot.PIERCING_PENIS && cs!=InventorySlot.PIERCING_VAGINA
+							&& cs!=InventorySlot.SOCK && cs!=InventorySlot.TAIL
+							&& cs!=InventorySlot.VAGINA // There is no slot for crotch boobs, and is handled in CharacterInventory.isCoverableAreaExposed()
+						).collect(Collectors.toList());
+					
+					modifiedBlockedParts.add(copy);
+				}
+				return modifiedBlockedParts;
+			}
+		}
 		return blockedPartsList;
 	}
+	
+	public boolean isConcealsSlot(GameCharacter character, InventorySlot slot) {
+		for(BlockedParts blockedPart : this.getBlockedPartsList(character)) {
+			if(blockedPart.concealedSlots.contains(slot) && !this.getItemTags().contains(ItemTag.TRANSPARENT)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isConcealsCoverableArea(GameCharacter character, CoverableArea area) {
+		for(BlockedParts blockedPart : this.getBlockedPartsList(character)) {
+			if(blockedPart.blockedBodyParts.contains(area) && !this.getItemTags().contains(ItemTag.TRANSPARENT)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-	public List<InventorySlot> getIncompatibleSlots() {
+	public List<InventorySlot> getIncompatibleSlots(GameCharacter character) { //TODO
+		if(character!=null) {
+			boolean replace = false;
+			switch(character.getLegConfiguration()) {
+				case BIPEDAL:
+				case TAIL:
+				case TAIL_LONG:
+				case CEPHALOPOD:
+					// These are all in such a position that normal clothing conceals as normal
+					break;
+				case ARACHNID:
+					if(!this.getItemTags().contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
+						replace = true;
+					}
+					break;
+				case TAUR:
+					if(!this.getItemTags().contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
+						replace = true;
+					}
+					break;
+			}
+			if(replace) {
+				List<InventorySlot> modifiedIncompatibleSlots = new ArrayList<>(incompatibleSlots);
+				
+				if(InventorySlot.getHumanoidSlots().contains(this.getSlot())) {
+					modifiedIncompatibleSlots.removeIf(slot -> !InventorySlot.getHumanoidSlots().contains(slot));
+				} else {
+					modifiedIncompatibleSlots.removeIf(slot -> InventorySlot.getHumanoidSlots().contains(slot));
+				}
+				
+				return modifiedIncompatibleSlots;
+			}
+		}
 		return incompatibleSlots;
 	}
 	
-	public List<DisplacementType> getBlockedPartsKeysAsListWithoutNONE() {
+	public List<DisplacementType> getBlockedPartsKeysAsListWithoutNONE(GameCharacter character) {
+		if(character!=null) {
+			boolean replaceCrotchBoobAccess = false;
+			boolean replaceGroinAccess = false;
+			switch(character.getLegConfiguration()) {
+				case BIPEDAL:
+				case TAIL:
+				case TAIL_LONG:
+				case CEPHALOPOD:
+					// These are all in such a position that normal clothing conceals as normal
+					break;
+				case ARACHNID:
+					if(!this.getItemTags().contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
+						// Arachnid crotch boobs are on the front, so that conceals as normal. Genitalia are not concealed.
+						replaceGroinAccess = true;
+					}
+					break;
+				case TAUR:
+					if(!this.getItemTags().contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
+						replaceCrotchBoobAccess = true;
+						replaceGroinAccess = true;
+					}
+					break;
+			}
+			if(replaceGroinAccess
+					&& this.getSlot()!=InventorySlot.ANUS
+					&& this.getSlot()!=InventorySlot.PENIS
+					&& this.getSlot()!=InventorySlot.VAGINA
+					&& this.getSlot()!=InventorySlot.PIERCING_PENIS
+					&& this.getSlot()!=InventorySlot.PIERCING_VAGINA) { // Clothing in groin slots should always be fine, so don't replace their values.
+				boolean cAccess = replaceCrotchBoobAccess;
+				List<BlockedParts> modifiedBlockedParts = new ArrayList<>();
+				for(BlockedParts blockedparts : blockedPartsList) {
+					BlockedParts copy = new BlockedParts(blockedparts);
+					
+					copy.blockedBodyParts = copy.blockedBodyParts.stream().filter(
+						bp ->
+							bp!=CoverableArea.ANUS && bp!=CoverableArea.ASS
+							&& bp!=CoverableArea.FEET && bp!=CoverableArea.LEGS
+							&& bp!=CoverableArea.MOUND && bp!=CoverableArea.PENIS
+							&& bp!=CoverableArea.TESTICLES && bp!=CoverableArea.THIGHS
+							&& bp!=CoverableArea.VAGINA && (!cAccess || (bp!=CoverableArea.BREASTS_CROTCH && bp!=CoverableArea.NIPPLES_CROTCH))
+						).collect(Collectors.toList());
+					
+					copy.clothingAccessRequired = copy.clothingAccessRequired.stream().filter(
+						ca ->
+							ca!=ClothingAccess.ANUS && ca!=ClothingAccess.GROIN
+							&& ca!=ClothingAccess.CALVES && ca!=ClothingAccess.FEET
+							&& ca!=ClothingAccess.LEGS_UP_TO_GROIN && ca!=ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL
+							&& ca!=ClothingAccess.WAIST
+						).collect(Collectors.toList());
+					
+					copy.clothingAccessBlocked = copy.clothingAccessBlocked.stream().filter(
+						ca ->
+							ca!=ClothingAccess.ANUS && ca!=ClothingAccess.GROIN
+							&& ca!=ClothingAccess.CALVES && ca!=ClothingAccess.FEET
+							&& ca!=ClothingAccess.LEGS_UP_TO_GROIN && ca!=ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL
+							&& ca!=ClothingAccess.WAIST
+						).collect(Collectors.toList());
+					
+					copy.concealedSlots = copy.concealedSlots.stream().filter(
+						cs ->
+							cs!=InventorySlot.ANKLE && cs!=InventorySlot.ANUS
+							&& cs!=InventorySlot.FOOT && cs!=InventorySlot.GROIN
+							&& cs!=InventorySlot.LEG && cs!=InventorySlot.PENIS
+							&& cs!=InventorySlot.PIERCING_PENIS && cs!=InventorySlot.PIERCING_VAGINA
+							&& cs!=InventorySlot.SOCK && cs!=InventorySlot.TAIL
+							&& cs!=InventorySlot.VAGINA // There is no slot for crotch boobs, and is handled in CharacterInventory.isCoverableAreaExposed()
+						).collect(Collectors.toList());
+					
+					modifiedBlockedParts.add(copy);
+				}
+				List<DisplacementType> moddedDisplacementTypesAvailableWithoutNONE = new ArrayList<>();
+				for (BlockedParts bp : modifiedBlockedParts) {
+					if (bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
+						moddedDisplacementTypesAvailableWithoutNONE.add(bp.displacementType);
+					}
+				}
+				return moddedDisplacementTypesAvailableWithoutNONE;
+			}
+		}
 		return displacementTypesAvailableWithoutNONE;
 	}
 	
@@ -1506,15 +2151,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 
 	public String getSVGImage() {
-		Colour pColour = Colour.CLOTHING_BLACK;
+		Colour pColour = DEFAULT_COLOUR_VALUE;
 		if(this.getAllAvailablePrimaryColours()!=null && !this.getAllAvailablePrimaryColours().isEmpty()) {
 			pColour = this.getAllAvailablePrimaryColours().get(0);
 		}
-		Colour sColour = Colour.CLOTHING_BLACK;
+		Colour sColour = DEFAULT_COLOUR_VALUE;
 		if(this.getAllAvailableSecondaryColours()!=null && !this.getAllAvailableSecondaryColours().isEmpty()) {
 			sColour = this.getAllAvailableSecondaryColours().get(0);
 		}
-		Colour tColour = Colour.CLOTHING_BLACK;
+		Colour tColour = DEFAULT_COLOUR_VALUE;
 		if(this.getAllAvailableTertiaryColours()!=null && !this.getAllAvailableTertiaryColours().isEmpty()) {
 			tColour = this.getAllAvailableTertiaryColours().get(0);
 		}
@@ -1553,13 +2198,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					String s = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>"+Util.inputStreamToString(is)+"</div>";
 					is.close();
 					s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-					s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+					s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 
 					if(!equippedVariant) {
 						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
 						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
 						s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-						s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+						s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 						is.close();
 						
 						addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, pattern, patternColour, patternSecondaryColour, patternTertiaryColour, s);
@@ -1569,16 +2214,18 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					} else {
 						List<Colour> condomColours = new ArrayList<>();
 						// Draw all backs:
-						for(AbstractItem item : character.getAllItemsInInventory()) {
+						for(AbstractItem item : character.getAllItemsInInventory().keySet()) {
 							if(item.getItemType().equals(ItemType.CONDOM_USED)) {
-								if(condomColours.size()<8) {
-									condomColours.add(item.getColour());
-									
-									is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
-									s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
-									s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-									s = Util.colourReplacement(this.getId(), item.getColour(), null, null, s);
-									is.close();
+								for(int count=0; count<character.getItemCount(item); count++) {
+									if(condomColours.size()<8) {
+										condomColours.add(item.getColour());
+										
+										is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
+										s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+										s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
+										s = SvgUtil.colourReplacement(this.getId(), item.getColour(), null, null, s);
+										is.close();
+									}
 								}
 							}
 						}
@@ -1587,7 +2234,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
 						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
 						s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-						s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+						s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 						is.close();
 						
 						int i = 1;
@@ -1595,7 +2242,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+i+"_front.svg");
 							s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
 							s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
-							s = Util.colourReplacement(this.getId(), c, null, null, s);
+							s = SvgUtil.colourReplacement(this.getId(), c, null, null, s);
 							is.close();
 							i++;
 						}
@@ -1635,7 +2282,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							
 							s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 							
-							s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+							s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 							
 							// Add minute and hour hands to women's and men's watches:
 							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
@@ -1686,7 +2333,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							
 							s = getSVGWithHandledPattern(s, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 							
-							s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+							s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 							
 							// Add minute and hour hands to women's and men's watches:
 							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
@@ -1716,7 +2363,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	private String getSVGWithHandledPattern(String s, String pattern, Colour patternColour, Colour patternSecondaryColour, Colour patternTertiaryColour) {
-		if(!s.contains("label=\"patternLayer\"")) { // Making sure that the pattern layer exists.
+		isPatternAvailableInitCompleted = true;
+		if(!s.contains("patternLayer")) { // Making sure that the pattern layer exists.
 			return s;
 		}
 		
@@ -1731,7 +2379,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		String returnable;
 		
 		// Locating the "patternLayer".
-		int patternLayerStartIndex = s.indexOf("label=\"patternLayer\"");
+		int patternLayerStartIndex = s.indexOf("patternLayer");
 		int patternLayerEndIndex = s.indexOf("</g>", patternLayerStartIndex);
 		
 		// Setting up clip mask
@@ -1744,7 +2392,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		while(continueSetUp){
 			int currentShapeStartIndex = s.indexOf("<path", lastShapeEndIndex);
-			int currentShapeEndIndex = s.indexOf(" />", currentShapeStartIndex);
+			int currentShapeEndIndex = s.indexOf("/>", currentShapeStartIndex);
 			
 			if(currentShapeEndIndex > patternLayerEndIndex || currentShapeEndIndex == -1 || currentShapeStartIndex == -1) {
 				continueSetUp = false;
@@ -1759,20 +2407,32 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		//System.out.print(newClipMask);
 		
 		// Adding clip mask to the returned string.
-		returnable = s.substring(0, s.indexOf("<defs")) 
-				+ "<defs>" 
-				+ newClipMask;
+		int defIndex = s.indexOf("<defs");
+		int defEndIndex;
+		if (defIndex > 0) {
+			// Replace defs
+			returnable = s.substring(0, defIndex) + "<defs>" + newClipMask;
+			defEndIndex = s.indexOf("</defs>");
+		} else {
+			// Insert defs
+			returnable = s.substring(0, s.indexOf('>')) + "><defs>" + newClipMask + "</defs>";
+			defEndIndex = s.indexOf('>') + 1;
+		}
 		
 		// Loading pattern
-		String loadedPattern = Pattern.getPattern(pattern).getSVGString(patternColour, patternSecondaryColour, patternTertiaryColour);
-		
+			String loadedPattern;
+		try {
+			loadedPattern = Pattern.getPattern(pattern).getSVGString(patternColour, patternSecondaryColour, patternTertiaryColour);
+		} catch(Exception ex) {
+			System.err.println("Error in pattern loading method getSVGWithHandledPattern(). Clothing causing error: "+this.getName());
+			return s;
+		}
 		// Getting shapes from the pattern
 		String newPattern = "";
 		
 		int firstPatternShapeStartIndex = loadedPattern.indexOf("<path");
 		int firstRectStartIndex = loadedPattern.indexOf("<rect");
-		if((firstRectStartIndex != -1 && firstRectStartIndex < firstPatternShapeStartIndex) || firstPatternShapeStartIndex == -1)
-		{
+		if((firstRectStartIndex != -1 && firstRectStartIndex < firstPatternShapeStartIndex) || firstPatternShapeStartIndex == -1) {
 			firstPatternShapeStartIndex = firstRectStartIndex;
 		}
 		int lastPatternShapeEndIndex = firstPatternShapeStartIndex;
@@ -1782,11 +2442,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		while(continuePatternSetUp){
 			int currentShapeStartIndex = loadedPattern.indexOf("<path", lastPatternShapeEndIndex);
 			int currentRectStartIndex = loadedPattern.indexOf("<rect", lastPatternShapeEndIndex);
-			if((currentRectStartIndex != -1 && currentRectStartIndex < currentShapeStartIndex) || currentShapeStartIndex == -1)
-			{
+			if((currentRectStartIndex != -1 && currentRectStartIndex < currentShapeStartIndex) || currentShapeStartIndex == -1) {
 				currentShapeStartIndex = currentRectStartIndex;
 			}
-			int currentShapeEndIndex = loadedPattern.indexOf(" />", currentShapeStartIndex);
+			int currentShapeEndIndex = loadedPattern.indexOf("/>", currentShapeStartIndex);
 			
 			if(currentShapeEndIndex == -1 || currentShapeStartIndex == -1) {
 				continuePatternSetUp = false;
@@ -1799,7 +2458,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 
-		returnable = returnable + s.substring(s.indexOf("</defs>"), firstShapeStartIndex) 
+		returnable = returnable + s.substring(defEndIndex, firstShapeStartIndex)
 				+ newPattern
 				+ s.substring(patternLayerEndIndex);
 		
@@ -1809,7 +2468,55 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public boolean isPatternAvailable() {
+		if(!isPatternAvailable && !isPatternAvailableInitCompleted) {
+			isPatternAvailable = this.getSVGImage().contains("patternLayer");
+			isPatternAvailableInitCompleted = true;
+		}
 		return this.isPatternAvailable;
+	}
+
+	public float getPatternChance() {
+		return patternChance;
+	}
+
+	public List<Pattern> getDefaultPatterns() {
+		return defaultPatterns;
+	}
+
+	public List<Colour> getAvailablePatternPrimaryColours() {
+		return availablePatternPrimaryColours;
+	}
+
+	public List<Colour> getAvailablePatternSecondaryColours() {
+		return availablePatternSecondaryColours;
+	}
+
+	public List<Colour> getAvailablePatternTertiaryColours() {
+		return availablePatternTertiaryColours;
+	}
+
+	public List<Colour> getAvailablePatternPrimaryDyeColours() {
+		return availablePatternPrimaryDyeColours;
+	}
+
+	public List<Colour> getAllAvailablePatternPrimaryColours() {
+		return allAvailablePatternPrimaryColours;
+	}
+
+	public List<Colour> getAvailablePatternSecondaryDyeColours() {
+		return availablePatternSecondaryDyeColours;
+	}
+
+	public List<Colour> getAllAvailablePatternSecondaryColours() {
+		return allAvailablePatternSecondaryColours;
+	}
+
+	public List<Colour> getAvailablePatternTertiaryDyeColours() {
+		return availablePatternTertiaryDyeColours;
+	}
+
+	public List<Colour> getAllAvailablePatternTertiaryColours() {
+		return allAvailablePatternTertiaryColours;
 	}
 
 	public Rarity getRarity() {
@@ -1842,7 +2549,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public int getEnchantmentLimit() {
 		if(enchantmentLimit==-1) {
 			int base = (getClothingSet()==null?5:10);
-			return base + getIncompatibleSlots().size()*base;
+			return base + getIncompatibleSlots(null).size()*base;
 		} else {
 			return enchantmentLimit;
 		}
@@ -1862,5 +2569,26 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 	public List<ItemTag> getItemTags() {
 		return itemTags;
+	}
+	
+	public boolean isSexToy() {
+		for(ItemTag tag : this.getItemTags()) {
+			if(tag.isSexToy()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isCondom() {
+		return getItemTags().contains(ItemTag.CONDOM);
+	}
+	
+	public boolean isTransparent() {
+		return getItemTags().contains(ItemTag.TRANSPARENT);
+	}
+
+	public boolean isColourDerivedFromPattern() {
+		return isColourDerivedFromPattern;
 	}
 }

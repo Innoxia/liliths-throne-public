@@ -222,7 +222,7 @@ public class PenisAss {
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Shifting [npc.her] [npc.hips] a little, [npc.name] [npc.verb(reach)] back and eagerly [npc2.verb(press)] [npc.her] ass cheeks together,"
+							"Shifting [npc.her] [npc.hips] a little, [npc.name] [npc.verb(reach)] back and eagerly [npc.verb(press)] [npc.her] ass cheeks together,"
 									+ " before happily sliding the [npc2.cockHead] of [npc2.namePos] [npc2.cock+] up and down between the cleft that's formed.",
 
 							"Taking a firm hold of [npc.her] [npc.ass], [npc.name] slowly [npc.verb(push)] [npc.her] cheeks together,"
@@ -880,7 +880,7 @@ public class PenisAss {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan], gently bucking [npc2.her] [npc2.hips] forwards as [npc2.she] [npc2.verb(start)] to fuck [npc.her] ass cheeks.",
 
-							" With a soft [npc2.moan], [npc2.name] gently [npc.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(sink)] [npc2.her] [npc2.cock+] between the cheeks of [npc.namePos] [npc.ass+]."));
+							" With a soft [npc2.moan], [npc2.name] gently [npc2.verb(thrust)] [npc2.her] [npc2.hips] forwards and [npc2.verb(sink)] [npc2.her] [npc2.cock+] between the cheeks of [npc.namePos] [npc.ass+]."));
 					break;
 				case DOM_NORMAL:
 				case SUB_EAGER:
@@ -906,7 +906,7 @@ public class PenisAss {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.her] [npc2.cock] between the cheeks of [npc.her] [npc.ass+],"
-									+ " and, struggling against [npc.herHim], [npc2.she] desperately tries to pull away.",
+									+ " and, struggling against [npc.herHim], [npc2.she] desperately [npc2.verb(try)] to pull away.",
 
 							" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc2.her] [npc2.cock] deep between [npc.her] ass cheeks."));
 					break;

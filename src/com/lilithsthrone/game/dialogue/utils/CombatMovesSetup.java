@@ -1,15 +1,11 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.combat.CombatMove;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 
 public class CombatMovesSetup {
 
@@ -26,10 +22,7 @@ public class CombatMovesSetup {
         CombatMovesSetup.target = target;
     }
 
-    public static final DialogueNodeOld COMBAT_MOVES_CORE = new DialogueNodeOld("Combat Moves", "", true) {
-
-        private static final long serialVersionUID = 1L;
-
+    public static final DialogueNode COMBAT_MOVES_CORE = new DialogueNode("Combat Moves", "", true) {
         @Override
         public String getHeaderContent() {
             UtilText.nodeContentSB.setLength(0);

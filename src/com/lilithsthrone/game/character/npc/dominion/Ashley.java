@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
@@ -8,6 +9,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -25,7 +27,7 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -60,7 +62,7 @@ public class Ashley extends NPC {
 	}
 	
 	public Ashley(boolean isImported) {
-		super(isImported, new NameTriplet("Ashley"),
+		super(isImported, new NameTriplet("Ashley"), "Minett", //TODO
 				"Ashley is the owner of the shop 'Dream Lover', and is seemingly also its only working staff."
 						+ " They are very stand-offish and loathe helping out their customers, to the point where they'd rather stare at the walls instead of offering any help.",
 				200, Month.AUGUST, 14,//TODO
@@ -184,9 +186,9 @@ public class Ashley extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 		
 		// No weapons
 		
@@ -224,7 +226,7 @@ public class Ashley extends NPC {
 					infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
 				}
 			} catch (Exception e) {
-				System.err.println("Main.game.getNPCById("+entry.getKey()+") returning null in method: Ashley.getCharacterInformationScreen()");
+				Util.logGetNpcByIdError("Ashley.getCharacterInformationScreen()", entry.getKey());
 			}
 		}
 		
@@ -279,7 +281,7 @@ public class Ashley extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
+	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
 
