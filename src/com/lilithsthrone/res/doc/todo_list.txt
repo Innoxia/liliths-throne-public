@@ -128,12 +128,14 @@
 	Contributors:
 		Cleaned up inventory code. (PR#1146 by Pimgd)
 		Added 'light grey', 'dark grey', and 'gunmetal grey' colours. (PR#1147 by GynoidDoesGames)
+		Fixed issue with sex sometimes never ending when having sex with a companion in their room. (PR#1153 by A-haron)
 	
 	Other:
 		Time until end of arcane storm is now displayed in tooltip if you have the arcane spell school ability unlocked.
 		Added a pink background for ongoing sex action status effects, to help to highlight what's happening during sex scenes.
 		Growing unicorn horns via TF potion will now reset horns per row to 1 a the moment of transformation. (You can still increase horns per row as normal after the type transformation.)
 		Elementals can now self-transform into the appearance of any morph, but will still always be composed entirely of their associated element.
+		Made friednly occupant sex options the same as slave sex options (by adding the spitroast and doggy-style options), and you can now access their sex menu in their room/apartment even if they're in your party.
 	
 	Sex:
 		Fixed issue where changing positions in group sex would move the third/fourth partners into spectator slots.
@@ -167,10 +169,14 @@
 		Critical hits in combat that end up missing will no longer grant you an arcane essence if you had the sadist (for dealing damage) or masochist (for receiving damage) fetish.
 		The rooms and halls in Lyssieth's palace now correctly have maids described as being present in the 'characters present' dialogue box.
 		Takahashi will no longer be willing to use a potion on your companion if they're a demon or elemental.
+		Fixed being able to have a threesome with a clone of your companion when visiting their apartment.
 
 
+	They get you to finger them, then you start cunnilingus on them, and it doesn't remove fingers.
 
 	Make damage type buttons not fully greyed out
+
+	remove jinxed clothing SE
 
 	PRs
 	
