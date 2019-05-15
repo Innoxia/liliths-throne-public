@@ -6363,8 +6363,8 @@ public class InventoryDialogue {
 				+ "<b>Damage type:</b>");
 		for(DamageType dt : weapon.getWeaponType().getAvailableDamageTypes()) {
 			inventorySB.append("<br/>"
-					+ "<div class='normal-button' id='DAMAGE_TYPE_" + weapon.getWeaponType().hashCode() + "_" + dt.toString() + "'"
-							+ "style='width:75%; color:"+(damageTypePreview==dt?dt.getColour().toWebHexString():Colour.TEXT_GREY.toWebHexString())+";'>"
+					+ "<div class='normal-button"+(damageTypePreview==dt?" selected":"")+"' id='DAMAGE_TYPE_" + weapon.getWeaponType().hashCode() + "_" + dt.toString() + "'"
+							+ "style='width:75%; color:"+(damageTypePreview==dt?dt.getColour().toWebHexString():dt.getColour().getShades(8)[0])+";'>"
 						+ Util.capitaliseSentence(dt.getName())
 					+ "</div>");
 		}

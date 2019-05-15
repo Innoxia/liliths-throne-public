@@ -2217,8 +2217,7 @@ public enum StatusEffect {
 			Colour.ATTRIBUTE_CORRUPTION,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f),
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f)),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -5f)),
 			null) {
 
 		@Override

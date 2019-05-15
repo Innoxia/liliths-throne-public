@@ -2599,8 +2599,7 @@ public class Sex {
 			for(SexAreaInterface targetedArea : areasToClear) {
 				if(ongoingActionsMap.get(characterPerformingAction).get(performerArea).get(characterTargeted).remove(targetedArea)) {
 					ongoingActionsMap.get(characterTargeted).get(targetedArea).get(characterPerformingAction).remove(performerArea);
-					if(appendRemovalText && characterTargeted!=null && performerArea.isPenetration() && targetedArea.isOrifice()) {
-						//TODO add variants for pen/pen and ori/ori
+					if(appendRemovalText && characterTargeted!=null) {
 						sexSB.append(formatStopPenetration(characterTargeted.getStopPenetrationDescription(characterPerformingAction, (SexAreaPenetration)performerArea, characterTargeted, (SexAreaOrifice)targetedArea)));
 					}
 				}
@@ -2632,9 +2631,8 @@ public class Sex {
 		if(ongoingActionsMap.get(characterPerformingAction).get(performerArea).containsKey(characterTargeted)) {
 			if(ongoingActionsMap.get(characterPerformingAction).get(performerArea).get(characterTargeted).remove(targetedArea)) {
 				ongoingActionsMap.get(characterTargeted).get(targetedArea).get(characterPerformingAction).remove(performerArea);
-				if(characterTargeted!=null && performerArea.isPenetration() && targetedArea.isOrifice()) {
-					//TODO add variants for pen/pen and ori/ori
-					removalText = formatStopPenetration(characterTargeted.getStopPenetrationDescription(characterPerformingAction, (SexAreaPenetration)performerArea, characterTargeted, (SexAreaOrifice)targetedArea));
+				if(characterTargeted!=null) {
+					removalText = formatStopPenetration(characterTargeted.getStopPenetrationDescription(characterPerformingAction, performerArea, characterTargeted, targetedArea));
 					if(appendRemovalText) {
 						sexSB.append(removalText);
 					}

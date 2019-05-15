@@ -11922,87 +11922,43 @@ public abstract class GameCharacter implements XMLSaving {
 		return "";
 	}
 	
-	public String getStopPenetrationDescription(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice) {
-		String orificeName = "", penetrationName = "";
-
-		switch(penetrationType) {
-			case FINGER:
-				penetrationName = "[npc.fingers]";
-				break;
-			case PENIS:
-				penetrationName = "[npc.cock+]";
-				break;
-			case TAIL:
-				penetrationName = "[npc.tail+]";
-				break;
-			case TENTACLE:
-				penetrationName = "tentacle";
-				break;
-			case TONGUE:
-				penetrationName = "[npc.tongue+]";
-				break;
-			case CLIT:
-				penetrationName = "[npc.clit+]";
-				break;
-			case FOOT:
-				penetrationName = "[npc.toes]";
-				break;
-		}
-		
-		switch(orifice) {
-			case ANUS:
-				orificeName = "[npc2.asshole+]";
-				break;
-			case ASS:
-				orificeName = "[npc2.ass+]";
-				break;
-			case MOUTH:
-				orificeName = "mouth";
-				break;
-			case BREAST:
-				orificeName = "[npc2.breasts+]";
-				break;
-			case BREAST_CROTCH:
-				orificeName = "[npc2.crotchBoobs+]";
-				break;
-			case NIPPLE:
-				orificeName = "[npc2.nipple+]";
-				break;
-			case NIPPLE_CROTCH:
-				orificeName = "[npc2.crotchNipple+]";
-				break;
-			case URETHRA_PENIS:
-			case URETHRA_VAGINA:
-				orificeName = "urethra";
-				break;
-			case VAGINA:
-				orificeName = "[npc2.pussy+]";
-				break;
-			case THIGHS:
-				orificeName = "thighs";
-				break;
-		}
-		
-		
-		if(characterPenetrating.isPlayer()) {
-			if(characterPenetrated.isPlayer()) {
-				return UtilText.parse(characterPenetrating, characterPenetrated,
-						"You slide your "+penetrationName+" out of your "+orificeName+".");
+	public String getStopPenetrationDescription(GameCharacter characterPerformer, SexAreaInterface performerArea, GameCharacter characterTarget, SexAreaInterface targetArea) {
+		if(characterPerformer.equals(characterTarget)) {
+			if(performerArea.isPenetration()) {
+				if(targetArea.isPenetration()) {
+					return UtilText.parse(characterPerformer,
+							"[npc.Name] [npc.verb(take)] [npc.her] "+performerArea.getName(characterPerformer)+" away from [npc.her] "+targetArea.getName(characterPerformer)+".");
+				} else {
+					return UtilText.parse(characterPerformer,
+							"[npc.Name] [npc.verb(slide)] [npc.her] "+performerArea.getName(characterPerformer)+" out of [npc.her] "+targetArea.getName(characterPerformer)+".");
+				}
 			} else {
-				return UtilText.parse(characterPenetrating, characterPenetrated,
-						"You slide your "+penetrationName+" out of [npc2.namePos] "+orificeName+".");
+				if(targetArea.isPenetration()) {
+					return UtilText.parse(characterPerformer,
+							"[npc.Name] [npc.verb(slide)] [npc.her] "+targetArea.getName(characterPerformer)+" out of [npc.her] "+performerArea.getName(characterPerformer)+".");
+				} else {
+					return UtilText.parse(characterPerformer,
+							"[npc.Name] [npc.verb(take)] [npc.her] "+performerArea.getName(characterPerformer)+" away from [npc.her] "+targetArea.getName(characterPerformer)+".");
+				}
 			}
 			
 		} else {
-			if(characterPenetrated.isPlayer()) {
-				return UtilText.parse(characterPenetrating, characterPenetrated,
-						"[npc.Name] slides [npc.her] "+penetrationName+" out of your "+orificeName+".");
-			} else if(characterPenetrating.equals(characterPenetrated)) {
-				return UtilText.parse(characterPenetrating, characterPenetrated,
-						"[npc.Name] slides [npc.her] "+penetrationName+" out of [npc.her] "+orificeName+".");
+			if(performerArea.isPenetration()) {
+				if(targetArea.isPenetration()) {
+					return UtilText.parse(characterPerformer, characterTarget,
+							"[npc.Name] [npc.verb(take)] [npc.her] "+performerArea.getName(characterPerformer)+" away from [npc2.namePos] "+targetArea.getName(characterTarget)+".");
+				} else {
+					return UtilText.parse(characterPerformer, characterTarget,
+							"[npc.Name] [npc.verb(slide)] [npc.her] "+performerArea.getName(characterPerformer)+" out of [npc2.namePos] "+targetArea.getName(characterTarget)+".");
+				}
 			} else {
-				return UtilText.parse(characterPenetrating, characterPenetrated,
-						"[npc.Name] slides [npc.her] "+penetrationName+" out of [npc2.namePos] "+orificeName+".");
+				if(targetArea.isPenetration()) {
+					return UtilText.parse(characterPerformer, characterTarget,
+							"[npc.Name] [npc.verb(slide)] [npc2.namePos] "+targetArea.getName(characterTarget)+" out of [npc.her] "+performerArea.getName(characterPerformer)+".");
+				} else {
+					return UtilText.parse(characterPerformer, characterTarget,
+							"[npc.Name] [npc.verb(take)] [npc.her] "+performerArea.getName(characterPerformer)+" away from [npc2.namePos] "+targetArea.getName(characterTarget)+".");
+				}
 			}
 		}
 	}

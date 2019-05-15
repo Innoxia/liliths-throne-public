@@ -195,33 +195,37 @@ public interface SexActionInterface {
 	public default String preDescriptionBaseEffects() {
 		StringBuilder stopSB = new StringBuilder();
 		
-		if(getActionType()==SexActionType.START_ONGOING) {
-			try {
+		if(getActionType()==SexActionType.START_ONGOING) { //TODO allow multiple penetrations
 				for(Entry<SexAreaInterface, SexAreaInterface> entry : getSexAreaInteractions().entrySet()) {
-					if(!entry.getKey().isFree(Sex.getCharacterPerformingAction())) {
-						Map<GameCharacter, Set<SexAreaInterface>> map = Sex.getOngoingActionsMap(Sex.getCharacterPerformingAction()).get(entry.getKey());
-						Entry<GameCharacter, Set<SexAreaInterface>> firstEntry = map.entrySet().iterator().next();
-						stopSB.append(Sex.stopOngoingAction(
-								Sex.getCharacterPerformingAction(),
-								entry.getKey(),
-								firstEntry.getKey(),
-								firstEntry.getValue().iterator().next(),
-								false));
+					try {
+						if(!entry.getKey().isFree(Sex.getCharacterPerformingAction())) {
+							Map<GameCharacter, Set<SexAreaInterface>> map = Sex.getOngoingActionsMap(Sex.getCharacterPerformingAction()).get(entry.getKey());
+							Entry<GameCharacter, Set<SexAreaInterface>> firstEntry = map.entrySet().iterator().next();
+							stopSB.append(Sex.stopOngoingAction(
+									Sex.getCharacterPerformingAction(),
+									entry.getKey(),
+									firstEntry.getKey(),
+									firstEntry.getValue().iterator().next(),
+									false));
+						}
+					} catch(Exception ex) {
+						// No first entry in iterator found
 					}
-					if(!entry.getValue().isFree(Sex.getCharacterTargetedForSexAction(this))) {
-						Map<GameCharacter, Set<SexAreaInterface>> map = Sex.getOngoingActionsMap(Sex.getCharacterTargetedForSexAction(this)).get(entry.getKey());
-						Entry<GameCharacter, Set<SexAreaInterface>> firstEntry = map.entrySet().iterator().next();
-						stopSB.append(Sex.stopOngoingAction(
-								Sex.getCharacterTargetedForSexAction(this),
-								entry.getKey(),
-								firstEntry.getKey(),
-								firstEntry.getValue().iterator().next(),
-								false));
+					try {
+						if(!entry.getValue().isFree(Sex.getCharacterTargetedForSexAction(this))) {
+							Map<GameCharacter, Set<SexAreaInterface>> map = Sex.getOngoingActionsMap(Sex.getCharacterTargetedForSexAction(this)).get(entry.getValue());
+							Entry<GameCharacter, Set<SexAreaInterface>> firstEntry = map.entrySet().iterator().next();
+							stopSB.append(Sex.stopOngoingAction(
+									firstEntry.getKey(),
+									firstEntry.getValue().iterator().next(),
+									Sex.getCharacterTargetedForSexAction(this),
+									entry.getValue(),
+									false));
+						}
+					} catch(Exception ex) {
+						// No first entry in iterator found
 					}
 				}
-			} catch(Exception ex) {
-				// No first entry in iterator found
-			}
 		}
 		return stopSB.toString();
 	}
