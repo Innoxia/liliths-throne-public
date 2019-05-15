@@ -1996,7 +1996,7 @@ public class Sex {
 					continue;
 				}
 				
-				if (cumProvider.getPenisOrgasmCumQuantity() == CumProduction.ZERO_NONE || cumProvider.getPenisType()==PenisType.DILDO) {
+				if (cumProvider.getPenisOrgasmCumQuantity() == CumProduction.ZERO_NONE) {
 					continue;
 				}
 				

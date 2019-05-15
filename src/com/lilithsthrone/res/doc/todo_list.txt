@@ -129,6 +129,7 @@
 		Cleaned up inventory code. (PR#1146 by Pimgd)
 		Added 'light grey', 'dark grey', and 'gunmetal grey' colours. (PR#1147 by GynoidDoesGames)
 		Fixed issue with sex sometimes never ending when having sex with a companion in their room. (PR#1153 by A-haron)
+		Fixed sex behaviour treating strapons as though they were going to cum. (PR#1151 by A-haron)
 	
 	Other:
 		Time until end of arcane storm is now displayed in tooltip if you have the arcane spell school ability unlocked.
@@ -172,8 +173,6 @@
 		The rooms and halls in Lyssieth's palace now correctly have maids described as being present in the 'characters present' dialogue box.
 		Takahashi will no longer be willing to use a potion on your companion if they're a demon or elemental.
 		Fixed being able to have a threesome with a clone of your companion when visiting their apartment.
-
-
 
 
 	PRs
