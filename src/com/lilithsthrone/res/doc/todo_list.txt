@@ -148,7 +148,7 @@
 		Fixed issue with all NPCs losing arousal & lust from non-penis anal interactions, even when they didn't have a negative opinion of anal actions.
 		Fixed not being able to swap positions in group sex with dominant partners when a dom, and with submissive partners when a sub.
 		Spectators in sex will no longer have their ongoing self-actions reset when the active participants change position.
-		Added standard ongoing actions for tribbing (clit rubbing against partner's clit), along with a unique action for if your clit is prehensile. This action is available in all positions in which groins are next to each other.
+		Added standard ongoing actions for tribbing (clit rubbing against partner's clit), along with a unique action for if your clit is prehensile. This action should be available in all positions in which groins are next to each other.
 		Added a 'slap face' action for all sex positions in which a dominant character's hands can reach the submissive target's face.
 		Added 'Submissive talk' action for eager-paced subs, a 'Degrading talk' action for rough-paced doms, and a 'Request rough sex' action for NPCs who want you to be rough with them.
 		Fixed 'Twintail pull', 'Ear pull', and 'Grab horns' actions sometimes being available in positions that made no sense.
@@ -173,9 +173,11 @@
 		The rooms and halls in Lyssieth's palace now correctly have maids described as being present in the 'characters present' dialogue box.
 		Takahashi will no longer be willing to use a potion on your companion if they're a demon or elemental.
 		Fixed being able to have a threesome with a clone of your companion when visiting their apartment.
+		Fixed cloaca-contained anus still being able to be penetrated in sex even when it was blocked.
 
-
-	PRs
+	
+	
+	
 	
 	
 	------- Clothing issues:
@@ -195,16 +197,16 @@
 	
 	----------
 	
+	Harpies are using insane clothing still
+	
+	add way to give slime queen her crown back
+	
+	If I have a stack of clothes and put one of them on while covered in cum, the stack clothes in my inventory also gets covered in cum.
 	
 	occassionally when allowing party member to have sex with an enemy when the enemy orgasms right after party member all buttons disappear and you can't prepare or deny or leave the encounter forcing loading save file
 	
-	after beating an npc in submission, when using a consumable or reading a book in their inventory, the descriptions make it seem as if they're the one who's forcing you to read or drink a potion or eat
-	
 	Inviting my character's daughter to a guest room has her ask if I'm royalty.  Shouldn't it be "Are we royalty???"?  Even more so because she's a lesser demon.
 	Related: "With her opinions on your aunt..." in small talk from the daughter could be "With her opinions on her great aunt..."
-	
-	Harpies with a cloaca can still be fucked in the ass and vagene even when they're blocked by a butt plug or dildo
-	
 	
 	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it
 	

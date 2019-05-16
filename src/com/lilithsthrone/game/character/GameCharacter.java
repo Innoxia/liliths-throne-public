@@ -15811,8 +15811,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isOrificeTypeExposed(SexAreaOrifice ot) {
 		switch(ot) {
 			case ANUS:
-				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA) {
-					return isCoverableAreaExposed(CoverableArea.VAGINA) || isCoverableAreaExposed(CoverableArea.PENIS);
+				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA) { //TODO 
+					return (isCoverableAreaExposed(CoverableArea.VAGINA) || isCoverableAreaExposed(CoverableArea.PENIS)) && (this.getClothingInSlot(InventorySlot.ANUS)==null);
 				} else {
 					return isCoverableAreaExposed(CoverableArea.ANUS);
 				}
