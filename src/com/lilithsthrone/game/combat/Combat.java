@@ -980,7 +980,7 @@ public enum Combat {
 	private static void attackMain(GameCharacter attacker) {
 		GameCharacter target = getTargetedCombatant(attacker);
 		boolean critical = Attack.rollForCritical(attacker, target);
-		float damage = Attack.calculateDamage(attacker, target, Attack.MAIN, critical);
+		float damage = Attack.calculateNormalDamage(attacker, target, Attack.MAIN, critical);
 		boolean isHit = Attack.rollForHit(attacker, target);
 		
 		attackStringBuilder = new StringBuilder("");
@@ -1030,7 +1030,7 @@ public enum Combat {
 		GameCharacter target = getTargetedCombatant(attacker);
 		
 		boolean critical = Attack.rollForCritical(attacker, target);
-		float damage = Attack.calculateDamage(attacker, target, Attack.OFFHAND, critical);
+		float damage = Attack.calculateNormalDamage(attacker, target, Attack.OFFHAND, critical);
 		boolean isHit = Attack.rollForHit(attacker, target);
 
 		attackStringBuilder = new StringBuilder("");
@@ -1089,8 +1089,8 @@ public enum Combat {
 		if (isHit && Math.random()<0.5) {
 			attackStringBuilder.append(getDualDescription(attacker, target, true));
 
-			damageMain = Attack.calculateDamage(attacker, target, Attack.MAIN, critical);
-			damageOffhand = Attack.calculateDamage(attacker, target, Attack.OFFHAND, critical);
+			damageMain = Attack.calculateNormalDamage(attacker, target, Attack.MAIN, critical);
+			damageOffhand = Attack.calculateNormalDamage(attacker, target, Attack.OFFHAND, critical);
 			
 			Attribute damageMainAttribute = (attacker.getMainWeapon() == null ? attacker.getBodyMaterial().getUnarmedDamageType().getMultiplierAttribute() : attacker.getMainWeapon().getDamageType().getMultiplierAttribute()),
 					damageOffhandAttribute = (attacker.getOffhandWeapon() == null ? attacker.getBodyMaterial().getUnarmedDamageType().getMultiplierAttribute() : attacker.getOffhandWeapon().getDamageType().getMultiplierAttribute());
@@ -1240,7 +1240,7 @@ public enum Combat {
 		
 		boolean critical = false;//Attack.rollForCritical(attacker);
 	
-		float lustDamage = Attack.calculateDamage(attacker, target, Attack.SEDUCTION, critical);
+		float lustDamage = Attack.calculateNormalDamage(attacker, target, Attack.SEDUCTION, critical);
 		
 		if(lustDamage==0) {
 			if(target.isPlayer()) {

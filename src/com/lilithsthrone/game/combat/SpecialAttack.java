@@ -2213,7 +2213,7 @@ public enum SpecialAttack {
 
 		boolean critical = target.hasFetish(fetishWeakness);
 		
-		float damage = Attack.calculateDamage(caster, target, Attack.SEDUCTION, critical);
+		float damage = Attack.calculateNormalDamage(caster, target, Attack.SEDUCTION, critical);
 		
 		if(damage==0) {
 			if(target.isPlayer()) {
