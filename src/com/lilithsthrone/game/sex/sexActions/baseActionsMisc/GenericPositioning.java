@@ -39,10 +39,17 @@ public class GenericPositioning {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isPositionSwap() {
+			return true;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+			return 
+//					Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+					Sex.getInitialSexManager().isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getCharacterPerformingAction().getLegConfiguration()==Sex.getCharacterTargetedForSexAction(this).getLegConfiguration() // Can only swap if have same body type
 					&& Sex.getSexManager().isPlayerAbleToSwapPositions()
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL

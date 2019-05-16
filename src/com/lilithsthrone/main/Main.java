@@ -53,7 +53,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.3
  * @author Innoxia
  */
 public class Main extends Application {
@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.2.3";
+	public static final String VERSION_NUMBER = "0.3.2.5";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -90,8 +90,8 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "Sorry about the time it's taken me to get this update out; I've been quite ill over the past few weeks, and have been extremely light-headed and having bouts of vertigo, which has made it difficult to concentrate on programming."
-			+ " I'm feeling mostly better now, and so the next update should be out in a week or so."
+			+ "I've got some bugs fixed and some new sex actions added for this preview."
+			+ " I was hoping to have Irbynx's combat update merged and added for this release, but I didn't have quite enough time to get all the changes made which I wanted to make, so that will be in the next update."
 		+ "</p>"
 			
 		+ "<br/>"
@@ -103,6 +103,59 @@ public class Main extends Application {
 			
 		+ "<br/>"
 
+		+ "<list>"
+			+ "<h6>v0.3.2.5</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Cleaned up inventory code. (PR#1146 by Pimgd)</ul>"
+			+"<ul>Added 'light grey', 'dark grey', and 'gunmetal grey' colours. (PR#1147 by GynoidDoesGames)</ul>"
+			+"<ul>Fixed issue with sex sometimes never ending when having sex with a companion in their room. (PR#1153 by A-haron)</ul>"
+			+"<ul>Fixed sex behaviour treating strapons as though they were going to cum. (PR#1151 by A-haron)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Time until end of arcane storm is now displayed in tooltip if you have the arcane spell school ability unlocked.</ul>"
+			+"<ul>Added a pink background for ongoing sex action status effects, to help to highlight what's happening during sex scenes.</ul>"
+			+"<ul>Growing unicorn horns via TF potion will now reset horns per row to 1 a the moment of transformation. (You can still increase horns per row as normal after the type transformation.)</ul>"
+			+"<ul>Elementals can now self-transform into the appearance of any morph, but will still always be composed entirely of their associated element.</ul>"
+			+"<ul>Made friendly occupant sex options the same as slave sex options (by adding the spitroast and doggy-style options), and you can now access their sex menu in their room/apartment even if they're in your party.</ul>"
+			+"<ul>Slightly improved UI for reforging weapon damage types.</ul>"
+			+"<ul>Jinxed clothing status effect now applies -5 to maximum aura, instead of -2 to physique and -2 to arcane.</ul>"
+			
+			+"<li>Sex:</li>"
+			+"<ul>Fixed issue where changing positions in group sex would move the third/fourth partners into spectator slots.</ul>"
+			+"<ul>Rough-pace NPCs can now use the 'Pussy-to-mouth' and 'Ass-to-mouth' orgasm options when fucking others in the doggy-style position.</ul>"
+			+"<ul>Added 'double creampie' and 'double anal creampie' orgasm actions for group sex, which are available if there is a free pussy/asshole when orgasming inside your target's pussy/asshole.</ul>"
+			+"<ul>Even if already occupied by an ongoing action, you can now switch into another penetration without having to use the 'Stop X' action first (so long as you have the necessary level of control). NPCs cannot do this, in order to give you a turn to react to their decision to stop an ongoing action.</ul>"
+			+"<ul>Fixed issue with all NPCs losing arousal & lust from non-penis anal interactions, even when they didn't have a negative opinion of anal actions.</ul>"
+			+"<ul>Fixed not being able to swap positions in group sex with dominant partners when a dom, and with submissive partners when a sub.</ul>"
+			+"<ul>Spectators in sex will no longer have their ongoing self-actions reset when the active participants change position.</ul>"
+			+"<ul>Added standard ongoing actions for tribbing (clit rubbing against partner's clit), along with a unique action for if your clit is prehensile. This action should be available in all positions in which groins are next to each other.</ul>"
+			+"<ul>Added a 'slap face' action for all sex positions in which a dominant character's hands can reach the submissive target's face.</ul>"
+			+"<ul>Added 'Submissive talk' action for eager-paced subs, a 'Degrading talk' action for rough-paced doms, and a 'Request rough sex' action for NPCs who want you to be rough with them.</ul>"
+			+"<ul>Fixed 'Twintail pull', 'Ear pull', and 'Grab horns' actions sometimes being available in positions that made no sense.</ul>"
+			+"<ul>Improved 'Stop penetrations' action to stop all penetrations that your target is engaged in (instead of just stopping penetrations between you and them), allowing you to stop their ongoing actions with characters other than yourself.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Typo fixes.</ul>"
+			+"<ul>Non-unique NPCs (including offspring) will now drink Fetish Endowment potions if they like or love the 'Kink curious' fetish, or if they worship you.</ul>"
+			+"<ul>Fixed missing dialogue when Takahashi transformed both you and your companion.</ul>"
+			+"<ul>Fixed some dialogue with Elizabeth treating you as a chuuni even if you weren't one.</ul>"
+			+"<ul>Fixed debug parser's XML test field still registering input as normal, which could cause the debug menu to be closed while typing.</ul>"
+			+"<ul>Fixed bug where characters orgasming while wearing a dildo would cause cum to be pumped into the orifice being penetrated by said dildo.</ul>"
+			+"<ul>Fixed some misleading descriptions when using the offspring map.</ul>"
+			+"<ul>Fluid regeneration enchantments on clothing have had their increase/decrease amounts increased from 1/-1 to 250/-250.</ul>"
+			+"<ul>Inventory tabs should no longer be clickable if their pages are empty.</ul>"
+			+"<ul>Fixed numerous cases of names not parsing correctly.</ul>"
+			+"<ul>Fixed lore inconsistency with Lilaya acting as though angels are unheard of.</ul>"
+			+"<ul>Fixed not being able to remove crotch-boobs from bipeds via TF potions when crotch-boob setting was set to 'Taur only'.</ul>"
+			+"<ul>Fixed crotch-boob options in the slime self-TF menu not being as expansive as the demon TF ones.</ul>"
+			+"<ul>Fixed parsing error when cumming inside someone's vaginal urethra.</ul>"
+			+"<ul>Critical hits in combat that end up missing will no longer grant you an arcane essence if you had the sadist (for dealing damage) or masochist (for receiving damage) fetish.</ul>"
+			+"<ul>The rooms and halls in Lyssieth's palace now correctly have maids described as being present in the 'characters present' dialogue box.</ul>"
+			+"<ul>Takahashi will no longer be willing to use a potion on your companion if they're a demon or elemental.</ul>"
+			+"<ul>Fixed being able to have a threesome with a clone of your companion when visiting their apartment.</ul>"
+			+"<ul>Fixed cloaca-contained anus still being able to be penetrated in sex even when it was blocked.</ul>"
+		+ "</list>"
+		
 		+ "<list>"
 			+ "<h6>v0.3.2.3</h6>"
 			+"<li>Other:</li>"
@@ -159,7 +212,7 @@ public class Main extends Application {
 			+"<ul>Fixed issue with inventories not being sorted after saving/loading.</ul>"
 			+"<ul>Spending flames to identify clothing/weapons at a shop should now work correctly.</ul>"
 			+"<ul>Equipped condom belt now correctly renders any stacked condoms in the wearer's inventory.</ul>"
-			+"<ul>Fixed issue with clothing sometimes able to be duplicated in character creation when cahnging colours.</ul>"
+			+"<ul>Fixed issue with clothing sometimes able to be duplicated in character creation when changing colours.</ul>"
 		+ "</list>"
 	;
 	
@@ -196,6 +249,11 @@ public class Main extends Application {
 		
 		credits.add(new CreditsSlot("Anonymous", "", 99, 99, 99, 99));
 
+		
+		
+		credits.add(new CreditsSlot("Kyle S P", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Paradoxiso", "", 0, 0, 0, 0, Subspecies.DEMON));
+		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Akira", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("Aleskah", "", 0, 0, 0, 1));
@@ -328,6 +386,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Kiroberos", "", 0, 0, 0, 17));
 		credits.add(new CreditsSlot("Kernog", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Knight-Lord Xander", "", 0, 0, 0, 19));
+		credits.add(new CreditsSlot("Krozoz", "", 0, 0, 2, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Krulin", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Kyralon", "", 0, 0, 0, 5));
 		credits.add(new CreditsSlot("Chris Turpin", "", 0, 0, 17, 0));
@@ -376,7 +435,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("BLKCandy", "", 0, 0, 12, 0));
 		credits.add(new CreditsSlot("Pierre Mura", "", 0, 0, 0, 11));
 		credits.add(new CreditsSlot("Pokys", "", 0, 0, 9, 0));
-		credits.add(new CreditsSlot("PoyntFury", "", 0, 0, 1, 4));
+		credits.add(new CreditsSlot("PoyntFury", "", 0, 0, 1, 4, Subspecies.DEMON));
 		credits.add(new CreditsSlot("QQQ", "", 0, 0, 0, 19));
 		credits.add(new CreditsSlot("awrfyu_", "", 0, 0, 0, 7));
 		credits.add(new CreditsSlot("Rakesh", "", 0, 0, 8, 0));

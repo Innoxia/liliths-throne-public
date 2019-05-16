@@ -473,7 +473,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		if(sexActionPlayer.getActionType()==SexActionType.STOP_ONGOING
 				|| sexActionPlayer.equals(GenericActions.PLAYER_FORBID_PARTNER_SELF)
 				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)
-				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS)) {
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS)
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS_SELF)) {
 			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.START_ONGOING);
 //			System.out.println("hmm");
 		}
@@ -571,7 +572,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		if(sexActionPlayer.getActionType()==SexActionType.STOP_ONGOING
 				|| sexActionPlayer.equals(GenericActions.PLAYER_FORBID_PARTNER_SELF)
 				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)
-				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS)) {
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS)
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS_SELF)) {
 			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.START_ONGOING);
 		}
 		

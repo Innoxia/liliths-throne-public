@@ -1539,7 +1539,6 @@ public class ConChairTop {
 			
 			return descriptionSB.toString();
 		}
-		
 	};
 	
 	public static final SexAction PARTNER_FEEL_BREASTS = new SexAction(

@@ -93,7 +93,8 @@ public enum SVGImages {
 			
 			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue, penetrationTypeFoot,
 			combinationStretching, combinationTooLoose, combinationWet, combinationDry,
-			stretching, holeTooBig;
+			stretching, holeTooBig,
+			activeSexBackground;
 
 	private Map<Integer, String> youkoTailsMap = new HashMap<>();
 	private Map<Integer, String> youkoTailsDesaturatedMap = new HashMap<>();
@@ -684,6 +685,10 @@ public enum SVGImages {
 			stretching = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/holeTooBig.svg");
 			holeTooBig = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/active_background.svg");
+			activeSexBackground = Util.inputStreamToString(is);
+			
 			
 			String tempString = "";
 			for(AbstractItemEffectType effect : ItemEffectType.getAllEffectTypes()) {
@@ -1113,6 +1118,10 @@ public enum SVGImages {
 	
 	public String getHoleTooBig() {
 		return holeTooBig;
+	}
+
+	public String getActiveSexBackground() {
+		return activeSexBackground;
 	}
 
 	public Map<Colour, String> getRefinedBackgroundMap() {

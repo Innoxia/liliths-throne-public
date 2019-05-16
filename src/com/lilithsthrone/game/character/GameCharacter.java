@@ -3273,6 +3273,10 @@ public abstract class GameCharacter implements XMLSaving {
 		this.genderIdentity = genderIdentity;
 	}
 
+	public String getName() {
+		return getName(true);
+	}
+	
 	/**
 	 * @param applyNameAlteringEffects true if you want special effects to be applied. This mainly affects youko, as their special name effect is using their surname instead of their first name when their full name is not known.
 	 * @return This character's name.
@@ -6253,9 +6257,22 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			};
 	}
-
-
+	
+	/**
+	 * Overloaded method in which lustOrArousalCalculation is considered false.
+	 */
 	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request) {
+		return calculateSexTypeWeighting(type, target, request, false);
+	}
+	
+	/**
+	 * @param type The SexType to find the weight of.
+	 * @param target The targeted character for the type.
+	 * @param request Any requests from the target that should be taken into account for weighting.
+	 * @param lustOrArousalCalculation True if this weighting calculation is for calculating lust or arousal increases. This slightly differs from normal by removing hugely negative weightings from anal actions.
+	 * @return The weight value of the type, usually of a value of around +/- 20, but sometimes higher for requests.
+	 */
+	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request, boolean lustOrArousalCalculation) {
 		int weight = 0;
 		
 		List<Fetish> fetishes = type.getRelatedFetishes(this, target, true, false);
@@ -6321,7 +6338,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(type.getAsParticipant()==SexParticipantType.SELF && !this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
 				weight-=100000; // ban self-anal actions unless the character likes anal
 			}
-			if(!fetishes.contains(Fetish.FETISH_PENIS_RECEIVING) && !this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
+			if(!fetishes.contains(Fetish.FETISH_PENIS_RECEIVING) && ((!this.getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive() && !lustOrArousalCalculation) || this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isNegative())) {
 				weight-=100000; // Ban non-penis anal actions (like fingering and tail sex) unless the character likes anal
 			}
 		}
@@ -6329,7 +6346,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(type.getAsParticipant()==SexParticipantType.SELF && !this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
 				weight-=100000; // ban self-anal actions unless the character likes anal
 			}
-			if(!fetishes.contains(Fetish.FETISH_PENIS_GIVING) && !this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive()) {
+			if(!fetishes.contains(Fetish.FETISH_PENIS_GIVING) && ((!this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive() && !lustOrArousalCalculation) || this.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isNegative())) {
 				weight-=100000; // Ban non-penis anal actions (like fingering and tail sex) unless the character likes anal
 			}
 		}
@@ -14976,87 +14993,43 @@ public abstract class GameCharacter implements XMLSaving {
 		return "";
 	}
 	
-	public String getStopPenetrationDescription(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice) {
-		String orificeName = "", penetrationName = "";
-
-		switch(penetrationType) {
-			case FINGER:
-				penetrationName = "[npc.fingers]";
-				break;
-			case PENIS:
-				penetrationName = "[npc.cock+]";
-				break;
-			case TAIL:
-				penetrationName = "[npc.tail+]";
-				break;
-			case TENTACLE:
-				penetrationName = "tentacle";
-				break;
-			case TONGUE:
-				penetrationName = "[npc.tongue+]";
-				break;
-			case CLIT:
-				penetrationName = "[npc.clit+]";
-				break;
-			case FOOT:
-				penetrationName = "[npc.toes]";
-				break;
-		}
-		
-		switch(orifice) {
-			case ANUS:
-				orificeName = "[npc2.asshole+]";
-				break;
-			case ASS:
-				orificeName = "[npc2.ass+]";
-				break;
-			case MOUTH:
-				orificeName = "mouth";
-				break;
-			case BREAST:
-				orificeName = "[npc2.breasts+]";
-				break;
-			case BREAST_CROTCH:
-				orificeName = "[npc2.crotchBoobs+]";
-				break;
-			case NIPPLE:
-				orificeName = "[npc2.nipple+]";
-				break;
-			case NIPPLE_CROTCH:
-				orificeName = "[npc2.crotchNipple+]";
-				break;
-			case URETHRA_PENIS:
-			case URETHRA_VAGINA:
-				orificeName = "urethra";
-				break;
-			case VAGINA:
-				orificeName = "[npc2.pussy+]";
-				break;
-			case THIGHS:
-				orificeName = "thighs";
-				break;
-		}
-		
-		
-		if(characterPenetrating.isPlayer()) {
-			if(characterPenetrated.isPlayer()) {
-				return UtilText.parse(characterPenetrating, characterPenetrated,
-						"You slide your "+penetrationName+" out of your "+orificeName+".");
+	public String getStopPenetrationDescription(GameCharacter characterPerformer, SexAreaInterface performerArea, GameCharacter characterTarget, SexAreaInterface targetArea) {
+		if(characterPerformer.equals(characterTarget)) {
+			if(performerArea.isPenetration()) {
+				if(targetArea.isPenetration()) {
+					return UtilText.parse(characterPerformer,
+							"[npc.Name] [npc.verb(take)] [npc.her] "+performerArea.getName(characterPerformer)+" away from [npc.her] "+targetArea.getName(characterPerformer)+".");
+				} else {
+					return UtilText.parse(characterPerformer,
+							"[npc.Name] [npc.verb(slide)] [npc.her] "+performerArea.getName(characterPerformer)+" out of [npc.her] "+targetArea.getName(characterPerformer)+".");
+				}
 			} else {
-				return UtilText.parse(characterPenetrating, characterPenetrated,
-						"You slide your "+penetrationName+" out of [npc2.namePos] "+orificeName+".");
+				if(targetArea.isPenetration()) {
+					return UtilText.parse(characterPerformer,
+							"[npc.Name] [npc.verb(slide)] [npc.her] "+targetArea.getName(characterPerformer)+" out of [npc.her] "+performerArea.getName(characterPerformer)+".");
+				} else {
+					return UtilText.parse(characterPerformer,
+							"[npc.Name] [npc.verb(take)] [npc.her] "+performerArea.getName(characterPerformer)+" away from [npc.her] "+targetArea.getName(characterPerformer)+".");
+				}
 			}
 			
 		} else {
-			if(characterPenetrated.isPlayer()) {
-				return UtilText.parse(characterPenetrating, characterPenetrated,
-						"[npc.Name] slides [npc.her] "+penetrationName+" out of your "+orificeName+".");
-			} else if(characterPenetrating.equals(characterPenetrated)) {
-				return UtilText.parse(characterPenetrating, characterPenetrated,
-						"[npc.Name] slides [npc.her] "+penetrationName+" out of [npc.her] "+orificeName+".");
+			if(performerArea.isPenetration()) {
+				if(targetArea.isPenetration()) {
+					return UtilText.parse(characterPerformer, characterTarget,
+							"[npc.Name] [npc.verb(take)] [npc.her] "+performerArea.getName(characterPerformer)+" away from [npc2.namePos] "+targetArea.getName(characterTarget)+".");
+				} else {
+					return UtilText.parse(characterPerformer, characterTarget,
+							"[npc.Name] [npc.verb(slide)] [npc.her] "+performerArea.getName(characterPerformer)+" out of [npc2.namePos] "+targetArea.getName(characterTarget)+".");
+				}
 			} else {
-				return UtilText.parse(characterPenetrating, characterPenetrated,
-						"[npc.Name] slides [npc.her] "+penetrationName+" out of [npc2.namePos] "+orificeName+".");
+				if(targetArea.isPenetration()) {
+					return UtilText.parse(characterPerformer, characterTarget,
+							"[npc.Name] [npc.verb(slide)] [npc2.namePos] "+targetArea.getName(characterTarget)+" out of [npc.her] "+performerArea.getName(characterPerformer)+".");
+				} else {
+					return UtilText.parse(characterPerformer, characterTarget,
+							"[npc.Name] [npc.verb(take)] [npc.her] "+performerArea.getName(characterPerformer)+" away from [npc2.namePos] "+targetArea.getName(characterTarget)+".");
+				}
 			}
 		}
 	}
@@ -18909,8 +18882,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isOrificeTypeExposed(SexAreaOrifice ot) {
 		switch(ot) {
 			case ANUS:
-				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA) {
-					return isCoverableAreaExposed(CoverableArea.VAGINA) || isCoverableAreaExposed(CoverableArea.PENIS);
+				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA) { //TODO 
+					return (isCoverableAreaExposed(CoverableArea.VAGINA) || isCoverableAreaExposed(CoverableArea.PENIS)) && (this.getClothingInSlot(InventorySlot.ANUS)==null);
 				} else {
 					return isCoverableAreaExposed(CoverableArea.ANUS);
 				}
@@ -23191,6 +23164,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getPenisRawCumStorageValue() {
 		return body.getPenis().getTesticle().getRawCumStorageValue();
 	}
+	public int getCurrentPenisRawCumStorageValue() {
+		return getCurrentPenis().getTesticle().getRawCumStorageValue();
+	}
 	public String setPenisCumStorage(int cumProduction) {
 		return body.getPenis().getTesticle().setCumStorage(this, cumProduction);
 	}
@@ -23246,17 +23222,23 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public int getPenisRawOrgasmCumQuantity() {
 		if (!Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
-			return body.getPenis().getTesticle().getRawCumStorageValue();
+			return getCurrentPenis().getTesticle().getRawCumStorageValue();
 		}
-		if(body.getPenis().getTesticle().getRawStoredCumValue() <= Testicle.MINIMUM_VALUE_FOR_ALL_CUM_TO_BE_EXPELLED) {
-			return (int) body.getPenis().getTesticle().getRawStoredCumValue();
+		if(getCurrentPenis().getTesticle().getRawStoredCumValue() <= Testicle.MINIMUM_VALUE_FOR_ALL_CUM_TO_BE_EXPELLED) {
+			return (int) getCurrentPenis().getTesticle().getRawStoredCumValue();
 		}
-		return (int) (body.getPenis().getTesticle().getRawStoredCumValue() * (getPenisRawCumExpulsionValue()/100f));
+		return (int) (getCurrentPenis().getTesticle().getRawStoredCumValue() * (getPenisRawCumExpulsionValue()/100f));
 	}
-	public void applyOrgasmCumEffect() {
+	/**
+	 * @param cumQuantityModifier A percentage of the normal cum expulsion that you want to be drained. Should nowmally be 1.
+	 */
+	public void applyOrgasmCumEffect(float cumQuantityModifier) {
 		if(Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
 			this.incrementPenisStoredCum(-getPenisRawOrgasmCumQuantity());
 		}
+	}
+	public void applyOrgasmCumEffect() {
+		this.applyOrgasmCumEffect(1);
 	}
 	// Regen:
 	public FluidRegeneration getPenisCumProductionRegeneration() {

@@ -676,7 +676,7 @@ public abstract class AbstractItemEffectType {
 		int areolaeSizeIncrement = (potency.isNegative()?-1:1);
 		int lactationIncrement = (potency.isNegative()?-50:50);
 
-		int fluidRegenerationIncrement = (potency.isNegative()?-1:1);
+		int fluidRegenerationIncrement = (potency.isNegative()?-250:250);
 		
 		int heightIncrement = (potency.isNegative()?-1:1);
 		int muscleIncrement = (potency.isNegative()?-1:1);
@@ -4434,7 +4434,7 @@ public abstract class AbstractItemEffectType {
 		List<AbstractHornType> hornTypes = RacialBody.valueOfRace(race).getHornTypes(true);
 		AbstractHornType selectedHornType = hornTypes.isEmpty()?HornType.NONE:Util.randomItemFrom(hornTypes);
 		
-		return new RacialEffectUtil("Grows "+selectedHornType.getTransformName()+" horns.") {
+		return new RacialEffectUtil("Grows "+selectedHornType.getTransformName()+" horn"+(selectedHornType==HornType.HORSE_STRAIGHT?"":"s")+".") {
 			@Override public String applyEffect() { return target.setHornType(selectedHornType); } };
 	}
 	

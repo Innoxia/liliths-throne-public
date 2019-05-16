@@ -135,6 +135,7 @@ public class StandardSexActionInteractions {
 								SexActionPresets.penisToThighs,
 								SexActionPresets.penisToAss,
 								SexActionPresets.penisToVagina,
+								SexActionPresets.vaginaToVagina,
 								SexActionPresets.tailToLowerHalf,
 								isAbleToReachTargetUpperTorso
 									?SexActionPresets.fingerToUpperTorso

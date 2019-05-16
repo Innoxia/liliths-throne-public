@@ -344,7 +344,9 @@ public enum Colour {
 
 	// Standard colours used for clothing:
 	CLOTHING_WHITE(false, Util.newColour(0xdddddd), Util.newColour(0xdddddd), "white"),
+	CLOTHING_GREY_LIGHT(false, Util.newColour(0xaaaaaa), Util.newColour(0xaaaaaa), "light grey"),
 	CLOTHING_GREY(false, Util.newColour(0x777777), Util.newColour(0x777777), "grey"),
+	CLOTHING_GREY_DARK(false, Util.newColour(0x555555), Util.newColour(0x555555), "dark grey"),
 	CLOTHING_BLACK(false, Util.newColour(0x333333), Util.newColour(0x333333), "black"),
 	CLOTHING_BLACK_JET(false, Util.newColour(0x1a1a1a), Util.newColour(0x1a1a1a), "pitch black"),
 	
@@ -388,6 +390,7 @@ public enum Colour {
 	
 	
 	CLOTHING_BLACK_STEEL(true, Util.newColour(0x333333), Util.newColour(0x333333), "black steel"),
+	CLOTHING_GUNMETAL(true, Util.newColour(0x555555), Util.newColour(0x555555), "gunmetal gray"),
 	CLOTHING_STEEL(true, Util.newColour(0x969696), Util.newColour(0x969696), "steel"),
 	CLOTHING_BRASS(true, Util.newColour(0xab8317), Util.newColour(0xab8317), "brass"),
 	CLOTHING_COPPER(true, Util.newColour(0xD46F2B), Util.newColour(0xD46F2B), "copper", Util.newArrayListOfValues("copper")),

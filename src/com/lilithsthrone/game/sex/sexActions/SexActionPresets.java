@@ -7,6 +7,7 @@ import java.util.List;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.sexActions.baseActions.ClitClit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerBreasts;
@@ -43,6 +44,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioningNew;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
@@ -84,7 +86,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.97
- * @version 0.3.1
+ * @version 0.3.3
  * @author Innoxia
  */
 public class SexActionPresets {
@@ -194,6 +196,8 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> fingerToMouth = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> fingerToPenis = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> fingerToVagina = new HashMap<>();
+
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> vaginaToVagina = new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> vaginaToPenis = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> assToPenis = new HashMap<>();
@@ -300,6 +304,7 @@ public class SexActionPresets {
 		for(SexAreaInterface area : vaginaAreas) {
 			vaginaToPenis.put(area, penisAreas);
 			vaginaToMouth.put(area, mouthAreas);
+			vaginaToVagina.put(area, vaginaAreas);
 		}
 	}
 
@@ -320,6 +325,7 @@ public class SexActionPresets {
 		miscActions.add(GenericOrgasms.class);
 		miscActions.add(PlayerTalk.class);
 		miscActions.add(PartnerTalk.class);
+		miscActions.add(GenericTalk.class);
 
 		// Finger actions:
 		sexActions.add(FingerAnus.class);
@@ -360,6 +366,9 @@ public class SexActionPresets {
 		sexActions.add(PenisFeet.class);
 		sexActions.add(PenisUrethraVagina.class);
 		sexActions.add(PenisUrethraPenis.class);
+		
+		// Vagina actions:
+		sexActions.add(ClitClit.class);
 		
 //		selfActions.add(PlayerMasturbation.class);
 //		selfActions.add(PartnerMasturbation.class);

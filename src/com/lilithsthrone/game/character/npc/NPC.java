@@ -3364,8 +3364,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					&& ((target.hasStatusEffect(StatusEffect.DRUNK_5)
 							|| target.hasStatusEffect(StatusEffect.DRUNK_4)
 							|| target.hasStatusEffect(StatusEffect.PSYCHOACTIVE))
-						|| (target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING) && item.getItemType().isTransformative())
-						|| (target.hasFetish(Fetish.FETISH_KINK_RECEIVING) && item.getItemType().isFetishGiving())
+						|| target.getAffectionLevel(user)==AffectionLevel.POSITIVE_FIVE_WORSHIP
+						|| (target.getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isPositive() && item.getItemType().isTransformative())
+						|| (target.getFetishDesire(Fetish.FETISH_KINK_RECEIVING).isPositive() && item.getItemType().isFetishGiving())
 						|| (Main.game.isInSex() && !Sex.isConsensual() && Sex.isDom(user) && !Sex.isDom(target)))) {
 					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
 					

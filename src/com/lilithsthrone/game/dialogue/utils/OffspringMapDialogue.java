@@ -44,7 +44,7 @@ public class OffspringMapDialogue {
 			
 			UtilText.nodeContentSB.append(
 					"<p>"
-						+ "The arcane enchantment in the map causes a list of names of all your unmet offspring to be displayed, while corresponding dots show their exact location within Dominion."
+						+ "The arcane enchantment in the map causes a list of names of all your unmet offspring to be projected into the air in front of you, with corresponding dots showing their exact location on the physical map itself."
 						+ (noOffspring
 								? " It doesn't look like you have any unmet offspring to be found right now..."
 								: " Luckily, it looks like one of your offspring is in this very area."
@@ -89,7 +89,7 @@ public class OffspringMapDialogue {
 				
 				if(!getOffspringList().contains(offspring)) {
 					return new Response(offspring.getName(true),
-							UtilText.parse(offspring,"[npc.Name] cannot be found in Dominion, due to [npc.her] subspecies..."),
+							UtilText.parse(offspring,"[npc.Name] cannot be found in this area, due to [npc.her] subspecies..."),
 							null);
 				}
 				
