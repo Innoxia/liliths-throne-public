@@ -130,10 +130,16 @@ public class CityPlaces {
 			}
 			
 			if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) {
-				occupantResponses.add(new Response(UtilText.parse(npc, "[npc.Name]"), UtilText.parse(npc, "Head over to [npc.namePos] apartment building and pay [npc.herHim] a visit."), OccupantDialogue.OCCUPANT_APARTMENT) {
+				occupantResponses.add(new Response(
+						UtilText.parse(npc, "[npc.Name]"),
+						UtilText.parse(npc,
+								Main.game.getPlayer().getCompanions().contains(npc)
+									?"Head back over to [npc.namePos] apartment."
+									:"Head over to [npc.namePos] apartment building and pay [npc.herHim] a visit."),
+						OccupantDialogue.OCCUPANT_APARTMENT) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(npc);
+						OccupantDialogue.initDialogue(npc, true);
 					}
 				});
 			}

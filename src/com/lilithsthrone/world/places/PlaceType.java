@@ -2746,7 +2746,12 @@ public class PlaceType {
 			LyssiethPalaceDialogue.ROOM,
 			null,
 			"in Lyssieth's Palace"
-			).initWeatherImmune();
+			) {
+		@Override
+		public Population getPopulation() {
+			return LYSSIETH_PALACE_CORRIDOR.getPopulation();
+		}
+	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType LYSSIETH_PALACE_HALL = new AbstractPlaceType(
 			"Hall",
@@ -2756,7 +2761,12 @@ public class PlaceType {
 			LyssiethPalaceDialogue.HALL,
 			null,
 			"in Lyssieth's Palace"
-			).initWeatherImmune();
+			) {
+		@Override
+		public Population getPopulation() {
+			return LYSSIETH_PALACE_CORRIDOR.getPopulation();
+		}
+	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType LYSSIETH_PALACE_OFFICE = new AbstractPlaceType(
 			"Lyssieth's Office",

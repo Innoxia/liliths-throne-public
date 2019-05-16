@@ -638,10 +638,19 @@
 		[elizabeth.speech(So, how did you do it?)]
 	</p>
 	<p>
-		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you tricked Lyssieth's daughter into wearing the enslavement ring. As you recount the conversation the two of you had in the stone keep, Elizabeth rolls her eyes and starts impatiently tapping her foot on the ground. As your story comes to an end, she sighs, [elizabeth.speech(I can't imagine what it must be like to be in the presence of the two of you at once...)]
+		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you tricked Lyssieth's daughter into wearing the enslavement ring.
+		#IF(pc.hasTraitActivated(PERK_CHUUNI))
+		 As you recount the conversation the two of you had in the stone keep, Elizabeth rolls her eyes and starts impatiently tapping her foot on the ground. As your story comes to an end, she sighs, [elizabeth.speech(I can't imagine what it must be like to be in the presence of the two of you at once...)]
+		#ELSE
+		 As your story comes to an end, Elizabeth raises an eyebrow and says, [elizabeth.speech(I can't believe she actually fell for that...)]
+		#ENDIF
 	</p>
 	<p>
-		Taking that as a compliment, you smirk as you reply, [pc.speech(I suppose that it must be rather hard for you to picture such a cataclysmic encounter between two of the greatest arcane-wielders to ever have lived! But anyway, enough of that! I have a lot of questions that I need Lyssieth to answer. Can I please enter the palace now?)]
+		#IF(pc.hasTraitActivated(PERK_CHUUNI))
+			Taking that as a compliment, you smirk as you reply, [pc.speech(I suppose that it must be rather hard for you to picture such a cataclysmic encounter between two of the greatest arcane-wielders to ever have lived! But anyway, enough of that! I have a lot of questions that I need Lyssieth to answer. Can I please enter the palace now?)]
+		#ELSE
+			[pc.speech(It <i>was</i> easier than I expected,)] you reply, [pc.speech(Anyway, as I said before, I have a lot of questions that I need Lyssieth to answer. Can I please enter the palace now?)]
+		#ENDIF
 	</p>
 	<p>
 		[elizabeth.speech(Well, as promised, you've earned the right to do just that,)] Elizabeth replies, before producing a very familiar-looking signet ring from her pocket. She then holds out this ring to you, and as you take it, she explains, [elizabeth.speech(Don't worry, this one doesn't carry an enslavement enchantment. Her Highness instructed us to give this to you as a reward if you managed to deal with her daughter.)]

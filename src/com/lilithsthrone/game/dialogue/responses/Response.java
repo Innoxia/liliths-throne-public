@@ -14,7 +14,9 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
+import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -263,6 +265,18 @@ public class Response {
 		return SB.toString();
 	}
 	
+	private boolean isSwitchOngoingActionAvailable() {
+		if(Sex.getCharacterPerformingAction().isPlayer() && Sex.getSexControl(characterPerformingSexAction).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
+			try {
+				return !Sex.getOngoingActionsMap(Sex.getCharacterPerformingAction()).get(this.sexAreaAccessRequiredForPerformer.get(0)).get(characterTargetedForSexAction).contains(this.sexAreaAccessRequiredForTargeted.get(0));
+			} catch(Exception ex) {
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+	
 	public String getTooltipBlockingList(){
 		SB = new StringBuilder();
 		
@@ -318,9 +332,11 @@ public class Response {
 				}
 			}
 			boolean penetrationFree = true;
-			for(SexAreaInterface sArea : this.sexAreaAccessRequiredForPerformer) {
-				if(sArea!=null && !sArea.isFree(characterPerformingSexAction)) {
-					penetrationFree = false;
+			if(!isSwitchOngoingActionAvailable()) {
+				for(SexAreaInterface sArea : this.sexAreaAccessRequiredForPerformer) {
+					if(sArea!=null && !sArea.isFree(characterPerformingSexAction)) {
+						penetrationFree = false;
+					}
 				}
 			}
 			
@@ -372,9 +388,11 @@ public class Response {
 				}
 			}
 			boolean orificeFree = true;
-			for(SexAreaInterface sArea : this.sexAreaAccessRequiredForTargeted) {
-				if(sArea!=null && !sArea.isFree(characterTargetedForSexAction)) {
-					orificeFree = false;
+			if(!isSwitchOngoingActionAvailable()) {
+				for(SexAreaInterface sArea : this.sexAreaAccessRequiredForTargeted) {
+					if(sArea!=null && !sArea.isFree(characterTargetedForSexAction)) {
+						orificeFree = false;
+					}
 				}
 			}
 
@@ -551,9 +569,12 @@ public class Response {
 					}
 					return true;
 				case START_ONGOING:
-					for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
-						if(sArea!=null && !sArea.isFree(characterPerformingSexAction)) {
-							return false;
+					// Allow characters who have control to switch from one ongoing penetration to another
+					if(!isSwitchOngoingActionAvailable()) {
+						for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
+							if(sArea!=null && !sArea.isFree(characterPerformingSexAction)) {
+								return false;
+							}
 						}
 					}
 					break;
@@ -602,9 +623,12 @@ public class Response {
 					}
 					return true;
 				case START_ONGOING:
-					for(SexAreaInterface sArea : sexAreaAccessRequiredForTargeted) {
-						if(sArea!=null && !sArea.isFree(characterTargetedForSexAction)) {
-							return false;
+					// Allow characters who have control to switch from one ongoing penetration to another
+					if(!isSwitchOngoingActionAvailable()) {
+						for(SexAreaInterface sArea : sexAreaAccessRequiredForTargeted) {
+							if(sArea!=null && !sArea.isFree(characterTargetedForSexAction)) {
+								return false;
+							}
 						}
 					}
 					break;

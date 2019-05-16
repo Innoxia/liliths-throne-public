@@ -7,7 +7,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
@@ -20,7 +20,7 @@ import com.lilithsthrone.game.sex.positions.SexSlot;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
-import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
+import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -28,7 +28,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.8
- * @version 0.3.2
+ * @version 0.3.3
  * @author Innoxia
  */
 public class DoggyStyle {
@@ -599,416 +599,7 @@ public class DoggyStyle {
 		}
 		
 	};
-	
-	
-	// Player's orgasms:
-	
-	public static final SexAction PLAYER_DOGGY_OVER_BACK_ORGASM = new SexAction(
-			SexActionType.ORGASM,
-			ArousalIncrease.FOUR_HIGH,
-			ArousalIncrease.THREE_NORMAL,
-			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, null)),
-			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-		
-		@Override
-		public String getActionTitle() {
-			return "Cum on back";
-		}
 
-		@Override
-		public String getActionDescription() {
-			return "Cum over [npc2.namePos] ass and back.";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Main.game.getPlayer().hasPenisIgnoreDildo();
-		}
-		
-		@Override
-		public String getDescription() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			if(!Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.PENIS)) {
-				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you decide that you're going to shoot your sticky seed all over [npc.namePos] ass."
-						+ " Grabbing [npc.her] hips, you slide backwards, slipping your cock free from [npc.her] well-used hole, and brace for your orgasm. ");
-				
-			} else {
-				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you decide that you're going to shoot your sticky seed all over [npc.namePos] ass."
-						+ " Grabbing [npc.her] hips, you shuffle forwards, lining your [pc.cock+] up to [npc.her] [npc.ass+], and brace for your orgasm. ");
-			}
-			
-			String flaredSpecial = "", knottedSpecial = "", barbedSpecial = "";
-			
-			if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.KNOTTED)) {
-				knottedSpecial = " Your [pc.cock+] suddenly starts violently throbbing, and you know that you're about to cum."
-										+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.namePos] ass, furiously masturbating as your thick knot swells up.";
-			}
-			if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.BARBED)) {
-				barbedSpecial = " Your barbed [pc.cock] suddenly starts violently throbbing, and you know that you're about to cum."
-						+ " Grabbing your [pc.cock] in one hand, you point it at [npc.namePos] ass, furiously masturbating as your hand slides up and down over your sensitive little barbs.";
-			}
-			if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.FLARED)) {
-				flaredSpecial = " Your flared [pc.cock] suddenly starts violently throbbing, and you know that you're about to cum."
-						+ " Grabbing your [pc.cock] in one [pc.hand], you point it at [npc.namePos] ass, furiously masturbating as your flared head swells up.";
-			}
-			
-			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					flaredSpecial,
-					knottedSpecial,
-					barbedSpecial,
-					"Your [pc.cock+] suddenly starts violently throbbing, and you know that you're about to cum."
-							+ " Grabbing your [pc.cock] in one hand, you point it at [npc.namePos] ass, furiously masturbating as you let out [pc.a_moan+]."));
-			
-			if(Main.game.getPlayer().isWearingCondom()) {
-				UtilText.nodeContentSB.append(" As your [pc.balls+] tense up");
-				switch (Main.game.getPlayer().getPenisOrgasmCumQuantity()) {
-					case ZERO_NONE:
-						UtilText.nodeContentSB.append(", you realise that you're not able to produce even one drop of cum.");
-						break;
-					case ONE_TRICKLE:
-						UtilText.nodeContentSB.append(", you feel a small trickle of [pc.cum+] squirting");
-						break;
-					case TWO_SMALL_AMOUNT:
-						UtilText.nodeContentSB.append(", you feel a small amount of [pc.cum+] squirting");
-						break;
-					case THREE_AVERAGE:
-						UtilText.nodeContentSB.append(", you feel your [pc.cum+] squirting");
-						break;
-					case FOUR_LARGE:
-						UtilText.nodeContentSB.append(", you feel your [pc.cum+] shooting");
-						break;
-					case FIVE_HUGE:
-						UtilText.nodeContentSB.append(", you feel your [pc.cum+] pouring");
-						break;
-					case SIX_EXTREME:
-						UtilText.nodeContentSB.append(", you feel your [pc.cum+] pouring");
-						break;
-					case SEVEN_MONSTROUS:
-						UtilText.nodeContentSB.append(", you feel your [pc.cum+] pouring");
-						break;
-					default:
-						break;
-				}
-				UtilText.nodeContentSB.append(" out into the condom that you're wearing.");
-				
-			} else {
-				UtilText.nodeContentSB.append(" You feel your [pc.balls+] tense up as your orgasm washes over you.");
-				switch (Main.game.getPlayer().getPenisOrgasmCumQuantity()) {
-					case ZERO_NONE:
-						UtilText.nodeContentSB.append(" Unfortunately, you aren't able to produce even one drop of cum, somewhat diminishing the pleasure of your climax.");
-						break;
-					case ONE_TRICKLE:
-						UtilText.nodeContentSB.append(" A small trickle of [pc.cum+] squirts onto [npc.namePos] ass, and you groan in satisfaction as you see your [pc.cum] sliding down over [npc.her] "
-								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
-						break;
-					case TWO_SMALL_AMOUNT:
-						UtilText.nodeContentSB.append(" A small amount of [pc.cum+] squirts onto [npc.namePos] ass, and you groan in satisfaction as you see your sticky seed sliding down over [npc.her] "
-								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
-						break;
-					case THREE_AVERAGE:
-						UtilText.nodeContentSB.append(" Your [pc.cum+] shoots out as your cock throbs, and you groan in satisfaction as you see your sticky seed splatter over [npc.namePos] ass and lower back, before dripping down over [npc.her] "
-								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
-						break;
-					case FOUR_LARGE:
-						UtilText.nodeContentSB.append(" Your [pc.cum+] shoots out as your cock throbs, and you groan in satisfaction as you see your sticky seed splatter over [npc.namePos] ass and lower back, before dripping down over [npc.her] "
-								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
-						break;
-					case FIVE_HUGE:
-						UtilText.nodeContentSB.append(" Your large load pours out as your cock throbs, and you groan in satisfaction as you see your [pc.cum+] splatter all over [npc.namePos] ass and lower back, before sliding down over [npc.her] "
-								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
-						break;
-					case SIX_EXTREME:
-						UtilText.nodeContentSB.append(" Your huge load pours out as your cock throbs, and you groan in satisfaction as you see your [pc.cum+] completely cover [npc.namePos] ass and back, before sliding down all over [npc.her] "
-								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
-						break;
-					case SEVEN_MONSTROUS:
-						UtilText.nodeContentSB.append(" Your enormous load pours out as your cock throbs, and you groan in satisfaction as you see your [pc.cum+] completely drenching [npc.namePos] ass and back,"
-								+ " before pouring down all over [npc.her] "
-								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+" to form a puddle around [npc.her] knees.");
-						break;
-					default:
-						break;
-				}
-			}
-
-			if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
-				UtilText.nodeContentSB.append("<br/>"
-						+ "As you grasp your softening member in your [pc.hand], you feel a second orgasm building deep in your groin."
-						+ " Grabbing [npc.namePos] [npc.hips] to brace yourself, you go weak at the knees and clench your thighs together as your [pc.pussy+] shudders and quivers."
-						+ " A mind-splitting orgasm washes through you, and you moan and squeal in delight as your feminine sex joins in on the fun."
-						+ " Panting heavily, you soon come down from your second climax and start to recover.");
-			} else {
-				UtilText.nodeContentSB.append("<br/>"
-						+ "You pant heavily as you pull your softening member out of [npc.namePos] used hole, before giving [npc.her] [npc.ass] a slap.");
-			}
-			
-			return UtilText.nodeContentSB.toString();
-		}
-
-		@Override
-		public void applyEffects() {
-			Sex.stopOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, Sex.getActivePartner(), SexAreaOrifice.ANUS);
-			Sex.stopOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, Sex.getActivePartner(), SexAreaOrifice.VAGINA);
-		}
-		
-		@Override
-		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
-			if(cumProvider.equals(Sex.getCharacterPerformingAction()) && cumTarget.equals(Sex.getTargetedPartner(cumProvider))) {
-				return Util.newArrayListOfValues(
-						CoverableArea.BACK);
-			}
-			return null;
-		}
-	};
-	
-	public static final SexAction PLAYER_DOGGY_DOMINANT_ORGASM = new SexAction(
-			SexActionType.ORGASM,
-			ArousalIncrease.FOUR_HIGH,
-			ArousalIncrease.THREE_NORMAL,
-			CorruptionLevel.THREE_DIRTY,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
-			SexParticipantType.NORMAL,
-			SexPace.DOM_ROUGH) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH)
-					&& Sex.isDom(Main.game.getPlayer())
-					&& Main.game.getPlayer().hasPenisIgnoreDildo();
-		}
-		
-		@Override
-		public String getActionTitle() {
-			return "Ass to mouth";
-		}
-
-		@Override
-		public String getActionDescription() {
-			if(Sex.getCharacterPerformingAction().isWearingCondom()) {
-				return "Roughly fuck [npc2.name] into the floor before filling your condom with your cum. Then slide it off and use [npc2.her] mouth to clean yourself off.";
-			}
-			return "Roughly fuck [npc2.name] into the floor before filling [npc2.her] [npc2.ass] with your cum. Then use [npc2.her] mouth to clean yourself off.";
-		}
-
-		@Override
-		public String getDescription() {
-			UtilText.nodeContentSB.setLength(0);
-
-			UtilText.nodeContentSB.append("As you feel [npc.namePos] [npc.asshole+] squeezing down around your [pc.cock+], you decide that you're going to show [npc.herHim] how an alpha treats their submissive little beta."
-					+ " Letting out [pc.a_moan+], you slam your [pc.cock] deep into [npc.her] ass, grinning devilishly as [npc.she] lets out [npc.a_moan+]."
-					+ "<br/><br/>"
-					+ "Reaching down, you grab the [npc.race]'s shoulders, pushing your weight down onto [npc.her] back as you roughly mount [npc.herHim], which causes [npc.her] torso to collapse down to the floor."
-					+ " Bending down, with your [pc.cock] still hilted in [npc.her] [npc.asshole], you growl menacingly in [npc.her] [npc.ear], "
-							+ "[pc.speech(You little bitch! All you're good for is taking my load!)]"
-					+"<br/><br/>"
-					+ "[npc.Name] lets out another [npc.moan], which is enough to send you over the edge."
-					+ " As you grind [npc.her] [npc.face+] into the floor, you reach your climax, and as your [pc.balls+] tense up");
-
-			switch (Main.game.getPlayer().getPenisOrgasmCumQuantity()) {
-				case ZERO_NONE:
-					UtilText.nodeContentSB.append(", you realise that you aren't able to produce even one drop of cum, somewhat lessening the impact of your dominant display.");
-					break;
-				case ONE_TRICKLE:
-					UtilText.nodeContentSB.append(", a small trickle of [pc.cum+] squirts");
-					break;
-				case TWO_SMALL_AMOUNT:
-					UtilText.nodeContentSB.append(", a small amount of [pc.cum+] squirts");
-					break;
-				case THREE_AVERAGE:
-					UtilText.nodeContentSB.append(", your [pc.cum+] shoots");
-					break;
-				case FOUR_LARGE:
-					UtilText.nodeContentSB.append(", your [pc.cum+] shoots");
-					break;
-				case FIVE_HUGE:
-					UtilText.nodeContentSB.append(", your load pours out");
-					break;
-				case SIX_EXTREME:
-					UtilText.nodeContentSB.append(", your huge load pours out");
-					break;
-				case SEVEN_MONSTROUS:
-					UtilText.nodeContentSB.append(", your enormous load pours out");
-					break;
-				default:
-					break;
-			}
-			if(Main.game.getPlayer().getPenisOrgasmCumQuantity()!=CumProduction.ZERO_NONE) {
-				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
-					UtilText.nodeContentSB.append(" into the condom that you're wearing, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
-				} else {
-					UtilText.nodeContentSB.append(" deep into [npc.namePos] ass, and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
-				}
-			}
-
-			if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
-				UtilText.nodeContentSB.append("<br/><br/>"
-						+ "As you slide your softening member out from [npc.namePos] well-used ass, you feel a second orgasm building deep in your groin."
-						+ " Grabbing [npc.her] hips to brace yourself, you go weak at the knees and clench your thighs together as your [pc.pussy+] shudders and quivers."
-						+ " A mind-splitting orgasm washes through you, and you [pc.moanVerb] in delight as your feminine sex joins in on the fun."
-						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.namePos] face is still collapsed down against the floor.");
-				
-			} else {
-				UtilText.nodeContentSB.append("<br/><br/>"
-						+ "As you slide your softening member out from [npc.namePos] well-used ass, you look down, grinning, at the mess you've made of [npc.herHim]."
-						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.namePos] face is still collapsed down against the floor.");
-			}
-
-			UtilText.nodeContentSB.append("<br/><br/>");
-			if(Sex.getCharacterPerformingAction().isWearingCondom()) {
-				UtilText.nodeContentSB.append("Reaching down, you grab a fistful of [npc.namePos] [npc.hair+],"
-						+ " and before [npc.she] has a chance to react, you slide your condom off and roughly shove [npc.her] [npc.face+] down onto your [pc.cock+]."
-						+ " [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of your cock, but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
-						+ "<br/>"
-						+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
-			} else {
-				UtilText.nodeContentSB.append("Reaching down, you grab a fistful of [npc.namePos] [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
-						+" [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] ass, but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
-						+ "<br/>"
-						+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
-			}
-
-			return UtilText.nodeContentSB.toString();
-		}
-		
-
-		@Override
-		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
-			if(cumProvider.equals(Main.game.getPlayer()) && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
-				return Util.newArrayListOfValues(SexAreaOrifice.ANUS);
-			} else {
-				return null;
-			}
-		}
-
-		@Override
-		public void applyEffects() {
-			Sex.stopOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, Sex.getActivePartner(), SexAreaOrifice.ANUS);
-		}
-		
-	};
-	
-	public static final SexAction PLAYER_DOGGY_DOMINANT_ORGASM_PUSSY = new SexAction(
-			SexActionType.ORGASM,
-			ArousalIncrease.FOUR_HIGH,
-			ArousalIncrease.THREE_NORMAL,
-			CorruptionLevel.THREE_DIRTY,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
-			SexParticipantType.NORMAL,
-			SexPace.DOM_ROUGH) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH)
-					&& Sex.isDom(Main.game.getPlayer())
-					&& Main.game.getPlayer().hasPenisIgnoreDildo();
-		}
-		
-		@Override
-		public String getActionTitle() {
-			return "Pussy to mouth";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "Roughly fuck [npc2.name] into the floor before filling [npc2.her] [npc2.pussy] with your cum. Then use [npc2.her] mouth to clean yourself off.";
-		}
-
-		@Override
-		public String getDescription() {
-			UtilText.nodeContentSB.setLength(0);
-
-			UtilText.nodeContentSB.append("As you feel [npc.namePos] [npc.pussy+] squeezing down around your [pc.cock+], you decide that you're going to show [npc.herHim] how an alpha treats their submissive little beta."
-					+ " Letting out [pc.a_moan+], you slam your [pc.cock] deep into [npc.her] [npc.pussy], grinning devilishly as [npc.she] lets out [npc.a_moan+]."
-					+ "<br/><br/>"
-					+ "Reaching down, you grab the [npc.race]'s shoulders, pushing your weight down onto [npc.her] back as you roughly mount [npc.herHim], which causes [npc.her] torso to collapse down to the floor."
-					+ " Bending down, with your [pc.cock] still hilted in [npc.her] [npc.pussy+], you growl menacingly in [npc.her] [npc.ear], "
-							+ "[pc.speech(You little bitch! All you're good for is taking my load!)]"
-					+"<br/><br/>"
-					+ "[npc.Name] lets out another [npc.moan], which is enough to send you over the edge."
-					+ " As you grind [npc.her] [npc.face+] into the floor, you reach your climax, and as your [pc.balls+] tense up");
-
-			switch (Main.game.getPlayer().getPenisOrgasmCumQuantity()) {
-				case ZERO_NONE:
-					UtilText.nodeContentSB.append(", you realise that you aren't able to produce even one drop of cum, somewhat lessening the impact of your dominant display.");
-					break;
-				case ONE_TRICKLE:
-					UtilText.nodeContentSB.append(", a small trickle of [pc.cum+] squirts deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
-					break;
-				case TWO_SMALL_AMOUNT:
-					UtilText.nodeContentSB.append(", a small amount of [pc.cum+] squirts deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
-					break;
-				case THREE_AVERAGE:
-					UtilText.nodeContentSB.append(", your [pc.cum+] shoots deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
-					break;
-				case FOUR_LARGE:
-					UtilText.nodeContentSB.append(", your [pc.cum+] shoots deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
-					break;
-				case FIVE_HUGE:
-					UtilText.nodeContentSB.append(", your load pours out deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
-					break;
-				case SIX_EXTREME:
-					UtilText.nodeContentSB.append(", your huge load pours out deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
-					break;
-				case SEVEN_MONSTROUS:
-					UtilText.nodeContentSB.append(", your enormous load pours out deep into [npc.namePos] [npc.pussy], and you let out [pc.a_moan+] as you tell [npc.herHim] what a bitch [npc.she] is.");
-					break;
-				default:
-					break;
-			}
-
-			if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
-				UtilText.nodeContentSB.append("<br/><br/>"
-						+ "As you slide your softening member out from [npc.namePos] well-used [npc.pussy], you feel a second orgasm building deep in your groin."
-						+ " Grabbing [npc.her] hips to brace yourself, you go weak at the knees and clench your thighs together as your [pc.pussy+] shudders and quivers."
-						+ " A mind-splitting orgasm washes through you, and you [pc.moanVerb] in delight as your feminine sex joins in on the fun."
-						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.namePos] face is still collapsed down against the floor.");
-				
-			} else {
-				UtilText.nodeContentSB.append("<br/><br/>"
-						+ "As you slide your softening member out from [npc.namePos] well-used [npc.pussy], you look down, grinning, at the mess you've made of [npc.herHim]."
-						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.namePos] face is still collapsed down against the floor.");
-			}
-			
-			UtilText.nodeContentSB.append("<br/><br/>"
-					+ "Reaching down, you grab a fistful of [npc.namePos] [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
-					+ " [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] [npc.pussy], but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
-					+ "<br/>"
-					+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
-
-			return UtilText.nodeContentSB.toString();
-		}
-
-		@Override
-		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
-			if(cumProvider.equals(Main.game.getPlayer()) && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
-				return Util.newArrayListOfValues(SexAreaOrifice.VAGINA);
-			} else {
-				return null;
-			}
-		}
-
-		@Override
-		public void applyEffects() {
-			Sex.stopOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, Sex.getActivePartner(), SexAreaOrifice.VAGINA);
-		}
-		
-	};
-
-	
 	public static final SexAction LOOK_BACK = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -1049,6 +640,275 @@ public class DoggyStyle {
 					"[npc.Name] [npc.verb(turn)] [npc.her] head and [npc.verb(bite)] [npc.her] [npc.lip] at [npc2.name], doing [npc.her] best to look as seductive as possible.",
 					"Looking back, [npc.name] [npc.verb(put)] on a seductive look for [npc2.name], feeling extremely pleased with [npc.herself] as [npc.she] [npc.verb(see)] [npc2.herHim] gazing hungrily down at [npc.herHim] in return.");
 		}
+	};
+	
+	// Orgasms:
+	
+	public static final SexAction DOGGY_DOMINANT_ORGASM = new SexAction(
+			SexActionType.ORGASM,
+			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.THREE_DIRTY,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_ROUGH) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.MOUTH)
+					&& Sex.isDom(Sex.getCharacterPerformingAction())
+					&& Sex.getCharacterPerformingAction().hasPenisIgnoreDildo();
+		}
+		
+		@Override
+		public SexActionPriority getPriority() {
+			if(Math.random()<0.75f) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Ass-to-mouth";
+		}
+
+		@Override
+		public String getActionDescription() {
+			if(Sex.getCharacterPerformingAction().isWearingCondom()) {
+				return "Roughly fuck [npc2.name] into the floor before filling your condom with your cum. Then slide it off and use [npc2.her] mouth to clean yourself off.";
+			}
+			return "Roughly fuck [npc2.name] into the floor before filling [npc2.her] [npc2.ass] with your cum. Then use [npc2.her] mouth to clean yourself off.";
+		}
+
+		@Override
+		public String getDescription() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"As [npc.name] [npc.verb(feel)] [npc2.namePos] [npc2.asshole+] squeezing down around [npc.her] [npc.cock+], [npc.she] [npc.verb(decide)] to show [npc2.herHim] how"
+						+ (Sex.getCharacterPerformingAction().getRace()==Race.WOLF_MORPH || Sex.getCharacterPerformingAction().getRace()==Race.DOG_MORPH
+							?" an alpha treats their submissive little beta."
+							:" a real dom treats their submissive bitch.")
+					+ " Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.ass+], grinning devilishly as [npc2.she] [npc2.verb(let)] out [npc2.a_moan+]."
+					+ "<br/><br/>"
+					+ "Reaching down, [npc.she] then [npc.verb(grab)] [npc2.namePos] shoulders, before pushing [npc.her] weight down onto [npc2.her] back as [npc.she] roughly [npc2.verb(mount)] [npc2.herHim]."
+					+ " With [npc.namePos] weight now on top of [npc2.herHim], [npc2.name] [npc2.verb(collapses)] to the floor with [npc2.a_moan+]."
+					+ " Bending down, and with [npc.her] throbbing [npc.cock] still hilted in [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(growl)] menacingly in [npc2.her] [npc2.ear], "
+							+ "[npc.speech(You little bitch! All you're good for is being my slutty cock-sleeve!)]"
+					+"<br/><br/>"
+					+ "Upon hearing those degrading words, [npc2.Name] [npc2.verb(let)] out another [npc2.moan+], which is enough to send [npc.name] over the edge."
+					+ " As [npc.she] [npc.verb(grind)] [npc2.namePos] [npc2.face+] into the floor, [npc.she] [npc.verb(reach)] [npc.her] climax, and as [npc.her] [npc.balls+] tense up"
+					);
+			
+			switch (Sex.getCharacterPerformingAction().getPenisOrgasmCumQuantity()) {
+				case ZERO_NONE:
+					UtilText.nodeContentSB.append(", [npc.she] [npc.verb(realise)] that [npc.she] [npc.is]n't able to produce even one drop of cum, somewhat lessening the impact of [npc.her] dominant display.");
+					break;
+				case ONE_TRICKLE:
+					UtilText.nodeContentSB.append(", a small trickle of [npc.cum+] squirts");
+					break;
+				case TWO_SMALL_AMOUNT:
+					UtilText.nodeContentSB.append(", a small amount of [npc.cum+] squirts");
+					break;
+				case THREE_AVERAGE:
+					UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] shoots");
+					break;
+				case FOUR_LARGE:
+					UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] shoots");
+					break;
+				case FIVE_HUGE:
+					UtilText.nodeContentSB.append(", [npc.her] load pours out");
+					break;
+				case SIX_EXTREME:
+					UtilText.nodeContentSB.append(", [npc.her] huge load pours out");
+					break;
+				case SEVEN_MONSTROUS:
+					UtilText.nodeContentSB.append(", [npc.her] enormous load pours out");
+					break;
+			}
+			
+			if(Sex.getCharacterPerformingAction().getPenisOrgasmCumQuantity()!=CumProduction.ZERO_NONE) {
+				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
+					UtilText.nodeContentSB.append(" into the condom that [npc.sheIs] wearing.");
+				} else {
+					UtilText.nodeContentSB.append(" deep into [npc2.namePos] [npc.asshole+].");
+				}
+			}
+
+			if (Sex.getCharacterPerformingAction().getVaginaType() != VaginaType.NONE) {
+				UtilText.nodeContentSB.append("<br/><br/>"
+						+ "As [npc.name] [npc.verb(slide)] [npc.her] still-throbbing shaft out from [npc2.namePos] well-used [npc2.ass], [npc.she] [npc.verb(feel)] a second orgasm building deep in [npc.her] groin."
+						+ " Grabbing [npc2.namePos] hips to brace [npc.herself], [npc.name] [npc.verb(start)] to go weak at the knees before clenching [npc.her] thighs together as [npc.her] [npc.ass+] shudders and quivers."
+						+ " A mind-splitting orgasm washes through [npc.her], and [npc.name] [npc.moanVerb] in delight as [npc.her] feminine sex joins in on the fun.");
+				
+			} else {
+				UtilText.nodeContentSB.append("<br/><br/>"
+						+ "As [npc.name] [npc.verb(slide)] [npc.her] still-throbbing shaft out from [npc2.namePos] well-used [npc2.ass], [npc.she] [npc.verb(look)] down, grinning, at the mess [npc.sheHas] made of [npc2.herHim].");
+			}
+			
+			UtilText.nodeContentSB.append("<br/><br/>"
+					+ "Panting heavily, [npc.name] suddenly [npc.verb(remember)] what [npc.she] had planned, and [npc.verb(shuffle)] around to where [npc2.namePos] face is still collapsed down against the floor."
+					+ (Sex.getCharacterTargetedForSexAction(this).hasHair()
+							?" Reaching down, [npc.she] roughly [npc.verb(grab)] a fistful of [npc2.namePos] [npc2.hair+],"
+							:" Reaching down, [npc.she] roughly [npc.verb(grab)] [npc2.namePos] neck,")
+					+" and before [npc2.she] [npc2.has] a chance to react, [npc.she] [npc.verb(shove)] [npc2.her] [npc2.face+] down onto [npc.her] [npc.cock+]."
+					+ " [npc2.Name] [npc2.moansVerb] and [npc2.verb(squirm)] as "+(Sex.getCharacterPerformingAction().isPlayer()?"you":"[npc2.her] dominant partner")+" [npc.verb(give)] [npc2.herHim] a taste of [npc2.her] own [npc2.ass],"
+						+ " and, holding [npc2.herHim] tightly in position, [npc.she] [npc.moansVerb+] as [npc2.her] frantic [npc2.tongue] cleans [npc.herHim] off."
+					+ "<br/><br/>"
+					+ "After a minute of using [npc2.name] in this manner, [npc.name] finally [npc.verb(release)] [npc2.herHim], and, with a deep gasp, [npc2.she] [npc2.verb(collapse)] to the floor, completely exhausted from the dominant treatment.");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		
+
+		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.equals(Main.game.getPlayer()) && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
+				return Util.newArrayListOfValues(SexAreaOrifice.ANUS);
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.stopOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, Sex.getActivePartner(), SexAreaOrifice.ANUS);
+		}
+		
+	};
+	
+	public static final SexAction DOGGY_DOMINANT_ORGASM_PUSSY = new SexAction(
+			SexActionType.ORGASM,
+			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.THREE_DIRTY,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_ROUGH) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.MOUTH)
+					&& Sex.isDom(Sex.getCharacterPerformingAction())
+					&& Sex.getCharacterPerformingAction().hasPenisIgnoreDildo();
+		}
+		
+		@Override
+		public SexActionPriority getPriority() {
+			if(Math.random()<0.75f) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Pussy-to-mouth";
+		}
+		
+		@Override
+		public String getActionDescription() {
+			if(Sex.getCharacterPerformingAction().isWearingCondom()) {
+				return "Roughly fuck [npc2.name] into the floor before filling your condom with your cum. Then slide it off and use [npc2.her] mouth to clean yourself off.";
+			}
+			return "Roughly fuck [npc2.name] into the floor before filling [npc2.her] [npc2.pussy] with your cum. Then use [npc2.her] mouth to clean yourself off.";
+		}
+
+		@Override
+		public String getDescription() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"As [npc.name] [npc.verb(feel)] [npc2.namePos] [npc2.pussy+] squeezing down around [npc.her] [npc.cock+], [npc.she] [npc.verb(decide)] to show [npc2.herHim] how"
+						+ (Sex.getCharacterPerformingAction().getRace()==Race.WOLF_MORPH || Sex.getCharacterPerformingAction().getRace()==Race.DOG_MORPH
+							?" an alpha treats their submissive little beta."
+							:" a real dom treats their submissive bitch.")
+					+ " Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.pussy+], grinning devilishly as [npc2.she] [npc2.verb(let)] out [npc2.a_moan+]."
+					+ "<br/><br/>"
+					+ "Reaching down, [npc.she] then [npc.verb(grab)] [npc2.namePos] shoulders, before pushing [npc.her] weight down onto [npc2.her] back as [npc.she] roughly [npc2.verb(mount)] [npc2.herHim]."
+					+ " With [npc.namePos] weight now on top of [npc2.herHim], [npc2.name] [npc2.verb(collapses)] to the floor with [npc2.a_moan+]."
+					+ " Bending down, and with [npc.her] throbbing [npc.cock] still hilted in [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(growl)] menacingly in [npc2.her] [npc2.ear], "
+							+ "[npc.speech(You little bitch! All you're good for is being my slutty cock-sleeve!)]"
+					+"<br/><br/>"
+					+ "Upon hearing those degrading words, [npc2.Name] [npc2.verb(let)] out another [npc2.moan+], which is enough to send [npc.name] over the edge."
+					+ " As [npc.she] [npc.verb(grind)] [npc2.namePos] [npc2.face+] into the floor, [npc.she] [npc.verb(reach)] [npc.her] climax, and as [npc.her] [npc.balls+] tense up"
+					);
+			
+			switch (Sex.getCharacterPerformingAction().getPenisOrgasmCumQuantity()) {
+				case ZERO_NONE:
+					UtilText.nodeContentSB.append(", [npc.she] [npc.verb(realise)] that [npc.she] [npc.is]n't able to produce even one drop of cum, somewhat lessening the impact of [npc.her] dominant display.");
+					break;
+				case ONE_TRICKLE:
+					UtilText.nodeContentSB.append(", a small trickle of [npc.cum+] squirts");
+					break;
+				case TWO_SMALL_AMOUNT:
+					UtilText.nodeContentSB.append(", a small amount of [npc.cum+] squirts");
+					break;
+				case THREE_AVERAGE:
+					UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] shoots");
+					break;
+				case FOUR_LARGE:
+					UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] shoots");
+					break;
+				case FIVE_HUGE:
+					UtilText.nodeContentSB.append(", [npc.her] load pours out");
+					break;
+				case SIX_EXTREME:
+					UtilText.nodeContentSB.append(", [npc.her] huge load pours out");
+					break;
+				case SEVEN_MONSTROUS:
+					UtilText.nodeContentSB.append(", [npc.her] enormous load pours out");
+					break;
+			}
+			
+			if(Sex.getCharacterPerformingAction().getPenisOrgasmCumQuantity()!=CumProduction.ZERO_NONE) {
+				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
+					UtilText.nodeContentSB.append(" into the condom that [npc.sheIs] wearing.");
+				} else {
+					UtilText.nodeContentSB.append(" deep into [npc2.namePos] [npc.pussy+].");
+				}
+			}
+
+			if (Sex.getCharacterPerformingAction().getVaginaType() != VaginaType.NONE) {
+				UtilText.nodeContentSB.append("<br/><br/>"
+						+ "As [npc.name] [npc.verb(slide)] [npc.her] still-throbbing shaft out from [npc2.namePos] well-used [npc2.pussy], [npc.she] [npc.verb(feel)] a second orgasm building deep in [npc.her] groin."
+						+ " Grabbing [npc2.namePos] hips to brace [npc.herself], [npc.name] [npc.verb(start)] to go weak at the knees before clenching [npc.her] thighs together as [npc.her] [npc.pussy+] shudders and quivers."
+						+ " A mind-splitting orgasm washes through [npc.her], and [npc.name] [npc.moanVerb] in delight as [npc.her] feminine sex joins in on the fun.");
+				
+			} else {
+				UtilText.nodeContentSB.append("<br/><br/>"
+						+ "As [npc.name] [npc.verb(slide)] [npc.her] still-throbbing shaft out from [npc2.namePos] well-used [npc2.pussy], [npc.she] [npc.verb(look)] down, grinning, at the mess [npc.sheHas] made of [npc2.herHim].");
+			}
+			
+			UtilText.nodeContentSB.append("<br/><br/>"
+					+ "Panting heavily, [npc.name] suddenly [npc.verb(remember)] what [npc.she] had planned, and [npc.verb(shuffle)] around to where [npc2.namePos] face is still collapsed down against the floor."
+					+ (Sex.getCharacterTargetedForSexAction(this).hasHair()
+							?" Reaching down, [npc.she] roughly [npc.verb(grab)] a fistful of [npc2.namePos] [npc2.hair+],"
+							:" Reaching down, [npc.she] roughly [npc.verb(grab)] [npc2.namePos] neck,")
+					+" and before [npc2.she] [npc2.has] a chance to react, [npc.she] [npc.verb(shove)] [npc2.her] [npc2.face+] down onto [npc.her] [npc.cock+]."
+					+ " [npc2.Name] [npc2.moansVerb] and [npc2.verb(squirm)] as "+(Sex.getCharacterPerformingAction().isPlayer()?"you":"[npc2.her] dominant partner")+" [npc.verb(give)] [npc2.herHim] a taste of [npc2.her] own [npc2.pussy],"
+						+ " and, holding [npc2.herHim] tightly in position, [npc.she] [npc.moansVerb+] as [npc2.her] frantic [npc2.tongue] cleans [npc.herHim] off."
+					+ "<br/><br/>"
+					+ "After a minute of using [npc2.name] in this manner, [npc.name] finally [npc.verb(release)] [npc2.herHim], and, with a deep gasp, [npc2.she] [npc2.verb(collapse)] to the floor, completely exhausted from the dominant treatment.");
+
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.equals(Sex.getCharacterPerformingAction()) && cumTarget.equals(Sex.getCharacterTargetedForSexAction(this))) {
+				return Util.newArrayListOfValues(SexAreaOrifice.VAGINA);
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.stopOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, Sex.getActivePartner(), SexAreaOrifice.VAGINA);
+		}
+		
 	};
 
 }

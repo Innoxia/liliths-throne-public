@@ -909,7 +909,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 				&& target==OrgasmCumTarget.INSIDE
 				&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
-				&& this.getPenisRawCumStorageValue()>0
+				&& this.getCurrentPenisRawCumStorageValue()>0
 				&& Sex.getContactingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(Lilaya.class)).contains(SexAreaOrifice.VAGINA)) {
 			
 			StringBuilder sb = new StringBuilder();

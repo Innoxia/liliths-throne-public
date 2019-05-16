@@ -125,91 +125,90 @@
 	
 	Patch notes:
 	
+	Contributors:
+		Cleaned up inventory code. (PR#1146 by Pimgd)
+		Added 'light grey', 'dark grey', and 'gunmetal grey' colours. (PR#1147 by GynoidDoesGames)
+		Fixed issue with sex sometimes never ending when having sex with a companion in their room. (PR#1153 by A-haron)
+		Fixed sex behaviour treating strapons as though they were going to cum. (PR#1151 by A-haron)
 	
 	Other:
-		Reduced default cum regeneration value from 50,000ml per day to 10,000 per day, as it was a little too fast at regenerating during sex.
-		NPCs are now a lot more likely to choose a 'proper' penetrative action as their main preference in sex (such as penis/vagina, penis/anus, etc.).
+		Time until end of arcane storm is now displayed in tooltip if you have the arcane spell school ability unlocked.
+		Added a pink background for ongoing sex action status effects, to help to highlight what's happening during sex scenes.
+		Growing unicorn horns via TF potion will now reset horns per row to 1 a the moment of transformation. (You can still increase horns per row as normal after the type transformation.)
+		Elementals can now self-transform into the appearance of any morph, but will still always be composed entirely of their associated element.
+		Made friendly occupant sex options the same as slave sex options (by adding the spitroast and doggy-style options), and you can now access their sex menu in their room/apartment even if they're in your party.
+		Slightly improved UI for reforging weapon damage types.
+		Jinxed clothing status effect now applies -5 to maximum aura, instead of -2 to physique and -2 to arcane.
 	
-	Contributors:
-		Fixed deprecated method being used. (PR#1125 by King-Drake)
-		Fixed virginity cost errors. (PR#1124 by GynoidDoesGames)
-		Fixed issue with un/equipping chastity belts being blocked by sealed ankle slot clothing. (PR#1130 by Zsar)
-		Massively improved save file loading times. As an example one file went from 19 seconds down to 4. (PR#1136 by Pimgd)
-		Clean character inventory code. (PR#1137 by Pimgd)
-		Lots of typo fixes. (PR#1138 by Pimgd)
-		Slightly modified the description of background characters on the streets during an arcane storm if the player is a demon. (PR#1141 by DL-Vadric)
-		Typo fixes. (PR#1133 by Pimgd)
-		Alter clothing blocked by message to not include the clothing which is blocked. (PR#1145 by Pimgd)
+	Sex:
+		Fixed issue where changing positions in group sex would move the third/fourth partners into spectator slots.
+		Rough-pace NPCs can now use the 'Pussy-to-mouth' and 'Ass-to-mouth' orgasm options when fucking others in the doggy-style position.
+		Added 'double creampie' and 'double anal creampie' orgasm actions for group sex, which are available if there is a free pussy/asshole when orgasming inside your target's pussy/asshole.
+		Even if already occupied by an ongoing action, you can now switch into another penetration without having to use the 'Stop X' action first (so long as you have the necessary level of control). NPCs cannot do this, in order to give you a turn to react to their decision to stop an ongoing action.
+		Fixed issue with all NPCs losing arousal & lust from non-penis anal interactions, even when they didn't have a negative opinion of anal actions.
+		Fixed not being able to swap positions in group sex with dominant partners when a dom, and with submissive partners when a sub.
+		Spectators in sex will no longer have their ongoing self-actions reset when the active participants change position.
+		Added standard ongoing actions for tribbing (clit rubbing against partner's clit), along with a unique action for if your clit is prehensile. This action should be available in all positions in which groins are next to each other.
+		Added a 'slap face' action for all sex positions in which a dominant character's hands can reach the submissive target's face.
+		Added 'Submissive talk' action for eager-paced subs, a 'Degrading talk' action for rough-paced doms, and a 'Request rough sex' action for NPCs who want you to be rough with them.
+		Fixed 'Twintail pull', 'Ear pull', and 'Grab horns' actions sometimes being available in positions that made no sense.
+		Improved 'Stop penetrations' action to stop all penetrations that your target is engaged in (instead of just stopping penetrations between you and them), allowing you to stop their ongoing actions with characters other than yourself.
 	
 	Bugs:
-		Typo and grammatical fixes.
-		Fixed half-demon offspring always being females.
-		Zebra-morphs are now identified by white and both black and jet-black stripes.
-		Fixed issue where save games would sometimes get corrupted by assigning an item's count to null.
-		Slaves should now correctly clean their clothes, if they have permission to do so.
-		New positioning actions (for taurs) now have fetish-related corruption bypasses.
-		Fixed issue with all sex actions disappearing when you were in a spectator slot and someone involved in sex was about to orgasm.
-		Fixed positioning actions being available when targeting subs while a sub, or doms while a dom.
-		Fixed the 'Offer threesome' action putting you into a sex scene in which you had full control as a sub.
-		Fixed incorrect position descriptions for when growing a vagina or penis on a taur body.
-		Fixed transformation into a taur sometimes resetting subspecies (such as lion-morph to cat-morph).
-		Self-cest offspring will now correctly have you listed as both their father and mother in the pregnnacy stats screen.
-		Fixed some incorrect formatting in the offspring map usage.
-		Fixed issue where using imported characters, or starting a new game after having already played on a different character, would produce 'error in conditional parsing' errors all over the place.
-		Fixed the 'Knocked up' dialogue in the library deleting response tabs.
-		Offspring now use the same clothing generation as muggers.
-		Fixed tiles in Demon Home taking 5 minutes to traverse instead of 2.
-		Fixed Ms Cunningham's pubic hair being a random colour.
-		Fixed issue with Ms. Cunningham's scene in which she eats you out applying the penis-vagina interaction instead of tongue-vagina.
-		Fixed issue with Ms. Cunningham finishing sex early, and thus losing 2 affection towards you.
-		Sealed NPCs during sex (i.e. the cultists) no longer use default reaction text to sexual parts being revealed.
-		Changes to milk and cum regeneration values via crafted potions have been increased from 1/2/3 to 25/100/500.
-		Fixed slimes not being able to self-transform their breast type.
-		Fixed a few issues with companions' elementals, so that they will no longer show up in places they shouldn't (such as prostitutes in the bedrooms in Angel's Kiss).
-		Fixed issue with Maximilian's post-victory scene only displaying sex options.
-		Fixed some issues with sex actions not being blocked when they should have been (such as being able to intercrural someone who is fucking you in the mating press position).
-		Fixed tattoos not incrementing cum counts when in non-player sex (such as slaves in the brothel or stocks).
-		Fixed vaginal urethra elasticity enchantments not working.
-		Crotch boob status effects will no longer be displayed if you have crotch boobs turned off.
-		Fixed crotch boob sex actions being available even if you had crotch boobs disabled.
-		Fixed unequip clothing descriptions during sex using the 'rough' variant when you were not in the rough pace.
-		Fixed issue with NPCs taking their own virginities with their tails in sex.
-		Fixed 'Offer part' actions in sex not working.
-		Fixed issue with Entering Dominion from the world map sometimes not working.
-		Fixed elementals not being able to be milked in the milking rooms.
-		Fixed issue with inventories not being sorted after saving/loading.
-		Spending flames to identify clothing/weapons at a shop should now work correctly.
-		Equipped condom belt now correctly renders any stacked condoms in the wearer's inventory.
-		Fixed issue with clothing sometimes able to be duplicated in character creation when cahnging colours.
+		Typo fixes.
+		Non-unique NPCs (including offspring) will now drink Fetish Endowment potions if they like or love the 'Kink curious' fetish, or if they worship you.
+		Fixed missing dialogue when Takahashi transformed both you and your companion.
+		Fixed some dialogue with Elizabeth treating you as a chuuni even if you weren't one.
+		Fixed debug parser's XML test field still registering input as normal, which could cause the debug menu to be closed while typing.
+		Fixed bug where characters orgasming while wearing a dildo would cause cum to be pumped into the orifice being penetrated by said dildo.
+		Fixed some misleading descriptions when using the offspring map.
+		Fluid regeneration enchantments on clothing have had their increase/decrease amounts increased from 1/-1 to 250/-250.
+		Inventory tabs should no longer be clickable if their pages are empty.
+		Fixed numerous cases of names not parsing correctly.
+		Fixed lore inconsistency with Lilaya acting as though angels are unheard of.
+		Fixed not being able to remove crotch-boobs from bipeds via TF potions when crotch-boob setting was set to 'Taur only'.
+		Fixed crotch-boob options in the slime self-TF menu not being as expansive as the demon TF ones.
+		Fixed parsing error when cumming inside someone's vaginal urethra.
+		Critical hits in combat that end up missing will no longer grant you an arcane essence if you had the sadist (for dealing damage) or masochist (for receiving damage) fetish.
+		The rooms and halls in Lyssieth's palace now correctly have maids described as being present in the 'characters present' dialogue box.
+		Takahashi will no longer be willing to use a potion on your companion if they're a demon or elemental.
+		Fixed being able to have a threesome with a clone of your companion when visiting their apartment.
+		Fixed cloaca-contained anus still being able to be penetrated in sex even when it was blocked.
+
 	
 	
 	
 	
 	
+	------- Clothing issues:
 	
 	Error: fishnet top and women's leather jacket are blocking one another's removal!!!
 	Error: Enforcer's shirt and women's leather jacket are blocking one another's removal!!!
 	Error: panties and hotpants are blocking one another's removal!!!
 	Error: fullcup bra and hoodie are blocking one another's removal!!!
 	
+	Before Bramble's corset dress is able to be removed, women's leather jacket needs to be removed.​
+	
 	Clothing removal: Maid's dress
 		Before your Maid's dress is able to be removed, dress coat need to be removed.​
 		NPCS end up doing that every time when i am wearing both a Over-Torso and a Torso clothes, feel free to ask her to fix this by Github if you want to.
 	
-	the Youko in that imp fort can transform elementals into foxes
-	
-	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it
-	
-	occassionally when allowing party member to have sex with an enemy when the enemy orgasms right after party member all buttons disappear and you can't prepare or deny or leave the encounter forcing loading save file
-	
 	The npc was wearing pantyhose and a one piece swimsuit. Neither could be removed. The pantyhose was blocked by the swimsuit and the swimsuit was blocked by the pantyhose.
 	
-	after beating an npc in submission, when using a consumable or reading a book in their inventory, the descriptions make it seem as if they're the one who's forcing you to read or drink a potion or eat
+	----------
+	
+	Harpies are using insane clothing still
+	
+	add way to give slime queen her crown back
+	
+	If I have a stack of clothes and put one of them on while covered in cum, the stack clothes in my inventory also gets covered in cum.
+	
+	occassionally when allowing party member to have sex with an enemy when the enemy orgasms right after party member all buttons disappear and you can't prepare or deny or leave the encounter forcing loading save file
 	
 	Inviting my character's daughter to a guest room has her ask if I'm royalty.  Shouldn't it be "Are we royalty???"?  Even more so because she's a lesser demon.
 	Related: "With her opinions on your aunt..." in small talk from the daughter could be "With her opinions on her great aunt..."
 	
-	Harpies with a cloaca can still be fucked in the ass and vagene even when they're blocked by a butt plug or dildo
+	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it
 	
 	Slaves forgetting owner?
 		"Scarlett leaves your party for unknown reasons"
@@ -249,6 +248,14 @@
 	Forced TF not working for someone
 		Ah, yeah, that's intended with the way the non-con option works right now. I'll improve it for the next version so that you can turn on/off sex after defeat as a separate option. your words
 	go over forced TF and fix it all
+	
+	poll for character art
+	
+	credits
+	
+	
+	
+	
 	
 	
 	Make generic template:
@@ -290,9 +297,6 @@
 	
 	need to incorporate outfit logic into clothing and weapon types
 		add effects modding
-	
-	Another thing you really ought to do is make it so you don't have to "stop" one action to start another except as a sub with a rough paced dom
-		Needs dialogue for stop pen and into other action
 	
 	calculateSexTypeWeighting
 		Should be neutral if both like and dislike related fetishes. Adjust sex lust increments based on this as well

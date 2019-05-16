@@ -48,10 +48,17 @@ public class GenericPositioningNew {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isPositionSwap() {
+			return true;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+			return 
+//					Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+					Sex.getInitialSexManager().isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getCharacterPerformingAction().getLegConfiguration()==Sex.getCharacterTargetedForSexAction(this).getLegConfiguration() // Can only swap if have same body type
 					&& Sex.getSexManager().isPlayerAbleToSwapPositions()
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
@@ -116,7 +123,7 @@ public class GenericPositioningNew {
 			doms.remove(performer);
 			dominants.put(performer, data.getPerformerSlots().get(0));
 			for(int i=0; i<doms.size(); i++) {
-				if(data.getPerformerSlots().size()<i+1) {
+				if(i+1<data.getPerformerSlots().size()) {
 					dominants.put(doms.get(i), data.getPerformerSlots().get(i+1));
 				} else {
 					dominantSpectators.add(doms.get(i));
@@ -125,17 +132,18 @@ public class GenericPositioningNew {
 			subs.remove(target);
 			submissives.put(target, data.getPartnerSlots().get(0));
 			for(int i=0; i<subs.size(); i++) {
-				if(data.getPartnerSlots().size()<i+1) {
+				if(i+1<data.getPartnerSlots().size()) {
 					submissives.put(subs.get(i), data.getPartnerSlots().get(i+1));
 				} else {
 					submissiveSpectators.add(subs.get(i));
 				}
 			}
+			
 		} else {
 			doms.remove(target);
 			dominants.put(target, data.getPartnerSlots().get(0));
 			for(int i=0; i<doms.size(); i++) {
-				if(data.getPartnerSlots().size()<i+1) {
+				if(i+1<data.getPartnerSlots().size()) {
 					dominants.put(doms.get(i), data.getPartnerSlots().get(i+1));
 				} else {
 					dominantSpectators.add(doms.get(i));
@@ -144,7 +152,7 @@ public class GenericPositioningNew {
 			subs.remove(performer);
 			submissives.put(performer, data.getPerformerSlots().get(0));
 			for(int i=0; i<subs.size(); i++) {
-				if(data.getPerformerSlots().size()<i+1) {
+				if(i+1<data.getPerformerSlots().size()) {
 					submissives.put(subs.get(i), data.getPerformerSlots().get(i+1));
 				} else {
 					submissiveSpectators.add(subs.get(i));

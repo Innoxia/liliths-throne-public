@@ -257,16 +257,16 @@ public class Rose extends NPC {
 	}
 	
 	@Override
-	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request) {
+	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request, boolean lustOrArousalCalculation) {
 		if(Sex.getSexManager() instanceof SMRoseHands) {
-			return super.calculateSexTypeWeighting(type, target, request);
+			return super.calculateSexTypeWeighting(type, target, request, lustOrArousalCalculation);
 		}
 		
 		if(type.getPerformingSexArea()!=null && type.getPerformingSexArea().isOrifice()) {
 			return -1000;
 		}
 
-		return super.calculateSexTypeWeighting(type, target, request);
+		return super.calculateSexTypeWeighting(type, target, request, lustOrArousalCalculation);
 	}
 	
 	@Override

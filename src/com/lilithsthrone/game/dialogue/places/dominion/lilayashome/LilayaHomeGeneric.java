@@ -675,7 +675,7 @@ public class LilayaHomeGeneric {
 			
 		} else if(index-3<slavesAssignedToRoom.size()) {
 			NPC character = slavesAssignedToRoom.get(index-3);
-			if(charactersPresent.contains(character)) {
+			if(charactersPresent.contains(character) || (character.getHomeCell().equals(Main.game.getPlayerCell()) && Main.game.getPlayer().getCompanions().contains(character))) {
 				return new Response(
 						UtilText.parse(character, "[npc.Name]"),
 						UtilText.parse(character, "Interact with [npc.name]."),
@@ -687,7 +687,7 @@ public class LilayaHomeGeneric {
 						if(character.isSlave()) {
 							SlaveDialogue.initDialogue(character);
 						} else {
-							OccupantDialogue.initDialogue(character);
+							OccupantDialogue.initDialogue(character, false);
 						}
 					}
 				};
