@@ -1102,9 +1102,9 @@ public enum Combat {
 
 		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.MAIN, isHit, critical));
 
-		if(!isHit) {
-			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
-		}
+//		if(!isHit) {
+//			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
+//		}
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Main Attack", attackStringBuilder.toString()));
 	}
@@ -1152,9 +1152,9 @@ public enum Combat {
 		
 		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.OFFHAND, isHit, critical));
 
-		if(!isHit) {
-			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
-		}
+//		if(!isHit) {
+//			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
+//		}
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Offhand Attack", attackStringBuilder.toString()));
 	}
@@ -1207,9 +1207,9 @@ public enum Combat {
 		
 		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.DUAL, isHit, critical));
 		
-		if(!isHit) {
-			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
-		}
+//		if(!isHit) {
+//			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
+//		}
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Dual Strike", attackStringBuilder.toString()));
 	}
@@ -1299,6 +1299,21 @@ public enum Combat {
 					extraAttackEffects.add(UtilText.parse(attacker, target, "[npc2.Name] takes an extra <b>"+fireDamage+"</b> [style.boldFire(Fire Damage)] from [npc1.namePos] [style.boldFire(Flaming Strikes)]!"));
 				}
 			}
+		}
+		
+		if(isCritical && target.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST)) {
+			target.removeStatusEffect(StatusEffect.RAIN_CLOUD);
+			target.removeStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST);
+			target.removeStatusEffect(StatusEffect.RAIN_CLOUD_DEEP_CHILL);
+			target.removeStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR);
+			target.removeStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST);
+			
+			target.addStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST, 6);
+			
+			extraAttackEffects.add(UtilText.parse(target, "As [npc.name] is critically hit, the rain cloud above [npc.her] head grows in size, and suddenly erupts into a torrential cloudburst!"));
+			
+			extraAttackEffects.add(Spell.getBasicStatusEffectApplication(target, false, Util.newHashMapOfValues(new Value<>(StatusEffect.RAIN_CLOUD_CLOUDBURST, 6))));
+			
 		}
 		
 		if(attacker.isPlayer() && attacker.hasFetish(Fetish.FETISH_SADIST) && isCritical && isHit) {
@@ -1408,9 +1423,9 @@ public enum Combat {
 			}
 		}
 
-		if(!isHit) {
-			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
-		}
+//		if(!isHit) {
+//			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
+//		}
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, Util.capitaliseSentence(spell.getName()), attackStringBuilder.toString()));
 	}
@@ -1426,35 +1441,11 @@ public enum Combat {
 		
 		attackStringBuilder.append(specialAttack.applyEffect(attacker, target, isHit, critical));
 
-		if(!isHit) {
-			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
-		}
+//		if(!isHit) {
+//			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
+//		}
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, Util.capitaliseSentence(specialAttack.getName()), attackStringBuilder.toString()));
-	}
-	
-	public static String applyExtraMissEffects(GameCharacter attacker, GameCharacter target) {
-		StringBuilder extraAttackEffectsSB = new StringBuilder();
-		
-		if(attacker.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST)) {
-			attacker.removeStatusEffect(StatusEffect.RAIN_CLOUD);
-			attacker.removeStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST);
-			attacker.removeStatusEffect(StatusEffect.RAIN_CLOUD_DEEP_CHILL);
-			attacker.removeStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR);
-			attacker.removeStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST);
-			
-			attacker.addStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST, 6);
-			
-			if(attacker.isPlayer()) {
-				extraAttackEffectsSB.append("<p>As you miss, the rain cloud above your head seems to grow in size, and suddenly erupts into a torrential cloudburst!</p>");
-			} else {
-				extraAttackEffectsSB.append(UtilText.parse(attacker, "<p>As [npc.name] misses, the rain cloud above [npc.her] head grows in size, and suddenly erupts into a torrential cloudburst!</p>"));
-			}
-			extraAttackEffectsSB.append(Spell.getBasicStatusEffectApplication(attacker, false, Util.newHashMapOfValues(new Value<>(StatusEffect.RAIN_CLOUD_CLOUDBURST, 6))));
-			
-		}
-		
-		return extraAttackEffectsSB.toString();
 	}
 
 	private static void attackWait(GameCharacter attacker) {

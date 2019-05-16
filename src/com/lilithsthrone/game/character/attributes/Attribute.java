@@ -212,16 +212,10 @@ public enum Attribute {
 		}
 	},
 	
-	DODGE_CHANCE(0, 0, 100, "dodge chance", "Dodge chance", "shieldIcon", Colour.GENERIC_EXCELLENT, "evasion", "sluggishness", null) {
+	DEFENCE_MODIFIER(0, -100, 100, "defence modifier", "Defence modifier", "shieldIcon", Colour.GENERIC_EXCELLENT, "evasion", "sluggishness", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Increases the chance of dodging attacks and spells.";
-		}
-	},
-	MISS_CHANCE(0, 0, 100, "miss chance", "Miss chance", "shieldIcon", Colour.GENERIC_TERRIBLE, "poor aim", "true striking", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases the chance of missing with attacks and spells in combat.";
+			return "This value is applied to all defence types at the start of each combat turn.";
 		}
 	},
 

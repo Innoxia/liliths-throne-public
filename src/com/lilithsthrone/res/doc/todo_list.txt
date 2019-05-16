@@ -125,6 +125,11 @@
 	
 	Patch notes:
 	
+	Combat update:
+		'Defence modifier' has been added as an attribute, and applies a boost or drain to damage shielding for the character at the start of each combat turn.
+		'Dodge chance' and 'Miss chance' have been removed from the game. Spells and other effects that modified 'Dodge chance' or 'Miss chance' have been converted into a positive or negative 'Defence modifier' value, respectively.
+		The spell 'Rain Cloud's extra effect, 'Cloud burst', is now triggered by being hit by a critical attack, instead of being triggered by missing an attack.
+	
 	Contributors:
 		Cleaned up inventory code. (PR#1146 by Pimgd)
 		Added 'light grey', 'dark grey', and 'gunmetal grey' colours. (PR#1147 by GynoidDoesGames)

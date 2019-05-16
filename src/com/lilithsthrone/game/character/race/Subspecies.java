@@ -2066,7 +2066,7 @@ public enum Subspecies {
 			"[npc.NameIsFull] very agile and alert, and [npc.is] capable of leaping great distances with [npc.her] powerful [npc.legs].",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 5f),
-					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 2f)),
+					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, 2f)),
 			null,
 			"Chasing Squirrels",
 			"Chasing Squirrels'",

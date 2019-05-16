@@ -7663,19 +7663,14 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
-					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 15f)),
+					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -5f)),
 			null) {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "An arcane-infused rain cloud is hovering above your head."
-							+ " The freezing, heavy rain is sapping your ability to effectively cast spells, as well as reducing your resistance to the cold, and increasing your miss chance.";
-			} else {
-				return UtilText.parse(target,
-						"An arcane-infused rain cloud is hovering above [npc.namePos] head."
-								+ " The freezing, heavy rain is sapping [npc.her] ability to effectively cast spells, as well as reducing [npc.her] resistance to the cold, and increasing [npc.her] miss chance.");
-			}
+			return UtilText.parse(target,
+					"An arcane-infused rain cloud is hovering above [npc.namePos] head."
+							+ " The freezing downpour is sapping [npc.her] ability to effectively cast spells, as well as reducing [npc.her] resistance to the cold, and making it harder to defend [npc.herself].");
 		}
 
 		@Override
@@ -7698,19 +7693,14 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
-					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 15f)),
+					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -5f)),
 			null) {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "An arcane-infused rain cloud is hovering above your head."
-							+ " The freezing, heavy rain is sapping your ability to effectively cast spells, as well as reducing your resistance to the cold, and increasing your miss chance.";
-			} else {
-				return UtilText.parse(target,
-						"An arcane-infused rain cloud is hovering above [npc.namePos] head."
-								+ " The freezing, heavy rain is sapping [npc.her] ability to effectively cast spells, as well as reducing [npc.her] resistance to the cold, and increasing [npc.her] miss chance.");
-			}
+			return UtilText.parse(target,
+					"An arcane-infused rain cloud is hovering above [npc.namePos] head."
+							+ " The freezing downpour is sapping [npc.her] ability to effectively cast spells, as well as reducing [npc.her] resistance to the cold, and making it harder to defend [npc.herself].");
 		}
 
 		@Override
@@ -7733,19 +7723,14 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
-					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 15f)),
+					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -5f)),
 			null) {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "A huge, arcane-infused rain cloud is hovering above your head."
-							+ " The freezing, torrential rain is draining your ability to effectively cast spells, as well as reducing your resistance to the cold, and increasing your miss chance.";
-			} else {
-				return UtilText.parse(target,
-						"A huge, arcane-infused rain cloud is hovering above [npc.namePos] head."
-								+ " The freezing, torrential rain is draining [npc.her] ability to effectively cast spells, as well as reducing [npc.her] resistance to the cold, and increasing [npc.her] miss chance.");
-			}
+			return UtilText.parse(target,
+					"An arcane-infused rain cloud is hovering above [npc.namePos] head."
+							+ " The torrential, freezing downpour is draining [npc.her] ability to effectively cast spells, as well as reducing [npc.her] resistance to the cold, and making it harder to defend [npc.herself].");
 		}
 
 		@Override

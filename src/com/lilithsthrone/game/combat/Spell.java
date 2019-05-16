@@ -866,7 +866,7 @@ public enum Spell {
 					SpellUpgrade.VACUUM_2,
 					SpellUpgrade.VACUUM_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MISS_CHANCE, 10)), Util.newArrayListOfValues("Lasts for [style.colourGood(4 turns)]")) {
+					new Value<Attribute, Integer>(Attribute.DEFENCE_MODIFIER, -5)), Util.newArrayListOfValues("Lasts for [style.colourGood(4 turns)]")) {
 
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -945,7 +945,7 @@ public enum Spell {
 					SpellUpgrade.PROTECTIVE_GUSTS_3),
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 25),
-					new Value<Attribute, Integer>(Attribute.DODGE_CHANCE, 10)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<Attribute, Integer>(Attribute.DEFENCE_MODIFIER, 5)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 		
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1986,7 +1986,7 @@ public enum Spell {
 					SpellUpgrade.TELEPORT_2,
 					SpellUpgrade.TELEPORT_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DODGE_CHANCE, 100)), Util.newArrayListOfValues(
+					new Value<Attribute, Integer>(Attribute.DEFENCE_MODIFIER, 100)), Util.newArrayListOfValues(
 					"Lasts for [style.colourGood(1 turn)]",
 					"[style.colourExcellent(Unlocks)] map teleport",
 					"Map teleport [style.colourTerrible(blocked)] by companions")) {

@@ -191,14 +191,14 @@ public enum SpellUpgrade {
 			"Downpour",
 			"Sheets of torrential arcane rain sweep into the target's eyes, causing them to miss the occasional attack.",
 			null, Util.newArrayListOfValues(
-					"Adds <b>+15</b> "+Attribute.MISS_CHANCE.getColouredName("b")+" to Rain Cloud's effects")),
+					"Adds <b>-5</b> "+Attribute.DEFENCE_MODIFIER.getColouredName("b")+" to Rain Cloud's effects")),
 	RAIN_CLOUD_3(5,
 			SpellSchool.WATER,
 			"rain_cloud_cloud_burst",
 			"Cloud Burst",
-			"The anger and annoyance of the rain cloud's target is harnessed as energy, and each time they miss an attack, the cloud grows in strength and size.",
+			"The anger and annoyance of the rain cloud's target is harnessed as energy, and each time they are hit by a critical attack, the cloud grows in strength and size.",
 			null, Util.newArrayListOfValues(
-					"If Rain Cloud's target misses, the duration is set to [style.colourGood(6 turns)], and "+Attribute.SPELL_COST_MODIFIER.getColouredName("b")+" debuff is increased to -50")),
+					"If Rain Cloud's target is hit by a critical attack, the duration is set to [style.colourGood(6 turns)], and "+Attribute.SPELL_COST_MODIFIER.getColouredName("b")+" debuff is increased to -50")),
 
 	SOOTHING_WATERS_1(true,
 			5,

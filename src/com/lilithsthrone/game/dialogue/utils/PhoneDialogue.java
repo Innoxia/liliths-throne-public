@@ -571,13 +571,9 @@ public class PhoneDialogue {
 							"Critical Hit Damage:<br/>"
 							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE), Attribute.CRITICAL_DAMAGE.getUpperLimit()))+"%</b>",
 							true)
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.DODGE_CHANCE,
-							"Dodge Chance:<br/>"
-							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DODGE_CHANCE), Attribute.DODGE_CHANCE.getUpperLimit()))+"%</b>",
-							true)
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.MISS_CHANCE,
-							"Miss Chance:<br/>"
-							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.MISS_CHANCE), Attribute.MISS_CHANCE.getUpperLimit()))+"%</b>",
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DEFENCE_MODIFIER,
+							"Defence modifier:<br/>"
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DEFENCE_MODIFIER), Attribute.DEFENCE_MODIFIER.getUpperLimit()))+"</b>",
 							true)
 					
 
