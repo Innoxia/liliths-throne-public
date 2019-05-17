@@ -175,6 +175,26 @@
 		Fixed being able to have a threesome with a clone of your companion when visiting their apartment.
 		Fixed cloaca-contained anus still being able to be penetrated in sex even when it was blocked.
 
+	v0.3.2.6
+	
+	Other:
+		Reduced chance of randomly-spawned clothing being enchanted from 25% negative, 50% none, 25% positive, to 20% negative, 60% none, 20% positive.
+		Minimum cum expulsion percentage has been reduced from 5% to 0%.
+		Suppressed 'no companions' error logging when loading a game.
+		If you have the age setting turned off in your content settings, non-unique characters will no longer have the 'menopause' status effect.
+		Ms. Cunningham offers you the chance to call her by her first name, 'Vanessa' when offering to help her. You can then switch between calling her Vanessa or Ms. Cunningham in her office's action menu.
+		Added all sex options that you have in slave/occupant rooms in Lilaya's house to the cahracters present menu, so you can have threesomes with your companion + elemental at any time.
+		NPCs will now lose 10 affection towards their partners if sex ends without being brought to orgasm, which is reduced to a loss of 5 affection if they orgasmed at least once, but still orgasmed less than they wanted.
+		
+	Bugs:
+		Fixed several issues related to dirty clothing or clothing getting dirtied causing other identical (although non-dirty) clothing in your inventory to also become dirty.
+		Importing slaves no longer shows an icon on the map at the place where you exported them.
+		Fixed more issues related to NPC-on-NPC sex not incrementing tattoo counters.
+		Slaves in stocks who are not available for any penetration are now correctly marked as such, instead of being described as being available for oral.
+		Fixed named weapons losing their name after saving & loading.
+		Fixed issues with companions following you into areas when they should have stayed behind (such as in Lyssieth's palace and city hall's Bureau of Demographics).
+		Fixed some parsing errors in the new 'double creampie' orgasm action, and fixed the broken knotting orgasm description.
+		Fixed incorrect description for Witch's Dress.
 	
 	
 	
@@ -197,11 +217,15 @@
 	
 	----------
 	
+	Add unique dialogue for characters present sex
+	
+	Affection drop when starting sex needs to clearly take into account fetishes - put in SexResponse?
+	
+	remove sterlility from bunny prostitutes
+	
 	Harpies are using insane clothing still
 	
 	add way to give slime queen her crown back
-	
-	If I have a stack of clothes and put one of them on while covered in cum, the stack clothes in my inventory also gets covered in cum.
 	
 	occassionally when allowing party member to have sex with an enemy when the enemy orgasms right after party member all buttons disappear and you can't prepare or deny or leave the encounter forcing loading save file
 	

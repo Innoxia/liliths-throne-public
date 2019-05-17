@@ -2101,7 +2101,7 @@ public enum StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed) {
 			List<InventorySlot> slotsToClean = new ArrayList<>();
 			StringBuilder sb = new StringBuilder();
-			for(AbstractClothing clothing : target.getClothingCurrentlyEquipped()) {
+			for(AbstractClothing clothing : new ArrayList<>(target.getClothingCurrentlyEquipped())) {
 				if(target.getDirtySlots().contains(clothing.getClothingType().getSlot())) {
 					slotsToClean.add(clothing.getClothingType().getSlot());
 					
@@ -2113,7 +2113,7 @@ public enum StatusEffect {
 						
 					} else {
 						if(!clothing.isDirty()) {
-							clothing.setDirty(true);
+							clothing.setDirty(target, true);
 							if(sb.length()>0) {
 								sb.append("<br/>");
 							}
@@ -2127,7 +2127,7 @@ public enum StatusEffect {
 						if(target.getDirtySlots().contains(blockedSlot)) {
 							slotsToClean.add(blockedSlot);
 							if(!clothing.isDirty()) {
-								clothing.setDirty(true);
+								clothing.setDirty(target, true);
 								if(sb.length()>0) {
 									sb.append("<br/>");
 								}
@@ -2226,7 +2226,7 @@ public enum StatusEffect {
 				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.jinxedClothingDiscovered)) {
 					Main.game.getDialogueFlags().values.add(DialogueFlagValue.jinxedClothingDiscovered);
 					AbstractClothing clothing = null;
-					for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+					for(AbstractClothing c : new ArrayList<>(target.getClothingCurrentlyEquipped())) {
 						if(c.isSealed()) {
 							clothing = c;
 							break;
@@ -3168,7 +3168,8 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.hasVagina()
+			return (Main.getProperties().hasValue(PropertyValue.ageContent) || target.isUnique())
+					&& target.hasVagina()
 					&& target.getAgeValue()>=52
 					&& target.getSubspeciesOverride()==null
 					&& !(target instanceof Elemental);
@@ -4198,7 +4199,7 @@ public enum StatusEffect {
 			
 			if(clothingBlocking!=null && !clothingBlocking.getItemTags().contains(ItemTag.PLUGS_VAGINA) && !clothingBlocking.getItemTags().contains(ItemTag.SEALS_VAGINA)) {
 				if(!clothingBlocking.isDirty()) {
-					clothingBlocking.setDirty(true);
+					clothingBlocking.setDirty(target, true);
 					sb.append("<p>"
 								+ "The cum from your creampied pussy quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
 							+ "</p>");
@@ -4318,7 +4319,7 @@ public enum StatusEffect {
 			
 			if(clothingBlocking!=null && !clothingBlocking.getItemTags().contains(ItemTag.SEALS_VAGINA)) {
 				if(!clothingBlocking.isDirty()) {
-					clothingBlocking.setDirty(true);
+					clothingBlocking.setDirty(target, true);
 					sb.append("<p>"
 								+ "Cum leaks out of your pussy's creampied urethra, quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
 							+ "</p>");
@@ -4435,7 +4436,7 @@ public enum StatusEffect {
 			
 			if(target.getLowestZLayerCoverableArea(CoverableArea.PENIS)!=null){
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.PENIS).isDirty()) {
-					target.getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
+					target.getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(target, true);
 					sb.append("<p>"
 								+ "Cum leaks out of your cock's creampied urethra, quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()+"!"
 							+ "</p>");
@@ -4550,7 +4551,7 @@ public enum StatusEffect {
 			
 			if(clothingBlocking!=null && !clothingBlocking.getItemTags().contains(ItemTag.PLUGS_ANUS) && !clothingBlocking.getItemTags().contains(ItemTag.SEALS_ANUS)) {
 				if(!clothingBlocking.isDirty()) {
-					clothingBlocking.setDirty(true);
+					clothingBlocking.setDirty(target, true);
 					sb.append("<p>"
 								+ "The cum from your creampied asshole quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.ANUS).getName()+"!"
 							+ "</p>");
@@ -4668,7 +4669,7 @@ public enum StatusEffect {
 			
 			if(clothingBlocking!=null && !clothingBlocking.getItemTags().contains(ItemTag.PLUGS_NIPPLES) && !clothingBlocking.getItemTags().contains(ItemTag.SEALS_NIPPLES)) {
 				if(!clothingBlocking.isDirty()) {
-					clothingBlocking.setDirty(true);
+					clothingBlocking.setDirty(target, true);
 					sb.append("<p>"
 								+ "The cum from your creampied nipples quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName()+"!"
 							+ "</p>");
@@ -4792,7 +4793,7 @@ public enum StatusEffect {
 			
 			if(target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH)!=null){
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).isDirty()) {
-					target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).setDirty(true);
+					target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).setDirty(target, true);
 					sb.append("<p>"
 								+ "The cum from your creampied nipples quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).getName()+"!"
 							+ "</p>");
@@ -8258,7 +8259,7 @@ public enum StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(Math.random()<(target.isPlayer()?0.1f:0.166f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
-				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+				for(AbstractClothing c : new ArrayList<>(target.getClothingCurrentlyEquipped())) {
 					if(target.isAbleToUnequip(c, false, target)
 							&& !c.getClothingType().getSlot().isJewellery()) {
 						suitableClothing.add(c);
@@ -8316,7 +8317,7 @@ public enum StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(Math.random()<(target.isPlayer()?0.25f:0.33f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
-				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+				for(AbstractClothing c : new ArrayList<>(target.getClothingCurrentlyEquipped())) {
 					if(target.isAbleToUnequip(c, false, target)
 							&& !c.getClothingType().getSlot().isJewellery()) {
 						suitableClothing.add(c);

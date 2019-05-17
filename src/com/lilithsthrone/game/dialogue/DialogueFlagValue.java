@@ -53,6 +53,7 @@ public enum DialogueFlagValue {
 
 	
 	// City hall:
+	vanessaHelped,
 	vanessaDailyHelped,
 	vanessaDailyMassage,
 	vanessaMassaged,

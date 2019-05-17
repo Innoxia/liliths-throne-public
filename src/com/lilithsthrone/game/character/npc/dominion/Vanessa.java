@@ -96,11 +96,13 @@ public class Vanessa extends NPC {
 			this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_GREY), false);
 			this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, Colour.COVERING_GREY), false);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.2.6")) {
+			this.setPlayerKnowsName(false);
+		}
 	}
 
 	@Override
 	public void setStartingBody(boolean setPersona) {
-		
 		// Persona:
 
 		if(setPersona) {
