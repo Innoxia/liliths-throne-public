@@ -128,7 +128,7 @@ public class Epona extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(180);
+		this.setHeight(360);
 		this.setFemininity(85);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -183,10 +183,10 @@ public class Epona extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.FOUR_FAT);
-		this.setPenisSize(25);
-		this.setTesticleSize(TesticleSize.FOUR_HUGE);
-		this.setPenisCumStorage(550);
-		this.fillCumToMaxStorage();
+		this.setPenisSize(80);
+		this.setTesticleSize(TesticleSize.SIX_GIGANTIC);
+		this.setPenisCumStorage(8000);
+		this.fillCumToMaxStorage(8000);
 		
 		// Vagina:
 		this.setVaginaVirgin(false);

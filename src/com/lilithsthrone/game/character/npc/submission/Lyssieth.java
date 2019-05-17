@@ -694,16 +694,17 @@ public class Lyssieth extends NPC {
 		this.setPenisVirgin(false);
 		if(type.getRace()==Race.HUMAN) {
 			this.setPenisGirth(PenisGirth.THREE_THICK);
-			this.setPenisSize(18);
+			this.setPenisSize(60);
 			this.setTesticleSize(TesticleSize.THREE_LARGE);
-			this.setPenisCumStorage(500);
+			this.setPenisCumStorage(2000);
 		} else {
 			this.setPenisGirth(PenisGirth.FOUR_FAT);
-			this.setPenisSize(30);
-			this.setTesticleSize(TesticleSize.FOUR_HUGE);
-			this.setPenisCumStorage(2500);
+			this.setPenisSize(100);
+			this.setTesticleSize(TesticleSize.SEVEN_ABSURD);
+			this.setPenisCumStorage(10000);
 		}
 		this.fillCumToMaxStorage();
+		this.addCumModifier(FluidModifier.ADDICTIVE);
 	}
 	
 	public void setLilinBody() {
@@ -732,7 +733,7 @@ public class Lyssieth extends NPC {
 		this.setLegType(LegType.DEMON_COMMON);
 
 		// Core:
-		this.setHeight(198);
+		this.setHeight(366);
 		this.setFemininity(100);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
