@@ -1,12 +1,14 @@
 package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -88,7 +90,7 @@ public class Elizabeth extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
-			this.equipClothing(true, true, true, true);
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
 		this.setDescription("An unrecognised daughter of Lyssieth, Elizabeth is captain of her mother's royal guard. She is tasked with protecting the entrance to Lyssieth's palace.");
 	}
@@ -127,7 +129,6 @@ public class Elizabeth extends NPC {
 		
 		// Body:
 		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
-		this.setHalfDemonSubspecies(Subspecies.HUMAN);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setHornType(HornType.STRAIGHT);
@@ -187,12 +188,7 @@ public class Elizabeth extends NPC {
 		// Anus settings and modifiers
 		
 		// Penis:
-//		this.setPenisVirgin(false);
-//		this.setPenisGirth(PenisGirth.TWO_AVERAGE);
-//		this.setPenisSize(8);
-//		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
-//		this.setPenisCumStorage(100);
-//		this.fillCumToMaxStorage();
+		// n/a
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -209,12 +205,12 @@ public class Elizabeth extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		this.unequipAllClothingIntoVoid(true);
+	public void equipClothing(List<EquipClothingSetting> settings) {
+		this.unequipAllClothingIntoVoid(true, true);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TRAINER_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_trainer_socks", Colour.CLOTHING_BLACK, false), true, this);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torso_feminine_short_sleeve_shirt", Colour.CLOTHING_GREEN_DRAB, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_TIE, Colour.CLOTHING_GREEN_DRAB, false), true, this);
@@ -226,7 +222,7 @@ public class Elizabeth extends NPC {
 		
 		this.setPiercedEar(true);
 		
-		if(addWeapons) {
+		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_revolver_revolver"), DamageType.PHYSICAL));
 		}
 	}

@@ -12,11 +12,12 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Eye implements BodyPartInterface {
 
+	
 	public static final int MAXIMUM_PAIRS = 4;
 	
 	protected EyeType type;
@@ -414,7 +415,7 @@ public class Eye implements BodyPartInterface {
 	}
 	
 	public String setEyeCovering(GameCharacter owner, Covering covering) {
-		if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).equals(covering)
+		if(owner.getCovering(owner.getEyeCovering()).equals(covering)
 				|| owner.getCovering(BodyCoveringType.EYE_PUPILS).equals(covering)
 				|| owner.getCovering(BodyCoveringType.EYE_SCLERA).equals(covering)) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
@@ -470,5 +471,13 @@ public class Eye implements BodyPartInterface {
 		}
 		
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString());
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Eye.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

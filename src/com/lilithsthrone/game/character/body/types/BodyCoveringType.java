@@ -153,9 +153,9 @@ public enum BodyCoveringType {
 			null,
 			null,
 			null,
-			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.ALL,
 			null,
-			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.ALL,
 			null),
 	
 	PENIS(BodyCoveringTemplateFactory.createPenisSkin()),
@@ -165,6 +165,8 @@ public enum BodyCoveringType {
 	MOUTH(BodyCoveringTemplateFactory.createOrificeSkin(CoveringPattern.ORIFICE_MOUTH)),
 	
 	NIPPLES(BodyCoveringTemplateFactory.createOrificeSkin(CoveringPattern.ORIFICE_NIPPLE)),
+	
+	NIPPLES_CROTCH(BodyCoveringTemplateFactory.createOrificeSkin(CoveringPattern.ORIFICE_NIPPLE)),
 	
 	VAGINA(BodyCoveringTemplateFactory.createOrificeSkin(CoveringPattern.ORIFICE_VAGINA)),
 	
@@ -218,12 +220,16 @@ public enum BodyCoveringType {
 			Util.newArrayListOfValues(CoveringPattern.EYE_SCLERA_HETEROCHROMATIC))),
 	
 	SLIME_HAIR(BodyCoveringTemplateFactory.createSlime(CoveringPattern.NONE, CoveringPattern.allHairCoveringPatterns)),
+
+	SLIME_BODY_HAIR(BodyCoveringTemplateFactory.createSlime(CoveringPattern.NONE, CoveringPattern.allHairCoveringPatterns)),
 	
 	SLIME_ANUS(BodyCoveringTemplateFactory.createSlime(CoveringPattern.ORIFICE_ANUS, null)),
 	
 	SLIME_MOUTH(BodyCoveringTemplateFactory.createSlime(CoveringPattern.ORIFICE_MOUTH, null)),
 	
 	SLIME_NIPPLES(BodyCoveringTemplateFactory.createSlime(CoveringPattern.ORIFICE_NIPPLE, null)),
+	
+	SLIME_NIPPLES_CROTCH(BodyCoveringTemplateFactory.createSlime(CoveringPattern.ORIFICE_NIPPLE, null)),
 	
 	SLIME_VAGINA(BodyCoveringTemplateFactory.createSlime(CoveringPattern.ORIFICE_VAGINA, null)),
 	

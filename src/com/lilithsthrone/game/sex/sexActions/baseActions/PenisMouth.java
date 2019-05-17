@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.Sex;
@@ -14,9 +16,10 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -54,7 +57,7 @@ public class PenisMouth {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
+			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.KNEELING_PERFORMING_ORAL) {
 				
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] [npc.verb(pull)] back, sliding [npc.her] [npc.cock+] out of [npc2.namePos] mouth."
@@ -488,7 +491,7 @@ public class PenisMouth {
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Sobbing] and squirming in discomfort, [npc2.she] desperately tries to pull away from [npc.herHim],"
+							" [npc2.Sobbing] and squirming in discomfort, [npc2.she] desperately [npc2.verb(try)] to pull away from [npc.herHim],"
 									+ " begging to be left alone as [npc.she] [npc.verb(shift)] [npc.her] attention back down to [npc2.her] [npc2.cock+] once again.",
 
 							" With [npc2.a_sob+], [npc2.name] tries to push [npc.name] away, squirming in discomfort as [npc.she] [npc.verb(move)] back to focusing [npc.her] attention on [npc2.her] [npc2.cock+].",
@@ -503,6 +506,333 @@ public class PenisMouth {
 		}
 		
 	};
+	
+
+	public static final SexAction TWINTAIL_PULL = new SexAction(
+			SexActionType.ONGOING,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.TWO_HORNY,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public String getActionTitle() {
+			if(Sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_TAILS) {
+				return "Twintail pull";
+			} else {
+				return "Twin braids pull";
+			}
+		}
+
+		@Override
+		public String getActionDescription() {
+			if(Sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_TAILS) {
+				return "Grab one of [npc2.namePos] twintails in each [npc.hand] and pull [npc2.her] forwards onto your [npc.cock+].";
+			} else {
+				return "Grab one of [npc2.namePos] twin braids in each [npc.hand] and pull [npc2.her] forwards onto your [npc.cock+].";
+			}
+		}
+		
+		@Override
+		public SexActionCategory getCategory() {
+			return SexActionCategory.SEX;
+		}
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
+					&& Sex.getPenetrationTypeFreeCount(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
+					&& !Sex.getCharacterTargetedForSexAction(this).getInventorySlotsConcealed().containsKey(InventorySlot.HAIR)
+					&& !Sex.getSexManager().getSlotsConcealed(Sex.getCharacterPerformingAction()).contains(InventorySlot.HAND)
+					&& (Sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_TAILS
+							|| Sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_BRAIDS);
+		}
+
+		@Override
+		public String getDescription() {
+			
+			String style = Sex.getCharacterTargetedForSexAction(this).getHairStyle().getName();
+			
+			UtilText.nodeContentSB.setLength(0);
+			
+			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+				case DOM_GENTLE:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Taking hold of one of [npc2.namePos] "+style+" in each [npc.hand], [npc.name] gently [npc.verb(pull)] [npc2.her] forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
+							"Reaching down to take a gentle, but firm, grip on each of [npc2.namePos] "+style+", [npc.name] slowly [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
+									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] "+style+","
+									+ " before gently pulling [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
+									+(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)?"[npc.her] knot":"the base")+"."));
+					break;
+				case DOM_ROUGH:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Roughly grasping [npc2.namePos] "+style+" in each [npc.hand], [npc.name] violently [npc.verb(jerk)] [npc2.her] head forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
+							"Reaching down to grab [npc2.namePos] "+style+" in each fist, [npc.name] mercilessly [npc.verb(yank)] [npc2.her] head into [npc2.her] groin,"
+									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to grab [npc2.namePos] "+style+","
+									+ " before violently yanking [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
+									+(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)?"[npc.her] knot":"the base")+"."));
+					break;
+				default: // For dom normal, sub normal, and sub eager:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Taking hold of one of [npc2.namePos] "+style+" in each [npc.hand], [npc.name] firmly [npc.verb(pull)] [npc2.her] head forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
+							"Reaching down to take a firm grip on each of [npc2.namePos] "+style+", [npc.name] steadily [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
+									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] "+style+","
+									+ " before steadily pulling [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
+									+(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)?"[npc.her] knot":"the base")+"."));
+					break;
+			}
+			
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				case DOM_GENTLE:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" With tears welling up in [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(spend)] a moment gently caressing the underside of [npc.namePos] [npc.cock] with [npc2.her] [npc2.tongue],"
+									+ " before finally being able to gasp for air as [npc.she] momentarily [npc.verb(withdraw)] [npc.her] [npc.cock+] from [npc2.her] throat.",
+							" Gently humming and [npc2.moaning] in delight, [npc2.name] [npc2.verb(use)] [npc2.her] [npc2.tongue] to softly caress the underside of [npc.namePos] [npc.cock],"
+									+ " obediently holding [npc2.her] breath until [npc.her] [npc.cock+] is eventually pulled free from [npc2.her] throat."));
+					break;
+				case DOM_ROUGH:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" Narrowing [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(put)] up with [npc.namePos] daring move for just a moment,"
+									+ " before jerking [npc2.her] head back and pointedly reminding [npc.herHim] who's in charge.",
+							" The rumbling vibrations of [npc2.namePos] threatening growls, while serving to provide some extra pleasure,"
+									+ " nonetheless intimidate [npc.name] into quickly letting go of [npc2.her] [npc2.hair] and sliding [npc.her] [npc.cock+] free from [npc2.her] throat."));
+					break;
+				case SUB_RESISTING:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" Scrunching [npc2.her] [npc2.eyes] shut, [npc2.name] [npc2.verb(beat)] against #IF(npc.isPlayer())your#ELSE[npc.her] tormentor's#ENDIF thighs in a futile gesture of resistance,"
+									+ " before finally being able to cry and gasp for air as [npc.name] momentarily [npc.verb(withdraw)] [npc.her] [npc.cock+] from [npc2.her] throat.",
+							" The vibrations of [npc2.namePos] muffled cries and sobs only serve to give #IF(npc.isPlayer())you#ELSE[npc.her] tormentor#ENDIF some extra pleasure,"
+									+ " but, after spending several seconds punching and pushing against [npc.namePos] thighs,"
+									+ " [npc2.she] finally [npc2.verb(achieve)] a small victory as [npc2.her] [npc2.hair] is released and [npc.namePos] [npc.cock+] is momentarily slid free from [npc2.her] throat."));
+					break;
+				default: // For dom normal, sub normal, and sub eager:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" With tears welling up in [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(spend)] a moment caressing the underside of [npc.namePos] [npc.cock] with [npc2.her] [npc2.tongue],"
+									+ " before finally being able to gasp for air as [npc.she] momentarily [npc.verb(withdraw)] [npc.her] [npc.cock+] from [npc2.her] throat.",
+							" Happily humming and [npc2.moaning] in delight, [npc2.name] [npc2.verb(use)] [npc2.her] [npc2.tongue] to lovingly caress the underside of [npc.namePos] [npc.cock],"
+									+ " obediently holding [npc2.her] breath until [npc.her] [npc.cock+] is eventually pulled free from [npc2.her] throat."));
+					break;
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+	};
+	
+
+	public static final SexAction EAR_PULL = new SexAction(
+			SexActionType.ONGOING,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.TWO_HORNY,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Ear pull";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Grab one of [npc2.namePos] [npc2.ears+] in each [npc.hand] and pull [npc2.her] forwards onto your [npc.cock+].";
+		}
+		
+		@Override
+		public SexActionCategory getCategory() {
+			return SexActionCategory.SEX;
+		}
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
+					&& Sex.getPenetrationTypeFreeCount(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
+					&& !Sex.getCharacterTargetedForSexAction(this).getInventorySlotsConcealed().containsKey(InventorySlot.HEAD)
+					&& !Sex.getSexManager().getSlotsConcealed(Sex.getCharacterPerformingAction()).contains(InventorySlot.HAND)
+					&& (Sex.getCharacterTargetedForSexAction(this).getEarType().isAbleToBeUsedAsHandlesInSex());
+		}
+
+		@Override
+		public String getDescription() {
+			
+			UtilText.nodeContentSB.setLength(0);
+			
+			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+				case DOM_GENTLE:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Taking hold of one of [npc2.namePos] [npc2.ears+] in each [npc.hand], [npc.name] gently [npc.verb(pull)] [npc2.her] forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
+							"Reaching down to take a gentle, but firm, grip on each of [npc2.namePos] [npc2.ears+], [npc.name] slowly [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
+									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] [npc2.ears+],"
+									+ " before gently pulling [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
+									+(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)?"[npc.her] knot":"the base")+"."));
+					break;
+				case DOM_ROUGH:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Roughly grasping [npc2.namePos] [npc2.ears+] in each [npc.hand], [npc.name] violently [npc.verb(jerk)] [npc2.her] head forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
+							"Reaching down to grab [npc2.namePos] [npc2.ears+] in each fist, [npc.name] mercilessly [npc.verb(yank)] [npc2.her] head into [npc2.her] groin,"
+									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to grab [npc2.namePos] [npc2.ears+],"
+									+ " before violently yanking [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
+									+(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)?"[npc.her] knot":"the base")+"."));
+					break;
+				default: // For dom normal, sub normal, and sub eager:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Taking hold of one of [npc2.namePos] [npc2.ears+] in each [npc.hand], [npc.name] firmly [npc.verb(pull)] [npc2.her] head forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
+							"Reaching down to take a firm grip on each of [npc2.namePos] [npc2.ears+], [npc.name] steadily [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
+									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] [npc2.ears+],"
+									+ " before steadily pulling [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
+									+(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)?"[npc.her] knot":"the base")+"."));
+					break;
+			}
+			
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				case DOM_GENTLE:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" With tears welling up in [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(spend)] a moment gently caressing the underside of [npc.namePos] [npc.cock] with [npc2.her] [npc2.tongue],"
+									+ " before finally being able to gasp for air as [npc.she] momentarily [npc.verb(withdraw)] [npc.her] [npc.cock+] from [npc2.her] throat.",
+							" Gently humming and [npc2.moaning] in delight, [npc2.name] [npc2.verb(use)] [npc2.her] [npc2.tongue] to softly caress the underside of [npc.namePos] [npc.cock],"
+									+ " obediently holding [npc2.her] breath until [npc.her] [npc.cock+] is eventually pulled free from [npc2.her] throat."));
+					break;
+				case DOM_ROUGH:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" Narrowing [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(put)] up with [npc.namePos] daring move for just a moment,"
+									+ " before jerking [npc2.her] head back and pointedly reminding [npc.herHim] who's in charge.",
+							" The rumbling vibrations of [npc2.namePos] threatening growls, while serving to provide some extra pleasure,"
+									+ " nonetheless intimidate [npc.name] into quickly letting go of [npc2.her] [npc2.hair] and sliding [npc.her] [npc.cock+] free from [npc2.her] throat."));
+					break;
+				case SUB_RESISTING:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" Scrunching [npc2.her] [npc2.eyes] shut, [npc2.name] [npc2.verb(beat)] against #IF(npc.isPlayer())your#ELSE[npc.her] tormentor's#ENDIF thighs in a futile gesture of resistance,"
+									+ " before finally being able to cry and gasp for air as [npc.name] momentarily [npc.verb(withdraw)] [npc.her] [npc.cock+] from [npc2.her] throat.",
+							" The vibrations of [npc2.namePos] muffled cries and sobs only serve to give #IF(npc.isPlayer())you#ELSE[npc.her] tormentor#ENDIF some extra pleasure,"
+									+ " but, after spending several seconds punching and pushing against [npc.namePos] thighs,"
+									+ " [npc2.she] finally [npc2.verb(achieve)] a small victory as [npc2.her] [npc2.hair] is released and [npc.namePos] [npc.cock+] is momentarily slid free from [npc2.her] throat."));
+					break;
+				default: // For dom normal, sub normal, and sub eager:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" With tears welling up in [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(spend)] a moment caressing the underside of [npc.namePos] [npc.cock] with [npc2.her] [npc2.tongue],"
+									+ " before finally being able to gasp for air as [npc.she] momentarily [npc.verb(withdraw)] [npc.her] [npc.cock+] from [npc2.her] throat.",
+							" Happily humming and [npc2.moaning] in delight, [npc2.name] [npc2.verb(use)] [npc2.her] [npc2.tongue] to lovingly caress the underside of [npc.namePos] [npc.cock],"
+									+ " obediently holding [npc2.her] breath until [npc.her] [npc.cock+] is eventually pulled free from [npc2.her] throat."));
+					break;
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+	};
+	
+
+	public static final SexAction GRAB_HORNS = new SexAction(
+			SexActionType.ONGOING,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.TWO_HORNY,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Grab horns";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Grab one of [npc2.namePos] [npc.horns+] in each [npc.hand] and pull [npc2.her] forwards onto your [npc.cock+].";
+		}
+		
+		@Override
+		public SexActionCategory getCategory() {
+			return SexActionCategory.SEX;
+		}
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
+					&& Sex.getPenetrationTypeFreeCount(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
+					&& !Sex.getCharacterTargetedForSexAction(this).getInventorySlotsConcealed().containsKey(InventorySlot.HORNS)
+					&& !Sex.getSexManager().getSlotsConcealed(Sex.getCharacterPerformingAction()).contains(InventorySlot.HAND)
+					&& Sex.getCharacterTargetedForSexAction(this).isHornsAbleToBeUsedAsHandlesInSex();
+		}
+
+		@Override
+		public String getDescription() {
+			
+			UtilText.nodeContentSB.setLength(0);
+			
+			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+				case DOM_GENTLE:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Taking hold of one of [npc2.namePos] [npc.horns+] in each [npc.hand], [npc.name] gently [npc.verb(pull)] [npc2.her] forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
+							"Reaching down to take a gentle, but firm, grip on each of [npc2.namePos] [npc.horns+], [npc.name] slowly [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
+									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] [npc.horns+],"
+									+ " before gently pulling [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
+									+(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)?"[npc.her] knot":"the base")+"."));
+					break;
+				case DOM_ROUGH:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Roughly grasping [npc2.namePos] [npc.horns+] in each [npc.hand], [npc.name] violently [npc.verb(jerk)] [npc2.her] head forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
+							"Reaching down to grab [npc2.namePos] [npc.horns+] in each fist, [npc.name] mercilessly [npc.verb(yank)] [npc2.her] head into [npc2.her] groin,"
+									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to grab [npc2.namePos] [npc.horns+],"
+									+ " before violently yanking [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
+									+(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)?"[npc.her] knot":"the base")+"."));
+					break;
+				default: // For dom normal, sub normal, and sub eager:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Taking hold of one of [npc2.namePos] [npc.horns+] in each [npc.hand], [npc.name] firmly [npc.verb(pull)] [npc2.her] head forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.cock+] all the way down to the base.",
+							"Reaching down to take a firm grip on each of [npc2.namePos] [npc.horns+], [npc.name] steadily [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
+									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.cock+].",
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] [npc.horns+],"
+									+ " before steadily pulling [npc2.herHim] forwards, hilting [npc.her] [npc.cock+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
+									+(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)?"[npc.her] knot":"the base")+"."));
+					break;
+			}
+			
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				case DOM_GENTLE:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" With thorns welling up in [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(spend)] a moment gently caressing the underside of [npc.namePos] [npc.cock] with [npc2.her] [npc2.tongue],"
+									+ " before finally being able to gasp for air as [npc.she] momentarily [npc.verb(withdraw)] [npc.her] [npc.cock+] from [npc2.her] throat.",
+							" Gently humming and [npc2.moaning] in delight, [npc2.name] [npc2.verb(use)] [npc2.her] [npc2.tongue] to softly caress the underside of [npc.namePos] [npc.cock],"
+									+ " obediently holding [npc2.her] breath until [npc.her] [npc.cock+] is eventually pulled free from [npc2.her] throat."));
+					break;
+				case DOM_ROUGH:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" Narrowing [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(put)] up with [npc.namePos] daring move for just a moment,"
+									+ " before jerking [npc2.her] head back and pointedly reminding [npc.herHim] who's in charge.",
+							" The rumbling vibrations of [npc2.namePos] threatening growls, while serving to provide some extra pleasure,"
+									+ " nonetheless intimidate [npc.name] into quickly letting go of [npc2.her] [npc2.hair] and sliding [npc.her] [npc.cock+] free from [npc2.her] throat."));
+					break;
+				case SUB_RESISTING:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" Scrunching [npc2.her] [npc2.eyes] shut, [npc2.name] [npc2.verb(beat)] against #IF(npc.isPlayer())your#ELSE[npc.her] tormentor's#ENDIF thighs in a futile gesture of resistance,"
+									+ " before finally being able to cry and gasp for air as [npc.name] momentarily [npc.verb(withdraw)] [npc.her] [npc.cock+] from [npc2.her] throat.",
+							" The vibrations of [npc2.namePos] muffled cries and sobs only serve to give #IF(npc.isPlayer())you#ELSE[npc.her] tormentor#ENDIF some extra pleasure,"
+									+ " but, after spending several seconds punching and pushing against [npc.namePos] thighs,"
+									+ " [npc2.she] finally [npc2.verb(achieve)] a small victory as [npc2.her] [npc2.hair] is released and [npc.namePos] [npc.cock+] is momentarily slid free from [npc2.her] throat."));
+					break;
+				default: // For dom normal, sub normal, and sub eager:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" With thorns welling up in [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(spend)] a moment caressing the underside of [npc.namePos] [npc.cock] with [npc2.her] [npc2.tongue],"
+									+ " before finally being able to gasp for air as [npc.she] momentarily [npc.verb(withdraw)] [npc.her] [npc.cock+] from [npc2.her] throat.",
+							" Happily humming and [npc2.moaning] in delight, [npc2.name] [npc2.verb(use)] [npc2.her] [npc2.tongue] to lovingly caress the underside of [npc.namePos] [npc.cock],"
+									+ " obediently holding [npc2.her] breath until [npc.her] [npc.cock+] is eventually pulled free from [npc2.her] throat."));
+					break;
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+	};
+	
 	
 	public static final SexAction BLOWJOB_START = new SexAction(
 			SexActionType.START_ONGOING,
@@ -527,7 +857,7 @@ public class PenisMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
+			if(Sex.getPosition()==SexPositionBipeds.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.KNEELING_PERFORMING_ORAL) {
 				
 				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
@@ -567,7 +897,7 @@ public class PenisMouth {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE && Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexPositionSlot.SIXTY_NINE_BOTTOM) {
+			} else if(Sex.getPosition()==SexPositionBipeds.SIXTY_NINE && Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.SIXTY_NINE_BOTTOM) {
 				
 				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
@@ -860,8 +1190,8 @@ public class PenisMouth {
 			
 			List<String> descriptions = new ArrayList<>();
 
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.KNEELING_RECEIVING_ORAL
-					|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.CHAIR_ORAL_SITTING) {
+			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.KNEELING_RECEIVING_ORAL
+					|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.CHAIR_ORAL_SITTING) {
 				
 				for(PenetrationModifier pm : Sex.getCharacterPerformingAction().getPenisModifiers()) {
 					switch(pm) {
@@ -914,7 +1244,7 @@ public class PenisMouth {
 				return Util.randomItemFrom(descriptions);
 				
 				
-			} else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.SIXTY_NINE_TOP) {
+			} else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.SIXTY_NINE_TOP) {
 				
 				for(PenetrationModifier pm : Sex.getCharacterPerformingAction().getPenisModifiers()) {
 					switch(pm) {
@@ -953,7 +1283,7 @@ public class PenisMouth {
 					}
 				}
 				
-				descriptions.add("[npc.Name] spreads [npc.her] knees out on either side of [npc2.namePos] head, and before [npc2.she] [npc2.verb(know)] what's happening,"
+				descriptions.add("[npc.Name] [npc.verb(spread)] [npc.her] knees out on either side of [npc2.namePos] head, and before [npc2.she] [npc2.verb(know)] what's happening,"
 									+ " [npc.nameIs] roughly slamming [npc.her] [npc.cock+] in and out of [npc2.her] facial fuck-hole.");
 				
 
@@ -1162,7 +1492,7 @@ public class PenisMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.SIXTY_NINE_TOP) {
+			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.SIXTY_NINE_TOP) {
 				UtilText.nodeContentSB.append("Using [npc.her] knees to lift [npc.herself] up, [npc.name] [npc.verb(allow)] [npc.her] [npc.cock+] to slide up and out of [npc2.namePos] mouth."
 							+ " A slimy strand of saliva links [npc2.namePos] [npc2.lips+] to the [npc.cockHead+] of [npc.her] [npc.cock] for a brief moment, before breaking to fall down over [npc2.her] face.");
 				
@@ -1229,7 +1559,7 @@ public class PenisMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.SIXTY_NINE_TOP) {
+			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.SIXTY_NINE_TOP) {
 				
 				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
@@ -1444,7 +1774,7 @@ public class PenisMouth {
 			case DOM_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] greedily [npc2.verb(thrust)] [npc2.her] [npc2.cock+] deep down [npc.namePos] throat,"
-								+ " letting out a muffled [npc2.moan] as [npc2.she] enthusiastically receives [npc2.her] blowjob.",
+								+ " letting out a muffled [npc2.moan] as [npc2.she] enthusiastically [npc2.verb(receive)] [npc2.her] blowjob.",
 	
 						" A muffled [npc2.moan] bursts out from [npc2.namePos] mouth, before [npc2.she] [npc2.verb(start)] thrusting [npc2.her] [npc2.cock+] deep down [npc.namePos] throat.",
 	
@@ -1452,7 +1782,7 @@ public class PenisMouth {
 				break;
 			case SUB_RESISTING:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						" Failing to pull [npc2.her] [npc2.cock] away from [npc.namePos] [npc.pussy],"
+						" Failing to pull [npc2.her] [npc2.cock] away from [npc.namePos] mouth,"
 								+ " [npc2.name] [npc2.verb(let)] out [npc2.a_sob+] as [npc2.she] weakly [npc2.verb(try)] to struggle free.",
 	
 						" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips] as [npc2.she] weakly [npc2.verb(try)] to push [npc.name] away,"
@@ -1463,7 +1793,7 @@ public class PenisMouth {
 			case DOM_GENTLE:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] gently [npc2.verb(slide)] [npc2.her] [npc2.cock+] deep into [npc.namePos] throat,"
-								+ " letting out a soft, muffled [npc2.moan] as [npc2.she] receives [npc2.her] blowjob.",
+								+ " letting out a soft, muffled [npc2.moan] as [npc2.she] [npc2.verb(receive)] [npc2.her] blowjob.",
 	
 						" A muffled [npc2.moan] drifts out from [npc2.namePos] mouth, before [npc2.she] [npc2.verb(start)] slowly sliding [npc2.her] [npc2.cock+] deep into [npc.namePos] throat.",
 
@@ -1472,7 +1802,7 @@ public class PenisMouth {
 			case DOM_ROUGH:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] violently [npc2.verb(thrust)] [npc2.her] [npc2.cock+] deep into [npc.namePos] throat,"
-								+ " letting out a muffled [npc2.moan] as [npc2.she] receives [npc2.her] blowjob.",
+								+ " letting out a muffled [npc2.moan] as [npc2.she] [npc2.verb(receive)] [npc2.her] blowjob.",
 	
 						" A muffled [npc2.moan] drifts out from [npc2.namePos] mouth, before [npc2.she] [npc2.verb(start)] violently thrusting [npc2.her] [npc2.cock+] deep into [npc.namePos] throat.",
 
@@ -1481,7 +1811,7 @@ public class PenisMouth {
 			case SUB_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] [npc2.verb(thrust)] [npc2.her] [npc2.cock+] deep into [npc.namePos] throat,"
-								+ " letting out a muffled [npc2.moan] as [npc2.she] receives [npc2.her] blowjob.",
+								+ " letting out a muffled [npc2.moan] as [npc2.she] [npc2.verb(receive)] [npc2.her] blowjob.",
 	
 						" A muffled [npc2.moan] bursts out from [npc2.namePos] mouth, before [npc2.she] [npc2.verb(start)] thrusting [npc2.her] [npc2.cock+] deep into [npc.namePos] throat.",
 

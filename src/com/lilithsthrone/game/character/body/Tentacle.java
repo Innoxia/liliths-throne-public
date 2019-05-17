@@ -9,10 +9,11 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.8
- * @version 0.2.8
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Tentacle implements BodyPartInterface {
+
 	
 	protected TentacleType type;
 	protected int tentacleCount;
@@ -172,5 +173,13 @@ public class Tentacle implements BodyPartInterface {
 						+ ")]."
 					+ "</p>");
 		}
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Tentacle.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

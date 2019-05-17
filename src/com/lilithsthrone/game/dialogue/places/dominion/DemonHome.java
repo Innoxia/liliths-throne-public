@@ -2,8 +2,6 @@ package com.lilithsthrone.game.dialogue.places.dominion;
 
 import java.time.Month;
 
-import com.lilithsthrone.game.Season;
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -15,6 +13,8 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.world.Season;
+import com.lilithsthrone.world.Weather;
 
 /**
  * @since 0.1.0
@@ -26,8 +26,8 @@ public class DemonHome {
 	public static final DialogueNode DEMON_HOME_GATE = new DialogueNode("Demon Home (Gates)", "Demon Home", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -83,8 +83,8 @@ public class DemonHome {
 	public static final DialogueNode DEMON_HOME_STREET = new DialogueNode("Demon Home", "Demon Home", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -142,8 +142,8 @@ public class DemonHome {
 	public static final DialogueNode DEMON_HOME_STREET_ARTHUR = new DialogueNode("Demon Home", "Demon Home", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 		
 		@Override
@@ -191,7 +191,7 @@ public class DemonHome {
 			if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME)
 				return "<p>" + "Following Lilaya's instructions, you soon find yourself standing outside the building which houses Arthur's apartment."
 						+ " Although it's just as impressive as most of the other buildings in Demon Home, it's nothing compared to Lilaya's house, and as you walk up to the entrance,"
-						+ " you find yourself reflecting on how lucky you were to have ended up living with this universe's version of your aunt Lily." + "</p>" + "<p>"
+						+ " you find yourself reflecting on how lucky you were to have ended up living with this reality's version of your aunt Lily." + "</p>" + "<p>"
 						+ "The front door is unlocked, and as you step into the foyer, you see that this place looks more like a five-star hotel than an apartment building."
 						+ " The luxurious carpeting, fine paintings and crystal chandeliers all contribute to giving the impression that the apartments here are very exclusive, and very expensive."
 						+ " Although there's a front desk, the place seems to be deserted, but fortunately there's a sign on a nearby wall that lists the building's occupants" + " and their respective room numbers."
@@ -199,7 +199,7 @@ public class DemonHome {
 			else
 				return "<p>" + "You soon find yourself standing outside the building which houses Arthur's apartment."
 						+ " Although it's just as impressive as most of the other buildings in Demon Home, it's nothing compared to Lilaya's house, and as you walk up to the entrance,"
-						+ " you find yourself reflecting on how lucky you were to have ended up living with this universe's version of your aunt Lily." + "</p>" + "<p>"
+						+ " you find yourself reflecting on how lucky you were to have ended up living with this reality's version of your aunt Lily." + "</p>" + "<p>"
 						+ "The front door is unlocked, and as you step into the foyer, you once again take note that this place looks more like a five-star hotel than an apartment building."
 						+ " The luxurious carpeting, fine paintings and crystal chandeliers all contribute to giving the impression that the apartments here are very exclusive, and very expensive."
 						+ " The front desk is unmanned yet again, and you wonder what to do now that you're here." + "</p>";

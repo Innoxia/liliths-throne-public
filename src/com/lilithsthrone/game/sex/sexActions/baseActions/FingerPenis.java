@@ -7,7 +7,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
@@ -48,7 +48,7 @@ public class FingerPenis {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexPositionSlot.SIXTY_NINE_TOP) {
+			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.SIXTY_NINE_TOP) {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] [npc.verb(prop)] [npc.herself] up on one [npc.arm], before using [npc.her] free [npc.hand] to stroke and squeeze [npc2.namePos] [npc2.balls+].",
 
@@ -91,7 +91,7 @@ public class FingerPenis {
 
 		@Override
 		public String getActionDescription() {
-			return "Reach down and [npc2.verb(start)] stroking [npc2.namePos] [npc2.cock+].";
+			return "Reach down and start stroking [npc2.namePos] [npc2.cock+].";
 		}
 
 		@Override
@@ -102,7 +102,7 @@ public class FingerPenis {
 			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] wraps [npc.her] [npc.fingers] around [npc2.her] [npc2.cock+],"
+							"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] [npc.verb(wrap)] [npc.her] [npc.fingers] around [npc2.her] [npc2.cock+],"
 									+ " letting out a soft [npc.moan] as [npc.she] [npc.verb(start)] slowly stroking up and down its length.",
 
 							"[npc.Name] [npc.verb(drop)] one of [npc.her] [npc.hands] down between [npc2.namePos] [npc2.legs],"
@@ -112,7 +112,7 @@ public class FingerPenis {
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] eagerly wraps [npc.her] [npc.fingers] around [npc2.her] [npc2.cock+],"
+							"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] eagerly [npc.verb(wrap)] [npc.her] [npc.fingers] around [npc2.her] [npc2.cock+],"
 									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(start)] rapidly stroking up and down its length.",
 
 							"[npc.Name] [npc.verb(drop)] one of [npc.her] [npc.hands] down between [npc2.namePos] [npc2.legs],"
@@ -122,7 +122,7 @@ public class FingerPenis {
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] forcefully wraps [npc.her] [npc.fingers] around [npc2.her] [npc2.cock+],"
+							"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] forcefully [npc.verb(wrap)] [npc.her] [npc.fingers] around [npc2.her] [npc2.cock+],"
 									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(start)] frantically stroking up and down its length.",
 
 							"[npc.Name] [npc.verb(drop)] one of [npc.her] [npc.hands] down between [npc2.namePos] [npc2.legs],"
@@ -132,7 +132,7 @@ public class FingerPenis {
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] eagerly wraps [npc.her] [npc.fingers] around [npc2.her] [npc2.cock+],"
+							"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] eagerly [npc.verb(wrap)] [npc.her] [npc.fingers] around [npc2.her] [npc2.cock+],"
 									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(start)] rapidly stroking up and down its length.",
 
 							"[npc.Name] [npc.verb(drop)] one of [npc.her] [npc.hands] down between [npc2.namePos] [npc2.legs],"
@@ -142,7 +142,7 @@ public class FingerPenis {
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] wraps [npc.her] [npc.fingers] around [npc2.her] [npc2.cock+],"
+							"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] [npc.verb(wrap)] [npc.her] [npc.fingers] around [npc2.her] [npc2.cock+],"
 									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(start)] stroking up and down its length.",
 
 							"[npc.Name] [npc.verb(drop)] one of [npc.her] [npc.hands] down between [npc2.namePos] [npc2.legs],"
@@ -689,7 +689,7 @@ public class FingerPenis {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.her] to perform a handjob,"
-									+ " struggling against [npc.namePos] firm grip on [npc2.her] [npc2.hand] as [npc2.she] tries to pull [npc2.herself] free.",
+									+ " struggling against [npc.namePos] firm grip on [npc2.her] [npc2.hand] as [npc2.she] [npc2.verb(try)] to pull [npc2.herself] free.",
 
 							" With [npc2.a_sob+], [npc2.name] [npc2.verb(start)] struggling against [npc.namePos] tight grip on [npc2.her] [npc2.hand],"
 									+ " pleading for [npc.name] to stop as [npc.she] [npc2.verb(force)] [npc2.her] to perform a handjob."));
@@ -732,7 +732,7 @@ public class FingerPenis {
 					"With a soft [npc.moan], [npc.name] gently [npc.verb(start)] thrusting [npc.her] [npc.hips] out against [npc2.namePos] [npc2.hand], enjoying the handjob that [npc.sheIs] receiving.",
 
 					"Slowly thrusting [npc.her] [npc.hips] out against [npc2.namePos] [npc2.hand],"
-							+ " a soft [npc.moan] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements amplify the pleasure [npc.sheIs] receiving from [npc.namePos] handjob."));
+							+ " a soft [npc.moan] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements amplify the pleasure [npc.sheIs] receiving from [npc2.namePos] handjob."));
 
 			return UtilText.nodeContentSB.toString();
 		}
@@ -768,7 +768,7 @@ public class FingerPenis {
 					"With [npc.a_moan+], [npc.name] enthusiastically [npc.verb(start)] thrusting [npc.her] [npc.hips] out against [npc2.namePos] [npc2.hand], enjoying the handjob that [npc.sheIs] receiving.",
 
 					"Eagerly thrusting [npc.her] [npc.hips] out against [npc2.namePos] [npc2.hand],"
-							+ " [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements amplify the pleasure [npc.sheIs] receiving from [npc.namePos] handjob."));
+							+ " [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements amplify the pleasure [npc.sheIs] receiving from [npc2.namePos] handjob."));
 
 			return UtilText.nodeContentSB.toString();
 		}
@@ -804,7 +804,7 @@ public class FingerPenis {
 					"With [npc.a_moan+], [npc.name] aggressively [npc.verb(start)] thrusting [npc.her] [npc.hips] out against [npc2.namePos] [npc2.hand], enjoying the handjob that [npc.sheIs] receiving.",
 
 					"Roughly thrusting [npc.her] [npc.hips] out against [npc2.namePos] [npc2.hand],"
-							+ " [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements amplify the pleasure [npc.sheIs] receiving from [npc.namePos] handjob."));
+							+ " [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements amplify the pleasure [npc.sheIs] receiving from [npc2.namePos] handjob."));
 
 			return UtilText.nodeContentSB.toString();
 		}
@@ -840,7 +840,7 @@ public class FingerPenis {
 					"With [npc.a_moan+], [npc.name] [npc.verb(start)] thrusting [npc.her] [npc.hips] out against [npc2.namePos] [npc2.hand], enjoying the handjob that [npc.sheIs] receiving.",
 
 					"Thrusting [npc.her] [npc.hips] out against [npc2.namePos] [npc2.hand],"
-							+ " [npc.a_moan+] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements amplify the pleasure [npc.sheIs] receiving from [npc.namePos] handjob."));
+							+ " [npc.a_moan+] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements amplify the pleasure [npc.sheIs] receiving from [npc2.namePos] handjob."));
 
 			return UtilText.nodeContentSB.toString();
 		}
@@ -876,7 +876,7 @@ public class FingerPenis {
 					"With [npc.a_moan+], [npc.name] enthusiastically [npc.verb(start)] thrusting [npc.her] [npc.hips] out against [npc2.namePos] [npc2.hand], enjoying the handjob that [npc.sheIs] receiving.",
 
 					"Eagerly thrusting [npc.her] [npc.hips] out against [npc2.namePos] [npc2.hand],"
-							+ " [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements amplify the pleasure [npc.sheIs] receiving from [npc.namePos] handjob."));
+							+ " [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements amplify the pleasure [npc.sheIs] receiving from [npc2.namePos] handjob."));
 
 			return UtilText.nodeContentSB.toString();
 		}

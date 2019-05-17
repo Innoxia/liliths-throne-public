@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <linearGradient id="innoGrad1">
+   <stop stop-color="#666" offset="0"/>
+   <stop stop-color="#666" stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient963" x1="-85.288" x2="-85.695" y1="27.153" y2="24.949" gradientTransform="matrix(-1.4439 -.60091 -.90037 1.26 -67.134 -56.767)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+  <linearGradient id="linearGradient1027" x1="52.746" x2="51.78" y1="42.085" y2="40.966" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+ </defs>
+ <g stroke="#000">
+  <g>
+   <g stroke-width=".68916">
+    <path d="m34.606 47.378 0.97896 5.8106c0.36122 2.1441-4.1689 4.669-6.5538 1.9741-1.6424-1.8559-1.2429-3.8894-1.8188-5.8227z" fill="#666"/>
+    <path d="m12.07 31.971c-2.8639 1.7463-4.9226 6.6046-7.9138 8.2931-4.4353 2.5038-0.089911 5.9555 2.7537 5.0457 2.9944-0.958 5.1423-5.8427 7.6968-7.2384z" fill="#666"/>
+    <path d="m37.274 9.8463c-6.1496 5.1265-13.934 3.8526-21.247 9.9401-8.0348 6.6885-10.286 23.137 0.08815 28.938 8.0984 4.5286 26.128 2.9489 37.078-5.7356 11.918-9.452 8.4121-20.227 8.6698-25.182 0.10721-2.0612-14.677-6.8948-19.936-8.3909-1.6244-0.4621-3.4833-0.54451-4.6532 0.43077z" fill="#808080"/>
+   </g>
+   <path d="m37.253 28.524c-1.9086 2.5456-5.1261 6.2789-7.5809 8.4418-4.0392 3.559-9.9669-0.91128-7.8588-3.219 2.4821-2.7173 7.1808-6.3997 8.7651-10.587" fill="url(#linearGradient963)" stroke-width=".76818"/>
+  </g>
+  <ellipse transform="matrix(-.76103 -.64872 -.84872 .52884 0 0)" cx="-45.823" cy="12.121" rx="1.3128" ry=".57641" fill="#4d4d4d" stroke-linecap="round" stroke-linejoin="round" stroke-width=".59663"/>
+ </g>
+ <path d="m54.163 19.496c-0.19526 0.91483-0.70086 2.4505-1.3698 4.0517-0.64688 1.5484-1.4 2.9936-1.7299 3.7303-1.2344 2.7566-3.4391 6.998-7.8118 11.04-3.2311 2.987-7.1565 5.423-11.746 7.3428-4.5238 1.8925-9.0013 2.9863-12.21 3.5986 3.2168-0.61376 7.6964-1.6031 12.302-3.3709 4.6604-1.789 8.7293-4.0957 12.145-7.0189 4.6328-3.9653 7.0919-8.2656 8.3709-11.122 0.3679-0.82157 0.83252-2.3008 1.2279-4.025 0.38048-1.6593 0.63996-3.3735 0.82215-4.2271z"/>
+ <g stroke="#000">
+  <ellipse transform="matrix(-.97862 .20567 -.88033 .47436 0 0)" cx="-227.93" cy="216.03" rx=".74756" ry=".65065" fill="#4d4d4d" stroke-linecap="round" stroke-linejoin="round" stroke-width=".76996"/>
+  <ellipse transform="matrix(-.66067 -.75068 -.92748 -.37386 0 0)" cx="-87.148" cy="57.474" rx=".56008" ry=".54737" fill="#4d4d4d" stroke-linecap="round" stroke-linejoin="round" stroke-width=".61128"/>
+  <path d="m57.298 36.218c-0.46875 3.8071 0.31418 7.6333 1.8974 11.487 1.1668 2.8404-4.5616 5.7533-6.5712 4.5561-2.761-1.6448-4.2886-5.488-4.451-9.8505" fill="url(#linearGradient1027)" stroke-width=".68916"/>
+  <ellipse transform="matrix(-.66625 -.74573 -.8777 .47921 0 0)" cx="-73.328" cy="-8.1063" rx=".50236" ry="1.5466" fill="#4d4d4d" stroke-linecap="round" stroke-linejoin="round" stroke-width=".60802"/>
+ </g>
+</svg>

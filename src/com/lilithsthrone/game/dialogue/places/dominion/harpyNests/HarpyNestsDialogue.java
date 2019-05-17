@@ -27,8 +27,8 @@ public class HarpyNestsDialogue {
 	public static final DialogueNode OUTSIDE = new DialogueNode("Harpy Nests", "Harpy Nests", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -101,8 +101,8 @@ public class HarpyNestsDialogue {
 	public static final DialogueNode ENTRANCE_ENFORCER_POST = new DialogueNode("Enforcer post", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -214,8 +214,8 @@ public class HarpyNestsDialogue {
 	public static final DialogueNode ENTRANCE_ENFORCER_POST_ASK_FOR_ACCESS = new DialogueNode("Enforcer post", ".", true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -332,8 +332,8 @@ public class HarpyNestsDialogue {
 	public static final DialogueNode ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS = new DialogueNode("Enforcer post", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -418,8 +418,8 @@ public class HarpyNestsDialogue {
 	public static final DialogueNode ENTRANCE_ENFORCER_POST_COMPLETED_PACIFICATION = new DialogueNode("Enforcer post", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -479,8 +479,8 @@ public class HarpyNestsDialogue {
 	public static final DialogueNode WALKWAY = new DialogueNode("Walkway", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -604,8 +604,8 @@ public class HarpyNestsDialogue {
 	public static final DialogueNode WALKWAY_BRIDGE = new DialogueNode("Walkway Bridge", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override

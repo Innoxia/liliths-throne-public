@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
@@ -16,11 +15,10 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.Weather;
 
 /**
  * @since 0.1.8
@@ -32,8 +30,8 @@ public class HarpyNestBimbo {
 	public static final DialogueNode HARPY_NEST_BIMBO = new DialogueNode("Harpy nest", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -234,11 +232,11 @@ public class HarpyNestBimbo {
 				if (index == 1) {
 					return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyBimbo.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getNpc(HarpyBimbo.class)),
 							null,
-							null, HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
+							null), HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 								+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 								+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 							+ "</p>"
@@ -507,11 +505,11 @@ public class HarpyNestBimbo {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name] in front of her flock.",
 						true, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyBimbo.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(HarpyBimbo.class)),
 						null,
-						null, HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
+						null), HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 						+ "</p>"
@@ -622,6 +620,9 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
+				if(Main.game.isSpittingDisabled()) {
+					return Response.getDisallowedSpittingResponse("Lips sealed");
+				}
 				return new Response("Lips sealed", "Don't let [bimboHarpy.Name] get that strange lollipop into your mouth...", HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
 			} else if (index == 2) {
@@ -733,6 +734,9 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
+				if(Main.game.isSpittingDisabled()) {
+					return Response.getDisallowedSpittingResponse("Lips sealed");
+				}
 				return new Response("Lips sealed", "Don't let [bimboHarpy.Name] get that strange lollipop into your mouth...", HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
 			} else if (index == 2) {
@@ -807,11 +811,11 @@ public class HarpyNestBimbo {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].",
 						true, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyBimbo.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(HarpyBimbo.class)),
 						null,
-						null, HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
+						null), HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 						+ "</p>"
@@ -968,7 +972,7 @@ public class HarpyNestBimbo {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(HarpyBimbo.class)) >= Main.game.getNpc(HarpyBimbo.class).getOrgasmsBeforeSatisfied()) {
 				return "<p>"
 							+ "As you step back from [bimboHarpy.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
 							+ " The surrounding harpies, having watched the whole thing, kneel in submission as you finish with their matriarch."

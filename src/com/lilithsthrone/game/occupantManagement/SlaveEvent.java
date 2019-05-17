@@ -4,14 +4,14 @@ import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.2.2
- * @version 0.2.2
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum SlaveEvent {
 	
 	WASHED_BODY("Washed Body", "[npc.Name] had a wash and cleaned [npc.her] body.") {
 		public void applyEffects(GameCharacter character) {
-			character.washAllOrifices();
+			character.washAllOrifices(true);
 			character.cleanAllDirtySlots();
 			character.calculateStatusEffects(0);
 		}
@@ -20,7 +20,7 @@ public enum SlaveEvent {
 	WASHED_CLOTHES("Washed Clothes", "[npc.Name] washed [npc.her] clothes.") {
 		public void applyEffects(GameCharacter character) {
 			character.cleanAllDirtySlots();
-			character.cleanAllClothing();
+			character.cleanAllClothing(true);
 			character.calculateStatusEffects(0);
 		}
 	},
@@ -33,6 +33,7 @@ public enum SlaveEvent {
 
 	JOB_CUM_MILKED("Cum Milked", "[npc.NamePos] [npc.cum+] was milked."),
 	JOB_MILK_MILKED("Milked", "[npc.Name] was milked of [npc.her] [npc.milk+]."),
+	JOB_MILK_CROTCH_MILKED("Udders Milked", "[npc.Name] was milked of [npc.her] [npc.crotchMilk+]."),
 	JOB_GIRLCUM_MILKED("Girlcum Milked", "[npc.NamePos] [npc.girlcum+] was milked."),
 	
 	JOB_CLEANING("Cleaning Fun", "<i>Placeholder event.</i>"),
@@ -68,7 +69,7 @@ public enum SlaveEvent {
 		return description;
 	}
 	
+	// For use in overriding.
 	public void applyEffects(GameCharacter character) {
-		// :3
 	}
 }

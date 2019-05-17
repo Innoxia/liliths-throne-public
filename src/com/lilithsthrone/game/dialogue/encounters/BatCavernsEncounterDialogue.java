@@ -18,7 +18,7 @@ public class BatCavernsEncounterDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR || Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.BAT_CAVERN_LIGHT) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR) || Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_LIGHT)) {
 				if(Encounter.getRandomItem().getItemType()==ItemType.MUSHROOM) {
 					return UtilText.parseFromXMLFile("places/submission/batCaverns", "FIND_MUSHROOMS_LIGHT")
 							+ "<p style='text-align:center;'>"

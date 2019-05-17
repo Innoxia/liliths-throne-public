@@ -28,6 +28,8 @@ import com.lilithsthrone.utils.Util;
  */
 public class Response {
 	
+	public static final int DEFAULT_TIME_PASSED_VALUE = Integer.MIN_VALUE;
+	
 	protected String title;
 	protected String tooltipText;
 	protected DialogueNode nextDialogue;
@@ -121,6 +123,15 @@ public class Response {
 		}
 	}
 
+	/**
+	 * When this returns a value other than DEFAULT_TIME_PASSED_VALUE, then it overrides the next DialogueNode's getSecondsPassed method, and is therefore used to determine how much time passes when selecting this Response.
+	 * 
+	 * @return The number of seconds that pass when choosing this response.
+	 */
+	public int getSecondsPassed() {
+		return DEFAULT_TIME_PASSED_VALUE;
+	}
+	
 	public boolean disabledOnNullDialogue(){
 		return true;
 	}
@@ -290,12 +301,12 @@ public class Response {
 				SB.append("<br/>"
 						+"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
 						+ " (Race): "
-						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName())+"</span>");
+						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName(false))+"</span>");
 			} else {
 				SB.append("<br/>"
 						+"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
 						+ " (Race): "
-						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName())+"</span>");
+						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName(false))+"</span>");
 			}
 		}
 		
@@ -502,20 +513,19 @@ public class Response {
 	}
 	
 	public boolean isFemininityInRange() {
-		if(femininityRequired==null)
+		if(femininityRequired==null) {
 			return true;
+		}
 		
 		switch(femininityRequired){
 			case ANDROGYNOUS:
 				return Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.ANDROGYNOUS;
 			case FEMININE:
-				return Main.game.getPlayer().getFemininityValue() >= Femininity.FEMININE.getMinimumFemininity();
 			case FEMININE_STRONG:
-				return Main.game.getPlayer().getFemininityValue() >= Femininity.FEMININE_STRONG.getMinimumFemininity();
+				return Main.game.getPlayer().getFemininityValue() >= femininityRequired.getMinimumFemininity();
 			case MASCULINE:
-				return Main.game.getPlayer().getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity();
 			case MASCULINE_STRONG:
-				return Main.game.getPlayer().getFemininityValue() <= Femininity.MASCULINE_STRONG.getMaximumFemininity();
+				return Main.game.getPlayer().getFemininityValue() <= femininityRequired.getMaximumFemininity();
 			default:
 				return true;
 		}
@@ -645,5 +655,13 @@ public class Response {
 
 	public Race getRaceRequired() {
 		return raceRequired;
+	}
+
+	public static Response getDisallowedSpittingResponse() {
+		return getDisallowedSpittingResponse("Spit");
+	}
+
+	public static Response getDisallowedSpittingResponse(String desc) {
+		return new Response(desc, "[style.italicsBad(Rejection of TF potions is disabled!)]<br/>Your opponent is forcing you to drink down the potion!", null);
 	}
 }

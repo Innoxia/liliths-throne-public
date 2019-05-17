@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.dominion.SupplierLeader;
 import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
+import com.lilithsthrone.game.character.npc.dominion.Vanessa;
 import com.lilithsthrone.game.character.npc.dominion.Vicky;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
@@ -66,7 +67,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.69.9
- * @version 0.2.5
+ * @version 0.2.11
  * @author Innoxia
  */
 public enum ParserTarget {
@@ -80,6 +81,16 @@ public enum ParserTarget {
 					return Main.game.getPlayer();
 				}
 			},
+
+	UNIT(Util.newArrayListOfValues(
+			"unit",
+			"game"),
+			"Returns the same as 'pc', but should be used for unit methods such as unit.size.") {
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getPlayer();
+		}
+	},
 	
 	PC(Util.newArrayListOfValues(
 			"pc",
@@ -324,6 +335,17 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag) {
 			return Main.game.getNpc(CandiReceptionist.class);
+		}
+	},
+	
+	VANESSA(Util.newArrayListOfValues("vanessa"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Vanessa.class).getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getNpc(Vanessa.class);
 		}
 	},
 	
@@ -613,7 +635,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	SLIME_GUARD_ICE(Util.newArrayListOfValues("slimeGuardIce", "slimeIce"), "") {
+	SLIME_GUARD_ICE(Util.newArrayListOfValues("slimeGuardIce", "slimeIce", "crystal"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(SlimeGuardIce.class).getDescription();
 		}
@@ -624,7 +646,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	SLIME_GUARD_FIRE(Util.newArrayListOfValues("slimeGuardFire", "slimeFire"), "") {
+	SLIME_GUARD_FIRE(Util.newArrayListOfValues("slimeGuardFire", "slimeFire", "blaze"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(SlimeGuardFire.class).getDescription();
 		}
@@ -745,7 +767,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	DARK_SIREN(Util.newArrayListOfValues("darkSiren", "siren"), "") {
+	DARK_SIREN(Util.newArrayListOfValues("darkSiren", "siren", "meraxis"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(DarkSiren.class).getDescription();
 		}

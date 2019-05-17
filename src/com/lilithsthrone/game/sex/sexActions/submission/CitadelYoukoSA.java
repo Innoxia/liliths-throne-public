@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.positions.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -44,7 +44,7 @@ public class CitadelYoukoSA {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.getCharacterPerformingAction().equals(Main.game.getNpc(SubmissionCitadelArcanist.class))
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexPositionSlot.MISC_WATCHING;
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotGeneric.MISC_WATCHING;
 		}
 
 		@Override

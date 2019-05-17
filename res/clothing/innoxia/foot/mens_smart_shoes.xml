@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>500</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[men's shoe]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[men's shoes]]></namePlural>
+		<description><![CDATA[A pair of smart men's shoes, suitable for all formal occasions.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>MASCULINE</femininity>
+		<slot>FOOT</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>mens_smart_shoes.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>FEET</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="LEATHER"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_BLACK"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slip)] [npc.her] [npc.feet] into the shoes and [npc.verb(tie)] up the laces.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slip)] [npc2.namePos] [npc2.feet] into the shoes and [npc.verb(tie)] up the laces.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.feet] into the shoes and [npc.verb(tie)] up the laces.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the laces of [npc.her] shoes, before slipping them off.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the laces of [npc2.namePos] shoes, before slipping them off.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(untie)] the laces of [npc2.namePos] shoes, before tugging them off.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

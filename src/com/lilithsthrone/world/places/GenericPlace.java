@@ -14,7 +14,6 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.EntranceType;
@@ -27,12 +26,12 @@ import com.lilithsthrone.world.EntranceType;
 public class GenericPlace implements XMLSaving {
 	
 	private String name;
-	private PlaceType placeType;
+	private AbstractPlaceType placeType;
 	private Set<PlaceUpgrade> placeUpgrades;
 	
-	public static Map<PlaceType, Integer> placeCountMap = new HashMap<>();
+	public static Map<AbstractPlaceType, Integer> placeCountMap = new HashMap<>();
 
-	public GenericPlace(PlaceType placeType) {
+	public GenericPlace(AbstractPlaceType placeType) {
 		this.placeType=placeType;
 		placeUpgrades = new HashSet<>();
 		
@@ -57,8 +56,10 @@ public class GenericPlace implements XMLSaving {
 		Element element = doc.createElement("place");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "name", this.getName());
-		CharacterUtils.addAttribute(doc, element, "type", this.getPlaceType().toString());
+		if(!this.getName().equals(this.getPlaceType().getName())) {
+			CharacterUtils.addAttribute(doc, element, "name", this.getName());
+		}
+		CharacterUtils.addAttribute(doc, element, "type", PlaceType.getIdFromPlaceType(this.getPlaceType()));
 		
 		if(!this.getPlaceUpgrades().isEmpty()) {
 			Element innerElement = doc.createElement("placeUpgrades");
@@ -96,13 +97,26 @@ public class GenericPlace implements XMLSaving {
 			placeType = "LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR";
 			
 		}
+		else if(placeType.equals("DOMINION_EXIT_TO_JUNGLE")) {
+			placeType = "DOMINION_EXIT_EAST";
+		}
+		else if(placeType.equals("DOMINION_EXIT_TO_DESERT")) {
+			placeType = "DOMINION_EXIT_SOUTH";
+		}
+		else if(placeType.equals("DOMINION_EXIT_TO_FIELDS")) {
+			placeType = "DOMINION_EXIT_NORTH";
+		}
+		else if(placeType.equals("DOMINION_EXIT_TO_SEA")) {
+			placeType = "DOMINION_EXIT_WEST";
+		}
 		
-		GenericPlace place = new GenericPlace(PlaceType.valueOf(placeType));
-		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3")
-				|| (place.getPlaceType()!=PlaceType.DOMINION_EXIT_TO_DESERT
-					&& place.getPlaceType()!=PlaceType.DOMINION_EXIT_TO_FIELDS
-					&& place.getPlaceType()!=PlaceType.DOMINION_EXIT_TO_JUNGLE
-					&& place.getPlaceType()!=PlaceType.DOMINION_EXIT_TO_SEA)) {
+		GenericPlace place = new GenericPlace(PlaceType.getPlaceTypeFromId(placeType));
+		if(!parentElement.getAttribute("name").isEmpty()
+				&& (!Main.isVersionOlderThan(Game.loadingVersion, "0.3")
+					|| (!place.getPlaceType().equals(PlaceType.DOMINION_EXIT_NORTH)
+						&& !place.getPlaceType().equals(PlaceType.DOMINION_EXIT_SOUTH)
+						&& !place.getPlaceType().equals(PlaceType.DOMINION_EXIT_EAST)
+						&& !place.getPlaceType().equals(PlaceType.DOMINION_EXIT_WEST)))) {
 			place.setName(parentElement.getAttribute("name"));
 		}
 		
@@ -152,7 +166,7 @@ public class GenericPlace implements XMLSaving {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(o instanceof GenericPlace){
 			if(((GenericPlace)o).getPlaceType() == placeType
 				&& ((GenericPlace)o).getPlaceUpgrades().equals(placeUpgrades)){
@@ -178,8 +192,8 @@ public class GenericPlace implements XMLSaving {
 		this.name = name;
 	}
 
-	public BaseColour getColour() {
-		return placeType.getColour();
+	public String getColourString() {
+		return placeType.getColourString();
 	}
 
 	public DialogueNode getDialogue(boolean withRandomEncounter) {
@@ -213,7 +227,7 @@ public class GenericPlace implements XMLSaving {
 	
 	// For determining where this place should be placed:
 	
-	public PlaceType getParentPlaceType() {
+	public AbstractPlaceType getParentPlaceType() {
 		return placeType.getParentPlaceType();
 	}
 	
@@ -292,11 +306,11 @@ public class GenericPlace implements XMLSaving {
 	}
 	
 
-	public PlaceType getPlaceType() {
+	public AbstractPlaceType getPlaceType() {
 		return placeType;
 	}
 
-	public void setPlaceType(PlaceType placeType) {
+	public void setPlaceType(AbstractPlaceType placeType) {
 		this.placeType = placeType;
 	}
 

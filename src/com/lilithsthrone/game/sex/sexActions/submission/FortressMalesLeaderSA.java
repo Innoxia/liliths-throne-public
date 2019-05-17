@@ -10,8 +10,8 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -28,8 +28,8 @@ public class FortressMalesLeaderSA {
 	
 	public static boolean isBothTargetsUsed() {
 		try {
-			return Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0
-					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
+			return Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0
+					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK_SECOND), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
 		} catch(Exception ex) {
 			return true;
 		}
@@ -45,16 +45,16 @@ public class FortressMalesLeaderSA {
 		try {
 			GameCharacter otherTarget = null;
 			if(getBreedingTarget()==null) {
-				if(Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0) {
-					otherTarget = Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND);
+				if(Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0) {
+					otherTarget = Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK_SECOND);
 				} else {
-					otherTarget = Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK);
+					otherTarget = Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK);
 				}
 				
 			} else {
-				otherTarget = Sex.getSexPositionSlot(getBreedingTarget())==SexPositionSlot.MISSIONARY_ON_BACK
-						?Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK_SECOND)
-						:Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK);
+				otherTarget = Sex.getSexPositionSlot(getBreedingTarget())==SexSlotBipeds.MISSIONARY_ON_BACK
+						?Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK_SECOND)
+						:Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_ON_BACK);
 			}
 			
 			if(!otherTarget.hasVagina() || !otherTarget.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {

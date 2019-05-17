@@ -9,24 +9,42 @@ import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.FluidExpulsion;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.submission.SMLyssiethDemonTF;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -37,7 +55,27 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public class SALyssiethSpecials {
 
-	public static final SexAction DEMON_TF_TO_MISSIONARY_DESK = new SexAction(
+	public static final void playerGrowDemonicVagina() {
+		Main.game.getPlayer().setVaginaType(VaginaType.DEMON_COMMON, true);
+		Main.game.getPlayer().setVaginaVirgin(true);
+		Main.game.getPlayer().setVaginaLabiaSize(LabiaSize.ZERO_TINY);
+		Main.game.getPlayer().setVaginaWetness(Wetness.SEVEN_DROOLING);
+		Main.game.getPlayer().setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMinimumValue(), true);
+		Main.game.getPlayer().setVaginaElasticity(OrificeElasticity.FOUR_LIMBER.getValue());
+		Main.game.getPlayer().setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
+	}
+
+	public static final void playerGrowDemonicPenis() {
+		Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
+		Main.game.getPlayer().setPenisSize(20);
+		Main.game.getPlayer().setPenisGirth(PenisGirth.THREE_THICK.getValue());
+		Main.game.getPlayer().setTesticleSize(TesticleSize.THREE_LARGE);
+		Main.game.getPlayer().setPenisCumStorage(750);
+		Main.game.getPlayer().setPenisCumExpulsion(FluidExpulsion.FOUR_HUGE.getMedianValue());
+		Main.game.getPlayer().fillCumToMaxStorage();
+	}
+	
+	public static final SexAction DEMON_TF_STAGE_1_CHOICE_GET_FUCKED = new SexAction(
 			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -47,10 +85,10 @@ public class SALyssiethSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager() instanceof SMLyssiethDemonTF // demon TF scene
+			return Sex.getSexManager() instanceof SMLyssiethDemonTF
 					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
-					&& Sex.getSexPositionSlot(Main.game.getNpc(Lyssieth.class))!=SexPositionSlot.MISSIONARY_DESK_DOM
-					&& !Sex.getCharacterPerformingAction().isPlayer();
+					&& Sex.getPosition()==SexPositionBipeds.KNEELING_ORAL
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -60,86 +98,34 @@ public class SALyssiethSpecials {
 		
 		@Override
 		public String getActionTitle() {
-			return "Push over desk";
+			return "Get fucked";
 		}
 
 		@Override
 		public String getActionDescription() {
-			return "Push [npc2.name] down onto [npc2.her] back over your desk and stand between [npc2.her] [npc2.legs], ready to have sex in the missionary position.";
+			return "Allow Lyssieth to push you down onto your back over her desk, and let her fuck you.<br/>"
+								+ "[style.italicsFeminine(Lyssieth will feminise you and give you a demonic vagina!)]<br/>"
+								+ (Main.game.getPlayer().hasPenis()
+										?"[style.italicsTfSexual(Lyssieth will also temporarily remove your cock!)]"
+										:"");
 		}
 
 		@Override
 		public String getDescription() {
-			return "[lyssieth.speech(Stand up, dear,)] Lyssieth giggles, stepping back and fully sliding her cock from out of your mouth, [lyssieth.speech(Foreplay's over!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Doing as you're told, you get to your feet, wobbling a little as you get used to the change in balance that's come from having a new tail and pair of wings."
-						+ " Stepping forwards, Lyssieth takes hold of you, and, before you can say anything, she presses her lips against yours and thrusts her tongue into your cummy mouth."
-						+ " As she starts passionately kissing you, she begins to run her hands up and down over your body, pressing, prodding, and gently pinching your [pc.skin] in several different places."
-					+ "</p>"
-					+ "<p>"
-						+ "Moaning into her mouth, you suddenly start to feel your proportions shifting and changing."
-						+ " The power of the demonic, corruptive cum in your stomach starts to spread out and react to the elder lilin's touch, and her wings wrap around you to hold you close as she transforms your body."
-						+ " Being wrapped in the tight cocoon which her wings have formed, you can't do anything but return Lyssieth's kiss as she changes your body..."
-					+ "</p>"
-					+ "<p>"
-						+ "After just a few minutes, her wings fold back, and, breaking off the kiss, she takes a step away from you to admire her work."
-						+ " Looking down at your body, you see that you're now completely feminine, with wide, womanly hips, a large ass, and big, E-cup breasts."
-						+ " Lyssieth has also altered your height and body shape, so that you're now a fit, muscular half-succubus, who stands at around five and a half feet tall."
-					+ "</p>"
-					+ "<p>"
-						+ "#IF pc.hasFetish(FETISH_INCEST)"
-						+ "#THEN [lyssieth.speech(Do you approve, my new daughter?)] Lyssieth asks, stepping forwards once again to place her hands on your hips, [lyssieth.speech(You're just as mommy likes you, now, but we're far from done.)]"
-						+ "#ELSE [lyssieth.speech(Do you approve, little succubus?)] Lyssieth asks, stepping forwards once again to place her hands on your hips, [lyssieth.speech(You're just as I like, now, but we're far from done.)]"
-						+ "#ENDIF"
-					+ "</p>"
-					+ "<p>"
-						+ "#IF pc.hasFetish(FETISH_INCEST)"
-						+ "#THEN [pc.speech(Yes, mommy,)] you reply, [pc.speech(I'll be your good girl.)]"
-						+ "#ELSE [pc.speech(Mmm, yes,)] you reply, [pc.speech(This new body feels amazing...)]"
-						+ "#ENDIF"
-					+ "</p>"
-					+ "<p>"
-						+ "Still gripping your wide hips, Lyssieth slowly swings you around, before forcing you to take a step back towards her desk."
-						+ " With a firm pressure, she pushes you down onto the wooden surface, so that you're lying on your back with your legs spread wide before her."
-						+ " Placing a hand on your groin, she starts gently rubbing, and as she does so, you feel a tingling in your groin, ass, and breasts..."
-					+ "</p>"
-					+ "<p>"
-						+ "The first things to be corrupted are your asshole and nipples, and as the tingling feeling spreads into your ass and breasts, it causes them to shift and transform into their demonic counterparts."
-						+ " More alarming than these transformations, however, is what's happening to your groin."
-						+ " As Lyssieth's hand circles and presses down on your crotch, your genitals shrink down and smooth over, until there's nothing but a genderless mound between your legs."
-					+ "</p>"
-					+ "<p>"
-						+ "[lyssieth.speech(And now for the fun part,)] Lyssieth softly laughs, before starting to trace her forefinger up and down in a vertical line over your doll-like mound."
-						+ " At first, her touch simply produces the usual tingling, itching feeling, but then, slowly at first, and then quickening, your groin starts to turn once more into a highly erogenous zone."
-						+ " Lyssieth's strokes start to feel better and better, and as she starts gently pinching and squeezing at an extremely sensitive point between your legs, you can't help but let out a frantic squeal."
-					+ "</p>"
-					+ "<p>"
-						+ "[lyssieth.speech(Mmm, you like that?)] Lyssieth teases, before suddenly pushing her fingers into your crotch."
-						+ " Instead of the pressure that you expected, her fingers slide <i>into</i> you, and with a desperate gasp, you look down to see that you have a virgin, demonic pussy between your legs."
-						+ " You can't help but bite your lip and whine as you feel just how tight it is; Lyssieth's fingers are barely managing to fit inside."
-					+ "</p>"
-					+ "<p>"
-						+ "#IF pc.hasFetish(FETISH_INCEST)"
-						+ "#THEN [lyssieth.speech(Mmm, yes, nice and tight for mommy,)] Lyssieth giggles, sliding her fingers out of your cunt, [lyssieth.speech(Now beg for me to break you in!)]"
-						+ "#ELSE [lyssieth.speech(Mmm, yes, nice and tight,)] Lyssieth giggles, sliding her fingers out of your cunt, [lyssieth.speech(Now beg for me to break you in!)]"
-						+ "#ENDIF"
-					+ "</p>"
-					+ "<p>"
-						+ "#IF pc.hasFetish(FETISH_INCEST)"
-						+ "#THEN [pc.speech(Please, mommy, fuck me!)] you cry, spreading your legs wide open before her."
-						+ "#ELSE [pc.speech(Yes, please, fuck me!)] you cry, spreading your legs wide open before her."
-						+ "#ENDIF"
-					+ "</p>"
-					+ "<p>"
-						+ "Grinning down at you, the elder lilin steps forwards, rubbing the head of her huge cock over your tiny labia, before stepping forwards and letting her huge, heavy shaft rest on your stomach."
-						+ " Biting her lip in anticipation of what's to come, she teases,"
-						+ " [lyssieth.speech(It's going to be fun getting all of this inside of you!)]";
+			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_CHOICE_GET_FUCKED");
 		}
 
 		@Override
 		public void applyEffects() {
-			Main.game.getPlayer().setFemininity(100);
+			specialActionTriggered = false;
+			Main.game.getNpc(Lyssieth.class).setForeplayPreference(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA));
+			
+			if(Main.game.getPlayer().getFemininityValue()<75) {
+				Main.game.getPlayer().setFemininity(75);
+			} else {
+				Main.game.getPlayer().incrementFemininity(15);
+			}
+			Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 			Main.game.getPlayer().setHipSize(HipSize.FIVE_VERY_WIDE);
 			Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE);
 			Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
@@ -147,27 +133,21 @@ public class SALyssiethSpecials {
 			Main.game.getPlayer().setHeight(168);
 			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
 			Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
-			Main.game.getPlayer().setBreastSize(CupSize.E);
+			Main.game.getPlayer().setBreastSize(CupSize.DD);
 			Main.game.getPlayer().setPenisType(PenisType.NONE);
-			Main.game.getPlayer().setVaginaType(VaginaType.DEMON_COMMON, true);
-			Main.game.getPlayer().setVaginaVirgin(true);
-			Main.game.getPlayer().setVaginaLabiaSize(LabiaSize.ZERO_TINY);
-			Main.game.getPlayer().setVaginaWetness(Wetness.SEVEN_DROOLING);
-			Main.game.getPlayer().setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMinimumValue(), true);
-			Main.game.getPlayer().setVaginaElasticity(OrificeElasticity.FOUR_LIMBER.getValue());
-			Main.game.getPlayer().setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
+			playerGrowDemonicVagina();
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionType.MISSIONARY_DESK,
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexPositionSlot.MISSIONARY_DESK_DOM)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB))));
+							SexPositionBipeds.MISSIONARY_DESK,
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))));
 			
 			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
 		}
 	};
 
-	public static final SexAction DEMON_TF_TO_MISSIONARY_DESK_GETTING_FUCKED = new SexAction(
+	public static final SexAction DEMON_TF_STAGE_1_CHOICE_GET_FUCKED_ANALLY = new SexAction(
 			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
@@ -177,10 +157,10 @@ public class SALyssiethSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager() instanceof SMLyssiethDemonTF // demon TF scene
-					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
-					&& Sex.getSexPositionSlot(Main.game.getNpc(Lyssieth.class))!=SexPositionSlot.MISSIONARY_DESK_SUB
-					&& !Sex.getCharacterPerformingAction().isPlayer();
+			return Sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
+					&& Sex.getPosition()==SexPositionBipeds.KNEELING_ORAL
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -190,70 +170,87 @@ public class SALyssiethSpecials {
 		
 		@Override
 		public String getActionTitle() {
-			return "Swap position";
+			return "Ask for anal";
 		}
 
 		@Override
 		public String getActionDescription() {
-			return "Swap position with [pc.name], and let [pc.herHim] fuck you with [pc.her] new demonic cock.";
+			return "Allow Lyssieth to push you down onto your back over her desk, and request that she use your ass.<br/>"
+								+ "[style.italicsFeminine(Lyssieth will feminise you!)]<br/>"
+								+ (Main.game.getPlayer().hasPenis()
+										?"[style.italicsFeminine(Lyssieth will sissify your cock!)]"
+										:"");
 		}
 
 		@Override
 		public String getDescription() {
-			return "Reaching down between your legs, and with her fat cock still stuffed inside your cunt, Lyssieth lets out a soft laugh as she starts gently pinching and prodding at the skin above your sensitive clit."
-					+ " Looking down, your eyes open wide as you see a thick demonic cock of your own starting to grow out above your cum-stuffed cunt."
-					+ "</p>"
-					+ "<p>"
-						+ "#IF pc.hasFetish(FETISH_INCEST)"
-						+ "#THEN [lyssieth.speech(Mommy wants to have some fun too, you know,)] Lyssieth laughs as she you staring at your new, 16-inch demonic cock, [lyssieth.speech(I think that's big enough.)]"
-						+ "#ELSE [lyssieth.speech(I want to have some fun too, you know,)] Lyssieth laughs as she you staring at your new, 16-inch demonic cock, [lyssieth.speech(I think that's big enough.)]"
-						+ "#ENDIF"
-					+ "</p>"
-					+ "<p>"
-						+ "Stepping back a little, Lyssieth slides her cock out from your pussy, and then pulls you up from off of her desk, before lying down in the spot you just vacated."
-						+ " Spreading her legs, the elder lilin parts her labia with two of her fingers, presenting herself to you as she moans,"
-						+ " [lyssieth.speech(Come on! Pump me full of that demonic seed of yours!)]";
+			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_CHOICE_GET_FUCKED_ANALLY");
 		}
 
 		@Override
 		public void applyEffects() {
-			Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
-			Main.game.getPlayer().setPenisSize(16);
-			Main.game.getPlayer().setPenisGirth(PenisGirth.THREE_THICK.getValue());
-			Main.game.getPlayer().setPenisCumStorage(500);
-			Main.game.getPlayer().fillCumToMaxStorage();
+			specialActionTriggered = false;
+			Main.game.getNpc(Lyssieth.class).setForeplayPreference(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS));
+			
+			if(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()) {
+				Main.game.getPlayer().setFemininity(50);
+				Main.game.getPlayer().setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
+				Main.game.getPlayer().setHipSize(HipSize.THREE_GIRLY);
+				Main.game.getPlayer().setAssSize(AssSize.THREE_NORMAL);
+				Main.game.getPlayer().setMuscle(Muscle.TWO_TONED.getMedianValue());
+				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+				Main.game.getPlayer().setHeight(168);
+				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+				Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
+				Main.game.getPlayer().setBreastSize(CupSize.AA);
+				
+			} else {
+				Main.game.getPlayer().incrementFemininity(15);
+				Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+				Main.game.getPlayer().setHipSize(HipSize.FIVE_VERY_WIDE);
+				Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE);
+				Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+				Main.game.getPlayer().setHeight(168);
+				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+				Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
+				Main.game.getPlayer().setBreastSize(CupSize.DD);
+			}
+			
+			if(Main.game.getPlayer().hasPenis()) {
+				Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
+				Main.game.getPlayer().setPenisSize(8);
+				Main.game.getPlayer().setTesticleSize(TesticleSize.ONE_TINY);
+				Main.game.getPlayer().fillCumToMaxStorage();
+			}
+			if(Main.game.getPlayer().hasVagina()) {
+				playerGrowDemonicVagina();
+			}
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionType.MISSIONARY_DESK,
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexPositionSlot.MISSIONARY_DESK_SUB)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_DOM))));
+							SexPositionBipeds.MISSIONARY_DESK,
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))));
+			
+			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
 		}
 	};
 	
-	public static final SexAction DEMON_TF_LYSSIETH_STOP_SEX = new SexAction(
+	public static final SexAction DEMON_TF_STAGE_1_CHOICE_FUCK_LYSSIETH = new SexAction(
 			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			SexParticipantType.SELF) {
-		
-		@Override
-		public String getActionTitle() {
-			return "";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "";
-		}
+			SexParticipantType.NORMAL) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager() instanceof SMLyssiethDemonTF // demon TF scene
-					&& Sex.getSexManager().isPartnerWantingToStopSex(Sex.getCharacterPerformingAction())
-					&& !Sex.getCharacterPerformingAction().isPlayer();
+			return Sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
+					&& Sex.getPosition()==SexPositionBipeds.KNEELING_ORAL
+					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -262,18 +259,533 @@ public class SALyssiethSpecials {
 		}
 		
 		@Override
+		public String getActionTitle() {
+			return "Fuck her";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You never agreed to let Lyssieth fuck you. Push her down onto her desk and fuck her instead.<br/>"
+								+ (!Main.game.getPlayer().isFeminine()
+										?"[style.italicsMasculine(Lyssieth will make you more masculine!)]"
+										:"[style.italicsDisabled(This will have no extra feminising effect.)]")
+								+ (!Main.game.getPlayer().hasPenis()
+										?"[style.italicsTfSexual(Lyssieth will give you a cock with which to fuck her!)]"
+										:"");
+		}
+
+		@Override
 		public String getDescription() {
-			return "With a satisfied sigh, [npc.name] disentangles [npc.herself] from [npc2.namePos] clutches, before stating that [npc.sheHas] had enough for now.";
+			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_CHOICE_FUCK_LYSSIETH");
+		}
+
+		@Override
+		public void applyEffects() {
+			specialActionTriggered = false;
+			Main.game.getNpc(Lyssieth.class).setForeplayPreference(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS));
+			
+			playerGrowDemonicPenis();
+			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+			Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
+			
+			if(!Main.game.getPlayer().isFeminine()) {
+				Main.game.getPlayer().setHeight(208);
+				if(Main.game.getPlayer().getFemininityValue()>25) {
+					Main.game.getPlayer().setFemininity(25);
+				} else {
+					Main.game.getPlayer().incrementFemininity(-15);
+				}
+				Main.game.getPlayer().setHairLength(HairLength.TWO_SHORT.getMedianValue());
+				if(Main.game.getPlayer().getMuscleValue()<Muscle.TWO_TONED.getMedianValue()) {
+					Main.game.getPlayer().setMuscle(Muscle.TWO_TONED.getMedianValue());
+				} else {
+					Main.game.getPlayer().incrementMuscle(25);
+				}
+				if(Main.game.getPlayer().getBodySizeValue()<BodySize.TWO_AVERAGE.getMedianValue()) {
+					Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+				} else {
+					Main.game.getPlayer().incrementBodySize(10);
+				}
+				Main.game.getPlayer().setVaginaType(VaginaType.NONE);
+			} else {
+				if(Main.game.getPlayer().hasVagina()) {
+					playerGrowDemonicVagina();
+				}
+			}
+			
+			Sex.setSexManager(
+					new SMLyssiethDemonTF(
+							SexPositionBipeds.MISSIONARY_DESK,
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_DOM)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.MISSIONARY_DESK_SUB))));
+
+			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
+		}
+	};
+	
+	
+	// STAGE 2
+	public static boolean specialActionTriggered = false; // OK to use this and not reset it, as the game can't be saved mid-sex, and this sex scene is only ever used once.
+	
+	public static final SexAction DEMON_TF_STAGE_2_CHOICE_FUCK_LYSSIETH = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
+					&& !specialActionTriggered
+					&& Sex.getCharacterPerformingAction().isPlayer()
+					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))==0;
 		}
 		
 		@Override
-		public SexParticipantType getParticipantType() {
-			return Sex.isMasturbation()?SexParticipantType.SELF:SexParticipantType.NORMAL;
+		public SexActionPriority getPriority() {
+			return SexActionPriority.UNIQUE_MAX;
 		}
 		
 		@Override
-		public boolean endsSex() {
-			return true;
+		public String getActionTitle() {
+			return "Fuck her";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Allow Lyssieth to get down on her hands and knees, and kneel down behind her to fuck her in the doggy-style position.<br/>"
+								+ "[style.italicsDisabled(This will have no extra feminising effect.)]<br/>"
+								+ (!Main.game.getPlayer().hasPenis() || Main.game.getPlayer().getPenisType().getRace()!=Race.DEMON
+										?"[style.italicsTfSexual(Lyssieth will give you a demonic cock!)]"
+										:"");
+		}
+
+		@Override
+		public String getDescription() {
+			if(Main.game.getPlayer().hasPenis() && Main.game.getPlayer().getPenisType().getRace()==Race.DEMON && Main.game.getPlayer().getPenisRawSizeValue()<=4) {
+				return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_FUCK_LYSSIETH_AS_SISSY");
+			} else {
+				return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_FUCK_LYSSIETH");
+			}
+		}
+
+		@Override
+		public void applyEffects() {
+			Main.game.getNpc(Lyssieth.class).setForeplayPreference(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS));
+			specialActionTriggered = true;
+			
+			if(!Main.game.getPlayer().hasPenis() || Main.game.getPlayer().getPenisType().getRace()!=Race.DEMON) {
+				playerGrowDemonicPenis();
+			}
+
+			Sex.setSexManager(
+					new SMLyssiethDemonTF(
+							SexPositionBipeds.DOGGY_STYLE,
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS))));
+
+			Main.game.getPlayer().fillCumToMaxStorage();
+			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
+		}
+	};
+	
+	public static final SexAction DEMON_TF_STAGE_2_CHOICE_LYSSIETH_ORAL = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
+					&& !specialActionTriggered
+					&& Sex.getCharacterPerformingAction().isPlayer()
+					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))==0;
+		}
+		
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.UNIQUE_MAX;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Ask for oral";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Ask Lyssieth to service you with her mouth instead.<br/>"
+							+ "[style.italicsDisabled(This will have no extra feminising effect.)]";
+		}
+
+		@Override
+		public String getDescription() {
+			if(Main.game.getPlayer().hasPenis() && Main.game.getPlayer().getPenisType().getRace()==Race.DEMON && Main.game.getPlayer().getPenisRawSizeValue()<=4) {
+				return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_LYSSIETH_ORAL_AS_SISSY");
+			} else {
+				return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_LYSSIETH_ORAL");
+			}
+		}
+
+		@Override
+		public void applyEffects() {
+			if(Main.game.getPlayer().hasPenis()) {
+				Main.game.getNpc(Lyssieth.class).setForeplayPreference(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS));
+			} else {
+				Main.game.getNpc(Lyssieth.class).setForeplayPreference(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA));
+			}
+			specialActionTriggered = true;
+			
+			Sex.setSexManager(
+					new SMLyssiethDemonTF(
+							SexPositionBipeds.CHAIR_SEX_ORAL,
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.CHAIR_KNEELING)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_ORAL_SITTING))));
+			
+			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
+		}
+	};
+
+	public static final SexAction DEMON_TF_STAGE_2_ASK_FOR_MORE_GETTING_FUCKED = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
+					&& !specialActionTriggered
+					&& Sex.getCharacterPerformingAction().isPlayer()
+					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))==0;
+		}
+		
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.UNIQUE_MAX;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			if(Main.game.getNpc(Lyssieth.class).getForeplayPreference(Main.game.getPlayer()).getTargetedSexArea()==SexAreaOrifice.ANUS) {
+				return "More anal";
+			}
+			return "Ask for more";
+		}
+
+		@Override
+		public String getActionDescription() {
+			if(Main.game.getNpc(Lyssieth.class).getForeplayPreference(Main.game.getPlayer()).getTargetedSexArea()==SexAreaOrifice.ANUS) {
+				return "Ask Lyssieth to carry on fucking your ass instead.<br/>"
+							+ "[style.italicsFeminine(Lyssieth will fully feminise you!)]"//TODO
+							+ (Main.game.getPlayer().hasPenis()
+									?"<br/>[style.italicsTfSexual(Lyssieth will also fully sissify your cock!)]"
+									:"");
+			}
+			return "Ask Lyssieth to carry on fucking your pussy instead.<br/>"
+						+ "[style.italicsFeminine(Lyssieth will fully feminise you!)]";
+		}
+
+		@Override
+		public String getDescription() {
+			if(Main.game.getNpc(Lyssieth.class).getForeplayPreference(Main.game.getPlayer()).getTargetedSexArea()==SexAreaOrifice.ANUS) {
+				return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_ASK_FOR_MORE_GETTING_FUCKED_ANAL");
+			}
+			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_ASK_FOR_MORE_GETTING_FUCKED");
+		}
+
+		@Override
+		public void applyEffects() {
+			specialActionTriggered = true;
+			
+			Main.game.getPlayer().setFemininity(100);
+			Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMaximumValue());
+			Main.game.getPlayer().setHipSize(HipSize.FIVE_VERY_WIDE);
+			Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE);
+			Main.game.getPlayer().setLipSize(LipSize.THREE_PLUMP);
+			Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+			Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+			Main.game.getPlayer().setHeight(168);
+			Main.game.getPlayer().setBreastSize(CupSize.F);
+			
+			if(Main.game.getNpc(Lyssieth.class).getForeplayPreference(Main.game.getPlayer()).getTargetedSexArea()==SexAreaOrifice.ANUS) {
+				if(Main.game.getPlayer().hasPenis()) {
+					Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
+					Main.game.getPlayer().setPenisSize(3);
+					Main.game.getPlayer().setTesticleSize(TesticleSize.ZERO_VESTIGIAL);
+					Main.game.getPlayer().fillCumToMaxStorage();
+				}
+				if(Main.game.getPlayer().hasVagina()) {
+					// Add anal-only vagina sticker:
+					AbstractClothing pastie = AbstractClothingType.generateClothing("innoxia_vagina_sticker_anal_only", Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PINK_HOT, Colour.CLOTHING_PURPLE_VERY_DARK, false);
+					pastie.getEffects().clear();
+					pastie.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.DRAIN, 0));
+					pastie.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_ANAL_RECEIVING, TFPotency.MAJOR_BOOST, 0));
+					pastie.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_VAGINAL_RECEIVING, TFPotency.MAJOR_DRAIN, 0));
+					pastie.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.BOOST, 0));
+					pastie.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_DOMINANT, TFPotency.DRAIN, 0));
+					pastie.setName("Lyssieth's buttslut pastie");
+					Main.game.getPlayer().equipClothingFromNowhere(pastie, true, Main.game.getNpc(Lyssieth.class));
+				}
+				if(Main.game.getPlayer().hasPenis()) {
+					// Add chastity cage:
+					AbstractClothing cage = AbstractClothingType.generateClothing("innoxia_bdsm_ornate_chastity_cage", Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PINK_HOT, Colour.CLOTHING_GOLD, false);
+					cage.getEffects().clear();
+					cage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.DRAIN, 0));
+					cage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_PENIS_RECEIVING, TFPotency.MAJOR_BOOST, 0));
+					cage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_PENIS_GIVING, TFPotency.MAJOR_DRAIN, 0));
+					cage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_CUM_ADDICT, TFPotency.BOOST, 0));
+					cage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_CUM_STUD, TFPotency.DRAIN, 0));
+					cage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1));
+					cage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 0));
+					cage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_DENIAL_SELF, TFPotency.MAJOR_BOOST, 0));
+					
+					cage.setName("Lyssieth's sissy cage");
+					Main.game.getPlayer().equipClothingFromNowhere(cage, true, Main.game.getNpc(Lyssieth.class));
+				}
+			}
+			
+			Sex.setSexManager(
+					new SMLyssiethDemonTF(
+							SexPositionBipeds.DOGGY_STYLE,
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.DOGGY_BEHIND)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))));
+			
+			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
+		}
+	};
+	
+	// These are for if the player has already fucked Lyssieth:
+	
+	public static final SexAction DEMON_TF_STAGE_2_CHOICE_GET_FUCKED = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
+					&& !specialActionTriggered
+					&& Sex.getCharacterPerformingAction().isPlayer()
+					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
+		}
+		
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.UNIQUE_MAX;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Get fucked";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Allow Lyssieth to push you down onto your back over her desk, and let her give you a demonic pussy for her to fuck.<br/>"
+								+ "[style.italicsFeminine(Lyssieth will feminise you into a futa succubus!)]<br/>"
+								+ (!Main.game.getPlayer().hasVagina()
+										?"[style.italicsTfSexual(Lyssieth will give you a demonic vagina!)]"
+										:"");
+		}
+
+		@Override
+		public String getDescription() {
+			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_GET_FUCKED");
+		}
+
+		@Override
+		public void applyEffects() {
+			specialActionTriggered = true;
+			
+			Main.game.getNpc(Lyssieth.class).setForeplayPreference(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA));
+			
+			Main.game.getPlayer().setFemininity(75);
+			Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+			Main.game.getPlayer().setHipSize(HipSize.FIVE_VERY_WIDE);
+			Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE);
+			Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+			Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+			Main.game.getPlayer().setHeight(168);
+			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+			Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
+			Main.game.getPlayer().setBreastSize(CupSize.F);
+			playerGrowDemonicVagina();
+			
+			Sex.setSexManager(
+					new SMLyssiethDemonTF(
+							SexPositionBipeds.MISSIONARY_DESK,
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))));
+			
+			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
+		}
+	};
+
+	public static final SexAction DEMON_TF_STAGE_2_CHOICE_GET_FUCKED_ANALLY = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
+					&& !specialActionTriggered
+					&& Sex.getCharacterPerformingAction().isPlayer()
+					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
+		}
+		
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.UNIQUE_MAX;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Ask for anal";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Allow Lyssieth to push you down onto your back over her desk, and request that she use your ass.<br/>"
+						+ "[style.italicsFeminine(Lyssieth will feminise you!)]";
+		}
+
+		@Override
+		public String getDescription() {
+			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_GET_FUCKED_ANALLY");
+		}
+
+		@Override
+		public void applyEffects() {
+			specialActionTriggered = true;
+			
+			Main.game.getNpc(Lyssieth.class).setForeplayPreference(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS));
+			
+			if(Main.game.getPlayer().isFeminine()) {
+				Main.game.getPlayer().incrementFemininity(25);
+				Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+				Main.game.getPlayer().setHipSize(HipSize.FIVE_VERY_WIDE);
+				Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE);
+				Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+				Main.game.getPlayer().setHeight(168);
+				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+				Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
+				Main.game.getPlayer().setBreastSize(CupSize.F);
+				
+			} else {
+				Main.game.getPlayer().setFemininity(50);
+				Main.game.getPlayer().setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
+				Main.game.getPlayer().setHipSize(HipSize.THREE_GIRLY);
+				Main.game.getPlayer().setAssSize(AssSize.THREE_NORMAL);
+				Main.game.getPlayer().setMuscle(Muscle.TWO_TONED.getMedianValue());
+				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+				Main.game.getPlayer().setHeight(168);
+				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+				Main.game.getPlayer().setBreastType(BreastType.DEMON_COMMON);
+				Main.game.getPlayer().setBreastSize(CupSize.AA);
+			}
+			
+			Sex.setSexManager(
+					new SMLyssiethDemonTF(
+							SexPositionBipeds.MISSIONARY_DESK,
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))));
+			
+			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
+		}
+	};
+	
+	public static final SexAction DEMON_TF_STAGE_2_MATING_PRESS = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.FOUR_HIGH,
+			CorruptionLevel.ONE_VANILLA,
+			null,
+			SexParticipantType.NORMAL) {
+
+		@Override
+		public SexActionCategory getCategory() {
+			return SexActionCategory.MISCELLANEOUS;
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
+					&& !specialActionTriggered
+					&& Sex.getCharacterPerformingAction().isPlayer()
+					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
+		}
+		
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.UNIQUE_MAX;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Breed her";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "There's no way you're going to let Lyssieth fuck you. Wrestle her into the 'mating press' position and give Lilaya a new sister or two.<br/>"
+								+ (!Main.game.getPlayer().isFeminine()
+										?"[style.italicsMasculine(Lyssieth will turn you into her ideal incubus!)]"
+										:"[style.italicsDisabled(This will have no extra feminising effect.)]");
+		}
+
+		@Override
+		public String getDescription() {
+			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_MATING_PRESS");
+		}
+
+		@Override
+		public void applyEffects() {
+			specialActionTriggered = true;
+			Main.game.getNpc(Lyssieth.class).setForeplayPreference(Main.game.getPlayer(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS));
+			
+			if(!Main.game.getPlayer().isFeminine()) {
+				Main.game.getPlayer().setHairLength(HairLength.ONE_VERY_SHORT.getMedianValue());
+				Main.game.getPlayer().setVaginaType(VaginaType.NONE);
+				Main.game.getPlayer().setFemininity(0);
+				Main.game.getPlayer().setMuscle(100);
+				Main.game.getPlayer().setBodySize(BodySize.THREE_LARGE.getMedianValue());
+				Main.game.getPlayer().setPenisSize(35);
+				Main.game.getPlayer().setTesticleSize(TesticleSize.FOUR_HUGE);
+				Main.game.getPlayer().setPenisCumStorage(2000);
+			}
+
+			Main.game.getNpc(Lyssieth.class).setPenisType(PenisType.NONE);
+			Main.game.getPlayer().fillCumToMaxStorage();
+			
+			Sex.setSexManager(
+					new SMLyssiethDemonTF(
+							SexPositionBipeds.MATING_PRESS,
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MATING_PRESS_TOP)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.MATING_PRESS_BOTTOM))));
+			
+			Sex.applyOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, Main.game.getNpc(Lyssieth.class), SexAreaOrifice.VAGINA);
 		}
 	};
 }

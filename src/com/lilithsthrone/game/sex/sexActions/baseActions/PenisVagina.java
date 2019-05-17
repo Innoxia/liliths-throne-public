@@ -103,7 +103,7 @@ public class PenisVagina {
 
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan], before gently pushing [npc2.her] [npc2.vagina+] out against [npc.namePos] [npc.cock].",
 
-							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc.her] [npc.vagina+], and gently [npc2.verb(push)] [npc2.her] [npc2.hips+] out in response."));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.vagina+], and gently [npc2.verb(push)] [npc2.her] [npc2.hips+] out in response."));
 					break;
 				case DOM_NORMAL:
 				case SUB_EAGER:
@@ -113,7 +113,7 @@ public class PenisVagina {
 
 							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before eagerly thrusting [npc2.her] [npc2.vagina+] out against [npc.namePos] [npc.cock].",
 
-							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc.her] [npc.vagina+], and desperately [npc2.verb(buck)] [npc2.her] [npc2.hips+] out in response."));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.vagina+], and desperately [npc2.verb(buck)] [npc2.her] [npc2.hips+] out in response."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -122,7 +122,7 @@ public class PenisVagina {
 
 							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before roughly thrusting [npc2.her] [npc2.vagina+] out against [npc.namePos] [npc.cock].",
 
-							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc.her] [npc.vagina+], and violently [npc2.verb(buck)] [npc2.her] [npc2.hips+] out in response."));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.vagina+], and violently [npc2.verb(buck)] [npc2.her] [npc2.hips+] out in response."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -131,7 +131,7 @@ public class PenisVagina {
 
 							" [npc2.Name] [npc2.verb(let)] out a [npc2.moan], before thrusting [npc2.her] [npc2.vagina+] out against [npc.namePos] [npc.cock].",
 
-							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc.her] [npc.vagina+], and [npc2.verb(buck)] [npc2.her] [npc2.hips+] out in response."));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.vagina+], and [npc2.verb(buck)] [npc2.her] [npc2.hips+] out in response."));
 					break;
 				case SUB_RESISTING:
 					if(Sex.getCharacterTargetedForSexAction(this).isVaginaVirgin()) {
@@ -906,7 +906,7 @@ public class PenisVagina {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.her] [npc2.cock] inside of [npc.herHim],"
-									+ " and, struggling against [npc.herHim], [npc2.she] desperately tries to pull [npc2.her] [npc2.cock+] free from [npc.her] [npc.vagina+].",
+									+ " and, struggling against [npc.herHim], [npc2.she] desperately [npc2.verb(try)] to pull [npc2.her] [npc2.cock+] free from [npc.her] [npc.vagina+].",
 
 							" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc2.her] [npc2.cock] deep into [npc.her] [npc.vagina+]."));
 					break;

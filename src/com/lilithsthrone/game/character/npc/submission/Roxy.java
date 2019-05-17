@@ -10,6 +10,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -67,7 +68,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.6
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Roxy extends NPC {
@@ -223,9 +224,9 @@ public class Roxy extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 
 		this.setScar(InventorySlot.EYES, new Scar(ScarType.CLAW_MARKS, true));
 		
@@ -244,7 +245,7 @@ public class Roxy extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_TONGUE_BAR, Colour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_VAGINA_BARBELL_RING, Colour.CLOTHING_GOLD, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ANKLE_BRACELET, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_ankle_anklet", Colour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, this);
 
@@ -253,8 +254,8 @@ public class Roxy extends NPC {
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, Colour.CLOTHING_GREY, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_THIGH_HIGH_BOOTS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_kneehigh_socks", Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_thigh_high_boots", Colour.CLOTHING_BLACK, false), true, this);
 
 	}
 	
@@ -283,9 +284,8 @@ public class Roxy extends NPC {
 	public void dailyReset() {
 		clearNonEquippedInventory();
 		
-		for(int i=0;i<25;i++) {
-			this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), false);
-		}
+		this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), 25, false);
+		this.addItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), 10, false);
 		
 		for (AbstractItemType item : itemsForSale) {
 			for (int i = 0; i < 6 + (Util.random.nextInt(12)); i++) {
@@ -293,23 +293,32 @@ public class Roxy extends NPC {
 			}
 		}
 		
-		Colour condomColour1 = ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().get(Util.random.nextInt(ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().size()));
-		Colour condomColour2 = ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().get(Util.random.nextInt(ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().size()));
-		
-		for (int i = 0; i < 6+(Util.random.nextInt(12)); i++) {
-			this.addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, condomColour1, false), false);
-		}
-		for (int i = 0; i < 6+(Util.random.nextInt(12)); i++) {
-			this.addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, condomColour2, false), false);
-		}
-		
 		List<AbstractClothingType> clothingToAdd = new ArrayList<>();
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			if(clothing!=null
-					&& clothing.getRarity()==Rarity.COMMON
-					&& (clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH) || clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN))) {
-				clothingToAdd.add(clothing);
+					&& (clothing.getRarity()==Rarity.COMMON || clothing.isCondom())
+					&& (clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH)
+							|| clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)
+							|| clothing.getItemTags().contains(ItemTag.SOLD_BY_RALPH))) {
+				if(clothing.isCondom()) {
+					Colour condomColour = Util.randomItemFrom(clothing.getAvailablePrimaryColours());
+					Colour condomColourSec = Colour.CLOTHING_BLACK;
+					Colour condomColourTer = Colour.CLOTHING_BLACK;
+					
+					if(!clothing.getAvailableSecondaryColours().isEmpty()) {
+						condomColourSec = Util.randomItemFrom(clothing.getAvailableSecondaryColours());
+					}
+					if(!clothing.getAvailableTertiaryColours().isEmpty()) {
+						condomColourTer = Util.randomItemFrom(clothing.getAvailableTertiaryColours());
+					}
+					for (int i = 0; i < (3+(Util.random.nextInt(4)))*(clothing.getRarity()==Rarity.COMMON?3:(clothing.getRarity()==Rarity.UNCOMMON?2:1)); i++) {
+						this.addClothing(AbstractClothingType.generateClothing(clothing, condomColour, condomColourSec, condomColourTer, false), false);
+					}
+					
+				} else {
+					clothingToAdd.add(clothing);
+				}
 			}
 		}
 		
@@ -317,17 +326,17 @@ public class Roxy extends NPC {
 		
 		for(int i=0; i<6; i++) {
 			AbstractClothing clothing = AbstractClothingType.generateClothingWithNegativeEnchantment(Util.randomItemFrom(clothingToAdd));
+			clothing.setEnchantmentKnown(this, false);
 			this.addClothing(clothing, false);
-			clothing.setEnchantmentKnown(false);
 		}
 		for(int i=0; i<3; i++) {
 			AbstractClothing clothing = AbstractClothingType.generateClothingWithEnchantment(Util.randomItemFrom(clothingToAdd));
+			clothing.setEnchantmentKnown(this, false);
 			this.addClothing(clothing, false);
-			clothing.setEnchantmentKnown(false);
 		}
 		AbstractClothing clothing = AbstractClothingType.generateRareClothing(Util.randomItemFrom(clothingToAdd));
+		clothing.setEnchantmentKnown(this, false);
 		this.addClothing(clothing, false);
-		clothing.setEnchantmentKnown(false);
 		
 	}
 	

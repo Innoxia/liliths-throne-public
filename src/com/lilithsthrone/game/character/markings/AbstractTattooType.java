@@ -195,11 +195,11 @@ public class AbstractTattooType extends AbstractCoreType {
 			}
 			return result;
 		}
-		return ColourListPresets.valueOf(coloursElement.getAttribute("values")).getPresetColourList();
+		return ColourListPresets.getColourListFromId(coloursElement.getAttribute("values"));
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof AbstractTattooType)
 					&& ((AbstractTattooType)o).isMod()==isMod

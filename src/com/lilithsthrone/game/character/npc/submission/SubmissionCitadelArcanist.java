@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -105,7 +106,7 @@ public class SubmissionCitadelArcanist extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.6")) {
 			this.setStartingBody(true);
-			this.equipClothing(true, true, true, true);
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
 	}
 
@@ -197,13 +198,7 @@ public class SubmissionCitadelArcanist extends NPC {
 		// Anus settings and modifiers
 		
 		// Penis:
-//		this.setPenisVirgin(false);
-//		this.setPenisGirth(PenisGirth.FOUR_FAT);
-//		this.setPenisSize(8);
-//		this.setTesticleSize(TesticleSize.THREE_LARGE);
-//		this.setPenisCumStorage(200);
-//		this.setPenisCumExpulsion(FluidExpulsion.THREE_LARGE.getMedianValue());
-//		this.fillCumToMaxStorage();
+		// n/a
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -220,10 +215,10 @@ public class SubmissionCitadelArcanist extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		this.unequipAllClothingIntoVoid(true);
+	public void equipClothing(List<EquipClothingSetting> settings) {
+		this.unequipAllClothingIntoVoid(true, true);
 		
-		if(addWeapons) {
+		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_wakizashi"), DamageType.ICE));
 		}
 		
@@ -231,8 +226,8 @@ public class SubmissionCitadelArcanist extends NPC {
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_VIRGIN_KILLER_SWEATER, Colour.CLOTHING_WHITE, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_PLATFORM_BOOTS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_platform_boots", Colour.CLOTHING_BLACK, false), true, this);
 		
 //		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false), true, this);
 

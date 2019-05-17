@@ -4,22 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.npcDialogue.unique.LumiDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.ParserCommand;
 import com.lilithsthrone.game.dialogue.utils.ParserTarget;
@@ -34,11 +39,14 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -53,21 +61,21 @@ public class DebugDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "As you finish speaking the magic word, you suddenly hear a little thudding noise close behind you."
-					+ " Spinning around, you see a small metallic device lying on the floor, which sort of resembles a t.v. remote from back in your old world."
+						+ "As you finish speaking the magic word, you suddenly hear a little thudding noise close behind you."
+						+ " Spinning around, you see a small metallic device lying on the floor, which sort of resembles a t.v. remote from back in your old world."
 					+ "</p>"
 
 					+ "<p>"
-					+ "You lean down and pick it up, and as you turn it over in your hands, you see a little label stuck to the back."
-					+ " Someone's written a message on it, and you read the following:" 
+						+ "You lean down and pick it up, and as you turn it over in your hands, you see a little label stuck to the back."
+						+ " Someone's written a message on it, and you read the following:" 
 					+ "</p>"
 
 					+ "<p style='text-align:center;'><i>"
-					+ "Hi " + Main.game.getPlayer().getName() + "!<br/>"
-					+ "It looks like you know about the magic debug code! Just to give you a warning, all the options here are really buggy!"
-					+ " If you spawn in any clothing or items, just be aware that some of them aren't officially in the game just yet, so they may not work exactly as expected."
-					+ " Thanks for playing!<br/><br/>"
-					+ "~Innoxia~<br/></i>"
+						+ "Hi [pc.name]!<br/>"
+						+ "It looks like you know about the magic debug code! Just to give you a warning, all the options here are really buggy!"
+						+ " If you spawn in any clothing or items, just be aware that some of them aren't officially in the game just yet, so they may not work exactly as expected."
+						+ " Thanks for playing!<br/><br/>"
+						+ "~Innoxia~<br/></i>"
 					+ "</p>";
 		}
 
@@ -141,10 +149,10 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==5 && Main.DEBUG) {
-					return new Response("All items", "View icons of all the clothing, weapon, and items in the game. <i>Warning: Very sluggish and slow to load.</i>", ALL_ITEMS_VIEW);
+				} else if(index==5) {
+					return new Response("All items", "View icons and ids of all the clothing, weapon, and items in the game. You can also spawn these items by clicking on their icons. <i>Warning: Very sluggish and slow to load.</i>", ALL_ITEMS_VIEW);
 					
-				}  else if (index == 6) {
+				} else if (index == 6) {
 					return new Response("Spawn Menu", "View the clothing, weapon, and item spawn menu.", SPAWN_MENU);
 					
 				} else if (index == 7) {
@@ -162,10 +170,10 @@ public class DebugDialogue {
 					return new Response("Race resets", "View the race reset options.", BODY_PART_RACE_RESET);
 					
 				} else if (index == 11) {
-					return new Response(UtilText.formatAsMoney(10000, "span"), "Add 10000 flames.", DEBUG_MENU){
+					return new Response(UtilText.formatAsMoney(100_000, "span"), "Add 100,000 flames.", DEBUG_MENU){
 						@Override
 						public void effects() {
-							Main.game.getPlayer().incrementMoney(10000);
+							Main.game.getPlayer().incrementMoney(100_000);
 						}
 					};
 					
@@ -315,7 +323,7 @@ public class DebugDialogue {
 						};
 						
 				}  else if (index == 5) {
-					if(Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.DOMINION_BACK_ALLEYS) {
+					if(!Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BACK_ALLEYS)) {
 						return new Response("Lumi test", "Lumi can only be spawned in alleyway tiles.", null);
 						
 					} else if(!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
@@ -347,6 +355,61 @@ public class DebugDialogue {
 						}
 					};
 					
+				} else if (index == 8) {
+					return new Response("Lilaya's tests", "Automatically completes Lilaya's enchantment quest, making you able to enchant right away.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)){ //If the player hasn't completed the enchantment quest
+								if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)){ //But has started it
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_ENCHANTMENT_DISCOVERY, Quest.SIDE_UTIL_COMPLETE)); //Finish it
+								}
+								else{ //But hasn't started it
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)); //Start the quest
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_ENCHANTMENT_DISCOVERY, Quest.SIDE_UTIL_COMPLETE)); //And finish it
+								}
+							}
+						}
+					};
+
+				} else if (index == 9) {
+					return new Response("+1 Epona stamp", "Gives you one stamp you can get by playing the breeder roulette.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().eponaStamps += 1;
+							Main.game.getTextEndStringBuilder().append("Added 1 stamp, you now have "  + Main.game.getDialogueFlags().eponaStamps + " stamp(s)");
+						}
+					};
+
+				} else if(index == 10){
+					return new Response("Get slaver license", "Automatically completes the quest to get a slaver license. This will start the quest if you don't already have it, and finish it.", DEBUG_MENU){
+						@Override
+						public void effects(){
+							if(!Main.game.getPlayer().isHasSlaverLicense()){ //If the player doesn't have the slaver license
+								if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)){ //But has started the quest to get it
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, Quest.SIDE_UTIL_COMPLETE)); //Finish it.
+								}
+								else{ //But hasn't started the quest to get it
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_SLAVERY)); //Start the quest
+									Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced); //Introduce Finch
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, Quest.SIDE_UTIL_COMPLETE)); //And finish it
+								}
+							}
+						}
+					};
+					
+				} else if(index == 11){
+					return new Response("Centaur", "A wild centaur appears! (Please only use this on a completely neutral tile, as it will probably break things otherwise.)", CENTAUR_SEX){
+						@Override
+						public void effects(){
+							NPC target = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false,  false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s!=Subspecies.CENTAUR);
+							try {
+								Main.game.addNPC(target, false);
+								Main.game.setActiveNPC(target);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					};
 				}
 			}
 			
@@ -380,15 +443,16 @@ public class DebugDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			for(NPC npc : Main.game.getOffspring()) {
-				if(npc.isFeminine()) {
-					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getMother().getName()+"'s daughter ("+npc.getSubspecies().getName(npc)+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"<br/>");
-				} else {
-					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getFather().getName()+"'s son ("+npc.getSubspecies().getName(npc)+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"<br/>");
+			for(NPC npc : Main.game.getOffspring(true)) {
+				boolean isBorn = true;
+				if(npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
+					isBorn = false;
 				}
+				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span> ("+npc.getSubspecies().getName(npc)+")"
+						+ " M:"+npc.getMother().getName(true)+" F:"+npc.getFather().getName(true)+"<br/>");
 			}
 			if(activeOffspring!=null) {
-				for(Fetish f : activeOffspring.getFetishes()) {
+				for(Fetish f : activeOffspring.getFetishes(true)) {
 					UtilText.nodeContentSB.append("<br/>[style.boldSex(Fetish:)] "+f.getName(activeOffspring));
 				}
 				UtilText.nodeContentSB.append(
@@ -404,11 +468,11 @@ public class DebugDialogue {
 			if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
 				
-			} else if(index-1 < Main.game.getOffspring().size()) {
-				return new Response(Main.game.getOffspring().get(index-1).getName(), "View the character page for this offspring.", OFFSPRING) {
+			} else if(index-1 < Main.game.getOffspring(true).size()) {
+				return new Response(Main.game.getOffspring(true).get(index-1).getName(true), "View the character page for this offspring.", OFFSPRING) {
 					@Override
 					public void effects() {
-						activeOffspring = Main.game.getOffspring().get(index-1);
+						activeOffspring = Main.game.getOffspring(true).get(index-1);
 						for(CoverableArea ca : CoverableArea.values()) {
 							activeOffspring.setAreaKnownByCharacter(ca, Main.game.getPlayer(), true);
 						}
@@ -556,20 +620,17 @@ public class DebugDialogue {
 	public static final DialogueNode ALL_ITEMS_VIEW = new DialogueNode("", "", false) {
 
 		@Override
-		public String getHeaderContent() {
+		public String getContent() {
 			inventorySB.setLength(0);
 			
-			inventorySB.append(
-					"<p style='width:100%; text-align:center; padding:0 margin:0;'>"
-						+ (activeSlot==null ?
-								"<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Spawn Item</b>"
-								:(activeSlot == InventorySlot.WEAPON_MAIN || activeSlot == InventorySlot.WEAPON_OFFHAND
-									? "<b style='color:"+Colour.BASE_RED_LIGHT.toWebHexString()+";'>Spawn Weapon</b> ("+Util.capitaliseSentence(activeSlot.getName())+")"
-									: "<b style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>Spawn Clothing</b> ("+Util.capitaliseSentence(activeSlot.getName())+")"))
-					+"</p>");
+			int width = 33;
+			if(Main.primaryStage.getWidth()>=1900) {
+				width = 25;
+			}
+			int imgWidth = 15;
 			
 			int count=0;
-			inventorySB.append("<div class='inventory-not-equipped'>");
+			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>");
 			for(AbstractItemType itemType : itemsTotal) {
 				if((itemTag==null
 						&& (!itemType.getItemTags().contains(ItemTag.BOOK)
@@ -579,29 +640,41 @@ public class DebugDialogue {
 						|| (itemTag!=null
 							&& (itemType.getItemTags().contains(itemTag)
 									|| (itemTag==ItemTag.SPELL_BOOK && itemType.getItemTags().contains(ItemTag.SPELL_SCROLL))))) {
-					inventorySB.append("<div class='inventory-item-slot unequipped "+ itemType.getRarity().getName() + "' style='width:5%'>"
-											+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
-											+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+					inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+											+ "<div class='inventory-item-slot unequipped "+ itemType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
+												+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
+												+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+											+ "</div>"
+											+ ItemType.getItemToIdMap().get(itemType)
 										+ "</div>");
 				}
 				count++;
 			}
-			
+			inventorySB.append("</div>");
+
+			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+					+ "<h5>Weapons: "+weaponsTotal.size()+" items</h5>");
 			for(AbstractWeaponType weaponType : weaponsTotal) {
-				inventorySB.append("<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "' style='width:5%'>"
-										+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
-												weaponType.getAvailableDamageTypes().get(0),
-												weaponType.getAvailablePrimaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailablePrimaryColours()),
-												weaponType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailableSecondaryColours()))
-										+"</div>"
-										+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
+				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+										+ "<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
+											+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
+													weaponType.getAvailableDamageTypes().get(0),
+													weaponType.getAvailablePrimaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailablePrimaryColours()),
+													weaponType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailableSecondaryColours()))
+											+"</div>"
+											+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
+										+ "</div>"
+										+ WeaponType.getIdFromWeaponType(weaponType)
 									+ "</div>");
 				count++;
 			}
-			
-			System.out.println(clothingTotal.size());
+			inventorySB.append("</div>");
+
+			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+					+ "<h5>Clothing: "+clothingTotal.size()+" items</h5>");
 			for(AbstractClothingType clothingType : clothingTotal) {
-				inventorySB.append("<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "' style='width:5%'>"
+				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+									+ "<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
 										+ "<div class='inventory-icon-content'>"
 											+clothingType.getSVGImage(
 												Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
@@ -610,7 +683,9 @@ public class DebugDialogue {
 												null, null, null, null)
 										+"</div>"
 										+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
-									+ "</div>");
+									+ "</div>"
+									+ ClothingType.getIdFromClothingType(clothingType)
+								+ "</div>");
 				count++;
 			}
 			
@@ -622,11 +697,6 @@ public class DebugDialogue {
 			
 			
 			return inventorySB.toString();
-		}
-
-		@Override
-		public String getContent() {
-			return "";
 		}
 
 		@Override
@@ -773,7 +843,9 @@ public class DebugDialogue {
 		return clothingCollageSB.toString();
 	}
 
-	private static String parsedText = "", rawText = "";
+	private static String parsedText = "";
+	private static String rawText = "";
+	private static String xmlFileText = "res/txt/ENTER_PATH.xml";
 	public static final DialogueNode PARSER = new DialogueNode("Parser", "", true) {
 
 		@Override
@@ -781,11 +853,23 @@ public class DebugDialogue {
 			return ("<p>"
 					+ "<b>Please</b> at least skim over the help page before viewing the 'commands' pages! (The number of commands could be off-putting if you're not aware of how simple they really are.)"
 					+ "</p>"
+					
+
+					+ "<div class='container-full-width' style='text-align:center;'>"
+						+ "<div style='position:relative; display:inline-block; padding-bottom:0; margin 0 auto; vertical-align:middle; width:100%; text-align:center;'>"
+							+ "<p style='display:inline-block; padding:0; margin:0; width:100%;'>XML test (enter full path, including .xml): </p>"
+							+ "<br/>"
+							+ "<form style='display:inline-block; width:100%; padding:0; margin:0; text-align:center;'><input type='text' id='xmlTest' style='width:50%;' placeholder='res/txt/...' value='"+xmlFileText+"'></form>"
+						+ "</div>"
+					+ "</div>"
+					
 					+ "<p>"
-					+ "<b>This parser accepts html formatting.</b>"
+						+ "<b>This parser accepts html formatting.</b>"
 					+ "</p>"
 
-					+ "<p style='padding:0;margin:0;text-align:center;'>Parse:</p>"
+					+ "<p style='padding:0;margin:0;text-align:center;'>"
+						+ "Parse:"
+					+ "</p>"
 					+ "<form style='padding:0;margin:0;text-align:center;'>"
 					+ "<textarea id='parseInput' name='Text1' style='width:760px;height:200px;'>"+rawText+"</textarea>"
 					+ "</form>");
@@ -843,6 +927,17 @@ public class DebugDialogue {
 					}
 				};
 				
+			} else if (index == 11) {
+				return new Response("Xml test",
+						"Parse every dialogue entry in the file whose path you've specified in order to check for errors. Lilaya, Brax, Rose, Ralph, Nyan, and Zaranix, are passed in as parser targets.",
+						PARSER){
+					@Override
+					public void effects() {
+						xmlFileText = ((String) Main.mainController.getWebEngine().executeScript("document.getElementById('xmlTest').value")).replaceAll("\u200b", "");
+						parsedText = Main.game.runXmlTest(xmlFileText);
+					}
+				};
+				
 			} else if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
 				
@@ -875,20 +970,23 @@ public class DebugDialogue {
 					+ "<h6>Input:</h6><br/>"
 					+"Everything is parsed using square brackets, split into the following pattern:<br/>"
 					+"[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
-					+"or, for the few special commands that require arguments,<br/>"
+					+"or, for the few special commands that require arguments:<br/>"
 					+"[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
 							+ "<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]<br/>"
-					+"or, for parsing as a script,<br/>"
+					+"or, for parsing as a script:<br/>"
 					+"[#<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
+					+"or, for parsing as a script which suppresses output:<br/>"
+					+"[##<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
+					+ "<i>(This means that the command will be executed, but no String output will be displayed.)</i>"
 					+ "</p>"
 					
 					+ "<p>"
 					+"An example of use in a sentence would be:<br/><br/>"
-					+"As you start to read Innoxia's tedious parsing documentation, [lilaya.name] steps up behind you and wraps [lilaya.her] [lilaya.tail+] around your [pc.leg]."
-					+" Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring, [#pc.getName()]!)]'<br/><br/>"
+					+"<i>As you start to read Innoxia's tedious parsing documentation, [lilaya.name] steps up behind you and wraps [lilaya.her] [lilaya.tail+] around your [pc.leg]."
+					+" Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring, [#pc.getName(true)]!)]'</i><br/><br/>"
 					+ "parses to:<br/><br/>"
 					+ UtilText.parse("As you start to read Innoxia's tedious parsing documentation, [lilaya.name] steps up behind you and wraps [lilaya.her] [lilaya.tail+] around your [pc.leg]."
-							+ " Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring, [#pc.getName()]!)]")
+							+ " Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring, [#pc.getName(true)]!)]")
 					+ "</p>"
 					+ "<br/>"
 					
@@ -1266,6 +1364,125 @@ public class DebugDialogue {
 		@Override
 		public boolean disableHeaderParsing() {
 			return true;
+		}
+	};
+	
+	
+	public static final DialogueNode POST_SEX_2KOMA = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			if(Sex.isDom(Main.game.getPlayer())) {
+				GameCharacter target = Sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
+				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_2KOMA", target);
+			} else {
+				GameCharacter target = Sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
+				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_2KOMA_AS_SUB", target);
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if(Sex.isDom(Main.game.getPlayer())) {
+					return new Response("Continue", "Now that you've put this bitch in [npc.her] place, you can continue with what you were doing...", Main.game.getDefaultDialogueNoEncounter());
+				} else {
+					return new Response("Continue", "Now that you've been put in your place like the bitch you are, you can continue with what you were doing...", Main.game.getDefaultDialogueNoEncounter());
+				}
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode CENTAUR_SEX = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			NPC centaur = Main.game.getActiveNPC();
+			return UtilText.parseFromXMLFile("misc/misc", "A_WILD_CENTAUR_APPEARS", centaur);
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			NPC centaur = Main.game.getActiveNPC();
+			
+			if(index==1) {
+				return new ResponseSex(
+						UtilText.parse(centaur, "Dom [npc.herHim]"),
+						UtilText.parse(centaur, "Take the dominant role and fuck this [npc.race]."),
+						true,
+						false,
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(centaur),
+								Main.game.getPlayer().getCompanions(),
+								null),
+						DebugDialogue.POST_SEX_CENTAUR,
+						"<p>"
+							+ "Deciding that you want to dominate this [npc.race] who just magically appeared before you, you step up to [npc.herHim] and growl,"
+							+ " [pc.speech(It's time to put you in your place!)]"
+						+ "</p>");
+				
+			} else if(index==2) {
+				return new ResponseSex(
+						UtilText.parse(centaur, "Submit to [npc.herHim]"),
+						UtilText.parse(centaur, "Take the submissive role and let this [npc.race] fuck you."),
+						true,
+						false,
+						new SMGeneric(
+								Util.newArrayListOfValues(centaur),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								Main.game.getPlayer().getCompanions()),
+						DebugDialogue.POST_SEX_CENTAUR,
+						"<p>"
+							+ "Deciding that you want to get dominated by this [npc.race] who just magically appeared before you, you step up to [npc.herHim] and plead,"
+							+ " [pc.speech(It's time for you to put me in my place!)]"
+						+ "</p>");
+				
+			} else if(index==0) {
+				return new Response("Nevermind", UtilText.parse(centaur, "Decide not to do anything with this [npc.race], and instead just continue with what you were doing..."), Main.game.getDefaultDialogueNoEncounter()) {
+					@Override
+					public void effects() {
+						Main.game.banishNPC(centaur);
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode POST_SEX_CENTAUR = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			if(Sex.isDom(Main.game.getPlayer())) {
+				GameCharacter target = Sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
+				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR", target);
+			} else {
+				GameCharacter target = Sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
+				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR_AS_SUB", target);
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				NPC centaur = Main.game.getActiveNPC();
+				if(Sex.isDom(Main.game.getPlayer())) {
+					return new Response("Continue", UtilText.parse(centaur, "Now that you've put this [npc.race] in [npc.her] place, you can continue with what you were doing..."), Main.game.getDefaultDialogueNoEncounter()) {
+						@Override
+						public void effects() {
+							Main.game.banishNPC(centaur);
+						}
+					};
+				} else {
+					return new Response("Continue", UtilText.parse(centaur, "Now that you've been put in your place by this [npc.race], you can continue with what you were doing..."), Main.game.getDefaultDialogueNoEncounter()) {
+						@Override
+						public void effects() {
+							Main.game.banishNPC(centaur);
+						}
+					};
+				}
+			}
+			return null;
 		}
 	};
 

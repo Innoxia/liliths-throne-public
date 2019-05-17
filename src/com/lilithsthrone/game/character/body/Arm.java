@@ -12,10 +12,11 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Arm implements BodyPartInterface {
+
 	
 	public static final int MAXIMUM_ROWS = 3;
 	
@@ -106,8 +107,8 @@ public class Arm implements BodyPartInterface {
 		UtilText.transformationContentSB.append(type.getTransformationDescription(owner)+"</p>");
 		
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
-				+ "<br/><br/>"
-				+ owner.postTransformationCalculation()
+				+ "<p>"
+					+ owner.postTransformationCalculation()
 				+ "</p>";
 	}
 
@@ -265,5 +266,13 @@ public class Arm implements BodyPartInterface {
 		this.underarmHair = underarmHair;
 
 		return UtilText.transformationContentSB.toString();
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Arm.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
@@ -263,7 +266,13 @@ public enum TFModifier {
 			"modifier_circle_sealing",
 			Colour.SEALED,
 			Rarity.LEGENDARY),
-	
+
+	CLOTHING_CONDOM("condom strength",
+			"Provides underlying strength to the condom.",
+			"condom strength",
+			"modifier_circle_resistance",
+			Colour.BASE_GREEN,
+			Rarity.COMMON),
 	
 	// Racial parts:
 
@@ -299,6 +308,13 @@ public enum TFModifier {
 			"Applies a transformative effect to your breasts.",
 			"breasts",
 			"modifier_circle_tf_breast",
+			Colour.TRANSFORMATION_SEXUAL,
+			Rarity.UNCOMMON),
+	
+	TF_BREASTS_CROTCH("crotch-boobs",
+			"Applies a transformative effect to your crotch-boobs/udders.",
+			"crotch-boobs",
+			"modifier_circle_tf_breast_crotch",
 			Colour.TRANSFORMATION_SEXUAL,
 			Rarity.UNCOMMON),
 	
@@ -358,9 +374,9 @@ public enum TFModifier {
 			Colour.TRANSFORMATION_SEXUAL,
 			Rarity.UNCOMMON),
 	
-	TF_SKIN("skin",
-			"Applies a transformative effect to your skin.",
-			"skin",
+	TF_SKIN("torso",
+			"Applies a transformative effect to your torso.",
+			"torso",
 			"modifier_circle_tf_skin",
 			Colour.TRANSFORMATION_GREATER,
 			Rarity.EPIC),
@@ -390,6 +406,13 @@ public enum TFModifier {
 			"Applies a transformative effect to your milk.",
 			"milk",
 			"modifier_circle_tf_milk",
+			Colour.TRANSFORMATION_SEXUAL,
+			Rarity.UNCOMMON),
+	
+	TF_MILK_CROTCH("udder-milk",
+			"Applies a transformative effect to your udder-milk.",
+			"udder-milk",
+			"modifier_circle_tf_milk_crotch",
 			Colour.TRANSFORMATION_SEXUAL,
 			Rarity.UNCOMMON),
 	
@@ -473,12 +496,68 @@ public enum TFModifier {
 			Colour.BASE_TAN,
 			Rarity.COMMON),
 	
-	TF_MOD_STATURE("stature",
-			"Applies an effect to change the user's core stature.",
-			"stature",
-			"modifier_circle_stature",
-			Colour.BASE_YELLOW_LIGHT,
-			Rarity.COMMON),
+	TF_MOD_FOOT_STRUCTURE_PLANTIGRADE("plantigrade feet",
+			"Applies an effect to give the user a plantigrade foot structure.",
+			"plantigrade feet",
+			"modifier_circle_tf_footStructure_plantigrade",
+			Colour.BASE_BLUE_LIGHT,
+			Rarity.LEGENDARY),
+	
+	TF_MOD_FOOT_STRUCTURE_DIGITIGRADE("digitigrade feet",
+			"Applies an effect to give the user a digitigrade foot structure.",
+			"digitigrade feet",
+			"modifier_circle_tf_footStructure_digitigrade",
+			Colour.BASE_BROWN_DARK,
+			Rarity.LEGENDARY),
+	
+	TF_MOD_FOOT_STRUCTURE_UNGULIGRADE("unguligrade feet",
+			"Applies an effect to give the user an unguligrade foot structure.",
+			"unguligrade feet",
+			"modifier_circle_tf_footStructure_unguligrade",
+			Colour.BASE_TAN,
+			Rarity.LEGENDARY),
+	
+	TF_MOD_LEG_CONFIG_BIPEDAL("bidepal body",
+			"Applies an effect to give the user a bipedal body.",
+			"bipedal body",
+			"modifier_circle_tf_legConfig_bipedal",
+			Colour.BASE_BLUE_LIGHT,
+			Rarity.LEGENDARY),
+	
+	TF_MOD_LEG_CONFIG_TAUR("taur body",
+			"Applies an effect to give the user a taur body.",
+			"taur body",
+			"modifier_circle_tf_legConfig_taur",
+			Colour.BASE_TAN,
+			Rarity.LEGENDARY),
+	
+	TF_MOD_LEG_CONFIG_TAIL_LONG("long-tailed body",
+			"Applies an effect to give the user a long-tailed body.",
+			"long-tailed body",
+			"modifier_circle_tf_legConfig_tail_long",
+			Colour.BASE_GREEN,
+			Rarity.LEGENDARY),
+	
+	TF_MOD_LEG_CONFIG_TAIL("tailed body",
+			"Applies an effect to give the user a tailed body.",
+			"tailed body",
+			"modifier_circle_tf_legConfig_tail",
+			Colour.BASE_AQUA,
+			Rarity.LEGENDARY),
+	
+	TF_MOD_LEG_CONFIG_ARACHNID("arachnid body",
+			"Applies an effect to give the user an arachnid body.",
+			"arachnid body",
+			"modifier_circle_tf_legConfig_arachnid",
+			Colour.BASE_BLACK,
+			Rarity.LEGENDARY),
+	
+	TF_MOD_LEG_CONFIG_CEPHALOPOD("cephalopod body",
+			"Applies an effect to give the user a cephalopod body.",
+			"cephalopod body",
+			"modifier_circle_tf_legConfig_cephalopod",
+			Colour.BASE_RED,
+			Rarity.LEGENDARY),
 	
 	TF_MOD_INTERNAL("internal",
 			"Applies an effect related to making a body part internal.",
@@ -699,46 +778,53 @@ public enum TFModifier {
 	
 	// breast shapes:
 	
+	TF_MOD_BREAST_SHAPE_UDDERS("udders",
+			"Applies an effect related to turning crotch-boobs into udders.",
+			"udders",
+			"modifier_circle_breastShape_udders",
+			Colour.BASE_TAN,
+			Rarity.COMMON),
+	
 	TF_MOD_BREAST_SHAPE_ROUND("round breasts",
 			"Applies an effect related to making breasts take on a round shape.",
 			"round",
 			"modifier_circle_breastShape_round",
-			Colour.BASE_PURPLE_LIGHT,
+			Colour.BASE_TAN,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_NARROW("narrow breasts",
 			"Applies an effect related to making breasts take on a narrow shape.",
 			"narrow",
 			"modifier_circle_breastShape_narrow",
-			Colour.BASE_PURPLE_LIGHT,
+			Colour.BASE_TAN,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_WIDE("wide breasts",
 			"Applies an effect related to making breasts take on a wide shape.",
 			"wide",
 			"modifier_circle_breastShape_wide",
-			Colour.BASE_PURPLE_LIGHT,
+			Colour.BASE_TAN,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_POINTY("pointy breasts",
 			"Applies an effect related to making breasts take on a pointy shape.",
 			"pointy",
 			"modifier_circle_breastShape_pointy",
-			Colour.BASE_PURPLE_LIGHT,
+			Colour.BASE_TAN,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_PERKY("perky breasts",
 			"Applies an effect related to making breasts take on a perky shape.",
 			"perky",
 			"modifier_circle_breastShape_perky",
-			Colour.BASE_PURPLE_LIGHT,
+			Colour.BASE_TAN,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_SIDESET("side-set breasts",
 			"Applies an effect related to making breasts take on a side-set shape.",
 			"side-set",
 			"modifier_circle_breastShape_sideset",
-			Colour.BASE_PURPLE_LIGHT,
+			Colour.BASE_TAN,
 			Rarity.COMMON),
 	
 	// nipple shapes:
@@ -913,7 +999,7 @@ public enum TFModifier {
 			"Applies an effect related to changing a fluid.",
 			"viscous",
 			"modifier_circle_fluid_modifier",
-			Colour.BASE_BLACK,
+			Colour.BASE_GREY,
 			Rarity.COMMON),
 	
 	TF_MOD_FLUID_STICKY("sticky",
@@ -957,84 +1043,98 @@ public enum TFModifier {
 			"modifier_circle_fluid_modifier",
 			Colour.BASE_MAGENTA,
 			Rarity.COMMON),
+
+	TF_MOD_FLUID_MINERAL_OIL("mineral oil",
+			"Applies an effect related to changing a fluid.",
+			"mineral oil",
+			"modifier_circle_fluid_modifier",
+			Colour.BASE_BLACK,
+			Rarity.COMMON),
 	
-	// fluid flavours:
+	// fluid flavours: TODO background
 	
 	TF_MOD_FLAVOUR_CUM("cum-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"cum-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_cum",
 			Colour.BASE_YELLOW_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_MILK("milk-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"milk-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_cum",
 			Colour.BASE_WHITE,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_GIRLCUM("girlcum-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"milk-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_cum",
 			Colour.BASE_PINK_LIGHT,
 			Rarity.COMMON),
 	
-	TF_MOD_FLAVOUR_SLIME("slime-flavour",
+	TF_MOD_FLAVOUR_BUBBLEGUM("bubblegum-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
-			"slime-flavour",
-			"modifier_circle_flavour",
-			Colour.BASE_BLUE_LIGHT,
+			"bubblegum-flavour",
+			"modifier_circle_flavour_bubblegum",
+			Colour.BASE_PINK,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_BEER("beer-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"beer-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_beer",
 			Colour.BASE_ORANGE,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_VANILLA("vanilla-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"vanilla-flavour",
-			"modifier_circle_flavour",
-			Colour.BASE_YELLOW,
+			"modifier_circle_flavour_vanilla",
+			Colour.BASE_YELLOW_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_STRAWBERRY("strawberry-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"strawberry-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_strawberry",
 			Colour.BASE_RED,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_CHOCOLATE("chocolate-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"chocolate-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_chocolate",
 			Colour.BASE_BROWN_DARK,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_PINEAPPLE("pineapple-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"pineapple-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_pineapple",
 			Colour.BASE_YELLOW_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_HONEY("honey-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"honey-flavour",
-			"modifier_circle_flavour",
-			Colour.BASE_ORANGE,
+			"modifier_circle_flavour_honey",
+			Colour.BASE_YELLOW,
 			Rarity.COMMON),
 	
 	TF_MOD_FLAVOUR_MINT("mint-flavour",
 			"Applies an effect related to changing a fluid's flavour.",
 			"mint-flavour",
-			"modifier_circle_flavour",
+			"modifier_circle_flavour_mint",
 			Colour.BASE_GREEN_LIME,
+			Rarity.COMMON),
+
+	TF_MOD_FLAVOUR_CHERRY("cherry-flavour",
+			"Applies an effect related to changing a fluid's flavour.",
+			"cherry-flavour",
+			"modifier_circle_flavour_cherry",
+			Colour.BASE_CRIMSON,
 			Rarity.COMMON),
 	
 	
@@ -1165,10 +1265,12 @@ public enum TFModifier {
 		
 		TFRacialBodyPartsList.add(TF_ASS);
 		TFRacialBodyPartsList.add(TF_BREASTS);
+		TFRacialBodyPartsList.add(TF_BREASTS_CROTCH);
 		TFRacialBodyPartsList.add(TF_PENIS);
 		TFRacialBodyPartsList.add(TF_VAGINA);
 		
 		TFRacialBodyPartsList.add(TF_MILK);
+		TFRacialBodyPartsList.add(TF_MILK_CROTCH);
 		TFRacialBodyPartsList.add(TF_CUM);
 		TFRacialBodyPartsList.add(TF_GIRLCUM);
 		
@@ -1229,6 +1331,7 @@ public enum TFModifier {
 		clothingPrimaryList.add(TF_HAIR);
 		clothingPrimaryList.add(TF_ASS);
 		clothingPrimaryList.add(TF_BREASTS);
+		clothingPrimaryList.add(TF_BREASTS_CROTCH);
 		clothingPrimaryList.add(TF_PENIS);
 		clothingPrimaryList.add(TF_VAGINA);
 
@@ -1267,6 +1370,7 @@ public enum TFModifier {
 		tattooPrimaryList.add(TF_HAIR);
 		tattooPrimaryList.add(TF_ASS);
 		tattooPrimaryList.add(TF_BREASTS);
+		tattooPrimaryList.add(TF_BREASTS_CROTCH);
 		tattooPrimaryList.add(TF_PENIS);
 		tattooPrimaryList.add(TF_VAGINA);
 		
@@ -1313,7 +1417,12 @@ public enum TFModifier {
 	
 	private AttributeCategory attributeCategory;
 	private Attribute associatedAttribute;
-	private String name, description, descriptor, SVGString;
+	
+	private String name;
+	private String description;
+	private String descriptor;
+	private String SVGString;
+	
 	private Colour colour;
 	private Rarity rarity;
 	private Fetish fetish;
@@ -1335,7 +1444,21 @@ public enum TFModifier {
 			}
 			String s = Util.inputStreamToString(is);
 
-			s = SvgUtil.colourReplacement(this.toString(), colour, s);
+			is.close();
+			
+			if(SVGString.contains("flavour")) {
+				String SVGStringBackground = "";
+				is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/crafting/modifier_circle_flavour_background.svg");
+				if(is==null) {
+					System.err.println("Error! Subspecies background icon file does not exist (Trying to read from 'modifier_circle_flavour_background')!");
+				}
+				SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SvgUtil.colourReplacement(this.toString()+"_B", colour, Util.inputStreamToString(is))+"</div>";
+				
+				s = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SvgUtil.colourReplacement(this.toString(), colour, s)+"</div>";
+				
+			} else {
+				s = SvgUtil.colourReplacement(this.toString(), colour, s);
+			}
 			
 			this.SVGString = s;
 
@@ -1366,7 +1489,21 @@ public enum TFModifier {
 			}
 			String s = Util.inputStreamToString(is);
 
-			s = SvgUtil.colourReplacement(this.toString(), colour, s);
+			is.close();
+			
+			if(SVGString.contains("flavour")) {
+				String SVGStringBackground = "";
+				is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/crafting/modifier_circle_flavour_background.svg");
+				if(is==null) {
+					System.err.println("Error! Subspecies background icon file does not exist (Trying to read from 'modifier_circle_flavour_background')!");
+				}
+				SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SvgUtil.colourReplacement(this.toString()+"_B", colour, Util.inputStreamToString(is))+"</div>";
+				
+				s = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SvgUtil.colourReplacement(this.toString(), colour, s)+"</div>";
+				
+			} else {
+				s = SvgUtil.colourReplacement(this.toString(), colour, s);
+			}
 			
 			this.SVGString = s;
 
@@ -1461,6 +1598,9 @@ public enum TFModifier {
 	}
 
 	public static List<TFModifier> getTFRacialBodyPartsList() {
+		if(Main.getProperties().udders==0) {
+			return TFRacialBodyPartsList.stream().filter(mod -> mod!=TFModifier.TF_BREASTS_CROTCH && mod!=TFModifier.TF_MILK_CROTCH).collect(Collectors.toList());
+		}
 		return TFRacialBodyPartsList;
 	}
 

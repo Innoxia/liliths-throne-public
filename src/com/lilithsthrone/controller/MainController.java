@@ -4,26 +4,18 @@ import java.net.URL;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 
 import com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener;
-import com.lilithsthrone.controller.eventListeners.InventoryTooltipEventListener;
 import com.lilithsthrone.controller.eventListeners.SetContentEventListener;
-import com.lilithsthrone.controller.eventListeners.TooltipHideEventListener;
-import com.lilithsthrone.controller.eventListeners.TooltipInformationEventListener;
-import com.lilithsthrone.controller.eventListeners.TooltipMoveEventListener;
-import com.lilithsthrone.controller.eventListeners.TooltipResponseDescriptionEventListener;
-import com.lilithsthrone.controller.eventListeners.TooltipResponseMoveEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonCharactersEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonCopyDialogueEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonInventoryEventHandler;
@@ -34,12 +26,18 @@ import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveNorthEventL
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveSouthEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveWestEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonZoomEventListener;
-import com.lilithsthrone.controller.eventListeners.information.CopyInfoEventListener;
-import com.lilithsthrone.game.Game;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipCopyInfoEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipHideEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInventoryEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipMoveEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipResponseDescriptionEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipResponseMoveEventListener;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterChangeEventListener;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -52,14 +50,13 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
-import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
+import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
@@ -79,18 +76,30 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
+import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.ImageCache;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Pathing;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 import javafx.beans.value.ObservableValue;
@@ -98,6 +107,7 @@ import javafx.concurrent.Worker.State;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
@@ -110,7 +120,7 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class MainController implements Initializable {
@@ -164,7 +174,9 @@ public class MainController implements Initializable {
 		webviewTooltip.setMaxWidth(400);
 		webviewTooltip.setMaxHeight(400);
 		webviewTooltip.getEngine().getHistory().setMaxSize(0);
-
+		Scene scene = new Scene(webviewTooltip);
+        scene.setFill(null);
+		
 		tooltip = new Tooltip();
 		tooltip.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 		tooltip.setGraphic(webviewTooltip);
@@ -233,6 +245,10 @@ public class MainController implements Initializable {
 	}
 
 	public void openPhone() {
+		openPhone(PhoneDialogue.MENU);
+	}
+	
+	public void openPhone(DialogueNode toDialogue) {
 		if(!Main.game.isStarted() || !Main.game.isInNewWorld()) {
 			return;
 		}
@@ -245,12 +261,18 @@ public class MainController implements Initializable {
 				Main.game.saveDialogueNode();
 			}
 			
-			Main.game.setContent(new Response("", "", PhoneDialogue.MENU));
+			Pathing.initPathingVariables();
+			if(toDialogue.equals(PhoneDialogue.MAP)) {
+				PhoneDialogue.worldTypeMap = Main.game.getPlayer().getWorldLocation();
+			}
+			Main.game.setContent(new Response("", "", toDialogue));
 		}
 	}
 
 	public boolean isInventoryDisabled() {
-		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY || Main.game.isInCombat() || Main.game.isInSex()) {
+		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY
+				|| Main.game.isInCombat()
+				/*|| Main.game.isInSex()*/) {
 			return false;
 			
 		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OPTIONS || Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE) {
@@ -276,6 +298,9 @@ public class MainController implements Initializable {
 			}
 			
 		} else if(Main.game.isInSex()) {
+			if(isInventoryDisabled()) {
+				return;
+			}
 			openInventory((NPC) Sex.getActivePartner(), InventoryInteraction.SEX);
 			
 		} else if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() != null) {
@@ -424,13 +449,35 @@ public class MainController implements Initializable {
 
 						 if(event.getCode()==KeyCode.END && Main.DEBUG){
 //							 Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYSSIETH_4);
+//							 System.out.println(UtilText.parse(Main.game.getPlayer(), Sex.getActivePartner(), "[npc.Name], [npc2.Name].  #IFnpc2.isFeminine()#THEN:3#ENDIF #IFnpc.isFeminine()#THEN:0#ENDIF"));
+//							 Main.game.getPlayer().setLegConfiguration(LegConfiguration.TAUR, false);
+							 
+//							 for(KeyboardAction action : KeyboardAction.values()) {
+//								 System.out.println(action.getPrimaryDefault().getFullName()+(action.getSecondaryDefault()!=null?" | "+action.getSecondaryDefault().getFullName():"")+": "+action.getName());
+//							 }
+							 
+//							 try {
+//								OutfitType.getAllOutfits().get(0).applyOutfit(Main.game.getPlayer(), true, true, true, true);
+//							} catch (XMLLoadException e) {
+//								e.printStackTrace();
+//							}
+							
+							
+//							 System.out.println(Main.isVersionOlderThan("0.1.3", "0.1.3.01"));
 						 }
 						 
 
 						// Escape Menu:
-						if (keyEventMatchesBindings(KeyboardAction.MENU, event))
+						if (keyEventMatchesBindings(KeyboardAction.MENU, event)) {
 							openOptions();
-
+						}
+						
+						// Misc.:
+						if (keyEventMatchesBindings(KeyboardAction.FULL_SCREEN, event)) {
+							Main.primaryStage.setFullScreenExitHint("Press 'Esc' or '"+KeyboardAction.FULL_SCREEN.getPrimaryDefault().getFullName()+"' to exit fullscreen mode.");
+							Main.primaryStage.setFullScreen(!Main.primaryStage.isFullScreen());
+						}
+						
 						// Movement:
 						if (keyEventMatchesBindings(KeyboardAction.MOVE_NORTH, event)) {
 							if (!Main.game.getCurrentDialogueNode().isTravelDisabled()) {
@@ -485,7 +532,7 @@ public class MainController implements Initializable {
 						boolean enterConsumed = false;
 						
 						// Name selections:
-						if(Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME || Main.game.getCurrentDialogueNode() == CityHall.CITY_HALL_NAME_CHANGE_FORM){
+						if(Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME || Main.game.getCurrentDialogueNode() == CityHallDemographics.NAME_CHANGE){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
@@ -527,15 +574,6 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename Room", "", Main.game.getCurrentDialogueNode()));
 										}
 									}
-								}
-							}
-						}
-						if(Main.game.getCurrentDialogueNode() == CityHall.CITY_HALL_NAME_CHANGE_FORM){
-							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
-								allowInput = false;
-								if (event.getCode() == KeyCode.ENTER) {
-									enterConsumed = true;
-									Main.game.setContent(1);
 								}
 							}
 						}
@@ -673,6 +711,45 @@ public class MainController implements Initializable {
 							}
 						}
 						
+						//TODO for some reason, if this catches a ResponseEffectsOnly and sets content using that, it blanks the main page. I have absolutely no idea why.
+						if(Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS_PRONOUNS) {
+							allowInput = false;
+							if (event.getCode() == KeyCode.ENTER) {
+								enterConsumed = true;
+								boolean found = false;
+								for(GenderPronoun gp : GenderPronoun.values()) {
+									if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('feminine_" + gp + "') === document.activeElement")
+										|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('masculine_" + gp + "') === document.activeElement")) {
+										Main.game.setContent(
+												new Response("Save", "Save all the pronouns that are currently displayed.", OptionsDialogue.OPTIONS_PRONOUNS) {
+													@Override
+													public void effects() {
+														OptionsDialogue.OPTIONS_PRONOUNS.getResponse(0, 1).effects();
+													}
+												});
+										found = true;
+										break;
+									}
+								}
+								if(!found) {
+									for(GenderNames genderName : GenderNames.values()) {
+										if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_MASCULINE_" + genderName + "') === document.activeElement")
+											|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_ANDROGYNOUS_" + genderName + "') === document.activeElement")
+											|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_FEMININE_" + genderName + "') === document.activeElement")) {
+											Main.game.setContent(
+													new Response("Save", "Save all the pronouns that are currently displayed.", OptionsDialogue.OPTIONS_PRONOUNS) {
+														@Override
+														public void effects() {
+															OptionsDialogue.OPTIONS_PRONOUNS.getResponse(0, 1).effects();
+														}
+													});
+										}
+									}
+								}
+							}
+						}
+						
+						
 						if(((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput') === document.activeElement"))) {
 							allowInput = false;
 							if (event.getCode() == KeyCode.ENTER) {
@@ -705,44 +782,27 @@ public class MainController implements Initializable {
 							}
 						}
 						
-						if(Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS_PRONOUNS){
-							for(GenderPronoun gp : GenderPronoun.values()) {
-								if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('feminine_" + gp + "') === document.activeElement")
-									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('masculine_" + gp + "') === document.activeElement")) {
-									allowInput = false;
-									if (event.getCode() == KeyCode.ENTER) {
-										enterConsumed = true;
-										Main.game.setContent(1);
-									}
-								}
-							}
-							for(GenderNames genderName : GenderNames.values()) {
-								if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_MASCULINE_" + genderName + "') === document.activeElement")
-									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_ANDROGYNOUS_" + genderName + "') === document.activeElement")
-									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_FEMININE_" + genderName + "') === document.activeElement")) {
-									allowInput = false;
-									if (event.getCode() == KeyCode.ENTER) {
-										enterConsumed = true;
-										Main.game.setContent(1);
-									}
-								}
-							}
-						}
-						
 						if(Main.game.getCurrentDialogueNode() == DebugDialogue.PARSER){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('parseInput') === document.activeElement"))
 								allowInput = false;
 						}
 						
 						if(allowInput){
-							if (keyEventMatchesBindings(KeyboardAction.INVENTORY, event))
+							if (keyEventMatchesBindings(KeyboardAction.INVENTORY, event)) {
 								openInventory();
-							if (keyEventMatchesBindings(KeyboardAction.JOURNAL, event))
+							}
+							if (keyEventMatchesBindings(KeyboardAction.JOURNAL, event)) {
 								openPhone();
-							if (keyEventMatchesBindings(KeyboardAction.CHARACTERS, event))
+							}
+							if (keyEventMatchesBindings(KeyboardAction.MAP, event)) {
+								openPhone(PhoneDialogue.MAP);
+							}
+							if (keyEventMatchesBindings(KeyboardAction.CHARACTERS, event)) {
 								openCharactersPresent(null);
-							if (keyEventMatchesBindings(KeyboardAction.ZOOM, event))
+							}
+							if (keyEventMatchesBindings(KeyboardAction.ZOOM, event)) {
 								zoomMap();
+							}
 	
 							if (keyEventMatchesBindings(KeyboardAction.SCROLL_UP, event))
 								Main.mainController.getWebEngine().executeScript("document.getElementById('main-content').scrollTop -= 50");
@@ -851,7 +911,7 @@ public class MainController implements Initializable {
 	private ButtonMoveWestEventListener moveWestListener = new ButtonMoveWestEventListener();
 	
 	// Information:
-	static CopyInfoEventListener copyInfoListener = new CopyInfoEventListener();
+	static TooltipCopyInfoEventListener copyInfoListener = new TooltipCopyInfoEventListener();
 	
 	// Responses:
 	static TooltipResponseMoveEventListener responseTooltipListener = new TooltipResponseMoveEventListener();
@@ -1020,76 +1080,115 @@ public class MainController implements Initializable {
 			addEventListener(document, "switch_left", "click", previousResponsePageListener, false);
 		}
 	}
-
-	static void setWorldMapLocationListeners(Cell c, int i, int j) {
-		String id = "WORLD_MAP_NODE_" + i + "_" + j;
-		
-		addEventListener(document, id, "mousemove", moveTooltipListener, false);
-		addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-		
-		TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
-				Util.capitaliseSentence(c.getPlaceName()),
-				c.getPlace().getPlaceType().getWorldPlaceDescription()
-				+(c.getPlace().getPlaceType().isDangerous()
-					?"<br/>This is a [style.italicsBad(dangerous)] area!"
-					:"<br/>This is a [style.italicsGood(safe)] area."));
-		addEventListener(document, id, "mouseenter", el2, false);
-	}
 	
 	static void setMapLocationListeners(Cell c, int i, int j) { //TODO
 		String id = "MAP_NODE_" + i + "_" + j;
-		
-		addEventListener(document, id, "mousemove", moveTooltipListener, false);
-		addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-		
-		Set<NPC> charactersPresent = new HashSet<>(Main.game.getCharactersPresent(c));
-		if(!c.equals(Main.game.getWorlds().get(WorldType.DOMINION).getCell(0, 0))) {
-			charactersPresent.addAll(Main.game.getCharactersTreatingCellAsHome(c));
-		}
-		
-		StringBuilder charactersPresentDescription = new StringBuilder();
-		if(Main.game.getCurrentDialogueNode() != Library.DOMINION_MAP && !charactersPresent.isEmpty()) {
-			for(NPC character : charactersPresent) {
-				charactersPresentDescription.append(
-						(Main.game.getCharactersPresent(c).contains(character)
-								?character.getName("The")
-								:"[style.colourDisabled("+character.getName("The")+")]")
-						+": "+(character.isRaceConcealed()?"[style.colourDisabled(Unknown race!)]":UtilText.parse(character, "[npc.FullRace(true)]"))
-						+"<br/>");
-			}
-		}
 
-		TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getPlaceName()), charactersPresentDescription.toString());
-		addEventListener(document, id, "mouseenter", el2, false);
-		
-		((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-			if(((Main.game.getPlayer().isAbleToTeleport()
-						&& Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
-						&& c.isTravelledTo())
-					|| Main.game.isDebugMode())
-				&& (Main.game.getSavedDialogueNode()!=null && !Main.game.getSavedDialogueNode().isTravelDisabled())) {
-				
-				boolean teleportFromMapMenu = Main.game.getCurrentDialogueNode()==PhoneDialogue.MAP;
-				
-				Main.mainController.openPhone();
-				if(!Main.game.isDebugMode()) {
-					Main.game.getPlayer().incrementMana(-Spell.TELEPORT.getModifiedCost(Main.game.getPlayer()));
-				}
-				if(teleportFromMapMenu) {
-					Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, new Vector2i(j, i), false);
-				} else {
-					Main.game.getPlayer().setLocation(new Vector2i(j, i));
-				}
-				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-				Main.game.getTextStartStringBuilder().append(
-						"<p style='text-align:center'>"
-							+ "<i>"
-								+ "Recalling what your destination looked like the last time you were there, you cast the teleportation spell, and in an instant, you appear there!"
-							+ "</i>"
-						+ "</p>");
-				Main.game.setContent(new Response("", "", dn));
+		if (((EventTarget) document.getElementById(id)) != null) {
+			addEventListener(document, id, "mousemove", moveTooltipListener, false);
+			addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+			
+			boolean moveFromMapMenu = Main.game.getCurrentDialogueNode()==PhoneDialogue.MAP;
+			WorldType worldType = moveFromMapMenu?PhoneDialogue.worldTypeMap:Main.game.getPlayer().getWorldLocation();
+			
+			TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setCell(c);
+			
+			addEventListener(document, id, "mouseenter", el2, false);
+			
+			if(Main.game.getCurrentDialogueNode() == PhoneDialogue.MAP) { // Do not allow fast travel from the library map
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Vector2i clickLocation = new Vector2i(j, i);
+					
+					if(Main.game.getWorlds().get(worldType).getCell(clickLocation).getPlace().getPlaceType().getDialogue(false)!=null // Make sure the destination actually has an associated DialogueNode
+							&& (c.isTravelledTo() || Main.game.isDebugMode()) // The player needs to have travelled here before (or have debug active)
+							&& (Main.game.getSavedDialogueNode()!=null && !Main.game.getSavedDialogueNode().isTravelDisabled()) // You can't fast travel out of a special dialogue
+							&& Pathing.getMapTravelType().isAvailable(Main.game.getPlayer())) { // Make sure the travel type is actually available
+						if(!clickLocation.equals(Main.game.getPlayer().getLocation()) || !worldType.equals(Main.game.getPlayer().getWorldLocation())) {
+							switch(Pathing.getMapTravelType()) {
+								case TELEPORT:
+									if(clickLocation.equals(Pathing.getEndPoint())) {
+										if(!Main.game.isDebugMode()) {
+											Main.game.getPlayer().incrementMana(-Spell.TELEPORT.getModifiedCost(Main.game.getPlayer()));
+										}
+										Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, clickLocation, false);
+										DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+										Main.game.getTextStartStringBuilder().append(
+												"<p style='text-align:center'>"
+													+ "[style.italicsArcane(Recalling what your destination looked like the last time you were there, you cast the teleportation spell, and in an instant, you appear there!)]"
+												+ "</p>");
+										Main.game.setContent(new Response("", "", dn) {
+											@Override
+											public int getSecondsPassed() {
+												return 5;
+											}
+										});
+										
+									} else {
+										Pathing.setEndPoint(clickLocation, Main.game.getWorlds().get(PhoneDialogue.worldTypeMap).getCell(clickLocation), null);
+										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+									}
+									break;
+								case FLYING:
+									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
+										if(clickLocation.equals(Pathing.getEndPoint())) {
+											Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, new Vector2i(j, i), false);
+											DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+											Main.game.getTextStartStringBuilder().append(
+													"<p style='text-align:center'>"
+														+ "[style.italicsAir(With a flap of your wings, you launch yourself into the air, before swiftly flying to your destination!)]"
+													+ "</p>");
+											Main.game.setContent(new Response("", "", dn) {
+												@Override
+												public int getSecondsPassed() {
+													return Pathing.getTravelTime();
+												}
+											});
+											
+										} else {
+											Pathing.setEndPoint(clickLocation, Main.game.getWorlds().get(PhoneDialogue.worldTypeMap).getCell(clickLocation), worldType);
+											Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+										}
+									}
+									break;
+								case WALK_DANGEROUS:
+									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
+										if(clickLocation.equals(Pathing.getEndPoint())) {
+											Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
+											
+										} else {
+											if(Main.mainController.buttonsPressed.contains(KeyCode.SHIFT)) {
+												Pathing.appendPathingCells(Pathing.aStarPathing(Main.game.getWorlds().get(worldType).getCellGrid(), Pathing.getEndPoint(), clickLocation, false), clickLocation);
+											} else {
+												Pathing.setPathingCells(Pathing.aStarPathing(Main.game.getWorlds().get(worldType).getCellGrid(), Main.game.getPlayer().getLocation(), clickLocation, false), clickLocation);
+											}
+											Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+										}
+									}
+									break;
+								case WALK_SAFE:
+									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
+										if(clickLocation.equals(Pathing.getEndPoint())) {
+											Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
+											
+										} else {
+											if(Main.mainController.buttonsPressed.contains(KeyCode.SHIFT)) {
+												Pathing.appendPathingCells(Pathing.aStarPathing(Main.game.getWorlds().get(worldType).getCellGrid(), Pathing.getEndPoint(), clickLocation, true), clickLocation);
+											} else {
+												Pathing.setPathingCells(Pathing.aStarPathing(Main.game.getWorlds().get(worldType).getCellGrid(), Main.game.getPlayer().getLocation(), clickLocation, true),  clickLocation);
+											}
+											Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+										}
+									}
+									break;
+							}
+						}
+					} else {
+						Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+					}
+					
+				}, false);
 			}
-		}, false);
+		}
 	}
 	
 	private static void setResponseTabListeners(int responsePageCounter) {
@@ -1149,11 +1248,31 @@ public class MainController implements Initializable {
 		}
 	}
 	
+	static void setBreastCrotchCountListener(int i) {
+		String id = "CROTCH_BOOB_COUNT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setBreastCrotchRows(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
 	static void setNippleCountListener(int i) {
 		String id = "NIPPLE_COUNT_"+i;
 		if (((EventTarget) document.getElementById(id)) != null) {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 				BodyChanging.getTarget().setNippleCountPerBreast(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	static void setNippleCrotchCountListener(int i) {
+		String id = "NIPPLE_CROTCH_COUNT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setNippleCrotchCountPerBreast(i);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
@@ -1174,6 +1293,16 @@ public class MainController implements Initializable {
 		if (((EventTarget) document.getElementById(id)) != null) {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 				BodyChanging.getTarget().setHornRows(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	static void setHornsPerRowCountListener(int i) {
+		String id = "HORN_COUNT_PER_ROW_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setHornsPerRow(i);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
@@ -1257,7 +1386,7 @@ public class MainController implements Initializable {
 					}
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, Main.game.getPlayer());
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setInventorySlot(invSlot, Main.game.getPlayer());
 					addEventListener(documentAttributes, id, "mouseenter", el2, false);
 				}
 			} else {
@@ -1266,7 +1395,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, id, "click", el, false);
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, Main.game.getPlayer());
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setInventorySlot(invSlot, Main.game.getPlayer());
 					addEventListener(documentAttributes, id, "mouseenter", el2, false);
 				}
 			}
@@ -1298,16 +1427,13 @@ public class MainController implements Initializable {
 			
 			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+			String day = Main.game.getDateNow().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Calendar Display",
 					"Toggle the date's display between a calendar and day count.<br/>"
 						+ "The current date is: <b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
-						+Main.game.getDateNow().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
-						+", "+Main.game.getDateNow().getDayOfMonth()+Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())+" "+Main.game.getDateNow().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
-						+", "
-						+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)||!Main.game.isInNewWorld()
-								?(!Main.game.isInNewWorld()?Main.game.getDateNow().getYear()-Game.TIME_SKIP_YEARS:Main.game.getDateNow().getYear())
-								:"????")
+						+ Main.game.getDisplayDate(true)
 						+"</b><br/>"
+						+ "It is currently <b>"+UtilText.generateSingularDeterminer(day)+" "+day+"</b>.<br/>"
 						+ "You've been in this new world for: <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
@@ -1315,15 +1441,18 @@ public class MainController implements Initializable {
 		id = "TWENTY_FOUR_HOUR_TIME_TOGGLE";
 		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 			((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
+			    overrideAutoLocale();
 				Main.getProperties().setValue(PropertyValue.twentyFourHourTime, !Main.getProperties().hasValue(PropertyValue.twentyFourHourTime));
 				Main.saveProperties();
+				Units.FORMATTER.updateTimeFormat(Main.getProperties().hasValue(PropertyValue.autoLocale));
 				MainController.updateUI();
 			}, false);
 			
 			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Time Display",
-					"Toggle the display of time between a 24 and 12-hour clock.");
+					"Toggle the time format between 24 hour and 12 hour (AM/PM) display.<br/>"
+					+ "The current time is: "+Units.time(Main.game.getDateNow()));
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
@@ -1331,7 +1460,7 @@ public class MainController implements Initializable {
 			addEventListener(documentAttributes, "ESSENCE_" + TFEssence.ARCANE.hashCode(), "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, "ESSENCE_" + TFEssence.ARCANE.hashCode(), "mouseleave", hideTooltipListener, false);
 			
-			InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setEssence(TFEssence.ARCANE);
+			TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setEssence(TFEssence.ARCANE);
 			addEventListener(documentAttributes, "ESSENCE_" + TFEssence.ARCANE.hashCode(), "mouseenter", el2, false);
 		}
 		
@@ -1349,8 +1478,8 @@ public class MainController implements Initializable {
 		
 		List<GameCharacter> charactersBeingRendered = new ArrayList<>();
 		if(Main.game.isInSex()) {
-			charactersBeingRendered.addAll(Sex.getDominantParticipants().keySet());
-			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants().keySet());
+			charactersBeingRendered.addAll(Sex.getDominantParticipants(true).keySet());
+			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants(true).keySet());
 		} else if(Main.game.isInCombat()) {
 			charactersBeingRendered.add(Main.game.getPlayer());
 			charactersBeingRendered.addAll(Combat.getAllies());
@@ -1479,8 +1608,14 @@ public class MainController implements Initializable {
 							case BREAST_STATUS:
 								si = SexAreaOrifice.BREAST;
 								break;
+							case BREAST_CROTCH_STATUS:
+								si = SexAreaOrifice.BREAST_CROTCH;
+								break;
 							case NIPPLE_STATUS:
 								si = SexAreaOrifice.NIPPLE;
+								break;
+							case NIPPLE_CROTCH_STATUS:
+								si = SexAreaOrifice.NIPPLE_CROTCH;
 								break;
 							case THIGH_STATUS:
 								si = SexAreaOrifice.THIGHS;
@@ -1497,7 +1632,9 @@ public class MainController implements Initializable {
 							default:
 								break;
 						}
-						setStatusEffectSexTargetChangeListener(documentAttributes, id, character, si);
+						if(si!=null) {
+							setStatusEffectSexTargetChangeListener(documentAttributes, id, character, si);
+						}
 					}
 					
 					TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(se, character);
@@ -1515,7 +1652,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, id, "mouseenter", el, false);
 				}
 			}
-			for (Fetish f : character.getFetishes()) {
+			for (Fetish f : character.getFetishes(true)) {
 				if (((EventTarget) documentAttributes.getElementById("FETISH_"+idModifier + f)) != null) {
 					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseleave", hideTooltipListener, false);
@@ -1545,7 +1682,14 @@ public class MainController implements Initializable {
 		}
 		
 	}
-	
+
+	public static void overrideAutoLocale() {
+		if (Main.getProperties().hasValue(PropertyValue.autoLocale)) {
+			Main.getProperties().setValue(PropertyValue.autoLocale, false);
+			Units.FORMATTER.updateNumberFormat(false);
+		}
+	}
+
 	private static void setStatusEffectSexTargetChangeListener(Document document, String id, GameCharacter character, SexAreaInterface si) {
 		((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 			GameCharacter target = Sex.getCharactersHavingOngoingActionWith(character, si).isEmpty()
@@ -1590,7 +1734,7 @@ public class MainController implements Initializable {
 						
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, RenderingEngine.getCharacterToRender());
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setInventorySlot(invSlot, RenderingEngine.getCharacterToRender());
 						addEventListener(documentRight, id, "mouseenter", el2, false);
 					}
 				}
@@ -1602,7 +1746,7 @@ public class MainController implements Initializable {
 					
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, RenderingEngine.getCharacterToRender());
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setInventorySlot(invSlot, RenderingEngine.getCharacterToRender());
 					addEventListener(documentRight, id, "mouseenter", el2, false);
 				}
 			}
@@ -1626,7 +1770,7 @@ public class MainController implements Initializable {
 		
 		if(Main.game.getPlayer()!=null) {
 			// Weapons on floor:
-			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
+			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
 				id = "WEAPON_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {
@@ -1635,13 +1779,13 @@ public class MainController implements Initializable {
 					}
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null, false);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setWeapon(entry.getKey(), null, false);
 					addEventListener(documentRight, id, "mouseenter", el2, false);
 				}
 			}
 			
 			// Clothing on floor:
-			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
+			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getAllClothingInInventory().entrySet()) {
 				id = "CLOTHING_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {
@@ -1650,13 +1794,13 @@ public class MainController implements Initializable {
 					}
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), null, null);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setClothing(entry.getKey(), null, null);
 					addEventListener(documentRight, id, "mouseenter", el2, false);
 				}
 			}
 			
 			// Items on floor:
-			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
+			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getAllItemsInInventory().entrySet()) {
 				id = "ITEM_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {
@@ -1665,7 +1809,7 @@ public class MainController implements Initializable {
 					}
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), null, null);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setItem(entry.getKey(), null, null);
 					addEventListener(documentRight, id, "mouseenter", el2, false);	
 				}
 			}
@@ -1686,8 +1830,8 @@ public class MainController implements Initializable {
 		
 		List<GameCharacter> charactersBeingRendered = new ArrayList<>();
 		if(Main.game.isInSex()) {
-			charactersBeingRendered.addAll(Sex.getDominantParticipants().keySet());
-			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants().keySet());
+			charactersBeingRendered.addAll(Sex.getDominantParticipants(true).keySet());
+			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants(true).keySet());
 			
 		} else if(Main.game.isInCombat()) {
 			charactersBeingRendered.addAll(Combat.getEnemies());
@@ -1705,7 +1849,7 @@ public class MainController implements Initializable {
 				
 				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
 						"Races Present",
-						Util.subspeciesToStringList(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies(), true)+".",
+						Util.subspeciesToStringList(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies().keySet(), true)+".",
 						(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies().size()/3)*16);
 				addEventListener(documentRight, id, "mouseenter", el, false);
 			}
@@ -1821,7 +1965,7 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, "PERK_NPC_"+idModifier + p, "mouseenter", el, false);
 					}
 				}
-				for (Fetish f : character.getFetishes()) {
+				for (Fetish f : character.getFetishes(true)) {
 					if (((EventTarget) documentRight.getElementById("FETISH_NPC_"+idModifier + f)) != null) {
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mousemove", moveTooltipListener, false);
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseleave", hideTooltipListener, false);
@@ -1937,7 +2081,7 @@ public class MainController implements Initializable {
 			}
 		}
 		if (lastKeysEqual(KeyCode.N, KeyCode.O, KeyCode.X, KeyCode.X, KeyCode.X)) {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_GENERIC_SHOP && !Main.game.getNpc(TestNPC.class).isSlave()) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_GENERIC_SHOP) && !Main.game.getNpc(TestNPC.class).isSlave()) {
 				Main.game.setActiveNPC(Main.game.getNpc(TestNPC.class));
 				Main.game.setContent(new Response("", "", TestNPC.TEST_DIALOGUE) {
 					@Override
@@ -1945,6 +2089,168 @@ public class MainController implements Initializable {
 						Main.game.getNpc(TestNPC.class).setLocation(WorldType.SHOPPING_ARCADE, Main.game.getPlayer().getLocation(), true);
 					}
 				});
+			}
+		}
+		if (lastKeysEqual(KeyCode.D, KeyCode.K, KeyCode.O, KeyCode.M, KeyCode.A)) {
+			if(Main.game!=null) {
+				if(Main.game.isStarted()
+						&& Main.game.isInNewWorld()
+						&& Main.game.isInCombat()
+						&& Combat.getAllCombatants().size()==1
+						&& !Combat.getEnemies().get(0).isUnique()
+						&& Main.game.getPlayer().hasPenis()
+						&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
+						&& Combat.getEnemies().get(0).hasVagina()
+						&& Combat.getEnemies().get(0).isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					GameCharacter target = Combat.getEnemies().get(0);
+					Combat.endCombat(true);
+//					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+					Main.game.setContent(new ResponseSex(
+							"Dominate",
+							"",
+							false,
+							false,
+							new SexManagerDefault(
+									SexPositionBipeds.MATING_PRESS,
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MATING_PRESS_TOP)),
+									Util.newHashMapOfValues(new Value<>(target, SexSlotBipeds.MATING_PRESS_BOTTOM))) {
+								@Override
+								public boolean isPositionChangingAllowed(GameCharacter character) {
+									return false;
+								}
+								@Override
+								public boolean isPlayerAbleToSwapPositions() {
+									return false;
+								}
+								@Override
+								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+									return Util.newHashMapOfValues(
+											new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)),
+											new Value<>(target, Util.newArrayListOfValues(CoverableArea.VAGINA)));
+								}
+								@Override
+								public void initStartingLustAndArousal(GameCharacter character) {
+									if(!character.isPlayer()) {
+										character.setLust(100);
+										character.setArousal(25);
+									} else {
+										super.initStartingLustAndArousal(character);
+									}
+								}
+								@Override
+								public SexPace getForcedSexPace(GameCharacter character) {
+									if(!character.isPlayer()) {
+										return SexPace.SUB_EAGER;
+									}
+									return null;
+								}
+								@Override
+								public boolean isPartnerWantingToStopSex(GameCharacter partner) {
+									return false;
+								}
+								@Override
+								public boolean isAppendStartingExposedDescriptions(GameCharacter character) {
+									return false;
+								}
+							},
+							null,
+							null,
+							DebugDialogue.POST_SEX_2KOMA,
+							UtilText.parseFromXMLFile("misc/misc", "START_SEX_2KOMA", Main.game.getPlayer(), target)) {
+						@Override
+						public List<InitialSexActionInformation> getInitialSexActions() {
+							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), target, PenisVagina.PENIS_FUCKING_START, true, true));
+						}
+					});
+					
+				} else {
+					Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot dominate!");
+				}
+			}
+		}
+
+		if (lastKeysEqual(KeyCode.S, KeyCode.K, KeyCode.O, KeyCode.M, KeyCode.A)) {
+			if(Main.game!=null) {
+				if(Main.game.isStarted()
+						&& Main.game.isInNewWorld()
+						&& Main.game.isInCombat()
+						&& Combat.getAllCombatants().size()==1
+						&& !Combat.getEnemies().get(0).isUnique()
+						&& Combat.getEnemies().get(0).hasPenis()
+						&& Combat.getEnemies().get(0).isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
+						&& Main.game.getPlayer().hasVagina()
+						&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					GameCharacter target = Combat.getEnemies().get(0);
+					Combat.endCombat(false);
+//					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+					Main.game.setContent(new ResponseSex(
+							"Dominated",
+							"",
+							false,
+							false,
+							new SexManagerDefault(
+									SexPositionBipeds.MATING_PRESS,
+									Util.newHashMapOfValues(new Value<>(target, SexSlotBipeds.MATING_PRESS_TOP)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MATING_PRESS_BOTTOM))) {
+								@Override
+								public boolean isPositionChangingAllowed(GameCharacter character) {
+									return false;
+								}
+								@Override
+								public boolean isPlayerAbleToSwapPositions() {
+									return false;
+								}
+								@Override
+								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+									return Util.newHashMapOfValues(
+											new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+											new Value<>(target, Util.newArrayListOfValues(CoverableArea.PENIS)));
+								}
+								@Override
+								public void initStartingLustAndArousal(GameCharacter character) {
+									character.setLust(100);
+									character.setArousal(25);
+								}
+								@Override
+								public SexPace getForcedSexPace(GameCharacter character) {
+									if(!character.isPlayer()) {
+										if(character.getFetishDesire(Fetish.FETISH_DOMINANT).isNegative()) {
+											return SexPace.DOM_NORMAL;
+										}
+										return SexPace.DOM_ROUGH;
+									}
+									return null;
+								}
+								@Override
+								public boolean isAppendStartingExposedDescriptions(GameCharacter character) {
+									return false;
+								}
+								@Override
+								public boolean isAppendStartingWetDescriptions() {
+									return false;
+								}
+								@Override
+								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+								}
+								@Override
+								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+								}
+							},
+							null,
+							null,
+							DebugDialogue.POST_SEX_2KOMA,
+							UtilText.parseFromXMLFile("misc/misc", "START_SEX_2KOMA", target, Main.game.getPlayer())) {
+						@Override
+						public List<InitialSexActionInformation> getInitialSexActions() {
+							return Util.newArrayListOfValues(new InitialSexActionInformation(target, Main.game.getPlayer(), PenisVagina.PENIS_FUCKING_START, true, true));
+						}
+					});
+					
+				} else {
+					Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot dominate!");
+				}
 			}
 		}
 	}
@@ -1988,7 +2294,7 @@ public class MainController implements Initializable {
 	 * @param forward
 	 *            true if move to next world, false if move to previous world
 	 */
-	public void moveGameWorld(WorldType worldType, PlaceType placeType, boolean setDefaultDialogue) {
+	public void moveGameWorld(WorldType worldType, AbstractPlaceType placeType, boolean setDefaultDialogue) {
 		int timeToTransition = Main.game.getActiveWorld().getWorldType().getTimeToTransition();
 
 		Main.game.setActiveWorld(Main.game.getWorlds().get(worldType), placeType, setDefaultDialogue);
@@ -1996,70 +2302,59 @@ public class MainController implements Initializable {
 		Main.game.endTurn(timeToTransition + Main.game.getActiveWorld().getWorldType().getTimeToTransition());
 	}
 
-	/**
-	 * Moves the player North.
-	 */
+	private void moveTile(int xOffset, int yOffset) {
+		Vector2i location = Main.game.getPlayer().getLocation();
+		if (location.getY() + yOffset < Main.game.getActiveWorld().WORLD_HEIGHT
+				&& location.getY() + yOffset >= 0
+				&& location.getX() + xOffset < Main.game.getActiveWorld().WORLD_WIDTH
+				&& location.getX() + xOffset >= 0) {
+			
+			AbstractPlaceType placeTypeTarget = Main.game.getActiveWorld().getCell(location.getX() + xOffset, location.getY() + yOffset).getPlace().getPlaceType();
+			
+			if(!placeTypeTarget.equals(PlaceType.GENERIC_IMPASSABLE)) {
+				if(Main.game.isInGlobalMap() && placeTypeTarget.getDialogue(false)==null) {
+					Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+					
+				} else {
+					if (Main.game.getActiveWorld().getCell(location).getPlace().isItemsDisappear()) {
+						Main.game.getActiveWorld().getCell(location).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
+					}
+
+					if(Main.game.isInGlobalMap()) {
+						Main.game.getPlayer().setGlobalLocation(new Vector2i(location.getX() + xOffset, location.getY() + yOffset));
+					}
+					Main.game.getPlayer().setLocation(new Vector2i(location.getX() + xOffset, location.getY() + yOffset));
+					
+					DialogueNode dn = Main.game.getPlayer().getLocationPlace().getDialogue(true);
+					
+					Main.game.setContent(new Response("", "", dn) {
+						@Override
+						public int getSecondsPassed() {
+							return Main.game.getModifierTravelTime(Main.game.getPlayer().getLocationPlace().getPlaceType().isLand(), dn.getSecondsPassed());
+						}
+					});
+				}
+			}
+		}
+	}
+	
 	public void moveNorth() {
-		if (Main.game.getPlayer().getLocation().getY() + 1 < Main.game.getActiveWorld().WORLD_HEIGHT) {
-			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
-				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
-					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
-				}
-				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1));
-				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-				Main.game.setContent(new Response("", "", dn));
-			}
-		}
+		moveTile(0, 1);
 	}
 
-	/**
-	 * Moves the player South.
-	 */
 	public void moveSouth() {
-		if (Main.game.getPlayer().getLocation().getY() - 1 >= 0) {
-			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
-				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
-					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
-				}
-				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1));
-				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-				Main.game.setContent(new Response("", "", dn));
-			}
-		}
+		moveTile(0, -1);
 	}
 
-	/**
-	 * Moves the player East.
-	 */
 	public void moveEast() {
-		if (Main.game.getPlayer().getLocation().getX() + 1 < Main.game.getActiveWorld().WORLD_WIDTH) {
-			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
-				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
-					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
-				}
-				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()));
-				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-				Main.game.setContent(new Response("", "", dn));
-			}
-		}
+		moveTile(1, 0);
 	}
 
-	/**
-	 * Moves the player West.
-	 */
 	public void moveWest() {
-		if (Main.game.getPlayer().getLocation().getX() - 1 >= 0) {
-			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
-				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
-					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
-				}
-				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()));
-				DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-				Main.game.setContent(new Response("", "", dn));
-			}
-		}
+		moveTile(-1, 0);
 	}
 
+	
 	// Getters & Setters:
 
 	// Rendering related:

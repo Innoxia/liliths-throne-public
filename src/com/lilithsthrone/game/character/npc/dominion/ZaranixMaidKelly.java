@@ -1,12 +1,13 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
-import java.time.Month;
+import java.time.Month; import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
@@ -60,8 +61,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -100,7 +100,7 @@ public class ZaranixMaidKelly extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
 			this.setAgeAppearanceDifferenceToAppearAsAge(18);
 		}
-		this.setDescription("One of Zaranix's succubi maid twins, Katherine is assigned by her master to keep the ground floor clean.");
+		this.setDescription("One of Zaranix's succubi maid twins, Kelly is assigned by her master to keep the ground floor clean.");
 	}
 	
 	@Override
@@ -194,7 +194,7 @@ public class ZaranixMaidKelly extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.TWO_AVERAGE);
-		this.setPenisSize(8);
+		this.setPenisSize(17);
 		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
 		this.setPenisCumStorage(100);
 		this.fillCumToMaxStorage();
@@ -214,9 +214,9 @@ public class ZaranixMaidKelly extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
 		
@@ -231,7 +231,7 @@ public class ZaranixMaidKelly extends NPC {
 	}
 	
 	@Override
-	public String getName() {
+	public String getName(boolean applynameAlteringEffects) {
 		if(!playerKnowsName) {
 			return "Zaranix's Maid";
 			
@@ -351,11 +351,11 @@ public class ZaranixMaidKelly extends NPC {
 			} if(index==2) {
 				return new ResponseSex("Use Kelly", "Have some fun with the horny maid.",
 						true, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKelly.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKelly.class)),
 						null,
-						null, AFTER_SEX_VICTORY, "<p>"
+						null), AFTER_SEX_VICTORY, "<p>"
 							+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Kelly."
 							+ " Stepping over to where she's leaning back against the wall, you reach forwards and take hold of her arm, before pulling her hand away from her groin."
 							+ " Denied the freedom to get herself off, the horny maid looks up into your eyes, and you see them filled with a desperate, burning lust."
@@ -370,11 +370,11 @@ public class ZaranixMaidKelly extends NPC {
 						"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Kelly. Perhaps if you submitted, she'd be willing to fuck you?",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKelly.class), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKelly.class)),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
-						null, AFTER_SEX_VICTORY, "<p>"
+						null), AFTER_SEX_VICTORY, "<p>"
 							+ "Not willing to take the dominant role, but with a deep desire to have sex with the horny succubus, you walk up to where Kelly's collapsed against the wall, and sigh,"
 							+ " [pc.speech(Kelly... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
 						+ "</p>"
@@ -409,7 +409,7 @@ public class ZaranixMaidKelly extends NPC {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(ZaranixMaidKelly.class)) >= Main.game.getNpc(ZaranixMaidKelly.class).getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "With a satisfied sigh, Kelly slumps back against the wall,"
@@ -424,7 +424,7 @@ public class ZaranixMaidKelly extends NPC {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "With a desperate moan, Kelly slumps back against the wall,"
-							+ " [kelly.speech(~Ah!~ I didn't even get to cum!)]"
+							+ " [kelly.speech(~Ah!~ I need more!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Her hands instantly slip down between her legs, and, with an exceptionally lewd moan, she starts fingering herself."
@@ -474,10 +474,13 @@ public class ZaranixMaidKelly extends NPC {
 			if(index==1) {
 				return new ResponseSex("Used", "Kelly uses you.",
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(ZaranixMaidKelly.class), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						null, null, AFTER_SEX_DEFEAT);
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKelly.class)),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null),
+						AFTER_SEX_DEFEAT,
+						"");
 			} else {
 				return null;
 			}

@@ -130,18 +130,24 @@ public enum LustLevel {
 	public SexPace getSexPace(boolean consensual, GameCharacter character) {
 		SexPace pace;
 		if(Sex.isDom(character)) {
+			pace = getSexPaceDominant();
+			
 			if((character.hasFetish(Fetish.FETISH_SUBMISSIVE) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_DOMINANT))
 					|| character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ZERO_HATE) {
 				pace = SexPace.DOM_GENTLE;
 				
-			} else if(character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ONE_DISLIKE) {
+			} else if(character.getFetishDesire(Fetish.FETISH_SADIST).isNegative()) {
 				pace = SexPace.DOM_NORMAL;
 				
 			} else if(character.hasFetish(Fetish.FETISH_SADIST)) {
-				pace = SexPace.DOM_ROUGH;
+				return SexPace.DOM_ROUGH;
 				
-			} else {
-				pace = getSexPaceDominant();
+			} else { // Hate sex:
+				for(GameCharacter target : Sex.getAllParticipants()) {
+					if(!Sex.isDom(target) && character.getAffection(target)<AffectionLevel.NEGATIVE_TWO_DISLIKE.getMaximumValue()) {
+						return SexPace.DOM_ROUGH;
+					}
+				}
 			}
 			
 		} else {
@@ -157,8 +163,7 @@ public enum LustLevel {
 		
 		if(pace==SexPace.DOM_ROUGH
 				&& ((!character.hasFetish(Fetish.FETISH_DOMINANT) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_NON_CON_DOM))
-						|| (character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ONE_DISLIKE
-							|| character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ZERO_HATE))) {
+						|| (character.getFetishDesire(Fetish.FETISH_SADIST).isNegative()))) {
 			pace = SexPace.DOM_NORMAL;
 		}
 		
@@ -221,86 +226,136 @@ public enum LustLevel {
 	}
 	
 	public String getStatusEffectDescription(boolean consensual, GameCharacter character) {
+		StringBuilder sb = new StringBuilder();
+
 		if(Main.game.isInSex()) {
 			switch(this.getSexPace(consensual, character)) {
 				case DOM_GENTLE:
-					if (character.isPlayer()) {
-						return "You feel like taking things slow and gentle.";
-					} else {
-						return UtilText.parse(character, "[npc.Name] is feeling like taking things slow and gentle.");
+					switch(this) {
+						case ZERO_COLD:
+							sb.append("[npc.NameIsFull] not really interested in having sex at all right now, and as a result, [npc.she] [npc.verb(want)] to take things slow and gentle.");
+							break;
+						case ONE_HORNY:
+							sb.append("[npc.NameIsFull] currently quite horny, but [npc.is] still in control of [npc.her] lust, allowing [npc.her] to keep a cool head and concentrate on taking things slow and gentle.");
+							break;
+						case TWO_AMOROUS:
+							sb.append("[npc.NameIsFull] currently feeling more than a little lustful, but [npc.is] still able to concentrate on taking things slow and gentle.");
+							break;
+						case THREE_LUSTFUL:
+							sb.append("[npc.NameIsFull] currently burning with lust, but [npc.is] still able to concentrate on taking things slow and gentle.");
+							break;
+						case FOUR_IMPASSIONED:
+							sb.append("[npc.NameIsFull] completely burning with lust, but [npc.is] still able to concentrate on taking things slow and gentle.");
+							break;
+						case FIVE_BURNING:
+							sb.append("[npc.NameIsFull] completely overwhelmed with lust, but, somehow, [npc.is] still able to concentrate on taking things slow and gentle.");
+							break;
 					}
+					break;
 				case DOM_NORMAL:
-					if (character.isPlayer()) {
-						return "Filled with passion, you're eager to have sex at the moment.";
-					} else {
-						return UtilText.parse(character, "Filled with passion, [npc.name] is eager to have sex at the moment.");
-					}
-				case DOM_ROUGH:
-					if (character.isPlayer()) {
-						return "You're burning with passion, and will do anything to sate your lust.";
-					} else {
-						return UtilText.parse(character, "[npc.Name] is burning with passion, and will do anything to sate [npc.her] lust.");
-					}
-				case SUB_EAGER:
-					if (character.isPlayer()) {
-						return "You're burning with passion, and will do anything to sate your lust.";
-					} else {
-						return UtilText.parse(character, "[npc.Name] is burning with passion, and will do anything to sate [npc.her] lust.");
-					}
 				case SUB_NORMAL:
-					if (character.isPlayer()) {
-						return "Filled with passion, you're eager to have sex at the moment.";
-					} else {
-						return UtilText.parse(character, "Filled with passion, [npc.name] is eager to have sex at the moment.");
+					switch(this) {
+						case ZERO_COLD:
+							sb.append("Although [npc.nameIsFull]n't really interested in having sex at all right now, [npc.she] [npc.is] still able to force [npc.herself] to act as though [npc.sheIs] turned on and horny.");
+							break;
+						case ONE_HORNY:
+							sb.append("[npc.NameIsFull] currently quite horny, and [npc.is] more than happy to have sex at the moment.");
+							break;
+						case TWO_AMOROUS:
+							sb.append("[npc.NameIsFull] currently feeling more than a little lustful, and [npc.is] very happy to be having sex right at this moment.");
+							break;
+						case THREE_LUSTFUL:
+							sb.append("[npc.NameIsFull] currently burning with lust, and [npc.is] ecstatic to be having sex right at this moment.");
+							break;
+						case FOUR_IMPASSIONED:
+							sb.append("[npc.NameIsFull] completely burning with lust, but [npc.is] still able to prevent [npc.herself] from getting too carried away with things.");
+							break;
+						case FIVE_BURNING:
+							sb.append("[npc.NameIsFull] completely overwhelmed with lust, but, somehow, [npc.is] still able to prevent [npc.herself] from getting too carried away with things.");
+							break;
 					}
+					break;
+				case DOM_ROUGH:
+				case SUB_EAGER:
+					switch(this) {
+						case ZERO_COLD:
+							sb.append("Although [npc.nameIsFull]n't really interested in having sex at all right now, [npc.she] [npc.is] still able to force [npc.herself] to act as though [npc.sheIs] extremely turned on.");
+							break;
+						case ONE_HORNY:
+							sb.append("[npc.NameIsFull] currently quite horny, and [npc.is] more than happy to have sex at the moment.");
+							break;
+						case TWO_AMOROUS:
+							sb.append("[npc.NameIsFull] currently feeling more than a little lustful, and [npc.is] very happy to be having sex right at this moment.");
+							break;
+						case THREE_LUSTFUL:
+							sb.append("[npc.NameIsFull] currently burning with lust, and [npc.is] ecstatic to be having sex right at this moment.");
+							break;
+						case FOUR_IMPASSIONED:
+							sb.append("[npc.NameIsFull] completely burning with lust, and [npc.is] really starting to get carried away with things.");
+							break;
+						case FIVE_BURNING:
+							sb.append("[npc.NameIsFull] completely overwhelmed with lust, and [npc.has] totally lost [npc.herself] to the pleasure of having sex.");
+							break;
+					}
+					break;
 				case SUB_RESISTING:
-					if (character.isPlayer()) {
-						return "You aren't interested in having sex at all right now.";
-					} else {
-						return UtilText.parse(character, "[npc.Name] isn't interested in having sex at all right now.");
+					switch(this) {
+						case ZERO_COLD:
+							sb.append("[npc.NameIsFull] not at all interested in having sex right now, and [npc.is] desperately trying to resist what's currently happening to [npc.herHim].");
+							break;
+						case ONE_HORNY:
+							sb.append("[npc.NameIsFull] currently quite horny, but, despite this, [npc.sheIs] not at all happy with [npc.her] current situation, and [npc.is] desperately resisting sex.");
+							break;
+						case TWO_AMOROUS:
+							sb.append("[npc.NameIsFull] currently feeling more than a little lustful, but, despite this, [npc.sheIs] not at all happy with [npc.her] current situation, and [npc.is] desperately resisting sex.");
+							break;
+						case THREE_LUSTFUL:
+							sb.append("[npc.NameIsFull] currently burning with lust, but, despite this, [npc.sheIs] not at all happy with [npc.her] current situation, and [npc.is] desperately resisting sex.");
+							break;
+						case FOUR_IMPASSIONED:
+							sb.append("[npc.NameIsFull] completely burning with lust, but, despite this, [npc.sheIs] not at all happy with [npc.her] current situation, and [npc.is] desperately resisting sex.");
+							break;
+						case FIVE_BURNING:
+							sb.append("[npc.NameIsFull] completely overwhelmed with lust, but, despite this, [npc.sheIs] not at all happy with [npc.her] current situation, and [npc.is] desperately resisting sex.");
+							break;
 					}
+					break;
 			}
+			
 		} else {
 			switch(this) {
 				case ZERO_COLD:
-					if (character.isPlayer()) {
-						return "You are currently completely disinterested in having sex.";
-					} else {
-						return UtilText.parse(character, "[npc.Name] is currently completely disinterested in having sex.");
-					}
+					sb.append("[npc.NameIsFull] not really interested in having sex at all right now.");
+					break;
 				case ONE_HORNY:
-					if (character.isPlayer()) {
-						return "You are currently feeling quite horny, but are still in control of your lust.";
-					} else {
-						return UtilText.parse(character, "[npc.Name] is currently quite horny, but is still in control of [npc.her] lust.");
-					}
+					sb.append("[npc.NameIsFull] currently quite horny, but [npc.is] still in control of [npc.her] lust.");
+					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
+						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>It seems you're beginning to attract trouble.");
+					break;
 				case TWO_AMOROUS:
-					if (character.isPlayer()) {
-						return "You are currently feeling more than a little lustful, and are thinking about sex quite a lot...";
-					} else {
-						return UtilText.parse(character, "[npc.Name] is currently feeling more than a little lustful, and is thinking about sex quite a lot...");
-					}
+					sb.append("[npc.NameIsFull] currently feeling more than a little lustful, and [npc.is] thinking about sex quite a lot.");
+					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
+						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>You can feel more and more troublesome gazes.");
+					break;
 				case THREE_LUSTFUL:
-					if (character.isPlayer()) {
-						return "You are currently filled with lust, and are struggling to think of anything other than sex.";
-					} else {
-						return UtilText.parse(character, "[npc.Name] is currently filled with lust, and is struggling to think of anything other than sex.");
-					}
+					sb.append("[npc.NameIsFull] currently burning with lust, and [npc.is] struggling to think of anything other than sex.");
+					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
+						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your lust-filled aura can no longer be denied.");
+					break;
 				case FOUR_IMPASSIONED:
-					if (character.isPlayer()) {
-						return "You are completely filled with lust, and are struggling to think of anything other than sex.";
-					} else {
-						return UtilText.parse(character, "[npc.Name] is completely filled with lust, and is struggling to think of anything other than sex.");
-					}
+					sb.append("[npc.NameIsFull] completely burning with lust, and [npc.is] struggling to think of anything other than sex.");
+					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
+						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Almost every passerby turns to you with lustful gazes.");
+					break;
 				case FIVE_BURNING:
-					if (character.isPlayer()) {
-						return "You're completely overwhelmed with lust, and are incapable of thinking of anything but sex.";
-					} else {
-						return UtilText.parse(character, "[npc.Name] is completely overwhelmed with lust, and is incapable of thinking of anything but sex.");
-					}
+					sb.append("[npc.NameIsFull] completely overwhelmed with lust, and [npc.is] incapable of thinking of anything but sex.");
+					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
+						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Everyone can tell you're completely filled with lust. Some will probably try take advantage.");
+					break;
 			}
 		}
-		return "";
+		
+		return UtilText.parse(character, sb.toString());
 	
 	}
 }

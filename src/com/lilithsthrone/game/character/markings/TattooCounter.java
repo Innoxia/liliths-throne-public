@@ -30,11 +30,11 @@ public class TattooCounter implements XMLSaving {
 	}
 	
 	public static List<Colour> getAvailableColours() {
-		return ColourListPresets.ALL.getPresetColourList();
+		return ColourListPresets.ALL;
 	}
 
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof TattooCounter)
 					&& ((TattooCounter)o).getType().equals(this.getType())
@@ -48,7 +48,7 @@ public class TattooCounter implements XMLSaving {
 	
 	@Override
 	public int hashCode() {
-		int result = super.hashCode();
+		int result = 17;
 		result = 31 * result + getType().hashCode();
 		result = 31 * result + getCountType().hashCode();
 		result = 31 * result + getColour().hashCode();

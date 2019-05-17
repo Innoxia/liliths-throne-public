@@ -369,7 +369,7 @@ public class Covering  {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 //		if(super.equals(o)){
 			if(o instanceof Covering){
 				if(((Covering)o).getType() == type
@@ -388,7 +388,7 @@ public class Covering  {
 	
 	@Override
 	public int hashCode() {
-		int result = super.hashCode();
+		int result = 17;
 		result = 31 * result + type.hashCode();
 		result = 31 * result + pattern.hashCode();
 		result = 31 * result + modifier.hashCode();

@@ -1,11 +1,10 @@
 package com.lilithsthrone.game.character.quests;
 
-import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum Quest {
@@ -27,7 +26,7 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "Your evening at the museum turned out to be far more eventful than you'd have liked." + " A mysterious demon named Lilith tricked you into being pulled through a magical portal and into a parallel universe."
-					+ " After waking up in the middle of an unfamiliar street, you were saved from a dire situation by the half-demon '" + Main.game.getNpc(Lilaya.class).getName() + "'."
+					+ " After waking up in the middle of an unfamiliar street, you were saved from a dire situation by the half-demon 'Lilaya'."
 					+ " She seems to be this universe's version of your aunt Lily, and, in return for agreeing to help her with her experiments, she's allowed you to stay at her home.";
 		}
 	},
@@ -45,7 +44,7 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return Main.game.getNpc(Lilaya.class).getName() + " ran some more tests on you, but she's unable to progress with her research without the help of her old colleague, Arthur.";
+			return "Lilaya ran some more tests on you, but she's unable to progress with her research without the help of her old colleague, Arthur.";
 		}
 	},
 
@@ -549,7 +548,7 @@ public enum Quest {
 		}
 	},
 	
-	RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 10, 0) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 10, 50) {
 		@Override
 		public String getName() {
 			return "Confront the suppliers";

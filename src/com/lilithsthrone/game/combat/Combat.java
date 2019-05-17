@@ -48,15 +48,16 @@ public enum Combat {
 
 	private static NPC activeNPC;
 	private static GameCharacter targetedCombatant;
-	private static List<NPC> allies;
+	private static List<NPC> allies = new ArrayList<>();
 	private static NPC enemyLeader;
-	private static List<NPC> enemies;
+	private static List<NPC> enemies = new ArrayList<>();
 	private static List<NPC> allCombatants;
 	private static Map<GameCharacter, Map<SpecialAttack, Integer>> cooldowns;
 	private static float escapeChance = 0;
 	private static Map<GameCharacter, Float> totalDamageTaken;
 	private static int turn = 0;
 	private static boolean escaped = false;
+	private static boolean playerVictory = false;
 	private static StringBuilder combatStringBuilder = new StringBuilder();
 	private static StringBuilder attackStringBuilder = new StringBuilder();
 	private static StringBuilder postCombatStringBuilder = new StringBuilder();
@@ -106,7 +107,8 @@ public enum Combat {
 		activeNPC = enemies.get(0);
 
 		escaped = false;
-		
+		playerVictory = false;
+				
 		totalDamageTaken = new HashMap<>();
 		combatContent = "";
 		turn = 0;
@@ -203,7 +205,6 @@ public enum Combat {
 		Main.game.setInCombat(true);
 		
 		Main.mainController.openInventory();
-		
 	}
 
 	public static void appendTurnText(GameCharacter character, String title, String description) {
@@ -235,9 +236,11 @@ public enum Combat {
 	 * 
 	 * @param playerVictory
 	 */
-	private static void endCombat(boolean playerVictory) {
+	public static void endCombat(boolean playerVictory) {
 		
 		postCombatStringBuilder.setLength(0);
+		
+		Combat.playerVictory = playerVictory;
 		
 		if (playerVictory) {
 			// Give the player experience and money if they won:
@@ -292,8 +295,9 @@ public enum Combat {
 			for(Entry<AbstractCoreItem, Integer> entry : lootedItemsMap.entrySet()) {
 				itemsLooted.add("<b style='color:"+entry.getKey().getRarity().getColour().toWebHexString()+";'>"+entry.getKey().getName()+"</b>"+(entry.getValue()>1?" <b>(x"+entry.getValue()+")</b>":""));
 			}
-			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldGood(gained)] " + Util.stringsToStringList(itemsLooted, false) +"!</div>");
-
+			if(!itemsLooted.isEmpty()) {
+				postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldGood(gained)] " + Util.stringsToStringList(itemsLooted, false) +"!</div>");
+			}
 			// Apply essence drops:
 			boolean essenceDropFound = false;
 			Map<TFEssence, Integer> essences = new HashMap<>();
@@ -569,7 +573,7 @@ public enum Combat {
 
 		@Override
 		public String getContent() {
-			return combatContent;
+			return combatStringBuilder.toString();
 		}
 		
 		@Override
@@ -944,10 +948,10 @@ public enum Combat {
 				
 			} else if(index>11 && index - 11 <= allCombatants.size()) {
 				if(targetedCombatant.equals(allCombatants.get(index-12))) {
-					return new Response(Util.capitaliseSentence(allCombatants.get(index-12).getName()), "You are already targeting "+allCombatants.get(index-12).getName()+"!", null);
+					return new Response(Util.capitaliseSentence(allCombatants.get(index-12).getName(true)), "You are already targeting "+allCombatants.get(index-12).getName(true)+"!", null);
 				} else {
-					return new Response(Util.capitaliseSentence(allCombatants.get(index-12).getName()),
-							"Switch your target to "+allCombatants.get(index-12).getName()+" (You can also do this by clicking on their name in the side bar.).",
+					return new Response(Util.capitaliseSentence(allCombatants.get(index-12).getName(true)),
+							"Switch your target to "+allCombatants.get(index-12).getName(true)+" (You can also do this by clicking on their name in the side bar.).",
 							ENEMY_ATTACK){
 						@Override
 						public void effects() {
@@ -1383,8 +1387,14 @@ public enum Combat {
 					+ "You kneel in front of [npc.name], lowering your head in submission as you mutter,"
 					+ " [pc.speech(I don't want to fight any more, I submit.)]"
 				+ "</p>"));
+		
+		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Submit", attackStringBuilder.toString()));
 
-		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Wait", attackStringBuilder.toString()));
+		combatStringBuilder.append(getCharactersTurnDiv(enemyLeader, "Victory",
+				UtilText.parse(enemyLeader,
+					"<p>"
+						+ "[npc.Name] lets out a triumphant laugh, before moving forwards to take advantage of your submission..."
+					+ "</p>")));
 	}
 
 	private static void escape(GameCharacter attacker) {
@@ -1589,7 +1599,7 @@ public enum Combat {
 					endTurnStatusEffectText.append("<p><b style='color: " + se.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(se.getName(character)) + ":</b> " + effectString+ "</p>");
 				}
 //				if (!se.isBeneficial()) {
-					character.setStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
+					character.setCombatStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
 //				}
 				if (character.getStatusEffectDuration(se) <= 0) {
 					effectsToRemove.add(se);
@@ -1977,5 +1987,12 @@ public enum Combat {
 
 	public static void incrementTotalDamageTaken(GameCharacter character, float increment) {
 		setTotalDamageTaken(character, getTotalDamageTaken(character) + increment);
+	}
+
+	/**
+	 * @return true if the last combat that took place resulted in the player's victory.
+	 */
+	public static boolean isPlayerVictory() {
+		return playerVictory;
 	}
 }

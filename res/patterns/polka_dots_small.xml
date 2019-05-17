@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<pattern>
+	<name><![CDATA[small polka-dotted]]></name>
+	<defaultPattern>true</defaultPattern>
+    <patternName>polka_dots_small.svg</patternName>
+</pattern>

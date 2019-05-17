@@ -6,56 +6,56 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum NippleType implements BodyPartTypeInterface {
 	
-	HUMAN(BodyCoveringType.NIPPLES, Race.HUMAN),
+	HUMAN(Race.HUMAN),
 
-	ANGEL(BodyCoveringType.NIPPLES, Race.ANGEL),
+	ANGEL(Race.ANGEL),
 
-	DEMON_COMMON(BodyCoveringType.NIPPLES, Race.DEMON),
+	DEMON_COMMON(Race.DEMON),
 
-	DOG_MORPH(BodyCoveringType.NIPPLES, Race.DOG_MORPH),
+	DOG_MORPH(Race.DOG_MORPH),
 	
-	WOLF_MORPH(BodyCoveringType.NIPPLES, Race.WOLF_MORPH),
+	WOLF_MORPH(Race.WOLF_MORPH),
 	
-	FOX_MORPH(BodyCoveringType.NIPPLES, Race.FOX_MORPH),
+	FOX_MORPH(Race.FOX_MORPH),
 	
-	CAT_MORPH(BodyCoveringType.NIPPLES, Race.CAT_MORPH),
+	CAT_MORPH(Race.CAT_MORPH),
 	
-	COW_MORPH(BodyCoveringType.NIPPLES, Race.COW_MORPH),
+	COW_MORPH(Race.COW_MORPH),
 	
-	SQUIRREL_MORPH(BodyCoveringType.NIPPLES, Race.SQUIRREL_MORPH),
+	SQUIRREL_MORPH(Race.SQUIRREL_MORPH),
 	
-	RAT_MORPH(BodyCoveringType.NIPPLES, Race.RAT_MORPH),
+	RAT_MORPH(Race.RAT_MORPH),
 	
-	BAT_MORPH(BodyCoveringType.NIPPLES, Race.BAT_MORPH),
+	BAT_MORPH(Race.BAT_MORPH),
 	
-	RABBIT_MORPH(BodyCoveringType.NIPPLES, Race.RABBIT_MORPH),
+	RABBIT_MORPH(Race.RABBIT_MORPH),
 	
-	ALLIGATOR_MORPH(BodyCoveringType.NIPPLES, Race.ALLIGATOR_MORPH),
+	ALLIGATOR_MORPH(Race.ALLIGATOR_MORPH),
 	
-	HORSE_MORPH(BodyCoveringType.NIPPLES, Race.HORSE_MORPH),
+	HORSE_MORPH(Race.HORSE_MORPH),
 	
-	REINDEER_MORPH(BodyCoveringType.NIPPLES, Race.REINDEER_MORPH),
+	REINDEER_MORPH(Race.REINDEER_MORPH),
 	
-	HARPY(BodyCoveringType.NIPPLES, Race.HARPY);
+	HARPY(Race.HARPY);
 
 	
-	private BodyCoveringType skinType;
 	private Race race;
 	private List<OrificeModifier> defaultRacialOrificeModifiers;
 
-	private NippleType(BodyCoveringType skinType, Race race, OrificeModifier... defaultRacialOrificeModifiers) {
-		this.skinType = skinType;
+	private NippleType(Race race, OrificeModifier... defaultRacialOrificeModifiers) {
 		this.race = race;
 		this.defaultRacialOrificeModifiers = new ArrayList<>();
 		Collections.addAll(this.defaultRacialOrificeModifiers, defaultRacialOrificeModifiers);
@@ -89,24 +89,106 @@ public enum NippleType implements BodyPartTypeInterface {
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		if(gc.hasBreasts()) {
-			String name[] = new String[] {"nipple", "teat"};
-			return name[Util.random.nextInt(name.length)];
-			
-		} else {
-			return "nipple";
+		switch(gc.getNippleShape()) {
+			case LIPS:
+				return  UtilText.returnStringAtRandom("lipple", "nipple-lip");
+			case NORMAL:
+				if(gc.hasBreasts()) {
+					return UtilText.returnStringAtRandom("nipple", "teat");
+					
+				} else {
+					return "nipples";
+				}
+			case VAGINA:
+				return UtilText.returnStringAtRandom("nipple-cunt", "nipple-pussy");
 		}
+		return "";
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		if(gc.hasBreasts()) {
-			String name[] = new String[] {"nipples", "teats"};
-			return name[Util.random.nextInt(name.length)];
-			
-		} else {
-			return "nipples";
+		switch(gc.getNippleShape()) {
+			case LIPS:
+				return  UtilText.returnStringAtRandom("lipples", "nipple-lips");
+			case NORMAL:
+				if(gc.hasBreasts()) {
+					return UtilText.returnStringAtRandom("nipples", "teats");
+					
+				} else {
+					return "nipples";
+				}
+			case VAGINA:
+				return UtilText.returnStringAtRandom("nipple-cunts", "nipple-pussies");
 		}
+		return "";
+	}
+
+	// Not used for now, due to being terrible:
+	public String getNameCrotchSingular(GameCharacter gc) {
+		if(gc.getBreastCrotchShape()==BreastShape.UDDERS) {
+			switch(gc.getNippleShape()) {
+				case LIPS:
+					return  UtilText.returnStringAtRandom("udder-lipple", "udder-nipple-lip");
+				case NORMAL:
+					if(gc.hasBreasts()) {
+						return UtilText.returnStringAtRandom("udder-nipple", "udder-teat");
+						
+					} else {
+						return "udder-nipples";
+					}
+				case VAGINA:
+					return UtilText.returnStringAtRandom("udder-nipple-cunt", "udder-nipple-pussy");
+			}
+		} else {
+			switch(gc.getNippleShape()) {
+				case LIPS:
+					return  UtilText.returnStringAtRandom("crotch-lipple", "crotch-nipple-lip");
+				case NORMAL:
+					if(gc.hasBreasts()) {
+						return UtilText.returnStringAtRandom("crotch-nipple", "crotch-teat");
+						
+					} else {
+						return "crotch-nipples";
+					}
+				case VAGINA:
+					return UtilText.returnStringAtRandom("crotch-nipple-cunt", "crotch-nipple-pussy");
+			}
+		}
+		return "";
+	}
+
+	// Not used for now, due to being terrible:
+	public String getNameCrotchPlural(GameCharacter gc) {
+		if(gc.getBreastCrotchShape()==BreastShape.UDDERS) {
+			switch(gc.getNippleShape()) {
+				case LIPS:
+					return  UtilText.returnStringAtRandom("udder-lipples", "udder-nipple-lips");
+				case NORMAL:
+					if(gc.hasBreasts()) {
+						return UtilText.returnStringAtRandom("udder-nipples", "udder-teats");
+						
+					} else {
+						return "udder-nipples";
+					}
+				case VAGINA:
+					return UtilText.returnStringAtRandom("udder-nipple-cunts", "udder-nipple-pussies");
+			}
+		} else {
+			switch(gc.getNippleShape()) {
+				case LIPS:
+					return  UtilText.returnStringAtRandom("crotch-lipples", "crotch-nipple-lips");
+				case NORMAL:
+					if(gc.hasBreasts()) {
+						return UtilText.returnStringAtRandom("crotch-nipples", "crotch-teats");
+						
+					} else {
+						return "crotch-nipples";
+					}
+				case VAGINA:
+					return UtilText.returnStringAtRandom("crotch-nipple-cunts", "crotch-nipple-pussies");
+			}
+		}
+		return "";
 	}
 	
 	@Override
@@ -133,7 +215,7 @@ public enum NippleType implements BodyPartTypeInterface {
 	
 	@Override
 	public BodyCoveringType getBodyCoveringType(Body body) {
-		return skinType;
+		return BodyCoveringType.NIPPLES;
 	}
 
 	@Override

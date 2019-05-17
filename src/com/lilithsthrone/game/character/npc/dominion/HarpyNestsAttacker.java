@@ -1,12 +1,14 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -21,6 +23,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogu
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -72,7 +75,11 @@ public class HarpyNestsAttacker extends NPC {
 					setBody(Gender.F_V_FEMALE, Subspecies.HARPY, RaceStage.LESSER);
 				}
 			}
-	
+
+			if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
+				this.setBody(CharacterUtils.generateHalfDemonBody(this, Subspecies.getFleshSubspecies(this), true));
+			}
+			
 			setName(Name.getRandomTriplet(Race.HARPY));
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,
@@ -89,14 +96,14 @@ public class HarpyNestsAttacker extends NPC {
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 			CharacterUtils.generateItemsInInventory(this);
 			
-			equipClothing(true, true, true, true);
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			CharacterUtils.applyMakeup(this, true);
 	
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
 
-		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE);
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 		
 	}
 	
@@ -111,8 +118,9 @@ public class HarpyNestsAttacker extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
+	public void equipClothing(List<EquipClothingSetting> settings) {
+		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
+//		super.equipClothing(settings);
 	}
 	
 	@Override

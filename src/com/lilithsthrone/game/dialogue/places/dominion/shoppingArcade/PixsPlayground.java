@@ -9,9 +9,9 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMPixShowerTime;
 import com.lilithsthrone.game.sex.managers.universal.SMFaceToWall;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -315,8 +315,8 @@ public class PixsPlayground {
 	public static final DialogueNode GYM_CARDIO = new DialogueNode("Pix's Playground", "-", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 
 		@Override
@@ -351,8 +351,8 @@ public class PixsPlayground {
 	public static final DialogueNode GYM_WEIGHTS = new DialogueNode("Pix's Playground", "-", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 
 		@Override
@@ -387,8 +387,8 @@ public class PixsPlayground {
 	public static final DialogueNode GYM_PIX_TRAINING = new DialogueNode("Pix's Playground", "-", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 20;
+		public int getSecondsPassed() {
+			return 20*60;
 		}
 
 		@Override
@@ -455,8 +455,8 @@ public class PixsPlayground {
 	public static final DialogueNode GYM_PIX_TRAINING_CARDIO = new DialogueNode("Pix's Playground", "-", true, true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 30;
+		public int getSecondsPassed() {
+			return 30*60;
 		}
 
 		@Override
@@ -512,8 +512,8 @@ public class PixsPlayground {
 	public static final DialogueNode GYM_PIX_TRAINING_FINISH = new DialogueNode("Pix's Playground", "-", true, true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 30;
+		public int getSecondsPassed() {
+			return 30*60;
 		}
 
 		@Override
@@ -577,8 +577,8 @@ public class PixsPlayground {
 						"Tell Pix that you're far too tired to do any more physical exercise right now.",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_TOO_TIRED"));
 				
@@ -587,8 +587,8 @@ public class PixsPlayground {
 						"Tell Pix that you can make it up to her right now...",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_OFFER_SEX"));
 				
@@ -597,8 +597,8 @@ public class PixsPlayground {
 						"Apologise to Pix and accept her punishment.",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_ACCEPT_PUNISHMENT"));
 				
@@ -631,8 +631,8 @@ public class PixsPlayground {
 							"Use the energy that you've saved by holding back during your exercise to break free from Pix, and then turn the tables on her...",
 							false, false,
 							new SMFaceToWall(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL))) {
 								@Override
 								public boolean isPlayerStartNaked() {
 									return true;
@@ -673,8 +673,8 @@ public class PixsPlayground {
 	public static final DialogueNode PIX_POST_SEX_TABLES_TURNED = new DialogueNode("Changing Rooms", "Carry Pix out to the changing rooms.", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 10;
+		public int getSecondsPassed() {
+			return 10*60;
 		}
 
 		@Override
@@ -695,8 +695,8 @@ public class PixsPlayground {
 	public static final DialogueNode PIX_POST_SEX = new DialogueNode("Pix dresses you", "You're too tired to complain as Pix starts dressing you.", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 
 		@Override
@@ -732,8 +732,8 @@ public class PixsPlayground {
 						"Let Pix have her fun with you.",
 						true, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX_CONSENSUAL, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_CONSENSUAL_START"));
 				
@@ -768,8 +768,8 @@ public class PixsPlayground {
 	public static final DialogueNode PIX_POST_SEX_CONSENSUAL = new DialogueNode("Pix dresses you", "Pix helps you to get dressed.", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 60;
+		public int getSecondsPassed() {
+			return 60*60;
 		}
 
 		@Override

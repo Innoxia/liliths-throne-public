@@ -86,6 +86,7 @@ public enum SlaveEventTag {
 
 	JOB_CUM_MILKED("[npc.NamePos] [npc.cum] was milked!"),
 	JOB_MILK_MILKED("[npc.NamePos] [npc.milk] was milked!"),
+	JOB_MILK_CROTCH_MILKED("[npc.NamePos] udder-[npc.crotchMilk] was milked!"),
 	JOB_GIRLCUM_MILKED("[npc.NamePos] [npc.girlcum] was milked!"),
 
 	
@@ -109,7 +110,7 @@ public enum SlaveEventTag {
 		return description;
 	}
 	
+	// For sue in overriding.
 	public void applyEffects(GameCharacter character) {
-		// :3
 	}
 }

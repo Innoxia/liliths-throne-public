@@ -4,7 +4,7 @@ import java.util.Stack;
 
 /**
  * @since 0.2.?
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class SizedStack<T> extends Stack<T> {
@@ -12,11 +12,15 @@ public class SizedStack<T> extends Stack<T> {
 	
 	private int maxSize;
 
-	public SizedStack(int size) {
+	public SizedStack(int maxSize) {
 		super();
-		this.maxSize = size;
+		this.maxSize = maxSize;
 	}
-
+	
+	public int getMaxSize() {
+		return maxSize;
+	}
+	
 	@Override
 	public T push(T object) {
 		// If the stack is too big, remove elements until it's the right size.

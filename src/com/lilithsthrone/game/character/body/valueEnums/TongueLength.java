@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
 /**
- * Sizes in inches.
+ * Sizes in cm.
  * 
  * @since 0.1.83
  * @version 0.1.83
@@ -9,15 +9,15 @@ package com.lilithsthrone.game.character.body.valueEnums;
  */
 public enum TongueLength {
 	
-	ZERO_NORMAL("normal-sized", 0, 2),
+	ZERO_NORMAL("normal-sized", 0, 5),
 
-	ONE_LONG("long", 2, 4),
+	ONE_LONG("long", 5, 10),
 
-	TWO_VERY_LONG("very long", 4, 8),
+	TWO_VERY_LONG("very long", 10, 20),
 
-	THREE_EXTREMELY_LONG("extremely long", 8, 12),
+	THREE_EXTREMELY_LONG("extremely long", 20, 30),
 
-	FOUR_ABSURDLY_LONG("absurdly long", 12, 24);
+	FOUR_ABSURDLY_LONG("absurdly long", 30, 60);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;
@@ -40,9 +40,9 @@ public enum TongueLength {
 		return minimumValue + ((maximumValue - minimumValue) / 2);
 	}
 
-	public static TongueLength getTongueLengthFromInt(int inches) {
+	public static TongueLength getTongueLengthFromInt(int cm) {
 		for(TongueLength ps : TongueLength.values()) {
-			if(inches>=ps.getMinimumValue() && inches<ps.getMaximumValue()) {
+			if(cm>=ps.getMinimumValue() && cm<ps.getMaximumValue()) {
 				return ps;
 			}
 		}

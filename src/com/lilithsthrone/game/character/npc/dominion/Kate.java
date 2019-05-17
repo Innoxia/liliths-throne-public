@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -81,7 +82,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Kate extends NPC {
@@ -257,7 +258,7 @@ public class Kate extends NPC {
 		// (For when she grows one)
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.THREE_THICK);
-		this.setPenisSize(10);
+		this.setPenisSize(15);
 //		this.setInternalTesticles(true); Use player preferences
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(150);
@@ -278,9 +279,9 @@ public class Kate extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 
 		this.setMoney(10);
 
@@ -288,8 +289,8 @@ public class Kate extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_FISHNET_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_fishnets", Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", Colour.CLOTHING_BLACK, false), true, this);
 
 		this.setPiercedEar(true);
 		this.setPiercedNavel(true);
@@ -325,22 +326,25 @@ public class Kate extends NPC {
 	/**
 	 * Adds four uncommon clothing items to the list, and two rare items.
 	 */
-	private static void addEnchantedClothing(List<AbstractClothing> clothingList) {
+	private void addEnchantedClothing(List<AbstractClothing> clothingList) {
 		List<AbstractClothingType> typesToAdd = new ArrayList<>();
+		List<AbstractClothing> generatedClothing = new ArrayList<>();
+		
 		for(int i=0;i<6;i++) {
 			typesToAdd.add(Util.randomItemFrom(clothingList).getClothingType());
 		}
 		
 		for(int i=0; i<typesToAdd.size(); i++) {
 			if(i>=typesToAdd.size()-2) {
-				clothingList.add(AbstractClothingType.generateRareClothing(typesToAdd.get(i)));
+				generatedClothing.add(AbstractClothingType.generateRareClothing(typesToAdd.get(i)));
 			} else {
-				clothingList.add(AbstractClothingType.generateClothingWithEnchantment(typesToAdd.get(i)));
+				generatedClothing.add(AbstractClothingType.generateClothingWithEnchantment(typesToAdd.get(i)));
 			}
 		}
 
-		for(AbstractClothing c : clothingList) {
-			c.setEnchantmentKnown(true);
+		for(AbstractClothing c : generatedClothing) {
+			c.setEnchantmentKnown(this, true);
+			clothingList.add(c);
 		}
 	}
 	
@@ -386,7 +390,7 @@ public class Kate extends NPC {
 					+ "Quickly sorting your own clothes back into position, you watch as Kate does the same."
 					+ " Standing up, she wipes herself clean with a tissue she's produced from somewhere, before flattening down her mini skirt and turning to smile at you."
 					+ " She seems to have got her lust fully under control by now, and as she speaks, she sounds almost embarrassed of what just happened, "
-					+ UtilText.parseSpeech("Ehhh, thanks for helping me out there... You know, it's pretty hard for us demons sometimes... Anyway! What are you even doing in here?"
+					+ UtilText.parseSpeech("Mmm, thanks for helping me out there... You know, it's pretty hard for us demons sometimes... Anyway! What are you even doing in here?"
 							+ " Weren't you deterred by the boarded-up windows and stuff?",
 						Main.game.getNpc(Kate.class))
 					+ "</p>"
@@ -441,7 +445,7 @@ public class Kate extends NPC {
 					+ "Quickly sorting your own clothes back into position, you watch as Kate does the same."
 					+ " Standing up, she wipes herself clean with a tissue she's produced from somewhere, before flattening down her mini skirt and turning to smile at you."
 					+ " She seems to have got her lust fully under control by now, and as she speaks, she sounds almost embarrassed of what just happened, "
-					+ UtilText.parseSpeech("Ehhh, thanks for helping me out there... You know, it's pretty hard for us demons sometimes... Anyway! You need any more of my services?",
+					+ UtilText.parseSpeech("Mmm, thanks for helping me out there... You know, it's pretty hard for us demons sometimes... Anyway! You need any more of my services?",
 						Main.game.getNpc(Kate.class))
 					+ "</p>"
 					+ "<p>"
@@ -491,10 +495,6 @@ public class Kate extends NPC {
 		}
 	}
 	
-	
-	
-	
-	
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
@@ -505,7 +505,10 @@ public class Kate extends NPC {
 							+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
 						+ "</p>";
 			} else {
-				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, equipper);
+				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
+				if(clothing!=null && clothing.getClothingType().isCondom()) {
+					target.unequipClothingIntoVoid(clothing, true, equipper);
+				}
 				return "<p>"
 							+ "As you pull out a condom, a worried frown flashes across Kate's face, "
 							+ UtilText.parseSpeech("Oh! Erm, let me put that on for you!", Main.game.getNpc(Kate.class))

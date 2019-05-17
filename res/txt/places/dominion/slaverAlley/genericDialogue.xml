@@ -29,7 +29,7 @@
 
 	<htmlContent tag="MARKET_STALL_MALE"><![CDATA[
 	<p>
-		In the far left corner of Slaver Alley's main square, there's a slave shop that's quite unlike most of the others. Whereas all the other buildings that you've passed have had ornately-painted signs and decorative frontages, the one before you is of a plain wooden finish, and has it's name, 'Steel & Iron', burnt into the framework.
+		In the far left corner of Slaver Alley's main square, there's a slave shop that's quite unlike most of the others. Whereas all the other buildings that you've passed have had ornately-painted signs and decorative frontages, the one before you is of a plain wooden finish, and has it's name, 'Iron & Steel', burnt into the framework.
 	</p>
 	<p>
 		Most of the other shops have large glass windows by which to show off their goods to passers-by, but this one goes a step further, and the whole wooden frontage is actually a series of cleverly-designed sliding panels, about half of which have been pulled to one side. Looking into the open store, you see that all the slaves within appear to be males, and as you pass, a bulky cow-boy steps out and blocks your way, before cheerfully booming, [genericMale.speech(Taking a good look at our stock, I see! Why not come on in?! I'm sure we've got the right guy for you! Breeding studs, manual labourers, even pretty-boy models! We've got it all!)]
@@ -78,7 +78,7 @@
 		On the far side of the square, a slave shop has had its frontage painted all in white, and in flowing pink lettering, the name 'White Lilies' is painted beside an artistic depiction of a bunch of the very same flowers. It's quite clear from the feminine decor, as well as the fact that all of the naked slaves in the windows are showing off their well-kept pussies, that this particular store specialises in slaves who are in possession of female genitals.
 	</p>
 	<p>
-		As you walk past the front door, a beautiful white-furred rabbit-girl steps out to greet you, [genericFemale.speech(Why hello there. Would you be interested at all in browsing some of my wares? I can assure you that all of the slaves sold in my establishment have undergone specialist training so as to love nothing more than having their feminine sex used by their owners.)]
+		As you walk past the front door, a beautiful white-furred rabbit-girl steps out towards you, and in a refined tone she asks, [genericFemale.speech(Why hello there, would you be interested at all in browsing some of my wares? I can assure you that all of the slaves sold in my establishment are virgins, and have undergone specialist training so as to desire nothing more than to have their feminine sex broken in by their new owner. Would you like to be their first, I wonder?)]
 	</p>
 	#IF pc.isHasSlaverLicense()
 	#THEN
@@ -136,10 +136,29 @@
 		Looking up at her face, you see that her beautiful features are contorted into an orgasmic scream, and, as evidence that her corruption has manifested itself into physical transformations other than just the one between her legs, an abnormally long tongue drops down out of her open mouth to push its way into one of her lip-shaped nipples, which appears in turn to be desperately sucking on the wet, squirming muscle.
 	</p>
 	<p>
-		This lewd statue sits upon a squat, stone pedestal, no higher than six feet or so, and as you approach, you see these words appear: 'My name is Marlel, most humble of all angels; Look upon my form, ye enemies of Lilith, and despair.'
+		This lewd statue sits upon a squat, stone pedestal, no higher than six feet or so, and as you approach, you see these words appear: 'My name is Marlel, once the humblest of all angels; Look upon my form, ye enemies of Lilith, and despair.'
 	</p>
 	<p>
-		Nobody in the square seems to be paying much attention to the statue, and you doubt that there's anybody here who would know of the creator or what this piece of their art is meant to represent, other than what's apparent from the words inscribed upon the base. Letting out a sigh, you take one last look at the vivid visage of the fallen angel before you, before continuing on your way...
+		Nobody in the square seems to be paying much attention to the statue, and you doubt that there's anybody here who would know of the creator or what this piece of their art is meant to represent, other than what's apparent from the words inscribed upon the base. Letting out a sigh, you take one last look at the lewd visage of the fallen angel before you, before continuing on your way...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="MARKET_STALL_STATUE_TRUTH"><![CDATA[
+	<p>
+		In the middle of a small square on one side of Slaver Alley, there sits a very striking statue. Made completely out of jet-black obsidian, and standing at least twelve feet from head-to-toe, it's a masterfully-crafted depiction of what appears to be a buxom female fallen angel, with wide hips and massive, GG-cup breasts.
+	</p>
+	<p>
+		Her huge, feathered wings reach up to the sky behind her, and, linked by heavy chains, bracers have been clasped around her delicate wrists and ankles. One of her hands is reaching down between her legs, where she's lewdly spreading her tentacled, gaping pussy for all to see, while the other is reaching around behind her back in order to dig her slender fingers into her exposed asshole.
+	</p>
+	<p>
+		Looking up at her face, you see that her beautiful features are contorted into an orgasmic scream, and, as evidence that her corruption has manifested itself into physical transformations other than just the one between her legs, an abnormally long tongue drops down out of her open mouth to push its way into one of her lip-shaped nipples, which appears in turn to be desperately sucking on the wet, squirming muscle.
+	</p>
+	<p>
+		This lewd statue sits upon a squat, stone pedestal, no higher than six feet or so, and as you approach, you see these words appear: 'My name is Marlel, once the humblest of all angels; Look upon my form, ye enemies of Lilith, and despair.'
+	</p>
+	<p>
+		From what Lyssieth told you, this is no ordinary statue, and is in fact the petrified form of the corrupted archangel Marlel. Lyssieth's eldest sister, Lirecea, is responsible for her current situation, and you wonder if you'll be able to force the elder lilin to revert the petrification process when you inevitably end up confronting her. Possessing no way to release Marlel from her stone prison, you let out a sigh, and, taking one last look at her lewd visage, you continue on your way...
 	</p>
 	]]>
 	</htmlContent>
@@ -162,7 +181,7 @@
 
 	<htmlContent tag="MARKET_STALL_BULK"><![CDATA[
 	<p>
-		Near the entrance of Slaver Alley, a pair of huge warehouse-like buildings take up the entirety of one side of the street. Looking up at the large lettering that's printed across the front of each of them, you see that these warehouses are owned by the 'Royal Dominion Company'.
+		Near the entrance of Slaver Alley, a pair of huge warehouses take up the entirety of one side of the street. Looking up at the large lettering that's printed across the front of each of them, you see that these warehouses are owned by the 'Royal Dominion Company'.
 	</p>
 	<p>
 		The premises don't appear to be open to the public, and you assume that they must deal with large-scale bulk transfers of slaves between companies. With nothing more to be gained by hanging around near here, you step back out into the street, before wondering where to go to next...

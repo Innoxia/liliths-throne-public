@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>250</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[rainbow stocking]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[rainbow stockings]]></namePlural>
+		<description><![CDATA[A pair of brightly coloured rainbow stockings that reach up to mid-thigh.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>SOCK</slot> 
+		<rarity>EPIC</rarity>
+		<clothingSet>RAINBOW</clothingSet>
+		<imageName>stockings.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		
+		<effects> 
+            <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>FEET</clothingAccess>
+					<clothingAccess>CALVES</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>FEET</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_MULTICOLOURED</colour>
+		</primaryColours>
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] on the rainbow stockings before pulling them all the way up to [npc.her] mid-thigh.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the rainbow stockings onto [npc2.namePos] [npc2.feet], before pulling them all the way up to [npc2.her] mid-thigh.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] the rainbow stockings onto [npc2.namePos] [npc2.feet], before pulling them all the way up to [npc2.her] mid-thigh.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc.her] rainbow stockings.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] rainbow stockings.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] rainbow stockings.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

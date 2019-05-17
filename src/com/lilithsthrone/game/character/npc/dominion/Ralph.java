@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -36,6 +37,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -55,19 +57,10 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Ralph extends NPC {
-
-	private static List<AbstractItemType> itemsForSale = Util.newArrayListOfValues(
-			ItemType.FETISH_UNREFINED,
-			ItemType.ADDICTION_REMOVAL,
-			ItemType.MOO_MILKER_EMPTY,
-			ItemType.VIXENS_VIRILITY,
-			ItemType.PROMISCUITY_PILL,
-			ItemType.MOTHERS_MILK,
-			ItemType.PREGNANCY_TEST);
 	
 	public Ralph() {
 		this(false);
@@ -184,7 +177,7 @@ public class Ralph extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.FOUR_FAT);
-		this.setPenisSize(14);
+		this.setPenisSize(20);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(65);
 		this.fillCumToMaxStorage();
@@ -198,9 +191,9 @@ public class Ralph extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLACK, false), true, this);
@@ -230,28 +223,36 @@ public class Ralph extends NPC {
 	public void dailyReset() {
 		clearNonEquippedInventory();
 		
-		for(int i=0;i<25;i++) {
-			this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), false);
-		}
+		this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), 25, false);
+		this.addItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), 10, false);
+		
 		for(AbstractItemType item : ItemType.getAllItems()) {
 			if(item.getItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
-				this.addItem(AbstractItemType.generateItem(item), false);
-			}
-		}
-		for (AbstractItemType item : itemsForSale) {
-			for (int i = 0; i < 6 + (Util.random.nextInt(12)); i++) {
-				this.addItem(AbstractItemType.generateItem(item), false);
+				this.addItem(AbstractItemType.generateItem(item), 6+Util.random.nextInt(12), false);
 			}
 		}
 		
-		Colour condomColour1 = ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().get(Util.random.nextInt(ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().size()));
-		Colour condomColour2 = ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().get(Util.random.nextInt(ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().size()));
-		
-		for (int i = 0; i < 6+(Util.random.nextInt(12)); i++) {
-			this.addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, condomColour1, false), false);
-		}
-		for (int i = 0; i < 6+(Util.random.nextInt(12)); i++) {
-			this.addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, condomColour2, false), false);
+		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
+			if(clothing.getItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
+				if(clothing.isCondom()) {
+					Colour condomColour = Util.randomItemFrom(clothing.getAvailablePrimaryColours());
+					Colour condomColourSec = Colour.CLOTHING_BLACK;
+					Colour condomColourTer = Colour.CLOTHING_BLACK;
+					
+					if(!clothing.getAvailableSecondaryColours().isEmpty()) {
+						condomColourSec = Util.randomItemFrom(clothing.getAvailableSecondaryColours());
+					}
+					if(!clothing.getAvailableTertiaryColours().isEmpty()) {
+						condomColourTer = Util.randomItemFrom(clothing.getAvailableTertiaryColours());
+					}
+					for (int i = 0; i < (3+(Util.random.nextInt(4)))*(clothing.getRarity()==Rarity.COMMON?3:(clothing.getRarity()==Rarity.UNCOMMON?2:1)); i++) {
+						this.addClothing(AbstractClothingType.generateClothing(clothing, condomColour, condomColourSec, condomColourTer, false), false);
+					}
+					
+				} else {
+					this.addClothing(AbstractClothingType.generateClothing(clothing), false);
+				}
+			}
 		}
 	}
 	
@@ -317,7 +318,7 @@ public class Ralph extends NPC {
 			return true;
 		}
 		if(item instanceof AbstractClothing) {
-			return ((AbstractClothing)item).getClothingType().equals(ClothingType.PENIS_CONDOM);
+			return ((AbstractClothing)item).getClothingType().isCondom();
 		}
 		
 		return false;

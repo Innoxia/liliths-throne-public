@@ -13,6 +13,7 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -108,7 +109,9 @@ public class Nyan extends NPC {
 		commonAndrogynousLingerie = new ArrayList<>();
 		commonAndrogynousAccessories = new ArrayList<>();
 		specials = new ArrayList<>();
-		dailyReset();
+		if(!isImported) {
+			dailyReset();
+		}
 	}
 	
 	private Map<String, List<AbstractClothing>> getAllClothingListsMap() {
@@ -166,7 +169,6 @@ public class Nyan extends NPC {
 					} catch(Exception ex) {
 					}
 				}
-				
 			}
 		}
 	}
@@ -274,16 +276,16 @@ public class Nyan extends NPC {
 	}
 	
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 
-		this.unequipAllClothingIntoVoid(true);
+		this.unequipAllClothingIntoVoid(true, true);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_BLOUSE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TRAINER_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_trainer_socks", Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
 
 	}
@@ -384,22 +386,25 @@ public class Nyan extends NPC {
 	/**
 	 * Adds three uncommon clothing items to the list, and one rare item.
 	 */
-	private static void addEnchantedClothing(List<AbstractClothing> clothingList) {
+	private void addEnchantedClothing(List<AbstractClothing> clothingList) {
 		List<AbstractClothingType> typesToAdd = new ArrayList<>();
+		List<AbstractClothing> generatedClothing = new ArrayList<>();
+		
 		for(int i=0;i<4;i++) {
 			typesToAdd.add(Util.randomItemFrom(clothingList).getClothingType());
 		}
 		
 		for(int i=0; i<typesToAdd.size(); i++) {
 			if(i==typesToAdd.size()-1) {
-				clothingList.add(AbstractClothingType.generateRareClothing(typesToAdd.get(i)));
+				generatedClothing.add(AbstractClothingType.generateRareClothing(typesToAdd.get(i)));
 			} else {
-				clothingList.add(AbstractClothingType.generateClothingWithEnchantment(typesToAdd.get(i)));
+				generatedClothing.add(AbstractClothingType.generateClothingWithEnchantment(typesToAdd.get(i)));
 			}
 		}
 
-		for(AbstractClothing c : clothingList) {
-			c.setEnchantmentKnown(true);
+		for(AbstractClothing c : generatedClothing) {
+			c.setEnchantmentKnown(this, true);
+			clothingList.add(c);
 		}
 	}
 	

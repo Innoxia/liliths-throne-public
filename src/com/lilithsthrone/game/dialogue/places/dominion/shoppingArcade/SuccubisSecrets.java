@@ -31,8 +31,8 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -213,34 +213,34 @@ public class SuccubisSecrets {
 				return new ResponseSex("Sex", "You can't resist the horny succubus's request...",
 						true, true,
 						new SMChair(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexPositionSlot.CHAIR_BOTTOM))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotBipeds.CHAIR_BOTTOM))),
 						null,
-						null, Kate.AFTER_SEX, "<p>"
-						+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
-						+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
-						+ " She glances up at you with big, innocent eyes, and begs, "
-						+ UtilText.parseSpeech("Pleeeease! It's just not the same when I have to do it myself...",
-							Main.game.getNpc(Kate.class))
+						null,
+						Kate.AFTER_SEX,
+						"<p>"
+							+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
+							+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
+							+ " She glances up at you with big, innocent eyes, and begs, "
+							+ UtilText.parseSpeech("Pleeeease! It's just not the same when I have to do it myself...", Main.game.getNpc(Kate.class))
 						+ "</p>"
 						+ "<p>"
-						+ "She is, without doubt, one of the most attractive women you've ever seen."
-						+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
-						+ " Her body is equally as impressive, and beneath her pair of "+Main.game.getNpc(Kate.class).getBreastSize().getDescriptor()
-						+" breasts, her wide hips and long, perfectly-formed legs provide the final visual stimulus that's needed to send you over the edge."
+							+ "She is, without doubt, one of the most attractive women you've ever seen."
+							+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
+							+ " Her body is equally as impressive, and beneath her pair of "+Main.game.getNpc(Kate.class).getBreastSize().getDescriptor()
+							+" breasts, her wide hips and long, perfectly-formed legs provide the final visual stimulus that's needed to send you over the edge."
 						+ "</p>"
 						+ "<p>"
-						+ "You step forwards, and as you do, the demon lets out a delighted squeal."
-						+ " She spreads her legs even further apart, and you see her tail slide out of her warmed-up slit as she prepares herself for your entrance."
-						+ " Leaning down, the scent of strawberries and sex overwhelms your senses, and as your lips press against hers, you feel her tail wrapping around one of your legs."
+							+ "You step forwards, and as you do, the demon lets out a delighted squeal."
+							+ " She spreads her legs even further apart, and you see her tail slide out of her warmed-up slit as she prepares herself for your entrance."
+							+ " Leaning down, the scent of strawberries and sex overwhelms your senses, and as your lips press against hers, you feel her tail wrapping around one of your legs."
 						+ "</p>"
 						+ "<p>"
-						+ "She briefly pushes you back for a moment, panting, "
-						+ UtilText.parseSpeech("Oh, if you need a name to call out, it's Kate by the way.",
-							Main.game.getNpc(Kate.class))
+							+ "She briefly pushes you back for a moment, panting, "
+							+ UtilText.parseSpeech("Oh, if you need a name to call out, it's Kate by the way.", Main.game.getNpc(Kate.class))
 						+ "</p>"
 						+ "<p>"
-						+ "With that, she reaches around and grabs the back of your head, pulling you into a desperate, passionate kiss as you press yourself down against her."
+							+ "With that, she reaches around and grabs the back of your head, pulling you into a desperate, passionate kiss as you press yourself down against her."
 						+ "</p>");
 				
 			} else if (index == 2) {
@@ -286,8 +286,8 @@ public class SuccubisSecrets {
 				return new ResponseSex("Fuck her", "Do as she says and start having sex with her.",
 						true, true,
 						new SMChair(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexPositionSlot.CHAIR_BOTTOM))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotBipeds.CHAIR_BOTTOM))),
 						null,
 						null, Kate.AFTER_SEX, "<p>"
 						+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
@@ -358,7 +358,7 @@ public class SuccubisSecrets {
 						+ "</p>"
 						+ "<p>"
 						+ "She seems to have got her own lust under control by now, and as she looks up, she seems rather ashamed of what she just did. "
-						+ UtilText.parseSpeech("Ehhh, sorry about that... You know, it's pretty hard for us demons sometimes... Anyway! What are you even doing in here?"
+						+ UtilText.parseSpeech("Mmm, sorry about that... You know, it's pretty hard for us demons sometimes... Anyway! What are you even doing in here?"
 								+ " Weren't you deterred by the boarded-up windows and stuff?",
 							Main.game.getNpc(Kate.class))
 						+ "</p>"
@@ -587,7 +587,7 @@ public class SuccubisSecrets {
 						
 					} else {
 						for(BodyPartInterface bp : Main.game.getPlayer().getAllBodyParts()){
-							if(bp.getType().getBodyCoveringType(Main.game.getPlayer())!=null
+							if(bp.getBodyCoveringType(Main.game.getPlayer())!=null
 									&& !(bp instanceof Hair)
 									&& !(bp instanceof Eye)) {
 								
@@ -598,10 +598,10 @@ public class SuccubisSecrets {
 									name = "vagina";
 								}
 								
-								if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType(Main.game.getPlayer()))) {
-									CoveringsNamesMap.get(bp.getType().getBodyCoveringType(Main.game.getPlayer())).add(name);
+								if(CoveringsNamesMap.containsKey(bp.getBodyCoveringType(Main.game.getPlayer()))) {
+									CoveringsNamesMap.get(bp.getBodyCoveringType(Main.game.getPlayer())).add(name);
 								} else {
-									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(Main.game.getPlayer()), Util.newArrayListOfValues(name));
+									CoveringsNamesMap.put(bp.getBodyCoveringType(Main.game.getPlayer()), Util.newArrayListOfValues(name));
 								}
 							}
 						}
@@ -630,6 +630,9 @@ public class SuccubisSecrets {
 						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues("mouth"));
 						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues("nipples"));
 						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues("tongue"));
+						if(Main.game.getPlayer().hasBreastsCrotch()) {
+							CoveringsNamesMap.put(BodyCoveringType.NIPPLES_CROTCH, Util.newArrayListOfValues("crotch nipples"));
+						}
 					}
 
 					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
@@ -651,8 +654,8 @@ public class SuccubisSecrets {
 							+ " On a double-page spread, there's an extremely lewd collection of pictures of Kate inserting her tail into her various orifices, with the suggestive caption 'Don't make me do it myself...'",
 					true, true,
 					new SMChair(
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexPositionSlot.CHAIR_BOTTOM))),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotBipeds.CHAIR_BOTTOM))),
 					null,
 					null, Kate.AFTER_SEX_REPEATED, "<p>"
 					+ "Turning to the back of the brochure, you find a double-page spread that's filled with extremely explicit pictures of Kate inserting her tail into her various orifices."
@@ -720,7 +723,7 @@ public class SuccubisSecrets {
 
 					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by your hair length.")
 					
-					+CharacterModificationUtils.getKatesDivCoveringsNew(true, Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairType().getBodyCoveringType(Main.game.getPlayer())).getType(),
+					+CharacterModificationUtils.getKatesDivCoveringsNew(true, Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairCovering()).getType(),
 							"[pc.Hair] Colour", "All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
 					;
 		}
@@ -778,6 +781,10 @@ public class SuccubisSecrets {
 				} else if(bct == BodyCoveringType.NIPPLES) {
 					title = "Nipples";
 					description = "This is the skin that's currently covering your nipples and areolae. The secondary colour determines what your nipples' inner-walls look like (if they are fuckable).";
+					
+				} else if(bct == BodyCoveringType.NIPPLES_CROTCH) {
+					title = "Crotch Nipples";
+					description = "This is the skin that's currently covering the nipples and areolae on your [pc.crotchBoobs]. The secondary colour determines what your nipples' inner-walls look like (if they are fuckable).";
 					
 				} else if(bct == BodyCoveringType.MOUTH) {
 					title = "Lips & Throat";
@@ -849,7 +856,7 @@ public class SuccubisSecrets {
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, Main.game.getPlayer().getEyeType().getBodyCoveringType(Main.game.getPlayer()), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
+							true, Main.game.getPlayer().getEyeCovering(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
@@ -944,20 +951,20 @@ public class SuccubisSecrets {
 //							:"")
 					
 					+(Main.game.isFacialHairEnabled()
-							? CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on your face." 
+							? CharacterModificationUtils.getKatesDivFacialHair(true, "Facial hair", "The body hair found on your face." 
 									+ (Main.game.isFemaleFacialHairEnabled() ? "" : " Feminine characters cannot grow facial hair."))
 							:"")
 					
 					+(Main.game.isPubicHairEnabled()
-							?CharacterModificationUtils.getKatesDivPubicHair("Pubic hair", "The body hair found in the genital area; located on and around your sex organs and crotch.")
+							?CharacterModificationUtils.getKatesDivPubicHair(true, "Pubic hair", "The body hair found in the genital area; located on and around your sex organs and crotch.")
 							:"")
 					
 					+(Main.game.isBodyHairEnabled()
-							?CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in your armpits.")
+							?CharacterModificationUtils.getKatesDivUnderarmHair(true, "Underarm hair", "The body hair found in your armpits.")
 							:"")
 					
 					+(Main.game.isAssHairEnabled()
-							?CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole.")
+							?CharacterModificationUtils.getKatesDivAssHair(true, "Ass hair", "The body hair found around your asshole.")
 							:"")
 					);
 			

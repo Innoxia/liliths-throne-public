@@ -12,10 +12,10 @@ http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.h
 1. Open Eclipse
 2. Click File, Import it will then open a wizard, open Git and choose Projects from Git, click Next
 3. Choose Clone URL and then click Next
-4. Put https://github.com/Innoxia/liliths-throne-public into the first box in Location
+4. Put https://github.com/Innoxia/liliths-throne-public (or https://github.com/Innoxia/liliths-throne-public/tree/dev if you're building from the dev branch) into the first box in Location
 5. Put github.com into the second box in Location, this may be done automatically.
-6. Put /Innoxia/liliths-throne-public in the third box in Location, this may be done automatically. Then click Next
-7. The wizard will now ask which branch you want, this will be "master", select this and then click next.
+6. Put /Innoxia/liliths-throne-public (or /Innoxia/liliths-throne-public/tree/dev for dev branch) in the third box in Location, this may be done automatically. Then click Next
+7. The wizard will now ask which branch you want, this will be "master" (or "dev" for dev branch), select this and then click next.
 8. Unless you want to change the directory, click Next.
 9. It will now download the repository.
 10. Make sure "Import existing Eclipse projects" is selected, then click Next.

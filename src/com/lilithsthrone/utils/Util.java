@@ -6,10 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.TextStyle;
+import java.nio.file.Files;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,7 +16,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
@@ -41,10 +38,11 @@ import javafx.scene.paint.Color;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Util {
+	
 	public static Random random = new Random();
 
 	private static StringBuilder utilitiesStringBuilder = new StringBuilder();
@@ -124,15 +122,17 @@ public class Util {
 	
 	public static Color midpointColor(Color first, Color second) {
 		
-		double r = (first.getRed() + second.getRed())/2,
-				g = (first.getGreen() + second.getGreen())/2,
-					b = (first.getBlue() + second.getBlue())/2;
-		
-		return newColour(r*255, g*255, b*255);
+		double r = (first.getRed() + second.getRed())/2;
+		double g = (first.getGreen() + second.getGreen())/2;
+		double b = (first.getBlue() + second.getBlue())/2;
+//		System.out.println(r+","+g+","+b);
+		return Color.color(r, g, b);
 	}
 	
 	public static String toWebHexString(Color colour) {
-		return colour.toString().substring(2, 8);
+		String c = colour.toString().substring(2, 8);
+//		System.out.println(c);
+		return "#"+c;
 	}
 	
 	public static Color newColour(double r, double g, double b) {
@@ -234,15 +234,26 @@ public class Util {
 			}
 		}
 	}
-	
-	public static String getFileTime(File file) throws IOException {
-	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy - hh:mm");
-	    return dateFormat.format(file.lastModified());
+
+	public static String getFileTime(File file) {
+		try {
+			Instant fileTime = Files.getLastModifiedTime(file.toPath()).toInstant();
+			return Units.dateTime(fileTime);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "Unknown";
 	}
 	
 	@SafeVarargs
+	/**
+	 * @param values The values to add to the new list.
+	 * @return A list of provided values, with nulls stripped.
+	 */
 	public static <U> ArrayList<U> newArrayListOfValues(U... values) {
-		return new ArrayList<>(Arrays.asList(values));
+		ArrayList<U> list = new ArrayList<>(Arrays.asList(values));
+		list.removeIf(e -> e==null);
+		return list;
 	}
 	
 	@SafeVarargs
@@ -254,8 +265,10 @@ public class Util {
 		ArrayList<U> mergedList = new ArrayList<>();
 		
 		for(List<U> list : lists) {
-			for(U value : list) {
-				mergedList.add(value);
+			if(list!=null) {
+				for(U value : list) {
+					mergedList.add(value);
+				}
 			}
 		}
 		
@@ -268,13 +281,19 @@ public class Util {
 	}
 	
 	@SafeVarargs
+	/**
+	 * @param maps The maps to draw entries from.
+	 * @return A new map containing all of the entries from the provided 'maps'. Nulls are stripped, and 'maps' are unaltered.
+	 */
 	public static <U, T> Map<U, List<T>> mergeMaps(Map<U, List<T>>... maps) {
 		Map<U, List<T>> mergedMap = new HashMap<>();
 		
 		for(Map<U, List<T>> map : maps) {
-			for(Entry<U, List<T>> entry : map.entrySet()) {
-				mergedMap.putIfAbsent(entry.getKey(), new ArrayList<>());
-				mergedMap.get(entry.getKey()).addAll(entry.getValue());
+			if(map!=null) {
+				for(Entry<U, List<T>> entry : map.entrySet()) {
+					mergedMap.putIfAbsent(entry.getKey(), new ArrayList<>());
+					mergedMap.get(entry.getKey()).addAll(entry.getValue());
+				}
 			}
 		}
 		
@@ -321,22 +340,6 @@ public class Util {
 		}
 
 		return null;
-	}
-
-	public static String getDayOfMonthSuffix(int n) {
-		if (n >= 11 && n <= 13) {
-	    	return "th";
-	    }
-	    switch (n % 10) {
-	    	case 1:  return "st";
-	    	case 2:  return "nd";
-	    	case 3:  return "rd";
-	    	default: return "th";
-	    }
-	}
-	
-	public static float getRoundedFloat(float input, int significantFigures) {
-		return (float) (((int)(input*Math.pow(10, significantFigures)))/Math.pow(10, significantFigures));
 	}
 	
 	private static String[] numbersLessThanTwenty = {
@@ -395,22 +398,6 @@ public class Util {
 			"eighty",
 			"ninety"
 	};
-
-	public static String intToDate(int integer) {
-		if(integer%10==1 && (integer%100<10 || integer%100>20)) {
-			return integer+"st";
-		} else if(integer%10==2 && (integer%100<10 || integer%100>20)) {
-			return integer+"nd";
-		} else if(integer%10==3 && (integer%100<10 || integer%100>20)) {
-			return integer+"rd";
-		} else {
-			return integer+"th";
-		}
-	}
-	
-	public static String getStringOfLocalDateTime(LocalDateTime date) {
-		return intToDate(date.getDayOfMonth())+" "+date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+", "+date.getYear();
-	}
 	
 	/**
 	 * Only works for values -99,999 to 99,999.
@@ -465,7 +452,21 @@ public class Util {
 		
 		return intToString;
 	}
-	
+
+	/**
+	 * @param integer Input number to convert.
+	 * @return 'once', 'twice', or 'integer times'
+	 */
+	public static String intToCount(int integer) {
+		if(integer==1) {
+			return "once";
+		} else if(integer==2) {
+			return "twice";
+		}
+		
+		return intToString(integer)+" times";
+	}
+		
 	public static String intToPosition(int integer) {
 		String intToString = "";
 		
@@ -558,31 +559,6 @@ public class Util {
 	public static String getKeyCodeCharacter(KeyCode code) {
 		String name = KEY_NAMES.get(code);
 		return name != null? name : code.getName();
-	}
-
-	public static int conversionCentimetresToInches(int cm) {
-		// System.out.println(cm + " -> "+(int)(cm/2.54f));
-		return Math.round(cm / 2.54f);
-	}
-
-	public static int conversionInchesToCentimetres(int inches) {
-		return Math.round(inches * 2.54f);
-	}
-
-	public static String centimetresToMetresAndCentimetres(int cm) {
-		return ((cm / 100) + ((cm % 100) != 0 ? ("." + cm % 100) + "m." : "m"));
-	}
-
-	public static String inchesToFeetAndInches(int inches) {
-		return ((((inches) / 12) == 0 ? "" : (inches) / 12) + (((inches) / 12) > 0 ? "'" : "") + (((inches) % 12) == 0 ? "" : " ") + (((inches) % 12) != 0 ? ((inches) % 12) + "&quot;" : ""));
-	}
-
-	public static int conversionKilogramsToPounds(int kg) {
-		return Math.round(kg * 2.20462268f);
-	}
-
-	public static String poundsToStoneAndPounds(int pounds) {
-		return ((((pounds) / 14) == 0 ? "" : (pounds) / 14) + (((pounds) / 12) > 0 ? "st." : "") + (((pounds) % 14) == 0 ? "" : " ") + (((pounds) % 14) != 0 ? ((pounds) % 14) + "lb" : ""));
 	}
 
 	public static String capitaliseSentence(String sentence) {
@@ -682,8 +658,8 @@ public class Util {
 					continue;
 				}
 
-				// Add a full stop to the insert, creating its own sentence
-				insert += ".";
+//				// Add a full stop to the insert, creating its own sentence
+//				insert += ".";
 			}
 
 			int len = splitSentence[offset].length();
@@ -705,6 +681,26 @@ public class Util {
 
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts) {
 		return insertIntoSentences(sentence, frequency, inserts, true);
+	}
+	
+	private static String insertIntoSentencesAtPunctuation(String sentence, String[] inserts) {
+		splitSentence = sentence.split(" ");
+		utilitiesStringBuilder.setLength(0);
+		
+		utilitiesStringBuilder.append(inserts[random.nextInt(inserts.length)]+" ");
+		
+		char cOld = 'X';
+		for(char c : sentence.toCharArray()) {
+			utilitiesStringBuilder.append(c);
+			
+			if((cOld=='.'||cOld=='!'||cOld=='?'||cOld==',')
+					&& c==' ') {
+				utilitiesStringBuilder.append(inserts[random.nextInt(inserts.length)]+" ");
+			}
+			cOld = c;
+		}//^\.\. |! |\? 
+
+		return utilitiesStringBuilder.toString();
 	}
 
 	private static String[] bimboWords = new String[] { ", like,", ", like,", ", like,", ", um,", ", uh,", ", ah," };
@@ -770,7 +766,7 @@ public class Util {
 		return insertIntoSentences(sentence, frequency, muffledSounds);
 	}
 
-	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~" };
+	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", "~Ooh!~" };
 	/**
 	 * Turns a normal sentence into a sexy sentence.<br/>
 	 * Example:<br/>
@@ -785,7 +781,11 @@ public class Util {
 	 *            modified sentence
 	 */
 	public static String addSexSounds(String sentence, int frequency) {
-		return insertIntoSentences(sentence, frequency, sexSounds);
+		if(Math.random()<0.75f) { // 75% chance of the sex sounds to be more readable:
+			return insertIntoSentencesAtPunctuation(sentence, sexSounds);
+		} else {
+			return insertIntoSentences(sentence, frequency, sexSounds);
+		}
 	}
 
 	private static String[] drunkSounds = new String[] { " ~Hic!~" };
@@ -793,24 +793,70 @@ public class Util {
 	 * Turns a normal sentence into a drunk one.<br/>
 	 * Example:<br/>
 	 * "How far is it to the town hall?"<br/>
-	 * "How ~Hic!~ far is it ~Hic!~ to the town ~Hic!~ hall?"<br/>
+	 * "How ~Hic!~ far ish it ~Hic!~ to the town ~Hic!~ hall?"<br/>
 	 *
-	 * @param sentence
-	 *            sentence to apply sexy modifications
-	 * @param frequency
-	 *            of drunk sounds (i.e. 4 would be 1 in 4 words are drunk)
-	 * @return
-	 *            modified sentence
+	 * @param sentence to apply drunk modifications to.
+	 * @param frequency of drunk sounds (i.e. 4 would be 1 in 4 words are drunk)
+	 * @return modified sentence
 	 */
 	public static String addDrunkSlur(String sentence, int frequency) {
-		return insertIntoSentences(sentence, frequency, drunkSounds, false)
-			.replaceAll("Hi ", "Heeey ")
-			.replaceAll("yes", "yesh")
-			.replaceAll("is", "ish")
-			.replaceAll("So", "Sho")
-			.replaceAll("so", "sho");
+		sentence = insertIntoSentences(sentence, frequency, drunkSounds, false);
+		
+		String [] split = sentence.split("\\[(.*?)\\]");
+		for(String s : split) {
+			String sReplace = s
+					.replaceAll("Hi ", "Heeey ")
+					.replaceAll("yes", "yesh")
+					.replaceAll("Is", "Ish")
+					.replaceAll("is", "ish")
+					.replaceAll("It's", "It'sh")
+					.replaceAll("it's", "it'sh")
+					.replaceAll("So", "Sho")
+					.replaceAll("so", "sho");
+			
+			sentence = sentence.replace(s, sReplace);
+		}
+		
+		return sentence;
+		
+//		return insertIntoSentences(sentence, frequency, drunkSounds, false)
+//			.replaceAll("Hi ", "Heeey ")
+//			.replaceAll("yes", "yesh")
+//			.replaceAll("is", "ish")
+//			.replaceAll("So", "Sho")
+//			.replaceAll("so", "sho");
 	}
-
+	
+	/**
+	 * Applies a lisp to speech (a speech defect in which s is pronounced like th in thick and z is pronounced like th in this). Modified sibilants are italicised in order to assist with reading.<br/>
+	 * Example:<br/>
+	 * "Is there a zoo that's nearby?"<br/>
+	 * "I<i>th</i> there a <i>th</i>oo that'<i>th</i> nearby?"<br/>
+	 *
+	 * @param sentence The speech to which the lisp should be applied.
+	 * @return The modified sentence.
+	 */
+	public static String applyLisp(String sentence) {
+		String [] split = sentence.split("\\[(.*?)\\]");
+		for(String s : split) {
+			String sReplace = s
+				.replaceAll("s", "<i>th</i>")
+				.replaceAll("z", "<i>th</i>")
+				.replaceAll("S", "<i>Th</i>")
+				.replaceAll("Z", "<i>Th</i>");
+			
+			sentence = sentence.replace(s, sReplace);
+		}
+		
+		return sentence;
+//		return sentence
+//			.replaceAll("s", "<i>th</i>")
+//			.replaceAll("z", "<i>th</i>")
+//			.replaceAll("S", "<i>Th</i>")
+//			.replaceAll("Z", "<i>Th</i>");
+	}
+	
+	
 	/**
 	 * Builds a string representing the list of items in a collection.
 	 *
@@ -844,6 +890,7 @@ public class Util {
 			}
 		} catch(NoSuchElementException ex) {
 			System.err.println("Util.toStringList() error - NoSuchElementException! (It's probably nothing to worry about...)");
+			ex.printStackTrace();
 		}
 		return utilitiesStringBuilder.toString();
 	}
@@ -871,8 +918,8 @@ public class Util {
 		return Util.toStringList(list, (String o) -> capitalise?Util.capitaliseSentence(o):o, "and");
 	}
 
-	public static String stringsToStringChoice(List<String> list) {
-		return Util.toStringList(list, Util::capitaliseSentence, "or");
+	public static String stringsToStringChoice(List<String> list, boolean capitalise) {
+		return Util.toStringList(list, (String o) -> capitalise?Util.capitaliseSentence(o):o, "or");
 	}
 
 	public static String colourSetToStringList(Set<Colour> colourSet) {
@@ -896,9 +943,17 @@ public class Util {
 	}
 
 	public static <Any> Any randomItemFrom(List<Any> list) {
+		if(list.isEmpty()) {
+			return null;
+		}
 		return list.get(Util.random.nextInt(list.size()));
 	}
 
+	public static <Any> Any randomItemFrom(Set<Any> set) {
+		List<Any> list = new ArrayList<>(set);
+		return randomItemFrom(list);
+	}
+	
 	public static <Any> Any randomItemFrom(Any[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}
