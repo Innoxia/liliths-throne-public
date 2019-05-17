@@ -104,8 +104,12 @@ public class SupplierLeader extends NPC {
 			this.setHistory(Occupation.NPC_MUGGER);
 	
 			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_SADIST);
+			this.addFetish(Fetish.FETISH_NON_CON_DOM);
 			this.addFetish(Fetish.FETISH_CUM_STUD);
 			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
+			this.addFetish(Fetish.FETISH_PENIS_GIVING);
+			this.addFetish(Fetish.FETISH_IMPREGNATION);
 			
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ONE_DISLIKE);
 			this.setFetishDesire(Fetish.FETISH_ORAL_GIVING, FetishDesire.ONE_DISLIKE);
@@ -116,10 +120,10 @@ public class SupplierLeader extends NPC {
 		this.setBody(Gender.M_P_MALE, Subspecies.DOG_MORPH_DOBERMANN, RaceStage.GREATER);
 
 		// Core:
-		this.setHeight(190);
+		this.setHeight(360);
 		this.setFemininity(5);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
 		
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DOG_MORPH, Colour.EYE_BROWN));
@@ -156,9 +160,9 @@ public class SupplierLeader extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisSize(18);
-		this.setTesticleSize(TesticleSize.THREE_LARGE);
-		this.setPenisCumStorage(65);
+		this.setPenisSize(90);
+		this.setTesticleSize(TesticleSize.SIX_MASSIVE);
+		this.setPenisCumStorage(9000);
 		this.fillCumToMaxStorage();
 		// Leave cum as normal value
 		

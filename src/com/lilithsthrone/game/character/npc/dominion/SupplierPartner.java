@@ -104,6 +104,9 @@ public class SupplierPartner extends NPC {
 			this.setHistory(Occupation.NPC_MUGGER);
 	
 			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_SADIST);
+			this.addFetish(Fetish.FETISH_NON_CON_DOM);
+			this.addFetish(Fetish.FETISH_CUM_STUD);
 			this.addFetish(Fetish.FETISH_BREASTS_OTHERS);
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 	
@@ -116,7 +119,7 @@ public class SupplierPartner extends NPC {
 		this.setBody(Gender.M_P_MALE, Subspecies.DOG_MORPH_DOBERMANN, RaceStage.GREATER);
 
 		// Core:
-		this.setHeight(185);
+		this.setHeight(360);
 		this.setFemininity(5);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());

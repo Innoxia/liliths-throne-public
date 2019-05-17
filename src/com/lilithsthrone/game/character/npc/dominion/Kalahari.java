@@ -112,15 +112,18 @@ public class Kalahari extends NPC {
 			this.setHistory(Occupation.NPC_BAR_TENDER);
 	
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_BREASTS_SELF);
+			this.addFetish(Fetish.FETISH_LACTATION_SELF);
+			this.addFetish(Fetish.FETISH_CUM_ADDICT);
 	
-			this.setFetishDesire(Fetish.FETISH_BREASTS_SELF, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_BREASTS_OTHERS, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ONE_DISLIKE);
 		}
 		
 		// Body:
 
 		// Core:
-		this.setHeight(179);
+		this.setHeight(359);
 		this.setFemininity(85);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -160,17 +163,22 @@ public class Kalahari extends NPC {
 		
 		// Chest:
 		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.C.getMeasurement());
+		this.setBreastSize(CupSize.K.getMeasurement());
 		this.setBreastShape(BreastShape.PERKY);
-		this.setNippleSize(NippleSize.TWO_BIG);
-		this.setAreolaeSize(AreolaeSize.TWO_BIG);
+		this.setNippleSize(NippleSize.FOUR_MASSIVE);
+		this.setAreolaeSize(AreolaeSize.FOUR_MASSIVE);
+		this.addNippleOrificeModifier(OrificeModifier.PUFFY);)
+		this.setBreastLactationRegeneration(FluidRegeneration.TWO_FAST.getMedianRegenerationValuePerDay());
+		this.setBreastMilkStorage(1000);
+		this.setBreastStoredMilk(1000);
+		this.addMilkModifier(FluidFlavour.BEER);
 		// Nipple settings and modifiers
 		
 		// Ass:
 		this.setAssVirgin(true);
 		this.setAssBleached(false);
-		this.setAssSize(AssSize.THREE_NORMAL);
-		this.setHipSize(HipSize.THREE_GIRLY);
+		this.setAssSize(AssSize.FIVE_HUGE);
+		this.setHipSize(HipSize.FIVE_VERY_WIDE);
 		this.setAssCapacity(Capacity.TWO_TIGHT, true);
 		this.setAssWetness(Wetness.ZERO_DRY);
 		this.setAssElasticity(OrificeElasticity.FOUR_LIMBER.getValue());

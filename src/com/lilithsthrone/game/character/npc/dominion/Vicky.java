@@ -298,15 +298,19 @@ public class Vicky extends NPC {
 	
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_ANAL_GIVING);
+			this.addFetish(Fetish.FETISH_PENIS_GIVING);
+			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_NON_CON_DOM);
+			this.addFetish(Fetish.FETISH_CUM_STUD);
+			this.addFetish(Fetish.FETISH_DEFLOWERING);
 		}
 		
 		
 		// Body:
 
 		// Core:
-		this.setHeight(175);
-		this.setFemininity(85);
+		this.setHeight(350);
+		this.setFemininity(75);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 		
@@ -341,7 +345,7 @@ public class Vicky extends NPC {
 		
 		// Chest:
 		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.C.getMeasurement());
+		this.setBreastSize(CupSize.G.getMeasurement());
 		this.setBreastShape(BreastShape.SIDE_SET);
 		this.setNippleSize(NippleSize.TWO_BIG);
 		this.setAreolaeSize(AreolaeSize.TWO_BIG);
@@ -356,10 +360,12 @@ public class Vicky extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisSize(22);
-		this.setTesticleSize(TesticleSize.THREE_LARGE);
-		this.setPenisCumStorage(65);
-		this.fillCumToMaxStorage();
+		this.setPenisSize(75);
+		this.setPenisGirth(PenisGirth.THREE_THICK);
+		this.setTesticleSize(TesticleSize.FIVE_MASSIVE);
+		this.setPenisCumStorage(6000);
+		this.fillCumToMaxStorage(6000);
+		this.addCumModifier(FluidModifier.ADDICTIVE);
 		
 		// Vagina:
 		this.setVaginaVirgin(false);

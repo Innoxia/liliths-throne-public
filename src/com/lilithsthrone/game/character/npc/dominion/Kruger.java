@@ -124,17 +124,24 @@ public class Kruger extends NPC {
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
-			this.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.THREE_LIKE);
+			this.addFetish(Fetish.FETISH_ANAL_GIVING);
+			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_PENIS_GIVING);
+			this.setFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_CUM_STUD);
+			this.addFetish(Fetish.FETISH_IMPREGNATION);
+			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
+			this.addFetish(Fetish.FETISH_INCEST);
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ZERO_HATE);
 		}
 		
 		// Body:
 
 		// Core:
-		this.setHeight(188);
+		this.setHeight(365);
 		this.setFemininity(0);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
 		
 		// Coverings:
 		
@@ -189,11 +196,13 @@ public class Kruger extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenisGirth.TWO_AVERAGE);
-		this.setPenisSize(20);
-		this.setTesticleSize(TesticleSize.THREE_LARGE);
-		this.setPenisCumStorage(60);
+		this.setPenisGirth(PenisGirth.FOUR_FAT);
+		this.setPenisSize(99);
+		this.setTesticleSize(TesticleSize.SEVEN_MASSIVE);
+		this.setPenisCumStorage(9999);
 		this.fillCumToMaxStorage();
+		this.addCumModifier(FluidFlavour.BEER);
+		this.addCumModifier(FluidModifier.ADDICTIVE);
 		// Leave cum as normal value
 		
 		// Vagina:
@@ -208,13 +217,7 @@ public class Kruger extends NPC {
 
 		this.unequipAllClothingIntoVoid(true, true);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_mens_smart_shoes", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torsoOver_suit_jacket", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_PLATINUM, false), true, this);
 
 	}
 

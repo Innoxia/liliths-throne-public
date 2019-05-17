@@ -171,15 +171,17 @@ public class Brax extends NPC {
 	
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_SADIST);
+			this.addFetish(Fetish.FETISH_PENIS_GIVING);
 		}
 		
 		// Body:
 
 		// Core:
-		this.setHeight(183);
-		this.setFemininity(25);
+		this.setHeight(363);
+		this.setFemininity(0);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
 		
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
@@ -232,9 +234,11 @@ public class Brax extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenisGirth.THREE_THICK);
-		this.setPenisSize(20);
-		this.setTesticleSize(TesticleSize.THREE_LARGE);
+		this.setPenisGirth(PenisGirth.FOUR_FAT);
+		this.setPenisSize(90);
+		this.setTesticleSize(TesticleSize.SIX_GIGANTIC);
+		this.setPenisCumStorage(9000);
+		this.addCumModifier(FluidModifier.ADDICTIVE);
 		// Leave cum as normal value
 		
 		// Vagina:

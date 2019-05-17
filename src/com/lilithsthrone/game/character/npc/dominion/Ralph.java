@@ -116,7 +116,7 @@ public class Ralph extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(195);
+		this.setHeight(345);
 		this.setFemininity(5);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
@@ -177,10 +177,11 @@ public class Ralph extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenisGirth.FOUR_FAT);
-		this.setPenisSize(20);
-		this.setTesticleSize(TesticleSize.FOUR_HUGE);
-		this.setPenisCumStorage(65);
+		this.setPenisSize(80);
+		this.setTesticleSize(TesticleSize.SIX_MASSIVE);
+		this.setPenisCumStorage(8000);
 		this.fillCumToMaxStorage();
+		this.addCumModifier(FluidModifier.ADDICTIVE);
 		// Leave cum as normal value
 		
 		// Vagina:

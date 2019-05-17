@@ -117,7 +117,9 @@ public class Jules extends NPC {
 			this.setHistory(Occupation.NPC_BOUNCER);
 	
 			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_PENIS_GIVING);
 	
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ONE_DISLIKE);
@@ -126,7 +128,7 @@ public class Jules extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(190);
+		this.setHeight(350);
 		this.setFemininity(5);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
@@ -175,7 +177,7 @@ public class Jules extends NPC {
 		this.setAssVirgin(true);
 		this.setAssBleached(false);
 		this.setAssSize(AssSize.TWO_SMALL);
-		this.setHipSize(HipSize.TWO_NARROW);
+		this.setHipSize(HipSize.TWO_NARROW);		
 		this.setAssCapacity(Capacity.ZERO_IMPENETRABLE, true);
 		this.setAssWetness(Wetness.ZERO_DRY);
 		this.setAssElasticity(OrificeElasticity.ONE_RIGID.getValue());
@@ -184,11 +186,12 @@ public class Jules extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenisGirth.THREE_THICK);
-		this.setPenisSize(25);
-		this.setTesticleSize(TesticleSize.THREE_LARGE);
-		this.setPenisCumStorage(40);
+		this.setPenisGirth(PenisGirth.FOUR_FAT);
+		this.setPenisSize(85);
+		this.setTesticleSize(TesticleSize.SIX_MASSIVE);
+		this.setPenisCumStorage(8500);
 		this.fillCumToMaxStorage();
+		this.addCumModifier(FluidModifier.ADDICTIVE);
 		// Leave cum as normal value
 		
 		// Vagina:
@@ -203,11 +206,6 @@ public class Jules extends NPC {
 
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_work_boots", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_SILVER, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 

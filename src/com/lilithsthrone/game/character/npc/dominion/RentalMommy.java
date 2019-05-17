@@ -146,8 +146,8 @@ public class RentalMommy extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(176);
-		this.setFemininity(85);
+		this.setHeight(366);
+		this.setFemininity(100);
 		this.setMuscle(Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 
@@ -186,14 +186,14 @@ public class RentalMommy extends NPC {
 		
 		// Chest:
 		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.GG.getMeasurement());
+		this.setBreastSize(CupSize.MM.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
-		this.setNippleSize(NippleSize.THREE_LARGE.getValue());
-		this.setAreolaeSize(AreolaeSize.THREE_LARGE.getValue());
+		this.setNippleSize(NippleSize.FOUR_MASSIVE.getValue());
+		this.setAreolaeSize(AreolaeSize.FOUR_MASSIVE.getValue());
 		this.addNippleOrificeModifier(OrificeModifier.PUFFY);
 		this.setBreastLactationRegeneration(FluidRegeneration.TWO_FAST.getMedianRegenerationValuePerDay());
-		this.setBreastMilkStorage(500);
-		this.setBreastStoredMilk(500);
+		this.setBreastMilkStorage(100000);
+		this.setBreastStoredMilk(100000);
 		
 		// Ass:
 		this.setAssVirgin(false);
