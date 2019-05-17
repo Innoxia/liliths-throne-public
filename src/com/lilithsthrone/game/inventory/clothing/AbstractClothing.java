@@ -93,7 +93,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			attributeMods.remove(rndMod);
 			TFModifier rndMod2 = attributeMods.get(Util.random.nextInt(attributeMods.size()));
 			
-			if (chance <= 25) { // Jinxed:
+			if (chance <= 20) { // Jinxed:
 				
 				if (chance <= 1) {
 					effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MAJOR_DRAIN, 0));
@@ -112,7 +112,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				
 				enchantmentKnown = false;
 				
-			} else if (chance >= 75) { // Enchanted:
+			} else if (chance >= 80) { // Enchanted:
 				effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.getRandomWeightedPositivePotency(), 0));
 				if(chance > 90) {
 					effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod2, TFPotency.getRandomWeightedPositivePotency(), 0));
@@ -415,7 +415,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			if(!parentElement.getAttribute("sealed").isEmpty()) {
 				clothing.setSealed(Boolean.valueOf(parentElement.getAttribute("sealed")));
 			}
-			clothing.setDirty(Boolean.valueOf(parentElement.getAttribute("isDirty")));
+			clothing.setDirty(null, Boolean.valueOf(parentElement.getAttribute("isDirty")));
 			clothing.setEnchantmentKnown(null, Boolean.valueOf(parentElement.getAttribute("enchantmentKnown")));
 		} catch(Exception ex) {
 		}
@@ -1239,13 +1239,32 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return dirty;
 	}
 
-	public void setDirty(boolean dirty) {
-		this.dirty = dirty;
-		if(Main.game.getPlayer()!=null) {
-			if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(this)) {
-				Main.game.getPlayer().updateInventoryListeners();
+	public void setDirty(GameCharacter owner, boolean dirty) {
+		if(owner!=null) {
+			if(owner.getClothingCurrentlyEquipped().contains(this)) {
+				owner.forceUnequipClothingIntoVoid(owner, this);
+				AbstractClothing c = new AbstractClothing(this) {};
+				c.dirty = dirty;
+				owner.equipClothingOverride(c, false, false);
+				
+			} else if(owner.removeClothing(this)) {
+				AbstractClothing c = new AbstractClothing(this) {};
+				c.dirty = dirty;
+				owner.addClothing(c, false);
+//				enchantmentRemovedClothing = c;
+				
+			} else {
+				this.dirty = dirty;
 			}
+		} else {
+			this.dirty = dirty;
 		}
+		
+//		if(Main.game.getPlayer()!=null) {
+//			if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(this)) {
+//				Main.game.getPlayer().updateInventoryListeners();
+//			}
+//		}
 	}
 
 	public List<DisplacementType> getDisplacedList() {

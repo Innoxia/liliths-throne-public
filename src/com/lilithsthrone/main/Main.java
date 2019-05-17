@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.2.5";
+	public static final String VERSION_NUMBER = "0.3.2.6";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -103,6 +103,28 @@ public class Main extends Application {
 			
 		+ "<br/>"
 
+		+ "<list>"
+			+ "<h6>v0.3.2.6</h6>"
+			+"<li>Other:</li>"
+			+"<ul>Reduced chance of randomly-spawned clothing being enchanted from 25% negative, 50% none, 25% positive, to 20% negative, 60% none, 20% positive.</ul>"
+			+"<ul>Minimum cum expulsion percentage has been reduced from 5% to 0%.</ul>"
+			+"<ul>Suppressed 'no companions' error logging when loading a game.</ul>"
+			+"<ul>If you have the age setting turned off in your content settings, non-unique characters will no longer have the 'menopause' status effect.</ul>"
+			+"<ul>Ms. Cunningham offers you the chance to call her by her first name, 'Vanessa' when offering to help her. You can then switch between calling her Vanessa or Ms. Cunningham in her office's action menu.</ul>"
+			+"<ul>Added all sex options that you have in slave/occupant rooms in Lilaya's house to the cahracters present menu, so you can have threesomes with your companion + elemental at any time.</ul>"
+			+"<ul>NPCs will now lose 10 affection towards their partners if sex ends without being brought to orgasm, which is reduced to a loss of 5 affection if they orgasmed at least once, but still orgasmed less than they wanted.</ul>"
+		
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed several issues related to dirty clothing or clothing getting dirtied causing other identical (although non-dirty) clothing in your inventory to also become dirty.</ul>"
+			+"<ul>Importing slaves no longer shows an icon on the map at the place where you exported them.</ul>"
+			+"<ul>Fixed more issues related to NPC-on-NPC sex not incrementing tattoo counters.</ul>"
+			+"<ul>Slaves in stocks who are not available for any penetration are now correctly marked as such, instead of being described as being available for oral.</ul>"
+			+"<ul>Fixed named weapons losing their name after saving & loading.</ul>"
+			+"<ul>Fixed issues with companions following you into areas when they should have stayed behind (such as in Lyssieth's palace and city hall's Bureau of Demographics).</ul>"
+			+"<ul>Fixed some parsing errors in the new 'double creampie' orgasm action, and fixed the broken knotting orgasm description.</ul>"
+			+"<ul>Fixed incorrect description for Witch's Dress.</ul>"
+		+ "</list>"
+		
 		+ "<list>"
 			+ "<h6>v0.3.2.5</h6>"
 			+"<li>Contributors:</li>"

@@ -138,7 +138,6 @@ public class SlaveInStocks extends NPC {
 			
 			CharacterUtils.applyMakeup(this, true);
 
-
 			if(Math.random()<0.8f) {
 				this.addSlaveJobSettings(SlaveJobSetting.SEX_ORAL);
 				this.setFaceVirgin(false);

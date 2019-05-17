@@ -796,13 +796,13 @@ public class CharacterInventory implements XMLSaving {
 		
 		if(includeNotEquippedClothing) {
 			clothingSubInventory.transform(c -> {
-				c.setDirty(false);
+				c.setDirty(null, false);
 				return c;
 			});
 		}
 		
 		for(AbstractClothing c : clothingCurrentlyEquipped) {
-			c.setDirty(false);
+			c.setDirty(null, false);
 		}
 	}
 	

@@ -375,7 +375,7 @@ public class GenericOrgasms {
 						//TODO check:
 						if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED)) {
 							if(cumTarget==OrgasmCumTarget.INSIDE_SWITCH_DOUBLE) {
-								if(isSecondaryCreampieTarget) {
+								if(!isSecondaryCreampieTarget) {
 									GameCharacter secondaryTarget = getSecondaryCreampieTarget(characterTargeted, (SexAreaOrifice) Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0));
 									genericOrgasmSB.append(" Pushing forwards, [npc.name] [npc.verb(grind)] the knot at the base of [npc.her] [npc.cock+] against [npc2.namePos] "+orificeNamePlusDescriptor+"."
 											+ " Wanting to save [npc.her] rapidly-swelling knot for "+(UtilText.parse(characterOrgasming, secondaryTarget, "[npc2.namePos] "+orificeNamePlusDescriptor))+","
@@ -1387,7 +1387,7 @@ public class GenericOrgasms {
 				}
 				
 			case LILAYA_PANTIES:
-				LilayasRoom.lilayasPanties.setDirty(true);
+				LilayasRoom.lilayasPanties.setDirty(null, true);
 				return UtilText.parse(characterOrgasming,
 						" directly into Lilaya's panties."
 						+ " You can't help but let out [pc.a_moan+] as you watch your [pc.cum+] pool in the soft fabric,"
@@ -2028,7 +2028,7 @@ public class GenericOrgasms {
 			
 			if(targetArea == OrgasmCumTarget.LILAYA_PANTIES) {
 				genericOrgasmSB.append("<br/>You quickly drop Lilaya's panties down between your legs, squirting directly into her underwear as you let out [pc.a_moan+].");
-				LilayasRoom.lilayasPanties.setDirty(true);
+				LilayasRoom.lilayasPanties.setDirty(null, true);
 				
 			} else {
 				AbstractClothing vaginaClothing = Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA);
@@ -2041,7 +2041,7 @@ public class GenericOrgasms {
 					} else {
 						genericOrgasmSB.append(" As [npc.her] "+vaginaClothing.getName()+" "+(vaginaClothing.getClothingType().isPlural()?"are":"is")+" sealing [npc.her] [npc.pussy], nothing gets dirtied by [npc.her] fluids.");
 					}
-					vaginaClothing.setDirty(true);
+					vaginaClothing.setDirty(Sex.getCharacterPerformingAction(), true);
 					
 				} else {
 					Set<GameCharacter> charactersEatingOut = new HashSet<>(Sex.getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE));
@@ -2153,7 +2153,7 @@ public class GenericOrgasms {
 			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
 					&& !Main.game.getPlayer().isWearingCondom()
 					&& Main.game.getPlayer().getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE) {
-				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
+				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(Main.game.getPlayer(), true);
 			}
 		}
 		
@@ -2695,7 +2695,7 @@ public class GenericOrgasms {
 						if(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 							returnString = UtilText.parse(characterPenetrated, secondaryCharacterPenetrated,
 									"Keep your knot out of [npc.namePos] [npc.asshole] as you give [npc.herHim] half of your load,"
-											+ " before quickly pulling out and ramming your knot into [npc2.namePos] [npc2.asshole], before finishing inside of [npc2.herHim+].");
+											+ " before quickly pulling out and ramming your knot into [npc2.namePos] [npc2.asshole], before finishing inside of [npc2.herHim].");
 						} else {
 							returnString = UtilText.parse(characterPenetrated, secondaryCharacterPenetrated,
 									"You've reached your climax, and can't hold back your orgasm any longer. Spurt half of your load into [npc.namePos] [npc.asshole], before quickly pulling out and finishing inside of [npc2.namePos] [npc2.asshole+].");
@@ -2705,7 +2705,7 @@ public class GenericOrgasms {
 						if(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 							returnString = UtilText.parse(characterPenetrated, secondaryCharacterPenetrated,
 									"Keep your knot out of [npc.namePos] [npc.pussy+] as you give [npc.herHim] half of your load,"
-											+ " before quickly pulling out and ramming your knot into [npc2.namePos] [npc2.pussy+], before finishing inside of [npc2.herHim+].");
+											+ " before quickly pulling out and ramming your knot into [npc2.namePos] [npc2.pussy+], before finishing inside of [npc2.herHim].");
 						} else {
 							returnString = UtilText.parse(characterPenetrated, secondaryCharacterPenetrated,
 									"You've reached your climax, and can't hold back your orgasm any longer. Spurt half of your load into [npc.namePos] [npc.pussy+], before quickly pulling out and finishing inside of [npc2.namePos] [npc2.pussy+].");
@@ -3156,6 +3156,8 @@ public class GenericOrgasms {
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.equals(Sex.getCharacterPerformingAction()) && cumTarget.equals(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))) {
 				return Util.newArrayListOfValues(
+
+						CoverableArea.NIPPLES,
 						CoverableArea.BREASTS);
 			}
 			return null; 
@@ -3206,6 +3208,7 @@ public class GenericOrgasms {
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.equals(Sex.getCharacterPerformingAction()) && cumProvider.equals(cumTarget)) {
 				return Util.newArrayListOfValues(
+						CoverableArea.NIPPLES,
 						CoverableArea.BREASTS);
 			}
 			return null; 
@@ -5415,7 +5418,7 @@ public class GenericOrgasms {
 			if (!Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.PENIS)
 					&& !Sex.getCharacterPerformingAction().isWearingCondom()
 					&& Sex.getCharacterPerformingAction().getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE) {
-				Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
+				Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(Sex.getCharacterPerformingAction(), true);
 			}
 		}
 		

@@ -175,6 +175,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		parentElement.appendChild(element);
 		
 		CharacterUtils.addAttribute(doc, element, "id", this.getWeaponType().getId());
+		CharacterUtils.addAttribute(doc, element, "name", name);
 		CharacterUtils.addAttribute(doc, element, "damageType", this.getDamageType().toString());
 		CharacterUtils.addAttribute(doc, element, "coreEnchantment", (this.getCoreEnchantment()==null?"null":this.getCoreEnchantment().toString()));
 		CharacterUtils.addAttribute(doc, element, "colourPrimary", this.getPrimaryColour().toString());
@@ -211,7 +212,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 			System.err.println("Warning: An instance of AbstractWeapon was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			return null;
 		}
-		
+
+		if(!parentElement.getAttribute("name").isEmpty()) {
+			weapon.setName(parentElement.getAttribute("name"));
+		}
 		
 		if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
 			try {

@@ -2862,6 +2862,156 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 				}
 			}
+			
+		} else if(performingArea.isPenetration()) {
+			boolean thisCummed = false;
+			switch(((SexAreaPenetration)performingArea)) {
+				case FINGER:
+					break;
+				case PENIS:
+					if(targetedArea.isOrifice() && ((SexAreaOrifice)targetedArea).isInternalOrifice()) {
+						this.setVirginityLoss(sexType, partner, partner.getLostVirginityDescriptor());
+						this.setPenisVirgin(false);
+						if(this.getPenisRawCumStorageValue()>0 && targetedArea.isOrifice()) {
+							thisCummed = true;
+							partner.ingestFluid(this, this.getCum(), (SexAreaOrifice)targetedArea, this.getPenisRawOrgasmCumQuantity());
+							partner.incrementCumCount(new SexType(SexParticipantType.NORMAL, targetedArea, SexAreaPenetration.PENIS));
+						}
+					}
+					break;
+				case TAIL:
+					break;
+				case TENTACLE:
+					break;
+				case TONGUE:
+					break;
+				case CLIT:
+					break;
+				case FOOT:
+					break;
+			}
+			if(((SexAreaPenetration)performingArea).isTakesVirginity()) {
+				this.setVirginityLoss(partnerSexType, this, this.getLostVirginityDescriptor());
+				if(targetedArea.isOrifice()) {
+					switch(((SexAreaOrifice)targetedArea)) {
+						case ANUS:
+							partner.setAssVirgin(false);
+							if(thisCummed) {
+								partner.addDirtySlot(InventorySlot.ANUS);
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.LEG); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.HIPS); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.GROIN); }
+							}
+							break;
+						case ASS:
+							if(thisCummed) {
+								partner.addDirtySlot(InventorySlot.ANUS);
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.LEG); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.HIPS); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.GROIN); }
+							}
+							break;
+						case BREAST:
+							if(thisCummed) {
+								partner.addDirtySlot(InventorySlot.CHEST);
+								if(Math.random()<0.5f) {
+									partner.addDirtySlot(InventorySlot.TORSO_OVER);
+									partner.addDirtySlot(InventorySlot.TORSO_UNDER);
+								}
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.NECK); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.STOMACH); }
+							}
+							break;
+						case BREAST_CROTCH:
+							if(thisCummed) {
+								partner.addDirtySlot(InventorySlot.STOMACH);
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.LEG); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.HIPS); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.GROIN); }
+							}
+							break;
+						case MOUTH:
+							partner.setFaceVirgin(false);
+							if(thisCummed) {
+								partner.addDirtySlot(InventorySlot.MOUTH);
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.HEAD); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.NECK); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.EYES); }
+							}
+							break;
+						case NIPPLE:
+							partner.setNippleVirgin(false);
+							if(thisCummed) {
+								partner.addDirtySlot(InventorySlot.CHEST);
+								if(Math.random()<0.5f) {
+									partner.addDirtySlot(InventorySlot.TORSO_OVER);
+									partner.addDirtySlot(InventorySlot.TORSO_UNDER);
+								}
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.NECK); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.STOMACH); }
+							}
+							break;
+						case NIPPLE_CROTCH:
+							partner.setNippleCrotchVirgin(false);
+							if(thisCummed) {
+								partner.addDirtySlot(InventorySlot.STOMACH);
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.LEG); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.HIPS); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.GROIN); }
+							}
+							break;
+						case THIGHS:
+							if(thisCummed) {
+								partner.addDirtySlot(InventorySlot.LEG);
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.HIPS); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.GROIN); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.ANKLE); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.FOOT); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.SOCK); }
+							}
+							break;
+						case URETHRA_PENIS:
+							partner.setUrethraVirgin(false);
+							if(thisCummed) {
+								partner.addDirtySlot(InventorySlot.PENIS);
+								if(partner.hasVagina()) {
+									partner.addDirtySlot(InventorySlot.VAGINA);
+								}
+								partner.addDirtySlot(InventorySlot.GROIN);
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.HIPS); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.LEG); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.STOMACH); }
+							}
+							break;
+						case URETHRA_VAGINA:
+							partner.setVaginaUrethraVirgin(false);
+							if(thisCummed) {
+								if(partner.hasPenis()) {
+									partner.addDirtySlot(InventorySlot.PENIS);
+								}
+								partner.addDirtySlot(InventorySlot.VAGINA);
+								partner.addDirtySlot(InventorySlot.GROIN);
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.HIPS); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.LEG); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.STOMACH); }
+							}
+							break;
+						case VAGINA:
+							partner.setVaginaVirgin(false);
+							if(thisCummed) {
+								if(partner.hasPenis()) {
+									partner.addDirtySlot(InventorySlot.PENIS);
+								}
+								partner.addDirtySlot(InventorySlot.VAGINA);
+								partner.addDirtySlot(InventorySlot.GROIN);
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.HIPS); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.LEG); }
+								if(Math.random()<0.5f) { partner.addDirtySlot(InventorySlot.STOMACH); }
+							}
+							break;
+					}
+				}
+			}
 		}
 		
 	}

@@ -1076,9 +1076,18 @@ public class Sex {
 							}
 							
 						} else {
-							if(Sex.getNumberOfOrgasms(participant)==0 && !participant.getFetishDesire(Fetish.FETISH_DENIAL_SELF).isPositive() && !Sex.isDom(participant)) {
-								for(GameCharacter domParticipant : Sex.getDominantParticipants(false).keySet()) {
-									endSexSB.append(participant.incrementAffection(domParticipant, -2, "[npc.Name] is annoyed at [npc2.name] for finishing without bringing [npc.herHim] to orgasm."));
+							if(!participant.getFetishDesire(Fetish.FETISH_DENIAL_SELF).isPositive() && !Sex.isDom(participant)) {
+								int orgasms = Sex.getNumberOfOrgasms(participant);
+								if(Sex.getNumberOfOrgasms(participant)==0) {
+									for(GameCharacter domParticipant : Sex.getDominantParticipants(false).keySet()) {
+										endSexSB.append(participant.incrementAffection(domParticipant, -10f, "[npc.Name] is angry at [npc2.name] for finishing without bringing [npc.herHim] to orgasm."));
+									}
+								} else if(orgasms < participant.getOrgasmsBeforeSatisfied()){
+									for(GameCharacter domParticipant : Sex.getDominantParticipants(false).keySet()) {
+										endSexSB.append(participant.incrementAffection(domParticipant, -5f,
+												"[npc.Name] is annoyed at [npc2.name] for only giving [npc.herHim] "+Util.intToString(orgasms)+" orgasm"+(orgasms==1?"":"s")
+													+", when [npc.she] really wanted at least "+Util.intToString(participant.getOrgasmsBeforeSatisfied())+"."));
+									}
 								}
 							}
 						}
@@ -2035,10 +2044,10 @@ public class Sex {
 				}
 				for(CoverableArea area : cummedOnAreas) {
 					for(InventorySlot slot : area.getAssociatedInventorySlots(cumTarget)) {
-						List<AbstractClothing> dirtyClothing = cumTarget.getVisibleClothingConcealingSlot(slot);
+						List<AbstractClothing> dirtyClothing = new ArrayList<>(cumTarget.getVisibleClothingConcealingSlot(slot));
 						if(!dirtyClothing.isEmpty()) {
 							for(AbstractClothing c : dirtyClothing) {
-								c.setDirty(true);
+								c.setDirty(cumTarget, true);
 							}
 						} else if(slot!=InventorySlot.TORSO_OVER) { // Do not dirty over-torso slot, as it doesn't really make much sense...
 							cumTarget.addDirtySlot(slot);
@@ -2074,7 +2083,7 @@ public class Sex {
 				if(vaginaClothing!=null
 						&& !vaginaClothing.getItemTags().contains(ItemTag.PLUGS_VAGINA)
 						&& !vaginaClothing.getItemTags().contains(ItemTag.SEALS_VAGINA)) {
-					vaginaClothing.setDirty(true);
+					vaginaClothing.setDirty(Sex.getCharacterPerformingAction(), true);
 					
 				} else {
 					Set<GameCharacter> charactersEatingOut = new HashSet<>(getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE));
@@ -2083,10 +2092,10 @@ public class Sex {
 					for(GameCharacter character : charactersEatingOut) {
 						List<InventorySlot> squirterSlots = Util.newArrayListOfValues(InventorySlot.MOUTH, InventorySlot.EYES, InventorySlot.HAIR);
 						for(InventorySlot slot : squirterSlots) {
-							List<AbstractClothing> dirtyClothing = character.getVisibleClothingConcealingSlot(slot);
+							List<AbstractClothing> dirtyClothing = new ArrayList<>(character.getVisibleClothingConcealingSlot(slot));
 							if(!dirtyClothing.isEmpty()) {
 								for(AbstractClothing c : dirtyClothing) {
-									c.setDirty(true);
+									c.setDirty(character, true);
 								}
 							} else {
 								character.addDirtySlot(slot);
