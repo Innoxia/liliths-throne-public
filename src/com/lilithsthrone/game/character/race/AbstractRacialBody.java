@@ -51,7 +51,6 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -386,9 +385,9 @@ public abstract class AbstractRacialBody {
 	
 	public SexualOrientation getSexualOrientation(Gender gender) {
 		if(gender.isFeminine()) {
-			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(15, 50, 35);
+			return SexualOrientation.getSexualOrientationFromUserPreferences(15, 50, 35);
 		} else {
-			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(40, 50, 10);
+			return SexualOrientation.getSexualOrientationFromUserPreferences(40, 50, 10);
 		}
 	}
 	

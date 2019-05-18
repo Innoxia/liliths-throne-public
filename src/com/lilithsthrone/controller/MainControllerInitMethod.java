@@ -111,7 +111,6 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
@@ -4921,7 +4920,7 @@ public class MainControllerInitMethod {
 		// Sexual orientation preferences:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.ORIENTATION_PREFERENCE) {
 			for (SexualOrientation o : SexualOrientation.values()) {
-				for(SexualOrientationPreference preference : SexualOrientationPreference.values()) {
+				for(ContentPreferenceValue preference : ContentPreferenceValue.values()) {
 					if (((EventTarget) MainController.document.getElementById(preference+"_"+o)) != null) {
 						((EventTarget) MainController.document.getElementById(preference+"_"+o)).addEventListener("click", e -> {
 							Main.getProperties().orientationPreferencesMap.put(o, preference.getValue());

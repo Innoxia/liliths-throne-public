@@ -1,10 +1,16 @@
 package com.lilithsthrone.game.settings;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.lilithsthrone.utils.Util;
+
 /**
  * @since 0.1.78
  * @version 0.2.11
  * @author Innoxia
  */
+
 public enum ContentPreferenceValue {
 
 	ZERO_NONE("off", 0),
@@ -33,5 +39,19 @@ public enum ContentPreferenceValue {
 
 	public String getName() {
 		return name;
+	}
+	
+	public static <U> U getValueFromPreferences (Map<U, Integer> preferences, Map<U, Integer> weights, U defaultValue) {
+		HashMap<U, Integer> weightedPreferenceMap = new HashMap<>();
+		preferences.forEach((preference, value) -> {
+			if(weights.containsKey(preference)) weightedPreferenceMap.put(preference, value * weights.get(preference));
+		}); 
+		
+		U preference = Util.getRandomObjectFromWeightedMap(weightedPreferenceMap);
+		
+		if(preference != null) {
+			return preference;
+		}
+		return defaultValue;
 	}
 }

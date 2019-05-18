@@ -48,7 +48,6 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -135,7 +134,7 @@ public class RacialBody {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
-			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(0, 1, 0);
+			return SexualOrientation.getSexualOrientationFromUserPreferences(0, 1, 0);
 		}
 	};
 
@@ -185,7 +184,7 @@ public class RacialBody {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
-			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(0, 1, 0);
+			return SexualOrientation.getSexualOrientationFromUserPreferences(0, 1, 0);
 		}
 	};
 	
@@ -658,7 +657,7 @@ public class RacialBody {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
-			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(95, 5, 0);
+			return SexualOrientation.getSexualOrientationFromUserPreferences(95, 5, 0);
 		}
 	};
 	
