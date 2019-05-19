@@ -42,16 +42,21 @@ public enum ContentPreferenceValue {
 	}
 	
 	public static <U> U getRandomValueFromPreferences (Map<U, Integer> preferences, Map<U, Integer> weights, U defaultValue) {
-		HashMap<U, Integer> weightedPreferenceMap = new HashMap<>();
-		preferences.forEach((preference, value) -> {
-			if(weights.containsKey(preference)) weightedPreferenceMap.put(preference, value * weights.get(preference));
-		}); 
-		
-		U preference = Util.getRandomObjectFromWeightedMap(weightedPreferenceMap);
-		
-		if(preference != null) {
-			return preference;
+		U selectedPreference = null;
+		if(weights != null) {
+			HashMap<U, Integer>weightedPreferenceMap = new HashMap<>();
+			preferences.forEach((preference, value) -> {
+				if(weights.containsKey(preference)) weightedPreferenceMap.put(preference, value * weights.get(preference));
+			}); 
+			selectedPreference = Util.getRandomObjectFromWeightedMap(weightedPreferenceMap);
+		} else {
+			selectedPreference = Util.getRandomObjectFromWeightedMap(preferences);
 		}
+		
+		if(selectedPreference != null) {
+			return selectedPreference;
+		}
+		
 		return defaultValue;
 	}
 }
