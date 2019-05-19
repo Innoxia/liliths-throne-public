@@ -41,7 +41,7 @@ public enum ContentPreferenceValue {
 		return name;
 	}
 	
-	public static <U> U getValueFromPreferences (Map<U, Integer> preferences, Map<U, Integer> weights, U defaultValue) {
+	public static <U> U getRandomValueFromPreferences (Map<U, Integer> preferences, Map<U, Integer> weights, U defaultValue) {
 		HashMap<U, Integer> weightedPreferenceMap = new HashMap<>();
 		preferences.forEach((preference, value) -> {
 			if(weights.containsKey(preference)) weightedPreferenceMap.put(preference, value * weights.get(preference));

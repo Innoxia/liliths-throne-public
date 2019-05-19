@@ -47,7 +47,7 @@ public enum SexualOrientation {
 		weightsMap.put(GYNEPHILIC,gynephilicWeight);
 		weightsMap.put(AMBIPHILIC,ambiphilicWeight);
 		weightsMap.put(ANDROPHILIC,androphilicWeight);
-		return ContentPreferenceValue.getValueFromPreferences(
+		return ContentPreferenceValue.getRandomValueFromPreferences(
 				Main.getProperties().orientationPreferencesMap,
 				weightsMap,
 				SexualOrientation.AMBIPHILIC);
