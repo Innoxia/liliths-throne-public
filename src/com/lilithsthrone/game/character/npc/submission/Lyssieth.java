@@ -351,6 +351,7 @@ public class Lyssieth extends NPC {
 		
 		Main.game.getPlayer().setTailType(TailType.DEMON_COMMON);
 		Main.game.getPlayer().setHornType(HornType.SWEPT_BACK);
+		Main.game.getPlayer().setMinimumHornsPerRow(2);
 		Main.game.getPlayer().getLegConfiguration().setWingsToDemon(Main.game.getPlayer());
 		Main.game.getPlayer().setEarType(EarType.DEMON_COMMON);
 		Main.game.getPlayer().setEyeType(EyeType.DEMON_COMMON);
@@ -439,6 +440,7 @@ public class Lyssieth extends NPC {
 							if(applyExtraEffects) {
 								setPlayerToPartialDemon();
 								Main.game.getPlayer().setHornType(HornType.CURVED);
+								Main.game.getPlayer().setMinimumHornsPerRow(2);
 								if(!Main.game.getPlayer().isFeminine()) {
 									Main.game.getPlayer().incrementFemininity(-20);
 								}

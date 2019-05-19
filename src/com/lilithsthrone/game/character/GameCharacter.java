@@ -19533,6 +19533,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getHornsPerRow() {
 		return body.getHorn().getHornsPerRow();
 	}
+	public String setMinimumHornsPerRow(int hornsPerRow) {
+		return setHornsPerRow(Math.max(getHornsPerRow(), hornsPerRow));
+	}
 	public String setHornsPerRow(int hornsPerRow) {
 		return body.getHorn().setHornsPerRow(this, hornsPerRow);
 	}
