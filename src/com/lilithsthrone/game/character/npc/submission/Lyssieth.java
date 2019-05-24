@@ -342,7 +342,7 @@ public class Lyssieth extends NPC {
 	public List<Class<?>> getUniqueSexClasses() {
 		return Util.newArrayListOfValues(SALyssiethSpecials.class);
 	}
-	
+
 	private void setPlayerToPartialDemon() {
 		Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), false);
@@ -351,8 +351,8 @@ public class Lyssieth extends NPC {
 		
 		Main.game.getPlayer().setTailType(TailType.DEMON_COMMON);
 		Main.game.getPlayer().setHornType(HornType.SWEPT_BACK);
-		Main.game.getPlayer().setWingType(WingType.DEMON_COMMON);
-		Main.game.getPlayer().setWingSize(WingSize.THREE_LARGE.getValue());
+		Main.game.getPlayer().setMinimumHornsPerRow(2);
+		Main.game.getPlayer().getLegConfiguration().setWingsToDemon(Main.game.getPlayer());
 		Main.game.getPlayer().setEarType(EarType.DEMON_COMMON);
 		Main.game.getPlayer().setEyeType(EyeType.DEMON_COMMON);
 		Main.game.getPlayer().setHairType(HairType.DEMON_COMMON);
@@ -372,7 +372,7 @@ public class Lyssieth extends NPC {
 		Main.game.getNpc(daughterClass).setAssType(AssType.DEMON_COMMON);
 		Main.game.getNpc(daughterClass).setBreastType(BreastType.DEMON_COMMON);
 		Main.game.getNpc(daughterClass).setArmType(ArmType.DEMON_COMMON);
-		Main.game.getNpc(daughterClass).setLegType(LegType.DEMON_COMMON);
+		Main.game.getNpc(daughterClass).getLegConfiguration().setLegsToDemon(Main.game.getNpc(daughterClass));
 		Main.game.getNpc(daughterClass).setSkinType(SkinType.DEMON_COMMON);
 		Main.game.getNpc(daughterClass).setFaceType(FaceType.DEMON_COMMON);
 		Main.game.getNpc(daughterClass).setSubspeciesOverride(Subspecies.DEMON);
@@ -444,6 +444,7 @@ public class Lyssieth extends NPC {
 							if(applyExtraEffects) {
 								setPlayerToPartialDemon();
 								Main.game.getPlayer().setHornType(HornType.CURVED);
+								Main.game.getPlayer().setMinimumHornsPerRow(2);
 								if(!Main.game.getPlayer().isFeminine()) {
 									Main.game.getPlayer().incrementFemininity(-20);
 								}
@@ -477,7 +478,7 @@ public class Lyssieth extends NPC {
 						public void applyEffects() {
 							if(applyExtraEffects) {
 								Main.game.getPlayer().setArmType(ArmType.DEMON_COMMON);
-								Main.game.getPlayer().setLegType(LegType.DEMON_COMMON);
+								Main.game.getPlayer().getLegConfiguration().setLegsToDemon(Main.game.getPlayer());
 								Main.game.getPlayer().setArousal(100, true);
 							}
 						}
@@ -492,7 +493,7 @@ public class Lyssieth extends NPC {
 						public void applyEffects() {
 							if(applyExtraEffects) {
 								Main.game.getPlayer().setArmType(ArmType.DEMON_COMMON);
-								Main.game.getPlayer().setLegType(LegType.DEMON_COMMON);
+								Main.game.getPlayer().getLegConfiguration().setLegsToDemon(Main.game.getPlayer());
 								Main.game.getPlayer().setArousal(100, true);
 							}
 						}
@@ -508,7 +509,7 @@ public class Lyssieth extends NPC {
 							if(applyExtraEffects) {
 								Sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
 								Main.game.getPlayer().setArmType(ArmType.DEMON_COMMON);
-								Main.game.getPlayer().setLegType(LegType.DEMON_COMMON);
+								Main.game.getPlayer().getLegConfiguration().setLegsToDemon(Main.game.getPlayer());
 								Main.game.getPlayer().setArousal(100, true);
 							}
 						}
