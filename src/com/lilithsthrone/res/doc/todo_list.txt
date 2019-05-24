@@ -125,6 +125,9 @@
 	
 	Patch notes:
 	
+	Contributors:
+		Fixed Lyssieth's demon TF scene for if you are a taur. (PR#1128 by Stadler76)
+	
 	Other:
 		Slightly improved post-sex descriptions for the companion sex scenes.
 	
@@ -144,6 +147,7 @@
 		Fixed formatting for clothing displacement/removal text.
 		Fixed issue with NPCs saying they want to taste your cum when asking you to creampie their urethra.
 		Equipped clothing that gets dirtied during sex will no longer have its displacements reset.
+		Fixed background error being thrown when orgasming with no penis.
 	
 	Bugs:
 		Typo and grammatical fixes.
@@ -169,6 +173,7 @@
 		Fixed game-breaking bug where selling a slave who is also your companion would cause the game to lock up.
 		Fixed incorrect naming of half-demon taurs' feral parts (as they were always called demonic-horse, even if the taur type was of a different species).
 		Transforming a half-demon into a taur now correctly preserves their genitals as demonic.
+	
 	
 	
 	

@@ -18379,6 +18379,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public String incrementBreastSize(int increment) {
 		return setBreastSize(getBreastRawSizeValue() + increment);
 	}
+	public String setMinimumBreastSize(int size) {
+		return setBreastSize(Math.max(getBreastRawSizeValue(), size));
+	}
+	public String setMinimumBreastSize(CupSize size) {
+		return setBreastSize(Math.max(getBreastRawSizeValue(), size.getMeasurement()));
+	}
 	
 	// Nipples:
 	
@@ -18704,6 +18710,13 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String incrementBreastCrotchSize(int increment) {
 		return setBreastCrotchSize(getBreastCrotchRawSizeValue() + increment);
+	}
+	public String setMinimumBreastCrotchSize(int size) {
+		return setBreastCrotchSize(Math.max(getBreastCrotchRawSizeValue(), size));
+	}
+
+	public String setMinimumBreastCrotchSize(CupSize size) {
+		return setBreastCrotchSize(Math.max(getBreastCrotchRawSizeValue(), size.getMeasurement()));
 	}
 	
 	// Nipples:
@@ -19521,6 +19534,9 @@ public abstract class GameCharacter implements XMLSaving {
 	// Horns per row:
 	public int getHornsPerRow() {
 		return body.getHorn().getHornsPerRow();
+	}
+	public String setMinimumHornsPerRow(int hornsPerRow) {
+		return setHornsPerRow(Math.max(getHornsPerRow(), hornsPerRow));
 	}
 	public String setHornsPerRow(int hornsPerRow) {
 		return body.getHorn().setHornsPerRow(this, hornsPerRow);
