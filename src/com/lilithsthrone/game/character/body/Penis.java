@@ -1068,7 +1068,7 @@ public class Penis implements BodyPartInterface {
 
 	@Override
 	public boolean isBestial(GameCharacter owner) {
-		if(owner==null) {
+		if(owner==null || getType()==PenisType.NONE) {
 			return false;
 		}
 		return owner.getLegConfiguration().getBestialParts().contains(Penis.class) && getType().getRace().isBestialPartsAvailable();

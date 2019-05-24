@@ -155,7 +155,7 @@ public class SALyssiethSpecials {
 			Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 			Main.game.getPlayer().setHeight(168);
 			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
-			playerGrowDemonicBreasts(CupSize.DD, CupSize.C);
+			playerGrowDemonicBreasts(CupSize.DD);
 			Main.game.getPlayer().setPenisType(PenisType.NONE);
 			playerGrowDemonicVagina();
 			
@@ -223,7 +223,7 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 				Main.game.getPlayer().setHeight(168);
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
-				playerGrowDemonicBreasts(CupSize.AA, CupSize.TRAINING_AA);
+				playerGrowDemonicBreasts(CupSize.AA);
 			} else {
 				Main.game.getPlayer().incrementFemininity(15);
 				Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
@@ -233,7 +233,7 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 				Main.game.getPlayer().setHeight(168);
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
-				playerGrowDemonicBreasts(CupSize.DD, CupSize.C);
+				playerGrowDemonicBreasts(CupSize.DD);
 			}
 			
 			if(Main.game.getPlayer().hasPenis()) {
@@ -641,7 +641,7 @@ public class SALyssiethSpecials {
 			Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 			Main.game.getPlayer().setHeight(168);
 			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
-			playerGrowDemonicBreasts(CupSize.F, CupSize.DD);
+			playerGrowDemonicBreasts(CupSize.F);
 			playerGrowDemonicVagina();
 			
 			Sex.setSexManager(
@@ -707,7 +707,7 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 				Main.game.getPlayer().setHeight(168);
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
-				playerGrowDemonicBreasts(CupSize.F, CupSize.DD);
+				playerGrowDemonicBreasts(CupSize.F);
 				
 			} else {
 				Main.game.getPlayer().setFemininity(50);
@@ -718,7 +718,7 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 				Main.game.getPlayer().setHeight(168);
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
-				playerGrowDemonicBreasts(CupSize.AA, CupSize.TRAINING_AA);
+				playerGrowDemonicBreasts(CupSize.AA);
 			}
 			
 			Sex.setSexManager(

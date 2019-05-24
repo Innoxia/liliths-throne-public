@@ -2117,13 +2117,14 @@ public class Sex {
 			}
 			
 			// Apply orgasm arousal resets:
-			if(!Sex.getCharacterPerformingAction().hasPenis()
-					|| Sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()>0
+			if((Sex.getCharacterPerformingAction().hasPenis() && Sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()>0)
 					|| Sex.getCharacterPerformingAction().hasVagina()
 					|| Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())>0) {
 				incrementNumberOfOrgasms(Sex.getCharacterPerformingAction(), 1);
 				Sex.getCharacterPerformingAction().setArousal(Sex.getCharacterPerformingAction().getLust()/4f);
-				Sex.getCharacterPerformingAction().applyOrgasmCumEffect(sexAction==GenericOrgasms.GENERIC_ORGASM_DOUBLE_CREAMPIE?0.5f:1);
+				if(Sex.getCharacterPerformingAction().hasPenis()) {
+					Sex.getCharacterPerformingAction().applyOrgasmCumEffect(sexAction==GenericOrgasms.GENERIC_ORGASM_DOUBLE_CREAMPIE?0.5f:1);
+				}
 				
 			} else {
 				incrementNumberOfOrgasms(Sex.getCharacterPerformingAction(), 1);
