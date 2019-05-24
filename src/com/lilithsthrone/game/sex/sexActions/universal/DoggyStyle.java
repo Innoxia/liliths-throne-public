@@ -764,7 +764,7 @@ public class DoggyStyle {
 
 		@Override
 		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
-			if(cumProvider.equals(Main.game.getPlayer()) && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
+			if(cumProvider.equals(Sex.getCharacterPerformingAction()) && cumTarget.equals(Sex.getCharacterTargetedForSexAction(this))) {
 				return Util.newArrayListOfValues(SexAreaOrifice.ANUS);
 			} else {
 				return null;

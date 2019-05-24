@@ -107,10 +107,10 @@ public class GenericPositioningNew {
 	public static void setNewSexManager(PositioningData data, boolean requestAccepted) {
 		Map<GameCharacter, SexSlot> dominants = new HashMap<>();
 		Map<GameCharacter, SexSlot> submissives = new HashMap<>();
-		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(true).keySet());
-		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(true).keySet());
-		List<GameCharacter> dominantSpectators = new ArrayList<>();
-		List<GameCharacter> submissiveSpectators = new ArrayList<>();
+		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
+		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+		List<GameCharacter> dominantSpectators = new ArrayList<>(Sex.getDominantSpectators());
+		List<GameCharacter> submissiveSpectators = new ArrayList<>(Sex.getSubmissiveSpectators());
 		
 		GameCharacter performer = Sex.getCharacterPerformingAction();
 		GameCharacter target = Sex.getTargetedPartner(performer);
@@ -1122,6 +1122,13 @@ public class GenericPositioningNew {
 			}
 			return new ArrayList<>(fetishes);
 		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isBeingPenetrated()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
 	};
 	
 	public static final SexAction REQUEST_POSITION_ALL_FOURS_GETTING_FUCKED = new SexAction(
@@ -1290,6 +1297,13 @@ public class GenericPositioningNew {
 				}
 			}
 			return new ArrayList<>(fetishes);
+		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
 		}
 	};
 	
@@ -1558,7 +1572,7 @@ public class GenericPositioningNew {
 
 		@Override
 		public void applyEffects() {
-			if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
 					Sex.getPositionRequest().getPosition(),
 					Sex.getPositionRequest().getPartnerSlots().get(0),
 					Sex.getPositionRequest().getPerformerSlots().get(0),

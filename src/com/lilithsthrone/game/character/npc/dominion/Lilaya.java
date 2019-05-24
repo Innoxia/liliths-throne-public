@@ -59,6 +59,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -110,6 +111,9 @@ public class Lilaya extends NPC {
 
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.6")) {
 			this.setWingSize(WingSize.THREE_LARGE.getValue());
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3")) {
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
 	}
 	
@@ -227,7 +231,6 @@ public class Lilaya extends NPC {
 	
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		
 		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_BLACK, false), true, this);
@@ -237,12 +240,12 @@ public class Lilaya extends NPC {
 		
 		AbstractClothing labCoat = AbstractClothingType.generateClothing(ClothingType.SCIENTIST_TORSO_OVER_LAB_COAT, Colour.CLOTHING_WHITE, false);
 		this.equipClothingFromNowhere(labCoat, true, this);
-		this.isAbleToBeDisplaced(labCoat, DisplacementType.UNBUTTONS, true, true, this);
+		this.isAbleToBeDisplaced(this.getClothingInSlot(InventorySlot.TORSO_OVER), DisplacementType.UNBUTTONS, true, true, this);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_trainer_socks", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_BLACK, false), true, this);
-		
 
 	}
 

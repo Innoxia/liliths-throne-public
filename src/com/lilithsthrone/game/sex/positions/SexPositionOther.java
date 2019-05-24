@@ -294,6 +294,10 @@ public class SexPositionOther {
 			return sb.toString();
 		}
 		@Override
+		public int getMaximumSlots() {
+			return 6;
+		}
+		@Override
 		public Map<SexSlot, Map<SexSlot, SexActionInteractions>> getSlotTargets() {
 			if(Sex.getCharacterInPosition(SexSlotOther.ALL_FOURS_FUCKED_TWO)!=null) {
 				return generateSlotTargetsMap(Util.newArrayListOfValues(

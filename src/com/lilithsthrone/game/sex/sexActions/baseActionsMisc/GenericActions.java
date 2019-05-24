@@ -84,8 +84,8 @@ public class GenericActions {
 			
 			if(Sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() && Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING) {
 				sb.append(UtilText.returnStringAtRandom(
-						" A clearly aroused yelp escapes from [npc2.namePos] mouth at the moment of contact, letting [npc2.name] know that [npc.sheIs] deriving masochistic pleasure from being abused in such a fashion.",
-						" The horny squeal that escapes [npc2.namePos] mouth is enough to let anyone realise that [npc.sheIs] getting turned on from being treated in such a degrading manner.",
+						" A clearly aroused yelp escapes from [npc2.namePos] mouth at the moment of contact, letting [npc.name] know that [npc2.sheIs] deriving masochistic pleasure from being abused in such a fashion.",
+						" The horny squeal that escapes [npc2.namePos] mouth is enough to let anyone realise that [npc2.sheIs] getting turned on from being treated in such a degrading manner.",
 						" Instead of a painful cry, [npc2.name] [npc2.verb(let)] out a horny moan, letting [npc.name] know that [npc2.sheIs] a masochist, who's getting turned on by being abused like this."));
 			} else {
 				sb.append(UtilText.returnStringAtRandom(

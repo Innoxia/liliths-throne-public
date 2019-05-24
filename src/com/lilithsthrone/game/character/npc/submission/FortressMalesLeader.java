@@ -278,12 +278,11 @@ public class FortressMalesLeader extends NPC {
 	public boolean isAbleToEquipDildo(GameCharacter target) {
 		AbstractClothing dildo = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_insertableVibrator_insertable_vibrator"), Colour.CLOTHING_PURPLE_DARK, null);
 		return target.isAbleToEquip(dildo, true, this)
-				&& Sex.getSexTypeCount(this, target, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;	
+				&& Sex.getSexTypeCount(this, target, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
 	}
 	
 	@Override
 	public void endSex() {
-		
 		if(Sex.getPostSexDialogue().equals(ImpFortressDialogue.KEEP_AFTER_SEX_DEFEAT)) {
 			if(ImpFortressDialogue.getMainCompanion()!=null && Sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())) {
 				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+ImpFortressDialogue.getDialogueEncounterId(), "KEEP_AFTER_SEX_DEFEAT_WITH_COMPANION", ImpFortressDialogue.getAllCharacters()));

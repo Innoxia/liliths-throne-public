@@ -1107,29 +1107,14 @@ public class CharactersPresentDialogue {
 
 		@Override
 		public String getContent() {
-			if(!Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
-				return UtilText.parse(Main.game.getActiveNPC(),
-						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished."
-						+ "</p>");
+			if(Sex.getAllParticipants().size()>2) {
+				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_THREESOME", getTargetedCharacterForSex(), getCompanionCharacter());
+				
+			} else if(Sex.getNumberOfOrgasms(getCharacterViewed()) >= getCharacterViewed().getOrgasmsBeforeSatisfied()) {
+				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX", getTargetedCharacterForSex());
 				
 			} else {
-				if(Sex.getNumberOfOrgasms(Main.game.getActiveNPC()) >= Main.game.getActiveNPC().getOrgasmsBeforeSatisfied()) {
-					return UtilText.parse(Main.game.getActiveNPC(),
-							"<p>"
-								+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
-								+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
-							+ "</p>");
-				} else {
-					return UtilText.parse(Main.game.getActiveNPC(),
-							"<p>"
-								+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished."
-								+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.speech([pc.Name]! I'm still horny!)]"
-							+ "</p>");
-				}
+				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_NO_ORGASM", getTargetedCharacterForSex());
 			}
 		}
 
@@ -1163,7 +1148,7 @@ public class CharactersPresentDialogue {
 		
 		@Override
 		public String getLabel() {
-			return UtilText.parse(characterViewed, "[npc.NamePos] Perk Tree");
+			return UtilText.parse(getCharacterViewed(), "[npc.NamePos] Perk Tree");
 		}
 		
 		@Override

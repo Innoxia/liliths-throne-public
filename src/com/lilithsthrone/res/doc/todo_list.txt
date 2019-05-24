@@ -125,80 +125,56 @@
 	
 	Patch notes:
 	
-	Contributors:
-		Cleaned up inventory code. (PR#1146 by Pimgd)
-		Added 'light grey', 'dark grey', and 'gunmetal grey' colours. (PR#1147 by GynoidDoesGames)
-		Fixed issue with sex sometimes never ending when having sex with a companion in their room. (PR#1153 by A-haron)
-		Fixed sex behaviour treating strapons as though they were going to cum. (PR#1151 by A-haron)
-	
 	Other:
-		Time until end of arcane storm is now displayed in tooltip if you have the arcane spell school ability unlocked.
-		Added a pink background for ongoing sex action status effects, to help to highlight what's happening during sex scenes.
-		Growing unicorn horns via TF potion will now reset horns per row to 1 a the moment of transformation. (You can still increase horns per row as normal after the type transformation.)
-		Elementals can now self-transform into the appearance of any morph, but will still always be composed entirely of their associated element.
-		Made friendly occupant sex options the same as slave sex options (by adding the spitroast and doggy-style options), and you can now access their sex menu in their room/apartment even if they're in your party.
-		Slightly improved UI for reforging weapon damage types.
-		Jinxed clothing status effect now applies -5 to maximum aura, instead of -2 to physique and -2 to arcane.
+		Slightly improved post-sex descriptions for the companion sex scenes.
 	
 	Sex:
-		Fixed issue where changing positions in group sex would move the third/fourth partners into spectator slots.
-		Rough-pace NPCs can now use the 'Pussy-to-mouth' and 'Ass-to-mouth' orgasm options when fucking others in the doggy-style position.
-		Added 'double creampie' and 'double anal creampie' orgasm actions for group sex, which are available if there is a free pussy/asshole when orgasming inside your target's pussy/asshole.
-		Even if already occupied by an ongoing action, you can now switch into another penetration without having to use the 'Stop X' action first (so long as you have the necessary level of control). NPCs cannot do this, in order to give you a turn to react to their decision to stop an ongoing action.
-		Fixed issue with all NPCs losing arousal & lust from non-penis anal interactions, even when they didn't have a negative opinion of anal actions.
-		Fixed not being able to swap positions in group sex with dominant partners when a dom, and with submissive partners when a sub.
-		Spectators in sex will no longer have their ongoing self-actions reset when the active participants change position.
-		Added standard ongoing actions for tribbing (clit rubbing against partner's clit), along with a unique action for if your clit is prehensile. This action should be available in all positions in which groins are next to each other.
-		Added a 'slap face' action for all sex positions in which a dominant character's hands can reach the submissive target's face.
-		Added 'Submissive talk' action for eager-paced subs, a 'Degrading talk' action for rough-paced doms, and a 'Request rough sex' action for NPCs who want you to be rough with them.
-		Fixed 'Twintail pull', 'Ear pull', and 'Grab horns' actions sometimes being available in positions that made no sense.
-		Improved 'Stop penetrations' action to stop all penetrations that your target is engaged in (instead of just stopping penetrations between you and them), allowing you to stop their ongoing actions with characters other than yourself.
+		Fixed bug where you could 'Start kissing', even if you were already kissing your partner.
+		Fixed being able to perform tribbing at the same time as penis-vagina penetration or intercrural sex.
+		Added status effect indication of ongoing tribbing action (only shows up when tribbing is ongoing).
+		Fixed availability of impossible mutual ongoing actions, such as performing anal and receiving intercrural at the same time.
+		Improved NPCs' choice of sex positioning, so they should now prefer to take submissive positions when wanting to be penetrated, and vice versa. (e.g. An NPC wanting to be fucked should now choose 'on back' slot in missionary.)
+		Fixed being able to use the 'Double creampie' orgasm action when the second person didn't have a vagina.
+		Fixed the 'mounting' positions in taur sex sometimes not being available.
+		Fixed bug where switching to doggy style while there was a spectator would cause the game to freeze.
+		Fixed a fingering action, as well as all handjob actions, having 'horny' corruption requirements instead of 'vanilla'.
+		Fixed some broken parsing in the new 'slap face' action.
+		Sex with Lilaya no longer immediately ends if you cum inside of her while wearing a condom (and the condom doesn't break).
+		NPCs will no longer remove socks when giving footjobs, and will now remove their target's shoes if they want to receive a footjob, unless they are masochists.
+		Fixed formatting for clothing displacement/removal text.
+		Fixed issue with NPCs saying they want to taste your cum when asking you to creampie their urethra.
+		Equipped clothing that gets dirtied during sex will no longer have its displacements reset.
 	
 	Bugs:
-		Typo fixes.
-		Non-unique NPCs (including offspring) will now drink Fetish Endowment potions if they like or love the 'Kink curious' fetish, or if they worship you.
-		Fixed missing dialogue when Takahashi transformed both you and your companion.
-		Fixed some dialogue with Elizabeth treating you as a chuuni even if you weren't one.
-		Fixed debug parser's XML test field still registering input as normal, which could cause the debug menu to be closed while typing.
-		Fixed bug where characters orgasming while wearing a dildo would cause cum to be pumped into the orifice being penetrated by said dildo.
-		Fixed some misleading descriptions when using the offspring map.
-		Fluid regeneration enchantments on clothing have had their increase/decrease amounts increased from 1/-1 to 250/-250.
-		Inventory tabs should no longer be clickable if their pages are empty.
-		Fixed numerous cases of names not parsing correctly.
-		Fixed lore inconsistency with Lilaya acting as though angels are unheard of.
-		Fixed not being able to remove crotch-boobs from bipeds via TF potions when crotch-boob setting was set to 'Taur only'.
-		Fixed crotch-boob options in the slime self-TF menu not being as expansive as the demon TF ones.
-		Fixed parsing error when cumming inside someone's vaginal urethra.
-		Critical hits in combat that end up missing will no longer grant you an arcane essence if you had the sadist (for dealing damage) or masochist (for receiving damage) fetish.
-		The rooms and halls in Lyssieth's palace now correctly have maids described as being present in the 'characters present' dialogue box.
-		Takahashi will no longer be willing to use a potion on your companion if they're a demon or elemental.
-		Fixed being able to have a threesome with a clone of your companion when visiting their apartment.
-		Fixed cloaca-contained anus still being able to be penetrated in sex even when it was blocked.
-
-	v0.3.2.6
-	
-	Other:
-		Reduced chance of randomly-spawned clothing being enchanted from 25% negative, 50% none, 25% positive, to 20% negative, 60% none, 20% positive.
-		Minimum cum expulsion percentage has been reduced from 5% to 0%.
-		Suppressed 'no companions' error logging when loading a game.
-		If you have the age setting turned off in your content settings, non-unique characters will no longer have the 'menopause' status effect.
-		Ms. Cunningham offers you the chance to call her by her first name, 'Vanessa' when offering to help her. You can then switch between calling her Vanessa or Ms. Cunningham in her office's action menu.
-		Added all sex options that you have in slave/occupant rooms in Lilaya's house to the cahracters present menu, so you can have threesomes with your companion + elemental at any time.
-		NPCs will now lose 10 affection towards their partners if sex ends without being brought to orgasm, which is reduced to a loss of 5 affection if they orgasmed at least once, but still orgasmed less than they wanted.
-		
-	Bugs:
-		Fixed several issues related to dirty clothing or clothing getting dirtied causing other identical (although non-dirty) clothing in your inventory to also become dirty.
-		Importing slaves no longer shows an icon on the map at the place where you exported them.
-		Fixed more issues related to NPC-on-NPC sex not incrementing tattoo counters.
-		Slaves in stocks who are not available for any penetration are now correctly marked as such, instead of being described as being available for oral.
-		Fixed named weapons losing their name after saving & loading.
-		Fixed issues with companions following you into areas when they should have stayed behind (such as in Lyssieth's palace and city hall's Bureau of Demographics).
-		Fixed some parsing errors in the new 'double creampie' orgasm action, and fixed the broken knotting orgasm description.
-		Fixed incorrect description for Witch's Dress.
+		Typo and grammatical fixes.
+		Fixed several elusive parsing-related bugs, which were causing odd and difficult-to-reproduce instances of text parsing failure.
+		Fixed a game-breaking bug where if the game auto-saved in the same scene that the jinxed clothing quest was first revealed, that save would be unable to be loaded.
+		Fixed background error being thrown when an NPC gave birth, which would cause the map & other UI elements to seemingly break at random.
+		Fixed 'Ass-to-mouth' orgasm action in doggy-style causing cum to be pumped into the wrong person's ass.
+		Issues with parsing and some other errors associated with having sex with companions have been fixed.
+		Offspring as a result of selfcest should now correctly be referred to as full siblings instead of half-siblings.
+		Fixed issue with Amber having a sex preference for your vagina, even if you didn't have one.
+		Fixed the parser's '##' output suppression causing all parsing to break.
+		Half-demons will no longer spawn in Dominion during an arcane storm (as they are, by default, immune to the effects that would cause them to attack you).
+		The 'Risk of pregnancy' status effect no longer expels all fluids stored in your vagina if it's revealed that you're not pregnant when the effect comes to an end.
+		Fixed pregnancy's birthing date not being set correctly if the father was unknown.
+		Fixed the 'heels' item of clothing having incorrect default colours (the soles were coloured tan instead of the insides) and incorrect references to 'flats'.
+		Fixed Lilaya's lab coat not being unbuttoned.
+		Fixed bug where Lilaya could get pregnant and never complete the pregnancy, thereby perpetually locking you out of her lab.
+		Lyssieth no longer loses affection towards you upon ending her demon-TF sex scene (which was caused by not orgasming enough times to be satisfied).
+		Affection and obedience change descriptions are now properly rounded (to remove instances such as 'X now has -14.2999995 obedience').
+		You can now correctly set your surname to be blank in city hall.
+		Fixed some incorrect descriptions of Diana and her harpy followers.
+		Fixed bug in tattoo mods where secondary and tertiary colour availability would always be using the values for primary colours.
+		Fixed game-breaking bug where selling a slave who is also your companion would cause the game to lock up.
+		Fixed incorrect naming of half-demon taurs' feral parts (as they were always called demonic-horse, even if the taur type was of a different species).
+		Transforming a half-demon into a taur now correctly preserves their genitals as demonic.
 	
 	
 	
+	Add scissoring position
 	
+	Add option to stop auto saves
 	
 	------- Clothing issues:
 	
@@ -217,8 +193,14 @@
 	
 	----------
 	
-	Add unique dialogue for characters present sex
+	Repeat encounters for imp fortresses act as though you've never seen them before - the whole thing needs going over and improving
+	Not sure, if it's a bug or intended, but I am at the imp fortress, and Jhortrax explicitly asks for my NPC partner, but the options below are limited to offering myself or offering both of us.
 	
+	the bat slime is referenced after sexing a hell hound (after companion sex - parsing the wrong character when saying "As you step back from the... I'm still horny!")
+	
+	changing position into doggy style apparently broke the companion sex as well
+		I made a change that fixed the issue of characters going into a spectator slot when switching to doggy-style; that might be it
+		
 	Affection drop when starting sex needs to clearly take into account fetishes - put in SexResponse?
 	
 	remove sterlility from bunny prostitutes
@@ -272,10 +254,12 @@
 	Forced TF not working for someone
 		Ah, yeah, that's intended with the way the non-con option works right now. I'll improve it for the next version so that you can turn on/off sex after defeat as a separate option. your words
 	go over forced TF and fix it all
+	the bug is them saying they are going to transform you into a female demon
 	
-	poll for character art
 	
 	credits
+	
+	Freckles only on face option
 	
 	
 	

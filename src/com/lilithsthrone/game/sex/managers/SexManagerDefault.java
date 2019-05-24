@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
@@ -35,6 +36,8 @@ import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFeet;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFoot;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
@@ -126,6 +129,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 
 		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
 		
+		
 		// --- Priority 1 | If orgasming, bypass everything and use an orgasm option ---
 		
 		if (partner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue() && SexFlags.playerPreparedForCharactersOrgasm.contains(partner)) {
@@ -200,7 +204,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				if(!character.equals(partner)
 						&& Sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING
 						&& partner.isHappyToBeInSlot(Sex.getPosition(), Sex.getSexPositionSlot(partner), Sex.getSexPositionSlot(character), character)
-						&& highPriorityActions.isEmpty()) {
+//						&& highPriorityActions.isEmpty()
+						) {
 //					System.out.println("Happy in slot");
 					suitablePosition = true;
 					break;
@@ -277,8 +282,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 						targetAreasToBeExposed.add(partner.getMainSexPreference(targetedCharacter).getTargetedSexArea().getRelatedCoverableArea());
 					}
 					
-				} 
-				else {
+				} else {
 					partnerAreasToBeExposed.add(CoverableArea.PENIS);
 					partnerAreasToBeExposed.add(CoverableArea.VAGINA);
 					
@@ -286,16 +290,28 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					targetAreasToBeExposed.add(CoverableArea.VAGINA);
 				}
 			}
+
+			if((Sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFoot.FOOT_JOB_SINGLE_GIVING_START)
+					|| Sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFeet.FOOT_JOB_DOUBLE_GIVING_START))
+				&& !partner.getFetishDesire(Fetish.FETISH_FOOT_GIVING).isNegative()) {
+				partnerAreasToBeExposed.add(CoverableArea.FEET);
+			}
+			if((Sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFoot.FOOT_JOB_SINGLE_RECEIVING_START)
+					|| Sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFeet.FOOT_JOB_DOUBLE_RECEIVING_START))
+				&& !partner.getFetishDesire(Fetish.FETISH_FOOT_RECEIVING).isNegative()) {
+				targetAreasToBeExposed.add(CoverableArea.FEET);
+			}
 			
 			partnerAreasToBeExposed.removeIf((area) -> (partner.isCoverableAreaExposed(area) || !partner.isAbleToAccessCoverableArea(area, true))
 					|| (area==CoverableArea.PENIS && !partner.hasPenis())
 					|| (area==CoverableArea.VAGINA && !partner.hasVagina()));
 
-			partnerAreasToBeExposed.removeIf((area) -> (area==CoverableArea.FEET && partner.getFetishDesire(Fetish.FETISH_SADIST).isPositive()));
-
-			targetAreasToBeExposed.removeIf((area) -> (Sex.getTargetedPartner(partner).isCoverableAreaExposed(area) || !Sex.getTargetedPartner(partner).isAbleToAccessCoverableArea(area, true))
-					|| (area==CoverableArea.PENIS && !Sex.getTargetedPartner(partner).hasPenis())
-					|| (area==CoverableArea.VAGINA && !Sex.getTargetedPartner(partner).hasVagina()));
+			partnerAreasToBeExposed.removeIf((area) -> (area==CoverableArea.FEET && (partner.getFetishDesire(Fetish.FETISH_SADIST).isPositive() || partner.getClothingInSlot(InventorySlot.FOOT)==null)));
+			targetAreasToBeExposed.removeIf((area) -> (area==CoverableArea.FEET && (partner.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() || targetedCharacter.getClothingInSlot(InventorySlot.FOOT)==null)));
+			
+			targetAreasToBeExposed.removeIf((area) -> (targetedCharacter.isCoverableAreaExposed(area) || !targetedCharacter.isAbleToAccessCoverableArea(area, true))
+					|| (area==CoverableArea.PENIS && !targetedCharacter.hasPenis())
+					|| (area==CoverableArea.VAGINA && !targetedCharacter.hasVagina()));
 			
 			if(!partnerAreasToBeExposed.isEmpty() && Sex.isCanRemoveSelfClothing(partner)) {
 				Collections.shuffle(partnerAreasToBeExposed);
@@ -305,11 +321,12 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					return Sex.manageClothingToAccessCoverableArea(partner, partner, partnerAreasToBeExposed.get(0));
 				}
 			}
+			
 			if(!targetAreasToBeExposed.isEmpty() && Sex.isCanRemoveOthersClothing(partner, null)) {
 				Collections.shuffle(targetAreasToBeExposed);
 				List<CoverableArea> areas = new ArrayList<>(targetAreasToBeExposed);
 				for(CoverableArea area : areas) {
-					SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval = Sex.getTargetedPartner(partner).getNextClothingToRemoveForCoverableAreaAccess(area);
+					SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval = targetedCharacter.getNextClothingToRemoveForCoverableAreaAccess(area);
 					if(clothingRemoval==null || !Sex.isCanRemoveOthersClothing(partner, clothingRemoval.getKey())) {
 						targetAreasToBeExposed.remove(area);
 					}
@@ -317,9 +334,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 
 				if(!targetAreasToBeExposed.isEmpty()) {
 					if(targetAreasToBeExposed.get(0) == CoverableArea.MOUND) {
-						return Sex.manageClothingToAccessCoverableArea(partner, Sex.getTargetedPartner(partner), CoverableArea.VAGINA);
+						return Sex.manageClothingToAccessCoverableArea(partner, targetedCharacter, CoverableArea.VAGINA);
 					} else {
-						return Sex.manageClothingToAccessCoverableArea(partner, Sex.getTargetedPartner(partner), targetAreasToBeExposed.get(0));
+						return Sex.manageClothingToAccessCoverableArea(partner, targetedCharacter, targetAreasToBeExposed.get(0));
 					}
 				}
 			}

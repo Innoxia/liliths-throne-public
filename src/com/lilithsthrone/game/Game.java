@@ -1427,7 +1427,8 @@ public class Game implements XMLSaving {
 						npc.equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS));
 						npc.setPendingClothingDressing(false);
 						
-					} else if(!npc.isSlave() && !npc.isUnique()
+					} else if(!npc.isSlave()
+							&& !npc.isUnique()
 							&& !npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 							&& (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS))) {
 						// Try to replace clothing to cover themselves up:
@@ -1486,7 +1487,7 @@ public class Game implements XMLSaving {
 			if(npc.hasStatusEffect(StatusEffect.PREGNANT_3) && (Main.game.getSecondsPassed() - npc.getTimeProgressedToFinalPregnancyStage())>(12*60*60)) {
 				if(npc instanceof Lilaya) {
 					// Lilaya will only end pregnancy after you've seen it, or if she's a full demon:
-					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaBirthNews) || npc.getRaceStage()==RaceStage.GREATER) {
+					if(Main.game.getNpc(Lilaya.class).isCharacterReactedToPregnancy(Main.game.getPlayer()) || npc.getRaceStage()==RaceStage.GREATER) {
 						npc.endPregnancy(true);
 					}
 					

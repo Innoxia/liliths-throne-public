@@ -275,6 +275,10 @@ public class Main extends Application {
 		
 		credits.add(new CreditsSlot("Kyle S P", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Paradoxiso", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("luka_fateburn", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("CinnamonSuccubus", "", 0, 0, 0, 0, Subspecies.DEMON));
+		
+		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Akira", "", 0, 0, 0, 2));
@@ -430,7 +434,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("AlphaOneBravo", "", 0, 0, 0, 19));
 		credits.add(new CreditsSlot("Max Nobody", "", 0, 0, 0, 19));
 		credits.add(new CreditsSlot("Mega", "", 0, 0, 11, 0));
-		credits.add(new CreditsSlot("Mia Montane", "", 0, 0, 0, 3));
+		credits.add(new CreditsSlot("Mia Montane", "", 0, 0, 0, 3, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Mora", "", 0, 0, 4, 0));
 		credits.add(new CreditsSlot("Muhaku", "", 0, 0, 9, 0));
 		credits.add(new CreditsSlot("Neximus", "", 0, 0, 10, 0));
@@ -484,7 +488,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Shas'O Dal'yth Kauyon Kais Taku", "", 0, 0, 19, 0));
 		credits.add(new CreditsSlot("Crow Invictus", "", 0, 0, 18, 0));
 		credits.add(new CreditsSlot("Sheltem", "", 0, 0, 16, 0));
-		credits.add(new CreditsSlot("Shilou", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Shilou", "", 0, 0, 0, 1, Subspecies.DEMON));
 		credits.add(new CreditsSlot("shrikes", "", 0, 0, 8, 2));
 		credits.add(new CreditsSlot("Sig", "", 0, 0, 4, 0));
 		credits.add(new CreditsSlot("Silentark", "", 0, 0, 16, 0));
@@ -535,7 +539,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Wolfregis", "", 0, 0, 0, 19));
 		credits.add(new CreditsSlot("Yuki_Sukafu", "", 0, 0, 5, 0));
 		credits.add(new CreditsSlot("Nelson Adams", "", 0, 0, 12, 0));
-		credits.add(new CreditsSlot("Zakarin", "", 0, 0, 0, 14));
+		credits.add(new CreditsSlot("Zakarin", "", 0, 0, 0, 14, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Zaya", "", 0, 0, 5, 0));
 		credits.add(new CreditsSlot("Zero_One", "", 0, 0, 4, 0));
 		
