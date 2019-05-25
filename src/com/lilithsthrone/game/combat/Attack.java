@@ -50,9 +50,9 @@ public enum Attack {
 	public static float getHitChance(GameCharacter attacker, GameCharacter defender) {
 
 		// Calculate hit:
-		float chanceToHit = (100 - Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.MISS_CHANCE), 100))/100f;
+		float chanceToHit = 1;//(100 - Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.MISS_CHANCE), 100))/100f;
 		
-		chanceToHit *= (1 - (Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.DODGE_CHANCE), 100)/100f));
+//		chanceToHit *= (1 - (Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.DODGE_CHANCE), 100)/100f));
 		
 		return chanceToHit > 1 ? 1 : (chanceToHit < 0 ? 0 : chanceToHit);
 	}

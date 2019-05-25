@@ -1343,6 +1343,7 @@ public abstract class GameCharacter implements XMLSaving {
 		boolean noCompanions = Arrays.asList(settings).contains(CharacterImportSetting.NO_COMPANIONS);
 		boolean noElemental = Arrays.asList(settings).contains(CharacterImportSetting.NO_ELEMENTAL);
 		boolean noSlavery = Arrays.asList(settings).contains(CharacterImportSetting.CLEAR_SLAVERY);
+		boolean noLocationSetup = Arrays.asList(settings).contains(CharacterImportSetting.NO_LOCATION_SETUP);
 		
 		// ************** Core information **************//
 		
@@ -1670,132 +1671,132 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		// ************** Location Information **************//
 		
-		nodes = parentElement.getElementsByTagName("locationInformation");
-		element = (Element) nodes.item(0);
-		if(element!=null) {
-			
-			String worldName = ((Element)element.getElementsByTagName("worldLocation").item(0)).getAttribute("value");
-			
-			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.1") && worldName.equals("JUNGLE")) {
-				character.setLocation(
-						WorldType.EMPTY,
-						Main.game.getWorlds().get(WorldType.EMPTY).getRandomCell(PlaceType.GENERIC_EMPTY_TILE).getLocation(),
-						true);
+		if(!noLocationSetup) {
+			nodes = parentElement.getElementsByTagName("locationInformation");
+			element = (Element) nodes.item(0);
+			if(element!=null) {
+				String worldName = ((Element)element.getElementsByTagName("worldLocation").item(0)).getAttribute("value");
 				
-			} else {
-			
-				WorldType worldType = WorldType.valueOf(worldName);
-				
-				if((worldType==WorldType.DOMINION || worldType==WorldType.SUBMISSION || worldType==WorldType.HARPY_NEST) && Main.isVersionOlderThan(version, "0.2.1.5")) {
-					AbstractPlaceType placeType = PlaceType.DOMINION_BACK_ALLEYS;
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.1") && worldName.equals("JUNGLE")) {
+					character.setLocation(
+							WorldType.EMPTY,
+							Main.game.getWorlds().get(WorldType.EMPTY).getRandomCell(PlaceType.GENERIC_EMPTY_TILE).getLocation(),
+							true);
 					
-					if(character.isPlayer()) {
-						if(worldType==WorldType.DOMINION) {
-							placeType = PlaceType.DOMINION_AUNTS_HOME;
-							
-						} else if(worldType==WorldType.SUBMISSION) {
-							placeType = PlaceType.SUBMISSION_ENTRANCE;
+				} else {
+					WorldType worldType = WorldType.valueOf(worldName);
+					
+					if((worldType==WorldType.DOMINION || worldType==WorldType.SUBMISSION || worldType==WorldType.HARPY_NEST) && Main.isVersionOlderThan(version, "0.2.1.5")) {
+						AbstractPlaceType placeType = PlaceType.DOMINION_BACK_ALLEYS;
+						
+						if(character.isPlayer()) {
+							if(worldType==WorldType.DOMINION) {
+								placeType = PlaceType.DOMINION_AUNTS_HOME;
+								
+							} else if(worldType==WorldType.SUBMISSION) {
+								placeType = PlaceType.SUBMISSION_ENTRANCE;
+								
+							} else {
+								placeType = PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST;
+							}
 							
 						} else {
-							placeType = PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST;
+							
+							if(character instanceof DominionAlleywayAttacker) {
+								placeType = PlaceType.DOMINION_BACK_ALLEYS;
+								
+							} else if(character instanceof DominionSuccubusAttacker) {
+								placeType = PlaceType.DOMINION_DARK_ALLEYS;
+								
+							} else if(character instanceof Cultist) {
+								placeType = PlaceType.DOMINION_STREET;
+								
+							} else if(character instanceof ReindeerOverseer) {
+								placeType = PlaceType.DOMINION_STREET;
+								
+							} else if(character instanceof SubmissionAttacker) {
+								placeType = PlaceType.SUBMISSION_TUNNELS;
+								
+							} else if(character instanceof HarpyNestsAttacker) {
+								placeType = PlaceType.HARPY_NESTS_WALKWAYS;
+								
+							} else if(character instanceof HarpyBimbo || character instanceof HarpyBimboCompanion) {
+								placeType = PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW;
+								
+							} else if(character instanceof HarpyDominant || character instanceof HarpyDominantCompanion) {
+								placeType = PlaceType.HARPY_NESTS_HARPY_NEST_RED;
+								
+							} else if(character instanceof HarpyNympho || character instanceof HarpyNymphoCompanion) {
+								placeType = PlaceType.HARPY_NESTS_HARPY_NEST_PINK;
+								
+							} else if(character instanceof Scarlett || character instanceof Alexa) {
+								placeType = PlaceType.HARPY_NESTS_ALEXAS_NEST;
+								
+							} else { // Catch if no location found:
+								if(worldType==WorldType.DOMINION) {
+									placeType = PlaceType.DOMINION_BACK_ALLEYS;
+									
+								} else if(worldType==WorldType.SUBMISSION) {
+									placeType = PlaceType.SUBMISSION_TUNNELS;
+									
+								} else {
+									placeType = PlaceType.HARPY_NESTS_WALKWAYS;
+								}
+							}
+						}
+						
+		//				if(Main.game.getWorlds().get(worldType).getRandomUnoccupiedCell(placeType) == null) {
+		//					System.out.println(worldType+", "+placeType);
+		//				}
+						
+						character.setLocation(
+								worldType,
+								Main.game.getWorlds().get(worldType).getRandomUnoccupiedCell(placeType).getLocation(),
+								!character.isPlayer());
+						
+						if(character.isPlayer()) {
+							Main.game.getWorlds().get(worldType).getCell(character.getLocation()).setDiscovered(true);
+							if (character.getLocation().getY() < Main.game.getWorlds().get(worldType).WORLD_HEIGHT - 1) {
+								Main.game.getWorlds().get(worldType).getCell(character.getLocation().getX(), character.getLocation().getY() + 1).setDiscovered(true);
+							}
+							if (character.getLocation().getY() != 0) {
+								Main.game.getWorlds().get(worldType).getCell(character.getLocation().getX(), character.getLocation().getY() - 1).setDiscovered(true);
+							}
+							if (character.getLocation().getX() < Main.game.getWorlds().get(worldType).WORLD_WIDTH - 1) {
+								Main.game.getWorlds().get(worldType).getCell(character.getLocation().getX() + 1, character.getLocation().getY()).setDiscovered(true);
+							}
+							if (character.getLocation().getX() != 0) {
+								Main.game.getWorlds().get(worldType).getCell(character.getLocation().getX() - 1, character.getLocation().getY()).setDiscovered(true);	
+							}
 						}
 						
 					} else {
+						character.setLocation(
+								worldType,
+								new Vector2i(
+										Integer.valueOf(((Element)element.getElementsByTagName("location").item(0)).getAttribute("x")),
+										Integer.valueOf(((Element)element.getElementsByTagName("location").item(0)).getAttribute("y"))),
+								false);
+						character.setHomeLocation(
+								WorldType.valueOf(((Element)element.getElementsByTagName("homeWorldLocation").item(0)).getAttribute("value")),
+								new Vector2i(
+										Integer.valueOf(((Element)element.getElementsByTagName("homeLocation").item(0)).getAttribute("x")),
+										Integer.valueOf(((Element)element.getElementsByTagName("homeLocation").item(0)).getAttribute("y"))));
 						
-						if(character instanceof DominionAlleywayAttacker) {
-							placeType = PlaceType.DOMINION_BACK_ALLEYS;
-							
-						} else if(character instanceof DominionSuccubusAttacker) {
-							placeType = PlaceType.DOMINION_DARK_ALLEYS;
-							
-						} else if(character instanceof Cultist) {
-							placeType = PlaceType.DOMINION_STREET;
-							
-						} else if(character instanceof ReindeerOverseer) {
-							placeType = PlaceType.DOMINION_STREET;
-							
-						} else if(character instanceof SubmissionAttacker) {
-							placeType = PlaceType.SUBMISSION_TUNNELS;
-							
-						} else if(character instanceof HarpyNestsAttacker) {
-							placeType = PlaceType.HARPY_NESTS_WALKWAYS;
-							
-						} else if(character instanceof HarpyBimbo || character instanceof HarpyBimboCompanion) {
-							placeType = PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW;
-							
-						} else if(character instanceof HarpyDominant || character instanceof HarpyDominantCompanion) {
-							placeType = PlaceType.HARPY_NESTS_HARPY_NEST_RED;
-							
-						} else if(character instanceof HarpyNympho || character instanceof HarpyNymphoCompanion) {
-							placeType = PlaceType.HARPY_NESTS_HARPY_NEST_PINK;
-							
-						} else if(character instanceof Scarlett || character instanceof Alexa) {
-							placeType = PlaceType.HARPY_NESTS_ALEXAS_NEST;
-							
-						} else { // Catch if no location found:
-							if(worldType==WorldType.DOMINION) {
-								placeType = PlaceType.DOMINION_BACK_ALLEYS;
-								
-							} else if(worldType==WorldType.SUBMISSION) {
-								placeType = PlaceType.SUBMISSION_TUNNELS;
-								
-							} else {
-								placeType = PlaceType.HARPY_NESTS_WALKWAYS;
+						try {
+							if(element.getElementsByTagName("globalLocation").getLength()>0) {
+								character.setGlobalLocation(new Vector2i(
+										Integer.valueOf(((Element)element.getElementsByTagName("globalLocation").item(0)).getAttribute("x")),
+										Integer.valueOf(((Element)element.getElementsByTagName("globalLocation").item(0)).getAttribute("y"))));
 							}
+						} catch(Exception ex) {
 						}
-					}
-					
-	//				if(Main.game.getWorlds().get(worldType).getRandomUnoccupiedCell(placeType) == null) {
-	//					System.out.println(worldType+", "+placeType);
-	//				}
-					
-					character.setLocation(
-							worldType,
-							Main.game.getWorlds().get(worldType).getRandomUnoccupiedCell(placeType).getLocation(),
-							!character.isPlayer());
-					
-					if(character.isPlayer()) {
-						Main.game.getWorlds().get(worldType).getCell(character.getLocation()).setDiscovered(true);
-						if (character.getLocation().getY() < Main.game.getWorlds().get(worldType).WORLD_HEIGHT - 1) {
-							Main.game.getWorlds().get(worldType).getCell(character.getLocation().getX(), character.getLocation().getY() + 1).setDiscovered(true);
-						}
-						if (character.getLocation().getY() != 0) {
-							Main.game.getWorlds().get(worldType).getCell(character.getLocation().getX(), character.getLocation().getY() - 1).setDiscovered(true);
-						}
-						if (character.getLocation().getX() < Main.game.getWorlds().get(worldType).WORLD_WIDTH - 1) {
-							Main.game.getWorlds().get(worldType).getCell(character.getLocation().getX() + 1, character.getLocation().getY()).setDiscovered(true);
-						}
-						if (character.getLocation().getX() != 0) {
-							Main.game.getWorlds().get(worldType).getCell(character.getLocation().getX() - 1, character.getLocation().getY()).setDiscovered(true);	
-						}
-					}
-					
-				} else {
-					character.setLocation(
-							worldType,
-							new Vector2i(
-									Integer.valueOf(((Element)element.getElementsByTagName("location").item(0)).getAttribute("x")),
-									Integer.valueOf(((Element)element.getElementsByTagName("location").item(0)).getAttribute("y"))),
-							false);
-					character.setHomeLocation(
-							WorldType.valueOf(((Element)element.getElementsByTagName("homeWorldLocation").item(0)).getAttribute("value")),
-							new Vector2i(
-									Integer.valueOf(((Element)element.getElementsByTagName("homeLocation").item(0)).getAttribute("x")),
-									Integer.valueOf(((Element)element.getElementsByTagName("homeLocation").item(0)).getAttribute("y"))));
-					
-					try {
-						if(element.getElementsByTagName("globalLocation").getLength()>0) {
-							character.setGlobalLocation(new Vector2i(
-									Integer.valueOf(((Element)element.getElementsByTagName("globalLocation").item(0)).getAttribute("x")),
-									Integer.valueOf(((Element)element.getElementsByTagName("globalLocation").item(0)).getAttribute("y"))));
-						}
-					} catch(Exception ex) {
 					}
 				}
+				
+			} else {
+				character.setLocation(new Vector2i(0, 0));
 			}
-			
-		} else {
-			character.setLocation(new Vector2i(0, 0));
 		}
 		
 		
@@ -3722,7 +3723,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return UtilText.parse(this,
 				"<p style='text-align:center'>"
 						+ "[npc.Name] "+(increment>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!<br/>"
-						+ "[npc.She] now [npc.has] <b>"+(obedience>0?"+":"")+obedience+"</b> [style.boldObedience(obedience)].<br/>"
+						+ "[npc.She] now [npc.has] <b>"+(obedience>0?"+":"")+Units.round(obedience, 1)+"</b> [style.boldObedience(obedience)].<br/>"
 						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
 					+ "</p>"
 					+ (teacherPerkGain
@@ -3945,7 +3946,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		return UtilText.parse(this, character,
 				"<p style='text-align:center'>"
-					+ "[npc.Name] now [npc.has] <b>"+(affection>0?"+":"")+affection+"</b> [style.boldAffection(affection)] towards [npc2.name].<br/>"
+					+ "[npc.Name] now [npc.has] <b>"+(affection>0?"+":"")+Units.round(affection, 1)+"</b> [style.boldAffection(affection)] towards [npc2.name].<br/>"
 					+ AffectionLevel.getDescription(this, character, getAffectionLevel(character), true)
 				+ "</p>");
 	}
@@ -4072,6 +4073,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean addSlave(NPC slave) {
 		boolean added = slavesOwned.add(slave.getId());
 		Main.game.getPlayer().removeFriendlyOccupant(slave);
+		Main.game.getPlayer().removeCompanion(slave);
 		
 		if(added) {
 			if(slave.isSlave()) {
@@ -4361,7 +4363,9 @@ public abstract class GameCharacter implements XMLSaving {
 						listToReturn.add(npc.getElemental());
 					}
 				} catch(Exception e) {
-					Util.logGetNpcByIdError("getCompanions()", companionID);
+					if(Main.game.isStarted()) {
+						Util.logGetNpcByIdError("getCompanions()", companionID);
+					}
 				}
 			}
 			Collections.sort(listToReturn, (c1, c2) -> c1 instanceof Elemental?(c2 instanceof Elemental?0:1):(c2 instanceof Elemental?-1:0));
@@ -4669,10 +4673,10 @@ public abstract class GameCharacter implements XMLSaving {
 
 		Set<GameCharacter> commonParents = character.getParents();
 		commonParents.retainAll(this.getParents());
-		if(commonParents.size() == 1) {
-			result.add(Relationship.HalfSibling);
-		} else if(commonParents.size() == 2) {
+		if(commonParents.size() == 2 || (commonParents.size() == 1 && character.getFatherId().equals(character.getMotherId()))) {
 			result.add(Relationship.Sibling);
+		} else if(commonParents.size() == 1) {
+			result.add(Relationship.HalfSibling);
 		}
 
 		if(character.getNonCommonNodes(1,0).contains(this))
@@ -14300,12 +14304,13 @@ public abstract class GameCharacter implements XMLSaving {
 			this.removeDirtySlot(InventorySlot.PIERCING_VAGINA);
 			
 			Litter birthedLitter = pregnantLitter;
+
+			birthedLitter.setBirthDate(Main.game.getDateNow());
 			
 			if((birthedLitter.getFather()!=null && birthedLitter.getFather().isPlayer()) || (birthedLitter.getMother()!=null && birthedLitter.getMother().isPlayer())) {
 				for(String id: birthedLitter.getOffspring()) {
 					try {
 						NPC npc = (NPC) Main.game.getNPCById(id);
-						birthedLitter.setBirthDate(Main.game.getDateNow());
 						npc.setConceptionDate(birthedLitter.getConceptionDate());
 						npc.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
 					} catch(Exception e) {
@@ -15722,22 +15727,24 @@ public abstract class GameCharacter implements XMLSaving {
 	public String equipClothingFromInventory(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper, GameCharacter fromCharactersInventory) {
 		fromCharactersInventory.removeClothing(newClothing);
 		
-		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
+		AbstractClothing clonedClothing = new AbstractClothing(newClothing) {};
+		
+		boolean wasAbleToEquip = inventory.isAbleToEquip(clonedClothing, true, automaticClothingManagement, this, characterClothingEquipper);
 
 		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
-			applyEquipClothingEffects(newClothing);
+			applyEquipClothingEffects(clonedClothing);
 			
 			updateInventoryListeners();
 
 			if (isPlayer() && Main.game.isInNewWorld()) {
-				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
-					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getClothingType().getName(), newClothing.getRarity().getColour()), true);
+				if (Main.getProperties().addClothingDiscovered(clonedClothing.getClothingType())) {
+					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(clonedClothing.getClothingType().getName(), clonedClothing.getRarity().getColour()), true);
 				}
 			}
 			
 		} else {
-			fromCharactersInventory.addClothing(newClothing, false);
+			fromCharactersInventory.addClothing(clonedClothing, false);
 		}
 
 		return inventory.getEquipDescription();
@@ -15775,17 +15782,19 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public String equipClothingFromNowhere(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
-		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
+		AbstractClothing clonedClothing = new AbstractClothing(newClothing) {};
 		
+		boolean wasAbleToEquip = inventory.isAbleToEquip(clonedClothing, true, automaticClothingManagement, this, characterClothingEquipper);
+
 		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
-			applyEquipClothingEffects(newClothing);
+			applyEquipClothingEffects(clonedClothing);
 			
 			updateInventoryListeners();
 			
 			if (isPlayer() && Main.game.isInNewWorld()) {
-				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
-					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getClothingType().getName(), newClothing.getRarity().getColour()), true);
+				if (Main.getProperties().addClothingDiscovered(clonedClothing.getClothingType())) {
+					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(clonedClothing.getClothingType().getName(), clonedClothing.getRarity().getColour()), true);
 				}
 			}
 		}
@@ -15798,22 +15807,24 @@ public abstract class GameCharacter implements XMLSaving {
 
 		Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(newClothing);
 		
-		boolean wasAbleToEquip = inventory.isAbleToEquip(newClothing, true, automaticClothingManagement, this, characterClothingEquipper);
+		AbstractClothing clonedClothing = new AbstractClothing(newClothing) {};
+		
+		boolean wasAbleToEquip = inventory.isAbleToEquip(clonedClothing, true, automaticClothingManagement, this, characterClothingEquipper);
 
 		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
-			applyEquipClothingEffects(newClothing);
+			applyEquipClothingEffects(clonedClothing);
 
 			updateInventoryListeners();
 
 			if(isPlayer() && Main.game.isInNewWorld()) {
-				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
-					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getClothingType().getName(), newClothing.getRarity().getColour()), true);
+				if (Main.getProperties().addClothingDiscovered(clonedClothing.getClothingType())) {
+					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(clonedClothing.getClothingType().getName(), clonedClothing.getRarity().getColour()), true);
 				}
 			}
 			
 		} else {
-			Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addClothing(newClothing, 1);
+			Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().addClothing(clonedClothing, 1);
 		}
 
 		return inventory.getEquipDescription();
@@ -16425,8 +16436,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isOrificeTypeExposed(SexAreaOrifice ot) {
 		switch(ot) {
 			case ANUS:
-				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA) {
-					return isCoverableAreaExposed(CoverableArea.VAGINA) || isCoverableAreaExposed(CoverableArea.PENIS);
+				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA) { //TODO 
+					return (isCoverableAreaExposed(CoverableArea.VAGINA) || isCoverableAreaExposed(CoverableArea.PENIS)) && (this.getClothingInSlot(InventorySlot.ANUS)==null);
 				} else {
 					return isCoverableAreaExposed(CoverableArea.ANUS);
 				}
@@ -18982,6 +18993,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public String incrementBreastSize(int increment) {
 		return setBreastSize(getBreastRawSizeValue() + increment);
 	}
+	public String setMinimumBreastSize(int size) {
+		return setBreastSize(Math.max(getBreastRawSizeValue(), size));
+	}
+	public String setMinimumBreastSize(CupSize size) {
+		return setBreastSize(Math.max(getBreastRawSizeValue(), size.getMeasurement()));
+	}
 	
 	// Nipples:
 	
@@ -19307,6 +19324,13 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String incrementBreastCrotchSize(int increment) {
 		return setBreastCrotchSize(getBreastCrotchRawSizeValue() + increment);
+	}
+	public String setMinimumBreastCrotchSize(int size) {
+		return setBreastCrotchSize(Math.max(getBreastCrotchRawSizeValue(), size));
+	}
+
+	public String setMinimumBreastCrotchSize(CupSize size) {
+		return setBreastCrotchSize(Math.max(getBreastCrotchRawSizeValue(), size.getMeasurement()));
 	}
 	
 	// Nipples:
@@ -20125,6 +20149,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getHornsPerRow() {
 		return body.getHorn().getHornsPerRow();
 	}
+	public String setMinimumHornsPerRow(int hornsPerRow) {
+		return setHornsPerRow(Math.max(getHornsPerRow(), hornsPerRow));
+	}
 	public String setHornsPerRow(int hornsPerRow) {
 		return body.getHorn().setHornsPerRow(this, hornsPerRow);
 	}
@@ -20747,7 +20774,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return body.getPenis().getTesticle().getCumExpulsion();
 	}
-	/** As a percentage from 5 -> 100. */
+	/** As a percentage from 0 -> 100. */
 	public int getPenisRawCumExpulsionValue() {
 		if (!Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
 			return FluidExpulsion.FOUR_HUGE.getMaximumValue();

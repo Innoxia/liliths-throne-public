@@ -218,6 +218,8 @@ public class Sex {
 
 	private static Value<GameCharacter, Class<? extends BodyPartInterface>> creampieLockedBy;
 	
+	private static Set<GameCharacter> removeEndSexAffection;
+	
 	// Clothes:
 
 	private static Set<GameCharacter> charactersBannedFromRemovingSelfClothing;
@@ -373,6 +375,7 @@ public class Sex {
 		charactersSelfActionsBlocked = new HashSet<>();
 		charactersDeniedOrgasm = new HashSet<>();
 		charactersGrewCock = new HashSet<>();
+		removeEndSexAffection = new HashSet<>();
 		
 		forcedSexControlMap = new HashMap<>();
 		for(GameCharacter character : Sex.getAllParticipants()) {
@@ -583,7 +586,7 @@ public class Sex {
 				initialSexActionSB.append("<p>"
 											+ sexAction.getSexAction().preDescriptionBaseEffects()
 											+ sexAction.getSexAction().getDescription()
-											+ sexAction.getSexAction().getFlavourDescription(sexAction.getPerformer(), sexAction.getTarget())
+											+ sexAction.getSexAction().getFluidFlavourDescription(sexAction.getPerformer(), sexAction.getTarget())
 										+ "</p>");
 			}
 			String endString = sexAction.getSexAction().baseEffects();
@@ -1076,9 +1079,20 @@ public class Sex {
 							}
 							
 						} else {
-							if(Sex.getNumberOfOrgasms(participant)==0 && !participant.getFetishDesire(Fetish.FETISH_DENIAL_SELF).isPositive() && !Sex.isDom(participant)) {
-								for(GameCharacter domParticipant : Sex.getDominantParticipants(false).keySet()) {
-									endSexSB.append(participant.incrementAffection(domParticipant, -2, "[npc.Name] is annoyed at [npc2.name] for finishing without bringing [npc.herHim] to orgasm."));
+							if(!Sex.isRemoveEndSexAffection(participant)) {
+								if(!participant.getFetishDesire(Fetish.FETISH_DENIAL_SELF).isPositive() && !Sex.isDom(participant)) {
+									int orgasms = Sex.getNumberOfOrgasms(participant);
+									if(Sex.getNumberOfOrgasms(participant)==0) {
+										for(GameCharacter domParticipant : Sex.getDominantParticipants(false).keySet()) {
+											endSexSB.append(participant.incrementAffection(domParticipant, -10f, "[npc.Name] is angry at [npc2.name] for finishing without bringing [npc.herHim] to orgasm."));
+										}
+									} else if(orgasms < participant.getOrgasmsBeforeSatisfied()){
+										for(GameCharacter domParticipant : Sex.getDominantParticipants(false).keySet()) {
+											endSexSB.append(participant.incrementAffection(domParticipant, -5f,
+													"[npc.Name] is annoyed at [npc2.name] for only giving [npc.herHim] "+Util.intToString(orgasms)+" orgasm"+(orgasms==1?"":"s")
+														+", when [npc.she] really wanted at least "+Util.intToString(participant.getOrgasmsBeforeSatisfied())+"."));
+										}
+									}
 								}
 							}
 						}
@@ -1339,7 +1353,7 @@ public class Sex {
 		sexSB.append("<p>"
 						+ sexActionPlayer.preDescriptionBaseEffects()
 						+ sexActionPlayer.getDescription()
-						+ sexActionPlayer.getFlavourDescription(Main.game.getPlayer(), Sex.getTargetedPartner(Main.game.getPlayer()))
+						+ sexActionPlayer.getFluidFlavourDescription(Main.game.getPlayer(), Sex.getTargetedPartner(Main.game.getPlayer()))
 					+ "</p>");
 		
 		String endString = sexActionPlayer.baseEffects();
@@ -1403,7 +1417,7 @@ public class Sex {
 										+ "</br>"
 										+ sexActionPartner.preDescriptionBaseEffects()
 										+ sexActionPartner.getDescription()
-										+ sexActionPartner.getFlavourDescription(character, Sex.getTargetedPartner(character))
+										+ sexActionPartner.getFluidFlavourDescription(character, Sex.getTargetedPartner(character))
 									+ "</p>");
 				
 							endString = sexActionPartner.baseEffects();
@@ -1594,7 +1608,7 @@ public class Sex {
 													}
 											
 													@Override
-													public String getFlavourDescription(GameCharacter performing, GameCharacter receiving) {
+													public String getFluidFlavourDescription(GameCharacter performing, GameCharacter receiving) {
 														return "";
 													}
 													
@@ -1963,8 +1977,8 @@ public class Sex {
 							(5f+arousalCapIncrease)/(Math.min(2, Sex.getTotalParticipantCount(false))),
 							arousal * entry.getKey().getLustLevel().getArousalModifier()); // Modify arousal value based on lust
 					
-					if(increment<0)
-					System.out.println(entry.getKey().getName(false)+": "+increment);
+//					if(increment<0)
+//					System.out.println(entry.getKey().getName(false)+": "+increment);
 					
 					entry.getKey().incrementArousal(increment);
 				}
@@ -2035,10 +2049,10 @@ public class Sex {
 				}
 				for(CoverableArea area : cummedOnAreas) {
 					for(InventorySlot slot : area.getAssociatedInventorySlots(cumTarget)) {
-						List<AbstractClothing> dirtyClothing = cumTarget.getVisibleClothingConcealingSlot(slot);
+						List<AbstractClothing> dirtyClothing = new ArrayList<>(cumTarget.getVisibleClothingConcealingSlot(slot));
 						if(!dirtyClothing.isEmpty()) {
 							for(AbstractClothing c : dirtyClothing) {
-								c.setDirty(true);
+								c.setDirty(cumTarget, true);
 							}
 						} else if(slot!=InventorySlot.TORSO_OVER) { // Do not dirty over-torso slot, as it doesn't really make much sense...
 							cumTarget.addDirtySlot(slot);
@@ -2074,7 +2088,7 @@ public class Sex {
 				if(vaginaClothing!=null
 						&& !vaginaClothing.getItemTags().contains(ItemTag.PLUGS_VAGINA)
 						&& !vaginaClothing.getItemTags().contains(ItemTag.SEALS_VAGINA)) {
-					vaginaClothing.setDirty(true);
+					vaginaClothing.setDirty(Sex.getCharacterPerformingAction(), true);
 					
 				} else {
 					Set<GameCharacter> charactersEatingOut = new HashSet<>(getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE));
@@ -2083,10 +2097,10 @@ public class Sex {
 					for(GameCharacter character : charactersEatingOut) {
 						List<InventorySlot> squirterSlots = Util.newArrayListOfValues(InventorySlot.MOUTH, InventorySlot.EYES, InventorySlot.HAIR);
 						for(InventorySlot slot : squirterSlots) {
-							List<AbstractClothing> dirtyClothing = character.getVisibleClothingConcealingSlot(slot);
+							List<AbstractClothing> dirtyClothing = new ArrayList<>(character.getVisibleClothingConcealingSlot(slot));
 							if(!dirtyClothing.isEmpty()) {
 								for(AbstractClothing c : dirtyClothing) {
-									c.setDirty(true);
+									c.setDirty(character, true);
 								}
 							} else {
 								character.addDirtySlot(slot);
@@ -2103,13 +2117,14 @@ public class Sex {
 			}
 			
 			// Apply orgasm arousal resets:
-			if(!Sex.getCharacterPerformingAction().hasPenis()
-					|| Sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()>0
+			if((Sex.getCharacterPerformingAction().hasPenis() && Sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()>0)
 					|| Sex.getCharacterPerformingAction().hasVagina()
 					|| Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())>0) {
 				incrementNumberOfOrgasms(Sex.getCharacterPerformingAction(), 1);
 				Sex.getCharacterPerformingAction().setArousal(Sex.getCharacterPerformingAction().getLust()/4f);
-				Sex.getCharacterPerformingAction().applyOrgasmCumEffect(sexAction==GenericOrgasms.GENERIC_ORGASM_DOUBLE_CREAMPIE?0.5f:1);
+				if(Sex.getCharacterPerformingAction().hasPenis()) {
+					Sex.getCharacterPerformingAction().applyOrgasmCumEffect(sexAction==GenericOrgasms.GENERIC_ORGASM_DOUBLE_CREAMPIE?0.5f:1);
+				}
 				
 			} else {
 				incrementNumberOfOrgasms(Sex.getCharacterPerformingAction(), 1);
@@ -3262,40 +3277,45 @@ public class Sex {
 		Sex.unequipClothingText =
 						"<p style='text-align:center;'>"
 								+ "<i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Clothing removal</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
-						+ "</p>"
-						+ unequipClothingText;
+								+"<br/>"
+								+ unequipClothingText
+						+ "</p>";
 	}
 
 	public static void setUnequipWeaponText(AbstractWeapon weapon, String unequipClothingText) {
 		Sex.unequipClothingText = 
 				"<p style='text-align:center;'>"
 						+ "<i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Weapon removal</i>"+(weapon==null?"":": "+Util.capitaliseSentence(weapon.getName()))
-				+ "</p>"
-				+ unequipClothingText;
+						+"<br/>"
+						+ unequipClothingText
+				+ "</p>";
 	}
 	
 	public static void setDisplaceClothingText(AbstractClothing clothing, String unequipClothingText) {
 		Sex.unequipClothingText = 
 				"<p style='text-align:center;'>"
 						+ "<i style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>Clothing displacement</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
-				+ "</p>"
-				+ unequipClothingText;
+						+"<br/>"
+						+ unequipClothingText
+				+ "</p>";
 	}
 	
 	public static void setEquipClothingText(AbstractClothing clothing, String unequipClothingText) {
 		Sex.unequipClothingText =
 				"<p style='text-align:center;'>"
 						+ "<i style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Clothing equip</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
-				+ "</p>"
-				+ unequipClothingText;
+						+"<br/>"
+						+ unequipClothingText
+				+ "</p>";
 	}
 
 	public static void setJinxRemovalClothingText(AbstractClothing clothing, String unequipClothingText) {
 		Sex.unequipClothingText = 
 				"<p style='text-align:center;'>"
 						+ "<i style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Jinx removal</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
-				+ "</p>"
-				+ unequipClothingText;
+						+"<br/>"
+						+ unequipClothingText
+				+ "</p>";
 	}
 	
 	public static String getDyeClothingText() {
@@ -4498,5 +4518,14 @@ public class Sex {
 	public static void setCharactersGrewCock(Set<GameCharacter> charactersGrewCock) {
 		Sex.charactersGrewCock = charactersGrewCock;
 	}
+	
+	public static boolean isRemoveEndSexAffection(GameCharacter character) {
+		return removeEndSexAffection.contains(character);
+	}
+
+	public static void addRemoveEndSexAffection(GameCharacter character) {
+		Sex.removeEndSexAffection.add(character);
+	}
+	
 	
 }

@@ -2,7 +2,9 @@ package com.lilithsthrone.game.character.race;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -86,7 +88,19 @@ public enum Race {
 			Attribute.RESISTANCE_DEMON,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
-			false),
+			false) {
+		public String getName(GameCharacter character, boolean bestial) {
+			if(bestial) {
+				Race r = character.getLegType().getRace();
+				return character.getLegConfiguration()!=LegConfiguration.BIPEDAL
+						?r==Race.DEMON
+							?"demonic-horse"
+							:"demonic-"+r.getName(bestial)
+						:"demon";
+			}
+			return "demon";
+		}
+	},
 
 	// BOVINES:
 	COW_MORPH("cow-morph",
@@ -1173,6 +1187,13 @@ public enum Race {
 
 	public boolean isBestialPartsAvailable() {
 		return true;
+	}
+	
+	public String getName(GameCharacter character, boolean bestial) {
+		if(bestial) {
+			return nameBestial;
+		}
+		return name;
 	}
 	
 	public String getName(boolean bestial) {

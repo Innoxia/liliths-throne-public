@@ -1086,21 +1086,34 @@ public class CombatMove {
     	
     	sb.append("This move will critically hit if:<br/>");
     	
-    	sb.append(UtilText.parse(target,
-    			target.getAttributeValue(dt.getResistAttribute())<0
-    				?"[style.colourExcellent(- [npc.NamePos] "+dt.getResistAttribute().getName()+" falls below 0.)]"
-    				:"- [npc.NamePos] "+dt.getResistAttribute().getName()+" falls below 0."));
+    	sb.append("It's the third time being used in a row.");
     	
-    	sb.append(UtilText.parse(target,
-    			target.isStunned()
-    				?"<br/>[style.colourExcellent(- [npc.NameIsFull] stunned.)]"
-    				:"<br/>- [npc.NameIsFull] stunned."));
+//    	sb.append(UtilText.parse(target,
+//    			target.getAttributeValue(dt.getResistAttribute())<0
+//    				?"[style.colourExcellent(- [npc.NamePos] "+dt.getResistAttribute().getName()+" falls below 0.)]"
+//    				:"- [npc.NamePos] "+dt.getResistAttribute().getName()+" falls below 0."));
+//    	
+//    	sb.append(UtilText.parse(target,
+//    			target.isStunned()
+//    				?"<br/>[style.colourExcellent(- [npc.NameIsFull] stunned.)]"
+//    				:"<br/>- [npc.NameIsFull] stunned."));
     	
     	return sb.toString();
     }
     
     public boolean canCrit(GameCharacter source, DamageType dt, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-        return target.getAttributeValue(dt.getResistAttribute())<0 || target.isStunned();
+    	// Normally moves crit on three hits in a row.
+        int thisMoveSelected = 0;
+        for(CombatMove move : source.getSelectedMoves()) {
+            if(move.getIdentifier() == this.getIdentifier()) {
+                thisMoveSelected++;
+            }
+        }
+        if(thisMoveSelected >= 3) {
+            return true;
+        }
+        return false;
+//        return target.getAttributeValue(dt.getResistAttribute())<0 || target.isStunned();
     }
 
 }

@@ -64,7 +64,7 @@ public class MasturbationPanties {
 		@Override
 		public String applyEffectsString() {
 			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.hasLubricationTypeFromAnyone(Main.game.getPlayer(), SexAreaOrifice.VAGINA)) {
-				LilayasRoom.lilayasPanties.setDirty(true);
+				LilayasRoom.lilayasPanties.setDirty(null, true);
 				return "<p style='text-align:center'>"
 							+ "[style.italicsDirty(Lilaya's panties are quickly dirtied as you rub them against your wet pussy.)]"
 						+ "</p>";
@@ -119,7 +119,7 @@ public class MasturbationPanties {
 		@Override
 		public String applyEffectsString() {
 			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.hasLubricationTypeFromAnyone(Main.game.getPlayer(), SexAreaPenetration.PENIS)) {
-				LilayasRoom.lilayasPanties.setDirty(true);
+				LilayasRoom.lilayasPanties.setDirty(null, true);
 				return "<p style='text-align:center'>"
 							+ "[style.italicsDirty(Lilaya's panties are quickly dirtied as you rub them over your cock.)]"
 						+ "</p>";
@@ -269,7 +269,7 @@ public class MasturbationPanties {
 			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
 					&& !Main.game.getPlayer().isWearingCondom()
 					&& Main.game.getPlayer().getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE) {
-				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
+				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(Main.game.getPlayer(), true);
 			}
 		}
 	};

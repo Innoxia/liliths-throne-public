@@ -13,7 +13,6 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum DamageType {
 
-
 	ENERGY("energy",
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			"energy damaging",

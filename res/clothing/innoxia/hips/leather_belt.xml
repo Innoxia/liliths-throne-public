@@ -64,10 +64,10 @@
       <![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc.her] leather belt and [npc.verb(slip)] it off.]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(unbuckle)] [bpc2.namePos] leather belt and [npc.verb(slip)] it off.]]>
+      <![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc2.namePos] leather belt and [npc.verb(slip)] it off.]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] impatiently [npc.verb(unbuckle)] [bpc2.namePos] leather belt and [npc.verb(pull)] it off.]]>
+      <![CDATA[[npc.Name] impatiently [npc.verb(unbuckle)] [npc2.namePos] leather belt and [npc.verb(pull)] it off.]]>
     </otherRough>
   </displacementText>
   

@@ -392,7 +392,7 @@ public class Testicle implements BodyPartInterface {
 
 	public String setCumExpulsion(GameCharacter owner, int cumExpulsion) {
 		int oldExpulsion = this.cumExpulsion;
-		this.cumExpulsion = Math.max(5, Math.min(cumExpulsion, FluidExpulsion.FOUR_HUGE.getMaximumValue()));
+		this.cumExpulsion = Math.max(0, Math.min(cumExpulsion, FluidExpulsion.FOUR_HUGE.getMaximumValue()));
 		int expulsionChange = this.cumExpulsion - oldExpulsion;
 
 		if(owner==null) {

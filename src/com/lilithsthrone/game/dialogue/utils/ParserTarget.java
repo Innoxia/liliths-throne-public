@@ -77,7 +77,7 @@ public enum ParserTarget {
 			"game"),
 			"Returns the same as 'pc', but should be used for style methods such as style.bold or style.italics or conditional methods such as game.isArcaneStorm.") {
 				@Override
-				public GameCharacter getCharacter(String tag) {
+				public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 					return Main.game.getPlayer();
 				}
 			},
@@ -87,7 +87,7 @@ public enum ParserTarget {
 			"game"),
 			"Returns the same as 'pc', but should be used for unit methods such as unit.size.") {
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getPlayer();
 		}
 	},
@@ -97,7 +97,7 @@ public enum ParserTarget {
 			"player"),
 			"The player character.") {
 				@Override
-				public GameCharacter getCharacter(String tag) {
+				public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 					return Main.game.getPlayer();
 				}
 			},
@@ -116,12 +116,12 @@ public enum ParserTarget {
 			+ "If in <b>sex</b>, it returns your partner.<br/>"
 			+ "<b>Otherwise</b>, it returns the most important NPC in the scene.") {
 				@Override
-				public GameCharacter getCharacter(String tag) throws NullPointerException {
-					if(!UtilText.getSpecialNPCList().isEmpty()) {
+				public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) throws NullPointerException {
+					if(specialNPCList!=null && !specialNPCList.isEmpty()) {
 						if(tag.equalsIgnoreCase("npc")) {
-							return UtilText.getSpecialNPCList().get(0);
+							return specialNPCList.get(0);
 						} else {
-							return UtilText.getSpecialNPCList().get(Math.max(0, Integer.parseInt(tag.substring(3))-1));
+							return specialNPCList.get(Math.max(0, Integer.parseInt(tag.substring(3))-1));
 						}
 						
 					} else if(Main.game.isInCombat()) {
@@ -163,7 +163,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(PrologueMale.class);
 		}
 	},
@@ -174,7 +174,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(PrologueFemale.class);
 		}
 	},
@@ -189,7 +189,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(GenericMaleNPC.class);
 		}
 	},
@@ -204,7 +204,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(GenericFemaleNPC.class);
 		}
 	},
@@ -219,7 +219,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(GenericAndrogynousNPC.class);
 		}
 	},
@@ -232,7 +232,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(TestNPC.class);
 		}
 	},
@@ -245,7 +245,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Lilaya.class);
 		}
 	},
@@ -256,7 +256,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Rose.class);
 		}
 	},
@@ -267,7 +267,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Kate.class);
 		}
 	},
@@ -278,7 +278,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Ralph.class);
 		}
 	},
@@ -289,7 +289,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Nyan.class);
 		}
 	},
@@ -300,7 +300,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Vicky.class);
 		}
 	},
@@ -311,7 +311,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Pix.class);
 		}
 	},
@@ -322,7 +322,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Brax.class);
 		}
 	},
@@ -333,7 +333,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(CandiReceptionist.class);
 		}
 	},
@@ -344,7 +344,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Vanessa.class);
 		}
 	},
@@ -355,7 +355,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Scarlett.class);
 		}
 	},
@@ -366,7 +366,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Alexa.class);
 		}
 	},
@@ -380,7 +380,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(HarpyBimbo.class);
 		}
 	},
@@ -394,7 +394,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(HarpyBimboCompanion.class);
 		}
 	},
@@ -408,7 +408,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(HarpyDominant.class);
 		}
 	},
@@ -422,7 +422,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(HarpyDominantCompanion.class);
 		}
 	},
@@ -436,7 +436,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(HarpyNympho.class);
 		}
 	},
@@ -450,7 +450,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(HarpyNymphoCompanion.class);
 		}
 	},
@@ -461,7 +461,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Pazu.class);
 		}
 	},
@@ -472,7 +472,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Finch.class);
 		}
 	},
@@ -483,7 +483,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Zaranix.class);
 		}
 	},
@@ -494,7 +494,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Amber.class);
 		}
 	},
@@ -505,7 +505,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Arthur.class);
 		}
 	},
@@ -516,7 +516,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(ZaranixMaidKelly.class);
 		}
 	},
@@ -527,7 +527,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(ZaranixMaidKatherine.class);
 		}
 	},
@@ -538,7 +538,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Ashley.class);
 		}
 	},
@@ -551,7 +551,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(SupplierLeader.class);
 		}
 	},
@@ -564,7 +564,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(SupplierPartner.class);
 		}
 	},
@@ -575,7 +575,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Angel.class);
 		}
 	},
@@ -586,7 +586,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Bunny.class);
 		}
 	},
@@ -597,7 +597,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Loppy.class);
 		}
 	},
@@ -608,7 +608,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Lumi.class);
 		}
 	},
@@ -619,7 +619,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Claire.class);
 		}
 	},
@@ -630,7 +630,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(SlimeQueen.class);
 		}
 	},
@@ -641,7 +641,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(SlimeGuardIce.class);
 		}
 	},
@@ -652,7 +652,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(SlimeGuardFire.class);
 		}
 	},
@@ -663,7 +663,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(SlimeRoyalGuard.class);
 		}
 	},
@@ -674,7 +674,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Roxy.class);
 		}
 	},
@@ -685,7 +685,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Axel.class);
 		}
 	},
@@ -696,7 +696,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Epona.class);
 		}
 	},
@@ -707,7 +707,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Jules.class);
 		}
 	},
@@ -718,7 +718,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Kruger.class);
 		}
 	},
@@ -729,7 +729,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Kalahari.class);
 		}
 	},
@@ -740,7 +740,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(FortressAlphaLeader.class);
 		}
 	},
@@ -751,7 +751,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(FortressFemalesLeader.class);
 		}
 	},
@@ -762,7 +762,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(FortressMalesLeader.class);
 		}
 	},
@@ -773,7 +773,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(DarkSiren.class);
 		}
 	},
@@ -784,7 +784,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(SubmissionCitadelArcanist.class);
 		}
 	},
@@ -795,7 +795,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Lyssieth.class);
 		}
 	},
@@ -806,7 +806,7 @@ public enum ParserTarget {
 		}
 
 		@Override
-		public GameCharacter getCharacter(String tag) {
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Elizabeth.class);
 		}
 	},
@@ -830,5 +830,5 @@ public enum ParserTarget {
 		return description;
 	}
 	
-	public abstract GameCharacter getCharacter(String tag) throws NullPointerException;
+	public abstract GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) throws NullPointerException;
 }
