@@ -128,10 +128,10 @@
 	Contributors:
 		Fixed Lyssieth's demon TF scene for if you are a taur. (PR#1128 by Stadler76)
 	
-	Other:
-		Slightly improved post-sex descriptions for the companion sex scenes.
-	
 	Sex:
+		Added 'choke' action for dominant partners in sex. (Only available if their hands can reach their partner's neck, and if they have at least one hand free.)
+		NPCs will now only ever use 'slap face' or 'choke' actions if they have the sadist fetish.
+		Slightly improved post-sex descriptions for the companion sex scenes.
 		Fixed bug where you could 'Start kissing', even if you were already kissing your partner.
 		Fixed being able to perform tribbing at the same time as penis-vagina penetration or intercrural sex.
 		Added status effect indication of ongoing tribbing action (only shows up when tribbing is ongoing).
@@ -177,9 +177,18 @@
 	
 	
 	
-	Add scissoring position
-	
 	Add option to stop auto saves
+	
+	Harpies are using insane clothing still
+	
+	Inviting my character's daughter to a guest room has her ask if I'm royalty.  Shouldn't it be "Are we royalty???"?  Even more so because she's a lesser demon.
+	Related: "With her opinions on your aunt..." in small talk from the daughter could be "With her opinions on her great aunt..."
+	
+	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it
+	
+	credits
+	
+	can't submit during storm - ignores storm attraction?
 	
 	------- Clothing issues:
 	
@@ -198,28 +207,20 @@
 	
 	----------
 	
+	the bat slime is referenced after sexing a hell hound (after companion sex - parsing the wrong character when saying "As you step back from the... I'm still horny!")
+	
+	Add scissoring position
+	
 	Repeat encounters for imp fortresses act as though you've never seen them before - the whole thing needs going over and improving
 	Not sure, if it's a bug or intended, but I am at the imp fortress, and Jhortrax explicitly asks for my NPC partner, but the options below are limited to offering myself or offering both of us.
 	
-	the bat slime is referenced after sexing a hell hound (after companion sex - parsing the wrong character when saying "As you step back from the... I'm still horny!")
-	
-	changing position into doggy style apparently broke the companion sex as well
-		I made a change that fixed the issue of characters going into a spectator slot when switching to doggy-style; that might be it
-		
 	Affection drop when starting sex needs to clearly take into account fetishes - put in SexResponse?
 	
 	remove sterlility from bunny prostitutes
 	
-	Harpies are using insane clothing still
-	
 	add way to give slime queen her crown back
 	
 	occassionally when allowing party member to have sex with an enemy when the enemy orgasms right after party member all buttons disappear and you can't prepare or deny or leave the encounter forcing loading save file
-	
-	Inviting my character's daughter to a guest room has her ask if I'm royalty.  Shouldn't it be "Are we royalty???"?  Even more so because she's a lesser demon.
-	Related: "With her opinions on your aunt..." in small talk from the daughter could be "With her opinions on her great aunt..."
-	
-	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it
 	
 	Slaves forgetting owner?
 		"Scarlett leaves your party for unknown reasons"
@@ -250,8 +251,6 @@
 	
 	Add option to get Arthur to move out
 	
-	can't submit during storm - ignores storm attraction?
-	
 	Something that might be a bug or an oversight but when you go into the alleyways during an arcane storm and someone walks up to you, they still accept money as an option to leave you alone
 	
 	need toy-fuck and toy-fuck (anal) sex actions, where you use the toy in the orifice to fuck them
@@ -261,15 +260,7 @@
 	go over forced TF and fix it all
 	the bug is them saying they are going to transform you into a female demon
 	
-	
-	credits
-	
 	Freckles only on face option
-	
-	
-	
-	
-	
 	
 	Make generic template:
 		I’m pretty sure there is an issue with Imps/demons in submission not giving you demon characteristics when they say they want to “transform you into a male/female demon”
