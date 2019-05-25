@@ -90,7 +90,7 @@ public class Lab {
 					}
 				}
 				
-				return new Response("Enter", "Step through the door and enter Lilaya's laboratory", LAB_ENTRY) {
+				return new Response("Enter", "Step through the door and enter Lilaya's laboratory.", LAB_ENTRY) {
 					@Override
 					public void effects() {
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roseToldOnYou)
@@ -300,7 +300,6 @@ public class Lab {
 			
 			if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_I_ARTHURS_TALE) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
-					
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_ENTRY_ARTHUR_PREGNANCY_BASE"));
 					
 					if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
@@ -810,7 +809,7 @@ public class Lab {
 							+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+							+ (Main.game.getPlayer().hasPenisIgnoreDildo() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 									?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
 									:" [lilaya.speech(Mmm, yes!)] she giggles.")
 						+ "</p>"
@@ -839,7 +838,7 @@ public class Lab {
 							+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+							+ (Main.game.getPlayer().hasPenisIgnoreDildo() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 									?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
 									:" [lilaya.speech(Mmm, yes!)] she giggles.")
 						+ "</p>"
@@ -1834,7 +1833,7 @@ public class Lab {
 							+ " Stepping around to one side, she quickly throws one leg over you and slides down to sit in your lap, face-to-face."
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+							+ (Main.game.getPlayer().hasPenisIgnoreDildo() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 									?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
 									:" [lilaya.speech(Mmm, yes!)] she giggles.")
 						+ "</p>"
@@ -2087,7 +2086,7 @@ public class Lab {
 							+ " Stepping around to one side, she quickly throws one leg over you and slides down to sit in your lap, face-to-face."
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasPenis() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+							+ (Main.game.getPlayer().hasPenisIgnoreDildo() && !Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 									?" [lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands."
 									:" [lilaya.speech(Mmm, yes!)] she giggles.")
 						+ "</p>"
@@ -2419,7 +2418,7 @@ public class Lab {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_3)) {
-					return new Response("Give birth", "Tell Lilaya that you're ready to give birth", LILAYA_DETECTS_BIRTHING_TYPE){
+					return new Response("Give birth", "Tell Lilaya that you're ready to give birth.", LILAYA_DETECTS_BIRTHING_TYPE){
 						@Override
 						public void effects() {
 							if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya)) {

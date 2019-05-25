@@ -354,7 +354,7 @@
 		[npc2.speech(Hah! What was all that about?!)] [npc2.name] laughs, stepping forwards to sneer down at you. [npc2.speech(I bet yer was both just testin' us, weren't yer?!)]
 	</p>
 	<p>
-		You let out a low groan, which the imps take as an affirmation of their assumption. Still regarding you and [npc.name] as their leader's guests, it seems as though they're reluctant to do anything more to you, and as the rest of the imps wander off, [npc2.name] reprimands the two of you, [npc2.speech(Don't yer go tryin' taht again, yer hear?! We ain't got time fer yer games!)]
+		You let out a low groan, which the imps take as an affirmation of their assumption. Still regarding you and [npc.name] as their leader's guests, it seems as though they're reluctant to do anything more to you, and as the rest of the imps wander off, [npc2.name] reprimands the two of you, [npc2.speech(Don't yer go tryin' that again, yer hear?! We ain't got time fer yer games!)]
 	</p>
 	<p>
 		Turning [npc2.her] back on you, [npc2.name] joins [npc2.her] comrades in leaving you to recover. As you push yourself back up onto your [pc.feet], you wonder what you and [npc.name] should do now...

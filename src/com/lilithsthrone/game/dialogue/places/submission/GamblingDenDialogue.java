@@ -856,7 +856,7 @@ public class GamblingDenDialogue {
 				
 			} else {
 				if(index == 1) {
-					return new Response("Rules", "Ask Epona about the rules for pregnancy roulette", PREGNANCY_ROULETTE_RULES);
+					return new Response("Rules", "Ask Epona about the rules for pregnancy roulette.", PREGNANCY_ROULETTE_RULES);
 					
 				} else if(index==2) {
 					if(Main.game.getPlayer().isPregnant()) {
@@ -1216,7 +1216,7 @@ public class GamblingDenDialogue {
 							public void initStartingLustAndArousal(GameCharacter character) {
 								if(!character.isPlayer()) {
 									character.setArousal(75);
-									character.setLust(80);
+									character.setLustNoText(80);
 								}
 							}
 							@Override
@@ -1253,7 +1253,7 @@ public class GamblingDenDialogue {
 							public void initStartingLustAndArousal(GameCharacter character) {
 								if(!character.isPlayer()) {
 									character.setArousal(75);
-									character.setLust(80);
+									character.setLustNoText(80);
 								}
 							}
 							@Override
@@ -1312,7 +1312,7 @@ public class GamblingDenDialogue {
 								public void initStartingLustAndArousal(GameCharacter character) {
 									if(!character.isPlayer()) {
 										character.setArousal(75);
-										character.setLust(80);
+										character.setLustNoText(80);
 									}
 								}
 								@Override
@@ -1349,7 +1349,7 @@ public class GamblingDenDialogue {
 								public void initStartingLustAndArousal(GameCharacter character) {
 									if(!character.isPlayer()) {
 										character.setArousal(75);
-										character.setLust(80);
+										character.setLustNoText(80);
 									}
 								}
 								@Override
@@ -1532,7 +1532,7 @@ public class GamblingDenDialogue {
 							@Override
 							public void initStartingLustAndArousal(GameCharacter character) {
 								character.setArousal(50);
-								character.setLust(80);
+								character.setLustNoText(80);
 							}
 						},
 						null,

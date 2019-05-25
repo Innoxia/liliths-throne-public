@@ -54,13 +54,13 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.88
- * @version 0.2.9
+ * @version 0.3.2
  * @author Innoxia
  */
 public class Cultist extends NPC {
 
 	private boolean requestedAnal = false;
-	private boolean sealedSex = false;
+//	private boolean sealedSex = false;
 
 	public Cultist() {
 		this(false);
@@ -216,14 +216,14 @@ public class Cultist extends NPC {
 	public boolean isUnique() {
 		return false;
 	}
-	
-	public boolean isSealedSex() {
-		return sealedSex;
-	}
-
-	public void setSealedSex(boolean sealedSex) {
-		this.sealedSex = sealedSex;
-	}
+//	
+//	public boolean isSealedSex() {
+//		return sealedSex;
+//	}
+//
+//	public void setSealedSex(boolean sealedSex) {
+//		this.sealedSex = sealedSex;
+//	}
 
 	public boolean isRequestedAnal() {
 		return requestedAnal;

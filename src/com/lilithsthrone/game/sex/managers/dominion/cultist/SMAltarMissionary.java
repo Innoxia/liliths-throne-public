@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
-import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
@@ -12,11 +11,10 @@ import com.lilithsthrone.game.sex.positions.SexSlot;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.dominion.CultistSexActions;
-import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.88
- * @version 0.2.9
+ * @version 0.3.2
  * @author Innoxia
  */
 public class SMAltarMissionary extends SexManagerDefault {
@@ -34,7 +32,7 @@ public class SMAltarMissionary extends SexManagerDefault {
 			return super.getPartnerSexAction(sexActionPlayer);
 		}
 		
-		if(((Cultist)Sex.getActivePartner()).isSealedSex()) {
+		if(Sex.isCharacterSealed(Sex.getActivePartner())) {
 			return CultistSexActions.SEALED;
 			
 		} else {
@@ -43,21 +41,13 @@ public class SMAltarMissionary extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isAbleToRemoveSelfClothing(GameCharacter character){
-		if(character.isPlayer()) {
-			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Main.game.getPlayer());
-		} else {
-			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Sex.getActivePartner());
-		}
+	public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
+		return !Sex.isCharacterSealed(character);
 	}
 
 	@Override
-	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
-		if(character.isPlayer()) {
-			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Main.game.getPlayer());
-		} else {
-			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Sex.getActivePartner());
-		}
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
+		return !Sex.isCharacterSealed(character);
 	}
 	
 	@Override

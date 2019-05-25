@@ -53,6 +53,7 @@ public enum DialogueFlagValue {
 
 	
 	// City hall:
+	vanessaHelped,
 	vanessaDailyHelped,
 	vanessaDailyMassage,
 	vanessaMassaged,
@@ -153,6 +154,7 @@ public enum DialogueFlagValue {
 	slimeGuardsDefeated,
 	slimeRoyalGuardIntroduced,
 	slimeRoyalGuardDefeated,
+	slimeRoyalGuardDefeatReacted,
 	slimeQueenHelped,
 	slimeQueenConvinced,
 	slimeQueenForced,

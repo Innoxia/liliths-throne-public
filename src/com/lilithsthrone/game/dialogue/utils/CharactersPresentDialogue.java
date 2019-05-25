@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -13,34 +14,104 @@ import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTag;
+import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.3
- * @version 0.2.10
+ * @version 0.3.3
  * @author Innoxia
  */
 public class CharactersPresentDialogue {
 
-	public static String menuContent, menuTitle;
-	public static GameCharacter characterViewed = null;
-
+	public static String menuContent;
+	public static String menuTitle;
+	public static NPC characterViewed = null;
+	
+	private static NPC targetedCharacterForSex;
+	private static NPC companionCharacter;
+	
 	public static void resetContent(GameCharacter characterViewed) {
 		if(characterViewed==null) {
 			CharactersPresentDialogue.characterViewed = Main.game.getCharactersPresent().get(0);
 		} else {
-			CharactersPresentDialogue.characterViewed = characterViewed;
+			CharactersPresentDialogue.characterViewed = (NPC) characterViewed;
 		}
 		menuTitle = "Characters Present ("+Util.capitaliseSentence(CharactersPresentDialogue.characterViewed.getName(true))+")";
 		menuContent = ((NPC) CharactersPresentDialogue.characterViewed).getCharacterInformationScreen();
+
+//		Main.game.setActiveNPC(characterViewed);
+		targetedCharacterForSex = (NPC) CharactersPresentDialogue.characterViewed;
+
+		if(Main.game.getPlayer().getCompanions().size()>1) {
+			companionCharacter = (NPC) Main.game.getPlayer().getMainCompanion();
+			if(getCompanionCharacter().equals(targetedCharacterForSex)) {
+				companionCharacter = (NPC) Main.game.getPlayer().getCompanions().stream().filter((npc) -> !npc.equals(getCharacterViewed())).findFirst().get();
+			}
+		} else {
+			companionCharacter = null;
+		}
+	}
+
+	private static void applyReactionReset() {
+		if(getCharacterViewed().isVisiblyPregnant()){
+			getCharacterViewed().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+		}
+		if(Main.game.getPlayer().isVisiblyPregnant()) {
+			Main.game.getPlayer().setCharacterReactedToPregnancy(getCharacterViewed(), true);
+		}
+	}
+
+	private static NPC getCharacterViewed() {
+		return characterViewed;
+	}
+	
+	private static NPC getTargetedCharacterForSex() {
+		if(!Main.game.getCharactersPresent().contains(targetedCharacterForSex)) {
+			targetedCharacterForSex = (NPC) CharactersPresentDialogue.characterViewed;
+			if(getCompanionCharacter().equals(targetedCharacterForSex)) {
+				if(Main.game.getPlayer().getCompanions().size()>1) {
+					companionCharacter = (NPC) Main.game.getPlayer().getCompanions().stream().filter((npc) -> !npc.equals(getCharacterViewed())).findFirst().get();
+				}
+			}
+		}
+		return targetedCharacterForSex;
+	}
+	
+	private static NPC getCompanionCharacter() {
+		if(!Main.game.getCharactersPresent().contains(companionCharacter)) {
+			if(Main.game.getPlayer().getCompanions().size()>1) {
+				companionCharacter = (NPC) Main.game.getPlayer().getMainCompanion();
+				if(getCompanionCharacter().equals(targetedCharacterForSex)) {
+					companionCharacter = (NPC) Main.game.getPlayer().getCompanions().stream().filter((npc) -> !npc.equals(getCharacterViewed())).findFirst().get();
+				}
+			} else {
+				companionCharacter = null;
+			}
+		}
+		return companionCharacter;
+	}
+
+	private static String getTextFilePath() {
+		if(getCharacterViewed().isRelatedTo(Main.game.getPlayer())) {
+			return "characters/offspring/slave";
+		} else {
+			return "misc/slaveDialogue";
+		}
+	}
+
+	private static String getThreesomeTextFilePath() {
+		if(getCharacterViewed().isRelatedTo(Main.game.getPlayer()) || (getCompanionCharacter()!=null && getCompanionCharacter().isRelatedTo(Main.game.getPlayer()))) {
+			return "characters/offspring/slave";
+		} else {
+			return "misc/slaveDialogue";
+		}
 	}
 	
 	private static boolean isCompanionSexPublic() {
@@ -49,10 +120,10 @@ public class CharactersPresentDialogue {
 				&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_TOILETS);
 	}
 
-	private static boolean isSittingSex() {
-		return Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_SEATING_AREA)
-				|| Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_VIP_AREA);
-	}
+//	private static boolean isSittingSex() {
+//		return Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_SEATING_AREA)
+//				|| Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_VIP_AREA);
+//	}
 	
 	
 	public static final DialogueNode MENU = new DialogueNode("", "", true) {
@@ -133,7 +204,7 @@ public class CharactersPresentDialogue {
 					return new Response(
 							UtilText.parse(charactersPresent.get(index - 1), title),
 							UtilText.parse(charactersPresent.get(index - 1), description),
-							charactersPresent.get(index - 1).equals(characterViewed)?null:MENU){
+							charactersPresent.get(index - 1).equals(characterViewed)?null:MENU) {
 						@Override
 						public void effects() {
 							characterViewed = charactersPresent.get(index-1);
@@ -146,194 +217,775 @@ public class CharactersPresentDialogue {
 					return null;
 				}
 				
-			} else if (responseTab==1 && Main.game.getPlayer().hasCompanion(characterViewed)){
-				if (index == 0) {
-					return new ResponseEffectsOnly("Back", "Stop viewing the characters present and return to the main game."){
-						@Override
-						public void effects() {
-							Main.mainController.openCharactersPresent();
-						}
-					};
+			} else if (responseTab==1 && Main.game.getPlayer().hasCompanion(characterViewed)) {
+				List<GameCharacter> companions = Main.game.getPlayer().getCompanions();
+				if (index == 1) { //TODO improve descriptions and affection hit from rape
 					
-				} else if (index == 1) { //TODO improve descriptions and affection hit from rape
-					if(Main.game.isNonConEnabled() && !((NPC) characterViewed).isAttractedTo(Main.game.getPlayer())) {
-						if(!characterViewed.isCompanionAvailableForSex(true)) { // Takes into account whether in a neutral dialogue or not.
-							return new Response("Rape", characterViewed.getCompanionSexRejectionReason(true), null);
-							
-						} else {
-							if(isSittingSex()) {
-								return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
-										false, false,
-										new SMChair(
-													Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
-													Util.newHashMapOfValues(new Value<>(characterViewed, SexSlotBipeds.CHAIR_TOP))) {
-												@Override
-												public boolean isPublicSex() {
-													return isCompanionSexPublic();
-												}
-											},
-										null,
-										null,
-										AFTER_SEX,
-										"<p>"
-											+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
-											+ " [npc.She] desperately tries to push you away, [npc.moaning],"
-											+ " [npc.speech(No! Stop!)]"
-										+ "</p>") {
-									@Override
-									public void effects() {
-										Main.game.setActiveNPC((NPC) characterViewed);
-										if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
-										} else {
-											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -50));
-										}
-									}
-								};
-								
-							} else {
-								return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
-										false, false,
-										new SMGeneric(
-													Util.newArrayListOfValues(Main.game.getPlayer()),
-													Util.newArrayListOfValues(characterViewed),
-										null,
-										null),
-										AFTER_SEX, "<p>"
-											+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
-											+ " [npc.She] desperately tries to push you away, [npc.moaning],"
-											+ " [npc.speech(No! Stop!)]"
-										+ "</p>") {
-									@Override
-									public void effects() {
-										Main.game.setActiveNPC((NPC) characterViewed);
-										if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
-										} else {
-											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -50));
-										}
-									}
-								};
-								
-							}
-							
+					if(Main.game.isNonConEnabled() && !getCharacterViewed().isAttractedTo(Main.game.getPlayer())) {
+						if(!getTargetedCharacterForSex().isCompanionAvailableForSex(true)) { // Takes into account whether in a neutral dialogue or not.
+							return new Response("Rape", getTargetedCharacterForSex().getCompanionSexRejectionReason(true), null);
 						}
-						
+						return new ResponseSex("Rape", UtilText.parse(getTargetedCharacterForSex(), "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter..."),
+								false, false,
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										Util.newArrayListOfValues(getTargetedCharacterForSex()),
+								null,
+								null,
+								(getTargetedCharacterForSex().isSlave() && getTargetedCharacterForSex().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
+									?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
+									:new ArrayList<>())),
+								AFTER_SEX,
+								UtilText.parseFromXMLFile(getTextFilePath(), "RAPE_START", getTargetedCharacterForSex())) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+								int affection = 0;
+								if(isCompanionSexPublic()) {
+									if(getTargetedCharacterForSex().getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isPositive()) {
+										affection+=5;
+									} else if(getTargetedCharacterForSex().getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative()) {
+										affection-=25;
+									}
+								}
+								if(getTargetedCharacterForSex().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
+									affection+=5;
+								} else {
+									affection-=25;
+								}
+								Main.game.getTextEndStringBuilder().append(getTargetedCharacterForSex().incrementAffection(Main.game.getPlayer(), affection));
+							}
+						};
+					
 					} else {
-						if(!characterViewed.isCompanionAvailableForSex(true)) { // Takes into account whether in a neutral dialogue or not.
-							return new Response("Sex", characterViewed.getCompanionSexRejectionReason(true), null);
-							
-						} else {
-							if(isSittingSex()) {
-								return new ResponseSex("Sex", "Have sex with [npc.name].", 
-										true, false,
-										new SMChair(
-													Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
-													Util.newHashMapOfValues(new Value<>(characterViewed, SexSlotBipeds.CHAIR_TOP))) {
-												@Override
-												public boolean isPublicSex() {
-													return isCompanionSexPublic();
-												}
-											},
-										null,
-										null,
-										AFTER_SEX,
-										"<p>"
-											+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
-											+ " [npc.She] desperately leans into you, [npc.moaning],"
-											+ " [npc.speech(~Mmm!~ Yes!)]"
-										+ "</p>") {
-									@Override
-									public void effects() {
-										Main.game.setActiveNPC((NPC) characterViewed);
-										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
-									}
-								};
-								
-							} else {
-								return new ResponseSex("Sex", "Have sex with [npc.name].", 
-										true, false,
-										new SMGeneric(
-													Util.newArrayListOfValues(Main.game.getPlayer()),
-													Util.newArrayListOfValues(characterViewed),
-													null,
-													null),
-										AFTER_SEX,
-										"<p>"
-											+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
-											+ " [npc.She] desperately leans into you, [npc.moaning],"
-											+ " [npc.speech(~Mmm!~ Yes!)]"
-										+ "</p>") {
-									@Override
-									public void effects() {
-										Main.game.setActiveNPC((NPC) characterViewed);
-										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
-									}
-								};
-							}
-							
+						if(!getTargetedCharacterForSex().isCompanionAvailableForSex(true)) { // Takes into account whether in a neutral dialogue or not.
+							return new Response("Sex", getTargetedCharacterForSex().getCompanionSexRejectionReason(true), null);
 						}
+						return new ResponseSex("Sex", UtilText.parse(getTargetedCharacterForSex(), "Have sex with [npc.name]."),
+								true, false,
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										Util.newArrayListOfValues(getTargetedCharacterForSex()),
+								null,
+								null,
+								(getTargetedCharacterForSex().isSlave() && getTargetedCharacterForSex().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
+										?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
+										:new ArrayList<>())) {
+									@Override
+									public boolean isPublicSex() {
+										return isCompanionSexPublic();
+									}
+								},
+								AFTER_SEX,
+								UtilText.parseFromXMLFile(getTextFilePath(), "SEX_START", getTargetedCharacterForSex())) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+								int affection = 5;
+								if(isCompanionSexPublic()) {
+									if(getTargetedCharacterForSex().getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isPositive()) {
+										affection+=5;
+									} else if(getTargetedCharacterForSex().getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative()) {
+										affection-=25;
+									}
+								}
+								Main.game.getTextEndStringBuilder().append(getTargetedCharacterForSex().incrementAffection(Main.game.getPlayer(), affection));
+							}
+						};
 					}
 					
 				} else if (index == 2) {
-					if(!characterViewed.isCompanionAvailableForSex(false)) {
-						return new Response("Submissive Sex", characterViewed.getCompanionSexRejectionReason(false), null);
+					if(getCompanionCharacter()==null || companions.size()<2) {
+						return new Response("Spitroast (front)", "You'd need a third person to be present in order to get a spitroast going...", null);
 						
+					} else if(getTargetedCharacterForSex().isPlayer()) {
+						return new Response("Spitroast (front)", "You cannot target yourself for this action!", null);
+						
+					} else if(!getTargetedCharacterForSex().isCompanionAvailableForSex(true)) { // Takes into account whether in a neutral dialogue or not.
+						return new Response("Spitroast (front)", getTargetedCharacterForSex().getCompanionSexRejectionReason(true), null);
+						
+					} else if(!getCompanionCharacter().isCompanionAvailableForSex(false)) { // Takes into account whether in a neutral dialogue or not.
+						return new Response("Spitroast (front)", getCompanionCharacter().getCompanionSexRejectionReason(false), null);
+						
+					} else if(!getCompanionCharacter().isAttractedTo(getTargetedCharacterForSex())) {
+						return new Response("Spitroast (front)",
+								UtilText.parse(getCompanionCharacter(), getTargetedCharacterForSex(),
+										"[npc.Name] is not attracted to [npc2.name], and so it would not be possible to make [npc.herHim] take a dominant position in order to fuck [npc2.herHim]..."),
+								null);
+							
 					} else {
-						if(((NPC) characterViewed).isAttractedTo(Main.game.getPlayer())) {
-							if(isSittingSex()) {
-								return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
-										Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-										true, true,
-										new SMChair(
-													Util.newHashMapOfValues(new Value<>(characterViewed, SexSlotBipeds.CHAIR_BOTTOM)),
-													Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP))) {
-												@Override
-												public boolean isPublicSex() {
-													return isCompanionSexPublic();
-												}
-											},
-										null,
-										null, AFTER_SEX, "<p>"
-											+ "Taking hold of [npc.namePos] [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
-											+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
-											+ " [npc.speech(Looking for some fun, hmm?)]"
-										+ "</p>") {
-									@Override
-									public void effects() {
-										Main.game.setActiveNPC((NPC) characterViewed);
-										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
-									}
-								};
-								
-							} else {
-								return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
-										Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-										true, true,
-										new SMGeneric(
-													Util.newArrayListOfValues(characterViewed),
-													Util.newArrayListOfValues(Main.game.getPlayer()),
-										null,
-										null), AFTER_SEX, "<p>"
-											+ "Taking hold of [npc.namePos] [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
-											+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
-											+ " [npc.speech(Looking for some fun, hmm?)]"
-										+ "</p>") {
-									@Override
-									public void effects() {
-										Main.game.setActiveNPC((NPC) characterViewed);
-										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
-									}
-								};
-							}
+						 if((!Main.game.isNonConEnabled() || !getTargetedCharacterForSex().isSlave()) && !getTargetedCharacterForSex().isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Spitroast (front)",
+									UtilText.parse(getTargetedCharacterForSex(),
+											"[npc2.Name] is not attracted to you, and so would not be willing to be in a threesome position in which [npc2.she] interacts with you..."),
+									null);
+							
+						} else if((!Main.game.isNonConEnabled() || !getTargetedCharacterForSex().isSlave()) && !getTargetedCharacterForSex().isAttractedTo(getCompanionCharacter())) {
+							return new Response("Spitroast (front)",
+									UtilText.parse(getCompanionCharacter(), getTargetedCharacterForSex(),
+											"[npc2.Name] is not attracted to [npc.name], and so would not be willing to be in a threesome position in which [npc2.she] interacts with [npc.herHim]..."),
+									null);
 							
 						} else {
-							return new Response("Submissive sex", "[npc.Name] is not too keen on having sex with you, so you'd need to be the dom...", null);
+							boolean isRape = !getTargetedCharacterForSex().isAttractedTo(Main.game.getPlayer()) || !getTargetedCharacterForSex().isAttractedTo(getCompanionCharacter());
+							return new ResponseSex(
+									isRape
+										?"Spitroast rape (front)"
+										:"Spitroast (front)",
+									UtilText.parse(getTargetedCharacterForSex(), getCompanionCharacter(), "Move around in front of [npc.name] so that you can use [npc.her] mouth while [npc2.name] takes [npc.her] rear."),
+									null, null, null, null, null, null,
+									!isRape, false,
+									new SMGeneric(
+											Util.newArrayListOfValues(getCompanionCharacter(), Main.game.getPlayer()),
+											Util.newArrayListOfValues(getTargetedCharacterForSex()),
+											null,
+											null,
+											ResponseTag.PREFER_DOGGY)  {
+										@Override
+										public boolean isPublicSex() {
+											return isCompanionSexPublic();
+										}
+									},
+									AFTER_SEX,
+									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_FRONT_START", getTargetedCharacterForSex(), getCompanionCharacter())) {
+								@Override
+								public void effects() {
+									applyReactionReset();
+								}
+							};
 						}
 					}
-					
-				}
 				
+				} else if (index == 3) {
+					if(getCompanionCharacter()==null || companions.size()<2) {
+						return new Response("Spitroast (behind)", "You'd need a third person to be present in order to get a spitroast going...", null);
+						
+					} else if(getTargetedCharacterForSex().isPlayer()) {
+						return new Response("Spitroast (behind)", "You cannot target yourself for this action!", null);
+						
+					} else if(!getTargetedCharacterForSex().isCompanionAvailableForSex(true)) { // Takes into account whether in a neutral dialogue or not.
+						return new Response("Spitroast (behind)", getTargetedCharacterForSex().getCompanionSexRejectionReason(true), null);
+						
+					} else if(!getCompanionCharacter().isCompanionAvailableForSex(false)) { // Takes into account whether in a neutral dialogue or not.
+						return new Response("Spitroast (behind)", getCompanionCharacter().getCompanionSexRejectionReason(false), null);
+						
+					} else if(!getCompanionCharacter().isAttractedTo(getTargetedCharacterForSex())) {
+						return new Response("Spitroast (behind)",
+								UtilText.parse(getCompanionCharacter(), getTargetedCharacterForSex(),
+										"[npc.Name] is not attracted to [npc2.name], and so it would not be possible to make [npc.herHim] take a dominant position in order to fuck [npc2.herHim]..."),
+								null);
+							
+					} else {
+						 if((!Main.game.isNonConEnabled() || !getTargetedCharacterForSex().isSlave()) && !getTargetedCharacterForSex().isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Spitroast (behind)",
+									UtilText.parse(getTargetedCharacterForSex(),
+											"[npc2.Name] is not attracted to you, and so would not be willing to be in a threesome position in which [npc2.she] interacts with you..."),
+									null);
+							
+						} else if((!Main.game.isNonConEnabled() || !getTargetedCharacterForSex().isSlave()) && !getTargetedCharacterForSex().isAttractedTo(getCompanionCharacter())) {
+							return new Response("Spitroast (behind)",
+									UtilText.parse(getCompanionCharacter(), getTargetedCharacterForSex(),
+											"[npc2.Name] is not attracted to [npc.name], and so would not be willing to be in a threesome position in which [npc2.she] interacts with [npc.herHim]..."),
+									null);
+							
+						} else {
+							boolean isRape = !getTargetedCharacterForSex().isAttractedTo(Main.game.getPlayer()) || !getTargetedCharacterForSex().isAttractedTo(getCompanionCharacter());
+							return new ResponseSex(
+									isRape
+										?"Spitroast rape (behind)"
+										:"Spitroast (behind)",
+									UtilText.parse(getTargetedCharacterForSex(), getCompanionCharacter(), "Move around behind [npc.name] so that you can use [npc.her] rear while [npc2.name] takes [npc.her] mouth."),
+									null, null, null, null, null, null,
+									!isRape, false,
+									new SMGeneric(
+											Util.newArrayListOfValues(Main.game.getPlayer(), getCompanionCharacter()),
+											Util.newArrayListOfValues(getTargetedCharacterForSex()),
+											null,
+											null,
+											ResponseTag.PREFER_DOGGY)  {
+										@Override
+										public boolean isPublicSex() {
+											return isCompanionSexPublic();
+										}
+									},
+									AFTER_SEX,
+									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_BEHIND_START", getTargetedCharacterForSex(), getCompanionCharacter())) {
+								@Override
+								public void effects() {
+									applyReactionReset();
+								}
+							};
+						}
+					}
+				
+				} else if (index == 4) {
+					if(getCompanionCharacter()==null || companions.size()<2) {
+						return new Response("Side-by-side (as dom)", "You'd need a third person to be present in order to get a spitroast going...", null);
+						
+					} else if(getTargetedCharacterForSex().isPlayer()) {
+						return new Response("Side-by-side (as dom)", "You cannot target yourself for this action!", null);
+						
+					} else if(!getTargetedCharacterForSex().isCompanionAvailableForSex(true)) { // Takes into account whether in a neutral dialogue or not.
+						return new Response("Side-by-side (as dom)", getTargetedCharacterForSex().getCompanionSexRejectionReason(true), null);
+						
+					} else if(!getCompanionCharacter().isCompanionAvailableForSex(true)) { // Takes into account whether in a neutral dialogue or not.
+						return new Response("Side-by-side (as dom)", getCompanionCharacter().getCompanionSexRejectionReason(true), null);
+						
+					} else if((!Main.game.isNonConEnabled() || !getCompanionCharacter().isSlave()) && !getCompanionCharacter().isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Side-by-side (as dom)",
+								UtilText.parse(getCompanionCharacter(),
+										"[npc.Name] is not attracted to you, and so would not be willing to be in a threesome position in which [npc.she] interacts with you..."),
+								null);
+							
+					} else if((!Main.game.isNonConEnabled() || !getTargetedCharacterForSex().isSlave()) && !getTargetedCharacterForSex().isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Side-by-side (as dom)",
+								UtilText.parse(getTargetedCharacterForSex(),
+										"[npc.Name] is not attracted to you, and so would not be willing to be in a threesome position in which [npc.she] interacts with you..."),
+								null);
+						
+					} else {
+						boolean isRape = !getTargetedCharacterForSex().isAttractedTo(Main.game.getPlayer()) || !getCompanionCharacter().isAttractedTo(Main.game.getPlayer());
+						return new ResponseSex(
+								isRape
+									?"Side-by-side rape (as dom)"
+									:"Side-by-side (as dom)",
+								UtilText.parse(getTargetedCharacterForSex(), getCompanionCharacter(), "Push [npc.name] and [npc2.name] down onto all fours, before kneeling behind [npc.name], ready to fuck them both side-by-side."),
+								null, null, null, null, null, null,
+								!isRape, false,
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										Util.newArrayListOfValues(getTargetedCharacterForSex(), getCompanionCharacter()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY)  {
+									@Override
+									public boolean isPublicSex() {
+										return isCompanionSexPublic();
+									}
+								},
+								AFTER_SEX,
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_START", getTargetedCharacterForSex(), getCompanionCharacter())) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+							}
+						};
+					}
+					
+				} else if (index == 6) {
+					if(!getTargetedCharacterForSex().isCompanionAvailableForSex(false)) { // Takes into account whether in a neutral dialogue or not.
+						return new Response("Submissive sex", getTargetedCharacterForSex().getCompanionSexRejectionReason(false), null);
+					}
+					
+					if(!getTargetedCharacterForSex().isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Submissive sex",
+								UtilText.parse(getTargetedCharacterForSex(), 
+									"[npc.Name] is not attracted to you,"
+									+ (Main.game.isNonConEnabled() && getTargetedCharacterForSex().isSlave()
+											?" so if you wanted to have sex with [npc.herHim], you'd need to rape [npc.herHim] as the dominant partner."
+											:" so you can't have submissive sex with [npc.herHim].")),
+								null);
+						
+					} else {
+						return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
+								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
+								true, true,
+								new SMGeneric(
+										Util.newArrayListOfValues(getTargetedCharacterForSex()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null,
+								(getTargetedCharacterForSex().isSlave() && getTargetedCharacterForSex().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
+										?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
+										:new ArrayList<>())) {
+									@Override
+									public boolean isPublicSex() {
+										return isCompanionSexPublic();
+									}
+								},
+								AFTER_SEX,
+								UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", getTargetedCharacterForSex())) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+								int affection = 0;
+								if(isCompanionSexPublic()) {
+									if(getTargetedCharacterForSex().getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isPositive()) {
+										affection+=5;
+									} else if(getTargetedCharacterForSex().getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative()) {
+										affection-=25;
+									}
+								}
+								Main.game.getTextEndStringBuilder().append(getTargetedCharacterForSex().incrementAffection(Main.game.getPlayer(), affection));
+							}
+						};
+					}
+					
+				} else if (index == 7) {
+					if(getCompanionCharacter()==null || companions.size()<2) {
+						return new Response("Spitroasted (front)", "You'd a third person to be present in order to get spitroasted...", null);
+						
+					} else if(getTargetedCharacterForSex().isPlayer()) {
+						return new Response("Spitroasted (front)", "You cannot target yourself for this action!", null);
+						
+					} else if(!getTargetedCharacterForSex().isCompanionAvailableForSex(false)) { // Takes into account whether in a neutral dialogue or not.
+						return new Response("Spitroasted (front)", getTargetedCharacterForSex().getCompanionSexRejectionReason(false), null);
+						
+					} else if(!getCompanionCharacter().isCompanionAvailableForSex(false)) { // Takes into account whether in a neutral dialogue or not.
+						return new Response("Spitroasted (front)", getCompanionCharacter().getCompanionSexRejectionReason(false), null);
+						
+					} else if(!getTargetedCharacterForSex().isAttractedTo(Main.game.getPlayer())) {
+						if(!getCompanionCharacter().isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Spitroasted (front)",
+									UtilText.parse(getCompanionCharacter(), getTargetedCharacterForSex(),
+											"Neither [npc.name] nor [npc2.name] are attracted to you,"
+											+ (Main.game.isNonConEnabled() && getCompanionCharacter().isSlave()
+													?" so if you wanted to have sex with them, you'd need to rape them as the dominant partner."
+													:" so you can't have submissive sex with them.")),
+									null);
+						} else {
+							return new Response("Spitroasted (front)",
+									UtilText.parse(getTargetedCharacterForSex(),
+											"[npc.Name] is not attracted to you,"
+											+ (Main.game.isNonConEnabled()
+												?" so if you wanted to have sex with [npc.herHim], you'd need to rape [npc.herHim] as the dominant partner."
+												:" so you can't have submissive sex with [npc.herHim].")),
+									null);
+						}
+						
+					} else if(!getCompanionCharacter().isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Spitroasted (front)",
+								UtilText.parse(getCompanionCharacter(),
+									"[npc.Name] is not attracted to you,"
+									+ (Main.game.isNonConEnabled() && getCompanionCharacter().isSlave()
+										?" so if you wanted to have sex with [npc.herHim], you'd need to rape [npc.herHim] as the dominant partner."
+										:" so you can't have submissive sex with [npc.herHim].")),
+								null);
+						
+					} else {
+						return new ResponseSex(
+								"Spitroasted (front)",
+								UtilText.parse(getTargetedCharacterForSex(), getCompanionCharacter(), "Get down on all fours facing [npc.name], so that [npc.she] can use your mouth while [npc2.name] takes your rear."),
+								null, null, null, null, null, null,
+								true, true,
+								new SMGeneric(
+										Util.newArrayListOfValues(getCompanionCharacter(), getTargetedCharacterForSex()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY)  {
+									@Override
+									public boolean isPublicSex() {
+										return isCompanionSexPublic();
+									}
+								},
+								AFTER_SEX,
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", getTargetedCharacterForSex(), getCompanionCharacter())) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+							}
+						};
+					}
+						
+					
+				} else if (index == 8) {
+					if(getCompanionCharacter()==null || companions.size()<2) {
+						return new Response("Spitroast (behind)", "You'd need a third person to be present in order to get a spitroast going...", null);
+						
+					} else if(getTargetedCharacterForSex().isPlayer()) {
+						return new Response("Spitroasted (behind)", "You cannot target yourself for this action!", null);
+						
+					} else if(!getTargetedCharacterForSex().isCompanionAvailableForSex(false)) { // Takes into account whether in a neutral dialogue or not.
+						return new Response("Spitroasted (behind)", getTargetedCharacterForSex().getCompanionSexRejectionReason(false), null);
+						
+					} else if(!getCompanionCharacter().isCompanionAvailableForSex(false)) { // Takes into account whether in a neutral dialogue or not.
+						return new Response("Spitroasted (behind)", getCompanionCharacter().getCompanionSexRejectionReason(false), null);
+						
+					} else if(!getTargetedCharacterForSex().isAttractedTo(Main.game.getPlayer())) {
+						if(!getCompanionCharacter().isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Spitroasted (behind)",
+									UtilText.parse(getCompanionCharacter(), getTargetedCharacterForSex(),
+											"Neither [npc.name] nor [npc2.name] are attracted to you,"
+											+ (Main.game.isNonConEnabled() && getCompanionCharacter().isSlave()
+													?" so if you wanted to have sex with them, you'd need to rape them as the dominant partner."
+													:" so you can't have submissive sex with them.")),
+									null);
+						} else {
+							return new Response("Spitroasted (behind)",
+									UtilText.parse(getTargetedCharacterForSex(),
+											"[npc.Name] is not attracted to you,"
+											+ (Main.game.isNonConEnabled()
+												?" so if you wanted to have sex with [npc.herHim], you'd need to rape [npc.herHim] as the dominant partner."
+												:" so you can't have submissive sex with [npc.herHim].")),
+									null);
+						}
+						
+					} else if(!getCompanionCharacter().isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Spitroasted (behind)",
+								UtilText.parse(getCompanionCharacter(),
+									"[npc.Name] is not attracted to you,"
+									+ (Main.game.isNonConEnabled() && getCompanionCharacter().isSlave()
+										?" so if you wanted to have sex with [npc.herHim], you'd need to rape [npc.herHim] as the dominant partner."
+										:" so you can't have submissive sex with [npc.herHim].")),
+								null);
+						
+					} else {
+						return new ResponseSex(
+								"Spitroasted (behind)",
+								UtilText.parse(getTargetedCharacterForSex(), getCompanionCharacter(), "Get down on all fours and present your rear to [npc.name], so that [npc.she] can fuck you while [npc2.name] uses your mouth."),
+								null, null, null, null, null, null,
+								true, true,
+								new SMGeneric(
+										Util.newArrayListOfValues(getTargetedCharacterForSex(), getCompanionCharacter()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY) {
+									@Override
+									public boolean isPublicSex() {
+										return isCompanionSexPublic();
+									}
+								},
+								AFTER_SEX,
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", getCompanionCharacter(), getTargetedCharacterForSex())) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+							}
+						};
+					}
+				
+				} else if (index == 9) {
+					if(getCompanionCharacter()==null || companions.size()<2) {
+						return new Response("Side-by-side (as sub)", UtilText.parse(getTargetedCharacterForSex(), "You'd need a third person to be present in order to get fucked alongside either them or [npc.name]..."), null);
+						
+					} else if(getTargetedCharacterForSex().isPlayer()) {
+						return new Response("Side-by-side (as sub)", "You cannot target yourself for this action!", null);
+						
+					} else if(!getTargetedCharacterForSex().isCompanionAvailableForSex(false)) { // Takes into account whether in a neutral dialogue or not.
+						return new Response("Side-by-side (as sub)", getTargetedCharacterForSex().getCompanionSexRejectionReason(false), null);
+						
+					} else if(!getCompanionCharacter().isCompanionAvailableForSex(false)) { // Takes into account whether in a neutral dialogue or not.
+						return new Response("Side-by-side (as sub)", getCompanionCharacter().getCompanionSexRejectionReason(false), null);
+						
+					} else if(!getTargetedCharacterForSex().isAttractedTo(Main.game.getPlayer())) {
+						if(!getCompanionCharacter().isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Side-by-side (as sub)", UtilText.parse(getCompanionCharacter(), getTargetedCharacterForSex(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
+						} else {
+							return new Response("Side-by-side (as sub)", UtilText.parse(getTargetedCharacterForSex(), "[npc.Name] is not attracted to you, and so would be unwilling to participate in a threesome..."), null);
+						}
+						
+					} else if(!getCompanionCharacter().isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Side-by-side (as sub)", UtilText.parse(getCompanionCharacter(), getTargetedCharacterForSex(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
+						
+					} else if(!getCompanionCharacter().isAttractedTo(getTargetedCharacterForSex())) {
+						return new Response("Side-by-side (as sub)",
+								UtilText.parse(getCompanionCharacter(), getTargetedCharacterForSex(), "[npc.Name] is not attracted to [npc2.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								null);
+
+					} else if(!getTargetedCharacterForSex().isAttractedTo(getCompanionCharacter())) {
+						return new Response("Side-by-side (as sub)",
+								UtilText.parse(getCompanionCharacter(), getTargetedCharacterForSex(), "[npc2.Name] is not attracted to [npc.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								null);
+						
+					} else {
+						return new ResponseSex("Side-by-side (as sub)",
+								UtilText.parse(getTargetedCharacterForSex(), getCompanionCharacter(), "Get down on all fours beside [npc2.name], so that [npc.name] can kneel down behind the two of you, ready to fuck you both side-by-side."),
+								null, null, null, null, null, null,
+								true, false,
+								new SMGeneric(
+										Util.newArrayListOfValues(getTargetedCharacterForSex()),
+										Util.newArrayListOfValues(Main.game.getPlayer(), getCompanionCharacter()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY) {
+									@Override
+									public boolean isPublicSex() {
+										return isCompanionSexPublic();
+									}
+								},
+								AFTER_SEX,
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_AS_SUB_START", getTargetedCharacterForSex(), getCompanionCharacter())) {
+							@Override
+							public void effects() {
+								applyReactionReset();
+							}
+						};
+					}
+				
+				} else if(index==11) {
+					if(getCompanionCharacter()!=null) {
+						return new ResponseEffectsOnly(
+								UtilText.parse(getTargetedCharacterForSex(), "Target: <b style='color:"+getTargetedCharacterForSex().getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b>"),
+								"Cycle the targeted character for group sex.") {
+							@Override
+							public void effects() {
+								for(int i=0; i<companions.size();i++) {
+									if(companions.get(i).equals(getTargetedCharacterForSex())) {
+										if(i==companions.size()-1) {
+											targetedCharacterForSex = (NPC) companions.get(0);
+											if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
+												companionCharacter = (NPC) companions.get(1);
+											}
+										} else {
+											targetedCharacterForSex = (NPC) companions.get(i+1);
+											if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
+												companionCharacter = (NPC) companions.get((i+2)<companions.size()?(i+2):0);
+											}
+											break;
+										}
+									}
+								}
+								Main.game.updateResponses();
+							}
+						};
+						
+					} else {
+						return new Response(
+								UtilText.parse(getCharacterViewed(), "Target: <b>[npc.Name]</b>"),
+								"Cycle the targeted character for group sex.<br/>[style.italicsBad(You'd need to have a companion with you for this action to be unlocked!)]",
+								null); 
+					}
+					
+				} else if(index==12) {
+					if(getCompanionCharacter()!=null) {
+						return new ResponseEffectsOnly(
+								UtilText.parse(getCompanionCharacter(), "Secondary: <b style='color:"+getCompanionCharacter().getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b>"),
+								"Cycle the secondary targeted character for group sex.") {
+							@Override
+							public void effects() {
+								for(int i=0; i<companions.size();i++) {
+									if(companions.get(i).equals(getCompanionCharacter())) {
+										if(i==companions.size()-1) {
+											companionCharacter = (NPC) companions.get(0);
+											if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
+												targetedCharacterForSex = (NPC) companions.get(1);
+											}
+										} else {
+											companionCharacter = (NPC) companions.get(i+1);
+											if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
+												targetedCharacterForSex = (NPC) companions.get((i+2)<companions.size()?(i+2):0);
+											}
+										}
+										break;
+									}
+								}
+								Main.game.updateResponses();
+							}
+						};
+						
+					} else {
+						return new Response(
+								UtilText.parse(getCharacterViewed(), "Secondary: <b>[npc.Name]</b>"),
+								"Cycle the secondary targeted character for group sex.<br/>[style.italicsBad(You'd need to have a companion with you for this action to be unlocked!)]",
+								null); 
+					}
+					
+				} else if (index == 0) {
+					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
+						@Override
+						public DialogueNode getNextDialogue() {
+							return Main.game.getDefaultDialogueNoEncounter();
+						}
+						@Override
+						public void effects() {
+							applyReactionReset();
+							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+						}
+					};
+					
+				} else  {
+					return null;
+				}
+			
+//				if (index == 0) {
+//					return new ResponseEffectsOnly("Back", "Stop viewing the characters present and return to the main game."){
+//						@Override
+//						public void effects() {
+//							Main.mainController.openCharactersPresent();
+//						}
+//					};
+//					
+//				} else if (index == 1) { //TODO improve descriptions and affection hit from rape
+//					if(Main.game.isNonConEnabled() && !((NPC) characterViewed).isAttractedTo(Main.game.getPlayer())) {
+//						if(!characterViewed.isCompanionAvailableForSex(true)) { // Takes into account whether in a neutral dialogue or not.
+//							return new Response("Rape", characterViewed.getCompanionSexRejectionReason(true), null);
+//							
+//						} else {
+//							if(isSittingSex()) {
+//								return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
+//										false, false,
+//										new SMChair(
+//													Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
+//													Util.newHashMapOfValues(new Value<>(characterViewed, SexSlotBipeds.CHAIR_TOP))) {
+//												@Override
+//												public boolean isPublicSex() {
+//													return isCompanionSexPublic();
+//												}
+//											},
+//										null,
+//										null,
+//										AFTER_SEX,
+//										"<p>"
+//											+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
+//											+ " [npc.She] desperately tries to push you away, [npc.moaning],"
+//											+ " [npc.speech(No! Stop!)]"
+//										+ "</p>") {
+//									@Override
+//									public void effects() {
+//										Main.game.setActiveNPC((NPC) characterViewed);
+//										if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+//											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
+//										} else {
+//											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -50));
+//										}
+//									}
+//								};
+//								
+//							} else {
+//								return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
+//										false, false,
+//										new SMGeneric(
+//													Util.newArrayListOfValues(Main.game.getPlayer()),
+//													Util.newArrayListOfValues(characterViewed),
+//										null,
+//										null),
+//										AFTER_SEX, "<p>"
+//											+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
+//											+ " [npc.She] desperately tries to push you away, [npc.moaning],"
+//											+ " [npc.speech(No! Stop!)]"
+//										+ "</p>") {
+//									@Override
+//									public void effects() {
+//										Main.game.setActiveNPC((NPC) characterViewed);
+//										if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+//											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
+//										} else {
+//											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -50));
+//										}
+//									}
+//								};
+//								
+//							}
+//							
+//						}
+//						
+//					} else {
+//						if(!characterViewed.isCompanionAvailableForSex(true)) { // Takes into account whether in a neutral dialogue or not.
+//							return new Response("Sex", characterViewed.getCompanionSexRejectionReason(true), null);
+//							
+//						} else {
+//							if(isSittingSex()) {
+//								return new ResponseSex("Sex", "Have sex with [npc.name].", 
+//										true, false,
+//										new SMChair(
+//													Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
+//													Util.newHashMapOfValues(new Value<>(characterViewed, SexSlotBipeds.CHAIR_TOP))) {
+//												@Override
+//												public boolean isPublicSex() {
+//													return isCompanionSexPublic();
+//												}
+//											},
+//										null,
+//										null,
+//										AFTER_SEX,
+//										"<p>"
+//											+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
+//											+ " [npc.She] desperately leans into you, [npc.moaning],"
+//											+ " [npc.speech(~Mmm!~ Yes!)]"
+//										+ "</p>") {
+//									@Override
+//									public void effects() {
+//										Main.game.setActiveNPC((NPC) characterViewed);
+//										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+//									}
+//								};
+//								
+//							} else {
+//								return new ResponseSex("Sex", "Have sex with [npc.name].", 
+//										true, false,
+//										new SMGeneric(
+//													Util.newArrayListOfValues(Main.game.getPlayer()),
+//													Util.newArrayListOfValues(characterViewed),
+//													null,
+//													null),
+//										AFTER_SEX,
+//										"<p>"
+//											+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
+//											+ " [npc.She] desperately leans into you, [npc.moaning],"
+//											+ " [npc.speech(~Mmm!~ Yes!)]"
+//										+ "</p>") {
+//									@Override
+//									public void effects() {
+//										Main.game.setActiveNPC((NPC) characterViewed);
+//										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+//									}
+//								};
+//							}
+//							
+//						}
+//					}
+//					
+//				} else if (index == 2) {
+//					if(!characterViewed.isCompanionAvailableForSex(false)) {
+//						return new Response("Submissive Sex", characterViewed.getCompanionSexRejectionReason(false), null);
+//						
+//					} else {
+//						if(((NPC) characterViewed).isAttractedTo(Main.game.getPlayer())) {
+//							if(isSittingSex()) {
+//								return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
+//										Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
+//										true, true,
+//										new SMChair(
+//													Util.newHashMapOfValues(new Value<>(characterViewed, SexSlotBipeds.CHAIR_BOTTOM)),
+//													Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP))) {
+//												@Override
+//												public boolean isPublicSex() {
+//													return isCompanionSexPublic();
+//												}
+//											},
+//										null,
+//										null, AFTER_SEX, "<p>"
+//											+ "Taking hold of [npc.namePos] [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
+//											+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
+//											+ " [npc.speech(Looking for some fun, hmm?)]"
+//										+ "</p>") {
+//									@Override
+//									public void effects() {
+//										Main.game.setActiveNPC((NPC) characterViewed);
+//										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+//									}
+//								};
+//								
+//							} else {
+//								return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
+//										Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
+//										true, true,
+//										new SMGeneric(
+//													Util.newArrayListOfValues(characterViewed),
+//													Util.newArrayListOfValues(Main.game.getPlayer()),
+//										null,
+//										null), AFTER_SEX, "<p>"
+//											+ "Taking hold of [npc.namePos] [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
+//											+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
+//											+ " [npc.speech(Looking for some fun, hmm?)]"
+//										+ "</p>") {
+//									@Override
+//									public void effects() {
+//										Main.game.setActiveNPC((NPC) characterViewed);
+//										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+//									}
+//								};
+//							}
+//							
+//						} else {
+//							return new Response("Submissive sex", "[npc.Name] is not too keen on having sex with you, so you'd need to be the dom...", null);
+//						}
+//					}
+//					
+//				}
+//				
 			} else if (responseTab==2 && Main.game.getPlayer().hasCompanion(characterViewed)){
 				if (index == 0) {
 					return new ResponseEffectsOnly("Back", "Stop viewing the characters present and return to the main game."){
@@ -455,29 +1107,14 @@ public class CharactersPresentDialogue {
 
 		@Override
 		public String getContent() {
-			if(!Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
-				return UtilText.parse(Main.game.getActiveNPC(),
-						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished."
-						+ "</p>");
+			if(Sex.getAllParticipants().size()>2) {
+				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_THREESOME", getTargetedCharacterForSex(), getCompanionCharacter());
+				
+			} else if(Sex.getNumberOfOrgasms(getCharacterViewed()) >= getCharacterViewed().getOrgasmsBeforeSatisfied()) {
+				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX", getTargetedCharacterForSex());
 				
 			} else {
-				if(Sex.getNumberOfOrgasms(Main.game.getActiveNPC()) >= Main.game.getActiveNPC().getOrgasmsBeforeSatisfied()) {
-					return UtilText.parse(Main.game.getActiveNPC(),
-							"<p>"
-								+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
-								+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
-							+ "</p>");
-				} else {
-					return UtilText.parse(Main.game.getActiveNPC(),
-							"<p>"
-								+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished."
-								+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.speech([pc.Name]! I'm still horny!)]"
-							+ "</p>");
-				}
+				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_NO_ORGASM", getTargetedCharacterForSex());
 			}
 		}
 
@@ -511,7 +1148,7 @@ public class CharactersPresentDialogue {
 		
 		@Override
 		public String getLabel() {
-			return UtilText.parse(characterViewed, "[npc.NamePos] Perk Tree");
+			return UtilText.parse(getCharacterViewed(), "[npc.NamePos] Perk Tree");
 		}
 		
 		@Override

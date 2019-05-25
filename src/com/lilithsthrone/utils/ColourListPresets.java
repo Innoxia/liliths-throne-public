@@ -69,6 +69,7 @@ public class ColourListPresets {
 	
 	public static ArrayList<Colour> DARK_SHADES = Util.newArrayListOfValues(
 			Colour.CLOTHING_GREY,
+			Colour.CLOTHING_GREY_DARK,
 			Colour.CLOTHING_BLACK,
 			Colour.CLOTHING_BLACK_JET,
 			Colour.CLOTHING_BROWN_VERY_DARK,
@@ -124,7 +125,9 @@ public class ColourListPresets {
 	
 	public static ArrayList<Colour> LINGERIE = Util.newArrayListOfValues(
 			Colour.CLOTHING_WHITE,
+			Colour.CLOTHING_GREY_LIGHT,
 			Colour.CLOTHING_GREY,
+			Colour.CLOTHING_GREY_DARK,
 			Colour.CLOTHING_BLACK,
 			Colour.CLOTHING_BLACK_JET,
 			Colour.CLOTHING_RED_VERY_DARK,
@@ -166,6 +169,7 @@ public class ColourListPresets {
 	
 	public static ArrayList<Colour> ALL_METAL = Util.newArrayListOfValues(
 			Colour.CLOTHING_BLACK_STEEL,
+			Colour.CLOTHING_GUNMETAL,
 			Colour.CLOTHING_STEEL,
 			Colour.CLOTHING_BRASS,
 			Colour.CLOTHING_COPPER,
@@ -177,7 +181,9 @@ public class ColourListPresets {
 	
 	public static ArrayList<Colour> ALL = Util.newArrayListOfValues(
 			Colour.CLOTHING_WHITE,
+			Colour.CLOTHING_GREY_LIGHT,
 			Colour.CLOTHING_GREY,
+			Colour.CLOTHING_GREY_DARK,
 			Colour.CLOTHING_BLACK,
 			Colour.CLOTHING_BLACK_JET,
 			Colour.CLOTHING_RED_VERY_DARK,
@@ -219,7 +225,9 @@ public class ColourListPresets {
 	
 	public static ArrayList<Colour> ALL_WITH_METALS = Util.newArrayListOfValues(
 			Colour.CLOTHING_WHITE,
+			Colour.CLOTHING_GREY_LIGHT,
 			Colour.CLOTHING_GREY,
+			Colour.CLOTHING_GREY_DARK,
 			Colour.CLOTHING_BLACK,
 			Colour.CLOTHING_BLACK_JET,
 			Colour.CLOTHING_RED_VERY_DARK,
@@ -259,6 +267,7 @@ public class ColourListPresets {
 			Colour.CLOTHING_PINK_HOT,
 			Colour.CLOTHING_PINK_DARK,
 			Colour.CLOTHING_BLACK_STEEL,
+			Colour.CLOTHING_GUNMETAL,
 			Colour.CLOTHING_STEEL,
 			Colour.CLOTHING_BRASS,
 			Colour.CLOTHING_COPPER,

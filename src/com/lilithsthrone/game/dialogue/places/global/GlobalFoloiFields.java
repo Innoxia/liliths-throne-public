@@ -6,12 +6,11 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.AbstractGlobalPlaceType;
-import com.lilithsthrone.world.places.AbstractPlaceType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public class GlobalFoloiFields {
@@ -33,11 +32,11 @@ public class GlobalFoloiFields {
 				return new ResponseEffectsOnly("Enter", "Head into Dominion.") {
 					@Override
 					public void effects() {
-						WorldType wt = ((AbstractGlobalPlaceType) Main.game.getPlayer().getGlobalCell().getPlace().getPlaceType()).getGlobalLinkedWorldType();
-						AbstractPlaceType pt = ((AbstractGlobalPlaceType) Main.game.getPlayer().getGlobalCell().getPlace().getPlaceType()).getGlobalLinkedWorldType().getEntryFromGlobalMapLocation();
+//						WorldType wt = ((AbstractGlobalPlaceType) Main.game.getPlayer().getGlobalCell().getPlace().getPlaceType()).getGlobalLinkedWorldType();
+//						AbstractPlaceType pt = ((AbstractGlobalPlaceType) Main.game.getPlayer().getGlobalCell().getPlace().getPlaceType()).getGlobalLinkedWorldType().getEntryFromGlobalMapLocation();
 						Main.game.getPlayer().setLocation(
-								wt,
-								Main.game.getWorlds().get(wt).getCell(pt).getLocation(),
+								WorldType.DOMINION,
+								PlaceType.DOMINION_PLAZA,//Main.game.getWorlds().get(wt).getCell(pt).getLocation(),
 								false);
 						
 						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));

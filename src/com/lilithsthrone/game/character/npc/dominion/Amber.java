@@ -256,7 +256,7 @@ public class Amber extends NPC {
 	}
 
 	@Override
-	public String getName(boolean applynameAlteringEffects) {
+	public String getName(boolean applyNameAlteringEffects) {
 		if(!playerKnowsName) {
 			return "Fiery Maid";
 			
@@ -587,7 +587,7 @@ public class Amber extends NPC {
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
 		if(Sex.getSexManager().getPosition() == SexPositionBipeds.DOGGY_STYLE) {
-			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && target.hasVagina()) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA);
 			} else {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.ANUS);
@@ -600,7 +600,7 @@ public class Amber extends NPC {
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
 		if(Sex.getSexManager().getPosition() == SexPositionBipeds.DOGGY_STYLE) {
-			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && target.hasVagina()) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			} else {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);

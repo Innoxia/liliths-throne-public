@@ -88,6 +88,27 @@ public class SexType implements XMLSaving {
 		return targetedSexArea;
 	}
 	
+	/**
+	 * @return true if this SexType has the potential to take virginity of an itnernal orifice.
+	 */
+	public boolean isTakesVirginity() {
+		if(performingSexArea.isPenetration() && ((SexAreaPenetration)performingSexArea).isTakesVirginity()) {
+			return targetedSexArea.isOrifice() && ((SexAreaOrifice)targetedSexArea).isInternalOrifice();
+		}
+		if(targetedSexArea.isPenetration() && ((SexAreaPenetration)targetedSexArea).isTakesVirginity()) {
+			return performingSexArea.isOrifice() && ((SexAreaOrifice)performingSexArea).isInternalOrifice();
+		}
+		return false;
+	}
+
+	public boolean isPenetrating() {
+		return getPerformingSexArea().isPenetration() && getTargetedSexArea().isOrifice();
+	}
+	
+	public boolean isBeingPenetrated() {
+		return getPerformingSexArea().isOrifice() && getTargetedSexArea().isPenetration();
+	}
+	
 	public SexType getReversedSexType() {
 		return new SexType(getAsParticipant(), getTargetedSexArea(), getPerformingSexArea());
 	}
@@ -190,7 +211,7 @@ public class SexType implements XMLSaving {
 					break;
 			}
 		}
-		if(getTargetedSexArea()!=null && getTargetedSexArea().isOrifice()) {
+		if(getTargetedSexArea()!=null && getTargetedSexArea().isOrifice() && getPerformingSexArea()!=null) {
 			switch((SexAreaOrifice)getTargetedSexArea()) {
 				case ANUS:
 					fetishes.add(Fetish.FETISH_ANAL_GIVING);

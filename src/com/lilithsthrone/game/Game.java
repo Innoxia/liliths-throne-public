@@ -281,7 +281,8 @@ public class Game implements XMLSaving {
 				
 				// Load NPCs:
 				SlaveImport importedSlave = new SlaveImport();
-				importedSlave.loadFromXML(characterElement, doc, CharacterImportSetting.NO_PREGNANCY, CharacterImportSetting.NO_COMPANIONS, CharacterImportSetting.NO_ELEMENTAL, CharacterImportSetting.CLEAR_SLAVERY);
+				importedSlave.loadFromXML(characterElement, doc,
+						CharacterImportSetting.NO_PREGNANCY, CharacterImportSetting.NO_COMPANIONS, CharacterImportSetting.NO_ELEMENTAL, CharacterImportSetting.CLEAR_SLAVERY, CharacterImportSetting.NO_LOCATION_SETUP);
 				Main.game.addNPC(importedSlave, false);
 				importedSlave.applyNewlyImportedSlaveVariables();
 				
@@ -1041,6 +1042,8 @@ public class Game implements XMLSaving {
 		started = true;
 		
 		SlaverAlleyDialogue.dailyReset();
+		
+		UtilText.initScriptEngine();
 
 		setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode));
 	}
@@ -1312,8 +1315,10 @@ public class Game implements XMLSaving {
 			}
 			companion.companionshipCheck();
 		}
-		for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
-			character.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+		if(!Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+			for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
+				character.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+			}
 		}
 
 		if(loopDebug) {
@@ -1377,7 +1382,7 @@ public class Game implements XMLSaving {
 		}
 		for(NPC npc : NPCMap.values()) {
 			// Non-slave NPCs clean clothes:
-			if(!Main.game.getCharactersPresent().contains(npc) && (!npc.isSlave() || (npc.isSlave() && !npc.getOwner().isPlayer()))) {
+			if(!Main.game.getCharactersPresent().contains(npc)) {
 				if(!npc.isSlave() || npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES)) {
 					npc.cleanAllClothing(true);
 				}
@@ -1422,7 +1427,8 @@ public class Game implements XMLSaving {
 						npc.equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS));
 						npc.setPendingClothingDressing(false);
 						
-					} else if(!npc.isSlave() && !npc.isUnique()
+					} else if(!npc.isSlave()
+							&& !npc.isUnique()
 							&& !npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 							&& (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS))) {
 						// Try to replace clothing to cover themselves up:
@@ -1481,7 +1487,7 @@ public class Game implements XMLSaving {
 			if(npc.hasStatusEffect(StatusEffect.PREGNANT_3) && (Main.game.getSecondsPassed() - npc.getTimeProgressedToFinalPregnancyStage())>(12*60*60)) {
 				if(npc instanceof Lilaya) {
 					// Lilaya will only end pregnancy after you've seen it, or if she's a full demon:
-					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaBirthNews) || npc.getRaceStage()==RaceStage.GREATER) {
+					if(Main.game.getNpc(Lilaya.class).isCharacterReactedToPregnancy(Main.game.getPlayer()) || npc.getRaceStage()==RaceStage.GREATER) {
 						npc.endPregnancy(true);
 					}
 					
@@ -2899,6 +2905,12 @@ public class Game implements XMLSaving {
 
 	public int getWeatherTimeRemainingInSeconds() {
 		return weatherTimeRemainingInSeconds;
+	}
+
+	public String getWeatherTimeRemainingAsTimeString() {
+		long minutes = weatherTimeRemainingInSeconds/60;
+		long hours = minutes/60;
+		return (hours/24)+" days, "+hours%24+" hours, "+minutes%60+" minutes";
 	}
 	
 	public void setWeatherInSeconds(Weather weather, int secondsRemaining) {

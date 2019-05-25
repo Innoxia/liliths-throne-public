@@ -13,7 +13,7 @@
 	
 	<htmlContent tag="ENTRANCE_LEAVING"><![CDATA[
 	<p>
-		Deciding to leave Lyssieth's palace, you exit through the same wicket gate by which you enetered, and head out over the drawbridge back into Submission. Once at the far side, Elizabeth turns to face you, and asks, [elizabeth.speech(Ah, [pc.name], did your business with Lyssieth go well?)]
+		Deciding to leave Lyssieth's palace, you exit through the same wicket gate by which you entered, and head out over the drawbridge back into Submission. Once at the far side, Elizabeth turns to face you, and asks, [elizabeth.speech(Ah, [pc.name], did your business with Lyssieth go well?)]
 	</p>
 	<p>
 		[pc.speech(Yes, thank you,)] you respond, before quickly saying that you need to be on your way.
@@ -1038,7 +1038,7 @@
 		[siren.speech(W-What? A-As in sex? W-With mommy?)] Meraxis asks in an uncharacteristically-worried tone, [siren.speech(C-Can't we just do it another way? L-Like kissing or something?)]
 	</p>
 	<p>
-		[lilaya.speech(What's the matter, Meraxis?)] Lilaya impatiently asks, [lilaya.speech(You always liked hanging around with those demon friends of yours, and form what I've heard, they were most promiscuous. With them, surely you've done much dirtier stuff than having sex with mommy?)]
+		[lilaya.speech(What's the matter, Meraxis?)] Lilaya impatiently asks, [lilaya.speech(You always liked hanging around with those demon friends of yours, and from what I've heard, they were most promiscuous. With them, surely you've done much dirtier stuff than having sex with mommy?)]
 	</p>
 	<p>
 		[siren.speech(Y-Yes, I-I did... W-Well, that is, I-I watched a-a lot of dirty stuff,)] Meraxis stutters and trips over her words as her cheeks flush red from embarrassment. [siren.speech(I-I never joined in though... I... I'm a... You know...)]
@@ -1126,7 +1126,7 @@
 	
 	<htmlContent tag="LILAYA_DEMON_TF_ORIFICE_SELECTION"><![CDATA[
 	<p>
-		Eagerly replying in the affirmative, you step up beside your mother, before reaching down to grope Lilaya's shapely butt. As the three of you press agsint one another, Meraxis darts off to one side of the room, and, dropping her hand down between her legs, starts touching herself as she looks on.
+		Eagerly replying in the affirmative, you step up beside your mother, before reaching down to grope Lilaya's shapely butt. As the three of you press against one another, Meraxis darts off to one side of the room, and, dropping her hand down between her legs, starts touching herself as she looks on.
 	</p>
 	<p>
 		[lilaya.speech(~Mmm!~ Oh yeah,)] your [lilaya.relation(pc)] moans, pushing her [lilaya.hips+] back against your touch, [lilaya.speech(You want to use your sister's ass?)]

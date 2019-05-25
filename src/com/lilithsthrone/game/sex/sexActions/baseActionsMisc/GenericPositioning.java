@@ -39,10 +39,17 @@ public class GenericPositioning {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isPositionSwap() {
+			return true;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+			return 
+//					Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+					Sex.getInitialSexManager().isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getCharacterPerformingAction().getLegConfiguration()==Sex.getCharacterTargetedForSexAction(this).getLegConfiguration() // Can only swap if have same body type
 					&& Sex.getSexManager().isPlayerAbleToSwapPositions()
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
@@ -123,6 +130,13 @@ public class GenericPositioning {
 		public void applyEffects() {
 			GenericPositioningNew.setNewSexManager(data, false);
 		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
 	};
 	
 	public static final SexAction REQUEST_POSITION_MISSIONARY = new SexAction(
@@ -195,6 +209,13 @@ public class GenericPositioning {
 		@Override
 		public void applyEffects() {
 			GenericPositioningNew.setNewSexManager(data, false);
+		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isBeingPenetrated()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
 		}
 	};
 	
@@ -269,6 +290,13 @@ public class GenericPositioning {
 		public void applyEffects() {
 			GenericPositioningNew.setNewSexManager(data, false);
 		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
 	};
 	
 	public static final SexAction REQUEST_POSITION_FACE_TO_WALL = new SexAction(
@@ -342,6 +370,13 @@ public class GenericPositioning {
 		@Override
 		public void applyEffects() {
 			GenericPositioningNew.setNewSexManager(data, false);
+		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
 		}
 	};
 	
@@ -717,6 +752,13 @@ public class GenericPositioning {
 		public void applyEffects() {
 			GenericPositioningNew.setNewSexManager(data, false);
 		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isBeingPenetrated()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
 	};
 
 	public static final SexAction REQUEST_POSITION_COWGIRL_RIDING = new SexAction(
@@ -791,6 +833,13 @@ public class GenericPositioning {
 		@Override
 		public void applyEffects() {
 			GenericPositioningNew.setNewSexManager(data, false);
+		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
 		}
 	};
 
@@ -1019,6 +1068,13 @@ public class GenericPositioning {
 		public void applyEffects() {
 			GenericPositioningNew.setNewSexManager(data, false);
 		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
 	};
 	
 	public static final SexAction REQUEST_POSITION_DOM_FUCKED_DOGGY = new SexAction(
@@ -1100,6 +1156,13 @@ public class GenericPositioning {
 		@Override
 		public void applyEffects() {
 			GenericPositioningNew.setNewSexManager(data, false);
+		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isBeingPenetrated()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
 		}
 	};
 
@@ -1758,7 +1821,7 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
-			if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
 					Sex.getPositionRequest().getPosition(),
 					Sex.getPositionRequest().getPartnerSlots().get(0),
 					Sex.getPositionRequest().getPerformerSlots().get(0),

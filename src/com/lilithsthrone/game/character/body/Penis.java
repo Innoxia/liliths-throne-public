@@ -208,50 +208,41 @@ public class Penis implements BodyPartInterface {
 				if(size<1) {
 					size = 1;
 				}
-				if (owner.isPlayer()) {
+				UtilText.transformationContentSB.append(
+						"<p>"
+							+ "[npc.Name] [npc.verb(feel)] an intense heat building up in [npc.her] groin, and [npc.she] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] the [npc.skin] "
+									+ (owner.hasVagina()
+											? (owner.getLegConfiguration().isBipedalPositionedGenitals()
+												?"above [npc.her] pussy"
+												:"beneath [npc.her] pussy")
+											: "between [npc.her] legs")
+								+ " tighten up and start to press outwards."
+							+ " Within moments, a large bump has formed "
+								+ (owner.hasVagina()
+										? (owner.getLegConfiguration().isBipedalPositionedGenitals()
+											?"above [npc.her] feminine slit"
+											:"beneath [npc.her] feminine slit")
+										: "in the middle of [npc.her] groin,")
+								+ " and with a sudden splitting sensation, the bump pushes out and forms into a penis.");
+				
+				if(owner.isInternalTesticles()) {
 					UtilText.transformationContentSB.append(
-							"<p>"
-								+ "You feel an intense heat building up in your groin, and you let out a lewd moan as you feel the [pc.skin] "+ (owner.hasVagina() ? "above your pussy" : "between your legs")+ " tighten up and start to press outwards."
-								+ " Within moments, a large bump has formed " + (owner.hasVagina() ? "above your feminine slit," : "in the middle of your groin,")+ " and with a sudden splitting sensation, the bump pushes out and forms into a penis.");
-					
-					if(owner.isInternalTesticles()) {
-						UtilText.transformationContentSB.append(
-								" As your new cock flops down "
-									+ (owner.hasVagina()
-										? "to bump against your pussy, you feel [pc.a_balls] growing within your groin,"
-										: "between your legs, you feel [pc.a_balls] growing within your groin,")
-								+ " and you let out an unwitting [pc.moan] as your new sexual organ finishes growing.<br/>");
-					} else {
-						UtilText.transformationContentSB.append(
-								" As your new cock flops down "
-									+ (owner.hasVagina()
-										? "to bump against your pussy, you feel [pc.a_balls] pushing out between your two sexes,"
-										: "between your legs, you feel [pc.a_balls] push out underneath the base of your new shaft,")
-								+ " and you let out an unwitting [pc.moan] as your new sexual organ finishes growing.<br/>");
-					}
-					
+							" As [npc.her] new cock flops down "
+								+ (owner.hasVagina()
+									? (owner.getLegConfiguration().isBipedalPositionedGenitals()
+											?"to bump against [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] growing within [npc.her] groin,"
+											:"beneath [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] growing within [npc.her] groin,")
+									: "between [npc.her] legs, [npc.she] [npc.verb(feel)] [npc.a_balls] growing within [npc.her] groin,")
+							+ " and [npc.she] [npc.verb(let)] out an unwitting [npc.moan] as [npc.her] new sexual organ finishes growing.<br/>");
 				} else {
 					UtilText.transformationContentSB.append(
-							"<p>"
-								+ "[npc.Name] feels an intense heat building up in [npc.her] groin, and [npc.she] lets out [npc.a_moan+] as [npc.she] feels the [npc.skin] "+ (owner.hasVagina() ? "above [npc.her] pussy" : "between [npc.her] legs")
-									+ " tighten up and start to press outwards."
-								+ " Within moments, a large bump has formed " + (owner.hasVagina() ? "above [npc.her] feminine slit," : "in the middle of [npc.her] groin,")+ " and with a sudden splitting sensation, the bump pushes out and forms into a penis.");
-					
-					if(owner.isInternalTesticles()) {
-						UtilText.transformationContentSB.append(
-								" As [npc.her] new cock flops down "
-									+ (owner.hasVagina()
-										? "to bump against [npc.her] pussy, [npc.she] feels [npc.a_balls] growing within [npc.her] groin,"
-										: "between [npc.her] legs, [npc.she] feels [npc.a_balls] growing within [npc.her] groin,")
-								+ " and [npc.she] lets out an unwitting [npc.moan] as [npc.her] new sexual organ finishes growing.<br/>");
-					} else {
-						UtilText.transformationContentSB.append(
-								" As [npc.her] new cock flops down "
-									+ (owner.hasVagina()
-										? "to bump against [npc.her] pussy, [npc.she] feels [npc.a_balls] pushing out between [npc.her] two sexes,"
-										: "between [npc.her] legs, [npc.she] feels [npc.a_balls] push out underneath the base of [npc.her] new shaft,")
-								+ " and [npc.she] lets out an unwitting [npc.moan] as [npc.her] new sexual organ finishes growing.<br/>");
-					}
+							" As [npc.her] new cock flops down "
+								+ (owner.hasVagina()
+									? (owner.getLegConfiguration().isBipedalPositionedGenitals()
+											?"to bump against [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] pushing out between [npc.her] two sexes,"
+											:"beneath [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] pushing out between [npc.her] two sexes,")
+									: "between [npc.her] legs, [npc.she] [npc.verb(feel)] [npc.a_balls] push out underneath the base of [npc.her] new shaft,")
+							+ " and [npc.she] [npc.verb(let)] out an unwitting [npc.moan] as [npc.her] new sexual organ finishes growing.<br/>");
 				}
 				
 			} else {
@@ -1077,7 +1068,7 @@ public class Penis implements BodyPartInterface {
 
 	@Override
 	public boolean isBestial(GameCharacter owner) {
-		if(owner==null) {
+		if(owner==null || getType()==PenisType.NONE) {
 			return false;
 		}
 		return owner.getLegConfiguration().getBestialParts().contains(Penis.class) && getType().getRace().isBestialPartsAvailable();

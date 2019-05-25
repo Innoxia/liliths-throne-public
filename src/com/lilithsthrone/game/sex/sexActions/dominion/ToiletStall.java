@@ -34,10 +34,17 @@ public class ToiletStall {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isPositionSwap() {
+			return true;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+			return 
+//					Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+					Sex.getInitialSexManager().isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getSexManager().isPlayerAbleToSwapPositions()
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();

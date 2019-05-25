@@ -32,12 +32,13 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.6
- * @version 0.2.6
+ * @version 0.3.2
  * @author Innoxia
  */
 public class SlimeQueensLair {
@@ -45,6 +46,7 @@ public class SlimeQueensLair {
 	private static void resetTower() {
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slimeGuardsDefeated, false);
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slimeRoyalGuardDefeated, false);
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slimeRoyalGuardDefeatReacted, false);
 	}
 	
 	public static final DialogueNode ENTRANCE = new DialogueNode("Entrance Hall", "", false) {
@@ -566,7 +568,7 @@ public class SlimeQueensLair {
 		@Override
 		public boolean isTravelDisabled() {
 			return !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_CONVINCE)
-					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeRoyalGuardDefeated);
+					&& (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeRoyalGuardDefeated) || !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeRoyalGuardDefeatReacted));
 		}
 		
 		@Override
@@ -597,7 +599,12 @@ public class SlimeQueensLair {
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(Main.game.getNpc(SlimeRoyalGuard.class)),
 							null,
-							null), AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM"));
+							null), AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM")) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slimeRoyalGuardDefeatReacted, true);
+						}
+					};
 				
 				} else if(index==2) {
 					return new ResponseSex("Submit",
@@ -608,7 +615,24 @@ public class SlimeQueensLair {
 									Util.newArrayListOfValues(Main.game.getNpc(SlimeRoyalGuard.class)),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							null), AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"));
+							null), AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB")) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slimeRoyalGuardDefeatReacted, true);
+						}
+					};
+					
+				} else if(index==3 && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeRoyalGuardDefeatReacted)) {
+					return new Response("Continue",
+							UtilText.parse(Main.game.getNpc(SlimeRoyalGuard.class), "Let [slimeRoyalGuard.name] fuck you."),
+							CORRIDOR) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX()-1, Main.game.getPlayer().getLocation().getY()));
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slimeRoyalGuardDefeatReacted, true);
+						}
+					};
+					
 				} else {
 					return null;
 				}
@@ -715,7 +739,7 @@ public class SlimeQueensLair {
 					return new Response("Seduce", "Seduce [slimeRoyalGuard.name] and encourage [slimeRoyalGuard.him] to show off to you in an attempt to get [slimeRoyalGuard.him] to wear [slimeRoyalGuard.himself] out.", ROYAL_GUARD_POST_ADMIRE_SEDUCE) {
 						@Override
 						public void effects() {
-							Main.game.getNpc(SlimeRoyalGuard.class).setLust(80);
+							Main.game.getNpc(SlimeRoyalGuard.class).setLustNoText(80);
 						}
 					};
 					
@@ -771,6 +795,11 @@ public class SlimeQueensLair {
 	};
 	
 	public static final DialogueNode ROYAL_GUARD_POST_ADMIRE_INSTRUCT_OVERPOWER = new DialogueNode("Royal Guard Post", "", false, true) {
+
+		@Override
+		public boolean isTravelDisabled() {
+			return ROYAL_GUARD_POST.isTravelDisabled();
+		}
 		
 		@Override
 		public int getSecondsPassed() {
@@ -869,6 +898,11 @@ public class SlimeQueensLair {
 	};
 	
 	public static final DialogueNode AFTER_SLIME_ROYAL_GUARD_SEX_SEDUCTION = new DialogueNode("Finished", "", false) {
+
+		@Override
+		public boolean isTravelDisabled() {
+			return ROYAL_GUARD_POST.isTravelDisabled();
+		}
 		
 		@Override
 		public String getContent() {
@@ -882,6 +916,11 @@ public class SlimeQueensLair {
 	};
 	
 	public static final DialogueNode SLIME_ROYAL_GUARD_COMBAT_PLAYER_VICTORY = new DialogueNode("Victory", "", false) {
+		
+		@Override
+		public boolean isTravelDisabled() {
+			return ROYAL_GUARD_POST.isTravelDisabled();
+		}
 		
 		@Override
 		public String getContent() {

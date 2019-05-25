@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
 
+import java.util.Set;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -184,8 +187,6 @@ public class CultistDialogue {
 						+ "</p>") {
 					@Override
 					public void effects() {
-						((Cultist)getCultist()).setSealedSex(false);
-						
 						// Remove jinxes so that player can get access to mouth:
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 							AbstractClothing clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.MOUTH, true);
@@ -230,7 +231,6 @@ public class CultistDialogue {
 									:"")) {
 						@Override
 						public void effects() {
-							((Cultist)getCultist()).setSealedSex(false);
 							((Cultist)getCultist()).setRequestedAnal(false);
 							
 							// Remove jinxes so that player can get access to vagina:
@@ -280,7 +280,6 @@ public class CultistDialogue {
 								:"")) {
 					@Override
 					public void effects() {
-						((Cultist)getCultist()).setSealedSex(false);
 						((Cultist)getCultist()).setRequestedAnal(true);
 						
 						// Remove jinxes so that player can get access to vagina:
@@ -445,10 +444,6 @@ public class CultistDialogue {
 							+ " She lets out an excited moan as you run your [pc.hands] up the length of her soft thighs, and props herself up on her elbows as she bites her lip at you."
 							+ " [npc.speech(~Mmm!~ Yes! Use me however you want!)]"
 						+ "</p>") {
-					@Override
-					public void effects() {
-						((Cultist)getCultist()).setSealedSex(false);
-					}
 				};
 			
 			} else if(index == 3) {
@@ -460,6 +455,10 @@ public class CultistDialogue {
 							@Override
 							public boolean isPublicSex() {
 								return false;
+							}
+							@Override
+							public Set<GameCharacter> getCharactersSealed() {
+								return Util.newHashSetOfValues(getCultist());
 							}
 						},
 						null,
@@ -480,10 +479,6 @@ public class CultistDialogue {
 						+ "<p>"
 							+ "Grinning down at your new fuck-doll, you push her thighs apart to fully expose her groin, and prepare to have some fun..."
 						+ "</p>") {
-					@Override
-					public void effects() {
-						((Cultist)getCultist()).setSealedSex(true);
-					}
 				};
 				
 			} else if (index == 4) {
@@ -545,6 +540,10 @@ public class CultistDialogue {
 							public boolean isPublicSex() {
 								return false;
 							}
+							@Override
+							public Set<GameCharacter> getCharactersSealed() {
+								return Util.newHashSetOfValues(Main.game.getPlayer());
+							}
 						},
 						null,
 						null, ENCOUNTER_CHAPEL_POST_ORAL_SEX, (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
@@ -556,7 +555,6 @@ public class CultistDialogue {
 							:"")) {
 					@Override
 					public void effects() {
-						((Cultist)getCultist()).setSealedSex(true);
 						((Cultist)getCultist()).setRequestedAnal(false);
 						
 						// Remove jinxes so that player can get access to vagina:

@@ -3,8 +3,10 @@ package com.lilithsthrone.game.sex.managers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -33,7 +35,7 @@ import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public interface SexManagerInterface {
@@ -56,6 +58,10 @@ public interface SexManagerInterface {
 	 */
 	public default SexPace getForcedSexPace(GameCharacter character) {
 		return null;
+	}
+	
+	public default Set<GameCharacter> getCharactersSealed() {
+		return new HashSet<>();
 	}
 	
 	public default boolean isPlayerDom() {
@@ -174,18 +180,18 @@ public interface SexManagerInterface {
 	}
 	
 	public default void initStartingLustAndArousal(GameCharacter character) {
-		character.setLust(50);
+		character.setLustNoText(50);
 		character.setArousal(0);
 		if(Sex.isDom(character)) {
 			if(character.hasFetish(Fetish.FETISH_DOMINANT)) {
-				character.setLust(85);
+				character.setLustNoText(85);
 				character.setArousal(10);
 			} else if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
-				character.setLust(10);
+				character.setLustNoText(10);
 			}
 		} else {
 			if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
-				character.setLust(85);
+				character.setLustNoText(85);
 				character.setArousal(10);
 			}
 		}
@@ -202,9 +208,9 @@ public interface SexManagerInterface {
 					}
 				}
 				if(attracted==0) {
-					character.setLust(0); // If they aren't attracted to anyone, start resisting
+					character.setLustNoText(0); // If they aren't attracted to anyone, start resisting
 				} else if(unattracted>0) {
-					character.setLust(character.getLust()/2); // If they are attracted to some, but not all, halve starting lust
+					character.setLustNoText(character.getLust()/2); // If they are attracted to some, but not all, halve starting lust
 				}
 			}
 		}

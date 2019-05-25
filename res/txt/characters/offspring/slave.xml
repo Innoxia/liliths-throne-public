@@ -709,4 +709,94 @@
 	
 	<!-- END Submissive sex actions -->
 	
+	<htmlContent tag="AFTER_SEX_THREESOME"><![CDATA[
+	#IF(!npc.isAttractedTo(pc) && game.isNonConEnabled())
+		#IF(!npc2.isAttractedTo(pc))
+			<p>
+				You step back from [npc.name] and [npc2.name], panting and sighing as the two of them let out relieved sighs at the realisation that you've finished. After you've recovered, you start to get your things back in order, before commanding the two of them to follow you once more.
+			</p>
+			<p>
+				[npc.speech(Yes, [pc.name]...)] [npc.name] sobs, casting [npc.her] gaze to the floor as [npc.she] and [npc2.name] gather their own things and fall in line.
+			</p>
+			<p>
+				Smirking at the two of them, you then turn and set off on your way, wondering when you'll rape them next...
+			</p>
+		#ELSE
+			<p>
+				You step back from [npc.name] and [npc2.name], panting and sighing as you each catch your breath. After you've recovered, you start to get your things back in order, before commanding the two of them to follow you once more.
+			</p>
+			<p>
+				[npc.speech(Yes, [pc.name]...)] [npc.name] sobs, casting [npc.her] gaze to the floor as [npc.she] and [npc2.name] gather their own things and fall in line.
+			</p>
+			<p>
+				Smirking at the two of them, you then turn and set off on your way, wondering when you'll get [npc2.name] to join you in raping [npc.name] next...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			You, [npc.name], and [npc2.name] all step back from one another, panting and sighing as you each catch your breath. After you've recovered, the three of you start to get your things together, before eventually standing up and smiling at one another.
+		</p>
+		<p>
+			[npc.speech(Mmm, that was fun,)] [npc.name] says with a little laugh.
+		</p>
+		<p>
+			[npc2.speech(Yeah, that really was great,)] [npc2.name] replies, [npc2.speech(We really should do this again some time, right, [pc.name]?)]
+		</p>
+		<p>
+			[pc.speech(We'll see,)] you tease, smiling and letting out a small laugh as [npc.name] and [npc2.name] whine in unison.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX"><![CDATA[
+	#IF(!npc.isAttractedTo(pc) && game.isNonConEnabled())
+		<p>
+			You step back from [npc.name], smirking down at [npc.her] as [npc.she] collapses to the floor with a pathetic sob. Ignoring [npc.her] whines for the moment, you turn away and begin getting your things in order.
+		</p>
+		<p>
+			[pc.speech(Come on, [npc.name],)] you order once you're ready to go, [pc.speech(unless you want me to rape you again right now.)]
+		</p>
+		<p>
+			Letting out another pathetic cry at that prospect, [npc.name] hurries to gather [npc.her] things, before quickly running forwards to join you as you set off on your way once more...
+		</p>
+	#ELSE
+		<p>
+			You step back from [npc.name], smirking down at [npc.her] as [npc.she] collapses to the floor with a deeply-satisfied sigh, [npc.speech(Oh, fuck, that was so good...)]
+		</p>
+		<p>
+			As [npc.she] sighs and pants from exertion, you turn away and begin getting your things in order, and once that's done, you step over towards your companion and command, [pc.speech(Come on, [npc.name], let's go.)]
+		</p>
+		<p>
+			[npc.speech(Yes, [pc.name]!)] [npc.she] quickly replies, before hurrying to gather [npc.her] things and then quickly running forwards to join you as you set off on your way once more...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_NO_ORGASM"><![CDATA[
+	#IF(!npc.isAttractedTo(pc) && game.isNonConEnabled())
+		<p>
+			You step back from [npc.name], smirking down at [npc.her] as [npc.she] collapses to the floor with a pathetic sob. Ignoring [npc.her] whines for the moment, you turn away and begin getting your things in order.
+		</p>
+		<p>
+			[pc.speech(Come on, [npc.name],)] you order once you're ready to go, [pc.speech(unless you want me to rape you again right now.)]
+		</p>
+		<p>
+			Letting out another pathetic cry at that prospect, [npc.name] hurries to gather [npc.her] things, before quickly running forwards to join you as you set off on your way once more...
+		</p>
+	#ELSE
+		<p>
+			You step back from [npc.name], smirking down at [npc.her] as [npc.she] collapses to the floor with a protesting whine, [npc.speech(Aww... I'm not satisfied from that...)]
+		</p>
+		<p>
+			Ignoring [npc.her] complaints, you turn away and begin getting your things in order, and once that's done, you step over towards your companion and command, [pc.speech(Come on, [npc.name], let's go.)]
+		</p>
+		<p>
+			[npc.speech(Ok, [pc.name]...)] [npc.she] reluctantly replies, before hurrying to gather [npc.her] things and then quickly running forwards to join you as you set off on your way once more...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
 </dialogue>

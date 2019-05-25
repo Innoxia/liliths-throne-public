@@ -282,12 +282,12 @@ public class Pathing {
 	
 	/**
 	 * @param endPoint New endPoint.
-	 * @param worldForRecaclutatingFlyTime Pass in null if you don't want to recalculate the flight time.
+	 * @param worldForRecalculatingFlyTime Pass in null if you don't want to recalculate the flight time.
 	 */
-	public static void setEndPoint(Vector2i endPoint, Cell cell, WorldType worldForRecaclutatingFlyTime) {
+	public static void setEndPoint(Vector2i endPoint, Cell cell, WorldType worldForRecalculatingFlyTime) {
 		Pathing.endPoint = endPoint;
-		if(worldForRecaclutatingFlyTime!=null) {
-			List<Cell> route = Pathing.aStarPathing(Main.game.getWorlds().get(worldForRecaclutatingFlyTime).getCellGrid(), Main.game.getPlayer().getLocation(), endPoint, false);
+		if(worldForRecalculatingFlyTime!=null) {
+			List<Cell> route = Pathing.aStarPathing(Main.game.getWorlds().get(worldForRecalculatingFlyTime).getCellGrid(), Main.game.getPlayer().getLocation(), endPoint, false);
 			travelTime = calculateTravelTime(route, false)/10; // flying is 10 times faster than walking
 		}
 		dangerousTiles = cell.getPlace().getPlaceType().isDangerous()?1:0;

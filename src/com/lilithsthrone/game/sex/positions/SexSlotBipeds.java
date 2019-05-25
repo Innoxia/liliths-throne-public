@@ -460,7 +460,7 @@ public class SexSlotBipeds {
 	
 	public static final SexSlot COWGIRL_RIDING = new SexSlot(
 			"Cowgirl (riding)",
-			"cowgril (riding)",
+			"cowgirl (riding)",
 			"[npc1.Name] [npc1.verb(look)] down at [npc2.name] and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to climax.",
 			false);
 

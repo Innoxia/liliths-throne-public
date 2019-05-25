@@ -192,7 +192,7 @@
 		Curious about the #IFgame.isIncestEnabled()#THENslime siblings'#ELSEslimes'#ENDIF history, and how they came to serve the Slime Queen, you decide to ask them about it. [pc.speech(So, how did you two end up working here?)]
 	</p>
 		[slimeFire.speech(Well, #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF and I used to work up in Submission, at the Gambling Den. I was one of the security, while #IFgame.isIncestEnabled()#THENsis'#ELSE[slimeIce.name]#ENDIF used to referee that pregnancy roulette game they've got going in there,)]
-		 [slimeFire.name] responds, crossing his arms and leaning back against the wooden barricade as he tells his story. [slimeFire.speech(A lot of the other guards gave me a hard time, just because #IFgame.isIncestEnabled()#THENI wasn't afraid of giving my sis' what it is she likes the most#ELSEI'd always spend my breaks giving [slimeIce.name] a good fuck#ENDIF. Isn't that right, [slimeIce.name]?)]
+		 [slimeFire.name] responds, crossing his arms and leaning back against the wooden barricade as he tells his story. [slimeFire.speech(A lot of the other guards gave me a hard time, just because #IF(!game.isIncestEnabled()) I wasn't afraid of giving my sis' what it is she likes the most#ELSE I'd always spend my breaks giving [slimeIce.name] a good fuck#ENDIF. Isn't that right, [slimeIce.name]?)]
 	</p>
 	<p>
 		[slimeIce.speech(#IFgame.isIncestEnabled()#THENB-Brother!#ELSE[slimeFire.name]!#ENDIF Please!)] [slimeIce.name] stutters, turning away to hide her blushing cheeks, and exposing her rear ones in the process.

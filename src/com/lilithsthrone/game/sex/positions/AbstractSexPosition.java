@@ -34,7 +34,7 @@ import com.lilithsthrone.utils.Util.Value;
  *   are available for the character on all fours, in relation to a character kneeling behind them.
  * 
  * @since 0.1.97
- * @version 0.3.1
+ * @version 0.3.3
  * @author Innoxia
  */
 public abstract class AbstractSexPosition {
@@ -85,22 +85,41 @@ public abstract class AbstractSexPosition {
 		if(action.getActionType()==SexActionType.START_ONGOING
 				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED
 				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
+			
 			// Block penis+non-appendage-non-pussy actions if target's penis is already in use:
 			
-			if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)
-					&& Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.allowedInterPenetrationAreas)
-					&& Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS)
-					&& Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).containsKey(performer)
-					&& Collections.disjoint(Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).get(performer), SexActionPresets.allowedInterPenetrationAreas)) {
+				try {
+					if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)
+							&& Sex.isPenetrationNonSelfOngoingAction(target, SexAreaPenetration.PENIS)
+							&& (Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.allowedInterPenetrationAreas)
+								|| Collections.disjoint(Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer), SexActionPresets.allowedInterPenetrationAreas))) {
+						return true;
+					}
+				}catch(Exception ex) {}
+				
+				try {
+					if(action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)
+							&& Sex.isPenetrationNonSelfOngoingAction(performer, SexAreaPenetration.PENIS)
+							&& (Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.allowedInterPenetrationAreas)
+								|| Collections.disjoint(Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target), SexActionPresets.allowedInterPenetrationAreas))) {
+						return true;
+					}
+				}catch(Exception ex) {}
+			
+			// Block tribbing and thigh sex if ongoing penis/vagina or penis/anus penetration:
+			Set<SexAreaOrifice> impossibleTribbingAreas = Util.newHashSetOfValues(SexAreaOrifice.VAGINA, SexAreaOrifice.THIGHS);
+			if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.CLIT) && action.getSexAreaInteractions().values().contains(SexAreaPenetration.CLIT)
+				&& ((Sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.PENIS) && Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).values().stream().anyMatch((set)->!Collections.disjoint(set, impossibleTribbingAreas)))
+					|| (Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS) && Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).values().stream().anyMatch((set)->!Collections.disjoint(set, impossibleTribbingAreas))))) {
 				return true;
 			}
-			if(action.getSexAreaInteractions().containsValue(SexAreaPenetration.PENIS)
-					&& Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.allowedInterPenetrationAreas)
-					&& Sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.PENIS)
-					&& Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).containsKey(target)
-					&& Collections.disjoint(Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).get(target), SexActionPresets.allowedInterPenetrationAreas)) {
+			if(((action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS) && !Collections.disjoint(action.getSexAreaInteractions().values(), impossibleTribbingAreas))
+					|| (!Collections.disjoint(action.getSexAreaInteractions().keySet(), impossibleTribbingAreas) && action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)))
+				&& ((Sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.CLIT) && Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.CLIT).values().stream().anyMatch((set)->set.contains(SexAreaPenetration.CLIT)))
+					|| (Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.CLIT) && Sex.getOngoingActionsMap(target).get(SexAreaPenetration.CLIT).values().stream().anyMatch((set)->set.contains(SexAreaPenetration.CLIT))))) {
 				return true;
 			}
+			
 			
 			// Block oral + groin actions if there is any groin-groin action going on:
 			if(((!Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.groinAreas)
@@ -173,7 +192,7 @@ public abstract class AbstractSexPosition {
 	 * @param cumTarget The character who is both receiving and forcing the creampie.
 	 * @param cumProvider The one who is being forced to cum inside the cumTarget.
 	 * @return A map containing keys of body parts, which then map to lists of orifices.
-	 * The key represents the body part that can be used by the cumTarget in order to force the cumcumProvider to cum inside any of the orifices in the value list.
+	 * The key represents the body part that can be used by the cumTarget in order to force the cumProvider to cum inside any of the orifices in the value list.
 	 */
 	protected Map<Class<? extends BodyPartInterface>, List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 		return null;
