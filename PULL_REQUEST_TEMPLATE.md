@@ -1,4 +1,6 @@
-### Things to include in a large Pull Request:
+<b>Please only submit Pull Requests to the dev branch!</b>
+
+### Things to include in a large Pull Request: ###
 
 - What is the purpose of the pull request?
 
