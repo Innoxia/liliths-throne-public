@@ -81,7 +81,7 @@ public class Horn implements BodyPartInterface {
 		
 		UtilText.transformationContentSB.setLength(0);
 		
-		if(type==HornType.HORSE_STRAIGHT) {
+		if (type == HornType.HORSE_STRAIGHT) {
 			this.setHornsPerRow(owner, 1);
 			this.setHornRows(owner, 1);
 		}
