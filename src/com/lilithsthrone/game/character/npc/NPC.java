@@ -3073,6 +3073,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		boolean debug = false;
 		
+		if(debug) {
+			System.out.println("-----\n"+this.getName()+" targeting "+target.getName());
+		}
+		
 		// ************************ Populate possibilities from fetishes and likes. ************************ //
 		
 		// Breasts:
@@ -3269,10 +3273,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			for(SexActionInterface action : Sex.getActionsAvailablePartner(this, target)) {
 				for(SexType st : foreplaySexTypes.keySet()) {
 					if(action.getParticipantType()!=SexParticipantType.SELF
-							&& (action.getPerformingCharacterOrifices().contains(st.getPerformingSexArea())
-								|| action.getPerformingCharacterPenetrations().contains(st.getPerformingSexArea()))
-							&& (action.getTargetedCharacterOrifices().contains(st.getTargetedSexArea())
-									|| action.getTargetedCharacterPenetrations().contains(st.getTargetedSexArea()))) {
+							&& (action.getPerformingCharacterOrifices().contains(st.getPerformingSexArea()) || action.getPerformingCharacterPenetrations().contains(st.getPerformingSexArea()))
+							&& (action.getTargetedCharacterOrifices().contains(st.getTargetedSexArea()) || action.getTargetedCharacterPenetrations().contains(st.getTargetedSexArea()))) {
 						availableTypes.add(st);
 					}
 				}
@@ -3280,6 +3282,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			Set<SexType> foreplayKeys = new HashSet<>(foreplaySexTypes.keySet());
 			for(SexType st : foreplayKeys) {
 				if(!availableTypes.contains(st)) {
+					if(debug) {
+						System.out.println("Removed foreplay: "+st);
+					}
 					foreplaySexTypes.remove(st);
 				}
 			}
@@ -3298,6 +3303,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			Set<SexType> mainKeys = new HashSet<>(mainSexTypes.keySet());
 			for(SexType st : mainKeys) {
 				if(!availableTypes.contains(st)) {
+					if(debug) {
+						System.out.println("Removed sex: "+st);
+					}
 					mainSexTypes.remove(st);
 				}
 			}
@@ -3320,6 +3328,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 			if(debug) {
 				System.out.println("Foreplay: "+foreplayPreference.get(target).getPerformingSexArea().toString()+" "+foreplayPreference.get(target).getTargetedSexArea().toString());
+			}
+		} else {
+			if(debug) {
+				System.out.println("foreplaySexTypes is empty at assignment");
 			}
 		}
 
@@ -3364,7 +3376,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 			if(debug)
 				System.out.println("Main: "+mainSexPreference.get(target).getPerformingSexArea().toString()+" "+mainSexPreference.get(target).getTargetedSexArea().toString());
+			
+		} else {
+			if(debug) {
+				System.out.println("mainSexPreference is empty at assignment");
+			}
 		}
+		
 		// After generating choices, unblock positioning:
 		if(Main.game.isInSex() && resetPositioningBan) {
 			Sex.removeCharacterBannedFromPositioning(this);

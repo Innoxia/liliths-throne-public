@@ -28,6 +28,11 @@ public class TongueMouth {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.isOrificeNonSelfOngoingAction(Sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH);
+		}
 		
 		@Override
 		public String getActionTitle() {

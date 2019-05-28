@@ -100,6 +100,14 @@ public class SexType implements XMLSaving {
 		}
 		return false;
 	}
+
+	public boolean isPenetrating() {
+		return getPerformingSexArea().isPenetration() && getTargetedSexArea().isOrifice();
+	}
+	
+	public boolean isBeingPenetrated() {
+		return getPerformingSexArea().isOrifice() && getTargetedSexArea().isPenetration();
+	}
 	
 	public SexType getReversedSexType() {
 		return new SexType(getAsParticipant(), getTargetedSexArea(), getPerformingSexArea());

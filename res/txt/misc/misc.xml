@@ -10,11 +10,8 @@
 	</p>
 	<p>
 		[npc2.speechNoEffects(~Aah!~ Oh, yes! That's right, ruin my pussy! ~Mmm!~ I'm your bitch!
-		#IF npc2.isVisiblyPregnant()
-		#THEN Fuck me!
-		#ELSE Breed me!
-		#ENDIF
-		 ~Aah!~ Yes!)]
+		#IF(npc2.isVisiblyPregnant()) Fuck me! #ELSE Breed me! #ENDIF
+		~Aah!~ Yes!)]
 	</p>
 	]]>
 	</htmlContent>

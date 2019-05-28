@@ -30,6 +30,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
+import com.lilithsthrone.main.Main;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -1008,10 +1009,12 @@ public class Util {
 	
 	private static Map<String, List<String>> errorLogMap = new HashMap<>();
 	public static void logGetNpcByIdError(String method, String id) {
-		errorLogMap.putIfAbsent(method, new ArrayList<>());
-		if(!errorLogMap.get(method).contains(id)) {
-			System.err.println("Main.game.getNPCById("+id+") returning null in method: "+method);
-			errorLogMap.get(method).add(id);
+		if(Main.DEBUG) { // So this doesn't flood error.log
+			errorLogMap.putIfAbsent(method, new ArrayList<>());
+			if(!errorLogMap.get(method).contains(id)) {
+				System.err.println("Main.game.getNPCById("+id+") returning null in method: "+method);
+				errorLogMap.get(method).add(id);
+			}
 		}
 	}
 }

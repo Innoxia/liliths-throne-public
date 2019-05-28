@@ -186,7 +186,7 @@ public class AbstractTattooType extends AbstractCoreType {
 
 
 	private List<Colour> readColoursFromElement(Element coreAttributes, String elementTagName) {
-		Element coloursElement = ((Element)coreAttributes.getElementsByTagName("primaryColours").item(0));
+		Element coloursElement = ((Element)coreAttributes.getElementsByTagName(elementTagName).item(0));
 		if(coloursElement.getAttribute("values").isEmpty()) {
 			NodeList coloursNodeList = coloursElement.getElementsByTagName("colour");
 			List<Colour> result = new ArrayList<>(coloursNodeList.getLength());

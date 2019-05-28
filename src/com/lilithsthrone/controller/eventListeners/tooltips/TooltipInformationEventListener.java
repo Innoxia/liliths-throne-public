@@ -695,36 +695,36 @@ public class TooltipInformationEventListener implements EventListener {
 					}
 
 					// GREATER:
-					tooltipSB.append(getBodyPartDiv("Face", owner.getFaceRace(), owner.getFaceCovering(), owner.isFaceBestial()));
-					tooltipSB.append(getBodyPartDiv("Torso", owner.getSkinRace(), owner.getSkinCovering(), owner.isSkinBestial()));
+					tooltipSB.append(getBodyPartDiv(owner, "Face", owner.getFaceRace(), owner.getFaceCovering(), owner.isFaceBestial()));
+					tooltipSB.append(getBodyPartDiv(owner, "Torso", owner.getSkinRace(), owner.getSkinCovering(), owner.isSkinBestial()));
 					
 	
 					// LESSER:
-					tooltipSB.append(getBodyPartDiv("Arms", owner.getArmRace(), owner.getArmCovering(), owner.isArmBestial()));
-					tooltipSB.append(getBodyPartDiv("Legs", owner.getLegRace(), owner.getLegCovering(), owner.isLegBestial()));
+					tooltipSB.append(getBodyPartDiv(owner, "Arms", owner.getArmRace(), owner.getArmCovering(), owner.isArmBestial()));
+					tooltipSB.append(getBodyPartDiv(owner, "Legs", owner.getLegRace(), owner.getLegCovering(), owner.isLegBestial()));
 					
 					// PARTIAL:
-					tooltipSB.append(getBodyPartDiv("Hair", owner.getHairRace(), owner.getHairCovering(), owner.isHairBestial()));
-					tooltipSB.append(getBodyPartDiv("Eyes", owner.getEyeRace(), owner.getEyeCovering(), owner.isEyeBestial()));
-					tooltipSB.append(getBodyPartDiv("Ears", owner.getEarRace(), owner.getEarCovering(), owner.isEarBestial()));
-					tooltipSB.append(getBodyPartDiv("Tongue", owner.getTongueRace(), owner.getTongueCovering(), owner.isTongueBestial()));
+					tooltipSB.append(getBodyPartDiv(owner, "Hair", owner.getHairRace(), owner.getHairCovering(), owner.isHairBestial()));
+					tooltipSB.append(getBodyPartDiv(owner, "Eyes", owner.getEyeRace(), owner.getEyeCovering(), owner.isEyeBestial()));
+					tooltipSB.append(getBodyPartDiv(owner, "Ears", owner.getEarRace(), owner.getEarCovering(), owner.isEarBestial()));
+					tooltipSB.append(getBodyPartDiv(owner, "Tongue", owner.getTongueRace(), owner.getTongueCovering(), owner.isTongueBestial()));
 					if (owner.getHornType() != HornType.NONE) {
-						tooltipSB.append(getBodyPartDiv((owner.hasHorns()?Util.capitaliseSentence(owner.getHornName()):"Horns"), owner.getHornRace(), owner.getHornCovering(), owner.isHornBestial()));
+						tooltipSB.append(getBodyPartDiv(owner, (owner.hasHorns()?Util.capitaliseSentence(owner.getHornName()):"Horns"), owner.getHornRace(), owner.getHornCovering(), owner.isHornBestial()));
 					} else {
 						tooltipSB.append(getEmptyBodyPartDiv("Horns", "None"));
 					}
 					if (owner.getAntennaType() != AntennaType.NONE) {
-						tooltipSB.append(getBodyPartDiv("Antennae", owner.getAntennaRace(), owner.getAntennaCovering(), owner.isAntennaBestial()));
+						tooltipSB.append(getBodyPartDiv(owner, "Antennae", owner.getAntennaRace(), owner.getAntennaCovering(), owner.isAntennaBestial()));
 					} else {
 						tooltipSB.append(getEmptyBodyPartDiv("Antennae", "None"));
 					}
 					if (owner.getWingType() != WingType.NONE) {
-						tooltipSB.append(getBodyPartDiv("Wings", owner.getWingRace(), owner.getWingCovering(), owner.isWingBestial()));
+						tooltipSB.append(getBodyPartDiv(owner, "Wings", owner.getWingRace(), owner.getWingCovering(), owner.isWingBestial()));
 					} else {
 						tooltipSB.append(getEmptyBodyPartDiv("Wings", "None"));
 					}
 					if (owner.getTailType() != TailType.NONE) {
-						tooltipSB.append(getBodyPartDiv("Tail", owner.getTailRace(), owner.getTailCovering(), owner.isTailBestial()));
+						tooltipSB.append(getBodyPartDiv(owner, "Tail", owner.getTailRace(), owner.getTailCovering(), owner.isTailBestial()));
 					} else {
 						tooltipSB.append(getEmptyBodyPartDiv("Tail", "None"));
 					}
@@ -734,7 +734,7 @@ public class TooltipInformationEventListener implements EventListener {
 						tooltipSB.append(getEmptyBodyPartDiv("Vagina", "Unknown!"));
 					} else {
 						if (owner.getVaginaType() != VaginaType.NONE) {
-							tooltipSB.append(getBodyPartDiv("Vagina", owner.getVaginaRace(), owner.getVaginaCovering(), owner.isVaginaBestial()));
+							tooltipSB.append(getBodyPartDiv(owner, "Vagina", owner.getVaginaRace(), owner.getVaginaCovering(), owner.isVaginaBestial()));
 						} else {
 							tooltipSB.append(getEmptyBodyPartDiv("Vagina", "None"));
 						}
@@ -744,7 +744,7 @@ public class TooltipInformationEventListener implements EventListener {
 						tooltipSB.append(getEmptyBodyPartDiv("Penis", "Unknown!"));
 					} else {
 						if (owner.hasPenis()) {
-							tooltipSB.append(getBodyPartDiv("Penis", owner.getPenisRace(), owner.getPenisCovering(), owner.isPenisBestial(), "[unit.sizes(" + owner.getPenisRawSizeValue()+ ")]"));
+							tooltipSB.append(getBodyPartDiv(owner, "Penis", owner.getPenisRace(), owner.getPenisCovering(), owner.isPenisBestial(), "[unit.sizes(" + owner.getPenisRawSizeValue()+ ")]"));
 						} else {
 							tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
 						}
@@ -753,13 +753,13 @@ public class TooltipInformationEventListener implements EventListener {
 					if(!owner.isPlayer() && !owner.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer())) {
 						tooltipSB.append(getEmptyBodyPartDiv("Anus", "Unknown!"));
 					} else {
-						tooltipSB.append(getBodyPartDiv("Anus", owner.getAssRace(), owner.getAssType().getAnusType().getBodyCoveringType(owner), owner.isAnusBestial()));
+						tooltipSB.append(getBodyPartDiv(owner, "Anus", owner.getAssRace(), owner.getAssType().getAnusType().getBodyCoveringType(owner), owner.isAnusBestial()));
 					}
 
 					if(!owner.isPlayer() && !owner.isAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer())) {
 						tooltipSB.append(getEmptyBodyPartDiv("Nipples", "Unknown!", owner.getBreastRawSizeValue()>0?(owner.getBreastSize().getCupSizeName() + "-cup breasts"):null));
 					} else {
-						tooltipSB.append(getBodyPartDiv("Nipples",
+						tooltipSB.append(getBodyPartDiv(owner, "Nipples",
 								owner.getBreastRace(),
 								owner.getBreastType().getNippleType().getBodyCoveringType(owner),
 								owner.isNippleBestial(),
@@ -772,7 +772,7 @@ public class TooltipInformationEventListener implements EventListener {
 									"Unknown!",
 									(owner.getBreastRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"udders":"crotch-boobs")));
 						} else {
-							tooltipSB.append(getBodyPartDiv("Nipples",
+							tooltipSB.append(getBodyPartDiv(owner, "Nipples",
 									owner.getBreastCrotchRace(),
 									owner.getNippleCrotchCovering(),
 									owner.isNippleCrotchBestial(),
@@ -1071,13 +1071,13 @@ public class TooltipInformationEventListener implements EventListener {
 		TooltipUpdateThread.updateToolTip(-1,-1);
 	}
 
-	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering, boolean bestial) {
-		return getBodyPartDiv(name, race, covering, bestial, null);
+	private String getBodyPartDiv(GameCharacter character, String name, Race race, BodyCoveringType covering, boolean bestial) {
+		return getBodyPartDiv(character, name, race, covering, bestial, null);
 	}
 	
-	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering, boolean bestial, String size) {
+	private String getBodyPartDiv(GameCharacter character, String name, Race race, BodyCoveringType covering, boolean bestial, String size) {
 		String raceName;
-		raceName = race.getName(bestial);
+		raceName = race.getName(character, bestial);
 
 		if(raceName.equals("wolf-morph") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
 			raceName = "awoo-morph";

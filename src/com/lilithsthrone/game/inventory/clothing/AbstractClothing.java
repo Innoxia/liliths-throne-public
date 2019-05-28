@@ -162,6 +162,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		this.setPatternColour(clothing.getPatternColour());
 		this.setPatternSecondaryColour(clothing.getPatternSecondaryColour());
 		this.setPatternTertiaryColour(clothing.getPatternTertiaryColour());
+		
+		this.displacedList = new ArrayList<>(clothing.getDisplacedList());
+		
+		this.dirty = clothing.isDirty();
 	}
 	
 	
@@ -1242,21 +1246,25 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public void setDirty(GameCharacter owner, boolean dirty) {
 		if(owner!=null) {
 			if(owner.getClothingCurrentlyEquipped().contains(this)) {
-				owner.forceUnequipClothingIntoVoid(owner, this);
+//				System.out.println("1");
 				AbstractClothing c = new AbstractClothing(this) {};
+				owner.forceUnequipClothingIntoVoid(owner, this);
 				c.dirty = dirty;
 				owner.equipClothingOverride(c, false, false);
 				
 			} else if(owner.removeClothing(this)) {
+//				System.out.println("2");
 				AbstractClothing c = new AbstractClothing(this) {};
 				c.dirty = dirty;
 				owner.addClothing(c, false);
 //				enchantmentRemovedClothing = c;
 				
 			} else {
+//				System.out.println("3");
 				this.dirty = dirty;
 			}
 		} else {
+//			System.out.println("4");
 			this.dirty = dirty;
 		}
 		

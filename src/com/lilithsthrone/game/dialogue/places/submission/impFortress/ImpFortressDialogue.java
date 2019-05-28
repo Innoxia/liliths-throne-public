@@ -531,7 +531,6 @@ public class ImpFortressDialogue {
 	}
 	
 	public static GameCharacter getBoss(WorldType fortress) {
-
 		if(fortress==WorldType.IMP_FORTRESS_ALPHA) {
 			return Main.game.getNpc(FortressAlphaLeader.class);
 
@@ -2171,7 +2170,7 @@ public class ImpFortressDialogue {
 							
 						} else {
 							return new Response("True nympho",
-									UtilText.parse(getBoss(), "You're not as sex-crazed as [npc.name], so can't undermine [npc.her] authority in front of [npc.her] imps...</br>(Requires 'Nymphomaniac' trait.)"),
+									UtilText.parse(getBoss(), "You're not as sex-crazed as [npc.name], so you can't undermine [npc.her] authority in front of [npc.her] imps...</br>(Requires 'Nymphomaniac' trait.)"),
 									null);
 						}
 						
