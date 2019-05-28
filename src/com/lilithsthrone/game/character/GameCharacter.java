@@ -3721,7 +3721,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return UtilText.parse(this,
 				"<p style='text-align:center'>"
 						+ "[npc.Name] "+(increment>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!<br/>"
-						+ "[npc.She] now [npc.has] <b>"+(obedience>0?"+":"")+obedience+"</b> [style.boldObedience(obedience)].<br/>"
+						+ "[npc.She] now [npc.has] <b>"+(obedience>0?"+":"")+Units.round(obedience, 1)+"</b> [style.boldObedience(obedience)].<br/>"
 						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
 					+ "</p>"
 					+ (teacherPerkGain
@@ -3944,7 +3944,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		return UtilText.parse(this, character,
 				"<p style='text-align:center'>"
-					+ "[npc.Name] now [npc.has] <b>"+(affection>0?"+":"")+affection+"</b> [style.boldAffection(affection)] towards [npc2.name].<br/>"
+					+ "[npc.Name] now [npc.has] <b>"+(affection>0?"+":"")+Units.round(affection, 1)+"</b> [style.boldAffection(affection)] towards [npc2.name].<br/>"
 					+ AffectionLevel.getDescription(this, character, getAffectionLevel(character), true)
 				+ "</p>");
 	}
@@ -4071,6 +4071,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean addSlave(NPC slave) {
 		boolean added = slavesOwned.add(slave.getId());
 		Main.game.getPlayer().removeFriendlyOccupant(slave);
+		Main.game.getPlayer().removeCompanion(slave);
 		
 		if(added) {
 			if(slave.isSlave()) {
@@ -4670,10 +4671,10 @@ public abstract class GameCharacter implements XMLSaving {
 
 		Set<GameCharacter> commonParents = character.getParents();
 		commonParents.retainAll(this.getParents());
-		if(commonParents.size() == 1) {
-			result.add(Relationship.HalfSibling);
-		} else if(commonParents.size() == 2) {
+		if(commonParents.size() == 2 || (commonParents.size() == 1 && character.getFatherId().equals(character.getMotherId()))) {
 			result.add(Relationship.Sibling);
+		} else if(commonParents.size() == 1) {
+			result.add(Relationship.HalfSibling);
 		}
 
 		if(character.getNonCommonNodes(1,0).contains(this))
@@ -16760,12 +16761,13 @@ public abstract class GameCharacter implements XMLSaving {
 			this.removeDirtySlot(InventorySlot.PIERCING_VAGINA);
 			
 			Litter birthedLitter = pregnantLitter;
+
+			birthedLitter.setBirthDate(Main.game.getDateNow());
 			
 			if((birthedLitter.getFather()!=null && birthedLitter.getFather().isPlayer()) || (birthedLitter.getMother()!=null && birthedLitter.getMother().isPlayer())) {
 				for(String id: birthedLitter.getOffspring()) {
 					try {
 						NPC npc = (NPC) Main.game.getNPCById(id);
-						birthedLitter.setBirthDate(Main.game.getDateNow());
 						npc.setConceptionDate(birthedLitter.getConceptionDate());
 						npc.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
 					} catch(Exception e) {
@@ -21448,6 +21450,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public String incrementBreastSize(int increment) {
 		return setBreastSize(getBreastRawSizeValue() + increment);
 	}
+	public String setMinimumBreastSize(int size) {
+		return setBreastSize(Math.max(getBreastRawSizeValue(), size));
+	}
+	public String setMinimumBreastSize(CupSize size) {
+		return setBreastSize(Math.max(getBreastRawSizeValue(), size.getMeasurement()));
+	}
 	
 	// Nipples:
 	
@@ -21773,6 +21781,13 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String incrementBreastCrotchSize(int increment) {
 		return setBreastCrotchSize(getBreastCrotchRawSizeValue() + increment);
+	}
+	public String setMinimumBreastCrotchSize(int size) {
+		return setBreastCrotchSize(Math.max(getBreastCrotchRawSizeValue(), size));
+	}
+
+	public String setMinimumBreastCrotchSize(CupSize size) {
+		return setBreastCrotchSize(Math.max(getBreastCrotchRawSizeValue(), size.getMeasurement()));
 	}
 	
 	// Nipples:
@@ -22590,6 +22605,9 @@ public abstract class GameCharacter implements XMLSaving {
 	// Horns per row:
 	public int getHornsPerRow() {
 		return body.getHorn().getHornsPerRow();
+	}
+	public String setMinimumHornsPerRow(int hornsPerRow) {
+		return setHornsPerRow(Math.max(getHornsPerRow(), hornsPerRow));
 	}
 	public String setHornsPerRow(int hornsPerRow) {
 		return body.getHorn().setHornsPerRow(this, hornsPerRow);

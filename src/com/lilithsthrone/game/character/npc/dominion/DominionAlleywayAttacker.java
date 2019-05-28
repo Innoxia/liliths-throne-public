@@ -136,8 +136,10 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
-			if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
-				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true));
+			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+				if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
+					this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true));
+				}
 			}
 			
 			if(Math.random()<0.05 && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { //5% chance for the NPC to be a taur

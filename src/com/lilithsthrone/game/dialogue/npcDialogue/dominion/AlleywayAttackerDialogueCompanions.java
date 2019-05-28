@@ -281,7 +281,7 @@ public class AlleywayAttackerDialogueCompanions {
 										Util.newArrayListOfValues(getMugger()),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
 										null,
-										Util.newArrayListOfValues(getMainCompanion())) {
+										Main.game.getPlayer().getCompanions()) {
 									@Override
 									public SexControl getSexControl(GameCharacter character) {
 										if(character.isPlayer()) {
@@ -359,8 +359,8 @@ public class AlleywayAttackerDialogueCompanions {
 								new SMGeneric(
 										Util.newArrayListOfValues(getMugger()),
 										Util.newArrayListOfValues(companion),
-								null,
-								Util.newArrayListOfValues(Main.game.getPlayer())),
+										null,
+										Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_OFFER_COMPANION", getMugger(), companion)) {
 							@Override
 							public void effects() {
@@ -419,8 +419,8 @@ public class AlleywayAttackerDialogueCompanions {
 								new SMGeneric(
 										Util.newArrayListOfValues(Main.game.getPlayer()),
 										Util.newArrayListOfValues(getMugger()),
-								null,
-								null),
+										Main.game.getPlayer().getCompanions(),
+										null),
 								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_PEACEFUL_SEX_AS_DOM", getAllCharacters())) {
 							@Override
 							public void effects() {
@@ -441,8 +441,8 @@ public class AlleywayAttackerDialogueCompanions {
 								new SMGeneric(
 										Util.newArrayListOfValues(getMugger()),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
-								null,
-								null),
+										null,
+										Main.game.getPlayer().getCompanions()),
 								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_PEACEFUL_SEX_AS_SUB", getAllCharacters())) {
 							@Override
 							public void effects() {
@@ -537,8 +537,8 @@ public class AlleywayAttackerDialogueCompanions {
 								new SMGeneric(
 										Util.newArrayListOfValues(getMugger()),
 										Util.newArrayListOfValues(companion),
-								null,
-								Util.newArrayListOfValues(Main.game.getPlayer())),
+										null,
+										Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_PEACEFUL_OFFERED_COMPANION, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_PEACEFUL_OFFER_COMPANION", getMugger(), companion)) {
 							@Override
 							public void effects() {
@@ -795,7 +795,7 @@ public class AlleywayAttackerDialogueCompanions {
 								Util.newArrayListOfValues(getMugger()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
-								Util.newArrayListOfValues(getMainCompanion())) {
+								Main.game.getPlayer().getCompanions()) {
 							@Override
 							public SexControl getSexControl(GameCharacter character) {
 								if(character.isPlayer()) {
@@ -858,8 +858,8 @@ public class AlleywayAttackerDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(companion),
-							null,
-							Util.newArrayListOfValues(Main.game.getPlayer())),
+									null,
+									Util.newArrayListOfValues(Main.game.getPlayer())),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "ALLEY_ATTACK_OFFER_COMPANION", getMugger(), companion)) {
 						@Override
 						public void effects() {
@@ -917,7 +917,7 @@ public class AlleywayAttackerDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getMugger()),
-									Util.newArrayListOfValues(getMainCompanion()),
+									Main.game.getPlayer().getCompanions(),
 									null),
 							AFTER_SEX_VICTORY,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_SEX", getAllCharacters()));
@@ -930,8 +930,8 @@ public class AlleywayAttackerDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getMugger()),
-							null,
-							null),
+									Main.game.getPlayer().getCompanions(),
+									null),
 							AFTER_SEX_VICTORY,
 							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE", getAllCharacters()));
 				}
@@ -947,7 +947,7 @@ public class AlleywayAttackerDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getMugger()),
-									Util.newArrayListOfValues(getMainCompanion()),
+									Main.game.getPlayer().getCompanions(),
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY,
@@ -961,7 +961,7 @@ public class AlleywayAttackerDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getMugger()),
-									Util.newArrayListOfValues(getMainCompanion()),
+									Main.game.getPlayer().getCompanions(),
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY,
@@ -979,7 +979,7 @@ public class AlleywayAttackerDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getMugger()),
-									Util.newArrayListOfValues(getMainCompanion()),
+									Main.game.getPlayer().getCompanions(),
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY,
@@ -993,7 +993,7 @@ public class AlleywayAttackerDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									Util.newArrayListOfValues(getMugger()),
-									Util.newArrayListOfValues(getMainCompanion()),
+									Main.game.getPlayer().getCompanions(),
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY,
@@ -1085,8 +1085,8 @@ public class AlleywayAttackerDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(companion),
 									Util.newArrayListOfValues(getMugger()),
-							null,
-							Util.newArrayListOfValues(Main.game.getPlayer())),
+									null,
+									Util.newArrayListOfValues(Main.game.getPlayer())),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getMugger(), companion));
 				}
 				
@@ -1111,8 +1111,8 @@ public class AlleywayAttackerDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(companion),
-							null,
-							Util.newArrayListOfValues(Main.game.getPlayer())),
+									null,
+									Util.newArrayListOfValues(Main.game.getPlayer())),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_OFFER_COMPANION", getMugger(), companion)) {
 						@Override
 						public void effects() {
@@ -1244,8 +1244,8 @@ public class AlleywayAttackerDialogueCompanions {
 								new SMGeneric(
 										Util.newArrayListOfValues(getMugger()),
 										Util.newArrayListOfValues(companion),
-								null,
-								Util.newArrayListOfValues(Main.game.getPlayer())),
+										null,
+										Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_USES_COMPANION", getMugger(), companion));
 						
 					}
@@ -1315,8 +1315,8 @@ public class AlleywayAttackerDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-							null,
-							Util.newArrayListOfValues(getMainCompanion())),
+									null,
+									Main.game.getPlayer().getCompanions()),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
 					
 				} else if (index == 2) {
@@ -1327,7 +1327,7 @@ public class AlleywayAttackerDialogueCompanions {
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									null,
-									Util.newArrayListOfValues(getMainCompanion()),
+									Main.game.getPlayer().getCompanions(),
 									ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()));
 					
@@ -1339,7 +1339,7 @@ public class AlleywayAttackerDialogueCompanions {
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									null,
-									Util.newArrayListOfValues(getMainCompanion()),
+									Main.game.getPlayer().getCompanions(),
 									ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()));
 					
@@ -1390,8 +1390,8 @@ public class AlleywayAttackerDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-							null,
-							null),
+									null,
+									Main.game.getPlayer().getCompanions()),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()));
 					
 				} else if (index == 2) {
@@ -1402,7 +1402,7 @@ public class AlleywayAttackerDialogueCompanions {
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									null,
-									null,
+									Main.game.getPlayer().getCompanions(),
 									ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()));
 					
@@ -1414,7 +1414,7 @@ public class AlleywayAttackerDialogueCompanions {
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									null,
-									null,
+									Main.game.getPlayer().getCompanions(),
 									ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()));
 					
@@ -1455,8 +1455,8 @@ public class AlleywayAttackerDialogueCompanions {
 							new SMGeneric(
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-							null,
-							null),
+									null,
+									Main.game.getPlayer().getCompanions()),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
 					
 				} else if (index == 2) {
@@ -1467,7 +1467,7 @@ public class AlleywayAttackerDialogueCompanions {
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									null,
-									null,
+									Main.game.getPlayer().getCompanions(),
 									ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()));
 					
@@ -1479,7 +1479,7 @@ public class AlleywayAttackerDialogueCompanions {
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									null,
-									null,
+									Main.game.getPlayer().getCompanions(),
 									ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()));
 					

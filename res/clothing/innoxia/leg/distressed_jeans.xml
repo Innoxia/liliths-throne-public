@@ -4,11 +4,11 @@
 	<coreAttributes>
 		<value>400</value> 
 		
-		<determiner><![CDATA[a]]></determiner>
+		<determiner><![CDATA[a pair of]]></determiner>
 		
 		<name><![CDATA[distressed jeans]]></name>
 		
-		<namePlural pluralByDefault="false"><![CDATA[distressed jeans]]></namePlural> 
+		<namePlural pluralByDefault="true"><![CDATA[distressed jeans]]></namePlural> 
 		
 		<description><![CDATA[A unisex pair of jeans, which, in the name of fashion, have been weathered and torn prior to sale.]]></description> 
 		

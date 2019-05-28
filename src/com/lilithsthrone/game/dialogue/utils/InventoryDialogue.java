@@ -5320,9 +5320,7 @@ public class InventoryDialogue {
 						} else if (index > 10 && index - 11 < clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).size()){
 							
 							if (clothing.getDisplacedList().contains(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index - 11))) {
-								
 								if(owner.isAbleToBeReplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index -11), false, false, Main.game.getPlayer())){
-								
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index - 11).getOppositeDescription()),
 											Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index - 11).getOppositeDescription()) + " the " + clothing.getName() + ". "
 													+ clothing.getClothingBlockingDescription(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index - 11), Main.game.getPlayer(),
@@ -5692,23 +5690,20 @@ public class InventoryDialogue {
 						} else if (index == 10) {
 							return getQuickTradeResponse();
 							
-						} else if (index > 10 && index - 11 < clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).size()){
-							
+						} else if (index > 10 && index - 11 < clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).size()) {
 							if (clothing.getDisplacedList().contains(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index - 11))) {
 								return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index -11).getDescription()),
-										"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index -11).getDescription()
-										+ " "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " during sex!", null);
+										"The "+ clothing.getName()+ " "
+										+(clothing.getClothingType().isPlural()?"have":"has")+" already been " + clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index -11).getDescription() + "!", null);
 								
 							} else {
-								
 								if(!Sex.getSexManager().isAbleToRemoveSelfClothing(Main.game.getPlayer())) {
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index - 11).getDescription()),
 											"You can't can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index -11).getDescription()
 											+ " "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " in this sex scene!", null);
 								}
 								
-								if(owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index -11), false, false, Main.game.getPlayer())){
-									
+								if(owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index -11), false, false, Main.game.getPlayer())) {
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index - 11).getDescription()),
 											Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index - 11).getDescription()) + " the " + clothing.getName() + ". "
 													+ clothing.getClothingBlockingDescription(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner).get(index - 11), Main.game.getPlayer(),
@@ -5770,10 +5765,10 @@ public class InventoryDialogue {
 							return getQuickTradeResponse();
 							
 						} else if (index > 10 && index - 11 < clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).size()){
-							
 							if (clothing.getDisplacedList().contains(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index - 11))) {
 								return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index -11).getDescription()),
-											"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index -11).getDescription() + " the " + clothing.getName() + " while in a fight!", null);
+										"The "+ clothing.getName()+ " "
+										+(clothing.getClothingType().isPlural()?"have":"has")+" already been " + clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index -11).getDescription() + "!", null);
 								
 							} else {
 								return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index -11).getDescription()),
@@ -6076,10 +6071,10 @@ public class InventoryDialogue {
 							return getQuickTradeResponse();
 							
 						} else if (index > 10 && index - 11 < clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).size()){
-							
 							if (clothing.getDisplacedList().contains(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index - 11))) {
 								return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index -11).getDescription()),
-										"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index -11).getDescription() + " the " + clothing.getName() + " during sex!", null);
+										"The "+ clothing.getName()+ " "
+										+(clothing.getClothingType().isPlural()?"have":"has")+" already been " + clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index -11).getDescription() + "!", null);
 								
 							} else {
 								if(owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index -11), false, false, Main.game.getPlayer())){
@@ -6137,10 +6132,10 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if (index > 10 && index - 11 < clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).size()){
-								
 								if (clothing.getDisplacedList().contains(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index - 11))) {
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index -11).getDescription()),
-												"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index -11).getDescription() + " the " + clothing.getName() + "!", null);
+											"The "+ clothing.getName()+ " "
+													+(clothing.getClothingType().isPlural()?"have":"has")+" already been " + clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index -11).getDescription() + "!", null);
 									
 								} else {
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC).get(index -11).getDescription()),

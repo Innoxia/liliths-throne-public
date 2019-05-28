@@ -928,14 +928,15 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE"));
 			}
 			
-			
 			return new SexActionOrgasmOverride(false, sb.toString()) {
 				@Override
 				public void applyEffects() {
 				}
 				@Override
 				public boolean isEndsSex() {
-					return true;
+					return Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
+							&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
+							&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative();
 				}
 			};
 		}

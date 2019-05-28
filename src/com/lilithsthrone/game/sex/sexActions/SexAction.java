@@ -181,7 +181,7 @@ public abstract class SexAction implements SexActionInterface {
 	}
 	
 	@Override
-	public String getFlavourDescription(GameCharacter performing, GameCharacter receiving) {
+	public String getFluidFlavourDescription(GameCharacter performing, GameCharacter receiving) {
 		if((this.getPerformingCharacterAreas().contains(SexAreaPenetration.TONGUE) || this.getPerformingCharacterAreas().contains(SexAreaOrifice.MOUTH)) && performing.isPlayer()) {
 			
 			if(this.getTargetedCharacterAreas().contains(SexAreaOrifice.VAGINA)) {
