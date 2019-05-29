@@ -345,7 +345,7 @@ public class UtilText {
 			}
 		} else {
 			try { // Getting the target NPC can throw a NullPointerException, so if it does (i.e., there's no NPC suitable for parsing), just catch it and carry on.
-				engine.put("npc", ParserTarget.NPC.getCharacter("npc"));
+				engine.put("npc", ParserTarget.NPC.getCharacter("npc",null));
 //				System.out.println("specialNPCList is empty");
 			} catch(Exception ex) {
 //				System.err.println("Parsing error 2: Could not initialise npc");
