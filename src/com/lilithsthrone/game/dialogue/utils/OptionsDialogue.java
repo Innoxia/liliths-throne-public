@@ -2340,7 +2340,7 @@ public class OptionsDialogue {
 					}
 					UtilText.nodeContentSB.append("</div>");
 					UtilText.nodeContentSB.append("<div style='width:50%; display:inline-block; text-align:left;'>");
-					UtilText.nodeContentSB.append("&nbsp;"+cs.getName());
+					UtilText.nodeContentSB.append("&nbsp;"+(cs.getSubspeciesTier()!=null?"<b style='color:"+cs.getSubspeciesTier().getColour(null).toWebHexString()+";'>"+cs.getName()+"</b>":cs.getName()));
 					UtilText.nodeContentSB.append("</div>");
 				}
 			}
@@ -2371,8 +2371,21 @@ public class OptionsDialogue {
 					}
 					UtilText.nodeContentSB.append("</div>");
 					UtilText.nodeContentSB.append("<div style='width:50%; display:inline-block; text-align:left;'>");
-					UtilText.nodeContentSB.append("&nbsp;"+cs.getName());
+					UtilText.nodeContentSB.append("&nbsp;"+(cs.getSubspeciesTier()!=null?"<b style='color:"+cs.getSubspeciesTier().getColour(null).toWebHexString()+";'>"+cs.getName()+"</b>":cs.getName()));
 					UtilText.nodeContentSB.append("</div>");
+				}
+			}
+			
+			UtilText.nodeContentSB.append(
+					"</p>"
+					+ "<br/>"
+					+ "<h5 style='text-align:center; color:"+Subspecies.DEMON.getColour(null).toWebHexString()+";'>Demonic backers</h5>"
+					+ "<p style='text-align:center;'>");
+			
+			for(CreditsSlot cs : Main.credits) {
+				if(cs.getLegendaryCount()==0 && cs.getEpicCount()==0) {
+					UtilText.nodeContentSB.append("<br/>");
+					UtilText.nodeContentSB.append("&nbsp;"+(cs.getSubspeciesTier()!=null?"<b style='color:"+cs.getSubspeciesTier().getColour(null).toWebHexString()+";'>"+cs.getName()+"</b>":cs.getName()));
 				}
 			}
 			

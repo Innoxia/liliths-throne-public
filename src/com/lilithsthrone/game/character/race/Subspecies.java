@@ -3051,11 +3051,11 @@ public enum Subspecies {
 				if(body.getHorn().getType().equals(HornType.HORSE_STRAIGHT) && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
 					return Subspecies.HORSE_MORPH_UNICORN;
 				}
-				if(((body.getCoverings().get(BodyCoveringType.HORSE_HAIR).getPrimaryColour()==Colour.COVERING_BLACK
-						&& body.getCoverings().get(BodyCoveringType.HORSE_HAIR).getSecondaryColour()==Colour.COVERING_WHITE)
-						|| (body.getCoverings().get(BodyCoveringType.HORSE_HAIR).getPrimaryColour()==Colour.COVERING_WHITE
-								&& body.getCoverings().get(BodyCoveringType.HORSE_HAIR).getSecondaryColour()==Colour.COVERING_BLACK))
-						&& body.getTail().getType()==TailType.HORSE_MORPH_ZEBRA) {
+				Colour zebraPrimary = body.getCoverings().get(BodyCoveringType.HORSE_HAIR).getPrimaryColour();
+				Colour zebraSecondary = body.getCoverings().get(BodyCoveringType.HORSE_HAIR).getSecondaryColour();
+				if((((zebraPrimary==Colour.COVERING_BLACK || zebraPrimary==Colour.COVERING_JET_BLACK) && zebraSecondary==Colour.COVERING_WHITE)
+						|| (zebraPrimary==Colour.COVERING_WHITE && (zebraSecondary==Colour.COVERING_BLACK || zebraSecondary==Colour.COVERING_JET_BLACK)))
+					&& body.getTail().getType()==TailType.HORSE_MORPH_ZEBRA) {
 						subspecies = Subspecies.HORSE_MORPH_ZEBRA;
 					}
 				break;
@@ -3212,12 +3212,12 @@ public enum Subspecies {
 					case DEMON:
 						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, RaceStage.GREATER);
 					case HALF_DEMON:
-						return CharacterUtils.generateHalfDemonBody(linkedCharacter, father.getHalfDemonSubspecies(), true);
+						return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, father.getHalfDemonSubspecies(), true);
 					case IMP:
 					case IMP_ALPHA:
 						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
 					default:
-						return CharacterUtils.generateHalfDemonBody(linkedCharacter, fatherSubspecies, true);
+						return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, fatherSubspecies, true);
 				}
 			case HALF_DEMON:
 				if(mother.getHalfDemonSubspecies()==Subspecies.HUMAN) {
@@ -3226,7 +3226,7 @@ public enum Subspecies {
 						case LILIN:
 						case DEMON:
 						case HALF_DEMON:
-							return CharacterUtils.generateHalfDemonBody(linkedCharacter, mother.getHalfDemonSubspecies(), true);
+							return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, mother.getHalfDemonSubspecies(), true);
 						default:
 							return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
 					}
@@ -3236,18 +3236,18 @@ public enum Subspecies {
 						case ELDER_LILIN:
 						case LILIN:
 						case DEMON:
-							return CharacterUtils.generateHalfDemonBody(linkedCharacter, mother.getHalfDemonSubspecies(), true);
+							return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, mother.getHalfDemonSubspecies(), true);
 						case HALF_DEMON: // IF both are non-human half-demons, it's random as to whose species is birthed
 							if(Math.random()<0.5f || father.getHalfDemonSubspecies()==Subspecies.HUMAN) {
-								return CharacterUtils.generateHalfDemonBody(linkedCharacter, mother.getHalfDemonSubspecies(), true);
+								return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, mother.getHalfDemonSubspecies(), true);
 							} else {
-								return CharacterUtils.generateHalfDemonBody(linkedCharacter, father.getHalfDemonSubspecies(), true);
+								return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, father.getHalfDemonSubspecies(), true);
 							}
 						case IMP:
 						case IMP_ALPHA:
 							return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
 						default:
-							return CharacterUtils.generateHalfDemonBody(linkedCharacter, mother.getHalfDemonSubspecies(), true);
+							return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, mother.getHalfDemonSubspecies(), true);
 					}
 				}
 			case IMP_ALPHA:

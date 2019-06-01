@@ -44,7 +44,7 @@ public class Testicle implements BodyPartInterface {
 		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.SEVEN_ABSURD.getValue()));
 		this.cumStorage = cumStorage;
 		cumStored = cumStorage;
-		cumRegeneration = FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay();
+		cumRegeneration = FluidRegeneration.CUM_REGEN_DEFAULT;
 		cumExpulsion = FluidExpulsion.THREE_LARGE.getMinimumValue();
 		
 		this.testicleCount = Math.max(MIN_TESTICLE_COUNT, Math.min(testicleCount, MAX_TESTICLE_COUNT));
@@ -392,7 +392,7 @@ public class Testicle implements BodyPartInterface {
 
 	public String setCumExpulsion(GameCharacter owner, int cumExpulsion) {
 		int oldExpulsion = this.cumExpulsion;
-		this.cumExpulsion = Math.max(5, Math.min(cumExpulsion, FluidExpulsion.FOUR_HUGE.getMaximumValue()));
+		this.cumExpulsion = Math.max(0, Math.min(cumExpulsion, FluidExpulsion.FOUR_HUGE.getMaximumValue()));
 		int expulsionChange = this.cumExpulsion - oldExpulsion;
 
 		if(owner==null) {

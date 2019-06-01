@@ -398,7 +398,7 @@ public enum Units {
      */
     public static String fluidAsMetric(double ml, ValueType vType, UnitType uType) {
         double l = ml / 1000;
-        return valueWithUnit(ml, "mL", "millilitre", l, "L", "litre", vType, uType, false); // Innoxa's note: I usually prefer the lowercase l for ml and l, but LT's font makes it look bad.
+        return valueWithUnit(ml, "mL", "millilitre", l, "L", "litre", vType, uType, false); // Innoxia's note: I usually prefer the lowercase l for ml and l, but LT's font makes it look bad.
     }
 
     /**
@@ -574,7 +574,7 @@ public enum Units {
      */
     public static float round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException("Amount of fractional places cannot be less than 0.");
-        return BigDecimal.valueOf(value).setScale(places, BigDecimal.ROUND_HALF_UP).floatValue();
+        return BigDecimal.valueOf(value).setScale(places, RoundingMode.HALF_UP).floatValue();
     }
 
     /**

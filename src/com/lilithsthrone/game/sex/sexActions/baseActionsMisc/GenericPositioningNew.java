@@ -2,11 +2,14 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
@@ -45,10 +48,17 @@ public class GenericPositioningNew {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+
+		@Override
+		public boolean isPositionSwap() {
+			return true;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+			return 
+//					Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+					Sex.getInitialSexManager().isPositionChangingAllowed(Sex.getCharacterPerformingAction())
 					&& Sex.getCharacterPerformingAction().getLegConfiguration()==Sex.getCharacterTargetedForSexAction(this).getLegConfiguration() // Can only swap if have same body type
 					&& Sex.getSexManager().isPlayerAbleToSwapPositions()
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
@@ -97,10 +107,10 @@ public class GenericPositioningNew {
 	public static void setNewSexManager(PositioningData data, boolean requestAccepted) {
 		Map<GameCharacter, SexSlot> dominants = new HashMap<>();
 		Map<GameCharacter, SexSlot> submissives = new HashMap<>();
-		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(true).keySet());
-		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(true).keySet());
-		List<GameCharacter> dominantSpectators = new ArrayList<>();
-		List<GameCharacter> submissiveSpectators = new ArrayList<>();
+		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
+		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+		List<GameCharacter> dominantSpectators = new ArrayList<>(Sex.getDominantSpectators());
+		List<GameCharacter> submissiveSpectators = new ArrayList<>(Sex.getSubmissiveSpectators());
 		
 		GameCharacter performer = Sex.getCharacterPerformingAction();
 		GameCharacter target = Sex.getTargetedPartner(performer);
@@ -113,7 +123,7 @@ public class GenericPositioningNew {
 			doms.remove(performer);
 			dominants.put(performer, data.getPerformerSlots().get(0));
 			for(int i=0; i<doms.size(); i++) {
-				if(data.getPerformerSlots().size()<i+1) {
+				if(i+1<data.getPerformerSlots().size()) {
 					dominants.put(doms.get(i), data.getPerformerSlots().get(i+1));
 				} else {
 					dominantSpectators.add(doms.get(i));
@@ -122,17 +132,18 @@ public class GenericPositioningNew {
 			subs.remove(target);
 			submissives.put(target, data.getPartnerSlots().get(0));
 			for(int i=0; i<subs.size(); i++) {
-				if(data.getPartnerSlots().size()<i+1) {
+				if(i+1<data.getPartnerSlots().size()) {
 					submissives.put(subs.get(i), data.getPartnerSlots().get(i+1));
 				} else {
 					submissiveSpectators.add(subs.get(i));
 				}
 			}
+			
 		} else {
 			doms.remove(target);
 			dominants.put(target, data.getPartnerSlots().get(0));
 			for(int i=0; i<doms.size(); i++) {
-				if(data.getPartnerSlots().size()<i+1) {
+				if(i+1<data.getPartnerSlots().size()) {
 					dominants.put(doms.get(i), data.getPartnerSlots().get(i+1));
 				} else {
 					dominantSpectators.add(doms.get(i));
@@ -141,7 +152,7 @@ public class GenericPositioningNew {
 			subs.remove(performer);
 			submissives.put(performer, data.getPerformerSlots().get(0));
 			for(int i=0; i<subs.size(); i++) {
-				if(data.getPerformerSlots().size()<i+1) {
+				if(i+1<data.getPerformerSlots().size()) {
 					submissives.put(subs.get(i), data.getPerformerSlots().get(i+1));
 				} else {
 					submissiveSpectators.add(subs.get(i));
@@ -313,6 +324,16 @@ public class GenericPositioningNew {
 		public void applyEffects() {
 			setNewSexManager(generateReceivingOralData(Sex.getCharacterPerformingAction()), false);
 		}
+		@Override
+		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+			Set<Fetish> fetishes = new HashSet<>(super.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes));
+			if(characterPerformingActionFetishes) {
+				fetishes.add(Fetish.FETISH_ORAL_RECEIVING);
+			} else {
+				fetishes.add(Fetish.FETISH_ORAL_GIVING);
+			}
+			return new ArrayList<>(fetishes);
+		}
 	};
 	
 	public static final SexAction REQUEST_POSITION_ORAL_RECEIVING = new SexAction(
@@ -371,6 +392,10 @@ public class GenericPositioningNew {
 		@Override
 		public void applyEffects() {
 			Sex.setPositionRequest(generateReceivingOralData(Sex.getCharacterPerformingAction()));
+		}
+		@Override
+		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+			return POSITION_ORAL_RECEIVING.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes);
 		}
 	};
 	
@@ -453,6 +478,18 @@ public class GenericPositioningNew {
 					dominants,
 					submissives){
 			});
+		}
+		@Override
+		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+			Set<Fetish> fetishes = new HashSet<>(super.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes));
+			if(characterPerformingActionFetishes) {
+				fetishes.add(Fetish.FETISH_ORAL_RECEIVING);
+				fetishes.add(Fetish.FETISH_ANAL_RECEIVING);
+			} else {
+				fetishes.add(Fetish.FETISH_ORAL_GIVING);
+				fetishes.add(Fetish.FETISH_ANAL_GIVING);
+			}
+			return new ArrayList<>(fetishes);
 		}
 	};
 	
@@ -544,6 +581,16 @@ public class GenericPositioningNew {
 					submissives){
 			});
 		}
+		@Override
+		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+			Set<Fetish> fetishes = new HashSet<>(super.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes));
+			if(characterPerformingActionFetishes) {
+				fetishes.add(Fetish.FETISH_ORAL_RECEIVING);
+			} else {
+				fetishes.add(Fetish.FETISH_ORAL_GIVING);
+			}
+			return new ArrayList<>(fetishes);
+		}
 	};
 	
 	public static final SexAction POSITION_ORAL_PERFORMING = new SexAction(
@@ -622,6 +669,16 @@ public class GenericPositioningNew {
 		@Override
 		public void applyEffects() {
 			setNewSexManager(generatePerformingOralData(Sex.getCharacterTargetedForSexAction(this)), false);
+		}
+		@Override
+		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+			Set<Fetish> fetishes = new HashSet<>(super.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes));
+			if(characterPerformingActionFetishes) {
+				fetishes.add(Fetish.FETISH_ORAL_GIVING);
+			} else {
+				fetishes.add(Fetish.FETISH_ORAL_RECEIVING);
+			}
+			return new ArrayList<>(fetishes);
 		}
 	};
 	
@@ -708,6 +765,10 @@ public class GenericPositioningNew {
 		public void applyEffects() {
 			Sex.setPositionRequest(generatePerformingOralData(Sex.getCharacterTargetedForSexAction(this)));
 		}
+		@Override
+		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+			return POSITION_ORAL_PERFORMING.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes);
+		}
 	};
 	
 	public static final SexAction POSITION_PERFORMING_ORAL_MOVE_BEHIND = new SexAction(
@@ -789,6 +850,18 @@ public class GenericPositioningNew {
 					dominants,
 					submissives){
 			});
+		}
+		@Override
+		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+			Set<Fetish> fetishes = new HashSet<>(super.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes));
+			if(characterPerformingActionFetishes) {
+				fetishes.add(Fetish.FETISH_ORAL_GIVING);
+				fetishes.add(Fetish.FETISH_ANAL_GIVING);
+			} else {
+				fetishes.add(Fetish.FETISH_ORAL_RECEIVING);
+				fetishes.add(Fetish.FETISH_ANAL_RECEIVING);
+			}
+			return new ArrayList<>(fetishes);
 		}
 	};
 	
@@ -879,6 +952,16 @@ public class GenericPositioningNew {
 					dominants,
 					submissives){
 			});
+		}
+		@Override
+		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+			Set<Fetish> fetishes = new HashSet<>(super.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes));
+			if(characterPerformingActionFetishes) {
+				fetishes.add(Fetish.FETISH_ORAL_GIVING);
+			} else {
+				fetishes.add(Fetish.FETISH_ORAL_RECEIVING);
+			}
+			return new ArrayList<>(fetishes);
 		}
 	};
 
@@ -1015,6 +1098,37 @@ public class GenericPositioningNew {
 		public void applyEffects() {
 			setNewSexManager(generateReceivingAllFoursData(Sex.getCharacterPerformingAction()), false);
 		}
+		@Override
+		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+			Set<Fetish> fetishes = new HashSet<>(super.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes));
+			if(characterPerformingActionFetishes) {
+				if(characterPerformingAction.hasVagina()) {
+					fetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
+				}
+				fetishes.add(Fetish.FETISH_ANAL_RECEIVING);
+				fetishes.add(Fetish.FETISH_SUBMISSIVE);
+				if(Sex.getTargetedPartner(characterPerformingAction).hasPenis()) {
+					fetishes.add(Fetish.FETISH_PENIS_RECEIVING);
+				}
+			} else {
+				if(Sex.getTargetedPartner(characterPerformingAction).hasVagina()) {
+					fetishes.add(Fetish.FETISH_VAGINAL_GIVING);
+				}
+				fetishes.add(Fetish.FETISH_ANAL_GIVING);
+				fetishes.add(Fetish.FETISH_DOMINANT);
+				if(characterPerformingAction.hasPenis()) {
+					fetishes.add(Fetish.FETISH_PENIS_GIVING);
+				}
+			}
+			return new ArrayList<>(fetishes);
+		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isBeingPenetrated()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
 	};
 	
 	public static final SexAction REQUEST_POSITION_ALL_FOURS_GETTING_FUCKED = new SexAction(
@@ -1088,6 +1202,10 @@ public class GenericPositioningNew {
 		public void applyEffects() {
 			Sex.setPositionRequest(generateReceivingAllFoursData(Sex.getCharacterPerformingAction()));
 		}
+		@Override
+		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+			return POSITION_ALL_FOURS_GETTING_FUCKED.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes);
+		}
 	};
 	
 	public static final SexAction POSITION_ALL_FOURS_FUCKING = new SexAction(
@@ -1155,6 +1273,37 @@ public class GenericPositioningNew {
 		@Override
 		public void applyEffects() {
 			setNewSexManager(generatePerformingAllFoursData(Sex.getCharacterTargetedForSexAction(this)), false);
+		}
+		@Override
+		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+			Set<Fetish> fetishes = new HashSet<>(super.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes));
+			if(characterPerformingActionFetishes) {
+				if(Sex.getTargetedPartner(characterPerformingAction).hasVagina()) {
+					fetishes.add(Fetish.FETISH_VAGINAL_GIVING);
+				}
+				fetishes.add(Fetish.FETISH_ANAL_GIVING);
+				fetishes.add(Fetish.FETISH_DOMINANT);
+				if(characterPerformingAction.hasPenis()) {
+					fetishes.add(Fetish.FETISH_PENIS_GIVING);
+				}
+			} else {
+				if(characterPerformingAction.hasVagina()) {
+					fetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
+				}
+				fetishes.add(Fetish.FETISH_ANAL_RECEIVING);
+				fetishes.add(Fetish.FETISH_SUBMISSIVE);
+				if(Sex.getTargetedPartner(characterPerformingAction).hasPenis()) {
+					fetishes.add(Fetish.FETISH_PENIS_RECEIVING);
+				}
+			}
+			return new ArrayList<>(fetishes);
+		}
+		@Override
+		public SexActionPriority getPriority() {
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
 		}
 	};
 	
@@ -1229,9 +1378,11 @@ public class GenericPositioningNew {
 		public void applyEffects() {
 			Sex.setPositionRequest(generatePerformingAllFoursData(Sex.getCharacterTargetedForSexAction(this)));
 		}
+		@Override
+		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
+			return POSITION_ALL_FOURS_FUCKING.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes);
+		}
 	};
-	
-	
 	
 	
 	
@@ -1421,7 +1572,7 @@ public class GenericPositioningNew {
 
 		@Override
 		public void applyEffects() {
-			if(((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
+			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
 					Sex.getPositionRequest().getPosition(),
 					Sex.getPositionRequest().getPartnerSlots().get(0),
 					Sex.getPositionRequest().getPerformerSlots().get(0),

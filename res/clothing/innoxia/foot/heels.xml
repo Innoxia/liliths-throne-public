@@ -36,9 +36,9 @@
 		
 		<primaryColours values="ALL"/> 
 		<primaryColoursDye/>
-		<secondaryColours values="JUST_TAN"/>
+		<secondaryColours values="JUST_BLACK"/>
 		<secondaryColoursDye values="ALL"/>
-		<tertiaryColours values="JSUT_BLACK"/>
+		<tertiaryColours values="JUST_TAN"/>
 		<tertiaryColoursDye values="ALL"/>
 		
 		<itemTags> 
@@ -48,25 +48,25 @@
 
   <replacementText type="REMOVE_OR_EQUIP">
     <self>
-      <![CDATA[[npc.Name] [npc.verb(slip)] [npc.her] [npc.feet] into the flats.]]>
+      <![CDATA[[npc.Name] [npc.verb(slip)] [npc.her] [npc.feet] into the heels.]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(slip)] [npc2.namePos] [npc2.feet] into the flats.]]>
+      <![CDATA[[npc.Name] [npc.verb(slip)] [npc2.namePos] [npc2.feet] into the heels.]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.feet] into the flats.]]>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.feet] into the heels.]]>
     </otherRough>
   </replacementText>
 
   <displacementText type="REMOVE_OR_EQUIP">
     <self>
-      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc.her] flats.]]>
+      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc.her] heels.]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(slips)] off [npc2.namePos] flats.]]>
+      <![CDATA[[npc.Name] [npc.verb(slips)] off [npc2.namePos] heels.]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] flats.]]>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] heels.]]>
     </otherRough>
   </displacementText>
 	

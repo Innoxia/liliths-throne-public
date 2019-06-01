@@ -17,7 +17,7 @@
 	<p style='text-align:center;'>
 		<i>
 			<b>Bureau of Demographics</b><br/>
-			Manager: Ms. [vanessa.nameFull(true)]<br/><br/>
+			Manager: Ms. Cunningham<br/><br/>
 			
 			Public services provided:<br/>
 			- Official name changes<br/>
@@ -195,9 +195,26 @@
 			Doing as you're told, you grab the box and follow in [vanessa.namePos] footsteps as she leads you into the maze-like shelving of the archives. Soon arriving at your destination, the fox-girl turns towards you and says, [vanessa.speech(The papers within the box are already sorted alphabetically, so all you need to do is to slot them into the shelves in the correct order. I'll be back in a moment.)]
 		</p>
 		<p>
-			With that, [vanessa.name] hurries off to fetch a box of her own, and within a couple of minutes, she returns and places it down next to yours. Although initially distressed at the thought of the two of you being caught, [vanessa.name] soon starts to relax, and as you each set about filing the papers in your respective boxes, she smirks and remarks, [vanessa.speech(Getting help without submitting the proper forms... This is so naughty!)]
+			With that, [vanessa.name] hurries off to fetch a box of her own, and within a couple of minutes, she returns and places it down next to yours. Although initially distressed at the thought of the two of you being caught, [vanessa.name] soon starts to relax, and as you each set about filing the papers in your respective boxes, she smirks and remarks, [vanessa.speech(Getting help without submitting the proper forms... This is so naughty! Seeing as we're breaking regulations as it is, you can call me by my first name... It's Vanessa...)]
 		</p>
 	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFER_HELP_MS_CUNNINGHAM"><![CDATA[
+		<p>
+			[pc.speech(I'd feel more comfortable continuing to call you 'Ms. Cunningham',)] you reply, smiling at the elderly fox-girl to let her know that you aren't trying to be rude.
+		</p>
+		<p>
+			[vanessa.speech(Oh, well that's fine too,)] [vanessa.name] says, [vanessa.speech(but if you change your mind, feel free to call me Vanessa at any time!)]
+		</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFER_HELP_VANESSA"><![CDATA[
+		<p>
+			[pc.speech(Sure thing, Vanessa,)] you reply, smiling at the elderly fox-girl to let her know that you're more than happy to be on such familiar terms with her.
+		</p>
 	]]>
 	</htmlContent>
 	
@@ -576,7 +593,7 @@
 		Almost instantly, a voice crackles into life through the arcane device, [genericFemale.speech(Understood, Ms. Cunningham. I'll be right down.)]
 	</p>
 	<p>
-		Sure enough, after about two minutes, a bright-eyed cat-girl enters the office, and after collecting both the crystal and the fifty-thousand flame fee, she rushes off to get your map made. Thankfully, the both the process of creation and the accompanying admin work don't take too long, and after you and [vanessa.name] have spent fifteen or so minutes filling out the necessary paperwork, Judy returns.
+		Sure enough, after about two minutes, a bright-eyed cat-girl enters the office, and after collecting both the crystal and the fifty-thousand flame fee, she rushes off to get your map made. Thankfully, both the process of creation and the accompanying admin work don't take too long, and after you and [vanessa.name] have spent fifteen or so minutes filling out the necessary paperwork, Judy returns.
 	</p>
 	<p>
 		[genericFemale.speech(Here you are, Ms. Cunningham,)] she says, placing the folded map down onto the desk before the elderly fox-girl, before quickly scurrying out of the room.

@@ -91,9 +91,10 @@ public enum SVGImages {
 			coverableAreaThighs,
 			coverableAreaUrethraPenis,
 			
-			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue, penetrationTypeFoot,
+			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue, penetrationTypeFoot, penetrationTypeClit,
 			combinationStretching, combinationTooLoose, combinationWet, combinationDry,
-			stretching, holeTooBig;
+			stretching, holeTooBig,
+			activeSexBackground;
 
 	private Map<Integer, String> youkoTailsMap = new HashMap<>();
 	private Map<Integer, String> youkoTailsDesaturatedMap = new HashMap<>();
@@ -669,6 +670,9 @@ public enum SVGImages {
 			penetrationTypeTongue = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeFoot.svg");
 			penetrationTypeFoot = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeClit.svg");
+			penetrationTypeClit = Util.inputStreamToString(is);
+			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationStretching.svg");
 			combinationStretching = Util.inputStreamToString(is);
@@ -684,6 +688,10 @@ public enum SVGImages {
 			stretching = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/holeTooBig.svg");
 			holeTooBig = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/active_background.svg");
+			activeSexBackground = Util.inputStreamToString(is);
+			
 			
 			String tempString = "";
 			for(AbstractItemEffectType effect : ItemEffectType.getAllEffectTypes()) {
@@ -1091,6 +1099,10 @@ public enum SVGImages {
 		return penetrationTypeFoot;
 	}
 	
+	public String getPenetrationTypeClit() {
+		return penetrationTypeClit;
+	}
+	
 	public String getCombinationStretching() {
 		return combinationStretching;
 	}
@@ -1113,6 +1125,10 @@ public enum SVGImages {
 	
 	public String getHoleTooBig() {
 		return holeTooBig;
+	}
+
+	public String getActiveSexBackground() {
+		return activeSexBackground;
 	}
 
 	public Map<Colour, String> getRefinedBackgroundMap() {

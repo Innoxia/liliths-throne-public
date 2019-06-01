@@ -515,7 +515,7 @@ public class FingerVagina {
 			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE) {
@@ -1040,7 +1040,7 @@ public class FingerVagina {
 			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.ONE_VANILLA,
+			CorruptionLevel.THREE_DIRTY,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {

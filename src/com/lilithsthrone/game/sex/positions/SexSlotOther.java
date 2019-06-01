@@ -108,7 +108,7 @@ public class SexSlotOther {
 	};
 	
 	
-	/* MOUTING */
+	/* MOUNTING */
 	
 	public static final SexSlot ALL_FOURS_FUCKED = new SexSlot(
 			"Standing/On all fours",
@@ -126,8 +126,8 @@ public class SexSlotOther {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			GameCharacter partner = Sex.getCharacterInPosition(ALL_FOURS_MOUNTING);
-			GameCharacter oralpartner = Sex.getCharacterInPosition(IN_FRONT_OF_ALL_FOURS_TARGET);
-			if(oralpartner!=null || partner==null || target.getLegConfiguration()!=LegConfiguration.TAUR) {
+			GameCharacter oralPartner = Sex.getCharacterInPosition(IN_FRONT_OF_ALL_FOURS_TARGET);
+			if(oralPartner!=null || partner==null || target.getLegConfiguration()!=LegConfiguration.TAUR) {
 				return false; // If nobody is fucking them, they are not a taur, or if they are performing oral, they kneel.
 			}
 			
@@ -152,9 +152,9 @@ public class SexSlotOther {
 		public boolean isStanding(GameCharacter target) {
 			GameCharacter partner = Sex.getCharacterInPosition(ALL_FOURS_MOUNTING);
 			GameCharacter partner2 = Sex.getCharacterInPosition(ALL_FOURS_MOUNTING_TWO);
-			GameCharacter oralpartner = Sex.getCharacterInPosition(IN_FRONT_OF_ALL_FOURS_TARGET);
-			GameCharacter oralpartner2 = Sex.getCharacterInPosition(IN_FRONT_OF_ALL_FOURS_TARGET_TWO);
-			if(oralpartner!=null || oralpartner2!=null || (partner==null && partner2==null) || target.getLegConfiguration()!=LegConfiguration.TAUR) {
+			GameCharacter oralPartner = Sex.getCharacterInPosition(IN_FRONT_OF_ALL_FOURS_TARGET);
+			GameCharacter oralPartner2 = Sex.getCharacterInPosition(IN_FRONT_OF_ALL_FOURS_TARGET_TWO);
+			if(oralPartner!=null || oralPartner2!=null || (partner==null && partner2==null) || target.getLegConfiguration()!=LegConfiguration.TAUR) {
 				return false; // If nobody is fucking them, they are not a taur, or if they are performing oral, they kneel.
 			}
 			

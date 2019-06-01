@@ -55,7 +55,8 @@ public class SALilayaSpecials {
 					&& !SexFlags.characterRequestedPullOut
 					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
 					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
-					&& !Sex.getCharacterPerformingAction().isPlayer();
+					&& !Sex.getCharacterPerformingAction().isPlayer()
+					&& Main.game.getPlayer().hasPenisIgnoreDildo();
 		}
 
 		@Override
@@ -157,7 +158,8 @@ public class SALilayaSpecials {
 			return Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
 					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
 					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
-					&& !Sex.getCharacterPerformingAction().isPlayer();
+					&& !Sex.getCharacterPerformingAction().isPlayer()
+					&& Main.game.getPlayer().hasPenisIgnoreDildo();
 		}
 
 		@Override

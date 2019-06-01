@@ -350,7 +350,7 @@ public class FingerBreastsCrotch {
 			if(!Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.NIPPLES_CROTCH)
 					&& Sex.getCharacterTargetedForSexAction(this).getBreastCrotchStoredMilk().getMinimumValue()>=Lactation.ONE_TRICKLE.getMinimumValue()
 					&& Sex.getCharacterTargetedForSexAction(this).getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH)!=null) {
-				Sex.getCharacterTargetedForSexAction(this).getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).setDirty(true);
+				Sex.getCharacterTargetedForSexAction(this).getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).setDirty(Sex.getCharacterTargetedForSexAction(this), true);
 			}
 		}
 		
@@ -708,7 +708,7 @@ public class FingerBreastsCrotch {
 			if(!Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.NIPPLES_CROTCH)
 					&& Sex.getCharacterPerformingAction().getBreastCrotchStoredMilk().getMinimumValue()>=Lactation.ONE_TRICKLE.getMinimumValue()
 					&& Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH)!=null) {
-				Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).setDirty(true);
+				Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).setDirty(Sex.getCharacterPerformingAction(), true);
 			}
 		}
 		

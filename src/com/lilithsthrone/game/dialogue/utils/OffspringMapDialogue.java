@@ -44,7 +44,7 @@ public class OffspringMapDialogue {
 			
 			UtilText.nodeContentSB.append(
 					"<p>"
-						+ "The arcane enchantment in the map causes a list of names of all your unmet offspring to be displayed, while corresponding dots show their exact location within Dominion."
+						+ "The arcane enchantment in the map causes a list of names of all your unmet offspring to be projected into the air in front of you, with corresponding dots showing their exact location on the physical map itself."
 						+ (noOffspring
 								? " It doesn't look like you have any unmet offspring to be found right now..."
 								: " Luckily, it looks like one of your offspring is in this very area."
@@ -58,13 +58,18 @@ public class OffspringMapDialogue {
 				} else {
 					for(NPC npc : Main.game.getOffspringNotSpawned(npc->true)) {
 						if(!getOffspringList().contains(npc)) {
-							UtilText.nodeContentSB.append("[style.colourDisabled("+npc.getName(true)+")] ("+Util.capitaliseSentence(npc.getSubspecies().getName(npc))+")"
+							UtilText.nodeContentSB.append("[style.colourDisabled("+(npc.isPlayer()?"You":Util.capitaliseSentence(npc.getName(true)))+")]"
+									+ " ("+Util.capitaliseSentence(npc.getSubspecies().getName(npc))+")"
 									+ " Mother: "+npc.getMother().getName(true)
-									+ " Father: "+npc.getFather().getName(true)+"<br/>");
+									+ " Father: "+npc.getFather().getName(true)
+									+ "<br/>");
 							
 						} else {
-							UtilText.nodeContentSB.append("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span> ("+npc.getSubspecies().getName(npc)+")"
-									+ " M:"+npc.getMother().getName(true)+" F:"+npc.getFather().getName(true)+"<br/>");
+							UtilText.nodeContentSB.append("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+(npc.isPlayer()?"You":Util.capitaliseSentence(npc.getName(true)))+"</span>"
+									+ " ("+Util.capitaliseSentence(npc.getSubspecies().getName(npc))+")"
+									+ " Mother: "+npc.getMother().getName(true)
+									+ " Father: "+npc.getFather().getName(true)
+									+ "<br/>");
 						}
 					}
 				}
@@ -84,7 +89,7 @@ public class OffspringMapDialogue {
 				
 				if(!getOffspringList().contains(offspring)) {
 					return new Response(offspring.getName(true),
-							UtilText.parse(offspring,"[npc.Name] cannot be found in Dominion, due to [npc.her] subspecies..."),
+							UtilText.parse(offspring,"[npc.Name] cannot be found in this area, due to [npc.her] subspecies..."),
 							null);
 				}
 				

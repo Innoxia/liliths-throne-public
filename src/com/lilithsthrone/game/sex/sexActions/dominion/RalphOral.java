@@ -1708,7 +1708,7 @@ public class RalphOral {
 					&& Main.game.getPlayer().getPenisType()!=PenisType.NONE
 					&& !Main.game.getPlayer().isWearingCondom()
 					&& Main.game.getPlayer().getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE)
-				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
+				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(Main.game.getPlayer(), true);
 			
 			if(SexFlags.customerAtCounter) {
 				if(SexFlags.ralphDiscount>0)

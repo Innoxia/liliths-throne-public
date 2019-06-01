@@ -1007,7 +1007,7 @@ public class SlaverAlleyDialogue {
 							+" use.</p>");
 				} else {
 					UtilText.nodeContentSB.append(
-							" receiving oral only.</p>");
+							" [style.boldBad(no penetration at all)].</p>");
 				}
 			}
 			

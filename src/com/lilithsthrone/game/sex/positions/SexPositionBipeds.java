@@ -60,7 +60,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * AbstractSexPositions for bipeds-on-taurs.
  * 
  * @since 0.1.97
- * @version 0.3.1
+ * @version 0.3.3
  * @author Innoxia
  */
 public class SexPositionBipeds {
@@ -556,6 +556,7 @@ public class SexPositionBipeds {
 			}
 			return null;
 		}
+		
 		@Override
 		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
 			return false;
@@ -2139,10 +2140,10 @@ public class SexPositionBipeds {
 			return positionSB.toString();
 		}
 		
-		private boolean isTargetOnBack(GameCharacter target) {
-			return Sex.getSexPositionSlot(target) == SexSlotBipeds.MISSIONARY_ON_BACK || Sex.getSexPositionSlot(target) == SexSlotBipeds.MISSIONARY_ON_BACK_SECOND
-					|| Sex.getSexPositionSlot(target) == SexSlotBipeds.MISSIONARY_ON_BACK_THIRD || Sex.getSexPositionSlot(target) == SexSlotBipeds.MISSIONARY_ON_BACK_FOURTH;
-		}
+//		private boolean isTargetOnBack(GameCharacter target) {
+//			return Sex.getSexPositionSlot(target) == SexSlotBipeds.MISSIONARY_ON_BACK || Sex.getSexPositionSlot(target) == SexSlotBipeds.MISSIONARY_ON_BACK_SECOND
+//					|| Sex.getSexPositionSlot(target) == SexSlotBipeds.MISSIONARY_ON_BACK_THIRD || Sex.getSexPositionSlot(target) == SexSlotBipeds.MISSIONARY_ON_BACK_FOURTH;
+//		}
 
 		@Override
 		public SexActionInteractions getSexInteractions(SexSlot performer, SexSlot target) {
@@ -2496,35 +2497,38 @@ public class SexPositionBipeds {
 			return super.getSexInteractions(performer, target);
 		}
 		
-		@Override
-		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
-			// Restrict penis actions if there is already an ongoing penis action between on back and between legs slots:
-			if(((Sex.getSexPositionSlot(performer) == SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(performer) == SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND) && isTargetOnBack(target))
-					|| ((Sex.getSexPositionSlot(target) == SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(target) == SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND) && isTargetOnBack(performer))) {
-				if((action.getActionType()==SexActionType.START_ONGOING
-						|| action.getActionType()==SexActionType.REQUIRES_EXPOSED)
-						&& action.getSexAreaInteractions().keySet().contains(SexAreaPenetration.PENIS)) {
-					for(SexAreaInterface sa : action.getSexAreaInteractions().values()) {
-						if(sa.isOrifice()
-								&& (Sex.getCharactersHavingOngoingActionWith(performer, SexAreaPenetration.PENIS).contains(target) || Sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).contains(performer))) {
-							return true;
-						}
-					}
-				}
-				if((action.getActionType()==SexActionType.START_ONGOING
-						|| action.getActionType()==SexActionType.REQUIRES_EXPOSED)
-						&& action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)) {
-					for(SexAreaInterface sa : action.getSexAreaInteractions().keySet()) {
-						if(sa.isOrifice()
-								&& (Sex.getCharactersHavingOngoingActionWith(performer, SexAreaPenetration.PENIS).contains(target) || Sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).contains(performer))) {
-							return true;
-						}
-					}
-				}
-			}
-			
-			return super.isActionBlocked(performer, target, action);
-		}
+//		@Override
+//		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+//			// Restrict penis actions if there is already an ongoing penis action between on back and between legs slots:
+//			if(((Sex.getSexPositionSlot(performer) == SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(performer) == SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND) && isTargetOnBack(target))
+//					|| ((Sex.getSexPositionSlot(target) == SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(target) == SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND) && isTargetOnBack(performer))) {
+//				
+//				if(!action.isSwitchOngoingActionAvailable()) {
+//					if((action.getActionType()==SexActionType.START_ONGOING
+//							|| action.getActionType()==SexActionType.REQUIRES_EXPOSED)
+//							&& action.getSexAreaInteractions().keySet().contains(SexAreaPenetration.PENIS)) {
+//						for(SexAreaInterface sa : action.getSexAreaInteractions().values()) {
+//							if(sa.isOrifice()
+//									&& (Sex.getCharactersHavingOngoingActionWith(performer, SexAreaPenetration.PENIS).contains(target) || Sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).contains(performer))) {
+//								return true;
+//							}
+//						}
+//					}
+//					if((action.getActionType()==SexActionType.START_ONGOING
+//							|| action.getActionType()==SexActionType.REQUIRES_EXPOSED)
+//							&& action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)) {
+//						for(SexAreaInterface sa : action.getSexAreaInteractions().keySet()) {
+//							if(sa.isOrifice()
+//									&& (Sex.getCharactersHavingOngoingActionWith(performer, SexAreaPenetration.PENIS).contains(target) || Sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).contains(performer))) {
+//								return true;
+//							}
+//						}
+//					}
+//				}
+//			}
+//			
+//			return super.isActionBlocked(performer, target, action);
+//		}
 
 		@Override
 		public int getMaximumSlots() {

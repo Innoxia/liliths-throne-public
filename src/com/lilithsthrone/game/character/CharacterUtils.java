@@ -926,8 +926,8 @@ public class CharacterUtils {
 //		return (int) ((baseSize + (Math.signum(difference)*Util.random.nextInt(Math.abs(difference) +1)))*(0.9f+(Math.random()*0.2f)));
 	}
 
-	public static Body generateHalfDemonBody(GameCharacter linkedCharacter, Subspecies halfSubspecies, boolean applyHalfDemonAttributeChanges) {
-		Gender startingGender;
+	public static Body generateHalfDemonBody(GameCharacter linkedCharacter, Gender startingGender, Subspecies halfSubspecies, boolean applyHalfDemonAttributeChanges) {
+//		Gender startingGender;
 		RaceStage stage;
 		AbstractRacialBody demonBody = RacialBody.DEMON;
 		
@@ -1157,7 +1157,7 @@ public class CharacterUtils {
 				species = Util.randomItemFrom(slimeSubspecies);
 				
 				if(isHalfDemon) {
-					return generateHalfDemonBody(linkedCharacter, species, true);
+					return generateHalfDemonBody(linkedCharacter, startingGender, species, true);
 				}
 				
 				if(startingGender.isFeminine()) {

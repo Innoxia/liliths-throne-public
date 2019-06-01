@@ -4610,7 +4610,7 @@ public class MainControllerInitMethod {
 				}
 			}
 			
-			for (AbstractWeaponType weapon : WeaponType.getAllweapons()) {
+			for (AbstractWeaponType weapon : WeaponType.getAllWeapons()) {
 				for (DamageType dt : weapon.getAvailableDamageTypes()) {
 					if ((EventTarget) MainController.document.getElementById(weapon.hashCode() + "_" + dt.toString()) != null) {
 						MainController.addEventListener(MainController.document, weapon.hashCode() + "_" + dt.toString(), "mousemove", MainController.moveTooltipListener, false);

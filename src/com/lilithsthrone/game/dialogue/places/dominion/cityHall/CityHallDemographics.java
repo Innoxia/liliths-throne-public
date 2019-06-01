@@ -31,7 +31,6 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
-
 /**
  * @since 0.3.2
  * @version 0.3.2
@@ -51,7 +50,7 @@ public class CityHallDemographics {
 			if (index == 1) {
 				return new Response("Ring bell",
 						Main.game.getPlayer().hasCompanions()
-							?UtilText.parse(Main.game.getPlayer().getMainCompanion(), "Tell [npc.name] to wait outside, before ringing the little bell on [vanessa.namePos] desk and waitint for her to appear.")
+							?UtilText.parse(Main.game.getPlayer().getMainCompanion(), "Tell [npc.name] to wait outside, before ringing the little bell on [vanessa.namePos] desk and waiting for her to appear.")
 							:"Ring the little bell on [vanessa.namePos] desk and wait for her to appear.",
 						CITY_HALL_DEMOGRAPHICS_MAIN) {
 					@Override
@@ -111,6 +110,10 @@ public class CityHallDemographics {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaDailyHelped, true);
 						Main.game.getNpc(Vanessa.class).setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_ARCHIVES);
 						Main.game.getPlayer().setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_ARCHIVES);
+						
+						for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
+							character.setNearestLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_CORRIDOR, false);
+						}
 					}
 				};
 				
@@ -173,7 +176,15 @@ public class CityHallDemographics {
 					}
 				};
 				
-			} else if (index == 0) {
+			} else if(index==10 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaHelped)) {
+				return new ResponseEffectsOnly("Calling her: [vanessa.Name]", "Cycle between calling the elderly fox-girl 'Ms. Cunningham' and 'Vanessa'.") {
+					@Override
+					public void effects() {
+						Main.game.getNpc(Vanessa.class).setPlayerKnowsName(!Main.game.getNpc(Vanessa.class).isPlayerKnowsName());
+					}
+				};
+				
+			} if (index == 0) {
 				return new Response("Leave", "Decide against bothering [vanessa.name], and head back out into the corridor.", CityHall.CITY_HALL_CORRIDOR) {
 					@Override
 					public void effects() {
@@ -229,16 +240,62 @@ public class CityHallDemographics {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Get to work", "Work alongside [vanessa.name] and get all of the papers catalogued.", OFFER_HELP_FINISH) {
-					@Override
-					public void effects() {
-						Main.game.getNpc(Vanessa.class).setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
-						Main.game.getPlayer().setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 10));
-					}
-				};
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaHelped)) {
+				if (index == 1) {
+					return new Response("Work", "Get to work alongside [vanessa.name] cataloguing these papers.", OFFER_HELP_FINISH) {
+						@Override
+						public void effects() {
+							Main.game.getNpc(Vanessa.class).setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
+							Main.game.getPlayer().setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 10));
+							
+							for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
+								character.setNearestLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_CORRIDOR, false);
+							}
+						}
+					};	
+					
+				}
+				
+			} else {
+				if (index == 1) {
+					return new Response("Vanessa", "Tell the elderly fox-girl that you'd be happy to call her 'Vanessa', before getting to work on cataloguing papers.", OFFER_HELP_FINISH) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "OFFER_HELP_VANESSA"));
+							
+							Main.game.getNpc(Vanessa.class).setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
+							Main.game.getPlayer().setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 15));
+							
+							for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
+								character.setNearestLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_CORRIDOR, false);
+							}
+							Main.game.getNpc(Vanessa.class).setPlayerKnowsName(true);
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaHelped, true);
+						}
+					};	
+					
+				} else if(index==2) {
+					return new Response("Ms. Cunningham", "Tell the elderly fox-girl that you prefer to call her 'Ms. Cunningham', before getting to work on cataloguing papers.", OFFER_HELP_FINISH) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "OFFER_HELP_MS_CUNNINGHAM"));
+							
+							Main.game.getNpc(Vanessa.class).setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
+							Main.game.getPlayer().setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 10));
+							
+							for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
+								character.setNearestLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_CORRIDOR, false);
+							}
+							Main.game.getNpc(Vanessa.class).setPlayerKnowsName(false);
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaHelped, true);
+						}
+					};
+				}
 			}
+			
 			return null;
 		}
 	};
@@ -396,7 +453,7 @@ public class CityHallDemographics {
 								UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "START_SEX_EATEN_OUT")){
 							@Override
 							public List<InitialSexActionInformation> getInitialSexActions() {
-								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Vanessa.class), PenisVagina.PENIS_FUCKING_START, false, true));
+								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Vanessa.class), Main.game.getPlayer(), TongueVagina.CUNNILINGUS_START, false, true));
 							}
 							@Override
 							public void effects() {
@@ -550,7 +607,7 @@ public class CityHallDemographics {
 							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='surnameInput' value='"+ UtilText.parseForHTMLDisplay(Main.game.getPlayer().getSurname())+ "'></form>"
 						+ "</div>"
 						+ "<br/>"
-						+ "<i>Your name must be between 2 and 16 characters long. You cannot use the square bracket characters or full stops. (Surname may be left blank.)</i>"
+						+ "<i>Your name must be between 2 and 32 characters long. You cannot use the square bracket characters or full stops. (Surname may be left blank.)</i>"
 						+ (unsuitableName ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid name.</b></p>" : "")
 						+ (unsuitableSurname ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid Surname.</b></p>" : "")
 					+ "</div>"
@@ -632,7 +689,7 @@ public class CityHallDemographics {
 		}
 		Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldSurname').innerHTML=document.getElementById('surnameInput').value;");
 		if(Main.mainController.getWebEngine().getDocument()!=null) {
-			if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()==0
+			if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
 					&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 32
 							|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
 				unsuitableSurname = true;

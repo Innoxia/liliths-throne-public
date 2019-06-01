@@ -1089,8 +1089,8 @@ public class PhoneDialogue {
 			String child_name = ChildMet(npc) ? npc.getName(true) : "Unknown";
 			String race_color = npc.getRace().getColour().toWebHexString();
 			String species_name = female
-								? npc.getSubspecies().getSingularFemaleName(npc)
-								: npc.getSubspecies().getSingularMaleName(npc);
+								? Util.capitaliseSentence(npc.getSubspecies().getSingularFemaleName(npc))
+								: Util.capitaliseSentence(npc.getSubspecies().getSingularMaleName(npc));
 			String mother = npc.getMother() == null ? "???" : (npc.getMother().isPlayer() ? "[style.colourExcellent(You)]" : npc.getMother().getName(true));
 			String father = npc.getFather() == null ? "???" : (npc.getFather().isPlayer() ? "[style.colourExcellent(You)]" : npc.getFather().getName(true));
 			Set<Relationship> extraRelationships = Main.game.getPlayer().getRelationshipsTo(npc, Relationship.Parent);
@@ -1098,6 +1098,11 @@ public class PhoneDialogue {
 			List<String> relationships = extraRelationships.stream().map((relationship) -> relationship.getName(Main.game.getPlayer())).collect(Collectors.toList());
 			if(npc.getMother()!=null && npc.getMother().isPlayer()) {
 				relationships.add(0, "Mother");
+				
+				if(npc.getFather()!=null && npc.getFather().isPlayer()) {
+					relationships.add(1, "father");
+				}
+				
 			} else {
 				relationships.add(0, "Father");
 			}
@@ -1715,7 +1720,7 @@ public class PhoneDialogue {
 		itemsDiscoveredList.addAll(ItemType.getAllItems());
 		itemsDiscoveredList.sort(new ItemTypeRarityComparator());
 		
-		weaponsDiscoveredList.addAll(WeaponType.getAllweapons());
+		weaponsDiscoveredList.addAll(WeaponType.getAllWeapons());
 		weaponsDiscoveredList.sort(new WeaponTypeRarityComparator());
 		
 		clothingDiscoveredList.addAll(ClothingType.getAllClothing());

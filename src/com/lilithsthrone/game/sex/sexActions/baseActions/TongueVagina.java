@@ -225,6 +225,15 @@ public class TongueVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			try {
+				if(!Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH)) {
+					return false;
+				}
+			} catch(Exception ex) {
+				return false; // No available finger-mouth actions, so can't reach face
+			}
+			
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Sex.getPenetrationTypeFreeCount(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
 					&& !Sex.getSexManager().getSlotsConcealed(Sex.getCharacterTargetedForSexAction(this)).contains(InventorySlot.HAIR)
@@ -330,6 +339,15 @@ public class TongueVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			try {
+				if(!Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH)) {
+					return false;
+				}
+			} catch(Exception ex) {
+				return false; // No available finger-mouth actions, so can't reach face
+			}
+			
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Sex.getPenetrationTypeFreeCount(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
 					&& !Sex.getSexManager().getSlotsConcealed(Sex.getCharacterTargetedForSexAction(this)).contains(InventorySlot.HEAD)
@@ -422,7 +440,7 @@ public class TongueVagina {
 
 		@Override
 		public String getActionDescription() {
-			return "Grab one of [npc2.namePos] [npc.horns+] in each [npc.hand] and pull [npc2.her] [npc2.face] forwards into your [npc.pussy+].";
+			return "Grab one of [npc2.namePos] [npc2.horns+] in each [npc.hand] and pull [npc2.her] [npc2.face] forwards into your [npc.pussy+].";
 		}
 		
 		@Override
@@ -432,6 +450,15 @@ public class TongueVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			try {
+				if(!Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH)) {
+					return false;
+				}
+			} catch(Exception ex) {
+				return false; // No available finger-mouth actions, so can't reach face
+			}
+			
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Sex.getPenetrationTypeFreeCount(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
 					&& !Sex.getSexManager().getSlotsConcealed(Sex.getCharacterTargetedForSexAction(this)).contains(InventorySlot.HORNS)
@@ -447,26 +474,26 @@ public class TongueVagina {
 			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Taking hold of one of [npc2.namePos] [npc.horns+] in each [npc.hand], [npc.name] gently [npc.verb(pull)] [npc2.her] forwards, forcing [npc2.herHim] to push [npc2.her] [npc2.tongue+] deep into [npc.her] [npc.pussy].",
-							"Reaching down to take a gentle, but firm, grip on each of [npc2.namePos] [npc.horns+], [npc.name] slowly [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
+							"Taking hold of one of [npc2.namePos] [npc2.horns+] in each [npc.hand], [npc.name] gently [npc.verb(pull)] [npc2.her] forwards, forcing [npc2.herHim] to push [npc2.her] [npc2.tongue+] deep into [npc.her] [npc.pussy].",
+							"Reaching down to take a gentle, but firm, grip on each of [npc2.namePos] [npc2.horns+], [npc.name] slowly [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
 									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to perform cunnilingus on [npc.herHim].",
-							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] [npc.horns+],"
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] [npc2.horns+],"
 									+ " before gently pulling [npc2.herHim] forwards, grinding [npc.her] [npc.labia+] against [npc2.her] [npc2.mouth]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Roughly grasping [npc2.namePos] [npc.horns+] in each [npc.hand], [npc.name] violently [npc.verb(jerk)] [npc2.her] head forwards, forcing [npc2.herHim] to push [npc2.her] [npc2.tongue+] deep into [npc.her] [npc.pussy].",
-							"Reaching down to grab [npc2.namePos] [npc.horns+] in each fist, [npc.name] mercilessly [npc.verb(yank)] [npc2.her] head into [npc2.her] groin,"
+							"Roughly grasping [npc2.namePos] [npc2.horns+] in each [npc.hand], [npc.name] violently [npc.verb(jerk)] [npc2.her] head forwards, forcing [npc2.herHim] to push [npc2.her] [npc2.tongue+] deep into [npc.her] [npc.pussy].",
+							"Reaching down to grab [npc2.namePos] [npc2.horns+] in each fist, [npc.name] mercilessly [npc.verb(yank)] [npc2.her] head into [npc2.her] groin,"
 									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to perform cunnilingus on [npc.herHim].",
-							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to grab [npc2.namePos] [npc.horns+],"
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to grab [npc2.namePos] [npc2.horns+],"
 									+ " before violently yanking [npc2.herHim] forwards, grinding [npc.her] [npc.labia+] against [npc2.her] [npc2.mouth]."));
 					break;
 				default: // For dom normal, sub normal, and sub eager:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Taking hold of one of [npc2.namePos] [npc.horns+] in each [npc.hand], [npc.name] firmly [npc.verb(pull)] [npc2.her] head forwards, forcing [npc2.herHim] to push [npc2.her] [npc2.tongue+] deep into [npc.her] [npc.pussy].",
-							"Reaching down to take a firm grip on each of [npc2.namePos] [npc.horns+], [npc.name] steadily [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
+							"Taking hold of one of [npc2.namePos] [npc2.horns+] in each [npc.hand], [npc.name] firmly [npc.verb(pull)] [npc2.her] head forwards, forcing [npc2.herHim] to push [npc2.her] [npc2.tongue+] deep into [npc.her] [npc.pussy].",
+							"Reaching down to take a firm grip on each of [npc2.namePos] [npc2.horns+], [npc.name] steadily [npc.verb(pull)] [npc2.her] into [npc2.her] groin,"
 									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to perform cunnilingus on [npc.herHim].",
-							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] [npc.horns+],"
+							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] [npc2.horns+],"
 									+ " before steadily pulling [npc2.herHim] forwards, grinding [npc.her] [npc.labia+] against [npc2.her] [npc2.mouth]."));
 					break;
 			}

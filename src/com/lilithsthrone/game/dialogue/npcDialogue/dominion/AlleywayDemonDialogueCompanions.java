@@ -299,7 +299,7 @@ public class AlleywayDemonDialogueCompanions {
 					} else {
 						return new ResponseSex(UtilText.parse(companion, "Offer threesome"),
 								UtilText.parse(getDemon(), companion, "Offer [npc.name] the opportunity to have sex with both you and [npc2.name] in order to avoid a violent confrontation."),
-								true, true,
+								true, false,
 								new SMGeneric(
 										Util.newArrayListOfValues(getDemon()),
 										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
@@ -477,7 +477,7 @@ public class AlleywayDemonDialogueCompanions {
 					} else {
 						return new ResponseSex(UtilText.parse(companion, "Offer threesome"),
 								UtilText.parse(getDemon(), companion, "Offer [npc.name] the opportunity to have sex with both you and [npc2.name] in order to avoid a violent confrontation."),
-								true, true,
+								true, false,
 								new SMGeneric(
 										Util.newArrayListOfValues(getDemon()),
 										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
@@ -802,7 +802,7 @@ public class AlleywayDemonDialogueCompanions {
 				} else {
 					return new ResponseSex(UtilText.parse(companion, "Offer threesome"),
 							UtilText.parse(getDemon(), companion, "Offer [npc.name] the opportunity to have sex with both you and [npc2.name] in order to avoid a violent confrontation."),
-							true, true,
+							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(getDemon()),
 									Util.newArrayListOfValues(Main.game.getPlayer(), companion),

@@ -4213,7 +4213,7 @@ public class ItemType {
 		}
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You need to be in one of Dominion's alleyway tiles, and with no character present in that tile, in order to be able to use the map!";
+			return "You need to be in one of Dominion's alleyway or canal tiles, a Harpy Nest walkway tile, or a Submission tunnel tile, and with no character already present in that tile, in order to be able to use the map!";
 		}
 		@Override
 		public String getUseTooltipDescription(GameCharacter user, GameCharacter target) {

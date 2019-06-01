@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
@@ -16,7 +15,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.88
- * @version 0.3.1
+ * @version 0.3.2
  * @author Innoxia
  */
 public class CultistSexActions {
@@ -41,7 +40,7 @@ public class CultistSexActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Sex.getCharacterPerformingAction()) && ((Cultist)Sex.getActivePartner()).isSealedSex();
+			return Sex.isCharacterSealed(Sex.getCharacterPerformingAction());
 		}
 
 		@Override
@@ -91,7 +90,8 @@ public class CultistSexActions {
 
 		@Override
 		public void applyEffects() {
-			if(((Cultist)Sex.getActivePartner()).isSealedSex()) {
+			if(Sex.isCharacterSealed(Sex.getCharacterPerformingAction())
+					|| Sex.isCharacterSealed(Sex.getCharacterTargetedForSexAction(this))) {
 				Sex.setSexManager(new SMAltarMissionarySealed(
 						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
 						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))));
@@ -140,7 +140,8 @@ public class CultistSexActions {
 
 		@Override
 		public void applyEffects() {
-			if(((Cultist)Sex.getActivePartner()).isSealedSex()) {
+			if(Sex.isCharacterSealed(Sex.getCharacterPerformingAction())
+					|| Sex.isCharacterSealed(Sex.getCharacterTargetedForSexAction(this))) {
 				Sex.setSexManager(new SMAltarMissionarySealed(
 						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS)),
 						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))));

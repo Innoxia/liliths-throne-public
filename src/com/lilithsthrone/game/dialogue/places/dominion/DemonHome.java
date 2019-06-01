@@ -18,7 +18,7 @@ import com.lilithsthrone.world.Weather;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.3.2
  * @author Innoxia
  */
 public class DemonHome {
@@ -27,7 +27,7 @@ public class DemonHome {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 2*60;
 		}
 		
 		@Override
@@ -84,7 +84,7 @@ public class DemonHome {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 2*60;
 		}
 		
 		@Override
@@ -143,7 +143,7 @@ public class DemonHome {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return 2*60;
 		}
 		
 		@Override
@@ -181,6 +181,11 @@ public class DemonHome {
 
 	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT = new DialogueNode("", "-", true) {
 
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
+		
 		@Override
 		public String getLabel() {
 			return "Arthur's Apartment Building";
@@ -239,8 +244,11 @@ public class DemonHome {
 	};
 
 	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM = new DialogueNode("", "-", true) {
-		/**
-		 */
+		
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
 
 		@Override
 		public String getLabel() {
@@ -322,6 +330,11 @@ public class DemonHome {
 
 	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT_FELICITYS_ROOM = new DialogueNode("", "", true) {
 
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
+		
 		@Override
 		public String getLabel() {
 			return "Felicity's Room";

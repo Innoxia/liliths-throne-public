@@ -1211,7 +1211,7 @@ public enum Combat {
 			}
 		}
 		
-		if(attacker.isPlayer() && attacker.hasFetish(Fetish.FETISH_SADIST) && isCritical) {
+		if(attacker.isPlayer() && attacker.hasFetish(Fetish.FETISH_SADIST) && isCritical && isHit) {
 			extraAttackEffectsSB.append(
 					"<div class='container-full-width' style='text-align:center;'>"
 							+ "Thanks to your [style.boldFetish(sadist fetish)], the arousal you feel from critically hitting someone manifests as an arcane essence!<br/>"
@@ -1219,7 +1219,7 @@ public enum Combat {
 					+"</div>");
 		}
 		
-		if(target.isPlayer() && target.hasFetish(Fetish.FETISH_MASOCHIST) && isCritical) {
+		if(target.isPlayer() && target.hasFetish(Fetish.FETISH_MASOCHIST) && isCritical && isHit) {
 			extraAttackEffectsSB.append(
 					"<div class='container-full-width' style='text-align:center;'>"
 							+ "Thanks to your [style.boldFetish(masochist fetish)], the arousal you feel from getting critically hit manifests as an arcane essence!<br/>"
