@@ -47,7 +47,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.SpecialAttack;
+import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -466,8 +466,7 @@ public class MainController implements Initializable {
 //								e.printStackTrace();
 //							}
 							
-							
-//							 System.out.println(Main.isVersionOlderThan("0.1.3", "0.1.3.01"));
+//							 System.out.println(UtilText.parse(Util.newArrayListOfValues(Main.game.getPlayer().getMainCompanion()), "[npc.name] [pc.speech([npc.name])]"));
 						 }
 						 
 
@@ -1668,13 +1667,14 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseenter", el, false);
 				}
 			}
-			for (SpecialAttack sa : character.getSpecialAttacks()) {
-				if (((EventTarget) documentAttributes.getElementById("SA_"+idModifier + sa)) != null) {
-					addEventListener(documentAttributes, "SA_"+idModifier + sa, "mousemove", moveTooltipListener, false);
-					addEventListener(documentAttributes, "SA_"+idModifier + sa, "mouseleave", hideTooltipListener, false);
+			for (CombatMove combatMove : character.getEquippedMoves()) {
+				id = "CM_"+idModifier + combatMove.getIdentifier();
+				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 	
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setSpecialAttack(sa, character);
-					addEventListener(documentAttributes, "SA_"+idModifier + sa, "mouseenter", el, false);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setCombatMove(combatMove, character);
+					addEventListener(documentAttributes, id, "mouseenter", el, false);
 				}
 			}
 			for (Spell s : character.getAllSpells()) {
@@ -1981,13 +1981,14 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseenter", el, false);
 					}
 				}
-				for (SpecialAttack sa : character.getSpecialAttacks()) {
-					if (((EventTarget) documentRight.getElementById("SA_NPC_"+idModifier + sa)) != null) {
-						addEventListener(documentRight, "SA_NPC_"+idModifier + sa, "mousemove", moveTooltipListener, false);
-						addEventListener(documentRight, "SA_NPC_"+idModifier + sa, "mouseleave", hideTooltipListener, false);
+				for (CombatMove combatMove : character.getEquippedMoves()) {
+					id = "CM_NPC_"+idModifier + combatMove.getIdentifier();
+					if (((EventTarget) documentRight.getElementById(id)) != null) {
+						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 		
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpecialAttack(sa, character);
-						addEventListener(documentRight, "SA_NPC_"+idModifier + sa, "mouseenter", el, false);
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setCombatMove(combatMove, character);
+						addEventListener(documentRight, id, "mouseenter", el, false);
 					}
 				}
 				for (Spell s : character.getAllSpells()) {

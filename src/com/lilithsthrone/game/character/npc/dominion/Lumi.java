@@ -46,7 +46,6 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.unique.LumiDialogue;
@@ -101,6 +100,18 @@ public class Lumi extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
+
+		setStartingCombatMoves();
+	}
+	
+	@Override
+	public void setStartingCombatMoves() {
+		this.clearEquippedMoves();
+		this.equipMove("strike");
+		this.equipMove("avert");
+		this.equipMove("block");
+		this.equipAllKnownMoves();
+		this.equipAllSpellMoves();
 	}
 
 	@Override
@@ -273,11 +284,6 @@ public class Lumi extends NPC {
 	@Override
 	public List<AbstractCoreItem> getLootItems() {
 		return new ArrayList<>();
-	}
-	
-	@Override
-	public Attack attackType() {
-		return Attack.MAIN;
 	}
 	
 	@Override

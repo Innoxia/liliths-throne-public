@@ -314,7 +314,7 @@ public class FortressFemalesLeader extends NPC {
 	public Attack attackType() {
 		
 		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
-		boolean canCastASpecialAttack = !getSpecialAttacksAbleToUse().isEmpty();
+		boolean canCastASpecialAttack = false;//!getSpecialAttacksAbleToUse().isEmpty();
 
 		attackWeightingMap.put(Attack.SEDUCTION, 100);
 		attackWeightingMap.put(Attack.SPECIAL_ATTACK, canCastASpecialAttack?25:0);

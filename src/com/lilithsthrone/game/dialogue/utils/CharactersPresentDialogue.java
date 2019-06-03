@@ -1090,6 +1090,18 @@ public class CharactersPresentDialogue {
 							};
 						}
 					}
+					
+				} else if(index==11) {
+					if(Main.game.isSavedDialogueNeutral()) {
+						return new Response("Combat Moves", "Adjust the moves [npc.name] can perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+							@Override
+							public void effects() {
+								CombatMovesSetup.setTarget(characterViewed, MENU);
+							}
+						};
+					} else {
+						return new Response("Combat Moves", "You are too busy to change [npc.namePos] combat moves.", null);
+					}
 				}
 				
 			}
@@ -1201,7 +1213,7 @@ public class CharactersPresentDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 6) {
-				return new Response("Perks", UtilText.parse(characterViewed, "You are already assigning [npc.namePos] perk points."), null);
+				return new Response("Perk Tree", UtilText.parse(characterViewed, "You are already assigning [npc.namePos] perk points."), null);
 				
 			} else if(index==7) {
 				return new Response("Reset perks", "Reset all of [npc.namePos] perks and traits, refunding all points spent. (This is a temporary action while the perk tree is still under development.)", PERKS) {

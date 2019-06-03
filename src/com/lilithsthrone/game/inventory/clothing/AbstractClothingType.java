@@ -2432,8 +2432,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		int firstPatternShapeStartIndex = loadedPattern.indexOf("<path");
 		int firstRectStartIndex = loadedPattern.indexOf("<rect");
-		if((firstRectStartIndex != -1 && firstRectStartIndex < firstPatternShapeStartIndex) || firstPatternShapeStartIndex == -1)
-		{
+		if((firstRectStartIndex != -1 && firstRectStartIndex < firstPatternShapeStartIndex) || firstPatternShapeStartIndex == -1) {
 			firstPatternShapeStartIndex = firstRectStartIndex;
 		}
 		int lastPatternShapeEndIndex = firstPatternShapeStartIndex;
@@ -2443,8 +2442,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		while(continuePatternSetUp){
 			int currentShapeStartIndex = loadedPattern.indexOf("<path", lastPatternShapeEndIndex);
 			int currentRectStartIndex = loadedPattern.indexOf("<rect", lastPatternShapeEndIndex);
-			if((currentRectStartIndex != -1 && currentRectStartIndex < currentShapeStartIndex) || currentShapeStartIndex == -1)
-			{
+			if((currentRectStartIndex != -1 && currentRectStartIndex < currentShapeStartIndex) || currentShapeStartIndex == -1) {
 				currentShapeStartIndex = currentRectStartIndex;
 			}
 			int currentShapeEndIndex = loadedPattern.indexOf("/>", currentShapeStartIndex);
