@@ -52,7 +52,8 @@ public class GenericActions {
 				return Sex.isPenetrationTypeFree(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)
 						&& !Sex.isDom(Sex.getCharacterTargetedForSexAction(this))
 						&& Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
-						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH);
+							.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH)
+						&& (Sex.getCharacterPerformingAction().isPlayer() || Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST));
 			} catch(Exception ex) {
 				return false; // No available finger-mouth actions, so can't reach face
 			}
@@ -98,6 +99,90 @@ public class GenericActions {
 										?" your [npc.eyes+]."
 										:" [npc.her] submissive bitch's [npc.eyes+]."),
 						" After letting out a shocked cry, tears start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] abuse is having the exact effect [npc.she] [npc.was] looking for."));
+			}
+			
+			return sb.toString();
+		}
+	};
+	
+	public static final SexAction CHOKE = new SexAction(
+			SexActionType.ONGOING,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.THREE_DIRTY,
+			null,
+			SexParticipantType.NORMAL,
+			SexPace.DOM_ROUGH) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			try {
+				return Sex.isPenetrationTypeFree(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)
+						&& !Sex.isDom(Sex.getCharacterTargetedForSexAction(this))
+						&& Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
+							.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH)
+						&& (Sex.getCharacterPerformingAction().isPlayer() || Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST));
+			} catch(Exception ex) {
+				return false; // No available finger-mouth actions, so can't reach neck
+			}
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Choke";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Grab and squeeze [npc2.namePos] neck in order to choke [npc2.herHim].";
+		}
+		
+		@Override
+		public SexActionCategory getCategory() {
+			return SexActionCategory.SEX;
+		}
+
+		@Override
+		public String getDescription() {
+			StringBuilder sb = new StringBuilder();
+
+			if(Sex.getAllContactingSexAreas(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
+				sb.append(UtilText.returnStringAtRandom(
+						"Continuing to ram [npc.her] [npc.cock+] in and out of [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(reach)] up to grab [npc2.her] neck, before squeezing down and choking [npc2.herHim].",
+						"[npc.Name] [npc.verb(reach)] up to grab [npc2.namePos] neck, and, while still forcefully pounding [npc2.her] [npc2.pussy+], [npc.she] roughly [npc.verb(squeeze)] down in order to choke [npc2.herHim].",
+						"Slamming [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(reach)] up and [npc.verb(grab)] [npc2.her] neck,"
+								+ " squeezing down and choking [npc2.herHim] as [npc.she] [npc.verb(pull)] back and [npc.verb(continue)] roughly fucking [npc2.herHim]."));
+				
+			} else if(Sex.getAllContactingSexAreas(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
+				sb.append(UtilText.returnStringAtRandom(
+						"Continuing to ram [npc.her] [npc.cock+] in and out of [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(reach)] up to grab [npc2.her] neck, before squeezing down and choking [npc2.herHim].",
+						"[npc.Name] [npc.verb(reach)] up to grab [npc2.namePos] neck, and, while still forcefully pounding [npc2.her] [npc2.asshole+], [npc.she] roughly [npc.verb(squeeze)] down in order to choke [npc2.herHim].",
+						"Slamming [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(reach)] up and [npc.verb(grab)] [npc2.her] neck,"
+								+ " squeezing down and choking [npc2.herHim] as [npc.she] [npc.verb(pull)] back and [npc.verb(continue)] roughly fucking [npc2.herHim]."));
+				
+			} else {
+				sb.append(UtilText.returnStringAtRandom(
+						"With a sadistic grin on [npc.her] face, [npc.name] [npc.verb(reach)] up to grab [npc2.name] by [npc2.her] neck, before squeezing down and choking [npc2.herHim].",
+						"[npc.Name] [npc.verb(reach)] up to grab [npc2.namePos] neck, and, letting out a sadistic laugh, [npc.she] roughly [npc.verb(squeeze)] down in order to choke [npc2.herHim].",
+						"With a cruel laugh, [npc.name] [npc.verb(reach)] up and [npc.verb(grab)] [npc2.name] by [npc2.her] neck, before sadistically squeezing down and choking [npc2.herHim]."));
+			}
+			
+			if(Sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() && Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING) {
+				sb.append(UtilText.returnStringAtRandom(
+						" The gargled spluttering sounds which [npc2.name] [npc2.verb(start)] to make in response have a distinctly lewd quality to them, letting [npc.name] know that [npc2.sheIs] being turned on by this abuse.",
+						" The horny, gargled [npc2.moans] which [npc2.name] immediately [npc2.verb(start)] to produce are more than enough to let anyone realise that [npc2.sheIs] a masochist, and is getting aroused by this poor treatment.",
+						" The spluttering gasps which [npc2.name] [npc2.verb(begin)] to emit are intermingled with several horny [npc2.moans], letting [npc.name] know that [npc2.sheIs] deriving masochistic pleasure from being abused in such a fashion."));
+			} else {
+				sb.append(UtilText.returnStringAtRandom(
+						" A series of gargled spluttering noises escape from [npc2.namePos] mouth,"
+								+ (Sex.getCharacterPerformingAction().isPlayer()
+										?" which is precisely the reaction you were looking for."
+										:" and from the wicked grin that settles on [npc.namePos] face, this was just the reaction [npc.she] [npc.was] looking for."),
+						" The distressed, gargled cries which [npc2.name] [npc2.verb(start)] to make are exactly what [npc.name] [npc.was] looking for, and [npc.she] can't help but grin as [npc.she] [npc.verb(see)] tears well up in"
+								+ (Sex.getCharacterTargetedForSexAction(this).isPlayer()
+										?" your [npc.eyes+]."
+										:" [npc.her] submissive bitch's [npc.eyes+]."),
+						" Letting out a series of spluttering gasps, tears quickly start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] abuse is having the exact effect [npc.she] [npc.was] looking for."));
 			}
 			
 			return sb.toString();

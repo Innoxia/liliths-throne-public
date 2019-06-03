@@ -1,10 +1,7 @@
 package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -47,7 +44,6 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -99,6 +95,18 @@ public class SlimeGuardFire extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && Subspecies.getFleshSubspecies(this)!=Subspecies.HUMAN) {
 			this.setBody(Gender.M_P_MALE, Subspecies.SLIME, RaceStage.HUMAN);
 		}
+
+		setStartingCombatMoves();
+	}
+	
+	@Override
+	public void setStartingCombatMoves() {
+		this.clearEquippedMoves();
+		this.equipMove("strike");
+		this.equipMove("twin-strike");
+		this.equipMove("block");
+		this.equipAllKnownMoves();
+		this.equipAllSpellMoves();
 	}
 	
 	@Override
@@ -295,32 +303,5 @@ public class SlimeGuardFire extends NPC {
 		} else {
 			return new Response ("Defeated", "[slimeFire.Name] and [slimeIce.name] have defeated you!", SlimeQueensLair.SLIME_GUARDS_COMBAT_PLAYER_DEFEAT);
 		}
-	}
-
-	@Override
-	public Attack attackType() {
-		boolean canCastASpecialAttack = !getSpecialAttacksAbleToUse().isEmpty();
-		
-		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
-		
-		attackWeightingMap.put(Attack.MAIN, 100);
-		attackWeightingMap.put(Attack.OFFHAND, this.getOffhandWeapon()==null?0:25);
-		attackWeightingMap.put(Attack.SPECIAL_ATTACK, !canCastASpecialAttack?0:50);
-		
-		int total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-		}
-		
-		int index = Util.random.nextInt(total);
-		total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-			if(index<total) {
-				return entry.getKey();
-			}
-		}
-		
-		return Attack.MAIN;
 	}
 }

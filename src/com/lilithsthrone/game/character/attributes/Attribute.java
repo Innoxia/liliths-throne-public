@@ -212,10 +212,17 @@ public enum Attribute {
 		}
 	},
 	
-	DEFENCE_MODIFIER(0, -100, 100, "defence modifier", "Defence modifier", "shieldIcon", Colour.GENERIC_EXCELLENT, "evasion", "sluggishness", null) {
+	BONUS_SHIELDING(0, -100, 100, "bonus shielding", "Bonus shields", "shieldIcon", Colour.DAMAGE_TYPE_PHYSICAL, "endurance", "vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "This value is applied to all defence types at the start of each combat turn.";
+			return "This value is applied to energy shielding at the start of each combat turn.";
+		}
+	},
+
+	BONUS_LUST_SHIELDING(0, -100, 100, "bonus lust shielding", "Bonus lust shields", "shieldIcon", Colour.GENERIC_SEX, "chastity", "arousal", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "This value is applied to lust shielding at the start of each combat turn.";
 		}
 	},
 

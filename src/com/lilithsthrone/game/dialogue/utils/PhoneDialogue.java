@@ -112,8 +112,8 @@ public class PhoneDialogue {
 			} else if (index == 2) {
 				return new Response(
 						Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
-							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Perks</span>"
-							:"Perks",
+							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Perk Tree</span>"
+							:"Perk Tree",
 						"View your character page.", CHARACTER_LEVEL_UP) {
 					@Override
 					public void effects() {
@@ -188,7 +188,7 @@ public class PhoneDialogue {
 					return new Response("Combat Moves", "Adjust the moves you perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
 						@Override
 						public void effects() {
-							CombatMovesSetup.setTarget(Main.game.getPlayer());
+							CombatMovesSetup.setTarget(Main.game.getPlayer(), PhoneDialogue.MENU);
 						}
 					};
 				} else {
@@ -571,10 +571,15 @@ public class PhoneDialogue {
 							"Critical Hit Damage:<br/>"
 							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE), Attribute.CRITICAL_DAMAGE.getUpperLimit()))+"%</b>",
 							true)
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.DEFENCE_MODIFIER,
-							"Defence modifier:<br/>"
-							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DEFENCE_MODIFIER), Attribute.DEFENCE_MODIFIER.getUpperLimit()))+"</b>",
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.BONUS_SHIELDING,
+							"Bonus Shielding (per turn in combat):<br/>"
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.BONUS_SHIELDING), Attribute.BONUS_SHIELDING.getUpperLimit()))+"</b>",
 							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.BONUS_LUST_SHIELDING,
+							"Bonus Lust Shielding (per turn in combat):<br/>"
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.BONUS_LUST_SHIELDING), Attribute.BONUS_LUST_SHIELDING.getUpperLimit()))+"</b>",
+							true)
+					
 					
 
 
@@ -2109,7 +2114,7 @@ public class PhoneDialogue {
 		}
 	};
 
-	public static final DialogueNode CHARACTER_LEVEL_UP = new DialogueNode("Perks", "", true) {
+	public static final DialogueNode CHARACTER_LEVEL_UP = new DialogueNode("Perk Tree", "", true) {
 
 
 		@Override

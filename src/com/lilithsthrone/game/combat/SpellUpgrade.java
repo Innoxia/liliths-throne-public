@@ -191,7 +191,7 @@ public enum SpellUpgrade {
 			"Downpour",
 			"Sheets of torrential arcane rain sweep into the target's eyes, causing them to miss the occasional attack.",
 			null, Util.newArrayListOfValues(
-					"Adds <b>-5</b> "+Attribute.DEFENCE_MODIFIER.getColouredName("b")+" to Rain Cloud's effects")),
+					"Adds <b>-5</b> "+Attribute.BONUS_SHIELDING.getColouredName("b")+" to Rain Cloud's effects")),
 	RAIN_CLOUD_3(5,
 			SpellSchool.WATER,
 			"rain_cloud_cloud_burst",
@@ -292,7 +292,7 @@ public enum SpellUpgrade {
 			"Choking Haze",
 			"The clouds of Poison Vapours become far thicker, becoming a stifling, choking haze that causes the target to occasionally miss their attacks.",
 			null, Util.newArrayListOfValues(
-					"Poison Vapours additionally applies <b>-5</b> "+Attribute.DEFENCE_MODIFIER.getColouredName("b"))),
+					"Poison Vapours additionally applies <b>-5</b> "+Attribute.BONUS_SHIELDING.getColouredName("b"))),
 	POISON_VAPOURS_2(5,
 			SpellSchool.AIR,
 			"poison_vapours_arcane_sickness",
@@ -317,7 +317,7 @@ public enum SpellUpgrade {
 			"The target of Vacuum additionally suffers -15 critical chance, and -20 to their defence modifier.",
 			null, Util.newArrayListOfValues(
 					"Vacuum additionally applies <b>-15</b> "+Attribute.CRITICAL_CHANCE.getColouredName("b"),
-					"Vacuum debuff increased to <b>-20</b> "+Attribute.DEFENCE_MODIFIER.getColouredName("b"))),
+					"Vacuum debuff increased to <b>-20</b> "+Attribute.BONUS_SHIELDING.getColouredName("b"))),
 	VACUUM_2(2,
 			SpellSchool.AIR,
 			"vacuum_suction",
@@ -340,7 +340,7 @@ public enum SpellUpgrade {
 			"Guiding Wind",
 			"Guided by the forces of the arcane, the summoned winds apply pressure to their target at key moments, helping them to avoid incoming attacks, as well as to land powerful strikes of their own.",
 			null, Util.newArrayListOfValues(
-					"Protective Gusts buff increased to <b>+15</b> "+Attribute.DEFENCE_MODIFIER.getColouredName("b"),
+					"Protective Gusts buff increased to <b>+15</b> "+Attribute.BONUS_SHIELDING.getColouredName("b"),
 					"Protective Gusts additionally applies <b>+10</b> "+Attribute.CRITICAL_CHANCE.getColouredName("b"))),
 	PROTECTIVE_GUSTS_2(1,
 			SpellSchool.AIR,
@@ -348,7 +348,7 @@ public enum SpellUpgrade {
 			"Focused Blast",
 			"With every strike, the arcane winds push forwards to help their target deal the most amount of damage possible.",
 			null, Util.newArrayListOfValues(
-					"Protective Gusts buff increased to <b>+20</b> "+Attribute.DEFENCE_MODIFIER.getColouredName("b"),
+					"Protective Gusts buff increased to <b>+20</b> "+Attribute.BONUS_SHIELDING.getColouredName("b"),
 					"Protective Gusts additionally applies <b>+25</b> "+Attribute.CRITICAL_DAMAGE.getColouredName("b"))),
 	PROTECTIVE_GUSTS_3(2,
 			SpellSchool.AIR,
@@ -365,7 +365,7 @@ public enum SpellUpgrade {
 			"Whirlwind",
 			"The Air elemental summons forth a swirling whirlwind, which disrupts and staggers all enemies.",
 			null, Util.newArrayListOfValues(
-					"[style.colourTerrible(All enemies suffer)] -5 "+Attribute.DEFENCE_MODIFIER.getColouredName("b"))),
+					"[style.colourTerrible(All enemies suffer)] -5 "+Attribute.BONUS_SHIELDING.getColouredName("b"))),
 	ELEMENTAL_AIR_2(5,
 			SpellSchool.AIR,
 			"elemental_air_vitalising_scents",
@@ -373,7 +373,7 @@ public enum SpellUpgrade {
 			"The Air elemental surrounds their allies with vitalising scents, imbuing them with the energy needed to dodge incoming attacks, as well as to land powerful strikes of their own.",
 			null, Util.newArrayListOfValues(
 					"[style.colourExcellent(All allies gain)] +10 "+Attribute.CRITICAL_CHANCE.getColouredName("b"),
-					"[style.colourExcellent(All allies gain)] +5 "+Attribute.DEFENCE_MODIFIER.getColouredName("b"))),
+					"[style.colourExcellent(All allies gain)] +5 "+Attribute.BONUS_SHIELDING.getColouredName("b"))),
 	ELEMENTAL_AIR_3A(5,
 			SpellSchool.AIR,
 			"elemental_air_servant_of_air",
@@ -428,7 +428,7 @@ public enum SpellUpgrade {
 			"Ground Shake",
 			"Slam continues on down into the earth after doing its damage, causing the ground beneath the target's feet to shake.",
 			null, Util.newArrayListOfValues(
-					"<b>-10</b> "+Attribute.DEFENCE_MODIFIER.getColouredName("b")+" for [style.colourGood(2 turns)]")),
+					"<b>-10</b> "+Attribute.BONUS_SHIELDING.getColouredName("b")+" for [style.colourGood(2 turns)]")),
 	SLAM_2(2,
 			SpellSchool.EARTH,
 			"slam_aftershock",
@@ -474,7 +474,7 @@ public enum SpellUpgrade {
 			"Shifting Sands",
 			"The Stone Shell now occasionally shifts and disintegrates into flowing sand, before quickly reforming elsewhere in order to confuse any enemies.",
 			null, Util.newArrayListOfValues(
-					"Stone Shell additionally applies <b>+10</b> "+Attribute.DEFENCE_MODIFIER.getColouredName("b"))),
+					"Stone Shell additionally applies <b>+10</b> "+Attribute.BONUS_SHIELDING.getColouredName("b"))),
 	STONE_SHELL_2(2,
 			SpellSchool.EARTH,
 			"stone_shell_hardened_carapace",
@@ -567,7 +567,7 @@ public enum SpellUpgrade {
 			"Lustful Distraction",
 			"The lewd images that are sent into the target's mind linger on for some time, causing them to become distracted.",
 			null, Util.newArrayListOfValues(
-					"Target [style.boldBad(suffers)] -15 "+Attribute.DEFENCE_MODIFIER.getColouredName("b")+" for [style.boldGood(2 turns)]")),
+					"Target [style.boldBad(suffers)] -15 "+Attribute.BONUS_SHIELDING.getColouredName("b")+" for [style.boldGood(2 turns)]")),
 	ARCANE_AROUSAL_3(2,
 			SpellSchool.ARCANE,
 			"arcane_arousal_dirty_promises",

@@ -280,12 +280,13 @@ public class ZaranixMaidKatherine extends NPC {
 	// Combat:
 
 	@Override
-	public String getMainAttackDescription(boolean isHit) {
+	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
 		return "<p>"
-				+ UtilText.returnStringAtRandom(
-						"Letting out a desperate cry, Katherine swings her little feather duster at you, brushing the feathers over your face!",
-						"With a little shout, Katherine tickles her feather duster over your torso!",
-						"Brushing her feather duster over your torso, Katherine lets out a little cry!") 
+				+ UtilText.parse(target,
+						UtilText.returnStringAtRandom(
+						"Letting out a desperate cry, Katherine swings her little feather duster at [npc.name], brushing the feathers over [npc.her] face!",
+						"With a little shout, Katherine tickles her feather duster over [npc.namePos] torso!",
+						"Katherine lets out a little cry as she brushes her feather duster over [npc.namePos] torso!"))
 			+ "</p>";
 	}
 

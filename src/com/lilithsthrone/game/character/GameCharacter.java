@@ -179,7 +179,6 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.CombatMoveType;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
@@ -238,6 +237,7 @@ import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
@@ -378,16 +378,14 @@ public abstract class GameCharacter implements XMLSaving {
 	// Combat:
 	protected List<CombatMove> equippedMoves;
 	protected List<CombatMove> knownMoves;
-	protected List<CombatMove> selectedMoves;
+	protected List<Value<GameCharacter, CombatMove>> selectedMoves;
 	protected List<Boolean> selectedMovesDisruption;
-	protected List<GameCharacter> selectedMoveTargets;
 	protected List<String> movesToDisrupt;
 	protected Map<CombatMoveType, Integer> moveTypeDisruptionMap;
 	protected Map<DamageType, Integer> shields;
 	protected Map<String, Integer> moveCooldowns;
 	protected int remainingAP;
 	protected int maxAP;
-	protected Set<SpecialAttack> specialAttacks;
 	protected List<Spell> spells;
 	protected Set<SpellUpgrade> spellUpgrades;
 	protected Map<SpellSchool, Integer> spellUpgradePoints;
@@ -558,10 +556,8 @@ public abstract class GameCharacter implements XMLSaving {
 		knownMoves = new ArrayList<>();
 		equippedMoves = new ArrayList<>();
 		selectedMoves = new ArrayList<>();
-		selectedMoveTargets = new ArrayList<>();
 		selectedMovesDisruption = new ArrayList<>();
 		movesToDisrupt = new ArrayList<>();
-		specialAttacks = EnumSet.noneOf(SpecialAttack.class);
 		spells = new ArrayList<>();
 		spellUpgrades = EnumSet.noneOf(SpellUpgrade.class);
 		spellUpgradePoints = new HashMap<>();
@@ -654,10 +650,7 @@ public abstract class GameCharacter implements XMLSaving {
 //		PerkManager.initialisePerks(this);
 
 		// Default moves
-		equipMove("strike");
-		equipMove("block");
-		equipMove("tease");
-		equipMove("avert");
+		equipBasicCombatMoves();
 	}
 	
 	protected void initAttributes() {
@@ -4861,8 +4854,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if (attribute == Attribute.MANA_MAXIMUM) {
 			if(getAttributeValue(Attribute.MAJOR_ARCANE) < 15) {
 				value = 5;
-			}
-			else {
+			} else {
 				value = 100 + getAttributeValue(Attribute.MAJOR_ARCANE)*0.20f;
 			}
  		}
@@ -5148,7 +5140,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 		this.clearTraits();
 		
-		calculateSpecialAttacks();
+		recalculateCombatMoves();
 		
 		updateAttributeListeners();
 		
@@ -5271,7 +5263,7 @@ public abstract class GameCharacter implements XMLSaving {
 				incrementBonusAttribute(e.getKey(), e.getValue());
 			}
 		}
-		calculateSpecialAttacks();
+		recalculateCombatMoves();
 		
 		updateAttributeListeners();
 	}
@@ -5284,7 +5276,7 @@ public abstract class GameCharacter implements XMLSaving {
 				incrementBonusAttribute(e.getKey(), -e.getValue());
 			}
 		}
-		calculateSpecialAttacks();
+		recalculateCombatMoves();
 		
 		updateAttributeListeners();
 	}
@@ -5353,7 +5345,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		calculateSpecialAttacks();
+		recalculateCombatMoves();
 		updateAttributeListeners();
 		calculateSpecialFetishes();
 	}
@@ -5403,7 +5395,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		calculateSpecialAttacks();
+		recalculateCombatMoves();
 		updateAttributeListeners();
 		calculateSpecialFetishes();
 	}
@@ -5744,19 +5736,19 @@ public abstract class GameCharacter implements XMLSaving {
 		wonCombatCount = count;
 	}
 	
-	public String getMainAttackDescription(boolean isHit) {
+	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
 		if(this.getMainWeapon()!=null) {
-			return this.getMainWeapon().getWeaponType().getAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+			return this.getMainWeapon().getWeaponType().getAttackDescription(this, target, isHit);
 		} else {
-			return AbstractWeaponType.genericMeleeAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}
 	}
 	
-	public String getOffhandAttackDescription(boolean isHit) {
+	public String getOffhandAttackDescription(GameCharacter target, boolean isHit) {
 		if(this.getOffhandWeapon()!=null) {
-			return this.getOffhandWeapon().getWeaponType().getAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+			return this.getOffhandWeapon().getWeaponType().getAttackDescription(this, target, isHit);
 		} else {
-			return AbstractWeaponType.genericMeleeAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}
 	}
 	
@@ -5876,9 +5868,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		return "<p>"
-				+ description
-				+ "</p>";
+		return description;
 	}
 	
 	
@@ -13212,13 +13202,12 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Combat:
 
-	public void selectMove(CombatMove move, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+	public void selectMove(int turnIndex, CombatMove move, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
 		if(move.getAPcost() <= remainingAP) {
 			remainingAP -= move.getAPcost();
-			selectedMoves.add(move);
+			selectedMoves.add(new Value<>(target, move));
 			selectedMovesDisruption.add(move.isAlreadyDisrupted(this));
-			selectedMoveTargets.add(target);
-			move.performOnSelection(this, target, enemies, allies);
+			move.performOnSelection(turnIndex, this, target, enemies, allies);
 			this.setCooldown(move.getIdentifier(), move.getCooldown());
 		}
 	}
@@ -13231,46 +13220,37 @@ public abstract class GameCharacter implements XMLSaving {
 				// Finding last move with the same type
 				int lastFoundIndex = -1;
 				int index = 0;
-				for(CombatMove move : selectedMoves)
-				{
-					if(move.getIdentifier().equals(movesToDisrupt.get(movesToDisrupt.size()-1)))
-					{
+				for(Value<GameCharacter, CombatMove> move : selectedMoves) {
+					if(move.getValue().getIdentifier().equals(movesToDisrupt.get(movesToDisrupt.size()-1))) {
 						lastFoundIndex = index;
 					}
 					index++;
 				}
 
 				// Making sure it was found. Applying disruption effects in reverse, then reapplying the effects.
-				if(lastFoundIndex >= 0)
-				{
+				if(lastFoundIndex >= 0) {
 					// Applying disruption in reverse, undoing everything that was done.
-					List<CombatMove> reversedList = selectedMoves.subList(0, selectedMoves.size());
+					List<Value<GameCharacter, CombatMove>> reversedList = selectedMoves.subList(0, selectedMoves.size());
 					Collections.reverse(selectedMoves);
 					index = 0;
-					for(CombatMove move : reversedList)
-					{
+					for(Value<GameCharacter, CombatMove> move : reversedList) {
 						// Excluding already disrupted moves.
-						if(selectedMovesDisruption.get(index) == false)
-						{
-							move.applyDisruption(this, selectedMoveTargets.get(index), enemies, allies);
+						if(selectedMovesDisruption.get(index) == false) {
+							move.getValue().applyDisruption(this, move.getKey(), enemies, allies);
 						}
 						index++;
 					}
 
 					// Reapplying it, excluding the disrupted move.
 					index = 0;
-					for(CombatMove move : selectedMoves)
-					{
-						if(lastFoundIndex == index)
-						{
+					for(Value<GameCharacter, CombatMove> move : selectedMoves) {
+						if(lastFoundIndex == index) {
 							selectedMovesDisruption.set(index, true);
-						}
-						else
-						{
+							
+						} else {
 							// Excluding already disrupted moves.
-							if(selectedMovesDisruption.get(index) == false)
-							{
-								move.performOnSelection(this, selectedMoveTargets.get(index), enemies, allies);
+							if(selectedMovesDisruption.get(index) == false) {
+								move.getValue().performOnSelection(index, this, move.getKey(), enemies, allies); //TODO index might not be right here...
 							}
 						}
 						index++;
@@ -13281,9 +13261,8 @@ public abstract class GameCharacter implements XMLSaving {
 				// Removing the move from the list of moves to disrupt.
 				movesToDisrupt.remove(movesToDisrupt.size()-1);
 			}
-		}
-		else
-		{
+			
+		} else {
 			// Adding move to queue as it was disrupted as a result of another move being disrupted; we need to deal with that move first completely before disrupting this one.
 			movesToDisrupt.add(moveIdentifier);
 		}
@@ -13295,25 +13274,23 @@ public abstract class GameCharacter implements XMLSaving {
 	 * Example: Flash spell disrupting a BLOCK type move.
 	 */
 	public void disruptMoveByType(CombatMoveType type, List<GameCharacter> enemies, List<GameCharacter> allies) {
-		List<CombatMove> reversedList = selectedMoves.subList(0, selectedMoves.size());
+		List<Value<GameCharacter, CombatMove>> reversedList = selectedMoves.subList(0, selectedMoves.size());
 		Collections.reverse(selectedMoves);
 		int index = 0;
 		int highestIndex = -1;
-		for(CombatMove move : reversedList) {
+		for(Value<GameCharacter, CombatMove> move : reversedList) {
 			// Excluding already disrupted moves.
 			if(selectedMovesDisruption.get(index) == false) {
-				if(move.getType().countsAs(type))
-				{
+				if(move.getValue().getType().countsAs(type)) {
 					highestIndex = index;
 				}
 			}
 			index++;
 		}
 		if(highestIndex >= 0) {
-			disruptMove(reversedList.get(highestIndex).getIdentifier(), enemies, allies);
-		}
-		else
-		{
+			disruptMove(reversedList.get(highestIndex).getValue().getIdentifier(), enemies, allies);
+			
+		} else {
 			moveTypeDisruptionMap.put(type, moveTypeDisruptionMap.get(type)+1); // Adding for the future
 		}
 	}
@@ -13335,84 +13312,106 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 
-	public String getMovesPredictionString(List<GameCharacter> enemies, List<GameCharacter> allies) {
-		String prediction = "";
+	public List<String> getMovesPredictionString(List<GameCharacter> enemies, List<GameCharacter> allies) {
+		List<String> predictions = new ArrayList<>();
+		StringBuilder sb = new StringBuilder();
 		int index = 0;
-		for(CombatMove move : selectedMoves) {
-			prediction += move.getPrediction(this, selectedMoveTargets.get(index), enemies, allies);
+		for(Value<GameCharacter, CombatMove> move : selectedMoves) {
+			sb.setLength(0);
+			sb.append(move.getValue().getPrediction(this, move.getKey(), enemies, allies));
 			if(selectedMovesDisruption.get(index) == true) {
-				prediction += "<b style='color: " + Colour.GENERIC_MINOR_BAD.toWebHexString() + "'>" + " (Disrupted!)</b>";
+				sb.append("<b style='color: " + Colour.GENERIC_MINOR_BAD.toWebHexString() + "'>" + " (Disrupted!)</b>");
 			}
-			prediction += "</br>";
+			predictions.add(sb.toString());
 			index++;
 		}
-		return prediction;
+		return predictions;
 	}
 
 	/**
 	 * Performs the moves that the character has selected then clears the list.
 	 * @return String that describes the moves performed.
 	 */
-	public String performMoves(List<GameCharacter> enemies, List<GameCharacter> allies) {
-		StringBuilder result = new StringBuilder();
+	public List<String> performMoves(List<GameCharacter> enemies, List<GameCharacter> allies) {
+		List<String> moves = new ArrayList<>();
+		StringBuilder sb = new StringBuilder();
 		int index = 0;
-		for(CombatMove move : selectedMoves) {
+		
+		for(Value<GameCharacter, CombatMove> moveEntry : selectedMoves) {
+			sb.setLength(0);
+			CombatMove move = moveEntry.getValue();
 			if(selectedMovesDisruption.get(index) == false) {
-				result.append(
-						"<p>"
-								+ "<b style='text-align:center; color: " + move.getType().getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/>"
-								+ move.perform(this, selectedMoveTargets.get(index), enemies, allies)
-						+"</p>");
+				GameCharacter target = moveEntry.getKey();
+				sb.append(
+						"<b style='text-align:center; color: " + move.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getName()) + ":</b> "
+							+ move.perform(index, this, target, enemies, allies));
+				
+				if(move.getStatusEffects()!=null) {
+					for(Entry<StatusEffect, Integer> entry : move.getStatusEffects().entrySet()) {
+						if(move.canCrit(index, this, target, enemies, allies)) {
+							int duration = (int)(entry.getValue()*move.getCritStatusEffectDurationIncrease());
+							target.addStatusEffect(entry.getKey(), duration);
+							sb.append(UtilText.parse(target,
+									"<br/>[npc.NameIsFull] now affected by <b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName(target))+"</b>"
+											+ " for <b>"+Util.intToString(duration)+(duration==1?" turn":" turns")+"</b>!"));
+						} else {
+							target.addStatusEffect(entry.getKey(), entry.getValue());
+							sb.append(UtilText.parse(target,
+									"<br/>[npc.NameIsFull] now affected by <b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName(target))+"</b>"
+											+ " for <b>"+Util.intToString(entry.getValue())+(entry.getValue()==1?" turn":" turns")+"</b>!"));
+						}
+					}
+				}
 				
 			} else {
-				result.append(
-						"<p>"
-							+ "<b style='text-align:center; color: " + move.getType().getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/>"
-							+ "<b style='color: " + Colour.GENERIC_MINOR_BAD.toWebHexString() + "'>" + "The action was disrupted!</b>"
-						+"</p/>");
+				sb.append("<b style='text-align:center; color: " + move.getType().getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/>"
+							+ "<b style='color: " + Colour.GENERIC_MINOR_BAD.toWebHexString() + "'>" + "The action was disrupted!</b>");
 			}
+			moves.add(sb.toString());
 			index++;
 		}
+		
+		if(selectedMoves.isEmpty()) {
+			moves.add(UtilText.parse(this, "[npc.Name] [npc.verb(decide)] not to make a move, and instead [npc.verb(try)] to brace [npc.herself] as best as possible against any incoming attacks."));
+		}
+		
 		selectedMoves.clear();
-		selectedMoveTargets.clear();
 		selectedMovesDisruption.clear();
 		remainingAP = maxAP;
-		return result.toString();
+		
+		return moves;
 	}
 
 	/**
 	 * Selects moves for the character using weights of these moves.
 	 */
 	public void selectMoves(List<GameCharacter> enemies, List<GameCharacter> allies) {
+		int turnIndex=0;
 		while(remainingAP > 0) {
 			// Assembling move list
 			List<CombatMove> potentialMoves = new ArrayList<>();
 			for(CombatMove move : equippedMoves) {
-				if(move.isUseable(this, null, enemies, allies) == null)
-				{
+				if(move.isUseable(this, null, enemies, allies) == null) {
 					potentialMoves.add(move);
 				}
 			}
-
+			
 			// Determining move based on weight
 			CombatMove selectedMove = null;
 			float highestWeight = 0.0f;
 			for(CombatMove move : potentialMoves) {
 				float currentWeight = move.getWeight(this, enemies, allies);
-				if(highestWeight < currentWeight)
-				{
+				if(highestWeight < currentWeight) {
 					selectedMove = move;
 					highestWeight = currentWeight;
 				}
 			}
 			if(selectedMove == null) {
 				break;
+			} else {
+				selectMove(turnIndex, selectedMove, selectedMove.getPreferredTarget(this, enemies, allies), enemies, allies);
 			}
-			else
-			{
-				selectMove(selectedMove, selectedMove.getPreferredTarget(this, enemies, allies), enemies, allies);
-			}
-
+			turnIndex++;
 		}
 	}
 
@@ -13432,28 +13431,23 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public void setRemainingAP(int value, List<GameCharacter> enemies, List<GameCharacter> allies) {
 		remainingAP = value;
-		while(remainingAP < 0 && enemies != null && allies != null) // If something put our AP below 0, we remove the actions causing that.
-		{
-			List<CombatMove> reversedList = selectedMoves.subList(0, selectedMoves.size());
+		while(remainingAP < 0 && enemies != null && allies != null) { // If something put our AP below 0, we remove the actions causing that.
+			List<Value<GameCharacter, CombatMove>> reversedList = selectedMoves.subList(0, selectedMoves.size());
 			Collections.reverse(selectedMoves);
 			int index = 0;
 			int highestIndex = -1;
-			for(CombatMove move : reversedList) {
+			for(Value<GameCharacter, CombatMove> move : reversedList) {
 				// Excluding already disrupted moves.
-				if(selectedMovesDisruption.get(index) == false)
-				{
-					if(move.getAPcost() > 0)
-					{
+				if(selectedMovesDisruption.get(index) == false) {
+					if(move.getValue().getAPcost() > 0) {
 						highestIndex = index;
 					}
 				}
 				index++;
 			}
 			if(highestIndex >= 0) {
-				disruptMove(reversedList.get(highestIndex).getIdentifier(), enemies, allies);
-			}
-			else
-			{
+				disruptMove(reversedList.get(highestIndex).getValue().getIdentifier(), enemies, allies);
+			} else {
 				remainingAP = 0; // Safeguard in case no actions could be removed to remedy the AP situation.
 			}
 		}
@@ -13466,13 +13460,22 @@ public abstract class GameCharacter implements XMLSaving {
 	public List<CombatMove> getEquippedMoves() {
 		return equippedMoves;
 	}
+	
+	public void equipBasicCombatMoves() {
+		equipMove("strike");
+		equipMove("twin-strike");
+		equipMove("block");
+		equipMove("tease");
+		equipMove("avert");
+	}
 
 	public void resetDefaultMoves() {
-		// TODO:  Add the case for player owned slaves since they won't need that once the menu will be added to manage their abilities
-		if(this != Main.game.getPlayer() && this.getEquippedMoves().size() == 0) {
+		if(!this.isPlayer()
+				&& (!this.isSlave() || !this.getOwner().isPlayer())
+				&& !Main.game.getPlayer().getParty().contains(this)
+				&& this.getEquippedMoves().size()==0) {
 			for(CombatMove move : getAvailableMoves()) {
-				if(this.getEquippedMoves().size() >= GameCharacter.MAX_COMBAT_MOVES)
-				{
+				if(this.getEquippedMoves().size() >= GameCharacter.MAX_COMBAT_MOVES) {
 					break;
 				}
 				equipMove(move.getIdentifier());
@@ -13482,50 +13485,35 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public int getSelectedMovesByType(CombatMoveType type) {
 		int moves = 0;
-		for(CombatMove move : selectedMoves) {
-			if(move.getType().countsAs(type)) {
+		for(Value<GameCharacter, CombatMove> move : selectedMoves) {
+			if(move.getValue().getType().countsAs(type)) {
 				moves++;
 			}
 		}
 		return moves;
 	}
 
-	public List<CombatMove> getSelectedMoves() {
+	public List<Value<GameCharacter, CombatMove>> getSelectedMoves() {
 		return selectedMoves;
 	}
 
 	public List<CombatMove> getAvailableMoves() {
 		List<CombatMove> availableMoves = new ArrayList<>(knownMoves);
 		for(CombatMove move : CombatMove.allCombatMoves) {
-			if(move.isAvailableFromSpecialCase(this) != null) {
+			if(move.isAvailableFromSpecialCase(this)!=null && move.isAvailableFromSpecialCase(this).getKey()) {
 				availableMoves.add(move);
 			}
 		}
 		return availableMoves;
 	}
 
-	public boolean isMoveAvailable(String identifier) {
-		if(CombatMove.getMove(identifier).isAvailableFromSpecialCase(this) != null) {
-			return true;
-		}
+	public Value<Boolean, String> isMoveAvailable(String identifier) {
 		for(CombatMove move : knownMoves) {
 			if(move.getIdentifier().equals(identifier)) {
-				return true;
+				return new Value<>(true, "You have learned how to use this move during your adventures.");
 			}
 		}
-		return false;
-	}
-
-	public String getMoveAvailableReason(String identifier) {
-		if(CombatMove.getMove(identifier).isAvailableFromSpecialCase(this) != null) {
-			return CombatMove.getMove(identifier).isAvailableFromSpecialCase(this) ;
-		}
-		for(CombatMove move : knownMoves) {
-			if(move.getIdentifier().equals(identifier)) {
-				return "You have learned how to use this move during your adventures";
-			}
-		}
-		return "This move is not available to you.";
+		return CombatMove.getMove(identifier).isAvailableFromSpecialCase(this);
 	}
 
 	public void unequipMove(String identifier) {
@@ -13541,11 +13529,36 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 
-	public void equipMove(String identifier) {
+	public boolean equipMove(String identifier) {
 		this.unequipMove(identifier);
 		CombatMove moveToAdd = CombatMove.getMove(identifier);
 		if(moveToAdd != null) {
+			if(this.getEquippedMoves().size() >= GameCharacter.MAX_COMBAT_MOVES) {
+				return false;
+			}
 			equippedMoves.add(moveToAdd);
+			return true;
+		}
+		return false;
+	}
+	
+	public void equipAllKnownMoves() {
+		for(CombatMove move : knownMoves) {
+			if(this.getEquippedMoves().size() >= GameCharacter.MAX_COMBAT_MOVES) {
+				break;
+			}
+			equippedMoves.add(move);
+		}
+	}
+
+	public void equipAllSpellMoves() {
+		for(CombatMove move : CombatMove.allCombatMoves) {
+			if(this.getEquippedMoves().size() >= GameCharacter.MAX_COMBAT_MOVES) {
+				break;
+			}
+			if(move.getAssociatedSpell()!=null && this.getAllSpells().contains(move.getAssociatedSpell())) {
+				equippedMoves.add(move);
+			}
 		}
 	}
 
@@ -13555,7 +13568,20 @@ public abstract class GameCharacter implements XMLSaving {
 			knownMoves.add(moveToAdd);
 		}
 	}
+	
+	public void recalculateCombatMoves() {
+		List<CombatMove> availableMoves = new ArrayList<>(equippedMoves);
+		for(CombatMove move : availableMoves) {
+			if(move.isAvailableFromSpecialCase(this)==null || !move.isAvailableFromSpecialCase(this).getKey()) {
+				equippedMoves.remove(move);
+			}
+		}
+	}
 
+	public void clearEquippedMoves() {
+		equippedMoves.clear();
+	}
+	
 	public void resetMoveData() {
 		equippedMoves.clear();
 		knownMoves.clear();
@@ -13564,7 +13590,6 @@ public abstract class GameCharacter implements XMLSaving {
 	public void resetSelectedMoves() {
 		selectedMoves.clear();
 		selectedMovesDisruption.clear();
-		selectedMoveTargets.clear();
 	}
 
 	public void resetMoveCooldowns() {
@@ -13585,7 +13610,15 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		shields.put(type, amount);
 	}
-
+	
+	public void incrementShields(DamageType type, int amount) {
+		if(amount < 0) {
+			amount = 0;
+		}
+		shields.putIfAbsent(type, 0);
+		shields.put(type, shields.get(type) + amount);
+	}
+	
 	public void resetShields() {
 		shields.clear();
 	}
@@ -13615,20 +13648,19 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return
 	 */
 	public int getUnarmedDamage() {
-		int totalDamage = 1 + (int)(this.getAttributeValue(Attribute.MAJOR_PHYSIQUE)/10); // Basic physique damage calculation
-		if(totalDamage > 8) // Hard cap at 8 from physique
-		{
+		float totalDamage = 1 + this.getAttributeValue(Attribute.MAJOR_PHYSIQUE)/10f; // Basic physique damage calculation
+		
+		if(totalDamage > 8) { // Hard cap at 8 from physique
 			totalDamage = 8;
 		}
 
-		if(this.hasTraitActivated(Perk.UNARMED_TRAINING)) // Unarmed training always gives guaranteed 8 base damage.
-		{
+		if(this.hasTraitActivated(Perk.UNARMED_TRAINING)) { // Unarmed training always gives guaranteed 8 base damage.
 			totalDamage = 8;
 		}
 
 		totalDamage *= 1 + Util.getModifiedDropoffValue(this.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f;
 
-		return totalDamage;
+		return Math.round(totalDamage);
 	}
 
 	public boolean isImmuneToDamageType(DamageType type) {
@@ -13655,29 +13687,6 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		return "";
-	}
-	
-	/**
-	 * The returned list is ordered by rendering priority.
-	 */
-	public List<SpecialAttack> getSpecialAttacks() {
-		calculateSpecialAttacks();
-		List<SpecialAttack> tempListSpecialAttacks = new ArrayList<>(specialAttacks);
-		tempListSpecialAttacks.sort(Comparator.comparingInt(SpecialAttack::getRenderingPriority).reversed());
-		return tempListSpecialAttacks;
-	}
-
-
-	public void calculateSpecialAttacks() {
-		if(specialAttacks!=null) {
-			specialAttacks.clear();
-			
-			for (SpecialAttack sAttack : SpecialAttack.values()) {
-				if (sAttack.isConditionsMet(this)) {
-					specialAttacks.add(sAttack);
-				}
-			}
-		}
 	}
 	
 	public List<Spell> getSpells() {
@@ -13939,9 +13948,7 @@ public abstract class GameCharacter implements XMLSaving {
 			healthDamage = (int)(0.25 * healthDamage);
 			if(healthDamage > getHealth()) {
 				setHealth(1); // Can't burn below 1 HP.
-			}
-			else
-			{
+			} else {
 				setHealth(getHealth() - healthDamage);
 			}
 		}
@@ -17423,7 +17430,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		body.calculateRace(this);
-		calculateSpecialAttacks();
+		recalculateCombatMoves();
 
 		postTFSB.append(inventory.calculateClothingPostTransformation(this));
 		

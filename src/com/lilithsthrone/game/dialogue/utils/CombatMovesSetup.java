@@ -7,10 +7,16 @@ import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
 
+/**
+ * @since 0.3.4
+ * @version 0.3.4
+ * @author Irbynx
+ */
 public class CombatMovesSetup {
 
     private static GameCharacter target;
-
+    private static DialogueNode dialogueReturn;
+    
     public static GameCharacter getTarget() {
         if(target==null) {
             return Main.game.getPlayer();
@@ -18,8 +24,9 @@ public class CombatMovesSetup {
         return target;
     }
 
-    public static void setTarget(GameCharacter target) {
+    public static void setTarget(GameCharacter target, DialogueNode dialogueReturn) {
         CombatMovesSetup.target = target;
+        CombatMovesSetup.dialogueReturn = dialogueReturn;
     }
 
     public static final DialogueNode COMBAT_MOVES_CORE = new DialogueNode("Combat Moves", "", true) {
@@ -37,8 +44,8 @@ public class CombatMovesSetup {
 
             for(int i=0;i<GameCharacter.MAX_COMBAT_MOVES;i++) {
                 CombatMove mv = null;
-                if(i<Main.game.getPlayer().getEquippedMoves().size()) {
-                    mv = Main.game.getPlayer().getEquippedMoves().get(i);
+                if(i<target.getEquippedMoves().size()) {
+                    mv = target.getEquippedMoves().get(i);
                 }
                 if(mv!=null) {
                     UtilText.nodeContentSB.append("<div id='MOVE_" + mv.getIdentifier() + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + mv.getType().getColour().toWebHexString() + ";'>"
@@ -56,9 +63,9 @@ public class CombatMovesSetup {
                             "<div class='container-full-width' style='padding:8px; text-align:center;'>"
                             + "<h6 style='text-align:center;'>Known Moves</h6>");
 
-            for(int i=0;i<Main.game.getPlayer().getAvailableMoves().size();i++) {
-                CombatMove mv = Main.game.getPlayer().getAvailableMoves().get(i);
-                if(!Main.game.getPlayer().getEquippedMoves().contains(Main.game.getPlayer().getAvailableMoves().get(i))) {
+            for(int i=0;i<target.getAvailableMoves().size();i++) {
+                CombatMove mv = target.getAvailableMoves().get(i);
+                if(!target.getEquippedMoves().contains(target.getAvailableMoves().get(i))) {
                     UtilText.nodeContentSB.append("<div id='MOVE_" + mv.getIdentifier() + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + mv.getType().getColour().toWebHexString() + ";'>"
                             + "<div class='square-button-content'>" + mv.getSVGString() + "</div>"
                             + "</div>");
@@ -76,9 +83,8 @@ public class CombatMovesSetup {
 
         @Override
         public Response getResponse(int responseTab, int index) {
-
             if (index == 0) {
-                return new Response("Back", "Return to your phone's main menu.", PhoneDialogue.MENU);
+                return new Response("Back", "Return to the previous menu.", dialogueReturn);
             } else {
                 return null;
             }

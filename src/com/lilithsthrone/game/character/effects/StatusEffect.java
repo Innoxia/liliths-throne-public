@@ -7669,7 +7669,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -5f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f)),
 			null) {
 		
 		@Override
@@ -7699,7 +7699,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -5f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f)),
 			null) {
 		
 		@Override
@@ -7729,7 +7729,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -5f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f)),
 			null) {
 		
 		@Override
@@ -8020,7 +8020,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_POISON,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -5f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f)),
 			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
 				
 		@Override
@@ -8067,7 +8067,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_POISON,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -5f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f)),
 			Util.newArrayListOfValues(
 					"<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>",
 					"<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>")) {
@@ -8119,7 +8119,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_POISON,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -5f),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -25f)),
 			Util.newArrayListOfValues(
@@ -8173,7 +8173,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -10f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -10f)),
 			null) {
 		
 		@Override
@@ -8204,7 +8204,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -20f),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -20f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -15f)),
 			null) {
 		
@@ -8238,7 +8238,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -20f),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -20f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -15f)),
 			Util.newArrayListOfValues(
 					"<b>10%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
@@ -8296,7 +8296,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -20f),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -20f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -15f)),
 			Util.newArrayListOfValues(
 					"<b>25%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
@@ -8355,7 +8355,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f),
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, 10f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 10f)),
 			null) {
 		
 		@Override
@@ -8383,7 +8383,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f),
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, 15f),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 15f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f)),
 			null) {
 		
@@ -8413,7 +8413,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f),
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, 20f),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 20f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f)),
 			null) {
@@ -8444,7 +8444,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -5f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f)),
 			null) {
 		
 		@Override
@@ -8490,7 +8490,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, 5f),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 5f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f)),
 			null) {
 		
@@ -8647,7 +8647,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -10f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -10f)),
 			null) {
 		
 		@Override
@@ -8678,7 +8678,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -10f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -10f)),
 			null) {
 		
 		@Override
@@ -8897,7 +8897,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f),
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, 10f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 10f)),
 			null) {
 		
 		@Override
@@ -8931,7 +8931,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f),
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, 10f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 10f)),
 			null) {
 		
 		@Override
@@ -8965,7 +8965,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f),
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, 10f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 10f)),
 			Util.newArrayListOfValues("[style.colourExcellent(All enemies)] take <b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" when Stone Shell ends")) {
 		
 		@Override
@@ -9247,7 +9247,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_LUST,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -15f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -15f)),
 			null) {
 		
 		@Override
@@ -9278,7 +9278,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_LUST,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, -15f),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -15f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
 			null) {
 		
@@ -9881,7 +9881,7 @@ public enum StatusEffect {
 			Colour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, 100f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 100f)),
 			null) {
 		
 		@Override
@@ -9912,7 +9912,7 @@ public enum StatusEffect {
 			Colour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, 100f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 100f)),
 			Util.newArrayListOfValues("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn to a random enemy")) {
 		
 		@Override

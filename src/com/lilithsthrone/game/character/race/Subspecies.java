@@ -88,6 +88,7 @@ public enum Subspecies {
 			"As an angel, [npc.nameIsFull] highly resistant to the arousing effects of the arcane, and [npc.is] particularly adept at fighting demons."
 					+ " [npc.Her] natural instinct to protect humans, however, leaves [npc.her] quite vulnerable to them...",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.BONUS_LUST_SHIELDING, 10f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 50f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_DEMON, 50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_DEMON, 50f),
@@ -2066,7 +2067,7 @@ public enum Subspecies {
 			"[npc.NameIsFull] very agile and alert, and [npc.is] capable of leaping great distances with [npc.her] powerful [npc.legs].",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 5f),
-					new Value<Attribute, Float>(Attribute.DEFENCE_MODIFIER, 2f)),
+					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 2f)),
 			null,
 			"Chasing Squirrels",
 			"Chasing Squirrels'",

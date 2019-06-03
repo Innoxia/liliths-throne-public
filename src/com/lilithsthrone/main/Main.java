@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.2.6";
+	public static final String VERSION_NUMBER = "0.3.3.5";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -90,8 +90,7 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I've got some bugs fixed and some new sex actions added for this preview."
-			+ " I was hoping to have Irbynx's combat update merged and added for this release, but I didn't have quite enough time to get all the changes made which I wanted to make, so that will be in the next update."
+			+ "There are a lot more bug fixes in this version. There are still some things to finish off for the combat update, so that will again have to be pushed back to the next version."
 		+ "</p>"
 			
 		+ "<br/>"
@@ -103,6 +102,58 @@ public class Main extends Application {
 			
 		+ "<br/>"
 
+		+ "<list>"
+			+ "<h6>v0.3.3</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed Lyssieth's demon TF scene for if you are a taur. (PR#1128 by Stadler76)</ul>"
+			
+			+"<li>Sex:</li>"
+			+"<ul>Added 'choke' action for dominant partners in sex. (Only available if their hands can reach their partner's neck, adn if they have at least one hand free.)</ul>"
+			+"<ul>NPCs will now only ever use 'slap face' or 'choke' actions if they have the sadist fetish.</ul>"
+			+"<ul>Slightly improved post-sex descriptions for the companion sex scenes.</ul>"
+			+"<ul>Fixed bug where you could 'Start kissing', even if you were already kissing your partner.</ul>"
+			+"<ul>Fixed being able to perform tribbing at the same time as penis-vagina penetration or intercrural sex.</ul>"
+			+"<ul>Added status effect indication of ongoing tribbing action (only shows up when tribbing is ongoing).</ul>"
+			+"<ul>Fixed availability of impossible mutual ongoing actions, such as performing anal and receiving intercrural at the same time.</ul>"
+			+"<ul>Improved NPCs' choice of sex positioning, so they should now prefer to take submissive positions when wanting to be penetrated, and vice versa. (e.g. An NPC wanting to be fucked should now choose 'on back' slot in missionary.)</ul>"
+			+"<ul>Fixed being able to use the 'Double creampie' orgasm action when the second person didn't have a vagina.</ul>"
+			+"<ul>Fixed the 'mounting' positions in taur sex sometimes not being available.</ul>"
+			+"<ul>Fixed bug where switching to doggy style while there was a spectator would cause the game to freeze.</ul>"
+			+"<ul>Fixed a fingering action, as well as all handjob actions, having 'horny' corruption requirements instead of 'vanilla'.</ul>"
+			+"<ul>Fixed some broken parsing in the new 'slap face' action.</ul>"
+			+"<ul>Sex with Lilaya no longer immediately ends if you cum inside of her while wearing a condom (and the condom doesn't break).</ul>"
+			+"<ul>NPCs will no longer remove socks when giving footjobs, and will now remove their target's shoes if they want to receive a footjob, unless they are masochists.</ul>"
+			+"<ul>Fixed formatting for clothing displacement/removal text.</ul>"
+			+"<ul>Fixed issue with NPCs saying they want to taste your cum when asking you to creampie their urethra.</ul>"
+			+"<ul>Equipped clothing that gets dirtied during sex will no longer have its displacements reset.</ul>"
+			+"<ul>Fixed background error being thrown when orgasming with no penis.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Typo and grammatical fixes.</ul>"
+			+"<ul>Fixed several elusive parsing-related bugs, which were causing odd and difficult-to-reproduce instances of text parsing failure.</ul>"
+			+"<ul>Fixed a game-breaking bug where if the game auto-saved in the same scene that the jinxed clothing quest was first revealed, that save would be unable to be loaded.</ul>"
+			+"<ul>Fixed background error being thrown when an NPC gave birth, which would cause the map & other UI elements to seemingly break at random.</ul>"
+			+"<ul>Fixed 'Ass-to-mouth' orgasm action in doggy-style causing cum to be pumped into the wrong person's ass.</ul>"
+			+"<ul>Issues with parsing and some other errors associated with having sex with companions have been fixed.</ul>"
+			+"<ul>Offspring as a result of selfcest should now correctly be referred to as full siblings instead of half-siblings.</ul>"
+			+"<ul>Fixed issue with Amber having a sex preference for your vagina, even if you didn't have one.</ul>"
+			+"<ul>Fixed the parser's '##' output suppression causing all parsing to break.</ul>"
+			+"<ul>Half-demons will no longer spawn in Dominion during an arcane storm (as they are, by default, immune to the effects that would cause them to attack you).</ul>"
+			+"<ul>The 'Risk of pregnancy' status effect no longer expels all fluids stored in your vagina if it's revealed that you're not pregnant when the effect comes to an end.</ul>"
+			+"<ul>Fixed pregnancy's birthing date not being set correctly if the father was unknown.</ul>"
+			+"<ul>Fixed the 'heels' item of clothing having incorrect default colours (the soles were coloured tan instead of the insides) and incorrect references to 'flats'.</ul>"
+			+"<ul>Fixed Lilaya's lab coat not being unbuttoned.</ul>"
+			+"<ul>Fixed bug where Lilaya could get pregnant and never complete the pregnancy, thereby perpetually locking you out of her lab.</ul>"
+			+"<ul>Lyssieth no longer loses affection towards you upon ending her demon-TF sex scene (which was caused by not orgasming enough times to be satisfied).</ul>"
+			+"<ul>Affection and obedience change descriptions are now properly rounded (to remove instances such as 'X now has -14.2999995 obedience').</ul>"
+			+"<ul>You can now correctly set your surname to be blank in city hall.</ul>"
+			+"<ul>Fixed some incorrect descriptions of Diana and her harpy followers.</ul>"
+			+"<ul>Fixed bug in tattoo mods where secondary and tertiary colour availability would always be using the values for primary colours.</ul>"
+			+"<ul>Fixed game-breaking bug where selling a slave who is also your companion would cause the game to lock up.</ul>"
+			+"<ul>Fixed incorrect naming of half-demon taurs' feral parts (as they were always called demonic-horse, even if the taur type was of a different species).</ul>"
+			+"<ul>Transforming a half-demon into a taur now correctly preserves their genitals as demonic.</ul>"
+		+ "</list>"
+		
 		+ "<list>"
 			+ "<h6>v0.3.2.6</h6>"
 			+"<li>Other:</li>"

@@ -61,7 +61,7 @@ public enum DamageType {
 			SpellSchool.EARTH,
 			DamageType.ENERGY) {
 		@Override
-		public int damageTarget(GameCharacter target, GameCharacter source, int damageAmount) {
+		public int damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
 			// Flame cloak gives fire melee damage at a cost of arcane.
 			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES)) {
 				// Burning mana for each melee strike proportional to it's unchanged damage.
@@ -69,11 +69,11 @@ public enum DamageType {
 				// Increasing damage amount by 50%
 				damageAmount = (int)(damageAmount * 0.5f);
 			}
-			return getSuperDamage(target, source).damageTarget(target, source, damageAmount);
+			return getParentDamageType(source, target).damageTarget(source, target, damageAmount);
 		}
 
 		@Override
-		public DamageType getSuperDamage(GameCharacter target, GameCharacter source) {
+		public DamageType getParentDamageType(GameCharacter source, GameCharacter target) {
 			// Flame cloak gives fire melee damage
 			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES)) {
 				return FIRE;
@@ -113,8 +113,8 @@ public enum DamageType {
 			SpellSchool.ARCANE,
 			null) {
 		@Override
-		public int damageTarget(GameCharacter target, GameCharacter source, int damageAmount) {
-			damageAmount = shieldCheck(target, source, damageAmount);
+		public int damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
+			damageAmount = shieldCheck(source, target, damageAmount);
 			if(damageAmount > 0) {
 				target.setLust(target.getLust()+damageAmount);
 			}
@@ -138,16 +138,16 @@ public enum DamageType {
 	private Attribute resistAttribute;
 	private Attribute multiplierAttribute;
 	private SpellSchool spellSchool;
-	private DamageType superDamage;
+	private DamageType parentDamageType;
 
-	private DamageType(String name, Colour colour, String weaponDescriptor, Attribute resistAttribute, Attribute multiplierAttribute, SpellSchool spellSchool, DamageType superDamage) {
+	private DamageType(String name, Colour colour, String weaponDescriptor, Attribute resistAttribute, Attribute multiplierAttribute, SpellSchool spellSchool, DamageType parentDamageType) {
 		this.name = name;
 		this.colour = colour;
 		this.weaponDescriptor = weaponDescriptor;
 		this.resistAttribute = resistAttribute;
 		this.multiplierAttribute = multiplierAttribute;
 		this.spellSchool = spellSchool;
-		this.superDamage = superDamage; // The umbrella damage type  that covers all of the other damage types in it. Usually doesn't show up for weapons.
+		this.parentDamageType = parentDamageType; // The umbrella damage type  that covers all of the other damage types in it. Usually doesn't show up for weapons.
 	}
 
 	public String getName() {
@@ -180,8 +180,8 @@ public enum DamageType {
 	 * @param damageAmount
 	 * @return
 	 */
-	public int damageTarget(GameCharacter target, GameCharacter source, int damageAmount) {
-		damageAmount = shieldCheck(target, source, damageAmount);
+	public int damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
+		damageAmount = shieldCheck(source, target, damageAmount);
 		if(damageAmount > 0) {
 			target.setHealth(target.getHealth()-damageAmount);
 		}
@@ -192,9 +192,9 @@ public enum DamageType {
 	 * @return How much damage this damage type will do vs the target, taking into account the target's shields. <br/>
 	 * <b>Does not</b> deplete the target's shields.
 	 */
-	public int shieldCheckNoDamage(GameCharacter target, GameCharacter source, int damageAmount) {
-		if(this.getSuperDamage(target, source) != null) {
-			damageAmount = this.getSuperDamage(target, source).shieldCheckNoDamage(target, source, damageAmount);
+	public int shieldCheckNoDamage(GameCharacter source, GameCharacter target, int damageAmount) {
+		if(this.getParentDamageType(source, target) != null) {
+			damageAmount = this.getParentDamageType(source, target).shieldCheckNoDamage(source, target, damageAmount);
 		}
 		if(target.getShields(this) > 0) {
 			damageAmount -= target.getShields(this);
@@ -209,9 +209,9 @@ public enum DamageType {
 	 * @return How much damage this damage type will do vs the target, taking into account the target's shields. <br/>
 	 * <b>Does</b> deplete the target's shields.
 	 */
-	public int shieldCheck(GameCharacter target, GameCharacter source, int damageAmount) {
-		if(this.getSuperDamage(target, source) != null) {
-			damageAmount = this.getSuperDamage(target, source).shieldCheck(target, source, damageAmount);
+	public int shieldCheck(GameCharacter source, GameCharacter target, int damageAmount) {
+		if(this.getParentDamageType(source, target) != null) {
+			damageAmount = this.getParentDamageType(source, target).shieldCheck(source, target, damageAmount);
 		}
 		if(target.getShields(this) > 0) {
 			int oldShields = target.getShields(this);
@@ -224,8 +224,8 @@ public enum DamageType {
 		return damageAmount;
 	}
 
-	public DamageType getSuperDamage(GameCharacter target, GameCharacter source) {
-		return this.superDamage;
+	public DamageType getParentDamageType(GameCharacter source, GameCharacter target) {
+		return this.parentDamageType;
 	}
 	
 }

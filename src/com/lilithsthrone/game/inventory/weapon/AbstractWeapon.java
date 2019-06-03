@@ -80,6 +80,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0));
 							break;
 						case MISC:
+						case UNARMED:
+						case ENERGY:
 							break;
 						case PHYSICAL:
 							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0));
@@ -101,6 +103,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_BOOST, 0));
 							break;
 						case MISC:
+						case UNARMED:
+						case ENERGY:
 							break;
 						case PHYSICAL:
 							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_PHYSICAL, TFPotency.MAJOR_BOOST, 0));
