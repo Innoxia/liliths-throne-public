@@ -1,10 +1,8 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -65,8 +63,6 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -101,7 +97,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.5
- * @version 0.2.11
+ * @version 0.3.4
  * @author Innoxia
  */
 public class Brax extends NPC {
@@ -401,19 +397,25 @@ public class Brax extends NPC {
 	// Combat:
 	
 	@Override
-	public String getMainAttackDescription(boolean isHit) {
+	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
 		return "<p>"
-					+ UtilText.returnStringAtRandom(
-							"Brax lunges forwards, attempting to deliver a punch to your torso."
-									+ (isHit ? " The arcane flames swirling around his forearm dart forwards as his fist makes contact, enveloping you for a brief moment in a fiery vortex."
-											+ " Although the flames don't cause any real pain, the arcane's strength-sapping effect still knocks you back, reeling." : " You manage to twist away to one side, allowing Brax's fist to sail harmlessly by."),
-							"With surprising swiftness, Brax darts forwards, lifting his leg as he attempts to land a kick."
-									+ (isHit ? " As his wolf-like foot connects with your side, the arcane flames swirling around his forearm dart down the length of his body to strike out at the point of contact."
-											+ " You're briefly enveloped in a fiery vortex, and although the flames don't cause any real pain, the arcane fire still adds considerable power to Brax's attack."
+					+ UtilText.parse(target,
+						UtilText.returnStringAtRandom(
+							"Brax lunges forwards, attempting to deliver a punch to [npc.namePos] torso."
+									+ (isHit
+											? " The arcane flames swirling around his forearm dart forwards as his fist makes contact, enveloping [npc.herHim] for a brief moment in a fiery vortex."
+												+ " Although the flames don't cause any real pain, the arcane's strength-sapping effect still knocks [npc.herHim] back, reeling."
+											: " You manage to twist away to one side, allowing Brax's fist to sail harmlessly by."),
+							"With surprising swiftness, Brax darts forwards, lifting his leg as he attempts to strike [npc.name] with a kick."
+									+ (isHit
+											? " As his wolf-like foot connects with [npc.her] side, the arcane flames swirling around his forearm dart down the length of his body to strike out at the point of contact."
+												+ " [npc.NameIsFull] briefly enveloped in a fiery vortex, and although the flames don't cause any real pain, the arcane fire still adds considerable power to Brax's attack."
 											: " You see his attack coming and step back to avoid the blow."),
-							"Brax steps forwards as he attempts to punch you."
-									+ (isHit ? " The arcane flames swirling around his forearm dart forwards as his fist makes contact, enveloping you for a brief moment in a fiery vortex."
-											+ " Although the flames don't cause any real pain, the arcane's strength-sapping effect still knocks you back, reeling." : " You jump out of the way, managing to dodge his clearly-telegraphed attack.")) 
+							"Brax steps forwards as he attempts to punch [npc.name]."
+									+ (isHit
+											? " The arcane flames swirling around his forearm dart forwards as his fist makes contact, enveloping [npc.herHim] for a brief moment in a fiery vortex."
+												+ " Although the flames don't cause any real pain, the arcane's strength-sapping effect still knocks [npc.name] back, reeling."
+											: " You jump out of the way, managing to dodge his clearly-telegraphed attack."))) 
 				+ "</p>";
 	}
 			
@@ -424,40 +426,6 @@ public class Brax extends NPC {
 						"With a grin, Brax focuses on the arcane fire swirling around his arm, and with a sudden thrust forwards, he casts a spell!",
 						"Brax focuses on the arcane fire swirling around his arm, and with a sudden thrust forwards, he casts a spell!") 
 			+ "</p>";
-	}
-	
-	@Override
-	public Attack attackType() {
-		if(this.isSlave()) {
-			return super.attackType();
-		}
-		
-		boolean canCastASpell = !this.getWeightedSpellsAvailable(Combat.getTargetedCombatant(this)).isEmpty();
-		boolean canCastASpecialAttack = false;
-		
-		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
-		
-		attackWeightingMap.put(Attack.MAIN, this.getRace().getPreferredAttacks().contains(Attack.MAIN)?75:50);
-		attackWeightingMap.put(Attack.OFFHAND, this.getOffhandWeapon()==null?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?50:25));
-		attackWeightingMap.put(Attack.SEDUCTION, this.getRace().getPreferredAttacks().contains(Attack.SEDUCTION)?100:(int)this.getAttributeValue(Attribute.MAJOR_CORRUPTION));
-		attackWeightingMap.put(Attack.SPELL, !canCastASpell?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?100:50));
-		attackWeightingMap.put(Attack.SPECIAL_ATTACK, !canCastASpecialAttack?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?100:50));
-		
-		int total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-		}
-		
-		int index = Util.random.nextInt(total);
-		total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-			if(index<total) {
-				return entry.getKey();
-			}
-		}
-		
-		return Attack.MAIN;
 	}
 	
 	@Override

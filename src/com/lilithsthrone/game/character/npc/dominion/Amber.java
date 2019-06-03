@@ -311,13 +311,14 @@ public class Amber extends NPC {
 	// Combat:
 	
 	@Override
-	public String getMainAttackDescription(boolean isHit) {
+	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
 		return "<p>"
-					+ UtilText.returnStringAtRandom(
-							"Amber's eyes burn with an incandescent fury as she delivers a kick straight into your side!",
-							"With a furious cry, Amber punches you square in the chest!",
-							"Spitting curses, Amber furiously kicks at your shins!",
-							"Amber's hair, burning with the same fiery fury as her eyes, swishes through the air as she spins to one side and delivers a solid punch to your [pc.arm]!") 
+					+ UtilText.parse(target,
+							UtilText.returnStringAtRandom(
+							"Amber's eyes burn with an incandescent fury as she delivers a kick straight into [npc.namePos] side!",
+							"With a furious cry, Amber punches [npc.name] square in the chest!",
+							"Spitting curses, Amber furiously kicks at [npc.namePos] shins!",
+							"Amber's hair, burning with the same fiery fury as her eyes, swishes through the air as she spins to one side and delivers a solid punch to [npc.namePos] [npc.arm]!"))
 				+ "</p>";
 	}
 			

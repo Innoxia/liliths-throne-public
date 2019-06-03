@@ -236,12 +236,13 @@ public class Zaranix extends NPC {
 	// Combat:
 
 	@Override
-	public String getMainAttackDescription(boolean isHit) {
+	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
 		return "<p>"
-				+ UtilText.returnStringAtRandom(
-						"With a booming shout, Zaranix delivers a solid kick to your torso!",
-						"With an angry roar, Zaranix punches you square in the chest!",
-						"Zaranix lets out a furious shout as he punches you in the [pc.arm]!") 
+				+ UtilText.parse(target,
+						UtilText.returnStringAtRandom(
+						"With a booming shout, Zaranix delivers a solid kick to [npc.namePos] torso!",
+						"With an angry roar, Zaranix punches [npc.name] square in the chest!",
+						"Zaranix lets out a furious shout as he punches [npc.name] in the [npc.arm]!")) 
 			+ "</p>";
 	}
 

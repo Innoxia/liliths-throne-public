@@ -112,8 +112,8 @@ public class PhoneDialogue {
 			} else if (index == 2) {
 				return new Response(
 						Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
-							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Perks</span>"
-							:"Perks",
+							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Perk Tree</span>"
+							:"Perk Tree",
 						"View your character page.", CHARACTER_LEVEL_UP) {
 					@Override
 					public void effects() {
@@ -182,6 +182,18 @@ public class PhoneDialogue {
 						worldTypeMap = Main.game.getPlayer().getWorldLocation();
 					}
 				};
+				
+			} else if (index == 11) {
+				if(Main.game.isSavedDialogueNeutral()) {
+					return new Response("Combat Moves", "Adjust the moves you perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+						@Override
+						public void effects() {
+							CombatMovesSetup.setTarget(Main.game.getPlayer(), PhoneDialogue.MENU);
+						}
+					};
+				} else {
+					return new Response("Combat Moves", "You are too busy to change your combat moves.", null);
+				}
 				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
@@ -559,14 +571,15 @@ public class PhoneDialogue {
 							"Critical Hit Damage:<br/>"
 							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE), Attribute.CRITICAL_DAMAGE.getUpperLimit()))+"%</b>",
 							true)
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.DODGE_CHANCE,
-							"Dodge Chance:<br/>"
-							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DODGE_CHANCE), Attribute.DODGE_CHANCE.getUpperLimit()))+"%</b>",
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.BONUS_SHIELDING,
+							"Bonus Shielding (per turn in combat):<br/>"
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.BONUS_SHIELDING), Attribute.BONUS_SHIELDING.getUpperLimit()))+"</b>",
 							true)
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.MISS_CHANCE,
-							"Miss Chance:<br/>"
-							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.MISS_CHANCE), Attribute.MISS_CHANCE.getUpperLimit()))+"%</b>",
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.BONUS_LUST_SHIELDING,
+							"Bonus Lust Shielding (per turn in combat):<br/>"
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.BONUS_LUST_SHIELDING), Attribute.BONUS_LUST_SHIELDING.getUpperLimit()))+"</b>",
 							true)
+					
 					
 
 
@@ -2101,7 +2114,7 @@ public class PhoneDialogue {
 		}
 	};
 
-	public static final DialogueNode CHARACTER_LEVEL_UP = new DialogueNode("Perks", "", true) {
+	public static final DialogueNode CHARACTER_LEVEL_UP = new DialogueNode("Perk Tree", "", true) {
 
 
 		@Override

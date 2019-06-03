@@ -212,16 +212,17 @@ public enum Attribute {
 		}
 	},
 	
-	DODGE_CHANCE(0, 0, 100, "dodge chance", "Dodge chance", "shieldIcon", Colour.GENERIC_EXCELLENT, "evasion", "sluggishness", null) {
+	BONUS_SHIELDING(0, -100, 100, "bonus shielding", "Bonus shields", "shieldIcon", Colour.DAMAGE_TYPE_PHYSICAL, "endurance", "vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Increases the chance of dodging attacks and spells.";
+			return "This value is applied to energy shielding at the start of each combat turn.";
 		}
 	},
-	MISS_CHANCE(0, 0, 100, "miss chance", "Miss chance", "shieldIcon", Colour.GENERIC_TERRIBLE, "poor aim", "true striking", null) {
+
+	BONUS_LUST_SHIELDING(0, -100, 100, "bonus lust shielding", "Bonus lust shields", "shieldIcon", Colour.GENERIC_SEX, "chastity", "arousal", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Increases the chance of missing with attacks and spells in combat.";
+			return "This value is applied to lust shielding at the start of each combat turn.";
 		}
 	},
 

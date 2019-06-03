@@ -95,12 +95,12 @@ public class WeaponType {
 					return Util.newArrayListOfValues(Spell.ICE_SHARD);
 				case LUST:
 					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
-				case MISC:
-					break;
 				case PHYSICAL:
 					return Util.newArrayListOfValues(Spell.SLAM);
 				case POISON:
 					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+				default:
+					break;
 			}
 			return null;
 		}
@@ -171,12 +171,12 @@ public class WeaponType {
 					return Util.newArrayListOfValues(Spell.ICE_SHARD);
 				case LUST:
 					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
-				case MISC:
-					break;
 				case PHYSICAL:
 					return Util.newArrayListOfValues(Spell.SLAM);
 				case POISON:
 					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+				default:
+					break;
 			}
 			return null;
 		}
@@ -248,12 +248,12 @@ public class WeaponType {
 					return Util.newArrayListOfValues(Spell.ICE_SHARD);
 				case LUST:
 					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
-				case MISC:
-					break;
 				case PHYSICAL:
 					return Util.newArrayListOfValues(Spell.SLAM);
 				case POISON:
 					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+				default:
+					break;
 			}
 			return null;
 		}
@@ -566,12 +566,12 @@ public class WeaponType {
 					return Util.newArrayListOfValues(Spell.ICE_SHARD);
 				case LUST:
 					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
-				case MISC:
-					break;
 				case PHYSICAL:
 					return Util.newArrayListOfValues(Spell.SLAM);
 				case POISON:
 					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+				default:
+					break;
 			}
 			return null;
 		}
@@ -638,12 +638,12 @@ public class WeaponType {
 					return Util.newArrayListOfValues(Spell.ICE_SHARD);
 				case LUST:
 					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
-				case MISC:
-					break;
 				case PHYSICAL:
 					return Util.newArrayListOfValues(Spell.SLAM);
 				case POISON:
 					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+				default:
+					break;
 			}
 			return null;
 		}
