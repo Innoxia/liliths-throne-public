@@ -1,10 +1,7 @@
 package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -48,8 +45,6 @@ import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -85,7 +80,6 @@ public class SlimeRoyalGuard extends NPC {
 				35, Month.APRIL, 14,
 				20, Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SLIME_QUEENS_LAIR_FIRST_FLOOR, PlaceType.SLIME_QUEENS_LAIR_ROYAL_GUARD, true);
-
 	}
 	
 	@Override
@@ -100,13 +94,23 @@ public class SlimeRoyalGuard extends NPC {
 			this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER);
 			setStartingBody(true);
 		}
+		
+		setStartingCombatMoves();
+	}
+	
+	@Override
+	public void setStartingCombatMoves() {
+		this.clearEquippedMoves();
+		this.equipMove("strike");
+		this.equipMove("block");
+		this.equipAllKnownMoves();
+		this.equipAllSpellMoves();
 	}
 	
 	@Override
 	public void setStartingBody(boolean setPersona) {
 		
 		// Persona:
-
 		if(setPersona) {
 			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 60);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 20);
@@ -293,29 +297,4 @@ public class SlimeRoyalGuard extends NPC {
 		}
 	}
 	
-	@Override
-	public Attack attackType() {
-		boolean canCastASpell = !getWeightedSpellsAvailable(Combat.getTargetedCombatant(this)).isEmpty();
-		
-		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
-		
-		attackWeightingMap.put(Attack.MAIN, 100);
-		attackWeightingMap.put(Attack.SPELL, !canCastASpell?0:25);
-		
-		int total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-		}
-		
-		int index = Util.random.nextInt(total);
-		total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-			if(index<total) {
-				return entry.getKey();
-			}
-		}
-		
-		return Attack.MAIN;
-	}
 }

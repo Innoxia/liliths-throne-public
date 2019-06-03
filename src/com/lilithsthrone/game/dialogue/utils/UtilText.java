@@ -37,6 +37,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -682,6 +683,7 @@ public class UtilText {
 //			specialNPCList = new ArrayList<>(specialNPC);
 //			if(specialNPC!=null)
 //				System.out.println("s set: "+specialNPC.size()+" | "+specialNPCList.size());
+			speechTarget = "";
 			parserVariableCalls = new ArrayList<>();
 			Matcher matcherVAR = Pattern.compile("(?s)#VAR(.*?)#ENDVAR").matcher(input);
 			while(matcherVAR.find()) {
@@ -1075,7 +1077,7 @@ public class UtilText {
 					}
 				}
 				
-				if(!speechTarget.equals("")) {
+				if(!speechTarget.isEmpty()) {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR);
 					
 				} else {
@@ -1109,7 +1111,7 @@ public class UtilText {
 					}
 					return character.getName(arguments) + "'s";
 					
-				} else if(!speechTarget.equals("")) {
+				} else if(!speechTarget.isEmpty()) {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
@@ -1143,7 +1145,7 @@ public class UtilText {
 					}
 					return character.getName(arguments) + "'s";
 					
-				} else if(!speechTarget.equals("")) {
+				} else if(!speechTarget.isEmpty()) {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
@@ -1172,7 +1174,7 @@ public class UtilText {
 					}
 					return character.getName(arguments) + " is";
 					
-				} else if(!speechTarget.equals("")) {
+				} else if(!speechTarget.isEmpty()) {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+" is";
 					
 				} else {
@@ -1202,7 +1204,7 @@ public class UtilText {
 					}
 					return character.getName(arguments) + "'s";
 					
-				} else if(!speechTarget.equals("")) {
+				} else if(!speechTarget.isEmpty()) {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
@@ -1231,7 +1233,7 @@ public class UtilText {
 					}
 					return character.getName(arguments) + " has";
 					
-				} else if(!speechTarget.equals("")) {
+				} else if(!speechTarget.isEmpty()) {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+" has";
 					
 				} else {
@@ -1340,8 +1342,7 @@ public class UtilText {
 					return "petName INVALID_TARGET_NAME("+arguments+")";
 				}
 				try {
-					GameCharacter characterTarget = parserTarget.getCharacter(arguments, null);
-					
+					GameCharacter characterTarget = parserTarget.getCharacter(arguments, specialNPCs);
 					if(parseCapitalise) {
 						return Util.capitaliseSentence(character.getPetName(characterTarget));
 					} else {
@@ -6349,6 +6350,9 @@ public class UtilText {
 		}
 		for(InventorySlot is : InventorySlot.values()) {
 			engine.put("IS_"+is.toString(), is);
+		}
+		for(DamageType damageType : DamageType.values()) {
+			engine.put("DAMAGE_TYPE_"+damageType.toString(), damageType);
 		}
 		for(ItemTag it : ItemTag.values()) {
 			engine.put("ITEM_TAG_"+it.toString(), it);

@@ -114,6 +114,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
@@ -134,6 +135,7 @@ import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
@@ -4697,6 +4699,30 @@ public class MainControllerInitMethod {
 											"This is an undiscovered hidden perk, and as such, you have no idea what it could be!<br/><i>Hidden perks are discovered through the main quest.</i>"), false);
 						}
 					}
+				}
+			}
+
+
+			for(CombatMove move : CombatMove.allCombatMoves) {
+				GameCharacter character = CombatMovesSetup.getTarget();
+
+				id = "MOVE_"+move.getIdentifier();
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setCombatMove(move, character), false);
+
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", event -> {
+						if(character.getEquippedMoves().contains(move))
+						{
+							character.unequipMove(move.getIdentifier());
+						}
+						else if(character.getEquippedMoves().size() < GameCharacter.MAX_COMBAT_MOVES)
+						{
+							character.equipMove(move.getIdentifier());
+						}
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
 				}
 			}
 			

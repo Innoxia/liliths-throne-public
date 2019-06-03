@@ -125,9 +125,42 @@
 	
 	Patch notes:
 	
+	Combat update (PR#916 by Irbynx):
+		Completely overhauled combat loop.
+		The old turn based system has been modified into an action-point based turn system.
+		Added blocking/shielding system, along with a few basic attack moves.
+		You are now able to see intents of enemies and allies in combat.
+		Abilities available to any character in combat are limited to maximum of 8 - respective menu added to phone to assign abilities, and to companion/slave management to manage theirs.
+		Combat AI is a little smarter now, although improvements can be made.
+		HP formula changed to avoid physique playing a major role in it.
+		Mana formula changed to overally bring the amount of mana to 100-120 average values.
+		An overhaul to unarmed damage calculation.
+		'Defence modifier' has been added as an attribute, and applies a boost or drain to damage shielding for the character at the start of each combat turn.
+		'Dodge chance' and 'Miss chance' have been removed from the game. Spells and other effects that modified 'Dodge chance' or 'Miss chance' have been converted into a positive or negative 'Defence modifier' value, respectively.
+		The extra effect of the spell 'Rain Cloud', 'Cloud burst', is now triggered by being hit by a critical attack, instead of being triggered by missing an attack.
+		Special tease attacks now do limited damage vs enemies who dislike the associated fetish. (i.e. Doing a 'virility tease' on someone who dislikes the 'pregnancy' fetish will only do 1 damage.)
+		You can now set an allied and enemy target, so you don't have to keep on switching target to cast friendly spells/abilities.
+		Beneficial spells & abilities will now automatically be applied to your allied target, whereas detrimental spells, abilities, and attacks will be applied to your enemy target.
+		The main three stat bars (physique/arcane/corruption) are now hidden during combat, so that it's easier to see multiple combatant's stats.
+	
+	Bugs:
+		Typo/parsing fixes.
+		Fixed issue with incorrect names being parsed in speech.
+		Fixed an issue with names sometimes being parsed as though they were within speech when they weren't.
 	
 	
 	
+	
+	
+	Cleanse spell applying enemy effect to last person targeted
+	
+	Need to balance numbers.
+	
+	Remove permanent attribute increases from crafted potions
+	
+	Add skin tone options
+	
+	put in a catch-all for imports that auto-disposes of key items from imported character's inventories, be it slave import or player import
 	
 	unrestricting your partner's control in sex causes a breakage almost identical to the doggystyle freeze in the last update
 	sex scenes are kinda breaking if you unrestrict position control for the partner from a dominant position
@@ -153,17 +186,12 @@
 		I tested then with Kate, and bug wasn't there. But then I went to streets, found someone, defeated and started sex, "Do nothing" again didn't make Arousal past 99.
 		Yeah, do nothing always makes arousal get stuck at 99
 		
-	Possibly a generic bug in speech:
-		In post-companion sex (newly added): "Come on, fennec-girl, let's go." SHould say their name...
-		Turning towards your companion, you command her, "Get out of here, Meraxis! I'm going to help Meraxis!"
-	
 	Ear TFs say about shifting to sit high up, even if previous ears were also high up
 	
 	Stroke cock says unavailable even though all conditions are met...
 	also, oddly at other times, "tease" actions will be disabled (saying some requirement isn't met, even though all requirements shown are, and are shown in green), but other actions (like ones that use the same parts but aren't just teasing) work
 	
 	Penis size preference doesn't seem to do anything, despite having it at max, virtually all dicks are 3 to 4 inches long.
-	
 	
 	After enchanting an item to have a different name, and it is then equipped. The item name will reset. The item name will stay as the after enchantment name until equipped.
 	
@@ -188,7 +216,21 @@
 	When at the Imp Fortresses with a party member, I notice that the dialogue will substitute the fortress leader instead of your follower in the first dialogue. So instead of "Stand back, [PARTY MEMBER]! I'm gonna fight [BAD GUY]", I'll get "Stand back, [BAD GUY]! I'm gonna fight [BAD GUY]"
 	I've noticed it at the other two fortresses also but didn't think to get screencaps or anything.
 	
+	Club NPCs can be described as having a job as a slime queen
 	
+	- Many encounters still do not allow partner involvement (succubi, half of Submission)
+
+	- ImpFortress sex is broken (the companion position has access to nothing)
+	
+	- companion cumming with a strap-on breaks the game (no commands available) and you have to load
+	
+	- you still can't really do anything with condoms (here's an idea, fillable, ejaculating stap-ons! Collect Lilayas cum and use it to impregnate someone else.)
+	
+	- still can't find the offspring of your slaves (though you can cheat it somewhat)
+	
+	- still can't let your companion use the stocks
+	
+	- still can't have your guests use your slaves
 	
 	Add option to stop auto saves
 	
@@ -198,6 +240,8 @@
 	Related: "With her opinions on your aunt..." in small talk from the daughter could be "With her opinions on her great aunt..."
 	
 	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it
+	
+	Why the fuck isn't there a tattoo counter that lets you record unique sex partners?
 	
 	credits
 	
@@ -220,12 +264,19 @@
 	
 	----------
 	
+<<<<<<< HEAD
+<<<<<<< HEAD
+	An option to lell my group member to wash her-/himself would be useful. Maybe even a button in 'Your Room'
+=======
+=======
 	the bat slime is referenced after sexing a hell hound (after companion sex - parsing the wrong character when saying "As you step back from the... I'm still horny!")
 	
 	Add scissoring position
 	
+>>>>>>> dev
 	Repeat encounters for imp fortresses act as though you've never seen them before - the whole thing needs going over and improving
 	Not sure, if it's a bug or intended, but I am at the imp fortress, and Jhortrax explicitly asks for my NPC partner, but the options below are limited to offering myself or offering both of us.
+>>>>>>> dev
 	
 	Affection drop when starting sex needs to clearly take into account fetishes - put in SexResponse?
 	
@@ -428,6 +479,47 @@
 	
 	when you are a great succubus and grow a dick while transforming Lilaya and Meraxis, Lyssieth reacts like "you were a futanari oh whatever" since you are a demon and transform yourself
 	
+<<<<<<< HEAD
+	Combat moves should always include basics
+	Selection UI should grey out ones selected, not remove them
+	Attack buttons should have AP cost
+	Defend moves should always target self
+	
+	Have tabs:
+		Basic
+			1 Main weapon
+			2 Offhand Weaopn
+			3 Dual stike
+			4 Block
+			5 Wait
+			6 Seduce
+			7 Aversion
+			10 Repeat
+			11 Arcane Strike
+			12 Arcane Shield
+			14 Submit
+			0 Escape
+		Specials (9 in total)
+			1-3 chosen attacks
+			6-8 chosen attacks
+			11-13 chosen attacks
+			5 Wait
+			10 Repeat
+			14 Submit
+			0 Escape
+		Targeting
+			List all targets, starting with self
+	
+	
+	
+	
+	
+	
+	
+	
+	Somehow an NPC had been placed out of the map's boundaries in the upper floor of Angel's Kiss
+		I set the character to work in that job and engaged in a sex scene with them before they had left the room to go to that area.
+=======
 	need 'convincing requests' perk
 	
 	Also, there needs to be a 'standing in front' position for taurs. So people can still breast feed and fondle and such
@@ -614,6 +706,7 @@
 	need foot structure potions	
 	
 	----------
+>>>>>>> dev
 	
 	use picobyte's condom code and run through all condom todos:
 	

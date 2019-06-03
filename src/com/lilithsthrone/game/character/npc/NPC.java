@@ -15,6 +15,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -50,9 +51,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -161,10 +160,18 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				}
 			}
 		}
+
+		if(!isImported || Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.5")) {
+			this.setStartingCombatMoves();
+		}
 		
 		loadImages();
 	}
 	
+	
+	public void setStartingCombatMoves() {
+		resetDefaultMoves();
+	}
 
 	/**
 	 * Helper method that should be overridden and included in constructor. Sets custom body parts.<br/>
@@ -836,51 +843,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		return weightedSpellMap;
-	}
-	
-	public List<SpecialAttack> getSpecialAttacksAbleToUse() {
-		List<SpecialAttack> specialAttacksAbleToUse = new ArrayList<>();
-		
-		for(SpecialAttack sa : this.getSpecialAttacks()) {
-			if(Main.game.isInCombat()) {
-				if(Combat.getCooldown(this, sa)==0) {
-					specialAttacksAbleToUse.add(sa);
-				}
-			} else {
-				specialAttacksAbleToUse.add(sa);
-			}
-		}
-		
-		return specialAttacksAbleToUse;
-	}
-	
-	public Attack attackType() {
-		boolean canCastASpell = !this.getWeightedSpellsAvailable(Combat.getTargetedCombatant(this)).isEmpty();
-		boolean canCastASpecialAttack = !getSpecialAttacksAbleToUse().isEmpty();
-		
-		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
-		
-		attackWeightingMap.put(Attack.MAIN, this.getRace().getPreferredAttacks().contains(Attack.MAIN)?75:50);
-		attackWeightingMap.put(Attack.OFFHAND, this.getOffhandWeapon()==null?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?50:25));
-		attackWeightingMap.put(Attack.SEDUCTION, this.getRace().getPreferredAttacks().contains(Attack.SEDUCTION)?100:(int)this.getAttributeValue(Attribute.MAJOR_CORRUPTION));
-		attackWeightingMap.put(Attack.SPELL, !canCastASpell?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?100:50));
-		attackWeightingMap.put(Attack.SPECIAL_ATTACK, !canCastASpecialAttack?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?100:50));
-		
-		int total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-		}
-		
-		int index = Util.random.nextInt(total);
-		total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-			if(index<total) {
-				return entry.getKey();
-			}
-		}
-		
-		return Attack.MAIN;
 	}
 	
 	/**
