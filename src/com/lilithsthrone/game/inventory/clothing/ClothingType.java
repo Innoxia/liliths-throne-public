@@ -10273,10 +10273,8 @@ public class ClothingType {
 		
 		Field[] fields = ClothingType.class.getFields();
 		
-		for(Field f : fields){
-			
+		for(Field f : fields) {
 			if (AbstractClothingType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractClothingType ct;
 				try {
 					ct = ((AbstractClothingType) f.get(null));
@@ -10318,7 +10316,6 @@ public class ClothingType {
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
-				
 			}
 		}
 //  	    System.out.println(allClothing.size());

@@ -125,57 +125,112 @@
 	
 	Patch notes:
 	
-	Contributors:
-		Fixed Lyssieth's demon TF scene for if you are a taur. (PR#1128 by Stadler76)
-	
-	Sex:
-		Added 'choke' action for dominant partners in sex. (Only available if their hands can reach their partner's neck, and if they have at least one hand free.)
-		NPCs will now only ever use 'slap face' or 'choke' actions if they have the sadist fetish.
-		Slightly improved post-sex descriptions for the companion sex scenes.
-		Fixed bug where you could 'Start kissing', even if you were already kissing your partner.
-		Fixed being able to perform tribbing at the same time as penis-vagina penetration or intercrural sex.
-		Added status effect indication of ongoing tribbing action (only shows up when tribbing is ongoing).
-		Fixed availability of impossible mutual ongoing actions, such as performing anal and receiving intercrural at the same time.
-		Improved NPCs' choice of sex positioning, so they should now prefer to take submissive positions when wanting to be penetrated, and vice versa. (e.g. An NPC wanting to be fucked should now choose 'on back' slot in missionary.)
-		Fixed being able to use the 'Double creampie' orgasm action when the second person didn't have a vagina.
-		Fixed the 'mounting' positions in taur sex sometimes not being available.
-		Fixed bug where switching to doggy style while there was a spectator would cause the game to freeze.
-		Fixed a fingering action, as well as all handjob actions, having 'horny' corruption requirements instead of 'vanilla'.
-		Fixed some broken parsing in the new 'slap face' action.
-		Sex with Lilaya no longer immediately ends if you cum inside of her while wearing a condom (and the condom doesn't break).
-		NPCs will no longer remove socks when giving footjobs, and will now remove their target's shoes if they want to receive a footjob, unless they are masochists.
-		Fixed formatting for clothing displacement/removal text.
-		Fixed issue with NPCs saying they want to taste your cum when asking you to creampie their urethra.
-		Equipped clothing that gets dirtied during sex will no longer have its displacements reset.
-		Fixed background error being thrown when orgasming with no penis.
+	Combat update (PR#916 by Irbynx):
+		Completely overhauled combat loop.
+		The old turn based system has been modified into an action-point based turn system.
+		Added blocking/shielding system, along with a few basic attack moves.
+		You are now able to see intents of enemies and allies in combat.
+		Abilities available to any character in combat are limited to maximum of 8 - respective menu added to phone to assign abilities, and to companion/slave management to manage theirs.
+		Combat AI is a little smarter now, although improvements can be made.
+		HP formula changed to avoid physique playing a major role in it.
+		Mana formula changed to overally bring the amount of mana to 100-120 average values.
+		An overhaul to unarmed damage calculation.
+		'Defence modifier' has been added as an attribute, and applies a boost or drain to damage shielding for the character at the start of each combat turn.
+		'Dodge chance' and 'Miss chance' have been removed from the game. Spells and other effects that modified 'Dodge chance' or 'Miss chance' have been converted into a positive or negative 'Defence modifier' value, respectively.
+		The extra effect of the spell 'Rain Cloud', 'Cloud burst', is now triggered by being hit by a critical attack, instead of being triggered by missing an attack.
+		Special tease attacks now do limited damage vs enemies who dislike the associated fetish. (i.e. Doing a 'virility tease' on someone who dislikes the 'pregnancy' fetish will only do 1 damage.)
+		You can now set an allied and enemy target, so you don't have to keep on switching target to cast friendly spells/abilities.
+		Beneficial spells & abilities will now automatically be applied to your allied target, whereas detrimental spells, abilities, and attacks will be applied to your enemy target.
+		The main three stat bars (physique/arcane/corruption) are now hidden during combat, so that it's easier to see multiple combatant's stats.
 	
 	Bugs:
-		Typo and grammatical fixes.
-		Fixed several elusive parsing-related bugs, which were causing odd and difficult-to-reproduce instances of text parsing failure.
-		Fixed a game-breaking bug where if the game auto-saved in the same scene that the jinxed clothing quest was first revealed, that save would be unable to be loaded.
-		Fixed background error being thrown when an NPC gave birth, which would cause the map & other UI elements to seemingly break at random.
-		Fixed 'Ass-to-mouth' orgasm action in doggy-style causing cum to be pumped into the wrong person's ass.
-		Issues with parsing and some other errors associated with having sex with companions have been fixed.
-		Offspring as a result of selfcest should now correctly be referred to as full siblings instead of half-siblings.
-		Fixed issue with Amber having a sex preference for your vagina, even if you didn't have one.
-		Fixed the parser's '##' output suppression causing all parsing to break.
-		Half-demons will no longer spawn in Dominion during an arcane storm (as they are, by default, immune to the effects that would cause them to attack you).
-		The 'Risk of pregnancy' status effect no longer expels all fluids stored in your vagina if it's revealed that you're not pregnant when the effect comes to an end.
-		Fixed pregnancy's birthing date not being set correctly if the father was unknown.
-		Fixed the 'heels' item of clothing having incorrect default colours (the soles were coloured tan instead of the insides) and incorrect references to 'flats'.
-		Fixed Lilaya's lab coat not being unbuttoned.
-		Fixed bug where Lilaya could get pregnant and never complete the pregnancy, thereby perpetually locking you out of her lab.
-		Lyssieth no longer loses affection towards you upon ending her demon-TF sex scene (which was caused by not orgasming enough times to be satisfied).
-		Affection and obedience change descriptions are now properly rounded (to remove instances such as 'X now has -14.2999995 obedience').
-		You can now correctly set your surname to be blank in city hall.
-		Fixed some incorrect descriptions of Diana and her harpy followers.
-		Fixed bug in tattoo mods where secondary and tertiary colour availability would always be using the values for primary colours.
-		Fixed game-breaking bug where selling a slave who is also your companion would cause the game to lock up.
-		Fixed incorrect naming of half-demon taurs' feral parts (as they were always called demonic-horse, even if the taur type was of a different species).
-		Transforming a half-demon into a taur now correctly preserves their genitals as demonic.
+		Typo/parsing fixes.
+		Fixed issue with incorrect names being parsed in speech.
+		Fixed an issue with names sometimes being parsed as though they were within speech when they weren't.
 	
 	
 	
+	
+	
+	Cleanse spell applying enemy effect to last person targeted
+	
+	Need to balance numbers.
+	
+	Remove permanent attribute increases from crafted potions
+	
+	Add skin tone options
+	
+	put in a catch-all for imports that auto-disposes of key items from imported character's inventories, be it slave import or player import
+	
+	unrestricting your partner's control in sex causes a breakage almost identical to the doggystyle freeze in the last update
+	sex scenes are kinda breaking if you unrestrict position control for the partner from a dominant position
+	(error.log in bug reports channel and open in notepad as 48)
+	
+	Guest room is unoccupied, but Empty Room upgrade is saying "room needs to be unoccupied"
+	actually all my guest rooms are saying empty is that occupied rooms just for slaves?
+	
+	Leg-lock (and tail-lock, assume all locks): "Cum in my pussy, hellhound!" (should be player's name - the NPC is the hellhound)
+	(Perhaps related?): Partners seem to either call out their own name, race or a past character encounter's name/race as far as I've noticed
+	
+	bug with buggy transform menu says nipples are translucent blue and red (?)
+	
+	Tail-pegging this causes his Lust to drop for no apparent reason (fetishes were unrelated)
+	It appears that lust gains for NPCs that are getting tail-pegged are being affected by their preference for performing anal. Same for anal fingering.
+	
+	"// If there is size-difference and more than 1 participant, block..." This code might be the cause of the centaur switching bug
+	
+	NPC`s lustful suggestion on pc character doesnt rise lust when pc is resisting or in resisting pace. didnt know that should i report it or not but decided to
+	When your character is affected by a psychoactive trip and a npc uses calming suggestion, it affects themselves instead of you.
+	
+	I went to Pix until Shower Sex scene. Using "Do nothing" command keep Arousal at 99, sometimes 100 but without orgasm. Truly deny. Doing any other command makes arousal 100 and proceed to orgasm, so not so gamebreaking bug.
+		I tested then with Kate, and bug wasn't there. But then I went to streets, found someone, defeated and started sex, "Do nothing" again didn't make Arousal past 99.
+		Yeah, do nothing always makes arousal get stuck at 99
+		
+	Ear TFs say about shifting to sit high up, even if previous ears were also high up
+	
+	Stroke cock says unavailable even though all conditions are met...
+	also, oddly at other times, "tease" actions will be disabled (saying some requirement isn't met, even though all requirements shown are, and are shown in green), but other actions (like ones that use the same parts but aren't just teasing) work
+	
+	Penis size preference doesn't seem to do anything, despite having it at max, virtually all dicks are 3 to 4 inches long.
+	
+	After enchanting an item to have a different name, and it is then equipped. The item name will reset. The item name will stay as the after enchantment name until equipped.
+	
+	In self-TF menu: Amount of milk regenerated per day is 67 oz/day and 0 oz/minute (Milk doesn't generate, at all)
+	
+	NPC greeting in club uses wrong name (possibly from a companion, the screen shot didn't show it)
+	
+	I've the ability to talk to people on Dominion Streets during an arcane storm after beating them in battle, meaning that I end up with a whole bunch of friends all in one spot, which doesn't seem intentional.
+		Oddly I only noticed this happening once I reached level 50-ish
+		(Someone confirmed that it wasn't happening at lvl43)
+		K, it's not level; it's Air Elemental. Might be other elementals as well; will check that shortly.
+	So yeah... When I start a new character, "buggy" myself up stats and money, go buy an Elemental spellbook, rank up the spellbook, and then summon an elemental... During an arcane storm, I can talk to people on the streets after I beat them in combat, which definitely seems like a bug.
+	
+	cumming on npc clothes makes them drop after sex
+	
+	possible bug: when ambiphilic in the orientation options is set to off, npcs with that orientation still spawn
+	yeah it seems the ambiphilic setting never registers as off, even in new games
+	(cow-boy slime)
+	
+	possible bug: clits during tribbing are always dry
+	
+	When at the Imp Fortresses with a party member, I notice that the dialogue will substitute the fortress leader instead of your follower in the first dialogue. So instead of "Stand back, [PARTY MEMBER]! I'm gonna fight [BAD GUY]", I'll get "Stand back, [BAD GUY]! I'm gonna fight [BAD GUY]"
+	I've noticed it at the other two fortresses also but didn't think to get screencaps or anything.
+	
+	Club NPCs can be described as having a job as a slime queen
+	
+	- Many encounters still do not allow partner involvement (succubi, half of Submission)
+
+	- ImpFortress sex is broken (the companion position has access to nothing)
+	
+	- companion cumming with a strap-on breaks the game (no commands available) and you have to load
+	
+	- you still can't really do anything with condoms (here's an idea, fillable, ejaculating stap-ons! Collect Lilayas cum and use it to impregnate someone else.)
+	
+	- still can't find the offspring of your slaves (though you can cheat it somewhat)
+	
+	- still can't let your companion use the stocks
+	
+	- still can't have your guests use your slaves
 	
 	Add option to stop auto saves
 	
@@ -185,6 +240,8 @@
 	Related: "With her opinions on your aunt..." in small talk from the daughter could be "With her opinions on her great aunt..."
 	
 	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it
+	
+	Why the fuck isn't there a tattoo counter that lets you record unique sex partners?
 	
 	credits
 	
@@ -207,12 +264,19 @@
 	
 	----------
 	
+<<<<<<< HEAD
+<<<<<<< HEAD
+	An option to lell my group member to wash her-/himself would be useful. Maybe even a button in 'Your Room'
+=======
+=======
 	the bat slime is referenced after sexing a hell hound (after companion sex - parsing the wrong character when saying "As you step back from the... I'm still horny!")
 	
 	Add scissoring position
 	
+>>>>>>> dev
 	Repeat encounters for imp fortresses act as though you've never seen them before - the whole thing needs going over and improving
 	Not sure, if it's a bug or intended, but I am at the imp fortress, and Jhortrax explicitly asks for my NPC partner, but the options below are limited to offering myself or offering both of us.
+>>>>>>> dev
 	
 	Affection drop when starting sex needs to clearly take into account fetishes - put in SexResponse?
 	
@@ -415,6 +479,47 @@
 	
 	when you are a great succubus and grow a dick while transforming Lilaya and Meraxis, Lyssieth reacts like "you were a futanari oh whatever" since you are a demon and transform yourself
 	
+<<<<<<< HEAD
+	Combat moves should always include basics
+	Selection UI should grey out ones selected, not remove them
+	Attack buttons should have AP cost
+	Defend moves should always target self
+	
+	Have tabs:
+		Basic
+			1 Main weapon
+			2 Offhand Weaopn
+			3 Dual stike
+			4 Block
+			5 Wait
+			6 Seduce
+			7 Aversion
+			10 Repeat
+			11 Arcane Strike
+			12 Arcane Shield
+			14 Submit
+			0 Escape
+		Specials (9 in total)
+			1-3 chosen attacks
+			6-8 chosen attacks
+			11-13 chosen attacks
+			5 Wait
+			10 Repeat
+			14 Submit
+			0 Escape
+		Targeting
+			List all targets, starting with self
+	
+	
+	
+	
+	
+	
+	
+	
+	Somehow an NPC had been placed out of the map's boundaries in the upper floor of Angel's Kiss
+		I set the character to work in that job and engaged in a sex scene with them before they had left the room to go to that area.
+=======
 	need 'convincing requests' perk
 	
 	Also, there needs to be a 'standing in front' position for taurs. So people can still breast feed and fondle and such
@@ -601,6 +706,7 @@
 	need foot structure potions	
 	
 	----------
+>>>>>>> dev
 	
 	use picobyte's condom code and run through all condom todos:
 	

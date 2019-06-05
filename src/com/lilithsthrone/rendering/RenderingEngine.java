@@ -27,7 +27,7 @@ import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.SpecialAttack;
+import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
@@ -2039,7 +2039,13 @@ public enum RenderingEngine {
 		
 		panelSB.append(
 				"<div class='attribute-container' style='"
-						+ (Main.game.isInCombat()&&Combat.getTargetedCombatant(Main.game.getPlayer()).equals(character)?"border:2px solid "+Colour.GENERIC_COMBAT.toWebHexString()+";":"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";")
+						+ (Main.game.isInCombat()
+								?(Combat.getTargetedCombatant(Main.game.getPlayer()).equals(character)
+										?"border:2px solid "+Colour.GENERIC_COMBAT.toWebHexString()+";"
+										:(Combat.getTargetedAlliedCombatant(Main.game.getPlayer()).equals(character)
+												?"border:2px solid "+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";"
+												:"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";"))
+								:"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";")
 							+ "'>"
 					+ "<div class='full-width-container' style='margin-bottom:4px;'>"
 						+ "<div class='icon' style='width:12%'>"
@@ -2074,29 +2080,30 @@ public enum RenderingEngine {
 								+"</div>"
 								:"")
 					+"</div>");
-		
-		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>");
-		
 
-		panelSB.append(
-				getAttributeBarThird(PhysiqueLevel.getPhysiqueLevelFromValue(character.getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getRelatedStatusEffect().getSVGString(character),
-						Attribute.MAJOR_PHYSIQUE.getColour(),
-						character.getAttributeValue(Attribute.MAJOR_PHYSIQUE),
-						100,
-						idPrefix + Attribute.MAJOR_PHYSIQUE.getName())
-				
-				+getAttributeBarThird(IntelligenceLevel.getIntelligenceLevelFromValue(character.getAttributeValue(Attribute.MAJOR_ARCANE)).getRelatedStatusEffect().getSVGString(character),
-						Attribute.MAJOR_ARCANE.getColour(),
-						character.getAttributeValue(Attribute.MAJOR_ARCANE),
-						100,
-						idPrefix + Attribute.MAJOR_ARCANE.getName())
+		if(!Main.game.isInCombat()) {
+			panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>");
 			
-				+getAttributeBarThird(CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.MAJOR_CORRUPTION)).getRelatedStatusEffect().getSVGString(character),
-						Attribute.MAJOR_CORRUPTION.getColour(),
-						character.getAttributeValue(Attribute.MAJOR_CORRUPTION),
-						100,
-						idPrefix + Attribute.MAJOR_CORRUPTION.getName())
-				);
+			panelSB.append(
+					getAttributeBarThird(PhysiqueLevel.getPhysiqueLevelFromValue(character.getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getRelatedStatusEffect().getSVGString(character),
+							Attribute.MAJOR_PHYSIQUE.getColour(),
+							character.getAttributeValue(Attribute.MAJOR_PHYSIQUE),
+							100,
+							idPrefix + Attribute.MAJOR_PHYSIQUE.getName())
+					
+					+getAttributeBarThird(IntelligenceLevel.getIntelligenceLevelFromValue(character.getAttributeValue(Attribute.MAJOR_ARCANE)).getRelatedStatusEffect().getSVGString(character),
+							Attribute.MAJOR_ARCANE.getColour(),
+							character.getAttributeValue(Attribute.MAJOR_ARCANE),
+							100,
+							idPrefix + Attribute.MAJOR_ARCANE.getName())
+				
+					+getAttributeBarThird(CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.MAJOR_CORRUPTION)).getRelatedStatusEffect().getSVGString(character),
+							Attribute.MAJOR_CORRUPTION.getColour(),
+							character.getAttributeValue(Attribute.MAJOR_CORRUPTION),
+							100,
+							idPrefix + Attribute.MAJOR_CORRUPTION.getName())
+					);
+		}
 		
 		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>");
 		
@@ -2247,8 +2254,8 @@ public enum RenderingEngine {
 				}
 			}
 			
-			for (SpecialAttack sa : character.getSpecialAttacks()) {
-				int cooldown = Combat.getCooldown(character, sa);
+			for (CombatMove combatMove : character.getEquippedMoves()) {
+				int cooldown = character.getMoveCooldown(combatMove.getIdentifier());
 				if (cooldown > 0) {
 					int timerHeight = (int) ((Math.min(5, cooldown)/5f)*100);
 
@@ -2267,10 +2274,10 @@ public enum RenderingEngine {
 							"<div class='icon effect' style='border:1px solid "+Colour.SPECIAL_ATTACK.toWebHexString()+"'>"
 									+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
 									+ "<div class='icon-content'>"
-										+ sa.getSVGString()
+										+ combatMove.getSVGString()
 									+ "</div>"
 									+ "<div style='width:100%;height:100%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getStopwatch()+"</div>"
-									+ "<div class='overlay' id='SA_" + idPrefix + sa + "'></div>"
+									+ "<div class='overlay' id='CM_" + idPrefix + combatMove.getIdentifier() + "'></div>"
 							+ "</div>");
 					
 				}

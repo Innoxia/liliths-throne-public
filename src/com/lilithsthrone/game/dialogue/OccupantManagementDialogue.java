@@ -34,6 +34,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
@@ -1171,6 +1172,20 @@ public class OccupantManagementDialogue {
 					}
 					return new Response("Perk Tree", "Spend your slave's perk points.", SLAVE_MANAGEMENT_PERKS);
 					
+				} else if(index==11) {
+					if(characterSelected() == null) {
+						return new Response("Combat Moves", "You haven't selected anyone...", null);
+					
+					} else if(!characterSelected().getOwner().isPlayer()) {
+						return new Response("Combat Moves", "You can't manage the combat moves of slaves that you do not own!", null);
+					}
+					return new Response("Combat Moves", "Adjust the moves [npc.name] can perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+						@Override
+						public void effects() {
+							CombatMovesSetup.setTarget(characterSelected(), SLAVE_LIST);
+						}
+					};
+					
 				} else if(index == 0) {
 					return new Response("Back", "Exit the slave management screen.", SLAVE_LIST) {
 						@Override
@@ -1238,9 +1253,19 @@ public class OccupantManagementDialogue {
 				} else if (index == 6) {
 					if(characterSelected() == null) {
 						return new Response("Perk Tree", "You haven't selected anyone...", null);
-						
 					}
 					return new Response("Perk Tree", UtilText.parse(characterSelected(), "Assign [npc.namePos] perk points."), SLAVE_MANAGEMENT_PERKS);
+					
+				} else if(index==11) {
+					if(characterSelected() == null) {
+						return new Response("Combat Moves", "You haven't selected anyone...", null);
+					}
+					return new Response("Combat Moves", "Adjust the moves [npc.name] can perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+						@Override
+						public void effects() {
+							CombatMovesSetup.setTarget(characterSelected(), SLAVE_LIST);
+						}
+					};
 					
 				} else if(index == 0) {
 					return new Response("Back", "Exit the occupant management screen.", SLAVE_LIST) {
@@ -2583,7 +2608,7 @@ public class OccupantManagementDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 6) {
-				return new Response("Perks", UtilText.parse(characterSelected(), "You are already assigning [npc.namePos] perk points."), null);
+				return new Response("Perk Tree", UtilText.parse(characterSelected(), "You are already assigning [npc.namePos] perk points."), null);
 				
 			} else if(index==7) {
 				return new Response("Reset perks", "Reset all of [npc.namePos] perks and traits, refunding all points spent. (This is a temporary action while the perk tree is still under development.)", SLAVE_MANAGEMENT_PERKS) {

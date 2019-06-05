@@ -15,7 +15,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -140,6 +139,19 @@ public class Cultist extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
 			this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
 		}
+
+		setStartingCombatMoves();
+	}
+	
+	@Override
+	public void setStartingCombatMoves() {
+		this.clearEquippedMoves();
+		this.equipMove("strike");
+		this.equipMove("tease");
+		this.equipMove("avert");
+		this.equipMove("block");
+		this.equipAllKnownMoves();
+		this.equipAllSpellMoves();
 	}
 
 	@Override
@@ -253,20 +265,6 @@ public class Cultist extends NPC {
 	}
 
 	// Combat:
-	
-	@Override
-	public Attack attackType() {
-		if (Math.random() < 0.3f && this.getManaPercentage() > 0.4f
-				&& (!Main.game.getPlayer().getStatusEffects().contains(StatusEffect.WITCH_SEAL) || !this.getStatusEffects().contains(StatusEffect.WITCH_CHARM))) {
-			return Attack.SPELL;
-		}
-		
-		if(Math.random() < 0.3f) {
-			return Attack.MAIN;
-		}
-		
-		return Attack.SEDUCTION;
-	}
 	
 	@Override
 	public String getLostVirginityDescriptor() {

@@ -89,6 +89,7 @@ public enum Colour {
 	GENERIC_ATTRIBUTE(false, BaseColour.MAGENTA, "magenta"),
 	GENERIC_EXPERIENCE(false, BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("experience", "xp")),
 	COOLDOWN(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("cooldown")),
+	CRIT(false, BaseColour.GOLD, "gold", Util.newArrayListOfValues("crit")),
 
 	SCAR(false, BaseColour.TAN, "tan"),
 	TATTOO(false, BaseColour.GREY, "grey"),
