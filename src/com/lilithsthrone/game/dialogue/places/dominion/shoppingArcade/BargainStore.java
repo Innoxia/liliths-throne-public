@@ -25,7 +25,7 @@ public class BargainStore {
 
 		@Override
 		public String getAuthor() {
-			return "Nuke-Bait";
+			return "NukeBait";
 		}
 		
 		@Override
