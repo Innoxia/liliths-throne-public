@@ -75,9 +75,9 @@ public class ArcaneArts {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vickyIntroduced, true);
-						
+
 						Main.game.getNpc(Vicky.class).clearNonEquippedInventory();
-						
+
 						for (AbstractWeapon weapon : ((Vicky) Main.game.getNpc(Vicky.class)).getWeaponsForSale()) {
 							if(Main.game.getNpc(Vicky.class).isInventoryFull()) {
 								break;
@@ -86,7 +86,7 @@ public class ArcaneArts {
 						}
 					}
 				};
-				
+
 			} else if (index == 2) {
 				return new ResponseTrade("Potions & Spells", "Walk over to the counter and see what potions, essences, and spells Vicky has in stock.", Main.game.getNpc(Vicky.class)) {
 					@Override
@@ -94,7 +94,7 @@ public class ArcaneArts {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vickyIntroduced, true);
 
 						Main.game.getNpc(Vicky.class).clearNonEquippedInventory();
-						
+
 						for (AbstractItem item : ((Vicky) Main.game.getNpc(Vicky.class)).getItemsForSale()) {
 							if(Main.game.getNpc(Vicky.class).isInventoryFull()) {
 								break;
@@ -103,7 +103,7 @@ public class ArcaneArts {
 						}
 					}
 				};
-				
+
 			} else if (index == 3) {
 				if(((Vicky) Main.game.getNpc(Vicky.class)).getClothingForSale().isEmpty()) {
 					return new Response("Clothing", "Vicky doesn't have any clothing in stock at the moment.", null);

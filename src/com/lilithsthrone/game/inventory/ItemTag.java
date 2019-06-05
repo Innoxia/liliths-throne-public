@@ -22,6 +22,7 @@ public enum ItemTag {
 	SOLD_BY_KATE(false), // Jewellery
 	SOLD_BY_FINCH(false), // BDSM and sex-related stuff
 	SOLD_BY_VICKY(false), // Weapons
+	SOLD_BY_AKARI(false), // Modded Items
 
 	SPELL_BOOK(false),
 	SPELL_SCROLL(false),

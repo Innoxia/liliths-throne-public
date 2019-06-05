@@ -1,10 +1,32 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.body.valueEnums.*;
+import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.inventory.*;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.AbstractCoreItem;
+import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -16,25 +38,6 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
-import com.lilithsthrone.game.character.body.valueEnums.AssSize;
-import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.body.valueEnums.HairLength;
-import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
-import com.lilithsthrone.game.character.body.valueEnums.HipSize;
-import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
-import com.lilithsthrone.game.character.body.valueEnums.LipSize;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
-import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -46,8 +49,6 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.AbstractCoreItem;
-import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -62,21 +63,22 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
- * @since
+ * @since 3.3.0
  * @version
  * @author NukeBait, Innoxia
  */
 public class Akari extends NPC {
 
-	private AbstractItemType[] itemsForSale = new AbstractItemType[] {
-			};
+	private List<AbstractItem> moddedItems;
+	private List<AbstractClothing> moddedClothes;
+	private List<AbstractWeapon> moddedWeapons;
 	
 	public Akari() {
 		this(false);
 	}
 	
 	public Akari(boolean isImported) {
-		super(isImported, new NameTriplet("Akari"), "Himeko", //TODO
+		super(isImported, new NameTriplet("Akari"), "Himeko",
 				"Akari is the sole employee of her hodge-podge bargain store."
 						+ " She is extremely cheerful. A cheeky, ear to ear smile never seems to leave her face.",
 				124, Month.JANUARY, 12,//TODO
@@ -88,6 +90,14 @@ public class Akari extends NPC {
 				WorldType.SHOPPING_ARCADE,
 				PlaceType.SHOPPING_ARCADE_AKARIS_SHOP,
 				true);
+
+		moddedClothes = new ArrayList<>();
+		moddedItems = new ArrayList<>();
+		moddedWeapons = new ArrayList<>();
+			if(!isImported) {
+			dailyReset();
+		}
+
 
 	}
 	
@@ -264,7 +274,7 @@ public class Akari extends NPC {
 					+ " Even on her tip toes, she only barely measures 5 feet \" (152cm)."
 				+ "</p>"
 				+ "<p>"
-					+ "Two fluffy ears sit right on yop of here head, twitching occasionally to pick up distant sounds"
+					+ "Two fluffy ears sit right on top of her head, twitching occasionally to pick up distant sounds"
 					+ " A pair of golden eyes stare right back at you as you give her the once over."
 				+ "</p>"
 				+ "<p>"
@@ -274,23 +284,61 @@ public class Akari extends NPC {
 		
 		return infoScreenSB.toString();
 	}
-	
+
+
 	@Override
 	public void dailyReset() {
 		clearNonEquippedInventory();
-		
-		for (AbstractItemType item : itemsForSale) {
-			for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
-				this.addItem(AbstractItemType.generateItem(item), false);
+		moddedItems.clear();
+		moddedWeapons.clear();
+		moddedClothes.clear();
+
+		List<AbstractCoreType> types = new ArrayList<>();
+
+		for(AbstractWeaponType wt : WeaponType.getAllWeapons()) {
+			if(wt.getItemTags().contains(ItemTag.SOLD_BY_AKARI)) {
+				types.add(wt);
+			}
+		}
+		for(AbstractItemType item : ItemType.getAllItems()) {
+			if(item.getItemTags().contains(ItemTag.SOLD_BY_AKARI)) {
+				types.add(item);
+			}
+		}
+		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
+			try {
+				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_AKARI)) {
+					types.add(clothing);
+				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		Collections.shuffle(types);
+		int count=0;
+		for(AbstractCoreType type : types) {
+			if(type instanceof AbstractWeaponType) {
+				for(int i=0; i<1+Util.random.nextInt(3); i++){
+					moddedWeapons.add(AbstractWeaponType.generateWeapon((AbstractWeaponType) type));
+				}
+
+			} else if(type instanceof AbstractItemType) {
+				moddedItems.add(AbstractItemType.generateItem((AbstractItemType) type));
+
+			} else if(type instanceof AbstractClothingType) {
+				moddedClothes.add(AbstractClothingType.generateClothing((AbstractClothingType) type));
+			}
+			count++;
+			if(count>=this.getMaximumInventorySpace()) {
+				break;
 			}
 		}
 
-		this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER), false);
 	}
 
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
-		return false;
+		return true;
 	}
 	
 	@Override
@@ -305,6 +353,18 @@ public class Akari extends NPC {
 	@Override
 	public boolean isTrader() {
 		return true;
+	}
+
+	public List<AbstractWeapon> getWeaponsForSale() {
+		return moddedWeapons;
+	}
+
+	public List<AbstractItem> getItemsForSale() {
+		return moddedItems;
+	}
+
+	public List<AbstractClothing> getClothingForSale() {
+		return moddedClothes;
 	}
 
 }
