@@ -77,6 +77,8 @@ public enum DialogueFlagValue {
 	
 	ashleySexToysDiscovered,
 	ashleyAttitude,
+
+	akariIntroduced,
 	
 	reactedToKatePregnancy,
 	

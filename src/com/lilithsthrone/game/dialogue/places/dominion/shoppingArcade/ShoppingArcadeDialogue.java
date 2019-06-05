@@ -152,7 +152,15 @@ public class ShoppingArcadeDialogue {
 					}
 				};
 
-			} else {
+			} else if (index == 12) {
+				return new ResponseEffectsOnly("Bargain Store", "Fast travel to Akari's Shop."){
+					@Override
+					public void effects() {
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_AKARIS_SHOP, true);
+					}
+				};
+
+			}else {
 				return null;
 			}
 		}
