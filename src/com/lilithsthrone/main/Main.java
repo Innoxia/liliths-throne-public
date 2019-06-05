@@ -71,6 +71,7 @@ public class Main extends Application {
 	public static final String GAME_NAME = "Lilith's Throne";
 	public static final String VERSION_NUMBER = "0.3.3";
 	public static final String VERSION_DESCRIPTION = "Alpha";
+
 	
 	/**
 	 * To turn it on, just add -Ddebug=true to java's VM options. (You should be able to do this in Eclipse through Run::Run Configurations...::Arguments tab::VM Arguments).

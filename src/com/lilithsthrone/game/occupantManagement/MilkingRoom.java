@@ -54,19 +54,19 @@ public class MilkingRoom implements XMLSaving {
 	
 	private static GameCharacter targetedCharacter = Main.game.getPlayer();
 	
-	public static final int INGESTION_AMOUNT = 100;
+	public static final int INGESTION_AMOUNT = 1000;
 
 	public static final int ARTISAN_MILKING_AMOUNT = 2000;
 	public static final int BASE_MILKING_AMOUNT = 2500;
 	public static final int INDUSTRIAL_MILKING_AMOUNT = 5000;
 
-	public static final int ARTISAN_CUM_MILKING_AMOUNT = 200;
-	public static final int BASE_CUM_MILKING_AMOUNT = 250;
-	public static final int INDUSTRIAL_CUM_MILKING_AMOUNT = 500;
+	public static final int ARTISAN_CUM_MILKING_AMOUNT = 5000;
+	public static final int BASE_CUM_MILKING_AMOUNT = 7500;
+	public static final int INDUSTRIAL_CUM_MILKING_AMOUNT = 10000;
 
-	public static final int ARTISAN_GIRLCUM_MILKING_AMOUNT = 40;
-	public static final int BASE_GIRLCUM_MILKING_AMOUNT = 50;
-	public static final int INDUSTRIAL_GIRLCUM_MILKING_AMOUNT = 100;
+	public static final int ARTISAN_GIRLCUM_MILKING_AMOUNT = 1000;
+	public static final int BASE_GIRLCUM_MILKING_AMOUNT = 1250;
+	public static final int INDUSTRIAL_GIRLCUM_MILKING_AMOUNT = 2000;
 	
 	public MilkingRoom(WorldType worldType, Vector2i location) {
 		autoSellMilk = false;

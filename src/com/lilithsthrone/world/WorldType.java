@@ -309,6 +309,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff8000), PlaceType.SHOPPING_ARCADE_KATES_SHOP),
 					new Value<>(new Color(0xff00ff), PlaceType.SHOPPING_ARCADE_GENERIC_SHOP),
 					new Value<>(new Color(0x008000), PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP),
+					new Value<>(new Color(0x000fff), PlaceType.SHOPPING_ARCADE_AKARIS_SHOP),
 					new Value<>(new Color(0x00ff00), PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT)
 					)){
 		@Override

@@ -32,14 +32,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGen
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ArcaneArts;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ClothingEmporium;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.DreamLover;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.PixsPlayground;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.RalphsSnacks;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ShoppingArcadeDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SupplierDepot;
+import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.*;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaveryAdministration;
@@ -1698,6 +1691,16 @@ public class PlaceType {
 			null,
 			"in her store"
 			).initWeatherImmune();
+
+	public static final AbstractPlaceType SHOPPING_ARCADE_AKARIS_SHOP = new AbstractPlaceType(
+			"Bargain Store",
+			"A strange shop with an array of bizarre and seemingly out of place items",
+			"dominion/shoppingArcade/genericShop",
+			BaseColour.GOLD,
+			BargainStore.EXTERIOR,
+			null,
+			"in their store"
+	).initWeatherImmune();
 	
 	public static final AbstractPlaceType SHOPPING_ARCADE_VICKYS_SHOP = new AbstractPlaceType(
 			"Arcane Arts",
