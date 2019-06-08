@@ -199,30 +199,17 @@ public enum Attribute {
 
 	// Combat attributes:
 
-	CRITICAL_CHANCE(5, 0, 100, "critical hit chance", "Critical chance", "shieldIcon", Colour.ATTRIBUTE_HEALTH, "luck", "misfortune", null) {
+	CRITICAL_DAMAGE(150, 100, 500, "critical power", "Critical power", "shieldIcon", Colour.ATTRIBUTE_HEALTH, "impact", "failure", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Each point gives 1% chance to perform a critical hit.";
-		}
-	},
-	CRITICAL_DAMAGE(150, 100, 500, "critical hit damage", "Critical damage", "shieldIcon", Colour.ATTRIBUTE_HEALTH, "impact", "failure", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Each point gives 1% extra critical hit damage.";
+			return "Each point gives 1% extra critical power.";
 		}
 	},
 	
-	BONUS_SHIELDING(0, -100, 100, "bonus shielding", "Bonus shields", "shieldIcon", Colour.DAMAGE_TYPE_PHYSICAL, "endurance", "vulnerability", null) {
+	ENERGY_SHIELDING(0, -100, 100, "energy shielding", "Energy shielding", "shieldIcon", Colour.ATTRIBUTE_HEALTH, "endurance", "vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "This value is applied to energy shielding at the start of each combat turn.";
-		}
-	},
-
-	BONUS_LUST_SHIELDING(0, -100, 100, "bonus lust shielding", "Bonus lust shields", "shieldIcon", Colour.GENERIC_SEX, "chastity", "arousal", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "This value is applied to lust shielding at the start of each combat turn.";
 		}
 	},
 
@@ -445,120 +432,120 @@ public enum Attribute {
 		}
 	},
 	
-	RESISTANCE_ANGEL(0, -100, 100, "angelic resistance", "Angelic resistance", "shieldIcon", Colour.RACE_ANGEL, "angelic-immunity", "angelic-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by angels.";
-		}
-	},
-	RESISTANCE_CAT_MORPH(0, -100, 100, "cat-morph resistance", "Cat-morph resistance", "shieldIcon", Colour.RACE_CAT_MORPH, "cat-morph-immunity", "cat-morph-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by cat-morphs.";
-		}
-	},
-	RESISTANCE_COW_MORPH(0, -100, 100, "cow-morph resistance", "Cow-morph resistance", "shieldIcon", Colour.RACE_COW_MORPH, "cow-morph-immunity", "cow-morph-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by cow-morphs.";
-		}
-	},
-	RESISTANCE_DEMON(0, -100, 100, "demonic resistance", "Demonic resistance", "shieldIcon", Colour.RACE_DEMON, "demonic-immunity", "demonic-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by demons.";
-		}
-	},
-	RESISTANCE_DOG_MORPH(0, -100, 100, "dog-morph resistance", "Dog-morph resistance", "shieldIcon", Colour.RACE_DOG_MORPH, "dog-morph-immunity", "dog-morph-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by dog-morphs.";
-		}
-	},
-	RESISTANCE_HARPY(0, -100, 100, "harpy resistance", "Harpy resistance", "shieldIcon", Colour.RACE_HARPY, "harpy-immunity", "harpy-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by harpies.";
-		}
-	},
-	RESISTANCE_HORSE_MORPH(0, -100, 100, "horse-morph resistance", "Horse-morph resistance", "shieldIcon", Colour.RACE_HORSE_MORPH, "horse-morph-immunity", "horse-morph-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by horse-morphs.";
-		}
-	},
-	RESISTANCE_IMP(0, -100, 100, "imp resistance", "Imp resistance", "shieldIcon", Colour.RACE_IMP, "impish-immunity", "impish-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by imps.";
-		}
-	},
-	RESISTANCE_REINDEER_MORPH(0, -100, 100, "reindeer-morph resistance", "Reindeer-morph resistance", "shieldIcon", Colour.RACE_REINDEER_MORPH, "reindeer-morph-immunity", "reindeer-morph-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by reindeer-morphs.";
-		}
-	},
-	RESISTANCE_HUMAN(0, -100, 100, "human resistance", "Human resistance", "shieldIcon", Colour.RACE_HUMAN, "human-immunity", "human-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by humans.";
-		}
-	},
-	RESISTANCE_SQUIRREL_MORPH(0, -100, 100, "squirrel-morph resistance", "Squirrel-morph resistance", "shieldIcon", Colour.RACE_SQUIRREL_MORPH, "squirrel-morph-immunity", "squirrel-morph-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by squirrel-morphs.";
-		}
-	},
-	RESISTANCE_RAT_MORPH(0, -100, 100, "rat-morph resistance", "Rat-morph resistance", "shieldIcon", Colour.RACE_RAT_MORPH, "rat-morph-immunity", "rat-morph-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by rat-morphs.";
-		}
-	},
-	RESISTANCE_RABBIT_MORPH(0, -100, 100, "rabbit-morph resistance", "Rabbit-morph resistance", "shieldIcon", Colour.RACE_RABBIT_MORPH, "rabbit-morph-immunity", "rabbit-morph-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by rabbit-morphs.";
-		}
-	},
-	RESISTANCE_BAT_MORPH(0, -100, 100, "bat-morph resistance", "Bat-morph resistance", "shieldIcon", Colour.RACE_BAT_MORPH, "bat-morph-immunity", "bat-morph-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by bat-morphs.";
-		}
-	},
-	RESISTANCE_ALLIGATOR_MORPH(0, -100, 100, "alligator-morph resistance", "Alligator-morph resistance", "shieldIcon", Colour.RACE_ALLIGATOR_MORPH, "alligator-morph-immunity", "alligator-morph-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by alligator-morphs.";
-		}
-	},
-	RESISTANCE_WOLF_MORPH(0, -100, 100, "wolf-morph resistance", "Wolf-morph resistance", "shieldIcon", Colour.RACE_WOLF_MORPH, "wolf-morph-immunity", "wolf-morph-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by wolf-morphs.";
-		}
-	},
-	RESISTANCE_FOX_MORPH(0, -100, 100, "fox-morph resistance", "Fox-morph resistance", "shieldIcon", Colour.RACE_FOX_MORPH, "fox-morph-immunity", "fox-morph-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by fox-morphs.";
-		}
-	},
-	RESISTANCE_SLIME(0, -100, 100, "slime resistance", "Slime resistance", "shieldIcon", Colour.RACE_SLIME, "slime-immunity", "slime-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs damage inflicted by slimes.";
-		}
-	},
-	RESISTANCE_ELEMENTAL(0, -100, 100, "elemental resistance", "Elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_ARCANE, "elemental-immunity", "elemental-vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases resistance vs elementals.";
-		}
-	}
+//	RESISTANCE_ANGEL(0, -100, 100, "angelic resistance", "Angelic resistance", "shieldIcon", Colour.RACE_ANGEL, "angelic-immunity", "angelic-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by angels.";
+//		}
+//	},
+//	RESISTANCE_CAT_MORPH(0, -100, 100, "cat-morph resistance", "Cat-morph resistance", "shieldIcon", Colour.RACE_CAT_MORPH, "cat-morph-immunity", "cat-morph-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by cat-morphs.";
+//		}
+//	},
+//	RESISTANCE_COW_MORPH(0, -100, 100, "cow-morph resistance", "Cow-morph resistance", "shieldIcon", Colour.RACE_COW_MORPH, "cow-morph-immunity", "cow-morph-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by cow-morphs.";
+//		}
+//	},
+//	RESISTANCE_DEMON(0, -100, 100, "demonic resistance", "Demonic resistance", "shieldIcon", Colour.RACE_DEMON, "demonic-immunity", "demonic-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by demons.";
+//		}
+//	},
+//	RESISTANCE_DOG_MORPH(0, -100, 100, "dog-morph resistance", "Dog-morph resistance", "shieldIcon", Colour.RACE_DOG_MORPH, "dog-morph-immunity", "dog-morph-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by dog-morphs.";
+//		}
+//	},
+//	RESISTANCE_HARPY(0, -100, 100, "harpy resistance", "Harpy resistance", "shieldIcon", Colour.RACE_HARPY, "harpy-immunity", "harpy-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by harpies.";
+//		}
+//	},
+//	RESISTANCE_HORSE_MORPH(0, -100, 100, "horse-morph resistance", "Horse-morph resistance", "shieldIcon", Colour.RACE_HORSE_MORPH, "horse-morph-immunity", "horse-morph-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by horse-morphs.";
+//		}
+//	},
+//	RESISTANCE_IMP(0, -100, 100, "imp resistance", "Imp resistance", "shieldIcon", Colour.RACE_IMP, "impish-immunity", "impish-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by imps.";
+//		}
+//	},
+//	RESISTANCE_REINDEER_MORPH(0, -100, 100, "reindeer-morph resistance", "Reindeer-morph resistance", "shieldIcon", Colour.RACE_REINDEER_MORPH, "reindeer-morph-immunity", "reindeer-morph-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by reindeer-morphs.";
+//		}
+//	},
+//	RESISTANCE_HUMAN(0, -100, 100, "human resistance", "Human resistance", "shieldIcon", Colour.RACE_HUMAN, "human-immunity", "human-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by humans.";
+//		}
+//	},
+//	RESISTANCE_SQUIRREL_MORPH(0, -100, 100, "squirrel-morph resistance", "Squirrel-morph resistance", "shieldIcon", Colour.RACE_SQUIRREL_MORPH, "squirrel-morph-immunity", "squirrel-morph-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by squirrel-morphs.";
+//		}
+//	},
+//	RESISTANCE_RAT_MORPH(0, -100, 100, "rat-morph resistance", "Rat-morph resistance", "shieldIcon", Colour.RACE_RAT_MORPH, "rat-morph-immunity", "rat-morph-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by rat-morphs.";
+//		}
+//	},
+//	RESISTANCE_RABBIT_MORPH(0, -100, 100, "rabbit-morph resistance", "Rabbit-morph resistance", "shieldIcon", Colour.RACE_RABBIT_MORPH, "rabbit-morph-immunity", "rabbit-morph-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by rabbit-morphs.";
+//		}
+//	},
+//	RESISTANCE_BAT_MORPH(0, -100, 100, "bat-morph resistance", "Bat-morph resistance", "shieldIcon", Colour.RACE_BAT_MORPH, "bat-morph-immunity", "bat-morph-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by bat-morphs.";
+//		}
+//	},
+//	RESISTANCE_ALLIGATOR_MORPH(0, -100, 100, "alligator-morph resistance", "Alligator-morph resistance", "shieldIcon", Colour.RACE_ALLIGATOR_MORPH, "alligator-morph-immunity", "alligator-morph-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by alligator-morphs.";
+//		}
+//	},
+//	RESISTANCE_WOLF_MORPH(0, -100, 100, "wolf-morph resistance", "Wolf-morph resistance", "shieldIcon", Colour.RACE_WOLF_MORPH, "wolf-morph-immunity", "wolf-morph-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by wolf-morphs.";
+//		}
+//	},
+//	RESISTANCE_FOX_MORPH(0, -100, 100, "fox-morph resistance", "Fox-morph resistance", "shieldIcon", Colour.RACE_FOX_MORPH, "fox-morph-immunity", "fox-morph-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by fox-morphs.";
+//		}
+//	},
+//	RESISTANCE_SLIME(0, -100, 100, "slime resistance", "Slime resistance", "shieldIcon", Colour.RACE_SLIME, "slime-immunity", "slime-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs damage inflicted by slimes.";
+//		}
+//	},
+//	RESISTANCE_ELEMENTAL(0, -100, 100, "elemental resistance", "Elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_ARCANE, "elemental-immunity", "elemental-vulnerability", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases resistance vs elementals.";
+//		}
+//	}
 	;
 
 	
@@ -570,12 +557,12 @@ public enum Attribute {
 	private String positiveEnchantment;
 	private String negativeEnchantment;
 	private Colour colour;
-	public static final List<Attribute> attributeBonusesForEnchanting = new ArrayList<>(), baseAttributesGood = new ArrayList<>();
+	public static final List<Attribute> attributeBonusesForEnchanting = new ArrayList<>();
+	public static final List<Attribute> baseAttributesGood = new ArrayList<>();
 	private List<String> extraEffects;
 	private String SVGString;
 
 	static {
-		attributeBonusesForEnchanting.add(Attribute.CRITICAL_CHANCE);
 		attributeBonusesForEnchanting.add(Attribute.CRITICAL_DAMAGE);
 
 		attributeBonusesForEnchanting.add(Attribute.SPELL_COST_MODIFIER);

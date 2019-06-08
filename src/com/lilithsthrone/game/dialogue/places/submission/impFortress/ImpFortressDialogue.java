@@ -2114,11 +2114,12 @@ public class ImpFortressDialogue {
 
 				if (index == 1) {
 					if(isAlphaFortress()) {
-						if(Main.game.getPlayer().hasTraitActivated(Perk.BRAWLER)) {
+						if(Main.game.getPlayer().hasTraitActivated(Perk.FEROCIOUS_WARRIOR)) {
 							return new Response("Brawler",
 									UtilText.parse(getBoss(),
 											"Seize this fleeting opportunity to provoke [npc.name] into trying to punch you,"
-													+ " relying on your skill as a <b style='color:"+Colour.TRAIT.toWebHexString()+";'>Brawler</b> to humiliate [npc.herHim] in front of [npc.her] imp followers."),
+													+ " relying on your skill as a <b style='color:"+Colour.TRAIT.toWebHexString()+";'>"+Perk.FEROCIOUS_WARRIOR.getName(Main.game.getPlayer())+"</b>"
+															+ " to humiliate [npc.herHim] in front of [npc.her] imp followers."),
 									KEEP_ALPHA_BRAWLER) {
 								@Override
 								public void effects() {

@@ -147,18 +147,102 @@
 		Typo/parsing fixes.
 		Fixed issue with incorrect names being parsed in speech.
 		Fixed an issue with names sometimes being parsed as though they were within speech when they weren't.
+		
+		
+	v0.3.3.6:
+	
+	Engine:
+		Moved Perk Enums into classes.
+	
+	Gameplay:
+		<b>All permanent attribute boosts for all characters will be reset upon loading into the game.</b>
+		<b>All characters' perk trees will be reset upon loading into the game.</b>
+		You can no longer gain permanent increases to your attributes through potions. The only way to increase attributes now is through clothing, status effects, perks, or unique events.
+		Removed base attribute increases for races, and instead put attribute bonuses in subspecies' unique status effects.
+		The perk trees for all non-elementals (including that of the player) have been modified. Added several new traits and perks, and the 'root' lust perk is now unlocked by default.
+		You can no longer go 'back up' the perk tree to unlock perks. All unlock progress must now always be down or on the same level.
+		All NPCs no longer have attributes assigned to them upon creation, and instead select perks based on their subspecies's preferences.
+		Characters who are enslaved no longer have their job-related trait converted into the slave trait. Characters who spawn into the game as slaves will have the slave trait, however.
+		Altered aura calculation to rely more on the value of your arcane attribute.
+		Resistance attributes no longer provide a percentage damage reduction, and instead provide shielding equal to their value in each turn in combat.
+		Clothing now provides 10% of the physical resistance it used to. (For any modders, please continue to use integer values of 1 and over - the reduction to 10% is done in the code.)
+		
+	Other:
+		You can now see NPCs' perk trees at the bottom of their character description pages.
+		Amber now has two demonstones equipped as weapons.
+		Added several unique occupational perks for both unique and non-unique NPCs.
+		Brax/Bree/Brandi no longer wears shoes.
+		Adjusted the levels of several unique NPCs.
+		Reduced clothing attribute modifiers from -5/-3/-1/1/3/5 to -3/-2/-1/1/2/3.
+		
+	More combat changes:
+		Added status effect application indication in combat moves tooltips.
+		Changed spell's critical hit requirement to being the only action used that turn.
+		Changed the colour of the 'lust' attribute from scarlet to light pink, and 'physical damage' from red to grey-brown.
+		Removed 'critical chance' and 'bonus lust shielding' attributes. Altered status effects, subspecies bonues, and clothing enchantments which used these attributes. Enchanted clothing/weapons which had critical chance modifiers have been converted to critical damage.
+		Renamed 'critical hit damage' to 'critical power'.
+		Added shielding for energy damage as a separate shielding type from physical.
+		Block now blocks all energy damage, not just physical.
+		Racial resistances have been removed. Instead of increasing your stats, race books now give you a unique perk which boosts damage vs that race. (You can get the lilin and elder lilin unique perks by returning to Lyssieth and asking about 'Recap' and 'Family', respectively.)
+		(If you have defeated the imps in the Imp Citadel, you should have your imp racial damage replaced by a special perk, 'imp slayer', when you load in.)
+	
+	Bugs:
+		Tease damage done to a target who is immune to the 'instant-loss at 100 lust' effect will now correctly start to damage their health.
+		Restored Rose's virginity for if it was accidentally taken in a version where her sex actions weren't working properly.
+		Fixed issue with player's prediction moves in combat not being cleared each turn.
+		Fixed move cooldowns not being reset when you used the 'Reset' action in combat.
+		Fixed combat prediction text not correctly identifying when the move would be a critical.
+		Fixed issue with characters getting a huge amount of perk points.
+		Fixed issue in characters' information screens, where relationships sometimes included an 'Unknown'.
+		Fixed some parsing errors.
 	
 	
 	
 	
+	lust resistance not showing?
+	
+	Balance clothing resistances
+	
+	test BANEFUL_FISSURE
+	
+	test TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION applying reduction on tease
+		Also all damaging effects past this
+		
+	make demonstones unarmed damage
+	
+	status effect stop with the X.0 stats
+	
+	Make damage say %? Remove dropoff?
+	
+	imp damage boost needs to be a special perk
+	
+	check status effect modifiers when adding tails to youko
+	
+	test ice shard/freezing fog
+		Make spell upgrade increase mana cost
+	
+	rename energy to health?
+	
+	make action points an Attribute
+	
+	cloak of fire is doing some kind of mana burn?
 	
 	Cleanse spell applying enemy effect to last person targeted
 	
 	Need to balance numbers.
 	
-	Remove permanent attribute increases from crafted potions
+	Need perk for:
+		Office worker
+		
+	Make sure attribute setting has been sorted out
+	
+	Check the corruption based on seduction perks for randoms
+	
+	
 	
 	Add skin tone options
+	
+	why does your daughter refer to her mother as her sister while in a threesome?
 	
 	put in a catch-all for imports that auto-disposes of key items from imported character's inventories, be it slave import or player import
 	
@@ -232,6 +316,8 @@
 	
 	- still can't have your guests use your slaves
 	
+	Can't get handjobs if I'm getting rummed in the butt
+	
 	Add option to stop auto saves
 	
 	Harpies are using insane clothing still
@@ -246,6 +332,9 @@
 	credits
 	
 	can't submit during storm - ignores storm attraction?
+	
+	requests broken?
+		need 'convincing requests' perk
 	
 	------- Clothing issues:
 	
@@ -479,48 +568,6 @@
 	
 	when you are a great succubus and grow a dick while transforming Lilaya and Meraxis, Lyssieth reacts like "you were a futanari oh whatever" since you are a demon and transform yourself
 	
-<<<<<<< HEAD
-	Combat moves should always include basics
-	Selection UI should grey out ones selected, not remove them
-	Attack buttons should have AP cost
-	Defend moves should always target self
-	
-	Have tabs:
-		Basic
-			1 Main weapon
-			2 Offhand Weaopn
-			3 Dual stike
-			4 Block
-			5 Wait
-			6 Seduce
-			7 Aversion
-			10 Repeat
-			11 Arcane Strike
-			12 Arcane Shield
-			14 Submit
-			0 Escape
-		Specials (9 in total)
-			1-3 chosen attacks
-			6-8 chosen attacks
-			11-13 chosen attacks
-			5 Wait
-			10 Repeat
-			14 Submit
-			0 Escape
-		Targeting
-			List all targets, starting with self
-	
-	
-	
-	
-	
-	
-	
-	
-	Somehow an NPC had been placed out of the map's boundaries in the upper floor of Angel's Kiss
-		I set the character to work in that job and engaged in a sex scene with them before they had left the room to go to that area.
-=======
-	need 'convincing requests' perk
 	
 	Also, there needs to be a 'standing in front' position for taurs. So people can still breast feed and fondle and such
 	

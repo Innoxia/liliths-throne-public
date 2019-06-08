@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.AbstractHornType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -60,6 +61,8 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -152,19 +155,19 @@ public abstract class AbstractItemEffectType {
 	
 	public abstract String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer);
 	
-	public static String getBookEffect(Subspecies subspecies, boolean withDescription) {
+	public static String getBookEffect(GameCharacter reader, Subspecies subspecies, boolean withDescription) {
 		Main.getProperties().addRaceDiscovered(subspecies);
 		if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
 			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
 		}
-		
-		if(Main.game.getPlayer().addRaceDiscoveredFromBook(subspecies)) {
+
+		AbstractPerk perk = Perk.getPerkFromId(subspecies.toString());
+		if(!reader.isPlayer() || ((PlayerCharacter) reader).addRaceDiscoveredFromBook(subspecies) || !reader.hasPerkAnywhereInTree(perk)) {
 			return (withDescription
 						?subspecies.getBasicDescription(null)
 								+subspecies.getAdvancedDescription(null)
 						:"")
-					+Main.game.getPlayer().incrementAttribute(subspecies.getDamageMultiplier(), 5f)
-					+Main.game.getPlayer().incrementAttribute(subspecies.getResistanceMultiplier(), 5f);
+					+reader.addSpecialPerk(perk);
 			
 		} else {
 			return subspecies.getBasicDescription(null)
@@ -1448,14 +1451,14 @@ public abstract class AbstractItemEffectType {
 		descriptions.clear();
 		
 		switch(secondaryModifier) {
-			case ARCANE_BOOST:
+			default:
 				switch(potency) {
 					case MAJOR_DRAIN:
 						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
 							addResourceDescriptionsDrain(60, restorationType);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								descriptions.add("[style.boldTerrible(-1)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b>");
+								descriptions.add("[style.boldBad(-15)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
 							}
 						}
 						break;
@@ -1464,7 +1467,7 @@ public abstract class AbstractItemEffectType {
 							addResourceDescriptionsDrain(40, restorationType);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								descriptions.add("[style.boldTerrible(-0.5)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b>");
+								descriptions.add("[style.boldBad(-10)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
 							}
 						}
 						break;
@@ -1491,7 +1494,7 @@ public abstract class AbstractItemEffectType {
 							addResourceDescriptionsRestore(40, restorationType);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								descriptions.add("[style.boldExcellent(+0.5)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b>");
+								descriptions.add("[style.boldGood(+10)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
 							}
 						}
 						break;
@@ -1500,20 +1503,10 @@ public abstract class AbstractItemEffectType {
 							addResourceDescriptionsRestore(60, restorationType);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								descriptions.add("[style.boldExcellent(+1)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b>");
+								descriptions.add("[style.boldGood(+15)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
 							}
 						}
 						break;
-				}
-				break;
-			default:
-				if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-					addResourceDescriptionsRestore(10, restorationType);
-					
-				} else {
-					if(primaryModifier.getAssociatedAttribute()!=null) {
-						descriptions.add("[style.boldGood(+1)] <b style='color:"+primaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+primaryModifier.getAssociatedAttribute().getName()+"</b> to 'potion effects'");
-					}
 				}
 				break;
 		}
@@ -1580,16 +1573,17 @@ public abstract class AbstractItemEffectType {
 	}
 	
 	protected static String genericAttributeEffect(ResourceRestoration restorationType, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-
 		switch(secondaryModifier) {
-			case ARCANE_BOOST:
+			default:
 				switch(potency) {
 					case MAJOR_DRAIN:
 						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
 							return applyRestoration(target, restorationType, -0.6f);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return target.incrementAttribute(primaryModifier.getAssociatedAttribute(), -1);
+								return "A sickly wave of arcane energy washes over you..."
+										+ "<br/>"
+										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -15);
 							}
 						}
 						break;
@@ -1598,7 +1592,9 @@ public abstract class AbstractItemEffectType {
 							return applyRestoration(target, restorationType, -0.4f);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return target.incrementAttribute(primaryModifier.getAssociatedAttribute(), -0.5f);
+								return "A sickly wave of arcane energy washes over you..."
+										+ "<br/>"
+										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -10);
 							}
 						}
 						break;
@@ -1629,7 +1625,9 @@ public abstract class AbstractItemEffectType {
 							return applyRestoration(target, restorationType, 0.4f);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return target.incrementAttribute(primaryModifier.getAssociatedAttribute(), 0.5f);
+								return "A soothing wave of arcane energy washes over you..."
+										+ "<br/>"
+										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 10);
 							}
 						}
 						break;
@@ -1638,27 +1636,12 @@ public abstract class AbstractItemEffectType {
 							return applyRestoration(target, restorationType, 0.6f);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return target.incrementAttribute(primaryModifier.getAssociatedAttribute(), 1);
+								return "A soothing wave of arcane energy washes over you..."
+										+ "<br/>"
+										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 15);
 							}
 						}
 						break;
-				}
-				break;
-			default:
-				if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-					applyRestoration(target, restorationType, 0.1f);
-					
-					if(target.isPlayer()) {
-						return "A soothing warmth spreads all throughout your body, and with a deeply satisfied sigh, you find yourself feeling a lot healthier than you did just a moment ago.";
-					} else {
-						return UtilText.parse(target, "[npc.Name] lets out a satisfied sigh, and you notice that [npc.sheIs] suddenly looking a lot healthier than [npc.she] did just a moment ago.");
-					}
-				} else {
-					if(primaryModifier.getAssociatedAttribute()!=null) {
-						return "A warm wave of arcane energy washes over you..."
-								+ "<br/>"
-								+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 1);
-					}
 				}
 				break;
 		}
@@ -2037,6 +2020,7 @@ public abstract class AbstractItemEffectType {
 	
 	// And in the comments these words appear: 'My name is Innoxia, creator of smut: Look on my methods, ye Modders, and despair!'
 	// Contributor's comment: OH GOD WHY
+	// Innoxia's comment: Because you must suffer!
 	
 	private static int smallChangeMajorDrain = -3;
 	private static int smallChangeDrain = -2;

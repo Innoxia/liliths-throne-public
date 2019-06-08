@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.3.5";
+	public static final String VERSION_NUMBER = "0.3.3.6";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -91,7 +91,13 @@ public class Main extends Application {
 			
 		+ "<p>"
 			+ "This is the preview version for the merging of Irbynx's combat update PR into the main game."
-			+ " I still need to make some tweaks and adjustments to several areas, and balance out some of the damage numbers, but the core combat system is now in place."
+			+ " You will notice several changes in combat, as well as with NPCs' stats."
+			+ " Further information is in the patch notes below."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "<b>Please bear in mind:</b> This isn't the final version of all the combat changes."
+			+ " There will be further tweaks and adjustments to several areas, and there still needs to be a balancing of the damage numbers."
 		+ "</p>"
 			
 		+ "<br/>"
@@ -127,6 +133,56 @@ public class Main extends Application {
 			+"<ul>Typo/parsing fixes.</ul>"
 			+"<ul>Fixed issue with incorrect names being parsed in speech.</ul>"
 			+"<ul>Fixed an issue with names sometimes being parsed as though they were within speech when they weren't.</ul>"
+		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.3.3.6</h6>"
+			+"<li>Engine:</li>"
+			+"<ul>Moved Perk Enums into classes.</ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul><b>All permanent attribute boosts for all characters will be reset upon loading into the game.</b></ul>"
+			+"<ul><b>All characters' perk trees will be reset upon loading into the game.</b></ul>"
+			+"<ul>You can no longer gain permanent increases to your attributes through potions. The only way to increase attributes now is through clothing, status effects, perks, or unique events.</ul>"
+			+"<ul>Removed base attribute increases for races, and instead put attribute bonuses in subspecies' unique status effects.</ul>"
+			+"<ul>The perk trees for all non-elementals (including that of the player) have been modified. Added several new traits and perks, and the 'root' lust perk is now unlocked by default.</ul>"
+			+"<ul>You can no longer go 'back up' the perk tree to unlock perks. All unlock progress must now always be down or on the same level.</ul>"
+			+"<ul>All NPCs no longer have attributes assigned to them upon creation, and instead select perks based on their subspecies's preferences.</ul>"
+			+"<ul>Characters who are enslaved no longer have their job-related trait converted into the slave trait. Characters who spawn into the game as slaves will have the slave trait, however.</ul>"
+			+"<ul>Altered aura calculation to rely more on the value of your arcane attribute.</ul>"
+			+"<ul>Resistance attributes no longer provide a percentage damage reduction, and instead provide shielding equal to their value in each turn in combat.</ul>"
+			+"<ul>Clothing now provides 10% of the physical resistance it used to. (For any modders, please continue to use integer values of 1 and over - the reduction to 10% is done in the code.)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>You can now see NPCs' perk trees at the bottom of their character description pages.</ul>"
+			+"<ul>Amber now has two demonstones equipped as weapons.</ul>"
+			+"<ul>Added several unique occupational perks for both unique and non-unique NPCs.</ul>"
+			+"<ul>Brax/Bree/Brandi no longer wears shoes.</ul>"
+			+"<ul>Adjusted the levels of several unique NPCs.</ul>"
+			+"<ul>Reduced clothing attribute modifiers from -5/-3/-1/1/3/5 to -3/-2/-1/1/2/3.</ul>"
+			
+			+"<li>More combat changes:</li>"
+			+"<ul>Added status effect application indication in combat moves tooltips.</ul>"
+			+"<ul>Changed spell's critical hit requirement to being the only action used that turn.</ul>"
+			+"<ul>Changed the colour of the 'lust' attribute from scarlet to light pink, and 'physical damage' from red to grey-brown.</ul>"
+			+"<ul>Removed 'critical chance' and 'bonus lust shielding' attributes. Altered status effects, subspecies bonues, and clothing enchantments which used these attributes. Enchanted clothing/weapons which had critical chance modifiers have been converted to critical damage.</ul>"
+			+"<ul>Renamed 'critical hit damage' to 'critical power'.</ul>"
+			+"<ul>Added shielding for energy damage as a separate shielding type from physical.</ul>"
+			+"<ul>Block now blocks all energy damage, not just physical.</ul>"
+			+"<ul>Racial resistances have been removed. Instead of increasing your stats, race books now give you a unique perk which boosts damage vs that race. (You can get the lilin and elder lilin unique perks by returning to Lyssieth and asking about 'Recap' and 'Family', respectively.)</ul>"
+			+"<ul>(If you have defeated the imps in the Imp Citadel, you should have your imp racial damage replaced by a special perk, 'imp slayer', when you load in.)</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Tease damage done to a target who is immune to the 'instant-loss at 100 lust' effect will now correctly start to damage their health.</ul>"
+			+"<ul>Restored Rose's virginity for if it was accidentally taken in a version where her sex actions weren't working properly.</ul>"
+			+"<ul>Fixed issue with player's prediction moves in combat not being cleared each turn.</ul>"
+			+"<ul>Fixed move cooldowns not being reset when you used the 'Reset' action in combat.</ul>"
+			+"<ul>Fixed combat prediction text not correctly identifying when the move would be a critical.</ul>"
+			+"<ul>Fixed issue with characters getting a huge amount of perk points.</ul>"
+			+"<ul>Fixed issue in characters' information screens, where relationships sometimes included an 'Unknown'.</ul>"
+			+"<ul>Fixed some parsing errors.</ul>"
 		+ "</list>"
 	;
 	

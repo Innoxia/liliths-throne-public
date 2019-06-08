@@ -1,11 +1,10 @@
 package com.lilithsthrone.game.character.effects;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -17,20 +16,19 @@ import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.4
  * @author Innoxia
  */
-public enum Perk {
+public class Perk {
 	
 	// NPC Histories:
 	
-	JOB_MISC(20,
+	public static AbstractPerk JOB_MISC = new AbstractPerk(20,
 			true,
 			"Misc",
 			PerkCategory.JOB,
@@ -42,59 +40,387 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return ".";//TODO
 		}
-	},
+	};
+
+	public static AbstractPerk JOB_NPC_HARPY_MATRIARCH = new AbstractPerk(20,
+			true,
+			"queen of the skies",
+			PerkCategory.JOB,
+			"perks/jobs/npc_harpy_matriarch",
+			Colour.RACE_HARPY,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
+					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 25),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] risen to the position of matriarch of a harpy flock through a combination of [npc.her] natural beauty and willingness to do anything it takes to rule.");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_HARPY_FLOCK_MEMBER = new AbstractPerk(20,
+			true,
+			"pecking order",
+			PerkCategory.JOB,
+			"perks/jobs/npc_harpy_flock_member",
+			Colour.RACE_HARPY,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 10),
+					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 25),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] the member of a harpy flock, and as such has considerable experience in both flattering and backstabbing others.");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_ENFORCER_PATROL_INSPECTOR = new AbstractPerk(20,
+			true,
+			"Enforcer: Patrol Inspector",
+			PerkCategory.JOB,
+			"perks/jobs/npc_enforcer_inspector",
+			Colour.CLOTHING_BLUE, //TODO base this off character's femininity
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 10),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 10),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 10)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Inspector' in the Enforcer's Frontline Patrol division. As a Territorial Police officer, [npc.she] has undergone combat training.");
+		}
+	};
+
 	
-	JOB_SLAVE(20,
+	public static AbstractPerk JOB_NPC_ENFORCER_PATROL_SERGEANT = new AbstractPerk(20,
+			true,
+			"Enforcer: Patrol Sergeant",
+			PerkCategory.JOB,
+			"perks/jobs/npc_enforcer_sergeant",
+			Colour.CLOTHING_PINK, //TODO base this off character's femininity
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Sergeant' in the Enforcer's Frontline Patrol division. As a Territorial Police officer, [npc.she] has undergone limited combat training.");
+		}
+	};
+	
+	public static AbstractPerk JOB_NPC_ENFORCER_PATROL_CONSTABLE = new AbstractPerk(20,
+			true,
+			"Enforcer: Patrol Constable",
+			PerkCategory.JOB,
+			"perks/jobs/npc_enforcer_constable",
+			Colour.CLOTHING_PINK, //TODO base this off character's femininity
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Constable' in the Enforcer's Frontline Patrol division. As a Territorial Police officer, [npc.she] has undergone very limited combat training.");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_CULTIST = new AbstractPerk(20,
+			true,
+			"Worshipper of Lilith",
+			PerkCategory.JOB,
+			"perks/jobs/npc_cultist",
+			Colour.CLOTHING_BLACK,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 15),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] a full-time member of the 'Cult of Lilith', and in order to properly worship [npc.her] goddess, [npc.she] has spent an inordinate amount of time training both [npc.her] spell-casting and seductive powers.");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_SLAVER_ADMIN = new AbstractPerk(20,
+			true,
+			"shady overseer",
+			PerkCategory.JOB,
+			"perks/jobs/npc_slave_admin",
+			Colour.CLOTHING_BLACK_STEEL,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 100),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 25),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 5)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] the manager of Slaver Alley's 'Slave Administration' building, and while [npc.she] acts friendly enough, it's sure to have taken a lot more than simply being nice to get to this position...");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_BOUNCER = new AbstractPerk(20,
+			true,
+			"bouncer",
+			PerkCategory.JOB,
+			"perks/jobs/npc_bouncer",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 15),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2),
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 15)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] a bouncer, and [npc.has] accumulated a significant amount of fighting experience while working to keep the riff-raff out of nightclubs and bars.");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_BARMAID = new AbstractPerk(20,
+			true,
+			"barmaid",
+			PerkCategory.JOB,
+			"perks/jobs/npc_barmaid",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 5)),
+			null) {
+		@Override
+		public String getName(GameCharacter owner) {
+			if(owner==null) {
+				return "bartender";
+			}
+			if(owner.isFeminine()) {
+				return super.getName(owner);
+			}
+			return "barman";
+		}
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"Thanks to [npc.her] experience working as a "+(owner.isFeminine()?"barmaid":"barman")+", [npc.name] knows all the tricks to flirting, as well as how to resist the advances of lustful drunks.");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_BEAUTICIAN = new AbstractPerk(20,
+			true,
+			"beauty ideal",
+			PerkCategory.JOB,
+			"perks/jobs/npc_beautician",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 5)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.Name] knows all there is to how to make people look their best.");
+		}
+	};
+	
+	public static AbstractPerk JOB_NPC_NIGHTCLUB_OWNER = new AbstractPerk(20,
+			true,
+			"the boss",
+			PerkCategory.JOB,
+			"perks/jobs/npc_nightclub_owner",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] the very wealthy owner of one of Dominion's most popular nightclubs, and has no trouble in getting company for each evening.");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_ARCANE_RESEARCHER = new AbstractPerk(20,
+			true,
+			"secrets of the arcane",
+			PerkCategory.JOB,
+			"perks/jobs/npc_arcane_researcher",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 50),
+					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 50)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameHasFull] dedicated most of [npc.her] life to studying the arcane and unlocking its secrets.");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_SHOP_MANAGER = new AbstractPerk(20,
+			true,
+			"manager",
+			PerkCategory.JOB,
+			"perks/jobs/npc_shop_manager",
+			Colour.CURRENCY_GOLD,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 1)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The pressure of having to make sure [npc.her] business is successful has caused [npc.name] to have to do a lot of work, building up [npc.her] resistances in the process.");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_REINDEER_OVERSEER = new AbstractPerk(20,
+			true,
+			"winter-proof",
+			PerkCategory.JOB,
+			"perks/jobs/npc_reindeer_overseer",
+			Colour.RACE_REINDEER_MORPH,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 25),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 10)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] the overseer of a reindeer workgang, and has built up not only a very strong body, but also an impressive resistance to the cold.");
+		}
+	};
+
+	public static AbstractPerk JOB_ELDER_LILIN = new AbstractPerk(20,
+			true,
+			"untouchable",
+			PerkCategory.JOB,
+			"perks/jobs/elder_lilin",
+			Colour.RACE_LILIN,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 100),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 100),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 100),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 100),
+					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 100),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 100),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 100),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 100),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 100),
+					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 100),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 100),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 100),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 100),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 100),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 100)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] one of the seven elder lilin, and holds powers that mere mortals can only dream of.");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_SLIME_QUEEN = new AbstractPerk(20,
+			true,
+			"royal jelly",
+			PerkCategory.JOB,
+			"perks/jobs/npc_slime_queen",
+			Colour.SLIME_PINK,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -10)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] the queen of all slimes, and is able to use [npc.her] shape-shifting abilities to make [npc.herself] look truly beautiful.");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_SLIME_QUEEN_GUARD = new AbstractPerk(20,
+			true,
+			"slime servant",
+			PerkCategory.JOB,
+			"perks/jobs/npc_slime_queen_guard",
+			Colour.RACE_REINDEER_MORPH,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 25),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 3),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 3),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 3)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] one of the slime queen's personal guardians, and is well trained in how to handle a sword.");
+		}
+	};
+	
+	
+	
+	
+	public static AbstractPerk JOB_SLAVE = new AbstractPerk(20,
 			true,
 			"A life of servitude",
 			PerkCategory.JOB,
 			"perks/jobs/slave",
 			Colour.BASE_CRIMSON,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 10)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameHasFull] steeled [npc.her] body and mind to help [npc.herHim] deal with the fact that [npc.sheIs] now just someone else's property.");
+			return UtilText.parse(owner, "[npc.NameHasFull] steeled [npc.her] body and mind to help [npc.herHim] deal with the fact that [npc.sheIs] just someone else's property.");
 		}
-	},
+	};
 	
-	JOB_PROSTITUTE(20,
+	public static AbstractPerk JOB_PROSTITUTE = new AbstractPerk(20,
 			true,
 			"The oldest profession",
 			PerkCategory.JOB,
 			"perks/jobs/prostitute",
 			Colour.BASE_PINK,
 			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 50),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 25)),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 5)),
 			Util.newArrayListOfValues("[style.boldExcellent(Doubles)] all slave and self-prostitution income")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameIsFull] experienced at selling [npc.her] body to strangers in order to make a living. After having sex so many times, it takes a lot to get [npc.herHim] really turned on.");
 		}
-	},
+	};
 	
-	JOB_MUGGER(20,
+	public static AbstractPerk JOB_MUGGER = new AbstractPerk(20,
 			true,
 			"Outlaw",
 			PerkCategory.JOB,
 			"perks/jobs/mugger",
 			Colour.BASE_CRIMSON,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 15)),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2)),
 			Util.newArrayListOfValues("[style.boldExcellent(Triples)] all mugging income")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.Name] [npc.verb(live)] a life of crime, stealing from the rich and poor alike.");
 		}
-	},
+	};
 	
 	// Player Histories:
 	
-	JOB_UNEMPLOYED(20,
+	public static AbstractPerk JOB_UNEMPLOYED = new AbstractPerk(20,
 			true,
 			"NEET",
 			PerkCategory.JOB,
@@ -102,18 +428,17 @@ public enum Perk {
 			Colour.BASE_RED,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 2),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 5)),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues("[style.boldExcellent(Boosts)] 'Well Rested' bonus")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "With so much free time on [npc.herPos] hands, [npc.nameHas] managed to improve [npc.herself] in several different ways."
 					+ " [npc.Name] also [npc.verb(benefit)] from knowing exactly how best to relax, boosting the bonus [npc.she] [npc.verb(get)] from sleeping.");
 		}
-	},
+	};
 	
-	JOB_OFFICE_WORKER(20,
+	public static AbstractPerk JOB_OFFICE_WORKER = new AbstractPerk(20,
 			true,
 			"The Salaryman",
 			PerkCategory.JOB,
@@ -124,7 +449,7 @@ public enum Perk {
 			Util.newArrayListOfValues("[style.boldExcellent(+25%)] all slave income")) {
 		@Override
 		public String getName(GameCharacter owner) {
-			if(owner.isFeminine()) {
+			if(owner!=null && owner.isFeminine()) {
 				return "The Career Woman";
 			} else {
 				return "The Salaryman";
@@ -133,11 +458,11 @@ public enum Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "From [npc.herPos] considerable office experience, [npc.name] [npc.verb(know)] exactly how to motivate those working beneath [npc.herPro]."
-					+ " The stressful work environment has caused [npc.herPro] to bottle up a lot of frustration, which manifests in increased critical damage.");
+					+ " The stressful work environment has caused [npc.herPro] to bottle up a lot of frustration, which manifests in increased critical power.");
 		}
-	},
+	};
 	
-	JOB_STUDENT(20,
+	public static AbstractPerk JOB_STUDENT = new AbstractPerk(20,
 			true,
 			"Student Discount",
 			PerkCategory.JOB,
@@ -151,9 +476,9 @@ public enum Perk {
 			return UtilText.parse(owner, "[npc.NamePos] student discount has never failed [npc.herPro] before!"
 					+ " Along with a guaranteed 25% discount in all stores, [npc.she] can be confident in [npc.herPos] ability to quickly learn new things.");
 		}
-	},
+	};
 	
-	JOB_MUSICIAN(20,
+	public static AbstractPerk JOB_MUSICIAN = new AbstractPerk(20,
 			true,
 			"Arcane Composition",
 			PerkCategory.JOB,
@@ -167,9 +492,9 @@ public enum Perk {
 			return UtilText.parse(owner, "[npc.Name] [npc.verb(find)] that [npc.herPos] abilities as a musician translate quite well into the art of seduction."
 					+ " [npc.She] [npc.verb(feel)] the same sort of rhythm in casting spells as [npc.she] [npc.do] with music, resulting in all of [npc.herPos] spell effects lasting twice as long as usual.");
 		}
-	},
+	};
 	
-	JOB_TEACHER(20,
+	public static AbstractPerk JOB_TEACHER = new AbstractPerk(20,
 			true,
 			"In Control",
 			PerkCategory.JOB,
@@ -183,9 +508,9 @@ public enum Perk {
 			return UtilText.parse(owner, "[npc.Name] [npc.verb(know)] exactly how to deal with unruly students."
 					+ " [npc.HerPos] ability to clearly understand and explain difficult subjects is reflected in a reduced cost of casting spells.");
 		}
-	},
+	};
 	
-	JOB_WRITER(20,
+	public static AbstractPerk JOB_WRITER = new AbstractPerk(20,
 			true,
 			"Meditations",
 			PerkCategory.JOB,
@@ -199,9 +524,9 @@ public enum Perk {
 			return UtilText.parse(owner, "[npc.Name] [npc.verb(keep)] a diary of [npc.herPos] personal thoughts and encounters, allowing [npc.herPro] to reflect upon and learn from [npc.herPos] experiences."
 					+ " [npc.HerPos] keen interest in books also allows [npc.herPro] to quickly read up on the most effective application of spells.");
 		}
-	},
+	};
 
-	JOB_CHEF(20,
+	public static AbstractPerk JOB_CHEF = new AbstractPerk(20,
 			true,
 			"Fine Taste",
 			PerkCategory.JOB,
@@ -214,9 +539,9 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "Thanks to spending a considerable amount of time tasting food, [npc.name] [npc.has] both a significant resistance to poison, as well as the ability to make the most of things that are a culinary marvel.");
 		}
-	},
+	};
 
-	JOB_SOLDIER(20,
+	public static AbstractPerk JOB_SOLDIER = new AbstractPerk(20,
 			true,
 			"Controlled Aggression",
 			PerkCategory.JOB,
@@ -233,9 +558,9 @@ public enum Perk {
 			return UtilText.parse(owner, "[npc.NameHas] spent a considerable amount of time training to fight, and as a result, [npc.she] [npc.is] far stronger and healthier than a normal person."
 					+ " Thanks to this training, [npc.she] [npc.is] also able to channel [npc.herPos] aggression into [npc.herPos] attacks.");
 		}
-	},
+	};
 
-	JOB_ATHLETE(20,
+	public static AbstractPerk JOB_ATHLETE = new AbstractPerk(20,
 			true,
 			"Ten-Second Barrier",
 			PerkCategory.JOB,
@@ -248,9 +573,9 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.Name] [npc.is] a world-class sprinter, and [npc.has] a guaranteed 100% success of escaping any combat situation where running away is an option.");
 		}
-	},
+	};
 
-	JOB_MAID(20,
+	public static AbstractPerk JOB_MAID = new AbstractPerk(20,
 			true,
 			"Housekeeper",
 			PerkCategory.JOB,
@@ -267,9 +592,9 @@ public enum Perk {
 			return UtilText.parse(owner, "[npc.Name] [npc.is] the perfect example of a hard-working maid, and while wearing a complete set of maid's clothes, the bonus that [npc.she] [npc.verb(receive)] is considerably boosted."
 					+ " [npc.She] also [npc.verb(know)] how to train butlers and other maids to be exceptional at their jobs.");
 		}
-	},
+	};
 
-	JOB_BUTLER(20,
+	public static AbstractPerk JOB_BUTLER = new AbstractPerk(20,
 			true,
 			"Legacy of Jeeves",
 			PerkCategory.JOB,
@@ -286,11 +611,11 @@ public enum Perk {
 			return UtilText.parse(owner, "[npc.name] [npc.is] the perfect example of a hard-working butler, and while wearing a complete set of butler's clothes, the bonus that [npc.she] [npc.verb(receive)] is considerably boosted."
 					+ " [npc.She] also [npc.verb(know)] how to train maids and other butlers to be exceptional at their jobs.");
 		}
-	},
+	};
 	
 	// Physical:
 	
-	PHYSICAL_BASE(20,
+	public static AbstractPerk PHYSICAL_BASE = new AbstractPerk(20,
 			false,
 			"natural fitness",
 			PerkCategory.PHYSICAL,
@@ -303,11 +628,53 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return "You have a natural amount of physical fitness.";
 		}
-	},
-	
-	PHYSIQUE_1(20,
+	};
+
+	public static AbstractPerk CRITICAL_BOOST = new AbstractPerk(20,
 			false,
-			"physically fit I",
+			"critical power",
+			PerkCategory.PHYSICAL,
+			"perks/critical_power",
+			Colour.BASE_ORANGE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 5)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] able to really get the most out of any critical moves [npc.she] [npc.verb(make)].");
+		}
+	};
+
+	public static AbstractPerk CRITICAL_BOOST_ALT = new AbstractPerk(20,
+			false,
+			"critical power",
+			PerkCategory.PHYSICAL,
+			"perks/critical_power",
+			Colour.BASE_ORANGE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 5)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] able to really get the most out of any critical moves [npc.she] [npc.verb(make)].");
+		}
+	};
+
+	public static AbstractPerk CRITICAL_BOOST_ALT_2 = new AbstractPerk(20,
+			false,
+			"critical power",
+			PerkCategory.PHYSICAL,
+			"perks/critical_power",
+			Colour.BASE_ORANGE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 5)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] able to really get the most out of any critical moves [npc.she] [npc.verb(make)].");
+		}
+	};
+	
+	public static AbstractPerk PHYSIQUE_BOOST = new AbstractPerk(20,
+			false,
+			"physically fit",
 			PerkCategory.PHYSICAL,
 			"perks/attStrength1",
 			Colour.ATTRIBUTE_PHYSIQUE,
@@ -316,28 +683,28 @@ public enum Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You feel as though your physical fitness is improving!";
+			return UtilText.parse(owner, "[npc.NameHasFull] spent a lot of time working towards improving [npc.her] physical fitness.");
 		}
-	},
+	};
 	
-	PHYSIQUE_3(20,
+	public static AbstractPerk PHYSIQUE_BOOST_ALT = new AbstractPerk(20,
 			false,
-			"physically fit III",
+			"physically fit",
 			PerkCategory.PHYSICAL,
-			"perks/attStrength3",
+			"perks/attStrength1",
 			Colour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 3)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1)),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Your physical fitness is definitely improving!";
+			return UtilText.parse(owner, "[npc.NameHasFull] spent a lot of time working towards improving [npc.her] physical fitness.");
 		}
-	},
+	};
 
-	PHYSIQUE_5(20,
+	public static AbstractPerk PHYSIQUE_BOOST_MAJOR = new AbstractPerk(20,
 			false,
-			"physically fit V",
+			"physically fit",
 			PerkCategory.PHYSICAL,
 			"perks/attStrength5",
 			Colour.ATTRIBUTE_PHYSIQUE,
@@ -346,43 +713,122 @@ public enum Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Your physical fitness is improving massively!";
+			return UtilText.parse(owner, "Through hard work and perseverance, [npc.nameHasFull] managed to massively improve [npc.her] level of physical fitness.");
 		}
-	},
+	};
 	
-	PHYSICAL_DAMAGE_5(20,
+	public static AbstractPerk PHYSICAL_DAMAGE = new AbstractPerk(20,
 			false,
-			"striker V",
+			"striker",
 			PerkCategory.PHYSICAL,
-			"UIElements/swordIcon",
+			"perks/strike",
 			Colour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 1)),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Your physical damage is improving massively!";
+			return UtilText.parse(owner, "By training without the aid of the arcane, [npc.nameHasFull] managed to improve the damage of [npc.her] physical attacks.");
 		}
-	},
-	
-	PHYSICAL_RESISTANCE_5(20,
+	};
+
+	public static AbstractPerk UNARMED_DAMAGE = new AbstractPerk(20,
 			false,
-			"defender V",
+			"hand-to-hand",
 			PerkCategory.PHYSICAL,
-			"UIElements/shieldIcon",
+			"perks/unarmed_damage",
 			Colour.DAMAGE_TYPE_PHYSICAL,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5)),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Your physical resistance is improving massively!";
+			return UtilText.parse(owner, "[npc.NameHasFull] spent many hours in training for hand-to-hand combat, making [npc.herHim] a dangerous foe even when unarmed.");
 		}
-	},
-	
-	SPELL_DAMAGE_5(20,
+	};
+
+	public static AbstractPerk MELEE_DAMAGE = new AbstractPerk(20,
 			false,
-			"spell power V",
+			"melee weapons expert",
+			PerkCategory.PHYSICAL,
+			"perks/melee_damage",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "Having spent considerable time training with all sorts of different melee weapons, [npc.nameIsFull] now a very dangerous foe to face in close combat.");
+		}
+	};
+
+	public static AbstractPerk RANGED_DAMAGE = new AbstractPerk(20,
+			false,
+			"sharp-shooter",
+			PerkCategory.PHYSICAL,
+			"perks/ranged_damage",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "Proficient with all sorts of ranged weapons, [npc.nameIsFull] a truly terrifying foe to face in long-distance engagements.");
+		}
+	};
+
+	public static AbstractPerk BESERK = new AbstractPerk(20,
+			false,
+			"beserk",
+			PerkCategory.PHYSICAL,
+			"perks/beserk",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15),
+					new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 15),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, -2),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, -15),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, -15)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "Having little time for strategies which don't involve an all-out show of force, [npc.name] [npc.verb(throw)] [npc.herself] into battle with a complete disregard for [npc.her] own safety.");
+		}
+	};
+	
+	public static AbstractPerk PHYSICAL_DEFENCE = new AbstractPerk(20,
+			false,
+			"defender",
+			PerkCategory.PHYSICAL,
+			"perks/shield",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 1)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] spent a good deal of time working on improving [npc.her] ability to counter physical attacks.");
+		}
+	};
+	
+	public static AbstractPerk SPELL_DAMAGE = new AbstractPerk(20,
+			false,
+			"spell power",
+			PerkCategory.ARCANE,
+			"perks/arcane_power_1",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 1)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "By spending time practicing the casting of spells, [npc.nameHasFull] discovered new ways in which to increase their effectiveness.");
+		}
+	};
+	
+	public static AbstractPerk SPELL_DAMAGE_MAJOR = new AbstractPerk(20,
+			false,
+			"spell mastery",
 			PerkCategory.ARCANE,
 			"perks/arcane_power_3",
 			Colour.ATTRIBUTE_ARCANE,
@@ -390,59 +836,76 @@ public enum Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Your spell damage is improving massively!";
+			return UtilText.parse(owner, "By spending a great deal of time focusing on improving the power of [npc.her] spells, [npc.nameIsFull] now able to cast them much more effectively than before.");
 		}
-	},
+	};
 	
-	SPELL_EFFICIENCY_5(20,
+	public static AbstractPerk SPELL_EFFICIENCY = new AbstractPerk(20,
 			false,
-			"spell efficiency V",
+			"spell efficiency",
 			PerkCategory.ARCANE,
-			"perks/arcane_power_3",
+			"perks/spell_efficiency",
 			Colour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 5)), null) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Your spell efficiency is improving massively!";
+			return UtilText.parse(owner, "[npc.NameHasFull] managed to improve the efficiency of [npc.her] spell casting!");
 		}
-	},
+	};
 	
-	AURA_BOOST_10(20,
+	public static AbstractPerk AURA_BOOST = new AbstractPerk(20,
 			false,
-			"aura reserves X",
+			"aura reserves",
 			PerkCategory.ARCANE,
-			"UIElements/shieldIcon",
+			"perks/resource_boost",
 			Colour.ATTRIBUTE_MANA,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 10)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 5)),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "The capacity of your aura is growing!";
+			return UtilText.parse(owner, "After spending quite some time focusing inwards, [npc.nameHasFull] managed to increase [npc.her] aura reserves.");
 		}
-	},
+	};
 	
-	ENERGY_BOOST_10(20,
+	public static AbstractPerk ENERGY_BOOST = new AbstractPerk(20,
 			false,
-			"energy reserves X",
-			PerkCategory.ARCANE,
-			"UIElements/shieldIcon",
+			"energy reserves",
+			PerkCategory.PHYSICAL,
+			"perks/resource_boost",
 			Colour.ATTRIBUTE_HEALTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 10)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 5)),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Your energy reserves are growing!";
+			return UtilText.parse(owner, "[npc.NameHasFull] increased [npc.her] energy reserves, allowing [npc.herHim] to withstand attacks that would once have taken [npc.herHim] out of the fight.");
 		}
-	},
-	
-	ELEMENTALIST_5(20,
+	};
+
+	public static AbstractPerk ENERGY_BOOST_DRAIN_DAMAGE = new AbstractPerk(20,
 			false,
-			"elementalist V",
-			PerkCategory.BOTH,
-			"perks/elementalist5",
+			"aura shielding",
+			PerkCategory.PHYSICAL,
+			"perks/resource_boost_drain_aura",
+			Colour.ATTRIBUTE_HEALTH,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 20),
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, -25)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "By focusing [npc.her] arcane aura into a protective barrier, [npc.nameIsFull] able to endure taking more damage than [npc.she] otherwise would be able to.");
+		}
+	};
+	
+	public static AbstractPerk ELEMENTAL_BOOST = new AbstractPerk(20,
+			false,
+			"elemental striker",
+			PerkCategory.LUST,
+			"perks/elemental_damage",
 			Colour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 5),
@@ -452,29 +915,96 @@ public enum Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You are learning how to harness arcane elements more effectively.";
+			return UtilText.parse(owner, "[npc.NameHasFull] dedicated [npc.herself] to learning how to harness all of the arcane elements more effectively.");
 		}
-	},
+	};
+	
+	public static AbstractPerk ELEMENTAL_BOOST_ALT = new AbstractPerk(20,
+			false,
+			"elemental striker",
+			PerkCategory.LUST,
+			"perks/elemental_damage",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] dedicated [npc.herself] to learning how to harness all of the arcane elements more effectively.");
+		}
+	};
+	
+	public static AbstractPerk ELEMENTAL_BOOST_ALT_2 = new AbstractPerk(20,
+			false,
+			"elemental striker",
+			PerkCategory.LUST,
+			"perks/elemental_damage",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] dedicated [npc.herself] to learning how to harness all of the arcane elements more effectively.");
+		}
+	};
+	
+	public static AbstractPerk ELEMENTAL_DEFENCE_BOOST = new AbstractPerk(20,
+			false,
+			"elemental defender",
+			PerkCategory.LUST,
+			"perks/elemental_defence",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 1),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 1),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 1)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] spent time learning how best to defend [npc.herself] from the arcane elements.");
+		}
+	};
 	
 	
-	ARCANE_BASE(20,
+	public static AbstractPerk ARCANE_BASE = new AbstractPerk(20,
 			false,
 			"natural arcane power",
 			PerkCategory.ARCANE,
 			"perks/attIntelligence5",
 			Colour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 40)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
 			null) {
-
+		
+		@Override
+		public HashMap<Attribute, Integer> getAttributeModifiers(GameCharacter character) {
+			if(character!=null && character.isPlayer()) {
+				return Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 40));
+			} else {
+				return super.getAttributeModifiers(character);
+			}
+		}
+		
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You have a surprisingly large amount of natural arcane power.";
+			if(owner.isPlayer()) {
+				return "You have a surprisingly large amount of natural arcane power.";
+			} else {
+				return "Everybody in this reality has an arcane aura, no matter how weak, and so at the very least has a tiny hint of arcane power available to them.";
+			}
 		}
-	},
+	};
 
-	ARCANE_BASE_NPC(20,
+	public static AbstractPerk ARCANE_BOOST = new AbstractPerk(20,
 			false,
-			"natural arcane power",
+			"arcane training",
 			PerkCategory.ARCANE,
 			"perks/attIntelligence1",
 			Colour.ATTRIBUTE_ARCANE,
@@ -483,43 +1013,28 @@ public enum Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Everybody in this world has an arcane aura, no matter how weak, and so at the very least has a tiny hint of arcane power available to them.";
+			return UtilText.parse(owner, "[npc.NameHasFull] focused on improving [npc.her] ability to harness the arcane.");
 		}
-	},
-	
-	ARCANE_1(20,
+	};
+
+	public static AbstractPerk ARCANE_BOOST_ALT = new AbstractPerk(20,
 			false,
-			"arcane affinity I",
+			"arcane training",
 			PerkCategory.ARCANE,
-			"perks/attIntelligence1",
+			"perks/attIntelligence5",
 			Colour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You feel as though your ability to harness the arcane is improving!";
+			return UtilText.parse(owner, "[npc.NameHasFull] focused on improving [npc.her] ability to harness the arcane.");
 		}
-	},
-	
-	ARCANE_3(20,
-			false,
-			"arcane affinity III",
-			PerkCategory.ARCANE,
-			"perks/attIntelligence3",
-			Colour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 3)),
-			null) {
+	};
 
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Your ability to harness the arcane is definitely improving!";
-		}
-	},
-
-	ARCANE_5(20,
+	public static AbstractPerk ARCANE_BOOST_MAJOR = new AbstractPerk(20,
 			false,
-			"arcane affinity V",
+			"arcane affinity",
 			PerkCategory.ARCANE,
 			"perks/attIntelligence5",
 			Colour.ATTRIBUTE_ARCANE,
@@ -528,153 +1043,207 @@ public enum Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Your ability to harness the arcane is improving massively!";
+			return UtilText.parse(owner, "[npc.NameHasFull] unlocked secrets of the arcane which few ever get to know.");
 		}
-	},
+	};
 	
 	
-	SEDUCTION_1(20,
+	public static AbstractPerk LEWD_KNOWLEDGE = new AbstractPerk(20,
 			false,
-			"seductive I",
-			PerkCategory.ARCANE,
+			"lewd knowledge",
+			PerkCategory.LUST,
+			"perks/lewd_knowledge",
+			Colour.DAMAGE_TYPE_LUST,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 1),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] [npc.verb(know)] exactly what sort of lewd things the residents of Dominion get up to, and so can use this knowledge to [npc.her] advantage...");
+		}
+	};
+	
+	public static AbstractPerk SEDUCTION_BOOST = new AbstractPerk(20,
+			false,
+			"seductive",
+			PerkCategory.LUST,
 			"perks/attSeduction1",
-			Colour.BASE_PINK_LIGHT,
+			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You love flirting, and, from your experience, your partners love it too!";
-			else
-				return UtilText.parse(owner, "[npc.Name] is extremely flirty.");
+			return UtilText.parse(owner, "[npc.NameHasFull] spent a good deal of time working on [npc.her] seduction techniques, allowing [npc.herHim] to deal extra damage when teasing others.");
 		}
-	},
+	};
 	
-	SEDUCTION_3(20,
+	public static AbstractPerk SEDUCTION_BOOST_ALT = new AbstractPerk(20,
 			false,
-			"seductive III",
-			PerkCategory.ARCANE,
-			"perks/attSeduction3",
-			Colour.BASE_PINK,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 3)), null) {
+			"seductive",
+			PerkCategory.LUST,
+			"perks/attSeduction1",
+			Colour.DAMAGE_TYPE_LUST,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You're somewhat more than the typical flirt. You know just how to move your body in order to seduce even the most frigid of potential partners.";
-			else
-				return UtilText.parse(owner, "[npc.Name] moves in a highly seductive manner.");
+			return UtilText.parse(owner, "[npc.NameHasFull] spent a good deal of time working on [npc.her] seduction techniques, allowing [npc.herHim] to deal extra damage when teasing others.");
 		}
-	},
+	};
 	
-	SEDUCTION_5(20,
+	public static AbstractPerk SEDUCTION_BOOST_ALT_2 = new AbstractPerk(20,
 			false,
-			"seductive V",
-			PerkCategory.ARCANE,
+			"seductive",
+			PerkCategory.LUST,
+			"perks/attSeduction1",
+			Colour.DAMAGE_TYPE_LUST,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] spent a good deal of time working on [npc.her] seduction techniques, allowing [npc.herHim] to deal extra damage when teasing others.");
+		}
+	};
+	
+	public static AbstractPerk SEDUCTION_BOOST_MAJOR = new AbstractPerk(20,
+			false,
+			"seductive",
+			PerkCategory.LUST,
 			"perks/attSeduction5",
 			Colour.BASE_PINK_DEEP,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "Your every move drips with sexually suggestive body language. You're a walking sex bomb, and from the reactions of those around you, everyone can see it.";
-			else
-				return UtilText.parse(owner, "[npc.Name] is a walking sex bomb. [npc.Her] every movement drips with suggestive body language, and you can't help but feel extremely aroused just by looking at [npc.herHim].");
+			return UtilText.parse(owner, "[npc.NameIsFull] a walking sex bomb. [npc.Her] every movement drips with suggestive body language, and people can't help but feel extremely aroused just by looking at [npc.herHim].");
 		}
-	},
+	};
 	
-	SEDUCTION_5_B(20,
+	public static AbstractPerk SEDUCTION_DEFENCE_BOOST = new AbstractPerk(20,
 			false,
-			"seductive V",
-			PerkCategory.ARCANE,
-			"perks/attSeduction5",
-			Colour.BASE_PINK_DEEP,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)), null) {
+			"resistance",
+			PerkCategory.LUST,
+			"perks/shield",
+			Colour.DAMAGE_TYPE_LUST,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "Your every move drips with sexually suggestive body language. You're a walking sex bomb, and from the reactions of those around you, everyone can see it.";
-			else
-				return UtilText.parse(owner, "[npc.Name] is a walking sex bomb. [npc.Her] every movement drips with suggestive body language, and you can't help but feel extremely aroused just by looking at [npc.herHim].");
+			return UtilText.parse(owner, "[npc.NameHasFull] steeled [npc.herself] to resist any temptation, making it much more likely that [npc.she]'ll be able to avoid getting turned on when teased.");
 		}
-	},
+	};
+	
+	public static AbstractPerk VIRILITY_BOOST = new AbstractPerk(20,
+			false,
+			"virile",
+			PerkCategory.LUST,
+			"perks/virile",
+			Colour.BASE_BLUE_LIGHT,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 15)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NamePos] body is able to produce very potent sperm, increasing the chance that any sexual partner of [npc.hers] gets pregnant.");
+		}
+	};
+
+	public static AbstractPerk FERTILITY_BOOST = new AbstractPerk(20,
+			false,
+			"fertile",
+			PerkCategory.LUST,
+			"perks/fertile",
+			Colour.BASE_PINK_LIGHT,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 15)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NamePos] body is very fertile, increasing the chance that any sexual partner of [npc.hers] manages to get [npc.her] pregnant.");
+		}
+	};
 	
 	
-	
-	ARCANE_COMBATANT(20,
+	public static AbstractPerk ARCANE_COMBATANT = new AbstractPerk(20,
 			true,
 			"arcane combatant",
 			PerkCategory.ARCANE,
 			"perks/physical_brawler",
 			Colour.ATTRIBUTE_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 15),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 15)), null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "You're quite competent at fighting using the arcane. You gain a bonus to your spell damage and efficiency.";
-		}
-	},
-	
-	AURA_RESILIENCE(20,
-			true,
-			"resilient aura",
-			PerkCategory.ARCANE,
-			"perks/fitness_runner",
-			Colour.ATTRIBUTE_MANA,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 25)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 10),
+					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 10)),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You have a considerable pool of arcane energy stored in your aura.";
+			return UtilText.parse(owner, "[npc.NameIsFull] an expert harnessing the arcane for combat applications. [npc.She] [npc.verb(gain)] a bonus to [npc.her] spell damage and efficiency.");
 		}
-	},
+	};
 	
-	AURA_RESILIENCE_2(20,
+	public static AbstractPerk SACRIFICIAL_SHIELDING = new AbstractPerk(20,
 			true,
-			"indomitable aura",
+			"sacrificial shielding",
 			PerkCategory.ARCANE,
-			"perks/fitness_runner_2",
+			"perks/sacrificial_shielding",
 			Colour.ATTRIBUTE_MANA,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, -10),
+					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 2)),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Your aura reserves are seemingly endless.";
+			return UtilText.parse(owner, "By sacrificing a portion of [npc.her] physical strength, [npc.nameIsFull] able to summon forth an all-protective shield.");
 		}
-	},
-	
-	
-	BRAWLER(20,
+	};
+
+	public static AbstractPerk ARCANE_VAMPYRISM = new AbstractPerk(20,
 			true,
-			"brawler",
+			"arcane vampyrism",
+			PerkCategory.ARCANE,
+			"perks/arcane_vampyrism",
+			Colour.ATTRIBUTE_MANA,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, -25)),
+			Util.newArrayListOfValues(
+					"[style.colourExcellent(Absorb 50%)] of any combatant's remaining [style.colourMana("+Attribute.MANA_MAXIMUM.getName()+")] when they are defeated")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] trained [npc.her] arcane aura to be vampyric in nature, relying less on its own reserves, and more upon the ability to drain the aura from anyone (friend or foe) who is defeated nearby.");
+		}
+	};
+	
+	
+	public static AbstractPerk FEROCIOUS_WARRIOR = new AbstractPerk(20,
+			true,
+			"ferocious warrior",
 			PerkCategory.PHYSICAL,
 			"perks/physical_brawler",
 			Colour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 15),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 15)), null) {
+					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2)),
+			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] experienced at fighting in hand-to-hand combat, and [npc.is] able to not only deal significant damage with [npc.her] fists and feet,"
-					+ " but [npc.is] also able to shrug off punches that would stagger or even incapacitate a normal person.");
+			return UtilText.parse(owner, "[npc.NameHasFull] a lot of fighting experience, making [npc.herHim] a dangerous opponent for anyone foolish enough to challenge [npc.herHim].");
 		}
-	},
+	};
 	
 	
-	OBSERVANT(60,
+	public static AbstractPerk OBSERVANT = new AbstractPerk(60,
 			true,
 			"observant",
 			PerkCategory.PHYSICAL,
 			"perks/misc_observant",
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues(
 					"<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Gender detection</span>")) {
 		@Override
@@ -689,24 +1258,24 @@ public enum Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
+			if (owner!=null && owner.isPlayer()) {
 				return "You are very perceptive, and are capable of noticing the slightest of changes in your surroundings."
 						+ " You are always able to determine a person's gender, even if you have no knowledge of what their groin looks like.";
 			} else {
 				return UtilText.parse(owner, "[npc.Name] is very perceptive, and [npc.she] continuously scans [npc.her] surroundings for signs of danger.");
 			}
 		}
-	},
+	};
 
 	// Arcane:
 	
-	ARCANE_CRITICALS(60,
+	public static AbstractPerk ARCANE_CRITICALS = new AbstractPerk(60,
 			true,
 			"arcane precision",
 			PerkCategory.ARCANE,
 			"perks/physical_accurate",
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 5)),
 			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_COMBAT.toWebHexString()+ ";'>Critical</span> spells apply <b style='color:"+Colour.ATTRIBUTE_LUST.toWebHexString()+";'>Arcane weakness</b>")) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -720,10 +1289,10 @@ public enum Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Your spells are particularly effective when striking a target's weak spots."
-					+ " Any critical hits from your spells apply 'Arcane weakness' for one turn (-10 to all resistances).";
+			return UtilText.parse(owner, "[npc.NamePos] spells are particularly effective when striking a target's weak spots."
+					+ " Any critical hits from [npc.her] spells apply 'Arcane weakness' for one turn (-10 to all resistances).");
 		}
-	},
+	};
 	
 //	
 //	TELEPATHY(60,
@@ -752,7 +1321,7 @@ public enum Perk {
 //				return UtilText.parse(owner, "[npc.Name] is very perceptive, and [npc.she] continuously scans [npc.her] surroundings for signs of danger.");
 //			}
 //		}
-//	},
+//	};
 	
 //	SPELL_POWER_1(20,
 //			true,
@@ -769,7 +1338,7 @@ public enum Perk {
 //			else
 //				return UtilText.parse(owner, "[npc.Name] seems reasonably competent at casting spells.");
 //		}
-//	},
+//	};
 //	SPELL_POWER_2(20,
 //			true,
 //			"arcane conduit",
@@ -785,7 +1354,7 @@ public enum Perk {
 //			else
 //				return UtilText.parse(owner, "[npc.Name] is highly competent at harnessing the arcane and improving [npc.her] spells.");
 //		}
-//	},
+//	};
 //	SPELL_POWER_3(20,
 //			true,
 //			"arcane mastery",
@@ -801,9 +1370,9 @@ public enum Perk {
 //			} else
 //				return UtilText.parse(owner, "[npc.Name] is a master of harnessing the arcane and improving [npc.her] spells.");
 //		}
-//	},
+//	};
 
-	FIRE_ENHANCEMENT(20,
+	public static AbstractPerk FIRE_ENHANCEMENT = new AbstractPerk(20,
 			false,
 			"firebrand",
 			PerkCategory.ARCANE,
@@ -818,8 +1387,9 @@ public enum Perk {
 			else
 				return UtilText.parse(owner, "[npc.Name] has a heightened affinity with arcane fire. [npc.She] knows just how to manipulate it in order to maximise the damage caused.");
 		}
-	},
-	FIRE_ENHANCEMENT_2(20,
+	};
+
+	public static AbstractPerk FIRE_ENHANCEMENT_2 = new AbstractPerk(20,
 			false,
 			"incendiary",
 			PerkCategory.ARCANE,
@@ -834,8 +1404,9 @@ public enum Perk {
 			else
 				return UtilText.parse(owner, "[npc.Name] is an expert at manipulating arcane fire. Not only is [npc.she] able to maximise its damage, but [npc.she] also has a heightened resistance to its effects.");
 		}
-	},
-	COLD_ENHANCEMENT(20,
+	};
+
+	public static AbstractPerk COLD_ENHANCEMENT = new AbstractPerk(20,
 			false,
 			"frosty",
 			PerkCategory.ARCANE,
@@ -850,8 +1421,9 @@ public enum Perk {
 			else
 				return UtilText.parse(owner, "[npc.Name] has a heightened affinity with arcane ice. [npc.She] knows just how to manipulate it in order to maximise the damage caused.");
 		}
-	},
-	COLD_ENHANCEMENT_2(20,
+	};
+
+	public static AbstractPerk COLD_ENHANCEMENT_2 = new AbstractPerk(20,
 			false,
 			"ice cold",
 			PerkCategory.ARCANE,
@@ -866,8 +1438,9 @@ public enum Perk {
 			else
 				return UtilText.parse(owner, "[npc.Name] is an expert at manipulating arcane ice. Not only is [npc.she] able to maximise its damage, but [npc.she] also has a heightened resistance to its effects.");
 		}
-	},
-	POISON_ENHANCEMENT(20,
+	};
+
+	public static AbstractPerk POISON_ENHANCEMENT = new AbstractPerk(20,
 			false,
 			"venomous",
 			PerkCategory.ARCANE,
@@ -882,8 +1455,9 @@ public enum Perk {
 			else
 				return UtilText.parse(owner, "[npc.Name] has a heightened affinity with arcane poison. [npc.She] knows just how to manipulate it in order to maximise the damage caused.");
 		}
-	},
-	POISON_ENHANCEMENT_2(20,
+	};
+
+	public static AbstractPerk POISON_ENHANCEMENT_2 = new AbstractPerk(20,
 			false,
 			"toxic",
 			PerkCategory.ARCANE,
@@ -898,10 +1472,10 @@ public enum Perk {
 			else
 				return UtilText.parse(owner, "[npc.Name] is an expert at manipulating arcane poison. Not only is [npc.she] able to maximise its damage, but [npc.she] also has a heightened resistance to its effects.");
 		}
-	},
+	};
 
 	// Fitness:
-	RUNNER(20,
+	public static AbstractPerk RUNNER = new AbstractPerk(20,
 			true,
 			"runner",
 			PerkCategory.PHYSICAL,
@@ -917,53 +1491,64 @@ public enum Perk {
 			else
 				return UtilText.parse(owner, "[npc.Name] is natural runner and possesses a good level of stamina.");
 		}
-	},
-	RUNNER_2(20,
+	};
+
+	public static AbstractPerk RUNNER_2 = new AbstractPerk(20,
 			true,
 			"cardio champion",
 			PerkCategory.PHYSICAL,
 			"perks/fitness_runner_2",
 			Colour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 5)),
 			Util.newArrayListOfValues("<span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>")) {
 		@Override
 		public String getName(GameCharacter character) {
-			if (character.isFeminine())
+			if (character!=null && character.isFeminine()) {
 				return "Cardio Queen";
-			else
+			} else {
 				return "Cardio King";
+			}
 		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You're the " + (owner.isFeminine() ? "queen" : "king") + " of cardio, possessing a seemingly endless reserve of energy.";
-			else
-				return UtilText.parse(owner, "[npc.Name] is the " + (owner.isFeminine() ? "queen" : "king") + " of cardio, possessing a seemingly endless reserve of energy.");
+			return UtilText.parse(owner, "[npc.NameIsFull] the " + (owner.isFeminine() ? "queen" : "king") + " of cardio, possessing a seemingly endless reserve of energy.");
 		}
-	},
-	UNARMED_TRAINING(20,
+	};
+
+	public static AbstractPerk COMBAT_REGENERATION = new AbstractPerk(20,
 			true,
-			"unarmed training",
+			"combat regeneration",
 			PerkCategory.PHYSICAL,
-			"perks/fitness_runner_2",
+			"perks/regeneration",
+			Colour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, -25)),
+			Util.newArrayListOfValues("[style.boldExcellent(Regenerate 5%)] total [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")] per turn in combat")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "At the expense of some of [npc.namePos] "+Attribute.MANA_MAXIMUM.getName()+", the arcane's natural healing properties will now be amplified when in the presence of [npc.her] adrenaline.");
+		}
+	};
+	
+
+	public static AbstractPerk UNARMED_TRAINING = new AbstractPerk(20,
+			true,
+			"martial artist",
+			PerkCategory.PHYSICAL,
+			"perks/unarmed_training",
 			Colour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(),
-			Util.newArrayListOfValues("<span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Base unarmed damage value is 8.</span>")) {
-		@Override
-		public String getName(GameCharacter character) {
-			return "Unarmed Training";
-		}
-
+			Util.newArrayListOfValues("Base unarmed damage value is <span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>boosted to 8</span>")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You have a formal knowledge of the unarmed combat and know how to do a good hit with just your body even if you aren't the strongest fighter in the world.";
+			return UtilText.parse(owner, "[npc.NameHasFull] received formal training in martial arts, allowing [npc.herHim] to deal just as much damage in unarmed combat as [npc.her] strongest foe.");
 		}
-	},
-	FEMALE_ATTRACTION(60,
+	};
+
+	public static AbstractPerk FEMALE_ATTRACTION = new AbstractPerk(60,
 			true,
 			"ladykiller",
-			PerkCategory.ARCANE,
+			PerkCategory.LUST,
 			"perks/fitness_female_attraction",
 			Colour.FEMININE,
 			null, Util.newArrayListOfValues("+10% <span style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</span>"
@@ -980,17 +1565,15 @@ public enum Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You're very flirtatious, and although your charms work well on both sexes, you find that you get more opportunities to seduce women than you do men.";
-			else
-				return UtilText.parse(owner, "[npc.Name] is very popular with the ladies.");
+			return UtilText.parse(owner, "[npc.NameIsFUll] very flirtatious, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.she] [npc.verb(get)] more opportunities to seduce women than men.");
 		}
 
-	},
-	MALE_ATTRACTION(60,
+	};
+
+	public static AbstractPerk MALE_ATTRACTION = new AbstractPerk(60,
 			true,
 			"minx",
-			PerkCategory.ARCANE,
+			PerkCategory.LUST,
 			"perks/fitness_male_attraction",
 			Colour.MASCULINE,
 			null, Util.newArrayListOfValues("+10% <span style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</span>"
@@ -1007,22 +1590,19 @@ public enum Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You're quite a tease, and although your charms work well on both sexes, you find that you get more opportunities to seduce men than you do women.";
-			else
-				return UtilText.parse(owner, "[npc.Name] is very popular with men.");
+			return UtilText.parse(owner, "[npc.NameIsFUll] quite a tease, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.she] [npc.verb(get)] more opportunities to seduce men than women.");
 		}
 
-	},
+	};
 	
-	NYMPHOMANIAC(20,
+	public static AbstractPerk NYMPHOMANIAC = new AbstractPerk(20,
 			true,
 			"nymphomaniac",
-			PerkCategory.ARCANE,
+			PerkCategory.LUST,
 			"perks/fitness_nymphomaniac",
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -25)),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -5)),
 			Util.newArrayListOfValues("Doubles <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm")) {
 
 		@Override
@@ -1032,10 +1612,41 @@ public enum Perk {
 			else
 				return UtilText.parse(owner, "[npc.Name] is completely and hopelessly addicted to sex.");
 		}
-	},
+	};
+
+	public static AbstractPerk LUSTPYRE = new AbstractPerk(20,
+			true,
+			"lustpyre",
+			PerkCategory.LUST,
+			"perks/lustful_leech",
+			Colour.ATTRIBUTE_MANA,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 2)),
+			Util.newArrayListOfValues("[style.boldExcellent(Absorb 2%)] of target's maximum "+Attribute.MANA_MAXIMUM.getName()+" on each attack which deals [style.boldLust("+Attribute.DAMAGE_LUST.getName()+")]")) {
+		
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "The arcane itself reacts to [npc.namePos] lustful advances, draining a small amount of [npc.her] enemy's "+Attribute.MANA_MAXIMUM.getName()+" each time [npc.she] teases them.");
+		}
+	};
+
+	public static AbstractPerk PURE_MIND = new AbstractPerk(20,
+			true,
+			"pure thoughts",
+			PerkCategory.LUST,
+			"perks/pure_mind",
+			Colour.DAMAGE_TYPE_LUST,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
+			Util.newArrayListOfValues("[style.boldExcellent(Regain 2%)] of your maximum "+Attribute.MANA_MAXIMUM.getName()+" on each attack in which you take [style.boldLust("+Attribute.DAMAGE_LUST.getName()+")]")) {
+		
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "Steeling [npc.her] mind against any lustful advances, [npc.nameIsFull] able to enter a meditative state,"
+					+ " reacting to any lust damage [npc.she] [npc.verb(receive)] by regenerating some of [npc.her] "+Attribute.MANA_MAXIMUM.getName()+".");
+		}
+	};
 	
 	
-	CLOTHING_ENCHANTER(20,
+	public static AbstractPerk CLOTHING_ENCHANTER = new AbstractPerk(20,
 			false,
 			"arcane weaver",
 			PerkCategory.ARCANE,
@@ -1057,9 +1668,9 @@ public enum Perk {
 				return UtilText.parse(owner, "[npc.Name] has a natural affinity for weaving arcane enchantments into items of clothing, allowing [npc.herHim] to expend only half of the usual arcane essences when enchanting clothing.");
 			}
 		}
-	},
+	};
 	
-	BARREN(20,
+	public static AbstractPerk BARREN = new AbstractPerk(20,
 			true,
 			"barren",
 			PerkCategory.PHYSICAL,
@@ -1080,9 +1691,9 @@ public enum Perk {
 				return UtilText.parse(owner, "[npc.Name] is highly unlikely to get pregnant.");
 			}
 		}
-	},
+	};
 	
-	FIRING_BLANKS(20,
+	public static AbstractPerk FIRING_BLANKS = new AbstractPerk(20,
 			true,
 			"firing blanks",
 			PerkCategory.PHYSICAL,
@@ -1103,17 +1714,17 @@ public enum Perk {
 				return UtilText.parse(owner, "[npc.NamePos] seed is incredibly weak, and [npc.sheIs] highly unlikely to ever get anyone pregnant.");
 			}
 		}
-	},
+	};
 	
 
 	
-	FETISH_BROODMOTHER(20,
+	public static AbstractPerk FETISH_BROODMOTHER = new AbstractPerk(20,
 			true,
 			"broodmother",
-			PerkCategory.PHYSICAL,
+			PerkCategory.LUST,
 			"fetishes/fetish_broodmother",
 			Colour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 10)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 20)),
 			Util.newArrayListOfValues("2x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in mothered litters</span>")) {
 
 		@Override
@@ -1126,32 +1737,22 @@ public enum Perk {
 						+ " [npc.She] seems to always give birth to huge numbers of children at once.");
 			}
 		}
-
-		@Override
-		public boolean isAlwaysAvailable() {
-			return true;
-		}
 		
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.TWO_HORNY;
 		}
-	},
+	};
 	
-	FETISH_SEEDER(20,
+	public static AbstractPerk FETISH_SEEDER = new AbstractPerk(20,
 			true,
 			"seeder",
-			PerkCategory.PHYSICAL,
+			PerkCategory.LUST,
 			"fetishes/fetish_seeder",
 			Colour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 10)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 20)),
 			Util.newArrayListOfValues("2x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in fathered litters</span>")) {
 
-		@Override
-		public boolean isAlwaysAvailable() {
-			return true;
-		}
-		
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
@@ -1165,9 +1766,9 @@ public enum Perk {
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.TWO_HORNY;
 		}
-	},
+	};
 	
-	CHUUNI(20,
+	public static AbstractPerk CHUUNI = new AbstractPerk(20,
 			true,
 			"chuuni",
 			PerkCategory.ARCANE,
@@ -1183,12 +1784,147 @@ public enum Perk {
 			return UtilText.parse(owner, "Roughly translated from Japanese as 'Middle School 2nd Year Syndrome', those with 'chuunibyou' believe and act as though they possess special powers."
 					+ " While chuunis may once have been purely delusional, the arcane now lends some truth to their beliefs...");
 		}
-	},
+	};
 	
 	// HIDDEN PERKS:
 
+	public static AbstractPerk SLUT = new AbstractPerk(20,
+			false,
+			"slut",
+			PerkCategory.ARCANE,
+			"perks/attSeduction3",
+			Colour.ATTRIBUTE_LUST,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
+					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 25)),
+			null) {
 
-	POWER_OF_LIRECEA_1(20,
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] had countless sexual partners, and [npc.has] performed all manner of sexual acts with them.");
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+
+	public static AbstractPerk ARCANE_TRAINING = new AbstractPerk(20,
+			false,
+			"arcane training",
+			PerkCategory.ARCANE,
+			"perks/attIntelligence3",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 10)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] undergone extensive training in order to learn how to harness the arcane.");
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+
+	public static AbstractPerk ARCANE_ALLERGY = new AbstractPerk(20,
+			false,
+			"arcane allergy",
+			PerkCategory.ARCANE,
+			"perks/arcane_allergy",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, -50)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] suffers from a rare allergic reaction to the arcane, and is therefore almost completely incapable of harnessing its power.");
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+
+	public static AbstractPerk HEALTH_FANATIC = new AbstractPerk(20,
+			false,
+			"health fanatic",
+			PerkCategory.ARCANE,
+			"perks/attStrength3",
+			Colour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 25)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] obsessed with [npc.her] personal fitness, and spends hours every day working out and planning out [npc.her] diet.");
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
+	public static AbstractPerk MARTIAL_BACKGROUND = new AbstractPerk(20,
+			false,
+			"martial background",
+			PerkCategory.ARCANE,
+			"perks/attStrength3",
+			Colour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] spent a lot of time training [npc.her] body for combat, and as a result, [npc.sheIs] far stronger than the average person.");
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
+	public static AbstractPerk IMP_SLAYER = new AbstractPerk(20,
+			false,
+			"doomguy",
+			PerkCategory.ARCANE,
+			"perks/imp_slayer",
+			Colour.RACE_IMP,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_IMP, 100)),
+			null) {
+
+		@Override
+		public String getName(GameCharacter owner) {
+			if(owner!=null && owner.isFeminine()) {
+				return "doomgirl";
+			} else {
+				return super.getName(owner);
+			}
+		}
+		
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "<i>It's the same old shit. People think they can fuck with me, and there's only one way to prove 'em wrong!</i>");
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
+	public static AbstractPerk POWER_OF_LIRECEA_1 = new AbstractPerk(20,
 			false,
 			"Lirecea's Power",
 			PerkCategory.ARCANE,
@@ -1211,9 +1947,9 @@ public enum Perk {
 		public boolean isHiddenPerk() {
 			return true;
 		}
-	},
+	};
 
-	POWER_OF_LOVIENNE_2(21,
+	public static AbstractPerk POWER_OF_LOVIENNE_2 = new AbstractPerk(21,
 			false,
 			"Lovienne's Power",
 			PerkCategory.ARCANE,
@@ -1236,9 +1972,9 @@ public enum Perk {
 		public boolean isHiddenPerk() {
 			return true;
 		}
-	},
+	};
 
-	POWER_OF_LASIELLE_3(22,
+	public static AbstractPerk POWER_OF_LASIELLE_3 = new AbstractPerk(22,
 			false,
 			"Lasielle's Power",
 			PerkCategory.ARCANE,
@@ -1261,9 +1997,9 @@ public enum Perk {
 		public boolean isHiddenPerk() {
 			return true;
 		}
-	},
+	};
 	
-	POWER_OF_LYSSIETH_4(23,
+	public static AbstractPerk POWER_OF_LYSSIETH_4 = new AbstractPerk(23,
 			false,
 			"Lyssieth's Power",
 			PerkCategory.ARCANE,
@@ -1288,9 +2024,9 @@ public enum Perk {
 		public boolean isHiddenPerk() {
 			return true;
 		}
-	},
+	};
 	
-	POWER_OF_LUNETTE_5(24,
+	public static AbstractPerk POWER_OF_LUNETTE_5 = new AbstractPerk(24,
 			false,
 			"Lunette's Power",
 			PerkCategory.ARCANE,
@@ -1313,9 +2049,9 @@ public enum Perk {
 		public boolean isHiddenPerk() {
 			return true;
 		}
-	},
+	};
 	
-	POWER_OF_LYXIAS_6(25,
+	public static AbstractPerk POWER_OF_LYXIAS_6 = new AbstractPerk(25,
 			false,
 			"Lyxias's Power",
 			PerkCategory.ARCANE,
@@ -1338,9 +2074,9 @@ public enum Perk {
 		public boolean isHiddenPerk() {
 			return true;
 		}
-	},
+	};
 	
-	POWER_OF_LISOPHIA_7(26,
+	public static AbstractPerk POWER_OF_LISOPHIA_7 = new AbstractPerk(26,
 			false,
 			"Lisophia's Power",
 			PerkCategory.ARCANE,
@@ -1363,13 +2099,13 @@ public enum Perk {
 		public boolean isHiddenPerk() {
 			return true;
 		}
-	},
+	};
 
 	
 
 	// SPECIFIC TO ELEMENTAL PERK TREE:
 	
-	ELEMENTAL_BOUND_EARTH(20,
+	public static AbstractPerk ELEMENTAL_BOUND_EARTH = new AbstractPerk(20,
 			true,
 			"Bound to Earth",
 			PerkCategory.JOB,
@@ -1385,9 +2121,9 @@ public enum Perk {
 			return UtilText.parse(owner, "By being bound to the school of Earth, [npc.name] has gained a strong, tough body that is extremely resilient to physical damage."
 					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using physical attacks.");
 		}
-	},
+	};
 
-	ELEMENTAL_BOUND_FIRE(20,
+	public static AbstractPerk ELEMENTAL_BOUND_FIRE = new AbstractPerk(20,
 			true,
 			"Bound to Fire",
 			PerkCategory.JOB,
@@ -1403,9 +2139,9 @@ public enum Perk {
 			return UtilText.parse(owner, "By being bound to the school of Fire, [npc.name] has gained an ethereal body that is extremely resilient to fire damage."
 					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using fire-based attacks.");
 		}
-	},
+	};
 
-	ELEMENTAL_BOUND_WATER(20,
+	public static AbstractPerk ELEMENTAL_BOUND_WATER = new AbstractPerk(20,
 			true,
 			"Bound to Water",
 			PerkCategory.JOB,
@@ -1421,9 +2157,9 @@ public enum Perk {
 			return UtilText.parse(owner, "By being bound to the school of Water, [npc.name] has gained "+(owner.getBodyMaterial()==BodyMaterial.WATER?"a liquid-like ":"an ice-like ")+"body that is extremely resilient to ice damage."
 					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using ice-based attacks.");
 		}
-	},
+	};
 
-	ELEMENTAL_BOUND_AIR(20,
+	public static AbstractPerk ELEMENTAL_BOUND_AIR = new AbstractPerk(20,
 			true,
 			"Bound to Air",
 			PerkCategory.JOB,
@@ -1439,9 +2175,9 @@ public enum Perk {
 			return UtilText.parse(owner, "By being bound to the school of Air, [npc.name] has gained an ethereal body that is extremely resilient to poison damage."
 					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using poison-based attacks.");
 		}
-	},
+	};
 
-	ELEMENTAL_BOUND_ARCANE(20,
+	public static AbstractPerk ELEMENTAL_BOUND_ARCANE = new AbstractPerk(20,
 			true,
 			"Bound to Arcane",
 			PerkCategory.JOB,
@@ -1459,12 +2195,12 @@ public enum Perk {
 			return UtilText.parse(owner, "By being bound to the school of Arcane, [npc.name] has gained an ethereal body that capable of inflicting great damage by using lust-based attacks."
 					+ " [npc.She] has also become more adept at casting spells, but the arcane's arousing power has left [npc.herHim] more susceptible to lust-based attacks.");
 		}
-	},
+	};
 
-	ELEMENTAL_CORE(20,
+	public static AbstractPerk ELEMENTAL_CORE = new AbstractPerk(20,
 			false,
 			"elemental",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			"perks/elemental/core",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
@@ -1477,12 +2213,12 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "As beings of pure arcane energy, all elementals are very competent spell casters, and rival even the most powerful of demons in their ability to harness the arcane.");
 		}
-	},
+	};
 
-	ELEMENTAL_CORRUPTION(20,
+	public static AbstractPerk ELEMENTAL_CORRUPTION = new AbstractPerk(20,
 			false,
 			"elemental",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			"perks/elemental/coreCorruption",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
@@ -1494,11 +2230,11 @@ public enum Perk {
 			return UtilText.parse(owner, "Even if their summoner is completely pure and innocent, the lust-related nature of the arcane causes all elementals to be incredibly perverted."
 					+ " If nothing else, they can always be relied upon to be willing and ready to have sex with anyone or anything...");
 		}
-	},
+	};
 	
 	// ELEMENTAL FIRE
 
-	ELEMENTAL_FIRE_SPELL_1(20,
+	public static AbstractPerk ELEMENTAL_FIRE_SPELL_1 = new AbstractPerk(20,
 			false,
 			"Spell",
 			PerkCategory.ARCANE_FIRE,
@@ -1530,9 +2266,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_FIRE_SPELL_1_1(20,
+	public static AbstractPerk ELEMENTAL_FIRE_SPELL_1_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
@@ -1564,9 +2300,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_FIRE_SPELL_1_2(20,
+	public static AbstractPerk ELEMENTAL_FIRE_SPELL_1_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
@@ -1598,9 +2334,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_FIRE_SPELL_1_3(20,
+	public static AbstractPerk ELEMENTAL_FIRE_SPELL_1_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
@@ -1632,9 +2368,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_FIRE_SPELL_2(20,
+	public static AbstractPerk ELEMENTAL_FIRE_SPELL_2 = new AbstractPerk(20,
 			false,
 			"Spell",
 			PerkCategory.ARCANE_FIRE,
@@ -1666,9 +2402,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_FIRE_SPELL_2_1(20,
+	public static AbstractPerk ELEMENTAL_FIRE_SPELL_2_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
@@ -1700,9 +2436,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_FIRE_SPELL_2_2(20,
+	public static AbstractPerk ELEMENTAL_FIRE_SPELL_2_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
@@ -1734,9 +2470,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_FIRE_SPELL_2_3(20,
+	public static AbstractPerk ELEMENTAL_FIRE_SPELL_2_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
@@ -1768,9 +2504,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_FIRE_SPELL_3(20,
+	public static AbstractPerk ELEMENTAL_FIRE_SPELL_3 = new AbstractPerk(20,
 			false,
 			"Spell",
 			PerkCategory.ARCANE_FIRE,
@@ -1802,9 +2538,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_FIRE_SPELL_3_1(20,
+	public static AbstractPerk ELEMENTAL_FIRE_SPELL_3_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
@@ -1836,9 +2572,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_FIRE_SPELL_3_2(20,
+	public static AbstractPerk ELEMENTAL_FIRE_SPELL_3_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
@@ -1870,9 +2606,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_FIRE_SPELL_3_3(20,
+	public static AbstractPerk ELEMENTAL_FIRE_SPELL_3_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_FIRE,
@@ -1904,9 +2640,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 	
-	ELEMENTAL_FIRE_BOOST_MINOR(20,
+	public static AbstractPerk ELEMENTAL_FIRE_BOOST_MINOR = new AbstractPerk(20,
 			false,
 			"ignition",
 			PerkCategory.ARCANE_FIRE,
@@ -1921,9 +2657,9 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "If instructed to focus on [npc.her] ability at harnessing and taking the form of arcane fire, [npc.name] could take the first step towards unlocking the next secret of the school of arcane Fire.");
 		}
-	},
+	};
 	
-	ELEMENTAL_FIRE_BOOST(20,
+	public static AbstractPerk ELEMENTAL_FIRE_BOOST = new AbstractPerk(20,
 			false,
 			"ablaze",
 			PerkCategory.ARCANE_FIRE,
@@ -1939,9 +2675,9 @@ public enum Perk {
 			return UtilText.parse(owner, "[npc.NameIsFull] continuing to pursue the path of a fire elemental, and,"
 					+ " while [npc.she] still has a way to go before reaching a new milestone, [npc.her] affinity with arcane fire is steadily increasing.");
 		}
-	},
+	};
 	
-	ELEMENTAL_FIRE_BOOST_MAJOR(20,
+	public static AbstractPerk ELEMENTAL_FIRE_BOOST_MAJOR = new AbstractPerk(20,
 			false,
 			"conflagration",
 			PerkCategory.ARCANE_FIRE,
@@ -1956,9 +2692,9 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NamePos] affinity with arcane fire has massively increased, and [npc.sheIs] on the verge of discovering something incredibly powerful!");
 		}
-	},
+	};
 	
-	ELEMENTAL_FIRE_BOOST_ULTIMATE(20,
+	public static AbstractPerk ELEMENTAL_FIRE_BOOST_ULTIMATE = new AbstractPerk(20,
 			false,
 			"incineration",
 			PerkCategory.ARCANE_FIRE,
@@ -1974,11 +2710,11 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "Burning with the beautiful and terrifying power of the sun itself, one strike from [npc.name] is typically all it takes to incapacitate anyone unfortunate enough to incur [npc.her] wrath.");
 		}
-	},
+	};
 	
 	// ELEMENTAL EARTH
 
-	ELEMENTAL_EARTH_SPELL_1(20,
+	public static AbstractPerk ELEMENTAL_EARTH_SPELL_1 = new AbstractPerk(20,
 			false,
 			"Spell",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2010,9 +2746,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_EARTH_SPELL_1_1(20,
+	public static AbstractPerk ELEMENTAL_EARTH_SPELL_1_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2044,9 +2780,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_EARTH_SPELL_1_2(20,
+	public static AbstractPerk ELEMENTAL_EARTH_SPELL_1_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2078,9 +2814,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_EARTH_SPELL_1_3(20,
+	public static AbstractPerk ELEMENTAL_EARTH_SPELL_1_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2112,9 +2848,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_EARTH_SPELL_2(20,
+	public static AbstractPerk ELEMENTAL_EARTH_SPELL_2 = new AbstractPerk(20,
 			false,
 			"Spell",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2146,9 +2882,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_EARTH_SPELL_2_1(20,
+	public static AbstractPerk ELEMENTAL_EARTH_SPELL_2_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2180,9 +2916,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_EARTH_SPELL_2_2(20,
+	public static AbstractPerk ELEMENTAL_EARTH_SPELL_2_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2214,9 +2950,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_EARTH_SPELL_2_3(20,
+	public static AbstractPerk ELEMENTAL_EARTH_SPELL_2_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2248,9 +2984,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_EARTH_SPELL_3(20,
+	public static AbstractPerk ELEMENTAL_EARTH_SPELL_3 = new AbstractPerk(20,
 			false,
 			"Spell",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2282,9 +3018,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_EARTH_SPELL_3_1(20,
+	public static AbstractPerk ELEMENTAL_EARTH_SPELL_3_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2316,9 +3052,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_EARTH_SPELL_3_2(20,
+	public static AbstractPerk ELEMENTAL_EARTH_SPELL_3_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2350,9 +3086,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_EARTH_SPELL_3_3(20,
+	public static AbstractPerk ELEMENTAL_EARTH_SPELL_3_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2384,9 +3120,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_EARTH_BOOST_MINOR(20,
+	public static AbstractPerk ELEMENTAL_EARTH_BOOST_MINOR = new AbstractPerk(20,
 			false,
 			"impact",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2401,9 +3137,9 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "If instructed to focus on [npc.her] ability to create powerful physical manifestations, [npc.name] could take the first step towards unlocking the next secret of the school of arcane Earth.");
 		}
-	},
+	};
 	
-	ELEMENTAL_EARTH_BOOST(20,
+	public static AbstractPerk ELEMENTAL_EARTH_BOOST = new AbstractPerk(20,
 			false,
 			"building pressure",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2419,9 +3155,9 @@ public enum Perk {
 			return UtilText.parse(owner, "[npc.NameIsFull] continuing to pursue the path of an earth elemental, and,"
 					+ " while [npc.she] still has a way to go before reaching a new milestone, [npc.her] affinity with arcane force is steadily increasing.");
 		}
-	},
+	};
 	
-	ELEMENTAL_EARTH_BOOST_MAJOR(20,
+	public static AbstractPerk ELEMENTAL_EARTH_BOOST_MAJOR = new AbstractPerk(20,
 			false,
 			"seismic activity",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2436,9 +3172,9 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NamePos] affinity with arcane force has massively increased, and [npc.sheIs] on the verge of discovering something incredibly powerful!");
 		}
-	},
+	};
 	
-	ELEMENTAL_EARTH_BOOST_ULTIMATE(20,
+	public static AbstractPerk ELEMENTAL_EARTH_BOOST_ULTIMATE = new AbstractPerk(20,
 			false,
 			"epicentre",
 			PerkCategory.PHYSICAL_EARTH,
@@ -2454,11 +3190,11 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "Taking on a nigh-invincible form, [npc.name] is now able to shrug off almost any attack, which allows [npc.herHim] to get close to [npc.her] enemies and deliver a knock-out punch or kick.");
 		}
-	},
+	};
 	
 	// ELEMENTAL WATER
 
-	ELEMENTAL_WATER_SPELL_1(20,
+	public static AbstractPerk ELEMENTAL_WATER_SPELL_1 = new AbstractPerk(20,
 			false,
 			"Spell",
 			PerkCategory.PHYSICAL_WATER,
@@ -2490,9 +3226,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_WATER_SPELL_1_1(20,
+	public static AbstractPerk ELEMENTAL_WATER_SPELL_1_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
@@ -2524,9 +3260,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_WATER_SPELL_1_2(20,
+	public static AbstractPerk ELEMENTAL_WATER_SPELL_1_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
@@ -2558,9 +3294,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_WATER_SPELL_1_3(20,
+	public static AbstractPerk ELEMENTAL_WATER_SPELL_1_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
@@ -2592,9 +3328,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 	
-	ELEMENTAL_WATER_SPELL_2(20,
+	public static AbstractPerk ELEMENTAL_WATER_SPELL_2 = new AbstractPerk(20,
 			false,
 			"Spell",
 			PerkCategory.PHYSICAL_WATER,
@@ -2626,9 +3362,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_WATER_SPELL_2_1(20,
+	public static AbstractPerk ELEMENTAL_WATER_SPELL_2_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
@@ -2660,9 +3396,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_WATER_SPELL_2_2(20,
+	public static AbstractPerk ELEMENTAL_WATER_SPELL_2_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
@@ -2694,9 +3430,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_WATER_SPELL_2_3(20,
+	public static AbstractPerk ELEMENTAL_WATER_SPELL_2_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
@@ -2728,9 +3464,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_WATER_SPELL_3(20,
+	public static AbstractPerk ELEMENTAL_WATER_SPELL_3 = new AbstractPerk(20,
 			false,
 			"Spell",
 			PerkCategory.PHYSICAL_WATER,
@@ -2762,9 +3498,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_WATER_SPELL_3_1(20,
+	public static AbstractPerk ELEMENTAL_WATER_SPELL_3_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
@@ -2796,9 +3532,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_WATER_SPELL_3_2(20,
+	public static AbstractPerk ELEMENTAL_WATER_SPELL_3_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
@@ -2830,9 +3566,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_WATER_SPELL_3_3(20,
+	public static AbstractPerk ELEMENTAL_WATER_SPELL_3_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.PHYSICAL_WATER,
@@ -2864,9 +3600,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_WATER_BOOST_MINOR(20,
+	public static AbstractPerk ELEMENTAL_WATER_BOOST_MINOR = new AbstractPerk(20,
 			false,
 			"chill",
 			PerkCategory.PHYSICAL_WATER,
@@ -2881,9 +3617,9 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "If instructed to focus on [npc.her] ability at harnessing and taking the form of arcane ice, [npc.name] could take the first step towards unlocking the next secret of the school of arcane Water.");
 		}
-	},
+	};
 	
-	ELEMENTAL_WATER_BOOST(20,
+	public static AbstractPerk ELEMENTAL_WATER_BOOST = new AbstractPerk(20,
 			false,
 			"frost",
 			PerkCategory.PHYSICAL_WATER,
@@ -2899,9 +3635,9 @@ public enum Perk {
 			return UtilText.parse(owner, "[npc.NameIsFull] continuing to pursue the path of a water elemental, and,"
 					+ " while [npc.she] still has a way to go before reaching a new milestone, [npc.her] affinity with arcane ice is steadily increasing.");
 		}
-	},
+	};
 	
-	ELEMENTAL_WATER_BOOST_MAJOR(20,
+	public static AbstractPerk ELEMENTAL_WATER_BOOST_MAJOR = new AbstractPerk(20,
 			false,
 			"freeze",
 			PerkCategory.PHYSICAL_WATER,
@@ -2916,9 +3652,9 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NamePos] affinity with arcane ice has massively increased, and [npc.sheIs] on the verge of discovering something incredibly powerful!");
 		}
-	},
+	};
 	
-	ELEMENTAL_WATER_BOOST_ULTIMATE(20,
+	public static AbstractPerk ELEMENTAL_WATER_BOOST_ULTIMATE = new AbstractPerk(20,
 			false,
 			"ice-age",
 			PerkCategory.PHYSICAL_WATER,
@@ -2934,11 +3670,11 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "Gliding from place to place with an ethereal grace, [npc.name] is able to shift and reform [npc.her] body in an instant, enabling [npc.herHim] to perform the most impossible of physical feats.");
 		}
-	},
+	};
 	
 	// ELEMENTAL AIR
 
-	ELEMENTAL_AIR_SPELL_1(20,
+	public static AbstractPerk ELEMENTAL_AIR_SPELL_1 = new AbstractPerk(20,
 			false,
 			"Spell",
 			PerkCategory.ARCANE_AIR,
@@ -2970,9 +3706,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_AIR_SPELL_1_1(20,
+	public static AbstractPerk ELEMENTAL_AIR_SPELL_1_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
@@ -3004,9 +3740,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_AIR_SPELL_1_2(20,
+	public static AbstractPerk ELEMENTAL_AIR_SPELL_1_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
@@ -3038,9 +3774,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_AIR_SPELL_1_3(20,
+	public static AbstractPerk ELEMENTAL_AIR_SPELL_1_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
@@ -3072,9 +3808,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_AIR_SPELL_2(20,
+	public static AbstractPerk ELEMENTAL_AIR_SPELL_2 = new AbstractPerk(20,
 			false,
 			"Spell",
 			PerkCategory.ARCANE_AIR,
@@ -3106,9 +3842,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_AIR_SPELL_2_1(20,
+	public static AbstractPerk ELEMENTAL_AIR_SPELL_2_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
@@ -3140,9 +3876,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_AIR_SPELL_2_2(20,
+	public static AbstractPerk ELEMENTAL_AIR_SPELL_2_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
@@ -3174,9 +3910,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_AIR_SPELL_2_3(20,
+	public static AbstractPerk ELEMENTAL_AIR_SPELL_2_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
@@ -3208,9 +3944,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_AIR_SPELL_3(20,
+	public static AbstractPerk ELEMENTAL_AIR_SPELL_3 = new AbstractPerk(20,
 			false,
 			"Spell",
 			PerkCategory.ARCANE_AIR,
@@ -3242,9 +3978,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_AIR_SPELL_3_1(20,
+	public static AbstractPerk ELEMENTAL_AIR_SPELL_3_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
@@ -3276,9 +4012,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_AIR_SPELL_3_2(20,
+	public static AbstractPerk ELEMENTAL_AIR_SPELL_3_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
@@ -3310,9 +4046,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_AIR_SPELL_3_3(20,
+	public static AbstractPerk ELEMENTAL_AIR_SPELL_3_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
 			PerkCategory.ARCANE_AIR,
@@ -3344,9 +4080,9 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_AIR_BOOST_MINOR(20,
+	public static AbstractPerk ELEMENTAL_AIR_BOOST_MINOR = new AbstractPerk(20,
 			false,
 			"breeze",
 			PerkCategory.ARCANE_AIR,
@@ -3361,9 +4097,9 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "If instructed to focus on [npc.her] ability at harnessing the power of arcane poison, [npc.name] could take the first step towards unlocking the next secret of the school of arcane Air.");
 		}
-	},
+	};
 	
-	ELEMENTAL_AIR_BOOST(20,
+	public static AbstractPerk ELEMENTAL_AIR_BOOST = new AbstractPerk(20,
 			false,
 			"gale",
 			PerkCategory.ARCANE_AIR,
@@ -3379,9 +4115,9 @@ public enum Perk {
 			return UtilText.parse(owner, "[npc.NameIsFull] continuing to pursue the path of an air elemental, and,"
 					+ " while [npc.she] still has a way to go before reaching a new milestone, [npc.her] affinity with arcane poison is steadily increasing.");
 		}
-	},
+	};
 	
-	ELEMENTAL_AIR_BOOST_MAJOR(20,
+	public static AbstractPerk ELEMENTAL_AIR_BOOST_MAJOR = new AbstractPerk(20,
 			false,
 			"storm",
 			PerkCategory.ARCANE_AIR,
@@ -3396,9 +4132,9 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NamePos] affinity with arcane poison has massively increased, and [npc.sheIs] on the verge of discovering something incredibly powerful!");
 		}
-	},
+	};
 	
-	ELEMENTAL_AIR_BOOST_ULTIMATE(20,
+	public static AbstractPerk ELEMENTAL_AIR_BOOST_ULTIMATE = new AbstractPerk(20,
 			false,
 			"supercell",
 			PerkCategory.ARCANE_AIR,
@@ -3415,14 +4151,14 @@ public enum Perk {
 			return UtilText.parse(owner, "Any enemy foolish enough to draw [npc.namePos] ire soon finds themselves reaping the whirlwind,"
 					+ " with each of [npc.her] devastating missiles landing perfectly on-target thanks to the guiding gusts that [npc.she] summons.");
 		}
-	},
+	};
 	
 	// ELEMENTAL ARCANE
 
-	ELEMENTAL_ARCANE_SPELL_1(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_SPELL_1 = new AbstractPerk(20,
 			false,
 			"Spell",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			null,
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(),
@@ -3451,12 +4187,12 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_ARCANE_SPELL_1_1(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_SPELL_1_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			null,
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(),
@@ -3485,12 +4221,12 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_ARCANE_SPELL_1_2(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_SPELL_1_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			null,
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(),
@@ -3519,12 +4255,12 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_ARCANE_SPELL_1_3(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_SPELL_1_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			null,
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(),
@@ -3553,12 +4289,12 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_ARCANE_SPELL_2(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_SPELL_2 = new AbstractPerk(20,
 			false,
 			"Spell",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			null,
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(),
@@ -3587,12 +4323,12 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_ARCANE_SPELL_2_1(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_SPELL_2_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			null,
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(),
@@ -3621,12 +4357,12 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_ARCANE_SPELL_2_2(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_SPELL_2_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			null,
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(),
@@ -3655,12 +4391,12 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_ARCANE_SPELL_2_3(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_SPELL_2_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			null,
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(),
@@ -3689,12 +4425,12 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_ARCANE_SPELL_3(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_SPELL_3 = new AbstractPerk(20,
 			false,
 			"Spell",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			null,
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(),
@@ -3723,12 +4459,12 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpell().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_ARCANE_SPELL_3_1(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_SPELL_3_1 = new AbstractPerk(20,
 			false,
 			"Upgrade",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			null,
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(),
@@ -3757,12 +4493,12 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_ARCANE_SPELL_3_2(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_SPELL_3_2 = new AbstractPerk(20,
 			false,
 			"Upgrade",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			null,
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(),
@@ -3791,12 +4527,12 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_ARCANE_SPELL_3_3(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_SPELL_3_3 = new AbstractPerk(20,
 			false,
 			"Upgrade",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			null,
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(),
@@ -3825,12 +4561,12 @@ public enum Perk {
 		public String getSVGString() {
 			return getSpellUpgrade().getSVGString();
 		}
-	},
+	};
 
-	ELEMENTAL_ARCANE_BOOST_MINOR(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_BOOST_MINOR = new AbstractPerk(20,
 			false,
 			"arousal",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			"perks/elemental/arcane1",
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(
@@ -3842,12 +4578,12 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "If instructed to focus on [npc.her] ability at harnessing the pure power of the arcane, [npc.name] could take the first step towards unlocking the next secret of the school of the Arcane.");
 		}
-	},
+	};
 	
-	ELEMENTAL_ARCANE_BOOST(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_BOOST = new AbstractPerk(20,
 			false,
 			"passion",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			"perks/elemental/arcane2",
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(
@@ -3860,12 +4596,12 @@ public enum Perk {
 			return UtilText.parse(owner, "[npc.NameIsFull] continuing to pursue the path of an arcane elemental, and,"
 					+ " while [npc.she] still has a way to go before reaching a new milestone, [npc.her] affinity with arcane lust is steadily increasing.");
 		}
-	},
+	};
 	
-	ELEMENTAL_ARCANE_BOOST_MAJOR(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_BOOST_MAJOR = new AbstractPerk(20,
 			false,
 			"infatuation",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			"perks/elemental/arcane3",
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(
@@ -3877,18 +4613,18 @@ public enum Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NamePos] affinity with the arcane has massively increased, and [npc.sheIs] on the verge of discovering something incredibly powerful!");
 		}
-	},
+	};
 	
-	ELEMENTAL_ARCANE_BOOST_ULTIMATE(20,
+	public static AbstractPerk ELEMENTAL_ARCANE_BOOST_ULTIMATE = new AbstractPerk(20,
 			false,
 			"nympholepsy",
-			PerkCategory.BOTH,
+			PerkCategory.LUST,
 			"perks/elemental/arcane4",
 			Colour.DAMAGE_TYPE_LUST,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 20),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 20),
-					new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 50)),
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
 			null) {
 
 		@Override
@@ -3896,196 +4632,104 @@ public enum Perk {
 			return UtilText.parse(owner, "Those who look upon [npc.namePos] "+(owner.isFeminine()?"gorgeous body and stunning":"chiselled body and handsome")
 					+" face find themselves falling under [npc.her] spell, and within moments, are completely consumed by a wild, animalistic lust.");
 		}
-	},
+	};
 	
 	
-	;
 
-	private int renderingPriority;
-	protected String name;
-	private Colour colour;
-	private boolean equippableTrait;
+	public static List<AbstractPerk> hiddenPerks;
+	public static List<AbstractPerk> allPerks;
 	
-	private Spell spell;
-	private SpellUpgrade spellUpgrade;
-	private SpellSchool school;
-
-	// Attributes modified by this Virtue:
-	private HashMap<Attribute, Integer> attributeModifiers;
-
-	private PerkCategory perkCategory;
-
-	private String SVGString;
-
-	private List<String> extraEffects;
-
-	private List<String> modifiersList;
+	public static Map<AbstractPerk, String> perkToIdMap = new HashMap<>();
+	public static Map<String, AbstractPerk> idToPerkMap = new HashMap<>();
 	
-	public static List<Perk> hiddenPerks;
+	public static AbstractPerk getPerkFromId(String id) {
+//		System.out.print("ID: "+id);
+		id = Util.getClosestStringMatch(id, idToPerkMap.keySet());
+//		System.out.println("  set to: "+id);
+		return idToPerkMap.get(id);
+	}
 	
-	static{
+	public static String getIdFromPerk(AbstractPerk perk) {
+		return perkToIdMap.get(perk);
+	}
+
+	static {
 		hiddenPerks = new ArrayList<>();
-		for(Perk p : Perk.values()) {
-			if(p.isHiddenPerk()) {
-				hiddenPerks.add(p);
+		allPerks = new ArrayList<>();
+		
+		Field[] fields = Perk.class.getFields();
+		
+		for(Field f : fields){
+			if (AbstractPerk.class.isAssignableFrom(f.getType())) {
+				
+				AbstractPerk perk;
+				
+				try {
+					perk = ((AbstractPerk) f.get(null));
+
+					// I feel like this is stupid :thinking:
+					perkToIdMap.put(perk, f.getName());
+					idToPerkMap.put(f.getName(), perk);
+					
+					allPerks.add(perk);
+					if(perk.isHiddenPerk()) {
+						hiddenPerks.add(perk);
+					}
+					
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
 			}
 		}
+		
+		List<Attribute> resistancesAdded = new ArrayList<>();
+		for(Subspecies sub : Subspecies.values()) {
+			if(!resistancesAdded.contains(sub.getDamageMultiplier())) {
+				resistancesAdded.add(sub.getDamageMultiplier());
+				Subspecies subToUse = sub.getDamageMultiplier()==Subspecies.getMainSubspeciesOfRace(sub.getRace()).getDamageMultiplier()?Subspecies.getMainSubspeciesOfRace(sub.getRace()):sub;
+				
+				AbstractPerk racePerk = new AbstractPerk(20,
+						false,
+						Util.capitaliseSentence(subToUse.getName(null))+" knowledge",
+						PerkCategory.LUST,
+						null,
+						Colour.BASE_WHITE,
+						Util.newHashMapOfValues(
+								new Value<Attribute, Integer>(subToUse.getDamageMultiplier(), 10)),
+						null) {
+					@Override
+					public String getDescription(GameCharacter owner) {
+						return UtilText.parse(owner, "[npc.NameHasFull] advanced knowledge of "+subToUse.getNamePlural(null)+", and can therefore do increased damage when fighting them.");
+					}
+					@Override
+					public String getSVGString() {
+						return subToUse.getSVGString(null);
+					}
+					@Override
+					public Colour getColour() {
+						return subToUse.getColour(null);
+					}
+					@Override
+					public boolean isHiddenPerk() {
+						return true;
+					}
+				};
+//				System.out.println(subToUse.toString()+" "+racePerk.getName(null)+" "+racePerk.hashCode());
+				perkToIdMap.put(racePerk, subToUse.toString());
+				idToPerkMap.put(subToUse.toString(), racePerk);
+				allPerks.add(racePerk);
+				hiddenPerks.add(racePerk);
+			}
+		}
+		
 		hiddenPerks.sort((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
 	}
-	
 
-	private Perk(int renderingPriority,
-			boolean major,
-			String name,
-			PerkCategory perkCategory,
-			String pathName,
-			Colour colour,
-			HashMap<Attribute, Integer> attributeModifiers,
-			List<String> extraEffects) {
-		this(renderingPriority,
-				major,
-				name,
-				perkCategory,
-				pathName,
-				colour,
-				attributeModifiers,
-				extraEffects,
-				null,
-				null,
-				null);
+	public static List<AbstractPerk> getAllPerks() {
+		return allPerks;
 	}
 	
-	private Perk(int renderingPriority,
-			boolean major,
-			String name,
-			PerkCategory perkCategory,
-			String pathName,
-			Colour colour,
-			HashMap<Attribute, Integer> attributeModifiers,
-			List<String> extraEffects,
-			Spell spell,
-			SpellUpgrade spellUpgrade,
-			SpellSchool school) {
-
-		this.renderingPriority = renderingPriority;
-		this.name = name;
-		this.colour = colour;
-		
-		this.equippableTrait = major;
-		
-		this.perkCategory = perkCategory;
-
-		this.attributeModifiers = attributeModifiers;
-
-		if(extraEffects!=null) {
-			this.extraEffects = extraEffects;
-		} else {
-			this.extraEffects = new ArrayList<>();
-		}
-		
-		if(pathName!=null) {
-			try {
-				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + pathName + ".svg");
-				if(is==null) {
-					System.err.println("Error! Perk icon file does not exist (Trying to read from '"+pathName+"')!");
-				}
-				SVGString = Util.inputStreamToString(is);
-				
-				SVGString = SvgUtil.colourReplacement(this.toString(), colour, SVGString);
-	
-				is.close();
-	
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		modifiersList = new ArrayList<>();
-
-		if (attributeModifiers != null) {
-			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet()) {
-				modifiersList.add("<b>"+ (e.getValue() > 0 ? "+" : "")+ e.getValue()+ "</b>"
-						+ " <b style='color: "+ e.getKey().getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(e.getKey().getAbbreviatedName())+ "</b>");
-			}
-		}
-		
-		this.spell = spell;
-		this.spellUpgrade = spellUpgrade;
-		this.school = school;
-	}
-	
-	public static List<Perk> getHiddenPerks() {
+	public static List<AbstractPerk> getHiddenPerks() {
 		return hiddenPerks;
-	}
-	
-	public boolean isAlwaysAvailable() {
-		return false;
-	}
-
-	// Override this and return true if the perk is one that is unlock via special in-game events.
-	public boolean isHiddenPerk() {
-		return false;
-	}
-	
-	public String getName(GameCharacter owner) {
-		return name;
-	}
-
-	public Colour getColour() {
-		return colour;
-	}
-
-	public boolean isEquippableTrait() {
-		return equippableTrait;
-	}
-
-	public abstract String getDescription(GameCharacter target);
-
-	public List<String> getModifiersAsStringList() {
-		return Util.mergeLists(modifiersList, getExtraEffects());
-	}
-
-	public HashMap<Attribute, Integer> getAttributeModifiers() {
-		return attributeModifiers;
-	}
-
-	public String applyPerkGained(GameCharacter character) {
-		return "";
-	};
-
-	public String applyPerkLost(GameCharacter character) {
-		return "";
-	};
-
-	public CorruptionLevel getAssociatedCorruptionLevel() {
-		return CorruptionLevel.ZERO_PURE;
-	}
-
-	public int getRenderingPriority() {
-		return renderingPriority;
-	}
-
-	public List<String> getExtraEffects() {
-		return extraEffects;
-	}
-
-	public String getSVGString() {
-		return SVGString;
-	}
-
-	public PerkCategory getPerkCategory() {
-		return perkCategory;
-	}
-
-	public Spell getSpell() {
-		return spell;
-	}
-
-	public SpellUpgrade getSpellUpgrade() {
-		return spellUpgrade;
-	}
-
-	public SpellSchool getSchool() {
-		return school;
 	}
 }

@@ -14,10 +14,10 @@ import com.lilithsthrone.utils.Colour;
 public enum DamageType {
 
 	ENERGY("energy",
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			Colour.ATTRIBUTE_HEALTH,
 			"energy damaging",
-			Attribute.RESISTANCE_PHYSICAL,
-			Attribute.DAMAGE_PHYSICAL,
+			Attribute.ENERGY_SHIELDING,
+			Attribute.HEALTH_MAXIMUM,
 			SpellSchool.EARTH,
 			null),
 
@@ -116,11 +116,13 @@ public enum DamageType {
 		public int damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
 			damageAmount = shieldCheck(source, target, damageAmount);
 			if(damageAmount > 0) {
-				target.setLust(target.getLust()+damageAmount);
+				if(target.getLust()>=100) {
+					return ENERGY.damageTarget(source, target, damageAmount);
+				} else {
+					target.setLust(target.getLust()+damageAmount);
+				}
 			}
 			return damageAmount;
-
-			// TODO: DAMAGE OVERFLOW
 		}
 	},
 	
