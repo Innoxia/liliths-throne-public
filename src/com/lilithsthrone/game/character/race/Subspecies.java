@@ -11,7 +11,6 @@ import java.util.Map.Entry;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.AttributeRange;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Covering;
@@ -34,6 +33,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -46,7 +46,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.91
- * @version 0.3.1
+ * @version 0.3.4
  * @author tukaima, Innoxia
  */
 public enum Subspecies {
@@ -62,16 +62,29 @@ public enum Subspecies {
 			"women",
 			"human",
 			"Humans have a much higher resistance to the arousing effects of the arcane than any other race.",
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 20f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 2f)),
 			null,
 			"Concerning Humans",
 			"Concerning Humans",
 			"HUMAN_BASIC",
 			"HUMAN_ADVANCED",
 			Race.HUMAN,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 10),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 1)),
 			Colour.RACE_HUMAN,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A typical human.", Util.newHashMapOfValues(
+			"A typical human.",
+			Util.newHashMapOfValues(
 					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON))),
 
@@ -88,21 +101,30 @@ public enum Subspecies {
 			"As an angel, [npc.nameIsFull] highly resistant to the arousing effects of the arcane, and [npc.is] particularly adept at fighting demons."
 					+ " [npc.Her] natural instinct to protect humans, however, leaves [npc.her] quite vulnerable to them...",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_LUST_SHIELDING, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 15f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, -100f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 50f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_DEMON, 50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_DEMON, 50f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_HUMAN, -50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_HUMAN, -50f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_HUMAN, -50f)),
 			null,
 			"The Protectors",
 			"The Protectors",
 			"ANGEL_BASIC",
 			"ANGEL_ADVANCED",
 			Race.ANGEL,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 0),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 0),
+					new Value<>(PerkCategory.ARCANE, 2)),
 			Colour.RACE_ANGEL,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A typical angel.", Util.newHashMapOfValues()) {
+			"A typical angel.",
+			Util.newHashMapOfValues()) {
 		@Override
 		protected String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
@@ -130,8 +152,8 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 1000f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 1000f),
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 1000f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 1000f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 1000f)),
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 1000f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 1000f)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Unlimited)] <b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>",
 					"<b style='color: "+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to potion transformations</b>"),
@@ -140,9 +162,18 @@ public enum Subspecies {
 			"ELDER_LILIN_BASIC",
 			"ELDER_LILIN_ADVANCED",
 			Race.DEMON,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
 			Colour.RACE_LILIN,
 			SubspeciesPreference.ONE_LOW,
-			"One of the seven elder lilin.", Util.newHashMapOfValues()) {
+			"One of the seven elder lilin.",
+			Util.newHashMapOfValues()) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setSubspeciesOverride(ELDER_LILIN);
@@ -163,8 +194,8 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 500f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 500f),
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 500f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 500f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 500f)),
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 500f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 500f)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Unlimited)] <b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>",
 					"<b style='color: "+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to potion transformations</b>"),
@@ -173,7 +204,18 @@ public enum Subspecies {
 			"LILIN_BASIC",
 			"LILIN_ADVANCED",
 			Race.DEMON,
-			Colour.RACE_LILIN, SubspeciesPreference.ONE_LOW, "A lilin.", Util.newHashMapOfValues()) {
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Colour.RACE_LILIN,
+			SubspeciesPreference.ONE_LOW,
+			"A lilin.",
+			null) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setSubspeciesOverride(LILIN);
@@ -191,7 +233,9 @@ public enum Subspecies {
 			"demon",
 			"Due to the fact that demons are very easily able to harness arcane power, [npc.namePos] spell-casting abilities are truly a terrifying force to behold!",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 30f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 25f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 75f)),
@@ -203,6 +247,14 @@ public enum Subspecies {
 			"DEMON_BASIC",
 			"DEMON_ADVANCED",
 			Race.DEMON,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 2),
+					new Value<>(PerkCategory.LUST, 10),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 5)),
 			Colour.RACE_DEMON,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical demon.",
@@ -295,7 +347,9 @@ public enum Subspecies {
 			"demon",
 			"Half-demons are almost as capable as regular demons at harnessing arcane power, and as a result, [npc.namePos] spell-casting abilities are exceptionally powerful!",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 20f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 20f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 20f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 60f)),
@@ -307,9 +361,18 @@ public enum Subspecies {
 			"HALF_DEMON_BASIC",
 			"HALF_DEMON_ADVANCED",
 			Race.DEMON,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 3),
+					new Value<>(PerkCategory.ARCANE, 2)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 3),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 2)),
 			Colour.RACE_HALF_DEMON,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"The result of copulation between a lilin and a non-demonic partner.", Util.newHashMapOfValues(
+			"The result of copulation between a lilin and a non-demonic partner.",
+			Util.newHashMapOfValues(
 					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE))) {
 		
@@ -401,7 +464,9 @@ public enum Subspecies {
 			"imp",
 			"[npc.NamePos] impish body has a deep, insatiable craving for sex...",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 200f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
 			Util.newArrayListOfValues(
 					"[style.boldDemon(Demonic)] <b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>",
@@ -412,12 +477,17 @@ public enum Subspecies {
 			"IMP_ADVANCED",
 			Race.DEMON,
 			Util.newHashMapOfValues(
-					new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(5f, 10f)),
-					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(10f, 20f)),
-					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(95f, 100f))),
+					new Value<>(PerkCategory.PHYSICAL, 4),
+					new Value<>(PerkCategory.LUST, 10),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 8),
+					new Value<>(PerkCategory.LUST, 4),
+					new Value<>(PerkCategory.ARCANE, 1)),
 			Colour.RACE_IMP,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A typical imp.", Util.newHashMapOfValues(
+			"A typical imp.",
+			Util.newHashMapOfValues(
 					new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -433,10 +503,6 @@ public enum Subspecies {
 		public Attribute getDamageMultiplier() {
 			return Attribute.DAMAGE_IMP;
 		}
-		@Override
-		public Attribute getResistanceMultiplier() {
-			return Attribute.RESISTANCE_IMP;
-		}
 	},
 	
 	IMP_ALPHA("statusEffects/race/raceImpAlpha",
@@ -450,7 +516,9 @@ public enum Subspecies {
 			"alpha-imp",
 			"[npc.NamePos] impish body has a deep, insatiable craving for sex...",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 75f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 200f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f)),
 			Util.newArrayListOfValues(
 					"[style.boldDemon(Demonic)] <b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>",
@@ -461,12 +529,17 @@ public enum Subspecies {
 			"IMP_ADVANCED",
 			Race.DEMON,
 			Util.newHashMapOfValues(
-					new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(10f, 25f)),
-					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(15f, 30f)),
-					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(95f, 100f))),
+					new Value<>(PerkCategory.PHYSICAL, 4),
+					new Value<>(PerkCategory.LUST, 10),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 8),
+					new Value<>(PerkCategory.LUST, 4),
+					new Value<>(PerkCategory.ARCANE, 1)),
 			Colour.RACE_IMP,
 			SubspeciesPreference.ONE_LOW,
-			"A more powerful form of imp, standing at over 3'6\" tall.", Util.newHashMapOfValues(
+			"A more powerful form of imp, standing at over 3'6\" tall.",
+			Util.newHashMapOfValues(
 					new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.TWO_RARE))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -482,10 +555,6 @@ public enum Subspecies {
 		public Attribute getDamageMultiplier() {
 			return Attribute.DAMAGE_IMP;
 		}
-		@Override
-		public Attribute getResistanceMultiplier() {
-			return Attribute.RESISTANCE_IMP;
-		}
 	},
 	
 	// BOVINES:
@@ -500,15 +569,26 @@ public enum Subspecies {
 			"cow",
 			"Although [npc.namePos] body possesses a great strength and toughness, [npc.her] mind isn't exactly the quickest...",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 30f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 2f)),
 			null,
 			"Milking Cows",
 			"Milking Cows'",
 			"COW_MORPH_BASIC",
 			"COW_MORPH_ADVANCED",
 			Race.COW_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 10),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_COW_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic cow, known as a 'cow-morph' when bipedal, and a 'cowtaur' when the lower body is that of a feral cow.",
@@ -540,7 +620,10 @@ public enum Subspecies {
 			"[npc.Name] always [npc.has] lots of energy, and [npc.she] [npc.verb(get)] excited about new things very easily."
 					+ " [npc.She] also [npc.has] an instinctive desire to display [npc.her] dominance over innocent cat-morphs...",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_CAT_MORPH, 5f)),
 			null,
 			"Canine Culture",
@@ -548,6 +631,14 @@ public enum Subspecies {
 			"DOG_MORPH_BASIC",
 			"DOG_MORPH_ADVANCED",
 			Race.DOG_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 3),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_DOG_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic dog, known as a 'dog-morph' when bipedal, and a 'dogtaur' when the lower body is that of an oversized feral dog.",
@@ -582,16 +673,27 @@ public enum Subspecies {
 			"border-collie-girls",
 			"border-collie",
 			"[npc.NameIsFull] more intelligent than an average dog-morph, and [npc.has] strong urges to try and herd people around."
-					+ " [npc.She] also [npc.has] an instinctive desire to display [npc.her] dominance over innocent sheep-morphs...", //TODO sheep=morph damage
+					+ " [npc.She] also [npc.has] an instinctive desire to display [npc.her] dominance over innocent sheep-morphs...", //TODO sheep-morph damage
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 5f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 5f)),
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 5f)),
 			null,
 			"Canine Culture",
 			"Canine Cultures",
 			"DOG_MORPH_BASIC",
 			"DOG_MORPH_ADVANCED",
 			Race.DOG_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 6),
+					new Value<>(PerkCategory.LUST, 3),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 6),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
 			Colour.RACE_DOG_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A particularly energetic and intelligent dog-morph, which resembles an anthropomorphised border-collie."
@@ -638,6 +740,9 @@ public enum Subspecies {
 			"[npc.NameIsFull] always ready to defend those [npc.she] [npc.verb(call)] [npc.her] friend, and, thanks to [npc.her] powerful dobermann's body, [npc.sheIs] able to do just that."
 					+ " [npc.She] also [npc.has] an instinctive desire to display [npc.her] dominance over innocent cat-morphs...",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_CAT_MORPH, 5f)),
 			null,
@@ -646,6 +751,14 @@ public enum Subspecies {
 			"DOG_MORPH_BASIC",
 			"DOG_MORPH_ADVANCED",
 			Race.DOG_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 6),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_DOG_MORPH,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A dog-morph which resembles an anthropomorphised dobermann."
@@ -700,6 +813,9 @@ public enum Subspecies {
 			"wolf",
 			"[npc.NamePos] wolf-like body is very strong, and [npc.she] often [npc.verb(get)] powerful urges to try and dominate people [npc.she] [npc.verb(meet)].",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, 25f)),
 			null,
@@ -708,6 +824,14 @@ public enum Subspecies {
 			"WOLF_MORPH_BASIC",
 			"WOLF_MORPH_ADVANCED",
 			Race.WOLF_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_WOLF_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic wolf, known as a 'wolf-morph' when bipedal, and a 'wolftaur' when the lower body is that of a typically-oversized feral wolf.",
@@ -743,14 +867,25 @@ public enum Subspecies {
 			"fox",
 			"[npc.NameIsFull] very sly and nimble, and [npc.sheIs] able to use [npc.her] heightened senses to detect opportune moments in which to attack.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 5f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 1f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f)),
 			null,
 			"Skulking Vulpines",
 			"Skulking Vulpines",
 			"FOX_MORPH_BASIC",
 			"FOX_MORPH_ADVANCED",
 			Race.FOX_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
 			Colour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic fox, known as a 'fox-morph' when bipedal, and a 'foxtaur' when the lower body is that of a typically-oversized feral fox.",
@@ -777,14 +912,25 @@ public enum Subspecies {
 			"fennec-fox",
 			"[npc.NameIsFull] very sly and nimble, and [npc.sheIs] able to use [npc.her] heightened senses to detect opportune moments in which to attack.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 5f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 1f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f)),
 			null,
 			"Skulking Vulpines",
 			"Skulking Vulpines",
 			"FOX_MORPH_BASIC",
 			"FOX_MORPH_ADVANCED",
 			Race.FOX_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
 			Colour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic fox with distinctive large ears, and with either tan, dirty blonde, or bleach-blonde fur."
@@ -826,6 +972,14 @@ public enum Subspecies {
 			"FOX_MORPH_BASIC",
 			"FOX_MORPH_ADVANCED",
 			Race.FOX_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 10)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 5)),
 			Colour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A fox-morph, empowered by the gifts of a Lilin.",
@@ -853,16 +1007,20 @@ public enum Subspecies {
 
 		@Override
 		public Map<Attribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
-			if(character.getTailCount()<9) {
+			if(character!=null && character.getTailCount()<9) {
 				return Util.newHashMapOfValues(
-						new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, (float) (10 + 5*character.getTailCount())),
-						new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getTailCount())),
-						new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, (float) (10*character.getTailCount())));
+						new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+						new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, (float) (10*character.getTailCount())),
+						new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+						new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getTailCount())),
+						new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getTailCount())));
 			} else {
 				return Util.newHashMapOfValues(
-						new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 25f),
-						new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 100f),
-						new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f));
+						new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+						new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
+						new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+						new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 25f),
+						new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 100f));
 			}
 		}
 
@@ -899,6 +1057,14 @@ public enum Subspecies {
 			"Nine-tails'",
 			"FOX_MORPH_BASIC", "FOX_MORPH_ADVANCED",
 			Race.FOX_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 10)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 5)),
 			Colour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A fennec-morph, empowered by the gifts of a Lilin.",
@@ -936,16 +1102,20 @@ public enum Subspecies {
 
 		@Override
 		public Map<Attribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
-			if(character.getTailCount()<9) {
+			if(character!=null && character.getTailCount()<9) {
 				return Util.newHashMapOfValues(
-						new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, (float) (10 + 5*character.getTailCount())),
-						new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getTailCount())),
-						new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, (float) (10*character.getTailCount())));
+						new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+						new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, (float) (10*character.getTailCount())),
+						new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+						new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getTailCount())),
+						new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getTailCount())));
 			} else {
 				return Util.newHashMapOfValues(
-						new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 25f),
-						new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 100f),
-						new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f));
+						new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+						new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
+						new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+						new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 25f),
+						new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 100f));
 			}
 		}
 		
@@ -1009,7 +1179,10 @@ public enum Subspecies {
 			"[npc.NamePos] body is incredibly agile, and [npc.she] [npc.verb(possess)] lightning reflexes."
 					+ " [npc.She] also [npc.has] an instinctive desire to display [npc.her] dominance over innocent harpies and rodent-morphs...",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_HARPY, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_RAT_MORPH, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SQUIRREL_MORPH, 5f)),
@@ -1019,6 +1192,14 @@ public enum Subspecies {
 			"CAT_MORPH_BASIC",
 			"CAT_MORPH_ADVANCED",
 			Race.CAT_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 2),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_CAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic cat, known as a 'cat-morph' when bipedal, and a 'cattaur' when the lower body is that of a typically-oversized feral cat.",
@@ -1042,7 +1223,10 @@ public enum Subspecies {
 			"[npc.NamePos] body is incredibly agile, and [npc.she] [npc.verb(possess)] lightning reflexes."
 					+ " [npc.She] also [npc.has] an instinctive desire to display [npc.her] dominance over innocent harpies and rodent-morphs...",//TODO sheep
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_HARPY, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_HARPY, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_RAT_MORPH, 5f),
@@ -1053,6 +1237,14 @@ public enum Subspecies {
 			"CAT_MORPH_BASIC",
 			"CAT_MORPH_ADVANCED",
 			Race.CAT_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_CAT_MORPH_LYNX,
 			SubspeciesPreference.TWO_AVERAGE,
 			"An anthropomorphic lynx, known as a 'lynx-morph' when bipedal, and a 'lynxtaur' when the lower body is that of a typically-oversized feral lynx."
@@ -1090,16 +1282,27 @@ public enum Subspecies {
 			"[npc.NamePos] body is very strong and agile, and [npc.sheIsFull] capable of great feats of strength and stealth alike."
 					+ " [npc.She] also [npc.has] a very high resistance to both natural and arcane cold.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 15f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 1f)),
 			null,
 			"Curious Kitties",
 			"Curious Kitties",
 			"CAT_MORPH_BASIC",
 			"CAT_MORPH_ADVANCED",
 			Race.CAT_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_CAT_MORPH_LEOPARD_SNOW,
 			SubspeciesPreference.TWO_AVERAGE,
 			"An anthropomorphic snow leopard, known as a 'snow leopard-morph' when bipedal, and a 'snow leopardtaur' when the lower body is that of a typically-oversized feral snow leopard."
@@ -1144,16 +1347,27 @@ public enum Subspecies {
 			"[npc.NamePos] body is very strong and agile, and [npc.sheIsFull] capable of great feats of strength and stealth alike."
 					+ " [npc.She] also [npc.has] a high resistance to both natural and arcane heat.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 15f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 1f)),
 			null,
 			"Curious Kitties",
 			"Curious Kitties",
 			"CAT_MORPH_BASIC",
 			"CAT_MORPH_ADVANCED",
 			Race.CAT_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_CAT_MORPH_LEOPARD,
 			SubspeciesPreference.TWO_AVERAGE,
 			"An anthropomorphic leopard, known as a 'leopard-morph' when bipedal, and a 'leopardtaur' when the lower body is that of a typically-oversized feral leopard."
@@ -1194,15 +1408,26 @@ public enum Subspecies {
 			"[npc.NamePos] body is extremely strong, and [npc.sheIsFull] capable of great feats of strength."
 					+ " [npc.She] also [npc.has] a high resistance to both natural and arcane heat.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 30f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 1f)),
 			null,
 			"Curious Kitties",
 			"Curious Kitties",
 			"CAT_MORPH_BASIC",
 			"CAT_MORPH_ADVANCED",
 			Race.CAT_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 20),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 20),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_CAT_MORPH_LION,
 			SubspeciesPreference.TWO_AVERAGE,
 			"An anthropomorphic lion, known as a 'lion-morph' when bipedal, and a 'liontaur' when the lower body is that of a feral lion."
@@ -1245,6 +1470,9 @@ public enum Subspecies {
 			"tiger",
 			"[npc.NamePos] body is extremely strong, and [npc.sheIsFull] capable of great feats of strength.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 30f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, 25f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f)),
 			null,
@@ -1253,6 +1481,14 @@ public enum Subspecies {
 			"CAT_MORPH_BASIC",
 			"CAT_MORPH_ADVANCED",
 			Race.CAT_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 20),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 20),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_CAT_MORPH_TIGER,
 			SubspeciesPreference.TWO_AVERAGE,
 			"An anthropomorphic tiger, known as a 'tiger-morph' when bipedal, and a 'tigertaur' when the lower body is that of a feral tiger."
@@ -1296,13 +1532,24 @@ public enum Subspecies {
 			"cheetah",
 			"[npc.NameIsFull] extremely fast, and in short bursts, is capable of running at speeds far greater than any other race.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 25f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f)),
 			Util.newArrayListOfValues("[style.boldExcellent(100%)] chance of escape vs non-cheetah-morphs"),
 			"Curious Kitties",
 			"Curious Kitties",
 			"CAT_MORPH_BASIC",
 			"CAT_MORPH_ADVANCED",
 			Race.CAT_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_CAT_MORPH_CHEETAH,
 			SubspeciesPreference.TWO_AVERAGE,
 			"An anthropomorphic cheetah, known as a 'cheetah-morph' when bipedal, and a 'cheetahtaur' when the lower body is that of a typically-oversized feral cheetah."
@@ -1352,7 +1599,10 @@ public enum Subspecies {
 			"[npc.NamePos] body is incredibly agile, and [npc.she] [npc.verb(possess)] lightning reflexes."
 					+ " [npc.She] also [npc.has] an instinctive desire to display [npc.her] dominance over innocent harpies and rodent-morphs...",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_HARPY, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_RAT_MORPH, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SQUIRREL_MORPH, 5f)),
@@ -1362,6 +1612,14 @@ public enum Subspecies {
 			"CAT_MORPH_BASIC",
 			"CAT_MORPH_ADVANCED",
 			Race.CAT_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_CAT_MORPH_CARACAL,
 			SubspeciesPreference.TWO_AVERAGE,
 			"An anthropomorphic caracal, known as a 'caracal-morph' when bipedal, and a 'caracaltaur' when the lower body is that of a typically-oversized feral caracal."
@@ -1387,6 +1645,9 @@ public enum Subspecies {
 			"horse",
 			"While [npc.namePos] body possesses remarkable strength and speed, [npc.sheIs] not the sharpest tool in the shed, and struggles more than most when it comes to harnessing the arcane.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f)),
@@ -1396,6 +1657,14 @@ public enum Subspecies {
 			"HORSE_MORPH_BASIC",
 			"HORSE_MORPH_ADVANCED",
 			Race.HORSE_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_HORSE_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic, bipedal horse.",
@@ -1429,6 +1698,9 @@ public enum Subspecies {
 			"horse",
 			"Although physically weaker than a regular horse-morph, [npc.nameHasFull] a special bond with the arcane, and [npc.is] able to cast many spells before exhausting [npc.her] aura.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 50f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f)),
@@ -1438,6 +1710,14 @@ public enum Subspecies {
 			"HORSE_MORPH_BASIC",
 			"HORSE_MORPH_ADVANCED",
 			Race.HORSE_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
 			Colour.RACE_UNICORN,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has a single magical horn growing from their forehead.",
@@ -1471,9 +1751,11 @@ public enum Subspecies {
 			"pegasus-boys",
 			"pegasus-girls",
 			"horse",
-			"Although physically weaker than a regular horse-morph, [npc.nameIsFull] a lot more agile, allowing [npc.herHim] to land critical hits more often.",
+			"Although physically weaker than a regular horse-morph, [npc.nameIsFull] a lot more agile, allowing [npc.herHim] to avoid incoming damage.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f)),
 			null,
@@ -1482,6 +1764,14 @@ public enum Subspecies {
 			"HORSE_MORPH_BASIC",
 			"HORSE_MORPH_ADVANCED",
 			Race.HORSE_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_PEGASUS,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has a pair of feathered wings growing from their back.",
@@ -1515,16 +1805,26 @@ public enum Subspecies {
 			"horse",
 			"Possessing both feathered wings and a unicorn horn, [npc.nameIsFull] classified as a powerful alicorn, and [npc.verb(find)] it almost effortlessly trivial to cast spells.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 15f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 75f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 40f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f)),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 50f)),
 			null,
 			"Equine Encyclopedia",
 			"Equine Encyclopedias",
 			"HORSE_MORPH_BASIC",
 			"HORSE_MORPH_ADVANCED",
 			Race.HORSE_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 2)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 2)),
 			Colour.RACE_ALICORN,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has both a pair of feathered wings growing from their back, as well as a single magical horn growing from their forehead.",
@@ -1561,6 +1861,9 @@ public enum Subspecies {
 			"horse",
 			"Thanks to having the lower body of a horse, [npc.nameIsFull] capable of running at great speed, and [npc.is] also capable of dealing significant physical damage.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 35f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 50f)),
@@ -1570,6 +1873,14 @@ public enum Subspecies {
 			"CENTAUR_BASIC",
 			"CENTAUR_ADVANCED",
 			Race.HORSE_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_CENTAUR,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"Anyone who has the feral, quadrupedal lower body of a horse is classified as a centaur.",
@@ -1606,9 +1917,11 @@ public enum Subspecies {
 			"pegataurs",
 			"pegatauresses",
 			"horse",
-			"Although physically weaker than a regular centaur, [npc.nameIsFull] a lot more agile, and [npc.is] therefore able to land critical hits more consistently.",
+			"Although physically weaker than a regular centaur, [npc.nameIsFull] a lot more agile, allowing [npc.herHim] to avoid incoming damage.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 30f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f)),
 			null,
@@ -1617,6 +1930,14 @@ public enum Subspecies {
 			"CENTAUR_BASIC",
 			"CENTAUR_ADVANCED",
 			Race.HORSE_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_PEGATAUR,
 			SubspeciesPreference.ONE_LOW,
 			"Anyone who has the feral, winged, quadrupedal lower body of a horse is classified as a pegataur.",
@@ -1656,6 +1977,9 @@ public enum Subspecies {
 			"horse",
 			"Although physically weaker than a regular horse-morph, [npc.nameHasFull] a special bond with the arcane, and [npc.is] able to cast many spells before exhausting [npc.her] aura.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 50f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f)),
@@ -1665,6 +1989,14 @@ public enum Subspecies {
 			"CENTAUR_BASIC",
 			"CENTAUR_ADVANCED",
 			Race.HORSE_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
 			Colour.RACE_UNICORN,
 			SubspeciesPreference.ONE_LOW,
 			"Anyone who has the feral, quadrupedal lower body of a horse, along with a single unicorn horn, is classified as a unitaur.",
@@ -1705,16 +2037,26 @@ public enum Subspecies {
 			"horse",
 			"Possessing both feathered wings and a unicorn horn, [npc.nameIsFull] classified as a powerful alicorn, and [npc.verb(find)] it almost effortlessly trivial to cast spells.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 15f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 75f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 40f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f)),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 50f)),
 			null,
 			"Equine Encyclopedia",
 			"Equine Encyclopedias",
 			"CENTAUR_BASIC",
 			"CENTAUR_ADVANCED",
 			Race.HORSE_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 2)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 2)),
 			Colour.RACE_ALICORN,
 			SubspeciesPreference.ONE_LOW,
 			"Anyone who has the feral, winged, quadrupedal lower body of a horse, along with a single unicorn horn, is classified as an alitaur.",
@@ -1757,6 +2099,9 @@ public enum Subspecies {
 			"While [npc.namePos] body possesses an impressive level of both strength and speed, [npc.sheIs] not the sharpest tool in the shed, and struggles more than most when it comes to harnessing the arcane."
 					+ " [npc.She] also [npc.has] a high resistance to both natural and arcane heat.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f),
@@ -1767,6 +2112,14 @@ public enum Subspecies {
 			"HORSE_MORPH_BASIC",
 			"HORSE_MORPH_ADVANCED",
 			Race.HORSE_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.BASE_BLACK,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic horse with black-and-white striped fur, known as a 'zebra-morph' when bipedal, and a 'zebrataur' when the lower body is that of a feral zebra."
@@ -1810,15 +2163,26 @@ public enum Subspecies {
 			"reindeer",
 			"[npc.NamePos] body is very well suited to resisting both natural and arcane cold, and is also particularly strong and hardy.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 2f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f)),
 			null,
 			"One Who Paws",
 			"One Who Paws'",
 			"REINDEER_MORPH_BASIC",
 			"REINDEER_MORPH_ADVANCED",
 			Race.REINDEER_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_REINDEER_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic reindeer, known as a 'reindeer-morph' when bipedal, and a 'reindeertaur' when the lower body is that of a feral reindeer.",
@@ -1838,15 +2202,26 @@ public enum Subspecies {
 			"alligator",
 			"[npc.NamePos] body is incredibly tough, and [npc.she] [npc.verb(possess)] lightning reflexes, as well as the strength required to make the most of any sudden attacks.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 30f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f)),
 			null,
 			"Rasselin' Gators",
 			"Rasselin' Gators",
 			"ALLIGATOR_MORPH_BASIC",
 			"ALLIGATOR_MORPH_ADVANCED",
 			Race.ALLIGATOR_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_ALLIGATOR_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic alligator, known as an 'alligator-morph' when bipedal, and an 'alligatortaur' when the lower body is that of a typically-oversized feral alligator.",
@@ -1901,7 +2276,11 @@ public enum Subspecies {
 			"slime",
 			"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any serious unarmed damage."
 					+ " [npc.She] can also morph [npc.her] body at will, allowing [npc.herHim] to take on any form that [npc.she] [npc.verb(desire)].",
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, -100f)),
 			Util.newArrayListOfValues(
 					"<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>",
@@ -1911,6 +2290,14 @@ public enum Subspecies {
 			"SLIME_BASIC",
 			"SLIME_ADVANCED",
 			Race.SLIME,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 2),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"Someone who is made completely of slime, with a sold core suspended in the place where their heart should be.",
@@ -2066,14 +2453,24 @@ public enum Subspecies {
 			"squirrel",
 			"[npc.NameIsFull] very agile and alert, and [npc.is] capable of leaping great distances with [npc.her] powerful [npc.legs].",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 5f),
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 2f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 1f)),
 			null,
 			"Chasing Squirrels",
 			"Chasing Squirrels'",
 			"SQUIRREL_MORPH_BASIC",
 			"SQUIRREL_MORPH_ADVANCED",
 			Race.SQUIRREL_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 2),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_SQUIRREL_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic squirrel, known as a 'squirrel-morph' when bipedal, and a 'squirreltaur' when the lower body is that of an oversized feral squirrel.",
@@ -2095,14 +2492,25 @@ public enum Subspecies {
 			"rat",
 			"[npc.NamePos] body is very hardy, and [npc.she] [npc.has] both a high resistance to, and affinity with, arcane poison.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 15f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f)),
 			null,
 			"Causing Mischief",
 			"Causing Mischiefs",
 			"RAT_MORPH_BASIC",
 			"RAT_MORPH_ADVANCED",
 			Race.RAT_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 2),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_RAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic rat, known as a 'rat-morph' when bipedal, and a 'rat-taur' when the lower body is that of an oversized feral rat.",
@@ -2122,7 +2530,10 @@ public enum Subspecies {
 			"[npc.NameIsFull] very agile and alert, and [npc.is] capable of short bursts of incredible speed."
 					+ " [npc.Her] body, whether [npc.she] [npc.verb(like)] it or not, is also adapted for producing as many offspring as possible.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 5f),
 					new Value<Attribute, Float>(Attribute.FERTILITY, 50f),
 					new Value<Attribute, Float>(Attribute.VIRILITY, 50f)),
 			null,
@@ -2131,6 +2542,14 @@ public enum Subspecies {
 			"RABBIT_MORPH_BASIC",
 			"RABBIT_MORPH_ADVANCED",
 			Race.RABBIT_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 2),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_RABBIT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic rabbit, known as a 'rabbit-morph' when bipedal, and a 'rabbit-taur' when the lower body is that of an oversized feral rabbit.",
@@ -2150,7 +2569,10 @@ public enum Subspecies {
 			"[npc.NameIsFull] very agile and alert, and [npc.is] capable of short bursts of incredible speed."
 					+ " [npc.Her] body, whether [npc.she] [npc.verb(like)] it or not, is also adapted for producing as many offspring as possible.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 5f),
 					new Value<Attribute, Float>(Attribute.FERTILITY, 50f),
 					new Value<Attribute, Float>(Attribute.VIRILITY, 50f)),
 			null,
@@ -2159,6 +2581,14 @@ public enum Subspecies {
 			"RABBIT_MORPH_BASIC",
 			"RABBIT_MORPH_ADVANCED",
 			Race.RABBIT_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 2),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_RABBIT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic rabbit which has floppy ears instead of the usual upright ones. Known as a 'lop-rabbit-morph' when bipedal, and a 'lop-rabbit-taur' when the lower body is that of an oversized feral lop-rabbit.",
@@ -2184,13 +2614,25 @@ public enum Subspecies {
 			"bat",
 			"Due to their unique echolocation ability, all bat-morphs have a natural desire to talk as much as possible."
 					+ " Due to this, [npc.name] continuously [npc.verb(play)] out conversations in [npc.her] head, allowing [npc.herHim] to think up new and exciting ways to seduce people before having ever met them.",
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
 			null,
 			"Flying Foxes",
 			"Flying Foxes'",
 			"BAT_MORPH_BASIC",
 			"BAT_MORPH_ADVANCED",
 			Race.BAT_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 2),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_BAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic, bipedal bat.",
@@ -2210,13 +2652,25 @@ public enum Subspecies {
 			"harpies",
 			"bird",
 			"[npc.NameIsFull] obsessed with [npc.her] appearance, and wouldn't think it unusual for someone to want to spend at least half of their waking hours preening themselves in order to look as attractive as possible.",
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
 			null,
 			"All About Harpies",
 			"All About Harpies'",
 			"HARPY_BASIC",
 			"HARPY_ADVANCED",
 			Race.HARPY,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.RACE_HARPY,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic, bipedal bird. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
@@ -2245,13 +2699,25 @@ public enum Subspecies {
 			"raven-harpies",
 			"raven",
 			"[npc.NameIsFull] obsessed with [npc.her] appearance, and wouldn't think it unusual for someone to want to spend at least half of their waking hours preening themselves in order to look as attractive as possible.",
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
 			null,
 			"All About Harpies",
 			"All About Harpies'",
 			"HARPY_BASIC",
 			"HARPY_ADVANCED",
 			Race.HARPY,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.BASE_BLACK,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal raven, with dark black feathers. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
@@ -2285,13 +2751,25 @@ public enum Subspecies {
 			"bald-eagle-harpies",
 			"bald-eagle",
 			"[npc.NameIsFull] obsessed with [npc.her] appearance, and wouldn't think it unusual for someone to want to spend at least half of their waking hours preening themselves in order to look as attractive as possible.",
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
 			null,
 			"All About Harpies",
 			"All About Harpies'",
 			"HARPY_BASIC",
 			"HARPY_ADVANCED",
 			Race.HARPY,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 2),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 2),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
 			Colour.BASE_WHITE,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal bald eagle, dark brown feathers covering their body and white feathers on their head. Typically only possessing non-human arms, legs, eyes, ears, and hair.",
@@ -2329,6 +2807,9 @@ public enum Subspecies {
 			"earth",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Earth.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 45f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 50f)),
 			null,
@@ -2337,6 +2818,14 @@ public enum Subspecies {
 			"ELEMENTAL_EARTH_BASIC",
 			"ELEMENTAL_EARTH_ADVANCED",
 			Race.ELEMENTAL,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 5)),
 			Colour.SPELL_SCHOOL_EARTH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An arcane elemental bound to the school of Earth.",
@@ -2358,6 +2847,9 @@ public enum Subspecies {
 			"water",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Water.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 45f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 50f)),
 			null,
@@ -2366,6 +2858,14 @@ public enum Subspecies {
 			"ELEMENTAL_WATER_BASIC",
 			"ELEMENTAL_WATER_ADVANCED",
 			Race.ELEMENTAL,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 3),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 3),
+					new Value<>(PerkCategory.ARCANE, 5)),
 			Colour.SPELL_SCHOOL_WATER,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An arcane elemental bound to the school of Water.",
@@ -2387,6 +2887,9 @@ public enum Subspecies {
 			"air",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Air.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 45f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 50f)),
 			null,
@@ -2395,6 +2898,14 @@ public enum Subspecies {
 			"ELEMENTAL_AIR_BASIC",
 			"ELEMENTAL_AIR_ADVANCED",
 			Race.ELEMENTAL,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 5)),
 			Colour.SPELL_SCHOOL_AIR,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An arcane elemental bound to the school of Air.",
@@ -2416,6 +2927,9 @@ public enum Subspecies {
 			"fire",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Fire.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 45f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 50f)),
 			null,
@@ -2424,6 +2938,14 @@ public enum Subspecies {
 			"ELEMENTAL_FIRE_BASIC",
 			"ELEMENTAL_FIRE_ADVANCED",
 			Race.ELEMENTAL,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 5)),
 			Colour.SPELL_SCHOOL_FIRE,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An arcane elemental bound to the school of Fire.",
@@ -2445,6 +2967,9 @@ public enum Subspecies {
 			"arcane",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Arcane.",
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 45f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f)),
 			null,
@@ -2453,6 +2978,14 @@ public enum Subspecies {
 			"ELEMENTAL_ARCANE_BASIC",
 			"ELEMENTAL_ARCANE_ADVANCED",
 			Race.ELEMENTAL,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 5)),
 			Colour.SPELL_SCHOOL_ARCANE,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An arcane elemental bound to the school of Arcane.",
@@ -2477,7 +3010,8 @@ public enum Subspecies {
 	private String feralName;
 	
 	private String statusEffectDescription;
-	private Map<Attribute, AttributeRange> attributeModifiers;
+	private Map<PerkCategory, Integer> perkWeightingFeminine;
+	private Map<PerkCategory, Integer> perkWeightingMasculine;
 	private Map<Attribute, Float> statusEffectAttributeModifiers;
 	private List<String> extraEffects;
 
@@ -2568,7 +3102,7 @@ public enum Subspecies {
 				worldSpecies.get(type.getKey()).put(species, type.getValue());
 				
 				try {
-					if(type.getKey()==WorldType.DOMINION && RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().get(Attribute.MAJOR_ARCANE).getMinimum()>=IntelligenceLevel.TWO_SMART.getMinimumValue()) {
+					if(type.getKey()==WorldType.DOMINION && species.getStatusEffectAttributeModifiers(null).get(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue()) {
 						dominionStormImmuneSpecies.put(species, type.getValue());
 					}
 				} catch(Exception ex) {	
@@ -2579,51 +3113,6 @@ public enum Subspecies {
 		for(List<Subspecies> e : subspeciesFromRace.values()) {
 			e.sort((s1, s2) -> s1.getName(null).compareTo(s2.getName(null)));
 		}
-	}
-
-	private Subspecies(
-			String iconPathName,
-			String iconBackgroundPathName,
-			String name,
-			String namePlural,
-			String singularMaleName,
-			String singularFemaleName,
-			String pluralMaleName,
-			String pluralFemaleName,
-			String feralName,
-			String statusEffectDescription,
-			Map<Attribute, Float> statusEffectAttributeModifiers,
-			List<String> extraEffects,
-			String bookName,
-			String bookNamePlural,
-			String basicDescription,
-			String advancedDescription,
-			Race race,
-			Colour colour,
-			SubspeciesPreference subspeciesPreferenceDefault,
-			String description,
-			Map<WorldType, SubspeciesSpawnRarity> worldLocations) {
-		this(iconPathName,
-				 iconBackgroundPathName,
-				 name,
-				 namePlural,
-				 singularMaleName,
-				 singularFemaleName,
-				 pluralMaleName,
-				 pluralFemaleName,
-				 feralName,
-				 statusEffectDescription,
-				 statusEffectAttributeModifiers,
-				 extraEffects,
-				 bookName,
-				 bookNamePlural,
-				 basicDescription,
-				 advancedDescription,
-				 race,
-				 null,
-				 colour,
-				 subspeciesPreferenceDefault,
-				 description, worldLocations);
 	}
 	
 	private Subspecies(
@@ -2644,10 +3133,12 @@ public enum Subspecies {
 			String basicDescription,
 			String advancedDescription,
 			Race race,
-			Map<Attribute, AttributeRange> attributeModifiers,
+			Map<PerkCategory, Integer> perkWeightingFeminine,
+			Map<PerkCategory, Integer> perkWeightingMasculine,
 			Colour colour,
 			SubspeciesPreference subspeciesPreferenceDefault,
-			String description, Map<WorldType, SubspeciesSpawnRarity> worldLocations) {
+			String description,
+			Map<WorldType, SubspeciesSpawnRarity> worldLocations) {
 		
 		this.name = name;
 		this.namePlural = namePlural;
@@ -2663,10 +3154,15 @@ public enum Subspecies {
 		this.statusEffectDescription = statusEffectDescription;
 		this.statusEffectAttributeModifiers = statusEffectAttributeModifiers;
 		
-		if(attributeModifiers!=null) {
-			this.attributeModifiers = attributeModifiers;
+		if(perkWeightingFeminine!=null) {
+			this.perkWeightingFeminine = perkWeightingFeminine;
 		} else {
-			this.attributeModifiers = new HashMap<>();
+			this.perkWeightingFeminine = new HashMap<>();
+		}
+		if(perkWeightingMasculine!=null) {
+			this.perkWeightingMasculine = perkWeightingMasculine;
+		} else {
+			this.perkWeightingMasculine = new HashMap<>();
 		}
 
 		if(extraEffects == null) {
@@ -2688,8 +3184,12 @@ public enum Subspecies {
 		this.colour = colour;
 		this.subspeciesPreferenceDefault = subspeciesPreferenceDefault;
 		this.description = description;
-		
-		this.worldLocations = worldLocations;
+
+		if(worldLocations == null) {
+			this.worldLocations = new HashMap<>();
+		} else {
+			this.worldLocations = worldLocations;
+		}
 		
 		if(iconPathName!=null) {
 			try {
@@ -3479,8 +3979,11 @@ public enum Subspecies {
 		return statusEffectAttributeModifiers;
 	}
 
-	public Map<Attribute, AttributeRange> getAttributeModifiers(GameCharacter character) {
-		return attributeModifiers;
+	public Map<PerkCategory, Integer> getPerkWeighting(GameCharacter character) {
+		if(character==null || !character.isFeminine()) {
+			return perkWeightingMasculine;
+		}
+		return perkWeightingFeminine;
 	}
 
 	public List<String> getExtraEffects(GameCharacter character) {
@@ -3531,10 +4034,6 @@ public enum Subspecies {
 
 	public Attribute getDamageMultiplier() {
 		return getRace().getDefaultDamageMultiplier();
-	}
-
-	public Attribute getResistanceMultiplier() {
-		return getRace().getDefaultResistanceMultiplier();
 	}
 	
 	public Colour getColour(GameCharacter character) {

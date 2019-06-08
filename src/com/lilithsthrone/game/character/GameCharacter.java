@@ -26,7 +26,6 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.w3c.dom.Comment;
@@ -40,7 +39,6 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.AlcoholLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.AttributeRange;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
@@ -130,6 +128,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Addiction;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
@@ -258,7 +257,7 @@ public abstract class GameCharacter implements XMLSaving {
 
 	/** Calculations description as used in getAttributeValue() */
 	public static final String HEALTH_CALCULATION = "10 + 2*level + Physique*0.25 + Bonus Energy";
-	public static final String MANA_CALCULATION = "100 + Arcane*0.2 + Bonus Aura";
+	public static final String MANA_CALCULATION = "5 + level + Arcane*0.6 + Bonus Aura";
 	public static final String RESTING_LUST_CALCULATION = "Corruption/2";
 
 	public static final int LEVEL_CAP = 50;
@@ -320,9 +319,9 @@ public abstract class GameCharacter implements XMLSaving {
 	protected Map<Attribute, Float> attributes;
 	protected Map<Attribute, Float> bonusAttributes;
 	protected Map<Attribute, Float> potionAttributes;
-	protected List<Perk> traits;
-	protected Map<Integer, Set<Perk>> perks;
-	protected Set<Perk> specialPerks;
+	protected List<AbstractPerk> traits;
+	protected Map<Integer, Set<AbstractPerk>> perks;
+	protected Set<AbstractPerk> specialPerks;
 	protected Set<Fetish> fetishes;
 	protected Map<Fetish, FetishDesire> fetishDesireMap;
 	protected Map<Fetish, Integer> clothingFetishDesireModifiersMap;
@@ -539,7 +538,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		traits = new ArrayList<>();
 		perks = new HashMap<>();
-		specialPerks = new TreeSet<>((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
+		specialPerks = new HashSet<>();//new TreeSet<>((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
 		
 		fetishes = new HashSet<>();
 		fetishDesireMap = new HashMap<>();
@@ -647,21 +646,19 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 
 		this.resetPerksMap();
-//		PerkManager.initialisePerks(this);
-
+		
+		if(!this.isUnique()) {
+			this.incrementAttribute(Attribute.MAJOR_CORRUPTION, (this.getPerksInCategory(PerkCategory.LUST)+this.getFetishes(false).size())*5);
+		}
 		// Default moves
 		equipBasicCombatMoves();
 	}
 	
+	/**
+	 * Override to set attributes upon creation. Applied before perks are applied.
+	 */
 	protected void initAttributes() {
-		// Set starting attributes based on the character's race
-		for (Entry<Attribute, AttributeRange> entry : RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().entrySet()) {
-			attributes.put(entry.getKey(), entry.getValue().getMinimum() + entry.getValue().getRandomVariance());
-		}
-		// Override any subspecies attribute changes:
-		for (Entry<Attribute, AttributeRange> entry : this.getSubspecies().getAttributeModifiers(this).entrySet()) {
-			attributes.put(entry.getKey(), entry.getValue().getMinimum() + entry.getValue().getRandomVariance());
-		}
+		// Override
 	}
 
 
@@ -843,29 +840,29 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		Element characterEquippedPerks = doc.createElement("traits");
 		properties.appendChild(characterEquippedPerks);
-		for(Perk p : this.getTraits()){
+		for(AbstractPerk p : this.getTraits()){
 			Element element = doc.createElement("perk");
 			characterEquippedPerks.appendChild(element);
-			CharacterUtils.addAttribute(doc, element, "type", p.toString());
+			CharacterUtils.addAttribute(doc, element, "type", Perk.getIdFromPerk(p));
 		}
 
 		Element characterSpecialPerks = doc.createElement("specialPerks");
 		properties.appendChild(characterSpecialPerks);
-		for(Perk p : this.getSpecialPerks()){
+		for(AbstractPerk p : this.getSpecialPerks()){
 			Element element = doc.createElement("perk");
 			characterSpecialPerks.appendChild(element);
-			CharacterUtils.addAttribute(doc, element, "type", p.toString());
+			CharacterUtils.addAttribute(doc, element, "type", Perk.getIdFromPerk(p));
 		}
 		
 		Element characterPerks = doc.createElement("perks");
 		properties.appendChild(characterPerks);
-		for(Entry<Integer, Set<Perk>> p : this.getPerksMap().entrySet()){
-			for(Perk perk : p.getValue()) {
+		for(Entry<Integer, Set<AbstractPerk>> p : this.getPerksMap().entrySet()){
+			for(AbstractPerk perk : p.getValue()) {
 				Element element = doc.createElement("perk");
 				characterPerks.appendChild(element);
 	
 				CharacterUtils.addAttribute(doc, element, "row", p.getKey().toString());
-				CharacterUtils.addAttribute(doc, element, "type", perk.toString());
+				CharacterUtils.addAttribute(doc, element, "type",  Perk.getIdFromPerk(perk));
 			}
 		}
 		
@@ -1539,36 +1536,43 @@ public abstract class GameCharacter implements XMLSaving {
 				
 				try {
 					Attribute attribute = Attribute.getAttributeFromId(e.getAttribute("type"));
-					if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.0")) {
-						switch(attribute) {
-							case DAMAGE_FIRE: case DAMAGE_ICE: case DAMAGE_LUST: case DAMAGE_PHYSICAL: case DAMAGE_POISON: case DAMAGE_SPELLS:
-								character.setAttribute(attribute, Float.valueOf(e.getAttribute("value"))-100, false);
-								break;
-							default:
-								character.setAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
-								break;
-						}
-						
-					} else if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.12")) {
-						Attribute att = attribute;
-						switch(att) {
-							case MANA_MAXIMUM:
-							case HEALTH_MAXIMUM:
-								break;
-							default:
-								character.setAttribute(att, Float.valueOf(e.getAttribute("value")), false);
-								break;
-						}
-						
-					} else {
-						if(attribute == Attribute.DAMAGE_ELEMENTAL || attribute == Attribute.RESISTANCE_ELEMENTAL) {
-							character.incrementAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
+					if(!version.isEmpty() && !Main.isVersionOlderThan(version, "0.3.3.6")) { // Reset all attributes at version 0.3.3.6
+						if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.0")) {
+							switch(attribute) {
+								case DAMAGE_FIRE: case DAMAGE_ICE: case DAMAGE_LUST: case DAMAGE_PHYSICAL: case DAMAGE_POISON: case DAMAGE_SPELLS:
+									character.setAttribute(attribute, Float.valueOf(e.getAttribute("value"))-100, false);
+									break;
+								default:
+									character.setAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
+									break;
+							}
+							
+						} else if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.12")) {
+							Attribute att = attribute;
+							switch(att) {
+								case MANA_MAXIMUM:
+								case HEALTH_MAXIMUM:
+									break;
+								default:
+									character.setAttribute(att, Float.valueOf(e.getAttribute("value")), false);
+									break;
+							}
+							
 						} else {
-							character.setAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
+							if(attribute == Attribute.DAMAGE_ELEMENTAL) {
+								character.incrementAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
+							} else {
+								character.setAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
+							}
+						}
+						
+						CharacterUtils.appendToImportLog(log, "<br/>Set Attribute: "+attribute.getName() +" to "+ Float.valueOf(e.getAttribute("value")));
+					}
+					if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.3.3.6") && attribute==Attribute.DAMAGE_IMP) {
+						if(Float.valueOf(e.getAttribute("value"))>=100) {
+							character.addSpecialPerk(Perk.IMP_SLAYER);
 						}
 					}
-					
-					CharacterUtils.appendToImportLog(log, "<br/>Set Attribute: "+attribute.getName() +" to "+ Float.valueOf(e.getAttribute("value")));
 				}catch(IllegalArgumentException ex){
 				}
 			}
@@ -1891,12 +1895,12 @@ public abstract class GameCharacter implements XMLSaving {
 			NodeList perkElements = element.getElementsByTagName("perk");
 			for(int i=0; i<perkElements.getLength(); i++){
 				Element e = ((Element)perkElements.item(i));
-				Perk p = Perk.valueOf(e.getAttribute("type"));
+				AbstractPerk p = Perk.getPerkFromId(e.getAttribute("type"));
 				if(p.isEquippableTrait()
 						&& (!Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") || PerkManager.MANAGER.isPerkAnywhereInAvailableTree(p, character))) { // If older than 0.2.12, check to see if the perk should actually be added.
 					character.addTrait(p);
 				}
-				CharacterUtils.appendToImportLog(log, "<br/>Added Equipped Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
+				CharacterUtils.appendToImportLog(log, "<br/>Added Equipped Perk: "+Perk.getPerkFromId(e.getAttribute("type")).getName(character));
 			}
 		}
 		
@@ -1906,9 +1910,9 @@ public abstract class GameCharacter implements XMLSaving {
 			NodeList perkElements = element.getElementsByTagName("perk");
 			for(int i=0; i<perkElements.getLength(); i++){
 				Element e = ((Element)perkElements.item(i));
-				Perk p = Perk.valueOf(e.getAttribute("type"));
+				AbstractPerk p = Perk.getPerkFromId(e.getAttribute("type"));
 				character.addSpecialPerk(p);
-				CharacterUtils.appendToImportLog(log, "<br/>Added Special Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
+				CharacterUtils.appendToImportLog(log, "<br/>Added Special Perk: "+Perk.getPerkFromId(e.getAttribute("type")).getName(character));
 			}
 		}
 		
@@ -1925,7 +1929,7 @@ public abstract class GameCharacter implements XMLSaving {
 					String type = e.getAttribute("type");
 					type = type.replaceAll("STRENGTH_", "PHYSIQUE_");
 					try {
-						Perk p = Perk.valueOf(type);
+						AbstractPerk p = Perk.getPerkFromId(type);
 						if(!Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") || PerkManager.MANAGER.isPerkAnywhereInAvailableTree(p, character)) { // If older than 0.3, check to see if the perk should actually be added.
 							character.addPerk(Integer.valueOf(e.getAttribute("row")), p);
 							CharacterUtils.appendToImportLog(log, "<br/>Added Perk: "+p.getName(character));
@@ -2670,6 +2674,17 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+			boolean impSlayer = character.hasPerkAnywhereInTree(Perk.IMP_SLAYER);
+			character.resetPerksMap();
+			if(!character.isUnique()) {
+				character.incrementAttribute(Attribute.MAJOR_CORRUPTION, (character.getPerksInCategory(PerkCategory.LUST)+character.getFetishes(false).size())*5);
+			}
+			if(impSlayer) {
+				character.addSpecialPerk(Perk.IMP_SLAYER);
+			}
+		}
+		
 		character.calculateStatusEffects(0);
 		character.setHealth(newHealth);
 		character.setMana(newMana);
@@ -2816,7 +2831,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return isPlayer() || getCurrentArtwork().isCurrentImageClothed() || getTotalTimesHadSex(Main.game.getPlayer()) > 0;
 	}
 	
-	public String getCharacterInformationScreen() {
+	public String getCharacterInformationScreen(boolean includePerkTree) {
 		infoScreenSB.setLength(0);
 
 		if (Main.getProperties().hasValue(PropertyValue.artwork)) {
@@ -2897,7 +2912,7 @@ public abstract class GameCharacter implements XMLSaving {
 							}
 						}
 					} catch (Exception e) {
-						infoScreenSB.append("<br/>Unknown (id:"+entry.getKey()+")");
+//						infoScreenSB.append("<br/>Unknown (id:"+entry.getKey()+")");
 					}
 				}
 				
@@ -2946,8 +2961,19 @@ public abstract class GameCharacter implements XMLSaving {
 						+ "<h6>Appearance</h6>"
 					+ "<p>"
 						+ this.getBodyDescription()
-					+ "</p>"
-					+ PhoneDialogue.getBodyStatsPanel(this));
+					+ "</p>");
+
+			infoScreenSB.append("<details>"
+								+ "<summary class='quest-title'>Stats</summary>"
+								+ PhoneDialogue.getBodyStatsPanel(this)
+							+ "</details>");
+
+			if(includePerkTree) {
+				infoScreenSB.append("<details>"
+									+ "<summary class='quest-title'>Perk tree</summary>"
+									+ PerkManager.MANAGER.getPerkTreeDisplay(this, false)
+								+ "</details>");
+			}
 			
 		} else {
 			infoScreenSB.append("</p>"
@@ -3532,9 +3558,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public Occupation getHistory() {
-		if(!this.isPlayer() && this.isSlave()) {
-			return Occupation.NPC_SLAVE;
-		}
+//		if(!this.isPlayer() && this.isSlave()) {
+//			return Occupation.NPC_SLAVE;
+//		}
 		return history;
 	}
 
@@ -3563,8 +3589,8 @@ public abstract class GameCharacter implements XMLSaving {
 		// Revert attributes from old History:
 		if (this.history != null) {
 			if(this.history.getAssociatedPerk()!=null) {
-				for (Attribute att : this.history.getAssociatedPerk().getAttributeModifiers().keySet()) {
-					incrementBonusAttribute(att, -this.history.getAssociatedPerk().getAttributeModifiers().get(att));
+				for (Attribute att : this.history.getAssociatedPerk().getAttributeModifiers(this).keySet()) {
+					incrementBonusAttribute(att, -this.history.getAssociatedPerk().getAttributeModifiers(this).get(att));
 				}
 			}
 			this.history.revertExtraEffects(this);
@@ -3573,8 +3599,8 @@ public abstract class GameCharacter implements XMLSaving {
 
 		// Implement attributes from new History:
 		if(history.getAssociatedPerk()!=null) {
-			for (Attribute att : history.getAssociatedPerk().getAttributeModifiers().keySet()) {
-				incrementBonusAttribute(att, history.getAssociatedPerk().getAttributeModifiers().get(att));
+			for (Attribute att : history.getAssociatedPerk().getAttributeModifiers(this).keySet()) {
+				incrementBonusAttribute(att, history.getAssociatedPerk().getAttributeModifiers(this).get(att));
 			}
 		}
 		history.applyExtraEffects(this);
@@ -4855,7 +4881,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(getAttributeValue(Attribute.MAJOR_ARCANE) < 15) {
 				value = 5;
 			} else {
-				value = 100 + getAttributeValue(Attribute.MAJOR_ARCANE)*0.20f;
+				value = 5 + getLevel() + getAttributeValue(Attribute.MAJOR_ARCANE)*0.60f;
 			}
  		}
 		/*
@@ -5073,7 +5099,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public int getPerkPoints() {
-		return getPerkPointsAtLevel(this.getTrueLevel()) + getAdditionalPerkPoints() - this.getPerkPointsSpent();
+		return getPerkPointsAtLevel(this.getTrueLevel()) /*+ getAdditionalPerkPoints()*/ - this.getPerkPointsSpent();
 	}
 	
 	public int getAdditionalPerkPoints() {
@@ -5082,22 +5108,22 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public int getPerkPointsSpent() {
 		int count = 0;
-		for(Entry<Integer, Set<Perk>> entry : this.getPerksMap().entrySet()) {
+		for(Entry<Integer, Set<AbstractPerk>> entry : this.getPerksMap().entrySet()) {
 			count += entry.getValue().size();
 		}
 		count -= PerkManager.getInitialPerkCount(this);
-		return count;
+		return Math.max(0, count);
 	}
 
-	public List<Perk> getTraits() {
+	public List<AbstractPerk> getTraits() {
 		return traits;
 	}
 	
-	public boolean hasTraitActivated(Perk perk) {
+	public boolean hasTraitActivated(AbstractPerk perk) {
 		return traits.contains(perk);
 	}
 
-	public boolean removeTrait(Perk perk) {
+	public boolean removeTrait(AbstractPerk perk) {
 		if(traits.remove(perk)) {
 			applyPerkRemovalEffects(perk);
 			return true;
@@ -5107,14 +5133,14 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void clearTraits() {
 		if(traits!=null) {
-			for(Perk p : traits) {
+			for(AbstractPerk p : traits) {
 				applyPerkRemovalEffects(p);
 			}
 			traits.clear();
 		}
 	}
 	
-	public boolean addTrait(Perk perk) {
+	public boolean addTrait(AbstractPerk perk) {
 		if(traits.contains(perk) || traits.size()>=MAX_TRAITS) {
 			return false;
 		}
@@ -5124,48 +5150,63 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void resetPerksMap() {
-		HashMap<Integer, Set<Perk>> currentPerks;
+		HashMap<Integer, Set<AbstractPerk>> currentPerks;
 		if(perks!=null) {
 			currentPerks = new HashMap<>(perks);
 		} else {
 			currentPerks = new HashMap<>();
 		}
 		
-		for(Entry<Integer, Set<Perk>> entry : currentPerks.entrySet()) {
-			Set<Perk> tooTiredToThink = new HashSet<>(entry.getValue());
-			for(Perk p : tooTiredToThink) {
+		for(Entry<Integer, Set<AbstractPerk>> entry : currentPerks.entrySet()) {
+			Set<AbstractPerk> tooTiredToThink = new HashSet<>(entry.getValue());
+			for(AbstractPerk p : tooTiredToThink) {
 				this.removePerk(entry.getKey(), p);
 			}
 		}
 
 		this.clearTraits();
 		
-		recalculateCombatMoves();
-		
 		updateAttributeListeners();
 		
-		PerkManager.initialisePerks(this);
+		setupPerks();
 		
+		recalculateCombatMoves();
 	}
 	
-	public Map<Integer, Set<Perk>> getPerksMap() {
+	public void setupPerks() {
+		PerkManager.initialisePerks(this);
+	}
+	
+	public Map<Integer, Set<AbstractPerk>> getPerksMap() {
 		return perks;
 	}
 	
-	public List<Perk> getMajorPerks() {
-		List<Perk> tempPerkList = new ArrayList<>();
-		for(Entry<Integer, Set<Perk>> entry : perks.entrySet()) {
-			for(Perk p : entry.getValue()) {
+	public int getPerksInCategory(PerkCategory category) { //TODO should use category the perk is in, not its base category
+		int count = 0;
+		for(Set<AbstractPerk> perkSet : getPerksMap().values()) {
+			for(AbstractPerk perk : perkSet) {
+				if(perk.getPerkCategory()==category) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+	
+	public List<AbstractPerk> getMajorPerks() {
+		List<AbstractPerk> tempPerkList = new ArrayList<>();
+		for(Entry<Integer, Set<AbstractPerk>> entry : perks.entrySet()) {
+			for(AbstractPerk p : entry.getValue()) {
 				if(p.isEquippableTrait()) {
 					tempPerkList.add(p);
 				}
 			}
 		}
-		tempPerkList.sort(Comparator.comparingInt(Perk::getRenderingPriority).reversed());
+		tempPerkList.sort(Comparator.comparingInt(AbstractPerk::getRenderingPriority).reversed());
 		return tempPerkList;
 	}
 	
-	public boolean hasTrait(Perk p, boolean equipped) {
+	public boolean hasTrait(AbstractPerk p, boolean equipped) {
 		if(p.isEquippableTrait()) {
 			if((p.getPerkCategory()==PerkCategory.JOB)) {
 				return getHistory().getAssociatedPerk()==p;
@@ -5178,13 +5219,13 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 	
-	public boolean hasPerkAnywhereInTree(Perk p) {
-		for(Set<Perk> perkSet : this.getPerksMap().values()) {
+	public boolean hasPerkAnywhereInTree(AbstractPerk p) {
+		for(Set<AbstractPerk> perkSet : this.getPerksMap().values()) {
 			if(perkSet.contains(p)) {
 				return true;
 			}
 		}
-		for(Perk perk : this.getSpecialPerks()) {
+		for(AbstractPerk perk : this.getSpecialPerks()) {
 			if(perk.equals(p)) {
 				return true;
 			}
@@ -5192,18 +5233,18 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 	
-	public boolean hasPerkInTree(int row, Perk p) {
+	public boolean hasPerkInTree(int row, AbstractPerk p) {
 		if(!perks.containsKey(row)) {
 			return false;
 		}
 		return perks.get(row).contains(p);
 	}
 
-	public boolean addPerk(Perk perk) {
+	public boolean addPerk(AbstractPerk perk) {
 		return addPerk(PerkManager.MANAGER.getPerkRow(this, perk), perk);
 	}
 	
-	public boolean addPerk(int row, Perk perk) {
+	public boolean addPerk(int row, AbstractPerk perk) {
 		perks.putIfAbsent(row, new HashSet<>());
 		
 		if (perks.get(row).contains(perk)) {
@@ -5219,7 +5260,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return true;
 	}
 
-	public boolean removePerk(int row, Perk perk) {
+	public boolean removePerk(int row, AbstractPerk perk) {
 		if (!perks.containsKey(row)) {
 			return false;
 		}
@@ -5237,29 +5278,30 @@ public abstract class GameCharacter implements XMLSaving {
 		return true;
 	}
 	
-	public Set<Perk> getSpecialPerks() {
+	public Set<AbstractPerk> getSpecialPerks() {
 		return specialPerks;
 	}
 	
-	public String addSpecialPerk(Perk perk) {
+	public String addSpecialPerk(AbstractPerk perk) {
 		if(specialPerks.add(perk)) {
 			applyPerkGainEffects(perk);
+			return "<p style='text-align:center;'><b>"
+						+ UtilText.parse(this, "[npc.Name] [style.colourGood(gained)] the special perk, [style.colourExcellent("+perk.getName(this)+")]!")
+					+ "</b></p>";
 		}
-		return "<p style='text-align:center;'><b>"
-					+ UtilText.parse(this, "[npc.Name] [style.colourGood(gained)] the special perk, [style.colourExcellent("+perk.getName(this)+")]!")
-				+ "</b></p>";
+		return "";
 	}
 	
-	public void removeSpecialPerk(Perk perk) {
+	public void removeSpecialPerk(AbstractPerk perk) {
 		if(specialPerks.remove(perk)) {
 			applyPerkRemovalEffects(perk);
 		}
 	}
 	
-	protected void applyPerkGainEffects(Perk perk) {
+	protected void applyPerkGainEffects(AbstractPerk perk) {
 		// Increment bonus attributes from this perk:
-		if (perk.getAttributeModifiers() != null) {
-			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers().entrySet()) {
+		if (perk.getAttributeModifiers(this) != null) {
+			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers(this).entrySet()) {
 				incrementBonusAttribute(e.getKey(), e.getValue());
 			}
 		}
@@ -5268,11 +5310,11 @@ public abstract class GameCharacter implements XMLSaving {
 		updateAttributeListeners();
 	}
 	
-	private void applyPerkRemovalEffects(Perk perk) {
+	private void applyPerkRemovalEffects(AbstractPerk perk) {
 		
 		// Reverse bonus attributes from this perk:
-		if (perk.getAttributeModifiers() != null) {
-			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers().entrySet()) {
+		if (perk.getAttributeModifiers(this) != null) {
+			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers(this).entrySet()) {
 				incrementBonusAttribute(e.getKey(), -e.getValue());
 			}
 		}
@@ -13318,7 +13360,7 @@ public abstract class GameCharacter implements XMLSaving {
 		int index = 0;
 		for(Value<GameCharacter, CombatMove> move : selectedMoves) {
 			sb.setLength(0);
-			sb.append(move.getValue().getPrediction(this, move.getKey(), enemies, allies));
+			sb.append(move.getValue().getPrediction(index, this, move.getKey(), enemies, allies));
 			if(selectedMovesDisruption.get(index) == true) {
 				sb.append("<b style='color: " + Colour.GENERIC_MINOR_BAD.toWebHexString() + "'>" + " (Disrupted!)</b>");
 			}
@@ -13342,9 +13384,31 @@ public abstract class GameCharacter implements XMLSaving {
 			CombatMove move = moveEntry.getValue();
 			if(selectedMovesDisruption.get(index) == false) {
 				GameCharacter target = moveEntry.getKey();
-				sb.append(
-						"<b style='text-align:center; color: " + move.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getName()) + ":</b> "
+				float lustStart = target.getLust();
+				sb.append("<b style='text-align:center; color: " + move.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getName()) + ":</b> "
 							+ move.perform(index, this, target, enemies, allies));
+				float lustEnd = target.getLust();
+				if(lustStart!=lustEnd) {
+					if(this.hasTraitActivated(Perk.LUSTPYRE)) {
+						int manaAbsorbed = Math.min(Math.round(target.getMana()), Math.max(1, Math.round(target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.02f)));
+						if(manaAbsorbed>0) {
+							this.incrementMana(manaAbsorbed);
+							target.incrementMana(-manaAbsorbed);
+							sb.append("<br/>"
+									+ UtilText.parse(this, target,
+											"Thanks to [npc.her] '<span style='color:"+Perk.LUSTPYRE.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Perk.LUSTPYRE.getName(this))+"</span>' trait,"
+													+ " [npc.name] [npc.verb(absorb)] [style.colourMana("+manaAbsorbed+")] "+Attribute.MANA_MAXIMUM.getName()+" from [npc2.name]!"));
+						}
+					}
+					if(target.hasTraitActivated(Perk.PURE_MIND)) {
+						int manaRestored = Math.round(target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.02f);
+						target.incrementMana(manaRestored);
+						sb.append("<br/>"
+								+ UtilText.parse(target,
+										"Thanks to [npc.namePos] '<span style='color:"+Perk.PURE_MIND.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Perk.PURE_MIND.getName(this))+"</span>' trait,"
+												+ " [npc.she] [npc.verb(recover)] [style.colourMana("+manaRestored+")] "+Attribute.MANA_MAXIMUM.getName()+" in response to taking "+Attribute.DAMAGE_LUST.getName()+"!"));
+					}
+				}
 				
 				if(move.getStatusEffects()!=null) {
 					for(Entry<StatusEffect, Integer> entry : move.getStatusEffects().entrySet()) {
@@ -13375,6 +13439,14 @@ public abstract class GameCharacter implements XMLSaving {
 			moves.add(UtilText.parse(this, "[npc.Name] [npc.verb(decide)] not to make a move, and instead [npc.verb(try)] to brace [npc.herself] as best as possible against any incoming attacks."));
 		}
 		
+		if(!Combat.isCombatantDefeated(this) && this.hasTraitActivated(Perk.COMBAT_REGENERATION)) {
+			int healthRecovery = Math.round(this.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.05f);
+			this.setHealth(this.getHealth()+healthRecovery);
+			moves.add(UtilText.parse(this,
+					"Thanks to [npc.her] '<span style='color:"+Perk.COMBAT_REGENERATION.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Perk.COMBAT_REGENERATION.getName(this))+"</span>' trait,"
+							+ " [npc.name] [npc.verb(recover)] [style.colourHealth("+healthRecovery+")] "+Attribute.HEALTH_MAXIMUM.getName()+"!"));
+		}
+		
 		selectedMoves.clear();
 		selectedMovesDisruption.clear();
 		remainingAP = maxAP;
@@ -13387,6 +13459,9 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public void selectMoves(List<GameCharacter> enemies, List<GameCharacter> allies) {
 		int turnIndex=0;
+		if(enemies.isEmpty()) {
+			return;
+		}
 		while(remainingAP > 0) {
 			// Assembling move list
 			List<CombatMove> potentialMoves = new ArrayList<>();
@@ -13418,7 +13493,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getRemainingAP() {
 		return remainingAP;
 	}
-
+	public void setRemainingAP(int remainingAP) {
+		this.remainingAP = remainingAP;
+	}
 	public int getMaxAP() {
 		return maxAP;
 	}
@@ -15589,7 +15666,6 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	private void applyEquipClothingEffects(AbstractClothing newClothing) {
-		incrementBonusAttribute(Attribute.RESISTANCE_PHYSICAL, newClothing.getClothingType().getPhysicalResistance());
 		for (Entry<Attribute, Integer> e : newClothing.getAttributeModifiers().entrySet()) {
 			incrementBonusAttribute(e.getKey(), e.getValue());
 		}
@@ -15689,7 +15765,6 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		incrementBonusAttribute(Attribute.RESISTANCE_PHYSICAL, -clothing.getClothingType().getPhysicalResistance());
 		for (Entry<Attribute, Integer> e : clothing.getAttributeModifiers().entrySet()) {
 			incrementBonusAttribute(e.getKey(), -e.getValue());
 		}

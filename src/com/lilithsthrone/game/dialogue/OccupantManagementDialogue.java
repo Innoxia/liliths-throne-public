@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
@@ -22,7 +21,6 @@ import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
@@ -1675,7 +1673,7 @@ public class OccupantManagementDialogue {
 					"<div class='container-full-width'>"
 							+ "<h6 style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+"; text-align:center;'>Inspection</h6>"
 							+ "<div class='container-full-width inner'>"
-								+character.getCharacterInformationScreen()
+								+character.getCharacterInformationScreen(false)
 							+"</div>"
 					+"</div>"
 					+ "<p id='hiddenFieldName' style='display:none;'></p>");
@@ -2568,39 +2566,15 @@ public class OccupantManagementDialogue {
 						+ "<span style='color:"+Colour.TRAIT.toWebHexString()+";'>Traits</span> (square icons) provide unique effects for [npc.name]."
 							+ " Unlike perks, <b>traits will have no effect on [npc.name] until they're slotted into [npc.her] 'Active Traits' bar</b>.<br/>"
 						+ "Perks require perk points to unlock. [npc.Name] earns one perk point each time [npc.she] levels up, and an extra two perk points every five levels."
-					+ "</div>"
-					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
-					+ "<h6 style='text-align:center;'>Active Traits</h6>"));
+					+ "</div>"));
+			
+			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(characterSelected(), true));
 
-			UtilText.nodeContentSB.append(
-					"<div id='OCCUPATION_" + characterSelected().getHistory().getAssociatedPerk()+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
-						+ "<div class='square-button-content'>"+characterSelected().getHistory().getAssociatedPerk().getSVGString()+"</div>"
-					+ "</div>");
-			
-			for(int i=0;i<GameCharacter.MAX_TRAITS;i++) {
-				Perk p = null;
-				if(i<characterSelected().getTraits().size()) {
-					p = characterSelected().getTraits().get(i);
-				}
-				if(p!=null) {
-					UtilText.nodeContentSB.append("<div id='TRAIT_" + p + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
-							+ "<div class='square-button-content'>"+p.getSVGString()+"</div>"
-							+ "</div>");
-					
-				} else {
-					UtilText.nodeContentSB.append("<div id='TRAIT_" + i + "' class='square-button small' style='display:inline-block; float:none;'></div>");
-					
-				}
-			}
-			UtilText.nodeContentSB.append("</div>");
-			
 			if(!(characterSelected() instanceof Elemental)) {
-				UtilText.nodeContentSB.append("<div class='container-full-width' style='padding:8px; text-align:center;'>"
+				UtilText.nodeContentSB.append("</div><div class='container-full-width' style='padding:8px; text-align:center;'>"
 							+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
 						+ "</div>");
 			}
-			
-			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(characterSelected()));
 			
 			return UtilText.nodeContentSB.toString();
 		}

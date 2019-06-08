@@ -268,7 +268,7 @@ public enum Spell {
 					SpellUpgrade.CLOAK_OF_FLAMES_3),
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 50)),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 20)),
 			Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 
 		@Override
@@ -502,10 +502,18 @@ public enum Spell {
 				}
 			}
 			
-			
 			descriptionSB.append(getCostDescription(caster, cost));
 
 			return descriptionSB.toString();
+		}
+		
+		public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+	    	return Util.newArrayListOfValues("Target has the 'freezing fog' status effect.");
+	    }
+		
+		//Differs from normal version; spells have special crit requirements.
+		public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+			return source.hasStatusEffect(StatusEffect.FREEZING_FOG);
 		}
 	},
 
@@ -913,7 +921,7 @@ public enum Spell {
 					SpellUpgrade.VACUUM_2,
 					SpellUpgrade.VACUUM_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.BONUS_SHIELDING, -5)), Util.newArrayListOfValues("Lasts for [style.colourGood(4 turns)]")) {
+					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, -5)), Util.newArrayListOfValues("Lasts for [style.colourGood(4 turns)]")) {
 
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -996,8 +1004,9 @@ public enum Spell {
 					SpellUpgrade.PROTECTIVE_GUSTS_2,
 					SpellUpgrade.PROTECTIVE_GUSTS_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 25),
-					new Value<Attribute, Integer>(Attribute.BONUS_SHIELDING, 5)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 5),
+					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 1)),
+			Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 		
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1343,7 +1352,7 @@ public enum Spell {
 					SpellUpgrade.STONE_SHELL_2,
 					SpellUpgrade.STONE_SHELL_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 25)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5)), Util.newArrayListOfValues("Lasts for [style.colourGood(3 turns)]")) {
 		
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -2073,7 +2082,7 @@ public enum Spell {
 					SpellUpgrade.TELEPORT_2,
 					SpellUpgrade.TELEPORT_3),
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.BONUS_SHIELDING, 100)), Util.newArrayListOfValues(
+					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 100)), Util.newArrayListOfValues(
 					"Lasts for [style.colourGood(1 turn)]",
 					"[style.colourExcellent(Unlocks)] map teleport",
 					"Map teleport [style.colourTerrible(blocked)] by companions")) {
@@ -3246,9 +3255,11 @@ public enum Spell {
 	
 	public abstract String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies);
 	
-	public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+	public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
 		return UtilText.parse(source, target,
-        		"<span style='color:" + getSpellSchool().getColour().toWebHexString() + ";'>Cast spell '"+ getName() + "'</span>"
+				(isCrit?"[style.colourExcellent(Critical)]: ":"")
+				+ "<span style='color:" + getSpellSchool().getColour().toWebHexString() + ";'>Cast spell '"+ getName() + "'</span>"
 				+ " on [npc2.name]."
 				+ "<br/>This will cost <b style='color:"+Colour.ATTRIBUTE_MANA.toWebHexString()+";'>"+this.getModifiedCost(source)+" aura</b>."
 				+ "<br/><i>"+getBasicEffectsString(source, target, enemies, allies)+"</i>");
@@ -3300,7 +3311,7 @@ public enum Spell {
     	if(this.getSpellSchool() == SpellSchool.FIRE) {
     		critReqs.add(UtilText.parse(source, "[npc.NamePos] energy is below 25%."));
     	} else {
-        	return Util.newArrayListOfValues("It's the only spell being cast.");
+        	return Util.newArrayListOfValues("It's the only action being used.");
     	}
     	
     	return critReqs;
@@ -3311,13 +3322,7 @@ public enum Spell {
 		if(this.getSpellSchool() == SpellSchool.FIRE && source.getHealthPercentage()<=0.25f) { // Fire school spells crit when below 25% health.
 			return true;
 		} else {
-			int spells = 0;
-			for(Value<GameCharacter, CombatMove> move : source.getSelectedMoves()) {
-				if(move.getValue().getAssociatedSpell()!=null) {
-					spells++;
-				}
-			}
-			return spells<=1;
+			return source.getSelectedMoves().size()<=1;
 		}
 	}
 }

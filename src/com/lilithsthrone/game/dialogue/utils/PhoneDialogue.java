@@ -54,7 +54,11 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.*;
+import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Pathing;
+import com.lilithsthrone.utils.TreeNode;
+import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.comparators.ClothingTypeRarityComparator;
 import com.lilithsthrone.utils.comparators.ItemTypeRarityComparator;
 import com.lilithsthrone.utils.comparators.WeaponTypeRarityComparator;
@@ -495,7 +499,7 @@ public class PhoneDialogue {
 		@Override
 		public String getContent() {
 //			return Main.game.getPlayer().getBodyDescription();
-			return Main.game.getPlayer().getCharacterInformationScreen();
+			return Main.game.getPlayer().getCharacterInformationScreen(true);
 		}
 
 		@Override
@@ -563,23 +567,14 @@ public class PhoneDialogue {
 				+"<div class='container-full-width'>"
 				
 					+ "<h4 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Combat Attributes</h4>"
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.CRITICAL_CHANCE,
-							"Critical Hit Chance:<br/>"
-							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_CHANCE), Attribute.CRITICAL_CHANCE.getUpperLimit()))+"%</b>",
-							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.CRITICAL_DAMAGE,
 							"Critical Hit Damage:<br/>"
 							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE), Attribute.CRITICAL_DAMAGE.getUpperLimit()))+"%</b>",
 							true)
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.BONUS_SHIELDING,
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.ENERGY_SHIELDING,
 							"Bonus Shielding (per turn in combat):<br/>"
-							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.BONUS_SHIELDING), Attribute.BONUS_SHIELDING.getUpperLimit()))+"</b>",
+							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.ENERGY_SHIELDING), Attribute.ENERGY_SHIELDING.getUpperLimit()))+"</b>",
 							true)
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.BONUS_LUST_SHIELDING,
-							"Bonus Lust Shielding (per turn in combat):<br/>"
-							+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.BONUS_LUST_SHIELDING), Attribute.BONUS_LUST_SHIELDING.getUpperLimit()))+"</b>",
-							true)
-					
 					
 
 
@@ -655,15 +650,10 @@ public class PhoneDialogue {
 			for(Subspecies subspecies : Subspecies.values()) {
 				Attribute damageModifier = subspecies.getDamageMultiplier();
 				if(!encounteredAttributes.contains(damageModifier)) {
-					Attribute resistanceModifier = subspecies.getResistanceMultiplier();
 					UtilText.nodeContentSB.append(
 							getAttributeBox(Main.game.getPlayer(), damageModifier,
 									Util.capitaliseSentence(damageModifier.getName())+":<br/>"
 									+ "<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(damageModifier), damageModifier.getUpperLimit())))+"%</b>",
-									true)
-							+ getAttributeBox(Main.game.getPlayer(), resistanceModifier,
-									Util.capitaliseSentence(resistanceModifier.getName())+":<br/>"
-									+ "<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(resistanceModifier), resistanceModifier.getUpperLimit()))+"%</b>",
 									true));
 					encounteredAttributes.add(damageModifier);
 				}
@@ -709,8 +699,7 @@ public class PhoneDialogue {
 		boolean knowsVagina = character.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer());
 		boolean knowsAnus = character.isAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer());
 		
-		return "<div class='container-full-width'>"
-				+ "<h6 style='color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+"; text-align:center;'>Core Attributes</h6>"
+		return "<h6 style='color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+"; text-align:center;'>Core Attributes</h6>"
 				+ statHeader()
 				+ statRow(Colour.ANDROGYNOUS, "Femininity",
 						Colour.TEXT, String.valueOf(character.getFemininityValue()),
@@ -912,8 +901,7 @@ public class PhoneDialogue {
 						Colour.TEXT, !knowsAnus?"Unknown":String.valueOf(character.getAssPlasticity().getValue()),
 						Colour.GENERIC_SEX, !knowsAnus?"Unknown":Util.capitaliseSentence(character.getAssPlasticity().getDescriptor()),
 						true)
-				
-				+"</div>";
+				;
 	}
 	
 	public static final DialogueNode CHARACTER_STATS_BODY = new DialogueNode("Body Stats", "", true) {
@@ -2116,7 +2104,6 @@ public class PhoneDialogue {
 
 	public static final DialogueNode CHARACTER_LEVEL_UP = new DialogueNode("Perk Tree", "", true) {
 
-
 		@Override
 		public String getHeaderContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -2130,51 +2117,9 @@ public class PhoneDialogue {
 							+ "Perks require perk points to unlock. You earn one perk point each time you level up, and earn an extra two perk points every five levels.<br/><br/>"
 							+ "In addition to the perks that can be purchased via perk points, there are also several special, hidden perks that are unlocked via special events."
 							+ " There are currently [style.boldPerk("+Perk.getHiddenPerks().size()+")] special perks in the game."
-					+ "</details>"
-						
-					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
-					+ "<h6 style='text-align:center;'>Active Traits</h6>");
-
-			UtilText.nodeContentSB.append(
-					"<div id='OCCUPATION_" + Main.game.getPlayer().getHistory().getAssociatedPerk()+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
-						+ "<div class='square-button-content'>"+Main.game.getPlayer().getHistory().getAssociatedPerk().getSVGString()+"</div>"
-					+ "</div>");
+					+ "</details>");
 			
-			for(int i=0;i<GameCharacter.MAX_TRAITS;i++) {
-				Perk p = null;
-				if(i<Main.game.getPlayer().getTraits().size()) {
-					p = Main.game.getPlayer().getTraits().get(i);
-				}
-				if(p!=null) {
-					UtilText.nodeContentSB.append("<div id='TRAIT_" + p + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
-							+ "<div class='square-button-content'>"+p.getSVGString()+"</div>"
-							+ "</div>");
-					
-				} else {
-					UtilText.nodeContentSB.append("<div id='TRAIT_" + i + "' class='square-button small' style='display:inline-block; float:none;'></div>");
-					
-				}
-			}
-			
-			UtilText.nodeContentSB.append("<h6 style='text-align:center;'>Special Perks</h6>");
-			
-			for(Perk hiddenPerk : Perk.getHiddenPerks()) {
-//				if(Main.game.getPlayer().getSpecialPerks().contains(hiddenPerk)) {
-					UtilText.nodeContentSB.append("<div id='HIDDEN_PERK_" + hiddenPerk + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border:1% solid " + Colour.TRAIT.toWebHexString() + ";'>"
-							+ "<div class='square-button-content'>"+hiddenPerk.getSVGString()+"</div>"
-							+ (Main.game.getPlayer().getSpecialPerks().contains(hiddenPerk)
-									?""
-									:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.95; border-radius:50%;'></div>")
-							+ "</div>");
-					
-//				} else {
-//					UtilText.nodeContentSB.append("<div id='HIDDEN_PERK_" + hiddenPerk + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border:1% solid " + Colour.BASE_GREY.toWebHexString() + ";'>"
-//							+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown()+"</div>"
-//							+ "</div>");
-//				}
-			}
-			
-			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(Main.game.getPlayer()));
+			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(Main.game.getPlayer(), true));
 			
 			UtilText.nodeContentSB.append("</div>"
 					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"

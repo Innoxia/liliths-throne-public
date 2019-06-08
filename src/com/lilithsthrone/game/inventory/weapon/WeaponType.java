@@ -367,7 +367,7 @@ public class WeaponType {
 			5,
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_CHANCE, TFPotency.MAJOR_BOOST, 0)),
+					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_DAMAGE, TFPotency.MAJOR_BOOST, 0)),
 			null,
 			ColourListPresets.JUST_BLACK,
 			ColourListPresets.ALL,
@@ -984,7 +984,7 @@ public class WeaponType {
 			5,
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_CHANCE, TFPotency.MAJOR_BOOST, 0)),
+					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_DAMAGE, TFPotency.MAJOR_BOOST, 0)),
 			null,
 			null,
 			null,
@@ -1048,8 +1048,7 @@ public class WeaponType {
 	}
 
 	static {
-		
-		// Load in modded clothing:
+		// Load in modded weapons:
 		moddedWeapons = new ArrayList<>();
 		File dir = new File("res/mods");
 		

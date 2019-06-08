@@ -1,13 +1,10 @@
 package com.lilithsthrone.game.character.race;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.AttributeRange;
 import com.lilithsthrone.game.character.body.types.AbstractArmType;
 import com.lilithsthrone.game.character.body.types.AbstractAssType;
 import com.lilithsthrone.game.character.body.types.AbstractBreastType;
@@ -58,14 +55,10 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.1
- * @version 0.3.2
+ * @version 0.3.4
  * @author Innoxia
  */
 public abstract class AbstractRacialBody {
-
-	// Base attributes:
-	private HashMap<Attribute, AttributeRange> attributeModifiers;
-
 	// Antenna:
 	private AntennaType antennaType;
 	
@@ -181,40 +174,34 @@ public abstract class AbstractRacialBody {
 	private int maleWingSize;
 	private int femaleWingSize;
 
-	public AbstractRacialBody(HashMap<Attribute, AttributeRange> attributeModifiers,
-			AntennaType antennaType,
-			AbstractArmType armType, int armRows,
-			AbstractAssType assType, AssSize maleAssSize, AssSize femaleAssSize, Wetness anusWetness, Capacity anusCapacity, OrificeElasticity anusElasticity, OrificePlasticity anusPlasticity,
-			AbstractBreastType breastType, List<BreastShape> breastShapes,
-			CupSize noBreastSize, int breastCountMale, Lactation maleLactationRate, Capacity maleBreastCapacity, OrificeElasticity maleBreastElasticity, OrificePlasticity maleBreastPlasticity,
-				NippleSize maleNippleSize, NippleShape maleNippleShape, AreolaeSize maleAreolaeSize, int maleNippleCountPerBreast,
-			CupSize breastSize, int breastCountFemale, Lactation femaleLactationRate, Capacity femaleBreastCapacity, OrificeElasticity femaleBreastElasticity, OrificePlasticity femaleBreastPlasticity,
-				NippleSize femaleNippleSize, NippleShape femaleNippleShape, AreolaeSize femaleAreolaeSize, int femaleNippleCountPerBreast,
-			AbstractBreastType breastCrotchType, List<BreastShape> breastCrotchShapes,
-			CupSize breastCrotchSize, int breastCrotchCount, Lactation breastCrotchLactationRate, Capacity breastCrotchCapacity, OrificeElasticity breastCrotchElasticity, OrificePlasticity breastCrotchPlasticity,
-				NippleSize breastCrotchNippleSize, NippleShape breastCrotchNippleShape, AreolaeSize breastCrotchAreolaeSize, int nippleCountPerBreastCrotch,
-			int maleHeight, int maleFemininity, int maleBodySize, int maleMuscle,
-			int femaleHeight, int femaleFemininity, int femaleBodySize, int femaleMuscle,
-			AbstractEarType earType,
+	public AbstractRacialBody(AntennaType antennaType,
+			AbstractArmType armType,
+			int armRows, AbstractAssType assType,
+			AssSize maleAssSize, AssSize femaleAssSize, Wetness anusWetness, Capacity anusCapacity, OrificeElasticity anusElasticity, OrificePlasticity anusPlasticity, AbstractBreastType breastType,
+			List<BreastShape> breastShapes, CupSize noBreastSize,
+			int breastCountMale, Lactation maleLactationRate, Capacity maleBreastCapacity, OrificeElasticity maleBreastElasticity, OrificePlasticity maleBreastPlasticity, NippleSize maleNippleSize,
+				NippleShape maleNippleShape, AreolaeSize maleAreolaeSize, int maleNippleCountPerBreast, CupSize breastSize,
+			int breastCountFemale, Lactation femaleLactationRate, Capacity femaleBreastCapacity, OrificeElasticity femaleBreastElasticity, OrificePlasticity femaleBreastPlasticity, NippleSize femaleNippleSize,
+				NippleShape femaleNippleShape, AreolaeSize femaleAreolaeSize, int femaleNippleCountPerBreast, AbstractBreastType breastCrotchType,
+			List<BreastShape> breastCrotchShapes, CupSize breastCrotchSize,
+			int breastCrotchCount, Lactation breastCrotchLactationRate, Capacity breastCrotchCapacity, OrificeElasticity breastCrotchElasticity, OrificePlasticity breastCrotchPlasticity, NippleSize breastCrotchNippleSize,
+				NippleShape breastCrotchNippleShape, AreolaeSize breastCrotchAreolaeSize, int nippleCountPerBreastCrotch, int maleHeight,
+			int maleFemininity, int maleBodySize, int maleMuscle, int femaleHeight,
+			int femaleFemininity, int femaleBodySize, int femaleMuscle, AbstractEarType earType,
 			EyeType eyeType,
-			FaceType faceType, LipSize maleLipSize, LipSize femaleLipSize,
-			HairType hairType, HairLength maleHairLength, HairLength femaleHairLength,
-			AbstractLegType legType, LegConfiguration legConfiguration,
-			SkinType skinType,
+			FaceType faceType,
+			LipSize maleLipSize, LipSize femaleLipSize, HairType hairType,
+			HairLength maleHairLength, HairLength femaleHairLength, AbstractLegType legType,
+			LegConfiguration legConfiguration, SkinType skinType,
 			BodyMaterial bodyMaterial,
-			HornLength maleHornLength, HornLength femaleHornLength,
-			List<AbstractHornType> hornTypes,
-			PenisType penisType, int penisSize, PenisGirth penisGirth, TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction,
-			List<TailType> tailTypes,
+			HornLength maleHornLength,
+			HornLength femaleHornLength, List<AbstractHornType> hornTypes,
+			PenisType penisType,
+			int penisSize, PenisGirth penisGirth, TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction, List<TailType> tailTypes,
 			TentacleType tentacleType,
-			VaginaType vaginaType, Wetness vaginaWetness, Capacity vaginaCapacity, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity,
-			List<WingType> wingTypes, WingSize maleWingSize, WingSize femaleWingSize,
-			GenitalArrangement genitalArrangement) {
-
-		// Core attributes::
-		this.attributeModifiers = attributeModifiers;
-		
-		
+			VaginaType vaginaType,
+			Wetness vaginaWetness, Capacity vaginaCapacity, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity, List<WingType> wingTypes,
+			WingSize maleWingSize, WingSize femaleWingSize, GenitalArrangement genitalArrangement) {
 
 		// Antenna:
 		this.antennaType = antennaType;
@@ -392,10 +379,6 @@ public abstract class AbstractRacialBody {
 		}
 	}
 	
-	public HashMap<Attribute, AttributeRange> getAttributeModifiers() {
-		return attributeModifiers;
-	}
-
 	public AntennaType getAntennaType() {
 		return antennaType;
 	}
