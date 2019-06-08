@@ -109,15 +109,17 @@ public class CombatMove {
             }
 
             @Override
-            public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             	String costText="";
             	if(source.getMainWeapon()!=null && source.getMainWeapon().getWeaponType().getArcaneCost()>0) {
             		int cost = source.getMainWeapon().getWeaponType().getArcaneCost();
             		costText = " Costs [style.boldArcane("+cost+" Arcane essence"+(cost>1?"s":"")+")] "+(Main.game.getPlayer().getMainWeapon().getWeaponType().isMelee()?"per attack.":"to fire.");
     			}
+                boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 return UtilText.parse(source, target,
-                		"<span style='color:"+this.getColour().toWebHexString()+";'>Strike</span> "
-            				+ (target==null?"[npc.her] target":"[npc2.name]") + " for " + getFormattedDamageRange(source, target, getDamageType(source), Attack.MAIN) + " damage."
+                		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+                		+ "<span style='color:"+this.getColour().toWebHexString()+";'>Strike</span> "
+            				+ (target==null?"[npc.her] target":"[npc2.name]") + " for " + getFormattedDamageRange(source, target, getDamageType(source), Attack.MAIN, isCrit) + " damage."
             				+costText);
             }
 
@@ -280,14 +282,16 @@ public class CombatMove {
             }
 
             @Override
-            public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             	String costText="";
             	int cost = getArcaneCost(source);
             	if(cost>0) {
             		costText = " Costs [style.boldArcane("+cost+" Arcane essence"+(cost>1?"s":"")+")] to use this attack.";
             	}
+                boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 return UtilText.parse(source, target,
-                		"<span style='color:"+this.getColour().toWebHexString()+";'>Strike</span> "
+                		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+                		+ "<span style='color:"+this.getColour().toWebHexString()+";'>Twin strike</span> "
                 				+ (target==null?"[npc.her] target":"[npc2.name]")
 //                				+(source.getMainWeapon()==null
 //                					?(source.getOffhandWeapon()==null
@@ -297,9 +301,9 @@ public class CombatMove {
 //                        				?" with [npc.her] "+source.getMainWeapon().getName()+" and fists"
 //                                        :" with [npc.her] "+source.getMainWeapon().getName()+" and "+source.getOffhandWeapon().getName()))
                 		+" for "
-                			+ getFormattedDamageRange(source, target, getDamageType(source), Attack.MAIN, 0.6f)
+                			+ getFormattedDamageRange(source, target, getDamageType(source), Attack.MAIN, isCrit, 0.6f)
                 		+ " and "
-                			+ getFormattedDamageRange(source, target, getOffhandDamageType(source), Attack.OFFHAND, 0.3f)
+                			+ getFormattedDamageRange(source, target, getOffhandDamageType(source), Attack.OFFHAND, isCrit, 0.3f)
                 		+" damage."
                 		+costText);
             }
@@ -407,7 +411,7 @@ public class CombatMove {
                 0,
                 1,
                 CombatMoveType.DEFEND,
-                DamageType.PHYSICAL,
+                DamageType.ENERGY,
                 "moves/block",
                 Util.newArrayListOfValues(Colour.BASE_GREY),
                 false,
@@ -426,10 +430,12 @@ public class CombatMove {
             }
 
             @Override
-            public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 DamageType damageType = getDamageType(source);
-                return "<span style='color:"+this.getColour().toWebHexString()+";'>Block</span> "
-                        + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(getBlock(false))+ " " + damageType.getName() + " </span>"
+                return (isCrit?"[style.colourExcellent(Critical)]: ":"")
+                		+ "<span style='color:"+this.getColour().toWebHexString()+";'>Block</span> "
+                        + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(getBlock(isCrit))+ " " + damageType.getName() + " </span>"
                         + " damage.";
             }
 
@@ -501,10 +507,12 @@ public class CombatMove {
             }
 
             @Override
-            public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 return UtilText.parse(source, target,
-                		"<span style='color:"+this.getColour().toWebHexString()+";'>Tease</span> "
-                				+" [npc2.name] for " + getFormattedDamage(getDamageType(source), getDamage(source, target, false)) + " damage.");
+                        (isCrit?"[style.colourExcellent(Critical)]: ":"")
+                		+ "<span style='color:"+this.getColour().toWebHexString()+";'>Tease</span> "
+                				+" [npc2.name] for " + getFormattedDamage(getDamageType(source), getDamage(source, target, isCrit)) + " damage.");
             }
 
             @Override
@@ -520,10 +528,13 @@ public class CombatMove {
         		
         		boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
         		int lustDamage = getDamageType(source).damageTarget(source, target, getDamage(source, target, isCrit));
-        		
+        		DamageType finalDt = getDamageType(source);
+				if(target.getLust()>=100) {
+					finalDt = DamageType.ENERGY;
+				}
                 sb.append(formatAttackOutcome(source, target,
                 		source.getSeductionDescription(target),
-        				"[npc2.Name] took " + getFormattedDamage(getDamageType(source), lustDamage) + " damage!",
+        				"[npc2.Name] took " + getFormattedDamage(finalDt, lustDamage) + " damage!",
         				isCrit?"":null,
         				isCrit?"[npc2.Name] [npc2.verb(feel)] incredibly turned-on!":""));
                 
@@ -566,11 +577,13 @@ public class CombatMove {
             }
             
             @Override
-            public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 DamageType damageType = getDamageType(source);
                 return UtilText.parse(source,  target,
-                		"<span style='color:"+this.getColour().toWebHexString()+";'>Resist</span> "
-		                + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(getBlock(false))+ " " + damageType.getName() + " </span>"
+                		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+                		+ "<span style='color:"+this.getColour().toWebHexString()+";'>Resist</span> "
+		                + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(getBlock(isCrit))+ " " + damageType.getName() + " </span>"
 		                + " damage.");
             }
 
@@ -710,8 +723,8 @@ public class CombatMove {
                 }
 
                 @Override
-                public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-                    return getAssociatedSpell().getPrediction(source, target, enemies, allies);
+                public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                    return getAssociatedSpell().getPrediction(turnIndex, source, target, enemies, allies);
                 }
 
                 @Override
@@ -821,18 +834,20 @@ public class CombatMove {
             }
 
             @Override
-            public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             	String costText="";
             	if(source.getMainWeapon()!=null && source.getMainWeapon().getWeaponType().getArcaneCost()>0) {
             		int cost = source.getMainWeapon().getWeaponType().getArcaneCost();
             		costText = " Costs [style.boldArcane("+cost+" Arcane essence"+(cost>1?"s":"")+")] "+(Main.game.getPlayer().getMainWeapon().getWeaponType().isMelee()?"per attack.":"to fire.");
     			}
+                boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 return UtilText.parse(source, target,
-                		"<span style='color:"+this.getColour().toWebHexString()+";'>Arcane-strike</span> "
+                		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+                		+ "<span style='color:"+this.getColour().toWebHexString()+";'>Arcane-strike</span> "
                 				+ (target==null?"[npc.her] target":"[npc2.name]")
                 				+ " to deal "
-                				+ getFormattedDamageRange(source, target, getDamageType(source), Attack.MAIN, 0.33f) + " damage"
-                				+ " and gain <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+getManaGain(source, target)+" "+Attribute.MANA_MAXIMUM.getName()+"</span>."
+                				+ getFormattedDamageRange(source, target, getDamageType(source), Attack.MAIN, false, 0.33f) + " damage"
+                				+ " and gain <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+(getManaGain(source, target)*(isCrit?2:1))+" "+Attribute.MANA_MAXIMUM.getName()+"</span>."
                 				+ costText);
             }
 
@@ -1015,18 +1030,18 @@ public class CombatMove {
 		return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(damage) + " " + damageType.getName() + "</span>";
 	}
 
-	protected static String getFormattedDamageRange(GameCharacter attacker, GameCharacter defender, DamageType damageType, Attack attackType) {
-		return getFormattedDamageRange(attacker, defender, damageType, attackType, 1);
+	protected static String getFormattedDamageRange(GameCharacter attacker, GameCharacter defender, DamageType damageType, Attack attackType, boolean isCritical) {
+		return getFormattedDamageRange(attacker, defender, damageType, attackType, isCritical, 1);
 	}
 	
     /**
      * @return A standard formatting of the damage range.
      */
-	protected static String getFormattedDamageRange(GameCharacter attacker, GameCharacter defender, DamageType damageType, Attack attackType, float multiplier) {
+	protected static String getFormattedDamageRange(GameCharacter attacker, GameCharacter defender, DamageType damageType, Attack attackType, boolean isCritical, float multiplier) {
 		return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
-					+ String.valueOf(Attack.applyFinalDamageModifiers(attacker, defender, Attack.getMinimumDamage(attacker, defender, attackType)*multiplier, false))
+					+ String.valueOf(Attack.applyFinalDamageModifiers(attacker, defender, Attack.getMinimumDamage(attacker, defender, attackType)*multiplier, isCritical))
 					+"-"
-					+ String.valueOf(Attack.applyFinalDamageModifiers(attacker, defender, Attack.getMaximumDamage(attacker, defender, attackType)*multiplier, false))
+					+ String.valueOf(Attack.applyFinalDamageModifiers(attacker, defender, Attack.getMaximumDamage(attacker, defender, attackType)*multiplier, isCritical))
 					+ " "
 					+ damageType.getName()
 				+ "</span>";
@@ -1159,13 +1174,14 @@ public class CombatMove {
 
     /**
      * Gets a prediction that specifies what kind of action will be performed for the player (i.e "The catgirl will attack you for 10 damage" or "The horseboy is planning to buff his ally")
+     * @param turnIndex TODO
      * @param source Character that uses the action.
      * @param source Target for the action.
      * @param enemies Enemies of the character
      * @param allies Allies of the character
      * @return The string that describes the intent of the NPC that uses this action.
      */
-    public String getPrediction(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         return "There's a plan for you. More pain.";
     }
 
@@ -1352,7 +1368,6 @@ public class CombatMove {
             return true;
         }
         return false;
-//        return target.getAttributeValue(dt.getResistAttribute())<0 || target.isStunned();
     }
     
     public float getCritStatusEffectDurationIncrease() {

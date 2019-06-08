@@ -9,7 +9,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -34,6 +33,8 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -74,7 +75,7 @@ public class Epona extends NPC {
 				"Epona is the horse-girl in charge of organising the Gambling Den's 'Pregnancy Roulette'."
 						+ " Obsessed with breeding, she absolutely loves her job, and gets incredibly excited when a new round is about to start.",
 				28, Month.MAY, 28,
-				10, Gender.F_P_V_B_FUTANARI, Subspecies.HORSE_MORPH, RaceStage.GREATER,
+				15, Gender.F_P_V_B_FUTANARI, Subspecies.HORSE_MORPH, RaceStage.GREATER,
 				new CharacterInventory(30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE, true);
 
 	}
@@ -86,6 +87,23 @@ public class Epona extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+			this.setLevel(15);
+			this.resetPerksMap();
+		}
+	}
+
+	@Override
+	public void setupPerks() {
+		this.addSpecialPerk(Perk.SLUT);
+		PerkManager.initialisePerks(this,
+				Util.newArrayListOfValues(
+						Perk.FETISH_BROODMOTHER,
+						Perk.FETISH_SEEDER),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 0),
+						new Value<>(PerkCategory.LUST, 1),
+						new Value<>(PerkCategory.ARCANE, 0)));
 	}
 	
 	@Override
@@ -94,10 +112,6 @@ public class Epona extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 55);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 0);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 80);
-	
 			this.setPersonality(Util.newHashMapOfValues(
 					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
 					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
@@ -119,9 +133,7 @@ public class Epona extends NPC {
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 	
 			this.addPerk(Perk.FETISH_BROODMOTHER);
-			this.addTrait(Perk.FETISH_BROODMOTHER);
 			this.addPerk(Perk.FETISH_SEEDER);
-			this.addTrait(Perk.FETISH_SEEDER);
 		}
 		
 		

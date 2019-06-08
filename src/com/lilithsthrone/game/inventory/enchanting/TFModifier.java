@@ -120,15 +120,9 @@ public enum TFModifier {
 			Rarity.RARE),
 	
 	
-	CRITICAL_CHANCE(AttributeCategory.STRENGTH,
-			Attribute.CRITICAL_CHANCE,
-			"Applies an effect related to the secondary attribute 'Critical chance'.",
-			"modifier_circle_critical_chance",
-			Rarity.RARE),
-	
 	CRITICAL_DAMAGE(AttributeCategory.STRENGTH,
 			Attribute.CRITICAL_DAMAGE,
-			"Applies an effect related to the secondary attribute 'Critical damage'.",
+			"Applies an effect related to the secondary attribute 'Critical power'.",
 			"modifier_circle_critical_damage",
 			Rarity.RARE),
 	
@@ -1274,7 +1268,7 @@ public enum TFModifier {
 		TFRacialBodyPartsList.add(TF_CUM);
 		TFRacialBodyPartsList.add(TF_GIRLCUM);
 		
-		TFAttributeList.add(NONE);
+//		TFAttributeList.add(NONE);
 		TFAttributeList.add(ARCANE_BOOST);
 		
 
@@ -1358,7 +1352,6 @@ public enum TFModifier {
 		clothingAttributeList.add(TFModifier.RESISTANCE_PHYSICAL);
 		clothingAttributeList.add(TFModifier.RESISTANCE_POISON);
 		clothingAttributeList.add(TFModifier.SPELL_COST_MODIFIER);
-		clothingAttributeList.add(TFModifier.CRITICAL_CHANCE);
 		clothingAttributeList.add(TFModifier.CRITICAL_DAMAGE);
 		
 
@@ -1404,7 +1397,6 @@ public enum TFModifier {
 		weaponAttributeList.add(TFModifier.RESISTANCE_PHYSICAL);
 		weaponAttributeList.add(TFModifier.RESISTANCE_POISON);
 		weaponAttributeList.add(TFModifier.SPELL_COST_MODIFIER);
-		weaponAttributeList.add(TFModifier.CRITICAL_CHANCE);
 		weaponAttributeList.add(TFModifier.CRITICAL_DAMAGE);
 	}
 	

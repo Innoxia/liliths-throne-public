@@ -61,21 +61,6 @@ public enum Attack {
 		return Math.random() < getHitChance(attacker, defender);
 	}
 
-	public static boolean rollForCritical(GameCharacter attacker, GameCharacter defender) {
-		return rollForCritical(attacker, defender, null);
-	}
-	
-	
-	public static boolean rollForCritical(GameCharacter attacker, GameCharacter defender, Spell spell) {
-		float criticalChance = attacker.getAttributeValue(Attribute.CRITICAL_CHANCE);
-		
-		if(spell == Spell.ICE_SHARD && attacker.hasSpellUpgrade(SpellUpgrade.ICE_SHARD_2) && defender.hasStatusEffect(StatusEffect.FREEZING_FOG)) {
-			criticalChance += 25;
-		}
-		
-		return Math.random() < (Util.getModifiedDropoffValue(criticalChance, 100)/100f);
-	}
-
 	/**
 	 * @param attacker
 	 * @return
@@ -429,7 +414,7 @@ public enum Attack {
 			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 				// Defender modifiers:
 				// Damage Type modifier:
-				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
+//				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
 				
 				if (damage < 1) {
 					damage = 1;
@@ -450,7 +435,7 @@ public enum Attack {
 
 			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 				// Defender modifiers:
-				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
+//				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
 				
 			}
 			
@@ -474,7 +459,7 @@ public enum Attack {
 
 			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 				// Defender modifiers:
-				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f;
+//				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f;
 				if(attacker!=null) {
 					if((defender.getSexualOrientation()==SexualOrientation.ANDROPHILIC && attacker.isFeminine())
 							|| (attacker.getSexualOrientation()==SexualOrientation.ANDROPHILIC && defender.isFeminine())) {
@@ -494,7 +479,7 @@ public enum Attack {
 		if (attacker != null && defender!=null) {
 			// Modifiers based on race resistance:
 			if(!defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
-				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(attacker.getSubspecies().getResistanceMultiplier()), 100)/100f;
+//				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(attacker.getSubspecies().getResistanceMultiplier()), 100)/100f;
 			}
 			// Modifiers based on race damage:
 			damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(defender.getSubspecies().getDamageMultiplier()), 100)/100f;

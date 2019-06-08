@@ -19,7 +19,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.*;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -60,11 +60,12 @@ public class TooltipInformationEventListener implements EventListener {
 	private boolean weather = false;
 	private boolean protection = false;
 	private boolean copyInformation = false;
+	private boolean availableForSelection = false;
 	
 	private GameCharacter owner;
 	private StatusEffect statusEffect;
-	private Perk perk;
-	private Perk levelUpPerk;
+	private AbstractPerk perk;
+	private AbstractPerk levelUpPerk;
 	private int perkRow;
 	private Fetish fetish;
 	private boolean fetishExperience = false;
@@ -196,7 +197,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 		} else if (perk != null) { // Perks:
 			
-			int yIncrease = (perk.getModifiersAsStringList().size() > 4 ? perk.getModifiersAsStringList().size() - 4 : 0);
+			int yIncrease = (perk.getModifiersAsStringList(owner).size() > 4 ? perk.getModifiersAsStringList(owner).size() - 4 : 0);
 
 			Main.mainController.setTooltipSize(360, 324 + (yIncrease * LINE_HEIGHT));
 
@@ -212,9 +213,9 @@ public class TooltipInformationEventListener implements EventListener {
 			
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
-			if (!perk.getModifiersAsStringList().isEmpty()) {
+			if (!perk.getModifiersAsStringList(owner).isEmpty()) {
 				int i=0;
-				for (String s : perk.getModifiersAsStringList()) {
+				for (String s : perk.getModifiersAsStringList(owner)) {
 					tooltipSB.append((i!=0?"<br/>":"") + s);
 					i++;
 				}
@@ -233,25 +234,35 @@ public class TooltipInformationEventListener implements EventListener {
 			
 		} else if (levelUpPerk != null) { // Level Up Perk (same as Perk, but with requirements at top):
 
-			int yIncrease = (levelUpPerk.getModifiersAsStringList().size() > 4 ? levelUpPerk.getModifiersAsStringList().size() - 4 : 0);
+			int yIncrease = (levelUpPerk.getModifiersAsStringList(owner).size() > 4 ? levelUpPerk.getModifiersAsStringList(owner).size() - 4 : 0);
 
-			Main.mainController.setTooltipSize(360, 352 + (yIncrease * LINE_HEIGHT));
-
+			Main.mainController.setTooltipSize(360, 320 + (availableForSelection?32:0) + (yIncrease * LINE_HEIGHT));
+			
 			// Title:
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(levelUpPerk.getName(owner)) + "</div>");
 			
 			if(levelUpPerk.isEquippableTrait()) {
-				tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Trait</div>");
+				if(levelUpPerk.getPerkCategory()==PerkCategory.JOB) {
+					tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>'"+Util.capitaliseSentence(owner.getHistory().getName())+"' Occupation Trait</div>");
+				} else if(levelUpPerk.isHiddenPerk()) {
+					tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Unique Trait</div>");
+				} else {
+					tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Trait</div>");
+				}
 			} else {
-				tooltipSB.append("<div class='subTitle' style='color:"+Colour.PERK.toWebHexString()+";'>Perk</div>");
+				 if(levelUpPerk.isHiddenPerk()) {
+					tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Unique Perk</div>");
+				} else {
+						tooltipSB.append("<div class='subTitle' style='color:"+Colour.PERK.toWebHexString()+";'>Perk</div>");
+				}
 			}
 			
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
-			if (!levelUpPerk.getModifiersAsStringList().isEmpty()) {
+			if (!levelUpPerk.getModifiersAsStringList(owner).isEmpty()) {
 				int i=0;
-				for (String s : levelUpPerk.getModifiersAsStringList()) {
+				for (String s : levelUpPerk.getModifiersAsStringList(owner)) {
 					tooltipSB.append((i!=0?"<br/>":"") + s);
 					i++;
 				}
@@ -265,40 +276,44 @@ public class TooltipInformationEventListener implements EventListener {
 
 			// Description:
 			tooltipSB.append("<div class='description'>" + levelUpPerk.getDescription(owner) + "</div>");
-
-			if(levelUpPerk.isEquippableTrait()) {
-				if(levelUpPerk.getPerkCategory()==PerkCategory.JOB) {
-					tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Job-related trait cannot be removed.</div>");
-					
-				} else {
-					if(!owner.hasPerkInTree(perkRow, levelUpPerk)) {
-						if(!PerkManager.MANAGER.isPerkAvailable(owner, perkRow, levelUpPerk)) {
-							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Purchasing requires a connecting perk or trait.</div>");
-						} else {
-							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";'>Click to purchase trait.</div>");
-						}
+			
+			if(availableForSelection) {
+				if(levelUpPerk.isEquippableTrait()) {
+					if(levelUpPerk.getPerkCategory()==PerkCategory.JOB) {
+						tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Occupation traits cannot be removed.</div>");
+						
 					} else {
-						if(owner.getTraits().contains(levelUpPerk)) {
-							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip trait.</div>");
-						} else {
-							if(owner.getTraits().size()==GameCharacter.MAX_TRAITS) {
-								tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Maximum traits activated.</div>");
+						if(!owner.hasPerkInTree(perkRow, levelUpPerk)) {
+							if(!PerkManager.MANAGER.isPerkAvailable(owner, perkRow, levelUpPerk)) {
+								tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Purchasing requires a connecting perk or trait.</div>");
 							} else {
-								tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Click to equip trait.</div>");
+								tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";'>Click to purchase trait.</div>");
+							}
+						} else {
+							if(owner.getTraits().contains(levelUpPerk)) {
+								tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip trait.</div>");
+							} else {
+								if(owner.getTraits().size()==GameCharacter.MAX_TRAITS) {
+									tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Maximum traits activated.</div>");
+								} else {
+									tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Click to equip trait.</div>");
+								}
 							}
 						}
 					}
-				}
-				
-			} else {
-				if(!owner.hasPerkInTree(perkRow, levelUpPerk) && !levelUpPerk.isHiddenPerk()) {
-					if(!PerkManager.MANAGER.isPerkAvailable(owner, perkRow, levelUpPerk)) {
-						tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Purchasing requires a connecting perk or trait.</div>");
-					} else {
-						tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";'>Click to purchase perk.</div>");
-					}
+					
 				} else {
-					tooltipSB.append("<div class='subTitle' style='color:"+Colour.PERK.toWebHexString()+";'>You already own this perk!</div>");
+					if(!owner.hasPerkInTree(perkRow, levelUpPerk) && !levelUpPerk.isHiddenPerk()) {
+						if(!PerkManager.MANAGER.isPerkAvailable(owner, perkRow, levelUpPerk)) {
+							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Purchasing requires a connecting perk or trait.</div>");
+						} else {
+							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";'>Click to purchase perk.</div>");
+						}
+					} else {
+						tooltipSB.append("<div class='subTitle' style='color:"+Colour.PERK.toWebHexString()+";'>"
+											+ UtilText.parse(owner, "[npc.Name] already [npc.verb(own)] this perk!")
+										+ "</div>");
+					}
 				}
 			}
 			
@@ -858,7 +873,7 @@ public class TooltipInformationEventListener implements EventListener {
 //						+ "</div>");
 //				
 //			} else {
-				Main.mainController.setTooltipSize(400, 560);
+				Main.mainController.setTooltipSize(400, 516);
 	
 				tooltipSB.setLength(0);
 				tooltipSB.append(UtilText.parse(owner,
@@ -879,22 +894,16 @@ public class TooltipInformationEventListener implements EventListener {
 						+ extraAttributeBonus(owner, Attribute.MAJOR_PHYSIQUE)
 						+ extraAttributeBonus(owner, Attribute.MAJOR_ARCANE)
 						+ extraAttributeBonus(owner, Attribute.MAJOR_CORRUPTION)
-						+ extraAttributeBonus(owner, Attribute.SPELL_COST_MODIFIER)
-						
-						+ extraAttributeBonus(owner, Attribute.FERTILITY)
-						+ extraAttributeBonus(owner, Attribute.VIRILITY)
-						
-						
-						+ extraAttributeBonus(owner, Attribute.CRITICAL_CHANCE)
 						+ extraAttributeBonus(owner, Attribute.CRITICAL_DAMAGE)
-	
-						+ extraAttributeBonus(owner, Attribute.DAMAGE_UNARMED)
+						
+						+ extraAttributeBonus(owner, Attribute.SPELL_COST_MODIFIER)
 						+ extraAttributeBonus(owner, Attribute.DAMAGE_SPELLS)
+						
+						+ extraAttributeBonus(owner, Attribute.DAMAGE_UNARMED)
 						+ extraAttributeBonus(owner, Attribute.DAMAGE_MELEE_WEAPON)
 						+ extraAttributeBonus(owner, Attribute.DAMAGE_RANGED_WEAPON)
 						
-						+ extraAttributeBonus(owner, Attribute.BONUS_SHIELDING)
-						+ extraAttributeBonus(owner, Attribute.BONUS_LUST_SHIELDING)
+						+ extraAttributeBonus(owner, Attribute.ENERGY_SHIELDING)
 	
 						// Header:
 						+ "<div class='subTitle-third combatValue' style='padding:2px; margin:2px 1%; width:31%;'>"
@@ -913,7 +922,9 @@ public class TooltipInformationEventListener implements EventListener {
 						+ extraAttributeTableRow(owner, "Cold", Attribute.DAMAGE_ICE, Attribute.RESISTANCE_ICE)
 						+ extraAttributeTableRow(owner, "Poison", Attribute.DAMAGE_POISON, Attribute.RESISTANCE_POISON)
 						+ extraAttributeTableRow(owner, "Seduction", Attribute.DAMAGE_LUST, Attribute.RESISTANCE_LUST)
-						));
+						
+						+ extraAttributeBonus(owner, Attribute.FERTILITY)
+						+ extraAttributeBonus(owner, Attribute.VIRILITY)));
 //			}
 			
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
@@ -1211,7 +1222,7 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 
-	public TooltipInformationEventListener setPerk(Perk perk, GameCharacter owner) {
+	public TooltipInformationEventListener setPerk(AbstractPerk perk, GameCharacter owner) {
 		resetFields();
 		this.perk = perk;
 		this.owner = owner;
@@ -1245,11 +1256,12 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 
-	public TooltipInformationEventListener setLevelUpPerk(int perkRow, Perk levelUpPerk, GameCharacter owner) {
+	public TooltipInformationEventListener setLevelUpPerk(int perkRow, AbstractPerk levelUpPerk, GameCharacter owner, boolean availableForSelection) {
 		resetFields();
 		this.levelUpPerk = levelUpPerk;
 		this.perkRow = perkRow;
 		this.owner = owner;
+		this.availableForSelection = availableForSelection;
 
 		return this;
 	}
@@ -1332,6 +1344,7 @@ public class TooltipInformationEventListener implements EventListener {
 		fetishExperience = false;
 		desire = null;
 		levelUpPerk = null;
+		availableForSelection = false;
 		perkRow = 0;
 		spell = null;
 		spellUpgrade = null;

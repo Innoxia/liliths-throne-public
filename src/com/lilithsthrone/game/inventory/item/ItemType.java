@@ -4637,8 +4637,7 @@ public class ItemType {
 				subspecies = Subspecies.ELEMENTAL_FIRE;
 			}
 			effectsString.add("Adds "+subspecies.getName(null)+" encyclopedia entry.");
-			effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+subspecies.getDamageMultiplier().getName()+"</b>");
-			effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+subspecies.getResistanceMultiplier().getName()+"</b>");
+			effectsString.add("[style.boldExcellent(+10)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+subspecies.getDamageMultiplier().getName()+"</b>");
 			
 			
 			AbstractItemEffectType effectType = new AbstractItemEffectType(effectsString, s.getSpellSchool().getColour()) {
@@ -4651,19 +4650,19 @@ public class ItemType {
 					String raceKnowledgeGained = "";
 					if(target.isPlayer()) {
 						if(s == Spell.ELEMENTAL_EARTH) {
-							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_EARTH, true);
+							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_EARTH, true);
 							
 						} else if(s == Spell.ELEMENTAL_WATER) {
-							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_WATER, true);
+							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_WATER, true);
 							
 						} else if(s == Spell.ELEMENTAL_AIR) {
-							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_AIR, true);
+							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_AIR, true);
 							
 						} else if(s == Spell.ELEMENTAL_FIRE) {
-							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_FIRE, true);
+							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_FIRE, true);
 							
 						} else if(s == Spell.ELEMENTAL_ARCANE) {
-							raceKnowledgeGained = getBookEffect(Subspecies.ELEMENTAL_ARCANE, true);
+							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_ARCANE, true);
 							
 						}
 					}
@@ -5032,12 +5031,11 @@ public class ItemType {
 	private static AbstractItemEffectType generateBookEffect(Subspecies subspecies) {
 		return new AbstractItemEffectType(Util.newArrayListOfValues(
 				"Adds "+subspecies.getName(null)+" encyclopedia entry.",
-				"[style.boldExcellent(+5)] <b style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+subspecies.getDamageMultiplier().getName()+"</b>",
-				"[style.boldExcellent(+5)] <b style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+subspecies.getResistanceMultiplier().getName()+"</b>"),
+				"[style.boldExcellent(+10)] <b style='color:"+subspecies.getColour(null).toWebHexString()+";'>"+subspecies.getDamageMultiplier().getName()+"</b>"),
 				subspecies.getColour(null)) {
 			@Override
 			public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-				return getBookEffect(subspecies, true);
+				return getBookEffect(target, subspecies, true);
 			}
 		};
 	}
