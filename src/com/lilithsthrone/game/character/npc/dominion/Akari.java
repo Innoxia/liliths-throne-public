@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.valueEnums.*;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.inventory.*;
@@ -107,6 +109,19 @@ public class Akari extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+			this.resetPerksMap();
+		}
+	}
+
+	@Override
+	public void setupPerks() {
+		PerkManager.initialisePerks(this,
+				Util.newArrayListOfValues(),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 1),
+						new Value<>(PerkCategory.LUST, 0),
+						new Value<>(PerkCategory.ARCANE, 0)));
 	}
 	
 	@Override
@@ -117,9 +132,6 @@ public class Akari extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 10);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 50);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
 	
 			this.setPersonality(Util.newHashMapOfValues(
 					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
@@ -233,7 +245,7 @@ public class Akari extends NPC {
 	}
 	
 	@Override
-	public String getCharacterInformationScreen() {
+	public String getCharacterInformationScreen(boolean includePerkTree) {
 		infoScreenSB.setLength(0);
 		
 		infoScreenSB.append(

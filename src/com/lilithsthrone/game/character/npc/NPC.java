@@ -1,20 +1,5 @@
 package com.lilithsthrone.game.character.npc;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -28,17 +13,7 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.valueEnums.AssSize;
-import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.HairLength;
-import com.lilithsthrone.game.character.body.valueEnums.HipSize;
-import com.lilithsthrone.game.character.body.valueEnums.LipSize;
-import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
-import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -60,24 +35,13 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.inventory.enchanting.*;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
-import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaInterface;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexControl;
-import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.*;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
@@ -88,6 +52,14 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * @since 0.1.0

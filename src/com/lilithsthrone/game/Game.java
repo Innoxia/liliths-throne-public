@@ -601,7 +601,6 @@ public class Game implements XMLSaving {
 				// Add missing world types:
 				for(WorldType wt : WorldType.values()) {
 					Generation gen = new Generation();
-					boolean load = true;
 					if(Main.isVersionOlderThan(loadingVersion, "0.1.99.5")) {
 						gen.worldGeneration(WorldType.SHOPPING_ARCADE);
 					}
@@ -648,10 +647,7 @@ public class Game implements XMLSaving {
 					if(Main.game.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
 					}
-
-
 				}
-
 
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.4")) {
 					AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
@@ -734,6 +730,9 @@ public class Game implements XMLSaving {
 					Main.game.getNpc(Jules.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_ENTRANCE);
 					Main.game.getNpc(Kruger.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
 					Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
+				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.3.1")){
+					Main.game.getNpc(Akari.class).setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_AKARIS_SHOP);
 				}
 				
 				// To prevent errors from previous versions, reset Zaranix progress if prior to 0.1.95:
