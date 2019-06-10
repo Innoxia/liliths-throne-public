@@ -79,7 +79,7 @@ public class Akari extends NPC {
 	
 	public Akari(boolean isImported) {
 		super(isImported, new NameTriplet("Akari"), "Hayashi",
-				"Akari is the sole employee of her hodge-podge bargain store."
+				"Hayashi Akari is the sole employee of her hodge-podge bargain store."
 						+ " She is extremely cheerful. A cheeky, ear to ear smile never seems to leave her face.",
 				124, Month.JANUARY, 12,//TODO
 				10,

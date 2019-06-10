@@ -37,7 +37,7 @@ public class BargainStore {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.akariIntroduced)) {
-					return new Response("Enter", "Step inside Akari's Bargain Store.", ENTRY);
+					return new Response("Enter", "Step inside Hayashi's Bargain Store.", ENTRY);
 					
 				} else {
 					return new Response("Enter", "Step inside the Bargain Store.", ENTRY);
@@ -81,7 +81,7 @@ public class BargainStore {
 		@Override
 		public Response getResponse(int responseTab, int index) {				
 			if(index == 2) {
-				return new Response("Talk", "Talk to Akari about her shop and her wares...", TALK_AKARI){
+				return new Response("Talk", "Talk to Hayashi about her shop and her wares...", TALK_AKARI){
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.akariIntroduced);
@@ -125,10 +125,10 @@ public class BargainStore {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (((Akari) Main.game.getNpc(Akari.class)).getWeaponsForSale().isEmpty()) {
-					return new Response("Weapons", "Akari doesn't have any weapons in stock at the moment.", null);
+					return new Response("Weapons", "Hayashi doesn't have any weapons in stock at the moment.", null);
 				}
 
-				return new ResponseTrade("Weapons", "Walk over to the counter and see what weapons Vicky has in stock.", Main.game.getNpc(Akari.class)) {
+				return new ResponseTrade("Weapons", "Walk over to the counter and see what weapons Hayashi has in stock.", Main.game.getNpc(Akari.class)) {
 					@Override
 					public void effects() {
 
@@ -145,10 +145,10 @@ public class BargainStore {
 
 			} else if (index == 2) {
 				if (((Akari) Main.game.getNpc(Akari.class)).getItemsForSale().isEmpty()) {
-					return new Response("Items", "Akari doesn't have any items in stock at the moment.", null);
+					return new Response("Items", "Hayashi doesn't have any items in stock at the moment.", null);
 				}
 
-				return new ResponseTrade("Items", "Walk over to the counter and see what items Akari has collected", Main.game.getNpc(Akari.class)) {
+				return new ResponseTrade("Items", "Walk over to the counter and see what items Hayashi has collected", Main.game.getNpc(Akari.class)) {
 					@Override
 					public void effects() {
 
@@ -165,9 +165,9 @@ public class BargainStore {
 
 			} else if (index == 3) {
 				if (((Akari) Main.game.getNpc(Akari.class)).getClothingForSale().isEmpty()) {
-					return new Response("Clothing", "Akari doesn't have any clothing in stock at the moment.", null);
+					return new Response("Clothing", "Hayashi doesn't have any clothing in stock at the moment.", null);
 				}
-				return new ResponseTrade("Clothing", "Walk over to the counter and see what clothing Vicky has in stock.", Main.game.getNpc(Akari.class)) {
+				return new ResponseTrade("Clothing", "Walk over to the counter and see what clothing Hayashi has in stock.", Main.game.getNpc(Akari.class)) {
 					@Override
 					public void effects() {
 
@@ -183,7 +183,7 @@ public class BargainStore {
 				};
 
 			} else if (index == 0) {
-				return new Response("Nevermind", "Leave Arcane Arts and head back out into the arcade.", ENTRY) {
+				return new Response("Nevermind", "Leave the Bargain Store and head back out into the arcade.", ENTRY) {
 
 				};
 
