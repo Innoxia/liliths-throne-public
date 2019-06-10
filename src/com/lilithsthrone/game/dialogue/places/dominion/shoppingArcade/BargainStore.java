@@ -15,9 +15,9 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
- * @since 0.1.99
- * @version 0.1.99
- * @author Kumiko, Innoxia
+ * @since 3.3.0
+ * @version 0.3.3
+ * @author NukeBait, Innoxia
  */
 public class BargainStore {
 
@@ -40,12 +40,7 @@ public class BargainStore {
 					return new Response("Enter", "Step inside Akari's Bargain Store.", ENTRY);
 					
 				} else {
-					return new Response("Enter", "Step inside the Bargain Store.", ENTRY){
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.akariIntroduced);
-						}
-					};
+					return new Response("Enter", "Step inside the Bargain Store.", ENTRY);
 				}
 				
 			} else if (index == 6) {
@@ -86,12 +81,17 @@ public class BargainStore {
 		@Override
 		public Response getResponse(int responseTab, int index) {				
 			if(index == 2) {
-				return new Response("Talk", "Talk to Akari about her shop and her wares...", TALK_AKARI);
-			
+				return new Response("Talk", "Talk to Akari about her shop and her wares...", TALK_AKARI){
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.akariIntroduced);
+					}
+				};
+
 			}else {
 				
 				if (index == 1) {
-					return new Response("Trade", "Wander around the shop and see what items there are for sale...", TRADE_AKARI);
+					return new Response("Browse Shelves", "Wander around the shop and see what items there are for sale...", TRADE_AKARI);
 					
 					
 				} else if (index == 0) {

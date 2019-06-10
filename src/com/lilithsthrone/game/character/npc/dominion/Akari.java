@@ -63,8 +63,8 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
- * @since 3.3.0
- * @version
+ * @since 0.3.3
+ * @version 0.3.3
  * @author NukeBait, Innoxia
  */
 public class Akari extends NPC {
@@ -78,7 +78,7 @@ public class Akari extends NPC {
 	}
 	
 	public Akari(boolean isImported) {
-		super(isImported, new NameTriplet("Akari"), "Himeko",
+		super(isImported, new NameTriplet("Akari"), "Hayashi",
 				"Akari is the sole employee of her hodge-podge bargain store."
 						+ " She is extremely cheerful. A cheeky, ear to ear smile never seems to leave her face.",
 				124, Month.JANUARY, 12,//TODO
@@ -278,7 +278,7 @@ public class Akari extends NPC {
 					+ " A pair of golden eyes stare right back at you as you give her the once over."
 				+ "</p>"
 				+ "<p>"
-					+ "Even though she is short, Akari would not be \"Petite\" by any standards."
+					+ "Even though she is short, [npc.name] would not be \"Petite\" by any standards."
 					+ " Lightly muscled and just ever so slightly plush, you can tell her body has withstood the trials of adventuring."
 				+ "</p>");
 		

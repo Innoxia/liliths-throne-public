@@ -11,7 +11,7 @@
 	
 	<htmlContent tag="ENTRY"><![CDATA[
 	<p>
-		Upon pushing your way through the swinging door, a small bell at the top of the door announces you entry.
+		Upon pushing your way through the swinging door, a small bell at the top announces you entry.
 		 At first glance, the store seems to have no theme, with books, outfits, and... are those weapons?
 	</p>
 	<p>
@@ -20,7 +20,7 @@
 		 Nearly tripping over herself, a small kitsune hurries around the corner and down the aisle to greet you.
 	</p>
 	<p>
-		[akari.speech(*huff* ... *huff* S-sorry, My name is Akari Himeko, and I run this little shop!)]
+		[akari.speech(*huff* ... *huff* S-sorry, My name is Hayashi Akari, and I run this little shop!)]
 		 She takes a deep breath to steady herself before continuing.
 		 [akari.speech(Before you ask, yes I am a youko, yes I am old enough to own a store, and no I cannot grant wishes.)]
 		 The small youko girl's smile is contagious, and you find yourself almost mirroring her cheeky grin
@@ -29,7 +29,7 @@
 	<p>
 		[pc.speech(There go all my questions I guess.)]
 		 you jokingly admit.
-		 Akari shoots you a toothy smile in response, before becoming seemingly captivated by an object across the room.
+		 [npc.name] shoots you a toothy smile in response, before becoming seemingly captivated by an object across the room.
 	</p>
 	<p>
 		[akari.speech(Well it was nice meeting you, now if you excuse me, the display over there is a bit crooked.)]
@@ -52,8 +52,8 @@
 		a small voice calls out from behind the shelves.
 	</p>
 	<p>
-		[pc.speech(It's okay Akari, it's me)]
-		you call out. While Akari's energy is seemingly endless, you wouldn't want to make her hurry when she doesn't need to.
+		[pc.speech(It's okay [npc.name], it's me)]
+		you call out. While [npc.name]'s energy is seemingly endless, you wouldn't want to make her hurry when she doesn't need to.
 	</p>
 	<p>
 		[akari.speech(Oh! [pc.name]! Welcome back, what can I help you with?)]
@@ -66,7 +66,7 @@
 		[pc.speech(What is this place?)] you ask.
 	</p>
 	<p>
-		Akari's smile widens at your question, her fingertips brushing over on of the items on the counter for a moment before she answers.
+		[npc.name]'s smile widens at your question, her fingertips brushing over on of the items on the counter for a moment before she answers.
 		[akari.speech(This is my shop and it's full of treasures, most of them I gathered myself but recently there's been a massive influx of people trading me things.)]
 
 		She pauses for a moment to bite her lip again, her body shifting slightly as she considers her next words carefully.
@@ -78,11 +78,25 @@
 		You have a feeling that any strange items that appear in your world will probably end up in this shop.
 	</p>
 	]]>
+</htmlContent>
+
+	<htmlContent tag="TRADE"><![CDATA[
+		<p>
+			You look around the numerous shelves for something to buy.
+			 Upon closer inspection, it appears that the store is more or less sorted into three sections, weapons, clothing, and misc items.
+		</p>
+		<p>
+			[akari.speech(Go ahead and help yourself, I'll come help you when you are ready)] the small fox girl says.
+		</p>
+		<p>
+			What are you going to explore?
+		</p>
+		]]>
 	</htmlContent>
 
 	<htmlContent tag="EXIT"><![CDATA[
 	<p>
-		[pc.speech(Akari!, I'm gonna head out.)] you call out.
+		[pc.speech([npc.name]!, I'm gonna head out.)] you call out.
 	</p>
 	<p>
 		[akari.speech(Bye [pc.name]! Come back again.)]
