@@ -175,7 +175,7 @@ public class Util {
 	public static class Value<T, S> {
 		private T key;
 		private S value;
-
+		
 		public Value(T key, S value) {
 			this.key = key;
 			this.value = value;
@@ -300,8 +300,13 @@ public class Util {
 		
 		return mergedMap;
 	}
-	
+
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map) {
+		return getRandomObjectFromWeightedMap(map, Util.random);
+	}
+	
+	
+	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map, Random rnd) {
 		int total = 0;
 		for(int i : map.values()) {
 			total+=i;
@@ -311,7 +316,7 @@ public class Util {
 			return null;
 		}
 		
-		int choice = Util.random.nextInt(total) + 1;
+		int choice = rnd.nextInt(total) + 1;
 		
 		total = 0;
 		for(Entry<T, Integer> entry : map.entrySet()) {

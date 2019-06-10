@@ -44,7 +44,7 @@ public class CharactersPresentDialogue {
 			CharactersPresentDialogue.characterViewed = (NPC) characterViewed;
 		}
 		menuTitle = "Characters Present ("+Util.capitaliseSentence(CharactersPresentDialogue.characterViewed.getName(true))+")";
-		menuContent = ((NPC) CharactersPresentDialogue.characterViewed).getCharacterInformationScreen();
+		menuContent = ((NPC) CharactersPresentDialogue.characterViewed).getCharacterInformationScreen(true);
 
 //		Main.game.setActiveNPC(characterViewed);
 		targetedCharacterForSex = (NPC) CharactersPresentDialogue.characterViewed;
@@ -209,7 +209,7 @@ public class CharactersPresentDialogue {
 						public void effects() {
 							characterViewed = charactersPresent.get(index-1);
 							menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(index - 1).getName(true))+")";
-							menuContent = ((NPC) charactersPresent.get(index - 1)).getCharacterInformationScreen();
+							menuContent = ((NPC) charactersPresent.get(index - 1)).getCharacterInformationScreen(true);
 						}
 					};
 					
@@ -1063,7 +1063,7 @@ public class CharactersPresentDialogue {
 									characterViewed = charactersPresent.get(0);
 									//no need for character conceal check since its for follower
 									menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(0).getName(true))+")";
-									menuContent = ((NPC) charactersPresent.get(0)).getCharacterInformationScreen();
+									menuContent = ((NPC) charactersPresent.get(0)).getCharacterInformationScreen(true);
 								}
 							};
 						}
@@ -1178,34 +1178,18 @@ public class CharactersPresentDialogue {
 					+ "<h6 style='text-align:center;'>Active Traits</h6>"));
 
 			UtilText.nodeContentSB.append(
-					"<div id='OCCUPATION_" + characterViewed.getHistory().getAssociatedPerk()+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
+					"<div id='OCCUPATION_" + Perk.getIdFromPerk(characterViewed.getHistory().getAssociatedPerk())
+							+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>"
 						+ "<div class='square-button-content'>"+characterViewed.getHistory().getAssociatedPerk().getSVGString()+"</div>"
 					+ "</div>");
 			
-			for(int i=0;i<GameCharacter.MAX_TRAITS;i++) {
-				Perk p = null;
-				if(i<characterViewed.getTraits().size()) {
-					p = characterViewed.getTraits().get(i);
-				}
-				if(p!=null) {
-					UtilText.nodeContentSB.append("<div id='TRAIT_" + p + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
-							+ "<div class='square-button-content'>"+p.getSVGString()+"</div>"
-							+ "</div>");
-					
-				} else {
-					UtilText.nodeContentSB.append("<div id='TRAIT_" + i + "' class='square-button small' style='display:inline-block; float:none;'></div>");
-					
-				}
-			}
-			UtilText.nodeContentSB.append("</div>");
-			
+			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(characterViewed, true));
+
 			if(!(characterViewed instanceof Elemental)) {
-				UtilText.nodeContentSB.append("<div class='container-full-width' style='padding:8px; text-align:center;'>"
+				UtilText.nodeContentSB.append("</div><div class='container-full-width' style='padding:8px; text-align:center;'>"
 							+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
 						+ "</div>");
 			}
-			
-			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(characterViewed));
 			
 			return UtilText.nodeContentSB.toString();
 		}

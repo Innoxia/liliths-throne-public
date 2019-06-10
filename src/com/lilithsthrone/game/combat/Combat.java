@@ -218,16 +218,14 @@ public enum Combat {
 		
 		Main.game.getPlayer().resetSelectedMoves();
 		Main.game.getPlayer().resetMoveCooldowns();
-        Main.game.getPlayer().incrementShields(DamageType.ENERGY, Math.round(Main.game.getPlayer().getAttributeValue(Attribute.BONUS_SHIELDING)));
-        Main.game.getPlayer().incrementShields(DamageType.LUST, Math.round(Main.game.getPlayer().getAttributeValue(Attribute.BONUS_LUST_SHIELDING)));
+		applyNewTurnShielding(Main.game.getPlayer());
 		Main.game.getPlayer().setRemainingAP(Main.game.getPlayer().getMaxAP(), null, null);
 		
 		for(NPC npc : allCombatants) {
 			npc.resetSelectedMoves();
 			npc.resetDefaultMoves(); // Resetting in case the save file was too old and NPC has no moves selected for them.
 			npc.resetMoveCooldowns();
-			npc.incrementShields(DamageType.ENERGY, Math.round(npc.getAttributeValue(Attribute.BONUS_SHIELDING)));
-			npc.incrementShields(DamageType.LUST, Math.round(npc.getAttributeValue(Attribute.BONUS_LUST_SHIELDING)));
+			applyNewTurnShielding(npc);
 			npc.setRemainingAP(npc.getMaxAP(), null, null);
 			// Sets up NPC ally/enemy lists that include player
 			List<GameCharacter> npcAllies;
@@ -502,7 +500,7 @@ public enum Combat {
 		return ENEMY_ATTACK;
 	}
 	
-	private static boolean isCombatantDefeated(GameCharacter character) {
+	public static boolean isCombatantDefeated(GameCharacter character) {
 		return (character.getHealth() <= 0 || (character.getLust()>=100 && character.isVulnerableToLustLoss()));
 	}
 	
@@ -785,24 +783,39 @@ public enum Combat {
 							null);
 				}
 				StringBuilder moveStatblock = new StringBuilder();
+				
 				int apCost = move.getAPcost();
 				moveStatblock.append("AP: <span style='color:"+(actionPointColours[apCost]).toWebHexString()+";'>"+apCost+"</span> <b>|</b> ");
+				
 				int cooldown = move.getCooldown();
-				moveStatblock.append("Cooldown: <span style='color:"+(cooldown==0?Colour.GENERIC_MINOR_GOOD:Colour.GENERIC_MINOR_BAD).toWebHexString()+";'>"+cooldown+"</span><br/>");
+				moveStatblock.append("Cooldown: <span style='color:"+(cooldown==0?Colour.GENERIC_MINOR_GOOD:Colour.GENERIC_MINOR_BAD).toWebHexString()+";'>"+cooldown+"</span>");
+
+				if(move.getStatusEffects()!=null) {
+					for(Entry<StatusEffect, Integer> entry : move.getStatusEffects().entrySet()) {
+						moveStatblock.append(" <b>|</b> Applies <b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName(moveTarget))+"</b>"
+								+ " for <b>"+entry.getValue()+(entry.getValue()==1?" turn":" turns")+"</b>");
+					}
+				}
+				moveStatblock.append("<br/>");
+				
 				StringBuilder critText = new StringBuilder();
 				critText.append("<br/>[style.colourCrit(Critical Requirement)]:");
 				for(String s : move.getCritRequirements(Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies)) {
 					critText.append(" "+s);
 				}
+				int selectedMoveIndex = Main.game.getPlayer().getSelectedMoves().size();
+				
+				String predictionTooltip = move.getPrediction(selectedMoveIndex, Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies);
+				
 				return new Response(Util.capitaliseSentence(move.getName()),
 					moveStatblock.toString()
-						+ move.getPrediction(Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies)
+						+ predictionTooltip
 						+ critText.toString(),
 					ENEMY_ATTACK){
 					@Override
 					public void effects() {
 						Main.game.getPlayer().selectMove(Main.game.getPlayer().getSelectedMoves().size(), move, moveTarget, pcEnemies, pcAllies);
-						predictionContent.get(Main.game.getPlayer()).add(move.getPrediction(Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies));
+						predictionContent.get(Main.game.getPlayer()).add(move.getPrediction(selectedMoveIndex, Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies));
 					}
 					@Override
 					public Colour getHighlightColour() {
@@ -931,6 +944,7 @@ public enum Combat {
 										move.getKey(),
 										new ArrayList<>(enemies),
 										new ArrayList<>(allies));
+								Main.game.getPlayer().setCooldown(move.getValue().getIdentifier(), 0);
 								i++;
 							}
 						}
@@ -1153,6 +1167,30 @@ public enum Combat {
 
 	private static StringBuilder endTurnStatusEffectText = new StringBuilder();
 
+	public static int getShieldingFromClothing(GameCharacter character) {
+		int clothingDefence = 0;
+		for(AbstractClothing clothing : character.getClothingCurrentlyEquipped()) {
+			clothingDefence += clothing.getClothingType().getPhysicalResistance();
+		}
+		return Math.round(clothingDefence/10f);
+	}
+	
+	private static void applyNewTurnShielding(GameCharacter character) {
+	    character.resetShields();
+	    
+	    int bonusEnergyShielding = Math.round(character.getAttributeValue(Attribute.ENERGY_SHIELDING));
+		character.incrementShields(DamageType.ENERGY, bonusEnergyShielding);
+		
+		DamageType[] damageTypes = new DamageType[] {DamageType.PHYSICAL, DamageType.FIRE, DamageType.ICE, DamageType.POISON};
+		for(DamageType dt : damageTypes) {
+			character.incrementShields(dt, Math.round(character.getAttributeValue(dt.getResistAttribute())));
+		}
+		
+		character.incrementShields(DamageType.PHYSICAL, getShieldingFromClothing(character));
+		
+	    character.incrementShields(DamageType.LUST, Math.round(character.getAttributeValue(DamageType.LUST.getResistAttribute())));
+	}
+	
 	public static void endCombatTurn() {
 		List<NPC> combatants = new ArrayList<>(allCombatants); // To avoid concurrent modification when the 'summon elemental' spell adds combatants.
 		for(NPC character : combatants) {
@@ -1170,9 +1208,7 @@ public enum Combat {
 				npcAllies = new ArrayList<>(enemies);
 			}
 
-		    character.resetShields();
-		    character.incrementShields(DamageType.ENERGY, Math.round(character.getAttributeValue(Attribute.BONUS_SHIELDING)));
-		    character.incrementShields(DamageType.LUST, Math.round(character.getAttributeValue(Attribute.BONUS_LUST_SHIELDING)));
+			applyNewTurnShielding(character);
 			character.lowerMoveCooldowns();
 			character.setRemainingAP(character.getMaxAP(), npcEnemies, npcAllies);
 			attackNPC(character);
@@ -1187,12 +1223,12 @@ public enum Combat {
 		List<GameCharacter> pcAllies = new ArrayList<>(allies);
 		pcAllies.add(Main.game.getPlayer());
 		List<GameCharacter> pcEnemies = new ArrayList<>(enemies);
-        Main.game.getPlayer().resetShields();
-        Main.game.getPlayer().incrementShields(DamageType.ENERGY, Math.round(Main.game.getPlayer().getAttributeValue(Attribute.BONUS_SHIELDING)));
-        Main.game.getPlayer().incrementShields(DamageType.LUST, Math.round(Main.game.getPlayer().getAttributeValue(Attribute.BONUS_LUST_SHIELDING)));
+		applyNewTurnShielding(Main.game.getPlayer());
 		Main.game.getPlayer().lowerMoveCooldowns();
 		Main.game.getPlayer().setRemainingAP(Main.game.getPlayer().getMaxAP(), pcEnemies, pcAllies);
-
+		
+		predictionContent.put(Main.game.getPlayer(), new ArrayList<>());
+		
 		// NPC end turn effects:
 		for(NPC character : allCombatants) {
 			character.lowerMoveCooldowns();
@@ -1222,21 +1258,47 @@ public enum Combat {
 	}
 
 	private static String getTitleResources(GameCharacter character) {
-		int physicalShield = 0;
-		int lustShield = 0;
-		for(Value<GameCharacter, CombatMove> move : character.getSelectedMoves()) {
-			int block = move.getValue().getBlock(false);
-			if(move.getValue().getDamageType(character)==DamageType.PHYSICAL) {
-				physicalShield+=block;
-			} else if(move.getValue().getDamageType(character)==DamageType.LUST) {
-				lustShield+=block;
+		int apRemaining = character.getRemainingAP();
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(" <b>(<span style='color:"+(apRemaining==0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD).toWebHexString()+";'>"+apRemaining+"</span>/"+Main.game.getPlayer().getMaxAP()+" AP)</b>");
+		
+		boolean shieldsFound = false;
+		int shields = character.getShields(DamageType.ENERGY);
+		if(shields>0) {
+			if(!shieldsFound) {
+				sb.append("<br/>");
 			}
+			shieldsFound = true;
+			sb.append("<span style='color:"+DamageType.ENERGY.getColour().toWebHexString()+";'>&#9930;</span> "+shields);
 		}
 		
-		int apRemaining = character.getRemainingAP();
-		return "<span style='color:"+(apRemaining==0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD).toWebHexString()+";'>"+apRemaining+"</span>/"+Main.game.getPlayer().getMaxAP()+" AP"
-				+ " | <span style='color:"+Attribute.BONUS_SHIELDING.getColour().toWebHexString()+";'>&#9930;</span> "+(Math.round(character.getAttributeValue(Attribute.BONUS_SHIELDING))+physicalShield)
-				+ " | <span style='color:"+Attribute.BONUS_LUST_SHIELDING.getColour().toWebHexString()+";'>&#9930;</span> "+(Math.round(character.getAttributeValue(Attribute.BONUS_LUST_SHIELDING))+lustShield);
+		DamageType[] damageTypes = new DamageType[] {DamageType.PHYSICAL, DamageType.FIRE, DamageType.ICE, DamageType.POISON};
+		for(DamageType dt : damageTypes) {
+			shields = character.getShields(dt);
+			if(shields>0) {
+				if(!shieldsFound) {
+					sb.append("<br/>");
+				} else {
+					sb.append(" | ");
+				}
+				shieldsFound = true;
+				sb.append("<span style='color:"+dt.getColour().toWebHexString()+";'>&#9930;</span> "+shields);
+			}
+		}
+
+		shields = character.getShields(DamageType.LUST);
+		if(shields>0) {
+			if(!shieldsFound) {
+				sb.append("<br/>");
+			} else {
+				sb.append(" | ");
+			}
+			shieldsFound = true;
+			sb.append("<span style='color:"+DamageType.LUST.getColour().toWebHexString()+";'>&#9930;</span> "+character.getShields(DamageType.LUST));
+		}
+		
+		return sb.toString();
 	}
 	
 	private static String getCombatContent() {
@@ -1248,7 +1310,7 @@ public enum Combat {
 		
 			sb.append("<div class='container-half-width'>");
 				
-				sb.append("[style.boldGood(You)]<br/>"+ getTitleResources(Main.game.getPlayer()));
+				sb.append("[style.boldGood(You)]"+ getTitleResources(Main.game.getPlayer()));
 				for(String s : predictionContent.get(Main.game.getPlayer())) {
 					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
 				}
@@ -1258,7 +1320,7 @@ public enum Combat {
 				sb.append("</br>");
 			
 				for(GameCharacter ally : Combat.getAllies()) {
-					sb.append(UtilText.parse(ally, "</br>[style.boldMinorGood([npc.Name])]<br/>")+ getTitleResources(ally));
+					sb.append(UtilText.parse(ally, "</br>[style.boldMinorGood([npc.Name])]")+ getTitleResources(ally));
 					for(String s : predictionContent.get(ally)) {
 						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
 					}
@@ -1271,7 +1333,7 @@ public enum Combat {
 
 			sb.append("<div class='container-half-width'>");
 			for(GameCharacter enemy : Combat.getEnemies()) {
-				sb.append(UtilText.parse(enemy, (Combat.enemyLeader.equals(enemy)?"[style.boldBad([npc.Name])]":"</br>[style.boldMinorBad([npc.Name])]")+"<br/>")+ getTitleResources(enemy));
+				sb.append(UtilText.parse(enemy, (Combat.enemyLeader.equals(enemy)?"[style.boldBad([npc.Name])]":"</br>[style.boldMinorBad([npc.Name])]"))+ getTitleResources(enemy));
 				for(String s : predictionContent.get(enemy)) {
 					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
 				}

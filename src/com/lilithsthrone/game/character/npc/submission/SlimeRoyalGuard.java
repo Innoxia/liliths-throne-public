@@ -10,7 +10,6 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -34,6 +33,9 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -96,6 +98,22 @@ public class SlimeRoyalGuard extends NPC {
 		}
 		
 		setStartingCombatMoves();
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+			this.setLevel(10);
+			this.resetPerksMap();
+		}
+		setStartingCombatMoves();
+	}
+
+	@Override
+	public void setupPerks() {
+		this.addSpecialPerk(Perk.MARTIAL_BACKGROUND);
+		PerkManager.initialisePerks(this,
+				Util.newArrayListOfValues(),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 1),
+						new Value<>(PerkCategory.LUST, 0),
+						new Value<>(PerkCategory.ARCANE, 0)));
 	}
 	
 	@Override
@@ -112,15 +130,6 @@ public class SlimeRoyalGuard extends NPC {
 		
 		// Persona:
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 60);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 20);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 40);
-			
-			this.setAttribute(Attribute.DAMAGE_MELEE_WEAPON, 50);
-			this.setAttribute(Attribute.RESISTANCE_LUST, 50);
-			this.setAttribute(Attribute.CRITICAL_CHANCE, 15);
-			this.setAttribute(Attribute.CRITICAL_DAMAGE, 250);
-	
 			this.addSpell(Spell.SLAM);
 			this.addSpell(Spell.TELEKENETIC_SHOWER);
 	

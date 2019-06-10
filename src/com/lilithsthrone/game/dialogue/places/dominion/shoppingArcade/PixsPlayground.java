@@ -40,7 +40,6 @@ public class PixsPlayground {
 					public void effects(){
 						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.4f);
 						Main.game.getTextEndStringBuilder().append(
-//								Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_PHYSIQUE, 0.25f)+ 
 								"<p style='text-align:center'>[style.boldBad(-5)] <b style='color:"+Colour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
 								+Main.game.getPlayer().incrementBodySize(-5));
 					}

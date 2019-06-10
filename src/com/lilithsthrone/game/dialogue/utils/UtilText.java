@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.*;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -338,11 +339,11 @@ public class UtilText {
 	}
 	
 	// "Temporary" methods until I refine the way DialogueNodes work:
-	public static String getRequirementsDescription(Perk perkRequired) {
+	public static String getRequirementsDescription(AbstractPerk perkRequired) {
 		return ("You require the perk '<b style='color:"+perkRequired.getPerkCategory().getColour().toWebHexString()+";'>"+perkRequired.getName(Main.game.getPlayer())+"</b>'.");
 	}
 	
-	public static String getRequirementsDescription(Perk perkRequired, Gender... gendersRequired) {
+	public static String getRequirementsDescription(AbstractPerk perkRequired, Gender... gendersRequired) {
 		descriptionSB.setLength(0);
 		
 		descriptionSB.append("You require the perk '<b style='color:"+perkRequired.getPerkCategory().getColour().toWebHexString()+";'>"+perkRequired.getName(Main.game.getPlayer())+"</b>'");
@@ -368,7 +369,7 @@ public class UtilText {
 		return descriptionSB.toString();
 	}
 	
-	public static String getRequirementsDescription(CorruptionLevel corruptionNeeded, Perk... perkRequired) {
+	public static String getRequirementsDescription(CorruptionLevel corruptionNeeded, AbstractPerk... perkRequired) {
 		descriptionSB.setLength(0);
 		
 		descriptionSB.append("You require a corruption level of <b style='color:"+corruptionNeeded.getColour().toWebHexString()+";'>"+corruptionNeeded.getName()+"</b>");
@@ -6336,8 +6337,8 @@ public class UtilText {
 		for(FetishDesire fetishDesire : FetishDesire.values()) {
 			engine.put("FETISH_DESIRE_"+fetishDesire.toString(), fetishDesire);
 		}
-		for(Perk p : Perk.values()) {
-			engine.put("PERK_"+p.toString(), p);
+		for(AbstractPerk p : Perk.getAllPerks()) {
+			engine.put("PERK_"+Perk.getIdFromPerk(p), p);
 		}
 		for(StatusEffect sa : StatusEffect.values()) {
 			engine.put("SE_"+sa.toString(), sa);

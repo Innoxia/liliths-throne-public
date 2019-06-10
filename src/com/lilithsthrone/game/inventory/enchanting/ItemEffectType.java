@@ -604,7 +604,7 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType INT_GRAPE_JUICE = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
-			"[style.boldGood(+10)] [style.boldPhysique(critical hit damage)] to 'potion effects'",
+			"[style.boldGood(+10)] [style.boldPhysique(critical power)] to 'potion effects'",
 			"[style.boldMinorBad(Adds)] 10% to [style.boldAlcohol(intoxication level)]"),
 			Colour.ATTRIBUTE_PHYSIQUE) {
 		

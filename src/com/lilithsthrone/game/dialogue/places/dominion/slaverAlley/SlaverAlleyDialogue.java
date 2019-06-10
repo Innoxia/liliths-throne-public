@@ -21,6 +21,7 @@ import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -73,6 +74,7 @@ public class SlaverAlleyDialogue {
 		Gender[] genders = new Gender[] {Gender.F_V_B_FEMALE, Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI};
 		for(int i=0; i<genders.length; i++) {
 			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
+			slave.setHistory(Occupation.NPC_SLAVE);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -96,6 +98,7 @@ public class SlaverAlleyDialogue {
 		genders = new Gender[] {Gender.M_P_MALE, Gender.M_P_MALE, Gender.M_P_MALE};
 		for(int i=0; i<genders.length; i++) {
 			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
+			slave.setHistory(Occupation.NPC_SLAVE);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -117,6 +120,7 @@ public class SlaverAlleyDialogue {
 		// Anal stall:
 		for(int i=0; i<3; i++) {
 			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
+			slave.setHistory(Occupation.NPC_SLAVE);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -150,6 +154,7 @@ public class SlaverAlleyDialogue {
 		// Vaginal stall:
 		for(int i=0; i<3; i++) {
 			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(true, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
+			slave.setHistory(Occupation.NPC_SLAVE);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -174,6 +179,7 @@ public class SlaverAlleyDialogue {
 		// Oral stall:
 		for(int i=0; i<3; i++) {
 			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
+			slave.setHistory(Occupation.NPC_SLAVE);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {

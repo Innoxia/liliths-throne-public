@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -320,12 +321,10 @@ public class ImpAttacker extends NPC {
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(
 									UtilText.parseFromXMLFile("places/submission/impCitadel"+ImpCitadelDialogue.getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST", ImpCitadelDialogue.getAllCharacters()));
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.DAMAGE_IMP, 100));
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.RESISTANCE_IMP, 100));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addSpecialPerk(Perk.IMP_SLAYER));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonImpsDefeated, true);
 							if(ImpCitadelDialogue.isCompanionDialogue()) {
-								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().incrementAttribute(Attribute.DAMAGE_IMP, 100));
-								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().incrementAttribute(Attribute.RESISTANCE_IMP, 100));
+								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().addSpecialPerk(Perk.IMP_SLAYER));
 							}
 						}
 					};

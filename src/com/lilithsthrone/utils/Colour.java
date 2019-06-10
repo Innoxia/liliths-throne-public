@@ -292,9 +292,9 @@ public enum Colour {
 	FEMININE_PLUS_NPC(false, BaseColour.PINK, "pink"),
 
 	// Combat colours:
-	DAMAGE_TYPE_PHYSICAL(false, Util.newColour(0xFF428E), Util.newColour(0xFF428E), "red", Util.newArrayListOfValues("dmgPhysical", "resPhysical", "physical")),
+	DAMAGE_TYPE_PHYSICAL(false, Util.newColour(0xA79E90), Util.newColour(0x5C4D42), "grey-brown", Util.newArrayListOfValues("dmgPhysical", "resPhysical", "physical")),
 	DAMAGE_TYPE_MANA(false, BaseColour.PURPLE_LIGHT, "purple", Util.newArrayListOfValues("dmgMana", "resMana")),
-	DAMAGE_TYPE_LUST(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("dmgLust", "resLust")),
+	DAMAGE_TYPE_LUST(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("dmgLust", "resLust")),
 	DAMAGE_TYPE_SPELL(false, Util.newColour(0xFF6BDA), Util.newColour(0xFF6BDA), "pink", Util.newArrayListOfValues("dmgSpell", "resSpell", "spell")),
 	DAMAGE_TYPE_FIRE(false, Util.newColour(0xff9955), Util.newColour(0xff9955), "orange", Util.newArrayListOfValues("dmgFire", "resFire", "fire")),
 	DAMAGE_TYPE_COLD(false, Util.newColour(0x85C6FF), Util.newColour(0x85C6FF), "blue", Util.newArrayListOfValues("dmgCold", "resCold", "cold", "ice")),

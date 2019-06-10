@@ -9,7 +9,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
@@ -51,7 +50,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * Test class that I'm using to try out some methods and stuff. It might end up as a bit of a mess, but don't remove it.
  * 
  * @since 0.1.83
- * @version 0.3.1
+ * @version 0.3.4
  * @author Innoxia
  */
 public class TestNPC extends NPC {
@@ -89,10 +88,6 @@ public class TestNPC extends NPC {
 			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BROWN), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 	
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 5);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 25);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
-			
 			this.setFemininity(75);
 			
 			this.setHeight(170);

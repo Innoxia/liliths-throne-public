@@ -39,6 +39,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
@@ -538,7 +539,7 @@ public enum StatusEffect {
 			Colour.CORRUPTION_STAGE_ZERO,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f)),
 			null) {
 
 		@Override
@@ -573,8 +574,8 @@ public enum StatusEffect {
 			Colour.CORRUPTION_STAGE_ONE,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f)),
 			null) {
 
 		@Override
@@ -608,8 +609,8 @@ public enum StatusEffect {
 			"attCorruption2",
 			Colour.CORRUPTION_STAGE_TWO,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 20f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
 			null) {
 
 		@Override
@@ -1792,6 +1793,9 @@ public enum StatusEffect {
 
 		@Override
 		public String getName(GameCharacter target) {
+			if(target.isRaceConcealed()) {
+				return "Concealed subspecies bonus";
+			}
 			if(target.getSubspeciesOverride()!=null && target.getSubspeciesOverride().equals(Subspecies.DEMON) && target.getRaceStage()!=RaceStage.GREATER) {
 				return Subspecies.DEMON.getName(null)+" ("+target.getSubspecies().getName(target)+")";
 			}
@@ -1800,6 +1804,9 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
+			if(target.isRaceConcealed()) {
+				return UtilText.parse(target, "Although [npc.namePos] race is concealed, they're still benefiting from the attribute modifiers...");
+			}
 			if(target.getSubspeciesOverride()!=null && target.getSubspeciesOverride().equals(Subspecies.DEMON) && target.getRaceStage()!=RaceStage.GREATER) {
 				String subspeciesName = target.getSubspecies().getName(target);//target.getHalfDemonSubspecies().getName(target);
 				return Subspecies.DEMON.getStatusEffectDescription(target)
@@ -1811,8 +1818,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInNewWorld()
-					&& !target.isRaceConcealed();
+			return Main.game.isInNewWorld();
 		}
 
 		@Override
@@ -1827,6 +1833,9 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
+			if(owner.isRaceConcealed()) {
+				return SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown();
+			}
 //			if(owner.getSubspeciesOverride()!=null && owner.getSubspeciesOverride().equals(Subspecies.DEMON)) {
 //				return Subspecies.DEMON.getSVGString(null);
 //			}
@@ -3381,7 +3390,7 @@ public enum StatusEffect {
 			"pregnancy1",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 2f)),
 			null) {
 
 		@Override
@@ -3478,7 +3487,7 @@ public enum StatusEffect {
 			"pregnancy2",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 4f)),
 			null) {
 
 		@Override
@@ -3584,7 +3593,7 @@ public enum StatusEffect {
 			"pregnancy3",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 6f)),
 			null) {
 
 		@Override
@@ -5255,7 +5264,7 @@ public enum StatusEffect {
 			Colour.GENERIC_ARCANE,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
 
 		@Override
@@ -5289,7 +5298,6 @@ public enum StatusEffect {
 			Colour.GENERIC_BAD,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -25f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -10f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -10f)),
 			null) {
@@ -5365,7 +5373,6 @@ public enum StatusEffect {
 			Colour.GENERIC_BAD,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -5f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -5f)),
 			null) {
@@ -5411,7 +5418,6 @@ public enum StatusEffect {
 			Colour.GENERIC_BAD,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -60f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -20f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -20f)),
 			null) {
@@ -5452,7 +5458,6 @@ public enum StatusEffect {
 			Colour.BASE_PINK_DEEP,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
 
@@ -5491,7 +5496,6 @@ public enum StatusEffect {
 			Colour.BASE_PINK_DEEP,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f)),
 			null) {
 
@@ -5530,7 +5534,6 @@ public enum StatusEffect {
 			Colour.BASE_PINK_DEEP,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 30f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f)),
 			null) {
 
@@ -5567,9 +5570,7 @@ public enum StatusEffect {
 			Colour.GENERIC_EXCELLENT,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 15f)),
 			null) {
 
 		@Override
@@ -5599,10 +5600,8 @@ public enum StatusEffect {
 			Colour.GENERIC_EXCELLENT,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f)),
 			null) {
 
 		@Override
@@ -5633,8 +5632,9 @@ public enum StatusEffect {
 			"virginBroken",
 			Colour.GENERIC_TERRIBLE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -25f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f)),
 			null) {
 
 		@Override
@@ -5668,8 +5668,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -25f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f)),
 			null) {
 
 		@Override
@@ -5738,9 +5737,9 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
 
 		@Override
@@ -5805,9 +5804,9 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
 
 		@Override
@@ -5872,9 +5871,9 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 2f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 2f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 2f)),
 			null) {
 
 		@Override
@@ -5933,7 +5932,10 @@ public enum StatusEffect {
 			"set_enforcer",
 			Colour.CLOTHING_WHITE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f)), null) {
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
+			null) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6009,8 +6011,8 @@ public enum StatusEffect {
 			Colour.CLOTHING_OLIVE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f)),
 			null) {
 
 		@Override
@@ -6093,7 +6095,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f)),
 			null) {
 
 		@Override
@@ -6118,7 +6120,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f)),
 			null) {
 
 		@Override
@@ -6228,9 +6230,9 @@ public enum StatusEffect {
 			Colour.BASE_BLACK,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 25f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 15f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f)),
 			null) {
 
 		@Override
@@ -6355,18 +6357,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ANGEL, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ANGEL, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ANGEL, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how angels will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how angels will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how angels will behave.");
 		}
 		
 	},
@@ -6379,18 +6376,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_CAT_MORPH, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_CAT_MORPH, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_CAT_MORPH, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how cat-morphs will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how cat-morphs will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how cat-morphs will behave.");
 		}
 		
 	},
@@ -6403,18 +6395,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_COW_MORPH, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_COW_MORPH, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_COW_MORPH, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how cow-morphs will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how cow-morphs will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how cow-morphs will behave.");
 		}
 		
 	},
@@ -6427,18 +6414,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_DEMON, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_DEMON, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_DEMON, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how demons will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how demons will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how demons will behave.");
 		}
 		
 	},
@@ -6451,18 +6433,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_IMP, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_IMP, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_IMP, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how imps will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how imps will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how imps will behave.");
 		}
 		
 	},
@@ -6475,18 +6452,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_DOG_MORPH, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_DOG_MORPH, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_DOG_MORPH, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how dog-morphs will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how dog-morphs will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how dog-morphs will behave.");
 		}
 		
 	},
@@ -6499,18 +6471,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_HARPY, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_HARPY, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_HARPY, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how harpies will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how harpies will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how harpies will behave.");
 		}
 		
 	},
@@ -6523,18 +6490,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_HORSE_MORPH, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_HORSE_MORPH, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_HORSE_MORPH, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how horse-morphs will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how horse-morphs will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how horse-morphs will behave.");
 		}
 		
 	},
@@ -6547,18 +6509,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_REINDEER_MORPH, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_REINDEER_MORPH, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_REINDEER_MORPH, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how reindeer-morphs will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how reindeer-morphs will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how reindeer-morphs will behave.");
 		}
 		
 	},
@@ -6571,18 +6528,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_HUMAN, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_HUMAN, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_HUMAN, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how humans will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how humans will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how humans will behave.");
 		}
 		
 	},
@@ -6595,18 +6547,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_SQUIRREL_MORPH, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_SQUIRREL_MORPH, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SQUIRREL_MORPH, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how squirrel-morphs will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how squirrel-morphs will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how squirrel-morphs will behave.");
 		}
 		
 	},
@@ -6619,18 +6566,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_RAT_MORPH, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_RAT_MORPH, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_RAT_MORPH, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how rat-morphs will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how rat-morphs will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how rat-morphs will behave.");
 		}
 		
 	},
@@ -6643,18 +6585,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_RABBIT_MORPH, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_RABBIT_MORPH, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_RABBIT_MORPH, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how rabbit-morphs will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how rabbit-morphs will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how rabbit-morphs will behave.");
 		}
 		
 	},
@@ -6667,18 +6604,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_BAT_MORPH, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_BAT_MORPH, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_BAT_MORPH, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how bat-morphs will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how bat-morphs will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how bat-morphs will behave.");
 		}
 		
 	},
@@ -6691,18 +6623,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ALLIGATOR_MORPH, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ALLIGATOR_MORPH, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ALLIGATOR_MORPH, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how alligator-morphs will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how alligator-morphs will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how alligator-morphs will behave.");
 		}
 		
 	},
@@ -6715,18 +6642,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_WOLF_MORPH, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_WOLF_MORPH, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_WOLF_MORPH, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how wolf-morphs will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how wolf-morphs will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how wolf-morphs will behave.");
 		}
 	},
 	
@@ -6738,18 +6660,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_FOX_MORPH, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FOX_MORPH, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FOX_MORPH, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how fox-morphs will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how fox-morphs will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how fox-morphs will behave.");
 		}
 	},
 	
@@ -6761,18 +6678,13 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_SLIME, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_SLIME, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SLIME, 25f)),
 			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
 			}
-			if (target.isPlayer()) {
-				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how slimes will behave.";
-			} else {
-				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how slimes will behave.");
-			}
+			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how slimes will behave.");
 		}
 		
 	},
@@ -6872,7 +6784,9 @@ public enum StatusEffect {
 			"negativeCombatEffect",
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -25f), new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -25f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -25f)),
 			null) {
 		
 		@Override
@@ -6884,8 +6798,6 @@ public enum StatusEffect {
 						target.getName("The") + "'s head is spinning and [npc.sheIs] struggling to stay upright. [npc.sheIs] finding it incredibly difficult to land a hit on you or dodge one of your attacks.");
 		}
 
-		
-		
 		@Override
 		public boolean isCombatEffect() {
 			return true;
@@ -7036,18 +6948,9 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			int damage = (int) Math.round(25 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
-			if (damage < 1) {
-				damage = 1;
-			}
-			target.incrementHealth(-damage);
+			int damage = DamageType.POISON.damageTarget(null, target, 25);
 
-			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
-				
-			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
-			}
+			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!");
 		}
 
 		@Override
@@ -7260,7 +7163,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 20f)),
 			Util.newArrayListOfValues("Attacks deal <b>5</b> [style.boldFire(Fire Damage)]")) {
 		
 		@Override
@@ -7294,7 +7197,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 20f)),
 			Util.newArrayListOfValues(
 					"Attacks deal <b>5</b> [style.boldFire(Fire Damage)]",
 					"Attackers take <b>5</b> [style.colourFire(Fire Damage)]")) {
@@ -7495,7 +7398,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f)),
 			null) {
 		
 		@Override
@@ -7669,7 +7572,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
 			null) {
 		
 		@Override
@@ -7699,7 +7602,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
 			null) {
 		
 		@Override
@@ -7729,7 +7632,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
 			null) {
 		
 		@Override
@@ -7812,7 +7715,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_COLD,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 15f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
 			null) {
 		
 		@Override
@@ -7938,7 +7841,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f)),
 			null) {
 		
 		@Override
@@ -7978,18 +7881,9 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
-			if (damage < 1) {
-				damage = 1;
-			}
-			target.incrementHealth(-damage);
+			int damage = DamageType.POISON.damageTarget(null, target, 10);
 
-			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
-				
-			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
-			}
+			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!");
 		}
 
 		@Override
@@ -8020,23 +7914,14 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_POISON,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
 			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
 				
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
-			if (damage < 1) {
-				damage = 1;
-			}
-			target.incrementHealth(-damage);
+			int damage = DamageType.POISON.damageTarget(null, target, 10);
 
-			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
-				
-			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
-			}
+			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!");
 		}
 
 		@Override
@@ -8067,28 +7952,19 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_POISON,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
 			Util.newArrayListOfValues(
 					"<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>",
 					"<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>")) {
 				
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
-			if (damage < 1) {
-				damage = 1;
-			}
-			target.incrementHealth(-damage);
-			
+			int damage = DamageType.POISON.damageTarget(null, target, 10);
+
 			int lustDamage = 10;
 			target.incrementMana(-lustDamage);
-
-			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and lose <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!";
-				
-			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and loses <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!";
-			}
+			
+			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and [npc.verb(lose)] <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!");
 		}
 
 		@Override
@@ -8119,7 +7995,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_POISON,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -25f)),
 			Util.newArrayListOfValues(
@@ -8128,21 +8004,12 @@ public enum StatusEffect {
 				
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
-			if (damage < 1) {
-				damage = 1;
-			}
-			target.incrementHealth(-damage);
-			
+			int damage = DamageType.POISON.damageTarget(null, target, 10);
+
 			int lustDamage = 10;
 			target.incrementMana(-lustDamage);
 			
-			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and lose <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!";
-				
-			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and loses <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!";
-			}
+			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and [npc.verb(lose)] <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!");
 		}
 
 		@Override
@@ -8173,7 +8040,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -10f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -10f)),
 			null) {
 		
 		@Override
@@ -8204,8 +8071,8 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -20f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -15f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -20f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -25f)),
 			null) {
 		
 		@Override
@@ -8238,8 +8105,8 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -20f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -15f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -20f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -25f)),
 			Util.newArrayListOfValues(
 					"<b>10%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
 		
@@ -8296,8 +8163,8 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -20f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -15f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -20f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -25f)),
 			Util.newArrayListOfValues(
 					"<b>25%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
 		
@@ -8354,8 +8221,8 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f),
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 1f)),
 			null) {
 		
 		@Override
@@ -8382,9 +8249,9 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f),
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 15f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f)),
 			null) {
 		
 		@Override
@@ -8412,9 +8279,9 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f),
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 20f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 3f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f)),
 			null) {
 		
@@ -8444,7 +8311,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -5f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
 			null) {
 		
 		@Override
@@ -8490,8 +8357,8 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 5f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f)),
 			null) {
 		
 		@Override
@@ -8613,7 +8480,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 10f)),
 			null) {
 		
 		@Override
@@ -8647,7 +8514,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -10f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -10f)),
 			null) {
 		
 		@Override
@@ -8678,7 +8545,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -10f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -10f)),
 			null) {
 		
 		@Override
@@ -8693,20 +8560,11 @@ public enum StatusEffect {
 		
 		@Override
 		protected String extraRemovalEffects(GameCharacter target){
-			int damage = (int) Math.round(5 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
-			if (damage < 1) {
-				damage = 1;
-			}
-			target.incrementHealth(-damage);
+			int damage = DamageType.PHYSICAL.damageTarget(null, target, 5);
 
-			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Aftershock hits!";
-				
-			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Aftershock hits!";
-			}
+			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!");
 		}
-
+		
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			return SpellUpgrade.SLAM_2.getSVGString();
@@ -8729,18 +8587,9 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
-			if (damage < 1) {
-				damage = 1;
-			}
-			target.incrementHealth(-damage);
+			int damage = DamageType.PHYSICAL.damageTarget(null, target, 10);
 
-			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
-				
-			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
-			}
+			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!");
 		}
 		
 		@Override
@@ -8776,18 +8625,9 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
-			if (damage < 1) {
-				damage = 1;
-			}
-			target.incrementHealth(-damage);
+			int damage = DamageType.PHYSICAL.damageTarget(null, target, 10);
 
-			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
-				
-			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
-			}
+			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!");
 		}
 		
 		@Override
@@ -8823,18 +8663,9 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			int damage = (int) Math.round(20 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
-			if (damage < 1) {
-				damage = 1;
-			}
-			target.incrementHealth(-damage);
-			
-			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
-				
-			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
-			}
+			int damage = DamageType.PHYSICAL.damageTarget(null, target, 20);
+
+			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!");
 		}
 		
 		@Override
@@ -8865,7 +8696,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f)),
 			null) {
 		
 		@Override
@@ -8896,8 +8727,8 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f),
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 2f)),
 			null) {
 		
 		@Override
@@ -8930,8 +8761,8 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f),
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 2f)),
 			null) {
 		
 		@Override
@@ -8964,8 +8795,8 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f),
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 2f)),
 			Util.newArrayListOfValues("[style.colourExcellent(All enemies)] take <b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" when Stone Shell ends")) {
 		
 		@Override
@@ -8985,29 +8816,20 @@ public enum StatusEffect {
 			StringBuilder sb = new StringBuilder();
 			
 			if(Combat.getEnemies().contains(target)) {
-				int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
-				if (damage < 1) {
-					damage = 1;
-				}
-				Main.game.getPlayer().incrementHealth(-damage);
-				sb.append("You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Stone Shell explodes!");
+
+				int damage = DamageType.PHYSICAL.damageTarget(target, Main.game.getPlayer(), 10);
+				sb.append(UtilText.parse(Main.game.getPlayer(), target, "[npc.Name] [npc.verb(take)] <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as [npc2.namePos] Stone Shell explodes!"));
+				
 				for(NPC combatant : Combat.getAllies()) {
-					damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(combatant.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
-					if (damage < 1) {
-						damage = 1;
-					}
-					combatant.incrementHealth(-damage);
-					sb.append(UtilText.parse(combatant, "<br/>[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Stone Shell explodes!"));
+					damage = DamageType.PHYSICAL.damageTarget(target, combatant, 10);
+					sb.append(UtilText.parse(combatant, target, "<br/>[npc.Name] [npc.verb(take)] <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as [npc2.namePos] Stone Shell explodes!"));
 				}
+				
 			} else {
 				boolean first=true;
 				for(NPC combatant : Combat.getEnemies()) {
-					int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(combatant.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
-					if (damage < 1) {
-						damage = 1;
-					}
-					combatant.incrementHealth(-damage);
-					sb.append(UtilText.parse(combatant, (first?"":"<br/>")+"[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Stone Shell explodes!"));
+					int damage = DamageType.PHYSICAL.damageTarget(target, combatant, 10);
+					sb.append(UtilText.parse(combatant, target, (first?"":"<br/>")+"<br/>[npc.Name] [npc.verb(take)] <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as [npc2.namePos] Stone Shell explodes!"));
 					first=false;
 				}
 			}
@@ -9212,7 +9034,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
 			null) {
 		
 		@Override
@@ -9247,7 +9069,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_LUST,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -15f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -15f)),
 			null) {
 		
 		@Override
@@ -9278,7 +9100,7 @@ public enum StatusEffect {
 			Colour.DAMAGE_TYPE_LUST,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, -15f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -15f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
 			null) {
 		
@@ -9378,7 +9200,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f)),
 			Util.newArrayListOfValues(
-					"[style.boldLust(Seduce)] [style.boldExcellent(applies)] -25 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b")+" to the target for [style.boldGood(2 turns)]")) {
+					"[style.boldLust(Tease)] [style.boldExcellent(applies)] -25 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b")+" to the target for [style.boldGood(2 turns)]")) {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -9784,7 +9606,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f)),
 			null) {
 		
 		@Override
@@ -9821,11 +9643,11 @@ public enum StatusEffect {
 			Colour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f)),
 			null) {
 		
 		@Override
@@ -9851,11 +9673,11 @@ public enum StatusEffect {
 			Colour.GENERIC_ARCANE,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, -10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, -10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, -5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, -5f)),
 			null) {
 		
 		@Override
@@ -9881,7 +9703,7 @@ public enum StatusEffect {
 			Colour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 100f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 100f)),
 			null) {
 		
 		@Override
@@ -9912,7 +9734,7 @@ public enum StatusEffect {
 			Colour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.BONUS_SHIELDING, 100f)),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 100f)),
 			Util.newArrayListOfValues("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn to a random enemy")) {
 		
 		@Override
