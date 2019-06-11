@@ -10,14 +10,8 @@ import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.valueEnums.*;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
-import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.inventory.*;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -34,13 +28,10 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
@@ -244,60 +235,6 @@ public class Akari extends NPC {
 		return true;
 	}
 	
-	@Override
-	public String getCharacterInformationScreen(boolean includePerkTree) {
-		infoScreenSB.setLength(0);
-		
-		infoScreenSB.append(
-				"<h4>Background</h4>"
-				+ "<p>"
-					+ this.getDescription()
-				+ "</p>"
-				+ "<br/>"
-				+ "<h4>Relationships</h4>"
-				+ "<p>"
-					+ "[style.boldAffection(Affection:)]<br/>"
-					+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
-							AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
-		
-		for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
-			try {
-				GameCharacter target = Main.game.getNPCById(entry.getKey());
-				if(!target.isPlayer()) {
-					infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
-				}
-			} catch (Exception e) {
-				Util.logGetNpcByIdError("Akari.getCharacterInformationScreen()", entry.getKey());
-			}
-		}
-		
-		infoScreenSB.append("<br/><br/>"
-					+ "[style.boldObedience(Obedience:)]<br/>"
-					+ UtilText.parse(this,
-							(this.isSlave()
-								?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(this.getOwner().isPlayer()?"you!":this.getOwner().getName("a")+".")
-								:"[npc.Name] [style.boldGood(is not a slave)]."))
-					+ "<br/>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true)
-				+"</p>"
-				+ "<br/>"
-					+ "<h4>Appearance</h4>"
-				+ "<p>"
-					+ " You eye the small kitsune standing in front of you, "
-					+ " Even on her tip toes, she only barely measures 5 feet \" (152cm)."
-				+ "</p>"
-				+ "<p>"
-					+ "Two fluffy ears sit right on top of her head, twitching occasionally to pick up distant sounds"
-					+ " A pair of golden eyes stare right back at you as you give her the once over."
-				+ "</p>"
-				+ "<p>"
-					+ "Even though she is short, [npc.name] would not be \"Petite\" by any standards."
-					+ " Lightly muscled and just ever so slightly plush, you can tell her body has withstood the trials of adventuring."
-				+ "</p>");
-		
-		return infoScreenSB.toString();
-	}
-
-
 	@Override
 	public void dailyReset() {
 		clearNonEquippedInventory();
