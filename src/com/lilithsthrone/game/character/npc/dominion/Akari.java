@@ -308,7 +308,7 @@ public class Akari extends NPC {
 		List<AbstractCoreType> types = new ArrayList<>();
 
 		for(AbstractWeaponType wt : WeaponType.getAllWeapons()) {
-			if(wt.getItemTags().contains(ItemTag.SOLD_BY_AKARI)) {
+			if(!wt.getItemTags().contains(ItemTag.SOLD_BY_NYAN)&&!wt.getItemTags().contains(ItemTag.SOLD_BY_VICKY)&&!wt.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
 				types.add(wt);
 			}
 		}

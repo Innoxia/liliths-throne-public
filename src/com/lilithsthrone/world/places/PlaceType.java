@@ -1695,7 +1695,7 @@ public class PlaceType {
 	public static final AbstractPlaceType SHOPPING_ARCADE_AKARIS_SHOP = new AbstractPlaceType(
 			"Bargain Store",
 			"A strange shop with an array of bizarre and seemingly out of place items",
-			"dominion/shoppingArcade/genericShop",
+			"dominion/shoppingArcade/bargainStore",
 			BaseColour.GOLD,
 			BargainStore.EXTERIOR,
 			null,
