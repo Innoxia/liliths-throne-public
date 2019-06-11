@@ -1696,7 +1696,7 @@ public class PlaceType {
 			"Bargain Store",
 			"A strange shop with an array of bizarre and seemingly out of place items",
 			"dominion/shoppingArcade/bargainStore",
-			BaseColour.GOLD,
+			BaseColour.CRIMSON,
 			BargainStore.EXTERIOR,
 			null,
 			"in their store"
