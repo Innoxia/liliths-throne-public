@@ -133,6 +133,7 @@
 		Fixed appearance stating that slimes could fly. (PR#1165 by Stadler76)
 		Fixed issue where unicorn 'horns per row' were only being set if the character already had horns. (PR#1160 by Stadler76)
 		Fixed bug when randomly-spawned incubi in the dark alleyways would throw a background error when using some attacks. (PR#1172 by TheKingInYellow)
+		Fixed bug where if there were multiple horn types in the enchantment UI, clicking on each type would give a randomised horn type, instead of the selected one. (PR#1175 by Stadler76)
 	
 	Norin's clothing contributions:
 		Added: 6 new hair accessory items: bobby pins; celtic barrette; dragonfly bobby pin; hair pins; scrunchie; hair sticks. (All in hair slot, sold by Nyan.)

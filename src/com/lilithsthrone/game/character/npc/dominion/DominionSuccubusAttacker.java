@@ -181,7 +181,6 @@ public class DominionSuccubusAttacker extends NPC {
 
 	// Combat:
 
-
 	@Override
 	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
 		if(this.isFeminine()) {
