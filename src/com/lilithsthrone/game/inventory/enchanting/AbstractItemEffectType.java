@@ -4416,7 +4416,7 @@ public abstract class AbstractItemEffectType {
 
 	private static RacialEffectUtil getHornTypeRacialEffectUtil(Race race, GameCharacter target, int index) {
 		List<AbstractHornType> hornTypes = RacialBody.valueOfRace(race).getHornTypes(true);
-		AbstractHornType selectedHornType = hornTypes.isEmpty()?HornType.NONE:Util.randomItemFrom(hornTypes);
+		AbstractHornType selectedHornType = index >= hornTypes.size() ? HornType.NONE : hornTypes.get(index);
 		
 		return new RacialEffectUtil("Grows "+selectedHornType.getTransformName()+" horn"+(selectedHornType==HornType.HORSE_STRAIGHT?"":"s")+".") {
 			@Override public String applyEffect() { return target.setHornType(selectedHornType); } };

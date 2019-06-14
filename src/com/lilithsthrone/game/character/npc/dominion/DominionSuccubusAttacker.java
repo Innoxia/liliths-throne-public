@@ -189,7 +189,7 @@ public class DominionSuccubusAttacker extends NPC {
 							"With an angry little click of her tongue, [npc.Name] slaps [npc2.name] across the face.",
 							"With a frustrated whine, [npc.Name] kicks out at [npc2.namePos] shins."));
 		} else {
-			return UtilText.parse(this,
+			return UtilText.parse(this, target,
 					UtilText.returnStringAtRandom(
 							"[npc.Name] looks annoyed that [npc2.nameIs] trying to put up a fight, and leaps forwards to deliver a solid punch to [npc2.her] [npc2.arm].",
 							"With an angry shout, [npc.Name] darts forwards and punches [npc2.name] right in the chest!",
