@@ -139,10 +139,13 @@ public class ItemEffect implements XMLSaving {
 			case "TF_MOD_FETISH_BROODMOTHER":
 				secondaryMod = "TF_MOD_FETISH_PREGNANCY";
 				break;
+			case "CRITICAL_CHANCE":
+				secondaryMod = "CRITICAL_DAMAGE";
+				break;
 		}
 		
 		ItemEffect ie;
-		try { // Wrap this in a try, as the TFModifier.valueOf might fail, due to removing Broodmother/Seeder fetish modifiers in 0.2.7.5.
+		try { // Wrap this in a try, as the TFModifier.valueOf might fail, due to removing Broodmother/Seeder fetish modifiers in 0.2.7.5, and then critical chance in 0.3.3.5.
 			TFModifier primary = (primaryMod.equals("null") || primaryMod.isEmpty()?null:TFModifier.valueOf(primaryMod));
 			TFModifier secondary = (secondaryMod.equals("null") || secondaryMod.isEmpty()?null:TFModifier.valueOf(secondaryMod));
 			
@@ -158,7 +161,7 @@ public class ItemEffect implements XMLSaving {
 					Integer.valueOf(parentElement.getAttribute("limit")));
 			
 		} catch(Exception ex) {
-			System.err.println("Unable to import ItemEffect (" + primaryMod + ", " + secondaryMod + ") from" + doc.getDocumentURI());
+			System.err.println("(Minor error, can ignore.) Unable to import ItemEffect (" + primaryMod + ", " + secondaryMod + ") from" + doc.getDocumentURI());
 			System.err.println(ex);
 			return null;
 		}

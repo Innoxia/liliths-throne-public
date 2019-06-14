@@ -722,7 +722,7 @@ public class SlimeQueensLair {
 								new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), "[slimeRoyalGuard.speech(Excellent! Now, defend yourself!)] [slimeRoyalGuard.name] booms, before moving forwards to attack.")));
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().hasTraitActivated(Perk.BRAWLER) || Main.game.getPlayer().getHistory()==Occupation.SOLDIER) {
+				if(Main.game.getPlayer().hasTraitActivated(Perk.FEROCIOUS_WARRIOR) || Main.game.getPlayer().getHistory()==Occupation.SOLDIER) {
 					return new Response("Instruct", "Tell [slimeRoyalGuard.name] what [slimeRoyalGuard.he]'s doing wrong in an attempt to fluster [slimeRoyalGuard.him] into wearing [slimeRoyalGuard.himself] out.", ROYAL_GUARD_POST_ADMIRE_INSTRUCT) {
 						@Override
 						public void effects() {

@@ -15,12 +15,15 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -49,6 +52,7 @@ import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -80,8 +84,6 @@ public class Cultist extends NPC {
 				false);
 		
 		if(!isImported) {
-			setAttribute(Attribute.MAJOR_CORRUPTION, 100);
-	
 			this.setLocation(Main.game.getPlayer(), true);
 			
 			// BODY RANDOMISATION:
@@ -100,6 +102,8 @@ public class Cultist extends NPC {
 			
 			CharacterUtils.randomiseBody(this, true);
 
+			this.setHistory(Occupation.NPC_CULTIST);
+			
 			this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
 			
 			this.setVaginaVirgin(false);
@@ -107,8 +111,6 @@ public class Cultist extends NPC {
 			this.setFaceVirgin(false);
 			this.setNippleVirgin(false);
 			this.setPenisVirgin(false);
-			
-			setLevel(this.getLevel() - 3 + Util.random.nextInt(7));
 			
 			setName(Name.getRandomTriplet(Race.DEMON));
 			this.setPlayerKnowsName(true);
@@ -125,6 +127,8 @@ public class Cultist extends NPC {
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+			
+			setStartingCombatMoves();
 		}
 	}
 	
@@ -140,6 +144,38 @@ public class Cultist extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
 			this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+			this.setLevel(15);
+			this.setHistory(Occupation.NPC_CULTIST);
+			this.resetPerksMap();
+		}
+		setStartingCombatMoves();
+	}
+
+	@Override
+	public void setupPerks() {
+		this.addSpecialPerk(Perk.SLUT);
+		
+		PerkManager.initialisePerks(this,
+				Util.newArrayListOfValues(
+						Perk.LUSTPYRE,
+						Perk.FETISH_SEEDER,
+						Perk.ARCANE_COMBATANT),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 0),
+						new Value<>(PerkCategory.LUST, 3),
+						new Value<>(PerkCategory.ARCANE, 5)));
+	}
+	
+	@Override
+	public void setStartingCombatMoves() {
+		this.clearEquippedMoves();
+		this.equipMove("strike");
+		this.equipMove("tease");
+		this.equipMove("avert");
+		this.equipMove("block");
+		this.equipAllKnownMoves();
+		this.equipAllSpellMoves();
 	}
 
 	@Override
@@ -253,20 +289,6 @@ public class Cultist extends NPC {
 	}
 
 	// Combat:
-	
-	@Override
-	public Attack attackType() {
-		if (Math.random() < 0.3f && this.getManaPercentage() > 0.4f
-				&& (!Main.game.getPlayer().getStatusEffects().contains(StatusEffect.WITCH_SEAL) || !this.getStatusEffects().contains(StatusEffect.WITCH_CHARM))) {
-			return Attack.SPELL;
-		}
-		
-		if(Math.random() < 0.3f) {
-			return Attack.MAIN;
-		}
-		
-		return Attack.SEDUCTION;
-	}
 	
 	@Override
 	public String getLostVirginityDescriptor() {

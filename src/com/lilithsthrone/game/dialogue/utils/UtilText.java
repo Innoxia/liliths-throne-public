@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.*;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -37,6 +38,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -381,11 +383,11 @@ public class UtilText {
 	}
 	
 	// "Temporary" methods until I refine the way DialogueNodes work:
-	public static String getRequirementsDescription(Perk perkRequired) {
+	public static String getRequirementsDescription(AbstractPerk perkRequired) {
 		return ("You require the perk '<b style='color:"+perkRequired.getPerkCategory().getColour().toWebHexString()+";'>"+perkRequired.getName(Main.game.getPlayer())+"</b>'.");
 	}
 	
-	public static String getRequirementsDescription(Perk perkRequired, Gender... gendersRequired) {
+	public static String getRequirementsDescription(AbstractPerk perkRequired, Gender... gendersRequired) {
 		descriptionSB.setLength(0);
 		
 		descriptionSB.append("You require the perk '<b style='color:"+perkRequired.getPerkCategory().getColour().toWebHexString()+";'>"+perkRequired.getName(Main.game.getPlayer())+"</b>'");
@@ -411,7 +413,7 @@ public class UtilText {
 		return descriptionSB.toString();
 	}
 	
-	public static String getRequirementsDescription(CorruptionLevel corruptionNeeded, Perk... perkRequired) {
+	public static String getRequirementsDescription(CorruptionLevel corruptionNeeded, AbstractPerk... perkRequired) {
 		descriptionSB.setLength(0);
 		
 		descriptionSB.append("You require a corruption level of <b style='color:"+corruptionNeeded.getColour().toWebHexString()+";'>"+corruptionNeeded.getName()+"</b>");
@@ -726,6 +728,7 @@ public class UtilText {
 //			specialNPCList = new ArrayList<>(specialNPC);
 //			if(specialNPC!=null)
 //				System.out.println("s set: "+specialNPC.size()+" | "+specialNPCList.size());
+			speechTarget = "";
 			parserVariableCalls = new ArrayList<>();
 			Matcher matcherVAR = Pattern.compile("(?s)#VAR(.*?)#ENDVAR").matcher(input);
 			while(matcherVAR.find()) {
@@ -1119,7 +1122,7 @@ public class UtilText {
 					}
 				}
 				
-				if(!speechTarget.equals("")) {
+				if(!speechTarget.isEmpty()) {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR);
 					
 				} else {
@@ -1153,7 +1156,7 @@ public class UtilText {
 					}
 					return character.getName(arguments) + "'s";
 					
-				} else if(!speechTarget.equals("")) {
+				} else if(!speechTarget.isEmpty()) {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
@@ -1187,7 +1190,7 @@ public class UtilText {
 					}
 					return character.getName(arguments) + "'s";
 					
-				} else if(!speechTarget.equals("")) {
+				} else if(!speechTarget.isEmpty()) {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
@@ -1216,7 +1219,7 @@ public class UtilText {
 					}
 					return character.getName(arguments) + " is";
 					
-				} else if(!speechTarget.equals("")) {
+				} else if(!speechTarget.isEmpty()) {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+" is";
 					
 				} else {
@@ -1246,7 +1249,7 @@ public class UtilText {
 					}
 					return character.getName(arguments) + "'s";
 					
-				} else if(!speechTarget.equals("")) {
+				} else if(!speechTarget.isEmpty()) {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+"'s";
 					
 				} else {
@@ -1275,7 +1278,7 @@ public class UtilText {
 					}
 					return character.getName(arguments) + " has";
 					
-				} else if(!speechTarget.equals("")) {
+				} else if(!speechTarget.isEmpty()) {
 					return parseSyntaxNew(specialNPCs, speechTarget, parseCapitalise?"PetName":"petName", target, ParseMode.REGULAR)+" has";
 					
 				} else {
@@ -1384,8 +1387,7 @@ public class UtilText {
 					return "petName INVALID_TARGET_NAME("+arguments+")";
 				}
 				try {
-					GameCharacter characterTarget = parserTarget.getCharacter(arguments, null);
-					
+					GameCharacter characterTarget = parserTarget.getCharacter(arguments, specialNPCs);
 					if(parseCapitalise) {
 						return Util.capitaliseSentence(character.getPetName(characterTarget));
 					} else {
@@ -6379,8 +6381,8 @@ public class UtilText {
 		for(FetishDesire fetishDesire : FetishDesire.values()) {
 			engine.put("FETISH_DESIRE_"+fetishDesire.toString(), fetishDesire);
 		}
-		for(Perk p : Perk.values()) {
-			engine.put("PERK_"+p.toString(), p);
+		for(AbstractPerk p : Perk.getAllPerks()) {
+			engine.put("PERK_"+Perk.getIdFromPerk(p), p);
 		}
 		for(StatusEffect sa : StatusEffect.values()) {
 			engine.put("SE_"+sa.toString(), sa);
@@ -6393,6 +6395,9 @@ public class UtilText {
 		}
 		for(InventorySlot is : InventorySlot.values()) {
 			engine.put("IS_"+is.toString(), is);
+		}
+		for(DamageType damageType : DamageType.values()) {
+			engine.put("DAMAGE_TYPE_"+damageType.toString(), damageType);
 		}
 		for(ItemTag it : ItemTag.values()) {
 			engine.put("ITEM_TAG_"+it.toString(), it);

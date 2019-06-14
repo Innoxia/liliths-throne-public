@@ -26,9 +26,8 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
-import com.lilithsthrone.utils.*;
+
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -40,7 +39,6 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.AlcoholLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.AttributeRange;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
@@ -57,8 +55,80 @@ import com.lilithsthrone.game.character.body.FluidInterface;
 import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.Testicle;
-import com.lilithsthrone.game.character.body.types.*;
-import com.lilithsthrone.game.character.body.valueEnums.*;
+import com.lilithsthrone.game.character.body.types.AbstractArmType;
+import com.lilithsthrone.game.character.body.types.AbstractAssType;
+import com.lilithsthrone.game.character.body.types.AbstractBreastType;
+import com.lilithsthrone.game.character.body.types.AbstractEarType;
+import com.lilithsthrone.game.character.body.types.AbstractHornType;
+import com.lilithsthrone.game.character.body.types.AbstractLegType;
+import com.lilithsthrone.game.character.body.types.AntennaType;
+import com.lilithsthrone.game.character.body.types.ArmType;
+import com.lilithsthrone.game.character.body.types.AssType;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.EyeType;
+import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.FluidType;
+import com.lilithsthrone.game.character.body.types.FootStructure;
+import com.lilithsthrone.game.character.body.types.HairType;
+import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.types.NippleType;
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.TentacleType;
+import com.lilithsthrone.game.character.body.types.TongueType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
+import com.lilithsthrone.game.character.body.valueEnums.AssSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
+import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.FluidExpulsion;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
+import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
+import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
+import com.lilithsthrone.game.character.body.valueEnums.Height;
+import com.lilithsthrone.game.character.body.valueEnums.HipSize;
+import com.lilithsthrone.game.character.body.valueEnums.HornLength;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.body.valueEnums.Lactation;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
+import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
+import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Addiction;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
@@ -105,8 +175,9 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
+import com.lilithsthrone.game.combat.CombatMove;
+import com.lilithsthrone.game.combat.CombatMoveType;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
@@ -162,6 +233,12 @@ import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.CachedImage;
 import com.lilithsthrone.rendering.ImageCache;
 import com.lilithsthrone.rendering.SVGImages;
+import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
@@ -179,12 +256,14 @@ import com.lilithsthrone.world.places.PlaceType;
 public abstract class GameCharacter implements XMLSaving {
 
 	/** Calculations description as used in getAttributeValue() */
-	public static final String HEALTH_CALCULATION = "10 + 2*level + Physique*2 + Bonus Energy";
-	public static final String MANA_CALCULATION = "10 + 2*level + Arcane*2 + Bonus Aura";
+	public static final String HEALTH_CALCULATION = "10 + 2*level + Physique*0.25 + Bonus Energy";
+	public static final String MANA_CALCULATION = "5 + level + Arcane*0.6 + Bonus Aura";
 	public static final String RESTING_LUST_CALCULATION = "Corruption/2";
 
 	public static final int LEVEL_CAP = 50;
 	public static final int MAX_TRAITS = 6;
+	public static final int MAX_COMBAT_MOVES = 8;
+	public static final int DEFAULT_COMBAT_AP = 3;
 	
 	
 	// Core variables:
@@ -241,9 +320,9 @@ public abstract class GameCharacter implements XMLSaving {
 	protected Map<Attribute, Float> attributes;
 	protected Map<Attribute, Float> bonusAttributes;
 	protected Map<Attribute, Float> potionAttributes;
-	protected List<Perk> traits;
-	protected Map<Integer, Set<Perk>> perks;
-	protected Set<Perk> specialPerks;
+	protected List<AbstractPerk> traits;
+	protected Map<Integer, Set<AbstractPerk>> perks;
+	protected Set<AbstractPerk> specialPerks;
 	protected Set<Fetish> fetishes;
 	protected Map<Fetish, FetishDesire> fetishDesireMap;
 	protected Map<Fetish, Integer> clothingFetishDesireModifiersMap;
@@ -298,7 +377,16 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	// Combat:
-	protected Set<SpecialAttack> specialAttacks;
+	protected List<CombatMove> equippedMoves;
+	protected List<CombatMove> knownMoves;
+	protected List<Value<GameCharacter, CombatMove>> selectedMoves;
+	protected List<Boolean> selectedMovesDisruption;
+	protected List<String> movesToDisrupt;
+	protected Map<CombatMoveType, Integer> moveTypeDisruptionMap;
+	protected Map<DamageType, Integer> shields;
+	protected Map<String, Integer> moveCooldowns;
+	protected int remainingAP;
+	protected int maxAP;
 	protected List<Spell> spells;
 	protected Set<SpellUpgrade> spellUpgrades;
 	protected Map<SpellSchool, Integer> spellUpgradePoints;
@@ -450,13 +538,14 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		scars = new HashMap<>();
 		tattoos = new HashMap<>();
-		
+
+		shields = new EnumMap<>(DamageType.class);
 		attributes = new EnumMap<>(Attribute.class);
 		bonusAttributes = new EnumMap<>(Attribute.class);
 		
 		traits = new ArrayList<>();
 		perks = new HashMap<>();
-		specialPerks = new TreeSet<>((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
+		specialPerks = new HashSet<>();//new TreeSet<>((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
 		
 		fetishes = new HashSet<>();
 		fetishDesireMap = new HashMap<>();
@@ -468,7 +557,13 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		potionAttributes = new EnumMap<>(Attribute.class);
 
-		specialAttacks = EnumSet.noneOf(SpecialAttack.class);
+		moveCooldowns = new HashMap<>();
+		moveTypeDisruptionMap = new EnumMap<>(CombatMoveType.class);
+		knownMoves = new ArrayList<>();
+		equippedMoves = new ArrayList<>();
+		selectedMoves = new ArrayList<>();
+		selectedMovesDisruption = new ArrayList<>();
+		movesToDisrupt = new ArrayList<>();
 		spells = new ArrayList<>();
 		spellUpgrades = EnumSet.noneOf(SpellUpgrade.class);
 		spellUpgradePoints = new HashMap<>();
@@ -546,6 +641,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
 		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
+		maxAP = DEFAULT_COMBAT_AP;
 		setLustNoText(getRestingLust());
 		
 		//Companion initialization
@@ -561,18 +657,19 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 
 		this.resetPerksMap();
-//		PerkManager.initialisePerks(this);
+		
+		if(!this.isUnique()) {
+			this.incrementAttribute(Attribute.MAJOR_CORRUPTION, (this.getPerksInCategory(PerkCategory.LUST)+this.getFetishes(false).size())*5);
+		}
+		// Default moves
+		equipBasicCombatMoves();
 	}
 	
+	/**
+	 * Override to set attributes upon creation. Applied before perks are applied.
+	 */
 	protected void initAttributes() {
-		// Set starting attributes based on the character's race
-		for (Entry<Attribute, AttributeRange> entry : RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().entrySet()) {
-			attributes.put(entry.getKey(), entry.getValue().getMinimum() + entry.getValue().getRandomVariance());
-		}
-		// Override any subspecies attribute changes:
-		for (Entry<Attribute, AttributeRange> entry : this.getSubspecies().getAttributeModifiers(this).entrySet()) {
-			attributes.put(entry.getKey(), entry.getValue().getMinimum() + entry.getValue().getRandomVariance());
-		}
+		// Override
 	}
 
 
@@ -755,29 +852,29 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		Element characterEquippedPerks = doc.createElement("traits");
 		properties.appendChild(characterEquippedPerks);
-		for(Perk p : this.getTraits()){
+		for(AbstractPerk p : this.getTraits()){
 			Element element = doc.createElement("perk");
 			characterEquippedPerks.appendChild(element);
-			CharacterUtils.addAttribute(doc, element, "type", p.toString());
+			CharacterUtils.addAttribute(doc, element, "type", Perk.getIdFromPerk(p));
 		}
 
 		Element characterSpecialPerks = doc.createElement("specialPerks");
 		properties.appendChild(characterSpecialPerks);
-		for(Perk p : this.getSpecialPerks()){
+		for(AbstractPerk p : this.getSpecialPerks()){
 			Element element = doc.createElement("perk");
 			characterSpecialPerks.appendChild(element);
-			CharacterUtils.addAttribute(doc, element, "type", p.toString());
+			CharacterUtils.addAttribute(doc, element, "type", Perk.getIdFromPerk(p));
 		}
 		
 		Element characterPerks = doc.createElement("perks");
 		properties.appendChild(characterPerks);
-		for(Entry<Integer, Set<Perk>> p : this.getPerksMap().entrySet()){
-			for(Perk perk : p.getValue()) {
+		for(Entry<Integer, Set<AbstractPerk>> p : this.getPerksMap().entrySet()){
+			for(AbstractPerk perk : p.getValue()) {
 				Element element = doc.createElement("perk");
 				characterPerks.appendChild(element);
 	
 				CharacterUtils.addAttribute(doc, element, "row", p.getKey().toString());
-				CharacterUtils.addAttribute(doc, element, "type", perk.toString());
+				CharacterUtils.addAttribute(doc, element, "type",  Perk.getIdFromPerk(perk));
 			}
 		}
 		
@@ -849,6 +946,28 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			CharacterUtils.addAttribute(doc, element, "type", se.toString());
 			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(this.getStatusEffectDuration(se)));
+		}
+
+
+
+		// Moves
+		Element characterMoves = doc.createElement("knownMoves");
+		properties.appendChild(characterMoves);
+		for(CombatMove move : this.knownMoves){
+			Element element = doc.createElement("move");
+			characterMoves.appendChild(element);
+
+			CharacterUtils.addAttribute(doc, element, "type", move.getIdentifier());
+		}
+
+		// Equipped moves
+		Element characterEquippedMoves = doc.createElement("equippedMoves");
+		properties.appendChild(characterEquippedMoves);
+		for(CombatMove move : this.equippedMoves){
+			Element element = doc.createElement("move");
+			characterEquippedMoves.appendChild(element);
+
+			CharacterUtils.addAttribute(doc, element, "type", move.getIdentifier());
 		}
 		
 		
@@ -1469,36 +1588,43 @@ public abstract class GameCharacter implements XMLSaving {
 				
 				try {
 					Attribute attribute = Attribute.getAttributeFromId(e.getAttribute("type"));
-					if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.0")) {
-						switch(attribute) {
-							case DAMAGE_FIRE: case DAMAGE_ICE: case DAMAGE_LUST: case DAMAGE_PHYSICAL: case DAMAGE_POISON: case DAMAGE_SPELLS:
-								character.setAttribute(attribute, Float.valueOf(e.getAttribute("value"))-100, false);
-								break;
-							default:
-								character.setAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
-								break;
-						}
-						
-					} else if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.12")) {
-						Attribute att = attribute;
-						switch(att) {
-							case MANA_MAXIMUM:
-							case HEALTH_MAXIMUM:
-								break;
-							default:
-								character.setAttribute(att, Float.valueOf(e.getAttribute("value")), false);
-								break;
-						}
-						
-					} else {
-						if(attribute == Attribute.DAMAGE_ELEMENTAL || attribute == Attribute.RESISTANCE_ELEMENTAL) {
-							character.incrementAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
+					if(!version.isEmpty() && !Main.isVersionOlderThan(version, "0.3.3.6")) { // Reset all attributes at version 0.3.3.6
+						if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.0")) {
+							switch(attribute) {
+								case DAMAGE_FIRE: case DAMAGE_ICE: case DAMAGE_LUST: case DAMAGE_PHYSICAL: case DAMAGE_POISON: case DAMAGE_SPELLS:
+									character.setAttribute(attribute, Float.valueOf(e.getAttribute("value"))-100, false);
+									break;
+								default:
+									character.setAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
+									break;
+							}
+							
+						} else if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.12")) {
+							Attribute att = attribute;
+							switch(att) {
+								case MANA_MAXIMUM:
+								case HEALTH_MAXIMUM:
+									break;
+								default:
+									character.setAttribute(att, Float.valueOf(e.getAttribute("value")), false);
+									break;
+							}
+							
 						} else {
-							character.setAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
+							if(attribute == Attribute.DAMAGE_ELEMENTAL) {
+								character.incrementAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
+							} else {
+								character.setAttribute(attribute, Float.valueOf(e.getAttribute("value")), false);
+							}
+						}
+						
+						CharacterUtils.appendToImportLog(log, "<br/>Set Attribute: "+attribute.getName() +" to "+ Float.valueOf(e.getAttribute("value")));
+					}
+					if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.3.3.6") && attribute==Attribute.DAMAGE_IMP) {
+						if(Float.valueOf(e.getAttribute("value"))>=100) {
+							character.addSpecialPerk(Perk.IMP_SLAYER);
 						}
 					}
-					
-					CharacterUtils.appendToImportLog(log, "<br/>Set Attribute: "+attribute.getName() +" to "+ Float.valueOf(e.getAttribute("value")));
 				}catch(IllegalArgumentException ex){
 				}
 			}
@@ -1821,12 +1947,12 @@ public abstract class GameCharacter implements XMLSaving {
 			NodeList perkElements = element.getElementsByTagName("perk");
 			for(int i=0; i<perkElements.getLength(); i++){
 				Element e = ((Element)perkElements.item(i));
-				Perk p = Perk.valueOf(e.getAttribute("type"));
+				AbstractPerk p = Perk.getPerkFromId(e.getAttribute("type"));
 				if(p.isEquippableTrait()
 						&& (!Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") || PerkManager.MANAGER.isPerkAnywhereInAvailableTree(p, character))) { // If older than 0.2.12, check to see if the perk should actually be added.
 					character.addTrait(p);
 				}
-				CharacterUtils.appendToImportLog(log, "<br/>Added Equipped Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
+				CharacterUtils.appendToImportLog(log, "<br/>Added Equipped Perk: "+Perk.getPerkFromId(e.getAttribute("type")).getName(character));
 			}
 		}
 		
@@ -1836,9 +1962,9 @@ public abstract class GameCharacter implements XMLSaving {
 			NodeList perkElements = element.getElementsByTagName("perk");
 			for(int i=0; i<perkElements.getLength(); i++){
 				Element e = ((Element)perkElements.item(i));
-				Perk p = Perk.valueOf(e.getAttribute("type"));
+				AbstractPerk p = Perk.getPerkFromId(e.getAttribute("type"));
 				character.addSpecialPerk(p);
-				CharacterUtils.appendToImportLog(log, "<br/>Added Special Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
+				CharacterUtils.appendToImportLog(log, "<br/>Added Special Perk: "+Perk.getPerkFromId(e.getAttribute("type")).getName(character));
 			}
 		}
 		
@@ -1855,7 +1981,7 @@ public abstract class GameCharacter implements XMLSaving {
 					String type = e.getAttribute("type");
 					type = type.replaceAll("STRENGTH_", "PHYSIQUE_");
 					try {
-						Perk p = Perk.valueOf(type);
+						AbstractPerk p = Perk.getPerkFromId(type);
 						if(!Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") || PerkManager.MANAGER.isPerkAnywhereInAvailableTree(p, character)) { // If older than 0.3, check to see if the perk should actually be added.
 							character.addPerk(Integer.valueOf(e.getAttribute("row")), p);
 							CharacterUtils.appendToImportLog(log, "<br/>Added Perk: "+p.getName(character));
@@ -2005,6 +2131,29 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}catch(IllegalArgumentException ex){
 			}
+		}
+
+		// Moves:
+		nodes = parentElement.getElementsByTagName("knownMoves");
+		character.resetMoveData();
+		element = (Element) nodes.item(0);
+		try {
+			NodeList moveElements = element.getElementsByTagName("move");
+			for(int i=0; i<moveElements.getLength(); i++){
+				Element e = ((Element)moveElements.item(i));
+				character.addKnownMove(String.valueOf(e.getAttribute("type")));
+			}
+		} catch(Exception ex) {
+		}
+		nodes = parentElement.getElementsByTagName("equippedMoves");
+		element = (Element) nodes.item(0);
+		try {
+			NodeList moveElements = element.getElementsByTagName("move");
+			for(int i=0; i<moveElements.getLength(); i++){
+				Element e = ((Element)moveElements.item(i));
+				character.equipMove(String.valueOf(e.getAttribute("type")));
+			}
+		} catch(Exception ex) {
 		}
 		
 		
@@ -2637,6 +2786,17 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+			boolean impSlayer = character.hasPerkAnywhereInTree(Perk.IMP_SLAYER);
+			character.resetPerksMap();
+			if(!character.isUnique()) {
+				character.incrementAttribute(Attribute.MAJOR_CORRUPTION, (character.getPerksInCategory(PerkCategory.LUST)+character.getFetishes(false).size())*5);
+			}
+			if(impSlayer) {
+				character.addSpecialPerk(Perk.IMP_SLAYER);
+			}
+		}
+		
 		character.calculateStatusEffects(0);
 		character.setHealth(newHealth);
 		character.setMana(newMana);
@@ -2783,7 +2943,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return isPlayer() || getCurrentArtwork().isCurrentImageClothed() || getTotalTimesHadSex(Main.game.getPlayer()) > 0;
 	}
 	
-	public String getCharacterInformationScreen() {
+	public String getCharacterInformationScreen(boolean includePerkTree) {
 		infoScreenSB.setLength(0);
 
 		if (Main.getProperties().hasValue(PropertyValue.artwork)) {
@@ -2864,7 +3024,7 @@ public abstract class GameCharacter implements XMLSaving {
 							}
 						}
 					} catch (Exception e) {
-						infoScreenSB.append("<br/>Unknown (id:"+entry.getKey()+")");
+//						infoScreenSB.append("<br/>Unknown (id:"+entry.getKey()+")");
 					}
 				}
 				
@@ -2913,8 +3073,19 @@ public abstract class GameCharacter implements XMLSaving {
 						+ "<h6>Appearance</h6>"
 					+ "<p>"
 						+ this.getBodyDescription()
-					+ "</p>"
-					+ PhoneDialogue.getBodyStatsPanel(this));
+					+ "</p>");
+
+			infoScreenSB.append("<details>"
+								+ "<summary class='quest-title'>Stats</summary>"
+								+ PhoneDialogue.getBodyStatsPanel(this)
+							+ "</details>");
+
+			if(includePerkTree) {
+				infoScreenSB.append("<details>"
+									+ "<summary class='quest-title'>Perk tree</summary>"
+									+ PerkManager.MANAGER.getPerkTreeDisplay(this, false)
+								+ "</details>");
+			}
 			
 		} else {
 			infoScreenSB.append("</p>"
@@ -3537,9 +3708,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public Occupation getHistory() {
-		if(!this.isPlayer() && this.isSlave()) {
-			return Occupation.NPC_SLAVE;
-		}
+//		if(!this.isPlayer() && this.isSlave()) {
+//			return Occupation.NPC_SLAVE;
+//		}
 		return history;
 	}
 
@@ -3568,8 +3739,8 @@ public abstract class GameCharacter implements XMLSaving {
 		// Revert attributes from old History:
 		if (this.history != null) {
 			if(this.history.getAssociatedPerk()!=null) {
-				for (Attribute att : this.history.getAssociatedPerk().getAttributeModifiers().keySet()) {
-					incrementBonusAttribute(att, -this.history.getAssociatedPerk().getAttributeModifiers().get(att));
+				for (Attribute att : this.history.getAssociatedPerk().getAttributeModifiers(this).keySet()) {
+					incrementBonusAttribute(att, -this.history.getAssociatedPerk().getAttributeModifiers(this).get(att));
 				}
 			}
 			this.history.revertExtraEffects(this);
@@ -3578,8 +3749,8 @@ public abstract class GameCharacter implements XMLSaving {
 
 		// Implement attributes from new History:
 		if(history.getAssociatedPerk()!=null) {
-			for (Attribute att : history.getAssociatedPerk().getAttributeModifiers().keySet()) {
-				incrementBonusAttribute(att, history.getAssociatedPerk().getAttributeModifiers().get(att));
+			for (Attribute att : history.getAssociatedPerk().getAttributeModifiers(this).keySet()) {
+				incrementBonusAttribute(att, history.getAssociatedPerk().getAttributeModifiers(this).get(att));
 			}
 		}
 		history.applyExtraEffects(this);
@@ -4850,6 +5021,20 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public float getBonusAttributeValue(Attribute attribute) {
 		float value = 0;
+		
+		// Special case for health:
+		if (attribute == Attribute.HEALTH_MAXIMUM) {
+			value = 10 + 2*getLevel() + getAttributeValue(Attribute.MAJOR_PHYSIQUE)*0.25f;
+		}
+ 		// Special case for mana:
+		if (attribute == Attribute.MANA_MAXIMUM) {
+			if(getAttributeValue(Attribute.MAJOR_ARCANE) < 15) {
+				value = 5;
+			} else {
+				value = 5 + getLevel() + getAttributeValue(Attribute.MAJOR_ARCANE)*0.60f;
+			}
+ 		}
+		/*
 		// Special case for health:
 		if (attribute == Attribute.HEALTH_MAXIMUM) {
 			value += 10 + 2*getLevel() + getAttributeValue(Attribute.MAJOR_PHYSIQUE)*2;
@@ -4859,6 +5044,8 @@ public abstract class GameCharacter implements XMLSaving {
 		if (attribute == Attribute.MANA_MAXIMUM) {
 			value += 10 + 2*getLevel() + getAttributeValue(Attribute.MAJOR_ARCANE)*2;
 		}
+		*/
+		
 		return Math.round((value + bonusAttributes.get(attribute))*100)/100f;
 //		return Math.round(bonusAttributes.get(att)*100)/100f;
 	}
@@ -5062,7 +5249,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public int getPerkPoints() {
-		return getPerkPointsAtLevel(this.getTrueLevel()) + getAdditionalPerkPoints() - this.getPerkPointsSpent();
+		return getPerkPointsAtLevel(this.getTrueLevel()) /*+ getAdditionalPerkPoints()*/ - this.getPerkPointsSpent();
 	}
 	
 	public int getAdditionalPerkPoints() {
@@ -5071,22 +5258,22 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public int getPerkPointsSpent() {
 		int count = 0;
-		for(Entry<Integer, Set<Perk>> entry : this.getPerksMap().entrySet()) {
+		for(Entry<Integer, Set<AbstractPerk>> entry : this.getPerksMap().entrySet()) {
 			count += entry.getValue().size();
 		}
 		count -= PerkManager.getInitialPerkCount(this);
-		return count;
+		return Math.max(0, count);
 	}
 
-	public List<Perk> getTraits() {
+	public List<AbstractPerk> getTraits() {
 		return traits;
 	}
 	
-	public boolean hasTraitActivated(Perk perk) {
+	public boolean hasTraitActivated(AbstractPerk perk) {
 		return traits.contains(perk);
 	}
 
-	public boolean removeTrait(Perk perk) {
+	public boolean removeTrait(AbstractPerk perk) {
 		if(traits.remove(perk)) {
 			applyPerkRemovalEffects(perk);
 			return true;
@@ -5096,14 +5283,14 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void clearTraits() {
 		if(traits!=null) {
-			for(Perk p : traits) {
+			for(AbstractPerk p : traits) {
 				applyPerkRemovalEffects(p);
 			}
 			traits.clear();
 		}
 	}
 	
-	public boolean addTrait(Perk perk) {
+	public boolean addTrait(AbstractPerk perk) {
 		if(traits.contains(perk) || traits.size()>=MAX_TRAITS) {
 			return false;
 		}
@@ -5113,48 +5300,63 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void resetPerksMap() {
-		HashMap<Integer, Set<Perk>> currentPerks;
+		HashMap<Integer, Set<AbstractPerk>> currentPerks;
 		if(perks!=null) {
 			currentPerks = new HashMap<>(perks);
 		} else {
 			currentPerks = new HashMap<>();
 		}
 		
-		for(Entry<Integer, Set<Perk>> entry : currentPerks.entrySet()) {
-			Set<Perk> tooTiredToThink = new HashSet<>(entry.getValue());
-			for(Perk p : tooTiredToThink) {
+		for(Entry<Integer, Set<AbstractPerk>> entry : currentPerks.entrySet()) {
+			Set<AbstractPerk> tooTiredToThink = new HashSet<>(entry.getValue());
+			for(AbstractPerk p : tooTiredToThink) {
 				this.removePerk(entry.getKey(), p);
 			}
 		}
 
 		this.clearTraits();
 		
-		calculateSpecialAttacks();
-		
 		updateAttributeListeners();
 		
-		PerkManager.initialisePerks(this);
+		setupPerks();
 		
+		recalculateCombatMoves();
 	}
 	
-	public Map<Integer, Set<Perk>> getPerksMap() {
+	public void setupPerks() {
+		PerkManager.initialisePerks(this);
+	}
+	
+	public Map<Integer, Set<AbstractPerk>> getPerksMap() {
 		return perks;
 	}
 	
-	public List<Perk> getMajorPerks() {
-		List<Perk> tempPerkList = new ArrayList<>();
-		for(Entry<Integer, Set<Perk>> entry : perks.entrySet()) {
-			for(Perk p : entry.getValue()) {
+	public int getPerksInCategory(PerkCategory category) { //TODO should use category the perk is in, not its base category
+		int count = 0;
+		for(Set<AbstractPerk> perkSet : getPerksMap().values()) {
+			for(AbstractPerk perk : perkSet) {
+				if(perk.getPerkCategory()==category) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+	
+	public List<AbstractPerk> getMajorPerks() {
+		List<AbstractPerk> tempPerkList = new ArrayList<>();
+		for(Entry<Integer, Set<AbstractPerk>> entry : perks.entrySet()) {
+			for(AbstractPerk p : entry.getValue()) {
 				if(p.isEquippableTrait()) {
 					tempPerkList.add(p);
 				}
 			}
 		}
-		tempPerkList.sort(Comparator.comparingInt(Perk::getRenderingPriority).reversed());
+		tempPerkList.sort(Comparator.comparingInt(AbstractPerk::getRenderingPriority).reversed());
 		return tempPerkList;
 	}
 	
-	public boolean hasTrait(Perk p, boolean equipped) {
+	public boolean hasTrait(AbstractPerk p, boolean equipped) {
 		if(p.isEquippableTrait()) {
 			if((p.getPerkCategory()==PerkCategory.JOB)) {
 				return getHistory().getAssociatedPerk()==p;
@@ -5167,13 +5369,13 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 	
-	public boolean hasPerkAnywhereInTree(Perk p) {
-		for(Set<Perk> perkSet : this.getPerksMap().values()) {
+	public boolean hasPerkAnywhereInTree(AbstractPerk p) {
+		for(Set<AbstractPerk> perkSet : this.getPerksMap().values()) {
 			if(perkSet.contains(p)) {
 				return true;
 			}
 		}
-		for(Perk perk : this.getSpecialPerks()) {
+		for(AbstractPerk perk : this.getSpecialPerks()) {
 			if(perk.equals(p)) {
 				return true;
 			}
@@ -5181,18 +5383,18 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 	
-	public boolean hasPerkInTree(int row, Perk p) {
+	public boolean hasPerkInTree(int row, AbstractPerk p) {
 		if(!perks.containsKey(row)) {
 			return false;
 		}
 		return perks.get(row).contains(p);
 	}
 
-	public boolean addPerk(Perk perk) {
+	public boolean addPerk(AbstractPerk perk) {
 		return addPerk(PerkManager.MANAGER.getPerkRow(this, perk), perk);
 	}
 	
-	public boolean addPerk(int row, Perk perk) {
+	public boolean addPerk(int row, AbstractPerk perk) {
 		perks.putIfAbsent(row, new HashSet<>());
 		
 		if (perks.get(row).contains(perk)) {
@@ -5208,7 +5410,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return true;
 	}
 
-	public boolean removePerk(int row, Perk perk) {
+	public boolean removePerk(int row, AbstractPerk perk) {
 		if (!perks.containsKey(row)) {
 			return false;
 		}
@@ -5226,46 +5428,47 @@ public abstract class GameCharacter implements XMLSaving {
 		return true;
 	}
 	
-	public Set<Perk> getSpecialPerks() {
+	public Set<AbstractPerk> getSpecialPerks() {
 		return specialPerks;
 	}
 	
-	public String addSpecialPerk(Perk perk) {
+	public String addSpecialPerk(AbstractPerk perk) {
 		if(specialPerks.add(perk)) {
 			applyPerkGainEffects(perk);
+			return "<p style='text-align:center;'><b>"
+						+ UtilText.parse(this, "[npc.Name] [style.colourGood(gained)] the special perk, [style.colourExcellent("+perk.getName(this)+")]!")
+					+ "</b></p>";
 		}
-		return "<p style='text-align:center;'><b>"
-					+ UtilText.parse(this, "[npc.Name] [style.colourGood(gained)] the special perk, [style.colourExcellent("+perk.getName(this)+")]!")
-				+ "</b></p>";
+		return "";
 	}
 	
-	public void removeSpecialPerk(Perk perk) {
+	public void removeSpecialPerk(AbstractPerk perk) {
 		if(specialPerks.remove(perk)) {
 			applyPerkRemovalEffects(perk);
 		}
 	}
 	
-	protected void applyPerkGainEffects(Perk perk) {
+	protected void applyPerkGainEffects(AbstractPerk perk) {
 		// Increment bonus attributes from this perk:
-		if (perk.getAttributeModifiers() != null) {
-			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers().entrySet()) {
+		if (perk.getAttributeModifiers(this) != null) {
+			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers(this).entrySet()) {
 				incrementBonusAttribute(e.getKey(), e.getValue());
 			}
 		}
-		calculateSpecialAttacks();
+		recalculateCombatMoves();
 		
 		updateAttributeListeners();
 	}
 	
-	private void applyPerkRemovalEffects(Perk perk) {
+	private void applyPerkRemovalEffects(AbstractPerk perk) {
 		
 		// Reverse bonus attributes from this perk:
-		if (perk.getAttributeModifiers() != null) {
-			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers().entrySet()) {
+		if (perk.getAttributeModifiers(this) != null) {
+			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers(this).entrySet()) {
 				incrementBonusAttribute(e.getKey(), -e.getValue());
 			}
 		}
-		calculateSpecialAttacks();
+		recalculateCombatMoves();
 		
 		updateAttributeListeners();
 	}
@@ -5334,7 +5537,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		calculateSpecialAttacks();
+		recalculateCombatMoves();
 		updateAttributeListeners();
 		calculateSpecialFetishes();
 	}
@@ -5384,7 +5587,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		calculateSpecialAttacks();
+		recalculateCombatMoves();
 		updateAttributeListeners();
 		calculateSpecialFetishes();
 	}
@@ -5978,19 +6181,19 @@ public abstract class GameCharacter implements XMLSaving {
 		wonCombatCount = count;
 	}
 	
-	public String getMainAttackDescription(boolean isHit) {
+	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
 		if(this.getMainWeapon()!=null) {
-			return this.getMainWeapon().getWeaponType().getAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+			return this.getMainWeapon().getWeaponType().getAttackDescription(this, target, isHit);
 		} else {
-			return AbstractWeaponType.genericMeleeAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}
 	}
 	
-	public String getOffhandAttackDescription(boolean isHit) {
+	public String getOffhandAttackDescription(GameCharacter target, boolean isHit) {
 		if(this.getOffhandWeapon()!=null) {
-			return this.getOffhandWeapon().getWeaponType().getAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+			return this.getOffhandWeapon().getWeaponType().getAttackDescription(this, target, isHit);
 		} else {
-			return AbstractWeaponType.genericMeleeAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}
 	}
 	
@@ -6004,8 +6207,15 @@ public abstract class GameCharacter implements XMLSaving {
 			+ "</p>";
 	}
 	
-	public String getSeductionDescription() {
+	public String getSeductionDescription(GameCharacter target) {
 		String description = "";
+
+		// LEGACY COMBAT SUPPORT
+		// TODO: Remove when legacy support is unnecessary
+		if(target == null) {
+			target = Combat.getTargetedCombatant(this);
+		}
+
 		if(this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION)
 				|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)
 				|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH)) {
@@ -6051,7 +6261,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		if(this.isFeminine()) {
-			if(Combat.getTargetedCombatant(this).isPlayer()) {
+			if(target.isPlayer()) {
 				description = UtilText.parse(this,
 						UtilText.returnStringAtRandom(
 						"[npc.Name] erotically runs [npc.her] hands down [npc.her] legs and bends forwards as [npc.she] teases you, "
@@ -6067,7 +6277,7 @@ public abstract class GameCharacter implements XMLSaving {
 						"[npc.Name] slowly runs [npc.her] [npc.hands] up the length of [npc.her] body, before pouting at you."));
 				
 			} else {
-				description = UtilText.parse(this, Combat.getTargetedCombatant(this),
+				description = UtilText.parse(this, target,
 						UtilText.returnStringAtRandom(
 						"[npc.Name] blows a kiss at [npc2.name], before winking suggestively in [npc2.her] direction.",
 						"Biting [npc.her] lip and putting on [npc.her] most smouldering look, [npc.name] runs [npc.her] hands slowly up [npc.her] inner thighs.",
@@ -6077,7 +6287,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 		} else {
-			if(Combat.getTargetedCombatant(this).isPlayer()) {
+			if(target.isPlayer()) {
 				description = UtilText.parse(this,
 						UtilText.returnStringAtRandom(
 						"[npc.Name] winks at you and flexes [npc.his] muscles, "
@@ -6093,7 +6303,7 @@ public abstract class GameCharacter implements XMLSaving {
 						"[npc.Name] tries to look as commanding as possible as [npc.she] smirks playfully at you."));
 				
 			} else {
-				description = UtilText.parse(this, Combat.getTargetedCombatant(this),
+				description = UtilText.parse(this, target,
 						UtilText.returnStringAtRandom(
 						"[npc.Name] blows a kiss at [npc2.name], before winking suggestively in [npc2.her] direction.",
 						"Smiling confidently at [npc2.name], [npc.name] slowly runs [npc.her] hands up [npc.her] inner thighs.",
@@ -6103,9 +6313,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		return "<p>"
-				+ description
-				+ "</p>";
+		return description;
 	}
 	
 	
@@ -16107,6 +16315,502 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Combat:
 
+	public void selectMove(int turnIndex, CombatMove move, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		if(move.getAPcost() <= remainingAP) {
+			remainingAP -= move.getAPcost();
+			selectedMoves.add(new Value<>(target, move));
+			selectedMovesDisruption.add(move.isAlreadyDisrupted(this));
+			move.performOnSelection(turnIndex, this, target, enemies, allies);
+			this.setCooldown(move.getIdentifier(), move.getCooldown());
+		}
+	}
+
+	public void disruptMove(String moveIdentifier, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		// Making sure we aren't in a disruption loop
+		if(movesToDisrupt.size() == 0) {
+			movesToDisrupt.add(moveIdentifier);
+			while(movesToDisrupt.size() > 0) {
+				// Finding last move with the same type
+				int lastFoundIndex = -1;
+				int index = 0;
+				for(Value<GameCharacter, CombatMove> move : selectedMoves) {
+					if(move.getValue().getIdentifier().equals(movesToDisrupt.get(movesToDisrupt.size()-1))) {
+						lastFoundIndex = index;
+					}
+					index++;
+				}
+
+				// Making sure it was found. Applying disruption effects in reverse, then reapplying the effects.
+				if(lastFoundIndex >= 0) {
+					// Applying disruption in reverse, undoing everything that was done.
+					List<Value<GameCharacter, CombatMove>> reversedList = selectedMoves.subList(0, selectedMoves.size());
+					Collections.reverse(selectedMoves);
+					index = 0;
+					for(Value<GameCharacter, CombatMove> move : reversedList) {
+						// Excluding already disrupted moves.
+						if(selectedMovesDisruption.get(index) == false) {
+							move.getValue().applyDisruption(this, move.getKey(), enemies, allies);
+						}
+						index++;
+					}
+
+					// Reapplying it, excluding the disrupted move.
+					index = 0;
+					for(Value<GameCharacter, CombatMove> move : selectedMoves) {
+						if(lastFoundIndex == index) {
+							selectedMovesDisruption.set(index, true);
+							
+						} else {
+							// Excluding already disrupted moves.
+							if(selectedMovesDisruption.get(index) == false) {
+								move.getValue().performOnSelection(index, this, move.getKey(), enemies, allies); //TODO index might not be right here...
+							}
+						}
+						index++;
+					}
+
+				}
+
+				// Removing the move from the list of moves to disrupt.
+				movesToDisrupt.remove(movesToDisrupt.size()-1);
+			}
+			
+		} else {
+			// Adding move to queue as it was disrupted as a result of another move being disrupted; we need to deal with that move first completely before disrupting this one.
+			movesToDisrupt.add(moveIdentifier);
+		}
+	}
+
+	/**
+	 * Will disrupt by move type. If no moves of the specified type are selected, stores it till the cooldowns reset.
+	 *
+	 * Example: Flash spell disrupting a BLOCK type move.
+	 */
+	public void disruptMoveByType(CombatMoveType type, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		List<Value<GameCharacter, CombatMove>> reversedList = selectedMoves.subList(0, selectedMoves.size());
+		Collections.reverse(selectedMoves);
+		int index = 0;
+		int highestIndex = -1;
+		for(Value<GameCharacter, CombatMove> move : reversedList) {
+			// Excluding already disrupted moves.
+			if(selectedMovesDisruption.get(index) == false) {
+				if(move.getValue().getType().countsAs(type)) {
+					highestIndex = index;
+				}
+			}
+			index++;
+		}
+		if(highestIndex >= 0) {
+			disruptMove(reversedList.get(highestIndex).getValue().getIdentifier(), enemies, allies);
+			
+		} else {
+			moveTypeDisruptionMap.put(type, moveTypeDisruptionMap.get(type)+1); // Adding for the future
+		}
+	}
+
+	/**
+	 * Used by isAlreadyDisrupted function of CombatMove to figure out if a move of it's type is already disrupted.
+	 * @param type
+	 * @return
+	 */
+	public boolean disruptionByTypeCheck(CombatMoveType typeBase) {
+		for(CombatMoveType type : typeBase.getCountsAsList()) {
+			if (moveTypeDisruptionMap.containsKey(type)) {
+				if (moveTypeDisruptionMap.get(type) > 0) {
+					moveTypeDisruptionMap.put(type, moveTypeDisruptionMap.get(type) - 1);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public List<String> getMovesPredictionString(List<GameCharacter> enemies, List<GameCharacter> allies) {
+		List<String> predictions = new ArrayList<>();
+		StringBuilder sb = new StringBuilder();
+		int index = 0;
+		for(Value<GameCharacter, CombatMove> move : selectedMoves) {
+			sb.setLength(0);
+			sb.append(move.getValue().getPrediction(index, this, move.getKey(), enemies, allies));
+			if(selectedMovesDisruption.get(index) == true) {
+				sb.append("<b style='color: " + Colour.GENERIC_MINOR_BAD.toWebHexString() + "'>" + " (Disrupted!)</b>");
+			}
+			predictions.add(sb.toString());
+			index++;
+		}
+		return predictions;
+	}
+
+	/**
+	 * Performs the moves that the character has selected then clears the list.
+	 * @return String that describes the moves performed.
+	 */
+	public List<String> performMoves(List<GameCharacter> enemies, List<GameCharacter> allies) {
+		List<String> moves = new ArrayList<>();
+		StringBuilder sb = new StringBuilder();
+		int index = 0;
+		
+		for(Value<GameCharacter, CombatMove> moveEntry : selectedMoves) {
+			sb.setLength(0);
+			CombatMove move = moveEntry.getValue();
+			if(selectedMovesDisruption.get(index) == false) {
+				GameCharacter target = moveEntry.getKey();
+				float lustStart = target.getLust();
+				sb.append("<b style='text-align:center; color: " + move.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getName()) + ":</b> "
+							+ move.perform(index, this, target, enemies, allies));
+				float lustEnd = target.getLust();
+				if(lustStart!=lustEnd) {
+					if(this.hasTraitActivated(Perk.LUSTPYRE)) {
+						int manaAbsorbed = Math.min(Math.round(target.getMana()), Math.max(1, Math.round(target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.02f)));
+						if(manaAbsorbed>0) {
+							this.incrementMana(manaAbsorbed);
+							target.incrementMana(-manaAbsorbed);
+							sb.append("<br/>"
+									+ UtilText.parse(this, target,
+											"Thanks to [npc.her] '<span style='color:"+Perk.LUSTPYRE.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Perk.LUSTPYRE.getName(this))+"</span>' trait,"
+													+ " [npc.name] [npc.verb(absorb)] [style.colourMana("+manaAbsorbed+")] "+Attribute.MANA_MAXIMUM.getName()+" from [npc2.name]!"));
+						}
+					}
+					if(target.hasTraitActivated(Perk.PURE_MIND)) {
+						int manaRestored = Math.round(target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.02f);
+						target.incrementMana(manaRestored);
+						sb.append("<br/>"
+								+ UtilText.parse(target,
+										"Thanks to [npc.namePos] '<span style='color:"+Perk.PURE_MIND.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Perk.PURE_MIND.getName(this))+"</span>' trait,"
+												+ " [npc.she] [npc.verb(recover)] [style.colourMana("+manaRestored+")] "+Attribute.MANA_MAXIMUM.getName()+" in response to taking "+Attribute.DAMAGE_LUST.getName()+"!"));
+					}
+				}
+				
+				if(move.getStatusEffects()!=null) {
+					for(Entry<StatusEffect, Integer> entry : move.getStatusEffects().entrySet()) {
+						if(move.canCrit(index, this, target, enemies, allies)) {
+							int duration = (int)(entry.getValue()*move.getCritStatusEffectDurationIncrease());
+							target.addStatusEffect(entry.getKey(), duration);
+							sb.append(UtilText.parse(target,
+									"<br/>[npc.NameIsFull] now affected by <b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName(target))+"</b>"
+											+ " for <b>"+Util.intToString(duration)+(duration==1?" turn":" turns")+"</b>!"));
+						} else {
+							target.addStatusEffect(entry.getKey(), entry.getValue());
+							sb.append(UtilText.parse(target,
+									"<br/>[npc.NameIsFull] now affected by <b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName(target))+"</b>"
+											+ " for <b>"+Util.intToString(entry.getValue())+(entry.getValue()==1?" turn":" turns")+"</b>!"));
+						}
+					}
+				}
+				
+			} else {
+				sb.append("<b style='text-align:center; color: " + move.getType().getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getType().getName()) + ":</b><br/>"
+							+ "<b style='color: " + Colour.GENERIC_MINOR_BAD.toWebHexString() + "'>" + "The action was disrupted!</b>");
+			}
+			moves.add(sb.toString());
+			index++;
+		}
+		
+		if(selectedMoves.isEmpty()) {
+			moves.add(UtilText.parse(this, "[npc.Name] [npc.verb(decide)] not to make a move, and instead [npc.verb(try)] to brace [npc.herself] as best as possible against any incoming attacks."));
+		}
+		
+		if(!Combat.isCombatantDefeated(this) && this.hasTraitActivated(Perk.COMBAT_REGENERATION)) {
+			int healthRecovery = Math.round(this.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.05f);
+			this.setHealth(this.getHealth()+healthRecovery);
+			moves.add(UtilText.parse(this,
+					"Thanks to [npc.her] '<span style='color:"+Perk.COMBAT_REGENERATION.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Perk.COMBAT_REGENERATION.getName(this))+"</span>' trait,"
+							+ " [npc.name] [npc.verb(recover)] [style.colourHealth("+healthRecovery+")] "+Attribute.HEALTH_MAXIMUM.getName()+"!"));
+		}
+		
+		selectedMoves.clear();
+		selectedMovesDisruption.clear();
+		remainingAP = maxAP;
+		
+		return moves;
+	}
+
+	/**
+	 * Selects moves for the character using weights of these moves.
+	 */
+	public void selectMoves(List<GameCharacter> enemies, List<GameCharacter> allies) {
+		int turnIndex=0;
+		if(enemies.isEmpty()) {
+			return;
+		}
+		while(remainingAP > 0) {
+			// Assembling move list
+			List<CombatMove> potentialMoves = new ArrayList<>();
+			for(CombatMove move : equippedMoves) {
+				if(move.isUseable(this, null, enemies, allies) == null) {
+					potentialMoves.add(move);
+				}
+			}
+			
+			// Determining move based on weight
+			CombatMove selectedMove = null;
+			float highestWeight = 0.0f;
+			for(CombatMove move : potentialMoves) {
+				float currentWeight = move.getWeight(this, enemies, allies);
+				if(highestWeight < currentWeight) {
+					selectedMove = move;
+					highestWeight = currentWeight;
+				}
+			}
+			if(selectedMove == null) {
+				break;
+			} else {
+				selectMove(turnIndex, selectedMove, selectedMove.getPreferredTarget(this, enemies, allies), enemies, allies);
+			}
+			turnIndex++;
+		}
+	}
+
+	public int getRemainingAP() {
+		return remainingAP;
+	}
+	public void setRemainingAP(int remainingAP) {
+		this.remainingAP = remainingAP;
+	}
+	public int getMaxAP() {
+		return maxAP;
+	}
+
+	/**
+	 * Sets remaining AP. If AP is set to negative values, will cause action disruptions. If enemies and allies are null, guarantees that no  AP related disruptions are necessary.
+	 * @param value
+	 * @param enemies
+	 * @param allies
+	 */
+	public void setRemainingAP(int value, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		remainingAP = value;
+		while(remainingAP < 0 && enemies != null && allies != null) { // If something put our AP below 0, we remove the actions causing that.
+			List<Value<GameCharacter, CombatMove>> reversedList = selectedMoves.subList(0, selectedMoves.size());
+			Collections.reverse(selectedMoves);
+			int index = 0;
+			int highestIndex = -1;
+			for(Value<GameCharacter, CombatMove> move : reversedList) {
+				// Excluding already disrupted moves.
+				if(selectedMovesDisruption.get(index) == false) {
+					if(move.getValue().getAPcost() > 0) {
+						highestIndex = index;
+					}
+				}
+				index++;
+			}
+			if(highestIndex >= 0) {
+				disruptMove(reversedList.get(highestIndex).getValue().getIdentifier(), enemies, allies);
+			} else {
+				remainingAP = 0; // Safeguard in case no actions could be removed to remedy the AP situation.
+			}
+		}
+	}
+
+	public void setMaxAP(int value) {
+		maxAP = value;
+	}
+
+	public List<CombatMove> getEquippedMoves() {
+		return equippedMoves;
+	}
+	
+	public void equipBasicCombatMoves() {
+		equipMove("strike");
+		equipMove("twin-strike");
+		equipMove("block");
+		equipMove("tease");
+		equipMove("avert");
+	}
+
+	public void resetDefaultMoves() {
+		if(!this.isPlayer()
+				&& (!this.isSlave() || !this.getOwner().isPlayer())
+				&& !Main.game.getPlayer().getParty().contains(this)
+				&& this.getEquippedMoves().size()==0) {
+			for(CombatMove move : getAvailableMoves()) {
+				if(this.getEquippedMoves().size() >= GameCharacter.MAX_COMBAT_MOVES) {
+					break;
+				}
+				equipMove(move.getIdentifier());
+			}
+		}
+	}
+
+	public int getSelectedMovesByType(CombatMoveType type) {
+		int moves = 0;
+		for(Value<GameCharacter, CombatMove> move : selectedMoves) {
+			if(move.getValue().getType().countsAs(type)) {
+				moves++;
+			}
+		}
+		return moves;
+	}
+
+	public List<Value<GameCharacter, CombatMove>> getSelectedMoves() {
+		return selectedMoves;
+	}
+
+	public List<CombatMove> getAvailableMoves() {
+		List<CombatMove> availableMoves = new ArrayList<>(knownMoves);
+		for(CombatMove move : CombatMove.allCombatMoves) {
+			if(move.isAvailableFromSpecialCase(this)!=null && move.isAvailableFromSpecialCase(this).getKey()) {
+				availableMoves.add(move);
+			}
+		}
+		return availableMoves;
+	}
+
+	public Value<Boolean, String> isMoveAvailable(String identifier) {
+		for(CombatMove move : knownMoves) {
+			if(move.getIdentifier().equals(identifier)) {
+				return new Value<>(true, "You have learned how to use this move during your adventures.");
+			}
+		}
+		return CombatMove.getMove(identifier).isAvailableFromSpecialCase(this);
+	}
+
+	public void unequipMove(String identifier) {
+		CombatMove moveToRemove = null;
+		for(CombatMove move : equippedMoves) {
+			if(move.getIdentifier().equals(identifier)) {
+				moveToRemove = move;
+				break;
+			}
+		}
+		if(moveToRemove != null) {
+			equippedMoves.remove(moveToRemove);
+		}
+	}
+
+	public boolean equipMove(String identifier) {
+		this.unequipMove(identifier);
+		CombatMove moveToAdd = CombatMove.getMove(identifier);
+		if(moveToAdd != null) {
+			if(this.getEquippedMoves().size() >= GameCharacter.MAX_COMBAT_MOVES) {
+				return false;
+			}
+			equippedMoves.add(moveToAdd);
+			return true;
+		}
+		return false;
+	}
+	
+	public void equipAllKnownMoves() {
+		for(CombatMove move : knownMoves) {
+			if(this.getEquippedMoves().size() >= GameCharacter.MAX_COMBAT_MOVES) {
+				break;
+			}
+			equippedMoves.add(move);
+		}
+	}
+
+	public void equipAllSpellMoves() {
+		for(CombatMove move : CombatMove.allCombatMoves) {
+			if(this.getEquippedMoves().size() >= GameCharacter.MAX_COMBAT_MOVES) {
+				break;
+			}
+			if(move.getAssociatedSpell()!=null && this.getAllSpells().contains(move.getAssociatedSpell())) {
+				equippedMoves.add(move);
+			}
+		}
+	}
+
+	public void addKnownMove(String identifier) {
+		CombatMove moveToAdd = CombatMove.getMove(identifier);
+		if(moveToAdd != null) {
+			knownMoves.add(moveToAdd);
+		}
+	}
+	
+	public void recalculateCombatMoves() {
+		List<CombatMove> availableMoves = new ArrayList<>(equippedMoves);
+		for(CombatMove move : availableMoves) {
+			if(move.isAvailableFromSpecialCase(this)==null || !move.isAvailableFromSpecialCase(this).getKey()) {
+				equippedMoves.remove(move);
+			}
+		}
+	}
+
+	public void clearEquippedMoves() {
+		equippedMoves.clear();
+	}
+	
+	public void resetMoveData() {
+		equippedMoves.clear();
+		knownMoves.clear();
+	}
+
+	public void resetSelectedMoves() {
+		selectedMoves.clear();
+		selectedMovesDisruption.clear();
+	}
+
+	public void resetMoveCooldowns() {
+		this.moveTypeDisruptionMap.clear();
+		this.moveCooldowns = new HashMap<>();
+	}
+
+	public int getShields(DamageType type) {
+		if(shields.containsKey(type)) {
+			return shields.get(type);
+		}
+		return 0;
+	}
+
+	public void setShields(DamageType type, int amount) {
+		if(amount < 0) {
+			amount = 0;
+		}
+		shields.put(type, amount);
+	}
+	
+	public void incrementShields(DamageType type, int amount) {
+		if(amount < 0) {
+			amount = 0;
+		}
+		shields.putIfAbsent(type, 0);
+		shields.put(type, shields.get(type) + amount);
+	}
+	
+	public void resetShields() {
+		shields.clear();
+	}
+
+	public void setCooldown(String identifier, int value) {
+		this.moveCooldowns.put(identifier, value);
+	}
+
+	public int getMoveCooldown(String identifier) {
+		if(this.moveCooldowns.get(identifier) != null) {
+			return this.moveCooldowns.get(identifier);
+		}
+		return 0;
+	}
+
+	public void lowerMoveCooldowns() {
+		this.moveTypeDisruptionMap.clear();
+		for(String action : moveCooldowns.keySet()) {
+			if(moveCooldowns.get(action) > 0) {
+				this.moveCooldowns.put(action, moveCooldowns.get(action)-1);
+			}
+		}
+	}
+
+	/**
+	 * Returns base unarmed damage value.
+	 * @return
+	 */
+	public int getUnarmedDamage() {
+		float totalDamage = 1 + this.getAttributeValue(Attribute.MAJOR_PHYSIQUE)/10f; // Basic physique damage calculation
+		
+		if(totalDamage > 8) { // Hard cap at 8 from physique
+			totalDamage = 8;
+		}
+
+		if(this.hasTraitActivated(Perk.UNARMED_TRAINING)) { // Unarmed training always gives guaranteed 8 base damage.
+			totalDamage = 8;
+		}
+
+		totalDamage *= 1 + Util.getModifiedDropoffValue(this.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f;
+
+		return Math.round(totalDamage);
+	}
+
 	public boolean isImmuneToDamageType(DamageType type) {
 		return false;
 	}
@@ -16131,29 +16835,6 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		return "";
-	}
-	
-	/**
-	 * The returned list is ordered by rendering priority.
-	 */
-	public List<SpecialAttack> getSpecialAttacks() {
-		calculateSpecialAttacks();
-		List<SpecialAttack> tempListSpecialAttacks = new ArrayList<>(specialAttacks);
-		tempListSpecialAttacks.sort(Comparator.comparingInt(SpecialAttack::getRenderingPriority).reversed());
-		return tempListSpecialAttacks;
-	}
-
-
-	public void calculateSpecialAttacks() {
-		if(specialAttacks!=null) {
-			specialAttacks.clear();
-			
-			for (SpecialAttack sAttack : SpecialAttack.values()) {
-				if (sAttack.isConditionsMet(this)) {
-					specialAttacks.add(sAttack);
-				}
-			}
-		}
 	}
 	
 	public List<Spell> getSpells() {
@@ -16403,6 +17084,23 @@ public abstract class GameCharacter implements XMLSaving {
 			this.mana = mana;
 
 		updateAttributeListeners();
+	}
+
+	/**
+	 * "Burns" mana instead of lowering it. If the character has no mana, would lower HP instead with a 4 mana to 1 ratio. Used by fire spells.
+	 * @param mana
+	 */
+	public void burnMana(float mana) {
+		float healthDamage = (getMana() - mana) * -1;
+		if(healthDamage > 0) {
+			healthDamage = (int)(0.25 * healthDamage);
+			if(healthDamage > getHealth()) {
+				setHealth(1); // Can't burn below 1 HP.
+			} else {
+				setHealth(getHealth() - healthDamage);
+			}
+		}
+		setMana(getMana() - mana);
 	}
 	
 	/**
@@ -18039,7 +18737,6 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	private void applyEquipClothingEffects(AbstractClothing newClothing) {
-		incrementBonusAttribute(Attribute.RESISTANCE_PHYSICAL, newClothing.getClothingType().getPhysicalResistance());
 		for (Entry<Attribute, Integer> e : newClothing.getAttributeModifiers().entrySet()) {
 			incrementBonusAttribute(e.getKey(), e.getValue());
 		}
@@ -18139,7 +18836,6 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		incrementBonusAttribute(Attribute.RESISTANCE_PHYSICAL, -clothing.getClothingType().getPhysicalResistance());
 		for (Entry<Attribute, Integer> e : clothing.getAttributeModifiers().entrySet()) {
 			incrementBonusAttribute(e.getKey(), -e.getValue());
 		}
@@ -19880,7 +20576,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		body.calculateRace(this);
-		calculateSpecialAttacks();
+		recalculateCombatMoves();
 
 		postTFSB.append(inventory.calculateClothingPostTransformation(this));
 		

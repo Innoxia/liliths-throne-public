@@ -27,8 +27,7 @@ public class ResponseCombat extends Response {
 	public ResponseCombat(String title, String tooltipText, NPC opponent) {
 		super(title, tooltipText, null);
 		this.allies = new ArrayList<>();
-		for(GameCharacter companion : Main.game.getPlayer().getCompanions())
-		{
+		for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
 			this.allies.add((NPC) companion);
 		}
 		
@@ -46,8 +45,7 @@ public class ResponseCombat extends Response {
 	public ResponseCombat(String title, String tooltipText, NPC opponent, Map<GameCharacter, String> openingDescriptions) {
 		super(title, tooltipText, null);
 		this.allies = new ArrayList<>();
-		for(GameCharacter companion : Main.game.getPlayer().getCompanions())
-		{
+		for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
 			this.allies.add((NPC) companion);
 		}
 		
@@ -55,8 +53,7 @@ public class ResponseCombat extends Response {
 		
 		this.enemies = new ArrayList<>();
 		this.enemies.add(opponent);
-		for(GameCharacter companion : opponent.getCompanions())
-		{
+		for(GameCharacter companion : opponent.getCompanions()) {
 			this.enemies.add((NPC) companion);
 		}
 		

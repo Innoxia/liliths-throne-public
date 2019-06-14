@@ -46,6 +46,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -983,11 +984,11 @@ public class TooltipInventoryEventListener implements EventListener {
 		// Attribute modifiers:
 		tooltipSB.append("<div class='container-full-width'>"
 				+ "<div class='container-half-width titular' style='width:calc(66.6% - 16px);'>");
-		int res = absClothing.getClothingType().getPhysicalResistance();
+		float res = Units.round(absClothing.getClothingType().getPhysicalResistance()/10f, 1);
 		tooltipSB.append(
 				"<span style='color:" + absClothing.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absClothing.getDisplayRarity())+"</span></br>"
 				+ (res>0
-					?"[style.boldGood(+"+absClothing.getClothingType().getPhysicalResistance()+")]"
+					?"[style.boldGood(+"+res+")]"
 					:"[style.boldDisabled(0)]")
 				+" [style.boldResPhysical("+Util.capitaliseSentence(Attribute.RESISTANCE_PHYSICAL.getName())+")]");
 		

@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -91,6 +92,8 @@ public class SlaveImport extends NPC {
 			this.getSlavesOwned().clear();
 			
 			this.setPlayerKnowsName(true);
+			
+			this.setHistory(Occupation.NPC_SLAVE);
 //		}
 	}
 	

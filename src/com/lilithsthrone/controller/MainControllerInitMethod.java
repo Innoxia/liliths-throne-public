@@ -88,6 +88,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
@@ -114,6 +115,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
@@ -134,6 +136,7 @@ import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
@@ -4656,7 +4659,7 @@ public class MainControllerInitMethod {
 			}
 
 			
-			for(Perk perk : Perk.values()) {
+			for(AbstractPerk perk : Perk.getAllPerks()) {
 				GameCharacter character = Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP
 						?Main.game.getPlayer()
 						:(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS
@@ -4664,33 +4667,40 @@ public class MainControllerInitMethod {
 							:CharactersPresentDialogue.characterViewed);
 						
 				if(perk.getPerkCategory() == PerkCategory.JOB) {
-					id = "OCCUPATION_"+perk;
+					id = "OCCUPATION_"+Perk.getIdFromPerk(perk);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character), false);
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character, true), false);
 					}
 					
 				} else {
-					id = "TRAIT_"+perk;
+					id = "TRAIT_"+Perk.getIdFromPerk(perk);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(PerkManager.MANAGER.getPerkRow(character, perk), perk, character), false);
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(PerkManager.MANAGER.getPerkRow(character, perk), perk, character, true), false);
+
+						boolean availableForSelection =
+								Main.game.getCurrentDialogueNode() != PhoneDialogue.CONTACTS_CHARACTER
+								&& Main.game.getCurrentDialogueNode() != PhoneDialogue.CHARACTER_APPEARANCE
+								&& Main.game.getCurrentDialogueNode() != CharactersPresentDialogue.MENU;
 						
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", event -> {
-							character.removeTrait(perk);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}, false);
+						if(availableForSelection) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", event -> {
+								character.removeTrait(perk);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}, false);
+						}
 					}
 				}
 				if(perk.isHiddenPerk()) {
-					id = "HIDDEN_PERK_"+perk;
+					id = "HIDDEN_PERK_"+Perk.getIdFromPerk(perk);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						if(character.hasPerkAnywhereInTree(perk)) {
-							MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character), false);
+							MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character, true), false);
 						} else {
 							MainController.addEventListener(MainController.document, id, "mouseenter",
 									new TooltipInformationEventListener().setInformation("Unknown!",
@@ -4699,11 +4709,38 @@ public class MainControllerInitMethod {
 					}
 				}
 			}
+
+
+			for(CombatMove move : CombatMove.allCombatMoves) {
+				GameCharacter character = CombatMovesSetup.getTarget();
+
+				id = "MOVE_"+move.getIdentifier();
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setCombatMove(move, character), false);
+
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", event -> {
+						if(character.getEquippedMoves().contains(move))
+						{
+							character.unequipMove(move.getIdentifier());
+						}
+						else if(character.getEquippedMoves().size() < GameCharacter.MAX_COMBAT_MOVES)
+						{
+							character.equipMove(move.getIdentifier());
+						}
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+			}
 			
 			// Level up dialogue:
 			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP
 					|| Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS
-					|| Main.game.getCurrentDialogueNode() == CharactersPresentDialogue.PERKS) {
+					|| Main.game.getCurrentDialogueNode() == CharactersPresentDialogue.PERKS
+					|| Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_APPEARANCE
+					|| Main.game.getCurrentDialogueNode() == CharactersPresentDialogue.MENU
+					|| Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
 				
 				GameCharacter character = Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP
 						?Main.game.getPlayer()
@@ -4712,32 +4749,39 @@ public class MainControllerInitMethod {
 							:CharactersPresentDialogue.characterViewed);
 						
 				for(int i = 0; i<PerkManager.ROWS; i++) {
-					for(Entry<PerkCategory, List<TreeEntry<PerkCategory, Perk>>> entry : PerkManager.MANAGER.getPerkTree(character).get(i).entrySet()) {
-						for(TreeEntry<PerkCategory, Perk> e : entry.getValue()) {
-							id = i+"_"+e.getEntry();
+					for(Entry<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>> entry : PerkManager.MANAGER.getPerkTree(character).get(i).entrySet()) {
+						for(TreeEntry<PerkCategory, AbstractPerk> e : entry.getValue()) {
+							id = i+"_"+e.getCategory()+"_"+Perk.getIdFromPerk(e.getEntry());
 	
 							if (((EventTarget) MainController.document.getElementById(id)) != null) {
+								boolean availableForSelection =
+										Main.game.getCurrentDialogueNode() != PhoneDialogue.CONTACTS_CHARACTER
+										&& Main.game.getCurrentDialogueNode() != PhoneDialogue.CHARACTER_APPEARANCE
+										&& Main.game.getCurrentDialogueNode() != CharactersPresentDialogue.MENU;
 								MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 								MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-								MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(i, e.getEntry(), character), false);
-								((EventTarget) MainController.document.getElementById(id)).addEventListener("click", event -> {
-									if(e.getEntry().isEquippableTrait() && PerkManager.MANAGER.isPerkOwned(character, e)) {
-										if(!character.hasTraitActivated(e.getEntry())) {
-											character.addTrait(e.getEntry());
-										} else {
-											character.removeTrait(e.getEntry());
-										}
-										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-										
-									} else if(character.getPerkPoints()>=1 && PerkManager.MANAGER.isPerkAvailable(character, e)) {
-										if(character.addPerk(e.getRow(), e.getEntry())) {
-											if(e.getEntry().isEquippableTrait() && character.getTraits().size()<GameCharacter.MAX_TRAITS) {
+								MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(i, e.getEntry(), character, availableForSelection), false);
+								// These two dialogues are just for viewing, not modifying:
+								if(availableForSelection) {
+									((EventTarget) MainController.document.getElementById(id)).addEventListener("click", event -> {
+										if(e.getEntry().isEquippableTrait() && PerkManager.MANAGER.isPerkOwned(character, e)) {
+											if(!character.hasTraitActivated(e.getEntry())) {
 												character.addTrait(e.getEntry());
+											} else {
+												character.removeTrait(e.getEntry());
 											}
 											Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+											
+										} else if(character.getPerkPoints()>=1 && PerkManager.MANAGER.isPerkAvailable(character, e)) {
+											if(character.addPerk(e.getRow(), e.getEntry())) {
+												if(e.getEntry().isEquippableTrait() && character.getTraits().size()<GameCharacter.MAX_TRAITS) {
+													character.addTrait(e.getEntry());
+												}
+												Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+											}
 										}
-									}
-								}, false);
+									}, false);
+								}
 							}
 						}
 					}

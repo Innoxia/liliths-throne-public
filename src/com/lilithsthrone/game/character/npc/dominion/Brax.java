@@ -1,14 +1,13 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -52,6 +51,9 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -65,8 +67,6 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -101,7 +101,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.5
- * @version 0.2.11
+ * @version 0.3.4
  * @author Innoxia
  */
 public class Brax extends NPC {
@@ -114,7 +114,7 @@ public class Brax extends NPC {
 		super(isImported, new NameTriplet("Brax", "Bree", "Brandi"), "Volkov",
 				"The 'Chief of Dominion Operations', Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.",
 				30, Month.NOVEMBER, 27,
-				3, Gender.M_P_MALE,
+				6, Gender.M_P_MALE,
 				Subspecies.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
 
 	}
@@ -137,9 +137,6 @@ public class Brax extends NPC {
 			}
 		}
 		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.3.0.6")) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 20);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 60);
-
 			if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxBeaten)) {
 				this.unequipMainWeaponIntoVoid();
 				this.unequipOffhandWeaponIntoVoid();
@@ -147,17 +144,32 @@ public class Brax extends NPC {
 				this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_EPIC, DamageType.FIRE));
 			}
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+			this.setLevel(6);
+			this.setHistory(Occupation.NPC_ENFORCER_PATROL_INSPECTOR);
+			this.equipClothing(null);
+			this.resetPerksMap();
+		}
 	}
+
+	@Override
+	public void setupPerks() {
+		PerkManager.initialisePerks(this,
+				Util.newArrayListOfValues(
+						Perk.UNARMED_DAMAGE,
+						Perk.ARCANE_BOOST),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 2),
+						new Value<>(PerkCategory.LUST, 0),
+						new Value<>(PerkCategory.ARCANE, 1)));
+	}
+	
 	@Override
 	public void setStartingBody(boolean setPersona) {
 		
 		// Persona:
 
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 20);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 5);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 60);
-	
 			this.setPersonality(Util.newHashMapOfValues(
 					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
 					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
@@ -167,7 +179,7 @@ public class Brax extends NPC {
 	
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			this.setHistory(Occupation.NPC_HIGH_RANKING_ENFORCER);
+			this.setHistory(Occupation.NPC_ENFORCER_PATROL_INSPECTOR);
 	
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 			this.addFetish(Fetish.FETISH_DOMINANT);
@@ -263,7 +275,7 @@ public class Brax extends NPC {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_FISHNET_TOP, Colour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_PLEATED, Colour.CLOTHING_PINK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_fishnets", Colour.CLOTHING_WHITE, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_stiletto_heels", Colour.CLOTHING_BLACK, false), true, this);
+//				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_stiletto_heels", Colour.CLOTHING_BLACK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HAND_FISHNET_GLOVES, Colour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false), true, this);
@@ -281,7 +293,7 @@ public class Brax extends NPC {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_kneehigh_socks", Colour.CLOTHING_WHITE, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", Colour.CLOTHING_BLACK, false), true, this);
+//				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", Colour.CLOTHING_BLACK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING,  Colour.CLOTHING_SILVER, false), true, this);
 			}
@@ -289,8 +301,8 @@ public class Brax extends NPC {
 		} else {
 			
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_trainers", Colour.CLOTHING_BLACK, false), true, this);
+//			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_BLACK, false), true, this);
+//			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_trainers", Colour.CLOTHING_BLACK, false), true, this);
 			
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxBeaten)) {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), true, this);
@@ -401,19 +413,25 @@ public class Brax extends NPC {
 	// Combat:
 	
 	@Override
-	public String getMainAttackDescription(boolean isHit) {
+	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
 		return "<p>"
-					+ UtilText.returnStringAtRandom(
-							"Brax lunges forwards, attempting to deliver a punch to your torso."
-									+ (isHit ? " The arcane flames swirling around his forearm dart forwards as his fist makes contact, enveloping you for a brief moment in a fiery vortex."
-											+ " Although the flames don't cause any real pain, the arcane's strength-sapping effect still knocks you back, reeling." : " You manage to twist away to one side, allowing Brax's fist to sail harmlessly by."),
-							"With surprising swiftness, Brax darts forwards, lifting his leg as he attempts to land a kick."
-									+ (isHit ? " As his wolf-like foot connects with your side, the arcane flames swirling around his forearm dart down the length of his body to strike out at the point of contact."
-											+ " You're briefly enveloped in a fiery vortex, and although the flames don't cause any real pain, the arcane fire still adds considerable power to Brax's attack."
+					+ UtilText.parse(target,
+						UtilText.returnStringAtRandom(
+							"Brax lunges forwards, attempting to deliver a punch to [npc.namePos] torso."
+									+ (isHit
+											? " The arcane flames swirling around his forearm dart forwards as his fist makes contact, enveloping [npc.herHim] for a brief moment in a fiery vortex."
+												+ " Although the flames don't cause any real pain, the arcane's strength-sapping effect still knocks [npc.herHim] back, reeling."
+											: " You manage to twist away to one side, allowing Brax's fist to sail harmlessly by."),
+							"With surprising swiftness, Brax darts forwards, lifting his leg as he attempts to strike [npc.name] with a kick."
+									+ (isHit
+											? " As his wolf-like foot connects with [npc.her] side, the arcane flames swirling around his forearm dart down the length of his body to strike out at the point of contact."
+												+ " [npc.NameIsFull] briefly enveloped in a fiery vortex, and although the flames don't cause any real pain, the arcane fire still adds considerable power to Brax's attack."
 											: " You see his attack coming and step back to avoid the blow."),
-							"Brax steps forwards as he attempts to punch you."
-									+ (isHit ? " The arcane flames swirling around his forearm dart forwards as his fist makes contact, enveloping you for a brief moment in a fiery vortex."
-											+ " Although the flames don't cause any real pain, the arcane's strength-sapping effect still knocks you back, reeling." : " You jump out of the way, managing to dodge his clearly-telegraphed attack.")) 
+							"Brax steps forwards as he attempts to punch [npc.name]."
+									+ (isHit
+											? " The arcane flames swirling around his forearm dart forwards as his fist makes contact, enveloping [npc.herHim] for a brief moment in a fiery vortex."
+												+ " Although the flames don't cause any real pain, the arcane's strength-sapping effect still knocks [npc.name] back, reeling."
+											: " You jump out of the way, managing to dodge his clearly-telegraphed attack."))) 
 				+ "</p>";
 	}
 			
@@ -424,40 +442,6 @@ public class Brax extends NPC {
 						"With a grin, Brax focuses on the arcane fire swirling around his arm, and with a sudden thrust forwards, he casts a spell!",
 						"Brax focuses on the arcane fire swirling around his arm, and with a sudden thrust forwards, he casts a spell!") 
 			+ "</p>";
-	}
-	
-	@Override
-	public Attack attackType() {
-		if(this.isSlave()) {
-			return super.attackType();
-		}
-		
-		boolean canCastASpell = !this.getWeightedSpellsAvailable(Combat.getTargetedCombatant(this)).isEmpty();
-		boolean canCastASpecialAttack = false;
-		
-		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
-		
-		attackWeightingMap.put(Attack.MAIN, this.getRace().getPreferredAttacks().contains(Attack.MAIN)?75:50);
-		attackWeightingMap.put(Attack.OFFHAND, this.getOffhandWeapon()==null?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?50:25));
-		attackWeightingMap.put(Attack.SEDUCTION, this.getRace().getPreferredAttacks().contains(Attack.SEDUCTION)?100:(int)this.getAttributeValue(Attribute.MAJOR_CORRUPTION));
-		attackWeightingMap.put(Attack.SPELL, !canCastASpell?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?100:50));
-		attackWeightingMap.put(Attack.SPECIAL_ATTACK, !canCastASpecialAttack?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?100:50));
-		
-		int total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-		}
-		
-		int index = Util.random.nextInt(total);
-		total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-			if(index<total) {
-				return entry.getKey();
-			}
-		}
-		
-		return Attack.MAIN;
 	}
 	
 	@Override

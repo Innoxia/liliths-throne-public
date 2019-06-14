@@ -38,8 +38,12 @@ import com.lilithsthrone.game.character.CharacterChangeEventListener;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.effects.TreeEntry;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
@@ -47,7 +51,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.SpecialAttack;
+import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -450,25 +454,12 @@ public class MainController implements Initializable {
 						System.arraycopy(lastKeys, 0, lastKeys, 1, 4);
 						lastKeys[0] = event.getCode();
 						checkLastKeys();
-
-						 if(event.getCode()==KeyCode.END && Main.DEBUG){
-//							 Main.game.getPlayer().addSpecialPerk(Perk.POWER_OF_LYSSIETH_4);
-//							 System.out.println(UtilText.parse(Main.game.getPlayer(), Sex.getActivePartner(), "[npc.Name], [npc2.Name].  #IFnpc2.isFeminine()#THEN:3#ENDIF #IFnpc.isFeminine()#THEN:0#ENDIF"));
-//							 Main.game.getPlayer().setLegConfiguration(LegConfiguration.TAUR, false);
-							 
-//							 for(KeyboardAction action : KeyboardAction.values()) {
-//								 System.out.println(action.getPrimaryDefault().getFullName()+(action.getSecondaryDefault()!=null?" | "+action.getSecondaryDefault().getFullName():"")+": "+action.getName());
-//							 }
-							 
-//							 try {
-//								OutfitType.getAllOutfits().get(0).applyOutfit(Main.game.getPlayer(), true, true, true, true);
-//							} catch (XMLLoadException e) {
-//								e.printStackTrace();
-//							}
-							
-							
-//							 System.out.println(Main.isVersionOlderThan("0.1.3", "0.1.3.01"));
-						 }
+						
+						if(event.getCode()==KeyCode.END && Main.DEBUG){
+							Pathing.aStarPathingPerkTree(PerkManager.MANAGER.getPerkTree(Main.game.getPlayer()),
+									new TreeEntry<PerkCategory, AbstractPerk>(PerkCategory.PHYSICAL, 1, Perk.PHYSICAL_BASE),
+									new TreeEntry<PerkCategory, AbstractPerk>(PerkCategory.ARCANE, 10, Perk.ARCANE_VAMPYRISM));
+						}
 						 
 
 						// Escape Menu:
@@ -1650,8 +1641,8 @@ public class MainController implements Initializable {
 			}
 			
 			
-			for (Perk trait : character.getTraits()) {
-				id = "TRAIT_" + idModifier + trait;
+			for (AbstractPerk trait : character.getTraits()) {
+				id = "TRAIT_" + idModifier + Perk.getIdFromPerk(trait);
 				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
@@ -1668,13 +1659,14 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseenter", el, false);
 				}
 			}
-			for (SpecialAttack sa : character.getSpecialAttacks()) {
-				if (((EventTarget) documentAttributes.getElementById("SA_"+idModifier + sa)) != null) {
-					addEventListener(documentAttributes, "SA_"+idModifier + sa, "mousemove", moveTooltipListener, false);
-					addEventListener(documentAttributes, "SA_"+idModifier + sa, "mouseleave", hideTooltipListener, false);
+			for (CombatMove combatMove : character.getEquippedMoves()) {
+				id = "CM_"+idModifier + combatMove.getIdentifier();
+				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 	
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setSpecialAttack(sa, character);
-					addEventListener(documentAttributes, "SA_"+idModifier + sa, "mouseenter", el, false);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setCombatMove(combatMove, character);
+					addEventListener(documentAttributes, id, "mouseenter", el, false);
 				}
 			}
 			for (Spell s : character.getAllSpells()) {
@@ -1963,13 +1955,14 @@ public class MainController implements Initializable {
 				}
 				
 				// For perk slots:
-				for (Perk p : character.getMajorPerks()) {
-					if (((EventTarget) documentRight.getElementById("PERK_NPC_"+idModifier + p)) != null) {
-						addEventListener(documentRight, "PERK_NPC_"+idModifier + p, "mousemove", moveTooltipListener, false);
-						addEventListener(documentRight, "PERK_NPC_"+idModifier + p, "mouseleave", hideTooltipListener, false);
+				for (AbstractPerk p : character.getMajorPerks()) {
+					id = "PERK_NPC_"+idModifier + Perk.getIdFromPerk(p);
+					if (((EventTarget) documentRight.getElementById(id)) != null) {
+						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 		
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setPerk(p, character);
-						addEventListener(documentRight, "PERK_NPC_"+idModifier + p, "mouseenter", el, false);
+						addEventListener(documentRight, id, "mouseenter", el, false);
 					}
 				}
 				for (Fetish f : character.getFetishes(true)) {
@@ -1981,13 +1974,14 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseenter", el, false);
 					}
 				}
-				for (SpecialAttack sa : character.getSpecialAttacks()) {
-					if (((EventTarget) documentRight.getElementById("SA_NPC_"+idModifier + sa)) != null) {
-						addEventListener(documentRight, "SA_NPC_"+idModifier + sa, "mousemove", moveTooltipListener, false);
-						addEventListener(documentRight, "SA_NPC_"+idModifier + sa, "mouseleave", hideTooltipListener, false);
+				for (CombatMove combatMove : character.getEquippedMoves()) {
+					id = "CM_NPC_"+idModifier + combatMove.getIdentifier();
+					if (((EventTarget) documentRight.getElementById(id)) != null) {
+						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 		
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpecialAttack(sa, character);
-						addEventListener(documentRight, "SA_NPC_"+idModifier + sa, "mouseenter", el, false);
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setCombatMove(combatMove, character);
+						addEventListener(documentRight, id, "mouseenter", el, false);
 					}
 				}
 				for (Spell s : character.getAllSpells()) {

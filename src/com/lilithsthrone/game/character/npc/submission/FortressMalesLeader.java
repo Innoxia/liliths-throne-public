@@ -13,7 +13,6 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -32,6 +31,9 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -103,9 +105,20 @@ public class FortressMalesLeader extends NPC {
 			setStartingBody(true);
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
-			this.setAttribute(Attribute.MAJOR_ARCANE, 35);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+			this.resetPerksMap();
 		}
+	}
+
+	@Override
+	public void setupPerks() {
+		this.addSpecialPerk(Perk.MARTIAL_BACKGROUND);
+		PerkManager.initialisePerks(this,
+				Util.newArrayListOfValues(Perk.FETISH_SEEDER),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 5),
+						new Value<>(PerkCategory.LUST, 0),
+						new Value<>(PerkCategory.ARCANE, 2)));
 	}
 	
 	@Override
@@ -114,14 +127,6 @@ public class FortressMalesLeader extends NPC {
 		// Persona:
 		
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 50);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 35);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 100);
-			this.setAttribute(Attribute.VIRILITY, 100);
-			this.setAttribute(Attribute.DAMAGE_MELEE_WEAPON, 75);
-			this.setAttribute(Attribute.DAMAGE_PHYSICAL, 50);
-			this.setAttribute(Attribute.RESISTANCE_PHYSICAL, 25);
-			
 			this.setPersonality(Util.newHashMapOfValues(
 					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
 					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),

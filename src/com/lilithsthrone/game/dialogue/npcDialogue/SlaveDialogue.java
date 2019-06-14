@@ -19,6 +19,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
+import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -1461,7 +1462,7 @@ public class SlaveDialogue {
 					}
 					
 				case 6:
-					return new Response("Perks", "Spend your slave's perk points.", OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS){
+					return new Response("Perk Tree", "Spend your slave's perk points.", OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS){
 						@Override
 						public void effects() {
 							applyReactionReset();
@@ -1485,6 +1486,14 @@ public class SlaveDialogue {
 							}
 						};
 					}
+					
+				case 11:
+					return new Response("Combat Moves", "Adjust the moves [npc.name] can perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+						@Override
+						public void effects() {
+							CombatMovesSetup.setTarget(getSlave(), SLAVE_START);
+						}
+					};
 					
 				case 0:
 					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {

@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
-import java.time.Month; import java.util.List;
+import java.time.Month;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -8,7 +9,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -37,6 +38,8 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -101,6 +104,19 @@ public class ZaranixMaidKatherine extends NPC {
 			this.setAgeAppearanceDifferenceToAppearAsAge(18);
 		}
 		this.setDescription("One of Zaranix's succubi maid twins, Katherine is assigned by her master to keep the ground floor clean.");
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+			this.resetPerksMap();
+		}
+	}
+
+	@Override
+	public void setupPerks() {
+		PerkManager.initialisePerks(this,
+				Util.newArrayListOfValues(),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 1),
+						new Value<>(PerkCategory.LUST, 5),
+						new Value<>(PerkCategory.ARCANE, 1)));
 	}
 	
 	@Override
@@ -109,10 +125,6 @@ public class ZaranixMaidKatherine extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 50);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 35);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 100);
-	
 			this.setPersonality(Util.newHashMapOfValues(
 					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
 					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
@@ -279,12 +291,13 @@ public class ZaranixMaidKatherine extends NPC {
 	// Combat:
 
 	@Override
-	public String getMainAttackDescription(boolean isHit) {
+	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
 		return "<p>"
-				+ UtilText.returnStringAtRandom(
-						"Letting out a desperate cry, Katherine swings her little feather duster at you, brushing the feathers over your face!",
-						"With a little shout, Katherine tickles her feather duster over your torso!",
-						"Brushing her feather duster over your torso, Katherine lets out a little cry!") 
+				+ UtilText.parse(target,
+						UtilText.returnStringAtRandom(
+						"Letting out a desperate cry, Katherine swings her little feather duster at [npc.name], brushing the feathers over [npc.her] face!",
+						"With a little shout, Katherine tickles her feather duster over [npc.namePos] torso!",
+						"Katherine lets out a little cry as she brushes her feather duster over [npc.namePos] torso!"))
 			+ "</p>";
 	}
 
@@ -298,7 +311,7 @@ public class ZaranixMaidKatherine extends NPC {
 	}
 
 	@Override
-	public String getSeductionDescription() {
+	public String getSeductionDescription(GameCharacter target) {
 		return "<p>"
 				+ UtilText.returnStringAtRandom(
 						"Katherine pulls the bottom of her maid's dress up a little, moaning, [katherine.speech(If you beat me, there'd be nothing stopping you from ravishing me!)]",
