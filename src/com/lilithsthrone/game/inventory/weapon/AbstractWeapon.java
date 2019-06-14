@@ -121,10 +121,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		}
 		
 		int highestEnchantment = 0;
-		for (Attribute a : attributeModifiers.keySet()) {
-			if (attributeModifiers.get(a) > highestEnchantment) {
+		for (Attribute a : getAttributeModifiers().keySet()) {
+			if (getAttributeModifiers().get(a) > highestEnchantment) {
 				coreEnchantment = a;
-				highestEnchantment = attributeModifiers.get(a);
+				highestEnchantment = getAttributeModifiers().get(a);
 			}
 		}
 
@@ -136,6 +136,18 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		this(weapon.getWeaponType(), weapon.getDamageType(), weapon.getPrimaryColour(), weapon.getSecondaryColour());
 		
 		this.setEffects(new ArrayList<>(weapon.getEffects()));
+		
+		int highestEnchantment = 0;
+		for (Attribute a : getAttributeModifiers().keySet()) {
+			if (getAttributeModifiers().get(a) > highestEnchantment) {
+				coreEnchantment = a;
+				highestEnchantment = getAttributeModifiers().get(a);
+			}
+		}
+
+		if(!weapon.name.isEmpty()) {
+			this.setName(weapon.name);
+		}
 	}
 	
 	@Override
@@ -143,11 +155,12 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		if(super.equals(o)){
 			if(o instanceof AbstractWeapon){
 				if(((AbstractWeapon)o).getWeaponType().equals(getWeaponType())
-						&& ((AbstractWeapon)o).getPrimaryColour()==primaryColour
-						&& ((AbstractWeapon)o).getSecondaryColour()==secondaryColour
-						&& ((AbstractWeapon)o).getDamageType()==damageType
-						&& ((AbstractWeapon)o).getCoreEnchantment()==coreEnchantment
-						&& ((AbstractWeapon)o).getSpells().equals(spells)
+						&& ((AbstractWeapon)o).getPrimaryColour()==this.getPrimaryColour()
+						&& ((AbstractWeapon)o).getSecondaryColour()==this.getSecondaryColour()
+						&& ((AbstractWeapon)o).getDamageType()==this.getDamageType()
+						&& ((AbstractWeapon)o).getCoreEnchantment()==this.getCoreEnchantment()
+						&& ((AbstractWeapon)o).getSpells().equals(this.getSpells())
+						&& ((AbstractWeapon)o).getEffects().equals(this.getEffects())
 						){
 					return true;
 				}
@@ -160,17 +173,18 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	public int hashCode() {
 		int result = super.hashCode();
 		result = 31 * result + getWeaponType().hashCode();
-		result = 31 * result + damageType.hashCode();
+		result = 31 * result + getDamageType().hashCode();
 		if(getPrimaryColour()!=null) {
 			result = 31 * result + getPrimaryColour().hashCode();
 		}
 		if(getSecondaryColour()!=null) {
 			result = 31 * result + getSecondaryColour().hashCode();
 		}
-		if(coreEnchantment!=null) {
-			result = 31 * result + coreEnchantment.hashCode();
+		if(getCoreEnchantment()!=null) {
+			result = 31 * result + getCoreEnchantment().hashCode();
 		}
-		result = 31 * result + spells.hashCode();
+		result = 31 * result + getSpells().hashCode();
+		result = 31 * result + this.getEffects().hashCode();
 		return result;
 	}
 	
@@ -206,7 +220,11 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		AbstractWeapon weapon = null;
 		
 		try {
-			weapon = AbstractWeaponType.generateWeapon(WeaponType.idToWeaponMap.get(parentElement.getAttribute("id")), DamageType.valueOf(parentElement.getAttribute("damageType")));
+			String id = parentElement.getAttribute("id");
+			if(id.equals("MAIN_WESTERN_KKP")) {	
+				id = "innoxia_western_kkp_western_kkp";
+			}
+			weapon = AbstractWeaponType.generateWeapon(WeaponType.idToWeaponMap.get(id), DamageType.valueOf(parentElement.getAttribute("damageType")));
 		} catch(Exception ex) {
 			System.err.println("Warning: An instance of AbstractWeapon was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			return null;

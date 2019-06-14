@@ -1193,7 +1193,6 @@ public class ItemType {
 					ItemTag.MISC_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
-
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.FETISH_ENHANCEMENT;
@@ -1233,7 +1232,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			null, null) {
+			null,
+			null) {
 
 
 		@Override
@@ -1250,7 +1250,7 @@ public class ItemType {
 		public boolean isAbleToBeUsedInCombat() {
 			return true;
 		}
-
+		
 		@Override
 		public String getUseName() {
 			return "drink";
@@ -1275,11 +1275,11 @@ public class ItemType {
 			"A delicate crystal bottle, filled with a cool, blue liquid."
 					+ " Engraved into one side are the words 'Angel's Nectar', although you're unsure if this fluid really does have anything to do with them...",
 			"addictionRemoval",
-			Colour.BASE_BLUE_LIGHT,
+			Colour.RACE_HUMAN,
 			null,
 			null,
 			Rarity.LEGENDARY,
-			null,
+			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.ADDICTION_REMOVAL)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
@@ -1305,6 +1305,16 @@ public class ItemType {
 		}
 
 		@Override
+		public AbstractItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ADDICTION_REMOVAL_REFINEMENT;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return ADDICTION_REMOVAL_REFINED;
+		}
+
+		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"You pull the crystal stopper out from the top of the bottle of 'Angel's Nectar', before bringing it to your lips and gulping down the tasteless liquid that's contained within.",
@@ -1312,6 +1322,71 @@ public class ItemType {
 					"[npc.Name] pulls out a bottle of 'Angel's Nectar', and, after quickly pulling out the crystal stopper, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Angel's Nectar', and, after quickly pulling out the crystal stopper,"
 							+ " [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the tasteless liquid that's contained within.");
+		}
+	};
+	
+	public static AbstractItemType ADDICTION_REMOVAL_REFINED = new AbstractItemType(1500,
+			"a delicate vial of",
+			false,
+			"Angel's Purity",
+			"Angel's Purities",
+			"A vial of cool, light-blue liquid, which gives off a faint, steady glow."
+					+ " Being a refined, and far more specialised form of 'Angel's Nectar', this liquid has lost its ability to remove addictions, and instead, is able to permanently lower the corruption of whoever drinks it...",
+			"addictionRemovalRefined",
+			Colour.RACE_HUMAN,
+			null,
+			null,
+			Rarity.LEGENDARY,
+			null,
+			null,
+			null) {
+
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return true;
+		}
+
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
+			return true;
+		}
+		
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+		
+		@Override
+		public int getValue() {
+			int value = 0;
+			for(ItemEffect ie : this.getEffects()) {
+				switch(ie.getPotency()) {
+				case BOOST:
+					value += 1000;
+					break;
+				case MAJOR_BOOST:
+					value += 1500;
+					break;
+				case MINOR_BOOST:
+					value += 500;
+					break;
+				case MINOR_DRAIN:
+				case DRAIN:
+				case MAJOR_DRAIN:
+					break;
+				}
+			}
+			return value;
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You pull the stopper out from the top of the glass vial of 'Angel's Purity', before bringing it to your lips and gulping down the cool, refreshing liquid which is contained within.",
+					"You pull the stopper out from the top of the glass vial of 'Angel's Purity', before bringing it to [npc.namePos] lips and forcing [npc.herHim] to drink down the liquid within.",
+					"[npc.Name] pulls out a glass vial of 'Angel's Purity', and, after quickly pulling out the stopper, [npc.she] promptly downs the entire bottle.",
+					"[npc.Name] pulls out a glass vial of 'Angel's Purity', and, after quickly pulling out the stopper,"
+							+ " [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the cool, refreshing liquid which is contained within.");
 		}
 	};
 	

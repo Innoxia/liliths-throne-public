@@ -296,6 +296,9 @@ public class AbstractPlaceType {
 		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
 			return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
 			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_QUADRUPLE)) {
+			return PlaceUpgrade.getSlaveQuartersUpgradesQuadruple();
+			
 		} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
 			return PlaceUpgrade.getMilkingUpgrades();
 		}
@@ -315,6 +318,9 @@ public class AbstractPlaceType {
 			
 		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
 			return getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_QUADRUPLE)) {
+			return getSVGOverride("dominion/lilayasHome/roomSlaveQuadruple", Colour.BASE_MAGENTA);
 			
 		} else {
 			return SVGString;

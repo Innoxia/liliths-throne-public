@@ -130,12 +130,12 @@ public class FortressAlphaLeader extends NPC {
 			}
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
-			this.resetPerksMap();
+			this.resetPerksMap(true);
 		}
 	}
 
 	@Override
-	public void setupPerks() {
+	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.MARTIAL_BACKGROUND);
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(Perk.UNARMED_DAMAGE),

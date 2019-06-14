@@ -90,12 +90,12 @@ public class Bunny extends NPC {
 						+ " Just like her older sister, Loppy, Bunny is a rabbit-morph, and seems to genuinely love her line of work.");
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
-			this.resetPerksMap();
+			this.resetPerksMap(true);
 		}
 	}
 
 	@Override
-	public void setupPerks() {
+	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SLUT);
 		
 		PerkManager.initialisePerks(this,

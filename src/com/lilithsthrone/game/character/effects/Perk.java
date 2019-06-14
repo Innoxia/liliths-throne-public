@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
@@ -533,11 +534,11 @@ public class Perk {
 			"perks/jobs/chef",
 			Colour.BASE_ORANGE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 50)),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 25)),
 			Util.newArrayListOfValues("[style.boldExcellent(Double)] all potions effects' strength and length")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "Thanks to spending a considerable amount of time tasting food, [npc.name] [npc.has] both a significant resistance to poison, as well as the ability to make the most of things that are a culinary marvel.");
+			return UtilText.parse(owner, "Thanks to spending a considerable amount of time tasting food, [npc.name] [npc.has] both a significant resistance to poison, as well as the ability to make culinary marvels out of basic ingredients.");
 		}
 	};
 
@@ -1592,7 +1593,37 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameIsFUll] quite a tease, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.she] [npc.verb(get)] more opportunities to seduce men than women.");
 		}
-
+	};
+	
+	public static AbstractPerk CONVINCING_REQUESTS = new AbstractPerk(20,
+			false,
+			"irresistible appeals",
+			PerkCategory.LUST,
+			"perks/convincing_requests",
+			Colour.GENERIC_SEX,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)),
+			Util.newArrayListOfValues("Requests during sex are no longer denied by sadists or rough dominants")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] mastered the art of sexual persuasion, and [npc.is] able to convince even the cruelest of dominant partners to do as [npc.she] [npc.verb(ask)].");
+		}
+	};
+	
+	public static AbstractPerk OBJECT_OF_DESIRE = new AbstractPerk(20,
+			false,
+			"object of desire",
+			PerkCategory.LUST,
+			"perks/object_of_desire",
+			Colour.GENERIC_SEX,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)),
+			Util.newArrayListOfValues("All partners in sex require [style.colourSex(+1 orgasm)] before being satisfied")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] so astoundingly "+(owner.getFemininity()==Femininity.ANDROGYNOUS?"attractive":(owner.isFeminine()?"beautiful":"handsome"))
+					+" that [npc.her] sexual partners can't help but keep on fucking well after they've had their first orgasm.");
+		}
 	};
 	
 	public static AbstractPerk NYMPHOMANIAC = new AbstractPerk(20,
@@ -1801,11 +1832,14 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameHasFull] had countless sexual partners, and [npc.has] performed all manner of sexual acts with them.");
+			return UtilText.parse(owner, "[npc.NameHasFull] had countless sexual partners, and [npc.has] performed all manner of lewd acts with them.");
 		}
-		
 		@Override
 		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
 			return true;
 		}
 	};
@@ -1824,9 +1858,12 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] undergone extensive training in order to learn how to harness the arcane.");
 		}
-		
 		@Override
 		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
 			return true;
 		}
 	};
@@ -1845,9 +1882,12 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.Name] suffers from a rare allergic reaction to the arcane, and is therefore almost completely incapable of harnessing its power.");
 		}
-		
 		@Override
 		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
 			return true;
 		}
 	};
@@ -1855,7 +1895,7 @@ public class Perk {
 	public static AbstractPerk HEALTH_FANATIC = new AbstractPerk(20,
 			false,
 			"health fanatic",
-			PerkCategory.ARCANE,
+			PerkCategory.PHYSICAL,
 			"perks/attStrength3",
 			Colour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
@@ -1866,9 +1906,12 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameIsFull] obsessed with [npc.her] personal fitness, and spends hours every day working out and planning out [npc.her] diet.");
 		}
-		
 		@Override
 		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
 			return true;
 		}
 	};
@@ -1876,7 +1919,7 @@ public class Perk {
 	public static AbstractPerk MARTIAL_BACKGROUND = new AbstractPerk(20,
 			false,
 			"martial background",
-			PerkCategory.ARCANE,
+			PerkCategory.PHYSICAL,
 			"perks/attStrength3",
 			Colour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
@@ -1887,9 +1930,12 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] spent a lot of time training [npc.her] body for combat, and as a result, [npc.sheIs] far stronger than the average person.");
 		}
-		
 		@Override
 		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
 			return true;
 		}
 	};
@@ -4724,7 +4770,16 @@ public class Perk {
 		
 		hiddenPerks.sort((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
 	}
-
+	
+	public static AbstractPerk getSubspeciesRelatedPerk(Subspecies subspecies) {
+		Subspecies subToUse = 
+				subspecies.getDamageMultiplier()==Subspecies.getMainSubspeciesOfRace(subspecies.getRace()).getDamageMultiplier()
+					?Subspecies.getMainSubspeciesOfRace(subspecies.getRace())
+					:subspecies;
+		
+		return Perk.getPerkFromId(subToUse.toString());
+	}
+	
 	public static List<AbstractPerk> getAllPerks() {
 		return allPerks;
 	}

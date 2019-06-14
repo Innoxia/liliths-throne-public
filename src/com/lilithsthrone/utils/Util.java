@@ -418,7 +418,7 @@ public class Util {
 		}
 		integer = Math.abs(integer);
 		if (integer >= 100_000) {
-			return intToString + " a lot";
+			return String.valueOf(integer); // Too big
 		}
 		
 		
@@ -481,7 +481,7 @@ public class Util {
 		}
 		integer = Math.abs(integer);
 		if (integer >= 100_000) {
-			return intToString + " a lot";
+			return String.valueOf(integer); // Too big
 		}
 		
 		
@@ -550,13 +550,17 @@ public class Util {
         return numeralMap.get(l) + intToNumerals(integer-l);
 	}
 	
-	public static String intToTally(int integer) {
+	public static String intToTally(int integer, int max) {
 		StringBuilder numeralSB = new StringBuilder();
-		for(int i=0; i<integer/5; i++) {
+		int limit = Math.min(integer, max);
+		for(int i=0; i<limit/5; i++) {
 			numeralSB.append("<strike>IIII</strike> ");
 		}
-		for(int i=0; i<integer%5; i++) {
+		for(int i=0; i<limit%5; i++) {
 			numeralSB.append("I");
+		}
+		if(limit<integer) {
+			numeralSB.append("... (Total: "+integer+")");
 		}
 		
 		return numeralSB.toString();

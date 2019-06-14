@@ -70,6 +70,14 @@ public class Properties {
 			"Randomly-generated NPCs will only have udders or crotch-boobs if they have a non-bipedal body. (Default setting.)",
 			"Randomly-generated greater-anthro-morphs, as well as taurs, will have udders and crotch boobs."};
 	
+
+	public int autoSaveFrequency = 0;
+	public static String[] autoSaveLabels = new String[] {"Always", "Daily", "Weekly"};
+	public static String[] autoSaveDescriptions = new String[] {
+			"The game will autosave every time you transition to a new map.",
+			"The game will autosave when you transition to a new map, at a maximum rate of once per in-game day.",
+			"The game will autosave when you transition to a new map, at a maximum rate of once per in-game week."};
+	
 	public int forcedTFPercentage = 40;
 	public int forcedFetishPercentage = 0;
 
@@ -245,6 +253,7 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "udders", String.valueOf(udders));
+			createXMLElementWithValue(doc, settings, "autoSaveFrequency", String.valueOf(autoSaveFrequency));
 			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
 			createXMLElementWithValue(doc, settings, "randomRacePercentage", String.valueOf(randomRacePercentage)); 
 
@@ -681,6 +690,12 @@ public class Properties {
 					udders = Integer.valueOf(((Element)element.getElementsByTagName("udders").item(0)).getAttribute("value"));
 				} else {
 					udders = 1;
+				}
+				
+				if(element.getElementsByTagName("autoSaveFrequency").item(0)!=null) {
+					autoSaveFrequency = Integer.valueOf(((Element)element.getElementsByTagName("autoSaveFrequency").item(0)).getAttribute("value"));
+				} else {
+					autoSaveFrequency = 0;
 				}
 				
 				if(element.getElementsByTagName("forcedTFPercentage").item(0)!=null) {

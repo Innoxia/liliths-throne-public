@@ -290,15 +290,18 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					targetAreasToBeExposed.add(CoverableArea.VAGINA);
 				}
 			}
-
+			
 			if((Sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFoot.FOOT_JOB_SINGLE_GIVING_START)
-					|| Sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFeet.FOOT_JOB_DOUBLE_GIVING_START))
-				&& !partner.getFetishDesire(Fetish.FETISH_FOOT_GIVING).isNegative()) {
+							&& partner.calculateSexTypeWeighting(PenisFoot.FOOT_JOB_SINGLE_GIVING_START.getAsSexType(), targetedCharacter, null)>0)
+					|| (Sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFeet.FOOT_JOB_DOUBLE_GIVING_START)
+							&& partner.calculateSexTypeWeighting(PenisFeet.FOOT_JOB_DOUBLE_GIVING_START.getAsSexType(), targetedCharacter, null)>0)) {
 				partnerAreasToBeExposed.add(CoverableArea.FEET);
 			}
+
 			if((Sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFoot.FOOT_JOB_SINGLE_RECEIVING_START)
-					|| Sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFeet.FOOT_JOB_DOUBLE_RECEIVING_START))
-				&& !partner.getFetishDesire(Fetish.FETISH_FOOT_RECEIVING).isNegative()) {
+						&& partner.calculateSexTypeWeighting(PenisFoot.FOOT_JOB_SINGLE_RECEIVING_START.getAsSexType(), targetedCharacter, null)>0)
+				|| (Sex.getActionsAvailablePartner(partner, targetedCharacter).contains(PenisFeet.FOOT_JOB_DOUBLE_RECEIVING_START)
+						&& partner.calculateSexTypeWeighting(PenisFeet.FOOT_JOB_DOUBLE_RECEIVING_START.getAsSexType(), targetedCharacter, null)>0)) {
 				targetAreasToBeExposed.add(CoverableArea.FEET);
 			}
 			
@@ -315,10 +318,15 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			
 			if(!partnerAreasToBeExposed.isEmpty() && Sex.isCanRemoveSelfClothing(partner)) {
 				Collections.shuffle(partnerAreasToBeExposed);
-				if(partnerAreasToBeExposed.get(0) == CoverableArea.MOUND) {
-					return Sex.manageClothingToAccessCoverableArea(partner, partner, CoverableArea.VAGINA);
-				} else {
-					return Sex.manageClothingToAccessCoverableArea(partner, partner, partnerAreasToBeExposed.get(0));
+				CoverableArea exposeArea = partnerAreasToBeExposed.get(0);
+				if(exposeArea==CoverableArea.MOUND) {
+					exposeArea = CoverableArea.VAGINA;
+				}
+				SexType preference = partner.getCurrentSexPreference(targetedCharacter);
+				// Only displace clothing if its the desired area, or if the clothing to be displaced is not a sex toy:
+				if((preference!=null && preference.getTargetedSexArea().getRelatedCoverableArea()==exposeArea)
+						|| (partner.getNextClothingToRemoveForCoverableAreaAccess(exposeArea)!=null && !partner.getNextClothingToRemoveForCoverableAreaAccess(exposeArea).getKey().getClothingType().isSexToy())) {
+					return Sex.manageClothingToAccessCoverableArea(partner, partner, exposeArea);
 				}
 			}
 			
@@ -333,10 +341,15 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				}
 
 				if(!targetAreasToBeExposed.isEmpty()) {
-					if(targetAreasToBeExposed.get(0) == CoverableArea.MOUND) {
-						return Sex.manageClothingToAccessCoverableArea(partner, targetedCharacter, CoverableArea.VAGINA);
-					} else {
-						return Sex.manageClothingToAccessCoverableArea(partner, targetedCharacter, targetAreasToBeExposed.get(0));
+					CoverableArea exposeArea = targetAreasToBeExposed.get(0);
+					if(exposeArea==CoverableArea.MOUND) {
+						exposeArea = CoverableArea.VAGINA;
+					}
+					SexType preference = partner.getCurrentSexPreference(targetedCharacter);
+					// Only displace clothing if its the desired area, or if the clothing to be displaced is not a sex toy:
+					if((preference!=null && preference.getTargetedSexArea().getRelatedCoverableArea()==exposeArea)
+							|| (targetedCharacter.getNextClothingToRemoveForCoverableAreaAccess(exposeArea)!=null && !targetedCharacter.getNextClothingToRemoveForCoverableAreaAccess(exposeArea).getKey().getClothingType().isSexToy())) {
+						return Sex.manageClothingToAccessCoverableArea(partner, targetedCharacter, exposeArea);
 					}
 				}
 			}

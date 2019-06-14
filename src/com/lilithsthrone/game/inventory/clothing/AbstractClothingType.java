@@ -2420,7 +2420,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 		
 		// Loading pattern
-			String loadedPattern;
+		String loadedPattern;
 		try {
 			loadedPattern = Pattern.getPattern(pattern).getSVGString(patternColour, patternSecondaryColour, patternTertiaryColour);
 		} catch(Exception ex) {

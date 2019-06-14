@@ -43,9 +43,13 @@ public class Penis implements BodyPartInterface {
 	protected Testicle testicle;
 	protected OrificePenisUrethra orificeUrethra;
 
-	public Penis(PenisType type, int size, int girth, int testicleSize, int cumProduction, int testicleCount) {
+	public Penis(PenisType type, int size, boolean usePenisSizePreference, int girth, int testicleSize, int cumProduction, int testicleCount) {
 		this.type = type;
-		this.size = Math.min(PenisSize.SEVEN_STALLION.getMaximumValue(), size);
+		if(usePenisSizePreference) {
+			this.size = Math.max(1, Math.min(PenisSize.SEVEN_STALLION.getMaximumValue(), size)+Main.getProperties().penisSizePreference);
+		} else {
+			this.size = Math.min(PenisSize.SEVEN_STALLION.getMaximumValue(), size);
+		}
 		this.girth = Math.min(PenisGirth.FOUR_FAT.getValue(), girth);
 		pierced = false;
 		virgin = true;

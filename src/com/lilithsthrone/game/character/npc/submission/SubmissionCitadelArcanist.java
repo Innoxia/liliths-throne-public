@@ -111,13 +111,13 @@ public class SubmissionCitadelArcanist extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.setLevel(10);
-			this.resetPerksMap();
+			this.resetPerksMap(true);
 		}
 		setStartingCombatMoves();
 	}
 
 	@Override
-	public void setupPerks() {
+	public void setupPerks(boolean autoSelectPerks) {
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(

@@ -63,11 +63,14 @@ public enum DamageType {
 		@Override
 		public int damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
 			// Flame cloak gives fire melee damage at a cost of arcane.
-			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES)) {
-				// Burning mana for each melee strike proportional to it's unchanged damage.
-				source.burnMana(damageAmount * 0.25f);
-				// Increasing damage amount by 50%
-				damageAmount = (int)(damageAmount * 0.5f);
+			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1)
+					|| source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2)
+					|| source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3)) {
+				// (Temporarily?) removed
+//				// Burning mana for each melee strike proportional to it's unchanged damage.
+//				source.burnMana(source.getMana()*0.05f);
+//				// Increasing damage amount by 50%
+				damageAmount += source.getLevel();//(int)(damageAmount * 0.5f);
 			}
 			return getParentDamageType(source, target).damageTarget(source, target, damageAmount);
 		}
@@ -75,7 +78,9 @@ public enum DamageType {
 		@Override
 		public DamageType getParentDamageType(GameCharacter source, GameCharacter target) {
 			// Flame cloak gives fire melee damage
-			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES)) {
+			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1)
+					|| source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2)
+					|| source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3)) {
 				return FIRE;
 			}
 
@@ -117,7 +122,8 @@ public enum DamageType {
 			damageAmount = shieldCheck(source, target, damageAmount);
 			if(damageAmount > 0) {
 				if(target.getLust()>=100) {
-					return ENERGY.damageTarget(source, target, damageAmount);
+					target.incrementMana(-damageAmount);
+					return ENERGY.damageTarget(source, target, damageAmount*2);
 				} else {
 					target.setLust(target.getLust()+damageAmount);
 				}

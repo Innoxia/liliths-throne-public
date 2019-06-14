@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -155,7 +156,10 @@ public enum PerkManager {
 		leftA = addPerkEntry(perkTree, PerkCategory.LUST, 10, Perk.LUSTPYRE, leftA);
 		
 		leftMidA = addPerkEntry(perkTree, PerkCategory.LUST, 7, Perk.SEDUCTION_BOOST_ALT, connectorMid);
+		leftMidB = addPerkEntry(perkTree, PerkCategory.LUST, 8, Perk.CONVINCING_REQUESTS);
 		leftMidA = addPerkEntry(perkTree, PerkCategory.LUST, 8, Perk.SEDUCTION_BOOST_MAJOR, leftMidA);
+		leftMidB.addLink(leftMidA);
+		addPerkEntry(perkTree, PerkCategory.LUST, 8, Perk.OBJECT_OF_DESIRE, leftMidA);
 		leftMidA = addPerkEntry(perkTree, PerkCategory.LUST, 9, Perk.SEDUCTION_BOOST_ALT, leftMidA);
 		leftMidA = addPerkEntry(perkTree, PerkCategory.LUST, 10, Perk.NYMPHOMANIAC, leftMidA);
 
@@ -431,17 +435,72 @@ public enum PerkManager {
 	public static int getInitialPerkCount(GameCharacter character) {
 		return getStartingPerks(character).size();
 	}
-	
+
+	public static void initialiseSpecialPerksUponCreation(GameCharacter character) {
+		Random rnd = new Random((character.getId()).hashCode());
+
+		// Add a unique background perk based on weighting:
+		if(!character.isUnique() && !(character instanceof Elemental) && rnd.nextInt(100)<=50) {
+			Map<PerkCategory, Integer> perkWeightingMap = new HashMap<>(character.getSubspecies().getPerkWeighting(character));
+			
+			PerkCategory pc = Util.getRandomObjectFromWeightedMap(perkWeightingMap, rnd);
+			
+			Set<AbstractPerk> specialPerks = character.getSpecialPerks();
+			for(AbstractPerk perk : specialPerks) {
+				if(perk.isBackgroundPerk()) {
+					character.removeSpecialPerk(perk);
+				}
+			}
+			
+			switch(pc) {
+				case ARCANE:
+					character.addSpecialPerk(Perk.ARCANE_TRAINING);
+					break;
+				case ARCANE_AIR:
+					break;
+				case ARCANE_FIRE:
+					break;
+				case JOB:
+					break;
+				case LUST:
+					if(!character.getFetishDesire(Fetish.FETISH_PURE_VIRGIN).isPositive()
+							&& (!character.hasPenisIgnoreDildo() || !character.isPenisVirgin())
+							&& (!character.hasVagina() || !character.isVaginaVirgin())) {
+						character.addSpecialPerk(Perk.SLUT);
+					}
+					break;
+				case PHYSICAL:
+					if(Math.random()<0.5) {
+						character.addSpecialPerk(Perk.MARTIAL_BACKGROUND);
+					} else {
+						character.addSpecialPerk(Perk.HEALTH_FANATIC);
+					}
+					break;
+				case PHYSICAL_EARTH:
+					break;
+				case PHYSICAL_WATER:
+					break;
+			}
+		}
+	}
 
 	public static void initialisePerks(GameCharacter character) {
-		initialisePerks(character, null, null);
+		initialisePerks(character, true, null, null);
 	}
 	
-	public static void initialisePerks(GameCharacter character, List<AbstractPerk> requiredPerks) {
-		initialisePerks(character, requiredPerks, null);
+	public static void initialisePerks(GameCharacter character, boolean autoSelectPerks) {
+		initialisePerks(character, autoSelectPerks, null, null);
 	}
 	
+	public static void initialisePerks(GameCharacter character, boolean autoSelectPerks, List<AbstractPerk> requiredPerks) {
+		initialisePerks(character, autoSelectPerks, requiredPerks, null);
+	}
+
 	public static void initialisePerks(GameCharacter character, List<AbstractPerk> requiredPerks, Map<PerkCategory, Integer> perkWeightingOverride) {
+		initialisePerks(character, true, requiredPerks, null);
+	}
+	
+	public static void initialisePerks(GameCharacter character, boolean autoSelectPerks, List<AbstractPerk> requiredPerks, Map<PerkCategory, Integer> perkWeightingOverride) {
 		if(character instanceof Elemental) {
 			for(TreeEntry<PerkCategory, AbstractPerk> perk : getStartingPerks(character)) {
 				character.addPerk(perk.getRow(), perk.getEntry());
@@ -452,7 +511,7 @@ public enum PerkManager {
 				character.addPerk(perk.getRow(), perk.getEntry());
 			}
 			
-			if(!character.isPlayer()) {
+			if(!character.isPlayer() && autoSelectPerks) {
 				// For each required perk, add it (along with all the perks on the path):
 				if(requiredPerks!=null) {
 					for(AbstractPerk requiredPerk : requiredPerks) {
@@ -484,7 +543,7 @@ public enum PerkManager {
 				
 				
 				// Add seed based on name so that it's always the same for uniques randomly generating perks:
-				Random rnd = new Random((character.getNameIgnoresPlayerKnowledge()+character.getSurname()).hashCode());
+				Random rnd = new Random((character.getId()).hashCode());
 				
 				Map<PerkCategory, Integer> perkWeightingMap;
 				if(perkWeightingOverride!=null) {
@@ -492,6 +551,7 @@ public enum PerkManager {
 				} else {
 					perkWeightingMap = new HashMap<>(character.getSubspecies().getPerkWeighting(character));
 				}
+				
 				List<TreeEntry<PerkCategory, AbstractPerk>> traits = new ArrayList<>();
 				while(character.getPerkPoints()>0) {
 					PerkCategory category;
@@ -519,13 +579,6 @@ public enum PerkManager {
 					}
 				}
 
-				// Make sure traits which are defined as special are selected:
-				character.clearTraits();
-				if(requiredPerks!=null) {
-					for(AbstractPerk p : requiredPerks) {
-						character.addTrait(p);
-					}
-				}
 				// Make sure higher level traits are selected:
 				traits.sort((t1, t2) -> t1.getRow()>t2.getRow()?-1:(t1.getRow()<t2.getRow()?1:0));
 				for(TreeEntry<PerkCategory, AbstractPerk> trait : traits) {

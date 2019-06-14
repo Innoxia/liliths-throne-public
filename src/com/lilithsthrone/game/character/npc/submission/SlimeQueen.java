@@ -103,13 +103,13 @@ public class SlimeQueen extends NPC {
 		}
 		this.setSurname("Mercier");
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
-			this.resetPerksMap();
+			this.resetPerksMap(true);
 		}
 		setStartingCombatMoves();
 	}
 
 	@Override
-	public void setupPerks() {
+	public void setupPerks(boolean autoSelectPerks) {
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(

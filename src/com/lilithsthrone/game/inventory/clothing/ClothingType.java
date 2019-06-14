@@ -7867,7 +7867,9 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL,
 			ColourListPresets.JUST_GOLD,
 			ColourListPresets.ALL_METAL,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_FINCH,
+					ItemTag.RIGID_MATERIAL)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7927,7 +7929,9 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL,
 			ColourListPresets.JUST_GOLD,
 			ColourListPresets.ALL_METAL,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_FINCH,
+					ItemTag.RIGID_MATERIAL)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {

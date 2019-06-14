@@ -1124,7 +1124,9 @@ public class GenericPositioningNew {
 		}
 		@Override
 		public SexActionPriority getPriority() {
-			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isBeingPenetrated()) {
+			if((Sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this))!=null
+					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isBeingPenetrated()) {
 				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;
@@ -1300,7 +1302,9 @@ public class GenericPositioningNew {
 		}
 		@Override
 		public SexActionPriority getPriority() {
-			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
+			if((Sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this))!=null
+					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
 				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;

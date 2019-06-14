@@ -85,12 +85,12 @@ public class CandiReceptionist extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.setLevel(5);
 			this.setHistory(Occupation.NPC_ENFORCER_PATROL_CONSTABLE);
-			this.resetPerksMap();
+			this.resetPerksMap(true);
 		}
 	}
 
 	@Override
-	public void setupPerks() {
+	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SLUT);
 		
 		PerkManager.initialisePerks(this,

@@ -38,7 +38,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.3.4
  * @author Innoxia
  */
 public abstract class AbstractClothing extends AbstractCoreItem implements XMLSaving {
@@ -49,7 +49,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	
 	private Colour secondaryColour;
 	private Colour tertiaryColour;
-	private boolean dirty, enchantmentKnown;
+	private boolean dirty;
+	private boolean enchantmentKnown;
 	private List<DisplacementType> displacedList;
 	
 	private String pattern; // name of the pattern. 
@@ -166,6 +167,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		this.displacedList = new ArrayList<>(clothing.getDisplacedList());
 		
 		this.dirty = clothing.isDirty();
+		
+		if(!clothing.name.isEmpty()) {
+			this.setName(clothing.name);
+		}
 	}
 	
 	
@@ -835,7 +840,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + getName() + "</span>")
 					: getName())
 				+(!this.getEffects().isEmpty() && this.isEnchantmentKnown() && this.getRarity()!=Rarity.QUEST && this.getRarity()!=Rarity.LEGENDARY && this.getRarity()!=Rarity.EPIC
-						? " "+getEnchantmentPostfix(withRarityColour, "b")
+						? " "+getEnchantmentPostfix(withRarityColour, "span")
 						: "");
 	}
 

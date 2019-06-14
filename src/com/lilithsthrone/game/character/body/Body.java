@@ -161,8 +161,8 @@ public class Body implements XMLSaving {
 		private Antenna antenna = new Antenna(AntennaType.NONE);
 		private BreastCrotch breastCrotch = new BreastCrotch(BreastType.NONE, BreastShape.ROUND, 0, 0, 1, 1, NippleShape.NORMAL, 1, 1, 0, 0, 0, true);
 		private Horn horn = new Horn(HornType.NONE, 0);
-		private Penis penis = new Penis(PenisType.NONE, 0, 0, 0, 0, 0);
-		private Penis secondPenis = new Penis(PenisType.NONE, 0, 0, 0, 0, 0);
+		private Penis penis = new Penis(PenisType.NONE, 0, false, 0, 0, 0, 0);
+		private Penis secondPenis = new Penis(PenisType.NONE, 0, false, 0, 0, 0, 0);
 		private Tail tail = new Tail(TailType.NONE);
 		private Tentacle tentacle = new Tentacle(TentacleType.NONE);
 		private Vagina vagina = new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true);
@@ -1225,6 +1225,7 @@ public class Body implements XMLSaving {
 		
 		Penis importedPenis = new Penis(PenisType.getTypeFromString(penis.getAttribute("type")),
 				Integer.valueOf(penis.getAttribute("size")),
+				false,
 				girth,
 				Integer.valueOf(testicles.getAttribute("testicleSize")),
 				cumStorage,
@@ -4157,6 +4158,7 @@ public class Body implements XMLSaving {
 		if(Main.game.getPlayer().hasIngestedPsychoactiveFluidType(FluidTypeBase.CUM)) {
 			viewedPenis = new Penis(penis.getType(),
 					(int) (penis.getRawSizeValue() * 2.25f),
+					false,
 					PenisGirth.FOUR_FAT.getValue(),
 					penis.getTesticle().getTesticleSize().getValue()*2,
 					(int) ((penis.getTesticle().getRawCumStorageValue()+100) * 3.25f),

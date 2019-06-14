@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -19,7 +18,6 @@ import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -721,19 +719,21 @@ public class CharactersPresentDialogue {
 								"Cycle the targeted character for group sex.") {
 							@Override
 							public void effects() {
-								for(int i=0; i<companions.size();i++) {
-									if(companions.get(i).equals(getTargetedCharacterForSex())) {
-										if(i==companions.size()-1) {
-											targetedCharacterForSex = (NPC) companions.get(0);
-											if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
-												companionCharacter = (NPC) companions.get(1);
+								if(companions.size()>1) {
+									for(int i=0; i<companions.size();i++) {
+										if(companions.get(i).equals(getTargetedCharacterForSex())) {
+											if(i==companions.size()-1) {
+												targetedCharacterForSex = (NPC) companions.get(0);
+												if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
+													companionCharacter = (NPC) companions.get(1);
+												}
+											} else {
+												targetedCharacterForSex = (NPC) companions.get(i+1);
+												if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
+													companionCharacter = (NPC) companions.get((i+2)<companions.size()?(i+2):0);
+												}
+												break;
 											}
-										} else {
-											targetedCharacterForSex = (NPC) companions.get(i+1);
-											if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
-												companionCharacter = (NPC) companions.get((i+2)<companions.size()?(i+2):0);
-											}
-											break;
 										}
 									}
 								}
@@ -755,20 +755,22 @@ public class CharactersPresentDialogue {
 								"Cycle the secondary targeted character for group sex.") {
 							@Override
 							public void effects() {
-								for(int i=0; i<companions.size();i++) {
-									if(companions.get(i).equals(getCompanionCharacter())) {
-										if(i==companions.size()-1) {
-											companionCharacter = (NPC) companions.get(0);
-											if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
-												targetedCharacterForSex = (NPC) companions.get(1);
+								if(companions.size()>1) {
+									for(int i=0; i<companions.size();i++) {
+										if(companions.get(i).equals(getCompanionCharacter())) {
+											if(i==companions.size()-1) {
+												companionCharacter = (NPC) companions.get(0);
+												if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
+													targetedCharacterForSex = (NPC) companions.get(1);
+												}
+											} else {
+												companionCharacter = (NPC) companions.get(i+1);
+												if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
+													targetedCharacterForSex = (NPC) companions.get((i+2)<companions.size()?(i+2):0);
+												}
 											}
-										} else {
-											companionCharacter = (NPC) companions.get(i+1);
-											if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
-												targetedCharacterForSex = (NPC) companions.get((i+2)<companions.size()?(i+2):0);
-											}
+											break;
 										}
-										break;
 									}
 								}
 								Main.game.updateResponses();
@@ -1166,27 +1168,23 @@ public class CharactersPresentDialogue {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parse(characterViewed,
-					"<div class='container-full-width' style='padding:8px;'>"
-						+ "<span style='color:"+Colour.PERK.toWebHexString()+";'>Perks</span> (circular icons) apply permanent boosts to [npc.namePos] attributes.<br/>"
-						+ "<span style='color:"+Colour.TRAIT.toWebHexString()+";'>Traits</span> (square icons) provide unique effects for [npc.name]."
-							+ " Unlike perks, <b>traits will have no effect on [npc.name] until they're slotted into [npc.her] 'Active Traits' bar</b>.<br/>"
-						+ "Perks require perk points to unlock. [npc.Name] earns one perk point each time [npc.she] levels up, and an extra two perk points every five levels."
-					+ "</div>"
-					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
-					+ "<h6 style='text-align:center;'>Active Traits</h6>"));
 
-			UtilText.nodeContentSB.append(
-					"<div id='OCCUPATION_" + Perk.getIdFromPerk(characterViewed.getHistory().getAssociatedPerk())
-							+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>"
-						+ "<div class='square-button-content'>"+characterViewed.getHistory().getAssociatedPerk().getSVGString()+"</div>"
-					+ "</div>");
+			UtilText.nodeContentSB.append(UtilText.parse(characterViewed,
+					"<details>"
+							+ "<summary>[style.boldPerk(Perk & Trait Information)]</summary>"
+							+ "[style.colourPerk(Perks)] (circular icons) apply permanent boosts to [npc.namePos] attributes.<br/>"
+							+ "[style.colourPerk(Traits)] (square icons) provide unique effects for [npc.name]."
+								+ " Unlike perks, <b>traits will have no effect on [npc.name] until they're slotted into [npc.her] 'Active Traits' bar</b>.<br/>"
+							+ "Perks require perk points to unlock. [npc.Name] earns one perk point each time [npc.she] levels up, and earns an extra two perk points every five levels.<br/><br/>"
+							+ "In addition to the perks that can be purchased via perk points, there are also several special, hidden perks that are unlocked via special events."
+					+ "</details>"));
 			
 			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(characterViewed, true));
-
+			
+			UtilText.nodeContentSB.append("</div>");
+			
 			if(!(characterViewed instanceof Elemental)) {
-				UtilText.nodeContentSB.append("</div><div class='container-full-width' style='padding:8px; text-align:center;'>"
+				UtilText.nodeContentSB.append("<div class='container-full-width' style='padding:8px; text-align:center;'>"
 							+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
 						+ "</div>");
 			}
@@ -1203,7 +1201,7 @@ public class CharactersPresentDialogue {
 				return new Response("Reset perks", "Reset all of [npc.namePos] perks and traits, refunding all points spent. (This is a temporary action while the perk tree is still under development.)", PERKS) {
 					@Override
 					public void effects() {
-						characterViewed.resetPerksMap();
+						characterViewed.resetPerksMap(false, false);
 					}
 				};
 			}

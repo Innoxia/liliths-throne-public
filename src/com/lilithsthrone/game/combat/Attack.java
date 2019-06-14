@@ -485,9 +485,9 @@ public enum Attack {
 			damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(defender.getSubspecies().getDamageMultiplier()), 100)/100f;
 			
 			// Modifiers based on level:
-			float levelBoost = (attacker.getLevel() - defender.getLevel())*2;
-			levelBoost = Util.getModifiedDropoffValue(levelBoost, 100)/100f;
-			damage = damage * (1 + (levelBoost/100));
+//			float levelBoost = (attacker.getLevel() - defender.getLevel())*2;
+//			levelBoost = Util.getModifiedDropoffValue(levelBoost, 100)/100f;
+//			damage = damage * (1 + (levelBoost/100));
 		}
 		
 		return damage;

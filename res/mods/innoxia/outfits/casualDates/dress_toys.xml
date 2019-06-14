@@ -101,7 +101,7 @@
 			<acceptableFemininities> <!-- If femininities are defined (MASCULINE, ANDROGYNOUS, or FEMININE), then only clothing suitable for this femininity will be included for random selection. -->
 				<femininity>FEMININE</femininity>
 			</acceptableFemininities>
-			<slot/> <!-- If a slot (of type InventorySlot) is defined, then only clothing that fits into this slot will be included for random selection. -->
+			<slot/> <!-- If a slot (of type InventorySlot) is defined, then only clothing that fits into this slot will be included for random selection. Use the Enum values as defined in https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
 			<rarity>COMMON</rarity>  <!-- If a rarity is defined, then only clothing that has this rarity will be included for random selection. Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
 			<conditional/> <!-- If a condition is defined, then only clothing that satisfies this condition will be included for random selection. Wrap the conditional statement in CDATA tags if used. -->
 			<primaryColours>

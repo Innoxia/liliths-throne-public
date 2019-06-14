@@ -105,8 +105,20 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 		return duplicateCounts.keySet().stream().filter(item -> typeRetriever.apply(item).equals(type)).findAny();
 	}
 
+	private Optional<T> getItemByRarity(Rarity rarity) {
+		return duplicateCounts.keySet().stream().filter(item -> typeRetriever.apply(item).getRarity().equals(rarity)).findAny();
+	}
+
 	boolean hasItemType(U itemType) {
 		return getItemByType(itemType).isPresent();
+	}
+
+	boolean removeAllItemsByRarity(Rarity rarity) {
+		boolean removed = getItemByRarity(rarity).map(this::removeItem).orElse(false);
+		while(removed) {
+			removed = getItemByRarity(rarity).map(this::removeItem).orElse(false);
+		}
+		return removed;
 	}
 
 	boolean removeItemByType(U itemType) {

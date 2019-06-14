@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.3.6";
+	public static final String VERSION_NUMBER = "0.3.3.7";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -954,7 +954,9 @@ public class Main extends Application {
 						CharacterImportSetting.NO_PREGNANCY,
 						CharacterImportSetting.NO_COMPANIONS,
 						CharacterImportSetting.NO_ELEMENTAL,
-						CharacterImportSetting.CLEAR_SLAVERY));
+						CharacterImportSetting.CLEAR_SLAVERY,
+						CharacterImportSetting.CLEAR_KEY_ITEMS,
+						CharacterImportSetting.REMOVE_RACE_CONCEALED));
 				
 				Main.game.getPlayer().getSlavesOwned().clear();
 				Main.game.getPlayer().endPregnancy(false);

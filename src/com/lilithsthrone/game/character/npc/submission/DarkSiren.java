@@ -181,12 +181,12 @@ public class DarkSiren extends NPC {
 		}
 		setName(new NameTriplet("Meraxis"));
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
-			this.resetPerksMap();
+			this.resetPerksMap(true);
 		}
 	}
 
 	@Override
-	public void setupPerks() {
+	public void setupPerks(boolean autoSelectPerks) {
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(Perk.CHUUNI),
 				Util.newHashMapOfValues(

@@ -531,11 +531,12 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							?PenisType.DEMON_COMMON
 							:startingBodyType.getPenisType()),
 						(int) (startingBodyType.getPenisSize()*(largeGenitals?2.5:1)),
+						true,
 						startingBodyType.getPenisGirth()+(largeGenitals?1:0),
 						startingBodyType.getTesticleSize()+(largeGenitals?1:0),
 						startingBodyType.getCumProduction()*(largeGenitals?4:1),
 						startingBodyType.getTesticleQuantity())
-					: new Penis(PenisType.NONE, 0, 0, 0, 0, 2));
+					: new Penis(PenisType.NONE, 0, false, 0, 0, 0, 2));
 			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
 			body.getPenis().setVirgin(virgin);
 		}

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+    <clothingAuthorTag><![CDATA[Small engraved lettering informs you that these piercings were made by 'Norin'.]]></clothingAuthorTag>
+		<value>800</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[bat earring]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[bat earrings]]></namePlural>
+		<description><![CDATA[A pair of cute bat earrings.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>PIERCING_EAR</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>piercing_ear_bats.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+
+    <primaryColours>
+      <colour>CLOTHING_BLACK_STEEL</colour>
+    </primaryColours> 
+		<primaryColoursDye values="ALL_METAL"/>
+    <secondaryColours>
+      <colour>CLOTHING_RED_DARK</colour>
+    </secondaryColours>
+		<secondaryColoursDye values ="ALL"/>
+    <tertiaryColours>
+      <colour>CLOTHING_RED_DARK</colour>
+    </tertiaryColours>
+    <tertiaryColoursDye values ="ALL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(clip)] the bat earrings into [npc.her] [npc.ears].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(clip)] the bat earrings into [npc2.namePos] [npc2.ears].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(clip)] the bat earrings into [npc2.namePos] [npc2.ears].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc.her] bat earrings and [npc.verb(take)] them out.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] bat earrings and [npc.verb(take)] them out.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] bat earrings and roughly [npc.verb(pull)] them out.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

@@ -148,12 +148,12 @@ public class Brax extends NPC {
 			this.setLevel(6);
 			this.setHistory(Occupation.NPC_ENFORCER_PATROL_INSPECTOR);
 			this.equipClothing(null);
-			this.resetPerksMap();
+			this.resetPerksMap(true);
 		}
 	}
 
 	@Override
-	public void setupPerks() {
+	public void setupPerks(boolean autoSelectPerks) {
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
 						Perk.UNARMED_DAMAGE,

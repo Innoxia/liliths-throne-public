@@ -133,7 +133,7 @@ public class CombatMove {
     			}
                 return UtilText.parse(source,
                 		"Strike [npc.her] target with [npc.her] "+(source.getMainWeapon()==null?"fists":source.getMainWeapon().getName())
-                			+", dealing base " + getFormattedDamage(getDamageType(source), getBaseDamage(source)) + " damage."
+                			+", dealing base " + getFormattedDamage(getDamageType(source), getBaseDamage(source), null, false) + " damage."
                 			+costText);
             }
 
@@ -150,7 +150,7 @@ public class CombatMove {
         		
         		attackStringBuilder.append(formatAttackOutcome(source, target,
         				source.getMainAttackDescription(target, true),
-        				"[npc2.Name] took " + getFormattedDamage(getDamageType(source), dealtDamage) + " damage!",
+        				"[npc2.Name] took " + getFormattedDamage(getDamageType(source), dealtDamage, target, true) + " damage!",
         				isCrit?"":null,
         				isCrit?"[npc2.Name] [npc2.verb(take)] extra damage!":""));
         		
@@ -325,7 +325,7 @@ public class CombatMove {
                 					:(source.getOffhandWeapon()==null
                         				?" with [npc.her] "+source.getMainWeapon().getName()+" and fists"
                                         :" with [npc.her] "+source.getMainWeapon().getName()+" and "+source.getOffhandWeapon().getName()))
-                		+", dealing " + getFormattedDamage(getDamageType(source), getBaseDamageMain(source)) + " and "+ getFormattedDamage(getOffhandDamageType(source), getBaseDamageOffhand(source)) +" damage."
+                		+", dealing " + getFormattedDamage(getDamageType(source), getBaseDamageMain(source), null, false) + " and "+ getFormattedDamage(getOffhandDamageType(source), getBaseDamageOffhand(source), null, false) +" damage."
                 		+ costText);
             }
 
@@ -346,9 +346,9 @@ public class CombatMove {
 	        				+"<br/>"
 	        				+source.getOffhandAttackDescription(target, true),
         				"[npc2.Name] took "
-        						+ getFormattedDamage(getDamageType(source), dealtDamage)
+        						+ getFormattedDamage(getDamageType(source), dealtDamage, target, true)
 	        				+ " and "
-	        					+ getFormattedDamage(getOffhandDamageType(source), dealtDamageOffhand)
+	        					+ getFormattedDamage(getOffhandDamageType(source), dealtDamageOffhand, target, true)
 	        				+ " damage!",
         				isCrit?"":null,
         				isCrit?"[npc2.Name] [npc2.verb(take)] extra damage!":""));
@@ -453,7 +453,7 @@ public class CombatMove {
                 
                 return (formatAttackOutcome(source, target,
         				"[npc.Name] focused on defending [npc.herself].",
-        				"[npc.SheIs] now protected against " + getFormattedDamage(getDamageType(source), getBlock(isCrit)) + " damage!",
+        				"[npc.SheIs] now protected against " + getFormattedDamage(getDamageType(source), getBlock(isCrit), target, true) + " damage!",
         				isCrit?"":null,
         				isCrit?"[npc.Name] [npc.verb(double)] [npc.her] block!":""));
                 
@@ -512,29 +512,31 @@ public class CombatMove {
                 return UtilText.parse(source, target,
                         (isCrit?"[style.colourExcellent(Critical)]: ":"")
                 		+ "<span style='color:"+this.getColour().toWebHexString()+";'>Tease</span> "
-                				+" [npc2.name] for " + getFormattedDamage(getDamageType(source), getDamage(source, target, isCrit)) + " damage.");
+                				+" [npc2.name] for " + getFormattedDamage(getDamageType(source), getDamage(source, target, isCrit), target, false) + " damage.");
             }
 
             @Override
             public String getDescription() {
                 return "Tease your enemy, dealing base "
-                        + getFormattedDamage(getDamageType(Main.game.getPlayer()), getBaseDamage(Main.game.getPlayer()))
+                        + getFormattedDamage(getDamageType(Main.game.getPlayer()), getBaseDamage(Main.game.getPlayer()), null, false)
                         + " damage to them.";
             }
 
             @Override
             public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             	StringBuilder sb = new StringBuilder("");
-        		
-        		boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-        		int lustDamage = getDamageType(source).damageTarget(source, target, getDamage(source, target, isCrit));
+
         		DamageType finalDt = getDamageType(source);
-				if(target.getLust()>=100) {
+            	if(target.getLust()>=100) {
 					finalDt = DamageType.ENERGY;
 				}
+            	
+        		boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+        		int lustDamage = getDamageType(source).damageTarget(source, target, getDamage(source, target, isCrit));
+				
                 sb.append(formatAttackOutcome(source, target,
                 		source.getSeductionDescription(target),
-        				"[npc2.Name] took " + getFormattedDamage(finalDt, lustDamage) + " damage!",
+        				"[npc2.Name] took " + getFormattedDamage(finalDt, lustDamage, target, true) + " damage!",
         				isCrit?"":null,
         				isCrit?"[npc2.Name] [npc2.verb(feel)] incredibly turned-on!":""));
                 
@@ -601,7 +603,7 @@ public class CombatMove {
                 
                 return (formatAttackOutcome(source, target,
         				"[npc.Name] focused on resisting [npc2.namePos] seductive moves.",
-        				"[npc.SheIs] now protected against " + getFormattedDamage(getDamageType(source), getBlock(isCrit)) + " damage!",
+        				"[npc.SheIs] now protected against " + getFormattedDamage(getDamageType(source), getBlock(isCrit), target, true) + " damage!",
         				isCrit?"":null,
         				isCrit?"[npc.Name] [npc.verb(double)] [npc.her] resistance!":""));
             }
@@ -766,7 +768,7 @@ public class CombatMove {
                 public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
                     String reason = super.isUseable(source, target, enemies, allies);
                     if(reason == null) {
-                        if(getAssociatedSpell().getSpellSchool() != SpellSchool.FIRE && source.getMana()<getAssociatedSpell().getModifiedCost(source)) {
+                        if((getAssociatedSpell().getSpellSchool()!=SpellSchool.FIRE || !source.hasStatusEffect(StatusEffect.FIRE_MANA_BURN)) && source.getMana()<getAssociatedSpell().getModifiedCost(source)) {
                             reason = "Not enough aura to cast this spell!";
                         }
                     }
@@ -861,7 +863,7 @@ public class CombatMove {
     			}
                 return UtilText.parse(source,
                 		"Strike [npc.her] target with [npc.her] primary weapon, dealing base "
-                				+ getFormattedDamage(getDamageType(source), getBaseDamage(source)) + " damage"
+                				+ getFormattedDamage(getDamageType(source), getBaseDamage(source), null, false) + " damage"
                 				+ " and recovering base <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+getBaseManaGain(source)+" "+Attribute.MANA_MAXIMUM.getName()+"</span>."
                 				+ costText);
             }
@@ -886,7 +888,7 @@ public class CombatMove {
         		attackStringBuilder.append(formatAttackOutcome(source, target,
         				"Harnessing [npc.her] knowledge of the arcane, [npc.name] [npc.verb(focus)] on replenishing [npc.her] aura as [npc.she] [npc.verb(strike)] out at [npc2.name]! "
         						+source.getMainAttackDescription(target, true),
-        				"[npc2.Name] took " + getFormattedDamage(getDamageType(source), dealtDamage) + " damage, while [npc.name] recovered"
+        				"[npc2.Name] took " + getFormattedDamage(getDamageType(source), dealtDamage, target, true) + " damage, while [npc.name] recovered"
         						+ " <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+manaGain+" "+Attribute.MANA_MAXIMUM.getName()+"</span>!",
         				isCrit?"":null,
         				isCrit?"Aura gain was doubled!":""));
@@ -1024,9 +1026,19 @@ public class CombatMove {
     }
     
     /**
+     * @param target TODO
+     * @param damageHasBeenApplied TODO
      * @return A standard formatting of the damage.
      */
-	protected static String getFormattedDamage(DamageType damageType, int damage) {
+	protected static String getFormattedDamage(DamageType damageType, int damage, GameCharacter target, boolean damageHasBeenApplied) {
+		if(target!=null && target.getLust()>=100) {
+			damageType = DamageType.ENERGY;
+			if(damageHasBeenApplied) {
+				damage /= 2;
+			}
+			return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(damage*2) + " " + damageType.getName() + "</span>"
+					+ " and <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>" + String.valueOf(damage) + " " + Attribute.MANA_MAXIMUM.getName() + "</span>";
+		}
 		return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(damage) + " " + damageType.getName() + "</span>";
 	}
 

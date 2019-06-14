@@ -649,57 +649,6 @@ public class WeaponType {
 		}
 	};
 	
-	// I made this in one of my lunch breaks x_x
-	public static AbstractWeaponType MAIN_WESTERN_KKP = new AbstractWeaponType(25000,
-			false,
-			false,
-			"a",
-			false,
-			"Western KKP",
-			"Western KKPs",
-			"Fire KKP",
-			"A blowback-operated semi-automatic pistol, featuring an exposed hammer, a traditional double-action trigger mechanism, a single-column magazine, and a fixed barrel that also acts as the guide rod for the recoil spring.",
-			"western_kkp",
-			"western_kkp",
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(DamageType.PHYSICAL),
-			100000,
-			0,
-			DamageVariance.LOW,
-			0,
-			null,
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(
-					ItemTag.REMOVE_FROM_DEBUG_SPAWNER
-					)) {
-
-		@Override
-		public String equipText(GameCharacter character) {
-			return UtilText.parse(character, "[npc.Name] [npc.verb(ready)] [npc.her] pistol.");
-		}
-
-		@Override
-		public String unequipText(GameCharacter character) {
-			return UtilText.parse(character, "[npc.Name] [npc.verb(holster)] [npc.her] pistol.");
-		}
-
-		@Override
-		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
-			return UtilText.parse(character, target, "[npc.Name] just [npc.verb(shoot)] [npc2.name]... Thankfully, there seems to be some kind of arcane force preventing [npc.her] gun from actually killing [npc2.herHim]...");
-		}
-
-		@Override
-		public String getAttackDescription(GameCharacter user, GameCharacter target) {
-			return UtilText.parse(target,
-					"The name's [pc.surname]... [pc.name] [pc.surname].");
-		}
-	};
-	
 	public static AbstractWeaponType RANGED_MUSKET = new AbstractWeaponType(15000,
 			false,
 			true,

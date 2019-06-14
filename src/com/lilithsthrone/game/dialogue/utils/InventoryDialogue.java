@@ -19,6 +19,7 @@ import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -4759,8 +4760,8 @@ public class InventoryDialogue {
 									Combat.setCharacterTurnContent(Main.game.getPlayer(),
 											Util.newArrayListOfValues("<b>Unequip "+weapon.getName()+"</b>: "+
 													Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-														?Main.game.getPlayer().unequipMainWeapon(false)
-														:Main.game.getPlayer().unequipOffhandWeapon(false)));
+														?Main.game.getPlayer().unequipMainWeapon(false, true)
+														:Main.game.getPlayer().unequipOffhandWeapon(false, true)));
 									resetPostAction();
 									Combat.endCombatTurn();
 									Main.mainController.openInventory();
@@ -4782,8 +4783,8 @@ public class InventoryDialogue {
 											Combat.setCharacterTurnContent(Main.game.getPlayer(),
 													Util.newArrayListOfValues("<b>Drop "+weapon.getName()+"</b>: "+
 															Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-																?Main.game.getPlayer().unequipMainWeapon(true)
-																:Main.game.getPlayer().unequipOffhandWeapon(true)));
+																?Main.game.getPlayer().unequipMainWeapon(true, true)
+																:Main.game.getPlayer().unequipOffhandWeapon(true, true)));
 											resetPostAction();
 											Combat.endCombatTurn();
 											Main.mainController.openInventory();
@@ -4804,8 +4805,8 @@ public class InventoryDialogue {
 											Combat.setCharacterTurnContent(Main.game.getPlayer(),
 													Util.newArrayListOfValues("<b>Store "+weapon.getName()+"</b>: "+
 															Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-																?Main.game.getPlayer().unequipMainWeapon(true)
-																:Main.game.getPlayer().unequipOffhandWeapon(true)));
+																?Main.game.getPlayer().unequipMainWeapon(true, true)
+																:Main.game.getPlayer().unequipOffhandWeapon(true, true)));
 											resetPostAction();
 											Combat.endCombatTurn();
 											Main.mainController.openInventory();
@@ -4835,8 +4836,8 @@ public class InventoryDialogue {
 									Main.game.getTextEndStringBuilder().append(
 											"<p style='text-align:center;'>"
 												+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-													?Main.game.getPlayer().unequipMainWeapon(false)
-													:Main.game.getPlayer().unequipOffhandWeapon(false))
+													?Main.game.getPlayer().unequipMainWeapon(false, true)
+													:Main.game.getPlayer().unequipOffhandWeapon(false, true))
 											+ "</p>");
 									resetPostAction();
 								}
@@ -4857,8 +4858,8 @@ public class InventoryDialogue {
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
 														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-															?Main.game.getPlayer().unequipMainWeapon(true)
-															:Main.game.getPlayer().unequipOffhandWeapon(true))
+															?Main.game.getPlayer().unequipMainWeapon(true, true)
+															:Main.game.getPlayer().unequipOffhandWeapon(true, true))
 													+ "</p>");
 											resetPostAction();
 										}
@@ -4878,8 +4879,8 @@ public class InventoryDialogue {
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
 														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-															?Main.game.getPlayer().unequipMainWeapon(true)
-															:Main.game.getPlayer().unequipOffhandWeapon(true))
+															?Main.game.getPlayer().unequipMainWeapon(true, true)
+															:Main.game.getPlayer().unequipOffhandWeapon(true, true))
 													+ "</p>");
 											resetPostAction();
 										}
@@ -4923,8 +4924,8 @@ public class InventoryDialogue {
 									Sex.setUnequipWeaponText(weapon,
 											"<p style='text-align:center;'>"
 												+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-													?Main.game.getPlayer().unequipMainWeapon(false)
-													:Main.game.getPlayer().unequipOffhandWeapon(false))
+													?Main.game.getPlayer().unequipMainWeapon(false, true)
+													:Main.game.getPlayer().unequipOffhandWeapon(false, true))
 											+ "</p>");
 									resetPostAction();
 									Main.mainController.openInventory();
@@ -4948,8 +4949,8 @@ public class InventoryDialogue {
 											Sex.setUnequipWeaponText(weapon,
 													"<p style='text-align:center;'>"
 														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-															?Main.game.getPlayer().unequipMainWeapon(true)
-															:Main.game.getPlayer().unequipOffhandWeapon(true))
+															?Main.game.getPlayer().unequipMainWeapon(true, true)
+															:Main.game.getPlayer().unequipOffhandWeapon(true, true))
 													+ "</p>");
 											resetPostAction();
 											Main.mainController.openInventory();
@@ -4972,8 +4973,8 @@ public class InventoryDialogue {
 											Sex.setUnequipWeaponText(weapon,
 													"<p style='text-align:center;'>"
 														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-															?Main.game.getPlayer().unequipMainWeapon(true)
-															:Main.game.getPlayer().unequipOffhandWeapon(true))
+															?Main.game.getPlayer().unequipMainWeapon(true, true)
+															:Main.game.getPlayer().unequipOffhandWeapon(true, true))
 													+ "</p>");
 											resetPostAction();
 											Main.mainController.openInventory();
@@ -5030,8 +5031,8 @@ public class InventoryDialogue {
 									Main.game.getTextEndStringBuilder().append(
 											"<p style='text-align:center;'>"
 												+ (inventoryNPC.getMainWeapon()!=null && inventoryNPC.getMainWeapon().equals(weapon)
-													?inventoryNPC.unequipMainWeapon(false)
-													:inventoryNPC.unequipOffhandWeapon(false))
+													?inventoryNPC.unequipMainWeapon(false, false)
+													:inventoryNPC.unequipOffhandWeapon(false, false))
 											+ "</p>");
 									resetPostAction();
 								}
@@ -5052,8 +5053,8 @@ public class InventoryDialogue {
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
 														+ (inventoryNPC.getMainWeapon()!=null && inventoryNPC.getMainWeapon().equals(weapon)
-															?inventoryNPC.unequipMainWeapon(true)
-															:inventoryNPC.unequipOffhandWeapon(true))
+															?inventoryNPC.unequipMainWeapon(true, false)
+															:inventoryNPC.unequipOffhandWeapon(true, false))
 													+ "</p>");
 											resetPostAction();
 										}
@@ -5073,8 +5074,8 @@ public class InventoryDialogue {
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
 														+ (inventoryNPC.getMainWeapon()!=null && inventoryNPC.getMainWeapon().equals(weapon)
-															?inventoryNPC.unequipMainWeapon(true)
-															:inventoryNPC.unequipOffhandWeapon(true))
+															?inventoryNPC.unequipMainWeapon(true, false)
+															:inventoryNPC.unequipOffhandWeapon(true, false))
 													+ "</p>");
 											resetPostAction();
 										}
@@ -6449,7 +6450,7 @@ public class InventoryDialogue {
 											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye the " + clothing.getName() + " without needing to use a dye-brush!"
 										+ "</p>");
 						}
-						 
+						
 						if(owner!=null) {
 							owner.removeClothing(clothing);
 							AbstractClothing dyedClothing = new AbstractClothing(clothing) {};
@@ -6461,6 +6462,7 @@ public class InventoryDialogue {
 							dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
 							dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 							owner.addClothing(dyedClothing, false);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeClothing(clothing);
@@ -6473,12 +6475,243 @@ public class InventoryDialogue {
 							dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
 							dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 							Main.game.getPlayerCell().getInventory().addClothing(dyedClothing);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+						}
+						
+					}
+				};
+
+			} else if (index == 6) {
+				if(dyePreviewPrimary == clothing.getColour()
+						&& dyePreviewSecondary == clothing.getSecondaryColour()
+						&& dyePreviewTertiary == clothing.getTertiaryColour()
+						&& dyePreviewPattern.equals(clothing.getPattern())
+						&& dyePreviewPatternPrimary == clothing.getPatternColour()
+						&& dyePreviewPatternSecondary == clothing.getPatternSecondaryColour()
+						&& dyePreviewPatternTertiary == clothing.getPatternTertiaryColour()) {
+					return new Response("Dye all (stack)",
+							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
+							null); 
+				}
+				
+				int stackCount = 0;
+				if(owner!=null) {
+					stackCount = owner.getClothingCount(clothing);
+				} else {
+					stackCount = Main.game.getPlayerCell().getInventory().getClothingCount(clothing);
+				}
+
+				int finalCount = stackCount;
+				
+				if(stackCount==1) {
+					return new Response("Dye all (stack)",
+							"You only have one "+clothing.getName()+", so you should dye it using the individual action...",
+							null); 
+				}
+				
+				if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					int dyeBrushCount = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.DYE_BRUSH));
+					
+					if(dyeBrushCount<stackCount) {
+						return new Response("Dye all (stack)",
+								"You do not have enough dye brushes to dye all the " + clothing.getNamePlural() + "! You have "+dyeBrushCount+" dye brushes, but there are "+stackCount+" "+clothing.getNamePlural()+" in this stack...",
+								null); 
+					}
+				}
+				
+				return new Response("Dye all (stack)",
+						"Dye all " + clothing.getNamePlural() + " which are in this clothing stack ("+stackCount+" in total) in the colours you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can dye them a different colour at any time."
+										:" This action is permanent, and you'll need another dye-brush if you want to change their colour again."),
+						INVENTORY_MENU) {
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), finalCount);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviewPrimary)
+									+ "</p>"
+									+ "<p>"
+										+ "<b>The "+clothing.getName()+(clothing.getClothingType().isPlural()?"have":"has")+" been dyed</b>!"
+									+ "</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>You then repeat this for the other "+Util.intToString(finalCount-1)+" "+clothing.getNamePlural()+"...</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												:"You have <b>0</b> dye-brushes left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye "
+												+ (finalCount==2
+													?"both"
+													:"all "+Util.intToString(finalCount))
+												+" of the " + clothing.getNamePlural() + " without needing to use a single dye-brush!"
+										+ "</p>");
+						}
+						
+						if(owner!=null) {
+							owner.removeClothing(clothing, finalCount);
+							AbstractClothing dyedClothing = new AbstractClothing(clothing) {};
+							dyedClothing.setColour(dyePreviewPrimary);
+							dyedClothing.setSecondaryColour(dyePreviewSecondary);
+							dyedClothing.setTertiaryColour(dyePreviewTertiary);
+							dyedClothing.setPattern(dyePreviewPattern);
+							dyedClothing.setPatternColour(dyePreviewPatternPrimary);
+							dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+							dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+							owner.addClothing(dyedClothing, finalCount, false, false);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+
+						} else {
+							Main.game.getPlayerCell().getInventory().removeClothing(clothing);
+							AbstractClothing dyedClothing = new AbstractClothing(clothing) {};
+							dyedClothing.setColour(dyePreviewPrimary);
+							dyedClothing.setSecondaryColour(dyePreviewSecondary);
+							dyedClothing.setTertiaryColour(dyePreviewTertiary);
+							dyedClothing.setPattern(dyePreviewPattern);
+							dyedClothing.setPatternColour(dyePreviewPatternPrimary);
+							dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+							dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+							Main.game.getPlayerCell().getInventory().addClothing(dyedClothing, finalCount);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
 						}
 					}
 				};
 
-			} else
+			} else if (index == 11) {
+				if(dyePreviewPrimary == clothing.getColour()
+						&& dyePreviewSecondary == clothing.getSecondaryColour()
+						&& dyePreviewTertiary == clothing.getTertiaryColour()
+						&& dyePreviewPattern.equals(clothing.getPattern())
+						&& dyePreviewPatternPrimary == clothing.getPatternColour()
+						&& dyePreviewPatternSecondary == clothing.getPatternSecondaryColour()
+						&& dyePreviewPatternTertiary == clothing.getPatternTertiaryColour()) {
+					return new Response("Dye all",
+							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
+							null); 
+				}
+				
+				List<AbstractClothing> clothingMatches = new ArrayList<>();
+				int stackCount = 0;
+				if(owner!=null) {
+					for(Entry<AbstractClothing, Integer> entry : owner.getAllClothingInInventory().entrySet()) {
+						if(entry.getKey().getClothingType().equals(clothing.getClothingType())) {
+							clothingMatches.add(entry.getKey());
+							stackCount += entry.getValue();
+						}
+					}
+				} else {
+					for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getAllClothingInInventory().entrySet()) {
+						if(entry.getKey().getClothingType().equals(clothing.getClothingType())) {
+							clothingMatches.add(entry.getKey());
+							stackCount += entry.getValue();
+						}
+					}
+				}
+				
+				int finalCount = stackCount;
+				
+				if(stackCount==1) {
+					return new Response("Dye all",
+							"You only have one "+clothing.getName()+", so you should dye it using the individual action...",
+							null); 
+				}
+				
+				if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					int dyeBrushCount = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.DYE_BRUSH));
+					
+					if(dyeBrushCount<stackCount) {
+						return new Response("Dye all (stack)",
+								"You do not have enough dye brushes to dye all the " + clothing.getNamePlural() + "! You have "+dyeBrushCount+" dye brushes, but there are "+stackCount+" "+clothing.getNamePlural()+" in total...",
+								null); 
+					}
+				}
+				
+				return new Response("Dye all",
+						"Dye all " + clothing.getNamePlural() + " which are in this clothing stack ("+stackCount+" in total) in the colours you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can dye them a different colour at any time."
+										:" This action is permanent, and you'll need another dye-brush if you want to change their colour again."),
+						INVENTORY_MENU) {
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), finalCount);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviewPrimary)
+									+ "</p>"
+									+ "<p>"
+									+ "<b>The "+clothing.getName()+(clothing.getClothingType().isPlural()?"have":"has")+" been dyed</b>!"
+									+ "</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>You then repeat this for the other "+Util.intToString(finalCount-1)+" "+clothing.getNamePlural()+"...</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												:"You have <b>0</b> dye-brushes left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye "
+												+ (finalCount==2
+													?"both"
+													:"all "+Util.intToString(finalCount))
+												+" of the " + clothing.getNamePlural() + " without needing to use a single dye-brush!"
+										+ "</p>");
+						}
+						
+						if(owner!=null) {
+							for(AbstractClothing c : clothingMatches) {
+								int clothingCount = owner.getAllClothingInInventory().get(c);
+								owner.removeClothing(c, clothingCount);
+								AbstractClothing dyedClothing = new AbstractClothing(c) {};
+								dyedClothing.setColour(dyePreviewPrimary);
+								dyedClothing.setSecondaryColour(dyePreviewSecondary);
+								dyedClothing.setTertiaryColour(dyePreviewTertiary);
+								dyedClothing.setPattern(dyePreviewPattern);
+								dyedClothing.setPatternColour(dyePreviewPatternPrimary);
+								dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+								dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+								owner.addClothing(dyedClothing, clothingCount, false, false);
+								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+							}
+							
+						} else {
+							for(AbstractClothing c : clothingMatches) {
+								int clothingCount = Main.game.getPlayerCell().getInventory().getAllClothingInInventory().get(c);
+								Main.game.getPlayerCell().getInventory().removeClothing(c, clothingCount);
+								AbstractClothing dyedClothing = new AbstractClothing(c) {};
+								dyedClothing.setColour(dyePreviewPrimary);
+								dyedClothing.setSecondaryColour(dyePreviewSecondary);
+								dyedClothing.setTertiaryColour(dyePreviewTertiary);
+								dyedClothing.setPattern(dyePreviewPattern);
+								dyedClothing.setPatternColour(dyePreviewPatternPrimary);
+								dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+								dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+								Main.game.getPlayerCell().getInventory().addClothing(dyedClothing, clothingCount);
+								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
+							}
+						}
+						
+					}
+				};
+
+			} else {
 				return null;
+			}
 		}
 
 		@Override
@@ -6550,6 +6783,7 @@ public class InventoryDialogue {
 						clothing.setPatternColour(dyePreviewPatternPrimary);
 						clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
 						clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", clothing.getDisplayName(true)), false);
 					}
 				};
 
@@ -6719,6 +6953,7 @@ public class InventoryDialogue {
 							dyedWeapon.setPrimaryColour(dyePreviewPrimary);
 							dyedWeapon.setSecondaryColour(dyePreviewSecondary);
 							owner.addWeapon(dyedWeapon, false);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
@@ -6726,6 +6961,7 @@ public class InventoryDialogue {
 							dyedWeapon.setPrimaryColour(dyePreviewPrimary);
 							dyedWeapon.setSecondaryColour(dyePreviewSecondary);
 							Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -6754,6 +6990,7 @@ public class InventoryDialogue {
 					public void effects(){
 						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), owner, false);
+							
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
 										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
@@ -6779,13 +7016,17 @@ public class InventoryDialogue {
 							owner.removeWeapon(weapon);
 							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							modifiedWeapon.setDamageType(damageTypePreview);
-							owner.addWeapon(modifiedWeapon, false);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							owner.addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), false);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
 							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							modifiedWeapon.setDamageType(damageTypePreview);
-							Main.game.getPlayerCell().getInventory().addWeapon(modifiedWeapon);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon));
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
@@ -6829,7 +7070,7 @@ public class InventoryDialogue {
 										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
 									+ "</p>"
 									+ "<p>"
-										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " reforged</b>!"
+										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " dyed and reforged</b>!"
 									+ "</p>"
 									+ "<p>"
 										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
@@ -6856,7 +7097,9 @@ public class InventoryDialogue {
 							modifiedWeapon.setDamageType(damageTypePreview);
 							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
 							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
-							owner.addWeapon(modifiedWeapon, false);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							owner.addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), false);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
@@ -6864,7 +7107,638 @@ public class InventoryDialogue {
 							modifiedWeapon.setDamageType(damageTypePreview);
 							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
 							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
-							Main.game.getPlayerCell().getInventory().addWeapon(modifiedWeapon);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon));
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+						}
+					}
+				};
+
+			} else if (index == 6) {
+				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+					return new Response("Dye all (stack)",
+							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				int stackCount = 0;
+				if(owner!=null) {
+					stackCount = owner.getWeaponCount(weapon);
+				} else {
+					stackCount = Main.game.getPlayerCell().getInventory().getWeaponCount(weapon);
+				}
+
+				int finalCount = stackCount;
+				
+				if(stackCount==1) {
+					return new Response("Dye all (stack)",
+							"You only have one "+weapon.getName()+", so you should dye it using the individual action...",
+							null); 
+				}
+				
+				if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					int dyeBrushCount = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.DYE_BRUSH));
+					
+					if(dyeBrushCount<stackCount) {
+						return new Response("Dye all (stack)",
+								"You do not have enough dye brushes to dye all the " + weapon.getNamePlural() + "! You have "+dyeBrushCount+" dye brushes, but there are "+stackCount+" "+weapon.getNamePlural()+" in this stack...",
+								null); 
+					}
+				}
+				
+				return new Response("Dye all (stack)",
+						"Dye all " + weapon.getNamePlural() + " which are in this weapon stack ("+stackCount+" in total) in the colours you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can dye them a different colour at any time."
+										:" This action is permanent, and you'll need another dye-brush if you want to change their colour again."),
+						INVENTORY_MENU) {
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), finalCount);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+									+ "</p>"
+									+ "<p>"
+									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been dyed</b>!"
+									+ "</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>You then repeat this for the other "+Util.intToString(finalCount-1)+" "+weapon.getNamePlural()+"...</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												:"You have <b>0</b> dye-brushes left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye "
+												+ (finalCount==2
+													?"both"
+													:"all "+Util.intToString(finalCount))
+												+" of the " + weapon.getNamePlural() + " without needing to use a single dye-brush!"
+										+ "</p>");
+						}
+						
+						if(owner!=null) {
+							owner.removeWeapon(weapon, finalCount);
+							AbstractWeapon dyedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							dyedWeapon.setPrimaryColour(dyePreviewPrimary);
+							dyedWeapon.setSecondaryColour(dyePreviewSecondary);
+							owner.addWeapon(dyedWeapon, finalCount, false, false);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+
+						} else {
+							Main.game.getPlayerCell().getInventory().removeWeapon(weapon, finalCount);
+							AbstractWeapon dyedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							dyedWeapon.setPrimaryColour(dyePreviewPrimary);
+							dyedWeapon.setSecondaryColour(dyePreviewSecondary);
+							Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon, finalCount);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+						}
+					}
+				};
+
+			} else if (index == 7) {
+				if(damageTypePreview == weapon.getDamageType()) {
+					return new Response("Reforge all (stack)",
+							"You need to choose a different damage type before being able to reforge the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				int stackCount = 0;
+				if(owner!=null) {
+					stackCount = owner.getWeaponCount(weapon);
+				} else {
+					stackCount = Main.game.getPlayerCell().getInventory().getWeaponCount(weapon);
+				}
+
+				int finalCount = stackCount;
+				
+				if(stackCount==1) {
+					return new Response("Reforge all (stack)",
+							"You only have one "+weapon.getName()+", so you should reforge it using the individual action...",
+							null); 
+				}
+				
+				if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					int reforgeHammerCount = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER));
+					
+					if(reforgeHammerCount<stackCount) {
+						return new Response("Reforge all (stack)",
+								"You do not have enough reforging hammers to dye all the " + weapon.getNamePlural() + "! You have "+reforgeHammerCount+" reforging hammers, but there are "+stackCount+" "+weapon.getNamePlural()+" in this stack...",
+								null); 
+					}
+				}
+				
+				return new Response("Reforge all (stack)",
+						"Reforge all " + weapon.getNamePlural() + " which are in this weapon stack ("+stackCount+" in total) into the damage type you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can reforge them at any time."
+										:" This action is permanent, and you'll need another reforging hammer if you want to change their damage type again."),
+						INVENTORY_MENU) {
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), finalCount);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+									+ "</p>"
+									+ "<p>"
+									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been reforged</b>!"
+									+ "</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>You then repeat this for the other "+Util.intToString(finalCount-1)+" "+weapon.getNamePlural()+"...</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER))
+														+ "</b> reforging hammer" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER)) == 1 ? "" : "s") + " left!"
+												:"You have <b>0</b> reforging hammers left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to reforge "
+												+ (finalCount==2
+													?"both"
+													:"all "+Util.intToString(finalCount))
+												+" of the " + weapon.getNamePlural() + " without needing to use a single reforging hammer!"
+										+ "</p>");
+						}
+						
+						if(owner!=null) {
+							owner.removeWeapon(weapon, finalCount);
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setDamageType(damageTypePreview);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							owner.addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), finalCount, false, false);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+
+						} else {
+							Main.game.getPlayerCell().getInventory().removeWeapon(weapon, finalCount);
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setDamageType(damageTypePreview);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), finalCount);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+						}
+					}
+				};
+
+			} else if (index == 8) {
+				if(damageTypePreview == weapon.getDamageType()) {
+					return new Response("Dye & reforge all (stack)",
+							"You need to choose a different damage type before being able to reforge the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+					return new Response("Dye & reforge all (stack)",
+							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				
+				int stackCount = 0;
+				if(owner!=null) {
+					stackCount = owner.getWeaponCount(weapon);
+				} else {
+					stackCount = Main.game.getPlayerCell().getInventory().getWeaponCount(weapon);
+				}
+
+				int finalCount = stackCount;
+				
+				if(stackCount==1) {
+					return new Response("Dye & reforge all (stack)",
+							"You only have one "+weapon.getName()+", so you should dye & reforge it using the individual action...",
+							null); 
+				}
+				
+				if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					int dyeBrushCount = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.DYE_BRUSH));
+					int reforgeHammerCount = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER));
+					
+					if(dyeBrushCount<stackCount || reforgeHammerCount<stackCount) {
+						return new Response("Dye & reforge all (stack)",
+								"You do not have enough dye brushes or reforge hammers to dye & reforge all "+stackCount+" "+weapon.getNamePlural()+" in this stack...",
+								null); 
+					}
+				}
+				
+				return new Response("Dye & reforge all (stack)",
+						"Dye & reforge all " + weapon.getNamePlural() + " which are in this weapon stack ("+stackCount+" in total) in the colours and damage type you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can do this at any time."
+										:" This action is permanent, and you'll need another dye-brush and reforging hammer if you want to do this again."),
+						INVENTORY_MENU) {
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), finalCount);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+									+ "</p>"
+									+ "<p style='text-align:center;'>"
+										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+									+ "</p>"
+									+ "<p>"
+									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been dyed and reforged</b>!"
+									+ "</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>You then repeat this for the other "+Util.intToString(finalCount-1)+" "+weapon.getNamePlural()+"...</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												:"You have <b>0</b> dye-brushes left!")
+									+ "</p>");
+
+							Main.game.getTextEndStringBuilder().append("<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER))
+														+ "</b> reforging hammer" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER)) == 1 ? "" : "s") + " left!"
+												:"You have <b>0</b> reforging hammers left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye "
+												+ (finalCount==2
+													?"both"
+													:"all "+Util.intToString(finalCount))
+												+" of the " + weapon.getNamePlural() + " without needing to use a single dye-brush or reforging hammer!"
+										+ "</p>");
+						}
+						
+						if(owner!=null) {
+							owner.removeWeapon(weapon, finalCount);
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setDamageType(damageTypePreview);
+							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							owner.addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), finalCount, false, false);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+
+						} else {
+							Main.game.getPlayerCell().getInventory().removeWeapon(weapon, finalCount);
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setDamageType(damageTypePreview);
+							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), finalCount);
+							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+						}
+					}
+				};
+
+			} else if (index == 11) {
+				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+					return new Response("Dye all",
+							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				List<AbstractWeapon> weaponMatches = new ArrayList<>();
+				int stackCount = 0;
+				if(owner!=null) {
+					for(Entry<AbstractWeapon, Integer> entry : owner.getAllWeaponsInInventory().entrySet()) {
+						if(entry.getKey().getWeaponType().equals(weapon.getWeaponType())) {
+							weaponMatches.add(entry.getKey());
+							stackCount += entry.getValue();
+						}
+					}
+				} else {
+					for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
+						if(entry.getKey().getWeaponType().equals(weapon.getWeaponType())) {
+							weaponMatches.add(entry.getKey());
+							stackCount += entry.getValue();
+						}
+					}
+				}
+				
+				int finalCount = stackCount;
+				
+				if(stackCount==1) {
+					return new Response("Dye all",
+							"You only have one "+weapon.getName()+", so you should dye it using the individual action...",
+							null); 
+				}
+				
+				if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					int dyeBrushCount = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.DYE_BRUSH));
+					
+					if(dyeBrushCount<stackCount) {
+						return new Response("Dye all (stack)",
+								"You do not have enough dye brushes to dye all the " + weapon.getNamePlural() + "! You have "+dyeBrushCount+" dye brushes, but there are "+stackCount+" "+weapon.getNamePlural()+" in total...",
+								null); 
+					}
+				}
+				
+				return new Response("Dye all",
+						"Dye all " + weapon.getNamePlural() + " which are in this clothing stack ("+stackCount+" in total) in the colours you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can dye them a different colour at any time."
+										:" This action is permanent, and you'll need another dye-brush if you want to change their colour again."),
+						INVENTORY_MENU) {
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), finalCount);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+									+ "</p>"
+									+ "<p>"
+									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been dyed</b>!"
+									+ "</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>You then repeat this for the other "+Util.intToString(finalCount-1)+" "+weapon.getNamePlural()+"...</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												:"You have <b>0</b> dye-brushes left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye "
+												+ (finalCount==2
+													?"both"
+													:"all "+Util.intToString(finalCount))
+												+" of the " + weapon.getNamePlural() + " without needing to use a single dye-brush!"
+										+ "</p>");
+						}
+						
+
+						if(owner!=null) {
+							for(AbstractWeapon w : weaponMatches) {
+								int weaponCount = owner.getAllWeaponsInInventory().get(w);
+								owner.removeWeapon(w, weaponCount);
+								AbstractWeapon dyedWeapon = AbstractWeaponType.generateWeapon(w);
+								dyedWeapon.setPrimaryColour(dyePreviewPrimary);
+								dyedWeapon.setSecondaryColour(dyePreviewSecondary);
+								owner.addWeapon(dyedWeapon, weaponCount, false, false);
+								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+							}
+							
+						} else {
+							for(AbstractWeapon w : weaponMatches) {
+								int weaponCount = Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().get(w);
+								Main.game.getPlayerCell().getInventory().removeWeapon(w, weaponCount);
+								AbstractWeapon dyedWeapon = AbstractWeaponType.generateWeapon(w);
+								dyedWeapon.setPrimaryColour(dyePreviewPrimary);
+								dyedWeapon.setSecondaryColour(dyePreviewSecondary);
+								Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon, weaponCount);
+								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
+							}
+						}
+					}
+				};
+
+			} else if (index == 12) {
+				if(damageTypePreview == weapon.getDamageType()) {
+					return new Response("Reforge all",
+							"You need to choose a different damage type before being able to reforge the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				List<AbstractWeapon> weaponMatches = new ArrayList<>();
+				int stackCount = 0;
+				if(owner!=null) {
+					for(Entry<AbstractWeapon, Integer> entry : owner.getAllWeaponsInInventory().entrySet()) {
+						if(entry.getKey().getWeaponType().equals(weapon.getWeaponType())) {
+							weaponMatches.add(entry.getKey());
+							stackCount += entry.getValue();
+						}
+					}
+				} else {
+					for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
+						if(entry.getKey().getWeaponType().equals(weapon.getWeaponType())) {
+							weaponMatches.add(entry.getKey());
+							stackCount += entry.getValue();
+						}
+					}
+				}
+				
+				int finalCount = stackCount;
+				
+				if(stackCount==1) {
+					return new Response("Reforge all",
+							"You only have one "+weapon.getName()+", so you should reforge it using the individual action...",
+							null); 
+				}
+				
+				if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					int reforgeHammerCount = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER));
+					
+					if(reforgeHammerCount<stackCount) {
+						return new Response("Reforge all",
+								"You do not have enough reforging hammers to dye all the " + weapon.getNamePlural() + "! You have "+reforgeHammerCount+" reforging hammers, but there are "+stackCount+" "+weapon.getNamePlural()+" in total...",
+								null); 
+					}
+				}
+				
+				return new Response("Reforge all",
+						"Reforge all " + weapon.getNamePlural() + " which are in this weapon stack ("+stackCount+" in total) into the damage type you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can reforge them at any time."
+										:" This action is permanent, and you'll need another reforging hammer if you want to change their damage type again."),
+						INVENTORY_MENU) {
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), finalCount);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+									+ "</p>"
+									+ "<p>"
+									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been reforged</b>!"
+									+ "</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>You then repeat this for the other "+Util.intToString(finalCount-1)+" "+weapon.getNamePlural()+"...</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER))
+														+ "</b> reforging hammer" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER)) == 1 ? "" : "s") + " left!"
+												:"You have <b>0</b> reforging hammers left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to reforge "
+												+ (finalCount==2
+													?"both"
+													:"all "+Util.intToString(finalCount))
+												+" of the " + weapon.getNamePlural() + " without needing to use a single reforging hammer!"
+										+ "</p>");
+						}
+
+						if(owner!=null) {
+							for(AbstractWeapon w : weaponMatches) {
+								int weaponCount = owner.getAllWeaponsInInventory().get(w);
+								owner.removeWeapon(w, weaponCount);
+								AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(w);
+								modifiedWeapon.setDamageType(damageTypePreview);
+								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+								owner.addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), weaponCount, false, false);
+								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+							}
+
+						} else {
+							for(AbstractWeapon w : weaponMatches) {
+								int weaponCount = Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().get(w);
+								Main.game.getPlayerCell().getInventory().removeWeapon(w, weaponCount);
+								AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(w);
+								modifiedWeapon.setDamageType(damageTypePreview);
+								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+								Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), weaponCount);
+								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", modifiedWeapon.getDisplayName(true)), false);
+							}
+						}
+					}
+				};
+
+			} else if (index == 13) {
+				if(damageTypePreview == weapon.getDamageType()) {
+					return new Response("Dye & reforge all",
+							"You need to choose a different damage type before being able to reforge the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+					return new Response("Dye & reforge all",
+							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				List<AbstractWeapon> weaponMatches = new ArrayList<>();
+				int stackCount = 0;
+				if(owner!=null) {
+					for(Entry<AbstractWeapon, Integer> entry : owner.getAllWeaponsInInventory().entrySet()) {
+						if(entry.getKey().getWeaponType().equals(weapon.getWeaponType())) {
+							weaponMatches.add(entry.getKey());
+							stackCount += entry.getValue();
+						}
+					}
+				} else {
+					for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
+						if(entry.getKey().getWeaponType().equals(weapon.getWeaponType())) {
+							weaponMatches.add(entry.getKey());
+							stackCount += entry.getValue();
+						}
+					}
+				}
+				
+				int finalCount = stackCount;
+				
+				if(stackCount==1) {
+					return new Response("Dye & reforge all",
+							"You only have one "+weapon.getName()+", so you should dye & reforge it using the individual action...",
+							null); 
+				}
+				
+				if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+					int dyeBrushCount = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.DYE_BRUSH));
+					int reforgeHammerCount = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER));
+					
+					if(dyeBrushCount<stackCount || reforgeHammerCount<stackCount) {
+						return new Response("Dye & reforge all",
+								"You do not have enough dye brushes or reforge hammers to dye & reforge all "+stackCount+" "+weapon.getNamePlural()+" in this stack...",
+								null); 
+					}
+				}
+				
+				return new Response("Dye & reforge all",
+						"Dye & reforge all " + weapon.getNamePlural() + " which are in this weapon stack ("+stackCount+" in total) in the colours and damage type you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can do this at any time."
+										:" This action is permanent, and you'll need another dye-brush and reforging hammer if you want to do this again."),
+						INVENTORY_MENU) {
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), finalCount);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+									+ "</p>"
+									+ "<p style='text-align:center;'>"
+										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
+									+ "</p>"
+									+ "<p>"
+									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been dyed and reforged</b>!"
+									+ "</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>You then repeat this for the other "+Util.intToString(finalCount-1)+" "+weapon.getNamePlural()+"...</p>");
+							
+							Main.game.getTextEndStringBuilder().append("<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												:"You have <b>0</b> dye-brushes left!")
+									+ "</p>");
+
+							Main.game.getTextEndStringBuilder().append("<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.REFORGE_HAMMER)
+												?"You have <b>" + Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER))
+														+ "</b> reforging hammer" + (Main.game.getPlayer().getAllItemsInInventory().get(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER)) == 1 ? "" : "s") + " left!"
+												:"You have <b>0</b> reforging hammers left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye and reforge "
+												+ (finalCount==2
+													?"both"
+													:"all "+Util.intToString(finalCount))
+												+" of the " + weapon.getNamePlural() + " without needing to use a single dye-brush or reforging hammer!"
+										+ "</p>");
+						}
+						
+						if(owner!=null) {
+							for(AbstractWeapon w : weaponMatches) {
+								int weaponCount = owner.getAllWeaponsInInventory().get(w);
+								owner.removeWeapon(w, weaponCount);
+								AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(w);
+								modifiedWeapon.setDamageType(damageTypePreview);
+								modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+								modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+								owner.addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), weaponCount, false, false);
+								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+							}
+							
+						} else {
+							for(AbstractWeapon w : weaponMatches) {
+								int weaponCount = Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().get(w);
+								Main.game.getPlayerCell().getInventory().removeWeapon(w, weaponCount);
+								AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(w);
+								modifiedWeapon.setDamageType(damageTypePreview);
+								modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+								modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+								Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), weaponCount);
+								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
+							}
 						}
 					}
 				};
@@ -6936,9 +7810,27 @@ public class InventoryDialogue {
 											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye the " + weapon.getName() + " without needing to use a dye-brush!"
 										+ "</p>");
 						}
+						
+						if(owner.getMainWeapon()!= null && owner.getMainWeapon().equals(weapon)) {
+							owner.unequipMainWeaponIntoVoid();
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							owner.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 							
-						weapon.setPrimaryColour(dyePreviewPrimary);
-						weapon.setSecondaryColour(dyePreviewSecondary);
+						} else {
+							owner.unequipOffhandWeaponIntoVoid();
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							owner.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
+						}
+
+//						weapon.setPrimaryColour(dyePreviewPrimary);
+//						weapon.setSecondaryColour(dyePreviewSecondary);
+						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", weapon.getDisplayName(true)), false);
 					}
 				};
 
@@ -6987,7 +7879,22 @@ public class InventoryDialogue {
 										+ "</p>");
 						}
 						
-						weapon.setDamageType(damageTypePreview);
+						if(owner.getMainWeapon()!= null && owner.getMainWeapon().equals(weapon)) {
+							owner.unequipMainWeaponIntoVoid();
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setDamageType(damageTypePreview);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							owner.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
+							
+						} else {
+							owner.unequipOffhandWeaponIntoVoid();
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setDamageType(damageTypePreview);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							owner.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
+						}
+						
+						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Reforged", weapon.getDisplayName(true)), false);
 					}
 				};
 
@@ -7051,9 +7958,29 @@ public class InventoryDialogue {
 										+ "</p>");
 						}
 						
-						weapon.setDamageType(damageTypePreview);
-						weapon.setPrimaryColour(dyePreviewPrimary);
-						weapon.setSecondaryColour(dyePreviewSecondary);
+						if(owner.getMainWeapon()!= null && owner.getMainWeapon().equals(weapon)) {
+							owner.unequipMainWeaponIntoVoid();
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+							modifiedWeapon.setDamageType(damageTypePreview);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							owner.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
+							
+						} else {
+							owner.unequipOffhandWeaponIntoVoid();
+							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+							modifiedWeapon.setDamageType(damageTypePreview);
+							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
+							owner.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
+						}
+						
+//						weapon.setDamageType(damageTypePreview);
+//						weapon.setPrimaryColour(dyePreviewPrimary);
+//						weapon.setSecondaryColour(dyePreviewSecondary);
+						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", weapon.getDisplayName(true)), false);
 					}
 				};
 
@@ -7196,7 +8123,7 @@ public class InventoryDialogue {
 	
 	private static void dropItems(GameCharacter from, AbstractItem item, int count) {
 		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasItem(item)) {
-			from.dropItem(item, count);
+			from.dropItem(item, count, from.isPlayer());
 		}
 		resetPostAction();
 	}
@@ -7213,21 +8140,36 @@ public class InventoryDialogue {
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);
 				from.incrementMoney(itemPrice);
-				Main.game.getPlayer().addItem(item, false, true);
+				Main.game.getPlayer().addItem(item, false, false);
 				Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
 				
 			} else {
 				//TODO
 				Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(item, itemPrice));
 				
-				to.addItem(item, count, to.isPlayer());
+				to.addItem(item, count, false);
 				from.incrementMoney(itemPrice*count);
 				to.incrementMoney(-itemPrice*count);
 				from.removeItem(item, count);
 			}
 			
+			if(from.isPlayer()) {
+				Main.game.addEvent(
+						new EventLogEntry(
+								Main.game.getMinutesPassed(),
+								"Sold",
+								count+"x <span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+(count==1?item.getName():item.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
+						false);
+			}
+			
 			if(to.isPlayer()) {
 				((NPC) from).handleSellingEffects(item, count, itemPrice);
+				Main.game.addEvent(
+						new EventLogEntry(
+								Main.game.getMinutesPassed(),
+								"Bought",
+								count+"x <span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+(count==1?item.getName():item.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
+						false);
 			}
 		}
 		resetPostAction();
@@ -7246,7 +8188,7 @@ public class InventoryDialogue {
 	
 	private static void dropWeapons(GameCharacter from, AbstractWeapon weapon, int count) {
 		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasWeapon(weapon)) {
-			from.dropWeapon(weapon, count);
+			from.dropWeapon(weapon, count, from.isPlayer());
 		}
 		resetPostAction();
 	}
@@ -7277,8 +8219,23 @@ public class InventoryDialogue {
 				from.removeWeapon(weapon, count);
 			}
 			
+			if(from.isPlayer()) {
+				Main.game.addEvent(
+						new EventLogEntry(
+								Main.game.getMinutesPassed(),
+								"Sold",
+								count+"x <span style='color:"+weapon.getRarity().getColour().toWebHexString()+";'>"+(count==1?weapon.getName():weapon.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
+						false);
+			}
+			
 			if(to.isPlayer()) {
 				((NPC) from).handleSellingEffects(weapon, count, itemPrice);
+				Main.game.addEvent(
+						new EventLogEntry(
+								Main.game.getMinutesPassed(),
+								"Bought",
+								count+"x <span style='color:"+weapon.getRarity().getColour().toWebHexString()+";'>"+(count==1?weapon.getName():weapon.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
+						false);
 			}
 		}
 		resetPostAction();
@@ -7299,7 +8256,7 @@ public class InventoryDialogue {
 	
 	private static void dropClothing(GameCharacter from, AbstractClothing clothing, int count) {
 		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasClothing(clothing)) {
-			from.dropClothing(clothing, count);
+			from.dropClothing(clothing, count, from.isPlayer());
 			
 			if(from.getClothingCount(clothing) == 0) {
 				owner = null;
@@ -7336,8 +8293,23 @@ public class InventoryDialogue {
 				from.removeClothing(clothing, count);
 			}
 			
+			if(from.isPlayer()) {
+				Main.game.addEvent(
+						new EventLogEntry(
+								Main.game.getMinutesPassed(),
+								"Sold",
+								count+"x <span style='color:"+clothing.getRarity().getColour().toWebHexString()+";'>"+(count==1?clothing.getName():clothing.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
+						false);
+			}
+			
 			if(to.isPlayer()) {
 				((NPC) from).handleSellingEffects(clothing, count, itemPrice);
+				Main.game.addEvent(
+						new EventLogEntry(
+								Main.game.getMinutesPassed(),
+								"Bought",
+								count+"x <span style='color:"+clothing.getRarity().getColour().toWebHexString()+";'>"+(count==1?clothing.getName():clothing.getNamePlural())+"</span> for "+UtilText.formatAsMoney(itemPrice*count)),
+						false);
 			}
 		}
 		resetPostAction();

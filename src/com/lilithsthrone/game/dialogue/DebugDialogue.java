@@ -493,13 +493,13 @@ public class DebugDialogue {
 	public static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
 	static {
 		clothingTotal.addAll(ClothingType.getAllClothing());
-		clothingTotal.removeIf((c) -> c.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER));
+		clothingTotal.removeIf((c) -> c.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || c.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
 		
 		weaponsTotal.addAll(WeaponType.getAllWeapons());
-		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER));
+		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || w.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
 
 		itemsTotal.addAll(ItemType.getAllItems());
-		itemsTotal.removeIf((i) -> i.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER));
+		itemsTotal.removeIf((i) -> i.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || i.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
 		
 	}
 	private static StringBuilder inventorySB = new StringBuilder();
@@ -513,16 +513,54 @@ public class DebugDialogue {
 
 			inventorySB.append(
 					"<p style='width:100%; text-align:center; padding:0 margin:0;'>"
-						+ (activeSlot==null ?
-								"<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Spawn Item</b>"
+						+ (itemTag==ItemTag.HIDDEN_IN_DEBUG_SPAWNER
+							?"[style.boldExcellent(Hidden Spawn Menu)]"
+							:(activeSlot==null
+								?"<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Spawn Item</b>"
 								:(activeSlot == InventorySlot.WEAPON_MAIN || activeSlot == InventorySlot.WEAPON_OFFHAND
 									? "<b style='color:"+Colour.BASE_RED_LIGHT.toWebHexString()+";'>Spawn Weapon</b> ("+Util.capitaliseSentence(activeSlot.getName())+")"
-									: "<b style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>Spawn Clothing</b> ("+Util.capitaliseSentence(activeSlot.getName())+")"))
+									: "<b style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>Spawn Clothing</b> ("+Util.capitaliseSentence(activeSlot.getName())+")")))
 					+"</p>");
 			
 			int count=0;
 			inventorySB.append("<div class='inventory-not-equipped'>");
-			if(activeSlot == null) {
+			if(itemTag==ItemTag.HIDDEN_IN_DEBUG_SPAWNER) {
+				for(AbstractClothingType c : ClothingType.getAllClothing()) {
+					if(c.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER)) {
+						inventorySB.append("<div class='inventory-item-slot unequipped "+ c.getRarity().getName() + "'>"
+								+ "<div class='inventory-icon-content'>"
+									+c.getSVGImage(
+										c.getAllAvailablePrimaryColours().get(0),
+										c.getAvailableSecondaryColours().isEmpty()?null:c.getAvailableSecondaryColours().get(0),
+										c.getAvailableTertiaryColours().isEmpty()?null:c.getAvailableTertiaryColours().get(0),
+										null, null, null, null)
+								+"</div>"
+								+ "<div class='overlay' id='" + c.getId() + "_SPAWN'></div>"
+							+ "</div>");
+					}
+				}
+				for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
+					if(weaponType.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER)) {
+						inventorySB.append("<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "'>"
+								+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
+										weaponType.getAvailableDamageTypes().get(0),
+										weaponType.getAvailablePrimaryColours().isEmpty()?null:weaponType.getAvailablePrimaryColours().get(0),
+										weaponType.getAvailableSecondaryColours().isEmpty()?null:weaponType.getAvailableSecondaryColours().get(0))
+								+"</div>"
+								+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
+							+ "</div>");
+					}
+				}
+				for(AbstractItemType itemType : ItemType.getAllItems()) {
+					if(itemType.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER)) {
+						inventorySB.append("<div class='inventory-item-slot unequipped "+ itemType.getRarity().getName() + "'>"
+								+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
+								+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+							+ "</div>");
+					}
+				}
+				
+			} else if(activeSlot == null) {
 				for(AbstractItemType itemType : itemsTotal) {
 					if((itemTag==null
 							&& (!itemType.getItemTags().contains(ItemTag.BOOK)
@@ -596,6 +634,7 @@ public class DebugDialogue {
 			inventorySB.append("<div class='normal-button' id='ESSENCE_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Essences</div>");
 			inventorySB.append("<div class='normal-button' id='BOOK_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.BASE_ORANGE.toWebHexString()+";'>Books</div>");
 			inventorySB.append("<div class='normal-button' id='SPELL_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Spells</div>");
+			inventorySB.append("<div class='normal-button' id='HIDDEN_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; opacity:0; cursor:default; font-size:0.9em; color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Hidden</div>");
 			inventorySB.append("</div>");
 			
 			return inventorySB.toString();

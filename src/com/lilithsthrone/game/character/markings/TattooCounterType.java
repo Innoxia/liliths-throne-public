@@ -1,11 +1,13 @@
 package com.lilithsthrone.game.character.markings;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Units;
 
 /**
  * @since 0.2.6
@@ -32,6 +34,13 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			return bearer.getTotalSexAsDomCount();
+		}
+	},
+
+	UNIQUE_SEX_PARTNERS("unique sex partners", "Keeps a count of how many different people the bearer has had sex with.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getUniqueSexPartnerCount();
 		}
 	},
 
@@ -238,7 +247,49 @@ public enum TattooCounterType {
 		public int getCount(GameCharacter bearer) {
 			return bearer.getLittersFathered().size();
 		}
-	};
+	},
+
+
+	CUM_IN_VAGINA("cum in womb", "Displays how much cum is currently in the bearer's womb (in "+(Main.getProperties().hasValue(PropertyValue.metricFluids)?"mL":"oz")+").") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			if(Main.getProperties().hasValue(PropertyValue.metricFluids)) {
+				return Math.round(bearer.getTotalFluidInArea(SexAreaOrifice.VAGINA));
+			} else {
+				return Math.round(Units.mlToOz(bearer.getTotalFluidInArea(SexAreaOrifice.VAGINA)));
+			}
+		}
+	},
+	
+	CUM_IN_ASS("cum in ass", "Displays how much cum is currently in the bearer's ass (in "+(Main.getProperties().hasValue(PropertyValue.metricFluids)?"mL":"oz")+").") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			if(Main.getProperties().hasValue(PropertyValue.metricFluids)) {
+				return Math.round(bearer.getTotalFluidInArea(SexAreaOrifice.ANUS));
+			} else {
+				return Math.round(Units.mlToOz(bearer.getTotalFluidInArea(SexAreaOrifice.ANUS)));
+			}
+		}
+	},
+	
+	CUM_IN_STOMACH("cum in stomach", "Displays how much cum is currently in the bearer's stomach (in "+(Main.getProperties().hasValue(PropertyValue.metricFluids)?"mL":"oz")+").") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			if(Main.getProperties().hasValue(PropertyValue.metricFluids)) {
+				return Math.round(bearer.getTotalFluidInArea(SexAreaOrifice.MOUTH));
+			} else {
+				return Math.round(Units.mlToOz(bearer.getTotalFluidInArea(SexAreaOrifice.MOUTH)));
+			}
+		}
+	},
+	
+	VALUE_AS_SLAVE("value as slave", "Displays how much the bearer is worth as a slave.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getValueAsSlave(false); 
+		}
+	}
+	;
 	
 	private String name;
 	private String description;

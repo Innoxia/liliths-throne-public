@@ -161,7 +161,7 @@ public abstract class AbstractItemEffectType {
 			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
 		}
 
-		AbstractPerk perk = Perk.getPerkFromId(subspecies.toString());
+		AbstractPerk perk = Perk.getSubspeciesRelatedPerk(subspecies);
 		if(!reader.isPlayer() || ((PlayerCharacter) reader).addRaceDiscoveredFromBook(subspecies) || !reader.hasPerkAnywhereInTree(perk)) {
 			return (withDescription
 						?subspecies.getBasicDescription(null)

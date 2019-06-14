@@ -359,7 +359,7 @@ public class MainControllerInitMethod {
 		if(Main.game.getCurrentDialogueNode().equals(DebugDialogue.SPAWN_MENU) || Main.game.getCurrentDialogueNode().equals(DebugDialogue.ALL_ITEMS_VIEW)) {
 			id = "";
 			
-			for(AbstractClothingType clothingType : DebugDialogue.clothingTotal) {
+			for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
 				id = clothingType.getId() + "_SPAWN";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -375,7 +375,7 @@ public class MainControllerInitMethod {
 				}
 			}
 			
-			for(AbstractWeaponType weaponType : DebugDialogue.weaponsTotal) {
+			for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
 				id = weaponType.getId() + "_SPAWN";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -391,7 +391,7 @@ public class MainControllerInitMethod {
 				}
 			}
 			
-			for(AbstractItemType itemType : DebugDialogue.itemsTotal) {
+			for(AbstractItemType itemType : ItemType.getAllItems()) {
 				id = itemType.getId() + "_SPAWN";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -411,6 +411,7 @@ public class MainControllerInitMethod {
 				id = slot + "_SPAWN_SELECT";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						DebugDialogue.itemTag = null;
 						DebugDialogue.activeSlot = slot;
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
@@ -446,6 +447,14 @@ public class MainControllerInitMethod {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 					DebugDialogue.activeSlot = null;
 					DebugDialogue.itemTag = ItemTag.SPELL_BOOK;
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "HIDDEN_SPAWN_SELECT";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					DebugDialogue.activeSlot = null;
+					DebugDialogue.itemTag = ItemTag.HIDDEN_IN_DEBUG_SPAWNER;
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
@@ -5346,6 +5355,14 @@ public class MainControllerInitMethod {
 				}
 			}
 			
+			// Auto-save options:
+			for(int i=0; i<3; i++) {
+				id = "AUTOSAVE_FREQUENCY_"+i;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					setAutosavePreference(id, i);
+				}
+			}
+			
 			Map<String, PropertyValue> settingsMap = Util.newHashMapOfValues(
 					new Value<>("ARTWORK", PropertyValue.artwork),
 					new Value<>("AUTO_SEX_CLOTHING_MANAGEMENT", PropertyValue.autoSexClothingManagement),
@@ -6063,6 +6080,20 @@ public class MainControllerInitMethod {
 		TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(Properties.uddersLabels[i], Properties.uddersDescriptions[i]);
 		MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 	}
+
+	static void setAutosavePreference(String id, int i) {
+		((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+			Main.getProperties().autoSaveFrequency=i;
+			Main.saveProperties();
+			Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+		}, false);
+		
+		MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+		MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(Properties.autoSaveLabels[i], Properties.autoSaveDescriptions[i]);
+		MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+	}
+	
 	
 	
 	private static void fluidHandler(MilkingRoom room, FluidStored fluid) {
