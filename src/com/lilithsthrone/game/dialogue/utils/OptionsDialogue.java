@@ -11,7 +11,6 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.*;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
@@ -1321,7 +1320,7 @@ public class OptionsDialogue {
 				+ "<div style='display:inline-block; margin:0 auto;'>"
 					+ "<div style='width:140px; float:left;'><b style='color:"+colour.toWebHexString()+";'>" +Util.capitaliseSentence(orient.getName())+"</b></div>");
 		
-		for(SexualOrientationPreference preference : SexualOrientationPreference.values()) {
+		for(ContentPreferenceValue preference : ContentPreferenceValue.values()) {
 			sb.append("<div id='"+preference+"_"+orient+"' class='preference-button"+(Main.getProperties().orientationPreferencesMap.get(orient)==preference.getValue()?" selected":"")+"'>"
 							+Util.capitaliseSentence(preference.getName())
 						+"</div>");
