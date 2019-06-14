@@ -2772,7 +2772,7 @@ public class Body implements XMLSaving {
 					sb.append("[npc.sheHasFull] a pair of [npc.wingSize] wings, which are covered in [npc.wingFullDescription(true)].");
 					break;
 			}
-			if(wing.getType().allowsFlight()) {
+			if (wing.getType().allowsFlight() && this.getBodyMaterial() != BodyMaterial.SLIME) {
 				if(wing.getSizeValue()>=owner.getLegConfiguration().getMinimumWingSizeForFlight().getValue()) {
 					sb.append(" [style.colourBlue(They are large and powerful enough to allow [npc.herHim] to fly!)]");
 				} else {
