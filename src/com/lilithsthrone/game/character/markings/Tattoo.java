@@ -342,6 +342,10 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		return attributeModifiers;
 	}
 	
+	public int getEnchantmentStabilityCost() {
+		return this.getAttributeModifiers().values().stream().reduce(0, (a, b) -> a + Math.max(0, b));//Math.abs(b));
+	}
+	
 	public AbstractTattooType getType() {
 		return type;
 	}

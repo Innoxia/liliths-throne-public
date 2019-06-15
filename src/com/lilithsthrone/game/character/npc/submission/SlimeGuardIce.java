@@ -82,7 +82,7 @@ public class SlimeGuardIce extends NPC {
 		super(isImported, new NameTriplet("Crystal"), "Triggs",
 				"[npc.Name] is one of the Slime Queen's guards, tasked to challenge anyone who dares to enter [npc.her] Queen's territory.",
 				19, Month.JANUARY, 29,
-				10, Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN,
+				15, Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN,
 				new CharacterInventory(10), WorldType.SLIME_QUEENS_LAIR_GROUND_FLOOR, PlaceType.SLIME_QUEENS_LAIR_ENTRANCE_GUARDS, true);
 
 	}
@@ -97,8 +97,8 @@ public class SlimeGuardIce extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && Subspecies.getFleshSubspecies(this)!=Subspecies.HUMAN) {
 			this.setBody(Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
-			this.setLevel(10);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.8")) {
+			this.setLevel(15);
 			this.resetPerksMap(true);
 		}
 		setStartingCombatMoves();
@@ -108,7 +108,8 @@ public class SlimeGuardIce extends NPC {
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.MARTIAL_BACKGROUND);
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(),
+				Util.newArrayListOfValues(
+						Perk.CLOTHING_ENCHANTER),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 3),
 						new Value<>(PerkCategory.LUST, 1),

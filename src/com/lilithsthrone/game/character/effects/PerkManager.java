@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.effects;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -49,11 +50,7 @@ public enum PerkManager {
 				perkTree.get(i).put(category, new ArrayList<>());
 			}
 		}
-
-		addPerkEntry(perkTree, PerkCategory.LUST, 0, Perk.FIRING_BLANKS);
-		addPerkEntry(perkTree, PerkCategory.LUST, 0, Perk.BARREN);
-		addPerkEntry(perkTree, PerkCategory.ARCANE, 0, Perk.CLOTHING_ENCHANTER);
-
+		
 		TreeEntry<PerkCategory, AbstractPerk> connectorLeft, connectorMid, connectorRight;
 		TreeEntry<PerkCategory, AbstractPerk> leftA, leftB, leftC;
 		TreeEntry<PerkCategory, AbstractPerk> leftMidA, leftMidB, leftMidC;
@@ -77,12 +74,18 @@ public enum PerkManager {
 		leftA = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 2, Perk.PHYSIQUE_BOOST, physical1);
 		addPerkEntry(perkTree, PerkCategory.PHYSICAL, 2, Perk.OBSERVANT, physical1);
 
+		leftC = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 2, Perk.ENCHANTMENT_STABILITY, physical1);
+		
+
 		leftB = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 3, Perk.PHYSICAL_DEFENCE, leftA);
 		leftB = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 4, Perk.PHYSICAL_DEFENCE, leftB);
 		leftMidA = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 3, Perk.ENERGY_BOOST, leftA);
 		leftMidA = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 4, Perk.ENERGY_BOOST, leftMidA);
 		rightA = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 3, Perk.PHYSICAL_DAMAGE, leftA);
 		rightA = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 4, Perk.PHYSICAL_DAMAGE, rightA);
+		
+		leftC = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 3, Perk.ENCHANTMENT_STABILITY, leftC);
+		addPerkEntry(perkTree, PerkCategory.PHYSICAL, 4, Perk.WEAPON_ENCHANTER, leftC);
 
 		leftA = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 5, Perk.RUNNER_2, leftB, leftMidA);
 		rightB = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 5, Perk.UNARMED_TRAINING);
@@ -122,10 +125,12 @@ public enum PerkManager {
 		
 		
 		/* Lust Tree Section 1 */
-		
+		addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.FIRING_BLANKS, both1);
 		leftA = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.VIRILITY_BOOST, both1);
-		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.VIRILITY_BOOST, leftA);
-		addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.FETISH_SEEDER, leftC);
+		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.VIRILITY_MAJOR_BOOST, leftA);
+		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.FETISH_SEEDER, leftC);
+		leftC = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.VIRILITY_BOOST, leftC);
+		addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.VIRILITY_MAJOR_BOOST, leftC);
 		
 		leftMidA = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.SEDUCTION_BOOST, both1);
 		
@@ -135,13 +140,16 @@ public enum PerkManager {
 		leftMidB = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.SEDUCTION_BOOST, leftMidB);
 		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.SEDUCTION_DEFENCE_BOOST, rightMidA);
 
-		leftA = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.VIRILITY_BOOST);
-		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.CRITICAL_BOOST_ALT, leftMidB, rightMidA, leftA);
-		addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.FERTILITY_BOOST, rightMidA);
+//		leftA = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.VIRILITY_BOOST);
+		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.CRITICAL_BOOST_ALT, leftMidB, rightMidA);
+//		addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.FERTILITY_BOOST, rightMidA);
 
 		rightB = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.FERTILITY_BOOST, both1);
-		rightB = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.FERTILITY_BOOST, rightB);
-		addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.FETISH_BROODMOTHER, rightB);
+		addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.BARREN, both1);
+		rightB = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.FERTILITY_MAJOR_BOOST, rightB);
+		rightB = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.FETISH_BROODMOTHER, rightB);
+		rightC = addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.FERTILITY_MAJOR_BOOST);
+		addPerkEntry(perkTree, PerkCategory.LUST, 5, Perk.FERTILITY_BOOST, rightB, rightC);
 
 		leftA = addPerkEntry(perkTree, PerkCategory.LUST, 6, Perk.MALE_ATTRACTION);
 		connectorMid = addPerkEntry(perkTree, PerkCategory.LUST, 6, Perk.SEDUCTION_BOOST_MAJOR, rightMidA);
@@ -174,10 +182,14 @@ public enum PerkManager {
 		
 		
 		/* Arcane Tree Section 1 */
+
+		rightB = addPerkEntry(perkTree, PerkCategory.ARCANE, 2, Perk.ENCHANTMENT_STABILITY_ALT, arcane1);
+		rightB = addPerkEntry(perkTree, PerkCategory.ARCANE, 3, Perk.ENCHANTMENT_STABILITY_ALT, rightB);
+		addPerkEntry(perkTree, PerkCategory.ARCANE, 4, Perk.CLOTHING_ENCHANTER, rightB);
 		
 		addPerkEntry(perkTree, PerkCategory.ARCANE, 2, Perk.ARCANE_CRITICALS, arcane1);
 		rightA = addPerkEntry(perkTree, PerkCategory.ARCANE, 2, Perk.ARCANE_BOOST, arcane1);
-		
+
 		leftA = addPerkEntry(perkTree, PerkCategory.ARCANE, 3, Perk.SPELL_DAMAGE, rightA);
 		leftA = addPerkEntry(perkTree, PerkCategory.ARCANE, 4, Perk.SPELL_DAMAGE, leftA);
 		leftA = addPerkEntry(perkTree, PerkCategory.ARCANE, 5, Perk.ELEMENTAL_BOOST, leftA);
@@ -446,7 +458,7 @@ public enum PerkManager {
 			PerkCategory pc = Util.getRandomObjectFromWeightedMap(perkWeightingMap, rnd);
 			
 			Set<AbstractPerk> specialPerks = character.getSpecialPerks();
-			for(AbstractPerk perk : specialPerks) {
+			for(AbstractPerk perk : new HashSet<>(specialPerks)) {
 				if(perk.isBackgroundPerk()) {
 					character.removeSpecialPerk(perk);
 				}
@@ -497,7 +509,7 @@ public enum PerkManager {
 	}
 
 	public static void initialisePerks(GameCharacter character, List<AbstractPerk> requiredPerks, Map<PerkCategory, Integer> perkWeightingOverride) {
-		initialisePerks(character, true, requiredPerks, null);
+		initialisePerks(character, true, requiredPerks, perkWeightingOverride);
 	}
 	
 	public static void initialisePerks(GameCharacter character, boolean autoSelectPerks, List<AbstractPerk> requiredPerks, Map<PerkCategory, Integer> perkWeightingOverride) {
@@ -528,6 +540,10 @@ public enum PerkManager {
 				List<AbstractPerk> deniedPerks = new ArrayList<>();
 				deniedPerks.add(Perk.OBSERVANT);
 				deniedPerks.add(Perk.CHUUNI);
+				deniedPerks.add(Perk.BARREN);
+				deniedPerks.add(Perk.FIRING_BLANKS);
+				deniedPerks.add(Perk.ENCHANTMENT_STABILITY);
+				deniedPerks.add(Perk.ENCHANTMENT_STABILITY_ALT);
 				if(character.getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
 					deniedPerks.add(Perk.MALE_ATTRACTION);
 				}
@@ -551,6 +567,8 @@ public enum PerkManager {
 				} else {
 					perkWeightingMap = new HashMap<>(character.getSubspecies().getPerkWeighting(character));
 				}
+				
+				perkWeightingMap.entrySet().removeIf((entry)->entry.getValue()<=0);
 				
 				List<TreeEntry<PerkCategory, AbstractPerk>> traits = new ArrayList<>();
 				while(character.getPerkPoints()>0) {

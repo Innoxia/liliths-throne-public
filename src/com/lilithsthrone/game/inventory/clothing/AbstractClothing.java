@@ -1409,6 +1409,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return attributeModifiers;
 	}
 	
+	public int getEnchantmentStabilityCost() {
+		return this.getAttributeModifiers().values().stream().reduce(0, (a, b) -> a + Math.max(0, b));//Math.abs(b));
+	}
+	
 	@Override
 	public int getEnchantmentLimit() {
 		return clothingType.getEnchantmentLimit();

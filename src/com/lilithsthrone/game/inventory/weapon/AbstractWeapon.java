@@ -509,6 +509,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		return attributeModifiers;
 	}
 	
+	public int getEnchantmentStabilityCost() {
+		return this.getAttributeModifiers().values().stream().reduce(0, (a, b) -> a + Math.max(0, b));//Math.abs(b));
+	}
+	
 	@Override
 	public int getEnchantmentLimit() {
 		return weaponType.getEnchantmentLimit();

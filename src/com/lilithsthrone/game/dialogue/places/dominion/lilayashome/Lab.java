@@ -1329,7 +1329,7 @@ public class Lab {
 				+ "<p>"
 					+ "[lilaya.speech(Right, well I should probably demonstrate enchanting first! I still have a few essences absorbed from some work I was doing earlier, so I might as well use them on this!)]"
 					+ " she says, and you notice that her earlier look of worry has been replaced with one of excitement."
-					+ "[lilaya.speech(So, you don't need any special equipment for this, all you need is an item to enchant, and the concentration to draw the essence out from your aura.)]"
+					+ "[lilaya.speech(So, you don't need any special equipment for this, all you need is an item, weapon, or piece of clothing to enchant, and the concentration to draw the essence out from your aura.)]"
 				+ "</p>"
 				+ "<p>"
 					+ "Lilaya picks up the bottle of Feline's Fancy, before placing a curious little green gem down next to it."

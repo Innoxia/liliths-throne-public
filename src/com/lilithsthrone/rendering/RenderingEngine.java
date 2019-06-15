@@ -1000,40 +1000,58 @@ public enum RenderingEngine {
 
 		uiAttributeSB.append("</div>");
 
-		uiAttributeSB.append(
-				"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>"
-					+ "<div class='half-width-container' style='text-align:center; float:left; width:60%'>"
-						+ "<div class='overlay-alt' id='DATE_DISPLAY_TOGGLE'>"
-							+"<div class='item-inline' style='float:left;'>"
-								+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()
-							+ "</div>"
-							+ (Main.getProperties().hasValue(PropertyValue.calendarDisplay)
-								? Main.game.getDisplayDate(false)
-								:"Day "+Main.game.getDayNumber())
-						+ "</div>"	
-					+"</div>"
-					+ "<div class='half-width-container' style='text-align:center; float:left; width:40%'>"
-						+ "<div class='overlay-alt' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"
-					);
 		
-		if(Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST)!=null
-				&& (Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_WOMENS_WATCH)
-						|| Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_MENS_WATCH))) {
-			uiAttributeSB.append(
-							"<div class='item-inline' style='float:left;'>"
-									+Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getSVGEquippedString(Main.game.getPlayer())
-							+ "</div>");
+		uiAttributeSB.append("<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>");
+		if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY) {
+			int enchantmentPointsUsed = Main.game.getPlayer().getEnchantmentPointsUsedTotal();
+			uiAttributeSB.append(UtilText.parse(
+					"<div class='full-width-container' style='text-align:center;'>"
+						+ "<div class='overlay-alt' id='INVENTORY_ENCHANTMENT_LIMIT' style='cursor:default;'>"
+							+ "[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+")]: "
+							+ (enchantmentPointsUsed>Main.game.getPlayer().getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
+									?"[style.colourBad("
+									:(enchantmentPointsUsed==Main.game.getPlayer().getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
+											?"[style.colourGood("
+											:"[style.colourMinorGood("))
+							+ enchantmentPointsUsed + ")]" + "/" + Math.round(Main.game.getPlayer().getAttributeValue(Attribute.ENCHANTMENT_LIMIT))
+						+ "</div>"	
+					+"</div>"));
 			
 		} else {
-			uiAttributeSB.append(
-					"<div class='item-inline' style='float:left;'>"
-							+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
-					+ "</div>");
+			uiAttributeSB.append("<div class='half-width-container' style='text-align:center; float:left; width:60%'>"
+									+ "<div class='overlay-alt' id='DATE_DISPLAY_TOGGLE'>"
+										+"<div class='item-inline' style='float:left;'>"
+											+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()
+										+ "</div>"
+										+ (Main.getProperties().hasValue(PropertyValue.calendarDisplay)
+											? Main.game.getDisplayDate(false)
+											:"Day "+Main.game.getDayNumber())
+									+ "</div>"	
+								+"</div>");
+			
+			uiAttributeSB.append("<div class='half-width-container' style='text-align:center; float:left; width:40%'>"
+									+ "<div class='overlay-alt' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>");
+			
+			if(Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST)!=null
+					&& (Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_WOMENS_WATCH)
+							|| Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_MENS_WATCH))) {
+				uiAttributeSB.append(
+								"<div class='item-inline' style='float:left;'>"
+										+Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getSVGEquippedString(Main.game.getPlayer())
+								+ "</div>");
+				
+			} else {
+				uiAttributeSB.append(
+						"<div class='item-inline' style='float:left;'>"
+								+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
+						+ "</div>");
+			}
+	
+			uiAttributeSB.append(Units.time(Main.game.getDateNow())
+							+ "</div>"
+						+ "</div>");
 		}
-
-		uiAttributeSB.append(Units.time(Main.game.getDateNow()) + "</div>"
-					+ "</div>"
-				+ "</div>");
+		uiAttributeSB.append("</div>");
 		
 		if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY || Main.game.isInCombat() || Main.game.isInSex()) {
 			uiAttributeSB.append(getInventoryEquippedPanel(Main.game.getPlayer()));
@@ -1169,17 +1187,34 @@ public enum RenderingEngine {
 				uiAttributeSB.append("</div>");
 
 			}
-			
-			uiAttributeSB.append(
-					"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>"
-							+ "<div class='full-width-container' style='text-align:center;'>"
-									+ "<p style='white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;'>"
-										+ (getCharacterToRender()==null
-											?"No Character"
-											:UtilText.parse(getCharacterToRender(), "[npc.NamePos] Inventory"))
-									+ "</p>"
-							+ "</div>"
-						+ "</div>");
+
+			uiAttributeSB.append("<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>");
+			if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY) {
+				int enchantmentPointsUsed = getCharacterToRender().getEnchantmentPointsUsedTotal();
+				uiAttributeSB.append(UtilText.parse(
+						"<div class='full-width-container' style='text-align:center;'>"
+							+ "<div class='overlay-alt' id='INVENTORY_ENCHANTMENT_LIMIT_NPC' style='cursor:default;'>"
+								+ "[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+")]: "
+								+ (enchantmentPointsUsed>getCharacterToRender().getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
+										?"[style.colourBad("
+										:(enchantmentPointsUsed==getCharacterToRender().getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
+												?"[style.colourGood("
+												:"[style.colourMinorGood("))
+								+ enchantmentPointsUsed + ")]" + "/" + Math.round(getCharacterToRender().getAttributeValue(Attribute.ENCHANTMENT_LIMIT))
+							+ "</div>"	
+						+"</div>"));
+				
+			} else {
+				uiAttributeSB.append(
+								"<div class='full-width-container' style='text-align:center;'>"
+										+ "<p style='white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;'>"
+											+ (getCharacterToRender()==null
+												?"No Character"
+												:UtilText.parse(getCharacterToRender(), "[npc.NamePos] Inventory"))
+										+ "</p>"
+								+ "</div>");
+			}
+			uiAttributeSB.append("</div>");
 			
 			uiAttributeSB.append(getInventoryEquippedPanel(getCharacterToRender()));
 				

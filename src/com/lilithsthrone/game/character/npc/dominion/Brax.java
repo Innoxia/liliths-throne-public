@@ -114,7 +114,7 @@ public class Brax extends NPC {
 		super(isImported, new NameTriplet("Brax", "Bree", "Brandi"), "Volkov",
 				"The 'Chief of Dominion Operations', Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.",
 				30, Month.NOVEMBER, 27,
-				6, Gender.M_P_MALE,
+				10, Gender.M_P_MALE,
 				Subspecies.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
 
 	}
@@ -144,8 +144,8 @@ public class Brax extends NPC {
 				this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_EPIC, DamageType.FIRE));
 			}
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
-			this.setLevel(6);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.8")) {
+			this.setLevel(10);
 			this.setHistory(Occupation.NPC_ENFORCER_PATROL_INSPECTOR);
 			this.equipClothing(null);
 			this.resetPerksMap(true);
@@ -156,6 +156,7 @@ public class Brax extends NPC {
 	public void setupPerks(boolean autoSelectPerks) {
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
+						Perk.ENCHANTMENT_STABILITY,
 						Perk.UNARMED_DAMAGE,
 						Perk.ARCANE_BOOST),
 				Util.newHashMapOfValues(

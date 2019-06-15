@@ -92,7 +92,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	
 
 	// Enchantments:
-	private int enchantmentLimit;
+	@SuppressWarnings("unused")
+	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment stability mechanics.
 	protected List<ItemEffect> effects;
 	
 	private Map<DamageType, Map<Colour, Map<Colour, String>>> SVGStringMap;
@@ -1122,11 +1123,12 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	}
 	
 	public int getEnchantmentLimit() {
-		if(enchantmentLimit==-1) {
-			return (getClothingSet()==null?5:10);
-		} else {
-			return enchantmentLimit;
-		}
+		return 100;
+//		if(enchantmentLimit==-1) {
+//			return (getClothingSet()==null?5:10);
+//		} else {
+//			return enchantmentLimit;
+//		}
 	}
 	
 	public AbstractItemEffectType getEnchantmentEffect() {

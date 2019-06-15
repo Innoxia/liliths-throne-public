@@ -4917,6 +4917,10 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		float value = getBaseAttributeValue(att) + getBonusAttributeValue(att);
 		
+		if(att == Attribute.ENCHANTMENT_LIMIT) {
+			return 10 + this.getLevel() + value;
+		}
+		
 		if(att == Attribute.HEALTH_MAXIMUM
 				&& (this.hasStatusEffect(StatusEffect.ELEMENTAL_EARTH_SERVANT_OF_EARTH)
 						|| this.hasStatusEffect(StatusEffect.ELEMENTAL_WATER_SERVANT_OF_WATER)
@@ -4924,6 +4928,16 @@ public abstract class GameCharacter implements XMLSaving {
 						|| this.hasStatusEffect(StatusEffect.ELEMENTAL_FIRE_SERVANT_OF_FIRE)
 						|| this.hasStatusEffect(StatusEffect.ELEMENTAL_ARCANE_SERVANT_OF_ARCANE))) {
 			value /= 2;
+		}
+		
+		if(att == Attribute.HEALTH_MAXIMUM || att == Attribute.MANA_MAXIMUM) {
+			if(this.hasStatusEffect(StatusEffect.CLOTHING_ENCHANTMENT_OVER_LIMIT)) {
+				value *= 0.9f;
+			} else if(this.hasStatusEffect(StatusEffect.CLOTHING_ENCHANTMENT_OVER_LIMIT_2)) {
+				value *= 0.5f;
+			} else if(this.hasStatusEffect(StatusEffect.CLOTHING_ENCHANTMENT_OVER_LIMIT_3)) {
+				return 1;
+			}
 		}
 		
 		if(value < att.getLowerLimit()) {
@@ -15031,6 +15045,37 @@ public abstract class GameCharacter implements XMLSaving {
 		inventory.sortInventory();
 	}
 	
+	public int getEnchantmentPointsUsedFromWeapons() {
+		int count = 0;
+		if(this.getMainWeapon()!=null) {
+			count += this.getMainWeapon().getEnchantmentStabilityCost();
+		}
+		if(this.getOffhandWeapon()!=null) {
+			count += this.getOffhandWeapon().getEnchantmentStabilityCost();
+		}
+		return count;
+	}
+	
+	public int getEnchantmentPointsUsedFromClothing() {
+		int count = 0;
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			count += c.getEnchantmentStabilityCost();
+		}
+		return count;
+	}
+	
+	public int getEnchantmentPointsUsedFromTattoos() {
+		int count = 0;
+		for(Tattoo tat : this.getTattoos().values()) {
+			count += tat.getEnchantmentStabilityCost();
+		}
+		return count;
+	}
+	
+	public int getEnchantmentPointsUsedTotal() {
+		return getEnchantmentPointsUsedFromWeapons() + getEnchantmentPointsUsedFromClothing() + getEnchantmentPointsUsedFromTattoos();
+	}
+	
 	public int getMoney() {
 		return inventory.getMoney();
 	}
@@ -17680,6 +17725,13 @@ public abstract class GameCharacter implements XMLSaving {
 			return scars.get(invSlot);
 		}
 		return null;
+	}
+	
+	/**
+	 * DO NOT MODIFY!
+	 */
+	public Map<InventorySlot, Tattoo> getTattoos() {
+		return new HashMap<>(tattoos);
 	}
 	
 	public void addTattoo(InventorySlot invSlot, Tattoo tattoo) {

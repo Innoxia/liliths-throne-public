@@ -943,11 +943,10 @@ public class Game implements XMLSaving {
 					}
 				}
 
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.3.7")) {
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.3.8")) {
+					Main.game.getPlayer().resetPerksMap(false);
 					for(NPC npc : Main.game.getAllNPCs()) {
-						if(!(npc instanceof Elemental)
-								&& (!npc.isSlave() || !npc.getOwner().isPlayer())
-								&& !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) {
+						if(!(npc instanceof Elemental)) {
 							npc.resetPerksMap(true, false);
 						}
 						PerkManager.initialiseSpecialPerksUponCreation(npc); // Generate unique perks for slaves/occupants as well
@@ -988,6 +987,14 @@ public class Game implements XMLSaving {
 		Main.game.setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode), false);
 		
 //		System.out.println(Main.isVersionOlderThan(loadingVersion, "0.2.12.95"));
+		
+		// Test enchantments over limits:
+//		for(NPC npc : Main.game.getAllNPCs()) {
+//			int amount = (int) (npc.getEnchantmentPointsUsedTotal()-npc.getAttributeValue(Attribute.ENCHANTMENT_LIMIT));
+//			if(amount>0) {
+//				System.out.println((npc.isUnique()?"X   ":"")+amount+": "+npc.getNameIgnoresPlayerKnowledge()+" "+npc.getWorldLocation().getName()+" "+npc.getLocation());
+//			}
+//		}
 		
 		Main.game.endTurn(0);
 		

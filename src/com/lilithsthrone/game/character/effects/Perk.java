@@ -1149,6 +1149,20 @@ public class Perk {
 			return UtilText.parse(owner, "[npc.NamePos] body is able to produce very potent sperm, increasing the chance that any sexual partner of [npc.hers] gets pregnant.");
 		}
 	};
+	
+	public static AbstractPerk VIRILITY_MAJOR_BOOST = new AbstractPerk(20,
+			false,
+			"virile",
+			PerkCategory.LUST,
+			"perks/virile",
+			Colour.GENERIC_EXCELLENT,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 25)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NamePos] body is able to produce incredibly potent sperm, greatly increasing the chance that any sexual partner of [npc.hers] gets pregnant.");
+		}
+	};
 
 	public static AbstractPerk FERTILITY_BOOST = new AbstractPerk(20,
 			false,
@@ -1161,6 +1175,20 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NamePos] body is very fertile, increasing the chance that any sexual partner of [npc.hers] manages to get [npc.her] pregnant.");
+		}
+	};
+
+	public static AbstractPerk FERTILITY_MAJOR_BOOST = new AbstractPerk(20,
+			false,
+			"fertile",
+			PerkCategory.LUST,
+			"perks/fertile",
+			Colour.GENERIC_EXCELLENT,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 25)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NamePos] body is incredibly fertile, increasing the chance that any sexual partner of [npc.hers] manages to get [npc.her] pregnant.");
 		}
 	};
 	
@@ -1683,21 +1711,57 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/arcaneWeaver",
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 15)),
 			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all clothing enchantments</span>")) {
 
 		@Override
-		public boolean isAlwaysAvailable() {
-			return true;
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] a natural affinity for weaving arcane enchantments into items of clothing, allowing [npc.herHim] to expend only half of the usual arcane essences when enchanting clothing.");
 		}
-		
+	};
+	
+	public static AbstractPerk WEAPON_ENCHANTER = new AbstractPerk(20,
+			false,
+			"arcane smith",
+			PerkCategory.PHYSICAL,
+			"perks/arcaneSmith",
+			Colour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 15)),
+			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all weapon enchantments</span>")) {
+
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You have a natural affinity for weaving arcane enchantments into items of clothing, allowing you to expend only half of the usual arcane essences when enchanting clothing.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] has a natural affinity for weaving arcane enchantments into items of clothing, allowing [npc.herHim] to expend only half of the usual arcane essences when enchanting clothing.");
-			}
+			return UtilText.parse(owner, "[npc.NameHasFull] a natural affinity for imbuing weapons with arcane enchantments, allowing [npc.herHim] to expend only half of the usual arcane essences when enchanting weapons.");
+		}
+	};
+	
+	public static AbstractPerk ENCHANTMENT_STABILITY = new AbstractPerk(20,
+			false,
+			"stable enchantments",
+			PerkCategory.ARCANE,
+			"perks/enchantment_stability",
+			Colour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] spent time training [npc.her] body and mind in order to increase the stability of enchantments in [npc.her] weapons, clothing, and tattoos.");
+		}
+	};
+
+	public static AbstractPerk ENCHANTMENT_STABILITY_ALT = new AbstractPerk(20,
+			false,
+			"stable enchantments",
+			PerkCategory.ARCANE,
+			"perks/enchantment_stability",
+			Colour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] spent time training [npc.her] body and mind in order to increase the stability of enchantments in [npc.her] weapons, clothing, and tattoos.");
 		}
 	};
 	
@@ -1709,11 +1773,6 @@ public class Perk {
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -100)), null) {
 
-		@Override
-		public boolean isAlwaysAvailable() {
-			return true;
-		}
-		
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
@@ -1732,11 +1791,6 @@ public class Perk {
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, -100)), null) {
 
-		@Override
-		public boolean isAlwaysAvailable() {
-			return true;
-		}
-		
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
@@ -1814,6 +1868,50 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "Roughly translated from Japanese as 'Middle School 2nd Year Syndrome', those with 'chuunibyou' believe and act as though they possess special powers."
 					+ " While chuunis may once have been purely delusional, the arcane now lends some truth to their beliefs...");
+		}
+	};
+	
+	public static AbstractPerk MERAXIS = new AbstractPerk(20,
+			false,
+			"The Dark Siren",
+			PerkCategory.ARCANE,
+			"perks/dark_siren",
+			Colour.ATTRIBUTE_LUST,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 100),
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 100),
+					new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 100)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "Meraxis is none other than the Dark Siren herself! Being the recognised daughter of the elder Lilin Lyssieth, she has considerable skill with wielding the arcane.");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
+	public static AbstractPerk ARCANE_TATTOOIST = new AbstractPerk(20,
+			false,
+			"Arcane Tattooist",
+			PerkCategory.ARCANE,
+			"perks/tattoo",
+			Colour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 15),
+					new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 50)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] undergone extensive training in order to learn how to imbue tattoos with arcane enchantments.");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
 		}
 	};
 	

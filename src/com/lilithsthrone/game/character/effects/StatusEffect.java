@@ -2222,10 +2222,103 @@ public enum StatusEffect {
 		}
 	},
 	
+
+	CLOTHING_ENCHANTMENT_OVER_LIMIT(
+			80,
+			"unstable enchantments",
+			"unstable_enchantment_1",
+			Colour.ATTRIBUTE_CORRUPTION,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 25f)),
+			Util.newArrayListOfValues(
+					"[style.boldMinorBad(-10%)] [style.boldHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]",
+					"[style.boldMinorBad(-10%)] [style.boldMana(Maximum "+Attribute.MANA_MAXIMUM.getName()+")]")) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.NameIsFull] unable to handle the amount of attribute enchantments infused into [npc.her] weapons, clothing, and tattoos, and so [npc.is] suffering from some negative side-effects."
+							+ " If [npc.she] continues equipping enchanted items, this is sure to get much worse...");
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			int overBy = (int) (target.getEnchantmentPointsUsedTotal()-target.getAttributeValue(Attribute.ENCHANTMENT_LIMIT));
+			return overBy>0 && overBy<10;
+		}
+	},
+	
+	CLOTHING_ENCHANTMENT_OVER_LIMIT_2(
+			80,
+			"volatile enchantments",
+			"unstable_enchantment_2",
+			Colour.ATTRIBUTE_CORRUPTION,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f)),
+			Util.newArrayListOfValues(
+					"[style.boldBad(-50%)] [style.boldHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]",
+					"[style.boldBad(-50%)] [style.boldMana(Maximum "+Attribute.MANA_MAXIMUM.getName()+")]")) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.NameIsFull] unable to handle the amount of attribute enchantments infused into [npc.her] weapons, clothing, and tattoos, and so [npc.is] suffering from some severe negative side-effects."
+							+ " If [npc.she] continues equipping enchanted items, this is sure to get much worse...");
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			int overBy = (int) (target.getEnchantmentPointsUsedTotal()-target.getAttributeValue(Attribute.ENCHANTMENT_LIMIT));
+			return overBy>=10 && overBy<20;
+		}
+	},
+	
+	CLOTHING_ENCHANTMENT_OVER_LIMIT_3(
+			80,
+			"shattered enchantments",
+			"unstable_enchantment_3",
+			Colour.ATTRIBUTE_CORRUPTION,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f)),
+			Util.newArrayListOfValues(
+					"[style.boldHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")] [style.boldTerrible(set to 1)]",
+					"[style.boldMana(Maximum "+Attribute.MANA_MAXIMUM.getName()+")] [style.boldTerrible(set to 1)]")) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.NameIsFull] unable to handle the amount of attribute enchantments infused into [npc.her] weapons, clothing, and tattoos, and so [npc.is] suffering from some extremely severe negative side-effects.");
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			int overBy = (int) (target.getEnchantmentPointsUsedTotal()-target.getAttributeValue(Attribute.ENCHANTMENT_LIMIT));
+			return overBy>=20;
+		}
+	},
+	
 	CLOTHING_JINXED(
 			80,
 			"jinxed clothing",
-			"arcaneDrain",
+			"jinxed_clothing",
 			Colour.ATTRIBUTE_CORRUPTION,
 			false,
 			Util.newHashMapOfValues(

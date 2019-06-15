@@ -33,6 +33,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -87,7 +88,7 @@ public class SubmissionCitadelArcanist extends NPC {
 		super(isImported, new NameTriplet("Hitomi", "Hitomi", "Hitomi"), "Takahashi",
 				"",
 				23, Month.NOVEMBER, 27,
-				15, Gender.F_V_B_FEMALE, Subspecies.FOX_ASCENDANT, RaceStage.PARTIAL_FULL,
+				20, Gender.F_V_B_FEMALE, Subspecies.FOX_ASCENDANT, RaceStage.PARTIAL_FULL,
 				new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_LAB, false);
 		
 		if(!isImported) {
@@ -109,8 +110,8 @@ public class SubmissionCitadelArcanist extends NPC {
 			this.setStartingBody(true);
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
-			this.setLevel(10);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.8")) {
+			this.setLevel(20);
 			this.resetPerksMap(true);
 		}
 		setStartingCombatMoves();
@@ -119,7 +120,8 @@ public class SubmissionCitadelArcanist extends NPC {
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(),
+				Util.newArrayListOfValues(
+						Perk.WEAPON_ENCHANTER),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 1),
 						new Value<>(PerkCategory.LUST, 1),

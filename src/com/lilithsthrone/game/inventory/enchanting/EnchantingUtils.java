@@ -182,6 +182,9 @@ public class EnchantingUtils {
 		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CLOTHING_ENCHANTER) && ingredient instanceof AbstractClothing) {
 			cost/=2;
 		}
+		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.WEAPON_ENCHANTER) && ingredient instanceof AbstractWeapon) {
+			cost/=2;
+		}
 		return cost;
 	}
 	

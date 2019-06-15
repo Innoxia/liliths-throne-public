@@ -931,8 +931,18 @@ public class TooltipInventoryEventListener implements EventListener {
 				}
 			}
 		} else {
-			tooltipSB.append("<div class='container-full-width titular'>" + "Value: "+UtilText.formatAsMoney(absWep.getValue()) + "</div>");
+			tooltipSB.append(
+					"<div class='container-full-width titular'>"
+							+ "Value: "+UtilText.formatAsMoney(absWep.getValue())
+					+ "</div>");
 		}
+		int stabilityCost = absWep.getEnchantmentStabilityCost();
+		tooltipSB.append(
+				"<div class='container-full-width titular'>"
+						+(stabilityCost==0
+							?"Enchantment stability cost: [style.boldDisabled("+stabilityCost+")]"
+							:"[style.colourEnchantment(Enchantment stability cost)]: [style.boldBad("+stabilityCost+")]")
+				+ "</div>");
 
 		if(!author.isEmpty()) {
 			tooltipSB.append("<div class='description' style='height:52px;'>" + author + "</div>");
@@ -940,8 +950,8 @@ public class TooltipInventoryEventListener implements EventListener {
 		
 		tooltipSB.append("</body>");
 
-		yIncrease += Math.max(0, listIncrease-3);
-		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 364 + (yIncrease * LINE_HEIGHT));
+		yIncrease += Math.max(0, listIncrease-4);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 364 + 32 + (yIncrease * LINE_HEIGHT));
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 		
 	}
@@ -1078,6 +1088,13 @@ public class TooltipInventoryEventListener implements EventListener {
 		} else {
 			tooltipSB.append("<div class='container-full-width titular'>Value: "+ (absClothing.isEnchantmentKnown() ? UtilText.formatAsMoney(absClothing.getValue()) : UtilText.formatAsMoney("?", "b")) + "</div>");
 		}
+		int stabilityCost = absClothing.getEnchantmentStabilityCost();
+		tooltipSB.append(
+				"<div class='container-full-width titular'>"
+						+(stabilityCost==0
+							?"Enchantment stability cost: [style.boldDisabled("+stabilityCost+")]"
+							:"[style.colourEnchantment(Enchantment stability cost)]: [style.boldBad("+stabilityCost+")]")
+				+ "</div>");
 
 		if(!author.isEmpty()) {
 			tooltipSB.append("<div class='description' style='height:52px;'>" + author + "</div>");
@@ -1089,7 +1106,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		if(absClothing.getDisplayName(false).length()>40) {
 			specialIncrease = 26;
 		}
-		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 400 + (yIncrease * LINE_HEIGHT) + specialIncrease);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 400 + 32 + (yIncrease * LINE_HEIGHT) + specialIncrease);
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 	}
@@ -1240,6 +1257,13 @@ public class TooltipInventoryEventListener implements EventListener {
 						+"[style.colourDisabled(This tattoo doesn't have a counter.)]"
 					+ "</div>");
 		}
+		int stabilityCost = tattoo.getEnchantmentStabilityCost();
+		tooltipSB.append(
+				"<div class='container-full-width titular'>"
+						+(stabilityCost==0
+							?"Enchantment stability cost: [style.boldDisabled("+stabilityCost+")]"
+							:"[style.colourEnchantment(Enchantment stability cost)]: [style.boldBad("+stabilityCost+")]")
+				+ "</div>");
 			
 		tooltipSB.append("</div>");
 		
@@ -1248,7 +1272,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		if(tattoo.getDisplayName(false).length()>40) {
 			specialIncrease = 26;
 		}
-		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 368 + (yIncrease * LINE_HEIGHT) + specialIncrease);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 368 + 32 + (yIncrease * LINE_HEIGHT) + specialIncrease);
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 	}
 	

@@ -4674,13 +4674,18 @@ public class MainControllerInitMethod {
 						:(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS
 							?OccupantManagementDialogue.characterSelected()
 							:CharactersPresentDialogue.characterViewed);
+
+				boolean availableForSelection =
+						Main.game.getCurrentDialogueNode() != PhoneDialogue.CONTACTS_CHARACTER
+						&& Main.game.getCurrentDialogueNode() != PhoneDialogue.CHARACTER_APPEARANCE
+						&& Main.game.getCurrentDialogueNode() != CharactersPresentDialogue.MENU;
 						
 				if(perk.getPerkCategory() == PerkCategory.JOB) {
 					id = "OCCUPATION_"+Perk.getIdFromPerk(perk);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character, true), false);
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character, availableForSelection), false);
 					}
 					
 				} else {
@@ -4688,12 +4693,8 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(PerkManager.MANAGER.getPerkRow(character, perk), perk, character, true), false);
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(PerkManager.MANAGER.getPerkRow(character, perk), perk, character, availableForSelection), false);
 
-						boolean availableForSelection =
-								Main.game.getCurrentDialogueNode() != PhoneDialogue.CONTACTS_CHARACTER
-								&& Main.game.getCurrentDialogueNode() != PhoneDialogue.CHARACTER_APPEARANCE
-								&& Main.game.getCurrentDialogueNode() != CharactersPresentDialogue.MENU;
 						
 						if(availableForSelection) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", event -> {
@@ -4709,7 +4710,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						if(character.hasPerkAnywhereInTree(perk)) {
-							MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character, true), false);
+							MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character, false), false);
 						} else {
 							MainController.addEventListener(MainController.document, id, "mouseenter",
 									new TooltipInformationEventListener().setInformation("Unknown!",

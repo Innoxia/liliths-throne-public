@@ -92,7 +92,7 @@ public class DarkSiren extends NPC {
 				new NameTriplet("Meraxis"), "Lyssiethmartuilani",
 				"The ruler of Submission's central imp citadel, 'The Dark Siren' is an incredibly powerful arcane user...",
 				26, Month.OCTOBER, 13,
-				25, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
+				30, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
 
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
@@ -180,15 +180,21 @@ public class DarkSiren extends NPC {
 			this.setWingSize(WingSize.ONE_SMALL.getValue());
 		}
 		setName(new NameTriplet("Meraxis"));
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.7")) {
+			this.setLevel(30);
 			this.resetPerksMap(true);
 		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
+		this.addSpecialPerk(Perk.MERAXIS);
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(Perk.CHUUNI),
+				Util.newArrayListOfValues(
+						Perk.CHUUNI,
+						Perk.CLOTHING_ENCHANTER,
+						Perk.WEAPON_ENCHANTER
+						),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 1),
 						new Value<>(PerkCategory.LUST, 0),

@@ -124,9 +124,14 @@
 	Patch notes:
 	
 	Gameplay:
-		NPCs who aren't your slaves/occupants have had their perk trees regenerated, due to new perks being added.
+		All characters (including yours) have had their perk trees reset/regenerated, due to new perks being added and the perk tree layout slightly changed.
+		Added 'enchantment stability' attribute, which determines how many points of modified attributes you're able to handle from your clothes or tattoos without incurring a penalty.
+		'Enchantment stability' starts at 10, and is increased by 1 per level, and can also be increased via new perks.
+		Rose briefly warns you about this enchantment stability in the final scene of the prologue.
+		Clothing, weapon, and tattoo enchantment limits have been increased to 100.
 		Added 'convincing requests' perk: Requests during sex are no longer denied by sadists or rough dominants.
 		Added 'object of desire' perk: All partners in sex require +1 orgasm before being satisfied.
+		Added 'arcane smith' perk: Halves arcane essence cost of enchanting weapons.
 		You can now enchant 'Angel's Nectar' into 'Angel's Purity', which allows you to permanently remove corruption.
 	
 	Contributors:
@@ -163,7 +168,7 @@
 	Other:
 		Randomly generated NPCs have a 50% chance to spawn with a minor background perk unlocked (to boost their physique, corruption, or arcane). Your slaves/occupants might gain one of these perks when you load in (reloading won't change results).
 		Added 'autosave frequency' setting to the content options screen.
-		Added an outfit file for harpy nest attackers, as well as clubber in 'The Watering Hole', so their outfits will no longer be completely random.
+		Added an outfit file for harpy nest attackers, as well as for clubbers in 'The Watering Hole', so their outfits will no longer be completely random.
 		Added 'unique sex partners', 'cum in womb', 'cum in ass', 'cum in stomach', and 'value as slave' tattoo counter types.
 		Added notifications to event log for: area transitions; items/clothing/weapons dropped, used, and bought/sold; clothing/weapons dyed/reforged; weapons equipped/unequipped; clothing equipped/unequipped; money/essences gained/lost; experience gained; level ups.
 		Added a 'RIGID_MATERIAL' item tag, so that modders can define clothing as being unsuitable to be groped through. This has been applied to chastity cages and chastity belts, which both now block groping sex actions.
@@ -171,6 +176,7 @@
 		Added 'desaturated brown' as a clothing/weapon colour.
 		Added 'Dye all (stack)' and 'Dye all' actions to the clothing & weapon dye menu.
 		Jinxed clothing status effect now gives +10 corruption, instead of -5 aura.
+		Increased levels of: Rental mommy by 5; Meraxis by 5; Candi by 4; Brax by 4; Amber by 3;
 		
 	Bugs:
 		Fixed typos/parsing errors.
@@ -216,22 +222,16 @@
 		Fixed some unique NPCs having non-trait perks equipped in their trait bar.
 		Slaves set to idle will now correctly have sex with other idle slaves (if permissions are set correctly), provided that they can reach each other (house permissions, or in same room). Slaves assigned to the stocks are also now working as suitable sex targets when home.
 		Fixed issue with idling slaves not applying correct sex effects when having sex with one another (which was causing issues such as tattoo counters and sex counts not being incremented).
-		
+		Fixed major bug where characters loaded in from old versions would disappear, throwing numerous errors in the background.
 	
 	
-	pull PRs
 	
-	Go over clothing in files to balance
-		- Enchanted items have an "enchanted equip cost", which is equal to the power of enchanted effects on them (so +1 for every +1 attribute)
-		- Characters have an "enchanted equip limit", which is based both on level and perks
-		- Wearing clothes with a total "enchanted equip cost" over the character's "enchanted equip limit" will incur increasingly-severe penalties (in the form of a highlighted status effect), such as boosting the character's corruption, and draining their HP and MP
-		- I will add "aura boosts" which act exactly the same as clothing, but which are invisible and block no slots (so that exhibitionist players can get enchantments as well)
 	
-	succubus/incubus attackers need outfit files
 	
 	Father's day?
 	
-	I am utterly stuck in the game. I am on the Siren's Call mission and it says I need three keys, I have had sex with every person inside a imp fortress (all three) yet the game says that I have not gotten all three keys to get into the final purple castle! Halp! 
+	I am utterly stuck in the game. I am on the Siren's Call mission and it says I need three keys,
+	 I have had sex with every person inside a imp fortress (all three) yet the game says that I have not gotten all three keys to get into the final purple castle! Halp! 
 	
 	Need to make enchantment essence cost input and make angel's purity more expensive
 	
@@ -257,6 +257,9 @@
 	
 	Need to add unique encounter for alleyway attacks during storm - at the moment you can't submit and they act normal...
 	
+	succubus/incubus attackers need outfit files
+	
+	
 	
 	test BANEFUL_FISSURE
 	
@@ -271,16 +274,13 @@
 	
 	check status effect modifiers when adding tails to youko
 	
-	test ice shard/freezing fog
-		Make spell upgrade increase mana cost
+	Make ice shard/freezing fog upgrade increase mana cost
 	
 	rename energy to health?
 	
 	make action points an Attribute
 	
 	Cleanse spell applying enemy effect to last person targeted
-	
-	Need to balance numbers.
 	
 	Need perk for:
 		Office worker
