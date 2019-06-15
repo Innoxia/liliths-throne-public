@@ -10,7 +10,6 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -32,6 +31,9 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -73,7 +75,7 @@ public class Alexa extends NPC {
 				"Alexa is an extremely powerful harpy matriarch, and is in control of one of the largest harpy flocks in Dominion."
 						+ " Her beauty rivals that of even the most gorgeous of succubi, which, combined with her sharp mind and regal personality, makes her somewhat of an idol in harpy society.",
 				26, Month.MAY, 3,
-				8, Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER,
+				10, Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ALEXAS_NEST, true);
 		
 		if(!isImported) {
@@ -89,11 +91,25 @@ public class Alexa extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")) {
-			this.setAttribute(Attribute.MAJOR_ARCANE, 15f);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+			this.setLevel(10);
+			this.resetPerksMap(true);
 			this.addSpell(Spell.SLAM);
 			this.addSpell(Spell.ARCANE_AROUSAL);
 		}
+	}
+
+	@Override
+	public void setupPerks(boolean autoSelectPerks) {
+		this.addSpecialPerk(Perk.ARCANE_TRAINING);
+		
+		PerkManager.initialisePerks(this,
+				Util.newArrayListOfValues(
+						Perk.FEMALE_ATTRACTION),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 0),
+						new Value<>(PerkCategory.LUST, 1),
+						new Value<>(PerkCategory.ARCANE, 5)));
 	}
 	
 	@Override
@@ -102,10 +118,6 @@ public class Alexa extends NPC {
 		// Persona:
 		
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 10f);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 15f);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 30f);
-			
 			this.setPersonality(Util.newHashMapOfValues(
 					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
 					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
@@ -239,6 +251,7 @@ public class Alexa extends NPC {
 			
 			for(int i=0; i<3; i++) {
 				NPC newSlave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
+				newSlave.setHistory(Occupation.NPC_SLAVE);
 				try {
 					Main.game.addNPC(newSlave, false);
 				} catch (Exception e) {

@@ -65,7 +65,7 @@ public enum SpellSchool {
 			+ "<p>"
 				+ "Students of the school of Fire are able to temporarily envelop their melee weapons in arcane fire, which grants them additional fire damage on every attack."
 			+ "</p>",
-			"All melee attacks deal an additional 2 "+Attribute.DAMAGE_FIRE.getName()+".",
+			"When out of aura, fire spells will be cast at 1/4 spell cost by using "+Attribute.HEALTH_MAXIMUM.getName()+".",
 			Colour.BASE_ORANGE),
 
 	ARCANE("arcane",

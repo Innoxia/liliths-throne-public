@@ -75,7 +75,8 @@ public enum SpellUpgrade {
 			"Incendiary",
 			"With every strike, a jet of fire from the Cloak of Flames shoots forwards to burn the enemy. Damage done is affected by the wearer's fire damage, and the target's fire resistance.",
 			null, Util.newArrayListOfValues(
-					"Adds <b>5</b> [style.colourFire(Fire Damage)] to all attacks")),
+					"Unarmed attacks deal +1 damage per caster level",
+					"Unarmed attacks deal [style.boldFire(fire damage)]")),
 	CLOAK_OF_FLAMES_2(1,
 			SpellSchool.FIRE,
 			"cloak_of_flames_inferno",
@@ -137,7 +138,7 @@ public enum SpellUpgrade {
 			null, Util.newArrayListOfValues(
 					"While summoned:",
 					"[style.colourArcane(Caster)]: +25 [style.boldFire(Fire Damage)]",
-					"[style.colourArcane(Caster)]: +25 [style.boldFire(Fire Resistance)]")) {
+					"[style.colourArcane(Caster)]: +10 [style.boldFire(Fire Resistance)]")) {
 
 		public boolean isAvailable(GameCharacter caster) {
 			return !caster.hasSpellUpgrade(ELEMENTAL_FIRE_3A);
@@ -166,16 +167,16 @@ public enum SpellUpgrade {
 			SpellSchool.WATER,
 			"ice_shard_cold_snap",
 			"Cold Snap",
-			"As Ice Shard travels through the freezing layer of fog left behind by a previous impact, there's a chance that the crystals in the air will explode, dealing extra damage.",
+			"As Ice Shard travels through the freezing layer of fog left behind by a previous impact, the crystals in the air will explode, dealing extra damage.",
 			null, Util.newArrayListOfValues(
-					"Ice Shard has +25 "+Attribute.CRITICAL_CHANCE.getColouredName("b")+" against targets affected by Freezing Fog")),
+					"Ice Shard [style.boldExcellent(critically hits)] targets affected by Freezing Fog")),
 	ICE_SHARD_3(5,
 			SpellSchool.WATER,
 			"ice_shard_deep_freeze",
 			"Deep Freeze",
 			"When the crystals in freezing fog detonate, they instantly entomb any objects nearby in a case of thin ice, momentarily locking them in place.",
 			null, Util.newArrayListOfValues(
-					"If Ice Shard [style.boldExcellent(critically hits)] a target affected by Freezing Fog, that target is [style.colourExcellent(stunned)] for [style.colourGood(1 turn)]")),
+					"When Ice Shard [style.boldExcellent(critically hits)] a target affected by Freezing Fog, that target is [style.colourExcellent(stunned)] for [style.colourGood(1 turn)]")),
 
 	RAIN_CLOUD_1(true,
 			1,
@@ -191,14 +192,14 @@ public enum SpellUpgrade {
 			"Downpour",
 			"Sheets of torrential arcane rain sweep into the target's eyes, causing them to miss the occasional attack.",
 			null, Util.newArrayListOfValues(
-					"Adds <b>+15</b> "+Attribute.MISS_CHANCE.getColouredName("b")+" to Rain Cloud's effects")),
+					"Adds <b>-5</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b")+" to Rain Cloud's effects")),
 	RAIN_CLOUD_3(5,
 			SpellSchool.WATER,
 			"rain_cloud_cloud_burst",
 			"Cloud Burst",
-			"The anger and annoyance of the rain cloud's target is harnessed as energy, and each time they miss an attack, the cloud grows in strength and size.",
+			"The anger and annoyance of the rain cloud's target is harnessed as energy, and each time they are hit by a critical attack, the cloud grows in strength and size.",
 			null, Util.newArrayListOfValues(
-					"If Rain Cloud's target misses, the duration is set to [style.colourGood(6 turns)], and "+Attribute.SPELL_COST_MODIFIER.getColouredName("b")+" debuff is increased to -50")),
+					"If Rain Cloud's target is hit by a critical attack, the duration is set to [style.colourGood(6 turns)], and "+Attribute.SPELL_COST_MODIFIER.getColouredName("b")+" debuff is increased to -50")),
 
 	SOOTHING_WATERS_1(true,
 			5,
@@ -237,7 +238,7 @@ public enum SpellUpgrade {
 			"Calm Waters",
 			"The Water elemental projects the image of calm, steady waters into the mind of any ally who starts to get turned on, helping them to control their lust.",
 			null, Util.newArrayListOfValues(
-					"[style.colourExcellent(All allies gain)] +20 "+Attribute.RESISTANCE_LUST.getColouredName("b"))),
+					"[style.colourExcellent(All allies gain)] +5 "+Attribute.RESISTANCE_LUST.getColouredName("b"))),
 	ELEMENTAL_WATER_3A(5,
 			SpellSchool.WATER,
 			"elemental_water_servant_of_water",
@@ -268,7 +269,7 @@ public enum SpellUpgrade {
 			null, Util.newArrayListOfValues(
 					"While summoned:",
 					"[style.colourArcane(Caster)]: +25 [style.boldIce(Ice Damage)]",
-					"[style.colourArcane(Caster)]: +25 [style.boldIce(Ice Resistance)]")) {
+					"[style.colourArcane(Caster)]: +10 [style.boldIce(Ice Resistance)]")) {
 
 		public boolean isAvailable(GameCharacter caster) {
 			return !caster.hasSpellUpgrade(ELEMENTAL_WATER_3A);
@@ -292,7 +293,7 @@ public enum SpellUpgrade {
 			"Choking Haze",
 			"The clouds of Poison Vapours become far thicker, becoming a stifling, choking haze that causes the target to occasionally miss their attacks.",
 			null, Util.newArrayListOfValues(
-					"Poison Vapours additionally applies <b>+10</b> "+Attribute.MISS_CHANCE.getColouredName("b"))),
+					"Poison Vapours additionally applies <b>-5</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b"))),
 	POISON_VAPOURS_2(5,
 			SpellSchool.AIR,
 			"poison_vapours_arcane_sickness",
@@ -314,10 +315,10 @@ public enum SpellUpgrade {
 			SpellSchool.AIR,
 			"vacuum_secondary_voids",
 			"Secondary Voids",
-			"The target of Vacuum additionally suffers -15 critical chance, and miss chance is increased to +20.",
+			"The target of Vacuum additionally suffers -25 critical power, and -20 to energy shielding.",
 			null, Util.newArrayListOfValues(
-					"Vacuum additionally applies <b>-15</b> "+Attribute.CRITICAL_CHANCE.getColouredName("b"),
-					"Vacuum debuff increased to <b>+20</b> "+Attribute.MISS_CHANCE.getColouredName("b"))),
+					"Vacuum additionally applies <b>-25</b> "+Attribute.CRITICAL_DAMAGE.getColouredName("b"),
+					"Vacuum debuff increased to <b>-20</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b"))),
 	VACUUM_2(2,
 			SpellSchool.AIR,
 			"vacuum_suction",
@@ -340,15 +341,15 @@ public enum SpellUpgrade {
 			"Guiding Wind",
 			"Guided by the forces of the arcane, the summoned winds apply pressure to their target at key moments, helping them to avoid incoming attacks, as well as to land powerful strikes of their own.",
 			null, Util.newArrayListOfValues(
-					"Protective Gusts buff increased to <b>+15</b> "+Attribute.DODGE_CHANCE.getColouredName("b"),
-					"Protective Gusts additionally applies <b>+10</b> "+Attribute.CRITICAL_CHANCE.getColouredName("b"))),
+					"Protective Gusts buff increased to <b>+2</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b"),
+					"Protective Gusts additionally applies <b>+10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b"))),
 	PROTECTIVE_GUSTS_2(1,
 			SpellSchool.AIR,
 			"protective_gusts_focused_blast",
 			"Focused Blast",
 			"With every strike, the arcane winds push forwards to help their target deal the most amount of damage possible.",
 			null, Util.newArrayListOfValues(
-					"Protective Gusts buff increased to <b>+20</b> "+Attribute.DODGE_CHANCE.getColouredName("b"),
+					"Protective Gusts buff increased to <b>+3</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b"),
 					"Protective Gusts additionally applies <b>+25</b> "+Attribute.CRITICAL_DAMAGE.getColouredName("b"))),
 	PROTECTIVE_GUSTS_3(2,
 			SpellSchool.AIR,
@@ -365,15 +366,15 @@ public enum SpellUpgrade {
 			"Whirlwind",
 			"The Air elemental summons forth a swirling whirlwind, which disrupts and staggers all enemies.",
 			null, Util.newArrayListOfValues(
-					"[style.colourTerrible(All enemies suffer)] +5 "+Attribute.MISS_CHANCE.getColouredName("b"))),
+					"[style.colourTerrible(All enemies suffer)] -5 "+Attribute.ENERGY_SHIELDING.getColouredName("b"))),
 	ELEMENTAL_AIR_2(5,
 			SpellSchool.AIR,
 			"elemental_air_vitalising_scents",
 			"Vitalising Scents",
 			"The Air elemental surrounds their allies with vitalising scents, imbuing them with the energy needed to dodge incoming attacks, as well as to land powerful strikes of their own.",
 			null, Util.newArrayListOfValues(
-					"[style.colourExcellent(All allies gain)] +10 "+Attribute.CRITICAL_CHANCE.getColouredName("b"),
-					"[style.colourExcellent(All allies gain)] +5 "+Attribute.DODGE_CHANCE.getColouredName("b"))),
+					"[style.colourExcellent(All allies gain)] +10 "+Attribute.DAMAGE_PHYSICAL.getColouredName("b"),
+					"[style.colourExcellent(All allies gain)] +5 "+Attribute.ENERGY_SHIELDING.getColouredName("b"))),
 	ELEMENTAL_AIR_3A(5,
 			SpellSchool.AIR,
 			"elemental_air_servant_of_air",
@@ -404,7 +405,7 @@ public enum SpellUpgrade {
 			null, Util.newArrayListOfValues(
 					"While summoned:",
 					"[style.colourArcane(Caster)]: +25 "+Attribute.DAMAGE_POISON.getColouredName("b"),
-					"[style.colourArcane(Caster)]: +25 "+Attribute.RESISTANCE_POISON.getColouredName("b"))) {
+					"[style.colourArcane(Caster)]: +10 "+Attribute.RESISTANCE_POISON.getColouredName("b"))) {
 
 		public boolean isAvailable(GameCharacter caster) {
 			return !caster.hasSpellUpgrade(ELEMENTAL_AIR_3A);
@@ -428,7 +429,7 @@ public enum SpellUpgrade {
 			"Ground Shake",
 			"Slam continues on down into the earth after doing its damage, causing the ground beneath the target's feet to shake.",
 			null, Util.newArrayListOfValues(
-					"<b>+10</b> "+Attribute.MISS_CHANCE.getColouredName("b")+" for [style.colourGood(2 turns)]")),
+					"<b>-10</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b")+" for [style.colourGood(2 turns)]")),
 	SLAM_2(2,
 			SpellSchool.EARTH,
 			"slam_aftershock",
@@ -474,14 +475,14 @@ public enum SpellUpgrade {
 			"Shifting Sands",
 			"The Stone Shell now occasionally shifts and disintegrates into flowing sand, before quickly reforming elsewhere in order to confuse any enemies.",
 			null, Util.newArrayListOfValues(
-					"Stone Shell additionally applies <b>+10</b> "+Attribute.DODGE_CHANCE.getColouredName("b"))),
+					"Stone Shell additionally applies <b>+2</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b"))),
 	STONE_SHELL_2(2,
 			SpellSchool.EARTH,
 			"stone_shell_hardened_carapace",
 			"Hardened Carapace",
 			"A second layer of hardened stone is created behind Shone Shell, massively increasing the target's physical resistance.",
 			null, Util.newArrayListOfValues(
-					"Stone Shell's buff is increased to <b>+50</b> "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b"))),
+					"Stone Shell's buff is increased to <b>+10</b> "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b"))),
 	STONE_SHELL_3(1,
 			SpellSchool.EARTH,
 			"stone_shell_explosive_finish",
@@ -536,7 +537,7 @@ public enum SpellUpgrade {
 			null, Util.newArrayListOfValues(
 					"While summoned:",
 					"[style.colourArcane(Caster)]: +25 "+Attribute.DAMAGE_PHYSICAL.getColouredName("b"),
-					"[style.colourArcane(Caster)]: +25 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b"))) {
+					"[style.colourArcane(Caster)]: +10 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b"))) {
 
 		public boolean isAvailable(GameCharacter caster) {
 			return !caster.hasSpellUpgrade(ELEMENTAL_EARTH_3A);
@@ -567,7 +568,7 @@ public enum SpellUpgrade {
 			"Lustful Distraction",
 			"The lewd images that are sent into the target's mind linger on for some time, causing them to become distracted.",
 			null, Util.newArrayListOfValues(
-					"Target [style.boldBad(suffers)] +15 "+Attribute.MISS_CHANCE.getColouredName("b")+" for [style.boldGood(2 turns)]")),
+					"Target [style.boldBad(suffers)] -15 "+Attribute.ENERGY_SHIELDING.getColouredName("b")+" for [style.boldGood(2 turns)]")),
 	ARCANE_AROUSAL_3(2,
 			SpellSchool.ARCANE,
 			"arcane_arousal_dirty_promises",
@@ -639,11 +640,11 @@ public enum SpellUpgrade {
 			"Arcane Duality",
 			"A shimmering shield of arcane energy is summoned forth around the target of Cleanse. This energy is able to detect if the target is friend or foe, and chooses to either shield or weaken them, respectively.",
 			null, Util.newArrayListOfValues(
-					"+/-10 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b"),
-					"+/-10 "+Attribute.RESISTANCE_LUST.getColouredName("b"),
-					"+/-10 "+Attribute.RESISTANCE_FIRE.getColouredName("b"),
-					"+/-10 "+Attribute.RESISTANCE_ICE.getColouredName("b"),
-					"+/-10 "+Attribute.RESISTANCE_POISON.getColouredName("b"),
+					"+/-5 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b"),
+					"+/-5 "+Attribute.RESISTANCE_LUST.getColouredName("b"),
+					"+/-5 "+Attribute.RESISTANCE_FIRE.getColouredName("b"),
+					"+/-5 "+Attribute.RESISTANCE_ICE.getColouredName("b"),
+					"+/-5 "+Attribute.RESISTANCE_POISON.getColouredName("b"),
 					"Lasts [style.boldGood(3 turns)]")),
 	CLEANSE_3(2,
 			SpellSchool.ARCANE,
@@ -777,7 +778,7 @@ public enum SpellUpgrade {
 			null, Util.newArrayListOfValues(
 					"While summoned:",
 					"[style.colourArcane(Caster)]: +25 "+Attribute.DAMAGE_LUST.getColouredName("b"),
-					"[style.colourArcane(Caster)]: +25 "+Attribute.RESISTANCE_LUST.getColouredName("b"))) {
+					"[style.colourArcane(Caster)]: +10 "+Attribute.RESISTANCE_LUST.getColouredName("b"))) {
 
 		public boolean isAvailable(GameCharacter caster) {
 			return !caster.hasSpellUpgrade(ELEMENTAL_ARCANE_3A);

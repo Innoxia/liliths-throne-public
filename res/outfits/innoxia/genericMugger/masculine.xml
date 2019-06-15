@@ -128,6 +128,7 @@
 			<conditional><![CDATA[RND.​nextInt(100)<=60]]></conditional>
 			<types>
 				<type>TORSO_OVER_HOODIE</type>
+				<type>dsg_ljacket_ljacket</type>
 			</types>
 			<primaryColours>
 				<colour>presetColourGroup1</colour>

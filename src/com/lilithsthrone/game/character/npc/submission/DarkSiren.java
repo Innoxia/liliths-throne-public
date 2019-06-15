@@ -12,7 +12,6 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -41,6 +40,8 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -91,7 +92,7 @@ public class DarkSiren extends NPC {
 				new NameTriplet("Meraxis"), "Lyssiethmartuilani",
 				"The ruler of Submission's central imp citadel, 'The Dark Siren' is an incredibly powerful arcane user...",
 				26, Month.OCTOBER, 13,
-				25, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
+				30, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
 
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
@@ -146,7 +147,6 @@ public class DarkSiren extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6")) {
 			this.setGenericName("dark siren");
 			
-			this.addTrait(Perk.CHUUNI);
 			this.setEssenceCount(TFEssence.ARCANE, 10000);
 			
 			this.addSpell(Spell.FIREBALL);
@@ -180,6 +180,25 @@ public class DarkSiren extends NPC {
 			this.setWingSize(WingSize.ONE_SMALL.getValue());
 		}
 		setName(new NameTriplet("Meraxis"));
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.7")) {
+			this.setLevel(30);
+			this.resetPerksMap(true);
+		}
+	}
+
+	@Override
+	public void setupPerks(boolean autoSelectPerks) {
+		this.addSpecialPerk(Perk.MERAXIS);
+		PerkManager.initialisePerks(this,
+				Util.newArrayListOfValues(
+						Perk.CHUUNI,
+						Perk.CLOTHING_ENCHANTER,
+						Perk.WEAPON_ENCHANTER
+						),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 1),
+						new Value<>(PerkCategory.LUST, 0),
+						new Value<>(PerkCategory.ARCANE, 100)));
 	}
 	
 	@Override
@@ -188,10 +207,6 @@ public class DarkSiren extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 40);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 50);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 100);
-			
 			this.setPersonality(Util.newHashMapOfValues(
 					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
 					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),

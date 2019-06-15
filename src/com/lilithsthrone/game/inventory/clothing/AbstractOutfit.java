@@ -554,8 +554,10 @@ public abstract class AbstractOutfit {
 	}
 	
 	private boolean evalConditional(GameCharacter character, String conditional) {
-		for(int i=1; i<=innerConditionals.size(); i++) {
-			conditional = conditional.replaceAll("clothingConditional"+String.valueOf(i), innerConditionals.get(i-1));
+		if(innerConditionals!=null) {
+			for(int i=1; i<=innerConditionals.size(); i++) {
+				conditional = conditional.replaceAll("clothingConditional"+String.valueOf(i), innerConditionals.get(i-1));
+			}
 		}
 		try {
 			return Boolean.valueOf(UtilText.parse(character, ("[#"+conditional+"]").replaceAll("\u200b", "")));

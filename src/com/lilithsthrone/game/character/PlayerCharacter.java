@@ -52,8 +52,8 @@ import com.lilithsthrone.game.character.quests.QuestType;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ShopTransaction;
@@ -82,7 +82,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.4
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
@@ -401,6 +401,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			character.setSubspeciesOverride(null);
 			character.getBody().calculateRace(character);
 		}
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.5")) {
+			character.equipBasicCombatMoves();
+		}
 		
 		return character;
 	}
@@ -473,6 +477,13 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public void setLocation(WorldType worldLocation, Vector2i location, boolean setAsHomeLocation) {
 		if(this.getWorldsVisited()!=null && !this.getWorldsVisited().contains(worldLocation)) {
 			this.getWorldsVisited().add(worldLocation);
+			if(Main.game.isStarted()) {
+				Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Discovered)]", Util.capitaliseSentence(worldLocation.getName())), false);
+			}
+		}
+		
+		if(Main.game.isStarted() && worldLocation!=this.getWorldLocation()) {
+			Main.game.addEvent(new EventLogEntry("[style.colourMinorGood(Entered)]", Util.capitaliseSentence(worldLocation.getName())), false);
 		}
 		
 		if(this.getWorldLocation()==WorldType.NIGHTLIFE_CLUB) {
@@ -802,11 +813,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 
 	@Override
-	public String getMainAttackDescription(boolean isHit) {
+	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
 		if(this.getMainWeapon()!=null) {
-			return this.getMainWeapon().getWeaponType().getAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+			return this.getMainWeapon().getWeaponType().getAttackDescription(this, target, isHit);
 		} else {
-			return AbstractWeaponType.genericMeleeAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}
 	}
 
@@ -820,13 +831,13 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 
 	@Override
-	public String getSeductionDescription() {
+	public String getSeductionDescription(GameCharacter target) {
 		String description = "";
 		if(this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION)
 				|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)
 				|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH)) {
 			if(this.isFeminine()) {
-				return UtilText.parse(Combat.getTargetedCombatant(this),
+				return UtilText.parse(target,
 						UtilText.returnStringAtRandom(
 								"You put on a smouldering look, and as your [pc.eyes] meet [npc.namePos], you project an extremely lewd moan into [npc.her] head,"
 										+ " [pc.thought(~Aaah!~ "
@@ -848,7 +859,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 												+ " As you straighten back up, you project the feeling of a ghostly pair of wet lips pressing against [npc.her] cheek."
 										:"")));
 			} else {
-				return UtilText.parse(Combat.getTargetedCombatant(this),
+				return UtilText.parse(target,
 						UtilText.returnStringAtRandom(
 								"You put on a confident look, and as your [pc.eyes] meet [npc.namePos], you project an extremely lewd groan into [npc.her] head,"
 									+ " [pc.thought(~Mmm!~ "
@@ -873,7 +884,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		
 		if(this.isFeminine()) {
-			description = UtilText.parse(Combat.getTargetedCombatant(this),
+			description = UtilText.parse(target,
 					UtilText.returnStringAtRandom(
 					"You blow a kiss at [npc.name] and wink suggestively at [npc.herHim].",
 					"Biting your lip and putting on your most smouldering look, you run your hands slowly up your inner thighs.",
@@ -882,7 +893,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					"You slowly run your hands up the length of your body, before pouting at [npc.name]."));
 			
 		} else {
-			description = UtilText.parse(Combat.getTargetedCombatant(this),
+			description = UtilText.parse(target,
 					UtilText.returnStringAtRandom(
 					"You blow a kiss at [npc.name] and wink suggestively at [npc.herHim].",
 					"Smiling confidently at [npc.name], you slowly run your hands up your inner thighs.",
@@ -891,9 +902,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					"You try to look as commanding as possible as you smirk playfully at [npc.name]."));
 		}
 
-		return "<p>"
-				+ description
-				+ "</p>";
+		return description;
 	}
 
 	@Override

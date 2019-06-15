@@ -7867,7 +7867,9 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL,
 			ColourListPresets.JUST_GOLD,
 			ColourListPresets.ALL_METAL,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_FINCH,
+					ItemTag.RIGID_MATERIAL)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7927,7 +7929,9 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL,
 			ColourListPresets.JUST_GOLD,
 			ColourListPresets.ALL_METAL,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_FINCH,
+					ItemTag.RIGID_MATERIAL)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9065,7 +9069,7 @@ public class ClothingType {
 			ClothingSet.JOLNIR,
 			"clothing/jolnir_head_hat",
 			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_DAMAGE, TFPotency.MAJOR_BOOST, 0)),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -9266,7 +9270,7 @@ public class ClothingType {
 			ClothingSet.JOLNIR,
 			"clothing/jolnir_foot_boots",
 			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_CHANCE, TFPotency.MAJOR_BOOST, 0)),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -9319,7 +9323,7 @@ public class ClothingType {
 			ClothingSet.JOLNIR,
 			"clothing/jolnir_foot_boots_feminine",
 			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_CHANCE, TFPotency.MAJOR_BOOST, 0)),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -10273,10 +10277,8 @@ public class ClothingType {
 		
 		Field[] fields = ClothingType.class.getFields();
 		
-		for(Field f : fields){
-			
+		for(Field f : fields) {
 			if (AbstractClothingType.class.isAssignableFrom(f.getType())) {
-				
 				AbstractClothingType ct;
 				try {
 					ct = ((AbstractClothingType) f.get(null));
@@ -10318,7 +10320,6 @@ public class ClothingType {
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
-				
 			}
 		}
 //  	    System.out.println(allClothing.size());

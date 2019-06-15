@@ -2,10 +2,7 @@ package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,6 +22,7 @@ import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -32,8 +30,6 @@ import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
@@ -123,10 +119,12 @@ public class ImpAttacker extends NPC {
 			CharacterUtils.applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
-			initAttributes();
+			initPerkTreeAndBackgroundPerks();
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+
+			setStartingCombatMoves();
 		}
 	}
 	
@@ -136,8 +134,31 @@ public class ImpAttacker extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
 			this.setHomeLocation();
 		}
+		
+		setStartingCombatMoves();
 	}
-
+	
+	@Override
+	public void setStartingCombatMoves() {
+		this.clearEquippedMoves();
+		if(this.isFeminine()) {
+			if(this.hasPenis()) {
+				this.equipBasicCombatMoves();
+				
+			} else {
+				this.equipMove("tease");
+				this.equipMove("avert");
+				this.equipMove("block");
+			}
+		} else {
+			this.equipMove("strike");
+			this.equipMove("twin-strike");
+			this.equipMove("block");
+		}
+		this.equipAllKnownMoves();
+		this.equipAllSpellMoves();
+	}
+	
 	@Override
 	public void setStartingBody(boolean setPersona) {
 		// Not needed
@@ -260,43 +281,6 @@ public class ImpAttacker extends NPC {
 	}
 	
 	@Override
-	public Attack attackType() {
-		
-		// If can cast spells, then do that:
-		if(!getWeightedSpellsAvailable(Combat.getTargetedCombatant(this)).isEmpty()) {
-			return Attack.SPELL;
-		}
-
-		// If female without weapon, seduce:
-		if(this.getMainWeapon()==null && this.isFeminine()) {
-			return Attack.SEDUCTION;
-		}
-
-		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
-		boolean canCastASpecialAttack = !getSpecialAttacksAbleToUse().isEmpty();
-
-		attackWeightingMap.put(Attack.MAIN, this.getRace().getPreferredAttacks().contains(Attack.MAIN)?75:50);
-		attackWeightingMap.put(Attack.OFFHAND, this.getOffhandWeapon()==null?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?50:25));
-		attackWeightingMap.put(Attack.SPECIAL_ATTACK, !canCastASpecialAttack?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?100:50));
-		
-		int total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-		}
-		
-		int index = Util.random.nextInt(total);
-		total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-			if(index<total) {
-				return entry.getKey();
-			}
-		}
-		
-		return Attack.MAIN;
-	}
-	
-	@Override
 	public void applyEscapeCombatEffects() {
 		if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.FORTRESS_ALPHA_ENTRANCE)) {
 			Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_IMP_FORTRESS_ALPHA);
@@ -337,12 +321,10 @@ public class ImpAttacker extends NPC {
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(
 									UtilText.parseFromXMLFile("places/submission/impCitadel"+ImpCitadelDialogue.getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST", ImpCitadelDialogue.getAllCharacters()));
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.DAMAGE_IMP, 100));
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.RESISTANCE_IMP, 100));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addSpecialPerk(Perk.IMP_SLAYER));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonImpsDefeated, true);
 							if(ImpCitadelDialogue.isCompanionDialogue()) {
-								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().incrementAttribute(Attribute.DAMAGE_IMP, 100));
-								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().incrementAttribute(Attribute.RESISTANCE_IMP, 100));
+								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().addSpecialPerk(Perk.IMP_SLAYER));
 							}
 						}
 					};

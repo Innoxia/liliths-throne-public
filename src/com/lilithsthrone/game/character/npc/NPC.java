@@ -15,6 +15,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -50,9 +51,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -71,6 +70,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
+import com.lilithsthrone.game.sex.NPCGenericSexFlag;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -161,10 +161,18 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				}
 			}
 		}
+
+		if(!isImported || Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.5")) {
+			this.setStartingCombatMoves();
+		}
 		
 		loadImages();
 	}
 	
+	
+	public void setStartingCombatMoves() {
+		resetDefaultMoves();
+	}
 
 	/**
 	 * Helper method that should be overridden and included in constructor. Sets custom body parts.<br/>
@@ -836,51 +844,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		return weightedSpellMap;
-	}
-	
-	public List<SpecialAttack> getSpecialAttacksAbleToUse() {
-		List<SpecialAttack> specialAttacksAbleToUse = new ArrayList<>();
-		
-		for(SpecialAttack sa : this.getSpecialAttacks()) {
-			if(Main.game.isInCombat()) {
-				if(Combat.getCooldown(this, sa)==0) {
-					specialAttacksAbleToUse.add(sa);
-				}
-			} else {
-				specialAttacksAbleToUse.add(sa);
-			}
-		}
-		
-		return specialAttacksAbleToUse;
-	}
-	
-	public Attack attackType() {
-		boolean canCastASpell = !this.getWeightedSpellsAvailable(Combat.getTargetedCombatant(this)).isEmpty();
-		boolean canCastASpecialAttack = !getSpecialAttacksAbleToUse().isEmpty();
-		
-		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
-		
-		attackWeightingMap.put(Attack.MAIN, this.getRace().getPreferredAttacks().contains(Attack.MAIN)?75:50);
-		attackWeightingMap.put(Attack.OFFHAND, this.getOffhandWeapon()==null?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?50:25));
-		attackWeightingMap.put(Attack.SEDUCTION, this.getRace().getPreferredAttacks().contains(Attack.SEDUCTION)?100:(int)this.getAttributeValue(Attribute.MAJOR_CORRUPTION));
-		attackWeightingMap.put(Attack.SPELL, !canCastASpell?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?100:50));
-		attackWeightingMap.put(Attack.SPECIAL_ATTACK, !canCastASpecialAttack?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?100:50));
-		
-		int total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-		}
-		
-		int index = Util.random.nextInt(total);
-		total = 0;
-		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
-			total+=entry.getValue();
-			if(index<total) {
-				return entry.getKey();
-			}
-		}
-		
-		return Attack.MAIN;
 	}
 	
 	/**
@@ -2693,7 +2656,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	// Sex:
 	
-	public void calculateGenericSexEffects(boolean isDom, NPC partner, SexType sexType) {
+	public String calculateGenericSexEffects(boolean isDom, NPC partner, SexType sexType, NPCGenericSexFlag... flagsInput) {
+		List<NPCGenericSexFlag> flags = Arrays.asList(flagsInput);
+		
+		StringBuilder sexDescriptionSB = new StringBuilder();
+		
+		sexDescriptionSB.append(sexType.getPerformanceDescription(isDom, this, partner)); //TODO append cum/preg chances
+		
 		this.setLastTimeHadSex(Main.game.getMinutesPassed(), true);
 		partner.setLastTimeHadSex(Main.game.getMinutesPassed(), true);
 		
@@ -2722,10 +2691,17 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					if(performingArea.isOrifice() && ((SexAreaOrifice)performingArea).isInternalOrifice()) {
 						partner.setVirginityLoss(partnerSexType, this, this.getLostVirginityDescriptor());
 						partner.setPenisVirgin(false);
-						if(partner.getPenisRawCumStorageValue()>0 && performingArea.isOrifice()) {
+						if(!flags.contains(NPCGenericSexFlag.PREVENT_CREAMPIE) && partner.getPenisRawCumStorageValue()>0 && performingArea.isOrifice()) {
 							partnerCummed = true;
 							this.ingestFluid(partner, partner.getCum(), (SexAreaOrifice)performingArea, partner.getPenisRawOrgasmCumQuantity());
 							this.incrementCumCount(new SexType(SexParticipantType.NORMAL, performingArea, SexAreaPenetration.PENIS));
+							partner.applyOrgasmCumEffect();
+							sexDescriptionSB.append(
+									UtilText.parse(this, partner,
+											"<br/>[npc2.Name] came inside of [npc.namePos] "+performingArea.getName(partner)
+												+(performingArea==SexAreaOrifice.VAGINA && !partner.isVisiblyPregnant()
+													?"; [npc.she] may have gotten pregnant!"
+													:"!")));
 						}
 					}
 					break;
@@ -2872,10 +2848,17 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					if(targetedArea.isOrifice() && ((SexAreaOrifice)targetedArea).isInternalOrifice()) {
 						this.setVirginityLoss(sexType, partner, partner.getLostVirginityDescriptor());
 						this.setPenisVirgin(false);
-						if(this.getPenisRawCumStorageValue()>0 && targetedArea.isOrifice()) {
+						if(!flags.contains(NPCGenericSexFlag.PREVENT_CREAMPIE) && this.getPenisRawCumStorageValue()>0 && targetedArea.isOrifice()) {
 							thisCummed = true;
 							partner.ingestFluid(this, this.getCum(), (SexAreaOrifice)targetedArea, this.getPenisRawOrgasmCumQuantity());
 							partner.incrementCumCount(new SexType(SexParticipantType.NORMAL, targetedArea, SexAreaPenetration.PENIS));
+							this.applyOrgasmCumEffect();
+							sexDescriptionSB.append(
+									UtilText.parse(this, partner,
+											"<br/>[npc.Name] came inside of [npc2.namePos] "+targetedArea.getName(partner)
+												+(targetedArea==SexAreaOrifice.VAGINA && !partner.isVisiblyPregnant()
+													?"; [npc2.she] may have gotten pregnant!"
+													:"!")));
 						}
 					}
 					break;
@@ -3014,14 +2997,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 		}
 		
+		return sexDescriptionSB.toString();
 	}
 	
 	public void endSex() {
 	}
 	
 	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
+		boolean isConvincing = Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS);
 		
-		if(Main.game.isInSex()) {
+		if(Main.game.isInSex() && !isConvincing) {
 			if(Sex.getSexControl(Main.game.getPlayer()).getValue()<=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue() && Sex.getSexPace(this)==SexPace.DOM_ROUGH) {
 				return true;
 			}
@@ -3029,7 +3014,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		int weight = calculateSexTypeWeighting(sexTypeRequest, Main.game.getPlayer(), null);
 		
-		return weight<0 || this.hasFetish(Fetish.FETISH_SADIST);
+		return weight<0 || (!isConvincing && this.hasFetish(Fetish.FETISH_SADIST));
 	}
 	
 	protected Map<GameCharacter, SexType> foreplayPreference = new HashMap<>();
@@ -3265,7 +3250,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		//TODO Further prioritise genital interactions?
 		
 		// If cannot switch position, only return preferences that are actually available:
-		if(!Sex.isPositionChangingAllowed(this)) {
+		if(Main.game.isInSex() && !Sex.isPositionChangingAllowed(this)) {
 			List<SexType> availableTypes = new ArrayList<>();
 			
 //			System.out.println(this.getName()+" restricting prefs");

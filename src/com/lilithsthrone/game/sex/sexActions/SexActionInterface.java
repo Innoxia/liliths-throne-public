@@ -542,13 +542,13 @@ public interface SexActionInterface {
 			
 			// If this is a positioning action:
 			if(getActionType()==SexActionType.POSITIONING) {
-				// If there is size-difference and more than 1 participant, block non-switching with size-difference NPCS:
-				if(Sex.isSizeDifference() && Sex.getTotalParticipantCount(false)>2) {
-					if(Sex.getCharacterTargetedForSexAction(this).isSizeDifferenceShorterThan(Sex.getCharacterPerformingAction())
-							|| Sex.getCharacterTargetedForSexAction(this).isSizeDifferenceTallerThan(Sex.getCharacterPerformingAction())) {
-						return convertToNullResponse();
-					}
-				}
+//				// If there is size-difference and more than 1 participant, block non-switching with size-difference NPCS:
+//				if(Sex.isSizeDifference() && Sex.getTotalParticipantCount(false)>2) {
+//					if(Sex.getCharacterTargetedForSexAction(this).isSizeDifferenceShorterThan(Sex.getCharacterPerformingAction())
+//							|| Sex.getCharacterTargetedForSexAction(this).isSizeDifferenceTallerThan(Sex.getCharacterPerformingAction())) {
+//						return convertToNullResponse();
+//					}
+//				}
 				return convertToResponse();
 				
 			// If this is a 'stop penetration' action, check to see if all the requirements are met:
@@ -770,24 +770,24 @@ public interface SexActionInterface {
 
 				// Check penetrations:
 				for(SexAreaPenetration sArea : this.getPerformingCharacterPenetrations()) {
-					if(!sArea.isFree(Sex.getCharacterPerformingAction())) {
+					if(!sArea.isFree(Sex.getCharacterPerformingAction()) || Sex.getCharacterPerformingAction().isCoverableAreaBlockedFromGroping(sArea.getRelatedCoverableArea())) {
 						return convertToNullResponse();
 					}
 				}
 				for(SexAreaPenetration sArea : this.getTargetedCharacterPenetrations()) {
-					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(this))) {
+					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(this)) || Sex.getCharacterTargetedForSexAction(this).isCoverableAreaBlockedFromGroping(sArea.getRelatedCoverableArea())) {
 						return convertToNullResponse();
 					}
 				}
 				
 				// Check orifices:
 				for(SexAreaOrifice sArea : this.getPerformingCharacterOrifices()) {
-					if(!sArea.isFree(Sex.getCharacterPerformingAction())) {
+					if(!sArea.isFree(Sex.getCharacterPerformingAction()) || Sex.getCharacterPerformingAction().isCoverableAreaBlockedFromGroping(sArea.getRelatedCoverableArea())) {
 						return convertToNullResponse();
 					}
 				}
 				for(SexAreaOrifice sArea : this.getTargetedCharacterOrifices()) {
-					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(this))) {
+					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(this)) || Sex.getCharacterTargetedForSexAction(this).isCoverableAreaBlockedFromGroping(sArea.getRelatedCoverableArea())) {
 						return convertToNullResponse();
 					}
 				}
@@ -884,6 +884,7 @@ public interface SexActionInterface {
 					getFetishes(Main.game.getPlayer()),
 					getCorruptionNeeded(),
 					null, null, null,
+					this.getActionType(),
 					Sex.getCharacterPerformingAction(),
 					this.getSexAreaInteractions().keySet(),
 					Sex.getCharacterTargetedForSexAction(this),
@@ -981,6 +982,7 @@ public interface SexActionInterface {
 					getFetishes(Main.game.getPlayer()),
 					getCorruptionNeeded(),
 					null, null, null,
+					this.getActionType(),
 					Sex.getCharacterPerformingAction(),
 					this.getSexAreaInteractions().keySet(),
 					Sex.getCharacterTargetedForSexAction(this),
@@ -1081,6 +1083,7 @@ public interface SexActionInterface {
 				getFetishes(Main.game.getPlayer()),
 				getCorruptionNeeded(),
 				null, null, null,
+				this.getActionType(),
 				Sex.getCharacterPerformingAction(),
 				this.getSexAreaInteractions().keySet(),
 				Sex.getCharacterTargetedForSexAction(this),

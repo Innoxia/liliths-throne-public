@@ -21,13 +21,15 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.3.4
  * @author Innoxia
  */
 public abstract class AbstractCoreItem implements XMLSaving {
 
 
-	protected String name, namePlural, SVGString;
+	protected String name;
+	protected String namePlural;
+	protected String SVGString;
 	protected Colour colourShade;
 	protected Rarity rarity;
 

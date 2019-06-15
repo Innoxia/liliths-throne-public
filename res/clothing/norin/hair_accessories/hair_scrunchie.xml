@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<clothingAuthorTag><![CDATA[Small embroidered lettering informs you that this scrunchie was made by 'Norin'.]]></clothingAuthorTag>
+		<value>200</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[hair scrunchie]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[hair scrunchies]]></namePlural> 
+		<description><![CDATA[An elastic fabric hair scrunchie used to tie hair back.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity> 
+		<slot>HAIR</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>hair_scrunchie.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList> 	
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/> 
+				<clothingAccessBlocked/> 
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values ="ALL"/> 
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		<tertiaryColoursDye/>
+    
+		<defaultPatterns patternChance="1" colourNameDerivedFromPattern="true"> 
+			<pattern>polka_dots_small</pattern>
+			<pattern>polka_dots_big</pattern>
+			<pattern>cow_patterned</pattern>
+		</defaultPatterns>
+  
+		<patternPrimaryColours values ="ALL"/>
+		<patternSecondaryColours values ="ALL"/>
+		<patternTertiaryColours/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>TRANSPARENT</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] a scrunchie off from [npc.her] [npc.hairSkin+].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] a scrunchie off from [npc2.NamePos] [npc2.hairSkin+].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(tug)] a scrunchie off from [npc2.NamePos] [npc2.hairSkin+].]]>
+		</otherRough>
+	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc.her] [npc.hairSkin+] and [npc.verb(pull)] it through a scrunchie.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc2.NamePos] [npc2.hairSkin+] and [npc.verb(pull)] it through a scrunchie.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc2.NamePos] [npc2.hairSkin+] and [npc.verb(tug)] it through a scrunchie.]]>
+		</otherRough>
+	</replacementText>
+</clothing>

@@ -1028,12 +1028,13 @@ public class CharacterUtils {
 		
 		body.setPenis(startingGender.getGenderName().isHasPenis()
 				? new Penis(demonBody.getPenisType(),
-					Math.max(Math.min(8, demonBody.getPenisSize()), demonBody.getPenisSize()+Main.getProperties().penisSizePreference),
+					demonBody.getPenisSize(),
+					true,
 					demonBody.getPenisGirth(),
 					demonBody.getTesticleSize(),
 					demonBody.getCumProduction(),
 					demonBody.getTesticleQuantity())
-				: new Penis(PenisType.NONE, 0, 0, 0, 0, 2));
+				: new Penis(PenisType.NONE, 0, false, 0, 0, 0, 2));
 		// If non-human, set modifiers to be the same as the default race modifiers:
 		if(halfSubspecies!=Subspecies.HUMAN) {
 			body.getPenis().clearPenisModifiers();
@@ -1228,12 +1229,13 @@ public class CharacterUtils {
 						: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true))
 				.penis(hasPenis
 						? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
-							Math.max(Math.min(8, startingBodyType.getPenisSize()), startingBodyType.getPenisSize()+Main.getProperties().penisSizePreference),
+							startingBodyType.getPenisSize(),
+							true,
 							startingBodyType.getPenisGirth(),
 							startingBodyType.getTesticleSize(),
 							startingBodyType.getCumProduction(),
 							startingBodyType.getTesticleQuantity())
-						: new Penis(PenisType.NONE, 0, 0, 0, 0, 2))
+						: new Penis(PenisType.NONE, 0, false, 0, 0, 0, 2))
 				.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
 				.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
 				.tail(new Tail(stage.isTailFurry()?startingBodyType.getRandomTailType(false):TailType.NONE))
@@ -1384,12 +1386,13 @@ public class CharacterUtils {
 		
 		body.setPenis(hasPenis
 				? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
-						Math.max(Math.min(8, startingBodyType.getPenisSize()), startingBodyType.getPenisSize()+Main.getProperties().penisSizePreference),
+						startingBodyType.getPenisSize(),
+						true,
 						startingBodyType.getPenisGirth(),
 						startingBodyType.getTesticleSize(),
 						startingBodyType.getCumProduction(),
 						startingBodyType.getTesticleQuantity())
-					: new Penis(PenisType.NONE, 0, 0, 0, 0, 2));
+					: new Penis(PenisType.NONE, 0, false, 0, 0, 0, 2));
 		
 		body.setHorn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())));
 		

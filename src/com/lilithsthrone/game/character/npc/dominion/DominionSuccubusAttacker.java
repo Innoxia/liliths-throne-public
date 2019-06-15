@@ -64,7 +64,6 @@ public class DominionSuccubusAttacker extends NPC {
 		if(!isImported) {
 			this.setLocation(Main.game.getPlayer(), true);
 			
-			
 			if(!Gender.getGenderFromUserPreferences(false, false).isFeminine()) {
 				this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER);
 				this.setGenderIdentity(Gender.M_P_MALE);
@@ -103,6 +102,9 @@ public class DominionSuccubusAttacker extends NPC {
 			this.addSpell(Spell.ARCANE_AROUSAL);
 			this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
 			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
+
+			// Set starting perks based on the character's race
+			initPerkTreeAndBackgroundPerks();
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -179,21 +181,20 @@ public class DominionSuccubusAttacker extends NPC {
 
 	// Combat:
 
-
 	@Override
-	public String getMainAttackDescription(boolean isHit) {
+	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
 		if(this.isFeminine()) {
-			return UtilText.parse(this,
+			return UtilText.parse(this, target,
 					UtilText.returnStringAtRandom(
-							"[npc.Name] looks annoyed that you're trying to put up a fight, and leaps forwards to deliver a stinging slap across your face.",
-							"With an angry little click of her tongue, [npc.Name] slaps you across the face.",
-							"With a frustrated whine, [npc.Name] kicks out at your shins."));
+							"[npc.Name] looks annoyed that [npc2.nameIs] trying to put up a fight, and leaps forwards to deliver a stinging slap across [npc2.her] face.",
+							"With an angry little click of her tongue, [npc.Name] slaps [npc2.name] across the face.",
+							"With a frustrated whine, [npc.Name] kicks out at [npc2.namePos] shins."));
 		} else {
-			return UtilText.parse(this,
+			return UtilText.parse(this, target,
 					UtilText.returnStringAtRandom(
-							"[npc.Name] looks annoyed that you're trying to put up a fight, and leaps forwards to deliver a solid punch to your [pc.arm].",
-							"With an angry shout, [npc.Name] darts forwards and punches you right in the chest!",
-							"With a frustrated cry, [npc.Name] kicks out at your shins."));
+							"[npc.Name] looks annoyed that [npc2.nameIs] trying to put up a fight, and leaps forwards to deliver a solid punch to [npc2.her] [npc2.arm].",
+							"With an angry shout, [npc.Name] darts forwards and punches [npc2.name] right in the chest!",
+							"With a frustrated cry, [npc.Name] kicks out at [npc2.namePos] shins."));
 		}
 	}
 

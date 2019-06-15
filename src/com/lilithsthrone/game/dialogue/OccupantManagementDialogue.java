@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
@@ -22,7 +21,6 @@ import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
@@ -34,6 +32,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
@@ -1171,6 +1170,20 @@ public class OccupantManagementDialogue {
 					}
 					return new Response("Perk Tree", "Spend your slave's perk points.", SLAVE_MANAGEMENT_PERKS);
 					
+				} else if(index==11) {
+					if(characterSelected() == null) {
+						return new Response("Combat Moves", "You haven't selected anyone...", null);
+					
+					} else if(!characterSelected().getOwner().isPlayer()) {
+						return new Response("Combat Moves", "You can't manage the combat moves of slaves that you do not own!", null);
+					}
+					return new Response("Combat Moves", "Adjust the moves [npc.name] can perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+						@Override
+						public void effects() {
+							CombatMovesSetup.setTarget(characterSelected(), SLAVE_LIST);
+						}
+					};
+					
 				} else if(index == 0) {
 					return new Response("Back", "Exit the slave management screen.", SLAVE_LIST) {
 						@Override
@@ -1238,9 +1251,19 @@ public class OccupantManagementDialogue {
 				} else if (index == 6) {
 					if(characterSelected() == null) {
 						return new Response("Perk Tree", "You haven't selected anyone...", null);
-						
 					}
 					return new Response("Perk Tree", UtilText.parse(characterSelected(), "Assign [npc.namePos] perk points."), SLAVE_MANAGEMENT_PERKS);
+					
+				} else if(index==11) {
+					if(characterSelected() == null) {
+						return new Response("Combat Moves", "You haven't selected anyone...", null);
+					}
+					return new Response("Combat Moves", "Adjust the moves [npc.name] can perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+						@Override
+						public void effects() {
+							CombatMovesSetup.setTarget(characterSelected(), SLAVE_LIST);
+						}
+					};
 					
 				} else if(index == 0) {
 					return new Response("Back", "Exit the occupant management screen.", SLAVE_LIST) {
@@ -1650,7 +1673,7 @@ public class OccupantManagementDialogue {
 					"<div class='container-full-width'>"
 							+ "<h6 style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+"; text-align:center;'>Inspection</h6>"
 							+ "<div class='container-full-width inner'>"
-								+character.getCharacterInformationScreen()
+								+character.getCharacterInformationScreen(false)
 							+"</div>"
 					+"</div>"
 					+ "<p id='hiddenFieldName' style='display:none;'></p>");
@@ -2538,35 +2561,17 @@ public class OccupantManagementDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(UtilText.parse(characterSelected(),
-					"<div class='container-full-width' style='padding:8px;'>"
-						+ "<span style='color:"+Colour.PERK.toWebHexString()+";'>Perks</span> (circular icons) apply permanent boosts to [npc.namePos] attributes.<br/>"
-						+ "<span style='color:"+Colour.TRAIT.toWebHexString()+";'>Traits</span> (square icons) provide unique effects for [npc.name]."
-							+ " Unlike perks, <b>traits will have no effect on [npc.name] until they're slotted into [npc.her] 'Active Traits' bar</b>.<br/>"
-						+ "Perks require perk points to unlock. [npc.Name] earns one perk point each time [npc.she] levels up, and an extra two perk points every five levels."
-					+ "</div>"
-					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
-					+ "<h6 style='text-align:center;'>Active Traits</h6>"));
-
-			UtilText.nodeContentSB.append(
-					"<div id='OCCUPATION_" + characterSelected().getHistory().getAssociatedPerk()+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
-						+ "<div class='square-button-content'>"+characterSelected().getHistory().getAssociatedPerk().getSVGString()+"</div>"
-					+ "</div>");
+					"<details>"
+							+ "<summary>[style.boldPerk(Perk & Trait Information)]</summary>"
+							+ "[style.colourPerk(Perks)] (circular icons) apply permanent boosts to [npc.namePos] attributes.<br/>"
+							+ "[style.colourPerk(Traits)] (square icons) provide unique effects for [npc.name]."
+								+ " Unlike perks, <b>traits will have no effect on [npc.name] until they're slotted into [npc.her] 'Active Traits' bar</b>.<br/>"
+							+ "Perks require perk points to unlock. [npc.Name] earns one perk point each time [npc.she] levels up, and earns an extra two perk points every five levels.<br/><br/>"
+							+ "In addition to the perks that can be purchased via perk points, there are also several special, hidden perks that are unlocked via special events."
+					+ "</details>"));
 			
-			for(int i=0;i<GameCharacter.MAX_TRAITS;i++) {
-				Perk p = null;
-				if(i<characterSelected().getTraits().size()) {
-					p = characterSelected().getTraits().get(i);
-				}
-				if(p!=null) {
-					UtilText.nodeContentSB.append("<div id='TRAIT_" + p + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
-							+ "<div class='square-button-content'>"+p.getSVGString()+"</div>"
-							+ "</div>");
-					
-				} else {
-					UtilText.nodeContentSB.append("<div id='TRAIT_" + i + "' class='square-button small' style='display:inline-block; float:none;'></div>");
-					
-				}
-			}
+			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(characterSelected(), true));
+			
 			UtilText.nodeContentSB.append("</div>");
 			
 			if(!(characterSelected() instanceof Elemental)) {
@@ -2575,21 +2580,19 @@ public class OccupantManagementDialogue {
 						+ "</div>");
 			}
 			
-			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(characterSelected()));
-			
 			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 6) {
-				return new Response("Perks", UtilText.parse(characterSelected(), "You are already assigning [npc.namePos] perk points."), null);
+				return new Response("Perk Tree", UtilText.parse(characterSelected(), "You are already assigning [npc.namePos] perk points."), null);
 				
 			} else if(index==7) {
 				return new Response("Reset perks", "Reset all of [npc.namePos] perks and traits, refunding all points spent. (This is a temporary action while the perk tree is still under development.)", SLAVE_MANAGEMENT_PERKS) {
 					@Override
 					public void effects() {
-						characterSelected().resetPerksMap();
+						characterSelected().resetPerksMap(false, false);
 					}
 				};
 			}

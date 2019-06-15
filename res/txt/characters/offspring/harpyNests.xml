@@ -1370,10 +1370,10 @@
 		[pc.speech(Yeah, it's kind of a long story, but basically Lilaya, who's both my aunt as well as the owner of this place, is the daughter of the elder Lilin, Lyssieth, which is how she has such a huge house. Lilaya has no interest in anything outside the experiments she performs in her lab, so she lets me use all the rooms as I see fit,)] you explain, reaching up to knock on the front door.
 	</p>
 	<p>
-		[npc.speech(So you're related to a Lilin?!)] [npc.name] gasps once again, [npc.speech(Are you royalty or something?! And wait, does that mean I'm related to an elder Lilin as well?!)]
+		[npc.speech(So we're related to an elder Lilin?!)] [npc.name] gasps once again, [npc.speech(So we're royalty?!)]
 	</p>
 	<p>
-		[pc.speech(Well, sort of, I suppose, but it's not quite as simple as that,)] you reply, but before you can say anything further, the front door swings open, and you're greeted by the familiar sight of the cat-girl maid, Rose.
+		[pc.speech(Well, not really; we're not exactly recognised as such,)] you reply, but before you can say anything further, the front door swings open, and you're greeted by the familiar sight of the cat-girl maid, Rose.
 	</p>
 	<p>
 		[rose.speech(Good [style.evening], [pc.name],)] Rose greets you, curtsying and stepping aside to let you and [npc.name] enter. [rose.speech(I see you have company, would you like me to prepare a room?)]

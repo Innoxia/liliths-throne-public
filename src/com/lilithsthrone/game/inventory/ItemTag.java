@@ -7,11 +7,13 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.1
- * @version 0.3.1
+ * @version 0.3.4
  * @author Innoxia
  */
 public enum ItemTag {
 
+	HIDDEN_IN_DEBUG_SPAWNER(false),
+	
 	REMOVE_FROM_DEBUG_SPAWNER(false),
 
 	NOT_FOR_SALE(false),
@@ -150,7 +152,11 @@ public enum ItemTag {
 	FITS_CEPHALOPOD_BODY(
 			Util.newArrayListOfValues(
 					"[style.colourBestial(Only fits cephalopod bodies)]"),false), //octopuses and squids
-	
+
+	RIGID_MATERIAL( // The clothing is made out of a rigid material, and as such, groping actions cannot be performed on it. Used for chastity cages/belts.
+			Util.newArrayListOfValues(
+					"[style.colourTerrible(Blocks groping actions)]"),
+			false),
 	
 	PREVENTS_ERECTION_PHYSICAL( // Prevents the wearer from getting an erection during sex, by means of physically limiting the space into which the erection could take shape (i.e. chastity cages). As of 0.3.1, only affects descriptors.
 			Util.newArrayListOfValues(

@@ -88,7 +88,9 @@ public enum Colour {
 	GENERIC_EXCELLENT(false, BaseColour.GOLD, "gold", Util.newArrayListOfValues("excellent")),
 	GENERIC_ATTRIBUTE(false, BaseColour.MAGENTA, "magenta"),
 	GENERIC_EXPERIENCE(false, BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("experience", "xp")),
+	GENERIC_ENCHANTMENT(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("enchantment", "enchanting")),
 	COOLDOWN(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("cooldown")),
+	CRIT(false, BaseColour.GOLD, "gold", Util.newArrayListOfValues("crit")),
 
 	SCAR(false, BaseColour.TAN, "tan"),
 	TATTOO(false, BaseColour.GREY, "grey"),
@@ -291,9 +293,9 @@ public enum Colour {
 	FEMININE_PLUS_NPC(false, BaseColour.PINK, "pink"),
 
 	// Combat colours:
-	DAMAGE_TYPE_PHYSICAL(false, Util.newColour(0xFF428E), Util.newColour(0xFF428E), "red", Util.newArrayListOfValues("dmgPhysical", "resPhysical", "physical")),
+	DAMAGE_TYPE_PHYSICAL(false, Util.newColour(0xA79E90), Util.newColour(0x5C4D42), "grey-brown", Util.newArrayListOfValues("dmgPhysical", "resPhysical", "physical")),
 	DAMAGE_TYPE_MANA(false, BaseColour.PURPLE_LIGHT, "purple", Util.newArrayListOfValues("dmgMana", "resMana")),
-	DAMAGE_TYPE_LUST(false, BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues("dmgLust", "resLust")),
+	DAMAGE_TYPE_LUST(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("dmgLust", "resLust")),
 	DAMAGE_TYPE_SPELL(false, Util.newColour(0xFF6BDA), Util.newColour(0xFF6BDA), "pink", Util.newArrayListOfValues("dmgSpell", "resSpell", "spell")),
 	DAMAGE_TYPE_FIRE(false, Util.newColour(0xff9955), Util.newColour(0xff9955), "orange", Util.newArrayListOfValues("dmgFire", "resFire", "fire")),
 	DAMAGE_TYPE_COLD(false, Util.newColour(0x85C6FF), Util.newColour(0x85C6FF), "blue", Util.newArrayListOfValues("dmgCold", "resCold", "cold", "ice")),
@@ -355,6 +357,7 @@ public enum Colour {
 	CLOTHING_RED_DARK(false, Util.newColour(0x900020), Util.newColour(0x900020), "burgundy"),
 	CLOTHING_RED_BRIGHT(false, Util.newColour(0xFA2424), Util.newColour(0xFA2424), "bright red"),
 	CLOTHING_RED(false, Util.newColour(0xD84646), Util.newColour(0xD84646), "red"),
+	CLOTHING_DESATURATED_BROWN(false, Util.newColour(0x6c5d53), Util.newColour(0x6c5d53), "desaturated brown"),
 	CLOTHING_BROWN(false, Util.newColour(0xC87137), Util.newColour(0xC87137), "brown"),
 	CLOTHING_BROWN_DARK(false, Util.newColour(0x63391C), Util.newColour(0x63391C), "dark brown"),
 	CLOTHING_BROWN_VERY_DARK(false, Util.newColour(0x3C2211), Util.newColour(0x3C2211), "midnight brown"),

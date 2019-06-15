@@ -377,7 +377,7 @@ public class LyssiethReveal {
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_QUESTION_WORLD"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lyssiethQuestionAsked1, true);
-							Main.game.getTextEndStringBuilder().append(AbstractItemEffectType.getBookEffect(Subspecies.LILIN, false));
+							Main.game.getTextEndStringBuilder().append(AbstractItemEffectType.getBookEffect(Main.game.getPlayer(), Subspecies.LILIN, false));
 						}
 					};
 				}

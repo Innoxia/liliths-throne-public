@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -19,7 +18,6 @@ import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -44,7 +42,7 @@ public class CharactersPresentDialogue {
 			CharactersPresentDialogue.characterViewed = (NPC) characterViewed;
 		}
 		menuTitle = "Characters Present ("+Util.capitaliseSentence(CharactersPresentDialogue.characterViewed.getName(true))+")";
-		menuContent = ((NPC) CharactersPresentDialogue.characterViewed).getCharacterInformationScreen();
+		menuContent = ((NPC) CharactersPresentDialogue.characterViewed).getCharacterInformationScreen(true);
 
 //		Main.game.setActiveNPC(characterViewed);
 		targetedCharacterForSex = (NPC) CharactersPresentDialogue.characterViewed;
@@ -209,7 +207,7 @@ public class CharactersPresentDialogue {
 						public void effects() {
 							characterViewed = charactersPresent.get(index-1);
 							menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(index - 1).getName(true))+")";
-							menuContent = ((NPC) charactersPresent.get(index - 1)).getCharacterInformationScreen();
+							menuContent = ((NPC) charactersPresent.get(index - 1)).getCharacterInformationScreen(true);
 						}
 					};
 					
@@ -721,19 +719,21 @@ public class CharactersPresentDialogue {
 								"Cycle the targeted character for group sex.") {
 							@Override
 							public void effects() {
-								for(int i=0; i<companions.size();i++) {
-									if(companions.get(i).equals(getTargetedCharacterForSex())) {
-										if(i==companions.size()-1) {
-											targetedCharacterForSex = (NPC) companions.get(0);
-											if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
-												companionCharacter = (NPC) companions.get(1);
+								if(companions.size()>1) {
+									for(int i=0; i<companions.size();i++) {
+										if(companions.get(i).equals(getTargetedCharacterForSex())) {
+											if(i==companions.size()-1) {
+												targetedCharacterForSex = (NPC) companions.get(0);
+												if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
+													companionCharacter = (NPC) companions.get(1);
+												}
+											} else {
+												targetedCharacterForSex = (NPC) companions.get(i+1);
+												if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
+													companionCharacter = (NPC) companions.get((i+2)<companions.size()?(i+2):0);
+												}
+												break;
 											}
-										} else {
-											targetedCharacterForSex = (NPC) companions.get(i+1);
-											if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
-												companionCharacter = (NPC) companions.get((i+2)<companions.size()?(i+2):0);
-											}
-											break;
 										}
 									}
 								}
@@ -755,20 +755,22 @@ public class CharactersPresentDialogue {
 								"Cycle the secondary targeted character for group sex.") {
 							@Override
 							public void effects() {
-								for(int i=0; i<companions.size();i++) {
-									if(companions.get(i).equals(getCompanionCharacter())) {
-										if(i==companions.size()-1) {
-											companionCharacter = (NPC) companions.get(0);
-											if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
-												targetedCharacterForSex = (NPC) companions.get(1);
+								if(companions.size()>1) {
+									for(int i=0; i<companions.size();i++) {
+										if(companions.get(i).equals(getCompanionCharacter())) {
+											if(i==companions.size()-1) {
+												companionCharacter = (NPC) companions.get(0);
+												if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
+													targetedCharacterForSex = (NPC) companions.get(1);
+												}
+											} else {
+												companionCharacter = (NPC) companions.get(i+1);
+												if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
+													targetedCharacterForSex = (NPC) companions.get((i+2)<companions.size()?(i+2):0);
+												}
 											}
-										} else {
-											companionCharacter = (NPC) companions.get(i+1);
-											if(getCompanionCharacter().equals(getTargetedCharacterForSex())) {
-												targetedCharacterForSex = (NPC) companions.get((i+2)<companions.size()?(i+2):0);
-											}
+											break;
 										}
-										break;
 									}
 								}
 								Main.game.updateResponses();
@@ -1063,7 +1065,7 @@ public class CharactersPresentDialogue {
 									characterViewed = charactersPresent.get(0);
 									//no need for character conceal check since its for follower
 									menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(0).getName(true))+")";
-									menuContent = ((NPC) charactersPresent.get(0)).getCharacterInformationScreen();
+									menuContent = ((NPC) charactersPresent.get(0)).getCharacterInformationScreen(true);
 								}
 							};
 						}
@@ -1089,6 +1091,18 @@ public class CharactersPresentDialogue {
 								}
 							};
 						}
+					}
+					
+				} else if(index==11) {
+					if(Main.game.isSavedDialogueNeutral()) {
+						return new Response("Combat Moves", "Adjust the moves [npc.name] can perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+							@Override
+							public void effects() {
+								CombatMovesSetup.setTarget(characterViewed, MENU);
+							}
+						};
+					} else {
+						return new Response("Combat Moves", "You are too busy to change [npc.namePos] combat moves.", null);
 					}
 				}
 				
@@ -1154,37 +1168,19 @@ public class CharactersPresentDialogue {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parse(characterViewed,
-					"<div class='container-full-width' style='padding:8px;'>"
-						+ "<span style='color:"+Colour.PERK.toWebHexString()+";'>Perks</span> (circular icons) apply permanent boosts to [npc.namePos] attributes.<br/>"
-						+ "<span style='color:"+Colour.TRAIT.toWebHexString()+";'>Traits</span> (square icons) provide unique effects for [npc.name]."
-							+ " Unlike perks, <b>traits will have no effect on [npc.name] until they're slotted into [npc.her] 'Active Traits' bar</b>.<br/>"
-						+ "Perks require perk points to unlock. [npc.Name] earns one perk point each time [npc.she] levels up, and an extra two perk points every five levels."
-					+ "</div>"
-					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
-					+ "<h6 style='text-align:center;'>Active Traits</h6>"));
 
-			UtilText.nodeContentSB.append(
-					"<div id='OCCUPATION_" + characterViewed.getHistory().getAssociatedPerk()+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
-						+ "<div class='square-button-content'>"+characterViewed.getHistory().getAssociatedPerk().getSVGString()+"</div>"
-					+ "</div>");
+			UtilText.nodeContentSB.append(UtilText.parse(characterViewed,
+					"<details>"
+							+ "<summary>[style.boldPerk(Perk & Trait Information)]</summary>"
+							+ "[style.colourPerk(Perks)] (circular icons) apply permanent boosts to [npc.namePos] attributes.<br/>"
+							+ "[style.colourPerk(Traits)] (square icons) provide unique effects for [npc.name]."
+								+ " Unlike perks, <b>traits will have no effect on [npc.name] until they're slotted into [npc.her] 'Active Traits' bar</b>.<br/>"
+							+ "Perks require perk points to unlock. [npc.Name] earns one perk point each time [npc.she] levels up, and earns an extra two perk points every five levels.<br/><br/>"
+							+ "In addition to the perks that can be purchased via perk points, there are also several special, hidden perks that are unlocked via special events."
+					+ "</details>"));
 			
-			for(int i=0;i<GameCharacter.MAX_TRAITS;i++) {
-				Perk p = null;
-				if(i<characterViewed.getTraits().size()) {
-					p = characterViewed.getTraits().get(i);
-				}
-				if(p!=null) {
-					UtilText.nodeContentSB.append("<div id='TRAIT_" + p + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
-							+ "<div class='square-button-content'>"+p.getSVGString()+"</div>"
-							+ "</div>");
-					
-				} else {
-					UtilText.nodeContentSB.append("<div id='TRAIT_" + i + "' class='square-button small' style='display:inline-block; float:none;'></div>");
-					
-				}
-			}
+			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(characterViewed, true));
+			
 			UtilText.nodeContentSB.append("</div>");
 			
 			if(!(characterViewed instanceof Elemental)) {
@@ -1193,21 +1189,19 @@ public class CharactersPresentDialogue {
 						+ "</div>");
 			}
 			
-			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(characterViewed));
-			
 			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 6) {
-				return new Response("Perks", UtilText.parse(characterViewed, "You are already assigning [npc.namePos] perk points."), null);
+				return new Response("Perk Tree", UtilText.parse(characterViewed, "You are already assigning [npc.namePos] perk points."), null);
 				
 			} else if(index==7) {
 				return new Response("Reset perks", "Reset all of [npc.namePos] perks and traits, refunding all points spent. (This is a temporary action while the perk tree is still under development.)", PERKS) {
 					@Override
 					public void effects() {
-						characterViewed.resetPerksMap();
+						characterViewed.resetPerksMap(false, false);
 					}
 				};
 			}

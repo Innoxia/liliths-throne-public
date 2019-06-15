@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @since 0.1.99
- * @version 0.2.4
+ * @version 0.3.4
  * @author Innoxia
  */
 public class TreeEntry<T, S> {
@@ -22,6 +22,40 @@ public class TreeEntry<T, S> {
 		this.entry = perk;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof TreeEntry){
+			try {
+				if(((TreeEntry<T, S>)o).getRow() == (this.getRow())) {
+					if(((TreeEntry<T, S>)o).getCategory()==(this.getCategory())) {
+						if(((TreeEntry<T, S>)o).getEntry().equals(this.getEntry())) {
+//							System.out.println("ok");
+//						&& ((TreeEntry<T, S>)o).getLinks().size() == (this.getLinks().size())
+							return true;
+						}
+					}
+				}
+			} catch(Exception ex) {
+//				System.out.println("broken");
+				return false;
+			}
+			return false;
+		}
+//		System.out.println(o.getClass().getSimpleName());
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + this.getRow();
+		result = 31 * result + this.getCategory().hashCode();
+		result = 31 * result + this.getEntry().hashCode();
+//		result = 31 * result + this.getLinks().size();
+		return result;
+	}
+	
 	public T getCategory() {
 		return category;
 	}
@@ -50,6 +84,10 @@ public class TreeEntry<T, S> {
 	
 	public List<TreeEntry<T, S>> getLinks() {
 		return links;
+	}
+
+	public void setLinks(List<TreeEntry<T, S>> links) {
+		this.links = new ArrayList<>(links);
 	}
 	
 	public void addLink(TreeEntry<T, S> entry) {

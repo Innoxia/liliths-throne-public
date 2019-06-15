@@ -92,7 +92,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	
 
 	// Enchantments:
-	private int enchantmentLimit;
+	@SuppressWarnings("unused")
+	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment stability mechanics.
 	protected List<ItemEffect> effects;
 	
 	private Map<DamageType, Map<Colour, Map<Colour, String>>> SVGStringMap;
@@ -827,13 +828,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		if(this.getArcaneCost()>0) {
 			user.incrementEssenceCount(TFEssence.ARCANE, -this.getArcaneCost(), false);
 			if(user.isPlayer()) {
-				return "<p>"
-							+ (this.isMelee()?"Using":"Firing")+" the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from your aura!"
-						+ "</p>";
+				return (this.isMelee()?"Using":"Firing")+" the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from your aura!";
 			} else {
-				return "<p>"
-							+ UtilText.parse(user, (this.isMelee()?"Using":"Firing")+" the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from [npc.namePos] aura!")
-						+ "</p>";
+				return UtilText.parse(user, (this.isMelee()?"Using":"Firing")+" the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from [npc.namePos] aura!");
 			}
 		} else {
 			return "";
@@ -1126,11 +1123,12 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	}
 	
 	public int getEnchantmentLimit() {
-		if(enchantmentLimit==-1) {
-			return (getClothingSet()==null?5:10);
-		} else {
-			return enchantmentLimit;
-		}
+		return 100;
+//		if(enchantmentLimit==-1) {
+//			return (getClothingSet()==null?5:10);
+//		} else {
+//			return enchantmentLimit;
+//		}
 	}
 	
 	public AbstractItemEffectType getEnchantmentEffect() {

@@ -1757,6 +1757,16 @@ public class OptionsDialogue {
 		@Override
 		public String getHeaderContent(){
 			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.GENERIC_GOOD, "Autosave Frequency", "Choose how often want the game to autosave when you transition from one map to another."));
+			for(int i=2; i>=0; i--) {
+				UtilText.nodeContentSB.append("<div id='AUTOSAVE_FREQUENCY_"+i+"' class='normal-button"+(Main.getProperties().autoSaveFrequency==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+						+(Main.getProperties().autoSaveFrequency==i
+							?"[style.boldGood("
+							:"[style.colourDisabled(")
+						+com.lilithsthrone.game.Properties.autoSaveLabels[i]+")]</div>");
+			}
+			UtilText.nodeContentSB.append("</div></div>");
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 								"ARTWORK",
@@ -2282,15 +2292,16 @@ public class OptionsDialogue {
 			}	
 
 			UtilText.nodeContentSB.append("<br/>"
-					+ "Contributors:</br>"
+					+ "Contributors:</br>" // In alphabetical order:
+					+ "<b style='color:#21bfc5;'>DJ Addi</b></br>"
+					+ "<b style='color:#21bfc5;'>DSG</b></br>"
 					+ "<b style='color:#21bfc5;'>Irbynx</b></br>"
 					+ "<b style='color:#21bfc5;'>Nnxx</b></br>"
 					+ "<b style='color:#21bfc5;'>Norin</b></br>"
 					+ "<b style='color:#21bfc5;'>Phlarx</b></br>"
 					+ "<b style='color:#21bfc5;'>Pimgd</b></br>"
 					+ "<b style='color:#21bfc5;'>Rfpnj</b></br>"
-					+ "<b style='color:#21bfc5;'>Tukaima</b></br>"
-					+ "<b style='color:#21bfc5;'>DJ Addi</b></br>");
+					+ "<b style='color:#21bfc5;'>Tukaima</b></br>");
 			
 			UtilText.nodeContentSB.append("<br/>"
 						+ "Special thanks to:<br/>"

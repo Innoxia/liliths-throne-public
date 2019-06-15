@@ -604,7 +604,7 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType INT_GRAPE_JUICE = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
-			"[style.boldGood(+10)] [style.boldPhysique(critical hit damage)] to 'potion effects'",
+			"[style.boldGood(+10)] [style.boldPhysique(critical power)] to 'potion effects'",
 			"[style.boldMinorBad(Adds)] 10% to [style.boldAlcohol(intoxication level)]"),
 			Colour.ATTRIBUTE_PHYSIQUE) {
 		
@@ -1007,6 +1007,8 @@ public class ItemEffectType {
 		}
 	};
 	
+	
+	
 	public static AbstractItemEffectType EGGPLANT_POTION = new AbstractItemEffectType(null,
 			Colour.BASE_PURPLE) {
 
@@ -1033,6 +1035,80 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return getRacialEffect(Race.HUMAN, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+		}
+	};
+	
+	public static AbstractItemEffectType ADDICTION_REMOVAL_REFINEMENT = new AbstractItemEffectType(null,
+			Colour.BASE_BLUE_LIGHT) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return Util.newArrayListOfValues(TFModifier.CORRUPTION);
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return Util.newArrayListOfValues(TFModifier.ARCANE_BOOST);
+		}
+		
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return Util.newArrayListOfValues(
+					TFPotency.MINOR_BOOST,
+					TFPotency.BOOST,
+					TFPotency.MAJOR_BOOST);
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			switch(potency) {
+				case MINOR_BOOST:
+					return Util.newArrayListOfValues("[style.boldMinorGood(-5)] [style.boldCorruption(Corruption)]");
+				case BOOST:
+					return Util.newArrayListOfValues("[style.boldGood(-10)] [style.boldCorruption(Corruption)]");
+				case MAJOR_BOOST:
+					return Util.newArrayListOfValues("[style.boldExcellent(-15)] [style.boldCorruption(Corruption)]");
+				case MINOR_DRAIN:
+				case DRAIN:
+				case MAJOR_DRAIN:
+					break;
+			}
+			return Util.newArrayListOfValues("");
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			switch(potency) {
+				case MINOR_BOOST:
+					return "<p style='text-align:center;'>"
+								+ "For a moment, it looks as though nothing is going to happen,"
+									+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purify energy rushes through [npc.herHim]."
+								+ " Accompanied by a faint, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
+									+ " where it quickly gets to work purifying [npc.her] thoughts and calming [np.her] libido..."
+							+"</p>"
+							+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -5);
+				case BOOST:
+					return "<p style='text-align:center;'>"
+							+ "For a moment, it looks as though nothing is going to happen,"
+								+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purify energy rushes through [npc.herHim]."
+							+ " Accompanied by a bright, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
+								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [np.her] libido..."
+						+"</p>"
+						+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -10);
+				case MAJOR_BOOST:
+					return "<p style='text-align:center;'>"
+							+ "For a moment, it looks as though nothing is going to happen,"
+								+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purify energy rushes through [npc.herHim]."
+							+ " Accompanied by a blinding, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
+								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [np.her] libido..."
+						+"</p>"
+						+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -15);
+				case MINOR_DRAIN:
+				case DRAIN:
+				case MAJOR_DRAIN:
+					break;
+			}
+			return "";
 		}
 	};
 	

@@ -13,7 +13,6 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -43,6 +42,8 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -92,7 +93,14 @@ public class Lilaya extends NPC {
 						+ " Whereas your old aunt was a researcher at the city museum, Lilaya is a privately-funded researcher of the arcane."
 						+ " Due to her demonic appearance and the fact that she's the daughter of the Lilin Lyssieth, people usually regard Lilaya with a mixture of fear and respect.",
 				48, Month.DECEMBER, 28,
-				10, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+				25,
+				Gender.F_V_B_FEMALE,
+				Subspecies.DEMON,
+				RaceStage.PARTIAL_FULL,
+				new CharacterInventory(10),
+				WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
+				PlaceType.LILAYA_HOME_LAB,
+				true);
 	}
 	
 	@Override
@@ -115,6 +123,20 @@ public class Lilaya extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3")) {
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+			this.setLevel(25);
+			this.resetPerksMap(true);
+		}
+	}
+
+	@Override
+	public void setupPerks(boolean autoSelectPerks) {
+		PerkManager.initialisePerks(this,
+				Util.newArrayListOfValues(),
+				Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 0),
+						new Value<>(PerkCategory.LUST, 1),
+						new Value<>(PerkCategory.ARCANE, 5)));
 	}
 	
 	@Override
@@ -123,10 +145,6 @@ public class Lilaya extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 40);
-			this.setAttribute(Attribute.MAJOR_ARCANE, 60);
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 100);
-	
 			this.setPersonality(Util.newHashMapOfValues(
 					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
 					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
@@ -346,16 +364,19 @@ public class Lilaya extends NPC {
 			// Player uses item on NPC:
 			} else {
 				if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
-					itemOwner.useItem(item, target, false);
 					if(this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+						itemOwner.removeItemByType(ItemType.VIXENS_VIRILITY);
 						return "<p>"
-								+ "Producing a Vixen's Virility pill from your inventory, you pop it out of its plastic wrapper before pushing it into Lilaya's mouth."
-								+ " She raises one eyebrow as you do this, but, nevertheless swallowing it down, she asks,"
+								+ "Producing a Vixen's Virility pill from your inventory, you pop it out of its plastic wrapper before bringing it up to Lilaya's mouth."
+								+ " Seeing what it is you're trying to get her to swallow, she furrows her eyebrows, before smacking the pill out of your [pc.hand]."
+								+ " In a sharp tone, she admonishes you, "
 								+ (this.hasPenis()
-										?" [lilaya.speech(Well, my cum's going to be a lot more virile now... You're <i>not</i> cumming inside of me, so the other fertility-enhancing effects are meaningless...)]"
-										:" [lilaya.speech(Why would you want me to be more fertile? You're <i>not</i> cumming inside of me.)]")
+										?" [lilaya.speech(I don't care if you're trying to make my cum more virile! I'm <i>not</i> swallowing anything that would make me more fertile!)]"
+										:" [lilaya.speech(I'm <i>not</i> swallowing anything that would make me more fertile! You're <i>not</i> going to cum inside of me anyway, so why would you even try that?!)]")
 							+ "</p>";
+						
 					} else {
+						itemOwner.useItem(item, target, false);
 						return "<p>"
 								+ "Producing a Vixen's Virility pill from your inventory, you pop it out of its plastic wrapper before pushing it into Lilaya's mouth."
 								+ " She lets out a delighted moan as she happily swallows the little pink pill, [lilaya.speechNoEffects(~Mmm!~ That's right, make my demonic womb nice and fertile! I don't hate getting pregnant anymore...)]"

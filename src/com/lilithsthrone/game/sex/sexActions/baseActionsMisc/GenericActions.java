@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -22,6 +23,7 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
@@ -478,7 +480,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.getActivePartner().incrementLust(-50, false);
+			Sex.getCharacterTargetedForSexAction(this).incrementLust(-50, false);
 		}
 	};
 	
@@ -552,7 +554,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.getActivePartner().incrementLust(50, false);
+			Sex.getCharacterTargetedForSexAction(this).incrementLust(50, false);
 		}
 	};
 	
@@ -1165,6 +1167,11 @@ public class GenericActions {
 		public void applyEffects() {
 			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
 			Sex.setForcedSexControl(target, SexControl.FULL);
+			for(GameCharacter participant : Sex.getAllParticipants()) {
+				if(!participant.equals(target) && Sex.getSexPositionSlot(participant)!=SexSlotGeneric.MISC_WATCHING) {
+					((NPC)target).generateSexChoices(false, participant, null);
+				}
+			}
 		}
 	};
 	
@@ -1254,7 +1261,13 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
+			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
 			Sex.removeCharacterForbiddenByOthersFromPositioning(Sex.getCharacterTargetedForSexAction(this));
+			for(GameCharacter participant : Sex.getAllParticipants()) {
+				if(!participant.equals(target) && Sex.getSexPositionSlot(participant)!=SexSlotGeneric.MISC_WATCHING) {
+					((NPC)target).generateSexChoices(false, participant, null);
+				}
+			}
 		}
 	};
 	

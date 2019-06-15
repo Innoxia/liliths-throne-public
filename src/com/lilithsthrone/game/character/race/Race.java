@@ -25,7 +25,6 @@ public enum Race {
 			1,
 			1,
 			Attribute.DAMAGE_HUMAN,
-			Attribute.RESISTANCE_HUMAN,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			false),
@@ -43,7 +42,6 @@ public enum Race {
 			
 			1,
 			Attribute.DAMAGE_HUMAN,
-			Attribute.RESISTANCE_HUMAN,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			false) {
@@ -66,7 +64,6 @@ public enum Race {
 
 			1,
 			Attribute.DAMAGE_ANGEL,
-			Attribute.RESISTANCE_ANGEL,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			false),
@@ -85,7 +82,6 @@ public enum Race {
 
 			3,
 			Attribute.DAMAGE_DEMON,
-			Attribute.RESISTANCE_DEMON,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
 			false) {
@@ -115,7 +111,6 @@ public enum Race {
 
 			1,
 			Attribute.DAMAGE_COW_MORPH,
-			Attribute.RESISTANCE_COW_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
@@ -131,7 +126,6 @@ public enum Race {
 
 			2,
 			Attribute.DAMAGE_DOG_MORPH,
-			Attribute.RESISTANCE_DOG_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
@@ -148,7 +142,6 @@ public enum Race {
 			
 			2,
 			Attribute.DAMAGE_WOLF_MORPH,
-			Attribute.RESISTANCE_WOLF_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
@@ -166,7 +159,6 @@ public enum Race {
 			
 			2,
 			Attribute.DAMAGE_FOX_MORPH,
-			Attribute.RESISTANCE_FOX_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
@@ -184,7 +176,6 @@ public enum Race {
 
 			2,
 			Attribute.DAMAGE_CAT_MORPH,
-			Attribute.RESISTANCE_CAT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
@@ -202,7 +193,6 @@ public enum Race {
 			
 			1,
 			Attribute.DAMAGE_HORSE_MORPH,
-			Attribute.RESISTANCE_HORSE_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
@@ -220,7 +210,6 @@ public enum Race {
 		 
 			2,
 			Attribute.DAMAGE_REINDEER_MORPH,
-			Attribute.RESISTANCE_REINDEER_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
@@ -237,7 +226,6 @@ public enum Race {
 
 			2,
 			Attribute.DAMAGE_SQUIRREL_MORPH,
-			Attribute.RESISTANCE_SQUIRREL_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
@@ -254,7 +242,6 @@ public enum Race {
 
 			4,
 			Attribute.DAMAGE_RAT_MORPH,
-			Attribute.RESISTANCE_RAT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
@@ -271,7 +258,6 @@ public enum Race {
 
 			8,
 			Attribute.DAMAGE_RABBIT_MORPH,
-			Attribute.RESISTANCE_RABBIT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
@@ -288,7 +274,6 @@ public enum Race {
 
 			2,
 			Attribute.DAMAGE_BAT_MORPH,
-			Attribute.RESISTANCE_BAT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
@@ -305,7 +290,6 @@ public enum Race {
 
 			4,
 			Attribute.DAMAGE_ALLIGATOR_MORPH,
-			Attribute.RESISTANCE_ALLIGATOR_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
@@ -321,7 +305,6 @@ public enum Race {
 
 			1,
 			Attribute.DAMAGE_SLIME,
-			Attribute.RESISTANCE_SLIME,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
 			false),
@@ -339,7 +322,6 @@ public enum Race {
 			
 			4,
 			Attribute.DAMAGE_HARPY,
-			Attribute.RESISTANCE_HARPY,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			false),
@@ -465,7 +447,6 @@ public enum Race {
 
 			1,
 			Attribute.DAMAGE_ELEMENTAL,
-			Attribute.RESISTANCE_ELEMENTAL,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
 			false),
@@ -1141,7 +1122,7 @@ public enum Race {
 	private int numberOfOffspringLow;
 	private int numberOfOffspringHigh;
 	private float chanceForMaleOffspring;
-	private Attribute damageMultiplier, resistanceMultiplier;
+	private Attribute damageMultiplier;
 	private FurryPreference defaultFemininePreference;
 	private FurryPreference defaultMasculinePreference;
 	private boolean affectedByFurryPreference;
@@ -1157,7 +1138,6 @@ public enum Race {
 			
 			int numberOfOffspringHigh,
 			Attribute damageMultiplier,
-			Attribute resistanceMultiplier,
 			
 			FurryPreference defaultFemininePreference,
 			FurryPreference defaultMasculinePreference,
@@ -1177,7 +1157,6 @@ public enum Race {
 		this.numberOfOffspringHigh = numberOfOffspringHigh;
 		
 		this.damageMultiplier = damageMultiplier;
-		this.resistanceMultiplier = resistanceMultiplier;
 		
 		this.defaultFemininePreference = defaultFemininePreference;
 		this.defaultMasculinePreference = defaultMasculinePreference;
@@ -1236,13 +1215,6 @@ public enum Race {
 	 */
 	public Attribute getDefaultDamageMultiplier() {
 		return damageMultiplier;
-	}
-
-	/**
-	 * <b>Should only be used in Subspecies' getResistanceMultiplier() method!</b>
-	 */
-	public Attribute getDefaultResistanceMultiplier() {
-		return resistanceMultiplier;
 	}
 
 	public FurryPreference getDefaultFemininePreference() {

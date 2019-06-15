@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.3.4
  * @author Innoxia
  */
 public enum ArousalIncrease {
@@ -16,8 +16,8 @@ public enum ArousalIncrease {
 //	/**Calm down a little.*/
 //	NEGATIVE_MINOR(-10),
 
-	/**This action is not arousing at all for this partner. For example, if the other partner is masturbating out-of-sight.*/
-	ZERO_NONE(0),
+	/**This action is not very arousing at all for this partner. For example, if the other partner is masturbating out-of-sight.*/
+	ZERO_NONE(0.1f),
 	
 	/**This action is minimally arousing for this partner. For example, the player is masturbating in front of them.*/
 	ONE_MINIMUM(0.5f),

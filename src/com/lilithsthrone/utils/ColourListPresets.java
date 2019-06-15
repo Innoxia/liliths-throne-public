@@ -66,6 +66,13 @@ public class ColourListPresets {
 	public static ArrayList<Colour> BLACK_OR_WHITE = Util.newArrayListOfValues(
 			Colour.CLOTHING_BLACK,
 			Colour.CLOTHING_WHITE);
+
+	public static ArrayList<Colour> SHADES_OF_GREY = Util.newArrayListOfValues(
+			Colour.CLOTHING_BLACK_JET,
+			Colour.CLOTHING_BLACK,
+			Colour.CLOTHING_GREY_DARK,
+			Colour.CLOTHING_GREY,
+			Colour.CLOTHING_WHITE);
 	
 	public static ArrayList<Colour> DARK_SHADES = Util.newArrayListOfValues(
 			Colour.CLOTHING_GREY,
@@ -117,6 +124,7 @@ public class ColourListPresets {
 			Colour.CLOTHING_BLACK,
 			Colour.CLOTHING_BLACK_JET,
 			Colour.CLOTHING_GREY,
+			Colour.CLOTHING_DESATURATED_BROWN,
 			Colour.CLOTHING_BROWN,
 			Colour.CLOTHING_BROWN_DARK,
 			Colour.CLOTHING_BROWN_VERY_DARK,
@@ -193,6 +201,7 @@ public class ColourListPresets {
 			Colour.CLOTHING_ORANGE,
 			Colour.CLOTHING_ORANGE_BRIGHT,
 			Colour.CLOTHING_ORANGE_DARK,
+			Colour.CLOTHING_DESATURATED_BROWN,
 			Colour.CLOTHING_BROWN,
 			Colour.CLOTHING_BROWN_DARK,
 			Colour.CLOTHING_BROWN_VERY_DARK,
@@ -237,6 +246,7 @@ public class ColourListPresets {
 			Colour.CLOTHING_ORANGE,
 			Colour.CLOTHING_ORANGE_BRIGHT,
 			Colour.CLOTHING_ORANGE_DARK,
+			Colour.CLOTHING_DESATURATED_BROWN,
 			Colour.CLOTHING_BROWN,
 			Colour.CLOTHING_BROWN_DARK,
 			Colour.CLOTHING_BROWN_VERY_DARK,
