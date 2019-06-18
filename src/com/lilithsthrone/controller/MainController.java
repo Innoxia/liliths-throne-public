@@ -296,7 +296,7 @@ public class MainController implements Initializable {
 			
 		} else if(Main.game.isInCombat()) {
 			if(Combat.getTargetedCombatant(Main.game.getPlayer()).isPlayer()) {
-				openInventory(Combat.getEnemies().get(0), InventoryInteraction.COMBAT);
+				openInventory((NPC) Combat.getEnemies(Main.game.getPlayer()).get(0), InventoryInteraction.COMBAT);
 			} else {
 				openInventory((NPC) Combat.getTargetedCombatant(Main.game.getPlayer()), InventoryInteraction.COMBAT);
 			}
@@ -1422,7 +1422,7 @@ public class MainController implements Initializable {
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
 					Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName()),
 					"The total amount of weapon, clothing, and tattoo attribute enchantments you're able to handle without incurring massive penalties."
-					+" Your maximum is calculated from: <i>10 + (level) + (perk gains)</i>");
+					+" Your limit is calculated from: <i>10 + (level) + (perk gains)</i>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
@@ -1503,7 +1503,7 @@ public class MainController implements Initializable {
 			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants(true).keySet());
 		} else if(Main.game.isInCombat()) {
 			charactersBeingRendered.add(Main.game.getPlayer());
-			charactersBeingRendered.addAll(Combat.getAllies());
+			charactersBeingRendered.addAll(Combat.getAllies(Main.game.getPlayer()));
 		} else {
 			if(Main.game.getPlayer()!=null) {
 				charactersBeingRendered.add(Main.game.getPlayer());
@@ -1856,7 +1856,7 @@ public class MainController implements Initializable {
 			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants(true).keySet());
 			
 		} else if(Main.game.isInCombat()) {
-			charactersBeingRendered.addAll(Combat.getEnemies());
+			charactersBeingRendered.addAll(Combat.getEnemies(Main.game.getPlayer()));
 			
 		} else if(RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
 			charactersBeingRendered.add(RenderingEngine.getCharacterToRender());
@@ -2120,13 +2120,13 @@ public class MainController implements Initializable {
 				if(Main.game.isStarted()
 						&& Main.game.isInNewWorld()
 						&& Main.game.isInCombat()
-						&& Combat.getAllCombatants().size()==1
-						&& !Combat.getEnemies().get(0).isUnique()
+						&& Combat.getAllCombatants(false).size()==1
+						&& !Combat.getEnemies(Main.game.getPlayer()).get(0).isUnique()
 						&& Main.game.getPlayer().hasPenis()
 						&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
-						&& Combat.getEnemies().get(0).hasVagina()
-						&& Combat.getEnemies().get(0).isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-					GameCharacter target = Combat.getEnemies().get(0);
+						&& Combat.getEnemies(Main.game.getPlayer()).get(0).hasVagina()
+						&& Combat.getEnemies(Main.game.getPlayer()).get(0).isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					GameCharacter target = Combat.getEnemies(Main.game.getPlayer()).get(0);
 					Combat.endCombat(true);
 //					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
 					Main.game.setContent(new ResponseSex(
@@ -2198,13 +2198,13 @@ public class MainController implements Initializable {
 				if(Main.game.isStarted()
 						&& Main.game.isInNewWorld()
 						&& Main.game.isInCombat()
-						&& Combat.getAllCombatants().size()==1
-						&& !Combat.getEnemies().get(0).isUnique()
-						&& Combat.getEnemies().get(0).hasPenis()
-						&& Combat.getEnemies().get(0).isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
+						&& Combat.getAllCombatants(false).size()==1
+						&& !Combat.getEnemies(Main.game.getPlayer()).get(0).isUnique()
+						&& Combat.getEnemies(Main.game.getPlayer()).get(0).hasPenis()
+						&& Combat.getEnemies(Main.game.getPlayer()).get(0).isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
 						&& Main.game.getPlayer().hasVagina()
 						&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-					GameCharacter target = Combat.getEnemies().get(0);
+					GameCharacter target = Combat.getEnemies(Main.game.getPlayer()).get(0);
 					Combat.endCombat(false);
 //					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
 					Main.game.setContent(new ResponseSex(

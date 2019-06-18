@@ -25,6 +25,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -218,20 +219,25 @@ public class EnchantmentDialogue {
 					inventorySB.append("<b>-</b>");
 				}
 
-				// APpend stability cost for weapons/clothing/tattoos
-				if((ingredient instanceof AbstractClothing)
-						|| (ingredient instanceof AbstractWeapon)
-						|| (ingredient instanceof Tattoo)) {
-					if(effect.getItemEffectType()==ItemEffectType.CLOTHING
-							|| effect.getItemEffectType()==ItemEffectType.WEAPON
-							|| effect.getItemEffectType()==ItemEffectType.TATTOO) {
-						if(effect.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE
-								|| effect.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
-							int cost = Math.max(0, effect.getPotency().getClothingBonusValue());
-							inventorySB.append("<br/>"
-									+ (cost>0
-											?"[style.colourEnchantment(Enchantment stability cost)]: [style.boldBad("+cost+")]"
-											:"Enchantment stability cost: [style.boldDisabled(0)]"));
+				// Append enchantment capacity cost for weapons/clothing/tattoos
+				if(Main.game.isEnchantmentCapacityEnabled()) {
+					if((ingredient instanceof AbstractClothing)
+							|| (ingredient instanceof AbstractWeapon)
+							|| (ingredient instanceof Tattoo)) {
+						if(effect.getItemEffectType()==ItemEffectType.CLOTHING
+								|| effect.getItemEffectType()==ItemEffectType.WEAPON
+								|| effect.getItemEffectType()==ItemEffectType.TATTOO) {
+							if(effect.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE
+									|| effect.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
+								int cost = Math.max(0, effect.getPotency().getClothingBonusValue());
+								if(effect.getSecondaryModifier()==TFModifier.CORRUPTION) {
+									cost = 0;
+								}
+								inventorySB.append("<br/>"
+										+ (cost>0
+												?"[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost)]: [style.boldBad("+cost+")]"
+												:Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost: [style.boldDisabled(0)]"));
+							}
 						}
 					}
 				}
@@ -246,8 +252,8 @@ public class EnchantmentDialogue {
 							"<div class='normal-button disabled' style='width:100%; margin:auto 0;'>"
 							+ "<b>Add</b> | "
 							+ (ingredient instanceof Tattoo
-									?UtilText.formatAsMoneyUncoloured(EnchantingUtils.getModifierEffectCost(ingredient, effect)*EnchantingUtils.FLAME_COST_MODIFER, "b")
-									:UtilText.formatAsEssencesUncoloured(EnchantingUtils.getModifierEffectCost(ingredient, effect), "b", false))
+									?UtilText.formatAsMoneyUncoloured(EnchantingUtils.getModifierEffectCost(true, ingredient, effect)*EnchantingUtils.FLAME_COST_MODIFER, "b")
+									:UtilText.formatAsEssencesUncoloured(EnchantingUtils.getModifierEffectCost(true, ingredient, effect), "b", false))
 							+ "<div class='overlay no-pointer' id='ENCHANT_ADD_BUTTON_DISABLED'></div>"
 							+ "</div>");
 					
@@ -256,8 +262,8 @@ public class EnchantmentDialogue {
 							"<div class='normal-button' style='width:100%; margin:auto 0;'>"
 							+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Add</b> | "
 									+ (ingredient instanceof Tattoo
-											?UtilText.formatAsMoney(EnchantingUtils.getModifierEffectCost(ingredient, effect)*EnchantingUtils.FLAME_COST_MODIFER, "b")
-											:UtilText.formatAsEssences(EnchantingUtils.getModifierEffectCost(ingredient, effect), "b", false))
+											?UtilText.formatAsMoney(EnchantingUtils.getModifierEffectCost(true, ingredient, effect)*EnchantingUtils.FLAME_COST_MODIFER, "b")
+											:UtilText.formatAsEssences(EnchantingUtils.getModifierEffectCost(true, ingredient, effect), "b", false))
 							+ "<div class='overlay' id='ENCHANT_ADD_BUTTON'></div>"
 							+ "</div>");
 					
@@ -313,6 +319,9 @@ public class EnchantmentDialogue {
 								|| ie.getItemEffectType()==ItemEffectType.TATTOO) {
 							if(ie.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE
 									|| ie.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
+								if(effect.getSecondaryModifier()==TFModifier.CORRUPTION) {
+									cost = 0;
+								}
 								cost += Math.max(0, ie.getPotency().getClothingBonusValue());
 							}
 						}
@@ -325,8 +334,8 @@ public class EnchantmentDialogue {
 												?"<div class='normal-button' style='width:auto; min-width:64px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0 0 0 4px; float:right; text-align:left;'>"
 														+ "<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>X</b> "
 														+ (ingredient instanceof Tattoo
-																?UtilText.formatAsMoney(EnchantingUtils.getModifierEffectCost(ingredient, ie)*EnchantingUtils.FLAME_COST_MODIFER, "b")
-																:UtilText.formatAsEssences(EnchantingUtils.getModifierEffectCost(ingredient, ie), "b", false))
+																?UtilText.formatAsMoney(EnchantingUtils.getModifierEffectCost(false, ingredient, ie)*EnchantingUtils.FLAME_COST_MODIFER, "b")
+																:UtilText.formatAsEssences(EnchantingUtils.getModifierEffectCost(false, ingredient, ie), "b", false))
 														+ "<div class='overlay' id='DELETE_EFFECT_"+it+"'></div>"
 													+ "</div>"
 												:"<div class='normal-button' id='DELETE_EFFECT_"+it+"'"
@@ -334,14 +343,16 @@ public class EnchantmentDialogue {
 									+"</div>");
 						}
 					}
-
-					if((ingredient instanceof AbstractClothing)
-							|| (ingredient instanceof AbstractWeapon)
-							|| (ingredient instanceof Tattoo)) {
-						inventorySB.append("<br/>"
-								+ (cost>0
-										?"[style.colourEnchantment(Enchantment stability cost)]: [style.boldBad("+cost+")]"
-										:"Enchantment stability cost: [style.boldDisabled(0)]"));
+					
+					if(Main.game.isEnchantmentCapacityEnabled()) {
+						if((ingredient instanceof AbstractClothing)
+								|| (ingredient instanceof AbstractWeapon)
+								|| (ingredient instanceof Tattoo)) {
+							inventorySB.append("<br/>"
+									+ (cost>0
+											?"[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost)]: [style.boldBad("+cost+")]"
+											:Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost: [style.boldDisabled(0)]"));
+						}
 					}
 				}
 			inventorySB.append("</div>");

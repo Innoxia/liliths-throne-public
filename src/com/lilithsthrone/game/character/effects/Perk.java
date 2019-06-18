@@ -1746,7 +1746,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameHasFull] spent time training [npc.her] body and mind in order to increase the stability of enchantments in [npc.her] weapons, clothing, and tattoos.");
+			return UtilText.parse(owner, "[npc.NameHasFull] spent time training [npc.her] body and mind in order to handle a higher "+Attribute.ENCHANTMENT_LIMIT.getName()+", allowing [npc.herHim] to equip more enchanted weapons, clothing, and tattoos.");
 		}
 	};
 
@@ -1761,7 +1761,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameHasFull] spent time training [npc.her] body and mind in order to increase the stability of enchantments in [npc.her] weapons, clothing, and tattoos.");
+			return UtilText.parse(owner, "[npc.NameHasFull] spent time training [npc.her] body and mind in order to handle a higher "+Attribute.ENCHANTMENT_LIMIT.getName()+", allowing [npc.herHim] to equip more enchanted weapons, clothing, and tattoos.");
 		}
 	};
 	
@@ -1771,7 +1771,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/barren",
 			Colour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -100)), null) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -200)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1789,7 +1789,7 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/firing_blanks",
 			Colour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, -100)), null) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, -200)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2350,7 +2350,7 @@ public class Perk {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 50),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 25)
+					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 100)
 					), null) {
 
 		@Override
@@ -2371,7 +2371,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "Even if their summoner is completely pure and innocent, the lust-related nature of the arcane causes all elementals to be incredibly perverted."
+			return UtilText.parse(owner, "Even if their summoner is completely pure and innocent, the lustful nature of the arcane causes all elementals to be incredibly perverted."
 					+ " If nothing else, they can always be relied upon to be willing and ready to have sex with anyone or anything...");
 		}
 	};

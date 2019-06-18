@@ -356,7 +356,7 @@ public class MainControllerInitMethod {
 		
 		// -------------------- Debug menu -------------------- //
 		
-		if(Main.game.getCurrentDialogueNode().equals(DebugDialogue.SPAWN_MENU) || Main.game.getCurrentDialogueNode().equals(DebugDialogue.ALL_ITEMS_VIEW)) {
+		if(Main.game.getCurrentDialogueNode().equals(DebugDialogue.SPAWN_MENU) || Main.game.getCurrentDialogueNode().equals(DebugDialogue.ITEM_VIEWER)) {
 			id = "";
 			
 			for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
@@ -4669,11 +4669,12 @@ public class MainControllerInitMethod {
 
 			
 			for(AbstractPerk perk : Perk.getAllPerks()) {
-				GameCharacter character = Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP
-						?Main.game.getPlayer()
-						:(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS
-							?OccupantManagementDialogue.characterSelected()
-							:CharactersPresentDialogue.characterViewed);
+				GameCharacter character =
+						(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP || Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_APPEARANCE)
+							?Main.game.getPlayer()
+							:(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS
+								?OccupantManagementDialogue.characterSelected()
+								:CharactersPresentDialogue.characterViewed);
 
 				boolean availableForSelection =
 						Main.game.getCurrentDialogueNode() != PhoneDialogue.CONTACTS_CHARACTER
@@ -5326,13 +5327,7 @@ public class MainControllerInitMethod {
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.CONTENT_PREFERENCE
 				|| Main.game.getCurrentDialogueNode() == CharacterCreation.CONTENT_PREFERENCES
 				|| Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS) {
-			createToggleListener("ARTWORK_ON", PropertyValue.artwork, true);
-			createToggleListener("ARTWORK_OFF", PropertyValue.artwork, false);
-			createToggleListener("SILLY_ON", PropertyValue.sillyMode, true);
-			createToggleListener("SILLY_OFF", PropertyValue.sillyMode, false);
-			createToggleListener("THUMBNAIL_ON", PropertyValue.thumbnail, true);
-			createToggleListener("THUMBNAIL_OFF", PropertyValue.thumbnail, false);
-
+			
 			for(Artist artist : Artwork.allArtists) {
 				id = "ARTIST_"+artist.getFolderName();
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -5365,7 +5360,10 @@ public class MainControllerInitMethod {
 			}
 			
 			Map<String, PropertyValue> settingsMap = Util.newHashMapOfValues(
+					new Value<>("ENCHANTMENT_LIMITS", PropertyValue.enchantmentLimits),
 					new Value<>("ARTWORK", PropertyValue.artwork),
+					new Value<>("THUMBNAIL", PropertyValue.thumbnail),
+					new Value<>("SILLY", PropertyValue.sillyMode),
 					new Value<>("AUTO_SEX_CLOTHING_MANAGEMENT", PropertyValue.autoSexClothingManagement),
 					new Value<>("NON_CON", PropertyValue.nonConContent),
 					new Value<>("VOLUNTARY_NTR", PropertyValue.voluntaryNTR),

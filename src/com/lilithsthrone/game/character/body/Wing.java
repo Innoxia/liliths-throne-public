@@ -214,7 +214,7 @@ public class Wing implements BodyPartInterface {
 		
 		this.size = effectiveSize;
 
-		UtilText.transformationContentSB.append(UtilText.parse(owner, "[npc.Name] now has [style.boldSex([npc.wingSize] [npc.wings])]!"));
+		UtilText.transformationContentSB.append(UtilText.parse(owner, "[npc.Name] now [npc.has] [style.boldSex([npc.wingSize] [npc.wings])]!"));
 
 		if(type!=WingType.NONE) {
 			if(this.getSize().getValue() >= owner.getLegConfiguration().getMinimumWingSizeForFlight().getValue()) {

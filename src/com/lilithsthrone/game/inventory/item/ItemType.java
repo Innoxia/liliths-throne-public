@@ -1357,23 +1357,25 @@ public class ItemType {
 		}
 		
 		@Override
-		public int getValue() {
+		public int getValue(List<ItemEffect> effects) {
 			int value = 0;
-			for(ItemEffect ie : this.getEffects()) {
-				switch(ie.getPotency()) {
-				case BOOST:
-					value += 1000;
-					break;
-				case MAJOR_BOOST:
-					value += 1500;
-					break;
-				case MINOR_BOOST:
-					value += 500;
-					break;
-				case MINOR_DRAIN:
-				case DRAIN:
-				case MAJOR_DRAIN:
-					break;
+			if(effects!=null) {
+				for(ItemEffect ie : effects) {
+					switch(ie.getPotency()) {
+						case BOOST:
+							value += 1000;
+							break;
+						case MAJOR_BOOST:
+							value += 1500;
+							break;
+						case MINOR_BOOST:
+							value += 500;
+							break;
+						case MINOR_DRAIN:
+						case DRAIN:
+						case MAJOR_DRAIN:
+							break;
+					}
 				}
 			}
 			return value;

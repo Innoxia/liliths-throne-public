@@ -657,6 +657,7 @@ public class DoggyStyle {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.MOUTH)
 					&& Sex.isDom(Sex.getCharacterPerformingAction())
+					&& Sex.getDominantParticipants(false).size()==1
 					&& Sex.getCharacterPerformingAction().hasPenisIgnoreDildo();
 		}
 		
@@ -732,7 +733,7 @@ public class DoggyStyle {
 				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" into the condom that [npc.sheIs] wearing.");
 				} else {
-					UtilText.nodeContentSB.append(" deep into [npc2.namePos] [npc.asshole+].");
+					UtilText.nodeContentSB.append(" deep into [npc2.namePos] [npc2.asshole+].");
 				}
 			}
 
@@ -791,6 +792,7 @@ public class DoggyStyle {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.MOUTH)
 					&& Sex.isDom(Sex.getCharacterPerformingAction())
+					&& Sex.getDominantParticipants(false).size()==1
 					&& Sex.getCharacterPerformingAction().hasPenisIgnoreDildo();
 		}
 		
@@ -866,7 +868,7 @@ public class DoggyStyle {
 				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" into the condom that [npc.sheIs] wearing.");
 				} else {
-					UtilText.nodeContentSB.append(" deep into [npc2.namePos] [npc.pussy+].");
+					UtilText.nodeContentSB.append(" deep into [npc2.namePos] [npc2.pussy+].");
 				}
 			}
 

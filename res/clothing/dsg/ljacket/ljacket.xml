@@ -100,13 +100,7 @@
 				</clothingAccessBlocked>
 				<!-- You can substitute the <concealedSlots> list for the value below: -->
 				<!-- CS Example: <concealedSlots values="CONCEALED_PARTIAL_TORSO"/> -->
-				<concealedSlots>
-					<slot>CHEST</slot>
-					<slot>NIPPLE</slot>
-					<slot>STOMACH</slot>
-					<slot>PIERCING_STOMACH</slot>
-					<slot>PIERCING_NIPPLE</slot>
-				</concealedSlots>
+				<concealedSlots values="CONCEALED_FULL_TORSO"/>
 			</blockedParts>
 		</blockedPartsList>
 		

@@ -3509,7 +3509,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 					
 				} else if(isItemOrdinary
-						|| (!Main.game.isInCombat() && Combat.isPlayerVictory() && Combat.getEnemies().contains(target))
+						|| (!Main.game.isInCombat() && Combat.isPlayerVictory() && Combat.getEnemies(Main.game.getPlayer()).contains(target))
 						|| (target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user))) {
 					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
 					

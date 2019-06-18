@@ -93,7 +93,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 	// Enchantments:
 	@SuppressWarnings("unused")
-	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment stability mechanics.
+	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment capacity mechanics.
 	protected List<ItemEffect> effects;
 	
 	private Map<DamageType, Map<Colour, Map<Colour, String>>> SVGStringMap;

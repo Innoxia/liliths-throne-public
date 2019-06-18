@@ -131,9 +131,6 @@ public class Epona extends NPC {
 			this.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
-	
-			this.addPerk(Perk.FETISH_BROODMOTHER);
-			this.addPerk(Perk.FETISH_SEEDER);
 		}
 		
 		

@@ -1658,7 +1658,7 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterUtils.appendToImportLog(log, "<br/>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
 			
 			try {
-				if(!version.isEmpty() && !Main.isVersionOlderThan(version, "0.3.0.5")) {
+				if(!version.isEmpty() && !Main.isVersionOlderThan(version, "0.3.3.9")) {
 					character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
 					CharacterUtils.appendToImportLog(log, "<br/>Set perkPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
 				}
@@ -5123,7 +5123,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public int getPerkPoints() {
-		return getPerkPointsAtLevel(this.getTrueLevel()) /*+ getAdditionalPerkPoints()*/ - this.getPerkPointsSpent();
+		return getPerkPointsAtLevel(this.getTrueLevel()) + getAdditionalPerkPoints() - this.getPerkPointsSpent();
 	}
 	
 	public int getAdditionalPerkPoints() {
@@ -12735,7 +12735,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return UtilText.parse(characterPenetrated, characterPenetrating,
 				(characterPenetrated.equals(characterPenetrating)
 						?formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc2.her] own [npc2.crotchNipple] virginity!")
-						:formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] [npc2.crotchNipple] virginity!"))
+						:formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] [npc.crotchNipple] virginity!"))
 				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;>"
 							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
@@ -13056,7 +13056,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if((this.getBodyMaterial()==BodyMaterial.SLIME || orificeIngestedThrough == SexAreaOrifice.VAGINA)
 				&& fluid.getType().getBaseType()==FluidTypeBase.CUM) {
 			if(charactersFluid!=null) {
-				fluidIngestionSB.append(rollForPregnancy(charactersFluid, millilitres));
+				fluidIngestionSB.append(rollForPregnancy(charactersFluid, millilitres, Main.game.isInSex()));
 			}
 			//TODO need to store relevant cum data and provide that in the case of the charactersFluid not being in the game any more
 //			else if(subspecies!=null) {
@@ -13444,7 +13444,7 @@ public abstract class GameCharacter implements XMLSaving {
 			if(selectedMovesDisruption.get(index) == false) {
 				GameCharacter target = moveEntry.getKey();
 				float lustStart = target.getLust();
-				sb.append("<b style='text-align:center; color: " + move.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getName()) + ":</b> "
+				sb.append("<b style='text-align:center; color: " + move.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(move.getName(this)) + ":</b> "
 							+ move.perform(index, this, target, enemies, allies));
 				float lustEnd = target.getLust();
 				if(lustStart!=lustEnd) {
@@ -14284,10 +14284,10 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 			
 		// Impregnation:
-		performImpregnationCheck();
+		performImpregnationCheck(false);
 	}
 	
-	public void performImpregnationCheck() {
+	public void performImpregnationCheck(boolean directSexImpregnation) {
 		List<SexAreaOrifice> orificesToCheck;
 		
 		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
@@ -14315,7 +14315,7 @@ public abstract class GameCharacter implements XMLSaving {
 							}
 						}
 						if(partner!=null) {
-							rollForPregnancy(partner, fs.getMillilitres());
+							rollForPregnancy(partner, fs.getMillilitres(), directSexImpregnation);
 						}
 					}
 				}
@@ -14323,14 +14323,14 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	
-	public String rollForPregnancy(GameCharacter partner, float cumQuantity) {
+	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination) {
 		if(partner instanceof Elemental) {
-			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner)
+			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination)
 					+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot impregnate anyone!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals later on!)]</p>";
 		}
 		
 		if(isVisiblyPregnant()) {
-			return PregnancyDescriptor.ALREADY_PREGNANT.getDescriptor(this, partner);
+			return PregnancyDescriptor.ALREADY_PREGNANT.getDescriptor(this, partner, directSexInsemination);
 		}
 		
 		float pregnancyChance = 0;
@@ -14349,7 +14349,7 @@ public abstract class GameCharacter implements XMLSaving {
 		this.addPotentialPartnerAsMother(pregPoss);
 		partner.addPotentialPartnerAsFather(pregPoss);
 		
-		String pregnancyDescription = PregnancyDescriptor.getPregnancyDescriptorBasedOnProbability(pregnancyChance).getDescriptor(this, partner);
+		String pregnancyDescription = PregnancyDescriptor.getPregnancyDescriptorBasedOnProbability(pregnancyChance).getDescriptor(this, partner, directSexInsemination);
 		
 		// Now roll for pregnancy:
 		if (!isPregnant()) {
@@ -15048,10 +15048,10 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getEnchantmentPointsUsedFromWeapons() {
 		int count = 0;
 		if(this.getMainWeapon()!=null) {
-			count += this.getMainWeapon().getEnchantmentStabilityCost();
+			count += this.getMainWeapon().getEnchantmentCapacityCost();
 		}
 		if(this.getOffhandWeapon()!=null) {
-			count += this.getOffhandWeapon().getEnchantmentStabilityCost();
+			count += this.getOffhandWeapon().getEnchantmentCapacityCost();
 		}
 		return count;
 	}
@@ -15059,7 +15059,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getEnchantmentPointsUsedFromClothing() {
 		int count = 0;
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-			count += c.getEnchantmentStabilityCost();
+			count += c.getEnchantmentCapacityCost();
 		}
 		return count;
 	}
@@ -15067,7 +15067,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getEnchantmentPointsUsedFromTattoos() {
 		int count = 0;
 		for(Tattoo tat : this.getTattoos().values()) {
-			count += tat.getEnchantmentStabilityCost();
+			count += tat.getEnchantmentCapacityCost();
 		}
 		return count;
 	}
@@ -15401,7 +15401,7 @@ public abstract class GameCharacter implements XMLSaving {
 					new EventLogEntry(
 							Main.game.getMinutesPassed(),
 							"Used",
-							"<span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+item.getName()+"</span>"+(target.equals(this)?"":UtilText.parse(target, " on [npc.name]"))),
+							"<span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+item.getName()+"</span>"+(target==null || target.equals(this)?"":UtilText.parse(target, " on [npc.name]"))),
 					false);
 			
 			if(Main.getProperties().addItemDiscovered(item.getItemType())) {
@@ -19095,7 +19095,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		// Slimes can get pregnant from cum being stored anywhere:
 		if(type==BodyMaterial.SLIME && !this.isPregnant()) {
-			performImpregnationCheck();
+			performImpregnationCheck(false);
 		}
 		
 		return tfDescription;

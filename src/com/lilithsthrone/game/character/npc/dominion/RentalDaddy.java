@@ -33,6 +33,8 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -63,21 +65,21 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
- * @since 0.2.5
- * @version 0.2.11
+ * @since 0.3.4
+ * @version 0.3.4
  * @author Innoxia
  */
-public class RentalMommy extends NPC {
+public class RentalDaddy extends NPC {
 	
-	public RentalMommy() {
+	public RentalDaddy() {
 		this(false);
 	}
 	
-	public RentalMommy(boolean isImported) {
-		super(isImported, new NameTriplet("Mommy"), "Hathaway",
-				"'Mommy' earns a living by renting herself out to those in need of some motherly love.",
-				45, Month.JULY, 3,
-				15, Gender.F_V_B_FEMALE, Subspecies.COW_MORPH, RaceStage.PARTIAL,
+	public RentalDaddy(boolean isImported) {
+		super(isImported, new NameTriplet("Daddy"), "Hathaway",
+				"'Daddy' earns a living by renting himself out to those in need of a father figure.",
+				47, Month.JANUARY, 17,
+				15, Gender.M_P_MALE, Subspecies.COW_MORPH, RaceStage.PARTIAL,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BOULEVARD, false);
 
 		if(!isImported) {
@@ -89,35 +91,25 @@ public class RentalMommy extends NPC {
 			
 			Subspecies subspecies = Subspecies.COW_MORPH;
 			
-			RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), Gender.F_V_B_FEMALE, subspecies);
-			setBody(Gender.F_V_B_FEMALE, subspecies, stage);
+			RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), Gender.M_P_MALE, subspecies);
+			setBody(Gender.M_P_MALE, subspecies, stage);
 
 			this.setPlayerKnowsName(true);
-
-			resetBodyAfterVersion_2_10_5();
 		}
 	}
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
-			resetBodyAfterVersion_2_10_5();
-		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.10")) {
-			this.setLevel(15);
-			this.resetPerksMap(true);
-		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SLUT);
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(Perk.FETISH_BROODMOTHER),
+				Util.newArrayListOfValues(Perk.FETISH_SEEDER),
 				Util.newHashMapOfValues(
-						new Value<>(PerkCategory.PHYSICAL, 0),
+						new Value<>(PerkCategory.PHYSICAL, 5),
 						new Value<>(PerkCategory.LUST, 1),
 						new Value<>(PerkCategory.ARCANE, 0)));
 	}
@@ -129,23 +121,23 @@ public class RentalMommy extends NPC {
 
 		if(setPersona) {
 			this.setPersonality(Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
 					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
 					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE)));
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 	
 			this.setHistory(Occupation.NPC_PROSTITUTE);
 	
-			this.addFetish(Fetish.FETISH_BREASTS_SELF);
-			this.addFetish(Fetish.FETISH_PREGNANCY);
+			this.addFetish(Fetish.FETISH_PENIS_GIVING);
+			this.addFetish(Fetish.FETISH_IMPREGNATION);
 			
-			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_LACTATION_SELF, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_BREASTS_OTHERS, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_INCEST, FetishDesire.THREE_LIKE);
 	
 			this.setFetishDesire(Fetish.FETISH_PURE_VIRGIN, FetishDesire.ONE_DISLIKE);
@@ -155,39 +147,39 @@ public class RentalMommy extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(176);
-		this.setFemininity(85);
-		this.setMuscle(Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue());
-		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+		this.setHeight(192);
+		this.setFemininity(15);
+		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_HAZEL));
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_COW_MORPH, Colour.EYE_HAZEL));
-		this.setSkinCovering(new Covering(BodyCoveringType.BOVINE_FUR, CoveringPattern.SPOTTED, Colour.COVERING_WHITE, false, Colour.COVERING_BLACK, false), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.BOVINE_FUR, CoveringPattern.NONE, Colour.COVERING_BROWN_DARK, false, Colour.COVERING_BROWN_DARK, false), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BLACK), true);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_BOVINE_FUR, Colour.COVERING_BLACK), true);
-		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BROWN_DARK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_BOVINE_FUR, Colour.COVERING_BROWN_DARK), true);
+		this.setHairLength(HairLength.ONE_VERY_SHORT.getMedianValue());
 		this.setHairStyle(HairStyle.STRAIGHT);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_BOVINE_FUR, Colour.COVERING_BLACK), false);
-		this.setUnderarmHair(BodyHair.ZERO_NONE);
-		this.setAssHair(BodyHair.ZERO_NONE);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BROWN_DARK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_BOVINE_FUR, Colour.COVERING_BROWN_DARK), false);
+		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
+		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
-		this.setFacialHair(BodyHair.ZERO_NONE);
+		this.setFacialHair(BodyHair.THREE_TRIMMED);
 
-		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
-		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_RED));
+//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
+//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_RED));
 //		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
-		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
-		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
+//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
 //		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PINK));
 		
 		// Face:
 		this.setFaceVirgin(false);
-		this.setLipSize(LipSize.TWO_FULL);
+		this.setLipSize(LipSize.ONE_AVERAGE);
 		this.setFaceCapacity(Capacity.SIX_STRETCHED_OPEN, true);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
@@ -195,20 +187,19 @@ public class RentalMommy extends NPC {
 		
 		// Chest:
 		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.GG.getMeasurement());
+		this.setBreastSize(CupSize.FLAT.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
-		this.setNippleSize(NippleSize.THREE_LARGE.getValue());
-		this.setAreolaeSize(AreolaeSize.THREE_LARGE.getValue());
-		this.addNippleOrificeModifier(OrificeModifier.PUFFY);
-		this.setBreastLactationRegeneration(FluidRegeneration.TWO_FAST.getMedianRegenerationValuePerDay());
-		this.setBreastMilkStorage(500);
-		this.setBreastStoredMilk(500);
+		this.setNippleSize(NippleSize.ZERO_TINY.getValue());
+		this.setAreolaeSize(AreolaeSize.ZERO_TINY.getValue());
+//		this.setBreastLactationRegeneration(FluidRegeneration.TWO_FAST.getMedianRegenerationValuePerDay());
+//		this.setBreastMilkStorage(500);
+//		this.setBreastStoredMilk(500);
 		
 		// Ass:
 		this.setAssVirgin(false);
 		this.setAssBleached(false);
-		this.setAssSize(AssSize.FOUR_LARGE.getValue());
-		this.setHipSize(HipSize.FIVE_VERY_WIDE.getValue());
+		this.setAssSize(AssSize.ONE_TINY.getValue());
+		this.setHipSize(HipSize.TWO_NARROW.getValue());
 		this.setAssCapacity(Capacity.TWO_TIGHT, true);
 		this.setAssWetness(Wetness.ZERO_DRY);
 		this.setAssElasticity(OrificeElasticity.FOUR_LIMBER.getValue());
@@ -216,17 +207,15 @@ public class RentalMommy extends NPC {
 		// Anus modifiers
 		
 		// Penis:
-		// No penis
+		this.setPenisVirgin(false);
+		this.setPenisGirth(PenisGirth.FOUR_FAT);
+		this.setPenisSize(25);
+		this.setTesticleSize(TesticleSize.FOUR_HUGE);
+		this.setPenisCumStorage(250);
+		this.fillCumToMaxStorage();
 		
 		// Vagina:
-		this.setVaginaVirgin(false);
-		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
-		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
-		this.setVaginaSquirter(false);
-		this.setVaginaCapacity(Capacity.FOUR_LOOSE, true);
-		this.setVaginaWetness(Wetness.THREE_WET);
-		this.setVaginaElasticity(OrificeElasticity.THREE_FLEXIBLE.getValue());
-		this.setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
+		// No vagina
 		
 		// Feet:
 //		this.setFootStructure(FootStructure.PLANTIGRADE);

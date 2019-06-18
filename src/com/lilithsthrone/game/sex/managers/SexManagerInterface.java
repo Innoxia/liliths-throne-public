@@ -230,17 +230,21 @@ public interface SexManagerInterface {
 	 * @return true if this character is able to remove other people's clothing in sex.
 	 */
 	public default boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
-		if(clothing!=null
-				&& !Sex.isDom(character)
-				&& clothing.getClothingType().isSexToy()) {
-			return false;
-		}
+		// Is now handled in SexManager as of v0.3.3.8
+//		if(clothing!=null
+//				&& !Sex.isDom(character)
+//				&& clothing.getClothingType().isSexToy()) {
+//			return false;
+//		}
 		
-		if(character.isPlayer()) {
-			return true;
-		}
+//		if(character.isPlayer()) {
+//			return true;
+//		}
+//		
+//		return Sex.getSexControl(character)==SexControl.FULL;
 		
-		return Sex.getSexControl(character)==SexControl.FULL;
+		// The only thing that should limit this is overridden special conditions:
+		return true;
 	}
 	
 	public default boolean isItemUseAvailable() {

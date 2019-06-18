@@ -71,7 +71,7 @@ public class MissionaryDesk {
 				return UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()),
 						UtilText.returnStringAtRandom(
 						"[npc.Name] [npc.verb(bite)] [npc.her] [npc.lip] and [npc.verb(let)] out [npc.moan+],"
-								+ " before spreading [npc.her] [npc.legs] in order to help sink [npc2.namePos] [npc.cock+] deeper into [npc.her] [npc.pussy+].",
+								+ " before spreading [npc.her] [npc.legs] in order to help sink [npc2.namePos] [npc2.cock+] deeper into [npc.her] [npc.pussy+].",
 						"[npc.Name] [npc.verb(spread)] [npc.her] [npc.legs] for [npc2.name], helping [npc2.herHim] to thrust [npc2.her] [npc2.cock+] deep into [npc.her] [npc.pussy+].",
 						"Pulling [npc.her] [npc.feet] back and to each side,"
 								+ " [npc.name] [npc.verb(help)] [npc2.name] to thrust [npc2.her] [npc2.cock+] deep into [npc.her] [npc.pussy+] by spreading [npc.her] [npc.legs] as wide as [npc.she] can.",
@@ -81,7 +81,7 @@ public class MissionaryDesk {
 				return UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()),
 						UtilText.returnStringAtRandom(
 						"[npc.Name] [npc.verb(bite)] [npc.her] [npc.lip] and [npc.verb(let)] out [npc.moan+],"
-								+ " before raising [npc.her] [npc.ass+] and spreading [npc.her] [npc.legs] in order to help sink [npc2.namePos] [npc.cock+] deeper into [npc.her] [npc.asshole+].",
+								+ " before raising [npc.her] [npc.ass+] and spreading [npc.her] [npc.legs] in order to help sink [npc2.namePos] [npc2.cock+] deeper into [npc.her] [npc.asshole+].",
 						"[npc.Name] [npc.verb(spread)] [npc.her] [npc.legs] and [npc.verb(raise)] [npc.her] [npc.ass+] for [npc2.name], helping [npc2.herHim] to thrust [npc2.her] [npc2.cock+] deep into [npc.her] [npc.asshole+].",
 						"Pulling [npc.her] [npc.feet] back and to each side,"
 								+ " [npc.name] [npc.verb(help)] [npc2.name] to thrust [npc2.her] [npc2.cock+] deep into [npc.her] [npc.asshole+] by raising [npc.her] [npc.ass] and spreading [npc.her] [npc.legs] as wide as [npc.she] can.",

@@ -806,28 +806,32 @@ public class GenericPositioningNew {
 		}
 		@Override
 		public String getDescription() {
+			StringBuilder sb = new StringBuilder();
 			if(Sex.getCharacterTargetedForSexAction(this).getLegConfiguration().isBipedalPositionedGenitals()) { // Biped body:
 				if(SexSlotOther.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction())) {
-					return "Wanting to perform anilingus on [npc2.name], [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] standing behind [npc2.herHim]."
-							+ " Taking hold of [npc2.her] [npc2.hips+], [npc.she] [npc.verb(plead)],"
-							+ " [npc.speech(Please, let me put my mouth to use!)]";
+					sb.append("Wanting to perform anilingus on [npc2.name], [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] standing behind [npc2.herHim]."
+							+ " Taking hold of [npc2.her] [npc2.hips+], [npc.she] [npc.verb(plead)],");
 				} else {
-					return "Wanting to perform anilingus on [npc2.name], [npc.name] [npc.verb(reposition)] [npc.herself] and [npc.verb(drop)] down onto [npc.her] knees behind [npc2.herHim]."
-							+ " Taking hold of [npc2.her] [npc2.hips+], [npc.she] [npc.verb(plead)],"
-							+ " [npc.speech(Please, let me put my mouth to use!)]";
+					sb.append("Wanting to perform anilingus on [npc2.name], [npc.name] [npc.verb(reposition)] [npc.herself] and [npc.verb(drop)] down onto [npc.her] knees behind [npc2.herHim]."
+							+ " Taking hold of [npc2.her] [npc2.hips+], [npc.she] [npc.verb(plead)],");
 				}
 				
 			} else { // Taur body:
 				if(SexSlotOther.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction())) {
-					return "Wanting to perform oral on the rear part of [npc2.namePos] lower [npc2.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] standing behind [npc2.herHim]."
-							+ " Running [npc.a_hand] up and over [npc.her] [npc2.ass+], [npc.she] [npc.verb(plead)],"
-							+ " [npc.speech(Please, let me put my mouth to use!)]";
+					sb.append("Wanting to perform oral on the rear part of [npc2.namePos] lower [npc2.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] standing behind [npc2.herHim]."
+							+ " Running [npc.a_hand] up and over [npc2.her] [npc2.ass+], [npc.she] [npc.verb(plead)],");
 				} else {
-					return "Wanting to perform oral on the rear part of [npc2.namePos] lower [npc2.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] and [npc.verb(drop)] down onto [npc.her] knees behind [npc2.herHim]."
-							+ " Running [npc.a_hand] up and over [npc.her] [npc2.ass+], [npc.she] [npc.verb(plead)],"
-							+ " [npc.speech(Please, let me put my mouth to use!)]";
+					sb.append("Wanting to perform oral on the rear part of [npc2.namePos] lower [npc2.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] and [npc.verb(drop)] down onto [npc.her] knees behind [npc2.herHim]."
+							+ " Running [npc.a_hand] up and over [npc2.her] [npc2.ass+], [npc.she] [npc.verb(plead)],");
 				}
 			}
+			if(Sex.isDom(Sex.getCharacterPerformingAction())) {
+				sb.append(" [npc.speech(Now to get a taste of your ass!)]");
+			} else {
+				sb.append(" [npc.speech(Please, let me put my mouth to use!)]");
+			}
+			
+			return sb.toString();
 		}
 		@Override
 		public void applyEffects() {

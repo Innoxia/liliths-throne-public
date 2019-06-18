@@ -11,6 +11,8 @@ public enum PropertyValue {
 	mapReveal(false),
 	concealedSlotsReveal(false),
 	
+	enchantmentLimits(true),
+	
 	artwork(true),
 	thumbnail(true),
 	

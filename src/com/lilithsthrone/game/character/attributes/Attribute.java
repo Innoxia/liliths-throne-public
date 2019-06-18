@@ -180,8 +180,8 @@ public enum Attribute {
 	ENCHANTMENT_LIMIT(0,
 			0,
 			1000,
-			"enchantment stability",
-			"Enchantment stability",
+			"enchantment capacity",
+			"Enchantment capacity",
 			"enchantmentLimitIcon",
 			Colour.GENERIC_ENCHANTMENT,
 			"harnessing", "clumsiness", null) {

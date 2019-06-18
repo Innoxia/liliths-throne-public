@@ -405,7 +405,7 @@ public enum PlaceUpgrade {
 				
 			} else {
 				for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
-					if(upgrade != LILAYA_SLAVE_ROOM_DOUBLE) {
+					if(upgrade != LILAYA_SLAVE_ROOM_QUADRUPLE) {
 						place.removePlaceUpgrade(c, upgrade);
 					}
 				}
@@ -754,7 +754,8 @@ public enum PlaceUpgrade {
 				
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS,
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER,
-				
+
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_QUADRUPLE,
 				PlaceUpgrade.LILAYA_EMPTY_ROOM,
 				PlaceUpgrade.LILAYA_ARTHUR_ROOM);
 		

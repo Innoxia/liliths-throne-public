@@ -2173,6 +2173,10 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			if(!Sex.getCharacterPerformingAction().hasPenisIgnoreDildo()) {
+				return false;
+			}
+			
 			if(Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
 				return false;
 			}
@@ -2591,6 +2595,10 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			if(!Sex.getCharacterPerformingAction().hasPenisIgnoreDildo()) {
+				return false;
+			}
+			
 			if(Sex.getCharacterPerformingAction().getPenisCumStorage()==CumProduction.ZERO_NONE) {
 				return false;
 			}

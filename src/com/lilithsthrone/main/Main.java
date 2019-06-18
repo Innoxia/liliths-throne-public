@@ -113,6 +113,7 @@ public class Main extends Application {
 			+ "<b>Please bear in mind:</b> This isn't the final version of all the combat changes."
 			+ " There will be further tweaks and adjustments to several areas, and there still needs to be a balancing of the damage numbers."
 		+ "</p>"
+			
 		+ "<br/>"
 			
 		+ "<p>"

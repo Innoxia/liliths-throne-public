@@ -344,7 +344,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.performImpregnationCheck();
+			target.performImpregnationCheck(false);
 			if(target.isPregnant()) {
 				List <GameCharacter> fathers = new ArrayList<>();
 				for(PregnancyPossibility pp : target.getPotentialPartnersAsMother()) {
@@ -1084,7 +1084,7 @@ public class ItemEffectType {
 								+ "For a moment, it looks as though nothing is going to happen,"
 									+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purify energy rushes through [npc.herHim]."
 								+ " Accompanied by a faint, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
-									+ " where it quickly gets to work purifying [npc.her] thoughts and calming [np.her] libido..."
+									+ " where it quickly gets to work purifying [npc.her] thoughts and calming [npc.her] libido..."
 							+"</p>"
 							+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -5);
 				case BOOST:
@@ -1092,7 +1092,7 @@ public class ItemEffectType {
 							+ "For a moment, it looks as though nothing is going to happen,"
 								+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purify energy rushes through [npc.herHim]."
 							+ " Accompanied by a bright, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
-								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [np.her] libido..."
+								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [npc.her] libido..."
 						+"</p>"
 						+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -10);
 				case MAJOR_BOOST:
@@ -1100,7 +1100,7 @@ public class ItemEffectType {
 							+ "For a moment, it looks as though nothing is going to happen,"
 								+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purify energy rushes through [npc.herHim]."
 							+ " Accompanied by a blinding, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
-								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [np.her] libido..."
+								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [npc.her] libido..."
 						+"</p>"
 						+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -15);
 				case MINOR_DRAIN:

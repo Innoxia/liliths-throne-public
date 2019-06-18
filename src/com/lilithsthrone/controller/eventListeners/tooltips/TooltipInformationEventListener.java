@@ -227,7 +227,7 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='picture'>" + perk.getSVGString() + "</div>");
 
 			// Description:
-			tooltipSB.append("<div class='description'>" + perk.getDescription(owner) + "</div>");
+			tooltipSB.append("<div class='description'>" + UtilText.parse(owner, perk.getDescription(owner)) + "</div>");
 			
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 				
@@ -275,7 +275,7 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='picture'>" + levelUpPerk.getSVGString() + "</div>");
 
 			// Description:
-			tooltipSB.append("<div class='description'>" + levelUpPerk.getDescription(owner) + "</div>");
+			tooltipSB.append("<div class='description'>" + UtilText.parse(owner, levelUpPerk.getDescription(owner)) + "</div>");
 			
 			if(availableForSelection) {
 				if(levelUpPerk.isEquippableTrait()) {
@@ -332,7 +332,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 			// Title:
 			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(move.getName()) + "</div>");
+			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(move.getName(owner)) + "</div>");
 
 			tooltipSB.append("<div class='subTitle' style='color:"+move.getType().getColour().toWebHexString()+";'>"+move.getType().getName()+"</div>");
 			
@@ -874,7 +874,7 @@ public class TooltipInformationEventListener implements EventListener {
 //						+ "</div>");
 //				
 //			} else {
-				Main.mainController.setTooltipSize(400, 516+46);
+				Main.mainController.setTooltipSize(400, 516+(Main.game.isEnchantmentCapacityEnabled()?42:0));
 	
 				int enchantmentPointsUsed = owner.getEnchantmentPointsUsedTotal();
 				tooltipSB.setLength(0);
@@ -893,15 +893,17 @@ public class TooltipInformationEventListener implements EventListener {
 									:"</span>"+owner.getExperience() + " / "+ (10 * owner.getLevel()) + " xp")
 						+ "</div>"
 				
-						+"<div class='subTitle' style='margin-bottom:4px;'>"
-							+ "[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+")]: "
-							+ (enchantmentPointsUsed>owner.getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
-									?"[style.colourBad("
-									:(enchantmentPointsUsed==owner.getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
-											?"[style.colourGood("
-											:"[style.colourMinorGood("))
-							+ enchantmentPointsUsed + ")]" + "/" + Math.round(owner.getAttributeValue(Attribute.ENCHANTMENT_LIMIT))
-						+ "</div>"
+						+ (Main.game.isEnchantmentCapacityEnabled()
+								?"<div class='subTitle' style='margin-bottom:4px;'>"
+										+ "[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+")]: "
+										+ (enchantmentPointsUsed>owner.getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
+												?"[style.colourBad("
+												:(enchantmentPointsUsed==owner.getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
+														?"[style.colourGood("
+														:"[style.colourMinorGood("))
+										+ enchantmentPointsUsed + ")]" + "/" + Math.round(owner.getAttributeValue(Attribute.ENCHANTMENT_LIMIT))
+									+ "</div>"
+								:"")
 						
 						+ extraAttributeBonus(owner, Attribute.MAJOR_PHYSIQUE)
 						+ extraAttributeBonus(owner, Attribute.MAJOR_ARCANE)

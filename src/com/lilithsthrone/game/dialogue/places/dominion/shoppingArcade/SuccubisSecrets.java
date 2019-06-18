@@ -226,7 +226,7 @@ public class SuccubisSecrets {
 						+ "</p>"
 						+ "<p>"
 							+ "She is, without doubt, one of the most attractive women you've ever seen."
-							+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
+							+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by her dyed red hair, which is styled into an undercut."
 							+ " Her body is equally as impressive, and beneath her pair of "+Main.game.getNpc(Kate.class).getBreastSize().getDescriptor()
 							+" breasts, her wide hips and long, perfectly-formed legs provide the final visual stimulus that's needed to send you over the edge."
 						+ "</p>"
@@ -298,7 +298,7 @@ public class SuccubisSecrets {
 						+ "</p>"
 						+ "<p>"
 						+ "She is, without doubt, one of the most attractive women you've ever seen."
-						+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
+						+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by her dyed red hair, which is styled into an undercut."
 						+ " Her body is equally as impressive, and beneath her pair of "+Main.game.getNpc(Kate.class).getBreastSize().getDescriptor()
 						+" breasts, her wide hips and long, perfectly-formed legs provide the final visual stimulus that's needed to send you over the edge."
 						+ "</p>"
@@ -352,7 +352,7 @@ public class SuccubisSecrets {
 						+ "<p>"
 						+ "You turn around to see that she's stood up, and as she flattens down her mini skirt and wipes her tail on a tissue she's produced from somewhere,"
 						+ " you see that she is, without doubt, one of the most attractive women you've ever seen."
-						+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
+						+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by her dyed red hair, which is styled into an undercut."
 						+ " Her body is equally as impressive, and beneath her pair of "+Main.game.getNpc(Kate.class).getBreastSize().getDescriptor()
 						+" breasts, her wide hips and long, perfectly-formed legs finish her look as a top-class super-model."
 						+ "</p>"

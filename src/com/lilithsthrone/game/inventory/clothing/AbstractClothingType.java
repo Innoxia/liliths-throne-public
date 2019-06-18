@@ -78,7 +78,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private boolean isMod;
 	private boolean isColourDerivedFromPattern;
 	private int baseValue;
-	private int physicalResistance;
+	private float physicalResistance;
 	private int femininityMinimum;
 	private int femininityMaximum;
 	private Femininity femininityRestriction;
@@ -86,7 +86,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 	// Enchantments:
 	@SuppressWarnings("unused")
-	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment stability mechanics.
+	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment capacity mechanics.
 	protected List<ItemEffect> effects;
 
 	
@@ -410,7 +410,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			
 			this.plural =             Boolean.valueOf(coreAttributes.getMandatoryFirstOf("namePlural").getAttribute("pluralByDefault"));
 			this.baseValue =          Integer.valueOf(coreAttributes.getMandatoryFirstOf("value").getTextContent());
-			this.physicalResistance = Integer.valueOf(coreAttributes.getMandatoryFirstOf("physicalResistance").getTextContent());	
+			this.physicalResistance = Float.valueOf(coreAttributes.getMandatoryFirstOf("physicalResistance").getTextContent());	
 			this.slot =       		  InventorySlot.valueOf(coreAttributes.getMandatoryFirstOf("slot").getTextContent());
 			this.rarity =             Rarity.valueOf(coreAttributes.getMandatoryFirstOf("rarity").getTextContent());
 
@@ -830,7 +830,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		int result = super.hashCode();
 		result = 31 * result + getName().hashCode();
 		result = 31 * result + getPathName().hashCode();
-		result = 31 * result + getPhysicalResistance();
+		result = 31 * result + Float.floatToIntBits(getPhysicalResistance());
 		result = 31 * result + getFemininityMaximum();
 		result = 31 * result + getFemininityMinimum();
 		if(getFemininityRestriction()!=null) {
@@ -2536,11 +2536,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return getRarity()!=Rarity.QUEST;
 	}
 
-	public int getPhysicalResistance() {
-		return physicalResistance;
+	public float getPhysicalResistance() {
+		return physicalResistance/10f;
 	}
 
-	public void setPhysicalResistance(int physicalResistance) {
+	public void setPhysicalResistance(float physicalResistance) {
 		this.physicalResistance = physicalResistance;
 	}
 	

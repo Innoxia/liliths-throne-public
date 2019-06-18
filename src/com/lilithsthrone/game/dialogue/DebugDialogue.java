@@ -1,7 +1,9 @@
 package com.lilithsthrone.game.dialogue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -89,6 +91,9 @@ public class DebugDialogue {
 				
 			} else if(index == 2) {
 				return "Misc.";
+
+			} else if(index == 3) {
+				return "Item view";
 				
 			}
 			return null;
@@ -148,9 +153,6 @@ public class DebugDialogue {
 							Main.getProperties().setValue(PropertyValue.concealedSlotsReveal, !Main.game.isConcealedSlotsReveal());
 						}
 					};
-					
-				} else if(index==5) {
-					return new Response("All items", "View icons and ids of all the clothing, weapon, and items in the game. You can also spawn these items by clicking on their icons. <i>Warning: Very sluggish and slow to load.</i>", ALL_ITEMS_VIEW);
 					
 				} else if (index == 6) {
 					return new Response("Spawn Menu", "View the clothing, weapon, and item spawn menu.", SPAWN_MENU);
@@ -411,6 +413,69 @@ public class DebugDialogue {
 						}
 					};
 				}
+				
+			} else if(responseTab == 3) {
+				if(index==1) {
+					return new Response("All",
+							"View icons and ids of all the clothing, weapons, and items in the game. You can also spawn these items by clicking on their icons. <i>Warning: Very sluggish and slow to load.</i>",
+							ITEM_VIEWER) {
+						@Override
+						public void effects() {
+							viewItemVariablesReset();
+							viewAll = true;
+						}
+					};
+					
+				} else if(index==2) {
+					return new Response("Items",
+							"View icons and ids of all the items in the game. You can also spawn these items by clicking on their icons. <i>Warning: Very sluggish and slow to load.</i>",
+							ITEM_VIEWER) {
+						@Override
+						public void effects() {
+							viewItemVariablesReset();
+						}
+					};
+					
+				} else if(index==3) {
+					return new Response("Weapons",
+							"View icons and ids of all the weapons in the game. You can also spawn these items by clicking on their icons. <i>Warning: May be very sluggish and slow to load.</i>",
+							ITEM_VIEWER) {
+						@Override
+						public void effects() {
+							viewItemVariablesReset();
+							itemViewSlot = InventorySlot.WEAPON_MAIN;
+						}
+					};
+					
+				} else if(index==4) {
+					return new Response("All clothing",
+							"View icons and ids of all the clothing in the game. You can also spawn these items by clicking on their icons. <i>Warning: Very sluggish and slow to load.</i>",
+							ITEM_VIEWER) {
+						@Override
+						public void effects() {
+							viewItemVariablesReset();
+							viewAllClothing = true;
+						}
+					};
+					
+				} else {
+					List<InventorySlot> clothingSlots = new ArrayList<>(Arrays.asList(InventorySlot.values()));
+					clothingSlots.remove(InventorySlot.WEAPON_MAIN);
+					clothingSlots.remove(InventorySlot.WEAPON_OFFHAND);
+					
+					if(index < clothingSlots.size()) {
+						InventorySlot is = clothingSlots.get(index);
+						return new Response(Util.capitaliseSentence(is.getName()),
+								"View icons and ids of all the clothing in the the slot '"+is.getName()+"'. You can also spawn these items by clicking on their icons. <i>Warning: May be very sluggish and slow to load.</i>",
+								ITEM_VIEWER) {
+							@Override
+							public void effects() {
+								viewItemVariablesReset();
+								itemViewSlot = is;
+							}
+						};
+					}
+				}
 			}
 			
 			return null;
@@ -656,7 +721,17 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNode ALL_ITEMS_VIEW = new DialogueNode("", "", false) {
+	private static void viewItemVariablesReset() {
+		viewAll = false;
+		viewAllClothing = false;
+		itemViewSlot = null;
+	}
+	
+	private static boolean viewAll = false;
+	private static boolean viewAllClothing = false;
+	private static InventorySlot itemViewSlot = null;
+	
+	public static final DialogueNode ITEM_VIEWER = new DialogueNode("", "", false) {
 
 		@Override
 		public String getContent() {
@@ -668,71 +743,91 @@ public class DebugDialogue {
 			}
 			int imgWidth = 15;
 			
-			int count=0;
-			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>");
-			for(AbstractItemType itemType : itemsTotal) {
-				if((itemTag==null
-						&& (!itemType.getItemTags().contains(ItemTag.BOOK)
-						&& !itemType.getItemTags().contains(ItemTag.ESSENCE)
-						&& !itemType.getItemTags().contains(ItemTag.SPELL_BOOK)
-						&& !itemType.getItemTags().contains(ItemTag.SPELL_SCROLL)))
-						|| (itemTag!=null
-							&& (itemType.getItemTags().contains(itemTag)
-									|| (itemTag==ItemTag.SPELL_BOOK && itemType.getItemTags().contains(ItemTag.SPELL_SCROLL))))) {
+			if(!viewAllClothing && (viewAll || itemViewSlot == null)) {
+				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+						+ "<h5>Total items: "+itemsTotal.size()+"</h5>");
+				for(AbstractItemType itemType : itemsTotal) {
+					if((itemTag==null
+							&& (!itemType.getItemTags().contains(ItemTag.BOOK)
+							&& !itemType.getItemTags().contains(ItemTag.ESSENCE)
+							&& !itemType.getItemTags().contains(ItemTag.SPELL_BOOK)
+							&& !itemType.getItemTags().contains(ItemTag.SPELL_SCROLL)))
+							|| (itemTag!=null
+								&& (itemType.getItemTags().contains(itemTag)
+										|| (itemTag==ItemTag.SPELL_BOOK && itemType.getItemTags().contains(ItemTag.SPELL_SCROLL))))) {
+						inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+												+ "<div class='inventory-item-slot unequipped "+ itemType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
+													+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
+													+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+												+ "</div>"
+												+ ItemType.getItemToIdMap().get(itemType)
+											+ "</div>");
+					}
+				}
+				inventorySB.append("</div>");
+			}
+
+			if(viewAll || itemViewSlot == InventorySlot.WEAPON_MAIN || itemViewSlot == InventorySlot.WEAPON_OFFHAND) {
+				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+						+ "<h5>Total weapons: "+weaponsTotal.size()+"</h5>");
+				for(AbstractWeaponType weaponType : weaponsTotal) {
 					inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
-											+ "<div class='inventory-item-slot unequipped "+ itemType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
-												+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
-												+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+											+ "<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
+												+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
+														weaponType.getAvailableDamageTypes().get(0),
+														weaponType.getAvailablePrimaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailablePrimaryColours()),
+														weaponType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailableSecondaryColours()))
+												+"</div>"
+												+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
 											+ "</div>"
-											+ ItemType.getItemToIdMap().get(itemType)
+											+ WeaponType.getIdFromWeaponType(weaponType)
 										+ "</div>");
 				}
-				count++;
+				inventorySB.append("</div>");
 			}
-			inventorySB.append("</div>");
 
-			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
-					+ "<h5>Weapons: "+weaponsTotal.size()+" items</h5>");
-			for(AbstractWeaponType weaponType : weaponsTotal) {
-				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
-										+ "<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
-											+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
-													weaponType.getAvailableDamageTypes().get(0),
-													weaponType.getAvailablePrimaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailablePrimaryColours()),
-													weaponType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailableSecondaryColours()))
+			if(viewAll || viewAllClothing) {
+				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+						+ "<h5>Total clothing: "+clothingTotal.size()+"</h5>");
+				for(AbstractClothingType clothingType : clothingTotal) {
+					inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+										+ "<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
+											+ "<div class='inventory-icon-content'>"
+												+clothingType.getSVGImage(
+													Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
+													clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
+													clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
+													null, null, null, null)
 											+"</div>"
-											+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
+											+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
 										+ "</div>"
-										+ WeaponType.getIdFromWeaponType(weaponType)
+										+ ClothingType.getIdFromClothingType(clothingType)
 									+ "</div>");
-				count++;
-			}
-			inventorySB.append("</div>");
-
-			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
-					+ "<h5>Clothing: "+clothingTotal.size()+" items</h5>");
-			for(AbstractClothingType clothingType : clothingTotal) {
-				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
-									+ "<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
-										+ "<div class='inventory-icon-content'>"
-											+clothingType.getSVGImage(
-												Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
-												clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
-												clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
-												null, null, null, null)
-										+"</div>"
-										+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
-									+ "</div>"
-									+ ClothingType.getIdFromClothingType(clothingType)
-								+ "</div>");
-				count++;
+				}
+				inventorySB.append("</div>");
+				
+			} else if(itemViewSlot!=null && itemViewSlot != InventorySlot.WEAPON_MAIN && itemViewSlot != InventorySlot.WEAPON_OFFHAND) {
+				List<AbstractClothingType> clothingToDisplay = clothingTotal.stream().filter((c) -> c.getSlot()==itemViewSlot).collect(Collectors.toList());
+				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+						+ "<h5>Total '"+itemViewSlot.getName()+"' slot clothing: "+clothingToDisplay.size()+"</h5>");
+				for(AbstractClothingType clothingType : clothingToDisplay) {
+					inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+							+ "<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
+								+ "<div class='inventory-icon-content'>"
+									+clothingType.getSVGImage(
+										Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
+										clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
+										clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
+										null, null, null, null)
+								+"</div>"
+								+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
+							+ "</div>"
+							+ ClothingType.getIdFromClothingType(clothingType)
+						+ "</div>");
+				}
+				inventorySB.append("</div>");
 			}
 			
-			// Fill space:
-			for (int i = count; i <48; i++) {
-				inventorySB.append("<div class='inventory-item-slot unequipped'></div>");
-			}
-			inventorySB.append("</div>");
 			
 			
 			return inventorySB.toString();

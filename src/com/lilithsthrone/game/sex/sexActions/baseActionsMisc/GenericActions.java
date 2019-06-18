@@ -98,8 +98,8 @@ public class GenericActions {
 										:" and from the wicked grin that settles on [npc.namePos] face, this was just the reaction [npc.she] [npc.was] looking for."),
 						" The pained squeal which immediately escapes from [npc2.namePos] mouth is exactly what [npc.name] [npc.was] looking for, and [npc.she] can't help but grin as [npc.she] [npc.verb(see)] tears well up in"
 								+ (Sex.getCharacterTargetedForSexAction(this).isPlayer()
-										?" your [npc.eyes+]."
-										:" [npc.her] submissive bitch's [npc.eyes+]."),
+										?" your [npc2.eyes+]."
+										:" [npc.her] submissive bitch's [npc2.eyes+]."),
 						" After letting out a shocked cry, tears start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] abuse is having the exact effect [npc.she] [npc.was] looking for."));
 			}
 			
@@ -182,8 +182,8 @@ public class GenericActions {
 										:" and from the wicked grin that settles on [npc.namePos] face, this was just the reaction [npc.she] [npc.was] looking for."),
 						" The distressed, gargled cries which [npc2.name] [npc2.verb(start)] to make are exactly what [npc.name] [npc.was] looking for, and [npc.she] can't help but grin as [npc.she] [npc.verb(see)] tears well up in"
 								+ (Sex.getCharacterTargetedForSexAction(this).isPlayer()
-										?" your [npc.eyes+]."
-										:" [npc.her] submissive bitch's [npc.eyes+]."),
+										?" your [npc2.eyes+]."
+										:" [npc.her] submissive bitch's [npc2.eyes+]."),
 						" Letting out a series of spluttering gasps, tears quickly start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] abuse is having the exact effect [npc.she] [npc.was] looking for."));
 			}
 			

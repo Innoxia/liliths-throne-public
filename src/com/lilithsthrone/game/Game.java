@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -950,6 +951,17 @@ public class Game implements XMLSaving {
 							npc.resetPerksMap(true, false);
 						}
 						PerkManager.initialiseSpecialPerksUponCreation(npc); // Generate unique perks for slaves/occupants as well
+					}
+				}
+				
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.3.9")) { // Add in started Elemental Perks that were overlooked.
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if((npc instanceof Elemental)) {
+							PerkManager.initialisePerks(npc);
+						}
+					}
+					if(Main.game.getPlayer().removeTrait(Perk.JOB_ELDER_LILIN)) {
+						Main.game.getPlayer().addTrait(Main.game.getPlayer().getHistory().getAssociatedPerk());
 					}
 				}
 				
@@ -3469,6 +3481,10 @@ public class Game implements XMLSaving {
 	
 	public boolean isConcealedSlotsReveal() {
 		return Main.getProperties().hasValue(PropertyValue.concealedSlotsReveal);
+	}
+
+	public boolean isEnchantmentCapacityEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.enchantmentLimits);
 	}
 	
 	public boolean isSillyModeEnabled() {
