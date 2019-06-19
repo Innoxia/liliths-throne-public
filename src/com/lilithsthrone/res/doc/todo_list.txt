@@ -124,6 +124,7 @@
 	Gameplay:
 		Added 'offhand stike' as a combat move, which deals 100% of your offhand weapon's damage to the target.
 		Added a toggle in the content options to disable the 'Enchantment capacity' mechanic. (The game won't ever be balanced around this option being turned off, so you will be able to get very OP with it off.)
+		Clothing can now support multiple slots into which it can be fit. The 'rental_mommy.xml' file is no longer used as the example for modders, as I've made a 'template' folder as a tutorial instead, which explains how to define these multiple slot options.
 	
 	Contributors:
 		Fixed bug where the back button on the selfie page wasn't working. (Fix by Stadler)
@@ -142,6 +143,7 @@
 		Changed Vicky's shop icon on the map.
 		Youko can no longer alter the number of tails they have via TF potions.
 		Potions made from the Fox-morph racial ingredient (Chicken Pot Pie) can no longer grant Youko tails. (Both of these changes are in preparation for the lore-friendly Youko TF.)
+		Defined tail ribbon as being able to be alternatively equipped into the hair slot. Defined hair scrunchie as being able to be alternatively equipped into the wrist or tail slot.
 	
 	Bugs:
 		Fixed several parsing errors.
@@ -168,6 +170,8 @@
 		Fixed incorrect reference to KAte having black hair in her intro scenes.
 		Fixed issue with not being able to rename Youko slaves.
 		Fixed issue with altering a Youko's tail count not increasing their stats.
+		Clothing management during sex will now correctly use the rough description variant if the managing character is in the rough pace.
+	
 	
 	
 	
@@ -179,8 +183,6 @@
 	
 	Also, since it's now possible to transform Wolfgang and Karl into Winifred and Karla, it would be nice to see references to them in dialogues changed respectively.
 	
-	
-	define multiple slots clothing can go into?
 	
 	show clothing resistance in core name tooltip
 	
@@ -197,6 +199,8 @@
 	Not sure if it's been reported before but it seems the load enchantment menu would simply display a blank screen occasionally
 	
 	Oversight: Inspecting a naked slave gets them to strip even if they have no clothes
+	
+	add the ability to put the - symbol in the surname
 	
 	
 	Add a tag for restricting fingers

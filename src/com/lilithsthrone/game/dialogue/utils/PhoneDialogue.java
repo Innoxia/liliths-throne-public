@@ -39,6 +39,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
@@ -1802,8 +1803,14 @@ public class PhoneDialogue {
 					journalSB.append(
 							"<div class='container-full-width' style='margin-bottom:0;'>"
 							+ "<div class='container-full-width' style='width:calc(40% - 16px)'>"
-									+ "<b style='color:" + clothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</b> ("+Util.capitaliseSentence(clothing.getSlot().getName())+")"
-							+ "</div>"
+									+ "<b style='color:" + clothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</b> (");
+					
+					for(int i=0; i<clothing.getEquipSlots().size(); i++) {
+						InventorySlot slot = clothing.getEquipSlots().get(i);
+						journalSB.append(Util.capitaliseSentence(slot.getName())+(i==clothing.getEquipSlots().size()-1?"":"/"));
+					}
+					
+					journalSB.append(")</div>"
 							+ "<div class='container-full-width' style='width:calc(60% - 16px)'>");
 					
 					for (Colour c : clothing.getAllAvailablePrimaryColours()) {
@@ -1816,7 +1823,14 @@ public class PhoneDialogue {
 				} else {
 					journalSB.append(
 						"<div class='container-full-width' style='text-align:center; margin-bottom:0;'>"
-								+ "[style.boldDisabled(Undiscovered ("+Util.capitaliseSentence(clothing.getSlot().getName())+"))]"
+								+ "[style.boldDisabled(Undiscovered (");
+
+					for(int i=0; i<clothing.getEquipSlots().size(); i++) {
+						InventorySlot slot = clothing.getEquipSlots().get(i);
+						journalSB.append(Util.capitaliseSentence(slot.getName())+(i==clothing.getEquipSlots().size()-1?"":"/"));
+					}
+					
+					journalSB.append("))]"
 						+ "</div>");
 				}
 			}

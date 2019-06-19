@@ -15827,7 +15827,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		if(Main.game.isInSex() && Sex.getAllParticipants().contains(this)) {
-			switch(newClothing.getClothingType().getSlot()) {
+			switch(newClothing.getSlotEquippedTo()) {
 				case ANKLE:
 				case ANUS:
 				case CHEST:
@@ -15957,6 +15957,13 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 	}
+
+	/**
+	 * 	Uses <b>newClothing.getClothingType().getEquipSlots().get(0)</b> as the slot to equip into.
+	 */
+	public String equipClothingFromInventory(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper, GameCharacter fromCharactersInventory) {
+		return equipClothingFromInventory(newClothing, newClothing.getClothingType().getEquipSlots().get(0), automaticClothingManagement, characterClothingEquipper, fromCharactersInventory);
+	}
 	
 	/**
 	 * 
@@ -15966,12 +15973,12 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @param fromCharactersInventory The character who has this clothing in their inventory.
 	 * @return Equip description
 	 */
-	public String equipClothingFromInventory(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper, GameCharacter fromCharactersInventory) {
+	public String equipClothingFromInventory(AbstractClothing newClothing, InventorySlot slotToEquipInto, boolean automaticClothingManagement, GameCharacter characterClothingEquipper, GameCharacter fromCharactersInventory) {
 		fromCharactersInventory.removeClothing(newClothing);
 		
 		AbstractClothing clonedClothing = new AbstractClothing(newClothing) {};
 		
-		boolean wasAbleToEquip = inventory.isAbleToEquip(clonedClothing, true, automaticClothingManagement, this, characterClothingEquipper);
+		boolean wasAbleToEquip = inventory.isAbleToEquip(clonedClothing, slotToEquipInto, true, automaticClothingManagement, this, characterClothingEquipper);
 
 		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
@@ -15996,10 +16003,10 @@ public abstract class GameCharacter implements XMLSaving {
 	 * Overrides all clothing equip checks, making sure that this piece of clothing is equipped, no matter what. Should only be used in exceptional circumstances.
 	 * @param newClothing
 	 */
-	public void equipClothingOverride(AbstractClothing newClothing, boolean replaceClothing, boolean removeFromInventoryOrFloor) {
+	public void equipClothingOverride(AbstractClothing newClothing, InventorySlot slotToEquipInto, boolean replaceClothing, boolean removeFromInventoryOrFloor) {
 		List<InventorySlot> slotsToClear = new ArrayList<>();
-		slotsToClear.add(newClothing.getClothingType().getSlot());
-		slotsToClear.addAll(newClothing.getClothingType().getIncompatibleSlots(this));
+		slotsToClear.add(slotToEquipInto);
+		slotsToClear.addAll(newClothing.getClothingType().getIncompatibleSlots(this, slotToEquipInto));
 		
 		for(InventorySlot slot : slotsToClear) {
 			AbstractClothing clothing = this.getClothingInSlot(slot);
@@ -16023,10 +16030,17 @@ public abstract class GameCharacter implements XMLSaving {
 		updateInventoryListeners();
 	}
 
+	/**
+	 * 	Uses <b>newClothing.getClothingType().getEquipSlots().get(0)</b> as the slot to equip into.
+	 */
 	public String equipClothingFromNowhere(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
+		return equipClothingFromNowhere(newClothing, newClothing.getClothingType().getEquipSlots().get(0), automaticClothingManagement, characterClothingEquipper);
+	}
+	
+	public String equipClothingFromNowhere(AbstractClothing newClothing, InventorySlot slotToEquipInto, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
 		AbstractClothing clonedClothing = new AbstractClothing(newClothing) {};
 		
-		boolean wasAbleToEquip = inventory.isAbleToEquip(clonedClothing, true, automaticClothingManagement, this, characterClothingEquipper);
+		boolean wasAbleToEquip = inventory.isAbleToEquip(clonedClothing, slotToEquipInto, true, automaticClothingManagement, this, characterClothingEquipper);
 
 		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
@@ -16044,14 +16058,19 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getEquipDescription();
 	}
 
-
+	/**
+	 * 	Uses <b>newClothing.getClothingType().getEquipSlots().get(0)</b> as the slot to equip into.
+	 */
 	public String equipClothingFromGround(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
+		return equipClothingFromGround(newClothing, newClothing.getClothingType().getEquipSlots().get(0), automaticClothingManagement, characterClothingEquipper);
+	}
 
+	public String equipClothingFromGround(AbstractClothing newClothing, InventorySlot slotToEquipInto, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
 		Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(newClothing);
 		
 		AbstractClothing clonedClothing = new AbstractClothing(newClothing) {};
 		
-		boolean wasAbleToEquip = inventory.isAbleToEquip(clonedClothing, true, automaticClothingManagement, this, characterClothingEquipper);
+		boolean wasAbleToEquip = inventory.isAbleToEquip(clonedClothing, slotToEquipInto, true, automaticClothingManagement, this, characterClothingEquipper);
 
 		// If this item was able to be equipped, and it was equipped, apply its attribute bonuses:
 		if (wasAbleToEquip) {
@@ -16071,10 +16090,17 @@ public abstract class GameCharacter implements XMLSaving {
 
 		return inventory.getEquipDescription();
 	}
+	
 
-
+	/**
+	 * 	Uses <b>newClothing.getClothingType().getEquipSlots().get(0)</b> as the slot to equip into.
+	 */
 	public boolean isAbleToEquip(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
-		return inventory.isAbleToEquip(newClothing, false, automaticClothingManagement, this, characterClothingEquipper);
+		return isAbleToEquip(newClothing, newClothing.getClothingType().getEquipSlots().get(0), automaticClothingManagement, characterClothingEquipper);
+	}
+	
+	public boolean isAbleToEquip(AbstractClothing newClothing, InventorySlot slotToEquipInto, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
+		return inventory.isAbleToEquip(newClothing, slotToEquipInto, false, automaticClothingManagement, this, characterClothingEquipper);
 	}
 
 	public String getEquipDescription() {
@@ -16457,7 +16483,7 @@ public abstract class GameCharacter implements XMLSaving {
 		List<AbstractClothing> clothingEquipped = new ArrayList<>(this.getClothingCurrentlyEquipped());
 		List<AbstractClothing> clothingRemoved = new ArrayList<>();
 		
-		clothingEquipped.sort((c1, c2) -> c1.getClothingType().getSlot().getZLayer() - c2.getClothingType().getSlot().getZLayer());
+		clothingEquipped.sort((c1, c2) -> c1.getSlotEquippedTo().getZLayer() - c2.getSlotEquippedTo().getZLayer());
 		
 		if(removeSeals) {
 			for(AbstractClothing clothing : clothingEquipped) {

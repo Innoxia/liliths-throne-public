@@ -335,10 +335,10 @@ public class Nyan extends NPC {
 				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)) {
 					if(clothing.getRarity() == Rarity.COMMON) {
 						if(clothing.getFemininityRestriction()==Femininity.FEMININE) {
-							if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
+							if(ClothingType.getCoreClothingSlots().contains(clothing.getEquipSlots().get(0))) {
 								commonFemaleClothing.add(AbstractClothingType.generateClothing(clothing, false));
 								
-							} else if(ClothingType.getLingerieSlots().contains(clothing.getSlot())) {
+							} else if(ClothingType.getLingerieSlots().contains(clothing.getEquipSlots().get(0))) {
 								commonFemaleUnderwear.add(AbstractClothingType.generateClothing(clothing, false));
 								
 							} else {
@@ -346,10 +346,10 @@ public class Nyan extends NPC {
 							}
 							
 						} else if(clothing.getFemininityRestriction()==Femininity.MASCULINE) {
-							if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
+							if(ClothingType.getCoreClothingSlots().contains(clothing.getEquipSlots().get(0))) {
 								commonMaleClothing.add(AbstractClothingType.generateClothing(clothing, false));
 								
-							} else if(ClothingType.getLingerieSlots().contains(clothing.getSlot())) {
+							} else if(ClothingType.getLingerieSlots().contains(clothing.getEquipSlots().get(0))) {
 								commonMaleLingerie.add(AbstractClothingType.generateClothing(clothing, false));
 								
 							} else {
@@ -357,10 +357,10 @@ public class Nyan extends NPC {
 							}
 							
 						} else {
-							if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
+							if(ClothingType.getCoreClothingSlots().contains(clothing.getEquipSlots().get(0))) {
 								commonAndrogynousClothing.add(AbstractClothingType.generateClothing(clothing, false));
 								
-							} else if(ClothingType.getLingerieSlots().contains(clothing.getSlot())) {
+							} else if(ClothingType.getLingerieSlots().contains(clothing.getEquipSlots().get(0))) {
 								commonAndrogynousLingerie.add(AbstractClothingType.generateClothing(clothing, false));
 								
 							} else {

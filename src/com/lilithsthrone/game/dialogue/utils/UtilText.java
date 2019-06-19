@@ -5163,7 +5163,7 @@ public class UtilText {
 						try {
 							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
 							return UtilText.returnStringAtRandom(
-									clothing.getClothingType().getSlot()==InventorySlot.FOOT
+									clothing.getSlotEquippedTo()==InventorySlot.FOOT
 										?"footwear"
 										:clothing.getName()+"-clad-"+character.getLegType().getFootNameSingular(character),
 									clothing.getName(),
@@ -5192,7 +5192,7 @@ public class UtilText {
 						try {
 							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
 							return UtilText.returnStringAtRandom(
-									clothing.getClothingType().getSlot()==InventorySlot.FOOT
+									clothing.getSlotEquippedTo()==InventorySlot.FOOT
 									?"footwear"
 									:clothing.getName()+"-clad-"+character.getLegType().getFootNameSingular(character),
 									clothing.getName(),
@@ -5220,7 +5220,7 @@ public class UtilText {
 						try {
 							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
 							return UtilText.returnStringAtRandom(
-									clothing.getClothingType().getSlot()==InventorySlot.FOOT
+									clothing.getSlotEquippedTo()==InventorySlot.FOOT
 										?"footwear"
 										:clothing.getName()+"-clad-"+character.getLegType().getFootNamePlural(character),
 									clothing.getNamePlural(),
@@ -5249,7 +5249,7 @@ public class UtilText {
 						try {
 							AbstractClothing clothing = character.getHighestZLayerCoverableArea(CoverableArea.FEET);
 							return UtilText.returnStringAtRandom(
-									clothing.getClothingType().getSlot()==InventorySlot.FOOT
+									clothing.getSlotEquippedTo()==InventorySlot.FOOT
 										?"footwear"
 										:clothing.getName()+"-clad-"+character.getLegType().getFootNamePlural(character),
 									clothing.getNamePlural(),

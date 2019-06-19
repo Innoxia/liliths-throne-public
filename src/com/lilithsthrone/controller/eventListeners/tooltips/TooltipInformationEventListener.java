@@ -999,7 +999,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 			Map<InventorySlot, List<AbstractClothing>> concealedSlots = RenderingEngine.getCharacterToRender().getInventorySlotsConcealed();
 			
-			List<AbstractClothing> clothingVisible = concealedSlots.get(concealedSlot).stream().filter(clothing -> !concealedSlots.containsKey(clothing.getClothingType().getSlot())).collect(Collectors.toList());
+			List<AbstractClothing> clothingVisible = concealedSlots.get(concealedSlot).stream().filter(clothing -> !concealedSlots.containsKey(clothing.getSlotEquippedTo())).collect(Collectors.toList());
 			
 			Main.mainController.setTooltipSize(360, 175);
 

@@ -595,10 +595,11 @@ public class DebugDialogue {
 						inventorySB.append("<div class='inventory-item-slot unequipped "+ c.getRarity().getName() + "'>"
 								+ "<div class='inventory-icon-content'>"
 									+c.getSVGImage(
-										c.getAllAvailablePrimaryColours().get(0),
-										c.getAvailableSecondaryColours().isEmpty()?null:c.getAvailableSecondaryColours().get(0),
-										c.getAvailableTertiaryColours().isEmpty()?null:c.getAvailableTertiaryColours().get(0),
-										null, null, null, null)
+											c.getEquipSlots().get(0),
+											c.getAllAvailablePrimaryColours().get(0),
+											c.getAvailableSecondaryColours().isEmpty()?null:c.getAvailableSecondaryColours().get(0),
+											c.getAvailableTertiaryColours().isEmpty()?null:c.getAvailableTertiaryColours().get(0),
+											null, null, null, null)
 								+"</div>"
 								+ "<div class='overlay' id='" + c.getId() + "_SPAWN'></div>"
 							+ "</div>");
@@ -661,14 +662,15 @@ public class DebugDialogue {
 				
 			} else {
 				for(AbstractClothingType clothingType : clothingTotal) {
-					if(clothingType.getSlot()==activeSlot) {
+					if(clothingType.getEquipSlots().get(0)==activeSlot) {
 						inventorySB.append("<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "'>"
 												+ "<div class='inventory-icon-content'>"
 													+clothingType.getSVGImage(
-														clothingType.getAllAvailablePrimaryColours().get(0),
-														clothingType.getAvailableSecondaryColours().isEmpty()?null:clothingType.getAvailableSecondaryColours().get(0),
-														clothingType.getAvailableTertiaryColours().isEmpty()?null:clothingType.getAvailableTertiaryColours().get(0),
-														null, null, null, null)
+															clothingType.getEquipSlots().get(0),
+															clothingType.getAllAvailablePrimaryColours().get(0),
+															clothingType.getAvailableSecondaryColours().isEmpty()?null:clothingType.getAvailableSecondaryColours().get(0),
+															clothingType.getAvailableTertiaryColours().isEmpty()?null:clothingType.getAvailableTertiaryColours().get(0),
+															null, null, null, null)
 												+"</div>"
 												+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
 											+ "</div>");
@@ -794,10 +796,11 @@ public class DebugDialogue {
 										+ "<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
 											+ "<div class='inventory-icon-content'>"
 												+clothingType.getSVGImage(
-													Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
-													clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
-													clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
-													null, null, null, null)
+														clothingType.getEquipSlots().get(0),
+														Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
+														clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
+														clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
+														null, null, null, null)
 											+"</div>"
 											+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
 										+ "</div>"
@@ -807,7 +810,7 @@ public class DebugDialogue {
 				inventorySB.append("</div>");
 				
 			} else if(itemViewSlot!=null && itemViewSlot != InventorySlot.WEAPON_MAIN && itemViewSlot != InventorySlot.WEAPON_OFFHAND) {
-				List<AbstractClothingType> clothingToDisplay = clothingTotal.stream().filter((c) -> c.getSlot()==itemViewSlot).collect(Collectors.toList());
+				List<AbstractClothingType> clothingToDisplay = clothingTotal.stream().filter((c) -> c.getEquipSlots().get(0)==itemViewSlot).collect(Collectors.toList());
 				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
 						+ "<h5>Total '"+itemViewSlot.getName()+"' slot clothing: "+clothingToDisplay.size()+"</h5>");
 				for(AbstractClothingType clothingType : clothingToDisplay) {
@@ -815,10 +818,11 @@ public class DebugDialogue {
 							+ "<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
 								+ "<div class='inventory-icon-content'>"
 									+clothingType.getSVGImage(
-										Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
-										clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
-										clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
-										null, null, null, null)
+											clothingType.getEquipSlots().get(0),
+											Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
+											clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
+											clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
+											null, null, null, null)
 								+"</div>"
 								+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
 							+ "</div>"

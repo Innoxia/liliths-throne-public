@@ -2106,18 +2106,18 @@ public enum StatusEffect {
 			List<InventorySlot> slotsToClean = new ArrayList<>();
 			StringBuilder sb = new StringBuilder();
 			for(AbstractClothing clothing : new ArrayList<>(target.getClothingCurrentlyEquipped())) {
-				if(target.getDirtySlots().contains(clothing.getClothingType().getSlot())) {
-					slotsToClean.add(clothing.getClothingType().getSlot());
+				if(target.getDirtySlots().contains(clothing.getSlotEquippedTo())) {
+					slotsToClean.add(clothing.getSlotEquippedTo());
 					
 					boolean seals =
 							clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_ANUS)
 							|| clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_VAGINA)
 							|| clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_NIPPLES);
 					
-					if(clothing.getClothingType().getSlot()==InventorySlot.ANUS && (clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_ANUS) || clothing.getClothingType().getItemTags().contains(ItemTag.PLUGS_ANUS))
-							|| clothing.getClothingType().getSlot()==InventorySlot.VAGINA && (clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_VAGINA) || clothing.getClothingType().getItemTags().contains(ItemTag.PLUGS_VAGINA))
-							|| clothing.getClothingType().getSlot()==InventorySlot.NIPPLE && (clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_NIPPLES) || clothing.getClothingType().getItemTags().contains(ItemTag.PLUGS_NIPPLES))) {
-						sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
+					if(clothing.getSlotEquippedTo()==InventorySlot.ANUS && (clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_ANUS) || clothing.getClothingType().getItemTags().contains(ItemTag.PLUGS_ANUS))
+							|| clothing.getSlotEquippedTo()==InventorySlot.VAGINA && (clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_VAGINA) || clothing.getClothingType().getItemTags().contains(ItemTag.PLUGS_VAGINA))
+							|| clothing.getSlotEquippedTo()==InventorySlot.NIPPLE && (clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_NIPPLES) || clothing.getClothingType().getItemTags().contains(ItemTag.PLUGS_NIPPLES))) {
+						sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getSlotEquippedTo().getName()
 								+(seals
 										?" as you equip "+(clothing.getClothingType().isPlural()?"them":"it")
 										:" as you insert "+(clothing.getClothingType().isPlural()?"them into your orifices":"it into your orifice"))
@@ -2129,13 +2129,13 @@ public enum StatusEffect {
 							if(sb.length()>0) {
 								sb.append("<br/>");
 							}
-							sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
+							sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getSlotEquippedTo().getName()
 									+", <b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
 						}
 					}
 					
 				} else {
-					for(InventorySlot blockedSlot : clothing.getClothingType().getIncompatibleSlots(target)) {
+					for(InventorySlot blockedSlot : clothing.getClothingType().getIncompatibleSlots(target, clothing.getSlotEquippedTo())) {
 						if(target.getDirtySlots().contains(blockedSlot)) {
 							slotsToClean.add(blockedSlot);
 							if(!clothing.isDirty()) {
@@ -2143,7 +2143,7 @@ public enum StatusEffect {
 								if(sb.length()>0) {
 									sb.append("<br/>");
 								}
-								sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
+								sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getSlotEquippedTo().getName()
 										+", <b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
 							}
 						}
@@ -8203,7 +8203,7 @@ public enum StatusEffect {
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
 				for(AbstractClothing c : new ArrayList<>(target.getClothingCurrentlyEquipped())) {
 					if(target.isAbleToUnequip(c, false, target)
-							&& !c.getClothingType().getSlot().isJewellery()) {
+							&& !c.getSlotEquippedTo().isJewellery()) {
 						suitableClothing.add(c);
 					}
 				}
@@ -8261,7 +8261,7 @@ public enum StatusEffect {
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
 				for(AbstractClothing c : new ArrayList<>(target.getClothingCurrentlyEquipped())) {
 					if(target.isAbleToUnequip(c, false, target)
-							&& !c.getClothingType().getSlot().isJewellery()) {
+							&& !c.getSlotEquippedTo().isJewellery()) {
 						suitableClothing.add(c);
 					}
 				}

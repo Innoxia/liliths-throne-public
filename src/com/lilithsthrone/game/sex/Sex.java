@@ -227,7 +227,7 @@ public class Sex {
 	
 	private static AbstractClothing clothingBeingRemoved;
 	
-	private static Map<GameCharacter, Map<AbstractClothing, List<DisplacementType>>> clothingPreSexMap;
+	private static Map<GameCharacter, Map<InventorySlot, Map<AbstractClothing, List<DisplacementType>>>> clothingPreSexMap;
 	
 	private static boolean sexFinished;
 	
@@ -539,7 +539,8 @@ public class Sex {
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			clothingPreSexMap.put(character, new HashMap<>());
 			for (AbstractClothing c : character.getClothingCurrentlyEquipped()) {
-				clothingPreSexMap.get(character).put(c, new ArrayList<>(c.getDisplacedList()));
+				clothingPreSexMap.get(character).put(c.getSlotEquippedTo(), new HashMap<>());
+				clothingPreSexMap.get(character).get(c.getSlotEquippedTo()).put(c, new ArrayList<>(c.getDisplacedList()));
 			}
 		}
 
@@ -622,50 +623,52 @@ public class Sex {
 		Main.game.setInSex(false);
 		
 		// Restore clothes:
-		for(Entry<GameCharacter, Map<AbstractClothing, List<DisplacementType>>> entry : clothingPreSexMap.entrySet()) {
+		for(Entry<GameCharacter, Map<InventorySlot, Map<AbstractClothing, List<DisplacementType>>>> entry : clothingPreSexMap.entrySet()) {
 			GameCharacter character = entry.getKey();
 			if(character.isUnique() && !character.isPlayer()) { // Backup for unique NPCs, as they shouldn't be able to have clothing put on them during sex:
 				List<AbstractClothing> equippedClothing = new ArrayList<>(character.getClothingCurrentlyEquipped());
 				for(AbstractClothing c : equippedClothing) {
 					AbstractClothing clean = new AbstractClothing(c) {};
 					clean.setDirty(null, false);
-					if(!entry.getValue().keySet().contains(c) && !entry.getValue().keySet().contains(clean)) {
+					if(!entry.getValue().get(c.getSlotEquippedTo()).keySet().contains(c) && !entry.getValue().get(c.getSlotEquippedTo()).keySet().contains(clean)) {
 						character.forceUnequipClothingIntoVoid(character, c);
 						character.getCell().getInventory().addClothing(c);
 					}
 				}
 			}
 			
-			for (AbstractClothing c : entry.getValue().keySet()) {
-				if(!c.getClothingType().isDiscardedOnUnequip()) {
-					AbstractClothing dirtyClone = new AbstractClothing(c) {};
-					dirtyClone.setDirty(null, true);
-					AbstractClothing clothingEquipped = character.getClothingInSlot(c.getClothingType().getSlot());
-					if (clothingEquipped==null) {
-						// Only re-equip if that slot is empty, as some endSex methods force clothing on the player:
-						if(character.getCell().getInventory().hasClothing(c) || character.hasClothing(c)) {
-							character.equipClothingOverride(c, false, true);
-						} else if(character.getCell().getInventory().hasClothing(dirtyClone) || character.hasClothing(dirtyClone)) {
-							character.equipClothingOverride(dirtyClone, false, true);
+			for (Entry<InventorySlot, Map<AbstractClothing, List<DisplacementType>>> entry2 : entry.getValue().entrySet()) {
+				for (AbstractClothing c : entry2.getValue().keySet()) {
+					if(!c.getClothingType().isDiscardedOnUnequip()) {
+						AbstractClothing dirtyClone = new AbstractClothing(c) {};
+						dirtyClone.setDirty(null, true);
+						AbstractClothing clothingEquipped = character.getClothingInSlot(entry2.getKey());
+						if (clothingEquipped==null) {
+							// Only re-equip if that slot is empty, as some endSex methods force clothing on the player:
+							if(character.getCell().getInventory().hasClothing(c) || character.hasClothing(c)) {
+								character.equipClothingOverride(c, entry2.getKey(), false, true);
+							} else if(character.getCell().getInventory().hasClothing(dirtyClone) || character.hasClothing(dirtyClone)) {
+								character.equipClothingOverride(dirtyClone, entry2.getKey(), false, true);
+							}
 						}
-					}
-					if(Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)) {
-						for(AbstractClothing clothing : new ArrayList<>(character.getClothingCurrentlyEquipped())) {
-							if(clothing.getClothingType().equals(c.getClothingType())) {
-								clothing.getDisplacedList().clear();
-								if(entry.getValue().get(c)!=null) {
-									for(DisplacementType displacement : entry.getValue().get(c)) {
-										character.isAbleToBeDisplaced(clothing, displacement, true, true, character);
+						if(Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)) {
+							for(AbstractClothing clothing : new ArrayList<>(character.getClothingCurrentlyEquipped())) {
+								if(clothing.getClothingType().equals(c.getClothingType())) {
+									clothing.getDisplacedList().clear();
+									if(entry2.getValue().get(c)!=null) {
+										for(DisplacementType displacement : entry2.getValue().get(c)) {
+											character.isAbleToBeDisplaced(clothing, displacement, true, true, character);
+										}
 									}
 								}
 							}
+							
+						} else if(character.getCell().getInventory().hasClothing(c)) { // Try to pick up their clothing if it's on the floor:
+							character.addClothing(c, true);
+							
+						} else if(character.getCell().getInventory().hasClothing(dirtyClone)) { // Try to pick up their clothing if it's on the floor:
+							character.addClothing(dirtyClone, true);
 						}
-						
-					} else if(character.getCell().getInventory().hasClothing(c)) { // Try to pick up their clothing if it's on the floor:
-						character.addClothing(c, true);
-						
-					} else if(character.getCell().getInventory().hasClothing(dirtyClone)) { // Try to pick up their clothing if it's on the floor:
-						character.addClothing(dirtyClone, true);
 					}
 				}
 			}

@@ -112,6 +112,11 @@ public class TooltipInventoryEventListener implements EventListener {
 			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 446);
 
 			Colour subtitleColour = dyeClothing.isEnchantmentKnown()?dyeClothing.getRarity().getColour():Colour.RARITY_UNKNOWN;
+
+			InventorySlot slotEquippedTo = dyeClothing.getSlotEquippedTo();
+			if(slotEquippedTo==null) {
+				slotEquippedTo = dyeClothing.getClothingType().getEquipSlots().get(0);
+			}
 			
 			tooltipSB.setLength(0);
 			if(colour!=null) {
@@ -119,6 +124,7 @@ public class TooltipInventoryEventListener implements EventListener {
 						+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
 						+ "<div class='picture full' style='position:relative;'>"
 						+ dyeClothing.getClothingType().getSVGImage(
+								slotEquippedTo,
 								colour, InventoryDialogue.dyePreviewSecondary, InventoryDialogue.dyePreviewTertiary,
 								InventoryDialogue.dyePreviewPattern,
 								InventoryDialogue.dyePreviewPatternPrimary, InventoryDialogue.dyePreviewPatternSecondary, InventoryDialogue.dyePreviewPatternTertiary)
@@ -129,6 +135,7 @@ public class TooltipInventoryEventListener implements EventListener {
 						+ "<div class='subTitle'>" + Util.capitaliseSentence(secondaryColour.getName()) + "</div>"
 						+ "<div class='picture full' style='position:relative;'>"
 						+ dyeClothing.getClothingType().getSVGImage(
+								slotEquippedTo,
 								InventoryDialogue.dyePreviewPrimary, secondaryColour, InventoryDialogue.dyePreviewTertiary,
 								InventoryDialogue.dyePreviewPattern,
 								InventoryDialogue.dyePreviewPatternPrimary, InventoryDialogue.dyePreviewPatternSecondary, InventoryDialogue.dyePreviewPatternTertiary)
@@ -139,6 +146,7 @@ public class TooltipInventoryEventListener implements EventListener {
 						+ "<div class='subTitle'>" + Util.capitaliseSentence(tertiaryColour.getName()) + "</div>"
 						+ "<div class='picture full' style='position:relative;'>"
 						+ dyeClothing.getClothingType().getSVGImage(
+								slotEquippedTo,
 								InventoryDialogue.dyePreviewPrimary, InventoryDialogue.dyePreviewSecondary, tertiaryColour,
 								InventoryDialogue.dyePreviewPattern,
 								InventoryDialogue.dyePreviewPatternPrimary, InventoryDialogue.dyePreviewPatternSecondary, InventoryDialogue.dyePreviewPatternTertiary)
@@ -149,7 +157,9 @@ public class TooltipInventoryEventListener implements EventListener {
 						
 						+ "<div class='subTitle'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</div>"
 	
-						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(
+						+ "<div class='picture full' style='position:relative;'>"
+						+ dyeClothing.getClothingType().getSVGImage(
+								slotEquippedTo,
 								InventoryDialogue.dyePreviewPrimary, InventoryDialogue.dyePreviewSecondary, InventoryDialogue.dyePreviewTertiary,
 								pattern.getName(),
 								InventoryDialogue.dyePreviewPatternPrimary, InventoryDialogue.dyePreviewPatternSecondary, InventoryDialogue.dyePreviewPatternTertiary)
@@ -200,10 +210,11 @@ public class TooltipInventoryEventListener implements EventListener {
 					+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
 
 					+ "<div class='picture' style='position:relative; width:"+(TOOLTIP_WIDTH-24)+"px; margin:8px; padding:0; height:"+(TOOLTIP_WIDTH-24)+"px;'>"
-						+ genericClothing.getSVGImage(colour,
-							genericClothing.getAvailableSecondaryColours().isEmpty()?null:genericClothing.getAvailableSecondaryColours().get(0),
-							genericClothing.getAvailableTertiaryColours().isEmpty()?null:genericClothing.getAvailableTertiaryColours().get(0),
-							null, null, null, null)
+						+ genericClothing.getSVGImage(
+								genericClothing.getEquipSlots().get(0),
+								colour, genericClothing.getAvailableSecondaryColours().isEmpty()?null:genericClothing.getAvailableSecondaryColours().get(0),
+								genericClothing.getAvailableTertiaryColours().isEmpty()?null:genericClothing.getAvailableTertiaryColours().get(0),
+								null, null, null, null)
 					+ "</div>"
 					+ (author.isEmpty()?"":"<div class='description' style='height:48px;'>" + author + "</div>"));
 			
@@ -272,7 +283,7 @@ public class TooltipInventoryEventListener implements EventListener {
 						
 						List<String> clothingBlockingThisSlot = new ArrayList<>();
 						for (AbstractClothing c : equippedToCharacter.getClothingCurrentlyEquipped()) {
-							if (c.getClothingType().getIncompatibleSlots(equippedToCharacter).contains(invSlot)) {
+							if (c.getClothingType().getIncompatibleSlots(equippedToCharacter, c.getSlotEquippedTo()).contains(invSlot)) {
 								clothingBlockingThisSlot.add(c.getName());
 							}
 						}
@@ -961,8 +972,13 @@ public class TooltipInventoryEventListener implements EventListener {
 		int yIncrease = 0;
 				
 		int listIncrease = 1 + absClothing.getAttributeModifiers().size();
-
-		yIncrease += absClothing.getExtraDescriptions(equippedToCharacter).size();
+		
+		InventorySlot slotEquippedTo = absClothing.getSlotEquippedTo();
+		if(slotEquippedTo==null) {
+			slotEquippedTo = absClothing.getClothingType().getEquipSlots().get(0);
+		}
+		
+		yIncrease += absClothing.getExtraDescriptions(equippedToCharacter, slotEquippedTo).size();
 		
 		for(ItemEffect ie : absClothing.getEffects()) {
 			if(ie.getPrimaryModifier()==TFModifier.CLOTHING_ENSLAVEMENT
@@ -985,7 +1001,21 @@ public class TooltipInventoryEventListener implements EventListener {
 			+ "<div class='container-full-width center'><h5>" + Util.capitaliseSentence(absClothing.getDisplayName(true)) + "</h5></div>");
 
 		// Core info:
-		tooltipSB.append("<div class='container-half-width titular'>" + Util.capitaliseSentence(absClothing.getClothingType().getSlot().getName()) + "</div>");
+		tooltipSB.append("<div class='container-half-width titular'>");
+			for(int i=0; i<absClothing.getClothingType().getEquipSlots().size(); i++) {
+				InventorySlot slot = absClothing.getClothingType().getEquipSlots().get(i);
+				boolean equipped = absClothing.getSlotEquippedTo() == slot;
+				tooltipSB.append(
+						(equipped || absClothing.getSlotEquippedTo()==null
+							?Util.capitaliseSentence(slot.getName())
+							:"[style.colourDisabled("+Util.capitaliseSentence(slot.getName())+")]")
+						+(i==absClothing.getClothingType().getEquipSlots().size()-1
+							?""
+							:(absClothing.getSlotEquippedTo()!=null
+								?"[style.colourDisabled(/)]"
+								:"/")));
+			}
+		tooltipSB.append("</div>");
 		tooltipSB.append("<div class='container-half-width titular'>"
 							+ (absClothing.getClothingType().getClothingSet() == null
 								? "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Not part of a set</span>"
@@ -1043,11 +1073,11 @@ public class TooltipInventoryEventListener implements EventListener {
 					+ "</div>");
 		
 		tooltipSB.append("<div class='container-full-width titular'>");
-		if (absClothing.getExtraDescriptions(equippedToCharacter).isEmpty()) {
+		if (absClothing.getExtraDescriptions(equippedToCharacter, slotEquippedTo).isEmpty()) {
 			tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No Status</span>");
 		} else {
 			tooltipSB.append("<b>Status</b>");
-			for (String s : absClothing.getExtraDescriptions(equippedToCharacter)) {
+			for (String s : absClothing.getExtraDescriptions(equippedToCharacter, slotEquippedTo)) {
 				tooltipSB.append("<br/>" + s);
 			}
 		}

@@ -170,8 +170,8 @@ public enum RenderingEngine {
 		Set<InventorySlot> blockedSlots = new HashSet<>();
 		
 		for (AbstractClothing c : charactersInventoryToRender.getClothingCurrentlyEquipped()) {
-			if (c.getClothingType().getIncompatibleSlots(charactersInventoryToRender) != null) {
-				for (InventorySlot is : c.getClothingType().getIncompatibleSlots(charactersInventoryToRender)) {
+			if (c.getClothingType().getIncompatibleSlots(charactersInventoryToRender, c.getSlotEquippedTo()) != null) {
+				for (InventorySlot is : c.getClothingType().getIncompatibleSlots(charactersInventoryToRender, c.getSlotEquippedTo())) {
 					blockedSlots.add(is);
 				}
 			}
