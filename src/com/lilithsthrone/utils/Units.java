@@ -374,6 +374,10 @@ public enum Units {
             return fluidAsImperial(ml, vType, uType);
     }
 
+    public static float mlToOz(float ml) {
+    	return (float) (ml / 28.4131);
+    }
+    
     /**
      * Converts a fluid volume, given in millilitres, to the imperial form.
      * @param ml Amount of millilitres to convert
@@ -477,7 +481,12 @@ public enum Units {
         boolean wrap = Math.abs(wrappedValue) >= 1 && vType != ValueType.PRECISE;
         double usedValue = wrap ? wrappedValue : value;
         if (useQuarters) usedValue = roundTo(usedValue, 0.25);
-
+        
+        if(value>0 && usedValue==0) {
+        	output.append("&lt;");
+        	usedValue = 0.25;
+        }
+        
         // Append value with increased precision if it is wrapped and numeric
         output.append(value(usedValue, wrap && vType == ValueType.NUMERIC ? ValueType.PRECISE : vType, useQuarters));
 

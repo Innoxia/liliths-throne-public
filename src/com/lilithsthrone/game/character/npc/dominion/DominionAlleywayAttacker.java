@@ -158,6 +158,7 @@ public class DominionAlleywayAttacker extends NPC {
 			CharacterUtils.setHistoryAndPersonality(this, true);
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				this.setHistory(Occupation.NPC_MUGGER);
+				setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 			}
 			
 			// ADDING FETISHES:
@@ -179,8 +180,8 @@ public class DominionAlleywayAttacker extends NPC {
 			}
 			CharacterUtils.applyMakeup(this, true);
 			
-			// Set starting attributes based on the character's race
-			initAttributes();
+			// Set starting perks based on the character's race
+			initPerkTreeAndBackgroundPerks();
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));

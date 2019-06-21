@@ -15,6 +15,10 @@ public enum CharacterImportSetting {
 	
 	NO_COMPANIONS,
 	
-	NO_PREGNANCY;
+	NO_PREGNANCY,
+	
+	CLEAR_KEY_ITEMS,
+	
+	REMOVE_RACE_CONCEALED;
 	
 }

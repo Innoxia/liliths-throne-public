@@ -820,10 +820,10 @@
 		She curtsies to you before stepping back to pick something up she'd left outside. A moment later, she steps back into your room, carrying one of those strange floodlight-like instruments from Lilaya's lab.
 	</p>
 	<p>
-		[rose.speech(Good evening, Mistress would like to monitor your aura as you sleep, so she needs to put this in here,)] Rose explains, setting up the instrument in one corner of your room as she continues speaking, [rose.speech(Mistress also said that you can come back to the lab whenever you're ready for your next test. There's no rush, so if you wanted to go out and get some other clothing, or explore Dominion, then you can do all that first.)]
+		[rose.speech(Good evening, Mistress would like to monitor your aura as you sleep, so she needs to put this in here,)] Rose explains, setting up the instrument in one corner of your room as she continues speaking, [rose.speech(Mistress also said that you can come back to the lab whenever you're ready for your next test. There's no rush, so if you wanted to go out and get some other clothing, or explore Dominion, then you can do all that first. Oh, and on the subject of clothing, Mistress also tasked me to warn you about the dangers of enchanted clothing, weapons, and tattoos. If you go out and buy some of these, please be aware that there's a limit to how many arcane enchantments a person can handle at once. Push yourself past your enchantment stability, and the arcane will very quickly start to drain your energy, as well as to remove any inhibitions you have regarding degrading sexual acts... So don't buy too much, and be careful.)]
 	</p>
 	<p>
-		[pc.speech(Ah, well, I can't really go shopping... I don't think my credit card's going to work here,)] you explain.
+		[pc.speech(Ah, well, that's not really a problem right now. That is to say, I can't really go shopping; I don't think my credit card's going to work here,)] you explain.
 	</p>
 	<p>
 		[rose.speech(Well, I don't know what a credit card is, but if you're trying to say you've got no money, then Mistress already thought of that.)]

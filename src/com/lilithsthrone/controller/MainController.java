@@ -1414,7 +1414,30 @@ public class MainController implements Initializable {
 					"");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
-
+		
+		id = "INVENTORY_ENCHANTMENT_LIMIT";
+		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
+					Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName()),
+					"The total amount of weapon, clothing, and tattoo attribute enchantments you're able to handle without incurring massive penalties."
+					+" Your maximum is calculated from: <i>10 + (level) + (perk gains)</i>");
+			addEventListener(documentAttributes, id, "mouseenter", el2, false);
+		}
+		
+		id = "INVENTORY_ENCHANTMENT_LIMIT_NPC";
+		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
+					Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName()),
+					UtilText.parse(RenderingEngine.getCharacterToRender(),
+							"The total amount of weapon, clothing, and tattoo attribute enchantments you're able to handle without incurring massive penalties."
+								+" [npc.Her] maximum is calculated from: <i>10 + (level) + (perk gains)</i>"));
+			addEventListener(documentAttributes, id, "mouseenter", el2, false);
+		}
+		
 		id = "DATE_DISPLAY_TOGGLE";
 		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 			((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {

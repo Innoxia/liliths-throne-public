@@ -58,7 +58,7 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(source);
             return UtilText.parse(source, target,
             		"Deliver a powerful hoof-kick to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target)) + " damage."
+            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
             				+ (source.isLegMovementHindered()?" [style.italicsMinorBad(Damage is reduced to 10% as [npc.her] clothing is hindering leg movement!)]":""));
         }
 
@@ -66,7 +66,7 @@ public class CMSpecialAttack {
         public String getDescription() {
             DamageType damageType = getDamageType(Main.game.getPlayer());
             return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] strong legs to deliver a powerful kick to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer())) + " damage."
+            		"[npc.Name] can use [npc.her] strong legs to deliver a powerful kick to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
             				+ "[style.italicsMinorBad(Damage is reduced to 10% if [npc.her] clothing hinders leg movement.)]");
         }
 
@@ -84,11 +84,11 @@ public class CMSpecialAttack {
             		(source.isLegMovementHindered()
             				?"As [npc.her] clothing is restricting [npc.her] leg movement, [npc.name] [npc.verb(struggle)] to put any power behind [npc.her] kick, dealing minimal damage to [npc2.name]..."
             				:"[npc.Name] [npc.verb(turn)] to one side, before kicking out and powerfully striking [npc2.name] with [npc.her] "+(source.getLegConfiguration()==LegConfiguration.TAUR?"hoofs":"hoof")+"!"),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage) + " damage!",
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
             		(isCrit
             			?"[npc.Name] immediately strikes again in an attempt to break through [npc2.namePos] block!"
             			:null),
-                	"[npc2.Name] took an additional " + getFormattedDamage(damageType, dealtCritDamage) + " damage!");
+                	"[npc2.Name] took an additional " + getFormattedDamage(damageType, dealtCritDamage, target, true) + " damage!");
         }
 
         @Override
@@ -139,7 +139,7 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(source);
             return UtilText.parse(source, target,
             		"Deliver a vicious slash to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target, false)) + " damage."
+            				+ getFormattedDamage(damageType, getDamage(source, target, false), target, false) + " damage."
             				+ (source.isArmMovementHindered()?" [style.italicsMinorBad(Damage is reduced to 50% as [npc.her] clothing is hindering arm movement!)]":""));
         }
 
@@ -147,7 +147,7 @@ public class CMSpecialAttack {
         public String getDescription() {
             DamageType damageType = getDamageType(Main.game.getPlayer());
             return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] feline claws to deliver a vicious slash to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer())) + " damage."
+            		"[npc.Name] can use [npc.her] feline claws to deliver a vicious slash to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
             				+ "[style.italicsMinorBad(Damage is reduced to 50% if [npc.her] clothing hinders arm movement.)]");
         }
 
@@ -161,7 +161,7 @@ public class CMSpecialAttack {
             		(source.isArmMovementHindered()
             				?"As [npc.her] clothing is restricting [npc.her] arm movement, [npc.name] [npc.verb(struggle)] to land [npc.her] slashing attack, dealing only half damage to [npc2.name]..."
             				:"Extending the claws on [npc.her] anthropomorphic cat-like hands, [npc.name] quickly [npc.verb(dash)] forwards, attempting to slash at [npc2.name]!"),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage) + " damage!",
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
             		(isCrit
             			?"[npc.NamePos] slash is particularly effective!"
             			:null),
@@ -205,14 +205,14 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(source);
             return UtilText.parse(source, target,
             		"Deliver a thunderous tail-smack to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target, false)) + " damage.");
+            				+ getFormattedDamage(damageType, getDamage(source, target, false), target, false) + " damage.");
         }
 
         @Override
         public String getDescription() {
             DamageType damageType = getDamageType(Main.game.getPlayer());
             return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] alligator tail to deliver a thunderous smack to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer())) + " damage.");
+            		"[npc.Name] can use [npc.her] alligator tail to deliver a thunderous smack to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage.");
         }
 
         @Override
@@ -223,7 +223,7 @@ public class CMSpecialAttack {
             
             return formatAttackOutcome(source, target,
             		"[npc.Name] [npc.verb(turn)] to one side, using the momentum to smack [npc.her] huge, alligator-like tail straight into [npc2.name]!",
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage) + " damage!",
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
             		(isCrit
         				?"[npc.NamePos] tail swipe is particularly effective!"
             			:null),
@@ -267,7 +267,7 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(source);
             return UtilText.parse(source, target,
             		"Deliver a vicious scratch to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target, false)) + " damage."
+            				+ getFormattedDamage(damageType, getDamage(source, target, false), target, false) + " damage."
             				+ (source.isArmMovementHindered()?" [style.italicsMinorBad(Damage is reduced to 50% as [npc.her] clothing is hindering arm movement!)]":""));
         }
 
@@ -275,7 +275,7 @@ public class CMSpecialAttack {
         public String getDescription() {
             DamageType damageType = getDamageType(Main.game.getPlayer());
             return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] sharp claws to deliver a vicious slash to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer())) + " damage."
+            		"[npc.Name] can use [npc.her] sharp claws to deliver a vicious slash to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
             				+ "[style.italicsMinorBad(Damage is reduced to 50% if [npc.her] clothing hinders arm movement.)]");
         }
 
@@ -295,11 +295,11 @@ public class CMSpecialAttack {
             		(source.isArmMovementHindered()
             				?"As [npc.her] clothing is restricting [npc.her] arm movement, [npc.name] [npc.verb(struggle)] to land [npc.her] scratch attack, dealing only half damage to [npc2.name]..."
             				:"Extending the claws on [npc.her] anthropomorphic squirrel-like hands, [npc.name] quickly [npc.verb(dash)] forwards, attempting to scratch at [npc2.name]!"),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage) + " damage!",
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
             		(isCrit
             			?"[npc.Name] rapidly [npc.verb(scratch)] [npc2.name] two more times!"
             			:null),
-                	"[npc2.Name] took an additional "+getFormattedDamage(damageType, dealtCritDamage2)+", and then another "+getFormattedDamage(damageType, dealtCritDamage3)+" damage!");
+                	"[npc2.Name] took an additional "+getFormattedDamage(damageType, dealtCritDamage2, target, true)+", and then another "+getFormattedDamage(damageType, dealtCritDamage3, target, true)+" damage!");
         }
     };
 
@@ -334,7 +334,7 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(source);
             return UtilText.parse(source, target,
             		"Deliver a savage series of slashes to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target, false)) + " damage."
+            				+ getFormattedDamage(damageType, getDamage(source, target, false), target, false) + " damage."
             				+ (source.isArmMovementHindered()?" [style.italicsMinorBad(Damage is reduced to 50% as [npc.her] clothing is hindering arm movement!)]":""));
         }
 
@@ -342,7 +342,7 @@ public class CMSpecialAttack {
         public String getDescription() {
             DamageType damageType = getDamageType(Main.game.getPlayer());
             return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] sharp claws to deliver a savage series of slashes to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer())) + " damage."
+            		"[npc.Name] can use [npc.her] sharp claws to deliver a savage series of slashes to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
             				+ "[style.italicsMinorBad(Damage is reduced to 50% if [npc.her] clothing hinders arm movement.)]");
         }
 
@@ -358,7 +358,7 @@ public class CMSpecialAttack {
             				:"With a savage howl, [npc.name] [npc.verb(launch)] [npc.herself] at [npc2.name]!"
             					+ " [npc.Her] wolf-like muzzle clamps down on one of [npc2.her] [npc2.arms], and [npc.she] [npc.verb(rake)] at [npc2.her] body with [npc.her] sharp claws,"
 									+ " doing a considerable amount of damage before [npc2.she] [npc2.verb(manage)] to break free."),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage) + " damage!",
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
             		(isCrit
             			?"The ferocity of [npc.namePos] attack catches [npc2.name] off guard!"
             			:null),
@@ -413,14 +413,14 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(source);
             return UtilText.parse(source, target,
             		"Deliver a powerful headbutt to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target, false)) + " damage.");
+            				+ getFormattedDamage(damageType, getDamage(source, target, false), target, false) + " damage.");
         }
 
         @Override
         public String getDescription() {
             DamageType damageType = getDamageType(Main.game.getPlayer());
             return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] antlers to deliver a powerful headbutt to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer())) + " damage.");
+            		"[npc.Name] can use [npc.her] antlers to deliver a powerful headbutt to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage.");
         }
 
         @Override
@@ -431,7 +431,7 @@ public class CMSpecialAttack {
             
             return formatAttackOutcome(source, target,
             		"With a burst of energy, [npc.name] [npc.verb(leap)] forwards, ramming [npc.her] forehead into [npc2.namePos] body and whacking [npc2.herHim] with the sides of [npc.her] antlers.",
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage) + " damage!",
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
             		(isCrit
             			? "[npc.NamePos] headbutt is particularly effective!"
             			:null),
@@ -475,14 +475,14 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(source);
             return UtilText.parse(source, target,
             		"Deliver a powerful headbutt to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target, false)) + " damage.");
+            				+ getFormattedDamage(damageType, getDamage(source, target, false), target, false) + " damage.");
         }
 
         @Override
         public String getDescription() {
             DamageType damageType = getDamageType(Main.game.getPlayer());
             return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] horns to deliver a powerful headbutt to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer())) + " damage.");
+            		"[npc.Name] can use [npc.her] horns to deliver a powerful headbutt to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage.");
         }
 
         @Override
@@ -493,7 +493,7 @@ public class CMSpecialAttack {
             
             return formatAttackOutcome(source, target,
             		"With a burst of energy, [npc.name] [npc.verb(leap)] forwards, ramming [npc.her] forehead into [npc2.namePos] body and whacking [npc2.herHim] with the sides of [npc.her] horns.",
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage) + " damage!",
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
             		(isCrit
             			?"[npc.NamePos] headbutt is particularly effective!"
             			:null),
@@ -542,7 +542,7 @@ public class CMSpecialAttack {
             DamageType damageType = getDamageType(source);
             return UtilText.parse(source, target,
             		"Deliver a feral bite to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target, false)) + " damage."
+            				+ getFormattedDamage(damageType, getDamage(source, target, false), target, false) + " damage."
             				+ (!source.isCoverableAreaExposed(CoverableArea.MOUTH)?" [style.italicsBad(Damage is reduced to 0% as [npc.her] clothing is blocking [npc.her] mouth!)]":""));
         }
 
@@ -550,7 +550,7 @@ public class CMSpecialAttack {
         public String getDescription() {
             DamageType damageType = getDamageType(Main.game.getPlayer());
             return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] anthropomorphic face to deliver a feral bite to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer())) + " damage."
+            		"[npc.Name] can use [npc.her] anthropomorphic face to deliver a feral bite to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
             				+ " [style.italicsBad(Damage is reduced to 0% if [npc.her] clothing is blocking [npc.her] mouth.)]");
         }
         
@@ -566,7 +566,7 @@ public class CMSpecialAttack {
             				:"With a burst of energy, [npc.name] [npc.verb(leap)] forwards, trying to bite [npc2.name]!"
             					+ " [npc.Her] [npc.mouth] clamps down on [npc2.her] [npc2.arm],"
 										+ " and [npc.she] [npc.verb(manage)] to cause some serious damage with [npc.her] "+(source.getFaceType()==FaceType.HARPY?"sharp beak":"animalistic teeth")+" before [npc2.she] [npc2.verb(pull)] free."),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage) + " damage!",
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
             		(isCrit
             			?"[npc.NamePos] feral bite is particularly effective!"
             			:null),

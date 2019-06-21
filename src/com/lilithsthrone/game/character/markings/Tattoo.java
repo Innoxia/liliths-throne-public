@@ -264,6 +264,14 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	}
 
 	public String getDisplayName(boolean withRarityColour) {
+
+		if(!this.getName().replaceAll("\u00A0"," ").equalsIgnoreCase(this.getType().getName().replaceAll("\u00A0"," "))) { // If this tattoo has a custom name, just display that:
+			return (withRarityColour
+						? " <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>" + getName() + "</span>"
+						: getName());
+//					+" tattoo";
+		}
+		
 		return Util.capitaliseSentence(this.getPrimaryColour().getName()) + " "
 				+ (withRarityColour
 					?" <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>"
@@ -332,6 +340,10 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		}
 		
 		return attributeModifiers;
+	}
+	
+	public int getEnchantmentStabilityCost() {
+		return this.getAttributeModifiers().values().stream().reduce(0, (a, b) -> a + Math.max(0, b));//Math.abs(b));
 	}
 	
 	public AbstractTattooType getType() {

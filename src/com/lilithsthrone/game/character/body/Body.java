@@ -161,8 +161,8 @@ public class Body implements XMLSaving {
 		private Antenna antenna = new Antenna(AntennaType.NONE);
 		private BreastCrotch breastCrotch = new BreastCrotch(BreastType.NONE, BreastShape.ROUND, 0, 0, 1, 1, NippleShape.NORMAL, 1, 1, 0, 0, 0, true);
 		private Horn horn = new Horn(HornType.NONE, 0);
-		private Penis penis = new Penis(PenisType.NONE, 0, 0, 0, 0, 0);
-		private Penis secondPenis = new Penis(PenisType.NONE, 0, 0, 0, 0, 0);
+		private Penis penis = new Penis(PenisType.NONE, 0, false, 0, 0, 0, 0);
+		private Penis secondPenis = new Penis(PenisType.NONE, 0, false, 0, 0, 0, 0);
 		private Tail tail = new Tail(TailType.NONE);
 		private Tentacle tentacle = new Tentacle(TentacleType.NONE);
 		private Vagina vagina = new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true);
@@ -1225,6 +1225,7 @@ public class Body implements XMLSaving {
 		
 		Penis importedPenis = new Penis(PenisType.getTypeFromString(penis.getAttribute("type")),
 				Integer.valueOf(penis.getAttribute("size")),
+				false,
 				girth,
 				Integer.valueOf(testicles.getAttribute("testicleSize")),
 				cumStorage,
@@ -2771,8 +2772,10 @@ public class Body implements XMLSaving {
 					sb.append("[npc.sheHasFull] a pair of [npc.wingSize] wings, which are covered in [npc.wingFullDescription(true)].");
 					break;
 			}
-			if (wing.getType().allowsFlight() && this.getBodyMaterial() != BodyMaterial.SLIME) {
-				if(wing.getSizeValue()>=owner.getLegConfiguration().getMinimumWingSizeForFlight().getValue()) {
+			if (wing.getType().allowsFlight()) {
+				if(this.getBodyMaterial() == BodyMaterial.SLIME) {
+					sb.append(" [style.colourSlime(As they're made out of slime, flight is rendered impossible...)]");
+				} else if(wing.getSizeValue()>=owner.getLegConfiguration().getMinimumWingSizeForFlight().getValue()) {
 					sb.append(" [style.colourBlue(They are large and powerful enough to allow [npc.herHim] to fly!)]");
 				} else {
 					sb.append(" They aren't large enough to allow [npc.herHim] to fly.");
@@ -4157,6 +4160,7 @@ public class Body implements XMLSaving {
 		if(Main.game.getPlayer().hasIngestedPsychoactiveFluidType(FluidTypeBase.CUM)) {
 			viewedPenis = new Penis(penis.getType(),
 					(int) (penis.getRawSizeValue() * 2.25f),
+					false,
 					PenisGirth.FOUR_FAT.getValue(),
 					penis.getTesticle().getTesticleSize().getValue()*2,
 					(int) ((penis.getTesticle().getRawCumStorageValue()+100) * 3.25f),

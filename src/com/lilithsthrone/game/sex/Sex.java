@@ -79,7 +79,7 @@ import com.lilithsthrone.utils.Util.Value;
  * Lasciate ogni speranza, voi ch'entrate.
  *
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.4
  * @author Innoxia
  */
 public class Sex {
@@ -621,7 +621,9 @@ public class Sex {
 			if(character.isUnique() && !character.isPlayer()) { // Backup for unique NPCs, as they shouldn't be able to have clothing put on them during sex:
 				List<AbstractClothing> equippedClothing = new ArrayList<>(character.getClothingCurrentlyEquipped());
 				for(AbstractClothing c : equippedClothing) {
-					if(!entry.getValue().keySet().contains(c)) {
+					AbstractClothing clean = new AbstractClothing(c) {};
+					clean.setDirty(null, false);
+					if(!entry.getValue().keySet().contains(c) && !entry.getValue().keySet().contains(clean)) {
 						character.forceUnequipClothingIntoVoid(character, c);
 						character.getCell().getInventory().addClothing(c);
 					}
@@ -630,19 +632,34 @@ public class Sex {
 			
 			for (AbstractClothing c : entry.getValue().keySet()) {
 				if(!c.getClothingType().isDiscardedOnUnequip()) {
-					if (!character.getClothingCurrentlyEquipped().contains(c)) {
+					AbstractClothing dirtyClone = new AbstractClothing(c) {};
+					dirtyClone.setDirty(null, true);
+					AbstractClothing clothingEquipped = character.getClothingInSlot(c.getClothingType().getSlot());
+					if (clothingEquipped==null) {
 						// Only re-equip if that slot is empty, as some endSex methods force clothing on the player:
-						character.equipClothingOverride(c, false, true);
+						if(character.getCell().getInventory().hasClothing(c) || character.hasClothing(c)) {
+							character.equipClothingOverride(c, false, true);
+						} else if(character.getCell().getInventory().hasClothing(dirtyClone) || character.hasClothing(dirtyClone)) {
+							character.equipClothingOverride(dirtyClone, false, true);
+						}
 					}
 					if(Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)) {
-						c.getDisplacedList().clear();
-						if(entry.getValue().get(c)!=null) {
-							for(DisplacementType displacement : entry.getValue().get(c)) {
-								character.isAbleToBeDisplaced(c, displacement, true, true, character);
+						for(AbstractClothing clothing : new ArrayList<>(character.getClothingCurrentlyEquipped())) {
+							if(clothing.getClothingType().equals(c.getClothingType())) {
+								clothing.getDisplacedList().clear();
+								if(entry.getValue().get(c)!=null) {
+									for(DisplacementType displacement : entry.getValue().get(c)) {
+										character.isAbleToBeDisplaced(clothing, displacement, true, true, character);
+									}
+								}
 							}
 						}
-					} else if(character.getCell().getInventory().hasClothing(c)){ // Try to pick up their clothing if it's on the floor:
+						
+					} else if(character.getCell().getInventory().hasClothing(c)) { // Try to pick up their clothing if it's on the floor:
 						character.addClothing(c, true);
+						
+					} else if(character.getCell().getInventory().hasClothing(dirtyClone)) { // Try to pick up their clothing if it's on the floor:
+						character.addClothing(dirtyClone, true);
 					}
 				}
 			}
@@ -1950,6 +1967,7 @@ public class Sex {
 			if(Sex.getSexPositionSlot(activeCharacter)!=SexSlotGeneric.MISC_WATCHING || entry.getKey().equals(activeCharacter)) { // Spectators only influence themselves.
 				boolean foreplay = Sex.isInForeplay(entry.getKey());
 				float arousal = entry.getValue();
+				float startingArousal = entry.getKey().getArousal();
 				
 				// Raises the cap for positive arousal increments:
 				int arousalCapIncrease = Math.max(0,
@@ -1977,9 +1995,6 @@ public class Sex {
 							(5f+arousalCapIncrease)/(Math.min(2, Sex.getTotalParticipantCount(false))),
 							arousal * entry.getKey().getLustLevel().getArousalModifier()); // Modify arousal value based on lust
 					
-//					if(increment<0)
-//					System.out.println(entry.getKey().getName(false)+": "+increment);
-					
 					entry.getKey().incrementArousal(increment);
 				}
 				
@@ -1989,7 +2004,7 @@ public class Sex {
 						&& !activeCharacter.isPlayer()
 						&& entry.getKey().getArousal()>=100
 						&& (startArousal<100 || sexAction.getActionType().isOrgasmOption())) {
-					entry.getKey().setArousal(99);
+					entry.getKey().setArousal(startingArousal);
 				}
 				
 				if(foreplay && !Sex.isInForeplay(entry.getKey())) { // Reset positioning blocked when moving from foreplay to main sex:
@@ -2301,7 +2316,8 @@ public class Sex {
 											?"[npc.NamePos] [npc.pussy+] was already exposed before starting sex!"
 											:"[npc.NamePos] [npc.pussy+] is now exposed!")))
 							+ sexManager.getVaginaRevealReaction(characterBeingExposed, charactersReacting)
-							+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, SexAreaOrifice.VAGINA)));
+							+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, SexAreaOrifice.VAGINA))
+							+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, SexAreaPenetration.CLIT)));
 
 				} else if (characterBeingExposed.getVaginaType() == VaginaType.NONE && characterBeingExposed.getPenisType() == PenisType.NONE) {
 					exposedSB.append(UtilText.parse(characterBeingExposed,
@@ -2378,6 +2394,7 @@ public class Sex {
 			}
 			if(character.hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)) {
 				wetSB.append(addLubricationNoAppend(character, SexAreaOrifice.VAGINA, null, LubricationType.CUM));
+				wetSB.append(addLubricationNoAppend(character, SexAreaPenetration.CLIT, null, LubricationType.CUM));
 			}
 			
 			// Add partner natural lubrications:
@@ -2390,6 +2407,7 @@ public class Sex {
 			}
 			if(character.hasVagina() && character.getArousal() >= character.getVaginaWetness().getArousalNeededToGetVaginaWet()) {
 				wetSB.append(addLubricationNoAppend(character, SexAreaOrifice.VAGINA, character, LubricationType.GIRLCUM));
+				wetSB.append(addLubricationNoAppend(character, SexAreaPenetration.CLIT, character, LubricationType.GIRLCUM));
 			}
 		}
 		
@@ -2512,6 +2530,7 @@ public class Sex {
 			} else {
 				appendDescription = !(sexArea==SexAreaOrifice.MOUTH && lubrication==LubricationType.SALIVA)
 									&& (sexArea!=SexAreaOrifice.VAGINA || (characterGettingLubricated.isCoverableAreaVisible(CoverableArea.VAGINA)))
+									&& (sexArea!=SexAreaPenetration.CLIT || (characterGettingLubricated.isCoverableAreaVisible(CoverableArea.VAGINA)))
 									&& (sexArea!=SexAreaOrifice.ANUS || (characterGettingLubricated.isCoverableAreaVisible(CoverableArea.ANUS)))
 									&& (sexArea!=SexAreaOrifice.NIPPLE || (characterGettingLubricated.isCoverableAreaVisible(CoverableArea.NIPPLES)))
 									&& (sexArea!=SexAreaPenetration.PENIS || (characterGettingLubricated.isCoverableAreaVisible(CoverableArea.PENIS)))

@@ -60,6 +60,9 @@ public enum Combat {
 	private static boolean playerVictory = false;
 	private static StringBuilder postCombatStringBuilder = new StringBuilder();
 	
+	private static StringBuilder combatTurnResolutionStringBuilder = new StringBuilder();
+	
+	
 	private static Map<GameCharacter, List<String>> combatContent;
 	private static Map<GameCharacter, List<String>> predictionContent;
 	
@@ -109,7 +112,7 @@ public enum Combat {
 		totalDamageTaken = new HashMap<>();
 		turn = 0;
 		postCombatStringBuilder.setLength(0);
-		
+		combatTurnResolutionStringBuilder.setLength(0);
 		
 		combatContent = new HashMap<>();
 		predictionContent = new HashMap<>();
@@ -221,7 +224,12 @@ public enum Combat {
 		applyNewTurnShielding(Main.game.getPlayer());
 		Main.game.getPlayer().setRemainingAP(Main.game.getPlayer().getMaxAP(), null, null);
 		
+
+		combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(Main.game.getPlayer(), Combat.getTurn()==0?"Preparation":"", combatContent.get(Main.game.getPlayer())));
+		
 		for(NPC npc : allCombatants) {
+			combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(npc, Combat.getTurn()==0?"Preparation":"", combatContent.get(npc)));
+			
 			npc.resetSelectedMoves();
 			npc.resetDefaultMoves(); // Resetting in case the save file was too old and NPC has no moves selected for them.
 			npc.resetMoveCooldowns();
@@ -969,33 +977,10 @@ public enum Combat {
 	public static List<String> applyExtraAttackEffects(GameCharacter attacker, GameCharacter target, Attack attackType, boolean isHit, boolean isCritical) {
 		List<String> extraAttackEffects = new ArrayList<>();
 		
-		if(attacker.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1)
-				|| attacker.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2)
-				|| attacker.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3)) {
-			float cloakOfFlamesDamage = Math.round(5 * (1 + (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_FIRE), 100)/100f)));
-			cloakOfFlamesDamage *= 1 - (Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_FIRE), 100)/100f);
-			cloakOfFlamesDamage = (Math.round(cloakOfFlamesDamage*10))/10f;
-			if (cloakOfFlamesDamage < 1) {
-				cloakOfFlamesDamage = 1;
-			}
-			target.incrementHealth(-cloakOfFlamesDamage);
-			
-			if(attacker.isPlayer()) {
-				extraAttackEffects.add(UtilText.parse(target, "[npc.Name] takes an extra <b>"+cloakOfFlamesDamage+"</b> [style.boldFire(Fire Damage)] from your [style.boldFire(Cloak of Flames)]!"));
-			} else {
-				if(target.isPlayer()) {
-					extraAttackEffects.add(UtilText.parse(attacker, "You take an extra <b>"+cloakOfFlamesDamage+"</b> [style.boldFire(Fire Damage)] from [npc.namePos] [style.boldFire(Cloak of Flames)]!"));
-				} else {
-					extraAttackEffects.add(UtilText.parse(attacker, target, "[npc2.Name] takes an extra <b>"+cloakOfFlamesDamage+"</b> [style.boldFire(Fire Damage)] from [npc1.namePos] [style.boldFire(Cloak of Flames)]!"));
-				}
-			}
-		}
-		
 		if(target.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3)
 				&& (((attackType==Attack.MAIN || attackType==Attack.DUAL) && (attacker.getMainWeapon() == null || attacker.getMainWeapon().getWeaponType().isMelee()))
 						|| ((attackType==Attack.OFFHAND || attackType==Attack.DUAL) && (attacker.getOffhandWeapon() == null || attacker.getOffhandWeapon().getWeaponType().isMelee())))) {
 			float cloakOfFlamesDamage = Math.round(5 * (1 + (Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.DAMAGE_FIRE), 100)/100f)));
-			cloakOfFlamesDamage *= 1 - (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.RESISTANCE_FIRE), 100)/100f);
 			cloakOfFlamesDamage = (Math.round(cloakOfFlamesDamage*10))/10f;
 			if (cloakOfFlamesDamage < 1) {
 				cloakOfFlamesDamage = 1;
@@ -1009,29 +994,6 @@ public enum Combat {
 					extraAttackEffects.add(UtilText.parse(attacker, "[npc.Name] takes <b>"+cloakOfFlamesDamage+"</b> [style.boldFire(Fire Damage)] from your [style.boldFire(Ring of Fire)]!"));
 				} else {
 					extraAttackEffects.add(UtilText.parse(attacker, target, "[npc1.Name] takes <b>"+cloakOfFlamesDamage+"</b> [style.boldFire(Fire Damage)] from [npc2.namePos] [style.boldFire(Ring of Fire)]!"));
-				}
-			}
-		}
-		
-		if(attacker.hasStatusEffect(StatusEffect.MELEE_FIRE)
-				&& isHit
-				&& (((attackType==Attack.MAIN || attackType==Attack.DUAL) && (attacker.getMainWeapon() == null || attacker.getMainWeapon().getWeaponType().isMelee()))
-						|| ((attackType==Attack.OFFHAND || attackType==Attack.DUAL) && (attacker.getOffhandWeapon() == null || attacker.getOffhandWeapon().getWeaponType().isMelee())))) {
-			float fireDamage = Math.round(2 * (1 + (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_FIRE), 100)/100f)));
-			fireDamage *= 1 - (Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_FIRE), 100)/100f);
-			fireDamage = (Math.round(fireDamage*10))/10f;
-			if (fireDamage < 1) {
-				fireDamage = 1;
-			}
-			target.incrementHealth(-fireDamage);
-			
-			if(attacker.isPlayer()) {
-				extraAttackEffects.add(UtilText.parse(target, "[npc.Name] takes an extra <b>"+fireDamage+"</b> [style.boldFire(Fire Damage)] from your [style.boldFire(Flaming Strikes)]!"));
-			} else {
-				if(target.isPlayer()) {
-					extraAttackEffects.add(UtilText.parse(attacker, "You take an extra <b>"+fireDamage+"</b> [style.boldFire(Fire Damage)] from [npc.namePos] [style.boldFire(Flaming Strikes)]!"));
-				} else {
-					extraAttackEffects.add(UtilText.parse(attacker, target, "[npc2.Name] takes an extra <b>"+fireDamage+"</b> [style.boldFire(Fire Damage)] from [npc1.namePos] [style.boldFire(Flaming Strikes)]!"));
 				}
 			}
 		}
@@ -1192,8 +1154,12 @@ public enum Combat {
 	}
 	
 	public static void endCombatTurn() {
+		combatTurnResolutionStringBuilder.setLength(0);
+		combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(Main.game.getPlayer(), Combat.getTurn()==0?"Preparation":"", combatContent.get(Main.game.getPlayer())));
+		
 		List<NPC> combatants = new ArrayList<>(allCombatants); // To avoid concurrent modification when the 'summon elemental' spell adds combatants.
 		for(NPC character : combatants) {
+			
 			// Sets up NPC ally/enemy lists that include player
 			List<GameCharacter> npcAllies;
 			List<GameCharacter> npcEnemies;
@@ -1212,6 +1178,8 @@ public enum Combat {
 			character.lowerMoveCooldowns();
 			character.setRemainingAP(character.getMaxAP(), npcEnemies, npcAllies);
 			attackNPC(character);
+
+			combatTurnResolutionStringBuilder.append(getCharactersTurnDiv(character, Combat.getTurn()==0?"Preparation":"", combatContent.get(character)));
 		}
 		attemptedEscape = false;
 		
@@ -1265,37 +1233,37 @@ public enum Combat {
 		
 		boolean shieldsFound = false;
 		int shields = character.getShields(DamageType.ENERGY);
-		if(shields>0) {
+		if(shields!=0) {
 			if(!shieldsFound) {
 				sb.append("<br/>");
 			}
 			shieldsFound = true;
-			sb.append("<span style='color:"+DamageType.ENERGY.getColour().toWebHexString()+";'>&#9930;</span> "+shields);
+			sb.append("<span style='color:"+DamageType.ENERGY.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields));
 		}
 		
 		DamageType[] damageTypes = new DamageType[] {DamageType.PHYSICAL, DamageType.FIRE, DamageType.ICE, DamageType.POISON};
 		for(DamageType dt : damageTypes) {
 			shields = character.getShields(dt);
-			if(shields>0) {
+			if(shields!=0) {
 				if(!shieldsFound) {
 					sb.append("<br/>");
 				} else {
 					sb.append(" | ");
 				}
 				shieldsFound = true;
-				sb.append("<span style='color:"+dt.getColour().toWebHexString()+";'>&#9930;</span> "+shields);
+				sb.append("<span style='color:"+dt.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields));
 			}
 		}
 
 		shields = character.getShields(DamageType.LUST);
-		if(shields>0) {
+		if(shields!=0) {
 			if(!shieldsFound) {
 				sb.append("<br/>");
 			} else {
 				sb.append(" | ");
 			}
 			shieldsFound = true;
-			sb.append("<span style='color:"+DamageType.LUST.getColour().toWebHexString()+";'>&#9930;</span> "+character.getShields(DamageType.LUST));
+			sb.append("<span style='color:"+DamageType.LUST.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields));
 		}
 		
 		return sb.toString();
@@ -1346,10 +1314,7 @@ public enum Combat {
 			
 		sb.append("</div>");
 
-		sb.append(getCharactersTurnDiv(Main.game.getPlayer(), Combat.getTurn()==0?"Preparation":"", combatContent.get(Main.game.getPlayer())));
-		for(GameCharacter character : Combat.getAllCombatants()) {
-			sb.append(getCharactersTurnDiv(character, Combat.getTurn()==0?"Preparation":"", combatContent.get(character)));
-		}
+		sb.append(combatTurnResolutionStringBuilder.toString());
 		
 		return sb.toString(); 
 	}

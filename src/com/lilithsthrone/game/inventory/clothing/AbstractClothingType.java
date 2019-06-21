@@ -85,7 +85,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private InventorySlot slot;
 
 	// Enchantments:
-	private int enchantmentLimit;
+	@SuppressWarnings("unused")
+	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment stability mechanics.
 	protected List<ItemEffect> effects;
 
 	
@@ -2420,7 +2421,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 		
 		// Loading pattern
-			String loadedPattern;
+		String loadedPattern;
 		try {
 			loadedPattern = Pattern.getPattern(pattern).getSVGString(patternColour, patternSecondaryColour, patternTertiaryColour);
 		} catch(Exception ex) {
@@ -2547,12 +2548,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	// Enchantments:
 	
 	public int getEnchantmentLimit() {
-		if(enchantmentLimit==-1) {
-			int base = (getClothingSet()==null?5:10);
-			return base + getIncompatibleSlots(null).size()*base;
-		} else {
-			return enchantmentLimit;
-		}
+		return 100;
+//		if(enchantmentLimit==-1) {
+//			int base = (getClothingSet()==null?5:10);
+//			return base + getIncompatibleSlots(null).size()*base;
+//		} else {
+//			return enchantmentLimit;
+//		}
 	}
 	
 	public AbstractItemEffectType getEnchantmentEffect() {

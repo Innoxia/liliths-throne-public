@@ -103,12 +103,12 @@ public class FortressFemalesLeader extends NPC {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
-			this.resetPerksMap();
+			this.resetPerksMap(true);
 		}
 	}
 
 	@Override
-	public void setupPerks() {
+	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SLUT);
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),

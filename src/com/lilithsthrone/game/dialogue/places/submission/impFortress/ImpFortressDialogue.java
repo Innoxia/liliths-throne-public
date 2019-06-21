@@ -2114,11 +2114,11 @@ public class ImpFortressDialogue {
 
 				if (index == 1) {
 					if(isAlphaFortress()) {
-						if(Main.game.getPlayer().hasTraitActivated(Perk.FEROCIOUS_WARRIOR)) {
-							return new Response("Brawler",
+						if(Main.game.getPlayer().hasTraitActivated(Perk.UNARMED_TRAINING)) {
+							return new Response(Util.capitaliseSentence(Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())),
 									UtilText.parse(getBoss(),
 											"Seize this fleeting opportunity to provoke [npc.name] into trying to punch you,"
-													+ " relying on your skill as a <b style='color:"+Colour.TRAIT.toWebHexString()+";'>"+Perk.FEROCIOUS_WARRIOR.getName(Main.game.getPlayer())+"</b>"
+													+ " relying on your skill as a <b style='color:"+Colour.TRAIT.toWebHexString()+";'>"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"</b>"
 															+ " to humiliate [npc.herHim] in front of [npc.her] imp followers."),
 									KEEP_ALPHA_BRAWLER) {
 								@Override
@@ -2141,8 +2141,10 @@ public class ImpFortressDialogue {
 							};
 							
 						} else {
-							return new Response("Brawler",
-									UtilText.parse(getBoss(), "You're not competent enough at brawling to try and humiliate [npc.name] in front of [npc.her] gang...</br>(Requires 'Brawler' trait.)"),
+							return new Response(Util.capitaliseSentence(Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())),
+									UtilText.parse(getBoss(),
+											"You're not competent enough at fighting to try and humiliate [npc.name] in front of [npc.her] gang...</br>"
+													+ "(Requires '"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"' trait.)"),
 									null);
 						}
 						

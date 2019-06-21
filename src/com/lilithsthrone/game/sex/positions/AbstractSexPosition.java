@@ -86,28 +86,56 @@ public abstract class AbstractSexPosition {
 				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED
 				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
 			
-			// Block penis+non-appendage-non-pussy actions if target's penis is already in use:
 			
-				try {
-					if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)
-							&& Sex.isPenetrationNonSelfOngoingAction(target, SexAreaPenetration.PENIS)
-							&& (Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.allowedInterPenetrationAreas)
-								|| Collections.disjoint(Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer), SexActionPresets.allowedInterPenetrationAreas))) {
-						return true;
+			// Block penis+non-appendage-non-pussy actions if target's penis is already in use:
+			try {
+				// Trying to interact a penis with a character who is already using a penis:
+				if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS) && Sex.isPenetrationNonSelfOngoingAction(target, SexAreaPenetration.PENIS)) {
+					// If the person already using the penis is using it with an orifice that is not allowed for inter-penetrations:
+					if(Collections.disjoint(Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer), SexActionPresets.allowedInterPenetrationAreas)) {
+						// return blocked if the targeted area is not an appendage:
+						if(Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)) {
+							return true;
+						} else {
+							return false;
+						}
+						
+					} else {
+						// return blocked if the penetrated area is a vagina and the targeted area is a non-appendage area:
+						if(Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)) {
+							return Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer).contains(SexAreaOrifice.VAGINA);
+						} else {
+							return false;
+						}
 					}
-				}catch(Exception ex) {}
-				
-				try {
-					if(action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)
-							&& Sex.isPenetrationNonSelfOngoingAction(performer, SexAreaPenetration.PENIS)
-							&& (Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.allowedInterPenetrationAreas)
-								|| Collections.disjoint(Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target), SexActionPresets.allowedInterPenetrationAreas))) {
-						return true;
+				}
+			}catch(Exception ex) {}
+			try {
+				// Trying to interact a penis with a character who is already using a penis:
+				if(action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS) && Sex.isPenetrationNonSelfOngoingAction(performer, SexAreaPenetration.PENIS)) {
+					// If the person already using the penis is using it with an orifice that is not allowed for inter-penetrations:
+					if(Collections.disjoint(Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target), SexActionPresets.allowedInterPenetrationAreas)) {
+						// return blocked if the targeted area is not an appendage:
+						if(Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas)) {
+							return true;
+						} else {
+							return false;
+						}
+						
+					} else {
+						// return blocked if the penetrated area is a vagina and the targeted area is a non-appendage area:
+						if(Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas)) {
+							return Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target).contains(SexAreaOrifice.VAGINA);
+						} else {
+							return false;
+						}
 					}
-				}catch(Exception ex) {}
+				}
+			}catch(Exception ex) {}
+			
 			
 			// Block tribbing and thigh sex if ongoing penis/vagina or penis/anus penetration:
-			Set<SexAreaOrifice> impossibleTribbingAreas = Util.newHashSetOfValues(SexAreaOrifice.VAGINA, SexAreaOrifice.THIGHS);
+			Set<SexAreaOrifice> impossibleTribbingAreas = Util.newHashSetOfValues(SexAreaOrifice.ANUS, SexAreaOrifice.VAGINA, SexAreaOrifice.THIGHS);
 			if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.CLIT) && action.getSexAreaInteractions().values().contains(SexAreaPenetration.CLIT)
 				&& ((Sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.PENIS) && Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).values().stream().anyMatch((set)->!Collections.disjoint(set, impossibleTribbingAreas)))
 					|| (Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS) && Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).values().stream().anyMatch((set)->!Collections.disjoint(set, impossibleTribbingAreas))))) {

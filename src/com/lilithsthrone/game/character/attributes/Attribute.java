@@ -77,7 +77,7 @@ public enum Attribute {
 								"How much progress [npc.name] has made to the next level.");
 				}
 			},
-
+	
 	AROUSAL(0,
 			0,
 			100,
@@ -176,6 +176,22 @@ public enum Attribute {
 	
 	// Miscellaneous attributes:
 
+
+	ENCHANTMENT_LIMIT(0,
+			0,
+			1000,
+			"enchantment stability",
+			"Enchantment stability",
+			"enchantmentLimitIcon",
+			Colour.GENERIC_ENCHANTMENT,
+			"harnessing", "clumsiness", null) {
+				@Override
+				public String getDescription(GameCharacter owner) {
+					return UtilText.parse(owner,
+								"The total amount of clothing and tattoo enchantments [npc.nameIsFull] able to handle without incurring massive penalties.");
+				}
+			},
+	
 	FERTILITY(10, -100, 100, "fertility", "Fertility", "shieldIcon", Colour.GENERIC_SEX, "fertility", "infertility", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {

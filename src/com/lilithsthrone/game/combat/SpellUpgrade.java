@@ -75,7 +75,8 @@ public enum SpellUpgrade {
 			"Incendiary",
 			"With every strike, a jet of fire from the Cloak of Flames shoots forwards to burn the enemy. Damage done is affected by the wearer's fire damage, and the target's fire resistance.",
 			null, Util.newArrayListOfValues(
-					"Adds <b>5</b> [style.colourFire(Fire Damage)] to all attacks")),
+					"Unarmed attacks deal +1 damage per caster level",
+					"Unarmed attacks deal [style.boldFire(fire damage)]")),
 	CLOAK_OF_FLAMES_2(1,
 			SpellSchool.FIRE,
 			"cloak_of_flames_inferno",

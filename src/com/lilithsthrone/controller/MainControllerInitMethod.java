@@ -359,7 +359,7 @@ public class MainControllerInitMethod {
 		if(Main.game.getCurrentDialogueNode().equals(DebugDialogue.SPAWN_MENU) || Main.game.getCurrentDialogueNode().equals(DebugDialogue.ALL_ITEMS_VIEW)) {
 			id = "";
 			
-			for(AbstractClothingType clothingType : DebugDialogue.clothingTotal) {
+			for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
 				id = clothingType.getId() + "_SPAWN";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -375,7 +375,7 @@ public class MainControllerInitMethod {
 				}
 			}
 			
-			for(AbstractWeaponType weaponType : DebugDialogue.weaponsTotal) {
+			for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
 				id = weaponType.getId() + "_SPAWN";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -391,7 +391,7 @@ public class MainControllerInitMethod {
 				}
 			}
 			
-			for(AbstractItemType itemType : DebugDialogue.itemsTotal) {
+			for(AbstractItemType itemType : ItemType.getAllItems()) {
 				id = itemType.getId() + "_SPAWN";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -411,6 +411,7 @@ public class MainControllerInitMethod {
 				id = slot + "_SPAWN_SELECT";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						DebugDialogue.itemTag = null;
 						DebugDialogue.activeSlot = slot;
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
@@ -446,6 +447,14 @@ public class MainControllerInitMethod {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 					DebugDialogue.activeSlot = null;
 					DebugDialogue.itemTag = ItemTag.SPELL_BOOK;
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "HIDDEN_SPAWN_SELECT";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					DebugDialogue.activeSlot = null;
+					DebugDialogue.itemTag = ItemTag.HIDDEN_IN_DEBUG_SPAWNER;
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
@@ -4665,13 +4674,18 @@ public class MainControllerInitMethod {
 						:(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS
 							?OccupantManagementDialogue.characterSelected()
 							:CharactersPresentDialogue.characterViewed);
+
+				boolean availableForSelection =
+						Main.game.getCurrentDialogueNode() != PhoneDialogue.CONTACTS_CHARACTER
+						&& Main.game.getCurrentDialogueNode() != PhoneDialogue.CHARACTER_APPEARANCE
+						&& Main.game.getCurrentDialogueNode() != CharactersPresentDialogue.MENU;
 						
 				if(perk.getPerkCategory() == PerkCategory.JOB) {
 					id = "OCCUPATION_"+Perk.getIdFromPerk(perk);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character, true), false);
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character, availableForSelection), false);
 					}
 					
 				} else {
@@ -4679,12 +4693,8 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(PerkManager.MANAGER.getPerkRow(character, perk), perk, character, true), false);
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(PerkManager.MANAGER.getPerkRow(character, perk), perk, character, availableForSelection), false);
 
-						boolean availableForSelection =
-								Main.game.getCurrentDialogueNode() != PhoneDialogue.CONTACTS_CHARACTER
-								&& Main.game.getCurrentDialogueNode() != PhoneDialogue.CHARACTER_APPEARANCE
-								&& Main.game.getCurrentDialogueNode() != CharactersPresentDialogue.MENU;
 						
 						if(availableForSelection) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", event -> {
@@ -4700,7 +4710,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						if(character.hasPerkAnywhereInTree(perk)) {
-							MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character, true), false);
+							MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, character, false), false);
 						} else {
 							MainController.addEventListener(MainController.document, id, "mouseenter",
 									new TooltipInformationEventListener().setInformation("Unknown!",
@@ -5343,6 +5353,14 @@ public class MainControllerInitMethod {
 				id = "UDDER_PREFERENCE_"+i;
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					setUdderPreference(id, i);
+				}
+			}
+			
+			// Auto-save options:
+			for(int i=0; i<3; i++) {
+				id = "AUTOSAVE_FREQUENCY_"+i;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					setAutosavePreference(id, i);
 				}
 			}
 			
@@ -6063,6 +6081,20 @@ public class MainControllerInitMethod {
 		TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(Properties.uddersLabels[i], Properties.uddersDescriptions[i]);
 		MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 	}
+
+	static void setAutosavePreference(String id, int i) {
+		((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+			Main.getProperties().autoSaveFrequency=i;
+			Main.saveProperties();
+			Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+		}, false);
+		
+		MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+		MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(Properties.autoSaveLabels[i], Properties.autoSaveDescriptions[i]);
+		MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+	}
+	
 	
 	
 	private static void fluidHandler(MilkingRoom room, FluidStored fluid) {

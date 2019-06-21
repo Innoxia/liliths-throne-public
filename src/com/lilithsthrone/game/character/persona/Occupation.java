@@ -294,7 +294,7 @@ public enum Occupation {
 	}
 	
 	public boolean isAvailable(GameCharacter character) {
-		return true;
+		return !occupationTags.contains(OccupationTag.HAS_PREREQUISITES);
 	}
 
 	public void applyExtraEffects(GameCharacter character) {

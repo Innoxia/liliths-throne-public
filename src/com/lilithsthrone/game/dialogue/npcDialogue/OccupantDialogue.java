@@ -658,19 +658,21 @@ public class OccupantDialogue {
 								"Cycle the targeted character for group sex.") {
 							@Override
 							public void effects() {
-								for(int i=0; i<charactersPresent.size();i++) {
-									if(charactersPresent.get(i).equals(targetedCharacterForSex)) {
-										if(i==charactersPresent.size()-1) {
-											targetedCharacterForSex = charactersPresent.get(0);
-											if(companionCharacter.equals(targetedCharacterForSex)) {
-												companionCharacter = charactersPresent.get(1);
+								if(charactersPresent.size()>1) {
+									for(int i=0; i<charactersPresent.size();i++) {
+										if(charactersPresent.get(i).equals(targetedCharacterForSex)) {
+											if(i==charactersPresent.size()-1) {
+												targetedCharacterForSex = charactersPresent.get(0);
+												if(companionCharacter.equals(targetedCharacterForSex)) {
+													companionCharacter = charactersPresent.get(1);
+												}
+											} else {
+												targetedCharacterForSex = charactersPresent.get(i+1);
+												if(companionCharacter.equals(targetedCharacterForSex)) {
+													companionCharacter = charactersPresent.get((i+2)<charactersPresent.size()?(i+2):0);
+												}
+												break;
 											}
-										} else {
-											targetedCharacterForSex = charactersPresent.get(i+1);
-											if(companionCharacter.equals(targetedCharacterForSex)) {
-												companionCharacter = charactersPresent.get((i+2)<charactersPresent.size()?(i+2):0);
-											}
-											break;
 										}
 									}
 								}

@@ -528,6 +528,10 @@ public class CharacterInventory implements XMLSaving {
 	public boolean removeItemByType(AbstractItemType itemType) {
 		return itemSubInventory.removeItemByType(itemType);
 	}
+	
+	public boolean removeAllItemsByRarity(Rarity rarity) {
+		return itemSubInventory.removeAllItemsByRarity(rarity);
+	}
 
 	public boolean dropItem(AbstractItem item, World world, Vector2i location) {
 		return dropItem(item, 1, world, location);
@@ -634,6 +638,10 @@ public class CharacterInventory implements XMLSaving {
 	
 	public boolean removeWeaponByType(AbstractWeaponType weaponType) {
 		return weaponSubInventory.removeItemByType(weaponType);
+	}
+	
+	public boolean removeAllWeaponsByRarity(Rarity rarity) {
+		return weaponSubInventory.removeAllItemsByRarity(rarity);
 	}
 
 	public boolean dropWeapon(AbstractWeapon weapon, World world, Vector2i location) {
@@ -764,6 +772,10 @@ public class CharacterInventory implements XMLSaving {
 	
 	public boolean removeClothingByType(AbstractClothingType clothingType) {
 		return clothingSubInventory.removeItemByType(clothingType);
+	}
+	
+	public boolean removeAllClothingByRarity(Rarity rarity) {
+		return clothingSubInventory.removeAllItemsByRarity(rarity);
 	}
 
 	public boolean dropClothing(AbstractClothing clothing, World world, Vector2i location) {
@@ -1761,7 +1773,7 @@ public class CharacterInventory implements XMLSaving {
 		return null;
 	}
 	
-	private List<AbstractClothing> getBlockingCoverableAreaClothingList(GameCharacter character, CoverableArea area, boolean byRemovingClothing) {
+	public List<AbstractClothing> getBlockingCoverableAreaClothingList(GameCharacter character, CoverableArea area, boolean byRemovingClothing) {
 		List<AbstractClothing> blockingClothingList = new ArrayList<>();
 
 		// For every piece of equipped clothing, if it's blocking the coverable area, see if it can be displaced or removed.

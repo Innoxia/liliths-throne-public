@@ -93,14 +93,14 @@ public class Alexa extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.setLevel(10);
-			this.resetPerksMap();
+			this.resetPerksMap(true);
 			this.addSpell(Spell.SLAM);
 			this.addSpell(Spell.ARCANE_AROUSAL);
 		}
 	}
 
 	@Override
-	public void setupPerks() {
+	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.ARCANE_TRAINING);
 		
 		PerkManager.initialisePerks(this,

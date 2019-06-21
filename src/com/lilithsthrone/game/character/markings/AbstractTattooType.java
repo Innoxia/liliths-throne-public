@@ -39,8 +39,9 @@ public class AbstractTattooType extends AbstractCoreType {
 	private boolean isMod;
 	
 	private int value;
-	
-	private int enchantmentLimit;
+
+	@SuppressWarnings("unused")
+	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment stability mechanics.
 	
 	private List<InventorySlot> slotAvailability;
 
@@ -271,7 +272,7 @@ public class AbstractTattooType extends AbstractCoreType {
 	}
 	
 	public int getEnchantmentLimit() {
-		return enchantmentLimit;
+		return 100;
 	}
 	
 	public AbstractItemEffectType getEnchantmentEffect() {

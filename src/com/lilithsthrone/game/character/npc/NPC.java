@@ -70,6 +70,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
+import com.lilithsthrone.game.sex.NPCGenericSexFlag;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -2655,7 +2656,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	// Sex:
 	
-	public void calculateGenericSexEffects(boolean isDom, NPC partner, SexType sexType) {
+	public String calculateGenericSexEffects(boolean isDom, NPC partner, SexType sexType, NPCGenericSexFlag... flagsInput) {
+		List<NPCGenericSexFlag> flags = Arrays.asList(flagsInput);
+		
+		StringBuilder sexDescriptionSB = new StringBuilder();
+		
+		sexDescriptionSB.append(sexType.getPerformanceDescription(isDom, this, partner)); //TODO append cum/preg chances
+		
 		this.setLastTimeHadSex(Main.game.getMinutesPassed(), true);
 		partner.setLastTimeHadSex(Main.game.getMinutesPassed(), true);
 		
@@ -2684,10 +2691,17 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					if(performingArea.isOrifice() && ((SexAreaOrifice)performingArea).isInternalOrifice()) {
 						partner.setVirginityLoss(partnerSexType, this, this.getLostVirginityDescriptor());
 						partner.setPenisVirgin(false);
-						if(partner.getPenisRawCumStorageValue()>0 && performingArea.isOrifice()) {
+						if(!flags.contains(NPCGenericSexFlag.PREVENT_CREAMPIE) && partner.getPenisRawCumStorageValue()>0 && performingArea.isOrifice()) {
 							partnerCummed = true;
 							this.ingestFluid(partner, partner.getCum(), (SexAreaOrifice)performingArea, partner.getPenisRawOrgasmCumQuantity());
 							this.incrementCumCount(new SexType(SexParticipantType.NORMAL, performingArea, SexAreaPenetration.PENIS));
+							partner.applyOrgasmCumEffect();
+							sexDescriptionSB.append(
+									UtilText.parse(this, partner,
+											"<br/>[npc2.Name] came inside of [npc.namePos] "+performingArea.getName(partner)
+												+(performingArea==SexAreaOrifice.VAGINA && !partner.isVisiblyPregnant()
+													?"; [npc.she] may have gotten pregnant!"
+													:"!")));
 						}
 					}
 					break;
@@ -2834,10 +2848,17 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					if(targetedArea.isOrifice() && ((SexAreaOrifice)targetedArea).isInternalOrifice()) {
 						this.setVirginityLoss(sexType, partner, partner.getLostVirginityDescriptor());
 						this.setPenisVirgin(false);
-						if(this.getPenisRawCumStorageValue()>0 && targetedArea.isOrifice()) {
+						if(!flags.contains(NPCGenericSexFlag.PREVENT_CREAMPIE) && this.getPenisRawCumStorageValue()>0 && targetedArea.isOrifice()) {
 							thisCummed = true;
 							partner.ingestFluid(this, this.getCum(), (SexAreaOrifice)targetedArea, this.getPenisRawOrgasmCumQuantity());
 							partner.incrementCumCount(new SexType(SexParticipantType.NORMAL, targetedArea, SexAreaPenetration.PENIS));
+							this.applyOrgasmCumEffect();
+							sexDescriptionSB.append(
+									UtilText.parse(this, partner,
+											"<br/>[npc.Name] came inside of [npc2.namePos] "+targetedArea.getName(partner)
+												+(targetedArea==SexAreaOrifice.VAGINA && !partner.isVisiblyPregnant()
+													?"; [npc2.she] may have gotten pregnant!"
+													:"!")));
 						}
 					}
 					break;
@@ -2976,14 +2997,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 		}
 		
+		return sexDescriptionSB.toString();
 	}
 	
 	public void endSex() {
 	}
 	
 	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
+		boolean isConvincing = Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS);
 		
-		if(Main.game.isInSex()) {
+		if(Main.game.isInSex() && !isConvincing) {
 			if(Sex.getSexControl(Main.game.getPlayer()).getValue()<=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue() && Sex.getSexPace(this)==SexPace.DOM_ROUGH) {
 				return true;
 			}
@@ -2991,7 +3014,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		int weight = calculateSexTypeWeighting(sexTypeRequest, Main.game.getPlayer(), null);
 		
-		return weight<0 || this.hasFetish(Fetish.FETISH_SADIST);
+		return weight<0 || (!isConvincing && this.hasFetish(Fetish.FETISH_SADIST));
 	}
 	
 	protected Map<GameCharacter, SexType> foreplayPreference = new HashMap<>();
@@ -3227,7 +3250,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		//TODO Further prioritise genital interactions?
 		
 		// If cannot switch position, only return preferences that are actually available:
-		if(!Sex.isPositionChangingAllowed(this)) {
+		if(Main.game.isInSex() && !Sex.isPositionChangingAllowed(this)) {
 			List<SexType> availableTypes = new ArrayList<>();
 			
 //			System.out.println(this.getName()+" restricting prefs");

@@ -121,87 +121,145 @@
 	
 		
 	
-	
-	
 	Patch notes:
 	
-	Combat update (PR#916 by Irbynx):
-		Completely overhauled combat loop.
-		The old turn based system has been modified into an action-point based turn system.
-		Added blocking/shielding system, along with a few basic attack moves.
-		You are now able to see intents of enemies and allies in combat.
-		Abilities available to any character in combat are limited to maximum of 8 - respective menu added to phone to assign abilities, and to companion/slave management to manage theirs.
-		Combat AI is a little smarter now, although improvements can be made.
-		HP formula changed to avoid physique playing a major role in it.
-		Mana formula changed to overally bring the amount of mana to 100-120 average values.
-		An overhaul to unarmed damage calculation.
-		'Defence modifier' has been added as an attribute, and applies a boost or drain to damage shielding for the character at the start of each combat turn.
-		'Dodge chance' and 'Miss chance' have been removed from the game. Spells and other effects that modified 'Dodge chance' or 'Miss chance' have been converted into a positive or negative 'Defence modifier' value, respectively.
-		The extra effect of the spell 'Rain Cloud', 'Cloud burst', is now triggered by being hit by a critical attack, instead of being triggered by missing an attack.
-		Special tease attacks now do limited damage vs enemies who dislike the associated fetish. (i.e. Doing a 'virility tease' on someone who dislikes the 'pregnancy' fetish will only do 1 damage.)
-		You can now set an allied and enemy target, so you don't have to keep on switching target to cast friendly spells/abilities.
-		Beneficial spells & abilities will now automatically be applied to your allied target, whereas detrimental spells, abilities, and attacks will be applied to your enemy target.
-		The main three stat bars (physique/arcane/corruption) are now hidden during combat, so that it's easier to see multiple combatant's stats.
-	
-	Bugs:
-		Typo/parsing fixes.
-		Fixed issue with incorrect names being parsed in speech.
-		Fixed an issue with names sometimes being parsed as though they were within speech when they weren't.
-		
-		
-	v0.3.3.6:
-	
-	Engine:
-		Moved Perk Enums into classes.
-	
 	Gameplay:
-		<b>All permanent attribute boosts for all characters will be reset upon loading into the game.</b>
-		<b>All characters' perk trees will be reset upon loading into the game.</b>
-		You can no longer gain permanent increases to your attributes through potions. The only way to increase attributes now is through clothing, status effects, perks, or unique events.
-		Removed base attribute increases for races, and instead put attribute bonuses in subspecies' unique status effects.
-		The perk trees for all non-elementals (including that of the player) have been modified. Added several new traits and perks, and the 'root' lust perk is now unlocked by default.
-		You can no longer go 'back up' the perk tree to unlock perks. All unlock progress must now always be down or on the same level.
-		All NPCs no longer have attributes assigned to them upon creation, and instead select perks based on their subspecies's preferences.
-		Characters who are enslaved no longer have their job-related trait converted into the slave trait. Characters who spawn into the game as slaves will have the slave trait, however.
-		Altered aura calculation to rely more on the value of your arcane attribute.
-		Resistance attributes no longer provide a percentage damage reduction, and instead provide shielding equal to their value in each turn in combat.
-		Clothing now provides 10% of the physical resistance it used to. (For any modders, please continue to use integer values of 1 and over - the reduction to 10% is done in the code.)
-		
+		All characters (including yours) have had their perk trees reset/regenerated, due to new perks being added and the perk tree layout slightly changed.
+		Added 'enchantment stability' attribute, which determines how many points of modified attributes you're able to handle from your clothes or tattoos without incurring a penalty.
+		'Enchantment stability' starts at 10, and is increased by 1 per level, and can also be increased via new perks.
+		Rose briefly warns you about this enchantment stability in the final scene of the prologue.
+		Clothing, weapon, and tattoo enchantment limits have been increased to 100.
+		Added 'convincing requests' perk: Requests during sex are no longer denied by sadists or rough dominants.
+		Added 'object of desire' perk: All partners in sex require +1 orgasm before being satisfied.
+		Added 'arcane smith' perk: Halves arcane essence cost of enchanting weapons.
+		You can now enchant 'Angel's Nectar' into 'Angel's Purity', which allows you to permanently remove corruption.
+	
+	Contributors:
+		Fixed appearance stating that slimes could fly. (PR#1165 by Stadler76)
+		Fixed issue where unicorn 'horns per row' were only being set if the character already had horns. (PR#1160 by Stadler76)
+		Fixed bug when randomly-spawned incubi in the dark alleyways would throw a background error when using some attacks. (PR#1172 by TheKingInYellow)
+		Fixed bug where if there were multiple horn types in the enchantment UI, clicking on each type would give a randomised horn type, instead of the selected one. (PR#1175 by Stadler76)
+	
+	Norin's clothing contributions:
+		Added: 6 new hair accessory items: bobby pins; celtic barrette; dragonfly bobby pin; hair pins; scrunchie; hair sticks. (All in hair slot, sold by Nyan.)
+		Added: 4 new rose-themed piercing items: rose earrings; rose lip piercing; rose navel piercing; rose nose piercing. (In related piercing slots, sold by Kate.)
+		Added: 4 new sunflower-themed piercing items: sunflower earrings; sunflower lip piercing; sunflower navel piercing; sunflower nose piercing. (In related piercing slots, sold by Kate.)
+		Added: 8 new other piercing items: heart-shaped barbell; bat earrings; flower lip piercing; chained nipple rings; nipple rings; pentagram piercing; 'SEX' barbell; vertical hood piercing. (In related piercing slots, sold by Kate.)
+	
+	DSG's clothing contributions:
+		Added: Men's leather jacket. (Over-torso slot, masculine, sold by Nyan.)
+		Added: Fox-patterned scarf. (Neck slot, no femininity requirements, sold by Nyan.)
+	
+	Combat:
+		The spell 'Soothing Waters' now has an AP cost of 3.
+		Removed aura burn from performing melee attacks while under the effect of cloak of flames.
+		The special ability for the spell school of fire is no longer +2 fire damage on melee attacks. Instead, it unlocks mana burn, which allows you to cast fire spells at a cost of energy once your aura is depleted, at a cost of 1/4 the regular spell cost.
+		Removed damage multiplier based on level difference.
+		Removed a few final instances of the old resistance calculation being used.
+		Did some balancing of status effect and perk attribute bonuses (mainly reducig some resistance values here and there).
+		Block/Shielding values in combat can now go negative (and are thus displayed as greyed-out shield values in combat), so negative resistances actually mean something now.
+		All lust-damaging attacks now correctly apply 2xlust damage to energy and 1x lust damage to aura when the target's lust is at 100.
+	
+	Slavery:
+		Added a four slave capacity upgrade to the rooms in Lilaya's home.
+		The double and quadruple capacity room upgrades now have a minor obedience drain associated with them (to represent slaves conspiring with one another against you).
+		The 'Double size bed' upgrade is now described as each slave getting their own double-size bed, instead of them sharing one in double capacity rooms.
+	
 	Other:
-		You can now see NPCs' perk trees at the bottom of their character description pages.
-		Amber now has two demonstones equipped as weapons.
-		Added several unique occupational perks for both unique and non-unique NPCs.
-		Brax/Bree/Brandi no longer wears shoes.
-		Adjusted the levels of several unique NPCs.
-		Reduced clothing attribute modifiers from -5/-3/-1/1/3/5 to -3/-2/-1/1/2/3.
+		Randomly generated NPCs have a 50% chance to spawn with a minor background perk unlocked (to boost their physique, corruption, or arcane). Your slaves/occupants might gain one of these perks when you load in (reloading won't change results).
+		Added 'autosave frequency' setting to the content options screen.
+		Added an outfit file for harpy nest attackers, as well as for clubbers in 'The Watering Hole', so their outfits will no longer be completely random.
+		Added 'unique sex partners', 'cum in womb', 'cum in ass', 'cum in stomach', and 'value as slave' tattoo counter types.
+		Added notifications to event log for: area transitions; items/clothing/weapons dropped, used, and bought/sold; clothing/weapons dyed/reforged; weapons equipped/unequipped; clothing equipped/unequipped; money/essences gained/lost; experience gained; level ups.
+		Added a 'RIGID_MATERIAL' item tag, so that modders can define clothing as being unsuitable to be groped through. This has been applied to chastity cages and chastity belts, which both now block groping sex actions.
+		The Western KKP can now be recoloured.
+		Added 'desaturated brown' as a clothing/weapon colour.
+		Added 'Dye all (stack)' and 'Dye all' actions to the clothing & weapon dye menu.
+		Jinxed clothing status effect now gives +10 corruption, instead of -5 aura.
+		Increased levels of: Rental mommy by 5; Meraxis by 5; Candi by 4; Brax by 4; Amber by 3;
 		
-	More combat changes:
-		Added status effect application indication in combat moves tooltips.
-		Changed spell's critical hit requirement to being the only action used that turn.
-		Changed the colour of the 'lust' attribute from scarlet to light pink, and 'physical damage' from red to grey-brown.
-		Removed 'critical chance' and 'bonus lust shielding' attributes. Altered status effects, subspecies bonues, and clothing enchantments which used these attributes. Enchanted clothing/weapons which had critical chance modifiers have been converted to critical damage.
-		Renamed 'critical hit damage' to 'critical power'.
-		Added shielding for energy damage as a separate shielding type from physical.
-		Block now blocks all energy damage, not just physical.
-		Racial resistances have been removed. Instead of increasing your stats, race books now give you a unique perk which boosts damage vs that race. (You can get the lilin and elder lilin unique perks by returning to Lyssieth and asking about 'Recap' and 'Family', respectively.)
-		(If you have defeated the imps in the Imp Citadel, you should have your imp racial damage replaced by a special perk, 'imp slayer', when you load in.)
-	
 	Bugs:
-		Tease damage done to a target who is immune to the 'instant-loss at 100 lust' effect will now correctly start to damage their health.
-		Restored Rose's virginity for if it was accidentally taken in a version where her sex actions weren't working properly.
-		Fixed issue with player's prediction moves in combat not being cleared each turn.
-		Fixed move cooldowns not being reset when you used the 'Reset' action in combat.
-		Fixed combat prediction text not correctly identifying when the move would be a critical.
-		Fixed issue with characters getting a huge amount of perk points.
-		Fixed issue in characters' information screens, where relationships sometimes included an 'Unknown'.
-		Fixed some parsing errors.
+		Fixed typos/parsing errors.
+		Imported characters (either as a new player character or as slaves) now have both their unique quest items, and their concealed race status removed.
+		Fixed bug where sex would freeze/crash if you unrestricted your partner's control.
+		To fix an issue where NPCs would choose boring sex actions, NPCs' foreplay and main sex preferences are now recalculated when you unrestrict their control, as well as when you permit them to take positioning actions.
+		Fixed issues in debug transformation menu, where some body colours were displayed as slime colours, and other transformation options were limited as though it was the regular transformation menu.
+		Fixed lust gains for NPCs who were receiving anal penetration being affected by their preference for performing anal.
+		Possibly fixed the cause of not being able to use positioning actions when playing as a taur. (I was unable to replicate this bug, but fixed a potential cause for it.)
+		Fixed 'lustful suggestion' and 'calming suggestion' sex actions applying their effects to the wrong target.
+		Fixed issue where you could get stuck at 99 arousal in sex, and never be able to reach orgasm.
+		Tooltips for actions in sex should no longer display 'available' when that action is disabled.
+		Penis size preferences should now correctly be taken into account in all instances of penis generation.
+		Fixed weapon and clothing names resetting when equipped.
+		Added indication to imperial fluid measurements for when a value is close to, but not exactly, 0.
+		Fixed issue with unique NPCs dropping their clothes after sex if you cummed on them.
+		Fixed similar bug where NPCs would not replace their clothing properly after sex if you cummed on them.
+		Fixed issue where muggers could spawn in as ambiphilic, even if you had ambiphilic set to 0% chance in the options. (Prostitutes still spawn in as ambiphilic until I can add orientation-based dialogue variations.)
+		Characters' clits now get lubricated by girlcum at the same time as their vagina do.
+		Fixed missing ongoing text for tribbing tooltip.
+		The requirement of having the now-removed 'Brawler' trait in Fyrsia's imp fortress encounter has been replaced with the requirement of having the 'martial artist' trait.
+		Characters who spawn in the nightclub will no longer have unsuitable jobs assigned to them (such as 'slime queen', 'arcane elemental', or 'elder lilin').
+		Fixed issues with receiving handjobs not being available while being penetrated anally.
+		Characters can no longer start tribbing while fucking someone's ass.
+		Fixed some minor logical errors in dialogue when inviting your offspring to come and live with you.
+		NPCs will no longer remove their partner's 'sex toy' clothing during sex, unless that sex toy is blocking an area that they are focusing on. (e.g. They will no longer remove strapless dildos unless they want access to your vagina.)
+		Tattoos with custom names will no longer have the enchantment-related name endings appended to them.
+		Fixed clothing cleaning cum text referring to the clothing being inserted into the associated orifice, even if the clothing was not an insertable item.
+		Lilaya now smacks the vixen's virility pill out of your hand if you try to give her one.
+		NPCs will now only remove shoes if they have a positive desire towards the associated foot fetish (either giving or receiving), and if they are not sadists or masochists (respectively, as they don't care about pain from shoes if they are).
+		Fixed background error being thrown in slave/occupant rooms when trying to cycle through sex targets when there was only one character present.
+		Fixed issue with requests in sex not working.
+		Fixed broken formatting when viewing slave/companion perk tree.
+		Resetting NPCs' perk trees no longer makes them automatically assign perk points.
+		Fixed Ice Shard not applying a critical hit when the target was affected by Freezing Fog.
+		Fixed bug in combat where selecting moves would tick down and apply effects of combat status effects on NPCs, causing them to take damage during the move selection phase.
+		Removed ability to dye patterns onto trainer socks until I can get multiple pattern areas can work.
+		Fixed formatting of spells casted during combat, and added indication of when fire spells will cause mana burn.
+		Angels no longer suffer from menopause.
+		Fixed bugs that could cause reforged/dyed weapons and clothing to not stack properly with one another.
+		Fixed issue where you could gain some unrelated perks by reading demonic books in Lilaya's library and elsewhere.
+		Fixed random NPCs not having correct perk trees generated, or not using all of their perk points.
+		Fixed some unique NPCs having non-trait perks equipped in their trait bar.
+		Slaves set to idle will now correctly have sex with other idle slaves (if permissions are set correctly), provided that they can reach each other (house permissions, or in same room). Slaves assigned to the stocks are also now working as suitable sex targets when home.
+		Fixed issue with idling slaves not applying correct sex effects when having sex with one another (which was causing issues such as tattoo counters and sex counts not being incremented).
+		Fixed major bug where characters loaded in from old versions would disappear, throwing numerous errors in the background.
 	
 	
 	
 	
-	lust resistance not showing?
 	
-	Balance clothing resistances
+	Father's day?
+	
+	I am utterly stuck in the game. I am on the Siren's Call mission and it says I need three keys,
+	 I have had sex with every person inside a imp fortress (all three) yet the game says that I have not gotten all three keys to get into the final purple castle! Halp! 
+	
+	Need to make enchantment essence cost input and make angel's purity more expensive
+	
+	Ver 3.3 NPC took her own virginity with a tail (I think in one update NPCs no longer allowed to take their own)
+	
+	Bug 2: my pants and underwear both say displaced even if i just started sex
+	
+	Make stronger versions:
+		Vixen's Virility also increases the maximum number of children a person can be impregnated with while it's effects are active.
+		Same with Promiscuity Pills, if a pregnancy occurs while they are active, the number of children produced is minimized.
+	
+	The continue button's tooltip is incorrect for the incubi slime at the tower: says "Let Maximillian fuck you."
+	
+	Offer occupants job as companion
+	
+	add scissoring
+	
+	the slave event log lags my game, so i don't have slaves anymore
+	
+	BTW it would be great to drop a line in the error.log whenever a modded item is loaded with an outdated xml.
+	
+	TF potions post-sex can tf you when you're a demon...
+	
+	Need to add unique encounter for alleyway attacks during storm - at the moment you can't submit and they act normal...
+	
+	succubus/incubus attackers need outfit files
+	
+	
 	
 	test BANEFUL_FISSURE
 	
@@ -212,95 +270,27 @@
 	
 	status effect stop with the X.0 stats
 	
-	Make damage say %? Remove dropoff?
-	
-	imp damage boost needs to be a special perk
+	Make damage say +X%? Remove dropoff?
 	
 	check status effect modifiers when adding tails to youko
 	
-	test ice shard/freezing fog
-		Make spell upgrade increase mana cost
+	Make ice shard/freezing fog upgrade increase mana cost
 	
 	rename energy to health?
 	
 	make action points an Attribute
 	
-	cloak of fire is doing some kind of mana burn?
-	
 	Cleanse spell applying enemy effect to last person targeted
-	
-	Need to balance numbers.
 	
 	Need perk for:
 		Office worker
 		
-	Make sure attribute setting has been sorted out
-	
-	Check the corruption based on seduction perks for randoms
-	
-	
+	Check the corruption based on seduction perks for randoms (maybe boost?)
 	
 	Add skin tone options
 	
-	why does your daughter refer to her mother as her sister while in a threesome?
 	
-	put in a catch-all for imports that auto-disposes of key items from imported character's inventories, be it slave import or player import
 	
-	unrestricting your partner's control in sex causes a breakage almost identical to the doggystyle freeze in the last update
-	sex scenes are kinda breaking if you unrestrict position control for the partner from a dominant position
-	(error.log in bug reports channel and open in notepad as 48)
-	
-	Guest room is unoccupied, but Empty Room upgrade is saying "room needs to be unoccupied"
-	actually all my guest rooms are saying empty is that occupied rooms just for slaves?
-	
-	Leg-lock (and tail-lock, assume all locks): "Cum in my pussy, hellhound!" (should be player's name - the NPC is the hellhound)
-	(Perhaps related?): Partners seem to either call out their own name, race or a past character encounter's name/race as far as I've noticed
-	
-	bug with buggy transform menu says nipples are translucent blue and red (?)
-	
-	Tail-pegging this causes his Lust to drop for no apparent reason (fetishes were unrelated)
-	It appears that lust gains for NPCs that are getting tail-pegged are being affected by their preference for performing anal. Same for anal fingering.
-	
-	"// If there is size-difference and more than 1 participant, block..." This code might be the cause of the centaur switching bug
-	
-	NPC`s lustful suggestion on pc character doesnt rise lust when pc is resisting or in resisting pace. didnt know that should i report it or not but decided to
-	When your character is affected by a psychoactive trip and a npc uses calming suggestion, it affects themselves instead of you.
-	
-	I went to Pix until Shower Sex scene. Using "Do nothing" command keep Arousal at 99, sometimes 100 but without orgasm. Truly deny. Doing any other command makes arousal 100 and proceed to orgasm, so not so gamebreaking bug.
-		I tested then with Kate, and bug wasn't there. But then I went to streets, found someone, defeated and started sex, "Do nothing" again didn't make Arousal past 99.
-		Yeah, do nothing always makes arousal get stuck at 99
-		
-	Ear TFs say about shifting to sit high up, even if previous ears were also high up
-	
-	Stroke cock says unavailable even though all conditions are met...
-	also, oddly at other times, "tease" actions will be disabled (saying some requirement isn't met, even though all requirements shown are, and are shown in green), but other actions (like ones that use the same parts but aren't just teasing) work
-	
-	Penis size preference doesn't seem to do anything, despite having it at max, virtually all dicks are 3 to 4 inches long.
-	
-	After enchanting an item to have a different name, and it is then equipped. The item name will reset. The item name will stay as the after enchantment name until equipped.
-	
-	In self-TF menu: Amount of milk regenerated per day is 67 oz/day and 0 oz/minute (Milk doesn't generate, at all)
-	
-	NPC greeting in club uses wrong name (possibly from a companion, the screen shot didn't show it)
-	
-	I've the ability to talk to people on Dominion Streets during an arcane storm after beating them in battle, meaning that I end up with a whole bunch of friends all in one spot, which doesn't seem intentional.
-		Oddly I only noticed this happening once I reached level 50-ish
-		(Someone confirmed that it wasn't happening at lvl43)
-		K, it's not level; it's Air Elemental. Might be other elementals as well; will check that shortly.
-	So yeah... When I start a new character, "buggy" myself up stats and money, go buy an Elemental spellbook, rank up the spellbook, and then summon an elemental... During an arcane storm, I can talk to people on the streets after I beat them in combat, which definitely seems like a bug.
-	
-	cumming on npc clothes makes them drop after sex
-	
-	possible bug: when ambiphilic in the orientation options is set to off, npcs with that orientation still spawn
-	yeah it seems the ambiphilic setting never registers as off, even in new games
-	(cow-boy slime)
-	
-	possible bug: clits during tribbing are always dry
-	
-	When at the Imp Fortresses with a party member, I notice that the dialogue will substitute the fortress leader instead of your follower in the first dialogue. So instead of "Stand back, [PARTY MEMBER]! I'm gonna fight [BAD GUY]", I'll get "Stand back, [BAD GUY]! I'm gonna fight [BAD GUY]"
-	I've noticed it at the other two fortresses also but didn't think to get screencaps or anything.
-	
-	Club NPCs can be described as having a job as a slime queen
 	
 	- Many encounters still do not allow partner involvement (succubi, half of Submission)
 
@@ -316,25 +306,94 @@
 	
 	- still can't have your guests use your slaves
 	
-	Can't get handjobs if I'm getting rummed in the butt
-	
-	Add option to stop auto saves
-	
-	Harpies are using insane clothing still
-	
-	Inviting my character's daughter to a guest room has her ask if I'm royalty.  Shouldn't it be "Are we royalty???"?  Even more so because she's a lesser demon.
-	Related: "With her opinions on your aunt..." in small talk from the daughter could be "With her opinions on her great aunt..."
-	
-	Not sure if this is a bug but in threesome sex scenes one of my partners keeps pulling out my character's strapless strap-on for what seems like no reason, even when my character is using it
-	
-	Why the fuck isn't there a tattoo counter that lets you record unique sex partners?
 	
 	credits
 	
-	can't submit during storm - ignores storm attraction?
+	-
 	
-	requests broken?
-		need 'convincing requests' perk
+	Noticed this last night, seems equipping items in shop menus adds the item to the buyback screen as well. Managed to buy copies of legendary items.
+	
+	when you attack a prostitute and they win they remain on the square despite the text saying it'll be the last time you see them
+	
+	i tried to have sex with my compaion - and i got situation at which i can only masturbate and companion was watching, and since she didnt have voyer trait...it was imposible to make some progress at her.  yes, i got some desciption that she orgasmed..but after she orgamed 8x..and me manytimes and still no option to end sex apppeared
+	
+	my comanion did have cloak equped and under it normal cloth...and on text i allways got text that she tried to dicard thier cloth..and warning that cloak must be discarded first...and got again and again..without she discarding cloak first
+	
+	Half-Demon offspring seem to ignore any options set for offspring with a dick and while thats easily fixed to some degree if they do grow a dick it's  just a demonic one instead of matching their origins and even if you get really close you can't transform them manually unless you move them in.
+	
+	NPCs not having weapons? (might be mod bug)
+	
+	elementals keep their movesets between forms, but since they can't use some moves in different forms (such as water spells in fire form), they end up losing most of their moves from selection. I think making elementals remember their set moves for every form would work
+	
+	Choke is using detection of player's cock, not the NPC using the action?
+	
+	improted slaves do not have their sex history cleared
+	
+	Player sometimes has no actions when dominant in imp group sex
+	
+	when I had a fox-morph TF'd into a Youko, their name resets and their first and last names become the same and unchangeable. When I try to change it, it just resets back to "Lewis."
+	
+	the cult of lilith won't spawn anymore. This is on 3.2.6. It doesn't matter whether you save edit it to october, or actually change your system's date, They still won't spawn
+	
+	lisp is affecting parsing commands
+	
+	sometimes trying to manage my own clothing during a sex encounter while im dominant causes buttons not to respond
+	ok maybe it wasnt that, but there was an NPC that was causing my buttons to become unresponsive 3-5 turns into sex. I skipped the NPC sex scene after having to quit a few times and came back after fighting another NPC and it was fine so i have no idea
+	
+	reforging hammer doesn't change the demonstone's spell
+		my new poison stone still gives the slamjam
+	
+	Slave import failed (error 50):
+		Caused by: java.lang.NullPointerException
+		at com.lilithsthrone.game.character.effects.PerkManager.initialisePerks(PerkManager.java:502)
+		at com.lilithsthrone.game.character.effects.PerkManager.initialisePerks(PerkManager.java:437)
+		at com.lilithsthrone.game.character.GameCharacter.setupPerks(GameCharacter.java:5177)
+		at com.lilithsthrone.game.character.GameCharacter.resetPerksMap(GameCharacter.java:5171)
+		at com.lilithsthrone.game.character.GameCharacter.loadGameCharacterVariablesFromXML(GameCharacter.java:2679)
+	
+	elemental perk tree isn't starting with the core perks
+	
+	The first arcane perk is being used as a trait for Brax
+	
+	The Lilith's Brood book gives Slime Perk
+	
+	read the book bout lilin, get untouchable perk...
+	
+	idk if this is a bug or intentional but the "add perk points" button in buggy does nothing
+	
+	seems that fighting a bimbo causes the player to use the bimbo dialogue when casting spells
+	
+	arcane strike on higher difficulties restores less aura
+	
+	not sure if this was intentional but corruption, virility and fertility cannot be changed permanently with potions
+	
+	Major boost imp brew gives description of 60% resore that doesn't use new line.
+	
+	Specialized teases cannot do energy damage as shown here, she was already at max lust so all three strikes should have hit energy but only the normal teases converted damage
+	
+	I am still able to cast fireball (costs 54.8 aura), despite having only 3 aura. And yet I cannot cast Ice Shard (which costs 24.1 aura).
+		When I actually added fireball to my plan, it removed all of my aura, and knocked me to 1 energy. Then I hit reset, and now I'm at 55 aura.
+	
+	mmh, I can't add any member to my party in 0.3.3.6 Alpha. 'Add to party' is greyed out stating, that I'm at my party limit although I'm alone
+	
+	if you attempt to give nyan a gift, but don't have one to give her and back out, the gift option will be unavailable until the cooldown is complete
+	
+	In 3.3.6, allowing positioning actions by your partner and ongoing sex acts interact weirdly and sometimes breaks sex by somehow making you the target of your actions.
+		Near as I can tell, the exact situation that triggers it is if you:
+		a) Have switched positions at least three times.
+		b) Attempt an ongoing sex act
+		c) Permit Positioning.
+		The order doesn't matter, nor does anything else. As long as you've fulfilled all three of those conditions, the game goes all weird, and either tries to target you with your sex actions, or else gives you limited, broken control of your partner instead of yourself. (I have no idea how to tell which, as they'd look the same from the standard player view.)
+		I've only tested this in one-on-one sex so far, because it's way easier to get to that to test it. If I had an easy way to test multiple-participant sex, I'd see if it works similarly
+	
+	Also Cold Snap and Deep Freeze seems broken (No critical hits and stuns).
+	
+	Arcane vampyrism trait needs check too... it's half-broken for me - no vampyrism effect. I've tested it on generic alleway robbers and dark alleyways succubus with big aura amount.
+	
+	Looks like crotch boob milk regeneration in the transformation menu isn't hooked up right. Its showing the values for the regular boobs, and messing with it doesnt change crotch boob regen at all.
+	
+	critical spell prediction text remains even when selecting another spell after it
+	
 	
 	------- Clothing issues:
 	
@@ -353,19 +412,16 @@
 	
 	----------
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
-	An option to lell my group member to wash her-/himself would be useful. Maybe even a button in 'Your Room'
-=======
-=======
+	An option to tell my group member to wash her-/himself would be useful. Maybe even a button in 'Your Room'
+
 	the bat slime is referenced after sexing a hell hound (after companion sex - parsing the wrong character when saying "As you step back from the... I'm still horny!")
 	
 	Add scissoring position
 	
->>>>>>> dev
 	Repeat encounters for imp fortresses act as though you've never seen them before - the whole thing needs going over and improving
 	Not sure, if it's a bug or intended, but I am at the imp fortress, and Jhortrax explicitly asks for my NPC partner, but the options below are limited to offering myself or offering both of us.
->>>>>>> dev
+	
+	When given the Nymphomaniac perk NPCs gain +1 or +2 to their orgasms needed to be satisfied
 	
 	Affection drop when starting sex needs to clearly take into account fetishes - put in SexResponse?
 	

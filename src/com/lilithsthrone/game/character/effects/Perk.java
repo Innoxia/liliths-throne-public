@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
@@ -533,11 +534,11 @@ public class Perk {
 			"perks/jobs/chef",
 			Colour.BASE_ORANGE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 50)),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 25)),
 			Util.newArrayListOfValues("[style.boldExcellent(Double)] all potions effects' strength and length")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "Thanks to spending a considerable amount of time tasting food, [npc.name] [npc.has] both a significant resistance to poison, as well as the ability to make the most of things that are a culinary marvel.");
+			return UtilText.parse(owner, "Thanks to spending a considerable amount of time tasting food, [npc.name] [npc.has] both a significant resistance to poison, as well as the ability to make culinary marvels out of basic ingredients.");
 		}
 	};
 
@@ -1148,6 +1149,20 @@ public class Perk {
 			return UtilText.parse(owner, "[npc.NamePos] body is able to produce very potent sperm, increasing the chance that any sexual partner of [npc.hers] gets pregnant.");
 		}
 	};
+	
+	public static AbstractPerk VIRILITY_MAJOR_BOOST = new AbstractPerk(20,
+			false,
+			"virile",
+			PerkCategory.LUST,
+			"perks/virile",
+			Colour.GENERIC_EXCELLENT,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 25)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NamePos] body is able to produce incredibly potent sperm, greatly increasing the chance that any sexual partner of [npc.hers] gets pregnant.");
+		}
+	};
 
 	public static AbstractPerk FERTILITY_BOOST = new AbstractPerk(20,
 			false,
@@ -1160,6 +1175,20 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NamePos] body is very fertile, increasing the chance that any sexual partner of [npc.hers] manages to get [npc.her] pregnant.");
+		}
+	};
+
+	public static AbstractPerk FERTILITY_MAJOR_BOOST = new AbstractPerk(20,
+			false,
+			"fertile",
+			PerkCategory.LUST,
+			"perks/fertile",
+			Colour.GENERIC_EXCELLENT,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 25)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NamePos] body is incredibly fertile, increasing the chance that any sexual partner of [npc.hers] manages to get [npc.her] pregnant.");
 		}
 	};
 	
@@ -1592,7 +1621,37 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameIsFUll] quite a tease, and although [npc.her] charms work well on both sexes, [npc.she] [npc.verb(find)] that [npc.she] [npc.verb(get)] more opportunities to seduce men than women.");
 		}
-
+	};
+	
+	public static AbstractPerk CONVINCING_REQUESTS = new AbstractPerk(20,
+			false,
+			"irresistible appeals",
+			PerkCategory.LUST,
+			"perks/convincing_requests",
+			Colour.GENERIC_SEX,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)),
+			Util.newArrayListOfValues("Requests during sex are no longer denied by sadists or rough dominants")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] mastered the art of sexual persuasion, and [npc.is] able to convince even the cruelest of dominant partners to do as [npc.she] [npc.verb(ask)].");
+		}
+	};
+	
+	public static AbstractPerk OBJECT_OF_DESIRE = new AbstractPerk(20,
+			false,
+			"object of desire",
+			PerkCategory.LUST,
+			"perks/object_of_desire",
+			Colour.GENERIC_SEX,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)),
+			Util.newArrayListOfValues("All partners in sex require [style.colourSex(+1 orgasm)] before being satisfied")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] so astoundingly "+(owner.getFemininity()==Femininity.ANDROGYNOUS?"attractive":(owner.isFeminine()?"beautiful":"handsome"))
+					+" that [npc.her] sexual partners can't help but keep on fucking well after they've had their first orgasm.");
+		}
 	};
 	
 	public static AbstractPerk NYMPHOMANIAC = new AbstractPerk(20,
@@ -1652,21 +1711,57 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/arcaneWeaver",
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 15)),
 			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all clothing enchantments</span>")) {
 
 		@Override
-		public boolean isAlwaysAvailable() {
-			return true;
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] a natural affinity for weaving arcane enchantments into items of clothing, allowing [npc.herHim] to expend only half of the usual arcane essences when enchanting clothing.");
 		}
-		
+	};
+	
+	public static AbstractPerk WEAPON_ENCHANTER = new AbstractPerk(20,
+			false,
+			"arcane smith",
+			PerkCategory.PHYSICAL,
+			"perks/arcaneSmith",
+			Colour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 15)),
+			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all weapon enchantments</span>")) {
+
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You have a natural affinity for weaving arcane enchantments into items of clothing, allowing you to expend only half of the usual arcane essences when enchanting clothing.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] has a natural affinity for weaving arcane enchantments into items of clothing, allowing [npc.herHim] to expend only half of the usual arcane essences when enchanting clothing.");
-			}
+			return UtilText.parse(owner, "[npc.NameHasFull] a natural affinity for imbuing weapons with arcane enchantments, allowing [npc.herHim] to expend only half of the usual arcane essences when enchanting weapons.");
+		}
+	};
+	
+	public static AbstractPerk ENCHANTMENT_STABILITY = new AbstractPerk(20,
+			false,
+			"stable enchantments",
+			PerkCategory.ARCANE,
+			"perks/enchantment_stability",
+			Colour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] spent time training [npc.her] body and mind in order to increase the stability of enchantments in [npc.her] weapons, clothing, and tattoos.");
+		}
+	};
+
+	public static AbstractPerk ENCHANTMENT_STABILITY_ALT = new AbstractPerk(20,
+			false,
+			"stable enchantments",
+			PerkCategory.ARCANE,
+			"perks/enchantment_stability",
+			Colour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] spent time training [npc.her] body and mind in order to increase the stability of enchantments in [npc.her] weapons, clothing, and tattoos.");
 		}
 	};
 	
@@ -1678,11 +1773,6 @@ public class Perk {
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -100)), null) {
 
-		@Override
-		public boolean isAlwaysAvailable() {
-			return true;
-		}
-		
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
@@ -1701,11 +1791,6 @@ public class Perk {
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, -100)), null) {
 
-		@Override
-		public boolean isAlwaysAvailable() {
-			return true;
-		}
-		
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
@@ -1786,6 +1871,50 @@ public class Perk {
 		}
 	};
 	
+	public static AbstractPerk MERAXIS = new AbstractPerk(20,
+			false,
+			"The Dark Siren",
+			PerkCategory.ARCANE,
+			"perks/dark_siren",
+			Colour.ATTRIBUTE_LUST,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 100),
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 100),
+					new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 100)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "Meraxis is none other than the Dark Siren herself! Being the recognised daughter of the elder Lilin Lyssieth, she has considerable skill with wielding the arcane.");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
+	public static AbstractPerk ARCANE_TATTOOIST = new AbstractPerk(20,
+			false,
+			"Arcane Tattooist",
+			PerkCategory.ARCANE,
+			"perks/tattoo",
+			Colour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 15),
+					new Value<Attribute, Integer>(Attribute.ENCHANTMENT_LIMIT, 50)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] undergone extensive training in order to learn how to imbue tattoos with arcane enchantments.");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
 	// HIDDEN PERKS:
 
 	public static AbstractPerk SLUT = new AbstractPerk(20,
@@ -1801,11 +1930,14 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameHasFull] had countless sexual partners, and [npc.has] performed all manner of sexual acts with them.");
+			return UtilText.parse(owner, "[npc.NameHasFull] had countless sexual partners, and [npc.has] performed all manner of lewd acts with them.");
 		}
-		
 		@Override
 		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
 			return true;
 		}
 	};
@@ -1824,9 +1956,12 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] undergone extensive training in order to learn how to harness the arcane.");
 		}
-		
 		@Override
 		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
 			return true;
 		}
 	};
@@ -1845,9 +1980,12 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.Name] suffers from a rare allergic reaction to the arcane, and is therefore almost completely incapable of harnessing its power.");
 		}
-		
 		@Override
 		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
 			return true;
 		}
 	};
@@ -1855,7 +1993,7 @@ public class Perk {
 	public static AbstractPerk HEALTH_FANATIC = new AbstractPerk(20,
 			false,
 			"health fanatic",
-			PerkCategory.ARCANE,
+			PerkCategory.PHYSICAL,
 			"perks/attStrength3",
 			Colour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
@@ -1866,9 +2004,12 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameIsFull] obsessed with [npc.her] personal fitness, and spends hours every day working out and planning out [npc.her] diet.");
 		}
-		
 		@Override
 		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
 			return true;
 		}
 	};
@@ -1876,7 +2017,7 @@ public class Perk {
 	public static AbstractPerk MARTIAL_BACKGROUND = new AbstractPerk(20,
 			false,
 			"martial background",
-			PerkCategory.ARCANE,
+			PerkCategory.PHYSICAL,
 			"perks/attStrength3",
 			Colour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(
@@ -1887,9 +2028,12 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] spent a lot of time training [npc.her] body for combat, and as a result, [npc.sheIs] far stronger than the average person.");
 		}
-		
 		@Override
 		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
 			return true;
 		}
 	};
@@ -4724,7 +4868,16 @@ public class Perk {
 		
 		hiddenPerks.sort((p1, p2) -> p1.getRenderingPriority()-p2.getRenderingPriority());
 	}
-
+	
+	public static AbstractPerk getSubspeciesRelatedPerk(Subspecies subspecies) {
+		Subspecies subToUse = 
+				subspecies.getDamageMultiplier()==Subspecies.getMainSubspeciesOfRace(subspecies.getRace()).getDamageMultiplier()
+					?Subspecies.getMainSubspeciesOfRace(subspecies.getRace())
+					:subspecies;
+		
+		return Perk.getPerkFromId(subToUse.toString());
+	}
+	
 	public static List<AbstractPerk> getAllPerks() {
 		return allPerks;
 	}

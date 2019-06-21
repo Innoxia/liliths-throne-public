@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -112,6 +113,7 @@ public class Game implements XMLSaving {
 	private Map<String, NPC> NPCMap;
 	
 	private Map<WorldType, World> worlds;
+	private long lastAutoSaveTime = 0;
 	private long secondsPassed; // Seconds passed since the start of the game
 	private LocalDateTime startingDate;
 	
@@ -282,7 +284,13 @@ public class Game implements XMLSaving {
 				// Load NPCs:
 				SlaveImport importedSlave = new SlaveImport();
 				importedSlave.loadFromXML(characterElement, doc,
-						CharacterImportSetting.NO_PREGNANCY, CharacterImportSetting.NO_COMPANIONS, CharacterImportSetting.NO_ELEMENTAL, CharacterImportSetting.CLEAR_SLAVERY, CharacterImportSetting.NO_LOCATION_SETUP);
+						CharacterImportSetting.NO_PREGNANCY,
+						CharacterImportSetting.NO_COMPANIONS,
+						CharacterImportSetting.NO_ELEMENTAL,
+						CharacterImportSetting.CLEAR_SLAVERY,
+						CharacterImportSetting.NO_LOCATION_SETUP,
+						CharacterImportSetting.CLEAR_KEY_ITEMS,
+						CharacterImportSetting.REMOVE_RACE_CONCEALED);
 				Main.game.addNPC(importedSlave, false);
 				importedSlave.applyNewlyImportedSlaveVariables();
 				
@@ -341,6 +349,7 @@ public class Game implements XMLSaving {
 				Element informationNode = doc.createElement("coreInfo");
 				game.appendChild(informationNode);
 				CharacterUtils.addAttribute(doc, informationNode, "version", Main.VERSION_NUMBER);
+				CharacterUtils.addAttribute(doc, informationNode, "lastAutoSaveTime", String.valueOf(Main.game.lastAutoSaveTime));
 				CharacterUtils.addAttribute(doc, informationNode, "secondsPassed", String.valueOf(Main.game.secondsPassed));
 				CharacterUtils.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
 				CharacterUtils.addAttribute(doc, informationNode, "nextStormTimeInSeconds", String.valueOf(Main.game.nextStormTimeInSeconds));
@@ -505,6 +514,10 @@ public class Game implements XMLSaving {
 				
 				loadingVersion = informationNode.getAttribute("version");
 
+				if(!informationNode.getAttribute("lastAutoSaveTime").isEmpty()) {
+					Main.game.lastAutoSaveTime = Long.valueOf(informationNode.getAttribute("lastAutoSaveTime"));
+				}
+				
 				if(!informationNode.getAttribute("minutesPassed").isEmpty()) { // Support for before time was converted from minutes to seconds:
 					Main.game.secondsPassed = Long.valueOf(informationNode.getAttribute("minutesPassed"))*60;
 					Main.game.nextStormTimeInSeconds = Long.valueOf(informationNode.getAttribute("nextStormTime"))*60;
@@ -929,6 +942,16 @@ public class Game implements XMLSaving {
 						}
 					}
 				}
+
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.3.8")) {
+					Main.game.getPlayer().resetPerksMap(false);
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(!(npc instanceof Elemental)) {
+							npc.resetPerksMap(true, false);
+						}
+						PerkManager.initialiseSpecialPerksUponCreation(npc); // Generate unique perks for slaves/occupants as well
+					}
+				}
 				
 				Main.game.pendingSlaveInStocksReset = false;
 				
@@ -964,6 +987,14 @@ public class Game implements XMLSaving {
 		Main.game.setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode), false);
 		
 //		System.out.println(Main.isVersionOlderThan(loadingVersion, "0.2.12.95"));
+		
+		// Test enchantments over limits:
+//		for(NPC npc : Main.game.getAllNPCs()) {
+//			int amount = (int) (npc.getEnchantmentPointsUsedTotal()-npc.getAttributeValue(Attribute.ENCHANTMENT_LIMIT));
+//			if(amount>0) {
+//				System.out.println((npc.isUnique()?"X   ":"")+amount+": "+npc.getNameIgnoresPlayerKnowledge()+" "+npc.getWorldLocation().getName()+" "+npc.getLocation());
+//			}
+//		}
 		
 		Main.game.endTurn(0);
 		
@@ -1853,6 +1884,7 @@ public class Game implements XMLSaving {
 						&& Main.game.isStarted()
 						&& Main.game.isRequestAutosave()
 						&& (Main.game.getCurrentDialogueNode()!=null && !Main.game.getCurrentDialogueNode().isTravelDisabled())) {
+					lastAutoSaveTime = Main.game.getSecondsPassed();
 					Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(false), true);
 					Main.game.setRequestAutosave(false);
 				}
@@ -1924,7 +1956,6 @@ public class Game implements XMLSaving {
 				textEndStringBuilder.setLength(0);
 				textStartStringBuilder.setLength(0);
 
-				Main.mainController.getWebEngine().executeScript("var timer;");
 				if(started) {
 					Main.game.endTurn(response, node);
 				}
@@ -2063,6 +2094,7 @@ public class Game implements XMLSaving {
 				&& Main.game.isStarted()
 				&& Main.game.isRequestAutosave()
 				&& (Main.game.getCurrentDialogueNode()!=null && !Main.game.getCurrentDialogueNode().isTravelDisabled())) {
+			lastAutoSaveTime = Main.game.getSecondsPassed();
 			Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(false), true);
 			Main.game.setRequestAutosave(false);
 		}
@@ -2140,7 +2172,6 @@ public class Game implements XMLSaving {
 		textEndStringBuilder.setLength(0);
 		textStartStringBuilder.setLength(0);
 
-		Main.mainController.getWebEngine().executeScript("var timer;");
 		//-------------------- MEMORY LEAK PROBLEM
 		if(started) {
 			if(allowTimeProgress) {
@@ -2632,16 +2663,20 @@ public class Game implements XMLSaving {
 	 * @param text Content of the message.
 	 */
 	public void flashMessage(Colour colour, String text){
-		Main.mainController.getWebEngine().executeScript(
-				"document.getElementById('bottom-text').innerHTML=\"<span style='color:"+colour.toWebHexString()+";'>"+text+"</span>\";"
-				+ "if(!timer) {"
-					+ "document.getElementById('bottom-text').classList.add('demo');"
-					+ "timer = true;"
-					+ "timer = setTimeout(function(){"
-						+ "document.getElementById('bottom-text').classList.remove('demo');"
-						+ "timer = false;"
-					+ "}, 2000);"
-				+ "}");
+		try {
+			Main.mainController.getWebEngine().executeScript(
+					"document.getElementById('bottom-text').innerHTML=\"<span style='color:"+colour.toWebHexString()+";'>"+text+"</span>\";"
+					+ "if(!timer) {"
+						+ "document.getElementById('bottom-text').classList.add('demo');"
+						+ "timer = true;"
+						+ "timer = setTimeout(function(){"
+							+ "document.getElementById('bottom-text').classList.remove('demo');"
+							+ "timer = false;"
+						+ "}, 2000);"
+					+ "}");
+		} catch(Exception ex) {
+			System.err.println("var timer not found...");
+		}
 	}
 
 	public void restoreSavedContent(boolean regenerateSceneDialogue) {
@@ -3557,7 +3592,13 @@ public class Game implements XMLSaving {
 	}
 
 	public boolean isRequestAutosave() {
-		return requestAutosave;
+		if(Main.getProperties().autoSaveFrequency==2 && lastAutoSaveTime+(7*24*60*60)>Main.game.getSecondsPassed()) {
+			return false;
+		} else if(Main.getProperties().autoSaveFrequency==1 && lastAutoSaveTime+(24*60*60)>Main.game.getSecondsPassed()) {
+			return false;
+		} else {
+			return requestAutosave;
+		}
 	}
 
 	public void setRequestAutosave(boolean requestAutosave) {

@@ -102,12 +102,12 @@ public class Arthur extends NPC {
 		}
 		this.setSurname("Fairbanks");
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
-			this.resetPerksMap();
+			this.resetPerksMap(true);
 		}
 	}
 
 	@Override
-	public void setupPerks() {
+	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.ARCANE_ALLERGY);
 		
 		PerkManager.initialisePerks(this,

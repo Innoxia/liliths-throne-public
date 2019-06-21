@@ -142,8 +142,18 @@ public abstract class AbstractPerk {
 		return false;
 	}
 
-	// Override this and return true if the perk is one that is unlock via special in-game events.
+	/**
+	 * Override this and return true if the perk is one that is unlock via special in-game events.
+	 * @return true If this perk does not appear in the perk tree, but is otherwise obtainable through special means.
+	 */
 	public boolean isHiddenPerk() {
+		return false;
+	}
+	
+	/**
+	 * @return true if this a perk that's granted as part of an NPC's background.
+	 */
+	public boolean isBackgroundPerk() {
 		return false;
 	}
 	

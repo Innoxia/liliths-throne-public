@@ -254,7 +254,7 @@ public class TooltipInformationEventListener implements EventListener {
 				 if(levelUpPerk.isHiddenPerk()) {
 					tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Unique Perk</div>");
 				} else {
-						tooltipSB.append("<div class='subTitle' style='color:"+Colour.PERK.toWebHexString()+";'>Perk</div>");
+					tooltipSB.append("<div class='subTitle' style='color:"+Colour.PERK.toWebHexString()+";'>Perk</div>");
 				}
 			}
 			
@@ -309,6 +309,7 @@ public class TooltipInformationEventListener implements EventListener {
 						} else {
 							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";'>Click to purchase perk.</div>");
 						}
+						
 					} else {
 						tooltipSB.append("<div class='subTitle' style='color:"+Colour.PERK.toWebHexString()+";'>"
 											+ UtilText.parse(owner, "[npc.Name] already [npc.verb(own)] this perk!")
@@ -873,8 +874,9 @@ public class TooltipInformationEventListener implements EventListener {
 //						+ "</div>");
 //				
 //			} else {
-				Main.mainController.setTooltipSize(400, 516);
+				Main.mainController.setTooltipSize(400, 516+46);
 	
+				int enchantmentPointsUsed = owner.getEnchantmentPointsUsedTotal();
 				tooltipSB.setLength(0);
 				tooltipSB.append(UtilText.parse(owner,
 						"<div class='title' style='color:" + Femininity.valueOf(owner.getFemininityValue()).getColour().toWebHexString() + ";'>"
@@ -891,6 +893,16 @@ public class TooltipInformationEventListener implements EventListener {
 									:"</span>"+owner.getExperience() + " / "+ (10 * owner.getLevel()) + " xp")
 						+ "</div>"
 				
+						+"<div class='subTitle' style='margin-bottom:4px;'>"
+							+ "[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+")]: "
+							+ (enchantmentPointsUsed>owner.getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
+									?"[style.colourBad("
+									:(enchantmentPointsUsed==owner.getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
+											?"[style.colourGood("
+											:"[style.colourMinorGood("))
+							+ enchantmentPointsUsed + ")]" + "/" + Math.round(owner.getAttributeValue(Attribute.ENCHANTMENT_LIMIT))
+						+ "</div>"
+						
 						+ extraAttributeBonus(owner, Attribute.MAJOR_PHYSIQUE)
 						+ extraAttributeBonus(owner, Attribute.MAJOR_ARCANE)
 						+ extraAttributeBonus(owner, Attribute.MAJOR_CORRUPTION)

@@ -98,7 +98,7 @@ public class SlimeCavernAttacker extends NPC {
 			CharacterUtils.applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
-			initAttributes();
+			initPerkTreeAndBackgroundPerks();
 			
 			this.useItem(AbstractItemType.generateItem(ItemType.MUSHROOM), this, false);
 			

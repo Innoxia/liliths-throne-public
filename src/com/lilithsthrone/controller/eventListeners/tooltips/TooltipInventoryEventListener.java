@@ -931,8 +931,18 @@ public class TooltipInventoryEventListener implements EventListener {
 				}
 			}
 		} else {
-			tooltipSB.append("<div class='container-full-width titular'>" + "Value: "+UtilText.formatAsMoney(absWep.getValue()) + "</div>");
+			tooltipSB.append(
+					"<div class='container-full-width titular'>"
+							+ "Value: "+UtilText.formatAsMoney(absWep.getValue())
+					+ "</div>");
 		}
+		int stabilityCost = absWep.getEnchantmentStabilityCost();
+		tooltipSB.append(
+				"<div class='container-full-width titular'>"
+						+(stabilityCost==0
+							?"Enchantment stability cost: [style.boldDisabled("+stabilityCost+")]"
+							:"[style.colourEnchantment(Enchantment stability cost)]: [style.boldBad("+stabilityCost+")]")
+				+ "</div>");
 
 		if(!author.isEmpty()) {
 			tooltipSB.append("<div class='description' style='height:52px;'>" + author + "</div>");
@@ -940,8 +950,8 @@ public class TooltipInventoryEventListener implements EventListener {
 		
 		tooltipSB.append("</body>");
 
-		yIncrease += Math.max(0, listIncrease-3);
-		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 364 + (yIncrease * LINE_HEIGHT));
+		yIncrease += Math.max(0, listIncrease-4);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 364 + 32 + (yIncrease * LINE_HEIGHT));
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 		
 	}
@@ -1078,6 +1088,13 @@ public class TooltipInventoryEventListener implements EventListener {
 		} else {
 			tooltipSB.append("<div class='container-full-width titular'>Value: "+ (absClothing.isEnchantmentKnown() ? UtilText.formatAsMoney(absClothing.getValue()) : UtilText.formatAsMoney("?", "b")) + "</div>");
 		}
+		int stabilityCost = absClothing.getEnchantmentStabilityCost();
+		tooltipSB.append(
+				"<div class='container-full-width titular'>"
+						+(stabilityCost==0
+							?"Enchantment stability cost: [style.boldDisabled("+stabilityCost+")]"
+							:"[style.colourEnchantment(Enchantment stability cost)]: [style.boldBad("+stabilityCost+")]")
+				+ "</div>");
 
 		if(!author.isEmpty()) {
 			tooltipSB.append("<div class='description' style='height:52px;'>" + author + "</div>");
@@ -1089,7 +1106,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		if(absClothing.getDisplayName(false).length()>40) {
 			specialIncrease = 26;
 		}
-		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 400 + (yIncrease * LINE_HEIGHT) + specialIncrease);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 400 + 32 + (yIncrease * LINE_HEIGHT) + specialIncrease);
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 	}
@@ -1115,11 +1132,15 @@ public class TooltipInventoryEventListener implements EventListener {
 	
 	private void tattooTooltip(Tattoo tattoo) {
 		int yIncrease = 0;
+		int specialIncrease = 0;
 		
 		if (tattoo.getWriting()!=null && !tattoo.getWriting().getText().isEmpty()) {
+			specialIncrease+=8;
 			yIncrease++;
 		}
 		if (tattoo.getCounter()!=null && tattoo.getCounter().getType()!=TattooCounterType.NONE) {
+			specialIncrease+=16;
+			yIncrease++;
 			yIncrease++;
 		}
 		int lSize=0;
@@ -1188,53 +1209,70 @@ public class TooltipInventoryEventListener implements EventListener {
 		tooltipSB.append("</div>");
 
 		tooltipSB.append("<div class='container-full-width' style='padding:8px; height:106px;'>"
-						+ tattoo.getType().getDescription()
-						+"</div>");
+						+ tattoo.getType().getDescription());
 		
 			if (tattoo.getWriting()!=null && !tattoo.getWriting().getText().isEmpty()) {
-					tooltipSB.append("<div class='container-full-width' style='padding:8px; height:54px; text-align:center;'>");
-					if(tattoo.getWriting().getStyles().isEmpty()) {
-						tooltipSB.append("Normal,");
-					} else {
-						int i=0;
-						for(TattooWritingStyle style : tattoo.getWriting().getStyles()) {
-							tooltipSB.append(i==0?Util.capitaliseSentence(style.getName()):", "+style.getName());
-							i++;
-						}
+				tooltipSB.append("<br/>");
+				if(tattoo.getWriting().getStyles().isEmpty()) {
+					tooltipSB.append("Normal,");
+				} else {
+					int i=0;
+					for(TattooWritingStyle style : tattoo.getWriting().getStyles()) {
+						tooltipSB.append(i==0?Util.capitaliseSentence(style.getName()):", "+style.getName());
+						i++;
 					}
-					tooltipSB.append(" "+tattoo.getWriting().getColour().getName()+" text reads:<br/>");
-					tooltipSB.append(tattoo.getFormattedWritingOutput()
-							+ "</div>");
-			} else {
-				tooltipSB.append(
-						"<div class='container-full-width' style='padding:8px; height:28px; text-align:center;'>"
-							+"[style.colourDisabled(This tattoo doesn't have any writing.)]"
-						+ "</div>");
+				}
+				tooltipSB.append(" "+tattoo.getWriting().getColour().getName()+" writing forms part of the tattoo.");
 			}
 			
 			if (tattoo.getCounter()!=null && tattoo.getCounter().getType()!=TattooCounterType.NONE) {
-				tooltipSB.append("<div class='container-full-width' style='padding:8px; height:68px; text-align:center;'>"
-									+ "An enchanted, "+tattoo.getCounter().getColour().getName()+" "+tattoo.getCounter().getType().getName()+" counter reads:<br/>"
-										+ "<span style='color:"+tattoo.getCounter().getColour().toWebHexString()+";'>"
-												+tattoo.getFormattedCounterOutput(equippedToCharacter)
-										+"</span>"
-								+ "</div>");
-			} else {
-				tooltipSB.append(
-						"<div class='container-full-width' style='padding:8px; height:28px; text-align:center;'>"
-							+"[style.colourDisabled(This tattoo doesn't have a counter.)]"
-						+ "</div>");
+				tooltipSB.append("<br/>"
+									+ "An enchanted, "+tattoo.getCounter().getColour().getName()+" "+tattoo.getCounter().getType().getName()+" counter has been applied to the tattoo.");
 			}
+
+		tooltipSB.append("</div>");
+		
+		if (tattoo.getWriting()!=null && !tattoo.getWriting().getText().isEmpty()) {
+			tooltipSB.append("<div class='container-full-width' style='padding:4px; height:42px; text-align:center;'>");
+			tooltipSB.append("The writing reads:<br/>");
+			tooltipSB.append(tattoo.getFormattedWritingOutput()
+					+ "</div>");
+		} else {
+			tooltipSB.append(
+					"<div class='container-full-width' style='padding:4px; height:28px; text-align:center;'>"
+						+"[style.colourDisabled(This tattoo doesn't have any writing.)]"
+					+ "</div>");
+		}
+
+		if (tattoo.getCounter()!=null && tattoo.getCounter().getType()!=TattooCounterType.NONE) {
+			tooltipSB.append("<div class='container-full-width' style='padding:4px; height:42px; text-align:center;'>"
+								+ "The '"+tattoo.getCounter().getType().getName()+"' counter displays:<br/>"
+									+ "<span style='color:"+tattoo.getCounter().getColour().toWebHexString()+";'>"
+											+tattoo.getFormattedCounterOutput(equippedToCharacter)
+									+"</span>"
+							+ "</div>");
+		} else {
+			tooltipSB.append(
+					"<div class='container-full-width' style='padding:8px; height:28px; text-align:center;'>"
+						+"[style.colourDisabled(This tattoo doesn't have a counter.)]"
+					+ "</div>");
+		}
+		int stabilityCost = tattoo.getEnchantmentStabilityCost();
+		tooltipSB.append(
+				"<div class='container-full-width titular'>"
+						+(stabilityCost==0
+							?"Enchantment stability cost: [style.boldDisabled("+stabilityCost+")]"
+							:"[style.colourEnchantment(Enchantment stability cost)]: [style.boldBad("+stabilityCost+")]")
+				+ "</div>");
 			
 		tooltipSB.append("</div>");
 		
 		tooltipSB.append("</body>");
 
-		int specialIncrease = 0;
 		if(tattoo.getDisplayName(false).length()>40) {
 			specialIncrease = 26;
 		}
-		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 410 + ((lSize+yIncrease) * LINE_HEIGHT) + yIncrease*8 + specialIncrease);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 368 + 32 + (yIncrease * LINE_HEIGHT) + specialIncrease);
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 	}
 	

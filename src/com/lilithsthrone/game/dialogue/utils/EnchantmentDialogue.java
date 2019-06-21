@@ -40,6 +40,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.LoadedEnchantment;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
@@ -204,17 +205,35 @@ public class EnchantmentDialogue {
 								+ "</div>");
 		
 			inventorySB.append("<div class='container-half-width' style='width:48%; margin:0 1%;'>");
-				int i=0;
 				if(effect.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())!=null) {
-					if(i>0) {
-						inventorySB.append("<br/>");
-					}
+					int i=0;
 					for(String s : effect.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
+						if(i>0) {
+							inventorySB.append("<br/>");
+						}
 						inventorySB.append("<b>"+Util.capitaliseSentence(s)+"</b>");
+						i++;
 					}
-					i++;
 				} else {
 					inventorySB.append("<b>-</b>");
+				}
+
+				// APpend stability cost for weapons/clothing/tattoos
+				if((ingredient instanceof AbstractClothing)
+						|| (ingredient instanceof AbstractWeapon)
+						|| (ingredient instanceof Tattoo)) {
+					if(effect.getItemEffectType()==ItemEffectType.CLOTHING
+							|| effect.getItemEffectType()==ItemEffectType.WEAPON
+							|| effect.getItemEffectType()==ItemEffectType.TATTOO) {
+						if(effect.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE
+								|| effect.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
+							int cost = Math.max(0, effect.getPotency().getClothingBonusValue());
+							inventorySB.append("<br/>"
+									+ (cost>0
+											?"[style.colourEnchantment(Enchantment stability cost)]: [style.boldBad("+cost+")]"
+											:"Enchantment stability cost: [style.boldDisabled(0)]"));
+						}
+					}
 				}
 			inventorySB.append("</div>");
 			
@@ -284,8 +303,20 @@ public class EnchantmentDialogue {
 				if(effects.isEmpty()) {
 					inventorySB.append("<br/><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No effects added</span>");
 				} else {
+					int cost = 0;
+					
 					for(int it=0; it<effects.size(); it++) {
 						ItemEffect ie = effects.get(it);
+						
+						if(ie.getItemEffectType()==ItemEffectType.CLOTHING
+								|| ie.getItemEffectType()==ItemEffectType.WEAPON
+								|| ie.getItemEffectType()==ItemEffectType.TATTOO) {
+							if(ie.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE
+									|| ie.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
+								cost += Math.max(0, ie.getPotency().getClothingBonusValue());
+							}
+						}
+						
 						for(String s : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
 							inventorySB.append(
 									"<div class='container-full-width' style='background:"+RenderingEngine.getEntryBackgroundColour(it%2==0)+"; width:98%; margin:0 1%; padding:2px;'>"
@@ -302,6 +333,15 @@ public class EnchantmentDialogue {
 														+ " style='width:22px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0; float:right; color:"+Colour.GENERIC_BAD.toWebHexString()+";'><b>X</b></div>")
 									+"</div>");
 						}
+					}
+
+					if((ingredient instanceof AbstractClothing)
+							|| (ingredient instanceof AbstractWeapon)
+							|| (ingredient instanceof Tattoo)) {
+						inventorySB.append("<br/>"
+								+ (cost>0
+										?"[style.colourEnchantment(Enchantment stability cost)]: [style.boldBad("+cost+")]"
+										:"Enchantment stability cost: [style.boldDisabled(0)]"));
 					}
 				}
 			inventorySB.append("</div>");
@@ -399,6 +439,8 @@ public class EnchantmentDialogue {
 				
 			// Ingredients:
 			} else if (index == 1) {
+				int price = EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER;
+				
 				if((effects.equals(ingredient.getEffects())
 						|| (effects.isEmpty() && ingredient instanceof AbstractItem))
 //						 && outputName.equals(ingredient.getName())
@@ -407,9 +449,12 @@ public class EnchantmentDialogue {
 					
 				} else if(canAffordCost(ingredient, effects)) {
 					return new ResponseEffectsOnly((ingredient instanceof Tattoo
-																?"Enchant ("+UtilText.formatAsMoney(EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER, "span")+")"
+																?"Enchant ("+UtilText.formatAsMoney(price, "span")+")"
 																:"Craft"),
-													"Craft '"+EnchantingUtils.getPotionName(ingredient, effects)+"'."){
+													"Craft '"+EnchantingUtils.getPotionName(ingredient, effects)+"'."
+															+ ((ingredient instanceof Tattoo)
+																	?""
+																	:" This will cost [style.boldArcane("+EnchantingUtils.getCost(ingredient, effects)+")] arcane essences.")){
 						@Override
 						public void effects() {
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
@@ -442,7 +487,7 @@ public class EnchantmentDialogue {
 				} else {
 					return new Response(
 							(ingredient instanceof Tattoo
-									?"Enchant ("+UtilText.formatAsMoneyUncoloured(EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER, "span")+")"
+									?"Enchant ("+UtilText.formatAsMoneyUncoloured(price, "span")+")"
 									:"Craft"),
 							"You can't afford to craft this right now!", null);
 				}
