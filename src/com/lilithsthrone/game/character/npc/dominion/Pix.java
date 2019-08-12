@@ -91,7 +91,7 @@ public class Pix extends NPC {
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		this.addSpecialPerk(Perk.HEALTH_FANATIC);
+		this.addSpecialPerk(Perk.SPECIAL_HEALTH_FANATIC);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),

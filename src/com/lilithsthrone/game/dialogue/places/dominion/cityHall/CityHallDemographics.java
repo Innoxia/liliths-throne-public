@@ -22,6 +22,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaOral;
 import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaSex;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotOther;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
@@ -368,8 +369,8 @@ public class CityHallDemographics {
 						"Shuffle forwards between [vanessa.namePos] legs and start eating her out.",
 						true, true,
 						new SMVanessaOral(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotBipeds.CHAIR_ORAL_SITTING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_KNEELING))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotOther.SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.PERFORMING_ORAL))),
 						null,
 						null,
 						END_ORAL_SEX,
@@ -415,16 +416,23 @@ public class CityHallDemographics {
 			if(index==1) {
 				if(Main.game.getPlayer().hasPenis() && (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true) || !Main.game.getPlayer().hasVagina())) {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+						boolean biped = Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals();
 						return new ResponseSex("Sex",
-								"Push [vanessa.name] back onto her desk and fuck her.",
+								biped
+									?"Push [vanessa.name] back onto her desk and fuck her."
+									:"Mount [vanessa.name] and start fucking her.",
 								true, true,
-								new SMVanessaSex(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_DOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotBipeds.MISSIONARY_DESK_SUB))),
+								biped
+									?new SMVanessaSex(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_DOM)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotBipeds.MISSIONARY_DESK_SUB)))
+									:new SMVanessaSex(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.ALL_FOURS_MOUNTING)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotOther.ALL_FOURS_FUCKED))),
 								null,
 								null,
 								END_SEX,
-								UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "START_SEX_FUCK_ON_DESK")){
+								UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "START_SEX_FUCKING_VANESSA")){
 							@Override
 							public List<InitialSexActionInformation> getInitialSexActions() {
 								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Vanessa.class), PenisVagina.PENIS_FUCKING_START, false, true));
@@ -441,12 +449,19 @@ public class CityHallDemographics {
 					
 				} else if(Main.game.getPlayer().hasVagina()) {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+						boolean biped = Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals();
 						return new ResponseSex("Receive cunnilingus",
-								"Allow [vanessa.name] to swap places with you so that she can eat you out.",
+								biped
+									?"Allow [vanessa.name] to swap places with you so that she can eat you out."
+									:"Allow [vanessa.name] to kneel behind you so that she can eat you out.",
 								true, true,
-								new SMVanessaOral(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_ORAL_SITTING)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotBipeds.CHAIR_KNEELING))),
+								biped
+									?new SMVanessaOral(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.SITTING)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotOther.PERFORMING_ORAL)))
+									:new SMVanessaOral(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.RECEIVING_ORAL)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotOther.PERFORMING_ORAL_BEHIND))),
 								null,
 								null,
 								END_SEX_ORAL_RECEIVING,
@@ -467,12 +482,19 @@ public class CityHallDemographics {
 					
 				} else {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+						boolean biped = Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals();
 						return new ResponseSex("Receive oral",
-								"Allow [vanessa.name] to swap places with you so that she can perform oral on your genderless mound.",
+								biped
+									?"Allow [vanessa.name] to swap places with you so that she can perform oral on your genderless mound."
+									:"Allow [vanessa.name] to kneel behind you so that she can perform oral on your genderless mound.",
 								true, true,
-								new SMVanessaOral(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_ORAL_SITTING)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotBipeds.CHAIR_KNEELING))),
+								biped
+									?new SMVanessaOral(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.SITTING)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotOther.PERFORMING_ORAL)))
+									:new SMVanessaOral(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.RECEIVING_ORAL)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotOther.PERFORMING_ORAL_BEHIND))),
 								null,
 								null,
 								END_SEX_ORAL_RECEIVING,
@@ -484,7 +506,7 @@ public class CityHallDemographics {
 						};
 						
 					} else {
-						return new Response("Receive cunnilingus", "As you cannot get access to your genderless mound, [vanessa.name] cannot have sex with you...", null);
+						return new Response("Receive oral", "As you cannot get access to your genderless mound, [vanessa.name] cannot have sex with you...", null);
 					}
 				}
 				
@@ -698,7 +720,7 @@ public class CityHallDemographics {
 			}
 		}
 		
-		if(applyOffspringSurnames && Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()==0) {
+		if(applyOffspringSurnames && Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()<1) {
 			unsuitableSurname = true;
 		}
 		

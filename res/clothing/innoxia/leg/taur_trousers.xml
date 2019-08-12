@@ -12,7 +12,7 @@
 		
 		<description><![CDATA[A set of specially-designed trousers, suitable to be fit onto the lower body of any taur race. A very weak telekinetic enchantment helps the wearer put them on without assistance. There is a zip running down beneath the rear portion, allowing the wearer to do their business without taking them off.]]></description> 
 		
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<femininity>ANDROGYNOUS</femininity> 
 		

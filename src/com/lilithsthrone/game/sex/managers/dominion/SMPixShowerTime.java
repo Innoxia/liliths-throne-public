@@ -9,7 +9,7 @@ import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 
 /**
  * @since 0.1.69.9
- * @version 0.1.97
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMPixShowerTime extends SexManagerDefault {
@@ -31,12 +31,7 @@ public class SMPixShowerTime extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerStartNaked() {
-		return true;
-	}
-
-	@Override
-	public boolean isPartnerStartNaked() {
+	public boolean isCharacterStartNaked(GameCharacter character) {
 		return true;
 	}
 	

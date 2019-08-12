@@ -51,7 +51,7 @@ public enum SpellSchool {
 			+ "<p>"
 				+ "Students of the school of Air are able to effortlessly control the temperature of air around them, making sure that they're never too hot or too cold."
 			+ "</p>",
-			"Passive energy and arcane regeneration is doubled.",
+			"Passive "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+" regeneration is doubled.",
 			Colour.BASE_BLUE_LIGHT),
 	
 	FIRE("fire",

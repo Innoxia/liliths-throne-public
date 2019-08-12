@@ -61,7 +61,7 @@ public class SlaveDialogue {
 			companionCharacter = null;
 		}
 		
-		charactersPresent = Main.game.getCharactersPresent();
+		charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
 	}
 	
 	private static NPC getSlave() {
@@ -112,6 +112,16 @@ public class SlaveDialogue {
 		SlaveDialogue.followupEnslavementDialogue = followupEnslavementDialogue;
 	}
 
+	private static List<GameCharacter> getDominantSpectators() {
+		return Main.game.getPlayer().getCompanions();
+	}
+
+	private static List<GameCharacter> getSubmissiveSpectators() {
+		List<NPC> characters = Main.game.getCharactersPresent();
+		characters.removeAll(Main.game.getPlayer().getCompanions());
+		return new ArrayList<>(characters);
+	}
+	
 	public static final DialogueNode DEFAULT_ENSLAVEMENT_DIALOGUE = new DialogueNode("New Slave", "", true) {
 		
 		@Override
@@ -743,8 +753,8 @@ public class SlaveDialogue {
 									new SMMilkingStall(
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MILKING_STALL_FUCKING)),
 											Util.newHashMapOfValues(new Value<>(getSlave(), SexSlotBipeds.MILKING_STALL_LOCKED_IN_MILKING_STALL))),
-									null,
-									null,
+									getDominantSpectators(),
+									getSubmissiveSpectators(),
 									AFTER_SEX,
 									UtilText.parseFromXMLFile(getTextFilePath(), "RAPE_START_MILKING_ROOM", getSlave())) {
 								@Override
@@ -764,8 +774,8 @@ public class SlaveDialogue {
 									new SMMilkingStall(
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MILKING_STALL_FUCKING)),
 											Util.newHashMapOfValues(new Value<>(getSlave(), SexSlotBipeds.MILKING_STALL_LOCKED_IN_MILKING_STALL))),
-									null,
-									null,
+									getDominantSpectators(),
+									getSubmissiveSpectators(),
 									AFTER_SEX,
 									UtilText.parseFromXMLFile(getTextFilePath(), "SEX_START_MILKING_ROOM", getSlave())) {
 								@Override
@@ -787,8 +797,8 @@ public class SlaveDialogue {
 									new SMGeneric(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											Util.newArrayListOfValues(getSlave()),
-									null,
-									null,
+									getDominantSpectators(),
+									getSubmissiveSpectators(),
 									(getSlave().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
 										?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
 										:new ArrayList<>())),
@@ -811,8 +821,8 @@ public class SlaveDialogue {
 									new SMGeneric(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											Util.newArrayListOfValues(getSlave()),
-									null,
-									null,
+									getDominantSpectators(),
+									getSubmissiveSpectators(),
 									(getSlave().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
 											?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
 											:new ArrayList<>())),
@@ -828,6 +838,8 @@ public class SlaveDialogue {
 						
 					} else if (index == 2) {
 						if(companionCharacter==null || charactersPresent.size()<2) {
+							System.out.println(companionCharacter.getName());
+							System.out.println(charactersPresent.size());
 							return new Response("Spitroast (front)", "You'd need a third person to be present in order to get a spitroast going...", null);
 							
 						} else if(targetedCharacterForSex.isPlayer()) {
@@ -864,8 +876,8 @@ public class SlaveDialogue {
 										new SMGeneric(
 												Util.newArrayListOfValues(companionCharacter, Main.game.getPlayer()),
 												Util.newArrayListOfValues(targetedCharacterForSex),
-												null,
-												null,
+												getDominantSpectators(),
+												getSubmissiveSpectators(),
 												ResponseTag.PREFER_DOGGY) {
 											@Override
 											public boolean isPublicSex() {
@@ -920,8 +932,8 @@ public class SlaveDialogue {
 										new SMGeneric(
 												Util.newArrayListOfValues(Main.game.getPlayer(), companionCharacter),
 												Util.newArrayListOfValues(targetedCharacterForSex),
-												null,
-												null,
+												getDominantSpectators(),
+												getSubmissiveSpectators(),
 												ResponseTag.PREFER_DOGGY) {
 											@Override
 											public boolean isPublicSex() {
@@ -969,8 +981,8 @@ public class SlaveDialogue {
 									new SMGeneric(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											Util.newArrayListOfValues(targetedCharacterForSex, companionCharacter),
-											null,
-											null,
+											getDominantSpectators(),
+											getSubmissiveSpectators(),
 											ResponseTag.PREFER_DOGGY) {
 										@Override
 										public boolean isPublicSex() {
@@ -1006,8 +1018,8 @@ public class SlaveDialogue {
 									new SMGeneric(
 											Util.newArrayListOfValues(getSlave()),
 											Util.newArrayListOfValues(Main.game.getPlayer()),
-									null,
-									null,
+											getDominantSpectators(),
+											getSubmissiveSpectators(),
 									(getSlave().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
 											?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
 											:new ArrayList<>())),
@@ -1065,8 +1077,8 @@ public class SlaveDialogue {
 									new SMGeneric(
 											Util.newArrayListOfValues(companionCharacter, targetedCharacterForSex),
 											Util.newArrayListOfValues(Main.game.getPlayer()),
-											null,
-											null,
+											getDominantSpectators(),
+											getSubmissiveSpectators(),
 											ResponseTag.PREFER_DOGGY) {
 										@Override
 										public boolean isPublicSex() {
@@ -1127,8 +1139,8 @@ public class SlaveDialogue {
 									new SMGeneric(
 											Util.newArrayListOfValues(targetedCharacterForSex, companionCharacter),
 											Util.newArrayListOfValues(Main.game.getPlayer()),
-											null,
-											null,
+											getDominantSpectators(),
+											getSubmissiveSpectators(),
 											ResponseTag.PREFER_DOGGY) {
 										@Override
 										public boolean isPublicSex() {
@@ -1179,8 +1191,8 @@ public class SlaveDialogue {
 									new SMGeneric(
 											Util.newArrayListOfValues(targetedCharacterForSex),
 											Util.newArrayListOfValues(Main.game.getPlayer(), companionCharacter),
-											null,
-											null,
+											getDominantSpectators(),
+											getSubmissiveSpectators(),
 											ResponseTag.PREFER_DOGGY) {
 										@Override
 										public boolean isPublicSex() {
@@ -2249,6 +2261,13 @@ public class SlaveDialogue {
 		}
 	};
 	
+	private static boolean isSlaveNaked() {
+		return getSlave().isCoverableAreaExposed(CoverableArea.ANUS)
+				&& getSlave().isCoverableAreaExposed(CoverableArea.NIPPLES)
+				&& getSlave().isCoverableAreaExposed(CoverableArea.PENIS)
+				&& getSlave().isCoverableAreaExposed(CoverableArea.VAGINA);
+	}
+	
 	public static final DialogueNode SLAVE_INSPECT = new DialogueNode("", "", true, true) {
 		
 		@Override
@@ -2260,8 +2279,11 @@ public class SlaveDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append("<p>"
-							+ "Deciding that you'd like to inspect [npc.namePos] body, you order [npc.herHim] to strip naked, before taking a step back in order to get a better view of [npc.herHim]."
+			UtilText.nodeContentSB.append(
+						"<p>"
+							+ (isSlaveNaked()
+									?"Deciding that you'd like to inspect [npc.namePos] naked body, you order [npc.herHim] to take a step back so that you can get a better view of [npc.herHim]."
+									:"Deciding that you'd like to inspect [npc.namePos] body, you order [npc.herHim] to strip naked, before taking a step back in order to get a better view of [npc.herHim].")
 						+ "</p>"
 						+ "<p>");
 
@@ -2272,40 +2294,49 @@ public class SlaveDialogue {
 							case DISOBEDIENT:
 								UtilText.nodeContentSB.append(
 											"[npc.She] lets out an angry scowl as [npc.she] hears your order, but, realising that [npc.she] really doesn't have any choice in the matter, begrudgingly moves to obey."
-											+ " As [npc.she] takes [npc.her] clothes off, [npc.she] snarls,"
+											+ (isSlaveNaked()
+													?" Shooting you a furious glare, [npc.she] snarls,"
+													:" As [npc.she] takes [npc.her] clothes off, [npc.she] snarls,")
 											+ " [npc.speech(Fucking "+(Main.game.getPlayer().isFeminine()?"bitch":"bastard")+"! Go on! Take a good look at your <i>property</i>, you sick fuck!)]"
 										+ "</p>"
 										+ "<p>"
 											+ "Despite [npc.her] angry words, you detect an undercurrent of arousal in [npc.namePos] voice,"
 												+ " and [npc.she] puts up surprisingly little resistance as you command [npc.herHim] to parade around in front of you."
 											+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-											+" Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, and even though this draws yet another angry remark from between your disobedient slave's [npc.lips],"
+											+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
+												+", and even though this draws yet another angry remark from between your disobedient slave's [npc.lips],"
 												+ " you can tell that [npc.she] secretly enjoyed presenting [npc.herself] to you."
 										+ "</p>");
 								break;
 							case NEUTRAL:
 								UtilText.nodeContentSB.append(
 										"[npc.She] lets out a frustrated sigh as [npc.she] hears your order, but, trying to keep [npc.her] emotions under control, begrudgingly moves to obey."
-										+ " As [npc.she] takes [npc.her] clothes off, [npc.she] snaps,"
-										+ " [npc.speech(This will just take a moment, <i>[npc.pcName]</i>.)]"
+										+ (isSlaveNaked()
+												?" Glaring at you, [npc.she] snaps,"
+												:" As [npc.she] takes [npc.her] clothes off, [npc.she] snaps,")
+										+ " [npc.speech(Very well, <i>[npc.pcName]</i>.)]"
 									+ "</p>"
 									+ "<p>"
 										+ "Despite [npc.her] slightly-rebellious tone, you detect an undercurrent of arousal in [npc.namePos] voice,"
 											+ " and [npc.she] puts up surprisingly little resistance as you command [npc.herHim] to parade around in front of you."
 										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-										+" Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, and from [npc.her] disappointed sigh, you can tell that [npc.she] enjoyed presenting [npc.herself] to you."
+										+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
+											+", and from [npc.her] disappointed sigh, you can tell that [npc.she] enjoyed presenting [npc.herself] to you."
 									+ "</p>");
 								break;
 							case OBEDIENT:
 								UtilText.nodeContentSB.append(
-										"[npc.She] immediately moves to obey your order, but you see the distinct look of hatred in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
-										+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,"
+										(isSlaveNaked()
+												? "[npc.She] immediately moves to obey your order, but you see the distinct look of hatred in [npc.her] [npc.eyes] as [npc.she] obediently steps back and asks,"
+												: "[npc.She] immediately moves to obey your order, but you see the distinct look of hatred in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
+													+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,")
 										+ " [npc.speech(Is this to your pleasure, [npc.pcName]?)]"
 									+ "</p>"
 									+ "<p>"
 										+ "You answer in the affirmative, before commanding [npc.name] to parade around in front of you; an order which [npc.she] again dutifully carries out."
 										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-										+ " Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, and, without a word of complaint, [npc.she] once more does exactly as you say."
+										+ " Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
+											+", and, without a word of complaint, [npc.she] once more does exactly as you say."
 										+ " From the way [npc.her] cheeks have flushed, you can tell that [npc.she] enjoyed presenting [npc.herself] to you."
 									+ "</p>");
 								break;
@@ -2316,37 +2347,44 @@ public class SlaveDialogue {
 							case DISOBEDIENT:
 								UtilText.nodeContentSB.append(
 											"[npc.She] lets out a happy cry as [npc.she] hears your order, and quickly moves to obey."
-											+ " As [npc.she] takes [npc.her] clothes off, [npc.she] [npc.moansVerb],"
+											+ (isSlaveNaked()
+													?" Smiling seductively at you, [npc.she] [npc.moansVerb],"
+													:" As [npc.she] takes [npc.her] clothes off, [npc.she] [npc.moansVerb],")
 											+ " [npc.speech(~Mmm~ I hope you enjoy this as much as I do, [npc.pcName]...)]"
 										+ "</p>"
 										+ "<p>"
 											+ "Ignoring [npc.her] words, you command [npc.name] to parade around in front of you; an order which [npc.she] again eagerly carries out."
 											+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-											+" Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, which draws a disappointed sigh from between your disobedient slave's [npc.lips]."
+											+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
+											+", which draws a disappointed sigh from between your disobedient slave's [npc.lips]."
 										+ "</p>");
 								break;
 							case NEUTRAL:
 								UtilText.nodeContentSB.append(
 										"[npc.She] lets out a happy cry as [npc.she] hears your order, but, trying to keep [npc.her] emotions under control, quickly moves to obey."
-										+ " As [npc.she] takes [npc.her] clothes off, [npc.she] [npc.moansVerb],"
+										+ (isSlaveNaked()
+												?" Smiling seductively at you, [npc.she] [npc.moansVerb],"
+												:" As [npc.she] takes [npc.her] clothes off, [npc.she] [npc.moansVerb],")
 										+ " [npc.speech(I hope this is to your satisfaction, [npc.pcName].)]"
 									+ "</p>"
 									+ "<p>"
 										+ "After [npc.sheHas] stripped naked, you command [npc.name] to parade around in front of you; an order which [npc.she] again eagerly carries out."
 										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-										+" Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, and, with a disappointed sigh, [npc.she] does as you command."
+										+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, with a disappointed sigh, [npc.she] does as you command."
 									+ "</p>");
 								break;
 							case OBEDIENT:
 								UtilText.nodeContentSB.append(
-										"[npc.She] immediately moves to obey your order, and you see the distinct look of arousal in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
-										+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,"
+										(isSlaveNaked()
+												?"[npc.She] immediately moves to obey your order, and you see the distinct look of arousal in [npc.her] [npc.eyes] as [npc.she] obediently steps back and asks,"
+												:"[npc.She] immediately moves to obey your order, and you see the distinct look of arousal in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
+													+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,")
 										+ " [npc.speech(Is this to your pleasure, [npc.pcName]?)]"
 									+ "</p>"
 									+ "<p>"
 										+ "You answer in the affirmative, before commanding [npc.name] to parade around in front of you; an order which [npc.she] again dutifully carries out."
 										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-										+ " Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, and, without a word of complaint, [npc.she] once more does exactly as you say."
+										+ " Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, without a word of complaint, [npc.she] once more does exactly as you say."
 										+ " From the way [npc.her] cheeks have flushed, you can tell that [npc.she] enjoyed presenting [npc.herself] to you."
 									+ "</p>");
 								break;
@@ -2357,37 +2395,44 @@ public class SlaveDialogue {
 							case DISOBEDIENT:
 								UtilText.nodeContentSB.append(
 											"[npc.She] lets out a happy little cry as [npc.she] hears your order, and quickly moves to obey."
-											+ " As [npc.she] takes [npc.her] clothes off, [npc.she] [npc.moansVerb],"
+											+ (isSlaveNaked()
+													?" Smiling seductively at you, [npc.she] [npc.moansVerb],"
+													:" As [npc.she] takes [npc.her] clothes off, [npc.she] [npc.moansVerb],")
 											+ " [npc.speech(~Mmm~ It's so degrading being forced to do this... I love it...)]"
 										+ "</p>"
 										+ "<p>"
 											+ "Ignoring [npc.her] words, you command [npc.name] to parade around in front of you; an order which [npc.she] again happily carries out."
 											+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-											+" Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, which draws a disappointed sigh from between your disobedient slave's [npc.lips]."
+											+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
+												+", which draws a disappointed sigh from between your disobedient slave's [npc.lips]."
 										+ "</p>");
 								break;
 							case NEUTRAL:
 								UtilText.nodeContentSB.append(
 										"[npc.She] lets out a happy little cry as [npc.she] hears your order, but, trying to keep [npc.her] emotions under control, quickly moves to obey."
-										+ " As [npc.she] takes [npc.her] clothes off, [npc.she] [npc.moansVerb],"
+										+ (isSlaveNaked()
+												?" Smiling seductively at you, [npc.she] [npc.moansVerb],"
+												:" As [npc.she] takes [npc.her] clothes off, [npc.she] [npc.moansVerb],")
 										+ " [npc.speech(I hope this pleases you, [npc.pcName]...)]"
 									+ "</p>"
 									+ "<p>"
 										+ "Ignoring the amorous tone of [npc.her] voice, you command [npc.name] to parade around in front of you; an order which [npc.she] again happily carries out."
 										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-										+" Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, and, with a disappointed sigh, [npc.she] does as you command."
+										+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, with a disappointed sigh, [npc.she] does as you command."
 									+ "</p>");
 								break;
 							case OBEDIENT:
 								UtilText.nodeContentSB.append(
-										"[npc.She] immediately moves to obey your order, but you see the distinct look of arousal in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
-										+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,"
+										(isSlaveNaked()
+												?"[npc.She] immediately moves to obey your order, and you see the distinct look of arousal in [npc.her] [npc.eyes] as [npc.she] obediently steps back and asks,"
+												:"[npc.She] immediately moves to obey your order, and you see the distinct look of arousal in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
+													+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,")
 										+ " [npc.speech(Is this to your pleasure, [npc.pcName]?)]"
 									+ "</p>"
 									+ "<p>"
 										+ "You answer in the affirmative, before commanding [npc.name] to parade around in front of you; an order which [npc.she] again dutifully carries out."
 										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-										+ " Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, and, without a word of complaint, [npc.she] once more does exactly as you say."
+										+ " Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, without a word of complaint, [npc.she] once more does exactly as you say."
 										+ " From the way [npc.her] cheeks have flushed, you can tell that [npc.she] enjoyed presenting [npc.herself] to you."
 									+ "</p>");
 								break;
@@ -2406,37 +2451,44 @@ public class SlaveDialogue {
 							case DISOBEDIENT:
 								UtilText.nodeContentSB.append(
 											"[npc.She] lets out an angry scowl as [npc.she] hears your order, but, realising that [npc.she] really doesn't have any choice in the matter, begrudgingly moves to obey."
-											+ " As [npc.she] takes [npc.her] clothes off, [npc.she] snarls,"
+											+ (isSlaveNaked()
+													?" Shooting you a furious glare, [npc.she] snarls,"
+													:" As [npc.she] takes [npc.her] clothes off, [npc.she] snarls,")
 											+ " [npc.speech(Fucking "+(Main.game.getPlayer().isFeminine()?"bitch":"bastard")+"! Go on! Take a good look at your <i>property</i>, you sick fuck!)]"
 										+ "</p>"
 										+ "<p>"
 											+ "Ignoring [npc.her] rebellious words, you command [npc.name] to parade around in front of you; an order which [npc.she] again reluctantly carries out."
 											+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-											+" Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, drawing yet another angry remark from between your disobedient slave's [npc.lips]."
+											+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
+												+", drawing yet another angry remark from between your disobedient slave's [npc.lips]."
 										+ "</p>");
 								break;
 							case NEUTRAL:
 								UtilText.nodeContentSB.append(
 										"[npc.She] lets out a frustrated sigh as [npc.she] hears your order, but, trying to keep [npc.her] emotions under control, begrudgingly moves to obey."
-										+ " As [npc.she] takes [npc.her] clothes off, [npc.she] snaps,"
-										+ " [npc.speech(This will just take a moment, <i>[npc.pcName]</i>.)]"
+											+ (isSlaveNaked()
+													?" Glaring at you, [npc.she] snaps,"
+													:" As [npc.she] takes [npc.her] clothes off, [npc.she] snaps,")
+										+ " [npc.speech(Very well, <i>[npc.pcName]</i>.)]"
 									+ "</p>"
 									+ "<p>"
 										+ "Ignoring [npc.her] slightly-rebellious tone, you command [npc.name] to parade around in front of you; an order which [npc.she] again reluctantly carries out."
 										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-										+" Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, and, with a relieved sigh, [npc.she] does as you command."
+										+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, with a relieved sigh, [npc.she] does as you command."
 									+ "</p>");
 								break;
 							case OBEDIENT:
 								UtilText.nodeContentSB.append(
-										"[npc.She] immediately moves to obey your order, but you see the distinct look of hatred in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
-										+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,"
+										(isSlaveNaked()
+												? "[npc.She] immediately moves to obey your order, but you see the distinct look of hatred in [npc.her] [npc.eyes] as [npc.she] obediently steps back and asks,"
+												: "[npc.She] immediately moves to obey your order, but you see the distinct look of hatred in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
+													+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,")
 										+ " [npc.speech(Is this to your pleasure, [npc.pcName]?)]"
 									+ "</p>"
 									+ "<p>"
 										+ "You answer in the affirmative, before commanding [npc.name] to parade around in front of you; an order which [npc.she] again dutifully carries out."
 										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-										+ " Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, and, without a word of complaint, [npc.she] once more does exactly as you say."
+										+ " Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, without a word of complaint, [npc.she] once more does exactly as you say."
 									+ "</p>");
 								break;
 						}
@@ -2446,37 +2498,44 @@ public class SlaveDialogue {
 							case DISOBEDIENT:
 								UtilText.nodeContentSB.append(
 											"[npc.She] lets out a flustered cry as [npc.she] hears your order, but, realising that [npc.she] really doesn't have any choice in the matter, begrudgingly moves to obey."
-											+ " As [npc.she] takes [npc.her] clothes off, [npc.she] whines,"
+											+ (isSlaveNaked()
+													?" Putting on [npc.her] most pleading expression, [npc.she] whines,"
+													:" As [npc.she] takes [npc.her] clothes off, [npc.she] whines,")
 											+ " [npc.speech(Do I really have to? It's kind of degrading being forced to do this...)]"
 										+ "</p>"
 										+ "<p>"
 											+ "Ignoring [npc.her] words, you command [npc.name] to parade around in front of you; an order which [npc.she] again reluctantly carries out."
 											+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-											+" Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, which draws a relieved sigh from between your disobedient slave's [npc.lips]."
+											+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
+												+", which draws a relieved sigh from between your disobedient slave's [npc.lips]."
 										+ "</p>");
 								break;
 							case NEUTRAL:
 								UtilText.nodeContentSB.append(
 										"[npc.She] lets out a flustered cry as [npc.she] hears your order, but, trying to keep [npc.her] emotions under control, begrudgingly moves to obey."
-										+ " As [npc.she] takes [npc.her] clothes off, [npc.she] whines,"
+										+ (isSlaveNaked()
+												?" Putting on [npc.her] most pleading expression, [npc.she] whines,"
+												:" As [npc.she] takes [npc.her] clothes off, [npc.she] whines,")
 										+ " [npc.speech(Just give me a moment, [npc.pcName].)]"
 									+ "</p>"
 									+ "<p>"
 										+ "After [npc.sheIs] stripped naked, you command [npc.name] to parade around in front of you; an order which [npc.she] again reluctantly carries out."
 										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-										+" Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, and, with a relieved sigh, [npc.she] does as you command."
+										+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, with a relieved sigh, [npc.she] does as you command."
 									+ "</p>");
 								break;
 							case OBEDIENT:
 								UtilText.nodeContentSB.append(
-										"[npc.She] immediately moves to obey your order, but you see the distinct look of distress in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
-										+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,"
+										(isSlaveNaked()
+												?"[npc.She] immediately moves to obey your order, and you see the distinct look of distress in [npc.her] [npc.eyes] as [npc.she] obediently steps back and asks,"
+												:"[npc.She] immediately moves to obey your order, and you see the distinct look of distress in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
+													+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,")
 										+ " [npc.speech(Is this to your pleasure, [npc.pcName]?)]"
 									+ "</p>"
 									+ "<p>"
 										+ "You answer in the affirmative, before commanding [npc.name] to parade around in front of you; an order which [npc.she] again dutifully carries out."
 										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-										+ " Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, and, without a word of complaint, [npc.she] once more does exactly as you say."
+										+ " Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, without a word of complaint, [npc.she] once more does exactly as you say."
 									+ "</p>");
 								break;
 						}
@@ -2486,37 +2545,44 @@ public class SlaveDialogue {
 							case DISOBEDIENT:
 								UtilText.nodeContentSB.append(
 											"[npc.She] lets out a sad little cry as [npc.she] hears your order, but, realising that [npc.she] really doesn't have any choice in the matter, begrudgingly moves to obey."
-											+ " As [npc.she] takes [npc.her] clothes off, [npc.she] whines,"
+											+ (isSlaveNaked()
+													?" Putting on [npc.her] most pleading expression, [npc.she] whines,"
+													:" As [npc.she] takes [npc.her] clothes off, [npc.she] whines,")
 											+ " [npc.speech(You know, it's kind of degrading being forced to do this... I thought you liked me...)]"
 										+ "</p>"
 										+ "<p>"
 											+ "Ignoring [npc.her] words, you command [npc.name] to parade around in front of you; an order which [npc.she] again reluctantly carries out."
 											+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-											+" Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, which draws a relieved sigh from between your disobedient slave's [npc.lips]."
+											+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")
+												+", which draws a relieved sigh from between your disobedient slave's [npc.lips]."
 										+ "</p>");
 								break;
 							case NEUTRAL:
 								UtilText.nodeContentSB.append(
 										"[npc.She] lets out a sad little cry as [npc.she] hears your order, but, trying to keep [npc.her] emotions under control, slowly moves to obey."
-										+ " As [npc.she] takes [npc.her] clothes off, [npc.she] whines,"
+										+ (isSlaveNaked()
+												?" Putting on [npc.her] most pleading expression, [npc.she] whines,"
+												:" As [npc.she] takes [npc.her] clothes off, [npc.she] whines,")
 										+ " [npc.speech(I thought you liked me, [npc.pcName]... But if this is what you want...)]"
 									+ "</p>"
 									+ "<p>"
 										+ "Ignoring [npc.her] slightly-rebellious protest, you command [npc.name] to parade around in front of you; an order which [npc.she] again reluctantly carries out."
 										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-										+" Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, and, with a relieved sigh, [npc.she] does as you command."
+										+" Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, with a relieved sigh, [npc.she] does as you command."
 									+ "</p>");
 								break;
 							case OBEDIENT:
 								UtilText.nodeContentSB.append(
-										"[npc.She] immediately moves to obey your order, but you see the distinct look of sadness in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
-										+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,"
+										(isSlaveNaked()
+												?"[npc.She] immediately moves to obey your order, and you see the distinct look of sadness in [npc.her] [npc.eyes] as [npc.she] obediently steps back and asks,"
+												:"[npc.She] immediately moves to obey your order, and you see the distinct look of sadness in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
+													+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,")
 										+ " [npc.speech(Is this to your pleasure, [npc.pcName]?)]"
 									+ "</p>"
 									+ "<p>"
 										+ "You answer in the affirmative, before commanding [npc.name] to parade around in front of you; an order which [npc.she] again dutifully carries out."
 										+ " After that, you get [npc.herHim] to spread [npc.her] [npc.legs] and present [npc.her] "+partInspection()
-										+ " Satisfied with [npc.her] appearance, you tell [npc.name] to get dressed again, and, without a word of complaint, [npc.she] once more does exactly as you say."
+										+ " Satisfied with [npc.her] appearance, you tell [npc.name] "+(isSlaveNaked()?"to step back up before you":"to get dressed again")+", and, without a word of complaint, [npc.she] once more does exactly as you say."
 									+ "</p>");
 								break;
 						}

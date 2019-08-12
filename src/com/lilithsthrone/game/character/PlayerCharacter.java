@@ -137,7 +137,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		worldsVisited = new ArrayList<>();
 		
-		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 10f, false);
+		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 0f, false);
 		this.setAttribute(Attribute.MAJOR_ARCANE, 0f, false);
 		this.setAttribute(Attribute.MAJOR_CORRUPTION, 0f, false);
 	}

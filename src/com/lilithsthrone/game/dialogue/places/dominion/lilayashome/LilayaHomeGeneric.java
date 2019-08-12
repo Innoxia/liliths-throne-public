@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
@@ -22,6 +25,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -46,7 +50,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.75
- * @version 0.3.2
+ * @version 0.3.4
  * @author Innoxia
  */
 public class LilayaHomeGeneric {
@@ -77,7 +81,7 @@ public class LilayaHomeGeneric {
 		public String getContent() {
 			return "<p>"
 						+ "Positioned near the very centre of Dominion, Lilaya's home would be more aptly described as a palace, rather than a town-house."
-						+ " While the surrounding buildings are of an impressive size, you reckon that you could  fit at least two or three of them into the plot which your [lilaya.relation(pc)]'s dwelling occupies."
+						+ " While the surrounding buildings are of an impressive size, you reckon that you could fit at least two or three of them into the plot which your [lilaya.relation(pc)]'s dwelling occupies."
 					+ "</p>"
 					+ "<p>"
 						+ "With your demonic [lilaya.relation(pc)] happily treating you as one of her blood-relatives, you've been given full permission to come and go from here as you please."
@@ -88,26 +92,40 @@ public class LilayaHomeGeneric {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Enter", "Knock on the door and wait for Rose to let you in."){
-					@Override
-					public void effects() {
-						
-						Main.game.getTextStartStringBuilder().append(
-								"<p>"
-									+ "You knock on the front door, and after only a brief moment, it swings open."
-								+ "</p>"
-								+ "<p>"
-									+ "[rose.speech(Welcome back, [pc.name].)] Rose says, curtsying to you as she steps back in order to grant you access to Lilaya's house."
-								+ "</p>"
-								+ "<p>"
-									+ "Moving forwards into the impressive entrance hall, you greet the cat-girl maid as she closes the door behind you."
-									+ " Turning to smile at you one last time, Rose then excuses herself, before quickly hurrying off in the direction of your [lilaya.relation(pc)]'s laboratory..."
-								+ "</p>");
-						
-						Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
-					}
-				};
-
+				LocalDateTime time = Main.game.getDateNow();
+				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.daddyFound)
+						&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN) // Only trigger after having met Lyssieth
+						&& time.getMonth().equals(Month.JUNE) && time.getDayOfMonth()>14 && time.getDayOfMonth()<=21) { // Father's day timing, 3rd week of June
+					return new Response("Enter", "Knock on the door and wait for Rose to let you in.", DaddyDialogue.FIRST_ENCOUNTER) {
+						@Override
+						public void effects() {
+							Main.game.getNpc(Daddy.class).setLocation(Main.game.getPlayer(), false);
+//							Main.game.getNpc(Rose.class).setLocation(Main.game.getPlayer(), false);
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.daddyFound, true);
+						}
+					};
+					
+				} else {
+					return new ResponseEffectsOnly("Enter", "Knock on the door and wait for Rose to let you in."){
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(
+									"<p>"
+										+ "You knock on the front door, and after only a brief moment, it swings open."
+									+ "</p>"
+									+ "<p>"
+										+ "[rose.speech(Welcome back, [pc.name].)] Rose says, curtsying to you as she steps back in order to grant you access to Lilaya's house."
+									+ "</p>"
+									+ "<p>"
+										+ "Moving forwards into the impressive entrance hall, you greet the cat-girl maid as she closes the door behind you."
+										+ " Turning to smile at you one last time, Rose then excuses herself, before quickly hurrying off in the direction of your [lilaya.relation(pc)]'s laboratory..."
+									+ "</p>");
+							
+							Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
+						}
+					};
+				}
+				
 			} else {
 				return null;
 			}

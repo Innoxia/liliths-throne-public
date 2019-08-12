@@ -347,7 +347,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	 */
 	public int getEnchantmentCapacityCost() {
 		Map<Attribute, Integer> noCorruption = new HashMap<>();
-		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.MAJOR_CORRUPTION).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()));
+		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.MAJOR_CORRUPTION && ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()));
 		return noCorruption.values().stream().reduce(0, (a, b) -> a + Math.max(0, b));
 	}
 	

@@ -2045,7 +2045,7 @@ public class CharacterInventory implements XMLSaving {
 	
 	public boolean isSlotIncompatible(GameCharacter clothingOwner, InventorySlot slot) {
 		for(AbstractClothing ct : clothingCurrentlyEquipped) {
-			for (InventorySlot incompatibleSlot : ct.getClothingType().getIncompatibleSlots(clothingOwner, slot)) {
+			for (InventorySlot incompatibleSlot : ct.getClothingType().getIncompatibleSlots(clothingOwner, ct.getSlotEquippedTo())) {
 				if(incompatibleSlot == slot) {
 					return true;
 				}

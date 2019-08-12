@@ -14,6 +14,7 @@ import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
@@ -257,7 +258,7 @@ public class ClothingEmporium {
 								}
 								@Override
 								public void effects() {
-									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanGift, true);
+//									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanGift, true);
 									if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
 										Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 									}
@@ -284,9 +285,15 @@ public class ClothingEmporium {
 									"Have sex with Nyan.",
 									null, null, null, null, null, null,
 									true, true,
-									new SMMissionary(
+									Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()
+										?new SMMissionary(
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Nyan.class), SexSlotBipeds.MISSIONARY_ON_BACK))),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Nyan.class), SexSlotBipeds.MISSIONARY_ON_BACK)))
+										:new SMGeneric(
+												Util.newArrayListOfValues(Main.game.getPlayer()),
+												Util.newArrayListOfValues(Main.game.getNpc(Nyan.class)),
+												null,
+												null),
 									null,
 									null,
 									END_SEX,

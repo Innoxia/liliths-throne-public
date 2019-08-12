@@ -6,7 +6,7 @@
 		<name><![CDATA[men's shoe]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[men's shoes]]></namePlural>
 		<description><![CDATA[A pair of smart men's shoes, suitable for all formal occasions.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>MASCULINE</femininity>
 		<slot>FOOT</slot> 
 		<rarity>COMMON</rarity>

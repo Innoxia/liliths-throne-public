@@ -20,7 +20,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3
- * @version 0.3.1
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMLilayaDemonTF extends SexManagerDefault {
@@ -60,12 +60,7 @@ public class SMLilayaDemonTF extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isPlayerStartNaked() {
-		return true;
-	}
-
-	@Override
-	public boolean isPartnerStartNaked() {
+	public boolean isCharacterStartNaked(GameCharacter character) {
 		return true;
 	}
 	

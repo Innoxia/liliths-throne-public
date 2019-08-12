@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -391,7 +392,6 @@ public enum WorldType {
 					new Value<>(new Color(0xffff00), PlaceType.ANGELS_KISS_BEDROOM_BUNNY),
 					new Value<>(new Color(0xff8000), PlaceType.ANGELS_KISS_BEDROOM_LOPPY))),
 	
-
 	NIGHTLIFE_CLUB("The Watering Hole",
 			Colour.BASE_BLUE,
 			1,
@@ -411,6 +411,30 @@ public enum WorldType {
 					new Value<>(new Color(0xffff00), PlaceType.WATERING_HOLE_DANCE_FLOOR),
 					new Value<>(new Color(0xff0000), PlaceType.WATERING_HOLE_TOILETS)
 					)){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
+	
+	DADDYS_APARTMENT("Daddy's apartment",
+			Colour.RACE_DEMON,
+			1,
+			"/com/lilithsthrone/res/map/dominion/daddy/apartment.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			PlaceType.DOMINION_DEMON_HOME_DADDY,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.DADDY_APARTMENT_ENTRANCE),
+					new Value<>(new Color(0xffff00), PlaceType.DADDY_APARTMENT_LOUNGE),
+					new Value<>(new Color(0x00ffff), PlaceType.DADDY_APARTMENT_KITCHEN),
+					new Value<>(new Color(0xff00ff), PlaceType.DADDY_APARTMENT_BEDROOM)
+					)){
+		@Override
+		public String getName() {
+			return UtilText.parse("[daddy.NamePos] apartment");
+		}
 		@Override
 		public boolean isRevealedOnStart() {
 			return true;

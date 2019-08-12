@@ -195,7 +195,9 @@ public class Util {
 		LinkedHashMap<T, S> map = new LinkedHashMap<>();
 
 		for (Value<T, S> v : values) {
-			map.put(v.getKey(), v.getValue());
+			if(v!=null) {
+				map.put(v.getKey(), v.getValue());
+			}
 		}
 		
 		return map;
@@ -246,11 +248,11 @@ public class Util {
 		return "Unknown";
 	}
 	
-	@SafeVarargs
 	/**
 	 * @param values The values to add to the new list.
 	 * @return A list of provided values, with nulls stripped.
 	 */
+	@SafeVarargs
 	public static <U> ArrayList<U> newArrayListOfValues(U... values) {
 		ArrayList<U> list = new ArrayList<>(Arrays.asList(values));
 		list.removeIf(e -> e==null);
@@ -774,6 +776,16 @@ public class Util {
 	 */
 	public static String addMuffle(String sentence, int frequency) {
 		return insertIntoSentences(sentence, frequency, muffledSounds);
+	}
+	
+	public static String replaceWithMuffle(String sentence, int wordToMuffleRatio) {
+		int muffles = sentence.split(" ").length/wordToMuffleRatio;
+		StringBuilder muffleSB = new StringBuilder();
+		for(int i=0; i<muffles; i++) {
+			muffleSB.append(muffledSounds[random.nextInt(muffledSounds.length)]);
+		}
+		muffleSB.delete(0, 1); // Remove space at start
+		return muffleSB.toString();
 	}
 
 	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", "~Ooh!~" };

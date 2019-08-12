@@ -50,15 +50,25 @@ public class GenericActions {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			boolean mouthFinger = false;
+			boolean mouthFingerReversed = false;
 			try {
-				return Sex.isPenetrationTypeFree(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)
-						&& !Sex.isDom(Sex.getCharacterTargetedForSexAction(this))
-						&& Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
-							.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH)
-						&& (Sex.getCharacterPerformingAction().isPlayer() || Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST));
+				mouthFinger = Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH);
 			} catch(Exception ex) {
-				return false; // No available finger-mouth actions, so can't reach face
+				// No available finger-mouth actions, so can't reach face
 			}
+			try {
+				mouthFingerReversed = Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))).get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH);
+			} catch(Exception ex) {
+				// No available finger-mouth actions, so can't reach face
+			}
+			return Sex.isPenetrationTypeFree(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)
+					&& !Sex.isDom(Sex.getCharacterTargetedForSexAction(this))
+					&& (mouthFinger || mouthFingerReversed)
+					&& (Sex.getCharacterPerformingAction().isPlayer() || Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST));
+			
 		}
 		
 		@Override
@@ -118,15 +128,25 @@ public class GenericActions {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			boolean mouthFinger = false;
+			boolean mouthFingerReversed = false;
 			try {
-				return Sex.isPenetrationTypeFree(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)
-						&& !Sex.isDom(Sex.getCharacterTargetedForSexAction(this))
-						&& Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
-							.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH)
-						&& (Sex.getCharacterPerformingAction().isPlayer() || Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST));
+				mouthFinger = Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH);
 			} catch(Exception ex) {
-				return false; // No available finger-mouth actions, so can't reach neck
+				// No available finger-mouth actions, so can't reach face
 			}
+			try {
+				mouthFingerReversed = Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))).get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH);
+			} catch(Exception ex) {
+				// No available finger-mouth actions, so can't reach face
+			}
+			
+			return Sex.isPenetrationTypeFree(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)
+					&& !Sex.isDom(Sex.getCharacterTargetedForSexAction(this))
+					&& (mouthFinger || mouthFingerReversed)
+					&& (Sex.getCharacterPerformingAction().isPlayer() || Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST));
 		}
 		
 		@Override

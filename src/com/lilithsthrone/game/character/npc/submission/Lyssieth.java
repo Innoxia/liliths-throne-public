@@ -388,11 +388,19 @@ public class Lyssieth extends NPC {
 		Main.game.getNpc(daughterClass).setSkinType(SkinType.DEMON_COMMON);
 		Main.game.getNpc(daughterClass).setFaceType(FaceType.DEMON_COMMON);
 		Main.game.getNpc(daughterClass).setSubspeciesOverride(Subspecies.DEMON);
+
+		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.ANUS, Main.game.getNpc(daughterClass).getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
+		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Main.game.getNpc(daughterClass).getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
+		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, Main.game.getNpc(daughterClass).getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
+		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.VAGINA, Main.game.getNpc(daughterClass).getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
+		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.PENIS, Main.game.getNpc(daughterClass).getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
+		
 		Main.game.getNpc(Lilaya.class).setArousal(100);
 		Main.game.getPlayer().setArousal(100, true);
 		if(Main.game.isInSex() && Sex.getAllParticipants().contains(Main.game.getNpc(DarkSiren.class))) {
 			Main.game.getNpc(DarkSiren.class).setArousal(100);
 		}
+		
 		Main.game.getNpc(daughterClass).loadImages(true);
 	}
 	

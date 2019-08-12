@@ -59,6 +59,7 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaOral;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotOther;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -273,10 +274,10 @@ public class Vanessa extends NPC {
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotBipeds.CHAIR_ORAL_SITTING) {
+		if(Sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotOther.SITTING) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
 		}
-		if(Sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotBipeds.CHAIR_KNEELING) {
+		if(Sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotOther.PERFORMING_ORAL) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
 		}
 		if(Sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotBipeds.MISSIONARY_DESK_SUB) {

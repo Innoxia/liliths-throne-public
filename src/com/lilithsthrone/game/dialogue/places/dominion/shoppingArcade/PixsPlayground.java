@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.npc.dominion.Pix;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -525,12 +526,24 @@ public class PixsPlayground {
 			if (index == 1) {
 				if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
 					return new Response("Pix's reward",
-							"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'...", // OR DO YOU?! :D
-							GYM_PIX_ASSAULT);
+							"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'...",
+							GYM_PIX_ASSAULT) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().cleanAllDirtySlots();
+							Main.game.getNpc(Pix.class).cleanAllDirtySlots();
+						}
+					};
 				} else {
 					return new Response("Pix's reward",
 							"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'...",
-							GYM_PIX_ASSAULT_CONSENSUAL);
+							GYM_PIX_ASSAULT_CONSENSUAL) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().cleanAllDirtySlots();
+							Main.game.getNpc(Pix.class).cleanAllDirtySlots();
+						}
+					};
 				}
 				
 			} else 
@@ -604,7 +617,7 @@ public class PixsPlayground {
 			} else if(index==4) {
 				if(Main.game.getPlayer().getHealthPercentage()<0.4f) {
 					return new Response("Break free",
-							"You simply don't have enough energy left to try and break free! You need at least 40% energy for this ("+(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4)+")",
+							"You simply don't have enough energy left to try and break free! You need at least 40% "+Attribute.HEALTH_MAXIMUM.getName()+" for this ("+(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4)+")",
 							null);
 					
 				} else {
@@ -622,7 +635,7 @@ public class PixsPlayground {
 					
 				} else if(Main.game.getPlayer().getHealthPercentage()<0.4f) {
 					return new Response("Turn Tables",
-							"You simply don't have enough energy left to try and turn the tables on Pix! You need at least 40% energy for this ("+(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4)+")",
+							"You simply don't have enough energy left to try and turn the tables on Pix! You need at least 40% "+Attribute.HEALTH_MAXIMUM.getName()+" for this ("+(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4)+")",
 							null);
 					
 				} else {
@@ -633,12 +646,7 @@ public class PixsPlayground {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL))) {
 								@Override
-								public boolean isPlayerStartNaked() {
-									return true;
-								}
-		
-								@Override
-								public boolean isPartnerStartNaked() {
+								public boolean isCharacterStartNaked(GameCharacter character) {
 									return true;
 								}
 							},

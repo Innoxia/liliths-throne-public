@@ -1796,19 +1796,27 @@ public class CharacterUtils {
 	}
 	
 	public static void generateItemsInInventory(NPC character) {
+		List<AbstractCoreItem> items;
+		List<AbstractCoreItem> itemsRemoved = new ArrayList<>();
+		
 		for(int i=0; i<Util.random.nextInt(4)+2; i++) {
-			List<AbstractCoreItem> items = character.getLootItems();
+			items = new ArrayList<>(character.getLootItems());
 			if(!items.isEmpty()) {
 				AbstractCoreItem item = items.get(Util.random.nextInt(items.size()));
-				items.remove(item);
-				if (item instanceof AbstractItem) {
-					character.addItem((AbstractItem) item, false);
-					
-				} else if (item instanceof AbstractClothing) {
-					character.addClothing((AbstractClothing) item, false);
-					
-				} else if (item instanceof AbstractWeapon) {
-					character.addWeapon((AbstractWeapon) item, false);
+				if(!itemsRemoved.contains(item)) {
+					if(item instanceof AbstractItem
+							&& ((AbstractItem)item).getItemType() == ItemType.getLoreBook(character.getSubspecies())) {
+						itemsRemoved.add(item);
+					}
+					if (item instanceof AbstractItem) {
+						character.addItem((AbstractItem) item, false);
+						
+					} else if (item instanceof AbstractClothing) {
+						character.addClothing((AbstractClothing) item, false);
+						
+					} else if (item instanceof AbstractWeapon) {
+						character.addWeapon((AbstractWeapon) item, false);
+					}
 				}
 			}
 		}
@@ -2193,7 +2201,6 @@ public class CharacterUtils {
 					// Don't add leg clothing if dress has been added
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || (slot.isJewellery() && character.getBodyMaterial().isRequiresPiercing())) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
-
 						List<AbstractClothingType> clothingToUse = ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot);
 						if(character.getHistory()==Occupation.NPC_PROSTITUTE) {
 							clothingToUse = ClothingType.getSuitableFeminineClothing().get(Occupation.NPC_PROSTITUTE);

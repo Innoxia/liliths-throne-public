@@ -335,7 +335,7 @@
 	</p>
 	<p style='text-align:center;'>
 		<b>Axel's Rules For Dice Poker</b><br/>
-		1. Both players place the buy-in amount to start a game. This is [style.money(500, span)] for [style.colourCopper(copper)] tables, [style.money(2500, span)] for [style.colourSilver(silver)], and [style.money(10000, span)] for [style.colourGold(gold)].<br/>
+		1. Both players place the buy-in amount to start a game. This is [style.moneyFormat(500, span)] for [style.colourCopper(copper)] tables, [style.moneyFormat(2500, span)] for [style.colourSilver(silver)], and [style.moneyFormat(10000, span)] for [style.colourGold(gold)].<br/>
 		2. Both players roll five dice each.<br/>
 		3. Players can choose to increase the bet (referred to as a 'raise'), or leave the bet at the buy-in amount (referred to as a 'call').<br/>
 		4. After betting is done, each player selects as many of their dice as they want to re-roll.<br/>

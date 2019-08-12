@@ -209,7 +209,7 @@ public class ImpAttacker extends NPC {
 			// Alpha-imps also wear accessories as symbols of status.
 			if(this.getSubspecies()==Subspecies.IMP_ALPHA) {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_foot_wraps"), false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HAND_WRAPS, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_wraps", false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_SARASHI, false), true, this);
 			}
 		}

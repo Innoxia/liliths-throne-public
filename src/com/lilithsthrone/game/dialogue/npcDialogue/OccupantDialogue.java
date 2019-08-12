@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -50,8 +51,8 @@ public class OccupantDialogue {
 		} else {
 			companionCharacter = null;
 		}
-		
-		charactersPresent = Main.game.getCharactersPresent();
+
+		charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
 		
 		OccupantDialogue.isApartment = isApartment;
 	}
@@ -1186,11 +1187,13 @@ public class OccupantDialogue {
 							? (int) ((60 * 21) - minutesPassed)
 							: (int) ((60 * (minutesPassed<(60*7)?7:31)) - minutesPassed));
 					
-					return new Response("Rest until " + (Main.game.isDayTime() ? "Evening" : "Morning"),
+					return new Response(
+							"Rest until " + (Main.game.isDayTime() ? "Evening" : "Morning"),
 							"Ask [npc.name] if you can crash on [npc.her] sofa for " + (sleepTimer >= 60 ? sleepTimer / 60 + " hours " : " ")
-							+ (sleepTimer % 60 != 0 ? sleepTimer % 60 + " minutes" : "")
-							+ " until " + (Main.game.isDayTime() ? "evening (21:00)." : "morning (07:00).")
-							+ " As well as replenishing your energy and aura, you will also get the 'Well Rested' status effect.", OCCUPANT_APARTMENT_SLEEP_OVER){
+								+ (sleepTimer % 60 != 0 ? sleepTimer % 60 + " minutes" : "")
+								+ " until " + (Main.game.isDayTime() ? "evening (21:00)." : "morning (07:00).")
+								+ " As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
+							OCCUPANT_APARTMENT_SLEEP_OVER){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));

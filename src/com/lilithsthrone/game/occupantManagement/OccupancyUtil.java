@@ -241,7 +241,8 @@ public class OccupancyUtil implements XMLSaving {
 				}
 				
 			} else {
-				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_MASTURBATE)) {
+				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_MASTURBATE)
+						&& (slave.getLastTimeOrgasmed()+(60*(24+6))<Main.game.getMinutesPassed())) { // Give them a 6-hour period of pent up, so they will have the chance to ambush the player
 					slave.setLastTimeHadSex((day*24*60l) + hour*60l, true);
 				}
 			}

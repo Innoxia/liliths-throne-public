@@ -677,7 +677,11 @@ public class Main extends Application {
 	protected static void CheckForDataDirectory() {
 		File dir = new File("data/");
 		if(!dir.exists()) {
-			Alert a = new Alert(AlertType.ERROR, "Unable to find the 'data' folder. Saving and error logging is disabled.\nMake sure that you've extracted the game from the zip file, and that the file has write permissions.\nContinue?",
+			Alert a = new Alert(AlertType.ERROR,
+					"Unable to find the 'data' folder. Saving and error logging is disabled."
+							+ "\nMake sure that you've extracted the game from the zip file, and that the file has write permissions."
+							+ "\n(Please read section 'MISSING FOLDERS' in the README.txt file.)"
+							+ "\nContinue?",
 					ButtonType.YES, ButtonType.NO);
 			a.showAndWait().ifPresent(response -> {
 			     if (response == ButtonType.NO) {
@@ -690,10 +694,14 @@ public class Main extends Application {
 	protected static void CheckForResFolder() {
 		File dir = new File("res/");
 		if(!dir.exists()) {
-			Alert a = new Alert(AlertType.WARNING, "Could not find the 'res' folder. This might cause errors and present sections of missing text.\nContinue?", ButtonType.YES, ButtonType.NO);
+			Alert a = new Alert(AlertType.WARNING,
+					"Could not find the 'res' folder. This WILL cause errors and present sections of missing text."
+							+ "\nMake sure that you've extracted the game from the zip file, and that the file has write permissions."
+							+ "\n(Please read section 'MISSING FOLDERS' in the README.txt file.)"
+							+ "\nContinue?",
+					ButtonType.YES, ButtonType.NO);
 			a.showAndWait().ifPresent(response -> {
-				if(response == ButtonType.NO)
-				{
+				if(response == ButtonType.NO) {
 					System.exit(1);
 				}
 			});
@@ -1076,6 +1084,8 @@ public class Main extends Application {
 						CharacterImportSetting.NO_ELEMENTAL,
 						CharacterImportSetting.CLEAR_SLAVERY,
 						CharacterImportSetting.CLEAR_KEY_ITEMS,
+						CharacterImportSetting.CLEAR_COMBAT_HISTORY,
+						CharacterImportSetting.CLEAR_SEX_HISTORY,
 						CharacterImportSetting.REMOVE_RACE_CONCEALED));
 				
 				Main.game.getPlayer().getSlavesOwned().clear();

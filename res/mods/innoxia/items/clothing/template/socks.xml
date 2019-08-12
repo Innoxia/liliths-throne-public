@@ -35,8 +35,8 @@
 			- Example: The description for ordinary, "boring" items of clothing might be a little dry, but as they won't be read by the player much, it doesn't really matter.-->
 		<description><![CDATA[An ordinary pair of socks, intended to be worn on the feet in order to absorb perspiration and provide both insulation and comfort. A silly person may choose to wear them on their hands...]]></description> 
 		
-		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). This value is automatically divided by 10 in the game's code, so a value of 1 equates to 0.1 in-game.
-			- Example: Socks don't really provide any physical protection against attacks, so I defined it as 0. I'd probably define heavy clothing (jeans, hoodies, etc.) as a value of 1, with values above that reserved for leather jackets and the like (values 2-5), or specialised protective gear, such as stab-proof vests or metal armour (values of 5+).-->
+		<!-- The default physical resistance for this piece of clothing. Usually use 0, but if it's armour, then values of 1 up to 5 would be fitting (any more than that might be very OP). Physical resistance is a very powerful stat, so please keep within the range of 0-5. For all normal clothing, the value should be 0. This accepts decimal values, so for things like leather jackets (which aren't really armour, but are still protective), you can use 0.5 or so.
+			- Example: Left as 0, as it's nomral, unarmoured clothing. -->
 		<physicalResistance>0</physicalResistance> 
 		
 		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties.

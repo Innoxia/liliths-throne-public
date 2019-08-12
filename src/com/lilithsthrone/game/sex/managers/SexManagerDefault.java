@@ -64,17 +64,21 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				throw new IllegalArgumentException("Too many characters("+totalParticipants+") for Sex Manager("+(position.getMaximumSlots())+")!");
 			}
 			
-			for(SexSlot slot : position.getAllAvailableSexPositions()) {
-				int count = 0;
-				if(dominants.values().contains(slot)) {
-					count++;
+			try {
+				for(SexSlot slot : position.getAllAvailableSexPositions()) {
+					int count = 0;
+					if(dominants.values().contains(slot)) {
+						count++;
+					}
+					if(submissives.values().contains(slot)) {
+						count++;
+					}
+					if(count>1) {
+						throw new IllegalArgumentException("Multiple partners assigned to a single slot!");
+					}
 				}
-				if(submissives.values().contains(slot)) {
-					count++;
-				}
-				if(count>1) {
-					throw new IllegalArgumentException("Multiple partners assigned to a single slot!");
-				}
+			} catch(Exception ex) {
+//				System.err.println("Error in sex position '"+position.getName()+"': Cannot check if partners are assigned to the same slot.");
 			}
 		}
 		
@@ -505,7 +509,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)
 				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS)
 				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS_SELF)) {
-			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.START_ONGOING);
+			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.START_ONGOING || sexAction.getActionType()==SexActionType.START_ADDITIONAL_ONGOING);
 //			System.out.println("hmm");
 		}
 		
@@ -534,7 +538,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 						&& action.getActionType() != SexActionType.STOP_ONGOING
 						&& action.getParticipantType() != SexParticipantType.SELF) {
 					highPriorityList.add(action);
-					if(action.getActionType() == SexActionType.START_ONGOING) { // If a penetrative action is in the list, always return that first.
+					if(action.getActionType() == SexActionType.START_ONGOING
+							|| action.getActionType()==SexActionType.START_ADDITIONAL_ONGOING) { // If a penetrative action is in the list, always return that first.
 						if(debug) {
 							System.out.println(Sex.getActivePartner().getName(true)+" performs "+action.getActionTitle()+" on "+targetedCharacter.getName(true));
 						}
@@ -550,7 +555,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		highPriorityList.clear();
 		for (SexActionInterface action : availableActions) {
-			if((action.getActionType() == SexActionType.START_ONGOING || Sex.isCharacterEngagedInOngoingAction(Sex.getActivePartner(), targetedCharacter))
+			if((action.getActionType() == SexActionType.START_ONGOING || action.getActionType()==SexActionType.START_ADDITIONAL_ONGOING || Sex.isCharacterEngagedInOngoingAction(Sex.getActivePartner(), targetedCharacter))
 					&& action.getActionType() != SexActionType.STOP_ONGOING
 					&& action.getParticipantType()!=SexParticipantType.SELF) {
 				if(!action.isTakesVirginity(false)) { // Do not want to take any virginity in foreplay TODO?
@@ -604,7 +609,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)
 				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS)
 				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS_SELF)) {
-			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.START_ONGOING);
+			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.START_ONGOING || sexAction.getActionType()==SexActionType.START_ADDITIONAL_ONGOING);
 		}
 		
 		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
@@ -618,7 +623,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			boolean penetrationAction = false;
 			boolean sexOrifice = false;
 			if(action.getParticipantType()!=SexParticipantType.SELF
-					&& action.getActionType()==SexActionType.START_ONGOING
+					&& (action.getActionType()==SexActionType.START_ONGOING || action.getActionType()==SexActionType.START_ADDITIONAL_ONGOING)
 					&& performingCharacter.calculateSexTypeWeighting(action.getAsSexType(), targetedCharacter, null)>0
 					&& (action.isAddedToAvailableSexActions() || action.isAbleToAccessParts(performingCharacter))) {
 				if(debugFullActionList) {
@@ -750,7 +755,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 								&& action.getParticipantType()!=SexParticipantType.SELF
 								&& action.getActionType() != SexActionType.STOP_ONGOING) {
 							highPriorityList.add(action);
-							if(action.getActionType() == SexActionType.START_ONGOING) { // If a penetrative action is in the list, always return that first.
+							if(action.getActionType() == SexActionType.START_ONGOING
+									|| action.getActionType()==SexActionType.START_ADDITIONAL_ONGOING) { // If a penetrative action is in the list, always return that first.
 								penetrativeActionList.add(action);
 							}
 						}
@@ -770,7 +776,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					System.out.println("Start penetrating");
 				}
 				for(SexActionInterface action : availableActions) {
-					if(action.getActionType()==SexActionType.START_ONGOING
+					if((action.getActionType()==SexActionType.START_ONGOING || action.getActionType()==SexActionType.START_ADDITIONAL_ONGOING)
 							&& action.getParticipantType()!=SexParticipantType.SELF) {
 						
 						if(performingCharacter.hasFetish(Fetish.FETISH_IMPREGNATION)

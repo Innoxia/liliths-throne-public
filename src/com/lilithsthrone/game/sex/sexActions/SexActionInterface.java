@@ -41,7 +41,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.3
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public interface SexActionInterface {
@@ -53,7 +53,6 @@ public interface SexActionInterface {
 	public default SexActionLimitation getLimitation() {//TODO remove this
 		return null;
 	}
-	
 	
 	public abstract SexActionType getActionType();
 
@@ -70,6 +69,28 @@ public interface SexActionInterface {
 	public abstract String getFluidFlavourDescription(GameCharacter performing, GameCharacter receiving);
 
 	public CorruptionLevel getCorruptionNeeded();
+	
+	/**
+	 * Determines if an additional character can join in on the ongoing action.
+	 * Only used as a check in SexActionType.START_ADDITIONAL_ONGOING actions.
+	 */
+	public default Map<String, Boolean> getAdditionalOngoingAvailableMap() {
+		if(getActionType()==SexActionType.START_ADDITIONAL_ONGOING) {
+			throw new NullPointerException("getAdditionalOngoingAvailableMap() should not be returning null for a SexAction of type 'SexActionType.START_ADDITIONAL_ONGOING'. (Occurring in SexAction '"+getActionTitle()+"')");
+		}
+		return null;
+	}
+	
+	public default boolean isAdditionalOngoingAvailable() {
+		if(getAdditionalOngoingAvailableMap()!=null) {
+			for(Boolean b : getAdditionalOngoingAvailableMap().values()) {
+				if(!b) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 	
 	/**
 	 * The keys are areas that belong to the performing character. The values are areas that belong to the targeted character.
@@ -195,49 +216,50 @@ public interface SexActionInterface {
 	public default String preDescriptionBaseEffects() {
 		StringBuilder stopSB = new StringBuilder();
 		
-		if(getActionType()==SexActionType.START_ONGOING) { //TODO allow multiple penetrations
-				for(Entry<SexAreaInterface, SexAreaInterface> entry : getSexAreaInteractions().entrySet()) {
-					try {
-						if(!entry.getKey().isFree(Sex.getCharacterPerformingAction())) {
-							Map<GameCharacter, Set<SexAreaInterface>> map = Sex.getOngoingActionsMap(Sex.getCharacterPerformingAction()).get(entry.getKey());
-							Entry<GameCharacter, Set<SexAreaInterface>> firstEntry = map.entrySet().iterator().next();
-							stopSB.append(Sex.stopOngoingAction(
-									Sex.getCharacterPerformingAction(),
-									entry.getKey(),
-									firstEntry.getKey(),
-									firstEntry.getValue().iterator().next(),
-									false));
-						}
-					} catch(Exception ex) {
-						// No first entry in iterator found
+		if(getActionType()==SexActionType.START_ONGOING) {
+			for(Entry<SexAreaInterface, SexAreaInterface> entry : getSexAreaInteractions().entrySet()) {
+				try {
+					if(!entry.getKey().isFree(Sex.getCharacterPerformingAction())) {
+						Map<GameCharacter, Set<SexAreaInterface>> map = Sex.getOngoingActionsMap(Sex.getCharacterPerformingAction()).get(entry.getKey());
+						Entry<GameCharacter, Set<SexAreaInterface>> firstEntry = map.entrySet().iterator().next();
+						stopSB.append(Sex.stopOngoingAction(
+								Sex.getCharacterPerformingAction(),
+								entry.getKey(),
+								firstEntry.getKey(),
+								firstEntry.getValue().iterator().next(),
+								false));
 					}
-					try {
-						if(!entry.getValue().isFree(Sex.getCharacterTargetedForSexAction(this))) {
-							Map<GameCharacter, Set<SexAreaInterface>> map = Sex.getOngoingActionsMap(Sex.getCharacterTargetedForSexAction(this)).get(entry.getValue());
-							Entry<GameCharacter, Set<SexAreaInterface>> firstEntry = map.entrySet().iterator().next();
-							stopSB.append(Sex.stopOngoingAction(
-									firstEntry.getKey(),
-									firstEntry.getValue().iterator().next(),
-									Sex.getCharacterTargetedForSexAction(this),
-									entry.getValue(),
-									false));
-						}
-					} catch(Exception ex) {
-						// No first entry in iterator found
-					}
+				} catch(Exception ex) {
+					// No first entry in iterator found
 				}
+				try {
+					if(!entry.getValue().isFree(Sex.getCharacterTargetedForSexAction(this))) {
+						Map<GameCharacter, Set<SexAreaInterface>> map = Sex.getOngoingActionsMap(Sex.getCharacterTargetedForSexAction(this)).get(entry.getValue());
+						Entry<GameCharacter, Set<SexAreaInterface>> firstEntry = map.entrySet().iterator().next();
+						stopSB.append(Sex.stopOngoingAction(
+								firstEntry.getKey(),
+								firstEntry.getValue().iterator().next(),
+								Sex.getCharacterTargetedForSexAction(this),
+								entry.getValue(),
+								false));
+					}
+				} catch(Exception ex) {
+					// No first entry in iterator found
+				}
+			}
 		}
 		return stopSB.toString();
 	}
 	
 	public default String baseEffects() {
-		if(getActionType()==SexActionType.START_ONGOING) {
+		if(getActionType()==SexActionType.START_ONGOING || getActionType()==SexActionType.START_ADDITIONAL_ONGOING) {
 			for(Entry<SexAreaInterface, SexAreaInterface> entry : getSexAreaInteractions().entrySet()) {
 				Sex.applyOngoingAction(
 						Sex.getCharacterPerformingAction(),
 						entry.getKey(),
 						Sex.getCharacterTargetedForSexAction(this),
-						entry.getValue());
+						entry.getValue(),
+						getActionType()!=SexActionType.START_ADDITIONAL_ONGOING);
 			}
 
 			if(SexActionInterface.this.getPerformingCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaOrifice.MOUTH))
@@ -437,6 +459,11 @@ public interface SexActionInterface {
 	
 	public default boolean isSwitchOngoingActionAvailable() {
 		if(Sex.getCharacterPerformingAction().isPlayer() && Sex.getSexControl(Sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
+			// If targeted area is having multiple ongoing actions, do not allow switch:
+			if(Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0)).size()>1) {
+				return false;
+			}
+			
 			try {
 				return !Sex.getOngoingActionsMap(Sex.getCharacterPerformingAction()).get(this.getPerformingCharacterAreas().get(0)).get(Sex.getCharacterTargetedForSexAction(this)).contains(this.getTargetedCharacterAreas().get(0));
 			} catch(Exception ex) {
@@ -584,7 +611,7 @@ public interface SexActionInterface {
 				return convertToResponse();
 				
 			// If this is a 'start penetration' action, check to see if all the requirements are met:
-			} else if(getActionType()==SexActionType.START_ONGOING) {
+			} else if(getActionType()==SexActionType.START_ONGOING || getActionType()==SexActionType.START_ADDITIONAL_ONGOING) {
 				
 				// Penetration actions (not including self-penetration actions) are only available in consensual sex or if the penetrator is the dom:
 				if(!this.getSexAreaInteractions().isEmpty()) {
@@ -638,8 +665,15 @@ public interface SexActionInterface {
 					}
 					
 					// Check to see if it's already in use:
-					if(!isSwitchOngoingActionAvailable() && !sArea.isFree(Sex.getCharacterPerformingAction())) {
-						return convertToNullResponse();
+					if(getActionType()==SexActionType.START_ONGOING) {
+						if(!isSwitchOngoingActionAvailable() && !sArea.isFree(Sex.getCharacterPerformingAction())) {
+							return convertToNullResponse();
+						}
+						
+					} else { // Check to see if an additional ongoing action is allowed:
+						if(!isAdditionalOngoingAvailable()) {
+							return convertToNullResponse();
+						}
 					}
 				}
 				for(SexAreaOrifice sArea : this.getTargetedCharacterOrifices()) {
@@ -664,8 +698,15 @@ public interface SexActionInterface {
 					}
 					
 					// Check to see if it's already in use:
-					if(!isSwitchOngoingActionAvailable() && !sArea.isFree(Sex.getCharacterTargetedForSexAction(this))) {
-						return convertToNullResponse();
+					if(getActionType()==SexActionType.START_ONGOING) {
+						if(!isSwitchOngoingActionAvailable() && !sArea.isFree(Sex.getCharacterTargetedForSexAction(this))) {
+							return convertToNullResponse();
+						}
+						
+					} else { // Check to see if an additional ongoing action is allowed:
+						if(!isAdditionalOngoingAvailable()) {
+							return convertToNullResponse();
+						}
 					}
 				}
 				
@@ -677,8 +718,15 @@ public interface SexActionInterface {
 					}
 					
 					// Check to see if it's already in use:
-					if(!isSwitchOngoingActionAvailable() && !sArea.isFree(Sex.getCharacterPerformingAction())) {
-						return convertToNullResponse();
+					if(getActionType()==SexActionType.START_ONGOING) {
+						if(!isSwitchOngoingActionAvailable() && !sArea.isFree(Sex.getCharacterPerformingAction())) {
+							return convertToNullResponse();
+						}
+						
+					} else { // Check to see if an additional ongoing action is allowed:
+						if(!isAdditionalOngoingAvailable()) {
+							return convertToNullResponse();
+						}
 					}
 				}
 				for(SexAreaPenetration sArea : this.getTargetedCharacterPenetrations()) {
@@ -688,8 +736,15 @@ public interface SexActionInterface {
 					}
 					
 					// Check to see if it's already in use:
-					if(!isSwitchOngoingActionAvailable() && !sArea.isFree(Sex.getCharacterTargetedForSexAction(this))) {
-						return convertToNullResponse();
+					if(getActionType()==SexActionType.START_ONGOING) {
+						if(!isSwitchOngoingActionAvailable() && !sArea.isFree(Sex.getCharacterTargetedForSexAction(this))) {
+							return convertToNullResponse();
+						}
+						
+					} else { // Check to see if an additional ongoing action is allowed:
+						if(!isAdditionalOngoingAvailable()) {
+							return convertToNullResponse();
+						}
 					}
 				}
 				
@@ -900,7 +955,7 @@ public interface SexActionInterface {
 				}
 				@Override
 				public boolean isSexPenetrationHighlight() {
-					return getActionType()==SexActionType.START_ONGOING || getActionType()==SexActionType.STOP_ONGOING;
+					return getActionType()==SexActionType.START_ONGOING || getActionType()==SexActionType.START_ADDITIONAL_ONGOING || getActionType()==SexActionType.STOP_ONGOING;
 				}
 				@Override
 				public boolean isSexPositioningHighlight() {
@@ -925,7 +980,10 @@ public interface SexActionInterface {
 				public SexActionType getSexActionType() {
 					return getActionType();
 				}
-
+				@Override
+				public Map<String, Boolean> getAdditionalOngoingAvailableMap() {
+					return SexActionInterface.this.getAdditionalOngoingAvailableMap();
+				}
 				@Override
 				public boolean isAbleToBypass() {
 					if(!Main.game.isBypassSexActions()) {
@@ -961,6 +1019,10 @@ public interface SexActionInterface {
 				public SexActionType getSexActionType() {
 					return getActionType();
 				}
+				@Override
+				public Map<String, Boolean> getAdditionalOngoingAvailableMap() {
+					return SexActionInterface.this.getAdditionalOngoingAvailableMap();
+				}
 			};
 		}
 	}
@@ -990,7 +1052,7 @@ public interface SexActionInterface {
 				
 				@Override
 				public boolean isSexPenetrationHighlight() {
-					return getActionType()==SexActionType.START_ONGOING || getActionType()==SexActionType.STOP_ONGOING;
+					return getActionType()==SexActionType.START_ONGOING || getActionType()==SexActionType.START_ADDITIONAL_ONGOING || getActionType()==SexActionType.STOP_ONGOING;
 				}
 				@Override
 				public boolean isSexPositioningHighlight() {
@@ -1003,6 +1065,10 @@ public interface SexActionInterface {
 				@Override
 				public SexActionType getSexActionType() {
 					return getActionType();
+				}
+				@Override
+				public Map<String, Boolean> getAdditionalOngoingAvailableMap() {
+					return SexActionInterface.this.getAdditionalOngoingAvailableMap();
 				}
 				@Override
 				public boolean hasRequirements() {
@@ -1091,7 +1157,7 @@ public interface SexActionInterface {
 			
 			@Override
 			public boolean isSexPenetrationHighlight() {
-				return getActionType()==SexActionType.START_ONGOING || getActionType()==SexActionType.STOP_ONGOING;
+				return getActionType()==SexActionType.START_ONGOING || getActionType()==SexActionType.START_ADDITIONAL_ONGOING || getActionType()==SexActionType.STOP_ONGOING;
 			}
 			@Override
 			public boolean isSexPositioningHighlight() {
@@ -1104,6 +1170,10 @@ public interface SexActionInterface {
 			@Override
 			public SexActionType getSexActionType() {
 				return getActionType();
+			}
+			@Override
+			public Map<String, Boolean> getAdditionalOngoingAvailableMap() {
+				return SexActionInterface.this.getAdditionalOngoingAvailableMap();
 			}
 		};
 	}

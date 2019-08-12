@@ -10,7 +10,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
 import com.lilithsthrone.game.sex.positions.SexSlot;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -18,13 +18,15 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.2
- * @version 0.3.2
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMVanessaOral extends SexManagerDefault {
 	
 	public SMVanessaOral(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionBipeds.CHAIR_SEX_ORAL,
+		super(Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()
+					?SexPositionOther.SITTING
+					:SexPositionOther.ORAL,
 				dominants,
 				submissives);
 	}

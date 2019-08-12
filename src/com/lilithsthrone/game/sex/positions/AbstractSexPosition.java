@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.positions;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -92,13 +93,10 @@ public abstract class AbstractSexPosition {
 				// Trying to interact a penis with a character who is already using a penis:
 				if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS) && Sex.isPenetrationNonSelfOngoingAction(target, SexAreaPenetration.PENIS)) {
 					// If the person already using the penis is using it with an orifice that is not allowed for inter-penetrations:
-					if(Collections.disjoint(Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer), SexActionPresets.allowedInterPenetrationAreas)) {
+					if(!Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer).isEmpty()
+							&& Collections.disjoint(Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer), SexActionPresets.allowedInterPenetrationAreas)) {
 						// return blocked if the targeted area is not an appendage:
-						if(Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)) {
-							return true;
-						} else {
-							return false;
-						}
+						return Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas);
 						
 					} else {
 						// return blocked if the penetrated area is a vagina and the targeted area is a non-appendage area:
@@ -114,13 +112,10 @@ public abstract class AbstractSexPosition {
 				// Trying to interact a penis with a character who is already using a penis:
 				if(action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS) && Sex.isPenetrationNonSelfOngoingAction(performer, SexAreaPenetration.PENIS)) {
 					// If the person already using the penis is using it with an orifice that is not allowed for inter-penetrations:
-					if(Collections.disjoint(Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target), SexActionPresets.allowedInterPenetrationAreas)) {
+					if(!Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target).isEmpty()
+							&& Collections.disjoint(Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target), SexActionPresets.allowedInterPenetrationAreas)) {
 						// return blocked if the targeted area is not an appendage:
-						if(Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas)) {
-							return true;
-						} else {
-							return false;
-						}
+						return Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas);
 						
 					} else {
 						// return blocked if the penetrated area is a vagina and the targeted area is a non-appendage area:
@@ -175,7 +170,11 @@ public abstract class AbstractSexPosition {
 	}
 
 	public Set<SexSlot> getAllAvailableSexPositions() {
-		return getSlotTargets().keySet();
+		Set<SexSlot> positions = new HashSet<>(getSlotTargets().keySet());
+		
+		getSlotTargets().entrySet().stream().forEach(e -> positions.addAll(e.getValue().keySet()));
+		
+		return positions;
 	}
 
 	public Map<SexSlot, Map<SexSlot, SexActionInteractions>> getSlotTargets() {
@@ -202,7 +201,9 @@ public abstract class AbstractSexPosition {
 		}
 		
 		// If the targeted sex position is not defined, allow cumming on floor:
-		return new SexActionInteractions(null, Util.newArrayListOfValues(OrgasmCumTarget.FLOOR));
+		return new SexActionInteractions(null,
+				Util.newArrayListOfValues(OrgasmCumTarget.FLOOR),
+				Util.newArrayListOfValues(OrgasmCumTarget.FLOOR));
 	}
 	
 	/**

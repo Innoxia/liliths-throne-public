@@ -166,7 +166,8 @@ public class FortressAlphaLeaderSA {
 					Sex.getCharacterPerformingAction(),
 					SexAreaPenetration.PENIS,
 					otherTarget,
-					SexAreaOrifice.MOUTH);
+					SexAreaOrifice.MOUTH,
+					true);
 		}
 	};
 	
@@ -278,7 +279,8 @@ public class FortressAlphaLeaderSA {
 					Sex.getCharacterPerformingAction(),
 					SexAreaPenetration.PENIS,
 					otherTarget,
-					SexAreaOrifice.MOUTH);
+					SexAreaOrifice.MOUTH,
+					true);
 		}
 	};
 

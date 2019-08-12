@@ -253,8 +253,8 @@ public enum Units {
             return sizeAsImperial(cm, vType, uType);
     }
 
-    private final static String INCH_SYMBOL = "&quot;";
-    private final static String FOOT_SYMBOL = "&#39;";
+    public final static String INCH_SYMBOL = "&quot;";
+    public final static String FOOT_SYMBOL = "&#39;";
     /**
      * Converts a size, given in centimetres, to the imperial form.
      * @param cm Amount of centimetres to format

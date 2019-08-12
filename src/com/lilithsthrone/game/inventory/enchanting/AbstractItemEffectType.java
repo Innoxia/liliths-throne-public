@@ -1517,13 +1517,13 @@ public abstract class AbstractItemEffectType {
 	private static void addResourceDescriptionsRestore(int value, ResourceRestoration restorationType) {
 		switch(restorationType){
 			case HEALTH:
-					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldHealth(energy)]");
+					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]");
 				break;
 			case MANA:
 					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldAura(aura)]");
 				break;
 			case ALL:
-					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldHealth(energy)]");
+					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]");
 					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldAura(aura)]");
 				break;
 		}
@@ -1531,13 +1531,13 @@ public abstract class AbstractItemEffectType {
 	private static void addResourceDescriptionsDrain(int value, ResourceRestoration restorationType) {
 		switch(restorationType){
 			case HEALTH:
-					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldHealth(energy)]");
+					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]");
 				break;
 			case MANA:
 					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldAura(aura)]");
 				break;
 			case ALL:
-					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldHealth(energy)]");
+					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]");
 					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldAura(aura)]");
 				break;
 		}

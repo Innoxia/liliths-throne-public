@@ -452,7 +452,7 @@ public class CharacterCreation {
 		switch(Main.game.getPlayer().getFemininity()) {
 			case MASCULINE:
 			case MASCULINE_STRONG:
-				generateClothingOnFloor("innoxia_foot_trainers", Colour.CLOTHING_BLUE);
+				generateClothingOnFloor(ClothingType.getClothingTypeFromId("innoxia_foot_trainers"), Colour.CLOTHING_WHITE, Colour.CLOTHING_BLUE_GREY, Colour.CLOTHING_BLACK);
 				generateClothingOnFloor("innoxia_foot_work_boots", Colour.CLOTHING_TAN);
 				generateClothingOnFloor("innoxia_foot_low_top_skater_shoes", Colour.CLOTHING_RED);
 				generateClothingOnFloor("innoxia_sock_socks", Colour.CLOTHING_WHITE);
@@ -461,7 +461,7 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.EYES_AVIATORS, Colour.CLOTHING_BLACK_STEEL);
 				generateClothingOnFloor(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL);
-				generateClothingOnFloor(ClothingType.HAND_GLOVES, Colour.CLOTHING_BLACK);
+				generateClothingOnFloor("innoxia_hand_gloves", Colour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.HEAD_CAP, Colour.CLOTHING_BLUE);
 				generateClothingOnFloor(ClothingType.NECK_SCARF, Colour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_BLACK);
@@ -475,7 +475,7 @@ public class CharacterCreation {
 				break;
 				
 			case ANDROGYNOUS:
-				generateClothingOnFloor("innoxia_foot_trainers", Colour.CLOTHING_PURPLE);
+				generateClothingOnFloor(ClothingType.getClothingTypeFromId("innoxia_foot_trainers"), Colour.CLOTHING_WHITE, Colour.CLOTHING_PURPLE_DARK, Colour.CLOTHING_BLACK);
 				generateClothingOnFloor("innoxia_foot_heels", Colour.CLOTHING_BLACK);
 				
 				generateClothingOnFloor(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK);
@@ -830,7 +830,9 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Your clothes are a little messy after rushing here. Tidy yourself up before proceeding to the main stage.", InventoryDialogue.INVENTORY_MENU) {
+				return new Response("Continue",
+						"Your clothes are a little messy after rushing here. Tidy yourself up before proceeding to the main stage.",
+						InventoryDialogue.INVENTORY_MENU) {
 					@Override
 					public int getSecondsPassed() {
 						return TIME_TO_CLOTHING;
@@ -1350,7 +1352,16 @@ public class CharacterCreation {
 	};
 	
 	public static String getCheckingClothingDescription() {
-		return "<div class='container-full-width' style='background:transparent;'>"
+		StringBuilder sb = new StringBuilder();
+
+		File dir = new File("res/");
+		if(!dir.exists()) {
+			sb.append("<p style='text-align:center;'>"
+						+ "[style.italicsBad(The game cannot read the 'res' folder, and as such, vital items of clothing will be missing! Please refer to the 'MISSING FOLDERS' section of the README.txt before continuing!)]"
+					+ "</p>");
+		}
+		
+		sb.append("<div class='container-full-width' style='background:transparent;'>"
 					+ "<p>"
 						+ "There doesn't seem to be any sign of activity on the main stage, so, afforded a few more minutes, you decide to smarten up your clothes a little."
 						+ " After all, this is a big evening for Lily, and you want her to see that you've put some effort into your appearance."
@@ -1365,7 +1376,9 @@ public class CharacterCreation {
 						+ "<i>Choose what you decided to wear to the museum.</i><br/>"
 						+ "<i>You'll need to be wearing some kind of footwear, as well as clothing that conceals your genitals and chest, before being able to proceed.</i>"
 					+ "</div>"
-				+ "</div>";
+				+ "</div>");
+		
+		return sb.toString();
 	}
 	
 	public static void moveNPCIntoPlayerTile() {

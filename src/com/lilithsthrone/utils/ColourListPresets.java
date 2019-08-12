@@ -85,10 +85,10 @@ public class ColourListPresets {
 			Colour.CLOTHING_BLUE_VERY_DARK);
 	
 	public static ArrayList<Colour> DENIM = Util.newArrayListOfValues(
-			Colour.CLOTHING_BLUE_LIGHT,
-			Colour.CLOTHING_BLUE,
+			Colour.CLOTHING_BLUE_GREY,
+			Colour.CLOTHING_BLUE_NAVY,
 			Colour.CLOTHING_PINK_LIGHT,
-			Colour.CLOTHING_PINK,
+			Colour.CLOTHING_DESATURATED_BROWN,
 			Colour.CLOTHING_WHITE,
 			Colour.CLOTHING_GREY,
 			Colour.CLOTHING_BLACK);

@@ -208,6 +208,29 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		}
 	}
 	
+	public String getId() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(ClothingType.getIdFromClothingType(this.getClothingType()));
+		sb.append(this.getColour().toString());
+		sb.append(this.getSecondaryColour()!=null?this.getSecondaryColour().toString():"n");
+		sb.append(this.getTertiaryColour()!=null?this.getTertiaryColour().toString():"n");
+		sb.append(this.getPattern()=="none"
+				?"nnn"
+				:(this.getPatternColour()==null?"n":this.getPatternColour().toString()
+						+ (this.getPatternSecondaryColour()==null?"n":this.getPatternSecondaryColour().toString())
+						+ (this.getPatternTertiaryColour()==null?"n":this.getPatternTertiaryColour().toString())));
+		sb.append(this.isSealed()?"s":"n");
+		sb.append(this.isDirty()?"d":"n");
+		sb.append(this.isEnchantmentKnown()?"e":"n");
+		
+		for(ItemEffect ie : this.getEffects()) {
+			sb.append(ie.getId());
+		}
+		
+		return sb.toString();
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if(super.equals(o)){
@@ -648,9 +671,14 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				+ "</p>");
 		
 		// Physical resistance
-		descriptionSB.append("<p>" + (getClothingType().isPlural() ? "They" : "It") + " provide" + (getClothingType().isPlural() ? "" : "s") + " <b>" + getClothingType().getPhysicalResistance() + "</b> <b style='color: "
-				+ Attribute.RESISTANCE_PHYSICAL.getColour().toWebHexString() + ";'> " + Attribute.RESISTANCE_PHYSICAL.getName() + "</b>.</p>");
-
+		if(getClothingType().getPhysicalResistance()>0) {
+			descriptionSB.append("<p>"
+							+ (getClothingType().isPlural()
+									? "They are armoured, and provide "
+									: "It is armoured, and provides ")
+								+ " <b>" + getClothingType().getPhysicalResistance() + "</b> [style.colourResPhysical(" + Attribute.RESISTANCE_PHYSICAL.getName() + ")]."
+							+ "</p>");
+		}
 		if (enchantmentKnown) {
 			if (!this.getEffects().isEmpty()) {
 				descriptionSB.append("<p>Effects:");
@@ -674,7 +702,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 					
 			descriptionSB.append("<p>" + (getClothingType().isPlural() ? "They have" : "It has") + " a value of " + UtilText.formatAsMoney(getValue()) + ".");
 		} else {
-			descriptionSB.append("<br/>" + (getClothingType().isPlural() ? "They have" : "It has") + " an <b>unknown value</b>!");
+			descriptionSB.append("<p>" + (getClothingType().isPlural() ? "They have" : "It has") + " an <b>unknown value</b>!");
 		}
 		
 		descriptionSB.append("</p>");
@@ -1429,7 +1457,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	 */
 	public int getEnchantmentCapacityCost() {
 		Map<Attribute, Integer> noCorruption = new HashMap<>();
-		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.MAJOR_CORRUPTION).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()));
+		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.MAJOR_CORRUPTION && ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()));
 		return noCorruption.values().stream().reduce(0, (a, b) -> a + Math.max(0, b));
 	}
 	

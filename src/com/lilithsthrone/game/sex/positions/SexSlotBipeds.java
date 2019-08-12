@@ -726,31 +726,32 @@ public class SexSlotBipeds {
 			"[npc.Name] [npc.verb(bite)] [npc.her] lip and [npc.verb(let)] out out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
 			false);
 	
-	/* Chair */
-	
-	public static final SexSlot CHAIR_KNEELING = new SexSlot(
-			"Kneeling",
-			"kneeling in front of chair",
-			"[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(place)] a [npc1.hand] on one of [npc2.namePos] [npc2.legs], before letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
-			false);
-
-	public static final SexSlot CHAIR_ORAL_SITTING = new SexSlot(
-			"Sitting",
-			"sitting on chair (receiving oral)",
-			"[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(place)] a [npc1.hand] on [npc2.namePos] head, before letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(reach)] [npc1.her] climax.",
-			false);
-	
-	public static final SexSlot CHAIR_TOP = new SexSlot(
-			"Sitting in lap",
-			"kneeling in lap",
-			"With [npc1.a_moan+], [npc1.name] [npc1.verb(sink)] down into [npc2.namePos] lap.",
-			false);
-	
-	public static final SexSlot CHAIR_BOTTOM = new SexSlot(
-			"Sitting",
-			"sitting on chair",
-			"Wrapping [npc1.her] [npc1.arms+] around [npc2.name], [npc1.name] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(pull)] [npc2.herHim] down into [npc.her] lap.",
-			false);
+	// Moved to SexSlotOther. Can delete the following:
+//	/* Chair */
+//	
+//	public static final SexSlot CHAIR_KNEELING = new SexSlot(
+//			"Kneeling",
+//			"kneeling in front of chair",
+//			"[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(place)] a [npc1.hand] on one of [npc2.namePos] [npc2.legs], before letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
+//			false);
+//
+//	public static final SexSlot CHAIR_ORAL_SITTING = new SexSlot(
+//			"Sitting",
+//			"sitting on chair (receiving oral)",
+//			"[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(place)] a [npc1.hand] on [npc2.namePos] head, before letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(reach)] [npc1.her] climax.",
+//			false);
+//	
+//	public static final SexSlot CHAIR_TOP = new SexSlot(
+//			"Sitting in lap",
+//			"kneeling in lap",
+//			"With [npc1.a_moan+], [npc1.name] [npc1.verb(sink)] down into [npc2.namePos] lap.",
+//			false);
+//	
+//	public static final SexSlot CHAIR_BOTTOM = new SexSlot(
+//			"Sitting",
+//			"sitting on chair",
+//			"Wrapping [npc1.her] [npc1.arms+] around [npc2.name], [npc1.name] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(pull)] [npc2.herHim] down into [npc.her] lap.",
+//			false);
 	
 	/* Stocks */
 	

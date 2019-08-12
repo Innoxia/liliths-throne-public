@@ -46,14 +46,13 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 /**
  * Shows the tooltip at the given element's position.
  * 
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.4
  * @author Innoxia
  */
 public class TooltipInventoryEventListener implements EventListener {
@@ -971,7 +970,7 @@ public class TooltipInventoryEventListener implements EventListener {
 	private void clothingTooltip(AbstractClothing absClothing) {
 		int yIncrease = 0;
 				
-		int listIncrease = 1 + absClothing.getAttributeModifiers().size();
+		int listIncrease = absClothing.getAttributeModifiers().size();
 		
 		InventorySlot slotEquippedTo = absClothing.getSlotEquippedTo();
 		if(slotEquippedTo==null) {
@@ -1025,13 +1024,15 @@ public class TooltipInventoryEventListener implements EventListener {
 		// Attribute modifiers:
 		tooltipSB.append("<div class='container-full-width'>"
 				+ "<div class='container-half-width titular' style='width:calc(66.6% - 16px);'>");
-		float res = Units.round(absClothing.getClothingType().getPhysicalResistance(), 1);
-		tooltipSB.append(
-				"<span style='color:" + absClothing.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absClothing.getDisplayRarity())+"</span></br>"
-				+ (res>0
-					?"[style.boldGood(+"+res+")]"
-					:"[style.boldDisabled(0)]")
-				+" [style.boldResPhysical("+Util.capitaliseSentence(Attribute.RESISTANCE_PHYSICAL.getName())+")]");
+		
+
+		tooltipSB.append("<span style='color:" + absClothing.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absClothing.getDisplayRarity())+"</span>");
+		
+		float res = absClothing.getClothingType().getPhysicalResistance();
+		if(res>0) {
+			yIncrease++;
+			tooltipSB.append("</br>[style.boldGood(+"+res+")] Natural [style.boldResPhysical("+Util.capitaliseSentence(Attribute.RESISTANCE_PHYSICAL.getName())+")]");
+		}
 		
 		if (!absClothing.getEffects().isEmpty()) {
 			if (!absClothing.isEnchantmentKnown()) {

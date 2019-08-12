@@ -23,9 +23,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.dialogue.npcDialogue.unique.LumiDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.ParserCommand;
@@ -48,8 +46,6 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.world.Weather;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -324,24 +320,26 @@ public class DebugDialogue {
 							}
 						};
 						
-				}  else if (index == 5) {
-					if(!Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BACK_ALLEYS)) {
-						return new Response("Lumi test", "Lumi can only be spawned in alleyway tiles.", null);
-						
-					} else if(!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
-						return new Response("Lumi test", "Lumi can only be spawned into empty tiles!", null);
-						
-					}  else if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-						return new Response("Lumi test", "Lumi can not be spawned during an arcane storm.", null);
-					}
-					return new ResponseEffectsOnly("Lumi test", "Spawn Lumi to test her dialogue and scenes."){
-						@Override
-						public void effects() {
-							Main.game.setContent(new Response("", "", LumiDialogue.LUMI_APPEARS));
-						}
-					};
-					
-				} else if (index == 6) {
+				}
+//				else if (index == 5) {
+//					if(!Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BACK_ALLEYS)) {
+//						return new Response("Lumi test", "Lumi can only be spawned in alleyway tiles.", null);
+//						
+//					} else if(!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
+//						return new Response("Lumi test", "Lumi can only be spawned into empty tiles!", null);
+//						
+//					}  else if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+//						return new Response("Lumi test", "Lumi can not be spawned during an arcane storm.", null);
+//					}
+//					return new ResponseEffectsOnly("Lumi test", "Spawn Lumi to test her dialogue and scenes."){
+//						@Override
+//						public void effects() {
+//							Main.game.setContent(new Response("", "", LumiDialogue.LUMI_APPEARS));
+//						}
+//					};
+//					
+//				} 
+				else if (index == 6) {
 					return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -463,8 +461,8 @@ public class DebugDialogue {
 					clothingSlots.remove(InventorySlot.WEAPON_MAIN);
 					clothingSlots.remove(InventorySlot.WEAPON_OFFHAND);
 					
-					if(index < clothingSlots.size()) {
-						InventorySlot is = clothingSlots.get(index);
+					if(index-5 < clothingSlots.size()) {
+						InventorySlot is = clothingSlots.get(index-5);
 						return new Response(Util.capitaliseSentence(is.getName()),
 								"View icons and ids of all the clothing in the the slot '"+is.getName()+"'. You can also spawn these items by clicking on their icons. <i>Warning: May be very sluggish and slow to load.</i>",
 								ITEM_VIEWER) {

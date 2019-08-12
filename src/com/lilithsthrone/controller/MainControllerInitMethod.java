@@ -115,6 +115,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
@@ -239,6 +240,34 @@ public class MainControllerInitMethod {
 			MainController.addEventListener(MainController.document, "export-character-button", "mouseenter", new TooltipInformationEventListener().setInformation(
 					"Export Character",
 					"Export the currently displayed character to the 'data/characters' folder. Exported characters can be imported at the auction block in Slaver Alley."), false);
+		}
+		
+		if(Main.game.isInCombat()) {
+			for(GameCharacter combatant : Combat.getAllCombatants(true)) {
+				for(DamageType dt : DamageType.values()) {
+					id = combatant.getId()+"_COMBAT_SHIELD_"+dt;
+					
+					if (MainController.document.getElementById(id) != null) {
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+								Util.capitaliseSentence(dt.getName())+" shielding",
+								dt==DamageType.HEALTH
+									? UtilText.parse(combatant, "[npc.Name] will block incoming damage from any non-lust source by this amount."
+											+ " Other damage type shielding will be used first, with health shielding used as the last resort."
+											+ " Negative values have no effect.")
+									: dt!=DamageType.LUST
+										? UtilText.parse(combatant, "[npc.Name] will block incoming "+dt.getName()+" damage by this amount."
+												+ " Once this shielding is broken, health shielding will be used, and once that's broken, damage will be dealt [npc.her] health."
+												+ " Negative values have no effect.")
+										: UtilText.parse(combatant, "[npc.Name] will block incoming "+dt.getName()+" damage by this amount."
+												+ " Once this shielding is broken, incoming "+dt.getName()+" damage will cause [npc.her] lust to rise."
+												+ " Negative values have no effect.")),
+								false);
+					}
+				}
+			}
 		}
 
 		if(Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU)
@@ -1266,7 +1295,7 @@ public class MainControllerInitMethod {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveSurnameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() == 0
+								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
 										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
 									unsuitableName = true;
 								else {

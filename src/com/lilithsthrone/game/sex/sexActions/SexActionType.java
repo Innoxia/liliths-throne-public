@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex.sexActions;
 
 /**
  * @since 0.1.65
- * @version 0.2.8
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public enum SexActionType {
@@ -21,6 +21,9 @@ public enum SexActionType {
 	
 	/**Action which starts an ongoing penetration or action (such as performing a blowjob, or fingering someone).*/
 	START_ONGOING,
+
+	/**Action which brings another character in to an ongoing penetration or action (such as getting a second kneeling NPC to join the first in giving you a blowjob, or fingering an NPC who is being fucked by a third party).*/
+	START_ADDITIONAL_ONGOING,
 	
 	/**Action which stops the ongoing process of all SexAreaInterfaces.*/
 	STOP_ONGOING,

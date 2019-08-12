@@ -149,9 +149,9 @@ public class DominionSuccubusAttacker extends NPC {
 	@Override
 	public void endSex() {
 		if(!isSlave()) {
-			if(this.getGender()!=this.getGenderIdentity() && !this.isPregnant()) {
-				this.setPendingTransformationToGenderIdentity(true);
-			}
+//			if(this.getGender()!=this.getGenderIdentity() && !this.isPregnant()) {
+//				this.setPendingTransformationToGenderIdentity(true);
+//			}
 			setPendingClothingDressing(true);
 		}
 	}

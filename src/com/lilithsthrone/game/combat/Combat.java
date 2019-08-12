@@ -171,7 +171,7 @@ public enum Combat {
 		
 		combatContent.get(Main.game.getPlayer()).add(
 				(Main.game.getPlayer().hasTrait(Perk.JOB_SOLDIER, true)
-					?"Any energy damage you deal in this first turn is [style.boldExcellent(doubled)] thanks to your"
+					?"Any "+Attribute.HEALTH_MAXIMUM.getName()+" damage you deal in this first turn is [style.boldExcellent(doubled)] thanks to your"
 							+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(Main.game.getPlayer())+"</b> ability."
 					:""));
 		
@@ -204,7 +204,7 @@ public enum Combat {
 			
 			combatContent.get(combatant).add(UtilText.parse(combatant,
 					(combatant.hasTrait(Perk.JOB_SOLDIER, true)
-						?"Any energy damage [npc.name] deals in this first turn is [style.boldExcellent(doubled)] thanks to [npc.her]"
+						?"Any "+Attribute.HEALTH_MAXIMUM.getName()+" damage [npc.name] deals in this first turn is [style.boldExcellent(doubled)] thanks to [npc.her]"
 								+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(combatant)+"</b> ability."
 						:"")
 					));
@@ -1154,27 +1154,17 @@ public enum Combat {
 	}
 
 	private static StringBuilder endTurnStatusEffectText = new StringBuilder();
-
-	public static int getShieldingFromClothing(GameCharacter character) {
-		int clothingDefence = 0;
-		for(AbstractClothing clothing : character.getClothingCurrentlyEquipped()) {
-			clothingDefence += clothing.getClothingType().getPhysicalResistance();
-		}
-		return Math.round(clothingDefence);
-	}
 	
 	private static void applyNewTurnShielding(GameCharacter character) {
 	    character.resetShields();
 	    
 	    int bonusEnergyShielding = Math.round(character.getAttributeValue(Attribute.ENERGY_SHIELDING));
-		character.incrementShields(DamageType.ENERGY, bonusEnergyShielding);
+		character.incrementShields(DamageType.HEALTH, bonusEnergyShielding);
 		
 		DamageType[] damageTypes = new DamageType[] {DamageType.PHYSICAL, DamageType.FIRE, DamageType.ICE, DamageType.POISON};
 		for(DamageType dt : damageTypes) {
 			character.incrementShields(dt, Math.round(character.getAttributeValue(dt.getResistAttribute())));
 		}
-		
-		character.incrementShields(DamageType.PHYSICAL, getShieldingFromClothing(character));
 		
 	    character.incrementShields(DamageType.LUST, Math.round(character.getAttributeValue(DamageType.LUST.getResistAttribute())));
 	}
@@ -1256,40 +1246,48 @@ public enum Combat {
 		
 		sb.append(" <b>(<span style='color:"+(apRemaining==0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD).toWebHexString()+";'>"+apRemaining+"</span>/"+Main.game.getPlayer().getMaxAP()+" AP)</b>");
 		
+		sb.append("<div class='container-full-width' style='text-align:center;'>");
+		
 		boolean shieldsFound = false;
-		int shields = character.getShields(DamageType.ENERGY);
+		int shields = character.getShields(DamageType.HEALTH);
 		if(shields!=0) {
-			if(!shieldsFound) {
-				sb.append("<br/>");
-			}
 			shieldsFound = true;
-			sb.append("<span style='color:"+DamageType.ENERGY.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields));
+			sb.append("<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+Colour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
+							+"<span style='color:"+DamageType.HEALTH.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
+							+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+DamageType.HEALTH+"' style='cursor:default;'></div>"
+						+ "</div>");
 		}
 		
 		DamageType[] damageTypes = new DamageType[] {DamageType.PHYSICAL, DamageType.FIRE, DamageType.ICE, DamageType.POISON};
 		for(DamageType dt : damageTypes) {
 			shields = character.getShields(dt);
 			if(shields!=0) {
-				if(!shieldsFound) {
-					sb.append("<br/>");
-				} else {
+				if(shieldsFound) {
 					sb.append(" | ");
 				}
 				shieldsFound = true;
-				sb.append("<span style='color:"+dt.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields));
+				sb.append(
+						"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+Colour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
+							+"<span style='color:"+dt.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
+							+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+dt+"' style='cursor:default;'></div>"
+						+ "</div>");
 			}
 		}
 
 		shields = character.getShields(DamageType.LUST);
 		if(shields!=0) {
-			if(!shieldsFound) {
-				sb.append("<br/>");
-			} else {
+			if(shieldsFound) {
 				sb.append(" | ");
 			}
 			shieldsFound = true;
-			sb.append("<span style='color:"+DamageType.LUST.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields));
+			sb.append(
+					"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+Colour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
+						+"<span style='color:"+DamageType.LUST.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
+						+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+DamageType.LUST+"' style='cursor:default;'></div>"
+					+ "</div>");
 		}
+
+		sb.append("</div>");
 		
 		return sb.toString();
 	}

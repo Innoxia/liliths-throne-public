@@ -1836,7 +1836,7 @@ public class OptionsDialogue {
 							"OPPORTUNISTIC_ATTACKERS",
 							Colour.BASE_CRIMSON,
 							"Opportunistic attackers",
-							"This makes random attacks more likely when you're high on lust, low on energy, covered in fluids, exposed, or drunk.",
+							"This makes random attacks more likely when you're high on lust, low on health, covered in fluids, exposed, or drunk.",
 							Main.game.isOpportunisticAttackersEnabled()));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(

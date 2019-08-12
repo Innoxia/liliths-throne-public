@@ -6,7 +6,7 @@
 		<name><![CDATA[chelsea boot]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[chelsea boots]]></namePlural>
 		<description><![CDATA[A pair of unisex, chelsea-style ankle boots.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>FOOT</slot> 
 		<rarity>COMMON</rarity>

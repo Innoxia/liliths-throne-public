@@ -7,7 +7,7 @@
 		<name><![CDATA[sleeveless gothic dress]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[sleeveless gothic dresses]]></namePlural>
 		<description><![CDATA[Dresses such as this one are typically only worn by Lilin or high-ranking demons when called upon to attend a prestigious event.]]></description>
-		<physicalResistance>3</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>TORSO_UNDER</slot>
 		<rarity>UNCOMMON</rarity>

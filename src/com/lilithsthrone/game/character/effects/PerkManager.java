@@ -468,7 +468,7 @@ public enum PerkManager {
 			
 			switch(pc) {
 				case ARCANE:
-					character.addSpecialPerk(Perk.ARCANE_TRAINING);
+					character.addSpecialPerk(Perk.SPECIAL_ARCANE_TRAINING);
 					break;
 				case ARCANE_AIR:
 					break;
@@ -480,14 +480,14 @@ public enum PerkManager {
 					if(!character.getFetishDesire(Fetish.FETISH_PURE_VIRGIN).isPositive()
 							&& (!character.hasPenisIgnoreDildo() || !character.isPenisVirgin())
 							&& (!character.hasVagina() || !character.isVaginaVirgin())) {
-						character.addSpecialPerk(Perk.SLUT);
+						character.addSpecialPerk(Perk.SPECIAL_SLUT);
 					}
 					break;
 				case PHYSICAL:
 					if(Math.random()<0.5) {
-						character.addSpecialPerk(Perk.MARTIAL_BACKGROUND);
+						character.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
 					} else {
-						character.addSpecialPerk(Perk.HEALTH_FANATIC);
+						character.addSpecialPerk(Perk.SPECIAL_HEALTH_FANATIC);
 					}
 					break;
 				case PHYSICAL_EARTH:

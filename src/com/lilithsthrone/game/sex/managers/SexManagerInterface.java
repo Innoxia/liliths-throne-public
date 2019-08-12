@@ -251,11 +251,7 @@ public interface SexManagerInterface {
 		return true;
 	}
 	
-	public default boolean isPlayerStartNaked() {
-		return false;
-	}
-
-	public default boolean isPartnerStartNaked() {
+	public default boolean isCharacterStartNaked(GameCharacter character) {
 		return false;
 	}
 	

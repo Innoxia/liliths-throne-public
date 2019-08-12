@@ -9,6 +9,7 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotOther;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
@@ -50,7 +51,7 @@ public class TongueMouth {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.COWGIRL_RIDING
-					|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.CHAIR_TOP) {
+					|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotOther.SITTING_IN_LAP) {
 				
 				if (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

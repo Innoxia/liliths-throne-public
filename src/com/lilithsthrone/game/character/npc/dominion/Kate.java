@@ -124,7 +124,7 @@ public class Kate extends NPC {
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		this.addSpecialPerk(Perk.ARCANE_TATTOOIST);
+		this.addSpecialPerk(Perk.SPECIAL_ARCANE_TATTOOIST);
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(

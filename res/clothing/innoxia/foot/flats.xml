@@ -6,7 +6,7 @@
 		<name><![CDATA[flat]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[flats]]></namePlural>
 		<description><![CDATA[Styled on women's ballet shoes, these feminine, slip-on flats have a very thin heel and a low-cut front.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>FOOT</slot> 
 		<rarity>COMMON</rarity>

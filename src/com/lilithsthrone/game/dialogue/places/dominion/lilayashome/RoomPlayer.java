@@ -42,7 +42,9 @@ public class RoomPlayer {
 				: (int) ((60 * (minutesPassed<(60*7)?7:31)) - minutesPassed));
 
 		if (index == 1) {
-			return new Response("Rest", "Rest for four hours. As well as replenishing your energy and aura, you will also get the 'Well Rested' status effect.", AUNT_HOME_PLAYERS_ROOM_SLEEP){
+			return new Response("Rest",
+					"Rest for four hours. As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
+					AUNT_HOME_PLAYERS_ROOM_SLEEP){
 				@Override
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -59,9 +61,10 @@ public class RoomPlayer {
 		} else if (index == 2) {
 			return new Response("Rest until " + (Main.game.isDayTime() ? "Evening" : "Morning"),
 					"Rest for " + (sleepTimer >= 60 ? sleepTimer / 60 + " hours " : " ")
-					+ (sleepTimer % 60 != 0 ? sleepTimer % 60 + " minutes" : "")
-					+ " until " + (Main.game.isDayTime() ? "evening (21:00)." : "morning (07:00).")
-					+ " As well as replenishing your energy and aura, you will also get the 'Well Rested' status effect.", AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG){
+						+ (sleepTimer % 60 != 0 ? sleepTimer % 60 + " minutes" : "")
+						+ " until " + (Main.game.isDayTime() ? "evening (21:00)." : "morning (07:00).")
+						+ " As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
+					AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG){
 				@Override
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));

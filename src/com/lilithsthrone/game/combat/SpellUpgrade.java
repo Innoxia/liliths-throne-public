@@ -73,7 +73,7 @@ public enum SpellUpgrade {
 			SpellSchool.FIRE,
 			"cloak_of_flames_incendiary",
 			"Incendiary",
-			"With every strike, a jet of fire from the Cloak of Flames shoots forwards to burn the enemy. Damage done is affected by the wearer's fire damage, and the target's fire resistance.",
+			"With every strike, a jet of fire from the Cloak of Flames shoots forwards to burn the enemy. Damage done is affected by the wearer's fire damage, and the target's fire shielding.",
 			null, Util.newArrayListOfValues(
 					"Unarmed attacks deal +1 damage per caster level",
 					"Unarmed attacks deal [style.boldFire(fire damage)]")),
@@ -88,7 +88,7 @@ public enum SpellUpgrade {
 			SpellSchool.FIRE,
 			"cloak_of_flames_ring_of_fire",
 			"Ring of Fire",
-			"Any enemy that approaches the Cloak of Flames is now greeted by a retaliatory burst of fire. Damage done is affected by the wearer's fire damage, and the attacker's fire resistance.",
+			"Any enemy that approaches the Cloak of Flames is now greeted by a retaliatory burst of fire. Damage done is affected by the wearer's fire damage, and the attacker's fire shielding.",
 			null, Util.newArrayListOfValues(
 					"<b>Melee</b> or <b>unarmed</b> attackers take <b>5</b> [style.colourFire(Fire Damage)]")),
 
@@ -116,7 +116,7 @@ public enum SpellUpgrade {
 			null, Util.newArrayListOfValues(
 					"While summoned:",
 					"[style.colourFire(Elemental)]: +100% [style.colourExcellent(Non-Seduction Damage)]",
-					"[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum energy)]")) {
+					"[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 
 		public boolean isAvailable(GameCharacter caster) {
 			return !caster.hasSpellUpgrade(ELEMENTAL_FIRE_3B);
@@ -137,8 +137,8 @@ public enum SpellUpgrade {
 			"The summoner assumes complete dominance over the school of Fire, and while their elemental is bound to this form, they are forced to share all of their secrets.",
 			null, Util.newArrayListOfValues(
 					"While summoned:",
-					"[style.colourArcane(Caster)]: +25 [style.boldFire(Fire Damage)]",
-					"[style.colourArcane(Caster)]: +10 [style.boldFire(Fire Resistance)]")) {
+					"[style.colourArcane(Caster)]: +25 [style.boldFire("+Attribute.DAMAGE_FIRE+")]",
+					"[style.colourArcane(Caster)]: +10 [style.boldFire("+Attribute.RESISTANCE_FIRE+")]")) {
 
 		public boolean isAvailable(GameCharacter caster) {
 			return !caster.hasSpellUpgrade(ELEMENTAL_FIRE_3A);
@@ -247,7 +247,7 @@ public enum SpellUpgrade {
 			null, Util.newArrayListOfValues(
 					"While summoned:",
 					"[style.colourIce(Elemental)]: +100% [style.colourExcellent(Non-Seduction Damage)]",
-					"[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum energy)]")) {
+					"[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 
 		public boolean isAvailable(GameCharacter caster) {
 			return !caster.hasSpellUpgrade(ELEMENTAL_WATER_3B);
@@ -315,7 +315,7 @@ public enum SpellUpgrade {
 			SpellSchool.AIR,
 			"vacuum_secondary_voids",
 			"Secondary Voids",
-			"The target of Vacuum additionally suffers -25 critical power, and -20 to energy shielding.",
+			"The target of Vacuum additionally suffers -25 critical power, and -20 to "+Attribute.ENERGY_SHIELDING.getName()+" shielding.",
 			null, Util.newArrayListOfValues(
 					"Vacuum additionally applies <b>-25</b> "+Attribute.CRITICAL_DAMAGE.getColouredName("b"),
 					"Vacuum debuff increased to <b>-20</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b"))),
@@ -383,7 +383,7 @@ public enum SpellUpgrade {
 			null, Util.newArrayListOfValues(
 					"While summoned:",
 					"[style.colourAir(Elemental)]: +100% [style.colourExcellent(Non-Seduction Damage)]",
-					"[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum energy)]")) {
+					"[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 
 		public boolean isAvailable(GameCharacter caster) {
 			return !caster.hasSpellUpgrade(ELEMENTAL_AIR_3B);
@@ -480,7 +480,7 @@ public enum SpellUpgrade {
 			SpellSchool.EARTH,
 			"stone_shell_hardened_carapace",
 			"Hardened Carapace",
-			"A second layer of hardened stone is created behind Shone Shell, massively increasing the target's physical resistance.",
+			"A second layer of hardened stone is created behind Shone Shell, massively increasing the target's physical shielding.",
 			null, Util.newArrayListOfValues(
 					"Stone Shell's buff is increased to <b>+10</b> "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b"))),
 	STONE_SHELL_3(1,
@@ -515,7 +515,7 @@ public enum SpellUpgrade {
 			null, Util.newArrayListOfValues(
 					"While summoned:",
 					"[style.colourEarth(Elemental)]: +100% [style.colourExcellent(Non-Seduction Damage)]",
-					"[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum energy)]")) {
+					"[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 
 		public boolean isAvailable(GameCharacter caster) {
 			return !caster.hasSpellUpgrade(ELEMENTAL_EARTH_3B);
@@ -756,7 +756,7 @@ public enum SpellUpgrade {
 			null, Util.newArrayListOfValues(
 					"While summoned:",
 					"[style.colourArcane(Elemental)]: +100% [style.colourExcellent(Non-Seduction Damage)]",
-					"[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum energy)]")) {
+					"[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 
 		public boolean isAvailable(GameCharacter caster) {
 			return !caster.hasSpellUpgrade(ELEMENTAL_ARCANE_3B);

@@ -564,7 +564,7 @@ public class CombatMove {
                 0,
                 1,
                 CombatMoveType.DEFEND,
-                DamageType.ENERGY,
+                DamageType.HEALTH,
                 "moves/block",
                 Util.newArrayListOfValues(Colour.BASE_GREY),
                 false,
@@ -614,14 +614,14 @@ public class CombatMove {
 
             @Override
             public void performOnSelection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-                DamageType damageType = DamageType.ENERGY;
+                DamageType damageType = DamageType.HEALTH;
                 boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 target.setShields(damageType, target.getShields(damageType) + getBlock(isCrit));
             }
             
             @Override
             public void performOnDeselection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-                DamageType damageType = DamageType.ENERGY;
+                DamageType damageType = DamageType.HEALTH;
                 boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 target.setShields(damageType, target.getShields(damageType) - getBlock(isCrit));
             }
@@ -681,7 +681,7 @@ public class CombatMove {
 
         		DamageType finalDt = getDamageType(source);
             	if(target.getLust()>=100) {
-					finalDt = DamageType.ENERGY;
+					finalDt = DamageType.HEALTH;
 				}
             	
         		boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
@@ -759,7 +759,7 @@ public class CombatMove {
         				"[npc.Name] focused on resisting [npc2.namePos] seductive moves.",
         				"[npc.SheIs] now protected against " + getFormattedDamage(getDamageType(source), getBlock(isCrit), target, true) + " damage!",
         				isCrit?"":null,
-        				isCrit?"[npc.Name] [npc.verb(double)] [npc.her] resistance!":""));
+        				isCrit?"[npc.Name] [npc.verb(double)] [npc.her] shielding!":""));
             }
 
             @Override
@@ -1186,7 +1186,7 @@ public class CombatMove {
      */
 	protected static String getFormattedDamage(DamageType damageType, int damage, GameCharacter target, boolean damageHasBeenApplied) {
 		if(target!=null && target.getLust()>=100) {
-			damageType = DamageType.ENERGY;
+			damageType = DamageType.HEALTH;
 			if(damageHasBeenApplied) {
 				damage /= 2;
 			}

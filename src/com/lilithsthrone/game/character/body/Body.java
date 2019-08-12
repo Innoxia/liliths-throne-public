@@ -92,7 +92,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class Body implements XMLSaving {
@@ -1926,6 +1926,15 @@ public class Body implements XMLSaving {
 				break;
 		}
 		
+		Covering faceCovering = owner.getCovering(face.getBodyCoveringType(owner));
+		if(faceCovering.getPattern()==CoveringPattern.FRECKLED_FACE) {
+			sb.append(" While mostly "
+						+Covering.getFormattedColour(faceCovering.getPrimaryColour(), "", faceCovering.isPrimaryGlowing(), false)
+						+" in colour, [npc.she] [npc.has] a scattering of "
+						+Covering.getFormattedColour(faceCovering.getSecondaryColour(), "", faceCovering.isSecondaryGlowing(), false)
+						+" freckles on [npc.her] cheeks.");
+		}
+		
 		// Lynx side fluff
 		if(hair.getType() == HairType.CAT_MORPH_SIDEFLUFF) {
 			sb.append(" On the sides of [npc.her] face [npc.sheHasFull] some soft, fuzzy fur.");
@@ -2559,7 +2568,7 @@ public class Body implements XMLSaving {
 					if(this.leg.getLegConfiguration()!=LegConfiguration.BIPEDAL
 							|| (this.getRaceStage()==RaceStage.GREATER && RacialBody.valueOfRace(this.getRace()).getBreastCrotchType()!=BreastType.NONE && Main.getProperties().udders==2)) {
 						sb.append("<p>"
-									+ "[style.colourDisabled([npc.She] does not have any crotch-boobs or udders.)]"
+									+ "[style.colourDisabled([npc.She] [npc.do] not have any crotch-boobs or udders.)]"
 								+ "</p>");
 					}
 				}

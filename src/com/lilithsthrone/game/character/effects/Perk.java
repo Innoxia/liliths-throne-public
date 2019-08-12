@@ -178,8 +178,7 @@ public class Perk {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 15),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 15)),
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -196,7 +195,7 @@ public class Perk {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 5)),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
 			null) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -223,7 +222,7 @@ public class Perk {
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 5)),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -291,7 +290,7 @@ public class Perk {
 			Colour.RACE_REINDEER_MORPH,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 10)),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 5)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -337,8 +336,7 @@ public class Perk {
 			"perks/jobs/npc_slime_queen",
 			Colour.SLIME_PINK,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -10)),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -355,9 +353,7 @@ public class Perk {
 			Colour.RACE_REINDEER_MORPH,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 3),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 3),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 3)),
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -395,7 +391,7 @@ public class Perk {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 50),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 5)),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
 			Util.newArrayListOfValues("[style.boldExcellent(Doubles)] all slave and self-prostitution income")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -411,13 +407,50 @@ public class Perk {
 			Colour.BASE_CRIMSON,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2)),
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 15)),
 			Util.newArrayListOfValues("[style.boldExcellent(Triples)] all mugging income")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.Name] [npc.verb(live)] a life of crime, stealing from the rich and poor alike.");
 		}
 	};
+	
+	public static AbstractPerk JOB_CONSTRUCTION_WORKER = new AbstractPerk(20,
+			true,
+			"Builder",
+			PerkCategory.JOB,
+			"perks/jobs/npc_construction",
+			Util.newArrayListOfValues(Colour.CLOTHING_YELLOW, Colour.CLOTHING_BLACK),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 15)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameHasFull] [npc.verb(spent)] a while working in the construction industry, helping to build and repair both infrastructure and property.");
+		}
+	};
+	
+	public static AbstractPerk JOB_CONSTRUCTION_WORKER_ARCANE = new AbstractPerk(20,
+			true,
+			"Matter manipulation",
+			PerkCategory.JOB,
+			"perks/jobs/npc_construction",
+			Util.newArrayListOfValues(Colour.CLOTHING_PURPLE, Colour.CLOTHING_BLACK),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 10),
+					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 25)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "Being able to harness the arcane, and therefore able to telekinetically manipulate manner, [npc.nameIsFull] a very valuable asset for construction firms to have in their employ.");
+		}
+	};
+	
+	
+	
 	
 	// Player Histories:
 	
@@ -550,8 +583,8 @@ public class Perk {
 			Colour.BASE_GREEN,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 10),
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10)),
 			Util.newArrayListOfValues("Your first strike in combat deals [style.boldExcellent(double)] damage")) {
 		@Override
@@ -602,8 +635,8 @@ public class Perk {
 			"perks/jobs/butler",
 			Colour.BASE_BLUE_STEEL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 25),
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 25)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Boosted)] Butler's set bonuses",
 					"[style.boldExcellent(Double)] slave income from maids and butlers")) {
@@ -785,8 +818,8 @@ public class Perk {
 			"perks/beserk",
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15),
-					new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 15),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 20),
+					new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 20),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, -2),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, -15),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, -15)),
@@ -987,7 +1020,7 @@ public class Perk {
 		@Override
 		public HashMap<Attribute, Integer> getAttributeModifiers(GameCharacter character) {
 			if(character!=null && character.isPlayer()) {
-				return Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 40));
+				return Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 20));
 			} else {
 				return super.getAttributeModifiers(character);
 			}
@@ -996,7 +1029,7 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if(owner.isPlayer()) {
-				return "You have a surprisingly large amount of natural arcane power.";
+				return "You have a surprisingly large amount of natural arcane power; far more than a regular person aught to have.";
 			} else {
 				return "Everybody in this reality has an arcane aura, no matter how weak, and so at the very least has a tiny hint of arcane power available to them.";
 			}
@@ -1319,7 +1352,7 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NamePos] spells are particularly effective when striking a target's weak spots."
-					+ " Any critical hits from [npc.her] spells apply 'Arcane weakness' for one turn (-10 to all resistances).");
+					+ " Any critical hits from [npc.her] spells apply 'Arcane weakness' for one turn (-10 to all shielding).");
 		}
 	};
 	
@@ -1424,7 +1457,9 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/arcane_fire_1",
 			Colour.DAMAGE_TYPE_FIRE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 10), new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 10)), null) {
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 10),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 1)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1458,7 +1493,10 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/arcane_ice_1",
 			Colour.DAMAGE_TYPE_COLD,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 10), new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 10)), null) {
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 10),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 1)),
+			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1492,7 +1530,10 @@ public class Perk {
 			PerkCategory.ARCANE,
 			"perks/arcane_poison_1",
 			Colour.DAMAGE_TYPE_POISON,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 10), new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 10)), null) {
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 10),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 1)),
+			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -1661,7 +1702,7 @@ public class Perk {
 			"perks/fitness_nymphomaniac",
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -5)),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -2)),
 			Util.newArrayListOfValues("Doubles <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm")) {
 
 		@Override
@@ -1871,7 +1912,7 @@ public class Perk {
 		}
 	};
 	
-	public static AbstractPerk MERAXIS = new AbstractPerk(20,
+	public static AbstractPerk SPECIAL_MERAXIS = new AbstractPerk(20,
 			false,
 			"The Dark Siren",
 			PerkCategory.ARCANE,
@@ -1894,7 +1935,7 @@ public class Perk {
 		}
 	};
 	
-	public static AbstractPerk ARCANE_TATTOOIST = new AbstractPerk(20,
+	public static AbstractPerk SPECIAL_ARCANE_TATTOOIST = new AbstractPerk(20,
 			false,
 			"Arcane Tattooist",
 			PerkCategory.ARCANE,
@@ -1915,9 +1956,49 @@ public class Perk {
 		}
 	};
 	
+	public static AbstractPerk SPECIAL_CLOTHING_MASCULINITY_INDIFFERENCE = new AbstractPerk(20,
+			false,
+			"masculine clothing indifference",
+			PerkCategory.PHYSICAL,
+			"perks/clothingIndifferenceMasculinity",
+			Util.newArrayListOfValues(Colour.MASCULINE, Colour.CLOTHING_GREY),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to 'clothing too masculine' status effect</span>"),
+			null, null, null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] always [npc.verb(feel)] comfortable wearing masculine clothing, no matter how feminine [npc.her] body may be.");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
+	public static AbstractPerk SPECIAL_CLOTHING_FEMININITY_INDIFFERENCE = new AbstractPerk(20,
+			false,
+			"feminine clothing indifference",
+			PerkCategory.PHYSICAL,
+			"perks/clothingIndifferenceFemininity",
+			Util.newArrayListOfValues(Colour.FEMININE, Colour.CLOTHING_GREY),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to 'clothing too feminine' status effect</span>"),
+			null, null, null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] always [npc.verb(feel)] comfortable wearing feminine clothing, no matter how masculine [npc.her] body may be.");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+	
 	// HIDDEN PERKS:
 
-	public static AbstractPerk SLUT = new AbstractPerk(20,
+	public static AbstractPerk SPECIAL_SLUT = new AbstractPerk(20,
 			false,
 			"slut",
 			PerkCategory.ARCANE,
@@ -1942,7 +2023,7 @@ public class Perk {
 		}
 	};
 
-	public static AbstractPerk ARCANE_TRAINING = new AbstractPerk(20,
+	public static AbstractPerk SPECIAL_ARCANE_TRAINING = new AbstractPerk(20,
 			false,
 			"arcane training",
 			PerkCategory.ARCANE,
@@ -1966,7 +2047,7 @@ public class Perk {
 		}
 	};
 
-	public static AbstractPerk ARCANE_ALLERGY = new AbstractPerk(20,
+	public static AbstractPerk SPECIAL_ARCANE_ALLERGY = new AbstractPerk(20,
 			false,
 			"arcane allergy",
 			PerkCategory.ARCANE,
@@ -1990,7 +2071,7 @@ public class Perk {
 		}
 	};
 
-	public static AbstractPerk HEALTH_FANATIC = new AbstractPerk(20,
+	public static AbstractPerk SPECIAL_HEALTH_FANATIC = new AbstractPerk(20,
 			false,
 			"health fanatic",
 			PerkCategory.PHYSICAL,
@@ -2014,7 +2095,7 @@ public class Perk {
 		}
 	};
 	
-	public static AbstractPerk MARTIAL_BACKGROUND = new AbstractPerk(20,
+	public static AbstractPerk SPECIAL_MARTIAL_BACKGROUND = new AbstractPerk(20,
 			false,
 			"martial background",
 			PerkCategory.PHYSICAL,
@@ -4788,6 +4869,16 @@ public class Perk {
 	
 	public static AbstractPerk getPerkFromId(String id) {
 //		System.out.print("ID: "+id);
+		if(id.equalsIgnoreCase("MERAXIS")
+				|| id.equalsIgnoreCase("ARCANE_TATTOOIST")
+				|| id.equalsIgnoreCase("SLUT")
+				|| id.equalsIgnoreCase("ARCANE_TRAINING")
+				|| id.equalsIgnoreCase("ARCANE_ALLERGY")
+				|| id.equalsIgnoreCase("HEALTH_FANATIC")
+				|| id.equalsIgnoreCase("MARTIAL_BACKGROUND")) {
+			id = "SPECIAL_"+id;
+		}
+		
 		id = Util.getClosestStringMatch(id, idToPerkMap.keySet());
 //		System.out.println("  set to: "+id);
 		return idToPerkMap.get(id);

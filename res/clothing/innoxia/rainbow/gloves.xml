@@ -7,7 +7,7 @@
 		<name><![CDATA[rainbow glove]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[rainbow gloves]]></namePlural> 
 		<description><![CDATA[A pair of brightly-coloured rainbow fingerless gloves, which reach up to wearer's mid-forearm.]]></description> 
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		<femininity>FEMININE</femininity>
 		<slot>HAND</slot> 
 		<rarity>COMMON</rarity>

@@ -171,6 +171,11 @@ public class TestNPC extends NPC {
 	public boolean isClothingStealable() {
 		return true;
 	}
+
+	@Override
+	public boolean isOverrideInventoryEquip() {
+		return true;
+	}
 	
 	@Override
 	public DialogueNode getEncounterDialogue() {

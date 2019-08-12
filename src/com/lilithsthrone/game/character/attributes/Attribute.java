@@ -23,20 +23,17 @@ public enum Attribute {
 	HEALTH_MAXIMUM(0,
 			1,
 			1000,
-			"energy",
-			"Energy",
+			"health",
+			"Health",
 			"healthIcon",
 			Colour.ATTRIBUTE_HEALTH,
-			"energy", "lethargy", null) {
+			"health", "sickness", null) {
 				@Override
 				public String getDescription(GameCharacter owner) {
-					if(owner.isPlayer())
-						return "How much physical energy you have. You will be defeated in combat if this reaches 0.<br/>"
-								+ "Extra energy is added to the 'bonus' value from:<br/>"
-								+"<b>"+ GameCharacter.HEALTH_CALCULATION + "</b>";
-					else
-						return UtilText.parse(owner,
-								"How much physical energy [npc.name] has. [npc.She] will be defeated in combat if this reaches 0.");
+					return UtilText.parse(owner,
+							"The amount of stamina and determination [npc.name] [npc.has]. [npc.She] will be defeated in combat if this reaches 0.<br/>"
+								+ "Extra health is added to the 'bonus' value from:<br/>"
+								+"<b>"+ GameCharacter.HEALTH_CALCULATION + "</b>");
 				}
 			},
 
@@ -50,13 +47,10 @@ public enum Attribute {
 			"aura-boost", "aura-drain", null) {
 				@Override
 				public String getDescription(GameCharacter owner) {
-					if(owner.isPlayer())
-						return "A measure of the amount of arcane energy in your aura.<br/>"
+					return UtilText.parse(owner,
+							"A measure of the amount of arcane energy [npc.name] [npc.has] in [npc.her] aura.<br/>"
 								+ "Extra aura is added to the 'bonus' value from:<br/>"
-								+ "<b>" + GameCharacter.MANA_CALCULATION + "</b>";
-					else
-						return UtilText.parse(owner,
-								"How much arcane energy [npc.name] has in [npc.her] aura.");
+								+ "<b>" + GameCharacter.MANA_CALCULATION + "</b>");
 				}
 			},
 
@@ -70,11 +64,23 @@ public enum Attribute {
 			"learning", "forgetfulness", null) {
 				@Override
 				public String getDescription(GameCharacter owner) {
-					if(owner.isPlayer())
-						return "How much progress you have made to the next level.";
-					else
-						return UtilText.parse(owner,
-								"How much progress [npc.name] has made to the next level.");
+					return UtilText.parse(owner,
+							"How much progress [npc.name] [npc.has] made to the next level.");
+				}
+			},
+
+	ACTION_POINTS(0,
+			0,
+			10,
+			"action points",
+			"Action points",
+			"action_points",
+			Colour.GENERIC_ACTION_POINTS,
+			"initiative", "lethargy", null) {
+				@Override
+				public String getDescription(GameCharacter owner) {
+					return UtilText.parse(owner,
+							"How many action points [npc.nameHasFull] available to spend on moves in combat.");
 				}
 			},
 	
@@ -126,12 +132,9 @@ public enum Attribute {
 			"power", "weakness", Util.newArrayListOfValues("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "'>Energy</b> per 1 physique")) {
 						@Override
 						public String getDescription(GameCharacter owner) {
-							if(owner.isPlayer())
-								return "A measure of how physically healthy you are, physique <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>passively increases</b> your"
-									+ " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>maximum energy</b>.";
-							else
-								return UtilText.parse(owner,
-										"A measure of [npc.namePos] physical health.");
+							return UtilText.parse(owner,
+									"A measure of how physically healthy [npc.name] [npc.is], physique <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>passively increases</b> [npc.her]"
+											+ " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>maximum health</b>.");
 						}
 					},
 
@@ -145,12 +148,9 @@ public enum Attribute {
 			"arcane-boost", "arcane-drain", Util.newArrayListOfValues("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>Aura</b> per 1 arcane")) {
 						@Override
 						public String getDescription(GameCharacter owner) {
-							if(owner.isPlayer())
-								return "A measure of your affinity with the arcane. This <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>passively increases</b> your"
-									+ " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>maximum Aura</b>.";
-							else
-								return UtilText.parse(owner,
-										"A measure of [npc.namePos] affinity with the arcane.");
+							return UtilText.parse(owner,
+										"A measure of [npc.namePos] affinity with the arcane. This <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>passively increases</b> [npc.her]"
+												+ " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>maximum aura</b>.");
 						}
 					},
 
@@ -222,50 +222,52 @@ public enum Attribute {
 		}
 	},
 	
-	ENERGY_SHIELDING(0, -100, 100, "energy shielding", "Energy shielding", "shieldIcon", Colour.ATTRIBUTE_HEALTH, "endurance", "vulnerability", null) {
+	ENERGY_SHIELDING(0, -100, 100, "health shielding", "Health shielding", "shieldIcon", Colour.ATTRIBUTE_HEALTH, "endurance", "vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "This value is applied to energy shielding at the start of each combat turn.";
+			return "This value is applied to health shielding at the start of each combat turn.";
 		}
 	},
 
+	
 	// Resistances:
 
-	RESISTANCE_PHYSICAL(0, -100, 100, "physical resistance", "Physical resist", "shieldIcon", Colour.DAMAGE_TYPE_PHYSICAL, "toughness", "softness", null) {
+	RESISTANCE_PHYSICAL(0, -100, 100, "physical shielding", "Physical shielding", "shieldIcon", Colour.DAMAGE_TYPE_PHYSICAL, "toughness", "softness", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Reduces physical damage taken.";
 		}
 	},
 	
-	RESISTANCE_LUST(0, -100, 100, "lust resistance", "Lust resist", "shieldIcon", Colour.GENERIC_SEX, "chastity", "temptation", null) {
+	RESISTANCE_LUST(0, -100, 100, "lust shielding", "Lust shielding", "shieldIcon", Colour.GENERIC_SEX, "chastity", "temptation", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Reduces lust damage taken.";
 		}
 	},
 	
-	RESISTANCE_FIRE(0, -100, 100, "fire resistance", "Fire resist", "shieldIcon", Colour.DAMAGE_TYPE_FIRE, "extinguishing", "flammability", null) {
+	RESISTANCE_FIRE(0, -100, 100, "fire shielding", "Fire shielding", "shieldIcon", Colour.DAMAGE_TYPE_FIRE, "extinguishing", "flammability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Reduces fire damage taken.";
 		}
 	},
 	
-	RESISTANCE_ICE(0, -100, 100, "cold resistance", "Cold resist", "shieldIcon", Colour.DAMAGE_TYPE_COLD, "warmth", "frostbite", null) {
+	RESISTANCE_ICE(0, -100, 100, "cold shielding", "Cold shielding", "shieldIcon", Colour.DAMAGE_TYPE_COLD, "warmth", "frostbite", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Reduces cold damage taken.";
 		}
 	},
 	
-	RESISTANCE_POISON(0, -100, 100, "poison resistance", "Poison resist", "shieldIcon", Colour.DAMAGE_TYPE_POISON, "anti-venom", "sickness", null) {
+	RESISTANCE_POISON(0, -100, 100, "poison shielding", "Poison shielding", "shieldIcon", Colour.DAMAGE_TYPE_POISON, "anti-venom", "sickness", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Reduces poison damage taken.";
 		}
 	},
 
+	
 	// Damages:
 
 	DAMAGE_UNARMED(0, -100, 100, "unarmed damage", "Unarmed damage", "swordIcon", Colour.ATTRIBUTE_HEALTH, "martial arts", "martial incompetence", null) {
@@ -605,7 +607,9 @@ public enum Attribute {
 			String nameAbbreviation,
 			String pathName,
 			Colour colour,
-			String positiveEnchantment, String negativeEnchantment, List<String> extraEffects) {
+			String positiveEnchantment,
+			String negativeEnchantment,
+			List<String> extraEffects) {
 		
 		this.baseValue = baseValue;
 		this.lowerLimit = lowerLimit;

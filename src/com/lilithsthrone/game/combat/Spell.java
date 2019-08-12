@@ -602,7 +602,7 @@ public enum Spell {
 			true,
 			"Soothing Waters",
 			"soothing_waters",
-			"Summons an orb of soothing arcane-infused water, which restores the energy of anyone who drinks it.",
+			"Summons an orb of soothing arcane-infused water, which restores the "+Attribute.HEALTH_MAXIMUM.getName()+" of anyone who drinks it.",
 			0,
 			DamageVariance.LOW,
 			100,
@@ -611,7 +611,7 @@ public enum Spell {
 					SpellUpgrade.SOOTHING_WATERS_1,
 					SpellUpgrade.SOOTHING_WATERS_2,
 					SpellUpgrade.SOOTHING_WATERS_3),
-			null, Util.newArrayListOfValues("[style.boldGood(Restores)] 20% [style.boldHealth(energy)]")) {
+			null, Util.newArrayListOfValues("[style.boldGood(Restores)] 20% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 		
 		@Override
 		public int getAPCost() {
@@ -3220,7 +3220,7 @@ public enum Spell {
     	List<String> critReqs = new ArrayList<>();
 
     	if(this.getSpellSchool() == SpellSchool.FIRE) {
-    		critReqs.add(UtilText.parse(source, "[npc.NamePos] energy is below 25%."));
+    		critReqs.add(UtilText.parse(source, "[npc.NamePos] "+Attribute.HEALTH_MAXIMUM.getName()+" is below 25%."));
     	} else {
         	return Util.newArrayListOfValues("It's the only action being used.");
     	}

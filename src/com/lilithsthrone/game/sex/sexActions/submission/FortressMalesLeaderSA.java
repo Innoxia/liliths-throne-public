@@ -194,7 +194,8 @@ public class FortressMalesLeaderSA {
 					Sex.getCharacterPerformingAction(),
 					SexAreaPenetration.PENIS,
 					otherTarget,
-					SexAreaOrifice.VAGINA);
+					SexAreaOrifice.VAGINA,
+					true);
 		}
 	};
 	
@@ -324,7 +325,8 @@ public class FortressMalesLeaderSA {
 					Sex.getCharacterPerformingAction(),
 					SexAreaPenetration.PENIS,
 					otherTarget,
-					SexAreaOrifice.VAGINA);
+					SexAreaOrifice.VAGINA,
+					true);
 		}
 	};
 
