@@ -1,16 +1,27 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
 
+import java.util.List;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.dominion.SMDaddyDinnerOral;
+import com.lilithsthrone.game.sex.positions.SexSlotOther;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.3.10
@@ -70,6 +81,125 @@ public class DaddySexActions {
 		@Override
 		public boolean endsSex() {
 			return true;
+		}
+	};
+	
+	public static final SexAction GENERIC_ORGASM_BACK = new SexAction(GenericOrgasms.GENERIC_ORGASM_FLOOR) {
+		@Override
+		public SexParticipantType getParticipantType() {
+			return SexParticipantType.NORMAL;
+		}
+
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.UNIQUE_MAX;
+		}
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getOngoingCharactersUsingAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA).contains(Main.game.getNpc(Lilaya.class))
+					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotOther.LYING_DOWN;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			if(!Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
+				if(!Sex.getOngoingCharactersUsingAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, SexAreaPenetration.FINGER).isEmpty()) {
+					return "Handjob onto back";
+				}
+				return "Pull out (back)";
+			}
+			return "Cum on back";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto [npc2.namePos] back.";
+		}
+
+		@Override
+		public String getDescription() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.BACK, false).getDescription();
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.BACK, true).applyEffects();
+			// Pull out:
+			GenericOrgasms.GENERIC_ORGASM_FLOOR.applyEffects();
+		}
+
+		@Override
+		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.equals(Sex.getCharacterPerformingAction()) && cumTarget.equals(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))) {
+				return Util.newArrayListOfValues(
+						CoverableArea.BACK);
+			}
+			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.BACK, true).isEndsSex();
+		}
+	};
+	
+	
+	public static final SexAction GENERIC_ORGASM_SELF_STOMACH = new SexAction(GenericOrgasms.GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.UNIQUE_MAX;
+		}
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getOngoingCharactersUsingAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA).contains(Main.game.getNpc(Lilaya.class))
+					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotOther.LYING_DOWN;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			if(!Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
+				if(!Sex.getOngoingCharactersUsingAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, SexAreaPenetration.FINGER).isEmpty()) {
+					return "Handjob onto own stomach";
+				}
+				return "Pull out (own stomach)";
+			}
+			return "Cum on your stomach";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto your stomach.";
+		}
+
+		@Override
+		public String getDescription() {
+			return Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.SELF_STOMACH, false).getDescription();
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.SELF_STOMACH, true).applyEffects();
+			// Pull out:
+			GenericOrgasms.GENERIC_ORGASM_FLOOR.applyEffects();
+		}
+
+		@Override
+		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.equals(Sex.getCharacterPerformingAction()) && cumProvider.equals(cumTarget)) {
+				return Util.newArrayListOfValues(
+						CoverableArea.STOMACH);
+			}
+			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return  Sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.SELF_STOMACH, true).isEndsSex();
 		}
 	};
 }

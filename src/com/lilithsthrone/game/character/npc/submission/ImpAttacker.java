@@ -343,7 +343,7 @@ public class ImpAttacker extends NPC {
 					public void effects() {
 						if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.FORTRESS_LAB)) {
 							if(Main.game.isNonConEnabled() && (Main.game.getPlayer().isFeminine() || (ImpCitadelDialogue.isCompanionDialogue() && ImpCitadelDialogue.getMainCompanion().isFeminine()))) {
-								ImpCitadelDialogue.getArcanist().displaceClothingForAccess(CoverableArea.VAGINA);
+								ImpCitadelDialogue.getArcanist().displaceClothingForAccess(CoverableArea.VAGINA, null);
 								ImpCitadelDialogue.getArcanist().setLustNoText(50);
 							}
 						}

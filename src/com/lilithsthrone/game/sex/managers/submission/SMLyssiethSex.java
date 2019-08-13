@@ -15,7 +15,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.3
- * @version 0.3
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMLyssiethSex extends SexManagerDefault {
@@ -40,7 +40,7 @@ public class SMLyssiethSex extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 	

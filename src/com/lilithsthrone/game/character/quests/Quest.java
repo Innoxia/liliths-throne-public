@@ -931,12 +931,12 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Lilaya has agreed to go out for dinner with [daddy.name], so now you just need to tell her when it's time to go. (Ask her at any time between "+Units.time(LocalTime.of(18, 00))+" and "+Units.time(LocalTime.of(21, 00))+".)";
+			return "Lilaya has agreed to go out for dinner with [daddy.name], so now you just need to accompany her and make sure the evening goes smoothly.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "You went with Lilaya to meet [daddy.name] for dinner, and while she had nothing but bad news for [daddy.herHim] regarding Lyssieth's romantic preferences, she did seem to like [daddy.herHim] well enough...";
+			return "You went with Lilaya to meet [daddy.name] for dinner, and while she had bad news for [daddy.herHim] regarding Lyssieth's romantic preferences, she did seem to like [daddy.herHim] well enough...";
 		}
 	},
 	

@@ -13,7 +13,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.6
- * @version 0.2.6
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMRoxyPussyLicker extends SexManagerDefault {
@@ -35,7 +35,7 @@ public class SMRoxyPussyLicker extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 	

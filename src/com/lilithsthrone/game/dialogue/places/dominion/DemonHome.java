@@ -228,7 +228,17 @@ public class DemonHome {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(Daddy.isAvailable()) {
+				if(!Daddy.isAvailable()) {
+					return new Response("[daddy.Name]",
+							Daddy.getAvailabilityText(),
+							null);
+					
+				} else if(Main.game.getPlayer().hasCompanions()) {
+					return new Response("[daddy.Name]",
+							"[style.italicsBad(You cannot meet [daddy.name] while you have companions in your party!)]",
+							null);
+					
+				} else {
 					return new Response("[daddy.Name]",
 							"Head over to [daddy.namePos] apartment and knock on [daddy.her] door.",
 							DaddyDialogue.MEETING) {
@@ -242,10 +252,6 @@ public class DemonHome {
 						}
 					};
 					
-				} else {
-					return new Response("[daddy.Name]",
-							Daddy.getAvailabilityText(),
-							null);
 				}
 
 			} else {

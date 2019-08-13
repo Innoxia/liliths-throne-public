@@ -1,10 +1,15 @@
 package com.lilithsthrone.game.sex.sexActions.submission;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -174,7 +179,12 @@ public class FortressMalesLeaderSA {
 			Main.game.getNpc(FortressMalesLeader.class).fillCumToMaxStorage();
 			GameCharacter otherTarget = getOtherTarget();
 			
-			otherTarget.displaceClothingForAccess(CoverableArea.VAGINA);
+			Map<AbstractClothing, DisplacementType> clothingTouched = otherTarget.displaceClothingForAccess(CoverableArea.VAGINA, null);
+			for(Entry<AbstractClothing, DisplacementType> e : clothingTouched.entrySet()) {
+				if(e.getValue()==DisplacementType.REMOVE_OR_EQUIP) {
+					Main.game.getPlayerCell().getInventory().addClothing(e.getKey());
+				}
+			}
 			
 			Sex.stopAllOngoingActions(otherTarget, SexAreaOrifice.VAGINA, otherTarget, false);
 			
@@ -305,7 +315,12 @@ public class FortressMalesLeaderSA {
 			Main.game.getNpc(FortressMalesLeader.class).fillCumToMaxStorage();
 			GameCharacter otherTarget = getOtherTarget();
 
-			otherTarget.displaceClothingForAccess(CoverableArea.VAGINA);
+			Map<AbstractClothing, DisplacementType> clothingTouched = otherTarget.displaceClothingForAccess(CoverableArea.VAGINA, null);
+			for(Entry<AbstractClothing, DisplacementType> e : clothingTouched.entrySet()) {
+				if(e.getValue()==DisplacementType.REMOVE_OR_EQUIP) {
+					Main.game.getPlayerCell().getInventory().addClothing(e.getKey());
+				}
+			}
 			
 			Sex.stopAllOngoingActions(otherTarget, SexAreaOrifice.VAGINA, otherTarget, false);
 			

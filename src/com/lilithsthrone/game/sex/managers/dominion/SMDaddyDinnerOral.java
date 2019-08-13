@@ -1,14 +1,20 @@
 package com.lilithsthrone.game.sex.managers.dominion;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPositionOther;
 import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.3.10
@@ -23,6 +29,22 @@ public class SMDaddyDinnerOral extends SexManagerDefault {
 				submissives);
 	}
 
+	@Override
+	public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+		Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
+		map.put(Main.game.getNpc(Daddy.class),
+				Util.newArrayListOfValues(CoverableArea.PENIS));
+		return map;
+	}
+	
+	@Override
+	public SexControl getSexControl(GameCharacter character) {
+		if(!Sex.isDom(character)) {
+			return SexControl.ONGOING_ONLY;
+		}
+		return super.getSexControl(character);
+	}
+	
 	@Override
 	public boolean isPublicSex() {
 		return false;

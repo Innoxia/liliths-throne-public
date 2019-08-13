@@ -686,7 +686,14 @@ public class Zaranix extends NPC {
 		if(!Main.game.getWorlds().get(WorldType.DOMINION).getCell(towerLoc).getPlace().getPlaceType().equals(PlaceType.DOMINION_DEMON_HOME)) {
 			towerLoc = new Vector2i(Main.game.getWorlds().get(WorldType.DOMINION).getRandomCell(PlaceType.DOMINION_DEMON_HOME).getLocation());
 		}
-		Main.game.getWorlds().get(WorldType.DOMINION).getCell(towerLoc).setPlace(new GenericPlace(PlaceType.DOMINION_DEMON_HOME_ZARANIX), false);
+		Main.game.getWorlds().get(WorldType.DOMINION).getCell(towerLoc).setPlace(
+				new GenericPlace(PlaceType.DOMINION_DEMON_HOME_ZARANIX) {
+					@Override
+					public String getName() {
+						return PlaceType.DOMINION_DEMON_HOME_ZARANIX.getName();
+					}
+				},
+				false);
 	}
 
 }

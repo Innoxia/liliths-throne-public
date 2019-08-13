@@ -856,6 +856,7 @@ public class ImpFortressDialogue {
 									case PREFER_ORAL:
 									case PREFER_MISSIONARY:
 									case PREFER_DOGGY:
+									case PREFER_COW_GIRL:
 										break;
 								}
 							}
@@ -897,6 +898,7 @@ public class ImpFortressDialogue {
 									case PREFER_ORAL:
 									case PREFER_MISSIONARY:
 									case PREFER_DOGGY:
+									case PREFER_COW_GIRL:
 										break;
 								}
 							}
@@ -990,6 +992,7 @@ public class ImpFortressDialogue {
 								case PREFER_ORAL:
 								case PREFER_MISSIONARY:
 								case PREFER_DOGGY:
+								case PREFER_COW_GIRL:
 									break;
 							}
 						}

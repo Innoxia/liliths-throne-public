@@ -8224,7 +8224,7 @@ public class InventoryDialogue {
 	private static void transferItems(GameCharacter from, GameCharacter to, AbstractItem item, int count) {
 		if (!to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
 			from.removeItem(item, count);
-			to.addItem(item, count, to.isPlayer());
+			to.addItem(item, count, false, to.isPlayer());
 		}
 		resetPostAction();
 	}
@@ -8255,7 +8255,7 @@ public class InventoryDialogue {
 				//TODO
 				Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(item, itemPrice));
 				
-				to.addItem(item, count, false);
+				to.addItem(item, count, false, false);
 				from.incrementMoney(itemPrice*count);
 				to.incrementMoney(-itemPrice*count);
 				from.removeItem(item, count);

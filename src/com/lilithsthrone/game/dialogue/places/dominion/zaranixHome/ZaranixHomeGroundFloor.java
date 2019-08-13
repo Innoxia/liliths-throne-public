@@ -601,7 +601,7 @@ public class ZaranixHomeGroundFloor {
 						}
 						@Override
 						public void effects() {
-							Main.game.getNpc(Zaranix.class).displaceClothingForAccess(CoverableArea.PENIS);
+							Main.game.getNpc(Zaranix.class).displaceClothingForAccess(CoverableArea.PENIS, null);
 							Main.game.getNpc(Arthur.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};

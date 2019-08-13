@@ -12,7 +12,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.5
- * @version 0.2.5
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMPantyMasturbation extends SexManagerDefault {
@@ -24,7 +24,7 @@ public class SMPantyMasturbation extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 

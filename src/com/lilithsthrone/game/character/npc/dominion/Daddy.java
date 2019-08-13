@@ -96,6 +96,8 @@ public class Daddy extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.10")) {
+			this.removeFetish(Fetish.FETISH_IMPREGNATION);
+			this.setFetishDesire(Fetish.FETISH_IMPREGNATION, FetishDesire.THREE_LIKE);
 			this.addSpecialPerk(Perk.SPECIAL_CLOTHING_MASCULINITY_INDIFFERENCE);
 		}
 	}
@@ -130,8 +132,8 @@ public class Daddy extends NPC {
 			this.setHistory(Occupation.NPC_CONSTRUCTION_WORKER_ARCANE);
 	
 			this.addFetish(Fetish.FETISH_PENIS_GIVING);
-			this.addFetish(Fetish.FETISH_IMPREGNATION);
-			
+
+			this.setFetishDesire(Fetish.FETISH_IMPREGNATION, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
@@ -217,6 +219,7 @@ public class Daddy extends NPC {
 			this.setTesticleSize(TesticleSize.FOUR_HUGE);
 			this.setPenisCumStorage(250);
 			this.fillCumToMaxStorage();
+			this.clearPenisModifiers();
 			
 			// Vagina:
 			// No vagina
@@ -289,7 +292,7 @@ public class Daddy extends NPC {
 			this.setTesticleSize(TesticleSize.FOUR_HUGE);
 			this.setPenisCumStorage(250);
 			this.fillCumToMaxStorage();
-			this.getPenisModifiers().clear();
+			this.clearPenisModifiers();
 			
 			// Vagina:
 			// No vagina
@@ -370,7 +373,14 @@ public class Daddy extends NPC {
 		if(!this.getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_DEMON_HOME)) {
 			this.setNearestLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, true);
 		}
-		this.getCell().setPlace(new GenericPlace(PlaceType.DOMINION_DEMON_HOME_DADDY), false);
+		this.getCell().setPlace(
+				new GenericPlace(PlaceType.DOMINION_DEMON_HOME_DADDY) {
+					@Override
+					public String getName() {
+						return PlaceType.DOMINION_DEMON_HOME.getName();
+					}
+				},
+			false);
 		this.setLocation(WorldType.DADDYS_APARTMENT, PlaceType.DADDY_APARTMENT_LOUNGE, true);
 	}
 	

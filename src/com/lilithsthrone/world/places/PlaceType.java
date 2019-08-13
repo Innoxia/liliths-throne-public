@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -404,6 +405,9 @@ public class PlaceType {
 		}
 		@Override
 		public Population getPopulation() {
+			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Daddy.class))) {
+				return new Population(PopulationType.DINERS, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies().get(WorldType.DOMINION));
+			}
 			return DOMINION_PLAZA.getPopulation();
 		}
 	}.initMapBackgroundColour(Colour.MAP_BACKGROUND_PINK);

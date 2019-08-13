@@ -22,7 +22,7 @@ import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.2.9
- * @version 0.3.1
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMGloryHole extends SexManagerDefault {
@@ -34,7 +34,7 @@ public class SMGloryHole extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 

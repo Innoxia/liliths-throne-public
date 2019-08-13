@@ -16,7 +16,7 @@ import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 
 /**
  * @since 0.2.9
- * @version 0.2.9
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMGloryHoleSex extends SexManagerDefault {
@@ -28,7 +28,7 @@ public class SMGloryHoleSex extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 

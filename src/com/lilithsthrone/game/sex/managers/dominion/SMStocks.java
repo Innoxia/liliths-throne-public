@@ -15,7 +15,7 @@ import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 
 /**
  * @since 0.1.95
- * @version 0.3.1
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMStocks extends SexManagerDefault {
@@ -59,7 +59,7 @@ public class SMStocks extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 	

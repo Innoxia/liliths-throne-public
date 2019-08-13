@@ -13,7 +13,7 @@ import com.lilithsthrone.game.sex.sexActions.dominion.RalphOral;
 
 /**
  * @since 0.1.6?
- * @version 0.1.97
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SexManagerRalphDiscount extends SexManagerDefault {
@@ -46,7 +46,7 @@ public class SexManagerRalphDiscount extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 	

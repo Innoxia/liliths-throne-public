@@ -42,10 +42,8 @@ public class ToiletStall {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return 
-//					Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					Sex.getInitialSexManager().isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexManager().isPlayerAbleToSwapPositions()
+			return Sex.getSexManager().isSwapPositionAllowed(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this))
+//					&& Sex.getInitialSexManager().isPositionChangingAllowed(Sex.getCharacterPerformingAction()) // Should be covered in the method above
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}

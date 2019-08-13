@@ -10,7 +10,7 @@ import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 
 /**
  * @since 0.1.97
- * @version 0.3
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMVickyOverDesk extends SexManagerDefault {
@@ -27,7 +27,7 @@ public class SMVickyOverDesk extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 	

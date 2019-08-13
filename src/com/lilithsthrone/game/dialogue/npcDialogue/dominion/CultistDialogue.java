@@ -98,7 +98,7 @@ public class CultistDialogue {
 					@Override
 					public void effects() {
 						// Pull up dress:
-						getCultist().displaceClothingForAccess(CoverableArea.PENIS);
+						getCultist().displaceClothingForAccess(CoverableArea.PENIS, null);
 					}
 				};
 				

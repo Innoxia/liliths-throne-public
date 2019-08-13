@@ -28,6 +28,7 @@ public enum DialogueFlagValue {
 	rudeToDaddy,
 	flirtingWithDaddy,
 	talkedWithDaddy,
+	daddySendingReward,
 	
 	// Gym:
 	gymIntroduced,

@@ -516,7 +516,7 @@ public class SexPositionOther {
 				}
 				if(cowgirl!=null && cowgirl.getLegConfiguration().isBipedalPositionedGenitals()) {
 					if(faceSittingReverse.getLegConfiguration().isBipedalPositionedGenitals()) {
-						interactions.add(StandardSexActionInteractions.groinCharacterInteractingWithFaceSitting.getSexActionInteractions(SexSlotOther.COWGIRL, SexSlotOther.FACE_SITTING_REVERSE));
+						interactions.add(StandardSexActionInteractions.groinCharacterInteractingWithFaceSittingReversed.getSexActionInteractions(SexSlotOther.COWGIRL, SexSlotOther.FACE_SITTING_REVERSE));
 					} else {
 						interactions.add(StandardSexActionInteractions.groinCharacterInteractingWithFaceSittingTaur.getSexActionInteractions(SexSlotOther.COWGIRL, SexSlotOther.FACE_SITTING_REVERSE));
 					}

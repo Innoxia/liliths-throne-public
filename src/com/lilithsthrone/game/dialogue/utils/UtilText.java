@@ -73,7 +73,6 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -2606,7 +2605,7 @@ public class UtilText {
 					}
 				} catch(Exception ex) {
 					ex.printStackTrace();
-					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: looksDown character argument not found! ("+arguments+")</i>";
+					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: heightDown character argument not found! ("+arguments+")</i>";
 				}
 			}
 		});

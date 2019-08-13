@@ -10,7 +10,7 @@ import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 
 /**
  * @since 0.2.3
- * @version 0.2.3
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMMilkingStall extends SexManagerDefault {
@@ -32,7 +32,7 @@ public class SMMilkingStall extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 }

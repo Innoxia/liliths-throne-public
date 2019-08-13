@@ -2140,7 +2140,7 @@ public class MainController implements Initializable {
 									return false;
 								}
 								@Override
-								public boolean isPlayerAbleToSwapPositions() {
+								public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 									return false;
 								}
 								@Override
@@ -2218,7 +2218,7 @@ public class MainController implements Initializable {
 									return false;
 								}
 								@Override
-								public boolean isPlayerAbleToSwapPositions() {
+								public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 									return false;
 								}
 								@Override

@@ -66,14 +66,14 @@ public class PlayerSelfFingerVagina {
 				
 			} else {
 				if((Sex.getPosition()==SexPositionBipeds.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotBipeds.DOGGY_ON_ALL_FOURS)) {
-					return UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
+					return UtilText.parse(
 							UtilText.returnStringAtRandom(
-							"Reaching back between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your labia for [npc.name].",
-							"You probe your fingers back between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+] and present yourself to [npc.name].",
+							"Reaching back between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your labia for [npc2.name].",
+							"You probe your fingers back between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+] and present yourself to [npc2.name].",
 							"Sliding your fingertips over your [pc.pussy+], you let out [pc.a_moan+] as you shake your ass a little, before using your digits to spread out your pussy lips.",
 							"You eagerly slide your fingers over your needy [pc.pussy], [pc.moaning+] as you use your digits to part your soft folds and present yourself for penetration."));
 				} else {
-					return UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
+					return UtilText.parse(
 							UtilText.returnStringAtRandom(
 							"Reaching down between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your labia.",
 							"You probe your fingers down between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+].",

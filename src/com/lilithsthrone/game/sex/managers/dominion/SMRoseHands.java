@@ -10,7 +10,7 @@ import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 
 /**
  * @since 0.1.7?
- * @version 0.1.97
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMRoseHands extends SexManagerDefault {
@@ -42,7 +42,7 @@ public class SMRoseHands extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 

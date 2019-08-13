@@ -9,7 +9,7 @@ import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 
 /**
  * @since 0.2.8
- * @version 0.2.11
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMBraxDoggy extends SexManagerDefault {
@@ -21,7 +21,7 @@ public class SMBraxDoggy extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 	

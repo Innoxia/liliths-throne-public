@@ -218,7 +218,7 @@ public enum Encounter {
 				} else if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT
 						&& Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
 					
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), true));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
 					
 					return DominionEncounterDialogue.DOMINION_STREET_VIXEN_VIRILITY_HANDOUT;
 				}
@@ -228,7 +228,7 @@ public enum Encounter {
 				if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT
 						&& Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
 					
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), true));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
 					
 					return DominionEncounterDialogue.DOMINION_STREET_VIXEN_VIRILITY_HANDOUT;
 				}

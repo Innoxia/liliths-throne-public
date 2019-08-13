@@ -277,7 +277,7 @@ public class FortressFemalesLeader extends NPC {
 			if(this.getClothingInSlot(InventorySlot.GROIN)!=null) {
 				this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.GROIN), true, this);
 			}
-			this.displaceClothingForAccess(CoverableArea.PENIS);
+			this.displaceClothingForAccess(CoverableArea.PENIS, null);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 		} catch(Exception ex) {
 		}

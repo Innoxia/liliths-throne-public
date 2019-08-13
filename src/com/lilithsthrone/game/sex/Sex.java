@@ -550,9 +550,18 @@ public class Sex {
 			}
 		}
 
-		for(Entry<GameCharacter, List<CoverableArea>> entry : sexManager.exposeAtStartOfSexMap().entrySet()) {
-			for(CoverableArea ca : entry.getValue()) {
-				entry.getKey().displaceClothingForAccess(ca);
+		if(sexManager.exposeAtStartOfSexMapExtendedInformation().get(false)!=null) {
+			for(Entry<GameCharacter, Map<CoverableArea, List<InventorySlot>>> entry : sexManager.exposeAtStartOfSexMapExtendedInformation().get(false).entrySet()) {
+				for(CoverableArea ca : entry.getValue().keySet()) {
+					entry.getKey().displaceClothingForAccess(ca, entry.getValue().get(ca), false);
+				}
+			}
+		}
+		if(sexManager.exposeAtStartOfSexMapExtendedInformation().get(true)!=null) {
+			for(Entry<GameCharacter, Map<CoverableArea, List<InventorySlot>>> entry : sexManager.exposeAtStartOfSexMapExtendedInformation().get(true).entrySet()) {
+				for(CoverableArea ca : entry.getValue().keySet()) {
+					entry.getKey().displaceClothingForAccess(ca, entry.getValue().get(ca), true);
+				}
 			}
 		}
 
@@ -574,8 +583,12 @@ public class Sex {
 		
 		// Starting exposed:
 		for(GameCharacter character : Sex.getAllParticipants()) {
-			if(Sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING && sexManager.isAppendStartingExposedDescriptions(character)) {
-				sexSB.append(handleExposedDescriptions(character, true));
+			if(Sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING) {
+				if(sexManager.isAppendStartingExposedDescriptions(character)) {
+					sexSB.append(handleExposedDescriptions(character, true));
+				} else {
+					handleExposedDescriptions(character, true);
+				}
 			}
 		}
 		

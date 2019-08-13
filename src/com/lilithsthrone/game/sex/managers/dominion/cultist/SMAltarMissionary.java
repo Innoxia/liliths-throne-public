@@ -14,7 +14,7 @@ import com.lilithsthrone.game.sex.sexActions.dominion.CultistSexActions;
 
 /**
  * @since 0.1.88
- * @version 0.3.2
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMAltarMissionary extends SexManagerDefault {
@@ -51,7 +51,7 @@ public class SMAltarMissionary extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 }

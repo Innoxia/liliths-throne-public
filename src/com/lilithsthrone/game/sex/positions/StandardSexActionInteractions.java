@@ -88,7 +88,8 @@ public class StandardSexActionInteractions {
 									:null,
 								SexActionPresets.mouthToCrotchBoobs,
 								SexActionPresets.fingerToLowerHalf,
-								SexActionPresets.mouthToAppendages),
+								SexActionPresets.mouthToAppendages,
+								SexActionPresets.groinToFeet),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.SELF_LEGS,
@@ -368,8 +369,26 @@ public class StandardSexActionInteractions {
 				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 						new SexActionInteractions(
 						Util.mergeMaps(
-								SexActionPresets.appendagesToUpperHalf,
-								SexActionPresets.appendagesToLowerHalf),
+								SexActionPresets.fingerToLowerHalf,
+								SexActionPresets.fingerToUpperTorso),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.FLOOR),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.FLOOR)))));
+			}
+	};
+	
+	public static VariableInteractions groinCharacterInteractingWithFaceSittingReversed = new VariableInteractions() {
+			@Override
+			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+						new SexActionInteractions(
+						Util.mergeMaps(
+								SexActionPresets.fingerToLowerHalf,
+								SexActionPresets.fingerToUpperTorso,
+								SexActionPresets.kissing,
+								SexActionPresets.lowerHalfToFinger,
+								SexActionPresets.upperHalfToFinger),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.FLOOR),
 						Util.newArrayListOfValues(

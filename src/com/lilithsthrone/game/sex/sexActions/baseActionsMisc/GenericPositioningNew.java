@@ -33,7 +33,7 @@ import com.lilithsthrone.utils.Util;
  * If sub, positional change is just a suggestion, which the NPC may refuse if they have other preferences.
  * 
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class GenericPositioningNew {
@@ -57,11 +57,9 @@ public class GenericPositioningNew {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return 
-//					Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					Sex.getInitialSexManager().isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+			return Sex.getSexManager().isSwapPositionAllowed(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this))
+//					&& Sex.getInitialSexManager().isPositionChangingAllowed(Sex.getCharacterPerformingAction()) // Should be covered in the method above
 					&& Sex.getCharacterPerformingAction().getLegConfiguration()==Sex.getCharacterTargetedForSexAction(this).getLegConfiguration() // Can only swap if have same body type
-					&& Sex.getSexManager().isPlayerAbleToSwapPositions()
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}

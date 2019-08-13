@@ -13257,41 +13257,34 @@ public abstract class GameCharacter implements XMLSaving {
 	public float getAlcoholLevelValue() {
 		return alcoholLevel;
 	}
-	
+
+	/**
+	 * @param alcoholLevelIncrement A float from 0 to 1, corresponding to 0% to 100% intoxication.
+	 * @return A formatted description of the character's intoxication level increasing.
+	 */
 	public String setAlcoholLevel(float alcoholLevel) {
 		this.alcoholLevel = Math.max(0, Math.min(1, alcoholLevel));
-		if(this.isPlayer()) {
-			return "<p style='text-align:center;'>"
-					+ "You start to feel "
-						+(this.alcoholLevel>=0.75f
-						?"immensely dizzy and light headed as the alcohol quickly enters your system."
-						:this.alcoholLevel>=0.5f
-						?"incredibly dizzy and light headed as the alcohol quickly enters your system."
-						:this.alcoholLevel>=0.3f
-						?"very dizzy and light headed as the alcohol quickly enters your system."
-						:this.alcoholLevel>=0.15f?"dizzy and light headed as the alcohol quickly enters your system."
-						:"a little dizzy and light headed as the alcohol quickly enters your system.")
-						+"<br/>"
-						+ "Your [style.boldAlcohol(intoxication level)] is now at "+((int)getIntoxicationPercentage())+"%"
-					+ "</p>";
-		} else {
-			return "<p style='text-align:center;'>"
-					+UtilText.parse(this,
-					"[npc.Name] starts to feel "
-						+(this.alcoholLevel>=0.75f
-						?"immensely dizzy and light headed as the alcohol quickly enters [npc.her] system."
-						:this.alcoholLevel>=0.5f
-						?"incredibly dizzy and light headed as the alcohol quickly enters [npc.her] system."
-						:this.alcoholLevel>=0.3f
-						?"very dizzy and light headed as the alcohol quickly enters [npc.her] system."
-						:this.alcoholLevel>=0.15f?"dizzy and light headed as the alcohol quickly enters [npc.her] system."
-						:"a little dizzy and light headed as the alcohol quickly enters [npc.her] system.")
-					+"<br/>"
-					+ "[npc.NamePos] [style.boldAlcohol(intoxication level)] is now at "+((int)getIntoxicationPercentage())+"%")
-				+ "</p>";
-		}
+		return "<p style='text-align:center;'>"
+				+UtilText.parse(this,
+				"[npc.Name] [npc.verb(start)] to feel "
+					+(this.alcoholLevel>=0.75f
+					?"immensely dizzy and light headed as the alcohol quickly enters [npc.her] system."
+					:this.alcoholLevel>=0.5f
+					?"incredibly dizzy and light headed as the alcohol quickly enters [npc.her] system."
+					:this.alcoholLevel>=0.3f
+					?"very dizzy and light headed as the alcohol quickly enters [npc.her] system."
+					:this.alcoholLevel>=0.15f
+					?"dizzy and light headed as the alcohol quickly enters [npc.her] system."
+					:"a little dizzy and light headed as the alcohol quickly enters [npc.her] system.")
+				+"<br/>"
+				+ "[npc.NamePos] [style.boldAlcohol(intoxication level)] is now at "+((int)getIntoxicationPercentage())+"%")
+			+ "</p>";
 	}
 	
+	/**
+	 * @param alcoholLevelIncrement A float from 0 to 1, corresponding to an increase of 0% to 100% intoxication.
+	 * @return A formatted description of the character's intoxication level increasing.
+	 */
 	public String incrementAlcoholLevel(float alcoholLevelIncrement) {
 		return setAlcoholLevel(alcoholLevel + alcoholLevelIncrement);
 	}
@@ -14326,11 +14319,11 @@ public abstract class GameCharacter implements XMLSaving {
 		return pregnancyReactions.contains(character.getId());
 	}
 	
-	public void setCharacterReactedToPregnancy(GameCharacter pregnantCharacter, boolean reactedToPregnancy) {
+	public void setCharacterReactedToPregnancy(GameCharacter characterReacting, boolean reactedToPregnancy) {
 		if(reactedToPregnancy) {
-			pregnancyReactions.add(pregnantCharacter.getId());
+			pregnancyReactions.add(characterReacting.getId());
 		} else {
-			pregnancyReactions.remove(pregnantCharacter.getId());
+			pregnancyReactions.remove(characterReacting.getId());
 		}
 	}
 	
@@ -15501,19 +15494,19 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getAllItemsInInventory();
 	}
 
-	public String addItem(AbstractItem item, int count, boolean appendTextToEventLog) {
-		if (inventory.addItem(item, count)) {
-			updateInventoryListeners();
-			Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeItem(item);
-			if(appendTextToEventLog) {
-				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Gained", "<span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+item.getName()+"</span>"), false);
-			}
-			return "<p style='text-align:center;'>"+ addedItemToInventoryText(item, count)+"</p>";
-			
-		} else {
-			return inventoryFullText() + droppedItemText(item, count);
-		}
-	}
+//	public String addItem(AbstractItem item, int count, boolean appendTextToEventLog) {
+//		if (inventory.addItem(item, count)) {
+//			updateInventoryListeners();
+//			Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeItem(item);
+//			if(appendTextToEventLog) {
+//				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Gained", "<span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+item.getName()+"</span>"), false);
+//			}
+//			return "<p style='text-align:center;'>"+ addedItemToInventoryText(item, count)+"</p>";
+//			
+//		} else {
+//			return inventoryFullText() + droppedItemText(item, count);
+//		}
+//	}
 	
 	public String addItem(AbstractItem item, boolean removingFromFloor) {
 		return addItem(item, 1, removingFromFloor, false);
@@ -16845,18 +16838,49 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getNextClothingToRemoveForCoverableAreaAccess(this, coverableArea);
 	}
 	
+
+	public Map<AbstractClothing, DisplacementType> displaceClothingForAccess(CoverableArea coverableArea, List<InventorySlot> slotsToInterruptAt) {
+		return displaceClothingForAccess(coverableArea, slotsToInterruptAt, false);
+	}
 	/**
-	 * <b>Warning:</b> All clothing displace gets deleted. Should only ever be used in the SexManager's exposeAtStartOfSexMap() method.
-	 * @param coverableArea
+	 * <b>WARNING:</b> All clothing displaced gets deleted! You will have to manually replace/restore clothing after calling this method!
+	 * @param coverableArea The area to be exposed.
+	 * @return A map of clothing that was affected by this method.
 	 */
-	public void displaceClothingForAccess(CoverableArea coverableArea) {
+	public Map<AbstractClothing, DisplacementType> displaceClothingForAccess(CoverableArea coverableArea, List<InventorySlot> slotsToInterruptAt, boolean preferRemoval) {
+		Map<AbstractClothing, DisplacementType> clothingTouched = new HashMap<>();
+		
 		if(isAbleToAccessCoverableArea(coverableArea, true)) {
 			SimpleEntry<AbstractClothing, DisplacementType> entry = getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
+			
 			while(entry != null && entry.getKey()!=null) {
-				this.isAbleToBeDisplaced(entry.getKey(), entry.getValue(), true, true, this);
+				if(slotsToInterruptAt!=null && slotsToInterruptAt.contains(entry.getKey().getSlotEquippedTo())) {
+					break;
+				}
+				
+				if(preferRemoval) {
+					if(this.isAbleToUnequip(entry.getKey(), true, this)) {
+						this.unequipClothingIntoVoid(entry.getKey(), true, this);
+						clothingTouched.put(entry.getKey(), entry.getValue());
+						
+					} else {
+						if(this.isAbleToBeDisplaced(entry.getKey(), entry.getValue(), true, true, this)) {
+							clothingTouched.put(entry.getKey(), entry.getValue());
+						}
+					}
+				} else {
+					if(this.isAbleToBeDisplaced(entry.getKey(), entry.getValue(), true, true, this)) {
+						clothingTouched.put(entry.getKey(), entry.getValue());
+					}
+				}
+				
+//				System.out.println(entry.getKey().getName());
+				
 				entry = getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
 			}
 		}
+		
+		return clothingTouched;
 	}
 	
 	/**
@@ -21099,6 +21123,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String removePenisModifier(PenetrationModifier modifier) {
 		return getCurrentPenis().removePenisModifier(this, modifier);
+	}
+	public void clearPenisModifiers() {
+		getCurrentPenis().clearPenisModifiers();
 	}
 	
 	

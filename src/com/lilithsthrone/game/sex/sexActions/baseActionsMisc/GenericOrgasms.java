@@ -91,7 +91,7 @@ public class GenericOrgasms {
 				|| Sex.getActivePartner().hasFetish(Fetish.FETISH_SUBMISSIVE);
 	}
 
-	private static boolean isCumTargetRequirementsMet(OrgasmCumTarget cumTarget) {
+	public static boolean isCumTargetRequirementsMet(OrgasmCumTarget cumTarget) {
 		if(!Sex.getAvailableCumTargets(Sex.getCharacterPerformingAction()).contains(cumTarget)
 				|| (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotGeneric.MISC_WATCHING && cumTarget.isRequiresPartner())
 				|| !Sex.getCharacterPerformingAction().hasPenisIgnoreDildo()

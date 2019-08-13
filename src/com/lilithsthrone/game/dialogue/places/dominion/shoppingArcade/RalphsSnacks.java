@@ -268,7 +268,7 @@ public class RalphsSnacks {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Ralph.class).setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
-						Main.game.getNpc(Ralph.class).displaceClothingForAccess(CoverableArea.PENIS);
+						Main.game.getNpc(Ralph.class).displaceClothingForAccess(CoverableArea.PENIS, null);
 					}
 				};
 				

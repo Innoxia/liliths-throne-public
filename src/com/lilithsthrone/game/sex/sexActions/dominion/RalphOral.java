@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -11,6 +13,8 @@ import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.Sex;
@@ -359,8 +363,13 @@ public class RalphOral {
 				SexFlags.alertedCustomer=true;
 			
 			SexFlags.askedForBigDiscount=true;
-			
-			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.VAGINA);
+
+			Map<AbstractClothing, DisplacementType> clothingTouched = Main.game.getPlayer().displaceClothingForAccess(CoverableArea.VAGINA, null);
+			for(Entry<AbstractClothing, DisplacementType> e : clothingTouched.entrySet()) {
+				if(e.getValue()==DisplacementType.REMOVE_OR_EQUIP) {
+					Main.game.getPlayerCell().getInventory().addClothing(e.getKey());
+				}
+			}
 		}
 		
 		@Override
@@ -420,12 +429,18 @@ public class RalphOral {
 
 		@Override
 		public void applyEffects() {
-			if(SexFlags.customerAtCounter)
+			if(SexFlags.customerAtCounter) {
 				SexFlags.alertedCustomer=true;
+			}
 			
 			SexFlags.askedForBigDiscount=true;
 			
-			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.ANUS);
+			Map<AbstractClothing, DisplacementType> clothingTouched = Main.game.getPlayer().displaceClothingForAccess(CoverableArea.ANUS, null);
+			for(Entry<AbstractClothing, DisplacementType> e : clothingTouched.entrySet()) {
+				if(e.getValue()==DisplacementType.REMOVE_OR_EQUIP) {
+					Main.game.getPlayerCell().getInventory().addClothing(e.getKey());
+				}
+			}
 		}
 		
 		@Override

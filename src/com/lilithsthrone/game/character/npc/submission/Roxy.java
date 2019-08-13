@@ -295,8 +295,8 @@ public class Roxy extends NPC {
 	public void dailyReset() {
 		clearNonEquippedInventory();
 		
-		this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), 25, false);
-		this.addItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), 10, false);
+		this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), 25, false, false);
+		this.addItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), 10, false, false);
 		
 		for (AbstractItemType item : itemsForSale) {
 			for (int i = 0; i < 6 + (Util.random.nextInt(12)); i++) {

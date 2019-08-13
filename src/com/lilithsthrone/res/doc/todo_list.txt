@@ -122,7 +122,8 @@
 	Patch notes:
 	
 	Gameplay:
-		Added 'offhand stike' as a combat move, which deals 100% of your offhand weapon's damage to the target.
+		Added some Father's day content, which triggers when entering Lilaya's mansion during daylight hours between the 14th and 21st of June (in-game time). You also need to have progressed the main quest past the point of meeting Lyssieth, and not have a negative desire towards the incest fetish.
+		Added 'offhand strike' as a combat move, which deals 100% of your offhand weapon's damage to the target.
 		Added a toggle in the content options to disable the 'Enchantment capacity' mechanic. (The game won't ever be balanced around this option being turned off, so you will be able to get very OP with it off.)
 		Clothing can now support multiple slots into which it can be fit. The 'rental_mommy.xml' file is no longer used as the example for modders, as I've made a 'template' folder as a tutorial instead, which also explains how to define these multiple slot options.
 		Added a small Father's day encounter where someone gives you Vixen's Virility pills (occurs during the third week of June).
@@ -248,56 +249,46 @@
 		Fixed the 'grab horns', 'twintail pull', and 'ear pull' sex actions sometimes not being available when they should have been.
 		When NPCs use a sex action that ends sex, it now correctly stops other characters from performing more actions afterwards.
 		Fixed some categories of clothing being absent from the debug item view menus.
+		Fixed issue in the sex scene with Ralph's 'big discount', as well as in the Breeding stall scene, where vaginally-equipped clothing might get permanently deleted.
 		
 		
+	Check all displaceClothingForAccess methods
+		
+	Sex
+		[x] test clothing start
+		[x] need Lilaya cum reactions
+		[x] allow swapping with Lilaya in dom scene
+		[x] make sure daddy TF is disabled
+		[x] Sitting needs feet
+		[x] Need prefer removal boolean for clothing displacements
+		[x] [x] [x] test lilaya cum
 	
-	Allow up to three people to suck one cock at once
-		[X] Add a new sex action type for starting an additional ongoing
-		[X] Add a new action for these additional ongoings ("Join X" or "X (Additional)")
-		[X] Sex part limits.
-			[x] Override a method (which should return 2) to set additional penetrations/orifices
-		[X] Requires a tooltip explanation of why available or not
-		[X] Make switch action disabled for if multiple ongoings
-		[x] Make sure additional action availability is initially based on areas being able to contact one another
-		[X] Add performing additional action
-		[X] Should set the 'primary' participant when using one of the additional or ongoing actions (move the character up the map keys to index 0). Make sure this is done after generating the description.
-		[X] Add variations to ongoing action descriptions for ongoing with more than two participants
-		[X] Account for primary in orgasm text (pulling out of primary if applicable).
-		[X] Also make sure forced orgasms are only for one with it in mouth.
-			[X] Make sure orgasm description reflects not being able to pull out.
-		[X] Fix orgasm issue where cumming on non-primary target fucks up.
-		[X] Make AI block start additional ongoing if last action was a stop
-		[X] Make AI prioritise using additionals if already someone on them and limit is less than allowed
+	Mechanics
+		[x] Scrolls and books delivered
+		[x] affection gain for accepting
+		[x] fix characters present
+		[x] time to advance during meal
+		[x] only make event trigger in day time and if player does not dislike incest
+		[x] lilaya to call daddy
+	
+	Writing
+		[x] when accept after return, need reference to convincing Lilaya
+		[x] need scene when leaving after dinner referencing convincing Lilaya
+		[x] need companion leaving if accept dinner
+		[x] need pregnancy reactions
+			[x] flames
+		[x] make sure Lilaya ends the quest suitably (referencing Lyssieth not wanting to see him)
+	
+	[ ] check all writing and flow
 	
 	
 	
-	stop position switching in threesome or when sub
+	self-tf demon to set age appearance
 	
-	Lilaya cum in pussy behaviour
+	check faceToFace being able to use other's appendages
 	
 	Need AI to want to swap to other character hole if already cummed in other one
-	
-	fix characters present
-	
-	make sure daddy TF is disabled in sex
-	
-	time to advance during meal
-	
-	self-tf demon can set age appearance?
-	
-	when accept after return, need reference to convincing Lilaya
-	
-	need pregnancy reactions
-	
-	Add 'recent meal', 'recent excellent meal', and 'recent outstanding meal' status effects
-	
-	need companion leaving
-	
-	only make event trigger if player does not dislike incest
-	
-	check all writing and flow
-	
-	
+		Make them recalculate wants after orgasming
 	
 	need to convert all old positioning actions to new format...
 		Change positioning actions to be a simple position select, then choose who goes in which slot
@@ -327,45 +318,8 @@
 	
 	add enchantment for insertables and prevents erections, and tag for vibration_enabled
 	
+	Add 'forage' action in caverns to get mushrooms
 	
-	
-	Father's day
-		[x] Trigger after meeting Lyssieth, and in third week of June
-		[x] Incubus
-		Trying to seduce Lyssieth
-		He's outside Lilaya's house in June (he wants Lilaya to accept him as potential father)
-		Explains that he's trying to get to Lyssieth through Lilaya
-		He says that you'd be his niece/nephew?
-			If demon you say you're Lyssieth's unrecognised daughter/son
-				He says he'd be your daddy then
-			Else You say that your parents aren't related to Lyssieth, and that it's complicated
-				He says to make it simpler, he can just be your daddy
-		You can suggest that Lyssieth would prefer a succubus (happy to turn into futa succubus)
-			He says to call him mommy now, but to know that he's still all man downstairs...
-		He offers to:
-			Take you out for a drink/meal
-				Can talk/flirt/seduce
-			Go back to his place, which is Demon Home
-			Can go in for sex
-		Repeat encounter:
-			(Male bonding) Go fishing together
-			Meal/drink
-			Go inside
-				Talk
-				Sex
-			Meet Lilaya
-				Say nothing (failure and can repeat)
-				Convince Lilaya to talk to him (you overhear Rose giving Lilaya permission to have fun)
-					On the way, she remarks on how she hates Demon Home, as she heard rumours that Lilith had reacted terribly to Lyssieth recognising her and Meraxis, and so didn't want to be anywhere near her tower.
-					He compliments Lilaya, says she has her mother's face (Lilaya blushes and turns around with crossed arms (through scarlet cheeks if demon)). He then says also her mother's tail (he says he loves how thick it is at the base).
-					Go out to restaurant with him
-					Can steer things well or badly (repeat)
-					If well, Lilaya agrees to accept him if the time ever comes when he's seduced Lyssieth (she makes it clear that he has no chance)
-					He says that he won't give up - if ever there's a potion invented that can turn demons to humans, he'll turn human and have a real chance
-						Can go back to his place
-							Have threesome
-			Repeat Lilaya date
-				Lead to threesome again
 			
 	bug: flash was nerfed a lot and only lasts one turn against your target sooo yeah why bother criting with it?
 			
@@ -398,6 +352,7 @@
 	
 	Also, since it's now possible to transform Wolfgang and Karl into Winifred and Karla, it would be nice to see references to them in dialogues changed respectively.
 	
+	not using pussy for sex, but using anus/mouth/breasts during sex, the virginity XP gauge doesn't increase at all
 	
 	if you set the penis size preference higher than zero and start a new game as a man, your penis will reflect the size preference. For instance, I set the penis size preference to +6 inches, and my new character started with a foot long cock
 	

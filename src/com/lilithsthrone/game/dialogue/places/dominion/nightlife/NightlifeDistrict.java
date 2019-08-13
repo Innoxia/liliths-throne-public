@@ -2635,8 +2635,8 @@ public class NightlifeDistrict {
 								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
 								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer(), true);
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, true);
-								Main.game.getNpc(Kalahari.class).displaceClothingForAccess(CoverableArea.BREASTS);
-								Main.game.getNpc(Kalahari.class).displaceClothingForAccess(CoverableArea.VAGINA);
+								Main.game.getNpc(Kalahari.class).displaceClothingForAccess(CoverableArea.BREASTS, null);
+								Main.game.getNpc(Kalahari.class).displaceClothingForAccess(CoverableArea.VAGINA, null);
 							}
 						};
 					}
@@ -3735,7 +3735,7 @@ public class NightlifeDistrict {
 		if(npc.hasPenis()) {
 			npc.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
 		}
-		npc.displaceClothingForAccess(CoverableArea.PENIS);
+		npc.displaceClothingForAccess(CoverableArea.PENIS, null);
 		npc.setPenisVirgin(false);
 		npc.setVaginaVirgin(false);
 		try {
@@ -3812,7 +3812,7 @@ public class NightlifeDistrict {
 		if(Math.random()>0.75f) {
 			npc.addFetish(Fetish.FETISH_ORAL_GIVING);
 		}
-		npc.displaceClothingForAccess(CoverableArea.MOUTH);
+		npc.displaceClothingForAccess(CoverableArea.MOUTH, null);
 		npc.setPenisVirgin(false);
 		npc.setVaginaVirgin(false);
 		npc.setAssVirgin(false);

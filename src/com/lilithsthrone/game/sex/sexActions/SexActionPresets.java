@@ -137,6 +137,9 @@ public class SexActionPresets {
 			SexAreaPenetration.TAIL,
 			SexAreaPenetration.TENTACLE);
 
+	public static List<SexAreaInterface> handAreas = Util.newArrayListOfValues(
+			SexAreaPenetration.FINGER);
+
 	public static List<SexAreaInterface> lowerHalf = Util.newArrayListOfValues(
 			SexAreaPenetration.TAIL,
 			SexAreaPenetration.TENTACLE);
@@ -165,6 +168,8 @@ public class SexActionPresets {
 
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> allAreasToAppendages = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> lowerHalfToAppendages = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> lowerHalfToFinger = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> upperHalfToFinger = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> crotchBoobsToAppendages = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToAppendages = new HashMap<>();
 	
@@ -188,6 +193,7 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> groinToPenis = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> groinToAss= new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> groinToMouth= new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> groinToFeet= new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> penisToVagina = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> penisToBreasts = new HashMap<>();
@@ -264,6 +270,11 @@ public class SexActionPresets {
 		
 		for(SexAreaInterface area : lowerHalf) {
 			lowerHalfToAppendages.put(area, appendageAreas);
+			lowerHalfToFinger.put(area, handAreas);
+		}
+
+		for(SexAreaInterface area : upperHalf) {
+			upperHalfToFinger.put(area, handAreas);
 		}
 		
 		for(SexAreaInterface area : crotchBoobAreas) {
@@ -276,6 +287,7 @@ public class SexActionPresets {
 			groinToPenis.put(area, penisAreas);
 			groinToVagina.put(area, vaginaAreas);
 			groinToMouth.put(area, mouthAreas);
+			groinToFeet.put(area, feetAreas);
 		}
 		
 		for(SexAreaInterface area : mouthAreas) {
