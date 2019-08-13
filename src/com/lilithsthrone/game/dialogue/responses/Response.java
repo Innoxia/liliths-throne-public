@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -241,12 +242,11 @@ public class Response {
 	
 	public boolean isAvailable(){
 		if(hasRequirements()) {
-			return (isCorruptionWithinRange() || isAvailableFromFetishes() || (corruptionBypass==null && fetishesRequired==null))
+			return (isCorruptionWithinRange() || isAvailableFromFetishes() || (corruptionBypass==null && fetishesRequired==null) || Main.getProperties().hasValue(PropertyValue.bypassSexActions))
 					&& !isBlockedFromPerks()
 					&& isFemininityInRange()
 					&& isRequiredRace()
-					&& (isAvailableFromAdditionalOngoingAvailableMap()
-							|| (isPenetrationTypeAvailable() && isOrificeTypeAvailable()));
+					&& (isAvailableFromAdditionalOngoingAvailableMap() || (isPenetrationTypeAvailable() && isOrificeTypeAvailable()));
 		} else {
 			return true;
 		}
