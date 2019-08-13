@@ -1543,6 +1543,9 @@ public enum Combat {
 				possibleTargets.add(character);
 			}
 		}
+		if(possibleTargets.size() == 0) {
+			return target;
+		}
 		return possibleTargets.get(Util.random.nextInt(possibleTargets.size()));
 	}
 
