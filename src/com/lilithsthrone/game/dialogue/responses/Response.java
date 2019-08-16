@@ -206,20 +206,19 @@ public class Response {
 		return null;
 	}
 	
+	/**
+	 * @return Typically null, unless this method is overridden in order to set special requirements related to the availability of a sex action of type START_ADDITIONAL_ONGOING.
+	 *  The keys correspond descriptions of requirements, while the value is used to determine if this requirement is met.
+	 */
 	public Map<String, Boolean> getAdditionalOngoingAvailableMap() {
 		return null;
 	}
 	
+	/**
+	 * @return true if all values in the getAdditionalOngoingAvailableMap() are true.
+	 */
 	private boolean isAvailableFromAdditionalOngoingAvailableMap() {
-		if(getAdditionalOngoingAvailableMap()==null) {
-			return false;
-		}
-		for(Boolean b : getAdditionalOngoingAvailableMap().values()) {
-			if(!b) {
-				return false;
-			}
-		}
-		return true;
+		return getAdditionalOngoingAvailableMap()!=null && !getAdditionalOngoingAvailableMap().values().contains(false);
 	}
 	
 	public final void applyEffects() {
@@ -229,6 +228,9 @@ public class Response {
 	public void effects() {
 	}
 	
+	/**
+	 * @return true if this response has any related requirements in order for it to be selected.
+	 */
 	public boolean hasRequirements() {
 		return fetishesRequired != null
 				|| corruptionBypass != null
@@ -240,28 +242,29 @@ public class Response {
 				|| !sexAreaAccessRequiredForTargeted.isEmpty();
 	}
 	
+	/**
+	 * @return true if this action has no requirements, or if all requirements are met.
+	 */
 	public boolean isAvailable(){
-		if(hasRequirements()) {
-			return (isCorruptionWithinRange() || isAvailableFromFetishes() || (corruptionBypass==null && fetishesRequired==null) || Main.getProperties().hasValue(PropertyValue.bypassSexActions))
+		return !hasRequirements()
+				|| ((isCorruptionWithinRange() || isAvailableFromFetishes() || (corruptionBypass==null && fetishesRequired==null))
 					&& !isBlockedFromPerks()
 					&& isFemininityInRange()
 					&& isRequiredRace()
-					&& (isAvailableFromAdditionalOngoingAvailableMap() || (isPenetrationTypeAvailable() && isOrificeTypeAvailable()));
-		} else {
-			return true;
-		}
+					&& (isAvailableFromAdditionalOngoingAvailableMap() || (isPenetrationTypeAvailable() && isOrificeTypeAvailable())));
 	}
 	
+	/**
+	 * @return true if this action is not available from the requirements, and is instead available due to being able to bypass the corruption requirements.
+	 */
 	public boolean isAbleToBypass(){
-		if(!isAvailable()) {
-			// What even is this mess?
-			return !(isBlockedFromPerks()
-						|| !isFemininityInRange()
-						|| !isRequiredRace()
-						|| !isPenetrationTypeAvailable()
-						|| !isOrificeTypeAvailable()
-						|| !isAvailableFromAdditionalOngoingAvailableMap()
-						|| (corruptionBypass==null && fetishesRequired!=null));
+		if(!isAvailable()
+				&& (!Main.game.isInSex() || Main.getProperties().hasValue(PropertyValue.bypassSexActions))
+				&& (!isBlockedFromPerks()
+						&& isFemininityInRange()
+						&& isRequiredRace()
+						&& (isAvailableFromAdditionalOngoingAvailableMap() || (isPenetrationTypeAvailable() && isOrificeTypeAvailable())))) {
+			return !isCorruptionWithinRange() && !isAvailableFromFetishes();
 		}
 		
 		return false;
@@ -541,25 +544,28 @@ public class Response {
 	}
 	
 	public boolean isAvailableFromFetishes() {
-		if(fetishesRequired==null)
+		if(fetishesRequired==null) {
 			return false;
+		}
 		
 		for (Fetish f : fetishesRequired) {
 			if(Main.game.getPlayer().hasFetish(f)) {
 				if(f==Fetish.FETISH_PURE_VIRGIN) {
-					if(Main.game.getPlayer().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)) // Virginity fetish only blocks if player is still a virgin.
+					if(Main.game.getPlayer().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)) { // Virginity fetish only blocks if player is still a virgin.
 						return true;
-				} else
+					}
+				} else {
 					return true;
+				}
 			}
 		}
 		return false;
 	}
 	
 	public boolean isBlockedFromPerks() {
-		if(perksRequired==null)
+		if(perksRequired==null) {
 			return false;
-		
+		}
 		for (AbstractPerk p : perksRequired) {
 			if(!Main.game.getPlayer().hasPerkAnywhereInTree(p)) {
 				return true;

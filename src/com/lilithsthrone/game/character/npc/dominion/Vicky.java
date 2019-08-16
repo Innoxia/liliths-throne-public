@@ -436,7 +436,7 @@ public class Vicky extends NPC {
 		}
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			try {
-				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+				if(clothing!=null && clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
 					types.add(clothing);
 				} 
 			} catch(Exception ex) {

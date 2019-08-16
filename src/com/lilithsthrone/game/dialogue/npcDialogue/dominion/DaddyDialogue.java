@@ -888,6 +888,7 @@ public class DaddyDialogue {
 							if(isLilayaPresent()) {
 								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
 								Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
+								((Lilaya)Main.game.getNpc(Lilaya.class)).equipClothing(null);
 							} else {
 								Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 							}
@@ -937,6 +938,7 @@ public class DaddyDialogue {
 							if(isLilayaPresent()) {
 								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
 								Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
+								((Lilaya)Main.game.getNpc(Lilaya.class)).equipClothing(null);
 							} else {
 								Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 							}
@@ -1164,6 +1166,7 @@ public class DaddyDialogue {
 						if(isLilayaPresent()) {
 							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
+							((Lilaya)Main.game.getNpc(Lilaya.class)).equipClothing(null);
 						} else {
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 						}
@@ -1255,6 +1258,7 @@ public class DaddyDialogue {
 							if(isLilayaPresent()) {
 								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
 								Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
+								((Lilaya)Main.game.getNpc(Lilaya.class)).equipClothing(null);
 							} else {
 								Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 							}

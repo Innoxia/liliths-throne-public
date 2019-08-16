@@ -360,6 +360,10 @@ public class BodyChanging {
 						+ "</div>"
 						
 						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getAgeAppearanceChoiceDiv()
+						+"</div>"
+						
+						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformFemininityChoiceDiv()
 							+ CharacterModificationUtils.getHeightChoiceDiv()
 						+"</div>"
@@ -424,6 +428,10 @@ public class BodyChanging {
 										"<i>Get [npc.name] to focus [npc.her] efforts on changing core aspects of [npc.her] body.</i>"))
 					+ "</div>"
 					
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getAgeAppearanceChoiceDiv()
+					+"</div>"
+						
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformFemininityChoiceDiv()
 						+ CharacterModificationUtils.getHeightChoiceDiv()

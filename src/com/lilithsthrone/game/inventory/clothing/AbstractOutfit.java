@@ -358,7 +358,7 @@ public abstract class AbstractOutfit {
 										.map( e -> ItemTag.valueOf(e.getTextContent()))
 										.filter(Objects::nonNull)
 										.collect(Collectors.toList());
-								if(!ct.getItemTags().containsAll(tags)) {
+								if(!ct.getDefaultItemTags().containsAll(tags)) {
 									continue;
 								}
 							}

@@ -336,7 +336,7 @@ public class Nyan extends NPC {
 
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			try {
-				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)) {
+				if(clothing!=null && clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)) {
 					if(clothing.getRarity() == Rarity.COMMON) {
 						if(clothing.getFemininityRestriction()==Femininity.FEMININE) {
 							if(ClothingType.getCoreClothingSlots().contains(clothing.getEquipSlots().get(0))) {

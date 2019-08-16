@@ -953,13 +953,15 @@ public class SlaverAlleyDialogue {
 	
 
 	private static String getImportRow(String name) {
-		String baseName = name.substring(0, name.lastIndexOf('.'));
+		String baseName = Util.getFileName(name);
+		String identifier = Util.getFileIdentifier(name);
+		
 		return "<tr>"
 				+ "<td style='min-width:200px;'>"
 					+ baseName
 				+ "</td>"
 				+ "<td>"
-					+ "<div class='saveLoadButton' id='import_slave_" + baseName + "' style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
+					+ "<div class='saveLoadButton' id='import_slave_" + identifier + "' style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
 				+ "</td>"
 				+ "</tr>";
 	}

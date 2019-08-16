@@ -242,7 +242,7 @@ public class SlimeGuardIce extends NPC {
 		CharacterUtils.generateItemsInInventory(this);
 		
 		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_KNIGHTLY_SWORD, DamageType.ICE));
-		this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BUCKLER, DamageType.ICE));
+		this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_buckler_buckler", DamageType.ICE));
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(
 				ClothingType.FINGER_RING,

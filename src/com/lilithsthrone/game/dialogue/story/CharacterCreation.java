@@ -1930,7 +1930,8 @@ public class CharacterCreation {
 		}
 	};
 	private static String getImportRow(int i, String name) {
-		String baseName = name.substring(0, name.lastIndexOf('.'));
+		String baseName = Util.getFileName(name);
+		String identifier = Util.getFileIdentifier(name);
 		
 		return "<tr>"
 				+ "<td>"
@@ -1940,7 +1941,7 @@ public class CharacterCreation {
 					+ baseName
 				+ "</td>"
 				+ "<td>"
-					+ "<div class='saveLoadButton' id='character_import_" + baseName + "' style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Load</div>"
+					+ "<div class='saveLoadButton' id='character_import_" + identifier + "' style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Load</div>"
 				+ "</td>"
 				+ "</tr>";
 	}

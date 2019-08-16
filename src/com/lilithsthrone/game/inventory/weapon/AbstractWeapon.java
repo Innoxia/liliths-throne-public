@@ -243,10 +243,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		
 		try {
 			String id = parentElement.getAttribute("id");
-			if(id.equals("MAIN_WESTERN_KKP")) {	
-				id = "innoxia_western_kkp_western_kkp";
-			}
-			weapon = AbstractWeaponType.generateWeapon(WeaponType.idToWeaponMap.get(id), DamageType.valueOf(parentElement.getAttribute("damageType")));
+			weapon = AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId(id), DamageType.valueOf(parentElement.getAttribute("damageType")));
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			System.err.println("Warning: An instance of AbstractWeapon was unable to be imported. ("+parentElement.getAttribute("id")+")");
@@ -350,6 +347,17 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 					+ "<p>"
 						+ weaponType.getDescription()
 					+ "</p>");
+		
+
+		// Physical resistance
+		if(getWeaponType().getPhysicalResistance()>0) {
+			descriptionSB.append("<p>"
+							+ (getWeaponType().isPlural()
+									? "They are armoured, and provide "
+									: "It is armoured, and provides ")
+								+ " <b>" + getWeaponType().getPhysicalResistance() + "</b> [style.colourResPhysical(" + Attribute.RESISTANCE_PHYSICAL.getName() + ")]."
+							+ "</p>");
+		}
 
 		if (!attributeModifiers.isEmpty()) {
 			descriptionSB.append("<p>It provides ");

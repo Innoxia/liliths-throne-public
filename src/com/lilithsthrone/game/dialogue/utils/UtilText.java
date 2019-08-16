@@ -240,7 +240,9 @@ public class UtilText {
 		
 		modifiedSentence = splitOnConditional[splitOnConditional.length-1];
 		
-		if(!parserTags.contains(ParserTag.SEX_ALLOW_MUFFLED_SPEECH) && Main.game.isInSex() && Sex.getAllParticipants().contains(target) && (!Sex.getContactingSexAreas(target, SexAreaOrifice.MOUTH).isEmpty() || target.isSpeechMuffled())) {
+		if(!parserTags.contains(ParserTag.SEX_ALLOW_MUFFLED_SPEECH) && Main.game.isInSex()
+				&& Sex.getAllParticipants().contains(target)
+				&& (!SexAreaOrifice.MOUTH.isFree(target) || target.isSpeechMuffled())) {
 			modifiedSentence = Util.replaceWithMuffle(modifiedSentence, 2);// + " <i style='font-size:66%;'>("+modifiedSentence+")</i>";
 			
 		} else {
@@ -3243,10 +3245,29 @@ public class UtilText {
 				"Returns the correct gender version of 'girl' or 'boy' for this character."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(character.isFeminine())
+				if(character.isFeminine()) {
 					return Gender.F_V_B_FEMALE.getNounYoung();
-				else
+				} else {
 					return Gender.M_P_MALE.getNounYoung();
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"girls",
+						"boys"),
+				true,
+				true,
+				"",
+				"Returns the correct gender version of 'girls' or 'boys' for this character."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.isFeminine()) {
+					return Gender.F_V_B_FEMALE.getNounYoung()+"s";
+				} else {
+					return Gender.M_P_MALE.getNounYoung()+"s";
+				}
 			}
 		});
 		

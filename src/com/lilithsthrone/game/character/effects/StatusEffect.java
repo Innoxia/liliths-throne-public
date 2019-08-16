@@ -2036,7 +2036,7 @@ public enum StatusEffect {
 				for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
 					if (c.isDirty()
 							&& Collections.disjoint(
-									c.getClothingType().getItemTags(),
+									c.getClothingType().getItemTags(c.getSlotEquippedTo()),
 									Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.SEALS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.SEALS_VAGINA, ItemTag.PLUGS_NIPPLES, ItemTag.SEALS_NIPPLES))) {
 						return true;
 					}
@@ -2084,7 +2084,7 @@ public enum StatusEffect {
 				for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
 					if (c.isDirty()
 							&& Collections.disjoint(
-									c.getClothingType().getItemTags(),
+									c.getClothingType().getItemTags(c.getSlotEquippedTo()),
 									Util.newArrayListOfValues(ItemTag.PLUGS_ANUS, ItemTag.SEALS_ANUS, ItemTag.PLUGS_VAGINA, ItemTag.SEALS_VAGINA, ItemTag.PLUGS_NIPPLES, ItemTag.SEALS_NIPPLES))) {
 						return true;
 					}
@@ -2109,16 +2109,18 @@ public enum StatusEffect {
 			StringBuilder sb = new StringBuilder();
 			for(AbstractClothing clothing : new ArrayList<>(target.getClothingCurrentlyEquipped())) {
 				if(target.getDirtySlots().contains(clothing.getSlotEquippedTo())) {
-					slotsToClean.add(clothing.getSlotEquippedTo());
+					InventorySlot slotEquippedTo = clothing.getSlotEquippedTo();
+					List<ItemTag> tags = clothing.getClothingType().getItemTags(slotEquippedTo);
+					slotsToClean.add(slotEquippedTo);
 					
 					boolean seals =
-							clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_ANUS)
-							|| clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_VAGINA)
-							|| clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_NIPPLES);
+							tags.contains(ItemTag.SEALS_ANUS)
+							|| tags.contains(ItemTag.SEALS_VAGINA)
+							|| tags.contains(ItemTag.SEALS_NIPPLES);
 					
-					if(clothing.getSlotEquippedTo()==InventorySlot.ANUS && (clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_ANUS) || clothing.getClothingType().getItemTags().contains(ItemTag.PLUGS_ANUS))
-							|| clothing.getSlotEquippedTo()==InventorySlot.VAGINA && (clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_VAGINA) || clothing.getClothingType().getItemTags().contains(ItemTag.PLUGS_VAGINA))
-							|| clothing.getSlotEquippedTo()==InventorySlot.NIPPLE && (clothing.getClothingType().getItemTags().contains(ItemTag.SEALS_NIPPLES) || clothing.getClothingType().getItemTags().contains(ItemTag.PLUGS_NIPPLES))) {
+					if(clothing.getSlotEquippedTo()==InventorySlot.ANUS && (tags.contains(ItemTag.SEALS_ANUS) || tags.contains(ItemTag.PLUGS_ANUS))
+							|| clothing.getSlotEquippedTo()==InventorySlot.VAGINA && (tags.contains(ItemTag.SEALS_VAGINA) || tags.contains(ItemTag.PLUGS_VAGINA))
+							|| clothing.getSlotEquippedTo()==InventorySlot.NIPPLE && (tags.contains(ItemTag.SEALS_NIPPLES) || tags.contains(ItemTag.PLUGS_NIPPLES))) {
 						sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getSlotEquippedTo().getName()
 								+(seals
 										?" as you equip "+(clothing.getClothingType().isPlural()?"them":"it")
@@ -9845,14 +9847,16 @@ public enum StatusEffect {
 				SexType preference = Sex.isInForeplay()?Sex.getForeplayPreference((NPC) target, targetedCharacter):Sex.getMainSexPreference((NPC) target, targetedCharacter);
 				return UtilText.parse(target, targetedCharacter,
 						(Main.game.isInNewWorld()
-								?"Due to the underlying power of your arcane aura, you can sense [npc.namePos] non-neutral preferences towards sexual actions."
-								:"Somehow, you're able to instinctively tell what [npc.namePos] non-neutral preferences towards sexual actions are.")
-						+ "<br/>"
-						+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"
+								?"The power of your arcane aura allows you to sense [npc.namePos] sexual preferences:"
+								:"Somehow, you're able to instinctively sense what [npc.namePos] sexual preferences are: ")
+						+ " [style.italicsSex("
 						+ (preference!=null
-								?"[npc.Name] wants to use [npc.her] "+preference.getPerformingSexArea().getName(target)+" and [npc2.namePos] "+preference.getTargetedSexArea().getName(Sex.getTargetedPartner(target))+"."
-								:"[npc.Name] has no preference in how to fuck [npc2.name]...")
-						+ "</i>");
+								?"[npc.She] wants to use [npc.her] "+preference.getPerformingSexArea().getName(target)+" and [npc2.namePos] "+preference.getTargetedSexArea().getName(Sex.getTargetedPartner(target))+"."
+								:"[npc.She] has no preference in how to fuck [npc2.name]...")
+						+ ")]")
+						+ (Sex.isCharacterObeyingTarget(target, Main.game.getPlayer())
+							?"<br/>[style.italicsMinorGood([npc.She] will listen to your requests.)]"
+							:"<br/>[style.italicsMinorBad([npc.She] will refuse all of your requests.)]");
 				
 			} else {
 				return UtilText.parse(target,
@@ -9860,9 +9864,7 @@ public enum StatusEffect {
 								?"Due to the underlying power of your arcane aura, you can sense [npc.namePos] non-neutral preferences towards sexual actions."
 								:"Somehow, you're able to instinctively tell what [npc.namePos] non-neutral preferences towards sexual actions are.")
 						+ "<br/>"
-						+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"
-								+ "You can detect what areas [npc.name] wants to use when in sex..."
-						+ "</i>");
+						+ "[style.italicsSex(You can detect what areas [npc.name] wants to use when in sex.)]");
 			}
 		}
 		

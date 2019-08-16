@@ -178,7 +178,8 @@ public class GenericTalk {
 		}
 
 		private boolean isAcceptingRequest() {
-			return Sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_DOMINANT).isPositive()
+			return Sex.isCharacterObeyingTarget(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterPerformingAction())
+					|| Sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_DOMINANT).isPositive()
 					|| Sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_SADIST).isPositive()
 					|| Sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS);
 		}
@@ -293,7 +294,8 @@ public class GenericTalk {
 		}
 		
 		private boolean isAcceptingRequest() {
-			return Sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive()
+			return Sex.isCharacterObeyingTarget(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterPerformingAction())
+					|| Sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive()
 					|| Sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_SADIST).isNegative()
 					|| Sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS);
 		}
@@ -357,7 +359,6 @@ public class GenericTalk {
 						"[npc.speech(P-Please can you slow down? I-I'd like you to be a little gentler...)]"));
 			}
 
-			
 			if(Sex.getCharacterPerformingAction().isPlayer()) {
 				if(isAcceptingRequest()) {
 					sb.append("<br/><br/>"

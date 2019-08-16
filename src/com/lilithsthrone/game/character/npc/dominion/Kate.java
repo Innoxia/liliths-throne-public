@@ -323,7 +323,7 @@ public class Kate extends NPC {
 		List<AbstractClothing> clothingToSell = new ArrayList<>();
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getItemTags().contains(ItemTag.SOLD_BY_KATE)) {
+			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_KATE)) {
 				clothingToSell.add(AbstractClothingType.generateClothing(clothing, false));
 			}
 		}
@@ -518,7 +518,7 @@ public class Kate extends NPC {
 						+ "</p>";
 			} else {
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
-				if(clothing!=null && clothing.getClothingType().isCondom()) {
+				if(clothing!=null && clothing.getClothingType().isCondom(clothing.getClothingType().getEquipSlots().get(0))) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
 				}
 				return "<p>"

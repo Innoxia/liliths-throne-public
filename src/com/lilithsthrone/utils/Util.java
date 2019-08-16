@@ -25,6 +25,7 @@ import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -461,6 +462,17 @@ public class Util {
 		return intToString;
 	}
 
+	public static String intToDate(int integer) {
+		if(integer%10==1) {
+			return integer+"st";
+		} else if(integer%10==2) {
+			return integer+"nd";
+		} else if(integer%10==3) {
+			return integer+"rd";
+		}
+		return integer+"th";
+	}
+	
 	/**
 	 * @param integer Input number to convert.
 	 * @return 'once', 'twice', or 'integer times'
@@ -956,6 +968,10 @@ public class Util {
 		return Util.toStringList(inventorySlots, InventorySlot::getName, "and");
 	}
 	
+	public static String inventorySlotsToParsedStringList(List<InventorySlot> inventorySlots, GameCharacter owner) {
+		return Util.toStringList(inventorySlots, ((slot) -> slot.getNameOfAssociatedPart(owner)), "and");
+	}
+	
 	public static String tattooInventorySlotsToStringList(List<InventorySlot> inventorySlots) {
 		return Util.toStringList(inventorySlots, InventorySlot::getTattooSlotName, "and");
 	}
@@ -1037,5 +1053,21 @@ public class Util {
 				errorLogMap.get(method).add(id);
 			}
 		}
+	}
+
+	public static String getFileName(File f) {
+		return f.getName().substring(0, f.getName().lastIndexOf('.'));
+	}
+	
+	public static String getFileIdentifier(File f) {
+		return f.getName().substring(0, f.getName().lastIndexOf('.')).replaceAll("'", "Q");
+	}
+	
+	public static String getFileName(String filePath) {
+		return filePath.substring(0, filePath.lastIndexOf('.'));
+	}
+	
+	public static String getFileIdentifier(String filePath) {
+		return filePath.substring(0, filePath.lastIndexOf('.')).replaceAll("'", "Q");
 	}
 }

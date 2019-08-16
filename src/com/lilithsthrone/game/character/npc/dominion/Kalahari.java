@@ -229,7 +229,7 @@ public class Kalahari extends NPC {
 	
 	@Override
 	public void endSex() {
-		this.replaceAllClothing();
+		this.equipClothing(null);
 		Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 	}
 	

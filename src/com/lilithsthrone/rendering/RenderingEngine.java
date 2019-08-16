@@ -809,7 +809,7 @@ public enum RenderingEngine {
 				}
 			} else if (item instanceof AbstractClothing) {
 				AbstractClothing clothing = (AbstractClothing)item;
-				if (Main.game.isInCombat() || (Main.game.isInSex() && (isTraderInv || !clothing.getClothingType().isAbleToBeEquippedDuringSex()))) {
+				if (Main.game.isInCombat() || (Main.game.isInSex() && (isTraderInv || !clothing.getClothingType().isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0))))) {
 					overlay += " disabled";
 				}
 			}
@@ -835,7 +835,7 @@ public enum RenderingEngine {
 			}
 		} else if (item instanceof AbstractClothing) {
 			AbstractClothing clothing = (AbstractClothing)item;
-			if (Main.game.isInCombat() || (Main.game.isInSex() && !clothing.getClothingType().isAbleToBeEquippedDuringSex())) {
+			if (Main.game.isInCombat() || (Main.game.isInSex() && !clothing.getClothingType().isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0)))) {
 				overlay += " disabled";
 			}
 		}
@@ -1189,7 +1189,7 @@ public enum RenderingEngine {
 			}
 
 			uiAttributeSB.append("<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>");
-			if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY && Main.game.isEnchantmentCapacityEnabled()) {
+			if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY && Main.game.isEnchantmentCapacityEnabled() && getCharacterToRender()!=null) {
 				int enchantmentPointsUsed = getCharacterToRender().getEnchantmentPointsUsedTotal();
 				uiAttributeSB.append(UtilText.parse(
 						"<div class='full-width-container' style='text-align:center;'>"
@@ -1955,17 +1955,20 @@ public enum RenderingEngine {
 
 				+ "<div class='quarterContainer'>"
 					+ "<div class='button" + (
-							Main.game.getPlayer().isMainQuestUpdated()
-							|| Main.game.getPlayer().isSideQuestUpdated()
-							|| Main.game.getPlayer().isRelationshipQuestUpdated()
-							|| Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
-							|| Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
-							|| Main.getProperties().hasValue(PropertyValue.newItemDiscovered)
-							|| Main.getProperties().hasValue(PropertyValue.newRaceDiscovered)
-							|| Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
-								?" highlight"
-								:"")
+							(Main.mainController.isPhoneDisabled())
+								?" disabled"
+								:(Main.game.getPlayer().isMainQuestUpdated()
+									|| Main.game.getPlayer().isSideQuestUpdated()
+									|| Main.game.getPlayer().isRelationshipQuestUpdated()
+									|| Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
+									|| Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
+									|| Main.getProperties().hasValue(PropertyValue.newItemDiscovered)
+									|| Main.getProperties().hasValue(PropertyValue.newRaceDiscovered)
+									|| Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
+										?" highlight"
+										:""))
 						+ "' id='journal'>" + SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
+						+ (Main.mainController.isPhoneDisabled() ? "<div class='disabledLayer'></div>" : "")
 					+ "</div>"
 				+ "</div>"
 

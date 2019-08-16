@@ -10,7 +10,6 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
@@ -51,7 +50,7 @@ public class SALilayaSpecials {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return (Sex.getCharacterTargetedForSexAction(this).getArousal() >= ArousalLevel.THREE_HEATED.getMinimumValue() || Sex.getCharacterPerformingAction().getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue())
-					&& !SexFlags.characterRequestedPullOut
+					&& !Sex.getCharactersRequestingPullout().contains(Sex.getCharacterPerformingAction())
 					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
 					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(Lilaya.class))
@@ -76,7 +75,7 @@ public class SALilayaSpecials {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.characterRequestedPullOut = true;
+			Sex.getCharactersRequestingPullout().add(Sex.getCharacterPerformingAction());
 		}
 	};
 	
@@ -178,7 +177,7 @@ public class SALilayaSpecials {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.characterRequestedPullOut = true;
+			Sex.getCharactersRequestingPullout().add(Sex.getCharacterPerformingAction());
 		}
 	};
 	

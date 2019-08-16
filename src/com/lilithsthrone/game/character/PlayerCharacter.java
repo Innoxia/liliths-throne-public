@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.character;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -406,6 +405,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			character.equipBasicCombatMoves();
 		}
 		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4")) {
+			character.ageAppearanceDifference = -Game.TIME_SKIP_YEARS;
+		}
+		
 		return character;
 	}
 
@@ -438,23 +441,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	@Override
 	public boolean isPlayer() {
 		return true;
-	}
-	
-	@Override
-	public int getAppearsAsAgeValue() {
-		if(Main.game.isInNewWorld()) {
-			return getAgeValue() - Game.TIME_SKIP_YEARS;
-		}
-		return getAgeValue();
-	}
-
-	@Override
-	public int getAgeValue() {
-		if(Main.game.isInNewWorld()) {
-			return super.getAgeValue();
-		} else {
-			return (int) ChronoUnit.YEARS.between(birthday, Main.game.getDateNow().minusYears(Game.TIME_SKIP_YEARS));
-		}
 	}
 	
 	@Override

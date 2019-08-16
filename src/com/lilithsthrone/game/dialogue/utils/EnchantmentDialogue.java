@@ -230,7 +230,9 @@ public class EnchantmentDialogue {
 							if(effect.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE
 									|| effect.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
 								int cost = Math.max(0, effect.getPotency().getClothingBonusValue());
-								if(effect.getSecondaryModifier()==TFModifier.CORRUPTION) {
+								if(effect.getSecondaryModifier()==TFModifier.CORRUPTION
+										|| effect.getSecondaryModifier()==TFModifier.FERTILITY
+										|| effect.getSecondaryModifier()==TFModifier.VIRILITY) {
 									cost = 0;
 								}
 								inventorySB.append("<br/>"
@@ -319,7 +321,9 @@ public class EnchantmentDialogue {
 								|| ie.getItemEffectType()==ItemEffectType.TATTOO) {
 							if(ie.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE
 									|| ie.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
-								if(effect.getSecondaryModifier()==TFModifier.CORRUPTION) {
+								if(effect.getSecondaryModifier()==TFModifier.CORRUPTION
+										|| effect.getSecondaryModifier()==TFModifier.FERTILITY
+										|| effect.getSecondaryModifier()==TFModifier.VIRILITY) {
 									cost = 0;
 								}
 								cost += Math.max(0, ie.getPotency().getClothingBonusValue());
@@ -410,13 +414,19 @@ public class EnchantmentDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
+				return new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY) {
 					@Override
 					public DialogueNode getNextDialogue() {
 						if(ingredient instanceof AbstractItem) {
+							if(InventoryDialogue.getItem()==null) {
+								InventoryDialogue.setItem((AbstractItem) ingredient);
+							}
 							return InventoryDialogue.ITEM_INVENTORY;
 							
 						} else if(ingredient instanceof AbstractClothing) {
+							if(InventoryDialogue.getClothing()==null) {
+								InventoryDialogue.setClothing((AbstractClothing) ingredient);
+							}
 							if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(ingredient)) {
 								return InventoryDialogue.CLOTHING_EQUIPPED;
 							} else {
@@ -424,6 +434,9 @@ public class EnchantmentDialogue {
 							}
 							
 						} else if(ingredient instanceof AbstractWeapon){
+							if(InventoryDialogue.getWeapon()==null) {
+								InventoryDialogue.setWeapon((AbstractWeapon) ingredient);
+							}
 							if(Main.game.getPlayer().hasWeaponEquipped((AbstractWeapon) ingredient)) {
 								return InventoryDialogue.WEAPON_EQUIPPED;
 							} else {
@@ -658,7 +671,7 @@ public class EnchantmentDialogue {
 		
 		for(File f : getSavedEnchants()) {
 			try {
-				String name = f.getName().substring(0, f.getName().lastIndexOf('.'));
+				String name = Util.getFileIdentifier(f);
 				LoadedEnchantment loadedEnchant = loadEnchant(name);
 				if(ingredient instanceof Tattoo?loadedEnchant.getTattooType()!=null:loadedEnchant.getTattooType()==null) {
 					loadedEnchantmentsMap.put(name, loadedEnchant);
@@ -874,7 +887,7 @@ public class EnchantmentDialogue {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Name too long!");
 			return;
 		}
-		if (!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9' _]*")) {
+		if (name.contains("\"")) {//!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9' _]*")) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Incompatible characters!");
 			return;
 		}
@@ -1004,7 +1017,7 @@ public class EnchantmentDialogue {
 						return new LoadedEnchantment(importedName, ClothingType.getClothingTypeFromId(doc.getElementsByTagName("clothingType").item(0).getTextContent()), effectsToBeAdded);
 						
 					} else if(doc.getElementsByTagName("weaponType").item(0)!=null) {
-						return new LoadedEnchantment(importedName, WeaponType.idToWeaponMap.get(doc.getElementsByTagName("weaponType").item(0).getTextContent()), effectsToBeAdded);
+						return new LoadedEnchantment(importedName, WeaponType.getWeaponTypeFromId(doc.getElementsByTagName("weaponType").item(0).getTextContent()), effectsToBeAdded);
 						
 					} else if(doc.getElementsByTagName("tattooType").item(0)!=null) {
 						return new LoadedEnchantment(importedName, TattooType.getTattooTypeFromId(doc.getElementsByTagName("tattooType").item(0).getTextContent()), effectsToBeAdded);

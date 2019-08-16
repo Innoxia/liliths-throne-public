@@ -243,8 +243,8 @@ public class Ralph extends NPC {
 		}
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
-				if(clothing.isCondom()) {
+			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
+				if(clothing.isCondom(clothing.getEquipSlots().get(0))) {
 					Colour condomColour = Util.randomItemFrom(clothing.getAvailablePrimaryColours());
 					Colour condomColourSec = Colour.CLOTHING_BLACK;
 					Colour condomColourTer = Colour.CLOTHING_BLACK;
@@ -328,7 +328,8 @@ public class Ralph extends NPC {
 			return true;
 		}
 		if(item instanceof AbstractClothing) {
-			return ((AbstractClothing)item).getClothingType().isCondom();
+			AbstractClothingType type = ((AbstractClothing)item).getClothingType();
+			return type.isCondom(type.getEquipSlots().get(0));
 		}
 		
 		return false;

@@ -23,7 +23,6 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -142,18 +141,20 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			for(SexActionInterface action : availableActions) {
 				for(GameCharacter character : Sex.getAllParticipants()) {
 					if(action.getAreasCummedIn(partner, character) != null) {
-						if((action.getAreasCummedIn(partner, character).contains(SexAreaOrifice.VAGINA)
-								&& (partner.hasFetish(Fetish.FETISH_IMPREGNATION)))
-							|| SexFlags.characterRequestedCreampie) {
+						if((action.getAreasCummedIn(partner, character).contains(SexAreaOrifice.VAGINA) && (partner.hasFetish(Fetish.FETISH_IMPREGNATION))) || Sex.getRequestedPulloutWeighting(partner)<0) {
 							priorityOrgasms.add(action);
 							
-						} else if(SexFlags.characterRequestedPullOut && (Sex.isConsensual() || Sex.getSexControl(partner)==SexControl.FULL)) {
+						}
+//						else if(SexFlags.characterRequestedPullOut && (Sex.isConsensual() || Sex.getSexControl(partner)==SexControl.FULL)) {
+//							priorityOrgasms.add(action);
+//						}
+					} else {
+						if(Sex.getRequestedPulloutWeighting(partner)>0) {
 							priorityOrgasms.add(action);
 						}
 					}
 					if(action.getAreasCummedIn(character, partner) != null) {
-						if((action.getAreasCummedIn(character, partner).contains(SexAreaOrifice.VAGINA)
-									&& (partner.hasFetish(Fetish.FETISH_PREGNANCY)))) {
+						if((action.getAreasCummedIn(character, partner).contains(SexAreaOrifice.VAGINA) && (partner.hasFetish(Fetish.FETISH_PREGNANCY)))) {
 							priorityOrgasms.add(action);
 							
 						}
@@ -328,8 +329,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				}
 				SexType preference = partner.getCurrentSexPreference(targetedCharacter);
 				// Only displace clothing if its the desired area, or if the clothing to be displaced is not a sex toy:
-				if((preference!=null && preference.getTargetedSexArea().getRelatedCoverableArea()==exposeArea)
-						|| (partner.getNextClothingToRemoveForCoverableAreaAccess(exposeArea)!=null && !partner.getNextClothingToRemoveForCoverableAreaAccess(exposeArea).getKey().getClothingType().isSexToy())) {
+				SimpleEntry<AbstractClothing, DisplacementType> clothingToRemove = partner.getNextClothingToRemoveForCoverableAreaAccess(exposeArea);
+				if((preference!=null && preference.getPerformingSexArea().getRelatedCoverableArea()==exposeArea) //TODO
+						|| (clothingToRemove!=null && !clothingToRemove.getKey().getClothingType().isSexToy(clothingToRemove.getKey().getSlotEquippedTo()))) {
 					return Sex.manageClothingToAccessCoverableArea(partner, partner, exposeArea);
 				}
 			}
@@ -351,8 +353,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					}
 					SexType preference = partner.getCurrentSexPreference(targetedCharacter);
 					// Only displace clothing if its the desired area, or if the clothing to be displaced is not a sex toy:
+					SimpleEntry<AbstractClothing, DisplacementType> clothingToRemove = targetedCharacter.getNextClothingToRemoveForCoverableAreaAccess(exposeArea);
 					if((preference!=null && preference.getTargetedSexArea().getRelatedCoverableArea()==exposeArea)
-							|| (targetedCharacter.getNextClothingToRemoveForCoverableAreaAccess(exposeArea)!=null && !targetedCharacter.getNextClothingToRemoveForCoverableAreaAccess(exposeArea).getKey().getClothingType().isSexToy())) {
+							|| (clothingToRemove!=null && !clothingToRemove.getKey().getClothingType().isSexToy(clothingToRemove.getKey().getSlotEquippedTo()))) {
 						return Sex.manageClothingToAccessCoverableArea(partner, targetedCharacter, exposeArea);
 					}
 				}

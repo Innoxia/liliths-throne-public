@@ -1231,7 +1231,7 @@ public class CharacterInventory implements XMLSaving {
 
 				// Remove the old clothing in this slot using the owner's accessor method:
 				if (getClothingInSlot(slotToEquipInto) != null) {
-					if(getClothingInSlot(slotToEquipInto).getClothingType().isDiscardedOnUnequip()) {
+					if(getClothingInSlot(slotToEquipInto).getClothingType().isDiscardedOnUnequip(slotToEquipInto)) {
 						String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
 						characterClothingOwner.unequipClothingIntoVoid(getClothingInSlot(slotToEquipInto), true, characterClothingEquipper);
 						equipTextSB.setLength(0);

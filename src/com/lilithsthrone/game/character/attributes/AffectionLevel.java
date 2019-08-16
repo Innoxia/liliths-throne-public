@@ -65,79 +65,79 @@ public enum AffectionLevel {
 		switch(affectionLevel) {
 			case NEGATIVE_FIVE_LOATHE:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>loathes</b> "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>[npc.verb(loathe)]</span> [npc2.name]."));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] loathes "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.verb(loathe)] [npc2.name]."));
 				}
 				break;
 			case NEGATIVE_FOUR_HATE:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>hates</b> "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>[npc.verb(hate)]</span> [npc2.name]."));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] hates "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.verb(hate)] [npc2.name]."));
 				}
 				break;
 			case NEGATIVE_THREE_STRONG_DISLIKE:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>strongly dislikes</b> "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>strongly [npc.verb(dislike)]</span> [npc2.name]."));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] strongly dislikes "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] strongly [npc.verb(dislike)] [npc2.name]."));
 				}
 				break;
 			case NEGATIVE_TWO_DISLIKE:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>dislikes</b> "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>[npc.verb(dislike)]</span> [npc2.name]."));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] dislikes "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.verb(dislike)] [npc2.name]."));
 				}
 				break;
 			case NEGATIVE_ONE_ANNOYED:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>annoyed</b> with "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>annoyed</span> with [npc2.name]."));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is annoyed with "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.is] annoyed with [npc2.name]."));
 				}
 				break;
 			case ZERO_NEUTRAL:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>indifferent</b> towards "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>indifferent</span> towards [npc2.name]."));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is indifferent towards "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.is] indifferent towards [npc2.name]."));
 				}
 				break;
 			case POSITIVE_ONE_FRIENDLY:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>friendly</b> towards "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>friendly</span> towards [npc2.name]."));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is friendly towards "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.is] friendly towards [npc2.name]."));
 				}
 				break;
 			case POSITIVE_TWO_LIKE:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>likes</b> "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>[npc.verb(like)]</span> [npc2.name]."));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] likes "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.verb(like)] [npc2.name]."));
 				}
 				break;
 			case POSITIVE_THREE_CARING:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>cares about</b> "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>[npc.verb(care)] about</span> [npc2.name]."));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] cares about "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.verb(care)] about [npc2.name]."));
 				}
 				break;
 			case POSITIVE_FOUR_LOVE:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>loves</b> "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>[npc.verb(love)]</span> [npc2.name]."));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] loves "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.verb(love)] [npc2.name]."));
 				}
 				break;
 			case POSITIVE_FIVE_WORSHIP:
 				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>worships</b> "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>[npc.verb(worship)]</span> [npc2.name]."));
 				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] worships "+(target.isPlayer()?"you":target.getName("the"))+"."));
+					sb.append(UtilText.parse(character, target, "[npc.Name] [npc.verb(worship)] [npc2.name]."));
 				}
 				break;
 		}

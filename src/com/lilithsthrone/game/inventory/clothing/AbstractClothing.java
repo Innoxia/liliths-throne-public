@@ -68,8 +68,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				clothingType.getRarity(),
 				null);
 
-		this.itemTags = new HashSet<>(clothingType.getItemTags());
-		
 		this.slotEquippedTo = null;
 		
 		this.clothingType = clothingType;
@@ -135,8 +133,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				clothingType.getAllAvailablePrimaryColours().contains(colour) ? colour : clothingType.getAllAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAllAvailablePrimaryColours().size())),
 				clothingType.getRarity(),
 				null);
-
-		this.itemTags = new HashSet<>(clothingType.getItemTags());
 
 		this.slotEquippedTo = null;
 		
@@ -472,7 +468,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		}
 		
 		// Try to load attributes:
-		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5") || !clothing.getClothingType().isCondom()) { // Do not load condom effects from versions prior to 0.3.0.5
+		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5") || !clothing.getClothingType().isCondom(clothing.getClothingType().getEquipSlots().get(0))) { // Do not load condom effects from versions prior to 0.3.0.5
 			if(parentElement.getElementsByTagName("attributeModifiers")!=null && parentElement.getElementsByTagName("attributeModifiers").getLength()>0) {
 				if(clothing.getClothingType().getClothingSet()==null) {
 					clothing.getEffects().clear();
@@ -737,7 +733,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	
 	@Override
 	public Rarity getRarity() {
-		if(this.isCondom()) {
+		if(this.isCondom(this.getClothingType().getEquipSlots().get(0))) {
 			if(!this.getEffects().isEmpty() && this.getEffects().get(0).getPotency().isNegative()) {
 				return Rarity.JINXED;
 			} else {
@@ -1010,7 +1006,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				extraInformationSB.append("Equipping "+(getClothingType().isPlural()?"them":"it")+" will [style.boldBad(block)] your "+ Util.inventorySlotsToStringList(getClothingType().getIncompatibleSlots(null, slotToBeEquippedTo))+".<br/>");
 			}
 			
-			if(Main.game.getPlayer().getClothingInSlot(slotToBeEquippedTo)!=null && Main.game.getPlayer().getClothingInSlot(slotToBeEquippedTo).getClothingType().isDiscardedOnUnequip()) {
+			if(Main.game.getPlayer().getClothingInSlot(slotToBeEquippedTo)!=null && Main.game.getPlayer().getClothingInSlot(slotToBeEquippedTo).getClothingType().isDiscardedOnUnequip(slotToBeEquippedTo)) {
 				extraInformationSB.append("[style.boldBad(Equipping this will cause the "+Main.game.getPlayer().getClothingInSlot(slotToBeEquippedTo).getName()+" you're already wearing to be discarded!)]<br/>");
 			}
 			
@@ -1027,7 +1023,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUM.toWebHexString() + ";'>covered in sexual fluids</b>!<br/>");
 			}
 			
-			for(ItemTag tag : this.getItemTags()) {
+			for(ItemTag tag : this.getClothingType().getItemTags(slotToBeEquippedTo)) {
 				if(tag.getClothingTooltipAdditions()!=null) {
 					for(String description : tag.getClothingTooltipAdditions()) {
 						extraInformationSB.append(description+"<br/>");
@@ -1062,7 +1058,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			if(this.isSealed()) {
 				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldCorruption(sealed)] and can't be removed!<br/>");
 				
-			} else if(this.getClothingType().isDiscardedOnUnequip()) {
+			} else if(this.getClothingType().isDiscardedOnUnequip(this.getSlotEquippedTo())) {
 				extraInformationSB.append("[style.boldBad(Removing [npc.namePos] "+this.getName()+" will cause "+(getClothingType().isPlural() ? "them" : "it")+" to be discarded!)]<br/>");
 			}
 
@@ -1070,7 +1066,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUM.toWebHexString() + ";'>covered in sexual fluids</b>!<br/>");
 			}
 			
-			for(ItemTag tag : this.getItemTags()) {
+			for(ItemTag tag : this.getClothingType().getItemTags(slotToBeEquippedTo)) {
 				if(tag.getClothingTooltipAdditions()!=null) {
 					for(String description : tag.getClothingTooltipAdditions()) {
 						extraInformationSB.append(description+"<br/>");
@@ -1116,7 +1112,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public List<String> getExtraDescriptions(GameCharacter equippedToCharacter, InventorySlot slotToBeEquippedTo) {
 		List<String> descriptionsList = new ArrayList<>();
 		
-		for(ItemTag tag : this.getItemTags()) {
+		for(ItemTag tag : this.getClothingType().getItemTags(slotToBeEquippedTo)) {
 			if(tag.getClothingTooltipAdditions()!=null) {
 				for(String description : tag.getClothingTooltipAdditions()) {
 					descriptionsList.add(description);
@@ -1395,7 +1391,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 	
 	public String getEnchantmentPostfix(boolean coloured, String tag) {
-		if(!this.getEffects().isEmpty() && !this.isCondom()) {
+		if(!this.getEffects().isEmpty() && !this.isCondom(this.getClothingType().getEquipSlots().get(0))) {
 			for(ItemEffect ie : this.getEffects()) {
 				if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ENSLAVEMENT) {
 					return "of "+(coloured?"<"+tag+" style='color:"+TFModifier.CLOTHING_ENSLAVEMENT.getColour().toWebHexString()+";'>enslavement</"+tag+">":"enslavement");
@@ -1481,8 +1477,15 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return clothingType.getRelatedEssence();
 	}
 	
+	public boolean isCondom(InventorySlot slotEquippedTo) {
+		return this.getClothingType().getItemTags(slotEquippedTo).contains(ItemTag.CONDOM);
+	}
+	
 	public boolean isCondom() {
-		return this.getClothingType().getItemTags().contains(ItemTag.CONDOM);
+		if(this.getSlotEquippedTo()==null) {
+			return this.getClothingType().getItemTags(this.getClothingType().getEquipSlots().get(0)).contains(ItemTag.CONDOM);
+		}
+		return this.getClothingType().getItemTags(slotEquippedTo).contains(ItemTag.CONDOM);
 	}
 	
 	public ItemEffect getCondomEffect() {
@@ -1492,5 +1495,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public Set<ItemTag> getItemTags() {
+		if(this.getSlotEquippedTo()==null) {
+			return new HashSet<>(this.getClothingType().getDefaultItemTags());
+		}
+		return new HashSet<>(this.getClothingType().getItemTags().get(this.getSlotEquippedTo()));
 	}
 }

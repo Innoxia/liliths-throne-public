@@ -93,9 +93,14 @@ public class OptionsDialogue {
 			
 			 if (index == 1) {
 				 if(confirmNewGame || !Main.game.isStarted()) {
-					 
 					return new ResponseEffectsOnly(
-							(!Main.game.isStarted()?"New Game":"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Confirm</b>"), "Start a new game.<br/><br/><b>Remember to save your game first!</b>"){
+							(!Main.game.isStarted()
+									?"New Game"
+									:"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Confirm</b>"),
+							"Start a new game."
+								+(Main.game.isStarted()
+									?"<br/><br/>[style.italicsMinorBad(Remember to save your game first!)]</b>"
+									:"")){
 						@Override
 						public void effects() {
 							//Fixes a bug where inventory would stay on screen
@@ -112,8 +117,15 @@ public class OptionsDialogue {
 							confirmNewGame = false;
 						}
 					};
+					
 				 } else {
-					 return new Response("New Game", "Start a new game.<br/><br/><b>Remember to save your game first!</b>", MENU){
+					 return new Response(
+							 "New Game",
+							 "Start a new game."
+								+(Main.game.isStarted()
+									?"<br/><br/>[style.italicsMinorBad(Remember to save your game first!)]"
+									:""),
+								MENU){
 							@Override
 							public void effects() {
 								confirmNewGame = true;
@@ -390,7 +402,7 @@ public class OptionsDialogue {
 						+ " Any NPC can be exported in-game by viewing their information screen (either from the 'characters present' or your phone's 'contacts' screen), and then pressing the small 'export character' button in the top-right."
 					+ "</p>"
 					+ "<p>"
-						+ "Exported characters can be used as a playable character when starting a new game (choose 'Start (Import)'), or as a importable slave at the Auction Block in Slaver Alley."
+						+ "Exported characters can be used as a playable character when starting a new game (choose 'Start (Import)'), or as an importable slave at the Auction Block in Slaver Alley."
 					+ "</p>"
 					+ "<div class='container-full-width' style='padding:0; margin:0;'>"
 						+ "<div class='container-quarter-width' style='text-align:center;'>"
@@ -469,7 +481,8 @@ public class OptionsDialogue {
 	
 	private static String getSaveLoadRow(String date, String name, boolean altColour) {
 		if(name!=null){
-			String baseName = name.substring(0, name.lastIndexOf('.'));
+			String baseName = Util.getFileName(name);
+			String identifierName = Util.getFileIdentifier(name);
 			
 			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
@@ -481,18 +494,18 @@ public class OptionsDialogue {
 						+ "<div class='container-full-width' style='width:calc(25% - 16px);text-align:center; background:transparent;'>"
 							+ (Main.isSaveGameAvailable()
 									?(name.equals(overwriteConfirmationName)
-										?"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
-										:"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
-									:"<div class='square-button saveIcon disabled' id='overwrite_saved_" + baseName + "_disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
+										?"<div class='square-button saveIcon' id='overwrite_saved_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
+										:"<div class='square-button saveIcon' id='overwrite_saved_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
+									:"<div class='square-button saveIcon disabled' id='overwrite_saved_" + identifierName + "_disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
 							
 							+ (name.equals(loadConfirmationName)
-									?"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
-									:"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
+									?"<div class='square-button saveIcon' id='load_saved_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
+									:"<div class='square-button saveIcon' id='load_saved_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
 	
 	
 							+ (name.equals(deleteConfirmationName)
-								?"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
-								:"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
+								?"<div class='square-button saveIcon' id='delete_saved_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
+								:"<div class='square-button saveIcon' id='delete_saved_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
 						+ "</div>"
 					+ "</div>";
 			
@@ -515,7 +528,9 @@ public class OptionsDialogue {
 	}
 
 	private static String getImportRow(String date, String name, boolean altColour) {
-		String baseName = name.substring(0, name.lastIndexOf('.'));
+		String baseName = Util.getFileName(name);
+		String identifierName = Util.getFileIdentifier(name);
+		
 		return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
 					+ "<div class='container-quarter-width' style='background:transparent;'>"
 						+ date
@@ -525,8 +540,8 @@ public class OptionsDialogue {
 					+ "</div>"
 					+ "<div class='container-quarter-width' style='padding:auto 0; margin:auto 0; width:20%; text-align:center; background:transparent;'>"
 					+ (name.equals(deleteConfirmationName)
-							?"<div class='square-button big' id='delete_saved_character_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
-							:"<div class='square-button big' id='delete_saved_character_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
+							?"<div class='square-button big' id='delete_saved_character_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
+							:"<div class='square-button big' id='delete_saved_character_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
 					+ "</div>"
 				+ "</div>";
 	}

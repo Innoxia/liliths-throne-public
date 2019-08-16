@@ -809,13 +809,13 @@ public class TooltipInformationEventListener implements EventListener {
 					if(!owner.isPlayer() && !owner.isAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer())) {
 						tooltipSB.append(getEmptyBodyPartDiv("Nipples",
 								"Unknown!",
-								Util.capitaliseSentence(Util.intToString(owner.getBreastRows()*2))+" "+(owner.getBreastRawSizeValue()>0?(owner.getBreastSize().getCupSizeName() + "-cup breasts"):null)));
+								Util.capitaliseSentence(Util.intToString(owner.getBreastRows()*2))+" "+(owner.getBreastRawSizeValue()>0?(owner.getBreastSize().getCupSizeName() + "-cup breasts"):(owner.isFeminine()?"flat breasts":"pecs"))));
 					} else {
 						tooltipSB.append(getBodyPartDiv(owner, "Nipples",
 								owner.getBreastRace(),
 								owner.getBreastType().getNippleType().getBodyCoveringType(owner),
 								owner.isNippleBestial(),
-								Util.capitaliseSentence(Util.intToString(owner.getBreastRows()*2))+" "+(owner.getBreastRawSizeValue()>0?(owner.getBreastSize().getCupSizeName() + "-cup breasts"):null)));
+								Util.capitaliseSentence(Util.intToString(owner.getBreastRows()*2))+" "+(owner.getBreastRawSizeValue()>0?(owner.getBreastSize().getCupSizeName() + "-cup breasts"):(owner.isFeminine()?"flat breasts":"pecs"))));
 					}
 
 					if(crotchBreasts) {

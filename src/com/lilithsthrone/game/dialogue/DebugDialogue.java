@@ -556,7 +556,7 @@ public class DebugDialogue {
 	public static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
 	static {
 		clothingTotal.addAll(ClothingType.getAllClothing());
-		clothingTotal.removeIf((c) -> c.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || c.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
+		clothingTotal.removeIf((c) -> c.getDefaultItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || c.getDefaultItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
 		
 		weaponsTotal.addAll(WeaponType.getAllWeapons());
 		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || w.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
@@ -589,7 +589,7 @@ public class DebugDialogue {
 			inventorySB.append("<div class='inventory-not-equipped'>");
 			if(itemTag==ItemTag.HIDDEN_IN_DEBUG_SPAWNER) {
 				for(AbstractClothingType c : ClothingType.getAllClothing()) {
-					if(c.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER)) {
+					if(c.getDefaultItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER)) {
 						inventorySB.append("<div class='inventory-item-slot unequipped "+ c.getRarity().getName() + "'>"
 								+ "<div class='inventory-icon-content'>"
 									+c.getSVGImage(

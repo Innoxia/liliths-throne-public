@@ -323,9 +323,9 @@ public enum Encounter {
 				} else {
 					List<AbstractClothingType> randomClothingList = new ArrayList<>(ClothingType.getAllClothing());
 					randomClothingList.removeIf((clothing) ->
-							(!clothing.getItemTags().contains(ItemTag.SOLD_BY_KATE)
-							&& !clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)
-							&& !clothing.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
+							(!clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_KATE)
+							&& !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
+							&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
 							|| clothing.getRarity()==Rarity.EPIC
 							|| clothing.getRarity()==Rarity.LEGENDARY);
 					randomClothing = AbstractClothingType.generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));

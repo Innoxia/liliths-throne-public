@@ -493,10 +493,15 @@ public class Game implements XMLSaving {
 	}
 	
 	private static boolean debug = false;
-	public static void importGame(String name) {
-		Main.game = new Game();
 
-		File file = new File("data/saves/"+name+".xml");
+	public static void importGame(String name) {
+		File file = new File("data"+System.getProperty("file.separator")+"saves"+System.getProperty("file.separator"), name+".xml");
+		
+		importGame(file);
+	}
+	
+	public static void importGame(File file) {
+		Main.game = new Game();
 		
 		if (file.exists()) {
 			try {
@@ -1023,7 +1028,7 @@ public class Game implements XMLSaving {
 		Main.game.setRequestAutosave(false);
 		
 		DialogueNode startingDialogueNode = Main.game.getPlayerCell().getPlace().getDialogue(false);
-		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+name+".xml"), false);
+		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+Util.getFileName(file)+".xml"), false);
 		Main.game.setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode), false);
 		
 //		System.out.println(Main.isVersionOlderThan(loadingVersion, "0.2.12.95"));

@@ -283,61 +283,63 @@ public class Lab {
 				});
 			}
 		}
-		if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DADDY) == Quest.DADDY_ACCEPTED) {
-			if(!Daddy.isAvailable()) {
-				generatedResponses.add(new Response("Meeting [daddy.name]", Daddy.getAvailabilityText(), null));
-				
-			} else if(Main.game.getPlayer().hasCompanions()) {
-				generatedResponses.add(new Response("Meeting [daddy.name]",
-						"[style.italicsBad(You cannot ask Lilaya to go with you and meet [daddy.name] while you have companions in your party!)]",
-						null));
-				
-			} else {
-				generatedResponses.add(new Response("Meeting [daddy.name]", "Convince Lilaya to go out for dinner with you and [daddy.name].", DaddyDialogue.CONVINCING_LILAYA) {
-					@Override
-					public void effects() {
-						setEntryFlags();
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_DADDY, Quest.DADDY_LILAYA_MEETING));
-					}
-				});
-				
-			}
-
-		} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_DADDY, Quest.DADDY_LILAYA_MEETING)) {
-			if(!Daddy.isAvailable()) {
-				generatedResponses.add(new Response("Visit [daddy.name]", Daddy.getAvailabilityText(), null));
-				
-			} else if(Main.game.getPlayer().hasCompanions()) {
-				generatedResponses.add(new Response("Visit [daddy.name]",
-						"[style.italicsBad(You cannot ask Lilaya to go with you and vist [daddy.name] while you have companions in your party!)]",
-						null));
-				
-			} else  {
-				generatedResponses.add(new Response("Visit [daddy.name]", "Ask Lilaya if she'd like to join you in paying [daddy.name] a visit.", DaddyDialogue.MEETING) {
-					@Override
-					public int getSecondsPassed() {
-						return 30*60;
-					}
-					@Override
-					public void effects() {
-						setEntryFlags();
-						((Lilaya) Main.game.getNpc(Lilaya.class)).applyDinnerDateChange();
-						
-						Main.game.getPlayer().setLocation(WorldType.DADDYS_APARTMENT, PlaceType.DADDY_APARTMENT_ENTRANCE);
-						Main.game.getNpc(Lilaya.class).setLocation(Main.game.getPlayer(), false);
-
-						if(Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getPlayer().isCharacterReactedToPregnancy(Main.game.getNpc(Daddy.class))) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(500));
+		
+		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_DADDY)) {
+			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DADDY) == Quest.DADDY_ACCEPTED) {
+				if(!Daddy.isAvailable()) {
+					generatedResponses.add(new Response("Meeting [daddy.name]", Daddy.getAvailabilityText(), null));
+					
+				} else if(Main.game.getPlayer().hasCompanions()) {
+					generatedResponses.add(new Response("Meeting [daddy.name]",
+							"[style.italicsBad(You cannot ask Lilaya to go with you and meet [daddy.name] while you have companions in your party!)]",
+							null));
+					
+				} else {
+					generatedResponses.add(new Response("Meeting [daddy.name]", "Convince Lilaya to go out for dinner with you and [daddy.name].", DaddyDialogue.CONVINCING_LILAYA) {
+						@Override
+						public void effects() {
+							setEntryFlags();
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_DADDY, Quest.DADDY_LILAYA_MEETING));
 						}
-						if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && !Main.game.getNpc(Lilaya.class).isCharacterReactedToPregnancy(Main.game.getNpc(Daddy.class))) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementMoney(500));
+					});
+					
+				}
+	
+			} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_DADDY, Quest.DADDY_LILAYA_MEETING)) {
+				if(!Daddy.isAvailable()) {
+					generatedResponses.add(new Response("Visit [daddy.name]", Daddy.getAvailabilityText(), null));
+					
+				} else if(Main.game.getPlayer().hasCompanions()) {
+					generatedResponses.add(new Response("Visit [daddy.name]",
+							"[style.italicsBad(You cannot ask Lilaya to go with you and vist [daddy.name] while you have companions in your party!)]",
+							null));
+					
+				} else  {
+					generatedResponses.add(new Response("Visit [daddy.name]", "Ask Lilaya if she'd like to join you in paying [daddy.name] a visit.", DaddyDialogue.MEETING) {
+						@Override
+						public int getSecondsPassed() {
+							return 30*60;
 						}
-					}
-				});
-				
+						@Override
+						public void effects() {
+							setEntryFlags();
+							((Lilaya) Main.game.getNpc(Lilaya.class)).applyDinnerDateChange();
+							
+							Main.game.getPlayer().setLocation(WorldType.DADDYS_APARTMENT, PlaceType.DADDY_APARTMENT_ENTRANCE);
+							Main.game.getNpc(Lilaya.class).setLocation(Main.game.getPlayer(), false);
+	
+							if(Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getPlayer().isCharacterReactedToPregnancy(Main.game.getNpc(Daddy.class))) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(500));
+							}
+							if(Main.game.getNpc(Lilaya.class).isVisiblyPregnant() && !Main.game.getNpc(Lilaya.class).isCharacterReactedToPregnancy(Main.game.getNpc(Daddy.class))) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementMoney(500));
+							}
+						}
+					});
+					
+				}
 			}
 		}
-
 		
 		
 		return generatedResponses;

@@ -2568,6 +2568,7 @@ public class NightlifeDistrict {
 						public void effects() {
 							Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, false);
+							Main.game.getNpc(Kalahari.class).equipClothing(null);
 						}
 					};
 				}
@@ -2722,6 +2723,7 @@ public class NightlifeDistrict {
 						public void effects() {
 							Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, false);
+							Main.game.getNpc(Kalahari.class).equipClothing(null);
 						}
 					};
 				}

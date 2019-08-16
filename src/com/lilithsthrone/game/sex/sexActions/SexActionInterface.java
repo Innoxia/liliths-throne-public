@@ -1329,7 +1329,7 @@ public interface SexActionInterface {
 	// This is in the SexAction Interface, as it might be necessary in some special actions to override this to prevent condom breaks.
 	public default CondomFailure getCondomFailure(GameCharacter condomWearer, GameCharacter cumTarget) {
 		AbstractClothing condom = condomWearer.getClothingInSlot(InventorySlot.PENIS);
-		if(condom==null || !condom.isCondom()) {
+		if(condom==null || !condom.isCondom(InventorySlot.PENIS)) {
 			return CondomFailure.NONE;
 		}
 		

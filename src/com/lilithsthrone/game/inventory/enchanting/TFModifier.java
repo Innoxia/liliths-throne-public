@@ -73,7 +73,7 @@ public enum TFModifier {
 	HEALTH_MAXIMUM(AttributeCategory.STRENGTH,
 			Attribute.HEALTH_MAXIMUM,
 			"Applies an effect related to the primary attribute 'Maximum Energy'.",
-			"modifier_circle_health",
+			"modifier_circle_strength",//"modifier_circle_health",
 			Rarity.EPIC),
 
 	MANA_MAXIMUM(AttributeCategory.INTELLIGENCE,

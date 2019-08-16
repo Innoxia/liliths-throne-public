@@ -14,7 +14,9 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -130,6 +132,12 @@ public class Lilaya extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.10")) {
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4")) {
+			this.equipClothing(null);
+			if(this.getSubspecies()!=Subspecies.DEMON) {
+				setupCoverings(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour());
+			}
+		}
 	}
 
 	@Override
@@ -140,6 +148,33 @@ public class Lilaya extends NPC {
 						new Value<>(PerkCategory.PHYSICAL, 0),
 						new Value<>(PerkCategory.LUST, 1),
 						new Value<>(PerkCategory.ARCANE, 5)));
+	}
+	
+	private void setupCoverings(Colour humanSkinColour) {
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_YELLOW));
+		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_RED), true);
+
+		this.setAssType(AssType.DEMON_COMMON);
+		this.setBreastType(BreastType.DEMON_COMMON);
+		
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, humanSkinColour), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, humanSkinColour), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, humanSkinColour), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, humanSkinColour), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, humanSkinColour), false);
+		
+		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), false);
+
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
+		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMaximumValue());
+		this.setHairStyle(HairStyle.LOOSE);
+		
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
+		this.setUnderarmHair(BodyHair.ZERO_NONE);
+		this.setAssHair(BodyHair.FOUR_NATURAL);
+		this.setPubicHair(BodyHair.THREE_TRIMMED);
+		this.setFacialHair(BodyHair.ZERO_NONE);
 	}
 	
 	@Override
@@ -180,22 +215,7 @@ public class Lilaya extends NPC {
 		
 		// Coverings:
 
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_YELLOW));
-		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_RED), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
-		
-		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), false);
-
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
-		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMaximumValue());
-		this.setHairStyle(HairStyle.LOOSE);
-		
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_BLACK), false);
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
-		this.setUnderarmHair(BodyHair.ZERO_NONE);
-		this.setAssHair(BodyHair.FOUR_NATURAL);
-		this.setPubicHair(BodyHair.THREE_TRIMMED);
-		this.setFacialHair(BodyHair.ZERO_NONE);
+		setupCoverings(Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour());
 
 //		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_AMBER));
 //		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_AMBER));

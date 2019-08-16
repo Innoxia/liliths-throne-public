@@ -843,6 +843,12 @@ public class TooltipInventoryEventListener implements EventListener {
 				+ "<span style='color:" + absWep.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absWep.getDisplayRarity())+"</span></br>"
 				+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")+"</br>"
 				);
+
+		float res = absWep.getWeaponType().getPhysicalResistance();
+		if(res>0) {
+			listIncrease++;
+			tooltipSB.append("[style.boldGood(+"+res+")] Natural [style.boldResPhysical("+Util.capitaliseSentence(Attribute.RESISTANCE_PHYSICAL.getName())+")]</br>");
+		}
 		
 		int cost = absWep.getWeaponType().getArcaneCost();
 		if(cost>0) {
@@ -1074,12 +1080,32 @@ public class TooltipInventoryEventListener implements EventListener {
 					+ "</div>");
 		
 		tooltipSB.append("<div class='container-full-width titular'>");
-		if (absClothing.getExtraDescriptions(equippedToCharacter, slotEquippedTo).isEmpty()) {
-			tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No Status</span>");
+		
+		if(absClothing.getSlotEquippedTo()==null && absClothing.getClothingType().getEquipSlots().size()>1) {
+			for(int i=0; i<absClothing.getClothingType().getEquipSlots().size();i++) {
+				if(i>0) {
+					tooltipSB.append("<br/>");
+				}
+				InventorySlot slot = absClothing.getClothingType().getEquipSlots().get(i);
+				
+				tooltipSB.append("When equipped into '"+slot.getName()+"' slot:");
+				if (absClothing.getExtraDescriptions(equippedToCharacter, slot).isEmpty()) {
+					tooltipSB.append("<br/><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No Status</span>");
+				} else {
+					for (String s : absClothing.getExtraDescriptions(equippedToCharacter, slot)) {
+						tooltipSB.append("<br/>" + s);
+					}
+				}
+			}
+			
 		} else {
-			tooltipSB.append("<b>Status</b>");
-			for (String s : absClothing.getExtraDescriptions(equippedToCharacter, slotEquippedTo)) {
-				tooltipSB.append("<br/>" + s);
+			if (absClothing.getExtraDescriptions(equippedToCharacter, slotEquippedTo).isEmpty()) {
+				tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No Status</span>");
+			} else {
+				tooltipSB.append("<b>Status</b>");
+				for (String s : absClothing.getExtraDescriptions(equippedToCharacter, slotEquippedTo)) {
+					tooltipSB.append("<br/>" + s);
+				}
 			}
 		}
 		tooltipSB.append("</div>");

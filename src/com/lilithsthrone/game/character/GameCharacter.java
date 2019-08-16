@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -254,7 +256,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * The class for all the game's characters. I think this is the biggest class in the game.
  * 
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.4
  * @author Innoxia, orvail(relationship section)
  */
 public abstract class GameCharacter implements XMLSaving {
@@ -268,7 +270,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public static final int MAX_TRAITS = 6;
 	public static final int MAX_COMBAT_MOVES = 8;
 	public static final int DEFAULT_COMBAT_AP = 3;
-	
+
+	public static final int MINIMUM_AGE = 18;
 	
 	// Core variables:
 	protected String id;
@@ -2923,23 +2926,26 @@ public abstract class GameCharacter implements XMLSaving {
 						:this.getName(true))
 				+"</h6>"
 				+ "<p>"
-					+ this.getDescription()
-				+ "</p>");
+					+ this.getDescription());
+		
+		if(Main.game.getPlayer().getId().equals(this.getMotherId())) {
+			infoScreenSB.append(UtilText.parse(this, " You gave birth to [npc.herHim] on the "+this.getBirthdayString()+"."));
+		} else if(this.isPlayer() || (this.isPlayerKnowsName() && (this.getAffection(Main.game.getPlayer())>=AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue() || this.isSlave()))) {
+			infoScreenSB.append(UtilText.parse(this, " [npc.She] [npc.was] born on the "+this.getBirthdayString()+"."));
+		}
 		
 		String relationships = this.getRelationshipStrTo(Main.game.getPlayer());
 		
 		if(!this.isRaceConcealed()) {
 			if(!this.isPlayer()) {
-				infoScreenSB.append("<br/>"
-						+ "<h6>Relationships</h6>"
-						+ "<p>"
-							+ (Main.game.getPlayer().hasCompanion(this)
-									?UtilText.parse(this, "[style.boldCompanion(Companion:)]<br/>[npc.Name] is currently following you around as your companion.<br/><br/>")
+				infoScreenSB.append(
+							"<br/>"
+							+ (this.getPartyLeader()!=null
+									?UtilText.parse(this, this.getPartyLeader(), "[npc.She] [npc.is] currently following [npc2.name] around as [npc2.her] [style.colourCompanion(companion)]. ")
 									:"")
-							+ (relationships.isEmpty()
-									?""
-									:UtilText.parse(this, "[style.boldGreenLight(Family:)]<br/>[npc.She] is your "+relationships+".<br/><br/>"))
-							+ "[style.boldAffection(Affection:)]<br/>"
+							+ (!relationships.isEmpty()
+									?UtilText.parse(this, "[npc.She] is your <span style='color:"+this.getFemininity().getColour().toWebHexString()+"'>"+relationships+"</span>. ")
+									:"")
 							+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
 									AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
 				
@@ -2956,39 +2962,30 @@ public abstract class GameCharacter implements XMLSaving {
 							}
 						}
 					} catch (Exception e) {
-//						infoScreenSB.append("<br/>Unknown (id:"+entry.getKey()+")");
 					}
 				}
-				
-				infoScreenSB.append("<br/><br/>"
-							+ "[style.boldObedience(Obedience:)]<br/>"
-							+ UtilText.parse(this,
-									(this.isSlave()
-										?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(this.getOwner().isPlayer()?"you!":this.getOwner().getName("a")+".")
-										:"[npc.Name] [style.boldGood(is not a slave)]."))
-							+ "<br/>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true));
-				
+			}
+			if(this.isSlave()) {
+				infoScreenSB.append(
+							"<br/>"
+							+ UtilText.parse(this, "[npc.She] [npc.is] a [style.colourArcane(slave)], owned by "+(this.getOwner().isPlayer()?"you.":this.getOwner().getName("a")+"."))
+							+ " "
+							+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true));
+			}
+			if(!this.isPlayer()) {
 				if(!this.getSlavesOwned().isEmpty()) {
-					infoScreenSB.append("<br/><br/>"
-							+ "[style.boldArcane(Slaves owned:)]");
+					infoScreenSB.append("<br/>"
+							+ UtilText.parse(this, "[npc.She] owns "+Util.intToString(this.getSlavesOwned().size())+" "+(this.getSlavesOwned().size()==1?"slave":"slaves")+": "));
+					List<String> slaveNames = new ArrayList<>();
 					for(String id : this.getSlavesOwned()) {
 						try {
-							infoScreenSB.append(UtilText.parse(Main.game.getNPCById(id), "<br/>[npc.Name]"));
+							slaveNames.add(UtilText.parse(Main.game.getNPCById(id), "[npc.name]"));
 						} catch (Exception e) {
-							infoScreenSB.append("<br/>Unknown (id:"+id+")");
+							slaveNames.add("Unknown (id:"+id+")");
 						}
 					}
+					infoScreenSB.append(Util.stringsToStringList(slaveNames, false)+".");
 				}
-				
-			} else {
-				infoScreenSB.append("<p>"
-						+ "[style.boldObedience(Obedience:)]<br/>"
-						+ UtilText.parse(this,
-								(this.isSlave()
-									?"You [style.boldArcane(are a slave)], owned by "+(this.getOwner().isPlayer()?"you! (How did this happen?!)":this.getOwner().getName("a")+".")
-									:"You [style.boldGood(are not a slave)]."))
-						+ "<br/>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true));
-			
 			}
 			
 			infoScreenSB.append("<br/>"
@@ -3538,6 +3535,10 @@ public abstract class GameCharacter implements XMLSaving {
 		this.description = description;
 	}
 
+	public String getBirthdayString() {
+		return Util.intToDate(this.getBirthday().getDayOfMonth())+" "+this.getBirthday().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)+" "+this.getBirthday().getYear();
+	}
+	
 	public LocalDateTime getBirthday() {
 		return birthday;
 	}
@@ -3546,8 +3547,8 @@ public abstract class GameCharacter implements XMLSaving {
 		this.birthday = birthday;
 		
 		if(this.isPlayer()) {
-			if(this.getAgeValue()<18) {
-				this.birthday = (this.getBirthday().minusYears(18-this.getAgeValue()));
+			if(this.getAgeValue()<MINIMUM_AGE) {
+				this.birthday = (this.getBirthday().minusYears(MINIMUM_AGE-this.getAgeValue()));
 				
 			} else if(this.getAgeValue()>50) {
 				this.birthday = (this.getBirthday().plusYears(this.getAgeValue()-50));
@@ -3560,7 +3561,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public int getAppearsAsAgeValue() {
-		return Math.max(18, getAgeValue() + ageAppearanceDifference);
+		return Math.max(MINIMUM_AGE, getAgeValue() + ageAppearanceDifference);
 	}
 
 	public AgeCategory getAge() {
@@ -3571,10 +3572,10 @@ public abstract class GameCharacter implements XMLSaving {
 		int age = (int) ChronoUnit.YEARS.between(birthday, Main.game.getDateNow());
 		
 		if(birthday.getYear()>=Main.game.getStartingDate().getYear()) {
-			return 18 + age;
+			return MINIMUM_AGE + age;
 		}
 		
-		return Math.max(18, age);
+		return Math.max(MINIMUM_AGE, age);
 	}
 	
 	public int getAgeAppearanceDifference() {
@@ -4954,6 +4955,12 @@ public abstract class GameCharacter implements XMLSaving {
 		if(att == Attribute.RESISTANCE_PHYSICAL) {
 			for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
 				value += clothing.getClothingType().getPhysicalResistance();
+			}
+			if(this.getMainWeapon()!=null) {
+				value += this.getMainWeapon().getWeaponType().getPhysicalResistance();
+			}
+			if(this.getOffhandWeapon()!=null) {
+				value += this.getOffhandWeapon().getWeaponType().getPhysicalResistance();
 			}
 		}
 		
@@ -13884,7 +13891,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public String getUnableToEscapeDescription() {
 		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
-			if(clothing.getClothingType().isHindersLegMovement() && !this.isAbleToFly()) {
+			if(clothing.getClothingType().isHindersLegMovement(clothing.getSlotEquippedTo()) && !this.isAbleToFly()) {
 				return "Escape is blocked due to your "+clothing.getName()+" hindering your movement!";
 			}
 		}
@@ -14291,7 +14298,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean isWearingCondom() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-			if(c.getClothingType().isCondom()) {
+			if(c.getClothingType().isCondom(c.getSlotEquippedTo())) {
 				return true;
 			}
 		}
@@ -15245,7 +15252,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean isSpeechMuffled() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-			if(c.getClothingType().isMufflesSpeech()) {
+			if(c.getClothingType().isMufflesSpeech(c.getSlotEquippedTo())) {
 				return true;
 			}
 		}
@@ -15254,7 +15261,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean isArmMovementHindered() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-			if(c.getClothingType().isHindersArmMovement()) {
+			if(c.getClothingType().isHindersArmMovement(c.getSlotEquippedTo())) {
 				return true;
 			}
 		}
@@ -15263,7 +15270,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean isLegMovementHindered() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-			if(c.getClothingType().isHindersLegMovement()) {
+			if(c.getClothingType().isHindersLegMovement(c.getSlotEquippedTo())) {
 				return true;
 			}
 		}
@@ -18414,7 +18421,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isAbleToFlyFromArms() {
 		if(body.isAbleToFlyFromArms()) {
 			for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
-				if(clothing.getClothingType().isHindersArmMovement()) {
+				if(clothing.getClothingType().isHindersArmMovement(clothing.getSlotEquippedTo())) {
 					return false;
 				}
 			}
@@ -20986,8 +20993,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasErection() {
 		if(Main.game.isInSex()) {
 			for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-				if(c.getClothingType().getItemTags().contains(ItemTag.PREVENTS_ERECTION_OTHER)
-						|| c.getClothingType().getItemTags().contains(ItemTag.PREVENTS_ERECTION_PHYSICAL)) {
+				if(c.getClothingType().getItemTags(c.getSlotEquippedTo()).contains(ItemTag.PREVENTS_ERECTION_OTHER)
+						|| c.getClothingType().getItemTags(c.getSlotEquippedTo()).contains(ItemTag.PREVENTS_ERECTION_PHYSICAL)) {
 					return false;
 				}
 			}
@@ -21001,7 +21008,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public boolean isErectionPreventedPhysically() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-			if(c.getClothingType().getItemTags().contains(ItemTag.PREVENTS_ERECTION_PHYSICAL)) {
+			if(c.getClothingType().getItemTags(c.getSlotEquippedTo()).contains(ItemTag.PREVENTS_ERECTION_PHYSICAL)) {
 				return true;
 			}
 		}

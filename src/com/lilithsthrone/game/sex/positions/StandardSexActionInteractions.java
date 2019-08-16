@@ -54,8 +54,10 @@ public class StandardSexActionInteractions {
 											?SexActionPresets.crotchBoobsToAppendages
 											:null),
 								SexActionPresets.appendagesToUpperHalf,
+								SexActionPresets.upperHalfToAppendages,
 								SexActionPresets.kissing,
-								SexActionPresets.mouthToBreasts),
+								SexActionPresets.mouthToBreasts,
+								SexActionPresets.breastsToMouth),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.STOMACH,
 								target.getLegConfiguration().isBipedalPositionedGenitals() && performer.getLegConfiguration().isBipedalPositionedGenitals()

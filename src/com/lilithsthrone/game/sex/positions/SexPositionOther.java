@@ -431,19 +431,19 @@ public class SexPositionOther {
 
 			if(faceSitting1!=null) {
 				if(!foundExtension) {
-					if(cowgirl1.getLegConfiguration().isBipedalPositionedGenitals()) {
-						sb.append(UtilText.parse(cowgirl1, fucked1,
+					if(faceSitting1.getLegConfiguration().isBipedalPositionedGenitals()) {
+						sb.append(UtilText.parse(faceSitting1, fucked1,
 								", while [npc.nameHasFull] sat down on [npc2.her] [npc2.face], positioned such that [npc.sheIs] looking down into [npc2.namePos] [npc2.eyes]."));
 					} else {
-						sb.append(UtilText.parse(cowgirl1, fucked1,
+						sb.append(UtilText.parse(faceSitting1, fucked1,
 								", while [npc.nameHasFull] moved around above where [npc2.sheIs] lying down, before backing up with [npc.her] lower feral body and planting [npc.her] groin down on [npc2.her] [npc2.face]."));
 					}
 				} else {
-					if(cowgirl1.getLegConfiguration().isBipedalPositionedGenitals()) {
-						sb.append(UtilText.parse(cowgirl1, fucked1,
+					if(faceSitting1.getLegConfiguration().isBipedalPositionedGenitals()) {
+						sb.append(UtilText.parse(faceSitting1, fucked1,
 								" [npc.Name], meanwhile, [npc.has] sat down on [npc2.her] [npc2.face], positioned such that [npc.sheIs] looking down into [npc2.namePos] [npc2.eyes]."));
 					} else {
-						sb.append(UtilText.parse(cowgirl1, fucked1,
+						sb.append(UtilText.parse(faceSitting1, fucked1,
 								"[npc.Name], meanwhile, [npc.has] moved around above where [npc2.sheIs] lying down, before backing up with [npc.her] lower feral body and planting [npc.her] groin down on [npc2.her] [npc2.face]."));
 					}
 				}
@@ -452,19 +452,19 @@ public class SexPositionOther {
 
 			if(faceSittingReverse1!=null) {
 				if(!foundExtension) {
-					if(cowgirl1.getLegConfiguration().isBipedalPositionedGenitals()) {
-						sb.append(UtilText.parse(cowgirl1, fucked1,
+					if(faceSittingReverse1.getLegConfiguration().isBipedalPositionedGenitals()) {
+						sb.append(UtilText.parse(faceSittingReverse1, fucked1,
 								", while [npc.nameHasFull] sat down on [npc2.her] [npc2.face], positioned such that [npc.sheIs] looking down at [npc2.namePos] lower body."));
 					} else {
-						sb.append(UtilText.parse(cowgirl1, fucked1,
+						sb.append(UtilText.parse(faceSittingReverse1, fucked1,
 								", while [npc.nameHasFull] stepped fully over the top of [npc2.herHim], before planting [npc.her] feral groin down on [npc2.her] [npc2.face]."));
 					}
 				} else {
-					if(cowgirl1.getLegConfiguration().isBipedalPositionedGenitals()) {
-						sb.append(UtilText.parse(cowgirl1, fucked1,
+					if(faceSittingReverse1.getLegConfiguration().isBipedalPositionedGenitals()) {
+						sb.append(UtilText.parse(faceSittingReverse1, fucked1,
 								" [npc.Name], meanwhile, [npc.has] sat down on [npc2.her] [npc2.face], positioned such that [npc.sheIs] looking down at [npc2.namePos] lower body."));
 					} else {
-						sb.append(UtilText.parse(cowgirl1, fucked1,
+						sb.append(UtilText.parse(faceSittingReverse1, fucked1,
 								"[npc.Name], meanwhile, [npc.has] stepped fully over the top of [npc2.herHim], before planting [npc.her] feral groin down on [npc2.her] [npc2.face]."));
 					}
 				}

@@ -245,12 +245,16 @@ public class MainController implements Initializable {
 		}
 	}
 
+	public boolean isPhoneDisabled() {
+		return !Main.game.isStarted() || !Main.game.isInNewWorld();
+	}
+	
 	public void openPhone() {
 		openPhone(PhoneDialogue.MENU);
 	}
 	
 	public void openPhone(DialogueNode toDialogue) {
-		if(!Main.game.isStarted() || !Main.game.isInNewWorld()) {
+		if(isPhoneDisabled()) {
 			return;
 		}
 		

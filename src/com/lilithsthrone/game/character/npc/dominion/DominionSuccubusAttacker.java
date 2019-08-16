@@ -223,7 +223,7 @@ public class DominionSuccubusAttacker extends NPC {
 				
 			} else if (!target.isPlayer()){
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
-				if(clothing!=null && clothing.getClothingType().isCondom()) {
+				if(clothing!=null && clothing.getClothingType().isCondom(clothing.getClothingType().getEquipSlots().get(0))) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
 				}
 				return UtilText.parse(equipper, target,

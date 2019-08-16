@@ -177,7 +177,7 @@
 			</acceptableFemininities>
 			<slot>TORSO_UNDER</slot>
 			<rarity>COMMON</rarity> <!-- base value over 50 to avoid super crappy clothes -->
-			<conditional><![CDATA[clothing.getBaseValue()>50 && !clothing.getItemTags().contains(ITEM_TAG_DRESS)]]></conditional>
+			<conditional><![CDATA[clothing.getBaseValue()>50 && !clothing.getDefaultItemTags().contains(ITEM_TAG_DRESS)]]></conditional>
 			<primaryColours>
 				<colour>presetColourGroup1</colour>
 			</primaryColours>

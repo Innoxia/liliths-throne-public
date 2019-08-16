@@ -30,26 +30,26 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.10
- * @version 0.3.1
+ * @version 0.3.4
  * @author Innoxia
  */
 public class OccupantDialogue {
 	
-	private static GameCharacter targetedCharacterForSex;
-	private static NPC companionCharacter;
+	private static GameCharacter characterForSex;
+	private static NPC characterForSexSecondary;
 	private static List<NPC> charactersPresent;
 	private static boolean isApartment;
 	
 	public static void initDialogue(NPC targetedOccupant, boolean isApartment) {
 		Main.game.setActiveNPC(targetedOccupant);
-		targetedCharacterForSex = targetedOccupant;
+		characterForSex = targetedOccupant;
 
 		if(Main.game.getPlayer().hasCompanions()) {
-			companionCharacter = (NPC) Main.game.getPlayer().getMainCompanion();
+			characterForSexSecondary = (NPC) Main.game.getPlayer().getMainCompanion();
 		} else if(Main.game.getCharactersPresent().size()>1) {
-			companionCharacter = Main.game.getCharactersPresent().stream().filter((npc) -> !npc.equals(occupant())).findFirst().get();
+			characterForSexSecondary = Main.game.getCharactersPresent().stream().filter((npc) -> !npc.equals(occupant())).findFirst().get();
 		} else {
-			companionCharacter = null;
+			characterForSexSecondary = null;
 		}
 
 		charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
@@ -74,7 +74,7 @@ public class OccupantDialogue {
 //	}
 	
 	private static NPC nonSexTargetedCharacter() {
-		if(targetedCharacterForSex.equals(occupant())) {
+		if(characterForSex.equals(occupant())) {
 			return (NPC) Main.game.getPlayer().getMainCompanion();
 		} else {
 			return occupant();
@@ -104,7 +104,7 @@ public class OccupantDialogue {
 	}
 
 	private static String getThreesomeTextFilePath() {
-		if(occupant().isRelatedTo(Main.game.getPlayer()) || (companionCharacter!=null && companionCharacter.isRelatedTo(Main.game.getPlayer()))) {
+		if(occupant().isRelatedTo(Main.game.getPlayer()) || (characterForSexSecondary!=null && characterForSexSecondary.isRelatedTo(Main.game.getPlayer()))) {
 			return "characters/offspring/occupant";
 		} else {
 			return "misc/friendlyOccupantDialogue";
@@ -339,41 +339,41 @@ public class OccupantDialogue {
 					}
 					
 				} else if (index == 2) {
-					if(companionCharacter==null || charactersPresent.size()<2) {
+					if(characterForSexSecondary==null || charactersPresent.size()<2) {
 						return new Response("Spitroast (front)", "You'd need a third person to be present in order to get a spitroast going...", null);
 						
-					} else if(targetedCharacterForSex.isPlayer()) {
+					} else if(characterForSex.isPlayer()) {
 						return new Response("Spitroast (front)", "You cannot target yourself for this action!", null);
 						
 					} else if(!occupant().isAttractedTo(Main.game.getPlayer())) {
-						if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Spitroast (front)", UtilText.parse(companionCharacter, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
+						if(!characterForSexSecondary.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Spitroast (front)", UtilText.parse(characterForSexSecondary, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
 						} else {
 							return new Response("Spitroast (front)", UtilText.parse(occupant(), "[npc.Name] is not attracted to you, and so would be unwilling to participate in a threesome..."), null);
 						}
 						
-					} else if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
-						return new Response("Spitroast (front)", UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
+					} else if(!characterForSexSecondary.isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Spitroast (front)", UtilText.parse(characterForSexSecondary, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
 						
-					} else if(!companionCharacter.isAttractedTo(occupant())) {
+					} else if(!characterForSexSecondary.isAttractedTo(occupant())) {
 						return new Response("Spitroast (front)",
-								UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to [npc2.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								UtilText.parse(characterForSexSecondary, occupant(), "[npc.Name] is not attracted to [npc2.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
 								null);
 
-					} else if(!occupant().isAttractedTo(companionCharacter)) {
+					} else if(!occupant().isAttractedTo(characterForSexSecondary)) {
 						return new Response("Spitroast (front)",
-								UtilText.parse(companionCharacter, occupant(), "[npc2.Name] is not attracted to [npc.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								UtilText.parse(characterForSexSecondary, occupant(), "[npc2.Name] is not attracted to [npc.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
 								null);
 						
 					} else {
 						return new ResponseSex(
 								"Spitroast (front)",
-								UtilText.parse(targetedCharacterForSex, nonSexTargetedCharacter(), "Move around in front of [npc.name] so that you can use [npc.her] mouth while [npc2.name] takes [npc.her] rear."),
+								UtilText.parse(characterForSex, nonSexTargetedCharacter(), "Move around in front of [npc.name] so that you can use [npc.her] mouth while [npc2.name] takes [npc.her] rear."),
 								null, null, null, null, null, null,
 								true, true,
 								new SMGeneric(
 										Util.newArrayListOfValues(nonSexTargetedCharacter(), Main.game.getPlayer()),
-										Util.newArrayListOfValues(targetedCharacterForSex),
+										Util.newArrayListOfValues(characterForSex),
 										null,
 										null,
 										ResponseTag.PREFER_DOGGY) {
@@ -383,7 +383,7 @@ public class OccupantDialogue {
 									}
 								},
 								getAfterSexDialogue(),
-								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_FRONT_START", targetedCharacterForSex, nonSexTargetedCharacter())) {
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_FRONT_START", characterForSex, nonSexTargetedCharacter())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -392,41 +392,41 @@ public class OccupantDialogue {
 					}
 				
 				} else if (index == 3) {
-					if(companionCharacter==null || charactersPresent.size()<2) {
+					if(characterForSexSecondary==null || charactersPresent.size()<2) {
 						return new Response("Spitroast (behind)", "You'd need a third person to be present in order to get a spitroast going...", null);
 						
-					} else if(targetedCharacterForSex.isPlayer()) {
+					} else if(characterForSex.isPlayer()) {
 						return new Response("Spitroast (behind)", "You cannot target yourself for this action!", null);
 						
 					} else if(!occupant().isAttractedTo(Main.game.getPlayer())) {
-						if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Spitroast (behind)", UtilText.parse(companionCharacter, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
+						if(!characterForSexSecondary.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Spitroast (behind)", UtilText.parse(characterForSexSecondary, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
 						} else {
 							return new Response("Spitroast (behind)", UtilText.parse(occupant(), "[npc.Name] is not attracted to you, and so would be unwilling to participate in a threesome..."), null);
 						}
 						
-					} else if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
-						return new Response("Spitroast (behind)", UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
+					} else if(!characterForSexSecondary.isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Spitroast (behind)", UtilText.parse(characterForSexSecondary, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
 						
-					} else if(!companionCharacter.isAttractedTo(occupant())) {
+					} else if(!characterForSexSecondary.isAttractedTo(occupant())) {
 						return new Response("Spitroast (front)",
-								UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to [npc2.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								UtilText.parse(characterForSexSecondary, occupant(), "[npc.Name] is not attracted to [npc2.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
 								null);
 
-					} else if(!occupant().isAttractedTo(companionCharacter)) {
+					} else if(!occupant().isAttractedTo(characterForSexSecondary)) {
 						return new Response("Spitroast (front)",
-								UtilText.parse(companionCharacter, occupant(), "[npc2.Name] is not attracted to [npc.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								UtilText.parse(characterForSexSecondary, occupant(), "[npc2.Name] is not attracted to [npc.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
 								null);
 						
 					} else {
 						return new ResponseSex(
 								"Spitroast (behind)",
-								UtilText.parse(targetedCharacterForSex, nonSexTargetedCharacter(), "Move around behind [npc.name] so that you can use [npc.her] rear while [npc2.name] takes [npc.her] mouth."),
+								UtilText.parse(characterForSex, nonSexTargetedCharacter(), "Move around behind [npc.name] so that you can use [npc.her] rear while [npc2.name] takes [npc.her] mouth."),
 								null, null, null, null, null, null,
 								true, true,
 								new SMGeneric(
 										Util.newArrayListOfValues(Main.game.getPlayer(), nonSexTargetedCharacter()),
-										Util.newArrayListOfValues(targetedCharacterForSex),
+										Util.newArrayListOfValues(characterForSex),
 										null,
 										null,
 										ResponseTag.PREFER_DOGGY) {
@@ -436,7 +436,7 @@ public class OccupantDialogue {
 									}
 								},
 								getAfterSexDialogue(),
-								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_BEHIND_START", targetedCharacterForSex, nonSexTargetedCharacter())) {
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_BEHIND_START", characterForSex, nonSexTargetedCharacter())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -445,30 +445,30 @@ public class OccupantDialogue {
 					}
 				
 				} else if (index == 4) {
-					if(companionCharacter==null || charactersPresent.size()<2) {
+					if(characterForSexSecondary==null || charactersPresent.size()<2) {
 						return new Response("Side-by-side (as dom)", "You'd need a third person to be present in order to get a spitroast going...", null);
 						
-					} else if(targetedCharacterForSex.isPlayer()) {
+					} else if(characterForSex.isPlayer()) {
 						return new Response("Side-by-side (as dom)", "You cannot target yourself for this action!", null);
 						
 					} else if(!occupant().isAttractedTo(Main.game.getPlayer())) {
-						if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Side-by-side (as dom)", UtilText.parse(companionCharacter, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
+						if(!characterForSexSecondary.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Side-by-side (as dom)", UtilText.parse(characterForSexSecondary, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
 						} else {
 							return new Response("Side-by-side (as dom)", UtilText.parse(occupant(), "[npc.Name] is not attracted to you, and so would be unwilling to participate in a threesome..."), null);
 						}
 						
-					} else if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
-						return new Response("Side-by-side (as dom)", UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
+					} else if(!characterForSexSecondary.isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Side-by-side (as dom)", UtilText.parse(characterForSexSecondary, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
 						
 					} else {
 						return new ResponseSex("Side-by-side (as dom)",
-								UtilText.parse(targetedCharacterForSex, nonSexTargetedCharacter(), "Push [npc.name] and [npc2.name] down onto all fours, before kneeling behind [npc.name], ready to fuck them both side-by-side."),
+								UtilText.parse(characterForSex, nonSexTargetedCharacter(), "Push [npc.name] and [npc2.name] down onto all fours, before kneeling behind [npc.name], ready to fuck them both side-by-side."),
 								null, null, null, null, null, null,
 								true, false,
 								new SMGeneric(
 										Util.newArrayListOfValues(Main.game.getPlayer()),
-										Util.newArrayListOfValues(targetedCharacterForSex, nonSexTargetedCharacter()),
+										Util.newArrayListOfValues(characterForSex, nonSexTargetedCharacter()),
 										null,
 										null,
 										ResponseTag.PREFER_DOGGY) {
@@ -478,7 +478,7 @@ public class OccupantDialogue {
 									}
 								},
 								getAfterSexDialogue(),
-								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_START", targetedCharacterForSex, nonSexTargetedCharacter())) {
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_START", characterForSex, nonSexTargetedCharacter())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -515,30 +515,30 @@ public class OccupantDialogue {
 					}
 					
 				} else if (index == 7) {
-					if(companionCharacter==null || charactersPresent.size()<2) {
+					if(characterForSexSecondary==null || charactersPresent.size()<2) {
 						return new Response("Spitroasted (front)", "You'd a third person to be present in order to get spitroasted...", null);
 						
-					} else if(targetedCharacterForSex.isPlayer()) {
+					} else if(characterForSex.isPlayer()) {
 						return new Response("Spitroasted (front)", "You cannot target yourself for this action!", null);
 						
 					} else if(!occupant().isAttractedTo(Main.game.getPlayer())) {
-						if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Spitroasted (front)", UtilText.parse(companionCharacter, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
+						if(!characterForSexSecondary.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Spitroasted (front)", UtilText.parse(characterForSexSecondary, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
 						} else {
 							return new Response("Spitroasted (front)", UtilText.parse(occupant(), "[npc.Name] is not attracted to you, and so would be unwilling to participate in a threesome..."), null);
 						}
 						
-					} else if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
-						return new Response("Spitroasted (front)", UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
+					} else if(!characterForSexSecondary.isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Spitroasted (front)", UtilText.parse(characterForSexSecondary, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
 						
 					} else {
 						return new ResponseSex(
 								"Spitroasted (front)",
-								UtilText.parse(targetedCharacterForSex, nonSexTargetedCharacter(), "Get down on all fours facing [npc.name], so that [npc.she] can use your mouth while [npc2.name] takes your rear."),
+								UtilText.parse(characterForSex, nonSexTargetedCharacter(), "Get down on all fours facing [npc.name], so that [npc.she] can use your mouth while [npc2.name] takes your rear."),
 								null, null, null, null, null, null,
 								true, true,
 								new SMGeneric(
-										Util.newArrayListOfValues(nonSexTargetedCharacter(), targetedCharacterForSex),
+										Util.newArrayListOfValues(nonSexTargetedCharacter(), characterForSex),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
 										null,
 										null,
@@ -549,7 +549,7 @@ public class OccupantDialogue {
 									}
 								},
 								getAfterSexDialogue(),
-								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", targetedCharacterForSex, nonSexTargetedCharacter())) {
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", characterForSex, nonSexTargetedCharacter())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -558,30 +558,30 @@ public class OccupantDialogue {
 					}
 				
 				} else if (index == 8) {
-					if(companionCharacter==null || charactersPresent.size()<2) {
+					if(characterForSexSecondary==null || charactersPresent.size()<2) {
 						return new Response("Spitroast (behind)", "You'd need a third person to be present in order to get a spitroast going...", null);
 						
-					} else if(targetedCharacterForSex.isPlayer()) {
+					} else if(characterForSex.isPlayer()) {
 						return new Response("Spitroasted (behind)", "You cannot target yourself for this action!", null);
 						
 					} else if(!occupant().isAttractedTo(Main.game.getPlayer())) {
-						if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Spitroasted (behind)", UtilText.parse(companionCharacter, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
+						if(!characterForSexSecondary.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Spitroasted (behind)", UtilText.parse(characterForSexSecondary, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
 						} else {
 							return new Response("Spitroasted (behind)", UtilText.parse(occupant(), "[npc.Name] is not attracted to you, and so would be unwilling to participate in a threesome..."), null);
 						}
 						
-					} else if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
-						return new Response("Spitroasted (behind)", UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
+					} else if(!characterForSexSecondary.isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Spitroasted (behind)", UtilText.parse(characterForSexSecondary, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
 						
 					} else {
 						return new ResponseSex(
 								"Spitroasted (behind)",
-								UtilText.parse(targetedCharacterForSex, nonSexTargetedCharacter(), "Get down on all fours and present your rear to [npc.name], so that [npc.she] can fuck you while [npc2.name] uses your mouth."),
+								UtilText.parse(characterForSex, nonSexTargetedCharacter(), "Get down on all fours and present your rear to [npc.name], so that [npc.she] can fuck you while [npc2.name] uses your mouth."),
 								null, null, null, null, null, null,
 								true, true,
 								new SMGeneric(
-										Util.newArrayListOfValues(targetedCharacterForSex, nonSexTargetedCharacter()),
+										Util.newArrayListOfValues(characterForSex, nonSexTargetedCharacter()),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
 										null,
 										null,
@@ -592,7 +592,7 @@ public class OccupantDialogue {
 									}
 								},
 								getAfterSexDialogue(),
-								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", nonSexTargetedCharacter(), targetedCharacterForSex)) {
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", nonSexTargetedCharacter(), characterForSex)) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -601,39 +601,39 @@ public class OccupantDialogue {
 					}
 				
 				} else if (index == 9) {
-					if(companionCharacter==null || charactersPresent.size()<2) {
+					if(characterForSexSecondary==null || charactersPresent.size()<2) {
 						return new Response("Side-by-side (as sub)", UtilText.parse(occupant(), "You'd need a third person to be present in order to get fucked alongside either them or [npc.name]..."), null);
 						
-					} else if(targetedCharacterForSex.isPlayer()) {
+					} else if(characterForSex.isPlayer()) {
 						return new Response("Side-by-side (as sub)", "You cannot target yourself for this action!", null);
 						
 					} else if(!occupant().isAttractedTo(Main.game.getPlayer())) {
-						if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Side-by-side (as sub)", UtilText.parse(companionCharacter, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
+						if(!characterForSexSecondary.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Side-by-side (as sub)", UtilText.parse(characterForSexSecondary, occupant(), "Neither [npc.name] nor [npc2.name] are attracted to you..."), null);
 						} else {
 							return new Response("Side-by-side (as sub)", UtilText.parse(occupant(), "[npc.Name] is not attracted to you, and so would be unwilling to participate in a threesome..."), null);
 						}
 						
-					} else if(!companionCharacter.isAttractedTo(Main.game.getPlayer())) {
-						return new Response("Side-by-side (as sub)", UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
+					} else if(!characterForSexSecondary.isAttractedTo(Main.game.getPlayer())) {
+						return new Response("Side-by-side (as sub)", UtilText.parse(characterForSexSecondary, occupant(), "[npc.Name] is not attracted to you, and so neither [npc.she] nor [npc2.name] would be willing to have a threesome..."), null);
 						
-					} else if(!companionCharacter.isAttractedTo(occupant())) {
+					} else if(!characterForSexSecondary.isAttractedTo(occupant())) {
 						return new Response("Side-by-side (as sub)",
-								UtilText.parse(companionCharacter, occupant(), "[npc.Name] is not attracted to [npc2.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								UtilText.parse(characterForSexSecondary, occupant(), "[npc.Name] is not attracted to [npc2.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
 								null);
 
-					} else if(!occupant().isAttractedTo(companionCharacter)) {
+					} else if(!occupant().isAttractedTo(characterForSexSecondary)) {
 						return new Response("Side-by-side (as sub)",
-								UtilText.parse(companionCharacter, occupant(), "[npc2.Name] is not attracted to [npc.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
+								UtilText.parse(characterForSexSecondary, occupant(), "[npc2.Name] is not attracted to [npc.name], and so neither of them would be willing to be in a threesome position in which they are expected to interact with one other..."),
 								null);
 						
 					} else {
 						return new ResponseSex("Side-by-side (as sub)",
-								UtilText.parse(targetedCharacterForSex, nonSexTargetedCharacter(), "Get down on all fours beside [npc2.name], so that [npc.name] can kneel down behind the two of you, ready to fuck you both side-by-side."),
+								UtilText.parse(characterForSex, nonSexTargetedCharacter(), "Get down on all fours beside [npc2.name], so that [npc.name] can kneel down behind the two of you, ready to fuck you both side-by-side."),
 								null, null, null, null, null, null,
 								true, false,
 								new SMGeneric(
-										Util.newArrayListOfValues(targetedCharacterForSex),
+										Util.newArrayListOfValues(characterForSex),
 										Util.newArrayListOfValues(Main.game.getPlayer(), nonSexTargetedCharacter()),
 										null,
 										null,
@@ -644,7 +644,7 @@ public class OccupantDialogue {
 									}
 								},
 								getAfterSexDialogue(),
-								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_AS_SUB_START", targetedCharacterForSex, nonSexTargetedCharacter())) {
+								UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_AS_SUB_START", characterForSex, nonSexTargetedCharacter())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -653,24 +653,24 @@ public class OccupantDialogue {
 					}
 				
 				} else if(index==11) {
-					if(companionCharacter!=null) {
+					if(characterForSexSecondary!=null) {
 						return new ResponseEffectsOnly(
-								UtilText.parse(targetedCharacterForSex, "Target: <b style='color:"+targetedCharacterForSex.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b>"),
+								UtilText.parse(characterForSex, "Target: <b style='color:"+characterForSex.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b>"),
 								"Cycle the targeted character for group sex.") {
 							@Override
 							public void effects() {
 								if(charactersPresent.size()>1) {
 									for(int i=0; i<charactersPresent.size();i++) {
-										if(charactersPresent.get(i).equals(targetedCharacterForSex)) {
+										if(charactersPresent.get(i).equals(characterForSex)) {
 											if(i==charactersPresent.size()-1) {
-												targetedCharacterForSex = charactersPresent.get(0);
-												if(companionCharacter.equals(targetedCharacterForSex)) {
-													companionCharacter = charactersPresent.get(1);
+												characterForSex = charactersPresent.get(0);
+												if(characterForSexSecondary.equals(characterForSex)) {
+													characterForSexSecondary = charactersPresent.get(1);
 												}
 											} else {
-												targetedCharacterForSex = charactersPresent.get(i+1);
-												if(companionCharacter.equals(targetedCharacterForSex)) {
-													companionCharacter = charactersPresent.get((i+2)<charactersPresent.size()?(i+2):0);
+												characterForSex = charactersPresent.get(i+1);
+												if(characterForSexSecondary.equals(characterForSex)) {
+													characterForSexSecondary = charactersPresent.get((i+2)<charactersPresent.size()?(i+2):0);
 												}
 												break;
 											}
@@ -683,7 +683,7 @@ public class OccupantDialogue {
 						
 					} else {
 						return new Response(
-								UtilText.parse(targetedCharacterForSex, "Target: <b>[npc.Name]</b>"),
+								UtilText.parse(characterForSex, "Target: <b>[npc.Name]</b>"),
 								"Cycle the targeted character for group sex.<br/>[style.italicsBad(You'd need to have a companion with you for this action to be unlocked!)]",
 								null); 
 					}

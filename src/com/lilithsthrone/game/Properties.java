@@ -911,7 +911,7 @@ public class Properties {
 						Element e = ((Element)element.getElementsByTagName("weaponType").item(i));
 						
 						if(!e.getAttribute("id").isEmpty()) {
-							weaponsDiscovered.add(WeaponType.idToWeaponMap.get(e.getAttribute("id")));
+							weaponsDiscovered.add(WeaponType.getWeaponTypeFromId(e.getAttribute("id")));
 						}
 					}
 				}
