@@ -8,53 +8,55 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.11
+ * @version 0.3.2
  * @author Innoxia
  */
 public enum MouthType implements BodyPartTypeInterface {
 	
-	HUMAN(BodyCoveringType.MOUTH, Race.HUMAN),
+	HUMAN("mouth", "mouths", BodyCoveringType.MOUTH, Race.HUMAN),
 
-	ANGEL(BodyCoveringType.MOUTH, Race.ANGEL),
+	ANGEL("mouth", "mouths", BodyCoveringType.MOUTH, Race.ANGEL),
 
-	DEMON_COMMON(BodyCoveringType.MOUTH, Race.DEMON),
+	DEMON_COMMON("mouth", "mouths", BodyCoveringType.MOUTH, Race.DEMON),
 
-	DOG_MORPH(BodyCoveringType.MOUTH, Race.DOG_MORPH),
+	DOG_MORPH("mouth", "mouths", BodyCoveringType.MOUTH, Race.DOG_MORPH),
 	
-	WOLF_MORPH(BodyCoveringType.MOUTH, Race.WOLF_MORPH),
+	WOLF_MORPH("mouth", "mouths", BodyCoveringType.MOUTH, Race.WOLF_MORPH),
 	
-	FOX_MORPH(BodyCoveringType.MOUTH, Race.FOX_MORPH),
+	FOX_MORPH("mouth", "mouths", BodyCoveringType.MOUTH, Race.FOX_MORPH),
 	
-	CAT_MORPH(BodyCoveringType.MOUTH, Race.CAT_MORPH),
+	CAT_MORPH("mouth", "mouths", BodyCoveringType.MOUTH, Race.CAT_MORPH),
 	
-	COW_MORPH(BodyCoveringType.MOUTH, Race.COW_MORPH),
+	COW_MORPH("mouth", "mouths", BodyCoveringType.MOUTH, Race.COW_MORPH),
 	
-	SQUIRREL_MORPH(BodyCoveringType.MOUTH, Race.SQUIRREL_MORPH),
+	SQUIRREL_MORPH("mouth", "mouths", BodyCoveringType.MOUTH, Race.SQUIRREL_MORPH),
 	
-	RAT_MORPH(BodyCoveringType.MOUTH, Race.RAT_MORPH),
+	RAT_MORPH("mouth", "mouths", BodyCoveringType.MOUTH, Race.RAT_MORPH),
 	
-	RABBIT_MORPH(BodyCoveringType.MOUTH, Race.RABBIT_MORPH),
+	RABBIT_MORPH("mouth", "mouths", BodyCoveringType.MOUTH, Race.RABBIT_MORPH),
 	
-	BAT_MORPH(BodyCoveringType.MOUTH, Race.BAT_MORPH),
+	BAT_MORPH("mouth", "mouths", BodyCoveringType.MOUTH, Race.BAT_MORPH),
 	
-	ALLIGATOR_MORPH(BodyCoveringType.MOUTH, Race.ALLIGATOR_MORPH),
+	ALLIGATOR_MORPH("mouth", "mouths", BodyCoveringType.MOUTH, Race.ALLIGATOR_MORPH),
 	
-	HORSE_MORPH(BodyCoveringType.MOUTH, Race.HORSE_MORPH),
+	HORSE_MORPH("mouth", "mouths", BodyCoveringType.MOUTH, Race.HORSE_MORPH),
 	
-	REINDEER_MORPH(BodyCoveringType.MOUTH, Race.REINDEER_MORPH),
+	REINDEER_MORPH("mouth", "mouths", BodyCoveringType.MOUTH, Race.REINDEER_MORPH),
 	
-	HARPY(BodyCoveringType.MOUTH, Race.HARPY);
+	HARPY("beak", "beaks", BodyCoveringType.MOUTH, Race.HARPY);
 
-	
+	private String name;
+	private String namePlural;
 	private BodyCoveringType skinType;
 	private Race race;
 	private List<OrificeModifier> defaultRacialOrificeModifiers;
 
-	private MouthType(BodyCoveringType skinType, Race race, OrificeModifier... defaultRacialOrificeModifiers) {
+	private MouthType(String name, String namePlural, BodyCoveringType skinType, Race race, OrificeModifier... defaultRacialOrificeModifiers) {
+		this.name = name;
+		this.namePlural = namePlural;
 		this.skinType = skinType;
 		this.race = race;
 		this.defaultRacialOrificeModifiers = new ArrayList<>();
@@ -83,14 +85,12 @@ public enum MouthType implements BodyPartTypeInterface {
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		return UtilText.returnStringAtRandom(
-				"mouth");
+		return name;
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		return UtilText.returnStringAtRandom(
-				"mouths");
+		return namePlural;
 	}
 	
 	@Override

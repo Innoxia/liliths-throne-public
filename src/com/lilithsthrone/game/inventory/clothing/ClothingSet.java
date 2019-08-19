@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.StatusEffect;
-import com.lilithsthrone.game.combat.SpecialAttack;
+import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.utils.Util;
@@ -164,17 +164,30 @@ public enum ClothingSet {
 					InventorySlot.NECK,
 					InventorySlot.EYES),
 			null,
-			null);
+			null),
+
+	LYSSIETH_GUARD("Lyssieth's Guard",
+			StatusEffect.SET_LYSSIETH_GUARD,
+			4,
+			Util.newArrayListOfValues(
+					InventorySlot.FOOT,
+					InventorySlot.TORSO_OVER,
+					InventorySlot.LEG,
+					InventorySlot.HEAD),
+			null,
+			null)
+	
+	;
 
 
 	private String name;
 	private int numberRequiredForCompleteSet;
 	private List<InventorySlot> blockedSlotsCountingTowardsFullSet;
-	private List<SpecialAttack> specialAttacks;
+	private List<CombatMove> combatMoves;
 	private List<Spell> spells;
 	private StatusEffect associatedStatusEffect;
 
-	private ClothingSet(String name, StatusEffect associatedStatusEffect, int numberRequiredForCompleteSet, List<InventorySlot> blockedSlotsCountingTowardsFullSet, List<SpecialAttack> specialAttacks, List<Spell> spells) {
+	private ClothingSet(String name, StatusEffect associatedStatusEffect, int numberRequiredForCompleteSet, List<InventorySlot> blockedSlotsCountingTowardsFullSet, List<CombatMove> combatMoves, List<Spell> spells) {
 		this.name = name;
 		this.numberRequiredForCompleteSet = numberRequiredForCompleteSet;
 		
@@ -184,7 +197,7 @@ public enum ClothingSet {
 			this.blockedSlotsCountingTowardsFullSet = blockedSlotsCountingTowardsFullSet;
 		}
 		
-		this.specialAttacks = specialAttacks;
+		this.combatMoves = combatMoves;
 		this.spells = spells;
 		this.associatedStatusEffect = associatedStatusEffect;
 	}
@@ -193,7 +206,7 @@ public enum ClothingSet {
 		int setCount = 0;
 		
 		for(InventorySlot slot : this.getBlockedSlotsCountingTowardsFullSet()) {
-			if(slot.slotBlockedByRace(target) != null) {
+			if(slot.getBodyPartClothingBlock(target) != null) {
 				setCount++;
 			}
 		}
@@ -227,8 +240,8 @@ public enum ClothingSet {
 		return numberRequiredForCompleteSet;
 	}
 
-	public List<SpecialAttack> getSpecialAttacks() {
-		return specialAttacks;
+	public List<CombatMove> getCombatMoves() {
+		return combatMoves;
 	}
 
 	public List<Spell> getSpells() {

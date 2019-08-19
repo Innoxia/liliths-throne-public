@@ -1,26 +1,26 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.AnusType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.3.1
  * @author Innoxia
  */
-public class Anus implements BodyPartInterface, Serializable {
+public class Anus implements BodyPartInterface {
 
-	private static final long serialVersionUID = 1L;
 	
 	// Asshole variables:
 	protected AnusType type;
@@ -72,11 +72,21 @@ public class Anus implements BodyPartInterface, Serializable {
 			}
 		}
 		descriptorList.add(wetnessDescriptor);
-		if((owner.getAssHair()==BodyHair.SIX_BUSHY || owner.getAssHair()==BodyHair.THREE_TRIMMED) && Main.game.isAssHairEnabled()) {
+		if(owner.getPubicHair().getValue()>=BodyHair.FOUR_NATURAL.getValue() && Main.game.isAssHairEnabled()) {
 			descriptorList.add("hairy");
 		}
-		descriptorList.add(type.getDescriptor(owner));
-		descriptorList.add(orificeAnus.getCapacity().getDescriptor());
+		
+		if(owner.isAnusBestial()) {
+			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
+					"feral",
+					owner.getAssRace().getName(true)+"-",
+					"bestial",
+					"animalistic")));
+		} else {
+			descriptorList.add(type.getDescriptor(owner));
+		}
+
+		descriptorList.add(Capacity.getCapacityFromValue(orificeAnus.getStretchedCapacity()).getDescriptor());
 		
 		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
@@ -142,67 +152,45 @@ public class Anus implements BodyPartInterface, Serializable {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 			
 		} else {
-			if(owner.isPlayer()) {
-				switch(assHair) {
-					case ZERO_NONE:
-						transformation = "<p>There is no longer any trace of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
-						break;
-					case ONE_STUBBLE:
-						transformation = "<p>You now have a stubbly patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
-						break;
-					case TWO_MANICURED:
-						transformation = "<p>You now have a well-manicured patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
-						break;
-					case THREE_TRIMMED:
-						transformation = "<p>You now have a trimmed patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
-						break;
-					case FOUR_NATURAL:
-						transformation = "<p>You now have a natural amount of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
-						break;
-					case FIVE_UNKEMPT:
-						transformation = "<p>You now have an unkempt bush of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
-						break;
-					case SIX_BUSHY:
-						transformation = "<p>You now have a thick, bushy mass of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
-						break;
-					case SEVEN_WILD:
-						transformation = "<p>You now have a wild, bushy mass of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
-						break;
-				}
-				
-			} else {
-				switch(assHair) {
-					case ZERO_NONE:
-						transformation = UtilText.parse(owner, "<p>There is no longer any trace of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.namePos] asshole.</p>");
-						break;
-					case ONE_STUBBLE:
-						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a stubbly patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
-						break;
-					case TWO_MANICURED:
-						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a well-manicured patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
-						break;
-					case THREE_TRIMMED:
-						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a trimmed patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
-						break;
-					case FOUR_NATURAL:
-						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a natural amount of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
-						break;
-					case FIVE_UNKEMPT:
-						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a unkempt bush of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
-						break;
-					case SIX_BUSHY:
-						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a thick, bushy mass of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
-						break;
-					case SEVEN_WILD:
-						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a wild, bushy mass of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
-						break;
-				}
+			switch(assHair) {
+				case ZERO_NONE:
+					transformation = UtilText.parse(owner, "<p>There is no longer any trace of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.namePos] asshole.</p>");
+					break;
+				case ONE_STUBBLE:
+					transformation = UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a stubbly patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
+					break;
+				case TWO_MANICURED:
+					transformation = UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a well-manicured patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
+					break;
+				case THREE_TRIMMED:
+					transformation = UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a trimmed patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
+					break;
+				case FOUR_NATURAL:
+					transformation = UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a natural amount of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
+					break;
+				case FIVE_UNKEMPT:
+					transformation = UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a unkempt bush of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
+					break;
+				case SIX_BUSHY:
+					transformation = UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a thick, bushy mass of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
+					break;
+				case SEVEN_WILD:
+					transformation = UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a wild, bushy mass of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
+					break;
 			}
 		}
 		
 		this.assHair = assHair;
 		
 		return transformation;
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Anus.class) && getType().getRace().isBestialPartsAvailable();
 	}
 
 }

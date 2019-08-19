@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAttributes>
+    <value>1500</value>
+    <determiner><![CDATA[an]]></determiner>
+    <name><![CDATA[ornate chastity cage]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[ornate chastity cages]]></namePlural>
+    <description><![CDATA[An ornate metal cage, designed to be fit in place around someone's penis in order to prevent it from being used in penetrative sex. When worn, it will physically prevent an erection from occurring.]]></description>
+
+    <physicalResistance>0</physicalResistance>
+    <femininity>ANDROGYNOUS</femininity>
+    <slot>PENIS</slot>
+    <rarity>EPIC</rarity>
+
+    <imageName>ornate_chastity_cage.svg</imageName>
+
+	<clothingSet>BDSM</clothingSet>
+    <imageEquippedName/>
+    <enchantmentLimit/>
+	
+	<effects> 
+		<effect itemEffectType="CLOTHING" limit="0" potency="DRAIN" primaryModifier="CLOTHING_SEALING" secondaryModifier="ARCANE_BOOST" timer="0"/>
+		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+	</effects>
+
+    <blockedPartsList>
+      <blockedParts>
+
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+
+        <clothingAccessRequired>
+          <clothingAccess>GROIN</clothingAccess>
+        </clothingAccessRequired>
+		<blockedBodyParts>
+          <bodyPart>PENIS</bodyPart>
+        </blockedBodyParts>
+		<clothingAccessBlocked/>
+        <concealedSlots/>
+
+      </blockedParts>
+    </blockedPartsList>
+
+    <incompatibleSlots/>
+
+    <primaryColours values="ALL_METAL"/>
+    <primaryColoursDye values="ALL"/>
+    <secondaryColours values="ALL_METAL"/>
+    <secondaryColoursDye values="ALL"/>
+    <tertiaryColours>
+		<colour>CLOTHING_BRASS</colour>
+    </tertiaryColours>
+    <tertiaryColoursDye values="ALL_WITH_METALS"/>
+
+    <itemTags>
+      <tag>SOLD_BY_FINCH</tag>
+      <tag>REQUIRES_PENIS</tag>
+      <tag>PREVENTS_ERECTION_PHYSICAL</tag>
+      <tag>TRANSPARENT</tag>
+      <tag>RIGID_MATERIAL</tag>
+    </itemTags>
+
+  </coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(lock)] the ornate chastity cage in place around [npc.her] cock.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(lock)] the ornate chastity cage in place around [npc2.namePos] cock.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly squeezes [npc2.namePos] cock before locking it inside the ornate chastity cage.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unlock)] and [npc.verb(remove)] the ornate chastity cage that was imprisoning [npc.her] cock.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unlock)] and [npc.verb(remove)] the ornate chastity cage that was imprisoning [npc2.namePos] cock.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] impatiently [npc.verb(unlock)] and [npc.verb(pull)] off the ornate chastity cage that was imprisoning [npc2.namePos] cock.]]>
+    </otherRough>
+  </displacementText>
+
+
+</clothing>

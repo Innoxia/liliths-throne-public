@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 
 <clothing>
-  <coreAtributes>
+  <coreAttributes>
     <value>300</value> <!--10 flames = £1 ~ $1.5-->
     <determiner><![CDATA[a pair of]]></determiner>
     <name><![CDATA[bat wing barbells]]></name>
@@ -51,7 +51,7 @@
       <tag>SOLD_BY_KATE</tag>
     </itemTags>
     
-  </coreAtributes>
+  </coreAttributes>
 
   <displacementText type="REMOVE_OR_EQUIP">
     <playerSelf>

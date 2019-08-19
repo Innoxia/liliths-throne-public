@@ -24,7 +24,7 @@ public enum FluidFlavour {
 			Util.newArrayListOfValues(
 					"sweet")),
 
-	SLIME("slime", BaseColour.GREEN_LIGHT,
+	BUBBLEGUM("bubblegum", BaseColour.PINK_LIGHT,
 			Util.newArrayListOfValues(
 					"sweet")),
 	
@@ -39,7 +39,7 @@ public enum FluidFlavour {
 					"sweet",
 					"vanilla-flavoured")),
 	
-	STRAWBERRY("strawberries", BaseColour.ROSE,
+	STRAWBERRY("strawberries", BaseColour.RED,
 			Util.newArrayListOfValues(
 					"sweet",
 					"strawberry-flavoured")),
@@ -63,7 +63,13 @@ public enum FluidFlavour {
 	
 	MINT("mint", BaseColour.GREEN_LIME,
 			Util.newArrayListOfValues(
-					"minty"));
+					"minty")),
+	
+	CHERRY("cherry", BaseColour.CRIMSON,
+			Util.newArrayListOfValues(
+					"sweet",
+					"cherry-flavoured"))
+	;
 	
 	private String name;
 	private BaseColour colour;

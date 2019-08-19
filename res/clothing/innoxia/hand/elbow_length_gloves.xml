@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>200</value> 
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[elbow-length glove]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[elbow-length gloves]]></namePlural>
+		<description><![CDATA[A pair of elegant, elbow-length gloves. They're made from a thin, soft fabric, and are silky-smooth to the touch.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity> 
+		<slot>HAND</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>elbow_length_gloves.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		<effects/>
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired>
+					<clothingAccess>WRISTS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/> <!--I decided against having these conceal finger slots.-->
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots/> 
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_RED_VERY_DARK</colour>
+			<colour>CLOTHING_PURPLE_VERY_DARK</colour>
+			<colour>CLOTHING_GREEN_DRAB</colour>
+			<colour>CLOTHING_OLIVE</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the elbow-length gloves over [npc.her] [npc.hands], before pulling them up the length of [npc.her] [npc.arms].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the elbow-length gloves over [npc2.namePos] [npc2.hands], before pulling them up length of [npc2.her] [npc2.arms].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(forces)] the elbow-length gloves onto [npc2.namePos] [npc2.hands], before yanking them up the length of [npc2.her] [npc2.arms].]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the elbow-length gloves down [npc.her] [npc.arms], before pulling them free from [npc.her] [npc.hands].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the elbow-length gloves down [npc2.namePos] [npc2.arms], before pulling them free from [npc2.her] [npc2.hands].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(yank)] the elbow-length gloves down [npc2.namePos] [npc2.arms], before roughly pulling them free from [npc2.her] [npc2.hands].]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

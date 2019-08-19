@@ -8,28 +8,30 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
- * @version 0.2.8
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class PartnerTalk {
 	
 	public static final SexAction PARTNER_DIRTY_TALK = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.REQUIRES_NO_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, null)),
 			SexParticipantType.NORMAL) {
 
 		@Override
@@ -48,21 +50,23 @@ public class PartnerTalk {
 		
 		@Override
 		public String getActionTitle() {
+			if(Sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				switch(Sex.getSexPace(Main.game.getPlayer())) {
+					default:
+						return Sex.getCharacterPerformingAction().isFeminine()?"Horny moan":"Horny groan";
+					case DOM_ROUGH:
+						return "Rough growl";
+					case SUB_RESISTING:
+						return "Protesting cry";
+				}
+			}
 			switch(Sex.getSexPace(Sex.getActivePartner())) {
-				case DOM_GENTLE:
-					return "Dirty talk";
-				case DOM_NORMAL:
+				default:
 					return "Dirty talk";
 				case DOM_ROUGH:
 					return "Rough talk";
-				case SUB_EAGER:
-					return "Dirty talk";
-				case SUB_NORMAL:
-					return "Dirty talk";
 				case SUB_RESISTING:
-					return "Beg for [npc2.herHim] to stop";
-				default:
-					return "Dirty talk";
+					return "Beg to stop";
 			}
 		}
 
@@ -73,8 +77,30 @@ public class PartnerTalk {
 
 		@Override
 		public String getDescription() {
+			if(Sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					default:
+						return UtilText.returnStringAtRandom(
+								"As [npc.namePos] mouth is blocked, all [npc.she] can do in place of talking dirty to [npc2.name] is let out a series of horny, muffled [npc.moans].",
+								"With [npc.her] mouth being currently blocked, [npc.nameIsFull] only able to make a series of muffled, lewd [npc.moans] to let [npc2.name] know that [npc.sheIs] enjoying [npc.herself].",
+								"Wanting to let [npc2.name] know that [npc.sheIs] enjoying [npc.herself], but having [npc.her] mouth blocked, [npc.name] [npc.verb(make)] do with letting out a series of incredibly lewd, muffled [npc.moans].",
+								"Although [npc.her] mouth is blocked, [npc.nameIsFull] still able to let out a series of horny, muffled [npc.moans], letting [npc2.name] know that [npc.sheIs] enjoying [npc.herself].");
+					case DOM_ROUGH:
+						return UtilText.returnStringAtRandom(
+								"As [npc.namePos] mouth is blocked, all [npc.she] can do in place of talking rough to [npc2.name] is let out a series of aggressive, muffled growls.",
+								"With [npc.her] mouth being currently blocked, [npc.nameIsFull] only able to make a series of muffled, rough growls to let [npc2.name] know that [npc.sheIs] still firmly in charge.",
+								"Wanting to let [npc2.name] know that [npc.sheIs] still in charge, but having [npc.her] mouth blocked, [npc.name] [npc.verb(make)] do with letting out a series of menacing, muffled growls.",
+								"Although [npc.her] mouth is blocked, [npc.nameIsFull] still able to let out a series of deep, muffled growls, letting [npc2.name] know that [npc.sheIs] still in charge.");
+					case SUB_RESISTING:
+						return UtilText.returnStringAtRandom(
+								"As [npc.namePos] mouth is blocked, all [npc.she] can do in place of begging for mercy is to let out a series of pathetic whines and muffled cries.",
+								"With [npc.her] mouth being currently blocked, [npc.nameIsFull] only able to make a series of muffled sobs and distressed whines to let [npc2.name] know that [npc.she] [npc.verb(want)] to be let go.",
+								"Wanting to let [npc2.name] know that [npc.she] desires to be released, but having [npc.her] mouth blocked, [npc.name] [npc.verb(make)] do with letting out a series of distressed sobs and muffled cries.",
+								"Although [npc.her] mouth is blocked, [npc.nameIsFull] still able to let out a series of distressed whines and muffled sobs, letting [npc2.name] know that [npc.she] [npc.verb(want)] this to stop.");
+				}
+			}
 			
-			if(Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
+			if(Sex.getPosition()==SexPositionBipeds.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexSlotBipeds.DOGGY_ON_ALL_FOURS) {
 				
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
@@ -94,7 +120,7 @@ public class PartnerTalk {
 								+ Sex.getActivePartner().getDirtyTalk();
 				}
 				
-			} else if(Sex.getPosition()==SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
+			} else if(Sex.getPosition()==SexPositionBipeds.KNEELING_ORAL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotBipeds.KNEELING_PERFORMING_ORAL) {
 				
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
@@ -114,7 +140,7 @@ public class PartnerTalk {
 								+ Sex.getActivePartner().getDirtyTalk();
 				}
 				
-			} else if(Sex.getPosition()==SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
+			} else if(Sex.getPosition()==SexPositionBipeds.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexSlotBipeds.KNEELING_PERFORMING_ORAL) {
 				
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
@@ -134,7 +160,7 @@ public class PartnerTalk {
 								+ Sex.getActivePartner().getDirtyTalk();
 				}
 				
-			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
+			} else if(Sex.getPosition()==SexPositionBipeds.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotBipeds.SIXTY_NINE_BOTTOM) {
 				
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:

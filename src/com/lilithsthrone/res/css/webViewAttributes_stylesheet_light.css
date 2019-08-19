@@ -1,6 +1,6 @@
 html {
 	background: #fcfcfc;
-	font-family:Calibri,Carlito;
+	font-family: Calibri, Carlito, sans-serif;
 	font-size:11pt;
 	font-size:7vw; /*font-size:2vw;*/
 	color: #262626;
@@ -220,6 +220,11 @@ h6{
 	opacity:0.20;
 	border-radius:5px;
 }
+.overlay.alt:hover{
+	background-color:#fff;
+	opacity:0.10;
+	border-radius:5px;
+}
 
 
 /***********************************************************/
@@ -245,7 +250,7 @@ h6{
 	box-sizing:border-box;
 	border-radius: 5px;
 	background: #ddd;
-	font-family:Calibri,Carlito;
+	font-family: Calibri, Carlito, sans-serif;
 	font-size:11pt;
 	width:100%;
 	overflow-y: scroll;
@@ -472,6 +477,15 @@ h6{
 	  #ddd 20px
 	);
 }
+.inventory-item-slot.disabled-light, .inventory-item-slot.piercing.disabled-light {
+	background: repeating-linear-gradient(
+	  135deg,
+	  #aaa,
+	  #aaa 10px,
+	  #ddd 10px,
+	  #ddd 20px
+	);
+}
 .inventory-item-slot.concealed, .inventory-item-slot.piercing.concealed {
 	background: #555;
 }
@@ -543,8 +557,8 @@ h6{
 }
 .raceBlockIcon{
 	position:absolute;
-	width:60%;
-	height:60%;
+	width:75%;
+	height:75%;
 	margin:20%;
 	pointer-events: none;
 	-webkit-user-select: none;

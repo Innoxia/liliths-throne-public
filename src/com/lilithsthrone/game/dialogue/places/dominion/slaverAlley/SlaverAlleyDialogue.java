@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.slaverAlley;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -14,24 +15,29 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
+import com.lilithsthrone.game.character.npc.dominion.Finch;
+import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
+import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
-import com.lilithsthrone.game.character.quests.Quest;
-import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
-import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
-import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.occupantManagement.SlavePermission;
+import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.managers.dominion.SMStocks;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
@@ -42,32 +48,33 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.10
+ * @version 0.3.2
  * @author Innoxia
  */
 public class SlaverAlleyDialogue {
 
 	public static void dailyReset() {
 		
-//		List<String> ids = Main.game.getFinch().getSlavesOwned();
+//		List<String> ids = Main.game.getNpc(Finch.class).getSlavesOwned();
 //		for(String id : ids) {
 //			NPC slaveToRemove = (NPC) Main.game.getNPCById(id);
-//			if(slaveToRemove.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK) {
-//				Main.game.getFinch().removeSlave(slaveToRemove);
+//			if(!slaveToRemove.getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK)) {
+//				Main.game.getNpc(Finch.class).removeSlave(slaveToRemove);
 //				Main.game.banishNPC(slaveToRemove);
 //			}
 //		}
-		for(String id : Main.game.getFinch().getSlavesOwned()) {
+		for(String id : Main.game.getNpc(Finch.class).getSlavesOwned()) {
 			if(Main.game.isCharacterExisting(id)) {
 				Main.game.banishNPC(id);
 			}
 		}
-		Main.game.getFinch().removeAllSlaves();
+		Main.game.getNpc(Finch.class).removeAllSlaves();
 		
 		// Female stall:
 		Gender[] genders = new Gender[] {Gender.F_V_B_FEMALE, Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI};
 		for(int i=0; i<genders.length; i++) {
-			NPC slave = new DominionAlleywayAttacker(genders[i]);
+			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
+			slave.setHistory(Occupation.NPC_SLAVE);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -76,8 +83,8 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_FEMALES, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_GOLD, false), true, Main.game.getFinch());
-			Main.game.getFinch().addSlave(slave);
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_GOLD, false), true, Main.game.getNpc(Finch.class));
+			Main.game.getNpc(Finch.class).addSlave(slave);
 			slave.setPlayerKnowsName(true);
 			
 			slave.addFetish(Fetish.FETISH_SUBMISSIVE);
@@ -90,7 +97,8 @@ public class SlaverAlleyDialogue {
 		// Male stall:
 		genders = new Gender[] {Gender.M_P_MALE, Gender.M_P_MALE, Gender.M_P_MALE};
 		for(int i=0; i<genders.length; i++) {
-			NPC slave = new DominionAlleywayAttacker(genders[i]);
+			NPC slave = new DominionAlleywayAttacker(genders[i], false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
+			slave.setHistory(Occupation.NPC_SLAVE);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -99,8 +107,8 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_MALES, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
-			Main.game.getFinch().addSlave(slave);
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
+			Main.game.getNpc(Finch.class).addSlave(slave);
 			slave.setPlayerKnowsName(true);
 			
 			slave.addFetish(Fetish.FETISH_DOMINANT);
@@ -111,7 +119,8 @@ public class SlaverAlleyDialogue {
 
 		// Anal stall:
 		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
+			slave.setHistory(Occupation.NPC_SLAVE);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -120,15 +129,15 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ANAL, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
 			if(i==0) {
-				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug"), false), true, Main.game.getFinch());
+				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug"), false), true, Main.game.getNpc(Finch.class));
 			} else if(i==1) {
-				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_jewel"), false), true, Main.game.getFinch());
+				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_jewel"), false), true, Main.game.getNpc(Finch.class));
 			} else {
-				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_heart"), false), true, Main.game.getFinch());
+				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_heart"), false), true, Main.game.getNpc(Finch.class));
 			}
-			Main.game.getFinch().addSlave(slave);
+			Main.game.getNpc(Finch.class).addSlave(slave);
 			slave.setPlayerKnowsName(true);
 			
 			slave.setAssWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
@@ -144,7 +153,8 @@ public class SlaverAlleyDialogue {
 
 		// Vaginal stall:
 		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(true, false));
+			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(true, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
+			slave.setHistory(Occupation.NPC_SLAVE);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -153,13 +163,13 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_VAGINAL, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
-			Main.game.getFinch().addSlave(slave);
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
+			Main.game.getNpc(Finch.class).addSlave(slave);
 			slave.setPlayerKnowsName(true);
 			
 			slave.setVaginaWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
 			slave.setVaginaCapacity(Util.random.nextInt(Capacity.ONE_EXTREMELY_TIGHT.getMaximumValue()), true);
-			slave.setVaginaVirgin(false);
+			slave.setVaginaVirgin(true);
 			
 			slave.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 			slave.addFetish(Fetish.FETISH_VAGINAL_GIVING);
@@ -168,7 +178,8 @@ public class SlaverAlleyDialogue {
 
 		// Oral stall:
 		for(int i=0; i<3; i++) {
-			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+			NPC slave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
+			slave.setHistory(Occupation.NPC_SLAVE);
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -177,11 +188,11 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ORAL, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getFinch());
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
 			if(Math.random()<0.5f) {
-				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, false), true, Main.game.getFinch());
+				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, false), true, Main.game.getNpc(Finch.class));
 			}
-			Main.game.getFinch().addSlave(slave);
+			Main.game.getNpc(Finch.class).addSlave(slave);
 			slave.setPlayerKnowsName(true);
 
 			slave.setFaceWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
@@ -196,15 +207,40 @@ public class SlaverAlleyDialogue {
 		}
 	}
 	
+	public static void stocksReset(){
+		List<NPC> npcsToBanish = new ArrayList<>();
+		for(NPC npc : Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.SLAVER_ALLEY).getCell(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))) {
+			if(npc instanceof SlaveInStocks) {
+				npcsToBanish.add(npc);
+			}
+		}
+		for(NPC npc : npcsToBanish) {
+			Main.game.banishNPC(npc);
+		}
+		
+		for(int i=0; i<4; i++) {
+			SlaveInStocks slave = new SlaveInStocks(Gender.getGenderFromUserPreferences(false, false));
+			try {
+				Main.game.addNPC(slave, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(Math.random()>0.5f) {
+				Main.game.getNpc(GenericFemaleNPC.class).addSlave(slave);
+			} else {
+				Main.game.getNpc(GenericMaleNPC.class).addSlave(slave);	
+			}
+			slave.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_BODY);
+			slave.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES);
+		}
+	}
 	
 	
-	
-	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("Slaver Alley", "-", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode OUTSIDE = new DialogueNode("Slaver Alley", "-", false) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override
@@ -244,8 +280,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld GATEWAY = new DialogueNodeOld("Gateway", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode GATEWAY = new DialogueNode("Gateway", ".", false) {
 
 		@Override
 		public String getContent() {
@@ -282,12 +317,11 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ALLEYWAY = new DialogueNodeOld("Alleyway", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ALLEYWAY = new DialogueNode("Alleyway", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -336,12 +370,11 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_FEMALE = new DialogueNodeOld("A Woman's Touch", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_FEMALE = new DialogueNode("A Woman's Touch", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -357,8 +390,8 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+					public DialogueNode getNextDialogue() {
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -366,12 +399,11 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_MALE = new DialogueNodeOld("Iron & Steel", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_MALE = new DialogueNode("Iron & Steel", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -387,8 +419,8 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+					public DialogueNode getNextDialogue() {
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -396,12 +428,11 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_ANAL = new DialogueNodeOld("The Rear Entrance", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_ANAL = new DialogueNode("The Rear Entrance", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -417,8 +448,8 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+					public DialogueNode getNextDialogue() {
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -426,12 +457,11 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_VAGINAL = new DialogueNodeOld("White Lilies", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_VAGINAL = new DialogueNode("White Lilies", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -447,8 +477,8 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+					public DialogueNode getNextDialogue() {
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -456,12 +486,11 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_ORAL = new DialogueNodeOld("Viva Voce", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_ORAL = new DialogueNode("Viva Voce", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -477,8 +506,8 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getFinch());
+					public DialogueNode getNextDialogue() {
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -486,17 +515,20 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_STATUE = new DialogueNodeOld("Statue of the Fallen Angel", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_STATUE = new DialogueNode("Statue of the Fallen Angel", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_STATUE");
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.statueTruthRevealed)) {
+				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_STATUE_TRUTH");
+			} else {
+				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL_STATUE");
+			}
 		}
 
 		@Override
@@ -505,12 +537,11 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_EXCLUSIVE = new DialogueNodeOld("Zaibatsu Exchange", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_EXCLUSIVE = new DialogueNode("Zaibatsu Exchange", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -524,12 +555,11 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_BULK = new DialogueNodeOld("Royal Dominion Company", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_BULK = new DialogueNode("Royal Dominion Company", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -543,12 +573,11 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL_CAFE = new DialogueNodeOld("", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL_CAFE = new DialogueNode("", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -562,12 +591,11 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld MARKET_STALL = new DialogueNodeOld("", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode MARKET_STALL = new DialogueNode("", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -593,12 +621,11 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AUCTION_BLOCK = new DialogueNodeOld("Auctioning block", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUCTION_BLOCK = new DialogueNode("Auctioning block", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -606,7 +633,7 @@ public class SlaverAlleyDialogue {
 			return "<p>" // captured or slaves for public sale (seized assets)
 						+ "As you walk towards Slaver Alley's central courtyard, the excited buzz of hundreds of voices grows louder and louder."
 						+ " The source of this incessant din is hard to miss, and takes the form a huge, bustling crowd, which has surrounded a raised wooden platform."
-						+ " Several noticeboards, elevated above the heads of the energetic mob by means of several-metre-high poles, declare this area to be for 'Public Auctions'."
+						+ " Several noticeboards, elevated above the heads of the energetic mob by means of several-[unit.lSize]-high poles, declare this area to be for 'Public Auctions'."
 					+ "</p>"
 					+ "<p>"
 						+ (Main.game.getPlayer().isHasSlaverLicense()
@@ -629,8 +656,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AUCTION_BLOCK_LIST = new DialogueNodeOld("Auctioning block", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUCTION_BLOCK_LIST = new DialogueNode("Auctioning block", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -673,7 +699,7 @@ public class SlaverAlleyDialogue {
 			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
 			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
 			
-			charactersPresent.sort(Comparator.comparing(NPC::getName));
+			Collections.sort(charactersPresent, (e1, e2) -> e1.getName(true).compareTo(e2.getName(true)));
 			
 			if(charactersPresent.isEmpty()) {
 				UtilText.nodeContentSB.append(
@@ -689,7 +715,7 @@ public class SlaverAlleyDialogue {
 					UtilText.nodeContentSB.append(UtilText.parse(slave,
 							"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 								+ "<div style='width:40%; float:left; margin:0; padding:0; text-align:center;'>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b> - "
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName(true)+"</b> - "
 									+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span> "
 									+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"
 										+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName(slave):slave.getSubspecies().getSingularMaleName(slave)))
@@ -699,10 +725,10 @@ public class SlaverAlleyDialogue {
 									+ "<b style='color:"+slave.getObedience().getColour().toWebHexString()+";'>"+slave.getObedienceValue()+ "</b>"
 								+"</div>"
 								+ "<div style='float:left; width:17%; margin:0; padding:0; text-align:center;'>"
-									+ UtilText.formatAsMoney(slave.getValueAsSlave(), "span")
+									+ UtilText.formatAsMoney(slave.getValueAsSlave(true), "span")
 								+"</div>"
 								+ "<div style='float:left; width:17%; margin:0; padding:0; text-align:center;'>"
-									+ UtilText.formatAsMoney((int)(slave.getValueAsSlave()*0.5f), "span")
+									+ UtilText.formatAsMoney((int)(slave.getValueAsSlave(true)*0.5f), "span")
 								+"</div>"
 								+ "<div style='float:left; width:9%; font-weight:bold; margin:0; padding:0;'>"
 									+ "<div id='"+slave.getId()+"_BID' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBid()+"</div></div>"
@@ -734,15 +760,14 @@ public class SlaverAlleyDialogue {
 	
 	public static void setupBidding(NPC slaveToBidOn) {
 		biddingNPC = slaveToBidOn;
-		biddingPrice = (int) (biddingNPC.getValueAsSlave()*0.5f);
+		biddingPrice = (int) (biddingNPC.getValueAsSlave(true)*0.5f);
 		biddingRoundsTotal = Util.random.nextInt(3)+1;
 		biddingRounds = 0;
 		playerBidLeader = false;
 		currentRivalBidder = SlaveAuctionBidder.generateNewSlaveAuctionBidder(biddingNPC);
 	}
 	
-	public static final DialogueNodeOld AUCTION_IMPORT = new DialogueNodeOld("Auctioning block", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUCTION_IMPORT = new DialogueNode("Auctioning block", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -793,8 +818,7 @@ public class SlaverAlleyDialogue {
 	private static boolean playerBidLeader = false;
 	private static SlaveAuctionBidder currentRivalBidder = null;
 	
-	public static final DialogueNodeOld AUCTION_BIDDING = new DialogueNodeOld("Auctioning block", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AUCTION_BIDDING = new DialogueNode("Auctioning block", ".", true) {
 		
 		@Override
 		public boolean isContinuesDialogue() {
@@ -872,7 +896,7 @@ public class SlaverAlleyDialogue {
 						return new Response(UtilText.parse(biddingNPC, "[npc.Name] sold"), "You didn't win the auction, but there's always next time, right?", AUCTION_BLOCK) {
 							@Override
 							public void effects() {
-								Main.game.getFinch().removeSlave(biddingNPC);
+								Main.game.getNpc(Finch.class).removeSlave(biddingNPC);
 								Main.game.banishNPC(biddingNPC);
 							}
 						};
@@ -940,12 +964,11 @@ public class SlaverAlleyDialogue {
 				+ "</tr>";
 	}
 	
-	public static final DialogueNodeOld PUBLIC_STOCKS = new DialogueNodeOld("Public Stocks", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PUBLIC_STOCKS = new DialogueNode("Public Stocks", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -974,13 +997,13 @@ public class SlaverAlleyDialogue {
 									+ " <span style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</span>, has been marked as available for"));
 				
 				sexAvailability.clear();
-				if(npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL)) {
+				if(npc.hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL)) {
 					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>oral</b>");
 				}
-				if(npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL)) {
+				if(npc.hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL)) {
 					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK.toWebHexString()+";'>vaginal</b>");
 				}
-				if(npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL)) {
+				if(npc.hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL)) {
 					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK_DEEP.toWebHexString()+";'>anal</b>");
 				}
 				
@@ -990,7 +1013,7 @@ public class SlaverAlleyDialogue {
 							+" use.</p>");
 				} else {
 					UtilText.nodeContentSB.append(
-							" receiving oral only.</p>");
+							" [style.boldBad(no penetration at all)].</p>");
 				}
 			}
 			
@@ -1006,15 +1029,15 @@ public class SlaverAlleyDialogue {
 				
 			} else if(index <= charactersPresent.size()) {
 				return new ResponseSex(
-						"Use "+charactersPresent.get(index-1).getName(),
+						"Use "+charactersPresent.get(index-1).getName(true),
 						UtilText.parse(charactersPresent.get(index-1), "Walk up to [npc.name] and have some fun..."),
 						false, false,
 						new SMStocks(
-								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
-								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL),
-								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_FUCKING)),
-								Util.newHashMapOfValues(new Value<>(charactersPresent.get(index-1), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))),
+								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL),
+								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL),
+								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STOCKS_FUCKING)),
+								Util.newHashMapOfValues(new Value<>(charactersPresent.get(index-1), SexSlotBipeds.STOCKS_LOCKED_IN_STOCKS))),
 						null,
 						null, AFTER_STOCKS_SEX, "<p>"
 							+ "Deciding that you'd like to have some fun with the [npc.race] in the stocks nearest to you, you walk up behind [npc.herHim]."
@@ -1031,8 +1054,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_STOCKS_SEX = new DialogueNodeOld("Public Stocks", ".", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_STOCKS_SEX = new DialogueNode("Public Stocks", ".", true) {
 
 		@Override
 		public String getContent() {
@@ -1052,360 +1074,5 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld SLAVERY_ADMINISTRATION_EXTERIOR = new DialogueNodeOld("Slavery Administration", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "A large metal sign, bearing the words 'Slavery Administration', is prominently displayed above the entrance to the building before you."
-						+ " Its clean, white-washed walls and heavy oak doors set this particular establishment apart from the rest of the stores in Slaver Alley."
-					+ "</p>"
-					+ "<p>"
-						+ "Noticing a little information board attached to one side of the entrance, you walk up and read what it says."
-						+ " From what you can gather, it appears as though this is an official government building, in which all matters relating to the ownership of slaves, licenses, and businesses dealing in slave-trading are handled."
-						+ " A little piece of paper has been stuck to the bottom of the board, which reads; 'Slaver Licenses are not being issued!'"
-					+ "</p>"
-					+ (Main.game.getPlayer().isHasSlaverLicense()
-						?"<p>"
-							+ "Being in possession of a slaver license yourself, you could enter the Slavery Administration building and make use of its services."
-						+ "</p>"
-						:"<p>"
-							+ "Although it's doubtful that you'd be able to make use of any of its services, it looks like any member of the public is free to enter the building."
-						+ "</p>");
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Enter", "Step inside the 'Slavery Administration' building.", SLAVERY_ADMINISTRATION);
-
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	private static int slaverLicenseCost = 5000;
-	
-	public static final DialogueNodeOld SLAVERY_ADMINISTRATION = new DialogueNodeOld("Slavery Administration", ".", true) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return "<p>"
-						+ "The heavy oak doors of the 'Slavery Administration' building are wide open, and, stepping through the inviting entranceway, you find yourself standing in a cavernous entrance hall."
-						+ " Rows of marble pillars line the edges of the room, with little wooden benches interspersed between them."
-						+ " Two doors are set into the wall opposite you, with signs labelling them as 'Holding pens' and 'Offices'."
-						+ " The only other piece of furniture to be seen is a long, black-marble desk, behind which the black-haired cat-boy, [finch.name], is grinning at you with mischievous eyes."
-					+ "</p>"
-					+ "<p>"
-						+ "[finch.speech(Ah, if it isn't my <i>favourite</i> customer, [pc.name]!)]"
-						+ " he shouts, beckoning you over to the desk."
-						+ " [finch.speech(What can I help you with today?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Walking forwards, you return [finch.namePos] greeting,"
-						+ " [pc.speech(Hi, [finch.name].)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[finch.speech(As an owner of a slaver license, I'm pleased to offer you my services,)]"
-						+ " he says, standing up to reveal his tiny feline cock."
-						+ " [finch.speech(I've got slave collars, with the appropriate paperwork already completed, as well as a large selection of clothing suitable for your slaves!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "As you come to a halt in front of the black marble desk, [finch.name] grins expectantly at you,"
-						+ " [finch.speech(Or, if you'd like, we can discuss the management and handling of your property."
-							+ " Remember, any new slaves you capture will be delivered here first."
-							+ " All the costs of collection and transport are covered in the cost of each slave collar, so just let me know if you want to have your slaves moved elsewhere.)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Thanking [finch.name], you wonder what you do next..."
-					+ "</p>";
-				
-			} else {
-				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.finchIntroduced)) {
-					return "<p>"
-								+ "The heavy oak doors of the 'Slavery Administration' building are wide open, and, stepping through the inviting entranceway, you find yourself standing in a large, cavernous entrance hall."
-								+ " Rows of marble pillars line the edges of the room, with little wooden benches interspersed between them."
-								+ " Two doors are set into the wall opposite you, with signs labelling them as 'Holding pens' and 'Offices'."
-								+ " The only other piece of furniture to be seen is a long, black-marble desk, behind which a black-haired cat-boy is grinning at you with mischievous eyes."
-							+ "</p>"
-							+ "<p>"
-								+ "[finch.speech(Welcome!)]"
-								+ " he shouts, beckoning you over to the desk."
-								+ " [finch.speech(Can I help you with anything?)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Walking forwards, you return the cat-boy's greeting,"
-								+ " [pc.speech(Hello, I was just looking around.)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[finch.speech(I'm afraid that there's not really much to see here."
-									+ " All the <i>fun</i> happens in the holding cells, and they're off-limits."
-									+ " Unless you've got a slaver license, there's really not much I can offer you, except for a good day!)]"
-								+ " he says, standing up and bowing a little."
-								+ " [finch.speech(Oh, where are my manners?! I'm [finch.name], the manager of the Slavery Administration."
-									+ " I keep petitioning my superiors to have the name changed to something a little more <i>exciting</i>, but they're quite set in their ways.)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[pc.speech(I'm [pc.name],)]"
-								+ " you answer, returning the cat-boy's disarming smile."
-								+ " As [finch.name] continues grinning at you, your eyes are drawn down to his groin, where you see that his choice of crotchless chaps and briefs have left his tiny cat-like cock completely exposed."
-							+ "</p>"
-							+ "<p>"
-								+ "Noticing your downwards glance, [finch.name] lets out a little laugh, and you can't help but notice that there's a slightly unsettling edge to his voice,"
-								+ " [finch.speech(I like having easy access! You never know when a disobedient slave needs to be put in their place...)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Due to your lack of a slaver license, [finch.name] is unable to offer you any services."
-								+ " As he sits back down, concealing his exposed groin behind the desk once more, you wonder if you should ask him about how to obtain one."
-							+ "</p>";
-				} else {
-					return "<p>"
-							+ "The heavy oak doors of the 'Slavery Administration' building are wide open, and, stepping through the inviting entranceway, you find yourself standing in a large, cavernous entrance hall."
-							+ " Rows of marble pillars line the edges of the room, with little wooden benches interspersed between them."
-							+ " Two doors are set into the wall opposite you, with signs labelling them as 'Holding pens' and 'Offices'."
-							+ " The only other piece of furniture to be seen is a long, black-marble desk, behind which the black-haired cat-boy, [finch.name], is grinning at you with mischievous eyes."
-						+ "</p>"
-						+ "<p>"
-							+ "[finch.speech(Hello again!)]"
-							+ " he shouts, beckoning you over to the desk."
-							+ " [finch.speech(Can I help you with anything?)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Walking forwards, you return [finch.namePos] greeting,"
-							+ " [pc.speech(Hello, I was just looking around.)]"
-						+ "</p>"
-						+ "<p>"
-						+ "[finch.speech(I'm afraid that there's not really much to see here."
-							+ " All the <i>fun</i> happens in the holding cells, and they're off-limits. Unless you've got a slaver license, there's really not much I can offer you, except for a good day!)]"
-							+ " he says, standing up to reveal his tiny feline cock."
-						+ "</p>"
-						+ "<p>"
-							+ "Due to your lack of a slaver license, [finch.name] is unable to offer you any services."
-							+ " Throwing a grin your way, he sits back down, concealing his exposed groin behind the desk once more."
-						+ "</p>";
-				}
-			}
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				if (index == 1) {
-					return new ResponseTrade("Trade", "Buy slavery-related items.", Main.game.getFinch());
-
-				} else if (index == 5) {
-					return new Response("Slave Manager", "Open the slave management screen.", OccupantManagementDialogue.getSlaveryOverviewDialogue());
-
-				} else if (index == 0) {
-					return new Response("Leave", "Step back outside.", SLAVERY_ADMINISTRATION_EXTERIOR);
-
-				} else {
-					return null;
-				}
-			} else {
-				if (index == 1) {
-					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
-						return new Response("Slaver license", "Ask Finch about obtaining a slaver license.", SLAVERY_ADMINISTRATION_ASK_ABOUT_SLAVER_LICENSE) {
-							@Override
-							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_SLAVERY));
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced);
-							}
-						};
-						
-					} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED) {
-						if(Main.game.getPlayer().getMoney() >= slaverLicenseCost) {
-							return new Response("Present letter (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> "+slaverLicenseCost+")",
-									"Show Finch the letter of recommendation you obtained from Lilaya, and then pay "+slaverLicenseCost+" flames to obtain a slaver license.", SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED) {
-								@Override
-								public void effects() {
-									Main.game.getPlayer().incrementMoney(-slaverLicenseCost);
-								}
-							};
-						} else {
-							return new Response("Present letter (" + UtilText.getCurrencySymbol() + " "+slaverLicenseCost+")", "You don't have enough money to buy a slaver license! You need at least "+slaverLicenseCost+" flames.", null);
-						}
-						
-					} else {
-						return new Response("Present letter (" + UtilText.getCurrencySymbol() + " "+slaverLicenseCost+")", "You need to obtain a letter of recommendation from Lilaya first!", null);
-						
-					}
-					
-				} else if (index == 0) {
-					return new Response("Leave", "Step back outside.", SLAVERY_ADMINISTRATION_EXTERIOR) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced);
-						}
-					};
-
-				} else {
-					return null;
-				}
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld SLAVERY_ADMINISTRATION_ASK_ABOUT_SLAVER_LICENSE = new DialogueNodeOld("Slavery Administration", ".", true) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "Walking up to [finch.namePos] desk, you ask,"
-						+ " [pc.speech(How do I get a slaver license? Is there some kind of form I need to fill out?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[finch.Name] leans back in his chair, grinning up at you."
-						+ " [finch.speech(Yeah, there's a form to fill out, <i>and</i> a fee of five-thousand flames to pay, but slaver licenses aren't handed out to just anyone."
-							+ " If you're looking to apply for one, you're going to have to join the waiting list."
-							+ " Last time I looked, I think the estimated wait time for new applicants is just over four years...)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.speech(Four years?!)]"
-						+ " you exclaim in disbelief."
-						+ " [pc.speech(Is there no other way to get one?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[finch.speech(Well, unless you can get a letter of recommendation from someone who's already got a slaver license, then no, there's no other way."
-							+ " And if you had that, you wouldn't be asking, would you?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[finch.Name] grins up at you, and you can't help but notice the slightly threatening look in his [finch.eyeColour] cat-like eyes."
-						+ " You thank him for the information and step away from the desk, determined to go and ask for a letter of recommendation from Lilaya, the one person you know that can help you out."
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return SLAVERY_ADMINISTRATION.getResponse(0, index);
-		}
-	};
-	
-	public static final DialogueNodeOld SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED = new DialogueNodeOld("Slavery Administration", ".", true) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "Walking up to [finch.namePos] desk, you place the letter of recommendation down in front of him."
-						+ " [pc.speech(I got a letter of recommendation from my aunt, so can I get that license now?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[finch.speech(Hah! It's not quite as easy as that, this just means that you're on the priority list, not that-)]"
-						+ " [finch.name] starts explaining, but as he reads the signature at the bottom of your letter, he stops talking."
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.speech(Is something wrong?)]"
-						+ " you ask, noticing that all the colour has drained from his face."
-					+ "</p>"
-					+ "<p>"
-						+ "[finch.speech(Your aunt is <i>Lilaya</i>?)]"
-						+ " he asks, putting the letter to one side."
-						+ " [finch.speech(Why didn't you say so earlier?! If you've got the five-thousand flame fee, I'll process your license right now!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.speech(Oh, great!)]"
-						+ " you cheerily reply, handing over the money."
-						+ " [pc.speech(I guess you know Lilaya then?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[finch.Name] pulls out a large stack of forms from under his desk, and as he starts filling them out, he replies,"
-						+ " [finch.speech(Of course! Everyone's heard of Lilaya. After all, she's the only half-demon to ever have been recognised by her Lilin mother, right?"
-							+ " Anyway, it will take me about fifteen minutes to fill out these forms, so you can wait on one of the benches if you'd like.)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Thankful for Lilaya's apparent semi-celebrity status, you walk over to one of the wooden benches at the edge of the room and take a seat."
-						+ " True to his word, [finch.name] takes just under fifteen minutes to work his way through the pile of forms, and once he's finished, he calls you back over to his desk."
-					+ "</p>"
-					+ "<p>"
-						+ "[finch.speech(Right, I just need your name and signature here, here, and here,)]"
-						+ " he says, pointing to three different places on the forms,"
-						+ " [finch.speech(then I'll talk you through the rules and regulations.)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Quickly skimming over the forms to make sure that you're not signing your life away by mistake, you then sign in the places that [finch.name] points to."
-						+ " Once you're done, [finch.name] files the papers away beneath his desk, before producing a little checklist, titled 'Slavery rules & regulations'."
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Rules", "Allow [finch.name] to explain the rules to you.", SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED_RULES) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, Quest.SIDE_UTIL_COMPLETE));
-					}
-				};
-
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED_RULES = new DialogueNodeOld("Slavery Administration", ".", true, true) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "[finch.speech(So, before you run off and try to enslave the first person you meet, you need to be aware of the basics,)]"
-							+ " [finch.name] states, pointing down at the checklist in front of him."
-						+ " [finch.speech(First off, all slaves are meant to wear an enchanted slave collar, which can only be purchased from here at the Slavery Administration building."
-							+ " Although some slave owners allow their slaves to work without wearing one, we strongly advise against this."
-							+ " We're unable to track down any runaway slaves who don't have their collars on, so if you decide to take theirs off, don't come crying to me when they run away!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.speech(Alright,)] you reply, nodding for Finch to continue."
-					+ "</p>"
-					+ "<p>"
-						+ "[finch.speech(Now, you won't need to worry about this if you're only planning on buying and selling slaves, but if you're hoping to enslave people, then there are some *strict* limitations."
-							+ " You can only enslave two sorts of people; those that are willing, and those that have broken the law."
-							+ " Slave collars have a special enchantment in them that detects if the wearer falls into either one of those categories, so don't try and run around making just anyone into your slave!)]" 
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.speech(That makes sense,)] you reply."
-					+ "</p>"
-					+ "<p>"
-						+ "[finch.speech(Good. Now, assuming you're interested in enslaving people, the last thing you need to be aware of is what happens once you clasp a collar around a new slave's neck."
-							+ " As soon as it clips into place, and provided that the new wearer is willing to be enslaved or is wanted by the Enforcers, the collar's special enchantment will activate,)]"
-						+ " [finch.name] says, grinning,"
-						+ " [finch.speech(and they'll be teleported right into the holding cells in this very building!"
-							+ " Now, normally this kind of spell is limited to only the most powerful of arcane users, so you might be shocked the first time you see it!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.speech(So I have to come here and pick up everyone I enslave?)] you ask."
-					+ "</p>"
-					+ "<p>"
-						+ "[finch.speech(Exactly! We had to add this enchantment to the collars a few years ago to counteract some nasty illegal enslavement practices."
-							+ " With this new system, we're making sure that all slaves go through the proper channels.)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[finch.Name] picks up the last piece of paper you signed and holds it out for you to take."
-						+ " [finch.speech(That's all there really is to it. With this license, you're able to buy and sell slaves in any manner you like."
-							+ " The only restriction is on enslavement, which, as I said, can only be done to those who are willing, or those who are wanted by the Enforcers.)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Thanking him for explaining things to you, you take your new slaver license from [finch.name], who has some final words,"
-						+ " [finch.speech(Now that you've got a license, I can sell you some slave collars if you'd like. I've also got a few more fun things in stock...)]"
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return SLAVERY_ADMINISTRATION.getResponse(0, index);
-		}
-	};
 	
 }

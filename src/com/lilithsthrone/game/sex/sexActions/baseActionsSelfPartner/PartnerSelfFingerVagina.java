@@ -8,12 +8,11 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -53,7 +52,7 @@ public class PartnerSelfFingerVagina {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
+			if(Sex.getPosition()==SexPositionBipeds.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexSlotBipeds.DOGGY_ON_ALL_FOURS) {
 				return (UtilText.returnStringAtRandom(
 						"Reaching back between [npc.her] [npc.legs], [npc.name] teases [npc.her] [npc.fingers] over the entrance to [npc.her] [npc.pussy+],"
 								+ " before letting out [npc.a_moan+] as [npc.she] uses [npc.her] digits to spread out [npc.her] labia for you.",
@@ -127,11 +126,6 @@ public class PartnerSelfFingerVagina {
 		}
 		
 		@Override
-		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
-		}
-		
-		@Override
 		public String getActionTitle() {
 			return "Gentle fingering (self)";
 		}
@@ -166,11 +160,6 @@ public class PartnerSelfFingerVagina {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.NPC_ONLY;
-		}
-		
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -211,11 +200,6 @@ public class PartnerSelfFingerVagina {
 		}
 		
 		@Override
-		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
-		}
-		
-		@Override
 		public String getActionTitle() {
 			return "Rough fingering (self)";
 		}
@@ -253,11 +237,6 @@ public class PartnerSelfFingerVagina {
 		}
 		
 		@Override
-		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
-		}
-		
-		@Override
 		public String getActionTitle() {
 			return "Finger self";
 		}
@@ -292,11 +271,6 @@ public class PartnerSelfFingerVagina {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.NPC_ONLY;
-		}
-		
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override

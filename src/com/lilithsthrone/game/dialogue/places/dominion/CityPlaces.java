@@ -6,17 +6,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.lilithsthrone.game.Season;
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
+import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.ReindeerOverseerDialogue;
@@ -30,12 +30,14 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Season;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.3.1
  * @author Innoxia
  */
 public class CityPlaces {
@@ -117,20 +119,27 @@ public class CityPlaces {
 			if(npc instanceof RentalMommy) {
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 					mommyResponses.add(new Response("Mommy", "'Mommy' is not sitting on her usual bench, and you suppose that she's waiting out the current storm inside her house.", null));
+				} else {
+					mommyResponses.add(new Response("Mommy", "You see 'Mommy' sitting on the wooden bench outside her house. Walk up to her and say hello.", RentalMommyDialogue.ENCOUNTER) {
+						@Override
+						public void effects() {
+							Main.game.setActiveNPC(npc);	
+						}
+					});
 				}
-				mommyResponses.add(new Response("Mommy", "You see 'Mommy' sitting on the wooden bench outside her house. Walk up to her and say hello.", RentalMommyDialogue.ENCOUNTER) {
-					@Override
-					public void effects() {
-						Main.game.setActiveNPC(npc);	
-					}
-				});
 			}
 			
 			if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) {
-				occupantResponses.add(new Response(UtilText.parse(npc, "[npc.Name]"), UtilText.parse(npc, "Head over to [npc.namePos] apartment building and pay [npc.herHim] a visit."), OccupantDialogue.OCCUPANT_APARTMENT) {
+				occupantResponses.add(new Response(
+						UtilText.parse(npc, "[npc.Name]"),
+						UtilText.parse(npc,
+								Main.game.getPlayer().getCompanions().contains(npc)
+									?"Head back over to [npc.namePos] apartment."
+									:"Head over to [npc.namePos] apartment building and pay [npc.herHim] a visit."),
+						OccupantDialogue.OCCUPANT_APARTMENT) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(npc);
+						OccupantDialogue.initDialogue(npc, true);
 					}
 				});
 			}
@@ -168,12 +177,11 @@ public class CityPlaces {
 		return mommyResponses;
 	}
 	
-	public static final DialogueNodeOld STREET = new DialogueNodeOld("Dominion Streets", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STREET = new DialogueNode("Dominion Streets", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -216,11 +224,11 @@ public class CityPlaces {
 					}
 					
 					UtilText.nodeContentSB.append("<p>"
-								+ "The streets are very busy at this time of day, and are filled with people hurrying to and fro."
+								+ "The streets are very busy at this time of day, and are packed with people hurrying to and fro."
 								+ " Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way."
 								+ " You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and"
 								+ " all the other sorts that you'd find in any old city."
-								+ " As the streets are quiet at this time, you have plenty of room to weave your way through the sparse crowds."
+								+ " As the streets are so busy at this time, you find yourself having to occasionally push your way through the dense crowds."
 							+ "</p>"
 							+ "<p>"
 								+ "Most of the people around you are partial or lesser morphs, although there are a quite a few greater morphs to be seen walking the streets as well."
@@ -243,10 +251,17 @@ public class CityPlaces {
 							+ " <p>"
 								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
 								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
-								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
-								+ " They sometimes cast a curious glance your way, but most are content to simply ignore you."
-							+ "</p>"
-							+ " <p>"
+								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street.");
+					
+					if(Main.game.getPlayer().getRace()==Race.DEMON) {
+						UtilText.nodeContentSB.append(" They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you.");
+					} else {
+						UtilText.nodeContentSB.append(" They sometimes cast a curious glance your way, but most are content to simply ignore you.");
+					}
+					
+					UtilText.nodeContentSB.append(
+							"</p>"
+							+ "<p>"
 								+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
 								+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
 								+ " If they catch you, they'll be sure to force you into a fight."
@@ -305,12 +320,19 @@ public class CityPlaces {
 								+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
 								+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
 							+ "</p>"
-							+ " <p>"
+							+ "<p>"
 								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
 								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
-								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street."
-								+ " They sometimes cast a curious glance your way, but most are content to simply ignore you."
-							+ "</p>"
+								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street.");
+				
+				if(Main.game.getPlayer().getRace()==Race.DEMON) {
+					UtilText.nodeContentSB.append(" They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you.");
+				} else {
+					UtilText.nodeContentSB.append(" They sometimes cast a curious glance your way, but most are content to simply ignore you.");
+				}
+				
+				UtilText.nodeContentSB.append(
+							"</p>"
 							+ " <p>"
 								+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
 								+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
@@ -392,12 +414,11 @@ public class CityPlaces {
 	}
 
 	
-	public static final DialogueNodeOld BACK_ALLEYS = new DialogueNodeOld("Back Alleys", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BACK_ALLEYS = new DialogueNode("Back Alleys", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 
 		@Override
@@ -424,7 +445,7 @@ public class CityPlaces {
 						"Explore the alleyways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -434,12 +455,11 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld DARK_ALLEYS = new DialogueNodeOld("Dark Alleyways", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DARK_ALLEYS = new DialogueNode("Dark Alleyways", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 
 		@Override
@@ -466,7 +486,7 @@ public class CityPlaces {
 						"Explore the alleyways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -476,12 +496,11 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld BACK_ALLEYS_CANAL = new DialogueNodeOld("Canal Crossing", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BACK_ALLEYS_CANAL = new DialogueNode("Canal Crossing", ".", false) {
 		
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 		
 		@Override
@@ -504,7 +523,7 @@ public class CityPlaces {
 						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -514,12 +533,11 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld BOULEVARD = new DialogueNodeOld("Dominion Boulevard", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode BOULEVARD = new DialogueNode("Dominion Boulevard", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 90;
 		}
 
 		@Override
@@ -596,12 +614,11 @@ public class CityPlaces {
 	};
 
 	
-	public static final DialogueNodeOld DOMINION_PLAZA = new DialogueNodeOld("Lilith's Plaza", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DOMINION_PLAZA = new DialogueNode("Lilith's Plaza", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 10;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 
 		@Override
@@ -615,9 +632,9 @@ public class CityPlaces {
 					+ "<p>"
 						+ "Numerous grandiose statues and extravagantly-detailed water fountains, all carved from polished white marble, reside within this large area."
 						+ " Each one of these sculptures appears to represent a demon or Lilin, and although they're each a marvellous work of art, the one in the very middle of the square is quite simply breathtaking."
-						+ " On top of a plinth of at least thirty metres in height, stands a gigantic marble statue of Lilith herself;"
+						+ " On top of a plinth of at least [unit.lSizes(3000)] in height, stands a gigantic marble statue of Lilith herself;"
 							+ " with wings fully unfurled, and with her hands resting on her wide hips, she smirks down with a visage of manic delight at the crowds below."
-						+ " Completely naked, every inch of the effigy's subject is on display for all to see, and you find yourself looking straight up at Lilith's tight pussy as you marvel at the workmanship that went into this astounding piece of art."
+						+ " Completely naked, every [unit.size] of the effigy's subject is on display for all to see, and you find yourself looking straight up at Lilith's tight pussy as you marvel at the workmanship that went into this astounding piece of art."
 					+ "</p>");
 			
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
@@ -695,12 +712,11 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld DOMINION_PLAZA_NEWS = new DialogueNodeOld("Lilith's Plaza", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode DOMINION_PLAZA_NEWS = new DialogueNode("Lilith's Plaza", ".", false, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -720,8 +736,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld PARK = new DialogueNodeOld("Park", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARK = new DialogueNode("Park", ".", false) {
 
 		@Override
 		public String getAuthor() {
@@ -729,8 +744,8 @@ public class CityPlaces {
 		}
 		
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 
 		@Override
@@ -765,8 +780,7 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld PARK_ROSE_GARDEN = new DialogueNodeOld("Park", ".", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode PARK_ROSE_GARDEN = new DialogueNode("Park", ".", false, true) {
 
 		@Override
 		public String getAuthor() {
@@ -774,8 +788,8 @@ public class CityPlaces {
 		}
 		
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 30;
 		}
 
 		@Override
@@ -808,12 +822,11 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld STREET_SHADED = new DialogueNodeOld("Dominion Streets (Shaded)", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STREET_SHADED = new DialogueNode("Dominion Streets (Shaded)", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -823,8 +836,7 @@ public class CityPlaces {
 						+ "<b style='color:"+Colour.RACE_HARPY.toWebHexString()+";'>Harpy Nests:</b><br/>"
 						+ "The wooden platforms and bridges of the rooftop Harpy Nests cast a shadow over these streets."
 						+ " Looking up, you see the occasional flash of brightly-coloured feathers as harpies swoop this way and that."
-					+ "</p>"
-					+ getExtraStreetFeatures();
+					+ "</p>";
 		}
 
 		@Override
@@ -842,12 +854,11 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld CANAL = new DialogueNodeOld("Dominion Canals", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CANAL = new DialogueNode("Dominion Canals", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 
 		@Override
@@ -879,7 +890,7 @@ public class CityPlaces {
 						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -889,12 +900,11 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld CANAL_END = new DialogueNodeOld("Dominion Canals", ".", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CANAL_END = new DialogueNode("Dominion Canals", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -915,7 +925,7 @@ public class CityPlaces {
 						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -927,12 +937,11 @@ public class CityPlaces {
 
 	// Entrances and exits:
 
-	public static final DialogueNodeOld CITY_EXIT_SEWERS = new DialogueNodeOld("Submission Entrance", "Enter the undercity of Submission.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CITY_EXIT_SEWERS = new DialogueNode("Submission Entrance", "Enter the undercity of Submission.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
@@ -952,7 +961,7 @@ public class CityPlaces {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.visitedSubmission, false);
 						}
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
-						Main.game.getClaire().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
+						Main.game.getNpc(Claire.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
 					}
 				};
 
@@ -962,12 +971,11 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld CITY_EXIT_SEWERS_ENTERING_SUBMISSION = new DialogueNodeOld("Enforcer Checkpoint", "Enter the undercity of Submission.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CITY_EXIT_SEWERS_ENTERING_SUBMISSION = new DialogueNode("Enforcer Checkpoint", "Enter the undercity of Submission.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 		
 		@Override
@@ -990,7 +998,7 @@ public class CityPlaces {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.visitedSubmission, true);
 						}
 						@Override
-						public DialogueNodeOld getNextDialogue(){
+						public DialogueNode getNextDialogue(){
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
@@ -1004,121 +1012,47 @@ public class CityPlaces {
 		}
 	};
 	
-	public static final DialogueNodeOld CITY_EXIT_JUNGLE = new DialogueNodeOld("Jungle Entrance", "Travel to the jungle.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CITY_EXIT = new DialogueNode("Dominion Exit", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "A sign next to the road informs you that this path leads to the demonic jungles."
-					+ " A pair of enforcers are preventing anyone from travelling to the jungle right now."
-					+ "</p>"
-					+ "<p>"
-					+ "<b>Scheduled for release in version 0.4.0.</b>"
+			if(Main.game.getPlayer().isDiscoveredWorldMap()) {
+				return "<p>"
+						+ "A pair of elite demon enforcers are keeping a close watch on everyone who enters or leaves the city."
+						+ " Now that you have a map, as well as business out there in the world beyond Dominion, there's nothing stopping you from leaving right now."
 					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Jungle", "Travel to the demonic jungle. (This will be added later!)", null){
-//					@Override
-//					public void specialEffects() {
-//						Main.mainController.moveGameWorld(true);
-//					}
-				};
-
+				
 			} else {
-				return null;
+				return "<p>"
+							+ "A pair of elite demon enforcers are keeping a close watch on everyone who enters or leaves the city."
+							+ " Although there's nothing stopping you from heading out into the world beyond, you have no reason to leave Dominion at the moment, and, without a map, you imagine that it would be quite easy to get lost."
+						+ "</p>"
+						+ "<p>"
+							+ "Your quest to find out how to return to your old world will no doubt eventually lead you to places other than Dominion, but for now, your business is within the city itself."
+						+ "</p>";
 			}
 		}
-	};
-	public static final DialogueNodeOld CITY_EXIT_FIELDS = new DialogueNodeOld("Fields Entrance", "Travel to the fields.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 5;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "A sign next to the road informs you that this path leads to the outskirts of the city."
-					+ " A pair of enforcers are preventing anyone from travelling to the fields right now."
-					+ "</p>"
-					+ "<p>"
-					+ "<b>Scheduled for release in version 0.3.0.</b>"
-					+ "</p>";
-		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Fields", "Travel to the fields. (This will be added later!)", null);
-
-			} else {
-				return null;
-			}
-		}
-	};
-	public static final DialogueNodeOld CITY_EXIT_SEA = new DialogueNodeOld("Endless Sea Entrance", "Travel to the Endless Sea.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 5;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "A sign next to the road informs you that this path leads to the endless sea."
-					+ " A pair of enforcers are preventing anyone from travelling to the endless sea right now."
-					+ "</p>"
-					+ "<p>"
-					+ "<b>Scheduled for release in version 0.6.0.</b>"
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Endless Sea", "Travel to the Endless Sea. (This will be added later!)", null);
-
-			} else {
-				return null;
-			}
-		}
-	};
-	public static final DialogueNodeOld CITY_EXIT_DESERT = new DialogueNodeOld("Desert Entrance", "Travel to the desert.", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 5;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "A sign next to the road informs you that this path leads to the desert."
-					+ " A pair of enforcers are preventing anyone from travelling to the desert right now."
-					+ "</p>"
-					+ "<p>"
-					+ "<b>Scheduled for release in version 0.5.0.</b>"
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Desert", "Travel to the desert. (This will be added later!)", null);
+				if(Main.game.getPlayer().isDiscoveredWorldMap()) {
+					return new ResponseEffectsOnly("World travel", "Exit Dominion and head out into the wide world...") {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.WORLD_MAP, Main.game.getPlayer().getGlobalLocation(), false);
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+						}
+					};
+					
+				} else {
+					return new Response("World travel", "You don't know what the rest of the world looks like, and, for now, your business is within the city.", null);
+				}
 
 			} else {
 				return null;

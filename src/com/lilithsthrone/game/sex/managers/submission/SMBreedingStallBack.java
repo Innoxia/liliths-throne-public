@@ -4,42 +4,43 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexPositionType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 
 /**
  * @since 0.2.7
- * @version 0.2.7
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMBreedingStallBack extends SexManagerDefault {
 
-	public SMBreedingStallBack(boolean vaginalAllowed, boolean analAllowed, boolean oralAllowed, Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.BREEDING_STALL_BACK,
+	public SMBreedingStallBack(boolean vaginalAllowed, boolean analAllowed, boolean oralAllowed, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPositionBipeds.BREEDING_STALL_BACK,
 				dominants,
 				submissives);
 		
 		for(GameCharacter character : submissives.keySet()) {
-			orificesBannedMap.put(character, new ArrayList<>());
+			getAreasBannedMap().put(character, new ArrayList<>());
 		}
 		
 		if(!vaginalAllowed) {
 			for(GameCharacter character : submissives.keySet()) {
-				orificesBannedMap.get(character).add(SexAreaOrifice.VAGINA);
+				getAreasBannedMap().get(character).add(SexAreaOrifice.VAGINA);
 			}
 		}
 		
 		if(!analAllowed) {
 			for(GameCharacter character : submissives.keySet()) {
-				orificesBannedMap.get(character).add(SexAreaOrifice.ANUS);
+				getAreasBannedMap().get(character).add(SexAreaOrifice.ANUS);
 			}
 		}
 		
 		if(!oralAllowed) {
 			for(GameCharacter character : submissives.keySet()) {
-				orificesBannedMap.get(character).add(SexAreaOrifice.MOUTH);
+				getAreasBannedMap().get(character).add(SexAreaOrifice.MOUTH);
 			}
 		}
 	}
@@ -50,12 +51,12 @@ public class SMBreedingStallBack extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
 		return getDominants().containsKey(character);
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 }

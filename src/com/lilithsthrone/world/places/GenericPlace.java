@@ -1,6 +1,5 @@
 package com.lilithsthrone.world.places;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,29 +10,28 @@ import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.utils.BaseColour;
+import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.EntranceType;
 
 /**
  * @since 0.1.?
- * @version 0.2.5
+ * @version 0.3
  * @author Innoxia
  */
-public class GenericPlace implements Serializable, XMLSaving {
-
-	private static final long serialVersionUID = 1L;
+public class GenericPlace implements XMLSaving {
 	
 	private String name;
-	private PlaceType placeType;
+	private AbstractPlaceType placeType;
 	private Set<PlaceUpgrade> placeUpgrades;
 	
-	public static Map<PlaceType, Integer> placeCountMap = new HashMap<>();
+	public static Map<AbstractPlaceType, Integer> placeCountMap = new HashMap<>();
 
-	public GenericPlace(PlaceType placeType) {
+	public GenericPlace(AbstractPlaceType placeType) {
 		this.placeType=placeType;
 		placeUpgrades = new HashSet<>();
 		
@@ -58,8 +56,10 @@ public class GenericPlace implements Serializable, XMLSaving {
 		Element element = doc.createElement("place");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "name", this.getName());
-		CharacterUtils.addAttribute(doc, element, "type", this.getPlaceType().toString());
+		if(!this.getName().equals(this.getPlaceType().getName())) {
+			CharacterUtils.addAttribute(doc, element, "name", this.getName());
+		}
+		CharacterUtils.addAttribute(doc, element, "type", PlaceType.getIdFromPlaceType(this.getPlaceType()));
 		
 		if(!this.getPlaceUpgrades().isEmpty()) {
 			Element innerElement = doc.createElement("placeUpgrades");
@@ -97,9 +97,28 @@ public class GenericPlace implements Serializable, XMLSaving {
 			placeType = "LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR";
 			
 		}
+		else if(placeType.equals("DOMINION_EXIT_TO_JUNGLE")) {
+			placeType = "DOMINION_EXIT_EAST";
+		}
+		else if(placeType.equals("DOMINION_EXIT_TO_DESERT")) {
+			placeType = "DOMINION_EXIT_SOUTH";
+		}
+		else if(placeType.equals("DOMINION_EXIT_TO_FIELDS")) {
+			placeType = "DOMINION_EXIT_NORTH";
+		}
+		else if(placeType.equals("DOMINION_EXIT_TO_SEA")) {
+			placeType = "DOMINION_EXIT_WEST";
+		}
 		
-		GenericPlace place = new GenericPlace(PlaceType.valueOf(placeType));
-		place.setName(parentElement.getAttribute("name"));
+		GenericPlace place = new GenericPlace(PlaceType.getPlaceTypeFromId(placeType));
+		if(!parentElement.getAttribute("name").isEmpty()
+				&& (!Main.isVersionOlderThan(Game.loadingVersion, "0.3")
+					|| (!place.getPlaceType().equals(PlaceType.DOMINION_EXIT_NORTH)
+						&& !place.getPlaceType().equals(PlaceType.DOMINION_EXIT_SOUTH)
+						&& !place.getPlaceType().equals(PlaceType.DOMINION_EXIT_EAST)
+						&& !place.getPlaceType().equals(PlaceType.DOMINION_EXIT_WEST)))) {
+			place.setName(parentElement.getAttribute("name"));
+		}
 		
 		try {
 			if(parentElement.getElementsByTagName("placeUpgrades").getLength()>0 && ((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength()>0) {
@@ -147,7 +166,7 @@ public class GenericPlace implements Serializable, XMLSaving {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(o instanceof GenericPlace){
 			if(((GenericPlace)o).getPlaceType() == placeType
 				&& ((GenericPlace)o).getPlaceUpgrades().equals(placeUpgrades)){
@@ -173,15 +192,15 @@ public class GenericPlace implements Serializable, XMLSaving {
 		this.name = name;
 	}
 
-	public BaseColour getColour() {
-		return placeType.getColour();
+	public String getColourString() {
+		return placeType.getColourString();
 	}
 
-	public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
+	public DialogueNode getDialogue(boolean withRandomEncounter) {
 		return getDialogue(withRandomEncounter, false);
 	}
 	
-	public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+	public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 		return placeType.getDialogue(withRandomEncounter, forceEncounter);
 	}
 
@@ -208,7 +227,7 @@ public class GenericPlace implements Serializable, XMLSaving {
 	
 	// For determining where this place should be placed:
 	
-	public PlaceType getParentPlaceType() {
+	public AbstractPlaceType getParentPlaceType() {
 		return placeType.getParentPlaceType();
 	}
 	
@@ -287,11 +306,11 @@ public class GenericPlace implements Serializable, XMLSaving {
 	}
 	
 
-	public PlaceType getPlaceType() {
+	public AbstractPlaceType getPlaceType() {
 		return placeType;
 	}
 
-	public void setPlaceType(PlaceType placeType) {
+	public void setPlaceType(AbstractPlaceType placeType) {
 		this.placeType = placeType;
 	}
 

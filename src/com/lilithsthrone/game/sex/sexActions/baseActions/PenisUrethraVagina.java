@@ -58,7 +58,7 @@ public class PenisUrethraVagina {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, greedily sinking [npc.her] [npc.cock+] into [npc2.her] [npc2.vaginaUrethra+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.labia+], "
-									+ "and with a determined [npc2.verb(thrust)], [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.vaginaUrethra+]."));
+									+ "and with a determined thrust, [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.vaginaUrethra+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -66,7 +66,7 @@ public class PenisUrethraVagina {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before violently slamming forwards, forcing [npc.her] [npc.cock+] deep into [npc2.her] [npc2.vaginaUrethra+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.labia+],"
-									+ " and with a forceful [npc2.verb(thrust)], [npc.she] roughly slams it deep into [npc2.her] [npc2.vaginaUrethra+]."));
+									+ " and with a forceful thrust, [npc.she] roughly slams it deep into [npc2.her] [npc2.vaginaUrethra+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -74,7 +74,7 @@ public class PenisUrethraVagina {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, greedily sinking [npc.her] [npc.cock+] into [npc2.her] [npc2.vaginaUrethra+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.labia+],"
-									+ " and with a determined [npc2.verb(thrust)], [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.vaginaUrethra+]."));
+									+ " and with a determined thrust, [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.vaginaUrethra+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -82,7 +82,7 @@ public class PenisUrethraVagina {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, sinking [npc.her] [npc.cock+] into [npc2.her] [npc2.vaginaUrethra+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.labia+],"
-									+ " and with a little [npc2.verb(thrust)], [npc.she] [npc.verb(sink)] it deep into [npc2.her] [npc2.vaginaUrethra+]."));
+									+ " and with a little thrust, [npc.she] [npc.verb(sink)] it deep into [npc2.her] [npc2.vaginaUrethra+]."));
 					break;
 				default:
 					break;
@@ -624,7 +624,7 @@ public class PenisUrethraVagina {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.her] [npc2.cock] inside of [npc.herHim],"
-									+ " and, struggling against [npc.herHim], [npc2.she] desperately tries to pull [npc2.her] [npc2.cock+] free from [npc.her] [npc.vaginaUrethra+].",
+									+ " and, struggling against [npc.herHim], [npc2.she] desperately [npc2.verb(try)] to pull [npc2.her] [npc2.cock+] free from [npc.her] [npc.vaginaUrethra+].",
 
 							" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc2.her] [npc2.cock] deep into [npc.her] [npc.vaginaUrethra+]."));
 					break;

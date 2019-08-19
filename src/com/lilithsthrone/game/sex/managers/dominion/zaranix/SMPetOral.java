@@ -3,26 +3,26 @@ package com.lilithsthrone.game.sex.managers.dominion.zaranix;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 
 /**
  * @since 0.2.3
- * @version 0.2.3
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMPetOral extends SexManagerDefault {
 
-	public SMPetOral(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.PET_ORAL,
+	public SMPetOral(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPositionBipeds.PET_ORAL,
 				dominants,
 				submissives);
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 
@@ -38,6 +38,6 @@ public class SMPetOral extends SexManagerDefault {
 
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Sex.getNumberOfOrgasms(Sex.getActivePartner())>0;
+		return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
 	}
 }

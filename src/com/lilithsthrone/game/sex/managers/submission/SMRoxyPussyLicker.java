@@ -3,21 +3,23 @@ package com.lilithsthrone.game.sex.managers.submission;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.character.npc.submission.Roxy;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.6
- * @version 0.2.6
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMRoxyPussyLicker extends SexManagerDefault {
 	
-	public SMRoxyPussyLicker(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.FACE_SITTING,
+	public SMRoxyPussyLicker(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPositionBipeds.FACE_SITTING,
 				dominants,
 				submissives);
 	}
@@ -28,12 +30,12 @@ public class SMRoxyPussyLicker extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
 		return false;
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 	
@@ -44,7 +46,7 @@ public class SMRoxyPussyLicker extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Sex.getNumberOfOrgasms(Main.game.getRoxy())>=1;
+		return Sex.getNumberOfOrgasms(Main.game.getNpc(Roxy.class))>=1;
 	}
 	
 }

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>3000</value> 
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[Witch's dress]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[Witch's dresses]]></namePlural> 
+		
+		<description><![CDATA[A witch's dress, made of a thin, soft fabric. It has a flared sleeves and a short skirt. A series of ribbons connect the collar to front of the dress, and when worn, they create a pentagram pattern.]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>FEMININE</femininity> 
+		
+		<slot>TORSO_UNDER</slot> 
+		
+		<rarity>EPIC</rarity> 
+		
+		<clothingSet>WITCH</clothingSet> 
+		
+		<imageName>witch_dress.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit>10</enchantmentLimit>
+		
+		<effects> 
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_SPELLS" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
+		</effects>
+		
+		<blockedPartsList> 
+		
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType> 
+				
+				<clothingAccessRequired/>
+				
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				
+				<concealedSlots values="CONCEALED_GROIN"/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="BLACK_OR_WHITE"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_GOLD"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>DRESS</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] on the Witch's dress, tidying the skirt down before moving the straps into a comfortable position on [npc.her] shoulders.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the Witch's dress over [npc2.namePos] head and down around [npc2.her] torso, tidying the skirt before moving the straps to sit comfortably on [npc2.her] shoulders.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] the Witch's dress over [npc2.namePos] head and down around [npc2.her] torso, pulling down the skirt before moving the straps to sit on [npc2.her] shoulders.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] Witch's dress up over [npc.her] head and [npc.verb(take)] it off.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] Witch's dress up over [npc2.her] head and [npc.verb(take)] it off.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(grab)] hold of [npc2.namePos] Witch's dress, before roughly pulling it up over [npc2.her] head and taking it off.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] Witch's dress back down into the proper position.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] Witch's dress back down into the proper position.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] Witch's dress back down into the proper position.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc.her] Witch's dress.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc2.namePos] Witch's dress.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(grab)] hold of the bottom of [npc2.namePos] Witch's dress, before roughly pulling the skirt up.]]>
+		</otherRough>
+	</displacementText>
+
+	
+</clothing>

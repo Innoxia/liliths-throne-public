@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,8 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
-public class OrificeMouth implements OrificeInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class OrificeMouth implements OrificeInterface {
 	
 	protected int wetness;
 	protected int elasticity;
@@ -279,6 +277,10 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 		
 		orificeModifiers.add(modifier);
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
 				if(owner.isPlayer()) {
@@ -349,6 +351,10 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 		}
 		
 		orificeModifiers.remove(modifier);
+		
+		if(owner==null) {
+			return "";
+		}
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:

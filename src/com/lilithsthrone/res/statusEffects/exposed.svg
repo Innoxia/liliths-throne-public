@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g stroke="#000">
+  <path d="m46.736 3.5097c-5.6639-0.016526-11.377 4.2714-14.085 8.9631-0.35115 0.60852-0.38097 1.464-0.04232 2.0788 2.6018 4.7233 8.3971 8.8951 14.041 8.9232 5.7078 0.0284 11.594-4.1445 14.301-8.8833 0.32105-0.56196 0.31583-1.3499 0-1.9145-2.6785-4.7878-8.4751-9.1506-14.215-9.1674zm0.06596 2.9638a7.3336 6.9772 0 0 1 7.3335 6.9771 7.3336 6.9772 0 0 1-7.3335 6.9782 7.3336 6.9772 0 0 1-7.3347-6.9782 7.3336 6.9772 0 0 1 7.3347-6.9771z" fill="#ff8080" stroke-width=".675"/>
+  <g stroke-width=".75">
+   <ellipse cx="46.732" cy="13.469" rx="4.7385" ry="4.4008" fill="#ff8080" stroke-linecap="round" stroke-linejoin="round"/>
+   <path d="m44.312 48.162c0.19673 1.8507 5.9807 1.6531 6.1556 0l2.0519-19.4c0.24381-2.3051-10.481-1.99-10.259 0.097z" fill="#ffb380"/>
+   <ellipse cx="47.356" cy="57.322" rx="4.5085" ry="4.3729" fill="#ffb380" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+ </g>
+</svg>

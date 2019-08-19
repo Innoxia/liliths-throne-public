@@ -1,0 +1,1896 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		The entrance hall to Lyssieth's palace is staggeringly opulent, and is in complete contrast to the dark, drab exterior. The floor beneath your feet is a perfectly polished expanse of clean white marble, and is adorned with a luxuriant red runner carpet which stretches off down the three corridors that are linked to each side of the hall. The walls are covered in white, wooden panelling; their decorative, intricately-carved features are painted in bright gold. Gigantic portraits of regal-looking demons and humans hang on the walls, and up above, the high ceiling is lavishly decorated in the same white-and-gold style as the rest of your surroundings.
+	</p>
+	<p>
+		Taking a closer look at your surroundings, you take note of the fact that there are a couple of half-demon and human maids standing to attention on opposite sides of the hall. Obviously having been trained exceptionally well, they remain completely motionless as they wait for you to leave this area.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_LEAVING"><![CDATA[
+	<p>
+		Deciding to leave Lyssieth's palace, you exit through the same wicket gate by which you entered, and head out over the drawbridge back into Submission. Once at the far side, Elizabeth turns to face you, and asks, [elizabeth.speech(Ah, [pc.name], did your business with Lyssieth go well?)]
+	</p>
+	<p>
+		[pc.speech(Yes, thank you,)] you respond, before quickly saying that you need to be on your way.
+	</p>
+	<p>
+		[elizabeth.speech(Very well,)] Elizabeth responds, [elizabeth.speech(If you ever need to visit Lyssieth again, you have full permission to come and go from her palace as you please.)]
+	</p>
+	<p>
+		Thanking the half-succubus for the information, you continue on your way into Submission, and start heading back across the huge cavern's floor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		Each corridor of Lyssieth's palace is just as ostentatiously luxurious as the next. Just like the entrance hall, the floor is of polished white marble, with a red runner carpet laid down the very centre. The walls are panelled in white and gold, and upon them hang huge portraits of demons and humans. Up above, the high ceiling is trimmed with decorative mouldings, and in even intervals, huge crystal chandeliers hang down to illuminate your surroundings.
+	</p>
+	<p>
+		Lining the walls, there are countless marble statues, ornate seats, and glass-fronted display cabinets. While most of these are filled with expected array of china and other miscellaneous decorative articles, there are several which house relics from Lily's museum, as well as one or two which contain extremely mundane objects from the outside world.
+	</p>
+	<p>
+		Just as in the rest of the palace, there's an occasional half-demon or human maid standing up against a wall, waiting for you to pass before continuing with her duties.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WINDOWS"><![CDATA[
+	<p>
+		The corridors which branch off to the left and right of the main entrance hall are slightly narrower than the one which leads directly to Lyssieth's office. There are also far fewer ornamental objects lining the walls, and, most notably of all, there are a series of narrow, arrow-slit-like windows set into one side. Looking out of one of these, you see Elizabeth and her troops standing guard on the other side of the drawbridge. Other than those royal guard, however, there's nothing really much to see from here, and so you continue on your way forwards.
+	</p>
+	<p>
+		Just as in the rest of the palace, there's an occasional half-demon or human maid standing up against a wall, waiting for you to pass before continuing with her duties.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM"><![CDATA[
+	<p>
+		The rooms on this floor of Lyssieth's palace all have their doors wide open, and, peering inside, you see that each one appears to be a well-furnished drawing room. Plush sofas, extravagantly-carved coffee tables, and even the odd piano can be found in these places. In a similar fashion to the palace's corridors, portraits of demons and humans line the walls, while underfoot, luxuriant carpeting provides a comfortable surface upon which to stand.
+	</p>
+	<p>
+		Within each of these room, one or two maids are standing to attention, dutifully waiting to serve any of Lyssieth's guests.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HALL"><![CDATA[
+	<p>
+		In each wing of the palace, there is a long, extravagantly-furnished dining hall, in which you assume Lyssieth must entertain her guests. The rich mahogany table that runs down the middle of the room must be at least twenty metres in length, and to either side sit a huge number of regal-looking chairs.
+	</p>
+	<p>
+		With the exception of two half-demon maids standing to attention on either side of the room, the hall is completely unoccupied.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRCASE"><![CDATA[
+	<p>
+		A huge, red-carpeted staircase, which reminds you very much of the one in Lilaya's home, leads to the upper floors of the palace. As you approach it, a half-demon maid steps forwards to block your passage. With a respectful curtsy, she says, [genericFemale.speech(A thousand apologies, [pc.sir], but I regret to inform you that we've been instructed not to allow any guests into the upper floors.)]
+	</p>
+	<p>
+		With no business being up there anyway, you step back and wonder where to head to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SIREN_OFFICE"><![CDATA[
+	<p>
+		You push open the door in front of you, and, stepping inside, you find yourself entering Meraxis's office-cum-waiting room, which one again reminds you of a room that you might expect to see in a very prestigious office building. The flooring consists of dark, polished wooden boards, and slightly off to one side of the room, a large, cream-coloured rug is surrounded on three sides by low-backed black sofas. The cream-painted walls are home to numerous pieces of colourful, abstract art, and on the opposite side from which you entered, there's a single, mahogany door. In each corner of the room, there's a lush, potted plant, and, finally, a low coffee table sits in front of the sofas, and you see that there are several fashion magazines scattered across its surface.
+	</p>
+	<p>
+		Meraxis is dutifully sitting behind her desk, dressed in the office uniform that her mother makes her wear. Although over one eye she's still sporting her chuuni eyepatch, her vision isn't entirely compromised, and as she sees you enter, she pushes her chair back and starts to get to her feet.
+		#IF siren.isVisiblyPregnant()
+		#THEN
+			#IF !siren.isCharacterReactedToPregnancy(pc)
+			#THEN
+				 As she stands up from behind her desk, you see that she's using one hand to cradle her conspicuously-swollen belly, and as she notices what it is you're looking at, she sighs,
+				#IF siren.getPregnantLitter().getFather().equals(pc)
+				#THEN
+					 [siren.speech(Yeah, that's right, you ended up getting your own sister pregnant... I <i>knew</i> you were gonna get me knocked up... J-Just because you're the father of our child, doesn't mean you're not my nemesis anymore! S-So, what do you want?!)]
+				#ELSE
+					#IF siren.getPregnantLitter().getFather().equals(lilaya)
+					#THEN
+						 [siren.speech(Yeah, that's right, Lilaya ended up getting her own sister pregnant... I <i>knew</i> she was gonna get me knocked up...  I-I'm no less capable like this, by the way! I could still annihilate you with ease! S-So, what do you want?!)]
+					#ELSE
+						 [siren.speech(Yeah, that's right, mommy ended up getting her own daughter pregnant... I <i>knew</i> she was gonna get me knocked up... I-I'm no less capable like this, by the way! I could still annihilate you with ease! S-So, what do you want?!)]
+					#ENDIF
+				#ENDIF
+			#ELSE
+				 As she stands up from behind her desk, you see that her belly is still conspicuously-swollen, and as she notices what it is you're looking at, she sighs,
+				#IF siren.getPregnantLitter().getFather().equals(pc)
+				#THEN
+					 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to you... Getting your own sister pregnant... J-Just because you're the father of our child, doesn't mean you're not my nemesis anymore! S-So, what do you want?!)]
+				#ELSE
+					#IF siren.getPregnantLitter().getFather().equals(lilaya)
+					#THEN
+						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to Lilaya... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers! S-So, what do you want?!)]
+					#ELSE
+						 [siren.speech(Yeah, that's right, I'm still pregnant, thanks to mommy... D-Don't think I'm any less capable like this! I could still destroy you with a snap of my fingers! S-So, what do you want?!)]
+					#ENDIF
+				#ENDIF
+			#ENDIF
+		#ELSE
+			 As she stands up from behind her desk, she points a finger at you and laughs, [siren.speech(Mwhahaha! You dare to casually enter my lair?! I could destroy you with a snap of my fingers!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF siren.getRaceStage()==RACE_STAGE_GREATER
+		#THEN
+			Although she's now a full demon, you seriously doubt that she'd be able to get away with challenging you to combat just outside your mother's room, and so you confidently reply,
+			#IF pc.hasTraitActivated(PERK_CHUUNI)
+			#THEN [pc.speech(Your powers are no match for mine, little sister! Perhaps one day you might be able to gain one-hundredth of my power, but I don't see that happening any time soon! Now, let me through to see [lyssieth.name]!)]
+			#ELSE [pc.speech(There's no need for us to fight, little sister. I'm here to see [lyssieth.name].)]
+			#ENDIF
+		#ELSE You seriously doubt that she'd be able to get away with challenging you to combat just outside her mother's room, and so you confidently reply,
+			#IF pc.hasTraitActivated(PERK_CHUUNI)
+			#THEN [pc.speech(Your powers are no match for mine, Meraxis! Perhaps one day you might be able to gain one-hundredth of my power, but I don't see that happening any time soon! Now, let me through to see [lyssieth.name]!)]
+			#ELSE [pc.speech(There's no need for us to fight, Meraxis. I'm here to see [lyssieth.name].)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		[siren.speech(~Humph!~)] Meraxis exhales in disapproval, before crossing her arms and sitting down. [siren.speech(Very well, go on through, if you must. Some day we shall duel, however, and I shall show you that I am the undisputed ruler of this universe!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SIREN_OFFICE_COMPANION"><![CDATA[
+	<p>
+		Having got permission from Meraxis to see Lyssieth, you wonder if you should enter her office now, or change your mind and leave. If you were to enter, you'd have to do so alone, and leave [npc.name] to sit on one of the sofas, awaiting your return.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SIREN_OFFICE_NO_COMPANION"><![CDATA[
+	<p>
+		Having got permission from Meraxis to see Lyssieth, you wonder if you should enter her office now, or change your mind and leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_ENTER"><![CDATA[
+	<p>
+		Deciding to proceed forwards and meet with Lyssieth, you cross over to the mahogany door on the far side of the room. Giving it a quick knock, you turn the handle and push it open, before stepping through and entering the elder lilin's office.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_ENTER_COMPANION"><![CDATA[
+	<p>
+		Deciding to proceed forwards and meet with Lyssieth, you tell [npc.name] to wait for your return on one of the sofas, and then cross over to the mahogany door on the far side of the room. Giving it a quick knock, you turn the handle and push it open, before stepping through and entering the elder lilin's office.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_ENTER_MAIN"><![CDATA[
+	<p>
+		Just like the waiting room behind you, the floor of this room is covered in dark, wooden boards, which are mostly concealed by a large, cream-coloured rug. The walls are covered in dark wooden panelling, and set into them are numerous book-filled shelves and ornately carved cabinets. In the very middle of the room, there sits a huge, mahogany desk, and on the side nearest to you, there are two empty seats. On the far side, sitting in a very expensive-looking leather chair, is Lyssieth.
+	</p>
+	<p>
+		As usual, the elder lilin is in her human form, appearing as a stunningly-beautiful, olive-skinned woman, who looks to be in her mid-forties. Her huge, [lyssieth.cupSize]-cup breasts threaten to spill out of her blouse's plunging neckline at any moment, and, as she stands up to greet you, you see that her long, perfect legs are shown-off by the large gap in one side of her long, black, asymmetrical skirt.
+		#IF lyssieth.isVisiblyPregnant()
+		#THEN
+			#IF pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(lyssieth)
+			#THEN
+				#IF !pc.isCharacterReactedToPregnancy(lyssieth)
+				#THEN
+					#IF !lyssieth.isCharacterReactedToPregnancy(pc)
+					#THEN
+						 Far more distracting than her legs, however, is the large bump in her belly, and from the look on her face, she's equally-surprised to see that you're pregnant as well. [lyssieth.speech(You got me pregnant... And I got you pregnant as well?! It looks like my family's soon to grow a lot larger... So, other than to announce your pregnancy, what brings you here?)]
+					#ELSE
+						 Far more distracting than her legs, however, is the large bump in her belly, and after tucking a loose strand of her wavy, dark-brown hair behind one ear, she sighs, [lyssieth.speech(That's right, you got me pregnant... And I see you're still expecting as well. It looks like my family's soon to grow a lot larger... So, what brings you here?)]
+					#ENDIF
+				#ELSE
+					#IF !lyssieth.isCharacterReactedToPregnancy(pc)
+					#THEN
+						 You see that she's still got a large bump in her belly, and her eyes open wide as she sees that you're now pregnant as well. [lyssieth.speech(I got you pregnant?! It seems as though my family's soon to grow a lot larger... So, other than to announce your pregnancy, what brings you here?)]
+					#ELSE
+						 You see that she's still got a large bump in her belly, and she smiles as her gaze drifts down to see that you're still pregnant as well. [lyssieth.speech(I see that we're both still pregnant with one another's children... So, what brings you here?)]
+					#ENDIF
+				#ENDIF
+			#ELSE
+				#IF !lyssieth.isCharacterReactedToPregnancy(pc)
+				#THEN
+					 Far more distracting than her legs, however, is the large bump in her belly, and after tucking a loose strand of her wavy, dark-brown hair behind one ear, she sighs, [lyssieth.speech(That's right, you got me pregnant... It looks like my family's soon to grow larger... So, what brings you here?)]
+				#ELSE
+					 You see that she's still got a large bump in her belly, and after tucking a loose strand of her wavy, dark-brown hair behind one ear, she sighs, [lyssieth.speech(That's right, I'm still pregnant with your children... So, what brings you here?)]
+				#ENDIF
+			#ENDIF
+		#ELSE
+			#IF pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(lyssieth)
+			#THEN
+				#IF !lyssieth.isCharacterReactedToPregnancy(pc)
+				#THEN
+					 Far more distracting than her legs, however, is the surprised look on her face as she sees that you're pregnant. [lyssieth.speech(I got you pregnant?! I hope everything's going well for you... So, other than to announce your pregnancy, what brings you here?)]
+				#ELSE
+					 She sees that you've still got a large bump in your belly, and after tucking a loose strand of her wavy, dark-brown hair behind one ear, she sighs, [lyssieth.speech(Ah, you're still pregnant with our children? I hope everything's going well for you... So, what brings you here?)]
+				#ENDIF
+			#ELSE
+				 Tucking a loose strand of her wavy, dark-brown hair behind one ear, she pushes her stylish half-rim glasses up onto the bridge of her nose,
+				#IF pc.getRace()==RACE_DEMON
+				#THEN
+					#IF pc.hasFetish(FETISH_INCEST)
+					#THEN before striding over to you and pulling you into a loving hug. [lyssieth.speech(Aww, you came to visit your mommy again! How sweet of you!)]
+					#ELSE before striding over to you and pulling you into a loving hug. [lyssieth.speech(Aww, you came to visit me again! How sweet of you!)]
+					#ENDIF
+				#ELSE
+					 before smiling fondly at you. [lyssieth.speech(Hello again, [pc.name]. What can I do for you?)]
+				#ENDIF
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SIREN_OFFICE_LEAVE"><![CDATA[
+	<p>
+		Telling Lyssieth that you'll come back and see her another time, you make your exit and head back out into [siren.namePos] office. Looking up at you from behind her desk, the little succubus calls out, [siren.speech(While now would be the perfect time to challenge you to a duel, mommy said I have to sort out her paperwork... I-I'll get you next time!)]
+	</p>
+	<p>
+		#IF pc.hasTraitActivated(PERK_CHUUNI)
+		#THEN [pc.speech(That's lucky for you; I'm vastly more powerful than you could ever imagine!)] you declare, before marching over to the door on the far side of the room and quickly making your exit.
+		#ELSE [pc.speech(Ok, see you next time,)] you say, rolling your eyes. Before the little chunni can make any more outrageous statements, you march over to the door on the far side of the room and quickly make your exit.
+		#ENDIF
+	</p>
+	<p>
+		Stepping back out into the palace's corridor, you wonder what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SIREN_OFFICE_LEAVE_COMPANION"><![CDATA[
+	<p>
+		Telling Lyssieth that you'll come back and see her another time, you make your exit and head back out into [siren.namePos] office. Looking up at you from behind her desk, the little succubus calls out, [siren.speech(While now would be the perfect time to challenge you to a duel, mommy said I have to sort out her paperwork... I-I'll get you next time!)]
+	</p>
+	<p>
+		#IF pc.hasTraitActivated(PERK_CHUUNI)
+		#THEN [pc.speech(That's lucky for you; I'm vastly more powerful than you could ever imagine!)] you declare, before telling [npc.name] to follow you and then marching over to the door on the far side of the room.
+		#ELSE [pc.speech(Ok, see you next time,)] you say, rolling your eyes. Before the little chunni can make any more outrageous statements, you tell [npc.name] to follow you and then march over to the door on the far side of the room.
+		#ENDIF
+	</p>
+	<p>
+		Quickly making your exit, the two of you step back out into the palace's corridor, and you wonder what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!--LAB_TELEPORT-->
+	
+	<htmlContent tag="LAB_TELEPORT"><![CDATA[
+	<p>
+		Wanting to return to Lilaya's home, you ask, [pc.speech(Could you teleport me back to see Lilaya? I have some things I need to ask her about.)]
+	</p>
+	<p>
+		[lyssieth.speech(Of course,)] Lyssieth responds, before stepping forwards and pulling you into a hug. As her [lyssieth.breastSize] breasts press against your chest, your surroundings are suddenly hidden from view by a bright flash of purple light...
+	</p>
+	<p>
+		As the illumination quickly fades away, you find yourself standing in Lilaya's laboratory. Sitting in a chair nearby, there's the familiar figure of Lilaya, and in her lap, passionately kissing her, is Rose. Upon seeing her daughter's lips locked with those of her cat-girl maid's, Lyssieth lets out a particularly angry huff, interrupting their make-out session.
+	</p>
+	<p>
+		[lilaya.speech(O-Oh, mommy!)] Lilaya calls out, disentangling herself from Rose's intimate clutches and jumping to her feet. [lilaya.speech(I-I was just p-punishing Rose...)]
+	</p>
+	<p>
+		[lyssieth.speech(Oh, of course, that's exactly what you were doing, I'm sure,)] Lyssieth sarcastically replies, and, not even waiting to hear her daughter's response, she disappears again in a flash of purple light.
+	</p>
+	<p>
+		[lilaya.speech(W-Well... What is it you wanted, [pc.name]?)] Lilaya asks, brushing down her skirt and trying hard not to blush.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LAB_TELEPORT_COMPANION"><![CDATA[
+	<p>
+		Wanting to return to Lilaya's home, you ask, [pc.speech(Could you teleport me back to see Lilaya? I have some things I need to ask her about.)]
+	</p>
+	<p>
+		[lyssieth.speech(Of course,)] Lyssieth responds, before calling your companion back in from Meraxis's office and then stepping forwards and pulling you and [npc.name] into a hug. As her [lyssieth.breastSize] breasts press against your chest, your surroundings are suddenly hidden from view by a bright flash of purple light...
+	</p>
+	<p>
+		As the illumination quickly fades away, the three of you find yourselves standing in Lilaya's laboratory. Sitting in a chair nearby, there's the familiar figure of Lilaya, and in her lap, passionately kissing her, is Rose. Upon seeing her daughter's lips locked with those of her cat-girl maid's, Lyssieth lets out a particularly angry huff, interrupting their make-out session.
+	</p>
+	<p>
+		[lilaya.speech(O-Oh, mommy!)] Lilaya calls out, disentangling herself from Rose's intimate clutches and jumping to her feet. [lilaya.speech(I-I was just p-punishing Rose...)]
+	</p>
+	<p>
+		[lyssieth.speech(Oh, of course, that's exactly what you were doing, I'm sure,)] Lyssieth sarcastically replies, and, not even waiting to hear her daughter's response, she disappears again in a flash of purple light.
+	</p>
+	<p>
+		[lilaya.speech(W-Well... What is it you wanted, [pc.name]?)] Lilaya asks, brushing down her skirt and trying hard not to blush.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!--LYSSIETH_OFFICE_TALK-->
+	
+	<htmlContent tag="LYSSIETH_OFFICE_TALK_LUNETTE"><![CDATA[
+	<p>
+		Wanting to know how Lyssieth regards her sister, you ask, [pc.speech(What can you tell me about Lunette?)]
+	</p>
+	<p>
+		#IF pc.getRace()==RACE_DEMON
+		#THEN
+			#IF pc.hasFetish(FETISH_INCEST)
+			#THEN [lyssieth.speech(Oh, you want to know a little more about mommy's little sister? I suppose now that I'm your mommy, she's technically your aunt,)]
+			#ELSE [lyssieth.speech(Oh, you want to know a little more about my little sister? I suppose now that I'm your mother, she's technically your aunt,)]
+			#ENDIF
+		#ELSE
+			[lyssieth.speech(Oh, you want to know a little more about my little sister?)]
+		#ENDIF
+		 Lyssieth says, smiling at you, [lyssieth.speech(Well, to begin, although she's the fifth-born of we elder lilin, she's by far the most belligerent and short-tempered. The slightest thing can send her into a towering rage, and while we lilin have nothing to fear from her, the other races aren't quite so fortunate. The last time I visited her, one of her slaves dropped and smashed a favourite glass of hers, and she wouldn't stop shrieking and cursing until she'd mounted the unfortunate cat-girl and given her such a rough fucking that she could barely stand up afterwards.)]
+	</p>
+	<p>
+		Shaking her head in despair, Lyssieth crosses the room and retrieves a large, ribbon-bound scroll from one of the many shelves lining the walls. As she unrolls it across her desk, you see that it's a map of Dominion and the surrounding lands. Tracing a large circle around the capital city with her finger, she says, [lyssieth.speech(This whole area is known as the Foloi fields, and is primarily made up of farmland interspersed with small villages. Lilith assigned this whole region's administration to Lunette, who interpreted our mother's orders as a warrant to treat the inhabitants like dirt. When she's not resting in one of the many forests which surround the fields, she's leading her herd of demonic centaurs to terrorise the lands she rules over.)]
+	</p>
+	<p>
+		[pc.speech(And the inhabitants have done nothing about this?)] you ask.
+	</p>
+	<p>
+		[lyssieth.speech(There's nothing they can do; even the most powerful of lilin must submit to an elder lilin's wishes. The only one who dares to indirectly stand up to her is the lilin 'Minotallys'; the mayor of the town of Elis, she likes to take on the form of a cow-girl, and from what I hear, she's the one responsible for some bands of farmers daring to try and fight back against Lunette. Of course they stand no chance, but perhaps if you and the youko were to help, they could be the key to defeating her...)]
+	</p>
+	<p>
+		Rolling up the map, Lyssieth places it back on the shelf, before continuing, [lyssieth.speech(The only other thing to mention is the fact that Lunette takes on the form of a huge pegataur. You see, when you released us from the mirror, we had a short while in which to explore, and Lunette seemed particularly fond of the museum's exhibit on ancient Greek mythology. When mother's spell backfired, and all manner of anthropomorphic and mythological creatures were created, Lunette immediately sought out and subdued the centaurs, before breeding both herself and demons with them in order to make her demonic followers...)]
+	</p>
+	<p>
+		Now that Lyssieth has told you all about her younger sister, you thank her for the information, before wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_TALK_FAMILY"><![CDATA[
+	<p>
+		#IF pc.getRace()==RACE_DEMON
+		#THEN
+			#IF pc.hasFetish(FETISH_INCEST)
+			#THEN [pc.speech(Mommy, I want to know more about my new family,)] you say, eager to hear more about Lyssieth's daughters, sisters and mother.
+			#ELSE [pc.speech(I want to know more about my new family,)] you say, eager to hear more about Lyssieth's daughters, sisters and mother.
+			#ENDIF
+		#ELSE
+			[pc.speech(I'd like to know more about your family,)] you say, eager to hear more about Lyssieth's daughters, sisters and mother.
+		#ENDIF
+	</p>
+	<p>
+		[lyssieth.speech(Well, you already know, although I have many, many sons and daughters, Lilaya and Meraxis are the only two which I've ever officially recognised. If it were up to me, I'd have recognised all of my offspring, so that they may have risen above the half-demon stigma that runs through our society. Mother, however, has made it quite clear that she will tolerate no more half-demons in her family tree. I imagine that if I were to disobey her, she'd ramp up persecution against humans just to punish me. She's always mistrusted me, right from the moment she saw me treating my first love as an equal...)] Lyssieth sighs, clearly not wanting to say any more about that, [lyssieth.speech(So as far as my offspring go, it's just Lilaya and Meraxis who carry my full authority. As to my mother, she's just as you'd expect; controlling, cruel, and filled with hate for humankind. Whatever caused her to despise them so much, she's never told anyone. My sisters nor I know for sure who our father is, but we suspect that we were all the result of Lilith impregnating herself...)]
+	</p>
+	<p>
+		[pc.speech(I see... And what about your sisters?)] you ask.
+	</p>
+	<p>
+		[lyssieth.speech(Well, as you already know, there are seven of us elder lilin, and, from eldest to youngest, they're: Lirecea, who rules the underwater city of Lyonesse in the form of an octopus-girl; Lovienne and Lasielle, the twins who serve as Lilith's personal bodyguards; myself, who you already know all about; Lunette, who takes the form of a huge pegataur and terrorises the Foloi fields at the head of her herd of demonic centaur; Lyxias, who, taking the form of a great feathered lamia, rules over the jungle city of Itza'aak in the north; and finally, Lisophia, who takes the form of a dragon-girl and rules over the desert and savannah to the south.)]
+	</p>
+	<p>
+		[pc.speech(And the non-elder lilin?)]
+	</p>
+	<p>
+		[lyssieth.speech(Ah, well, there are far too many of my other sisters for me to name individually,)] Lyssieth softly laughs, [lyssieth.speech(While the ones you may encounter here in this new reality are as ignorant as everyone else as to the goings on in the rest of the world, the ones out in your original reality are not particularly happy with us elder lilin or my mother.)]
+	</p>
+	<p>
+		[pc.speech(Why's that?)] you ask.
+	</p>
+	<p>
+		[lyssieth.speech(Because we inadvertently ruined all of their plans,)] Lyssieth states, [lyssieth.speech(As I already told you before, while Lilith and we elder lilin were sealed away in the mirror, the lilin and demons we left behind took control of all of humanity. By seduction, subterfuge, and every duplicitous method imaginable, they've been able to maintain control over the world's governments throughout almost all of recorded history. Their control was so absolute that when Lilith reappeared, she could have taken over as the true ruler of the world in a matter of days. Her choice to unleash her reality-changing spell ruined all of that, however, as the population-controlling resources which the lilin had at their disposal are now all being used to prevent news of Lilith's arrival spreading.)]
+	</p>
+	<p>
+		[pc.speech(So four thousand years of preparation for Lilith's return went to waste?)]
+	</p>
+	<p>
+		[lyssieth.speech(Pretty much,)] Lyssieth says, [lyssieth.speech(but I am happy for how it's all worked out. If either the spell or the lilin's plans were executed correctly, humanity would have been doomed.)]
+	</p>
+	<p>
+		Now that Lyssieth has told you about her family, you wonder what to ask her next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_TALK_ANGELS"><![CDATA[
+	<p>
+		After confirming their existence to you before, you're desperate to know more about angels, and so you ask, [pc.speech(Can you tell me more about Samael and the archangels? What ever happened to each of them?)]
+	</p>
+	<p>
+		Lyssieth's expression darkens as you ask this, but she nevertheless answers, [lyssieth.speech(As you already know, my sisters and I had already captured the seven archangels before Samael sealed us in the mirror. As we were holding them close as hostages, all seven of the archangels were sealed in there with us. They tried to break free at first, but we elder lilin are far more powerful than each of them, and, without mother even having to assist, we quickly subdued them. Disgusted by their presence, Lilith ordered each of us to take one of the archangels, and corrupt them into whatever forms we desired...)]
+	</p>
+	<p>
+		[pc.speech(But you didn't do that to the one given to you?)] you ask, remembering that that's what Lyssieth told you before.
+	</p>
+	<p>
+		[lyssieth.speech(That's right. While angels are disgusting creatures, I can't help but see how similar they are to humans in a lot of ways,)] Lyssieth sighs, [lyssieth.speech(You said before that you witnessed a vision of when I first captured Valoel; he was given to me because of my actions that day. I tried to keep him away from my sisters and mother for as long as I could, but Lilith eventually suspected that I was treating him well. She got quite angry when she found out that I hadn't 'used' him even once...)]
+	</p>
+	<p>
+		Lyssieth pauses for a moment, clearly upset by the memory. Not wanting to interrupt her, you wait in silence for a moment, and your patience is rewarded when the elder lilin lets out another deep sigh and continues her tale, [lyssieth.speech(Mother has never physically punished any of us; she prefers to find other ways in which to hurt us. Seeing how I was trying to protect Valoel, she made me watch as she ruthlessly fucked him over and over again, twisting and corrupting him into a demonic version of himself. Even to me, the one who was supposed to ruin him, he was always kind and considerate, but once mother had finished with him, his mind had been warped and twisted. He now serves as Lilith's jailor in her tower, loving nothing more than to sadistically abuse and fuck her prisoners...)]
+	</p>
+	<p>
+		[pc.speech(What of the others?)] you ask, wanting to know what happened to the other six archangels.
+	</p>
+	<p>
+		[lyssieth.speech(They were all similarly ruined by my sisters. I don't know if you've seen that obscene statue in Slaver Alley, but that's the archangel, Marlel, who was given to my eldest sister, Lirecea. Every time she visits Dominion, she reverts her petrification, fucks her, and then turns her back into a statue again at the moment of her orgasm. With the exception of Valoel, all the other archangels were similarly feminised and turned into fallen angels,)] Lyssieth explains, before going on to list them, [lyssieth.speech(Humatiel was given to Lovienne, who turned him into her lust-crazed nymphomaniac futa fuck-toy. Araqiel was given to the other of mother's personal bodyguards, Lasielle, and he was turned into a cum-crazed trap who cleans up after their frequent orgies. The last three are kept as fuck-toys by my younger three sisters; Asteraoth is owned by Lunette, Vretiel by Lyxias, and Mydaiel by Lisophia.)]
+	</p>
+	<p>
+		Despite the extreme nature of the archangel's fates, Lyssieth doesn't seem as concerned for them as she was for Valoel. You realise that even though Lyssieth is far kinder than her sisters, she's still an elder lilin, and shares her sisters' deep dislike of angels she's not familiar with. Despite her detailed explanation, there's still one angel unaccounted for, and so you ask, [pc.speech(What became of Samael?)]
+	</p>
+	<p>
+		[lyssieth.speech(Nobody knows where he is for sure, but he's out there somewhere, trying to organise resistance against the lilin. If it wasn't for him and his meddling, my sisters out there in the rest of the world would have completely corrupted al of humanity by now. While there were only ever seven archangels, just as there are only seven of us elder lilin, there are an unknown number of less-powerful angels out there in the world, fighting against demons in the shadows,)] Lyssieth smirks, before continuing, [lyssieth.speech(It's funny, really, because Samael and all of his disgusting kind try to act all high and mighty, and claim that sex is beneath them. How else could there be more angels, though? He's clearly out there fucking humans and producing more angels to fight for him. That two-faced nature of his sickens me...)]
+	</p>
+	<p>
+		Having now learned a little more about angels, you make a note to take a closer look at the statue in Slaver Alley the next time you're there, before wondering what to ask next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_TALK_HUMANS"><![CDATA[
+	<p>
+		[pc.speech(I can't help but wonder, why do you like humans so much?)] you ask, wanting Lyssieth to give you a more detailed explanation as to why she's betraying her own demonic kind.
+	</p>
+	<p>
+		[lyssieth.speech(I've asked the same thing of myself many times,)] Lyssieth sighs, leaning back against her desk. [lyssieth.speech(I can't really give just one reason, as it's a combination of all aspects of humanity which I adore. There are bad aspects of humanity, of course, but somehow they seem to make all the good parts even better. Their compassion, their energy, the will and drive to innovate and improve society for the betterment of others... I've never talked to anyone about this before, although I did briefly mention it... My first love was human, and I think it's thanks to him that I appreciate humans for having desires other than simply sex. That's the problem with us demons, I suppose... Our motivations and desires all boil down to fucking or getting fucked. Even knowing that, it's the only way I can find to express my fondness for humans... By fucking them...)]
+	</p>
+	<p>
+		Lyssieth suddenly turns away from you for a moment, and you realise that she's getting very emotional from talking to you about this. In an almost-inaudible whisper, she sighs, [lyssieth.speech(I wish I was a human...)]
+	</p>
+	<p>
+		Before you can offer any words of comfort, she suddenly straightens back up, and with a slightly-forced smile on her face, turns back to face you and says, [lyssieth.speech(So, that's why I like humans, I suppose. I hope that's a good enough reasoning for you.)]
+	</p>
+	<p>
+		Not wanting to press the matter any further, you reply in the affirmative, before wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LYSSIETH_OFFICE_TALK_RECAP"><![CDATA[
+	<p>
+		You feel as though you could do with a summary of the huge amount of information that Lyssieth shared with you and her daughters, and so you ask, [pc.speech(Can you briefly go over everything again?)]
+	</p>
+	<p>
+		[lyssieth.speech(Of course,)] Lyssieth replies, before pushing her half-rim glasses up onto the bridge of her nose and starting, [lyssieth.speech(So, in the very beginning, thousands of years ago, Lilith and we seven elder lilin ruled over humanity and influenced their development. Over the course of many years, we gave birth to many demons, while mother corrupted many humans into more lilin. One day, an angel called Samael came before us, at the head of seven archangels, and demanded we leave humanity alone. They underestimated our power, and after a few years, all seven of the archangels had been captured. Samael then tricked mother and we seven lilin into being locked away inside a small dimension within an enchanted mirror, but at the moment of our capture, we also dragged the seven archangels in with us.)]
+	</p>
+	<p>
+		Leaning back against her desk, Lyssieth smiles knowingly at you as she continues, [lyssieth.speech(Four thousand years later, mother managed to project her voice out of the mirror, and, by tricking you into coming in contact with it, we were released. After spending an hour or two having some... 'fun' in the museum, Lilith unleashed a reality-warping spell which she'd been weaving for those four thousand years. It was meant to change the whole world's population into demons, with Lilith as the undisputed ruler of them all, but a small piece of her power had been locked away inside of you, causing the spell to backfire. Instead of creating her demonic world, only the region which you knew as the British Isles was transformed by the spell, becoming what you now know as Dominion.)]
+	</p>
+	<p>
+		[lyssieth.speech(The rest of the world is still out there as you remember it, but what nobody would have known is that it's been secretly controlled all this time by the lilin and demons we left behind those four thousand years ago. By infiltrating governments and controlling all of the world's mass media, they're suppressing information about this new reality, while simultaneously allowing the overpopulation overspill from Dominion to disrupt and collapse neighbouring countries. Sweeping in and unifying the chaos under openly-demonic leadership, mother and her daughters are slowly taking over the world.)]
+	</p>
+	<p>
+		[lyssieth.speech(If Lilith succeeds with her new plan for world domination, humans would be subjected to her intense hatred of them, and would no doubt be forcibly transformed into demons and other anthropomorphic or mythological races. I cannot allow this to happen, so, seizing the opportunity of you reappearing in this reality three years after that night at the museum, I've decided to support you in an attempt to overthrow my elder lilin sisters, and eventually defeat Lilith herself. Whatever you choose to do after that happens, I will support you, so long as humans are spared. I am the only one of my sisters who shows any sort of compassion towards humans, so I imagine that your conflicts with them will all have to be resolved through combat or trickery. After you defeat each one, you'll be able to force them to share their essence with you, just as I shared mine, thereby increasing your arcane power to the point where you'll be able to stand against Lilith herself.)]
+	</p>
+	<p>
+		Pushing herself off from her desk to stand upright once more, Lyssieth smiles at you and says, [lyssieth.speech(I hope that's cleared everything up.)]
+	</p>
+	<p>
+		With the events leading up to your present situation now fresh in your mind, you wonder what you should do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_PUSSY"><![CDATA[
+	<p>
+		Noticing that Lyssieth keeps on hungrily eyeing you up and flashing you seductive glances, you step up to her and take hold of her arms, before leaning in and saying,
+		#IF pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(Mommy, I can tell that you want me to fuck your pussy, so go on, lie back over your desk and spread your legs. I'll be your good [pc.girl] and give you what you want!)]
+		#ELSE [pc.speech(I can tell that you want me to fuck your pussy, so go on, lie back over your desk and spread your legs for me.)]
+		#ENDIF
+	</p>
+	<p>
+		[lyssieth.speech(Mmm, yes,)] Lyssieth softly moans, taking a step back and lying down over the top of her desk.
+		#IF pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Mommy's pussy is all yours!)]
+		#ELSE [lyssieth.speech(My pussy's all yours!)]
+		#ENDIF
+	</p>
+	<p>
+		Stepping forwards between the elder lilin's legs, you get ready to give her a good fucking...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_COCK"><![CDATA[
+	<p>
+		Noticing that Lyssieth keeps on hungrily eyeing you up and flashing you seductive glances, you step up to her and softly moan,
+		#IF pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(Mommy, I can tell that you want to fuck me, so go on, grow a nice big cock for me. I'll be your good [pc.girl] and take it!)]
+		#ELSE [pc.speech(I can tell that you want to fuck me, so go on, grow a nice big cock and come take me!)]
+		#ENDIF
+	</p>
+	<p>
+		[lyssieth.speech(Mmm, yes,)] Lyssieth eagerly replies, grabbing hold of your [pc.arms] and spinning you around. With a quick step forwards, she pushes you down so that you're lying back over the top of her desk. Looking down between her legs, you see a thick bulge start to press out against the fabric of her skirt, and, biting her lip, she softly moans, 
+		#IF pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Mommy's big cock's aching to be inside of her good [pc.girl]... Spread your legs for her now...)]
+		#ELSE [lyssieth.speech(My big cock's aching to be inside of you... Spread your legs for me now...)]
+		#ENDIF
+	</p>
+	<p>
+		Doing as the elder lilin says, you spread your legs and get ready to receive a good fucking...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX"><![CDATA[
+	<p>
+		Lyssieth lets out a deeply satisfied moan, and, disentangling herself from your clutches, steps away to get her clothes in order. Looking across at you and biting her lip, she winks and sighs,
+		#IF pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Mommy liked that very much... Not everyone's able to satisfy her, but you managed it. Good [pc.girl]...)]
+		#ELSE [lyssieth.speech(~Mmm!~ I liked that very much... Not everyone's able to satisfy me, but you managed it...)]
+		#ENDIF
+	</p>
+	<p>
+		Smiling at the compliment, you follow the elder lilin's lead and start getting your things in order. As you do so, you realise that the two of you have made quite a mess all over the office's desk and floor, and as you finish gathering your things, Lyssieth sighs, [lyssieth.speech(I'm going to need to spend a moment cleaning this up... Come back later if you want to have some more fun!)]
+	</p>
+	<p>
+		Reassuring her that you will, you take your leave and head back out into Meraxis's office-cum-waiting room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_NOT_SATISFIED"><![CDATA[
+	<p>
+		Lyssieth lets out a frustrated moan, and, disentangling herself from your clutches, steps away to get her clothes in order. Looking across at you and pouting, she tuts,
+		#IF pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(~Tsk!~ Mommy wasn't satisfied by that... Naughty [pc.girl]...)]
+		#ELSE [lyssieth.speech(~Tsk!~ I wasn't exactly satisfied by that, you know...)]
+		#ENDIF
+	</p>
+	<p>
+		Blushing at the admonishment, you follow the elder lilin's lead and start getting your things in order. As you do so, you think that you probably could have put in a little more effort to satisfy Lyssieth, but before you can dwell on that thought for too long, she sighs, [lyssieth.speech(I'm going to need to spend a moment... erm... finishing myself off. Come back later if you want to make it up to me...)]
+	</p>
+	<p>
+		Reassuring her that you will, you take your leave and head back out into Meraxis's office-cum-waiting room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF"><![CDATA[
+	<p>
+		Knowing that only lilin are able to transform others into demons, and, desiring to be one yourself, you simply say, [pc.speech(I want you turn me into a demon, Lyssieth.)]
+	</p>
+	<p>
+		[lyssieth.speech(What?!)] the elder lilin exclaims, shaking her head and making a dismissive gesture with one hand. [lyssieth.speech(There's no way that's happening. Demonic transformations are <i>permanent</i>, meaning that there's no way to ever regain your humanity. I swore a long time ago that I'd never do that to anyone ever again. I didn't make an exception for Lilaya or Meraxis, even though they're already half-demon, so there's no way I'm making an exception for you
+		#IF pc.getRace()==RACE_HUMAN
+		#THEN, especially seeing as you've kept your humanity for this long already.
+		#ELSE.
+		#ENDIF
+		)]
+	</p>
+	<p>
+		[pc.speech(I don't think you can compare our situations,)] you reason, [pc.speech(Your daughters aren't the ones who're being told to go out and face Lunette, for a start. I'm going to need all the power and prestige that I can muster, and being a demon will be invaluable if it comes to convincing others to help me. Also, you said yourself that I'd be able to transform back into a human, thanks to your power which was infused into my aura.)]
+	</p>
+	<p>
+		[lyssieth.speech(You'll be able to take the form of a human, but you'd still be a demon,)] Lyssieth replies, sounding a lot more unsure of herself after hearing your argument. [lyssieth.speech(I suppose we are asking a lot of you, and being a demon <i>would</i> help... I just really don't want to do this. Not only will I be taking your humanity from you, but I also need to take on my true form in order to perform the transformation, and I really hate doing that...)]
+	</p>
+	<p>
+		Sensing the hesitation in Lyssieth's voice, you're sure that you could continue to press her on the matter, and convince her to go ahead and transform you into a demon. Then again, you could always drop the matter for now, and ask Lyssieth about it another time.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_RELENT"><![CDATA[
+	<p>
+		Seeing as how reluctant she is to do this, you decide not to force Lyssieth to transform you into a demon, and say, [pc.speech(Maybe I'll be alright not being a demon. Don't worry, you don't have to go through with this.)]
+	</p>
+	<p>
+		Breathing a sigh of relief as she hears you relent, Lyssieth smiles and asks, [lyssieth.speech(That's good to hear, is there anything else you wanted to talk about?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_CONTINUE"><![CDATA[
+	<p>
+		The prospect of becoming a demon sends an exhilarating thrill through your corrupt mind, and, stepping forwards, you seize upon Lyssieth's uncertainty by pressing the matter, [pc.speech(You know that it would be the best course of action if we're to ever overcome Lilith. We're going to need all the power we can get.)]
+	</p>
+	<p>
+		[lyssieth.speech(You're right,)] Lyssieth relents, [lyssieth.speech(I'm just concerned about Lilaya's reaction when she finds out... Although Meraxis shares her desire to become a full demon, it's Lilaya who's always been the one to ask me to transform the two of them. I'd always said no, as I didn't want them to lose all of their humanity. I think Lilaya only accepted that due to the fact that I never transformed <i>anyone</i> into demons, but when she sees you... She's not going to be happy.)]
+	</p>
+	<p>
+		[pc.speech(I'm sure she'll understand,)] you say, [pc.speech(After all, this is for the good of our quest to defeat Lilith.)]
+	</p>
+	<p>
+		[lyssieth.speech(Yes, but just know that there will be consequences for your relationship with Lilaya after this. It won't ever be the same again,)] Lyssieth says, [lyssieth.speech(Also, as I mentioned before, there's no going back from becoming a demon. Unlike all other transformations, the demonic one works by corrupting and reshaping your aura, which causes your body to take on an immutable, demonic form. Of course, because I've given you the essence of my power, you're going to be unlike all other demons, and you'll be able to change your body into that of a human. Despite your appearance, however, you'll always be a demon, just as I'm always a lilin, even though I can take on this human form.)]
+	</p>
+	<p>
+		[pc.speech(I can deal with Lilaya,)] you say, [pc.speech(and I understand that it's permanent.)]
+	</p>
+	<p>
+		[lyssieth.speech(In that case, the last thing you need to know is that this aura corruption can only be done at the moment of orgasm, meaning that we need to have sex in order for this to be done,)] Lyssieth states, and, while she still sounds a little uncertain about the whole thing, you can detect a hint of arousal in her voice as she tells you this, [lyssieth.speech(Also, as I mentioned before, I need to take on my true form to do this, and I should inform you that I have a habit of... erm... losing myself a little when I'm like that. Depending on how dominantly you act, I imagine that I'll end up transforming you into
+		#IF pc.isFeminine()
+		#THEN either a succubus, or a futa succubus
+		#ELSE a succubus, a succubus trap, or an incubus
+		#ENDIF
+		, although you can always use your demonic powers to transform into whatever form you like afterwards.)]
+	</p>
+	<p>
+		You can tell that she's still not entirely happy with wanting to do this, but from the rising lust in her voice, you aren't sure for how long she'll resist. Giving you a big smile, she steps up close to you and finally says, [lyssieth.speech(Oh, and of course, all demons are expected to treat the lilin who transformed them as their new mother.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN I hope you don't mind, but I'm going to have to insist upon you calling me 'mommy' while we fuck...
+		#ELSE Don't worry, that won't take effect until after the entire transformation is complete, so there's nothing wrong with the two of us having sex...
+		#ENDIF
+		 Now's the time to let me know if you're having second thoughts...)] 
+	</p>
+	<p>
+		It seems like this is your final chance to change your mind, but if you were to do so, you imagine that you could ask Lyssieth to transform you into a demon another time.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_CONTINUE_CHANGE_MIND"><![CDATA[
+	<p>
+		Having second thoughts about all of this, you decide not to force Lyssieth to transform you into a demon, and say, [pc.speech(I've changed my mind about wanting to be a demon. You don't have to go through with this after all...)]
+	</p>
+	<p>
+		Breathing a sigh of relief as she hears you relent, Lyssieth smiles and steps back, before asking, [lyssieth.speech(That's good to hear, is there anything else you wanted to talk about?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_START"><![CDATA[
+	<p>
+		[pc.speech(I'm ready,)] you say, letting Lyssieth know that you're certain that you want to be permanently transformed into a demon.
+	</p>
+	<p>
+		[lyssieth.speech(Very well,)] Lyssieth replies in a voice that sounds far more commanding, and a lot more sensual, than it did just a moment ago, [lyssieth.speech(let's start by removing your clothes.
+		#IF pc.isAnyEquippedClothingSealed()
+		#THEN Those silly little sealing enchantments will have to go as well, I'm afraid.
+		#ENDIF)]
+	</p>
+	<p>
+		Grinning mischievously at you, Lyssieth snaps her fingers, and in an instant, all of your clothes are teleported into a rough pile behind you. You're reminded of the first time you entered Lilaya's lab, when she accidentally teleported your clothes all around the room, but instead of being embarrassed as your aunt was, Lyssieth lustfully licks her lips and lets out a hungry humming noise. Untying the fabric band holding her blouse together, she shrugs it off to reveal that she's not wearing any sort of bra, and you find yourself gazing at her [lyssieth.breastSize], [lyssieth.cupSize]-cup breasts. Letting out a soft laugh as she sees you staring, Lyssieth then slides her thumbs into the band of her skirt, and, along with her lacy thong, she quickly sides it down to the floor. Unstrapping her stiletto sandals, she steps out of them, before discarding her watch and glasses, leaving herself fully naked before you. 
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Don't get too excited about mommy's body,)] Lyssieth teases, already referring to herself as your new mother. [lyssieth.speech(Perhaps we can have some fun when I'm in this form another time, but for now, mommy needs to show you what she's truly like...)]
+		#ELSE [lyssieth.speech(Don't get too excited about this body of mine,)] Lyssieth teases, [lyssieth.speech(Perhaps we can have some fun when I'm in this form another time, but for now, I need to show you what I'm truly like...)]
+		#ENDIF
+	</p>
+	<p>
+		Stepping back into the open space beside her desk, Lyssieth flashes you a devious grin, and as she blinks, her green irises suddenly change into glowing yellow, and you see that her pupils have transformed into vertical, snake-like slits. Taking a deep breath, the elder lilin grows right before your eyes, gaining well over a foot in height to stand at about 6 and a half feet tall. Stretching her arms up towards the ceiling, a huge pair of demonic, scarlet-coloured wings suddenly unfold from behind her back. Immediately afterwards, a long, spaded tail grows down and curls upwards to start playfully stroking at her exposed pussy. As the elder lilin lets out an erotic sigh, a pair of long, grey horns grow out from her forehead to sweep back over her now-black, silken hair. Her ears then suddenly point out and, along with her arms and legs, darken and turn the same shade of scarlet as her wings and tail.
+	</p>
+	<p>
+		[lyssieth.speech(Mmm... Yes!)] Lyssieth cries out as her breasts expand into [lyssieth.breastSize] [lyssieth.cupSize]-cups, while her pussy takes on the same scarlet colour as her other demonic parts. Shortly after this, the entire of her body and face changes colour in much the same way, and as her tail continues stroking up and down over her wet labia, a fat, 16-inch demonic cock grows out just above her pussy.
+	</p>
+	<p>
+		With Lyssieth's transformation now complete, you find yourself looking upon the imposing figure of a truly demonic succubus. As her glowing yellow eyes lock onto yours, she suddenly bounds forwards, before pressing her plump lips against yours and pulling you into a desperate, passionate kiss. As her tongue explores the inside of your mouth, you feel her hot body pressing tightly against yours, and as her massive breasts squish into your chest, a sickly-sweet, corruptive warmth starts to seep into your body.
+	</p>
+	<p>
+		Suddenly breaking off the kiss, Lyssieth lustfully licks her lips, before nodding her head down in a directional gesture.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Come on, darling, it's time to show mommy what a good little demon cock-sucker you'll be. Get me hard, then get on your knees so mommy can fuck that cute little face of yours!)]
+		#ELSE [lyssieth.speech(I think it's time for you to show me what a good little demon cock-sucker you'll be. Get me hard, then get on your knees so I can fuck that cute little face of yours!)]
+		#ENDIF
+	</p>
+	<p>
+		Lyssieth certainly wasn't lying when she said she loses herself while in this form, and you realise that she's getting completely overtaken by demonic lust. You think that she'd be happy in this state to do pretty much anything with you, so, if you were feeling bold and assertive, you could always try ignoring her order and get her to orally service you instead...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_START_SEX"><![CDATA[
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(Yes mommy,)]
+		#ELSE [pc.speech(Mmm, yes,)]
+		#ENDIF
+		 you reply, sliding one of your [pc.hands] down between Lyssieth's legs. Running your touch up and down the length of her fat demonic cock, you wrap your [pc.fingers] around her ribbed shaft, and start stroking her to full erection.
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Good [pc.girl],)] Lyssieth moans, bucking her hips in response to your touch. Reaching down to take your hand in hers, she helps guide your grip up and down the full, 16-inch length of her demonic cock, before getting you to stroke the precum-covered head. [lyssieth.speech(I bet you want a taste of mommy, don't you?)]
+		#ELSE [lyssieth.speech(Oh yeah, just like that,)] Lyssieth moans, bucking her hips in response to your touch. Reaching down to take your hand in hers, she helps guide your grip up and down the full, 16-inch length of her demonic cock, before getting you to stroke the precum-covered head. [lyssieth.speech(I bet you want a taste, don't you?)]
+		#ENDIF
+	</p>
+	<p>
+		Letting out a moan in the affirmative, you part your [pc.lips+] as Lyssieth guides your precum-coated [pc.fingers] up to your mouth. Sliding them into your waiting orifice, Lyssieth lets out a soft laugh as she watches you eagerly lick and swallow her slimy fluids.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Good [pc.girl]! Now get on your knees and suck mommy's cock!)]
+		#ELSE [lyssieth.speech(What a good slutty demon you'll be! Now get on your knees and suck my cock!)]
+		#ENDIF
+	</p>
+	<p>
+		Doing as you're told, you drop to your knees in front of Lyssieth, who immediately steps forward and starts rubbing the slimy head of her fat cock against your lips. Happily licking up all of the salty precum that's in range of your [pc.tongue+], you move on to start kissing and sucking the tip of her huge shaft. Suddenly, Lyssieth reaches down to take hold of your head, and, stepping forwards once more, she forces her throbbing length past your lips and down your throat.
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(That's right... ~Mmm!~ Take it deep... That's a good [pc.girl]...)] Lyssieth moans, and, wanting to please your new mommy, you relax your throat and allow her to push her fat shaft deep down your gullet.
+		#ELSE [lyssieth.speech(That's right... ~Mmm!~ Take it deep...)] Lyssieth moans, and, wanting to please her, you relax your throat and allow the elder lilin to push her fat shaft deep down your gullet.
+		#ENDIF
+		 With a wet, squelching sound, she then withdraws her cock, before thrusting it down your throat once more. You feel a thick mixture of saliva and precum drooling from the sides of your mouth, and let out a very muffled moan as you happily allow Lyssieth to start fucking your face...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_START_SEX_DOMINANT"><![CDATA[
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(Sorry, mommy, but you're the one who's going to be using their mouth,)]
+		#ELSE [pc.speech(Sorry, Lyssieth, but you're the one who's going to be using their mouth,)]
+		#ENDIF
+		 you say, reaching up to push down on the elder lilin's shoulders. Just as you'd suspected, she's horny enough to not really care who's doing what, so long as it's sexual, and, despite some half-hearted protests, she allows you to push her to her knees in front of you.
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Bad [pc.girl],)] Lyssieth pouts, [lyssieth.speech(I wanted to fuck your face...)]
+		#ELSE [lyssieth.speech(Aww,)] Lyssieth pouts, [lyssieth.speech(I wanted to fuck your face...)]
+		#ENDIF
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(Well, we can't always get what we want, can we, mommy?)] you reply, stepping forwards to bring your exposed groin up to her face.
+		#ELSE [pc.speech(Well, we can't always get what we want, can we?)] you reply, stepping forwards to bring your exposed groin up to her face.
+		#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_START_SEX_DOMINANT_GROW_VAGINA"><![CDATA[
+	</p>
+	<p>
+		[lyssieth.speech(But you don't even have any genitals!)] Lyssieth complains, frowning up at you for a moment, before softening her expression and biting her lip,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Let mommy give you a nice new pussy!)]
+		#ELSE [lyssieth.speech(I'll give you a nice new pussy!)]
+		#ENDIF
+	</p>
+	<p>
+		As you start to reply, Lyssieth suddenly reaches up and starts stroking her fingers up and down in a vertical line over your doll-like crotch. Her touch produces such an intense stimulation that the words which were forming in your mouth burst out as a desperate, passionate moan. Letting out soft laugh, Lyssieth continues stroking your sensitive groin, and as she starts gently pinching and squeezing at a particularly sensitive point between your legs, you can't help but let out a series of frantic squeals.
+	</p>
+	<p>
+		[lyssieth.speech(Mmm, you like that?)] Lyssieth teases, before suddenly straightening her two forefingers and pushing them into your crotch. Instead of the pressure that you expected, her fingers slide <i>into</i> you, and you look down to see that you have a virgin, demonic pussy between your legs. You can't help but bite your lip and whine as you feel just how tight it is; as Lyssieth curls her fingers up and starts stroking your internal walls, you become acutely aware of how they're barely managing to fit inside.
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(~Aah!~ Yes, mommy, like that!)] you cry, but, to your intense disappointment, Lyssieth suddenly slides her fingers back out.
+		#ELSE [pc.speech(~Aah!~ Yes, keep on going! Just like that!)] you cry, but, to your intense disappointment, Lyssieth suddenly slides her fingers back out.
+		#ENDIF
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Be a good [pc.girl] now and let mommy put her tongue to good use,)] Lyssieth teases, leaning forwards to deliver a long, wet lick up the length of your new cunt. [lyssieth.speech(I'll get you all nice and wet, ready to be fucked!)]
+		#ELSE [lyssieth.speech(Mmm, yes, let me put my tongue to good use,)] Lyssieth teases, leaning forwards to deliver a long, wet lick up the length of your new cunt. [lyssieth.speech(I'll get you all nice and wet, ready to be fucked!)]
+		#ENDIF
+	</p>
+	<p>
+		You aren't sure yet if you're going to allow Lyssieth to fuck you, but getting her to eat you out for a while sounds like fun regardless. Grabbing the elder lilin by her horns, you pull her face into your groin, moaning, [pc.speech(~Mmm!~ Come on then! Get started already!)]
+	</p>
+	<p>
+		Not needing to be told twice, she happily thrusts her tongue into your demonic pussy, reaching around to grab your [pc.ass+] in both hands as she buries her face between your [pc.legs] and starts eating you out. Bucking your hips back and forth, you start grinding your hungry cunt down against
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN your new mommy's lips,
+		#ELSE the horny lilin's lips,
+		#ENDIF
+		 wondering if you'll let her fuck you after this, or whether you'll continue to assert your dominance over her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_START_SEX_DOMINANT_GROW_PENIS"><![CDATA[
+	</p>
+	<p>
+		[lyssieth.speech(But you don't even have any genitals!)] Lyssieth complains, frowning up at you for a moment, before softening her expression and biting her lip,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Let mommy give you a nice big cock!)]
+		#ELSE [lyssieth.speech(I'll give you a nice big cock!)]
+		#ENDIF
+	</p>
+	<p>
+		As you start to reply, Lyssieth suddenly reaches up and starts stroking her fingers around and around in a circular manner over your doll-like crotch. Her touch produces such an intense stimulation that the words which were forming in your mouth burst out as a desperate, passionate groan. Letting out soft laugh, Lyssieth continues stroking your sensitive groin, and as she starts gently pulling and squeezing at a particularly sensitive point on your crotch, you can't help but let out a series of [pc.moans+].
+	</p>
+	<p>
+		[lyssieth.speech(Mmm, you like that?)] Lyssieth teases, before suddenly wrapping her fingers around the protrusion that's appeared between your [pc.legs]. Letting out an alarmed groan as you feel this, you look down to see that the elder lilin is stroking your new demonic cock with one hand, while the other is reaching up to cup and massage your new pair of balls. Although at first your shaft is only a couple of [unit.sizes] long, as Lyssieth continues to stroke and tug at it, it grows larger and larger, until finally, at [pc.penisInches]-inches long, it's almost as big as hers is.
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(~Aah!~ Yes, mommy, that feels so good!)] you exclaim, drawing another soft giggle from between Lyssieth's lips. 
+		#ELSE [pc.speech(~Aah!~ Yes, that feels so good!)] you exclaim, drawing another soft giggle from between Lyssieth's lips.
+		#ENDIF
+		 Still busily massaging and cupping your new balls with her free hand, the elder lilin causes them to expand to a size larger than a normal human's, and as you let out another deep groan, you feel them grow heavy as they fill with potent, demonic sperm.
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Be a good [pc.girl] now and let mommy have a taste,)] Lyssieth teases, leaning forwards to deliver a long, wet lick up the underside of your new cock. [lyssieth.speech(You were a little naughty, refusing to suck mommy's cock, so after I've done this for you, I think you can make it up to me by letting me fuck you, ok?)]
+		#ELSE [lyssieth.speech(Mmm, I can't wait to have a taste,)] Lyssieth teases, leaning forwards to deliver a long, wet lick up the underside of your new cock. [lyssieth.speech(You were quite bad, refusing to suck my cock, so after I've done this for you, I think you can make it up to me by letting me fuck you, ok?)]
+		#ENDIF
+	</p>
+	<p>
+		You aren't sure about allowing Lyssieth to fuck you, but getting her to give you a blowjob sounds like fun regardless. Grabbing the elder lilin by her horns, you pull her face into your groin, thrusting your now-erect cock past her waiting lips as you groan, [pc.speech(~Mmm!~ Just suck it already!)]
+	</p>
+	<p>
+		Not needing to be told twice, Lyssieth happily relaxes her throat, reaching around to grab your [pc.ass+] in both hands as she buries her face between your [pc.legs] and takes your thick cock all the way down her gullet. Bucking your hips back and forth, you start face-fucking
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN your new mommy,
+		#ELSE the horny lilin,
+		#ENDIF
+		 wondering if you'll let her fuck you after this, or whether you'll continue to assert your dominance over her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_START_SEX_DOMINANT_SERVICE_PENIS"><![CDATA[
+		 [pc.speech(You're going to suck my cock, and then maybe afterwards I'll let you have some fun.)]
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Well, if that's what it'll take for you to be a good [pc.girl]... Come on then, let mommy have a taste,)] Lyssieth teases, leaning forwards to deliver a long, wet lick up the underside of your cock. [lyssieth.speech(You're a little naughty, refusing to suck mommy's cock like that, so after I've done this for you, I think you can make it up to me by letting me fuck you, ok?)]
+		#ELSE [lyssieth.speech(Well, I can't complain, I <i>do</i> like cock... Come on then, let me have a taste,)] Lyssieth teases, leaning forwards to deliver a long, wet lick up the underside of your cock. [lyssieth.speech(You're quite bad, refusing to suck my cock like that, so after I've done this for you, I think you can make it up to me by letting me fuck you, ok?)]
+		#ENDIF
+	</p>
+	<p>
+		You aren't sure about allowing Lyssieth to fuck you, but getting her to give you a blowjob sounds like fun regardless. Grabbing the elder lilin by her horns, you pull her face into your groin, thrusting your now-erect cock past her waiting lips as you groan, [pc.speech(~Mmm!~ Just suck it already!)]
+	</p>
+	<p>
+		Not needing to be told twice, Lyssieth happily relaxes her throat, reaching around to grab your [pc.ass+] in both hands as she buries her face between your [pc.legs] and takes your thick cock all the way down her gullet. Bucking your hips back and forth, you start face-fucking
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN your new mommy,
+		#ELSE the horny lilin,
+		#ENDIF
+		 wondering if you'll let her fuck you after this, or whether you'll continue to assert your dominance over her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEMON_TF_START_SEX_DOMINANT_SERVICE_VAGINA"><![CDATA[
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(You're going to lick my pussy, and then maybe afterwards I'll let you have some fun, mommy.)]
+		#ELSE [pc.speech(You're going to lick my pussy, and then maybe afterwards I'll let you have some fun.)]
+		#ENDIF
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Well, if that's what it'll take for you to be a good [pc.girl]... Come on then, let mommy put her tongue to good use,)] Lyssieth teases, leaning forwards to deliver a long, wet lick up the length of your cunt. [lyssieth.speech(I'll get you all nice and wet, ready to be fucked!)]
+		#ELSE [lyssieth.speech(Mmm, yes, let me put my tongue to good use,)] Lyssieth teases, leaning forwards to deliver a long, wet lick up the length of your cunt. [lyssieth.speech(I'll get you all nice and wet, ready to be fucked!)]
+		#ENDIF
+	</p>
+	<p>
+		You aren't sure yet if you're going to allow Lyssieth to fuck you, but getting her to eat you out for a while sounds like fun regardless. Grabbing the elder lilin by her horns, you pull her face into your groin, moaning, [pc.speech(~Mmm!~ Come on then! Get started already!)]
+	</p>
+	<p>
+		Not needing to be told twice, she happily thrusts her tongue into your demonic pussy, reaching around to grab your [pc.ass+] in both hands as she buries her face between your [pc.legs] and starts eating you out. Bucking your hips back and forth, you start grinding your hungry cunt down against
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN your new mommy's lips,
+		#ELSE the horny lilin's lips,
+		#ENDIF
+		 wondering if you'll let her fuck you after this, or whether you'll continue to assert your dominance over her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEMON_TF_SEX"><![CDATA[
+	<p>
+		As you gather your things, you notice that there are full-height mirrors on either side of the office's door, and, stepping up in front of one, you take a good look at your new demonic body.
+	</p>
+	<p>
+		The smooth, demonic skin that's covering your body is the same scarlet shade as Lyssieth's, with your black hair, grey horns, and yellow irises similarly being the same colour as the elder lilin's. Behind your back, you have a pair of [pc.wingSize], bat-like wings, while dangling down from just above your ass, you have a spaded tail. The rest of you is very much humanoid in nature, and, if it wasn't for the colour of your skin, you could be mistaken for a particularly attractive human if you were to transform your wings, horn, and tail away.
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Mommy hasn't corrupted anyone into a demon for a long time,)]
+		#ELSE [lyssieth.speech(I haven't corrupted anyone into a demon for a long time,)]
+		#ENDIF
+		 Lyssieth says, stepping up behind you and giving you a big hug. Pressing her massive breasts into your back, she sighs into your ear, [lyssieth.speech(Lilaya and Meraxis are going to be mad at me...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEMON_TF_SEX_SURNAMES"><![CDATA[
+	<p>
+		Turning to face the elder lilin, who is now considered to be your new mother, you reassure her, [pc.speech(Don't worry, I'm sure they'll understand. I'll explain to Lilaya when I see her next.)]
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(That would be a big help for mommy,)]
+		#ELSE [lyssieth.speech(That'd really help,)]
+		#ENDIF
+		 Lyssieth replies, leaning over your shoulder to kiss you on the cheek, before stepping back and saying, [lyssieth.speech(Now, get the rest of your things together. I'm sure you want to be off to have some fun with your new body!)]
+	</p>
+	<p>
+		Doing as she says, you continue to gather your things and get yourself in order, ready to head out into the world as a demon. After just a moment, you're ready to leave, and you turn back towards Lyssieth to see that she's transformed back into her human form. After the intense intimacy of the sex with her in her true elder lilin body, it seems a little strange now to see her once more appearing as a human. As she gathers up her discarded clothing,
+		#IF !lyssieth.getFluidsStoredInOrifice(ORIFICE_VAGINA).isEmpty()
+		#THEN you smirk to yourself as you see your cum still oozing out of her now-human pussy.
+		#ELSE you smirk to yourself as you see splatters of her cum dripping down her legs.
+		#ENDIF
+		 Placing her clothing on her desk, she turns towards you and smiles, before saying,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(So, now that mommy's given you what you wanted, there's the matter of public recognition to address. Publicly recognising you as my [pc.daughter] would undoubtedly draw Lilith's attention, so that's out of the question. It is customary, however, for all of the sons and daughters of lilin to take a variation of their mother's name as their new surname. I normally insist upon this for all of my offspring, but as you're a special case, I'll let you decide. Do you want to take the surname of 'Lyssiethmartuilani'? It's quite a mouthful, but it roughly means 'direct daughter of Lyssieth'. Even incubi offspring take this name - the 'daughter' part of the meaning is just customary. So, do you want mommy's special surname?)]
+		#ELSE [lyssieth.speech(So, now that I've given you what you wanted, there's the matter of public recognition to address. Publicly recognising you as my [pc.daughter] would undoubtedly draw Lilith's attention, so that's out of the question. It is customary, however, for all of the sons and daughters of lilin to take a variation of their mother's name as their new surname. I normally insist upon this for all of my offspring, but as you're a special case, I'll let you decide. Do you want to take the surname of 'Lyssiethmartuilani'? It's quite a mouthful, but it roughly means 'direct daughter of Lyssieth'. Even incubi offspring take this name - the 'daughter' part of the meaning is just customary. So, do you want it?)]
+		#ENDIF
+	</p>
+	<p>
+		You wonder if you should accept the name that Lyssieth is giving to you, or turn her down. It doesn't seem as though she'd be too disappointed if you were to do refuse, and you imagine that the surname itself probably wouldn't come into much use anyway. Then again, it might be nice to be semi-officially known as Lyssieth's [pc.daughter]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEMON_TF_SEX_TAKE_SURNAME"><![CDATA[
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(Yes, I'll take your surname, mommy,)]
+		#ELSE [pc.speech(Yes, I'll take your surname,)]
+		#ENDIF
+		 you say, smiling as you see the happy look on Lyssieth's face.
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Excellent!)] your mommy replies, [lyssieth.speech(Then from now on, you shall be known as '[pc.name] [pc.surname]'. Now, the two of us seem to have made quite a mess in here... Please do excuse mommy while she tidies her office up. Oh, and do come back soon; mommy would love to have some more fun with her [pc.daughter]...)]
+		#ELSE [lyssieth.speech(Excellent!)] she replies, [lyssieth.speech(Then from now on, you shall be known as '[pc.name] [pc.surname]'. Now, the two of us seem to have made quite a mess in here... Please do excuse me while I tidy the place up. Oh, and do come back soon; I'd love to have some more fun with you...)]
+		#ENDIF
+	</p>
+	<p>
+		Doing as Lyssieth asks, you thank her one last time for agreeing to transform you into a demon, before heading over to the door of her office and making your exit...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEMON_TF_SEX_DO_NOT_TAKE_SURNAME"><![CDATA[
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speech(Sorry, mommy, I don't think taking your surname is a good idea. It might somehow alert Lilith to my existence,)]
+		#ELSE [pc.speech(Sorry, I don't think taking your surname is a good idea. It might somehow alert Lilith to my existence,)]
+		#ENDIF
+		 you say, relieved to see that there's no look of disappointment on Lyssieth's face.
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Good thinking,)] your mommy replies, [lyssieth.speech(It'd probably be best if you just kept your own surname. Now, the two of us seem to have made quite a mess in here... Please do excuse mommy while she tidies her office up. Oh, and do come back soon; mommy would love to have some more fun with her [pc.daughter]...)]
+		#ELSE [lyssieth.speech(Good thinking,)] she replies, [lyssieth.speech(It'd probably be best if you just kept your own surname. Now, the two of us seem to have made quite a mess in here... Please do excuse me while I tidy the place up. Oh, and do come back soon; I'd love to have some more fun with you...)]
+		#ENDIF
+	</p>
+	<p>
+		Doing as Lyssieth asks, you thank her one last time for agreeing to transform you into a demon, before heading over to the door of her office and making your exit...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEMON_TF_SIREN_OFFICE_LEAVE"><![CDATA[
+	<p>
+		[siren.speech(~Mwhahaha!~ You dare return to my domain?! What a foolis- W-Whoa...)] Maraxis's voice trails off as she sees your new body. As you close the door to Lyssieth's office behind you, she stammers, [siren.speech(M-Mommy made you... W-Wait... A-A <i>full</i> demon?! H-Hang on, so you're my [pc.sister] now?! Oh, what's Lilaya going to say?!)]
+	</p>
+	<p>
+		[pc.speech(I'll speak to Lilaya about it,)] you reply, walking up to Meraxis's desk, [pc.speech(I'm not a recognised [pc.daughter] like you or her, but yes, I suppose that I'm your [pc.sister] now.)]
+	</p>
+	<p>
+		[siren.speech(T-That doesn't stop you from being my ultimate nemesis!)] Meraxis declares, standing up behind her desk and pointing her finger at you, [meraxis.speech(Y-Your full demon form will only make it all the more satisfying when I eventually decide to smite you down!)]
+	</p>
+	<p>
+		#IF pc.hasTraitActivated(PERK_CHUUNI)
+		#THEN Smirking at your rival, you declare, [pc.speech(Hah! There's no way that I've ever lose to you! My powers are beyond your comprehension! Now, I must take my leave; my ultimate arcane abilities are soon to be known and feared throughout all of Dominion, and there are no doubt some hapless fools up there who need to be put in their place!)]
+		#ELSE Rolling your eyes at your sister's ridiculous statement, you say, [pc.speech(Ok, sure thing Meraxis, but for now, I need to take my leave. I'll see you later.)]
+		#ENDIF
+	</p>
+	<p>
+		Shouting out yet more preposterous statements, Meraxis watches you as you walk over to the door and head out into the corridors of Lyssieth's palace...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DEMON_TF_SIREN_OFFICE_LEAVE_COMPANION"><![CDATA[
+	<p>
+		[siren.speech(~Mwhahaha!~ You dare return to my domain?! What a foolis- W-Whoa...)] Maraxis's voice trails off as she sees your new body. As you close the door to Lyssieth's office behind you, she stammers, [siren.speech(M-Mommy made you... W-Wait... A-A <i>full</i> demon?! H-Hang on, so you're my [pc.sister] now?! Oh, what's Lilaya going to say?!)]
+	</p>
+	<p>
+		[pc.speech(I'll speak to Lilaya about it,)] you reply, walking up to Meraxis's desk, [pc.speech(I'm not a recognised [pc.daughter] like you or her, but yes, I suppose that I'm your [pc.sister] now.)]
+	</p>
+	<p>
+		[npc.speech(Wow, [pc.name]... You're a demon now?!)] [npc.name] remarks, standing up from the sofa and returning to your side once more.
+	</p>
+	<p>
+		[siren.speech(T-This all doesn't stop you from being my ultimate nemesis!)] Meraxis declares, standing up behind her desk and pointing her finger at you, [meraxis.speech(Y-Your full demon form will only make it all the more satisfying when I eventually decide to smite you down!)]
+	</p>
+	<p>
+		#IF pc.hasTraitActivated(PERK_CHUUNI)
+		#THEN Smirking at your rival, you declare, [pc.speech(Hah! There's no way that I've ever lose to you! My powers are beyond your comprehension! Now, I must take my leave; my ultimate arcane abilities are soon to be known and feared throughout all of Dominion, and there are no doubt some hapless fools up there who need to be put in their place!)]
+		#ELSE Rolling your eyes at your sister's ridiculous statement, you say, [pc.speech(Ok, sure thing Meraxis, but for now, I need to take my leave. I'll see you later.)]
+		#ENDIF
+	</p>
+	<p>
+		Shouting out yet more preposterous statements, Meraxis watches you as you tell [npc.name] to follow you, before walking over to the door and heading out into the corridors of Lyssieth's palace...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- LILAYA AND MERAXIS DEMON TRANSFORMATION SCENES -->
+	
+	<!--LILAYA_DEMON_TF_START-->
+	
+	<htmlContent tag="LILAYA_DEMON_TF_START"><![CDATA[
+	<p>
+		With an accompanying flash of purple light, you, Lilaya, and Lyssieth appear back in the elder lilin's office. The instant that you find yourselves in this new location, Lilaya turns to your mother and demands, [lilaya.speech(So go on, do it! I can't stand being a half-demon any longer!)]
+	</p>
+	<p>
+		Wearily looking into Lilaya's eyes, Lyssieth asks, [lyssieth.speech(So you're still adamant about wanting to lose what humanity you have left? You know, I specifically asked Lilith to alter her spell such that it would keep you as a half-demon. I didn't want you losing all connection to the person you were in the previous reality...)]
+	</p>
+	<p>
+		[lilaya.speech(Do you think I care about any of that?! You and your mother already took whoever I once was away from me, and now I'm left stuck half-way between demon and human! If I can't become a human, then I want to go the other way! Do it! Transform me!)] Lilaya shouts, getting more than a little emotional as she begs her mother to turn her into a full demon. 
+	</p>
+	<p>
+		[lyssieth.speech(I... I suppose I have no choice...)] Lyssieth sighs, [lyssieth.speech(I know you've always wanted this, but I thought you'd change your mind once you knew that you used to be a human...)]
+	</p>
+	<p>
+		[lilaya.speech(Well, you thought wrong,)] Lilaya states, before suddenly turning and marching over to the door of the office. As she pulls it open, she turns around and says, [lilaya.speech(As you're finally going to do the right thing, you need to do it for Meraxis as well.)]
+	</p>
+	<p>
+		[siren.speech(Do you wish to summon me?)] calls the familiar voice of your other half-sister, [siren.speech(Be warned, sister, if you seek to witness my power, then you do so at the peril of the entire universe!)]
+	</p>
+	<p>
+		[lilaya.speech(Please, Meraxis, this is serious,)] Lilaya replies, [lilaya.speech(Just come in here for a moment.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!--LILAYA_DEMON_TF_MERAXIS_CHOICE-->
+	
+	<htmlContent tag="LILAYA_DEMON_TF_MERAXIS_CHOICE"><![CDATA[
+	<p>
+		Doing as her older sister asks, Meraxis steps into the office. Seeing the three of you watching her entry, she turns to one side and strikes a ridiculous pose, before asking, [siren.speech(So, the three of you wish to challenge me to a duel? With my new technique, 'typhoon of obliteration', you stand no chance against me! I shall surely defe- H-Hey!)]
+	</p>
+	<p>
+		Obviously lacking the patience to listen to her younger sister's announcement, Lilaya grabs her by the arm, before pulling her along with her to stand before your mother. [lilaya.speech(This is no time for your games. Thanks to [pc.name], mommy's agreed to turn us into full demons!)]
+	</p>
+	<p>
+		[siren.speech(Really?!)] Meraxis exclaims, her non-concealed eye lighting up in delight, [siren.speech(As a full demon, my powers will threaten to consume the multiverse! ~Mwhahaha!~)]
+	</p>
+	<p>
+		[lyssieth.speech(And you both know how this is to be done, I assume?)] Lyssieth asks, continuing to answer her own question as she sees the hesitant expression on Meraxis's face, [lyssieth.speech(All demonic transformations are done by harnessing the power or sexual energy. In other words, I need to orgasm alongside the two of you for this to work. Are you prepared for me to transform into my true form and fuck you?)]
+	</p>
+	<p>
+		[lilaya.speech(Well... If that's what it takes, then fine,)] Lilaya replies.
+	</p>
+	<p>
+		[siren.speech(W-What? A-As in sex? W-With mommy?)] Meraxis asks in an uncharacteristically-worried tone, [siren.speech(C-Can't we just do it another way? L-Like kissing or something?)]
+	</p>
+	<p>
+		[lilaya.speech(What's the matter, Meraxis?)] Lilaya impatiently asks, [lilaya.speech(You always liked hanging around with those demon friends of yours, and from what I've heard, they were most promiscuous. With them, surely you've done much dirtier stuff than having sex with mommy?)]
+	</p>
+	<p>
+		[siren.speech(Y-Yes, I-I did... W-Well, that is, I-I watched a-a lot of dirty stuff,)] Meraxis stutters and trips over her words as her cheeks flush red from embarrassment. [siren.speech(I-I never joined in though... I... I'm a... You know...)]
+	</p>
+	<p>
+		[lilaya.speech(You're not seriously still a virgin, are you?)] Lilaya asks in disbelief, [lilaya.speech(I was sure you and that other demon were fucking. What's his name? 'Jhortrax', was it?)]
+	</p>
+	<p>
+		[siren.speech(What?! No! We never did anything like that!)] Meraxis exclaims, [meraxis.speech(A-And yes, I am still a virgin...)]
+	</p>
+	<p>
+		[lyssieth.speech(Don't go on at your little sister, Lilaya,)] Lyssieth scolds her daughter, before turning to Meraxis, [lyssieth.speech(I can't say that I'm not disappointed in you, young lady. A succubus's most powerful weapon is her ability to seduce and enrapture others by using her body. To have had no sexual experience at all... I'm almost happy to be transforming you into a demon now; this process will no nothing if not break you out of your silly self-imposed chastity.)]
+	</p>
+	<p>
+		From Meraxis's initial reaction, you know that she's almost as eager as her older sister to be transformed into a full demon, but despite this, she's quite clearly extremely nervous at the prospect of losing her virginity. You wonder if you should help encourage her to go through with this, or tell her that she should wait outside and go through with the transformation at another time...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_SEX_CHOICE"><![CDATA[
+	<p>
+		[lilaya.speech(Come on, Meraxis, what better time or place to lose your virginity than here with us?)] Lilaya asks, stepping around behind her sister and pulling her into a hug. [lilaya.speech(We'll be gentle, I promise.)]
+	</p>
+	<p>
+		[pc.speech(Lilaya's right,)] you say, wanting to encourage Meraxis to become a full demon alongside her sister, [pc.speech(There's no need to be nervous around us.)]
+	</p>
+	<p>
+		Looking up at her mother to see a reassuring smile on her face, Meraxis gulps and consents, [siren.speech(Ok, I'll do it. B-But I must observe the metamorphosis of my elder sibling before undergoing my own demonic awakening.)]
+	</p>
+	<p>
+		[lilaya.speech(You mean you want to want to watch mommy and I fuck to get you in the mood?)] Lilaya crassly asks.
+	</p>
+	<p>
+		Breaking out of her sister's embrace, Meraxis makes an affirmative nodding gesture, before trying to dart away to one side of the room. Before she's able to take more than two steps, Lyssieth reaches out and grabs her arm, before pulling her into her body and gently teasing, [lyssieth.speech(Mommy can help you with that...)]
+	</p>
+	<p>
+		Before you or Lilaya can react, Lyssieth pulls her daughter into a passionate kiss, and as Meraxis's surprised exclamation is muffled into her mouth, the elder lilin rapidly transforms into her true form. As Lyssieth's skin turns scarlet, and demonic wings and tail grow from her back, Meraxis's moans start to get more pleasurable, and you see a faint purple glow shimmering in and out of sight around her head. Breaking off the kiss, Lyssieth grins down to her daughter and asks, [lyssieth.speech(So, daughter, how do you like mommy's true form?)]
+	</p>
+	<p>
+		With a hungry look in her eyes, Meraxis answers, [siren.speech(I... I love it... I want you to fuck me!)]
+	</p>
+	<p>
+		Reminding her daughter that she wanted to watch her sister's transformation before losing her virginity, Lyssieth moves over to Lilaya, before pulling the stunned half-demon into a similarly-passionate kiss. Once again, you see a faint purple haze around Lilaya's head, and what at first sounded like a hesitant, muffled cry soon turns into a deeply-passionate moan. As her mother breaks off the kiss once again, Lilaya quickly wraps her arms around her and pleads, [lilaya.speech(Please, mommy, fuck me! Make me into a real demon!)]
+	</p>
+	<p>
+		Witnessing the surprising and sudden arousal of both Lilaya's and Meraxis's post-kiss responses, you realise that Lyssieth has used her arcane power to instil a love of incest into their minds. Before you can react according to what you think of this, Lyssieth turns to you and grins, before asking,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Surely you'd like to help mommy in giving your sister a good fucking? It's the last she'll ever receive as a half-demon...)]
+		#ELSE [lyssieth.speech(Surely you'd like to help me in giving Lilaya a good fucking? It's the last she'll ever receive as a half-demon...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_SOLO_SEX_CHOICE"><![CDATA[
+	<p>
+		[lilaya.speech(Come on, Meraxis, what better time or place to lose your virginity than here with us?)] Lilaya asks, stepping around behind her sister and pulling her into a hug. [lilaya.speech(We'll be gentle, I promise.)]
+	</p>
+	<p>
+		[pc.speech(I don't know, Lilaya,)] you interrupt, not wanting Meraxis to go through with anything she might later come to regret, [pc.speech(If she's feeling nervous, then it would be best for her to leave.)]
+	</p>
+	<p>
+		Looking up at her mother to see a consenting smile on her face, Meraxis turns and hurries back to the door of the office, before turning around and stating, [siren.speech(I-I must prepare my powers before undergoing my own demonic awakening! If I were to do this now, the entire universe would be destroyed!)]
+	</p>
+	<p>
+		[lilaya.speech(Fine, just don't come crying to me when you change your mind,)] Lilaya dismissively states, closing the door after her sister's departure.
+	</p>
+	<p>
+		Before you or Lilaya can make the next move, Lyssieth strides over to her daughter and pulls her into a passionate kiss. As Lilaya's surprised exclamation is muffled into her mouth, the elder lilin rapidly transforms into her true form. As Lyssieth's skin turns scarlet, and demonic wings and tail grow from her back, Lilaya's moans start to get more pleasurable, and you see a faint purple glow shimmering in and out of sight around her head. Breaking off the kiss, Lyssieth grins down to her daughter and asks, [lyssieth.speech(So, daughter, how do you like mommy's true form?)]
+	</p>
+	<p>
+		With a hungry look in her eyes, Lilaya answers, [siren.speech(I... I love it... Please, mommy, fuck me! Make me into a real demon!)]
+	</p>
+	<p>
+		Witnessing the surprising and sudden arousal of both Lilaya's post-kiss response, you realise that Lyssieth has used her arcane power to instil a love of incest into her mind. Before you can react according to what you think of this, Lyssieth turns to you and grins, before asking,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(Surely you'd like to help mommy in giving your sister a good fucking? It's the last she'll ever receive as a half-demon...)]
+		#ELSE [lyssieth.speech(Surely you'd like to help me in giving Lilaya a good fucking? It's the last she'll ever receive as a half-demon...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!--LILAYA_DEMON_TF_ORIFICE_SELECTION-->
+	
+	<htmlContent tag="LILAYA_DEMON_TF_ORIFICE_SELECTION"><![CDATA[
+	<p>
+		Eagerly replying in the affirmative, you step up beside your mother, before reaching down to grope Lilaya's shapely butt. As the three of you press against one another, Meraxis darts off to one side of the room, and, dropping her hand down between her legs, starts touching herself as she looks on.
+	</p>
+	<p>
+		[lilaya.speech(~Mmm!~ Oh yeah,)] your [lilaya.relation(pc)] moans, pushing her [lilaya.hips+] back against your touch, [lilaya.speech(You want to use your sister's ass?)]
+	</p>
+	<p>
+		[lyssieth.speech(I don't mind which side I'm on,)] Lyssieth states, grinning at you, [lyssieth.speech(So, do you want to use her ass, or her pussy?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_SOLO_ORIFICE_SELECTION"><![CDATA[
+	<p>
+		Eagerly replying in the affirmative, you step up beside your mother, before reaching down to grope Lilaya's shapely butt.
+	</p>
+	<p>
+		[lilaya.speech(~Mmm!~ Oh yeah,)] your [lilaya.relation(pc)] moans, pushing her [lilaya.hips+] back against your touch, [lilaya.speech(You want to use your sister's ass?)]
+	</p>
+	<p>
+		[lyssieth.speech(I don't mind which side I'm on,)] Lyssieth states, grinning at you, [lyssieth.speech(So, do you want to use her ass, or her pussy?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_SEX_START_FUCK_PUSSY"><![CDATA[
+	<p>
+		[pc.speech(I want to fuck your tight little pussy,)] you [pc.moan] into Lilaya's ear, causing her to blush and let out an aroused squeal.
+	</p>
+	<p>
+		[lyssieth.speech(Looks like I'll be the one to use your ass, my dear,)] Lyssieth says to her daughter, before turning her around and starting to unbutton her shirt. Helping your mother to strip Lilaya, you pull down her skirt and panties, revealing her wet pussy and causing her to let out another lewd moan.
+	</p>
+	<p>
+		#IF pc.hasPenis()
+		#THEN Both you and Lyssieth then quickly disrobe, before stepping into position on either side of Lilaya.
+		#ELSE Using your transformative abilities to grow a thick cock, both you and Lyssieth then quickly disrobe, before stepping into position on either side of Lilaya.
+		#ENDIF
+		 As your mother grabs Lilaya's hips and presses herself in against her back, your [lilaya.relation(pc)] lets out a sudden gasp, and you realise that Lyssieth has quickly penetrated her ass. Pulling her half-demon daughter back in against her [lyssieth.breasts+], Lyssieth reaches down and grabs one of Lilaya's legs, before lifting it up and presenting her demonic pussy to you.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speechNoEffects(~Mmm!~ Look how wet and ready my precious little Lilaya is for your cock! Come on, show mommy how much you love your sister!)]
+		#ELSE [lyssieth.speechNoEffects(~Mmm!~ Look how wet and ready she is for your cock! Come on, fuck her!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN Doing as your mother asks, you step up in front of Lilaya, and, teasing the [pc.cockHead+] of your [pc.cock] over her [lilaya.labia+], you thrust your hips forwards and penetrate your [lilaya.relation(pc)].
+		#ELSE Doing as the elder lilin asks, you step up in front of Lilaya, and, teasing the [pc.cockHead+] of your [pc.cock] over her [lilaya.labia+], you thrust your hips forwards and penetrate her.
+		#ENDIF
+	</p>
+	<p>
+		[lilaya.speechNoEffects(~Aah!~ Yes! Fuck me!)] Lilaya cries, panting and moaning as you and Lyssieth sandwich her between your bodies.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN With your mother's cock in her ass, and yours penetrating her pussy, your [lilaya.relation(pc)] continues to make lewd noises as the two of you give her her last sexual experience while still a half-demon...
+		#ELSE With Lyssieth's cock in her ass, and yours penetrating her pussy, Lilaya continues to make lewd noises as the two of you give her her last sexual experience while still a half-demon...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_SEX_START_FUCK_ASS"><![CDATA[
+	<p>
+		[pc.speech(That's right, I want to fuck your tight little ass,)] you [pc.moan] into Lilaya's ear, causing her to blush and let out an aroused squeal.
+	</p>
+	<p>
+		[lyssieth.speech(Looks like I'll be the one to use your pussy, my dear,)] Lyssieth says to her daughter, before starting to unbutton her shirt. Helping your mother to strip Lilaya, you pull down her skirt and panties, revealing her [lilaya.ass+] and wet pussy, and causing her to let out another lewd moan.
+	</p>
+	<p>
+		#IF pc.hasPenis()
+		#THEN Both you and Lyssieth then quickly disrobe, before stepping into position on either side of Lilaya.
+		#ELSE Using your transformative abilities to grow a thick cock, both you and Lyssieth then quickly disrobe, before stepping into position on either side of Lilaya.
+		#ENDIF
+		 Making the first move, you grab Lilaya's hips and press yourself in against her back, sliding the [pc.cockHead+] of your [pc.cock] in between her ass cheeks. With a firm thrust of your hips, you penetrate your [lilaya.relation(pc)]'s asshole, causing her to let out a sudden gasp. Pulling the horny half-demon back in against your [pc.breasts+], you reach down and grab one of Lilaya's legs, before lifting it up and presenting her demonic pussy to her mother.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speechNoEffects(~Mmm!~ Look how wet and ready your daughter is for your cock! Come on, mommy, show me how much you love my sister!)]
+		#ELSE [pc.speechNoEffects(~Mmm!~ Look how wet and ready she is for your cock! Come on, fuck her!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN Doing as you ask, Lyssieth steps up in front of Lilaya, and, teasing the [lyssieth.cockHead+] of her [lyssieth.cock] over her [lilaya.labia+], she thrusts her hips forwards and penetrates your [lilaya.relation(pc)].
+		#ELSE Doing as you ask, Lyssieth steps up in front of Lilaya, and, teasing the [lyssieth.cockHead+] of her [lyssieth.cock] over her [lilaya.labia+], she thrusts her hips forwards and penetrates her.
+		#ENDIF
+	</p>
+	<p>
+		[lilaya.speechNoEffects(~Aah!~ Yes! Fuck me!)] Lilaya cries, panting and moaning as you and Lyssieth sandwich her between your bodies.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN With your cock in her ass, and your mother's penetrating her pussy, your [lilaya.relation(pc)] continues to make lewd noises as the two of you give her her last sexual experience while still a half-demon...
+		#ELSE With your cock in her ass, and Lyssieth's penetrating her pussy, Lilaya continues to make lewd noises as the two of you give her her last sexual experience while still a half-demon...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_SEX_START_GIVE_CUNNILINGUS"><![CDATA[
+	<p>
+		[pc.speech(I want to eat you out,)] you [pc.moan] into Lilaya's ear, causing her to blush and let out an aroused squeal.
+	</p>
+	<p>
+		[lyssieth.speech(Looks like I'll be the one to use your ass, my dear,)] Lyssieth says to her daughter, before turning her around and starting to unbutton her shirt. Helping your mother to strip Lilaya, you pull down her skirt and panties, revealing her wet pussy and causing her to let out another lewd moan.
+	</p>
+	<p>
+		#IF pc.hasPenis()
+		#THEN Both you and Lyssieth then quickly disrobe, before stepping into position on either side of Lilaya.
+		#ELSE Using your transformative abilities to grow a thick cock, both you and Lyssieth then quickly disrobe, before stepping into position on either side of Lilaya.
+		#ENDIF
+		 As your mother grabs Lilaya's hips and presses herself in against her back, your [lilaya.relation(pc)] lets out a sudden gasp, and you realise that Lyssieth has quickly penetrated her ass. Pulling her half-demon daughter back in against her [lyssieth.breasts+], Lyssieth reaches down and grabs one of Lilaya's legs, before lifting it up and presenting her demonic pussy to you.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speechNoEffects(~Mmm!~ Look how wet and ready my precious little Lilaya is! Come on, show mommy how much you love your sister!)]
+		#ELSE [lyssieth.speechNoEffects(~Mmm!~ Look how wet and ready she is! Come on, give her what she wants!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN Doing as your mother asks, you drop down onto your knees in front of your [lilaya.relation(pc)], and, pressing your [pc.lips+] against her [lilaya.labia+], you push your [pc.tongue+] into her pussy and start eating her out.
+		#ELSE Doing as the elder lilin asks, you drop down onto your knees in front of Lilaya, and, pressing your [pc.lips+] against her [lilaya.labia+], you push your [pc.tongue+] into her pussy and start eating her out.
+		#ENDIF
+	</p>
+	<p>
+		[lilaya.speechNoEffects(~Aah!~ Yes! More!)] Lilaya cries, panting and moaning as you and Lyssieth sandwich her.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN With your mother's cock in her ass, and your tongue penetrating her pussy, your [lilaya.relation(pc)] continues to make lewd noises as the two of you give her her last sexual experience while still a half-demon...
+		#ELSE With Lyssieth's cock in her ass, and your tongue penetrating her pussy, Lilaya continues to make lewd noises as the two of you give her her last sexual experience while still a half-demon...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_SEX_START_GIVE_BLOWJOB"><![CDATA[
+	<p>
+		[pc.speech(I want you to grow a cock for me to suck,)] you [pc.moan] into Lilaya's ear, causing her to blush and let out an aroused squeal.
+	</p>
+	<p>
+		[lyssieth.speech(Looks like I'll be the one to use your pussy, my dear,)] Lyssieth says to her daughter, before turning her around and starting to unbutton her shirt. Helping your mother to strip Lilaya, you pull down her skirt and panties, revealing her wet pussy and causing her to let out another lewd moan. Before your eyes, she then uses her transformative abilities to grow a thick, demonic cock for you to suck.
+	</p>
+	<p>
+		Both you and Lyssieth then quickly disrobe, before stepping into position on either side of Lilaya. As your mother grabs Lilaya's hips and presses herself in against her back, your [lilaya.relation(pc)] lets out a sudden gasp, and you realise that Lyssieth has quickly penetrated her pussy from behind. Pulling her half-demon daughter back in against her [lyssieth.breasts+], Lyssieth reaches around and strokes Lilaya's cock, before presenting it to you.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speechNoEffects(~Mmm!~ Look how hard my precious little Lilaya is! Come on, show mommy how much you love your sister!)]
+		#ELSE [lyssieth.speechNoEffects(~Mmm!~ Look how hard she is! Come on, give her what she wants!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN Doing as your mother asks, you drop down onto your knees in front of your [lilaya.relation(pc)], and, pressing your [pc.lips+] against the [lilaya.cockHead+] of her cock, you push your head forwards and take her throbbing length into your mouth.
+		#ELSE Doing as the elder lilin asks, you drop down onto your knees in front of Lilaya, and, pressing your [pc.lips+] against the [lilaya.cockHead+] of her cock, you push your head forwards and take her throbbing length into your mouth.
+		#ENDIF
+	</p>
+	<p>
+		[lilaya.speechNoEffects(~Aah!~ Yes! More!)] Lilaya cries, panting and moaning as you and Lyssieth sandwich her.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN With your mother's cock in her pussy, and your [pc.lips+] wrapped around her cock, your [lilaya.relation(pc)] continues to make lewd noises as the two of you give her her last sexual experience while still a half-demon...
+		#ELSE With Lyssieth's cock in her pussy, and your [pc.lips+] wrapped around her cock, Lilaya continues to make lewd noises as the two of you give her her last sexual experience while still a half-demon...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_SEX_START_GIVE_ANILINGUS"><![CDATA[
+	<p>
+		[pc.speech(I want to eat your ass,)] you [pc.moan] into Lilaya's ear, causing her to blush and let out an aroused squeal.
+	</p>
+	<p>
+		[lyssieth.speech(Looks like I'll be the one to use your pussy, my dear,)] Lyssieth says to her daughter, before starting to unbutton her shirt. Helping your mother to strip Lilaya, you pull down her skirt and panties, revealing her [lilaya.ass+] and wet pussy, and causing her to let out another lewd moan.
+	</p>
+	<p>
+		Both you and Lyssieth then quickly disrobe, before stepping into position on either side of Lilaya. Making the first move, you grab Lilaya's hips and drop to your knees, before pressing your [pc.face] in between her ass cheeks. With a firm thrust of your [pc.tongue+], you penetrate your [lilaya.relation(pc)]'s asshole, causing her to let out a sudden gasp. Pulling the horny half-demon back in against you, you reach around and stroke Lilaya's wet pussy, before parting her [lilaya.labia+] and presenting her to her mother. Pulling back from her ass for a moment, you moan,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speechNoEffects(~Mmm!~ Look how wet and ready your daughter is for your cock! Come on, mommy, show me how much you love my sister!)]
+		#ELSE [pc.speechNoEffects(~Mmm!~ Look how wet and ready she is for your cock! Come on, fuck her!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN Doing as you ask, Lyssieth steps up in front of Lilaya, and, teasing the [lyssieth.cockHead+] of her [lyssieth.cock] over her [lilaya.labia+], she thrusts her hips forwards and penetrates your [lilaya.relation(pc)].
+		#ELSE Doing as you ask, Lyssieth steps up in front of Lilaya, and, teasing the [lyssieth.cockHead+] of her [lyssieth.cock] over her [lilaya.labia+], she thrusts her hips forwards and penetrates her.
+		#ENDIF
+	</p>
+	<p>
+		[lilaya.speechNoEffects(~Aah!~ Yes! Fuck me!)] Lilaya cries, panting and moaning as you and Lyssieth sandwich her between your bodies.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN With your tongue returning to lick her ass, and your mother's cock penetrating her pussy, your [lilaya.relation(pc)] continues to make lewd noises as the two of you give her her last sexual experience while still a half-demon...
+		#ELSE With your tongue returning to lick her ass, and Lyssieth's cock penetrating her pussy, Lilaya continues to make lewd noises as the two of you give her her last sexual experience while still a half-demon...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_SEX_START_FINGERING"><![CDATA[
+	<p>
+		With your options restricted by your sealed clothing, you reach down between Lilaya's legs and start groping her pussy, causing her to blush and let out an aroused squeal.
+	</p>
+	<p>
+		[lyssieth.speech(Looks like I'll be using your ass, my dear,)] Lyssieth says to her daughter, before turning her around and starting to unbutton her shirt. Helping your mother to strip Lilaya, you pull down her skirt and panties, revealing her wet pussy and causing her to let out another lewd moan.
+	</p>
+	<p>
+		Both you and Lyssieth then quickly disrobe, before stepping into position on either side of Lilaya. As your mother grabs Lilaya's hips and presses herself in against her back, your [lilaya.relation(pc)] lets out a sudden gasp, and you realise that Lyssieth has quickly penetrated her ass. Pulling her half-demon daughter back in against her [lyssieth.breasts+], Lyssieth reaches down and grabs one of Lilaya's legs, before lifting it up and presenting her demonic pussy to you.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speechNoEffects(~Mmm!~ Look how wet and ready my precious little Lilaya is! Come on, show mommy how much you love your sister!)]
+		#ELSE [lyssieth.speechNoEffects(~Mmm!~ Look how wet and ready she is! Come on, give her what she wants!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN Doing as your mother asks, you drop your hand down between your [lilaya.relation(pc)]'s legs, and, pressing your [pc.fingers+] against her [lilaya.labia+], you push your hand forwards and slide your digits into her pussy.
+		#ELSE Doing as the elder lilin asks, you drop your hand down between Lilaya's legs, and, pressing your [pc.fingers+] against her [lilaya.labia+], you push your hand forwards and slide your digits into her pussy.
+		#ENDIF
+	</p>
+	<p>
+		[lilaya.speechNoEffects(~Aah!~ Yes! More!)] Lilaya cries, panting and moaning as you and Lyssieth sandwich her between your bodies.
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN With your mother's cock in her ass, and your fingers working away between her legs, your [lilaya.relation(pc)] continues to make lewd noises as the two of you give her her last sexual experience while still a half-demon...
+		#ELSE With Lyssieth's cock in her ass, and your fingers working away between her legs, Lilaya continues to make lewd noises as the two of you give her her last sexual experience while still a half-demon...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!--AFTER_LILAYA_DEMON_TF_SEX-->
+	
+	<htmlContent tag="AFTER_LILAYA_DEMON_TF_SEX"><![CDATA[
+	<p>
+		With each of you now having been satisfied, the three of you disentangle yourselves from each other's clutches. Lyssieth is the first to say something, and softly moans,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speechNoEffects(~Mmm!~ That was fun for mommy... While I was hesitant to go through with this, you do look rather stunning as a full demon, my dear.)]
+		#ELSE [lyssieth.speechNoEffects(~Mmm!~ That was fun... While I was hesitant to go through with this, you do look rather stunning as a full demon, Lilaya.)]
+		#ENDIF
+	</p>
+	<p>
+		[siren.speech(Yeah, you look great, Lilaya,)] the familiar voice of Meraxis calls out from one corner of the room.
+	</p>
+	<p>
+		All three of you look across at the little half-demon to see that she's stripped naked, except for her eyepatch, and is furiously blushing as she gazes at Lilaya's new body. Your now-fully-demonic sister takes a step towards her and calls out, [lilaya.speech(Come here, Meraxis. It's your turn.)]
+	</p>
+	<p>
+		Doing as she's told, the chuuni half-demon nervously walks over to stand before her sister. You and Lyssieth immediately move around to either side of her, surrounding her as your mother wonders out loud,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(So, which of us should take your virginity, hmm? One of your siblings, or your mommy?)]
+		#ELSE [lyssieth.speech(So, which of us should take your virginity, hmm?)]
+		#ENDIF
+	</p>
+	<p>
+		None of the three succubi offer any response to this, leaving you to decide who it will be...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_LILAYA_DEMON_TF_SOLO_SEX"><![CDATA[
+	<p>
+		With each of you now having been satisfied, the three of you disentangle yourselves from each other's clutches. Lyssieth is the first to say something, and softly moans,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speechNoEffects(~Mmm!~ That was fun for mommy... While I was hesitant to go through with this, you do look rather stunning as a full demon, my dear.)]
+		#ELSE [lyssieth.speechNoEffects(~Mmm!~ That was fun... While I was hesitant to go through with this, you do look rather stunning as a full demon, Lilaya.)]
+		#ENDIF
+	</p>
+	<p>
+		With an ecstatic smile on her face, Lilaya launches herself into her mother's arms, hugging her tightly as she happily cries out, [lilaya.speech(Thank you so much, mommy! I'm finally a real demon!)]
+	</p>
+	<p>
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN Before you can offer any words of your own, your [lilaya.relation(pc)] breaks off the hug with your mother, and immediately throws herself into your [pc.arms]. Gazing happily happily into your eyes, she sighs, [lilaya.speech(Thank you so much as well, [pc.name]! I'm so lucky to have such a loving [pc.sister]!)]
+		#ELSE Before you can offer any words of your own, your [lilaya.relation(pc)] breaks off the hug with your mother, and immediately throws herself into your [pc.arms]. Gazing happily happily into your eyes, she sighs, [lilaya.speech(Thank you so much as well, [pc.name]! I'm so lucky to have such a loving [pc.sister]!)]
+		#ENDIF
+	</p>
+	<p>
+		After planting an extremely passionate kiss on your [pc.lips], Lilaya pulls back and bounds over to the full-length mirrors on one side of the room. Beaming happily at her own reflection, she does a spin and lets out a delighted little cry, [lilaya.speech(Yes! Finally! Oh, it feels so good!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_LILAYA_DEMON_TF_SOLO_SEX_FINISHED_REACTION"><![CDATA[
+	<p>
+		Looking across at your mother, you see that she's already reverted to her human form, and is watching her daughter admiring her new body with a smile on her face. Although you can detect a tiny trace of sadness in her eyes, you can tell that she's genuinely happy to see her daughter in such high spirits.
+	</p>
+	<p>
+		[lilaya.speech(Thank you so much again, mommy!)] Lilaya happily says, gathering her clothes and stepping up to her mother. [lilaya.speech(Sorry for being so cold to you for so long. I should have forgiven you for the whole Arthur business a long time ago...)]
+	</p>
+	<p>
+		[lyssieth.speech(Thank you, dear,)] Lyssieth says, giving her daughter a loving hug. [lyssieth.speech(Now, mother said she'd be sending one of her subordinates to check up on me today, so I think I'd better get the two of you back to your laboratory before they turn up.)]
+	</p>
+	<p>
+		After gathering your things, you step up to Lyssieth and allow her to pull you into her embrace. In yet another purple flash, the three of you are teleported back to Lilaya's lab...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_MERAXIS_FUCK_PUSSY"><![CDATA[
+	<p>
+		[pc.speech(I'll be the one to take your virginity,)] you say, moving around in front of the half-demon and placing your hands on her [siren.hips+]. As she makes a consenting little mutter, you move to lie down on the lush rug covering most of Lyssieth's office floor. With your hands still on Meraxis's hips, you pull her down with you, so that she's straddling your groin, looking down into your eyes.
+		#IF !pc.hasPenis()
+		#THEN Using your transformative powers, you grow a nice thick demonic cock with which to take her virginity.
+		#ENDIF
+	</p>
+	<p>
+		[lyssieth.speech(I'll take your anal virginity at the same time, dear,)] Lyssieth softly moans, kneeling down behind her daughter and pressing her cock up against her ass.
+	</p>
+	<p>
+		[lilaya.speech(Then I'll use your mouth,)] Lilaya says, kneeling down beside you. Taking hold of Meraxis's head, she kisses her sister before forcing her fully down on top of you. Pushing her pussy against Meraxis's mouth, she sighs, [lilaya.speech(~Mmm!~ That's right, get your tongue to work!)]
+	</p>
+	<p>
+		With everyone now in position, and your hands still on Meraxis's hips, you move her down so that the [pc.cockHead+] of your cock is pushing up against her [siren.labia+]. Moaning into Lilaya's pussy, she allows you to pull her down onto your hard shaft.
+		#IF pc.hasFetish(FETISH_DEFLOWERING)
+		#THEN
+			 As your throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal, and instinctively pulls her hips back up a little. Realising that your penetration is painfully breaking her hymen, Lyssieth leans in over her daughter's back and softly encourages her,
+		#ELSE
+			 As your throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal, and instinctively pulls her hips back up a little. Remembering that your penetration is Meraxis's first, Lyssieth leans in over her daughter's back and softly encourages her,
+		#ENDIF
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speechNoEffects(That's mommy's good little girl! Go on, take it all, and show me that you're worthy of being a full demon!)]
+		#ELSE [lyssieth.speechNoEffects(Go on, take it all, and show me that you're worthy of being a full demon!)]
+		#ENDIF
+	</p>
+	<p>
+		Doing as she's told, and with her face still buried between Lilaya's legs, Meraxis allows you to pull her fully down onto your cock. She lets out yet another high-pitched, muffled moan as she bottoms out on your throbbing shaft, and you can't help but let out a [pc.moan] of your own as you feel her tight pussy desperately squeezing down around your cock.
+	</p>
+	<p>
+		[lyssieth.speech(Good girl! Now hold still,)] Lyssieth orders, lining her cock up to Meraxis's asshole. Ignoring her daughter's sudden squeal, she plunges her fat, demonic cock deep into Meraxis's ass, gripping her hips and spreading her demonic wings as she takes the half-demon's anal virginity in one powerful thrust.
+	</p>
+	<p>
+		With both of her holes filled by your and Lyssieth's cocks, and with Lilaya pulling her face into her wet pussy, Meraxis is unable to do anything but moan and take it as you fuck her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_MERAXIS_FUCK_ASS"><![CDATA[
+	<p>
+		[pc.speech(I'll be the one to take your anal virginity,)] you say, moving around behind the half-demon and placing your hands on her [siren.hips+]. As she makes a consenting little mutter, Lyssieth moves to lie down on the lush rug covering most of her office's floor. With your hands still on Meraxis's hips, you push her down on top of her mother, so that she's straddling Lyssieth's groin, looking down into her eyes.
+	</p>
+	<p>
+		[lyssieth.speech(I'll take your virginity, my dear Meraxis,)] Lyssieth softly moans as you kneel down behind her daughter.
+		#IF !pc.hasPenis()
+		#THEN Using your transformative powers, you grow a nice thick demonic cock with which to take her anal virginity, before pressing the engorged head between her ass cheeks.
+		#ELSE Still gripping her hips, you press the [pc.cockHead+] of your [pc.cock+] between her ass cheeks.
+		#ENDIF
+	</p>
+	<p>
+		[lilaya.speech(Then I'll use your mouth,)] Lilaya says, kneeling down beside Lyssieth. Taking hold of Meraxis's head, she kisses her sister before forcing her fully down on top of her mother. Pushing her pussy against Meraxis's mouth, she sighs, [lilaya.speech(~Mmm!~ That's right, get your tongue to work!)]
+	</p>
+	<p>
+		With everyone now in position, Lyssieth takes a firm hold of Meraxis's hips, before moving her down so that the [lyssieth.cockHead+] of her fat demonic cock is pushing up against her [siren.labia+]. Moaning into Lilaya's pussy, she allows her mother to pull her down onto her hard shaft.
+		#IF pc.hasFetish(FETISH_DEFLOWERING)
+		#THEN
+			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal, and instinctively pulls her hips back up a little. Realising that Lyssieth's penetration is painfully breaking her hymen, you lean in over your [siren.relation(pc)]'s back and softly encourage her,
+		#ELSE
+			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal, and instinctively pulls her hips back up a little. Remembering that this penetration is Meraxis's first, you lean in over your [siren.relation(pc)]'s back and softly encourage her,
+		#ENDIF
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [pc.speechNoEffects(That's my good little sister! Go on, take it all, and show mommy that you're worthy of being a full demon!)]
+		#ELSE [pc.speechNoEffects(Go on, take it all, and show us that you're worthy of being a full demon!)]
+		#ENDIF
+	</p>
+	<p>
+		Doing as she's told, and with her face still buried between Lilaya's legs, Meraxis allows her mother to pull her fully down onto her cock. She lets out yet another high-pitched, muffled moan as she bottoms out on the fat, throbbing shaft, and Lyssieth can't help but let out a [lyssieth.moan] of her own as she feels her tight pussy desperately squeezing down around her cock.
+	</p>
+	<p>
+		[pc.speech(That's it! Now hold still,)] you order, lining your cock up to Meraxis's asshole. Ignoring your [siren.relation(pc)]'s sudden squeal, you plunge your cock deep into Meraxis's ass, gripping her hips and letting out [pc.a_moan+] as you take the half-demon's anal virginity in one powerful thrust.
+	</p>
+	<p>
+		With both of her holes filled by your and Lyssieth's cocks, and with Lilaya pulling her face into her wet pussy, Meraxis is unable to do anything but moan and take it as you fuck her ass...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_MERAXIS_RECEIVE_ORAL_CUNNILINGUS"><![CDATA[
+	<p>
+		[pc.speech(I want your tongue in my pussy,)] you say, allowing Lyssieth to take the lead and move around in front of the half-demon. As Meraxis makes a consenting little mutter, the elder lilin moves to lie down on the lush rug covering most of her office's floor. With her hands still on Meraxis's hips, she pulls her daughter down with her, so that she's straddling her groin, looking down into her mother's eyes.
+	</p>
+	<p>
+		[lyssieth.speech(I'll take your virginity, my dear Meraxis,)] Lyssieth softly moans as Lilaya kneels down behind her sister's ass.
+		#IF !lilaya.hasPenis()
+		#THEN Using her transformative powers, Lilaya grows a nice thick demonic cock with which to take her sister's anal virginity, before pressing the engorged head between her ass cheeks.
+		#ELSE Gripping her hips, Lilaya presses the [lilaya.cockHead+] of her [lilaya.cock+] between her sister's ass cheeks.
+		#ENDIF
+	</p>
+	<p>
+		[pc.speech(Come on, it's time to use your mouth,)] you say, kneeling down beside Lyssieth. Taking hold of Meraxis's head, you kiss your [siren.relation(pc)] before forcing her fully down on top of her mother. Pushing your pussy against Meraxis's mouth, you sigh, [pc.speech(~Mmm!~ That's right, get your tongue to work!)]
+	</p>
+	<p>
+		With everyone now in position, Lyssieth takes a firm hold of Meraxis's hips, before moving her down so that the [lyssieth.cockHead+] of her fat demonic cock is pushing up against her [siren.labia+]. Moaning into your pussy, she allows her mother to pull her down onto her hard shaft.
+		#IF pc.hasFetish(FETISH_DEFLOWERING)
+		#THEN
+			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal, and instinctively pulls her hips back up a little. Realising that Lyssieth's penetration is painfully breaking her hymen, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+		#ELSE
+			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal, and instinctively pulls her hips back up a little. Remembering that this penetration is Meraxis's first, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+		#ENDIF
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lilaya.speechNoEffects(That's my good little sister! Go on, take it all, and show mommy that you're worthy of being a full demon!)]
+		#ELSE [lilaya.speechNoEffects(Go on, take it all, and show us that you're worthy of being a full demon!)]
+		#ENDIF
+	</p>
+	<p>
+		Doing as she's told, and with her face still buried between your legs, Meraxis allows her mother to pull her fully down onto her cock. She lets out yet another high-pitched, muffled moan as she bottoms out on the fat, throbbing shaft, and Lyssieth can't help but let out a [lyssieth.moan] of her own as she feels her tight pussy desperately squeezing down around her cock.
+	</p>
+	<p>
+		[lilaya.speech(That's it! Now hold still,)] Lilaya orders, lining her cock up to Meraxis's asshole. Ignoring her [siren.relation(lilaya)]'s sudden squeal, she plunges her thick cock deep into Meraxis's ass, gripping her hips and letting out [lilaya.a_moan+] as she takes the half-demon's anal virginity in one powerful thrust.
+	</p>
+	<p>
+		With both of her holes filled by Lilaya's and Lyssieth's cocks, and with you pulling her face into your hot pussy, Meraxis is unable to do anything but moan and take it as she's fucked...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_MERAXIS_RECEIVE_ORAL_BLOWJOB"><![CDATA[
+	<p>
+		[pc.speech(I want you sucking on my cock,)] you say, allowing Lyssieth to take the lead and move around in front of the half-demon. As Meraxis makes a consenting little mutter, the elder lilin moves to lie down on the lush rug covering most of her office's floor. With her hands still on Meraxis's hips, she pulls her daughter down with her, so that she's straddling her groin, looking down into her mother's eyes.
+	</p>
+	<p>
+		[lyssieth.speech(I'll take your virginity, my dear Meraxis,)] Lyssieth softly moans as Lilaya kneels down behind her sister's ass.
+		#IF !lilaya.hasPenis()
+		#THEN Using her transformative powers, Lilaya grows a nice thick demonic cock with which to take her sister's anal virginity, before pressing the engorged head between her ass cheeks.
+		#ELSE Gripping her hips, Lilaya presses the [lilaya.cockHead+] of her [lilaya.cock+] between her sister's ass cheeks.
+		#ENDIF
+	</p>
+	<p>
+		[pc.speech(Come on, it's time to use your mouth,)] you say, kneeling down beside Lyssieth. Taking hold of Meraxis's head, you kiss your [siren.relation(pc)] before forcing her fully down on top of her mother. Pushing the head of your cock against Meraxis's lips, you push forwards and fill her mouth with your throbbing shaft, sighing, [pc.speech(~Mmm!~ That's right, take it all!)]
+	</p>
+	<p>
+		With everyone now in position, Lyssieth takes a firm hold of Meraxis's hips, before moving her down so that the [lyssieth.cockHead+] of her fat demonic cock is pushing up against her [siren.labia+]. Moaning around your cock, she allows her mother to pull her down onto her hard shaft.
+		#IF pc.hasFetish(FETISH_DEFLOWERING)
+		#THEN
+			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal, and instinctively pulls her hips back up a little. Realising that Lyssieth's penetration is painfully breaking her hymen, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+		#ELSE
+			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal, and instinctively pulls her hips back up a little. Remembering that this penetration is Meraxis's first, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+		#ENDIF
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lilaya.speechNoEffects(That's my good little sister! Go on, take it all, and show mommy that you're worthy of being a full demon!)]
+		#ELSE [lilaya.speechNoEffects(Go on, take it all, and show us that you're worthy of being a full demon!)]
+		#ENDIF
+	</p>
+	<p>
+		Doing as she's told, and with her lips still wrapped around your shaft, Meraxis allows her mother to pull her fully down onto her cock. She lets out yet another high-pitched, muffled moan as she bottoms out on the fat, throbbing shaft, and Lyssieth can't help but let out a [lyssieth.moan] of her own as she feels her tight pussy desperately squeezing down around her cock.
+	</p>
+	<p>
+		[lilaya.speech(That's it! Now hold still,)] Lilaya orders, lining her cock up to Meraxis's asshole. Ignoring her [siren.relation(lilaya)]'s sudden squeal, she plunges her thick cock deep into Meraxis's ass, gripping her hips and letting out [lilaya.a_moan+] as she takes the half-demon's anal virginity in one powerful thrust.
+	</p>
+	<p>
+		With both of her holes filled by Lilaya's and Lyssieth's cocks, and with your cock filling her mouth, Meraxis is unable to do anything but moan and take it as she's fucked...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_MERAXIS_KNEELING_NO_ACCESS"><![CDATA[
+	<p>
+		As you can't access your genitals, you allow Lyssieth to take the lead, and watch as she moves around in front of the half-demon. As Meraxis makes a consenting little mutter, the elder lilin moves to lie down on the lush rug covering most of her office's floor. With her hands on Meraxis's hips, she pulls her daughter down with her, so that she's straddling her groin, looking down into her mother's eyes.
+	</p>
+	<p>
+		[lyssieth.speech(I'll take your virginity, my dear Meraxis,)] Lyssieth softly moans as Lilaya kneels down behind her sister's ass.
+		#IF !lilaya.hasPenis()
+		#THEN Using her transformative powers, Lilaya grows a nice thick demonic cock with which to take her sister's anal virginity, before pressing the engorged head between her ass cheeks.
+		#ELSE Gripping her hips, Lilaya presses the [lilaya.cockHead+] of her [lilaya.cock+] between her sister's ass cheeks.
+		#ENDIF
+	</p>
+	<p>
+		[pc.speech(I'll see what I can do here,)] you say, kneeling down beside Lyssieth. Taking hold of Meraxis's head, you kiss your [siren.relation(pc)] before forcing her fully down on top of her mother.
+	</p>
+	<p>
+		With everyone now in position, Lyssieth takes a firm hold of Meraxis's hips, before moving her down so that the [lyssieth.cockHead+] of her fat demonic cock is pushing up against her [siren.labia+]. Letting out a high-pitched moan, she allows her mother to pull her down onto her hard shaft.
+		#IF pc.hasFetish(FETISH_DEFLOWERING)
+		#THEN
+			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a desperate, piercing squeal, and instinctively pulls her hips back up a little. Realising that Lyssieth's penetration is painfully breaking her hymen, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+		#ELSE
+			 As Lyssieth's throbbing cock pushes into her vice-like cunt, she lets out a high-pitched squeal, and instinctively pulls her hips back up a little. Remembering that this penetration is Meraxis's first, Lilaya leans in over her [siren.relation(lilaya)]'s back and softly encourages her,
+		#ENDIF
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lilaya.speechNoEffects(That's my good little sister! Go on, take it all, and show mommy that you're worthy of being a full demon!)]
+		#ELSE [lilaya.speechNoEffects(Go on, take it all, and show us that you're worthy of being a full demon!)]
+		#ENDIF
+	</p>
+	<p>
+		Doing as she's told, Meraxis allows her mother to pull her fully down onto her cock. She lets out yet another high-pitched moan as she bottoms out on the fat, throbbing shaft, and Lyssieth can't help but let out a [lyssieth.moan] of her own as she feels her tight pussy desperately squeezing down around her cock.
+	</p>
+	<p>
+		[lilaya.speech(That's it! Now hold still,)] Lilaya orders, lining her cock up to Meraxis's asshole. Ignoring her [siren.relation(lilaya)]'s sudden squeal, she plunges her thick cock deep into Meraxis's ass, gripping her hips and letting out [lilaya.a_moan+] as she takes the half-demon's anal virginity in one powerful thrust.
+	</p>
+	<p>
+		With both of her holes filled by Lilaya's and Lyssieth's cocks, Meraxis is unable to do anything but moan and take it as she's fucked...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!--AFTER_MERAXIS_DEMON_TF_SEX-->
+	
+	<htmlContent tag="AFTER_MERAXIS_DEMON_TF_SEX"><![CDATA[
+	<p>
+		With everyone having had their fun, the four of you disentangle yourselves and move to stand up. Lyssieth is the first to say something, and softly moans,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speechNoEffects(~Mmm!~ What good girls... You really do both look beautiful as full demons...)]
+		#ELSE [lyssieth.speechNoEffects(~Mmm!~ Good girls... You really do both look beautiful as full demons...)]
+		#ENDIF
+	</p>
+	<p>
+		With ecstatic smiles on their faces, both Lilaya and Meraxis launch themselves into their mother's arms, hugging her tightly as the younger sibling happily cries out, [siren.speech(Thank you, mommy! Now my powers shall be uncontested!)]
+	</p>
+	<p>
+		Turning to face you, Meraxis points and laughs, [siren.speech(~Mwhahaha!~ You fell for my secret technique, 'succubi's seduction'! Now that I've tricked you into having sex with me, I am more powerful than ever before!)]
+	</p>
+	<p>
+		Turning to face her sister, she grabs Lilaya's hand and pulls her back over to the full-length mirrors beside the office door. Looking herself up and down, and posing beside Lilaya, Meraxis proclaims, [siren.speech(After all this time, we're finally full demons! ~Mwhahaha!~)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_LILAYA_DEMON_TF_SEX_FINISHED_REACTION"><![CDATA[
+	<p>
+		Looking across at your mother, you see that she's already reverted to her human form, and is watching her daughters admiring their new bodies with a smile on her face. Although you can detect a tiny trace of sadness in her eyes, you can tell that she's genuinely happy to see Lilaya and Meraxis in such high spirits.
+	</p>
+	<p>
+		[siren.speech(Thanks again, mommy!)] Meraxis happily calls out, gathering her clothes and stepping over to the door. Flashing you a surprisingly-warm smile, she has one final thing to say before darting out of the room, [siren.speech(Now, I must depart and plan for my next encounter with my arch nemesis!)]
+	</p>
+	<p>
+		[lilaya.speech(As Meraxis said, thank you so much again, mommy,)] Lilaya happily says, getting her things in order and stepping up to her mother. [lilaya.speech(Sorry for being so cold to you for so long. I should have forgiven you for the whole Arthur business a long time ago...)]
+	</p>
+	<p>
+		[lyssieth.speech(Thank you, dear,)] Lyssieth says, giving her daughter a loving hug. [lyssieth.speech(Now, mother said she'd be sending one of her subordinates to check up on me today, so I think I'd better get the two of you back to your laboratory before they turn up.)]
+	</p>
+	<p>
+		After gathering your things, you step up to Lyssieth and allow her to pull you into her embrace. In yet another purple flash, the three of you are teleported back to Lilaya's lab...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!--LILAYA_DEMON_TF_WAIT_IN_OFFICE-->
+	
+	<htmlContent tag="LILAYA_DEMON_TF_WAIT_IN_OFFICE"><![CDATA[
+	<p>
+		Although happy enough for them to be transformed into full demons, you really don't want to be having sex with them in some kind of incestuous orgy. Excusing yourself, you step out into Meraxis's office, before closing the door behind you.
+	</p>
+	<p>
+		Deciding to wait for them to finish, you sit down on one of the black sofas in the makeshift waiting-area. It doesn't take long before a series of lewd, muffled moans start to drift out from the cracks in the office door, and, doing your best to ignore them, you busy yourself by reading one of the mundane magazines spread across the coffee table's surface. 
+	</p>
+	<p>
+		Eventually, around fifteen minutes later, the moans come to an end, and after just a minute more, the door to the office opens and Lyssieth calls you back in...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_SOLO_WAIT_IN_OFFICE"><![CDATA[
+	<p>
+		Although happy enough for Lilaya to be transformed into a full demon, you really don't want to be having sex with her and your mother in some kind of incestuous orgy. Excusing yourself, you step out into Meraxis's office, before closing the door behind you.
+	</p>
+	<p>
+		[siren.speech(Mommy has forbidden me from fighting in the palace, but rest assured, my arch-nemesis, I have formulated seven-thousand unique strategies with which to vanquish you!)] Meraxis calls out, swivelling her office chair to one side before striking a pose by covering one side of her face with her hand.
+	</p>
+	<p>
+		#IF pc.hasTraitActivated(PERK_CHUUNI)
+		#THEN Not being able to resist calling your [siren.relation(pc)] out on her threat, you strike a similarly-awesome pose and declare, [pc.speech(Your strategies will prove to be worthless before my ultimate power! My combat techniques are the stuff of legend; a mere disciple of the arcane arts, such as yourself, could not even comprehend the extent of my abilities!)]
+		#ELSE Trying hard not to visibly cringe at your [siren.relation(pc)]'s ridiculous mannerisms, you reply, [pc.speech(Well then, I suppose it's a relief for me that you're not allowed to fight in here.)]
+		#ENDIF
+	</p>
+	<p>
+		Deciding to wait for Lilaya and your mother to finish, you sit down on one of the black sofas in the makeshift waiting-area. It doesn't take long before a series of lewd, muffled moans start to drift out from the cracks in the office door, and, with both you and Meraxis doing your best to ignore them, you busy yourself by reading one of the mundane magazines spread across the coffee table's surface. 
+	</p>
+	<p>
+		Eventually, around fifteen minutes later, the moans come to an end, and after just a minute more, the door to the office opens and Lyssieth calls you back in...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_FINISHED_REACTION_OFFICE_END"><![CDATA[
+	<p>
+		Stepping back into the office, you see that Lyssieth has already reverted to her human form, and is happily watching her daughters as they admire their new bodies in front of a mirror. Following her gaze over to Lilaya and Meraxis, you see that your [lilaya.relation(pc)]s are now very much full demons, with her arms, legs, torso and face now being covered in the same demonic skin as their wings and tail. From the way they're happily bouncing up and down and spinning around in front of the mirror, you can tell that Lilaya and Meraxis are absolutely ecstatic to have finally shaken off their half-demon forms. Looking back across to Lyssieth, you detect a tiny trace of sadness in her eyes, but, despite that, you can tell that she's genuinely happy to see her daughters in such high spirits.
+	</p>
+	<p>
+		[siren.speech(Thanks again, mommy!)] Meraxis happily calls out, before stepping over to the door through which you just entered. Flashing you a surprisingly-warm smile, she has one final thing to say before darting out of the room, [siren.speech(Now, I must depart and plan for my next encounter with my arch nemesis!)]
+	</p>
+	<p>
+		[lilaya.speech(As Meraxis said, thank you so much again, mommy,)] Lilaya happily says, stepping up to her mother. [lilaya.speech(Sorry for being so cold to you for so long. I should have forgiven you for the whole Arthur business a long time ago...)]
+	</p>
+	<p>
+		[lyssieth.speech(Thank you, dear,)] Lyssieth says, giving her daughter a loving hug. [lyssieth.speech(Now, mother said she'd be sending one of her subordinates to check up on me today, so I think I'd better get the two of you back to your laboratory before they turn up.)]
+	</p>
+	<p>
+		After accepting Lilaya's thanks for helping to make this happen, you step up to Lyssieth and allow her to pull you into her embrace. In yet another purple flash, the three of you are teleported back to Lilaya's lab...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_DEMON_TF_SOLO_FINISHED_REACTION_OFFICE_END"><![CDATA[
+	<p>
+		Stepping back into the office, you see that Lyssieth has already reverted to her human form, and is happily watching her daughter as she admires her new body in front of a mirror. Following her gaze over to Lilaya, you see that your [lilaya.relation(pc)] is now very much a full demon, with her arms, legs, torso and face now being covered in the same demonic skin as her wings and tail. From the way she's happily bouncing up and down and spinning around in front of the mirror, you can tell that Lilaya is absolutely ecstatic to have finally shaken off her half-demon form. Looking back across to Lyssieth, you detect a tiny trace of sadness in her eyes, but, despite that, you can tell that she's genuinely happy to see her daughter in such high spirits.
+	</p>
+	<p>
+		[lilaya.speech(Thank you so much again, mommy!)] Lilaya happily says, finally turning to face her mother. [lilaya.speech(Sorry for being so cold to you for so long. I should have forgiven you for the whole Arthur business a long time ago...)]
+	</p>
+	<p>
+		[lyssieth.speech(Thank you, dear,)] Lyssieth says, giving her daughter a loving hug. [lyssieth.speech(Now, mother said she'd be sending one of her subordinates to check up on me today, so I think I'd better get the two of you back to your laboratory before they turn up.)]
+	</p>
+	<p>
+		After accepting Lilaya's thanks for helping to make this happen, you step up to Lyssieth and allow her to pull you into her embrace. In yet another purple flash, the three of you are teleported back to Lilaya's lab...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!--LILAYA_DEMON_TF_WAIT_IN_OFFICE_END-->
+	
+	<htmlContent tag="LILAYA_DEMON_TF_END"><![CDATA[
+	<p>
+		With an accompanying flash of purple light, you, Lilaya, and Lyssieth appear back in the lab. Turning towards the two of you, your mother says, [lyssieth.speech(I must return now, but before I go, I must say that you do look lovely in your new form, Lilaya.)]
+	</p>
+	<p>
+		Your [lilaya.relation(pc)] blushes a little as she hears this, and after thanking her mother one last time, she steps back and allows Lyssieth to teleport back to her palace. Turning to smile warmly at you, she says, [lilaya.speech(Thank you for going through this with me, [pc.name]. I'll be more than happy to offer you my special tests again...)]
+	</p>
+	<p>
+		[rose.speech(Welcome back, mistress,)] Rose says, hungrily gazing at Lilaya's new demonic form. [rose.speech(May I offer you my congratulations and compliments on the demonic form you've always wanted?)]
+	</p>
+	<p>
+		With a little giggle, Lilaya bounds over to her slave, and replies, [lilaya.speech(You may! I look pretty amazing, don't I?)]
+	</p>
+	<p>
+		Suddenly remembering that you're still here, Lilaya turns back and says, [lilaya.speech(Thank you so much again! I just need to sort some things out with Rose, so could you come back later?)]
+	</p>
+	<p>
+		Agreeing to do as you're asked, you make your way over to the lab's door while Lilaya and Rose start chatting to one another. As you approach the exit, you catch a snippet of what Rose has to say regarding her mistress's new body, [rose.speech(...I bet you're even more of a dirty little slut in this new form, aren't you?)]
+	</p>
+	<p>
+		[lilaya.speech(Yes, I need to be punished...)] Lilaya replies, her excitement causing her to raise the volume of her voice.
+	</p>
+	<p>
+		Stepping out into the corridor beyond, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- MERAXIS REPEAT DEMON TRANSFORMATION SCENES -->
+	
+	<htmlContent tag="MERAXIS_DEMON_TF_START"><![CDATA[
+	<p>
+		Deciding that the time has come for Meraxis to become a full demon, you ask, [pc.speech(Have you thought any more about going through with the same demonic transformation as Lilaya?)]
+	</p>
+	<p>
+		[siren.speech(O-Of course I have,)] Meraxis replies, standing up from behind her desk, [siren.speech(I'm not afraid of doing it, I just needed to seal my volatile arcane power so that the process doesn't destroy the universe! I-In fact, I'm ready to do it right now!)]
+	</p>
+	<p>
+		As if to prove herself to you, Meraxis grabs your hand, before pulling you along as she steps over to the door of Lyssieth's office. With this being exactly what you wanted, you allow your little [siren.relation(pc)] to push open the door, before dragging you along with her as she steps through into your mother's room.
+	</p>
+	<p>
+		[lyssieth.speech(Oh, why if it isn't my dear [pc.name] and Meraxis. What's caused you to barge into my office without knocking first?)] Lyssieth asks, standing up and smiling at the two of you.
+	</p>
+	<p>
+		Releasing your hand, Meraxis points at the elder lilin, striking a heroic pose as she commands, [siren.speech(Mommy, I demand to be turned into a full demon! Summon my sister and proceed with the ritual!)]
+	</p>
+	<p>
+		Letting out a deep sigh, Lyssieth nevertheless consents, [lyssieth.speech(Very well... I did promise that I'd transform the two of you... Your sister will want to be present for this.)] 
+	</p>
+	<p>
+		Before either of you can say anything further, Lyssieth disappears in a flash of purple light. Just moments later, she reappears with Lilaya in her embrace, who immediately bounds over to her sister and declares, [lilaya.speech(Good girl, Meraxis! You've decided to finally lose your virginity here with us!)]
+	</p>
+	<p>
+		[siren.speech(Y-Yes, that's right!)] Meraxis replies, looking up at her mother as she steps up in front of her.
+	</p>
+	<p>
+		Before you or Lilaya can react, Lyssieth pulls her daughter into a passionate kiss, and as Meraxis's surprised exclamation is muffled into her mouth, the elder lilin rapidly transforms into her true form. As Lyssieth's skin turns scarlet, and demonic wings and tail grow from her back, Meraxis's moans start to get more pleasurable, and you see a faint purple glow shimmering in and out of sight around her head. Breaking off the kiss, Lyssieth grins down to her daughter and asks, [lyssieth.speech(So, daughter, how do you like mommy's true form?)]
+	</p>
+	<p>
+		With a hungry look in her eyes, Meraxis answers, [siren.speech(I... I love it... I want you to fuck me!)]
+	</p>
+	<p>
+		Just as she did with Lilaya, it looks as though Lyssieth has used her arcane power to instil a love of incest into Meraxis's mind. If you didn't want to go be a part of the impending incestuous orgy, now would be the time to leave... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_DEMON_TF_ORIFICE_SELECTION"><![CDATA[
+	<p>
+		Wanting to help your little sister lose her virginity, you step up beside your mother and Lilaya, and, with the three of you surrounding Meraxis, Lyssieth wonders out loud,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speech(So, which of us should take your virginity, hmm? One of your siblings, or your mommy?)]
+		#ELSE [lyssieth.speech(So, which of us should take your virginity, hmm?)]
+		#ENDIF
+	</p>
+	<p>
+		None of the three succubi offer any response to this, leaving you to decide who it will be...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_DEMON_TF_WAIT_IN_OFFICE"><![CDATA[
+	<p>
+		Although happy enough for Meraxis to be transformed into a full demon, you really don't want to be having sex with her in some kind of incestuous orgy. Excusing yourself, you step out into the adjoining office, before closing the door behind you.
+	</p>
+	<p>
+		Deciding to wait for them to finish, you sit down on one of the black sofas in the makeshift waiting-area. It doesn't take long before a series of lewd, muffled moans start to drift out from the cracks in the office door, and, doing your best to ignore them, you busy yourself by reading one of the mundane magazines spread across the coffee table's surface. 
+	</p>
+	<p>
+		Eventually, around fifteen minutes later, the moans come to an end, and after just a minute more, a purple flash shines out through the cracks in Lyssieth's office door, before it suddenly swings open...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_DEMON_TF_WAIT_IN_OFFICE_FINISHED"><![CDATA[
+	<p>
+		As Meraxis steps back out into her office, you see that your [siren.relation(pc)] is now very much full a demon, with her arms, legs, torso and face now being covered in the same demonic skin as her wings and tail. From the way she happily bounces over towards you, you can tell that Meraxis is absolutely ecstatic to have finally shaken off her half-demon form.
+	</p>
+	<p>
+		[siren.speech(~Mwhahah!~)] Meraxis laughs, flashing you a surprisingly-warm smile and pointing a finger at you. [siren.speech(So, my arch nemesis, thanks to your miscalculation, I am now more powerful than you could possibly imagine! Behold my demonic form, and prepare to be annihilated!)]
+	</p>
+	<p>
+		At that moment, yet another purple flash shines out from Lyssieth's office, and, realising that your mother has returned from sending Lilaya back to her lab, Meraxis hurries over to her desk and quickly sits down. Seconds later, the now-human voice of Lyssieth calls out over the arcane intercom, [lyssieth.speech(I hope that you're not causing any trouble in there, my dear.)]
+ 	</p>
+	<p>
+		[siren.speech(No, mommy!)] Meraxis replies, [siren.speech(I'm being good!)]
+	</p>
+	<p>
+		With both of your demonic [siren.relation(pc)]s now transformed into full demons, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_MERAXIS_DEMON_TF_REPEAT_SEX"><![CDATA[
+	<p>
+		With everyone having had their fun, the four of you disentangle yourselves and move to stand up. Lyssieth is the first to say something, and softly moans,
+		#IF pc.hasFetish(FETISH_INCEST)
+		#THEN [lyssieth.speechNoEffects(~Mmm!~ What a good girl you are, Meraxis... You really do look beautiful as a full demon...)]
+		#ELSE [lyssieth.speechNoEffects(~Mmm!~ Good girl, Meraxis... You really do look beautiful as a full demon...)]
+		#ENDIF
+	</p>
+	<p>
+		With an ecstatic smile on her face, Meraxis launches herself into her mother's arms, hugging her tightly as she happily cries out, [siren.speech(Thank you, mommy! Now my powers shall be uncontested!)]
+	</p>
+	<p>
+		Turning to face you, Meraxis points and laughs, [siren.speech(~Mwhahaha!~ You fell for my secret technique, 'succubi's seduction'! Now that I've tricked you into having sex with me, I am more powerful than ever before!)]
+	</p>
+	<p>
+		Turning to face her sister, she grabs Lilaya's hand and pulls her over to the full-length mirrors beside the office door. Looking herself up and down, and posing beside Lilaya, Meraxis proclaims, [siren.speech(After all this time, we're finally both full demons! ~Mwhahaha!~)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_MERAXIS_DEMON_TF_REPEAT_SEX_FINISHED_REACTION"><![CDATA[
+	<p>
+		Looking across at your mother, you see that she's already reverted to her human form, and is watching her daughter admiring her new body with a smile on her face. Although you can detect a tiny trace of sadness in her eyes, you can tell that she's genuinely happy to see Meraxis in such high spirits.
+	</p>
+	<p>
+		[siren.speech(Thanks again, mommy!)] Meraxis happily calls out, gathering her clothes and stepping over to the door. Flashing you a surprisingly-warm smile, she has one final thing to say before darting out of the room, [siren.speech(Now, I must depart and plan for my next encounter with my arch nemesis!)]
+	</p>
+	<p>
+		[lyssieth.speech(I should take you back now,)] Lyssieth says to Lilaya, before stepping forwards and giving her daughter a loving hug. Turning to you, she continues, [lyssieth.speech(If you'd be so kind as to wait with Meraxis, I'll be able to see you again in a few minutes if you have further things to discuss.)]
+	</p>
+	<p>
+		After gathering your things, you do as Lyssieth asks and step out into Meraxis's office. Calling out as you leave, Lilaya's goodbye is immediately followed by a purple flash as the two of them are teleported back to her lab.
+	</p>
+	<p>
+		Closing the door behind you, you find yourself once more in the same room as your younger [siren.relation(pc)]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MERAXIS_DEMON_TF_END"><![CDATA[
+	<p>
+		[siren.speech(~Mwhahah!~)] Meraxis laughs, standing up from behind her desk and placing her hands on her hips. [siren.speech(So, my arch nemesis, thanks to your miscalculation, I am now more powerful than you could possibly imagine! Behold my demonic form, and prepare to be annihilated!)]
+	</p>
+	<p>
+		At that moment, yet another purple flash shines out from Lyssieth's office, and, realising that your mother has returned from sending Lilaya back to her lab, Meraxis quickly sits back down. Seconds later, the familiar voice of Lyssieth calls out over the arcane intercom, [lyssieth.speech(I hope that you're not causing any trouble in there, my dear.)]
+ 	</p>
+	<p>
+		[siren.speech(No, mommy!)] Meraxis replies, [siren.speech(I'm being good!)]
+	</p>
+	<p>
+		With both of your demonic [siren.relation(pc)]s now transformed into full demons, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+</dialogue>

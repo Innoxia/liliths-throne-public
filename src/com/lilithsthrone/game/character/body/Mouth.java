@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +14,11 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.3.1
  * @author Innoxia
  */
-public class Mouth implements BodyPartInterface, Serializable {
+public class Mouth implements BodyPartInterface {
 
-	private static final long serialVersionUID = 1L;
 	
 	protected MouthType type;
 	protected OrificeMouth orificeMouth;
@@ -111,6 +109,12 @@ public class Mouth implements BodyPartInterface, Serializable {
 
 	public String setLipSize(GameCharacter owner, int lipSize) {
 		int effectiveLipSize = Math.max(0, Math.min(lipSize, LipSize.getLargest()));
+		
+		if(owner==null) {
+			this.lipSize = effectiveLipSize;
+			return "";
+		}
+		
 		if(owner.getLipSizeValue() == effectiveLipSize) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.lips] doesn't change...)]</p>";
@@ -187,6 +191,14 @@ public class Mouth implements BodyPartInterface, Serializable {
 						+piercingUnequip);
 			}
 		}
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Mouth.class) && getType().getRace().isBestialPartsAvailable();
 	}
 	
 }

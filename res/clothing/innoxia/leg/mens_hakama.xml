@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- For a version without all of the comments, see "rental_daddy.xml". -->
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>750</value> 
 		
 		<determiner><![CDATA[a]]></determiner>
@@ -12,7 +12,7 @@
 		
 		<description><![CDATA[Tied at the waist and falling approximately to the ankles, hakama, such as this one, are meant to be worn over a kimono.]]></description> 
 		
-		<physicalResistance>2</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<femininity>MASCULINE</femininity> 
 		
@@ -67,10 +67,11 @@
 		
 		<itemTags>
 			<tag>REINDEER_GIFT</tag>
+			<tag>FITS_NON_BIPED_BODY_HUMANOID</tag>
 		</itemTags>
-	</coreAtributes>
+	</coreAttributes>
 
-  <displacementText type="REMOVE_OR_EQUIP">
+  <replacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(put)] on the hakama, before tying it up at [npc.her] waist.]]>
     </self>
@@ -80,9 +81,9 @@
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(put)] on the hakama on [npc2.name], before firmly tying it up at [npc2.her] waist.]]>
     </otherRough>
-  </displacementText>
+  </replacementText>
 
-  <replacementText type="REMOVE_OR_EQUIP">
+  <displacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(untie)] [npc.her] hakama, before taking it off.]]>
     </self>
@@ -92,6 +93,6 @@
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(untie)] [npc2.namePos] hakama, before yanking it off.]]>
     </otherRough>
-  </replacementText>
+  </displacementText>
 	
 </clothing>

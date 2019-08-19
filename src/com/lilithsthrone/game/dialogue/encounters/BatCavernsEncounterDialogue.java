@@ -1,6 +1,6 @@
 package com.lilithsthrone.game.dialogue.encounters;
 
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -14,12 +14,11 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class BatCavernsEncounterDialogue {
 
-	public static final DialogueNodeOld FIND_ITEM = new DialogueNodeOld("Discarded Item", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode FIND_ITEM = new DialogueNode("Discarded Item", "", true) {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR || Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.BAT_CAVERN_LIGHT) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR) || Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.BAT_CAVERN_LIGHT)) {
 				if(Encounter.getRandomItem().getItemType()==ItemType.MUSHROOM) {
 					return UtilText.parseFromXMLFile("places/submission/batCaverns", "FIND_MUSHROOMS_LIGHT")
 							+ "<p style='text-align:center;'>"

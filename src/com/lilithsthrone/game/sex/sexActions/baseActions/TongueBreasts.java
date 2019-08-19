@@ -15,7 +15,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.88
- * @version 0.2.8
+ * @version 0.3.1
  * @author Innoxia
  */
 public class TongueBreasts {
@@ -30,7 +30,11 @@ public class TongueBreasts {
 		
 		@Override
 		public String getActionTitle() {
-			return UtilText.parse(Sex.getCharacterTargetedForSexAction(this), "Kiss breasts");
+			if(Sex.getCharacterTargetedForSexAction(this).hasBreasts()) {
+				return "Kiss breasts";
+			} else {
+				return "Kiss chest";
+			}
 		}
 
 		@Override

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAttributes>
+    <clothingAuthorTag><![CDATA[Small engraved lettering informs you that this piercing was made by 'Norin'.]]></clothingAuthorTag>
+    <value>450</value> <!--10 flames = £1 ~ $1.5-->
+    <determiner><![CDATA[a]]></determiner>
+    <name><![CDATA[rose lip piercing]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[rose lip piercings]]></namePlural>
+    <description><![CDATA[A lip piercing with a rose.]]></description>
+    
+    <physicalResistance>0</physicalResistance>
+    <femininity>FEMININE</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
+    <slot>PIERCING_LIP</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+    <rarity>COMMON</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+    
+    <imageName>piercing_lip_rose.svg</imageName>
+    
+    <clothingSet/> <!-- No way to define custom sets yet -->
+    <imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
+    <enchantmentLimit/> <!-- Custom values override game -->
+    <effects/> <!-- Default enchantments -->
+
+    <blockedPartsList>
+      <blockedParts>
+        
+        <displacementType>REMOVE_OR_EQUIP</displacementType> <!-- displacementType values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
+        
+        <clothingAccessRequired> <!-- clothingAccess values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
+          <clothingAccess>HEAD</clothingAccess>
+        </clothingAccessRequired>
+        
+        <blockedBodyParts/> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
+        <clothingAccessBlocked/> <!-- clothingAccess -->
+        <concealedSlots/> <!-- slot -->
+        
+      </blockedParts>
+    </blockedPartsList>
+    
+    <incompatibleSlots/> <!-- slot(s) not compatible -->
+
+    <primaryColours>
+      <colour>CLOTHING_RED_DARK</colour>
+    </primaryColours>
+    <primaryColoursDye values="ALL"/>
+    <secondaryColours values="ALL_METAL"/>
+    <secondaryColoursDye/>
+    <tertiaryColours/>
+    <tertiaryColoursDye/>
+    
+    <itemTags>
+      <tag>SOLD_BY_KATE</tag>
+    </itemTags>
+    
+  </coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(clip)] a rose lip piercing into [npc.her] [npc.lips+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(clip)] a rose lip piercing into [npc2.namePos] [npc2.lips+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(force)] a rose lip piercing into [npc2.namePos] [npc.lips+].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(remove)] a rose lip piercing from [npc.her] [npc.lips+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(remove)] a rose lip piercing from [npc2.namePos] [npc2.lips+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(tug)] a rose lip piercing out from [npc2.namePos] [npc2.lips+]..]]>
+    </otherRough>
+  </displacementText>
+  
+  
+</clothing>

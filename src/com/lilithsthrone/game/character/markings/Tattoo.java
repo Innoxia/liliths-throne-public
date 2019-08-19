@@ -25,6 +25,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -35,7 +36,6 @@ import com.lilithsthrone.utils.XMLSaving;
  */
 public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	
-	private static final long serialVersionUID = 1L;
 
 	private AbstractTattooType type;
 	
@@ -87,7 +87,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof Tattoo)
 					&& ((Tattoo)o).getType()==type
@@ -232,7 +232,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 				s = Util.inputStreamToString(is);
 				is.close();
 				
-				s = Util.colourReplacement("tattooGlow"+this.getPrimaryColour().toString(), this.getPrimaryColour(), this.getPrimaryColour(), this.getPrimaryColour(), s);
+				s = SvgUtil.colourReplacement("tattooGlow"+this.getPrimaryColour().toString(), this.getPrimaryColour(), this.getPrimaryColour(), this.getPrimaryColour(), s);
 				
 				SVGGlowMap.put(this.getPrimaryColour(), s);
 				
@@ -264,6 +264,14 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	}
 
 	public String getDisplayName(boolean withRarityColour) {
+
+		if(!this.getName().replaceAll("\u00A0"," ").equalsIgnoreCase(this.getType().getName().replaceAll("\u00A0"," "))) { // If this tattoo has a custom name, just display that:
+			return (withRarityColour
+						? " <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>" + getName() + "</span>"
+						: getName());
+//					+" tattoo";
+		}
+		
 		return Util.capitaliseSentence(this.getPrimaryColour().getName()) + " "
 				+ (withRarityColour
 					?" <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>"
@@ -332,6 +340,15 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		}
 		
 		return attributeModifiers;
+	}
+
+	/**
+	 * @return An integer value of the 'enchantment capacity cost' for this particular tattoo. Does not count negative attribute values, nor values of Corruption.
+	 */
+	public int getEnchantmentCapacityCost() {
+		Map<Attribute, Integer> noCorruption = new HashMap<>();
+		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.MAJOR_CORRUPTION && ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()));
+		return noCorruption.values().stream().reduce(0, (a, b) -> a + Math.max(0, b));
 	}
 	
 	public AbstractTattooType getType() {

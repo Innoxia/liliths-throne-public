@@ -15,35 +15,33 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum TailType implements BodyPartTypeInterface {
 	NONE(null, null, false, false),
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true, true),
-	
 	DEMON_HAIR_TIP(BodyCoveringType.DEMON_COMMON, Race.DEMON, true, false),
+	DEMON_HORSE(BodyCoveringType.HAIR_DEMON, Race.DEMON, false, false),
 
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false),
-	
 	DOG_MORPH_STUBBY(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false),
 	
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, false, false),
 	
 	FOX_MORPH(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, false, false),
-	
-	FOX_MORPH_MAGIC(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, false, false),
+	FOX_MORPH_MAGIC(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, true, false),
 
 	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH, false, false),
 	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false),
-	
 	CAT_MORPH_SHORT(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, false, false),
-	
 	CAT_MORPH_TUFTED(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, false, false),
+
+	BAT_MORPH(BodyCoveringType.BAT_SKIN, Race.BAT_MORPH, true, true),
 	
 	RAT_MORPH(BodyCoveringType.RAT_SKIN, Race.RAT_MORPH, true, true),
 	
@@ -52,7 +50,6 @@ public enum TailType implements BodyPartTypeInterface {
 	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH, false, false),
 	
 	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, false, false),
-	
 	HORSE_MORPH_ZEBRA(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, false, false),
 
 	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH, false, false),
@@ -87,6 +84,9 @@ public enum TailType implements BodyPartTypeInterface {
 
 	@Override
 	public String getDeterminer(GameCharacter gc) {
+		if(gc==null) {
+			return "";
+		}
 		if(gc.getTailCount()==1) {
 			switch(this){
 				case HARPY:
@@ -102,7 +102,6 @@ public enum TailType implements BodyPartTypeInterface {
 					return Util.intToString(gc.getTailCount());
 			}
 		}
-		
 	}
 	
 	@Override
@@ -140,6 +139,8 @@ public enum TailType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("spaded", "demonic");
 			case DEMON_HAIR_TIP:
 				return UtilText.returnStringAtRandom("hair-tipped", "demonic");
+			case DEMON_HORSE:
+				return UtilText.returnStringAtRandom("horse-like");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("dog-like");
 			case DOG_MORPH_STUBBY:
@@ -166,6 +167,8 @@ public enum TailType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case RAT_MORPH:
 				return UtilText.returnStringAtRandom("rat-like");
+			case BAT_MORPH:
+				return UtilText.returnStringAtRandom("bat-like");
 			case RABBIT_MORPH:
 				return UtilText.returnStringAtRandom("rabbit-like", "fluffy");
 		}
@@ -188,6 +191,8 @@ public enum TailType implements BodyPartTypeInterface {
 				return "demonic spaded";
 			case DEMON_HAIR_TIP:
 				return "demonic hair-tipped";
+			case DEMON_HORSE:
+				return "demonic horse";
 			case DOG_MORPH:
 				return "canine";
 			case DOG_MORPH_STUBBY:
@@ -214,6 +219,8 @@ public enum TailType implements BodyPartTypeInterface {
 				return "none";
 			case RAT_MORPH:
 				return "rat";
+			case BAT_MORPH:
+				return "bat";
 			case RABBIT_MORPH:
 				return "rabbit";
 		}
@@ -266,7 +273,7 @@ public enum TailType implements BodyPartTypeInterface {
 		
 		List<TailType> types = new ArrayList<>();
 		for(TailType type : TailType.values()) {
-			if(type.getRace()==r) {
+			if(type.getRace()==r && type!=TailType.FOX_MORPH_MAGIC) {
 				types.add(type);
 			}
 		}

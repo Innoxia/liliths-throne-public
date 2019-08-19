@@ -22,7 +22,7 @@ public class Scar implements XMLSaving {
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof Scar)
 					&& ((Scar)o).getType()==type
@@ -34,7 +34,7 @@ public class Scar implements XMLSaving {
 	
 	@Override
 	public int hashCode() {
-		int result = super.hashCode();
+		int result = 17;
 		result = 31 * result + type.hashCode();
 		result = 31 * result + (plural ? 1 : 0);
 		return result;

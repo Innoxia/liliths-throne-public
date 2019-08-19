@@ -2,16 +2,18 @@ package com.lilithsthrone.game.dialogue.places.dominion.zaranixHome;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.dominion.Zaranix;
+import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMZaranixCockSucking;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
+import com.lilithsthrone.game.sex.positions.SexSlotOther;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -25,12 +27,11 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class ZaranixHomeFirstFloorRepeat {
 
-	public static final DialogueNodeOld STAIRS = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STAIRS = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -40,7 +41,7 @@ public class ZaranixHomeFirstFloorRepeat {
 
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kellyRepeatEncountered) && Main.game.getCharactersPresent().contains(Main.game.getKelly());
+			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kellyRepeatEncountered) && Main.game.getCharactersPresent().contains(Main.game.getNpc(ZaranixMaidKelly.class));
 		}
 
 		@Override
@@ -49,7 +50,7 @@ public class ZaranixHomeFirstFloorRepeat {
 			
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "STAIRS"));
 			
-			if(Main.game.getCharactersPresent().contains(Main.game.getKelly())) {
+			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(ZaranixMaidKelly.class))) {
 				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kellyRepeatEncountered)) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_PRESENT"));
 				} else {
@@ -62,7 +63,7 @@ public class ZaranixHomeFirstFloorRepeat {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getCharactersPresent().contains(Main.game.getKelly())) {
+			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(ZaranixMaidKelly.class))) {
 				if (index == 1) {
 					if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kellyRepeatEncountered)) {
 						return new Response("Downstairs", "You need to respond to Kelly first!", null);
@@ -76,15 +77,15 @@ public class ZaranixHomeFirstFloorRepeat {
 						};
 					}
 	
-				} else if(Main.game.getCharactersPresent().contains(Main.game.getKelly())) {
+				} else if(Main.game.getCharactersPresent().contains(Main.game.getNpc(ZaranixMaidKelly.class))) {
 					if(index==2) {
 						return new ResponseSex("Sex", "Have some fun with Kelly.",
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKelly.class)),
 								null,
-								null, AFTER_KELLY_SEX, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX")) {
+								null), AFTER_KELLY_SEX, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX")) {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kellyRepeatEncountered, true);
@@ -96,11 +97,11 @@ public class ZaranixHomeFirstFloorRepeat {
 								"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Kelly. Perhaps if you submitted, [kelly.she]'d be willing to fuck you?",
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKelly.class)),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
-								null, AFTER_KELLY_SEX, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX_SUB")) {
+								null), AFTER_KELLY_SEX, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX_SUB")) {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kellyRepeatEncountered, true);
@@ -114,7 +115,7 @@ public class ZaranixHomeFirstFloorRepeat {
 							@Override
 							public void effects() {
 								Main.game.saveDialogueNode();
-								BodyChanging.setTarget(Main.game.getKelly());
+								BodyChanging.setTarget(Main.game.getNpc(ZaranixMaidKelly.class));
 							}
 						};
 						
@@ -150,12 +151,11 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld CORRIDOR = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode CORRIDOR = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 10;
 		}
 
 		@Override
@@ -165,7 +165,7 @@ public class ZaranixHomeFirstFloorRepeat {
 
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kellyRepeatEncountered) && Main.game.getCharactersPresent().contains(Main.game.getKelly());
+			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kellyRepeatEncountered) && Main.game.getCharactersPresent().contains(Main.game.getNpc(ZaranixMaidKelly.class));
 		}
 
 		@Override
@@ -174,7 +174,7 @@ public class ZaranixHomeFirstFloorRepeat {
 			
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "CORRIDOR"));
 
-			if(Main.game.getCharactersPresent().contains(Main.game.getKelly())) {
+			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(ZaranixMaidKelly.class))) {
 				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kellyRepeatEncountered)) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_PRESENT"));
 				} else {
@@ -187,15 +187,15 @@ public class ZaranixHomeFirstFloorRepeat {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getCharactersPresent().contains(Main.game.getKelly())) {
+			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(ZaranixMaidKelly.class))) {
 				if(index==1) {
 					return new ResponseSex("Sex", "Have some fun with Kelly.",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKelly.class)),
 							null,
-							null, AFTER_KELLY_SEX, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX")) {
+							null), AFTER_KELLY_SEX, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX")) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kellyRepeatEncountered, true);
@@ -207,11 +207,11 @@ public class ZaranixHomeFirstFloorRepeat {
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Kelly. Perhaps if you submitted, [kelly.she]'d be willing to fuck you?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKelly.class)),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							null, AFTER_KELLY_SEX, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX_SUB")) {
+							null), AFTER_KELLY_SEX, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX_SUB")) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kellyRepeatEncountered, true);
@@ -225,7 +225,7 @@ public class ZaranixHomeFirstFloorRepeat {
 						@Override
 						public void effects() {
 							Main.game.saveDialogueNode();
-							BodyChanging.setTarget(Main.game.getKelly());
+							BodyChanging.setTarget(Main.game.getNpc(ZaranixMaidKelly.class));
 						}
 					};
 					
@@ -248,12 +248,11 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld KELLY_DECLINE = new DialogueNodeOld("", "", false, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode KELLY_DECLINE = new DialogueNode("", "", false, true) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 
 		@Override
@@ -263,7 +262,7 @@ public class ZaranixHomeFirstFloorRepeat {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_FF_STAIRS) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.ZARANIX_FF_STAIRS)) {
 				if(index==1) {
 					return new Response("Downstairs", "Head downstairs to the ground floor of Zaranix's house.", PlaceType.ZARANIX_GF_STAIRS.getDialogue(false)) {
 						@Override
@@ -277,8 +276,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_KELLY_SEX = new DialogueNodeOld("", "Kelly lets out a deep sigh as she steps back.", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_KELLY_SEX = new DialogueNode("", "Kelly lets out a deep sigh as she steps back.", false) {
 
 		@Override
 		public String getLabel() {
@@ -289,7 +287,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getNumberOfOrgasms(Main.game.getKelly()) == 0) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(ZaranixMaidKelly.class)) == 0) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "AFTER_KELLY_SEX_NO_ORGASM"));
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "AFTER_KELLY_SEX"));
@@ -300,7 +298,7 @@ public class ZaranixHomeFirstFloorRepeat {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_FF_STAIRS) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.ZARANIX_FF_STAIRS)) {
 				if(index==1) {
 					return new Response("Downstairs", "Head downstairs to the ground floor of Zaranix's house.", PlaceType.ZARANIX_GF_STAIRS.getDialogue(false)) {
 						@Override
@@ -314,12 +312,11 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ROOM = new DialogueNode("", "", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 20;
 		}
 
 		@Override
@@ -338,8 +335,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {
@@ -361,8 +357,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_EXIT = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_EXIT = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {
@@ -384,8 +379,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_ENTER = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_ENTER = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getLabel() {
@@ -447,8 +441,8 @@ public class ZaranixHomeFirstFloorRepeat {
 				return new ResponseSex("Offer blowjob", "Ask Zaranix if he'd like a blowjob as way of thanks for letting you have Arthur.",
 						true, true,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Zaranix.class), SexSlotOther.SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.PERFORMING_ORAL))),
 						null,
 						null, AFTER_SEX_ZARANIX_BLOWJOB, UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "ZARANIX_ROOM_BLOWJOB"));
 				
@@ -458,8 +452,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_MAIDS = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_MAIDS = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getLabel() {
@@ -481,8 +474,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_EXPERIMENTS = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_EXPERIMENTS = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getLabel() {
@@ -504,8 +496,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 	
-	public static final DialogueNodeOld ZARANIX_ROOM_INCUBUS_FORM = new DialogueNodeOld("", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode ZARANIX_ROOM_INCUBUS_FORM = new DialogueNode("", "", true, true) {
 
 		@Override
 		public String getLabel() {
@@ -527,8 +518,7 @@ public class ZaranixHomeFirstFloorRepeat {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_SEX_ZARANIX_BLOWJOB = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_ZARANIX_BLOWJOB = new DialogueNode("", "", false) {
 
 		@Override
 		public String getLabel() {

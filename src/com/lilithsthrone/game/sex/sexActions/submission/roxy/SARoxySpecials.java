@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.sexActions.submission.roxy;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.effects.Addiction;
+import com.lilithsthrone.game.character.npc.submission.Roxy;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
@@ -51,7 +52,7 @@ public class SARoxySpecials {
 		public String getDescription() {
 			Addiction ratGCumAdd = Main.game.getPlayer().getAddiction(FluidType.GIRL_CUM_RAT_MORPH);
 			
-			if(ratGCumAdd!=null && ratGCumAdd.getProviderIDs().contains(Main.game.getRoxy().getId())) {
+			if(ratGCumAdd!=null && ratGCumAdd.getProviderIDs().contains(Main.game.getNpc(Roxy.class).getId())) {
 				return "Roxy's moans start to increase in volume, and without warning, she suddenly reaches down to grab hold of your head, before letting her legs collapse out from under her."
 						+ " Your mouth is completely smothered by her [roxy.pussy+], and as you let out a muffled cry of surprise, the rat-girl screams, [roxy.speechNoEffects(~Aah!~ Yes! Get yer fuckin' tongue in deep! ~Mmm!~ Yes!)]"
 						+ "<br/><br/>"

@@ -109,7 +109,7 @@ public class PenisNipple {
 
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan], before gently pushing [npc2.her] [npc2.nipple+] out against [npc.namePos] [npc.cock].",
 
-							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc.her] [npc.nipple+], and gently [npc2.verb(push)] [npc.her] chest out in response."));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.nipple+], and gently [npc2.verb(push)] [npc.her] chest out in response."));
 					break;
 				case DOM_NORMAL:
 				case SUB_EAGER:
@@ -119,7 +119,7 @@ public class PenisNipple {
 
 							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before eagerly thrusting [npc2.her] chest out against [npc.namePos] [npc.cock].",
 
-							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc.her] [npc.nipple+], and desperately [npc2.verb(thrust)] [npc.her] chest out in response."));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.nipple+], and desperately [npc2.verb(thrust)] [npc.her] chest out in response."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -128,7 +128,7 @@ public class PenisNipple {
 
 							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before roughly thrusting [npc2.her] chest out against [npc.namePos] [npc.cock].",
 
-							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc.her] [npc.nipple+], and violently [npc2.verb(thrust)] [npc.her] chest out in response."));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.nipple+], and violently [npc2.verb(thrust)] [npc.her] chest out in response."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -137,7 +137,7 @@ public class PenisNipple {
 
 							" [npc2.Name] [npc2.verb(let)] out a [npc2.moan], before thrusting [npc2.her] chest out against [npc.namePos] [npc.cock].",
 
-							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc.her] [npc.nipple+], and [npc2.verb(thrust)] [npc.her] chest out in response."));
+							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.nipple+], and [npc2.verb(thrust)] [npc.her] chest out in response."));
 					break;
 				case SUB_RESISTING:
 					if(Sex.getCharacterTargetedForSexAction(this).isNippleVirgin()) {
@@ -349,7 +349,7 @@ public class PenisNipple {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, greedily sinking [npc.her] [npc.cock+] into [npc2.her] [npc2.nipple+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.breasts+], "
-									+ "and with a determined [npc2.verb(thrust)], [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.nipple+]."));
+									+ "and with a determined thrust, [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.nipple+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -357,7 +357,7 @@ public class PenisNipple {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before violently slamming forwards, forcing [npc.her] [npc.cock+] deep into [npc2.her] [npc2.nipple+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.breasts+],"
-									+ " and with a forceful [npc2.verb(thrust)], [npc.she] roughly slams it deep into [npc2.her] [npc2.nipple+]."));
+									+ " and with a forceful thrust, [npc.she] roughly slams it deep into [npc2.her] [npc2.nipple+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -365,7 +365,7 @@ public class PenisNipple {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, greedily sinking [npc.her] [npc.cock+] into [npc2.her] [npc2.nipple+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.breasts+],"
-									+ " and with a determined [npc2.verb(thrust)], [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.nipple+]."));
+									+ " and with a determined thrust, [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.nipple+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -373,7 +373,7 @@ public class PenisNipple {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, sinking [npc.her] [npc.cock+] into [npc2.her] [npc2.nipple+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.breasts+],"
-									+ " and with a little [npc2.verb(thrust)], [npc.she] [npc.verb(sink)] it deep into [npc2.her] [npc2.nipple+]."));
+									+ " and with a little thrust, [npc.she] [npc.verb(sink)] it deep into [npc2.her] [npc2.nipple+]."));
 					break;
 				default:
 					break;
@@ -666,7 +666,7 @@ public class PenisNipple {
 		
 		@Override
 		public String getActionTitle() {
-			return "Eager fucking";
+			return "Eager nipple-fuck";
 		}
 
 		@Override
@@ -915,7 +915,7 @@ public class PenisNipple {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(force)] [npc2.her] [npc2.cock] inside of [npc.herHim],"
-									+ " and, struggling against [npc.herHim], [npc2.she] desperately tries to pull [npc2.her] [npc2.cock+] free from [npc.her] [npc.nipple+].",
+									+ " and, struggling against [npc.herHim], [npc2.she] desperately [npc2.verb(try)] to pull [npc2.her] [npc2.cock+] free from [npc.her] [npc.nipple+].",
 
 							" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc2.her] [npc2.cock] deep into [npc.her] [npc.nipple+]."));
 					break;
@@ -1248,7 +1248,7 @@ public class PenisNipple {
 
 		@Override
 		public String getActionTitle() {
-			return "Stop being fucked";
+			return "Stop nipple-fucked";
 		}
 
 		@Override

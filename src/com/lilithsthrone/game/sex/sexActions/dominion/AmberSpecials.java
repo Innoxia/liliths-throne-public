@@ -56,5 +56,4 @@ public class AmberSpecials {
 			return true;
 		}
 	};
-	
 }

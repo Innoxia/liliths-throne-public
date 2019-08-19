@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <weapon>
 	<coreAttributes>
-	
+		
+		<!-- How attribution to the mod author (you!) should be displayed in the weapon's tooltip. If left blank or not included, a default attribution based on folder name will be used. (I have commented out this example, as I don't want items created by myself to have author attribution.)-->
+		<!-- <authorTag><![CDATA[A discreet inscription at the base of the dagger's blade informs you that it was made by 'Innoxia'.]]></authorTag> -->
+		
 		<!-- How much this weapon is worth. -->
 		<value>1500</value> 
 		
@@ -102,7 +105,7 @@
 			#ffb380
 			#ffccaa
 			#ffe6d5
-		Yellow is used as base colour for changing the SECODNARY colour of the graphic in-game, and the game will only recognise and change the following colours:
+		Yellow is used as base colour for changing the SECONDARY colour of the graphic in-game, and the game will only recognise and change the following colours:
 			#ffd42a
 			#ffdd55
 			#ffe680

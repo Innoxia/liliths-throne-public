@@ -34,9 +34,9 @@ public enum AreolaeSize {
 		return descriptor;
 	}
 	
-	public static AreolaeSize getAreolaeSizeFromInt(int inches) {
+	public static AreolaeSize getAreolaeSizeFromInt(int index) {
 		for(AreolaeSize as : AreolaeSize.values()) {
-			if(inches == as.getValue()) {
+			if(index == as.getValue()) {
 				return as;
 			}
 		}

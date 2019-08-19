@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -20,24 +19,28 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.7
+ * @version 0.3.1
  * @author Innoxia
  */
-public class FluidMilk implements FluidInterface, Serializable {
-	private static final long serialVersionUID = 1L;
+public class FluidMilk implements FluidInterface {
+
 	
 	protected FluidType type;
 	protected FluidFlavour flavour;
 	protected List<FluidModifier> fluidModifiers;
 	protected List<ItemEffect> transformativeEffects;
+	
+	protected boolean crotchMilk;
 
-	public FluidMilk(FluidType type) {
+	public FluidMilk(FluidType type, boolean crotchMilk) {
 		this.type = type;
 		this.flavour = type.getFlavour();
 		transformativeEffects = new ArrayList<>();
 		
 		fluidModifiers = new ArrayList<>();
 		fluidModifiers.addAll(type.getFluidModifiers());
+		
+		this.crotchMilk = crotchMilk;
 	}
 
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -46,17 +49,18 @@ public class FluidMilk implements FluidInterface, Serializable {
 
 		CharacterUtils.addAttribute(doc, element, "type", this.type.toString());
 		CharacterUtils.addAttribute(doc, element, "flavour", this.flavour.toString());
-		Element cumModifiers = doc.createElement("milkModifiers");
-		element.appendChild(cumModifiers);
-		for(FluidModifier fm : FluidModifier.values()) {
-			CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), String.valueOf(this.hasFluidModifier(fm)));
+		
+		Element milkModifiers = doc.createElement("milkModifiers");
+		element.appendChild(milkModifiers);
+		for(FluidModifier fm : this.getFluidModifiers()) {
+			CharacterUtils.addAttribute(doc, milkModifiers, fm.toString(), "true");
 		}
 		
 		return element;
 	}
 	
 	public static FluidMilk loadFromXML(Element parentElement, Document doc) {
-		return loadFromXML(parentElement, doc, null);
+		return loadFromXML(parentElement, doc, null, false);
 	}
 	
 	/**
@@ -65,7 +69,7 @@ public class FluidMilk implements FluidInterface, Serializable {
 	 * @param doc
 	 * @param baseType If you pass in a baseType, this method will ignore the saved type in parentElement.
 	 */
-	public static FluidMilk loadFromXML(Element parentElement, Document doc, FluidType baseType) {
+	public static FluidMilk loadFromXML(Element parentElement, Document doc, FluidType baseType, boolean crotchMilk) {
 		
 		Element milk = (Element)parentElement.getElementsByTagName("milk").item(0);
 		
@@ -81,19 +85,27 @@ public class FluidMilk implements FluidInterface, Serializable {
 			}
 		}
 		
-		FluidMilk fluidMilk = new FluidMilk(fluidType);
+		FluidMilk fluidMilk = new FluidMilk(fluidType, crotchMilk);
 		
-		fluidMilk.flavour = (FluidFlavour.valueOf(milk.getAttribute("flavour")));
+		String flavourId = milk.getAttribute("flavour");
+		if(flavourId.equalsIgnoreCase("SLIME")) {
+			fluidMilk.flavour = FluidFlavour.BUBBLEGUM;
+		} else {
+			fluidMilk.flavour = FluidFlavour.valueOf(flavourId);
+		}
 		
 		Element milkModifiersElement = (Element)milk.getElementsByTagName("milkModifiers").item(0);
-		Collection<FluidModifier> milkFluidModifiers = fluidMilk.fluidModifiers;
-		Body.handleLoadingOfModifiers(FluidModifier.values(), null, milkModifiersElement, milkFluidModifiers);
+		fluidMilk.fluidModifiers.clear();
+		if(milkModifiersElement!=null) {
+			Collection<FluidModifier> milkFluidModifiers = fluidMilk.fluidModifiers;
+			Body.handleLoadingOfModifiers(FluidModifier.values(), null, milkModifiersElement, milkFluidModifiers);
+		}
 		
 		return fluidMilk;
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(o instanceof FluidMilk){
 			if(((FluidMilk)o).getType().equals(this.getType())
 				&& ((FluidMilk)o).getFlavour() == this.getFlavour()
@@ -145,7 +157,7 @@ public class FluidMilk implements FluidInterface, Serializable {
 		return UtilText.returnStringAtRandom(
 				modifierDescriptor,
 				flavour.getRandomFlavourDescriptor(),
-				type.getDescriptor(gc));
+				(type.getDescriptor(gc).equals("human")?null:type.getDescriptor(gc)));
 	}
 
 	@Override
@@ -173,15 +185,17 @@ public class FluidMilk implements FluidInterface, Serializable {
 
 		this.flavour = flavour;
 		
-		if(owner.isPlayer()) {
-			return "<p>"
-						+ "A soothing warmth spreads up through your [pc.breasts], causing you to let out a contented little sigh.<br/>"
-						+ "Your [pc.milk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
-					+ "</p>";
+		if(this.isCrotchMilk()) {
+			return UtilText.parse(owner,
+					"<p>"
+						+ "A soothing warmth spreads through [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out a contented little sigh.<br/>"
+						+ "[npc.NamePos] [npc.crotchMilk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
+					+ "</p>");
+			
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
-						+ "A soothing warmth spreads up through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a contented little sigh.<br/>"
+						+ "A soothing warmth spreads through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a contented little sigh.<br/>"
 						+ "[npc.NamePos] [npc.milk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
 					+ "</p>");
 		}
@@ -204,24 +218,26 @@ public class FluidMilk implements FluidInterface, Serializable {
 		
 		switch(fluidModifier) {
 			case ADDICTIVE:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a strange, pulsating heat spreading up through your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
-								+ "Your [pc.milk] is now [style.boldGrow(addictive)]!"
-							+ "</p>";
+				if(this.isCrotchMilk()) {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A strange, pulsating heat spreads through [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.crotchMilk] is now [style.boldGrow(addictive)]!"
+							+ "</p>");
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A strange, pulsating heat spreads up through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "A strange, pulsating heat spreads through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
 								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(addictive)]!"
 							+ "</p>");
 				}
 			case ALCOHOLIC:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a strange, soothing warmth spreading up through your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
-								+ "Your [pc.milk] is now [style.boldGrow(alcoholic)]!"
-							+ "</p>";
+				if(this.isCrotchMilk()) {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A strange, soothing warmth spreads up through [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.crotchMilk] is now [style.boldGrow(alcoholic)]!"
+							+ "</p>");
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
@@ -230,11 +246,12 @@ public class FluidMilk implements FluidInterface, Serializable {
 							+ "</p>");
 				}
 			case BUBBLING:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a light, bubbly feeling rising up into your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
-								+ "Your [pc.milk] is now [style.boldGrow(bubbly)]!"
-							+ "</p>";
+				if(this.isCrotchMilk()) {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A light, bubbly feeling spreads up through [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.crotchMilk] is now [style.boldGrow(bubbly)]!"
+							+ "</p>");
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
@@ -243,11 +260,12 @@ public class FluidMilk implements FluidInterface, Serializable {
 							+ "</p>");
 				}
 			case HALLUCINOGENIC:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a series of strange pulses shoot up into your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
-								+ "Your [pc.milk] is now [style.boldGrow(psychoactive)]!"
-							+ "</p>";
+				if(this.isCrotchMilk()) {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A series of strange pulses shoot up through [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.crotchMilk] is now [style.boldGrow(psychoactive)]!"
+							+ "</p>");
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
@@ -255,12 +273,27 @@ public class FluidMilk implements FluidInterface, Serializable {
 								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>");
 				}
+			case MINERAL_OIL:
+				if(this.isCrotchMilk()) {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A soothing warmth flows into [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.crotchMilk] is now imbued with [style.boldGrow(mineral oil)], and can melt condoms!"
+							+ "</p>");
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A soothing warmth flows into [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.milk] is now imbued with [style.boldGrow(mineral oil)], and can melt condoms!"
+							+ "</p>");
+				}
 			case MUSKY:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a slow, creeping warmth rise up into your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
-								+ "Your [pc.milk] is now [style.boldGrow(musky)]!"
-							+ "</p>";
+				if(this.isCrotchMilk()) {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A slow, creeping warmth rises up into [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.crotchMilk] is now [style.boldGrow(musky)]!"
+							+ "</p>");
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
@@ -269,11 +302,12 @@ public class FluidMilk implements FluidInterface, Serializable {
 							+ "</p>");
 				}
 			case SLIMY:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a strange, soothing warmth flow up into your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
-								+ "Your [pc.milk] is now [style.boldGrow(slimy)]!"
-							+ "</p>";
+				if(this.isCrotchMilk()) {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A strange, soothing warmth flows up into [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.crotchMilk] is now [style.boldGrow(slimy)]!"
+							+ "</p>");
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
@@ -282,11 +316,12 @@ public class FluidMilk implements FluidInterface, Serializable {
 							+ "</p>");
 				}
 			case STICKY:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a thick, sickly warmth flow up into your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
-								+ "Your [pc.milk] is now [style.boldGrow(sticky)]!"
-							+ "</p>";
+				if(this.isCrotchMilk()) {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A thick, sickly warmth flows up into [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.crotchMilk] is now [style.boldGrow(sticky)]!"
+							+ "</p>");
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
@@ -295,11 +330,12 @@ public class FluidMilk implements FluidInterface, Serializable {
 							+ "</p>");
 				}
 			case VISCOUS:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a heavy heat slowly rising up into your [pc.breasts], causing you to let out [pc.a_moan+].<br/>"
-								+ "Your [pc.milk] is now [style.boldGrow(viscous)]!"
-							+ "</p>";
+				if(this.isCrotchMilk()) {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A heavy heat slowly rises up into [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.crotchMilk] is now [style.boldGrow(viscous)]!"
+							+ "</p>");
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
@@ -428,6 +464,19 @@ public class FluidMilk implements FluidInterface, Serializable {
 								+ "[npc.NamePos] [npc.milk] is [style.boldShrink(no longer viscous)]!"
 							+ "</p>");
 				}
+			case MINERAL_OIL:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a short relief flow up into your [pc.breasts], causing you to let out a gentle sigh.<br/>"
+								+ "Your [pc.milk] is [style.boldShrink(no longer mineral oil)]!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A short relief flows up into [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a gentle sigh.<br/>"
+								+ "[npc.NamePos] [npc.milk] is [style.boldShrink(no longer mineral oil)]!"
+							+ "</p>");
+				}
 		}
 		
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
@@ -453,6 +502,18 @@ public class FluidMilk implements FluidInterface, Serializable {
 	}
 	
 	public float getValuePerMl() {
-		return 0.1f + this.getFluidModifiers().size()*0.4f + (this.getFlavour()!=FluidFlavour.MILK?0.5f:0);
+		return (0.1f + (this.getFluidModifiers().size()*0.1f)) + (this.getFlavour()!=FluidFlavour.MILK?1.5f:1);
+	}
+
+	public boolean isCrotchMilk() {
+		return crotchMilk;
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(FluidMilk.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

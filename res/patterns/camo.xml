@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<pattern>
+	<name><![CDATA[camo]]></name>
+	<defaultPattern>true</defaultPattern>
+    <patternName>camo.svg</patternName>
+</pattern>

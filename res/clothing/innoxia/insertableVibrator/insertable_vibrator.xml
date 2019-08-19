@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <clothing>
-	<coreAtributes>
+	<coreAttributes>
 		<value>150</value>
 		<determiner><![CDATA[an]]></determiner>
 		<name><![CDATA[insertable dildo]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[insertable dildos]]></namePlural>
 		<description><![CDATA[A dildo-shaped sex toy, designed to be discreetly inserted into the vagina.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>VAGINA</slot>
 		<rarity>COMMON</rarity>
@@ -51,8 +51,9 @@
 			<tag>SOLD_BY_FINCH</tag>
 			<tag>REQUIRES_VAGINA</tag>
 			<tag>PLUGS_VAGINA</tag>
+			<tag>ENABLE_SEX_EQUIP</tag>
 		</itemTags>
-	</coreAtributes>
+	</coreAttributes>
 
 	
   <displacementText type="REMOVE_OR_EQUIP">

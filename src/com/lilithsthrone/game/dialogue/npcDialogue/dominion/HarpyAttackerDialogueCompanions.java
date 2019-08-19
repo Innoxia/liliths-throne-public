@@ -13,22 +13,21 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.SexControl;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -132,8 +131,7 @@ public class HarpyAttackerDialogueCompanions {
 		return UtilText.parse(getHarpy(), sb.toString());
 	}
 	
-	public static final DialogueNodeOld HARPY_ATTACKS = new DialogueNodeOld("Assaulted!", "A figure jumps out from the shadows!", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_ATTACKS = new DialogueNode("Assaulted!", "A figure jumps out from the shadows!", true) {
 		
 		@Override
 		public String getContent() {
@@ -250,12 +248,21 @@ public class HarpyAttackerDialogueCompanions {
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								null,
-								Util.newArrayListOfValues(getMainCompanion()),
-								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "HARPY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getHarpy(), getMainCompanion())) {
+								new SMGeneric(
+										Util.newArrayListOfValues(getHarpy()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										null,
+										Util.newArrayListOfValues(getMainCompanion())) {
+									@Override
+									public SexControl getSexControl(GameCharacter character) {
+										if(character.isPlayer()) {
+											return SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS;
+										}
+										return super.getSexControl(character);
+									}
+								},
+								AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "HARPY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getHarpy(), getMainCompanion())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -287,14 +294,13 @@ public class HarpyAttackerDialogueCompanions {
 					} else {
 						return new ResponseSex(UtilText.parse(companion, "Offer threesome"),
 								UtilText.parse(getHarpy(), companion, "Offer [npc.name] the opportunity to have sex with both you and [npc2.name] in order to avoid a violent confrontation."),
-								true, true,
-								new SMDoggy(
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.DOGGY_BEHIND)),
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-												new Value<>(companion, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-								null,
-								null,
+								true, false,
+								new SMGeneric(
+										Util.newArrayListOfValues(getHarpy()),
+										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY),
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "HARPY_ATTACK_OFFER_BODY_WITH_COMPANION", getHarpy(), companion)) {
 							@Override
 							public void effects() {
@@ -320,11 +326,11 @@ public class HarpyAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 								UtilText.parse(getHarpy(), companion, "Tell [npc.name] that [npc.she] can use [npc2.namePos] body in order to avoid a violent confrontation."),
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getHarpy()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "HARPY_ATTACK_OFFER_COMPANION", getHarpy(), companion)) {
 							@Override
 							public void effects() {
@@ -380,11 +386,11 @@ public class HarpyAttackerDialogueCompanions {
 								Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, Fetish.FETISH_DOMINANT.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+										Util.newArrayListOfValues(getHarpy()),
 								null,
-								null,
+								null),
 								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "HARPY_ATTACK_PEACEFUL_SEX_AS_DOM", getAllCharacters())) {
 							@Override
 							public void effects() {
@@ -402,11 +408,11 @@ public class HarpyAttackerDialogueCompanions {
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
 								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getHarpy()),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
-								null,
+								null),
 								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "HARPY_ATTACK_PEACEFUL_SEX_AS_SUB", getAllCharacters())) {
 							@Override
 							public void effects() {
@@ -466,14 +472,13 @@ public class HarpyAttackerDialogueCompanions {
 					} else {
 						return new ResponseSex(UtilText.parse(companion, "Offer threesome"),
 								UtilText.parse(getHarpy(), companion, "Offer [npc.name] the opportunity to have sex with both you and [npc2.name] in order to avoid a violent confrontation."),
-								true, true,
-								new SMDoggy(
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.DOGGY_BEHIND)),
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-												new Value<>(companion, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-								null,
-								null,
+								true, false,
+								new SMGeneric(
+										Util.newArrayListOfValues(getHarpy()),
+										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY),
 								AFTER_SEX_PEACEFUL_THREESOME, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "HARPY_ATTACK_PEACEFUL_OFFER_BODY_WITH_COMPANION", getHarpy(), companion)) {
 							@Override
 							public void effects() {
@@ -499,11 +504,11 @@ public class HarpyAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 								UtilText.parse(getHarpy(), companion, "Tell [npc.name] that [npc.she] can use [npc2.namePos] body in order to avoid a violent confrontation."),
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getHarpy()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_PEACEFUL_OFFERED_COMPANION, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "HARPY_ATTACK_PEACEFUL_OFFER_COMPANION", getHarpy(), companion)) {
 							@Override
 							public void effects() {
@@ -539,8 +544,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_PEACEFUL_TALK = new DialogueNodeOld("Talk", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_PEACEFUL_TALK = new DialogueNode("Talk", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -572,8 +576,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_PEACEFUL_OFFER_MONEY = new DialogueNodeOld("Offer money", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_PEACEFUL_OFFER_MONEY = new DialogueNode("Offer money", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -605,8 +608,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_PEACEFUL_OFFER_ROOM = new DialogueNodeOld("Offer room", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_PEACEFUL_OFFER_ROOM = new DialogueNode("Offer room", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -633,8 +635,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_PEACEFUL_OFFER_ROOM_BACK_HOME = new DialogueNodeOld("New Room", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_PEACEFUL_OFFER_ROOM_BACK_HOME = new DialogueNode("New Room", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -652,8 +653,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_PEACEFUL_ATTACK = new DialogueNodeOld("Attack", "", true, true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode HARPY_NEST_PEACEFUL_ATTACK = new DialogueNode("Attack", "", true, true) {
 		
 		@Override
 		public String getContent() {
@@ -671,12 +671,11 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_PEACEFUL = new DialogueNodeOld("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_PEACEFUL = new DialogueNode("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getHarpy())>0) {
+			if(Sex.getNumberOfOrgasms(getHarpy())>=getHarpy().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_SEX_PEACEFUL", getAllCharacters());
 			} else {
 				return UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_SEX_PEACEFUL_NO_ORGASM", getAllCharacters());
@@ -694,8 +693,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_PEACEFUL_THREESOME = new DialogueNodeOld("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_PEACEFUL_THREESOME = new DialogueNode("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
 		
 		@Override
 		public String getContent() {
@@ -713,8 +711,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_PEACEFUL_OFFERED_COMPANION = new DialogueNodeOld("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_PEACEFUL_OFFERED_COMPANION = new DialogueNode("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
 		
 		@Override
 		public String getContent() {
@@ -736,8 +733,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld STORM_ATTACK = new DialogueNodeOld("Attacked!", "A figure jumps out of a nearby doorway!", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode STORM_ATTACK = new DialogueNode("Attacked!", "A figure jumps out of a nearby doorway!", true) {
 		
 		@Override
 		public String getLabel(){
@@ -765,11 +761,19 @@ public class HarpyAttackerDialogueCompanions {
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 						null, null, null,
 						true, true,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						null,
-						Util.newArrayListOfValues(getMainCompanion()),
+						new SMGeneric(
+								Util.newArrayListOfValues(getHarpy()),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								Util.newArrayListOfValues(getMainCompanion())) {
+							@Override
+							public SexControl getSexControl(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS;
+								}
+								return super.getSexControl(character);
+							}
+						},
 						AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "STORM_ATTACK_OFFER_BODY", getHarpy(), getMainCompanion()));
 					
 			} else if (index == 4) {
@@ -793,14 +797,13 @@ public class HarpyAttackerDialogueCompanions {
 				} else {
 					return new ResponseSex(UtilText.parse(companion, "Offer threesome"),
 							UtilText.parse(getHarpy(), companion, "Offer [npc.name] the opportunity to have sex with both you and [npc2.name] in order to avoid a violent confrontation."),
-							true, true,
-							new SMDoggy(
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.DOGGY_BEHIND)),
-									Util.newHashMapOfValues(
-											new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-											new Value<>(companion, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-							null,
-							null,
+							true, false,
+							new SMGeneric(
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+									null,
+									null,
+									ResponseTag.PREFER_DOGGY),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "HARPY_ATTACK_OFFER_BODY_WITH_COMPANION", getHarpy(), companion));
 				}
 				
@@ -821,11 +824,11 @@ public class HarpyAttackerDialogueCompanions {
 					return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 							UtilText.parse(getHarpy(), companion, "Tell [npc.name] that [npc.she] can use [npc2.namePos] body in order to avoid a violent confrontation."),
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(companion),
 							null,
-							Util.newArrayListOfValues(Main.game.getPlayer()),
+							Util.newArrayListOfValues(Main.game.getPlayer())),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "HARPY_ATTACK_OFFER_COMPANION", getHarpy(), companion)) {
 						@Override
 						public void effects() {
@@ -842,8 +845,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_VICTORY = new DialogueNodeOld("Victory", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
 
 		@Override
 		public String getDescription() {
@@ -879,49 +881,35 @@ public class HarpyAttackerDialogueCompanions {
 					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(getMainCompanion()),
+									null),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_SEX", getAllCharacters()));
 					
 				} else if (index == 3) {
 					return new ResponseSex("Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.DOM_GENTLE;
-									}
-									return null;
-								}
-							},
-							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(getMainCompanion()),
+									null,
+									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()));
 					
 				} else if (index == 4) {
 					return new ResponseSex("Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.DOM_ROUGH;
-									}
-									return null;
-								}
-							},
-							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(getMainCompanion()),
+									null,
+									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()));
 					
 				} else if (index == 5) {
@@ -930,11 +918,11 @@ public class HarpyAttackerDialogueCompanions {
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							new SMGeneric(
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									Util.newArrayListOfValues(getMainCompanion())),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 					
 				} else if (index == 6) {
@@ -981,13 +969,12 @@ public class HarpyAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Threesome"),
 								UtilText.parse(getHarpy(), companion, "Have dominant sex with [npc.name], and get [npc2.name] to join in with the fun."),
 								true, false,
-								new SMDoggy(
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND),
-												new Value<>(companion, SexPositionSlot.DOGGY_INFRONT)),
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-								null,
-								null,
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+										Util.newArrayListOfValues(getHarpy()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_THREESOME", getHarpy(), companion));
 					}
 					
@@ -1001,11 +988,11 @@ public class HarpyAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Give to [npc.name]"),
 								UtilText.parse(companion, getHarpy(), "Tell [npc.name] that [npc.she] can have some fun with [npc2.name] while you watch."),
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(companion),
+										Util.newArrayListOfValues(getHarpy()),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getHarpy(), companion));
 					}
 					
@@ -1021,11 +1008,11 @@ public class HarpyAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 								UtilText.parse(getHarpy(), companion, "Tell [npc.name] that [npc.she] can use [npc2.name]."),
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getHarpy()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_OFFER_COMPANION", getHarpy(), companion)) {
 							@Override
 							public void effects() {
@@ -1059,11 +1046,11 @@ public class HarpyAttackerDialogueCompanions {
 							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getHarpy()),
 							null,
-							null,
+							null),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE", getAllCharacters()));
 					
 				} else if (index == 3) {
@@ -1073,19 +1060,12 @@ public class HarpyAttackerDialogueCompanions {
 					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.DOM_GENTLE;
-									}
-									return null;
-								}
-							},
-							null,
-							null,
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getHarpy()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getAllCharacters()));
 					
 				} else if (index == 4) {
@@ -1095,19 +1075,12 @@ public class HarpyAttackerDialogueCompanions {
 					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)",
 							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.DOM_ROUGH;
-									}
-									return null;
-								}
-							},
-							null,
-							null, AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getAllCharacters()));
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(getHarpy()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_DOM_ROUGH), AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getAllCharacters()));
 					
 				} else if (index == 5) {
 					return new Response("Submit",
@@ -1162,13 +1135,12 @@ public class HarpyAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Threesome"),
 								UtilText.parse(getHarpy(), companion, "Have dominant sex with [npc.name], and get [npc2.name] to join in with the fun."),
 								true, false,
-								new SMDoggy(
-										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND),
-												new Value<>(companion, SexPositionSlot.DOGGY_INFRONT)),
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-								null,
-								null,
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+										Util.newArrayListOfValues(getHarpy()),
+										null,
+										null,
+										ResponseTag.PREFER_DOGGY),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_THREESOME", getHarpy(), companion));
 					}
 					
@@ -1186,11 +1158,11 @@ public class HarpyAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Give to [npc.name]"),
 								UtilText.parse(companion, getHarpy(), "Tell [npc.name] that [npc.she] can have some fun with [npc2.name] while you watch."),
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(companion),
+										Util.newArrayListOfValues(getHarpy()),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getHarpy(), companion));
 					}
 					
@@ -1209,11 +1181,11 @@ public class HarpyAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "Offer [npc.name]"),
 								UtilText.parse(getHarpy(), companion, "Tell [npc.name] that [npc.she] can use [npc2.name]."),
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getHarpy()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_VICTORY_OFFER_COMPANION", getHarpy(), companion)) {
 							@Override
 							public void effects() {
@@ -1231,8 +1203,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_VICTORY_TALK = new DialogueNodeOld("Talk", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_VICTORY_TALK = new DialogueNode("Talk", "", true) {
 		
 		@Override
 		public String getContent() {
@@ -1252,8 +1223,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 
-	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", "", true) {
 		
 		Value<String, AbstractItem> potion = null;
 		
@@ -1311,7 +1281,12 @@ public class HarpyAttackerDialogueCompanions {
 		public Response getResponse(int responseTab, int index) {
 			if(getHarpy().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				if (index == 1) {
-					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+						@Override
+						public void effects() {
+							Main.game.banishNPC(getHarpy());
+						}
+					};
 				}
 				return null;
 			}
@@ -1327,13 +1302,12 @@ public class HarpyAttackerDialogueCompanions {
 							return new ResponseSex(UtilText.parse(companion, "Threesome"),
 									UtilText.parse(getHarpy(), companion, "[npc.Name] uses this opportunity to have sex with both you and [npc2.name]..."),
 									false, false,
-									new SMDoggy(
-											Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(
-													new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
-													new Value<>(companion, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-									null,
-									null,
+									new SMGeneric(
+											Util.newArrayListOfValues(getHarpy()),
+											Util.newArrayListOfValues(Main.game.getPlayer(), companion),
+											null,
+											null,
+											ResponseTag.PREFER_DOGGY),
 									AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_DEFEAT_THREESOME", getHarpy(), companion));
 						
 					} else if (getHarpy().isAttractedTo(companion) && Main.getProperties().hasValue(PropertyValue.involuntaryNTR)) {
@@ -1341,11 +1315,11 @@ public class HarpyAttackerDialogueCompanions {
 						return new ResponseSex(UtilText.parse(companion, "[npc.Name] used"),
 								UtilText.parse(getHarpy(), companion, "[npc.Name] uses [npc2.namePos] body in order to get some sexual relief..."),
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(companion, SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMGeneric(
+										Util.newArrayListOfValues(getHarpy()),
+										Util.newArrayListOfValues(companion),
 								null,
-								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getPlayer())),
 								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_DEFEAT_USES_COMPANION", getHarpy(), companion));
 						
 					}
@@ -1357,32 +1331,30 @@ public class HarpyAttackerDialogueCompanions {
 			} else if(getHarpy().hasTransformationFetish()
 					&& potion != null
 					&& getHarpy().isWillingToRape(Main.game.getPlayer())) {
-				
-//				System.out.println("Potion Check 2"); 
-//				System.out.println(potion); 
-//				System.out.println(potion.getValue()); 
+				Fetish applicableFetish = potion.getValue().getItemType() == ItemType.FETISH_REFINED
+						?Fetish.FETISH_KINK_RECEIVING
+						:Fetish.FETISH_TRANSFORMATION_RECEIVING;
+				CorruptionLevel applicableCorruptionLevel = potion.getValue().getItemType() == ItemType.FETISH_REFINED
+						?Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel()
+						:Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 				
 				if (index == 1) {
-					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+					if(Main.game.isSpittingDisabled()) {
+						return Response.getDisallowedSpittingResponse();
+					}
+					if(!Collections.disjoint(Main.game.getPlayer().getFetishes(true), Util.newArrayListOfValues(applicableFetish))) {
 						return new Response("Spit",
-								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
-									+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
+								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+applicableFetish.getName(Main.game.getPlayer())
+									+"</b> fetish, you love "+applicableFetish.getShortDescriptor()+" so much that you can't bring yourself to spit out the transformative liquid!",
 								null);
 					} else {
 						return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
 					}
 					
 				} else if (index == 2) {
-					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-					CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
-					
-					if(potion.getValue().getItemType() == ItemType.FETISH_REFINED) {
-						applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_KINK_RECEIVING);
-						applicableCorruptionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
-					}
 					
 					return new Response("Swallow", "Do as you're told and swallow the strange potion.", AFTER_COMBAT_TRANSFORMATION,
-							applicableFetishes,
+							Util.newArrayListOfValues(applicableFetish),
 							applicableCorruptionLevel,
 							null,
 							null,
@@ -1414,49 +1386,35 @@ public class HarpyAttackerDialogueCompanions {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							new SMGeneric(
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									Util.newArrayListOfValues(getMainCompanion())),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_EAGER;
-									}
-									return null;
-								}
-							},
-							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							new SMGeneric(
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									Util.newArrayListOfValues(getMainCompanion()),
+									ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_RESISTING;
-									}
-									return null;
-								}
-							},
-							null,
-							Util.newArrayListOfValues(getMainCompanion()),
+							new SMGeneric(
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									Util.newArrayListOfValues(getMainCompanion()),
+									ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()));
 					
 				}
@@ -1465,7 +1423,7 @@ public class HarpyAttackerDialogueCompanions {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 						@Override
-						public DialogueNodeOld getNextDialogue() {
+						public DialogueNode getNextDialogue() {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
@@ -1478,8 +1436,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_TRANSFORMATION_REFUSED = new DialogueNodeOld("Avoided Transformation", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_TRANSFORMATION_REFUSED = new DialogueNode("Avoided Transformation", "", true) {
 
 		@Override
 		public String getContent() {
@@ -1498,49 +1455,35 @@ public class HarpyAttackerDialogueCompanions {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							null,
+							null),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_EAGER;
-									}
-									return null;
-								}
-							},
-							null,
-							null,
+							new SMGeneric(
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_RESISTING;
-									}
-									return null;
-								}
-							},
-							null,
-							null,
+							new SMGeneric(
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()));
 					
 				} else {
@@ -1558,8 +1501,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_COMBAT_TRANSFORMATION = new DialogueNodeOld("Transformed", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_COMBAT_TRANSFORMATION = new DialogueNode("Transformed", "", true) {
 
 		@Override
 		public String getContent() {
@@ -1578,49 +1520,35 @@ public class HarpyAttackerDialogueCompanions {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							null,
+							null),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX", getAllCharacters()));
 					
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_EAGER;
-									}
-									return null;
-								}
-							},
-							null,
-							null,
+							new SMGeneric(
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_EAGER", getAllCharacters()));
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(getHarpy(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-								@Override
-								public SexPace getStartingSexPaceModifier(GameCharacter character) {
-									if(character.isPlayer()) {
-										return SexPace.SUB_RESISTING;
-									}
-									return null;
-								}
-							},
-							null,
-							null,
+							new SMGeneric(
+									Util.newArrayListOfValues(getHarpy()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									null,
+									ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_COMBAT_DEFEAT_SEX_RESIST", getAllCharacters()));
 					
 				} else {
@@ -1638,8 +1566,7 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_VICTORY = new DialogueNodeOld("Step back", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_VICTORY = new DialogueNode("Step back", "", true) {
 		
 		@Override
 		public String getDescription(){
@@ -1650,7 +1577,7 @@ public class HarpyAttackerDialogueCompanions {
 		public String getContent() {
 			if((getHarpy().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
 					&& !getHarpy().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-				if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+				if(Sex.getNumberOfOrgasms(getHarpy()) >= getHarpy().getOrgasmsBeforeSatisfied()) {
 					return UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_SEX_VICTORY", getAllCharacters());
 				} else {
 					return UtilText.parseFromXMLFile("encounters/dominion/harpyAttackCompanions", "AFTER_SEX_VICTORY_NO_ORGASM", getAllCharacters());
@@ -1691,7 +1618,7 @@ public class HarpyAttackerDialogueCompanions {
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
 						AFTER_COMBAT_VICTORY){
 					@Override
-					public DialogueNodeOld getNextDialogue() {
+					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
@@ -1706,12 +1633,11 @@ public class HarpyAttackerDialogueCompanions {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_DEFEAT = new DialogueNodeOld("Collapse", "", true) {
-		private static final long serialVersionUID = 1L;
+	public static final DialogueNode AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
 		
 		@Override
-		public int getMinutesPassed(){
-			return 15;
+		public int getSecondsPassed() {
+			return 15*60;
 		}
 		
 		@Override
@@ -1727,9 +1653,15 @@ public class HarpyAttackerDialogueCompanions {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
+				return new Response("Continue", "Carry on your way.", AFTER_SEX_DEFEAT) {
 					@Override
-					public DialogueNodeOld getNextDialogue(){
+					public void effects() {
+						if(getHarpy().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+							Main.game.banishNPC(getHarpy());
+						}
+					}
+					@Override
+					public DialogueNode getNextDialogue(){
 						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};

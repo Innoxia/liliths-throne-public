@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 
 <clothing>
-  <coreAtributes>
+  <coreAttributes>
     <value>300</value> <!--10 flames = £1 ~ $1.5-->
     <determiner><![CDATA[a pair of]]></determiner>
     <name><![CDATA[heart-shaped barbells]]></name>
@@ -9,7 +9,7 @@
     <description><![CDATA[A pair of barbells which surround each nipple with a cute heart.]]></description>
     
     <physicalResistance>0</physicalResistance>
-    <femininity>ANDROGYNOUS</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
+    <femininity>FEMININE</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
     <slot>PIERCING_NIPPLE</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
     <rarity>COMMON</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
     
@@ -49,7 +49,7 @@
       <tag>SOLD_BY_KATE</tag>
     </itemTags>
     
-  </coreAtributes>
+  </coreAttributes>
 
   <displacementText type="REMOVE_OR_EQUIP">
     <playerSelf>

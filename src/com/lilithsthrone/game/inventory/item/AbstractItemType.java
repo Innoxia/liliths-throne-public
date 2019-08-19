@@ -2,7 +2,6 @@ package com.lilithsthrone.game.inventory.item;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,6 +10,8 @@ import java.util.Set;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidMilk;
+import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -21,16 +22,15 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.2.1
+ * @version 0.3
  * @author Innoxia
  */
-public abstract class AbstractItemType extends AbstractCoreType implements Serializable {
-
-	protected static final long serialVersionUID = 1L;
+public abstract class AbstractItemType extends AbstractCoreType {
 	
 	private String determiner, name, namePlural, description, pathName;
 	private boolean plural;
@@ -117,11 +117,11 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	}
 	
 	private String colourReplacement(Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
-		return Util.colourReplacement(Integer.toString(this.hashCode()), colour, colourSecondary, colourTertiary, inputString);
+		return SvgUtil.colourReplacement(Integer.toString(this.hashCode()), colour, colourSecondary, colourTertiary, inputString);
 	}
 	
 	@Override
-	public boolean equals (Object o) { // I know it doesn't include everything, but this should be enough to check for equality.
+	public boolean equals(Object o) { // I know it doesn't include everything, but this should be enough to check for equality.
 		if(super.equals(o)){
 			if(o instanceof AbstractItemType){
 				if(((AbstractItemType)o).getName(false).equals(getName(false))
@@ -150,21 +150,15 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	}
 
 	public static AbstractItem generateItem(AbstractItemType itemType) {
-		return new AbstractItem(itemType) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractItem(itemType) {};
 	}
 	
 	public static AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum, int millilitres) {
-		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, millilitres) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, millilitres) {};
 	}
 
 	public static AbstractItem generateFilledBreastPump(Colour colour, GameCharacter character, FluidMilk milk, int quantity) {
-		return new AbstractFilledBreastPump(ItemType.MOO_MILKER_FULL, colour, character, milk, quantity) {
-			private static final long serialVersionUID = 1L;
-		};
+		return new AbstractFilledBreastPump(ItemType.MOO_MILKER_FULL, colour, character, milk, quantity) {};
 	}
 	
 	public String getId() {
@@ -253,7 +247,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		return colourTertiary;
 	}
 
-	public int getValue() {
+	public int getValue(List<ItemEffect> effects) {
 		return value;
 	}
 
@@ -267,6 +261,14 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 
 	public String getUseName() {
 		return "use";
+	}
+	
+	public String getUseTooltipDescription(GameCharacter user, GameCharacter target) {
+		if(user.equals(target)) {
+			return Util.capitaliseSentence(getUseName()) + " the " + getName(false) + ".";
+		} else {
+			return UtilText.parse(target, "Get [npc.name] to " + getUseName() + " the " + getName(false) + ".");
+		}
 	}
 	
 	public String getUseDescription(GameCharacter user, GameCharacter target) {
@@ -330,6 +332,15 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 					+ " The closer you move it to your " + weapon.getName() + ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
 					+ " As you touch the bristles to the " + weapon.getName() + "'s surface, the Dye-brush instantly evaporates!"
 					+ " You see that the arcane enchantment has dyed the " + weapon.getName() + " " + colour.getName() + "."
+				+ "</p>";
+	}
+	
+	public String getReforgeHammerEffects(AbstractWeapon weapon, DamageType damageType) {
+		return "<p>"
+					+ "As you take hold of the reforging hammer, you see the metal head start to emit a deep purple glow."
+					+ " The closer you move it to your " + weapon.getName() + ", the brighter this glow becomes, until suddenly, images of different damage types start flashing through your mind."
+					+ " As you touch the metal head  to the " + weapon.getName() + ", the reforge hammer instantly evaporates!"
+					+ " You see that the arcane enchantment has reforged the " + weapon.getName() + " so that it now deals " + damageType.getName() + " damage."
 				+ "</p>";
 	}
 
