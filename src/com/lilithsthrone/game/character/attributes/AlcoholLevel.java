@@ -9,24 +9,27 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum AlcoholLevel {
 	
-	ZERO_SOBER("sober", 0, 0.01f, Colour.ALCOHOL_LEVEL_ZERO),
+	ZERO_SOBER("sober", 0, 0, 0.01f, Colour.ALCOHOL_LEVEL_ZERO),
 	
-	ONE_TIPSY("tipsy", 0.01f, 0.2f, Colour.ALCOHOL_LEVEL_ONE),
+	ONE_TIPSY("tipsy", 0, 0.01f, 0.2f, Colour.ALCOHOL_LEVEL_ONE),
 	
-	TWO_MERRY("merry", 0.2f, 0.4f, Colour.ALCOHOL_LEVEL_TWO),
+	TWO_MERRY("merry", 25, 0.2f, 0.4f, Colour.ALCOHOL_LEVEL_TWO),
 	
-	THREE_DRUNK("drunk", 0.4f, 0.6f, Colour.ALCOHOL_LEVEL_THREE),
+	THREE_DRUNK("drunk", 20, 0.4f, 0.6f, Colour.ALCOHOL_LEVEL_THREE),
 	
-	FOUR_HAMMERED("hammered", 0.6f, 0.8f, Colour.ALCOHOL_LEVEL_FOUR),
+	FOUR_HAMMERED("hammered", 15, 0.6f, 0.8f, Colour.ALCOHOL_LEVEL_FOUR),
 	
-	FIVE_WASTED("wasted", 0.8f, 1, Colour.ALCOHOL_LEVEL_FIVE);
+	FIVE_WASTED("wasted", 10, 0.8f, 1, Colour.ALCOHOL_LEVEL_FIVE);
 	
 	private String name;
-	private float minimumValue, maximumValue;
+	private float minimumValue;
+	private float maximumValue;
 	private Colour colour;
+	private int slurredSpeechFrequency;
 
-	private AlcoholLevel(String name, float minimumValue, float maximumValue, Colour colour) {
+	private AlcoholLevel(String name, int slurredSpeechFrequency, float minimumValue, float maximumValue, Colour colour) {
 		this.name = name;
+		this.slurredSpeechFrequency = slurredSpeechFrequency;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
 		this.colour = colour;
@@ -34,6 +37,9 @@ public enum AlcoholLevel {
 	
 	public String getName() {
 		return name;
+	}
+	public int getSlurredSpeechFrequency() {
+		return slurredSpeechFrequency;
 	}
 
 	public float getMinimumValue() {

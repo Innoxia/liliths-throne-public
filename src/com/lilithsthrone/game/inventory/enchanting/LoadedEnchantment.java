@@ -77,7 +77,7 @@ public class LoadedEnchantment {
 	
 	public AbstractCoreItem getSuitableItem() {
 		if(itemType!=null) {
-			for(AbstractItem item : Main.game.getPlayer().getAllItemsInInventory()) {
+			for(AbstractItem item : Main.game.getPlayer().getAllItemsInInventory().keySet()) {
 				if(item.getItemType().equals(itemType)) {
 					return item;
 				}
@@ -85,7 +85,7 @@ public class LoadedEnchantment {
 			
 		} else if(clothingType!=null) {
 			List<AbstractClothing> clothingList = new ArrayList<>();
-			for(AbstractClothing c :  Main.game.getPlayer().getAllClothingInInventory()) {
+			for(AbstractClothing c :  Main.game.getPlayer().getAllClothingInInventory().keySet()) {
 				if(c.getClothingType().equals(clothingType) && c.isEnchantmentKnown()) {
 					if(c.getEffects().isEmpty()) {
 						return c;
@@ -99,7 +99,7 @@ public class LoadedEnchantment {
 			}
 			
 		} else if(weaponType!=null) {
-			for(AbstractWeapon w :  Main.game.getPlayer().getAllWeaponsInInventory()) {
+			for(AbstractWeapon w :  Main.game.getPlayer().getAllWeaponsInInventory().keySet()) {
 				if(w.getWeaponType().equals(weaponType) && w.getEffects().isEmpty()) {
 					return w;
 				}

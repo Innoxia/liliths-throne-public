@@ -2,37 +2,49 @@ package com.lilithsthrone.world.places;
 
 /**
  * @since 0.2.12
- * @version 0.3
+ * @version 0.3.2
  * @author Innoxia
  */
 public enum PopulationType {
 
-	PEOPLE("people"),
+	PEOPLE("people", true),
 	
-	HARPIES("harpies"),
-	
-	CROWD("crowd"),
-	
-	CROWDS("crowds"),
-	
-	ENFORCERS("enforcers"),
-	
-	SHOPPERS("shoppers"),
+	HARPIES("harpies", true),
 
-	VIPS("VIPs"),
+	HARPIES_SILLY("birbs", true),
 	
-	GUARDS("guards"),
+	CROWD("crowd", false),
+	
+	CROWDS("crowds", true),
+	
+	ENFORCERS("enforcers", true),
+	
+	SHOPPERS("shoppers", true),
+	
+	DINERS("diners", true),
 
-	MAIDS("maids")
+	VIPS("VIPs", true),
+	
+	GUARDS("guards", true),
+
+	MAIDS("maids", true),
+
+	OFFICE_WORKERS("office-workers", true),
 	;
 
-	String name;
+	private String name;
+	private boolean plural;
 	
-	private PopulationType(String name) {
+	private PopulationType(String name, boolean plural) {
 		this.name = name;
+		this.plural = plural;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public boolean isPlural() {
+		return plural;
 	}
 }

@@ -279,9 +279,9 @@
 
 	<htmlContent tag="FOX_ASCENDANT_ADVANCED"><![CDATA[
 	<p>
-		Emboldened by their demonic patron and the power that she affords, aggressive youkos are notably more dangerous than their mundane cousins.
+		Emboldened by their demonic patron and the power that she affords, aggressive youko are notably more dangerous than their mundane cousins.
 		 Of the youko individuals who cause mischief, their mischief also takes a more intricate and cruel bend, aided by their enhanced command over illusory arts.
-		 Due to this, there have been many attempts to force youkos out of Dominion, but due to their strong illusion magic, all efforts have so far been in vain.
+		 Due to this, there have been many attempts to force youko out of Dominion, but due to their strong illusion magic, all efforts have so far been in vain.
 	</p>
 	<p>
 		Youkos can naturally acquire extra tails, topping out at a maximum of nine tails.
@@ -292,8 +292,8 @@
 		 They know a large amount amount of magic, which is limited to illusion-based spells.
 	</p>
 	<p>
-		Malicious youkos will only rarely seek to breed with other races, instead inflicting orgasm-denial on their defeated foes.
-		 A youko's offspring will be a mixture of youkos and offspring of their partner's race.
+		Malicious youko will only rarely seek to breed with other races, instead inflicting orgasm-denial on their defeated foes.
+		 A youko's offspring will be a mixture of youko and offspring of their partner's race.
 	</p>
 	]]>
 	</htmlContent>
@@ -328,25 +328,39 @@
 
 	<htmlContent tag="HORSE_MORPH_BASIC"><![CDATA[
 	<p>
-		Horse-morphs are one of the more common anthropomorphic races found in this world.
-		 A pair of horse-like ears and a swishing tail are usually enough to identify a horse-morph.
+		Horse-morphs are one of the more common anthropomorphic races found in this world. A pair of horse-like ears and a swishing tail are usually enough to identify a horse-morph. If a horse-morph grows a pair of feathered wings, they will be defined as a 'pegasus-morph'. A single horn growing out of their forehead marks them as a 'unicorn-morph', while having both wings and horn is enough to define someone as an 'alicorn-morph'.
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="HORSE_MORPH_ADVANCED"><![CDATA[
 	<p>
-		Horse-morphs have the reputation of being all brawn and no brains.
-		 There is some truth behind this characterisation, as most horse-morphs are quite dull-witted, although they are usually far stronger than the other common races.
-		 Horse-morphs are usually very haughty, and take great offence at any perceived sleight against them.
+		Horse-morphs have the reputation of being all brawn and no brains. There is some truth behind this characterisation, as most horse-morphs are quite dull-witted, although they are usually far stronger than the other common races. Horse-morphs are usually very haughty, and take great offence at any perceived sleight against them.
 	</p>
 	<p>
-		Horse-morphs, like the other common races, get heavily affected by arcane storms.
-		 Being exposed to arcane thunder will make horse-boys enter a potent rut, which, when combined with their great strength, makes them a dangerous person to meet in the middle of an arcane storm.
-		 Horse-girls will react to arcane thunder by going into heat, and will force themselves on anyone they might come across.
+		Horse-morphs, like the other common races, get heavily affected by arcane storms. Being exposed to arcane thunder will make horse-boys enter a potent rut, which, when combined with their great strength, makes them a dangerous person to meet in the middle of an arcane storm. Horse-girls will react to arcane thunder by going into heat, and will force themselves on anyone they might come across.
 	</p>
 	<p>
 		A horse-morph's offspring will be a mixture of horse-morphs and offspring of their partner's race.
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- CENTAURS AND PEGATAURS -->
+
+	<htmlContent tag="CENTAUR_BASIC"><![CDATA[
+	<p>
+		Centaurs in this reality are defined in exactly the same way as those from Greek mythology; by having the lower body of a feral horse. While they can be of any race, the upper bodies of the vast majority of centaurs in the wild are human in nature. Any wings grown by a centaur will appear on their horse's body, defining them as a 'pegataur'. A single horn growing out of their forehead marks them as a 'unitaur', while having both wings and horn is enough to define someone as an 'alitaur'.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="CENTAUR_ADVANCED"><![CDATA[
+	<p>
+		Centaurs, as well as the less-common pegataurs, unitaurs, and alitaurs, are almost exclusively found in the farmland surrounding Dominion, known as the 'Foloi Fields'. While they typically do their best to be law-abiding citizens, they possess a very wild temperament, and it doesn't take much to provoke one into displaying their more primal instincts.
+	</p>
+	<p>
+		Possessing the lower body of a feral horse, centaurs are capable of great feats of strength, and as such they are highly sought-after by the arcane-impotent farmer population for manual labour. While happy enough to perform tasks such as ploughing fields or carrying farmyard equipment, being used as transport (with someone riding their back) is considered to be a sign of either extreme intimacy or utmost subservience. Only doting couples or centaur-slaves are ever involved in such a demeaning practice.
 	</p>
 	]]>
 	</htmlContent>

@@ -10,9 +10,9 @@
 		
 		<namePlural pluralByDefault="false"><![CDATA[Witch's dresses]]></namePlural> 
 		
-		<description><![CDATA[A smart shirt, with accompanying waistcoat.]]></description> 
+		<description><![CDATA[A witch's dress, made of a thin, soft fabric. It has a flared sleeves and a short skirt. A series of ribbons connect the collar to front of the dress, and when worn, they create a pentagram pattern.]]></description> 
 		
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<femininity>FEMININE</femininity> 
 		

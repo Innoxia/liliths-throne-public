@@ -7,13 +7,15 @@ import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Units;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Hair implements BodyPartInterface {
+
 	
 	protected HairType type;
 	protected int length;
@@ -354,22 +356,26 @@ public class Hair implements BodyPartInterface {
 		} else if (sizeChange < 0) {
 			if(owner.isPlayer()) {
 				return "<p>Your scalp itches for a moment as you feel your [pc.hair] [style.boldShrink(getting shorter)].<br/>"
-						+ "You now have [style.boldTfGeneric([pc.hairLength], "+this.length+"-inch [pc.hair])]!</p>"
+						+ "You now have [style.boldTfGeneric([pc.hairLength], "
+						+ Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [pc.hair])]!</p>"
 						+ styleChange;
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry and rubs at [npc.her] scalp as [npc.her] [npc.hair] [style.boldShrink(gets shorter)].<br/>"
-						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "+this.length+"-inch [npc.hair])]!</p>"
+						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "
+						+ Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [npc.hair])]!</p>"
 						+ styleChange);
 			}
 			
 		} else {
 			if(owner.isPlayer()) {
 				return "<p>Your scalp itches for a moment as you feel your [pc.hair] [style.boldGrow(growing longer)].<br/>"
-						+ "You now have [style.boldTfGeneric([pc.hairLength], "+this.length+"-inch [pc.hair])]!</p>"
+						+ "You now have [style.boldTfGeneric([pc.hairLength], "
+						+ Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [pc.hair])]!</p>"
 						+ styleChange;
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry and rubs at [npc.her] scalp as [npc.her] [npc.hair] [style.boldGrow(grows longer)].<br/>"
-						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "+this.length+"-inch [npc.hair])]!</p>"
+						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "
+						+ Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [npc.hair])]!</p>"
 						+ styleChange);
 			}
 		}
@@ -531,5 +537,13 @@ public class Hair implements BodyPartInterface {
 		
 		// Catch:
 		return "";
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Hair.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

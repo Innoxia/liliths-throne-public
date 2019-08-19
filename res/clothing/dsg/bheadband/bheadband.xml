@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<clothingAuthorTag><![CDATA[Metallic embroidery on the underside of the headband reads 'MFD by DSG Costume Supply Co, Ltd'.]]></clothingAuthorTag>
+		<value>250</value> 
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[bunny headband]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[bunny headbands]]></namePlural> 
+		
+		<description><![CDATA[A headband with stylised bunny ears attached to the top, designed to keep your hair pushed back out of your face.​]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>ANDROGYNOUS</femininity> 
+		
+		<slot>HEAD</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
+		<clothingSet/> 
+		
+		<imageName>bheadband.svg</imageName> 
+		
+		<imageEquippedName/>
+		
+		<enchantmentLimit/>
+		
+		<effects/> 
+		
+		<blockedPartsList> 
+		
+			<blockedParts>
+			
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>	
+				
+				<blockedBodyParts/>
+				
+				<clothingAccessBlocked/>
+				
+				<concealedSlots/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="ALL"/>
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAtributes>
+	
+</clothing>

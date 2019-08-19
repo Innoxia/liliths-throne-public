@@ -1,14 +1,14 @@
 package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -36,7 +36,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.3
- * @version 0.2.6
+ * @version 0.3.1
  * @author Innoxia
  */
 public class SlimeCavernAttacker extends NPC {
@@ -67,61 +67,7 @@ public class SlimeCavernAttacker extends NPC {
 			
 			// RACE & NAME:
 			
-			Map<Subspecies, Integer> availableRaces = new HashMap<>();
-			for(Subspecies s : Subspecies.values()) {
-				switch(s) {
-					// No chance of spawn:
-					case ANGEL:
-					case CAT_MORPH:
-					case CAT_MORPH_LEOPARD:
-					case CAT_MORPH_LEOPARD_SNOW:
-					case CAT_MORPH_LION:
-					case CAT_MORPH_TIGER:
-					case CAT_MORPH_LYNX:
-					case CAT_MORPH_CHEETAH:
-					case CAT_MORPH_CARACAL:
-					case COW_MORPH:
-					case HALF_DEMON:
-					case DEMON:
-					case LILIN:
-					case ELDER_LILIN:
-					case DOG_MORPH:
-					case DOG_MORPH_DOBERMANN:
-					case DOG_MORPH_BORDER_COLLIE:
-					case FOX_MORPH:
-					case FOX_MORPH_FENNEC:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_FENNEC:
-					case HARPY:
-					case HARPY_RAVEN:
-					case HARPY_BALD_EAGLE:
-					case HORSE_MORPH:
-					case HORSE_MORPH_ZEBRA:
-					case HUMAN:
-					case REINDEER_MORPH:
-					case SQUIRREL_MORPH:
-					case WOLF_MORPH:
-					case RABBIT_MORPH:
-					case RABBIT_MORPH_LOP:
-					case BAT_MORPH:
-					case IMP_ALPHA:
-					case ALLIGATOR_MORPH:
-					case IMP:
-					case RAT_MORPH:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-						break;
-						
-					case SLIME:
-						addToSubspeciesMap(10, gender, s, availableRaces);
-						break;
-				}
-			}
-			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces);
+			this.setBody(gender, Subspecies.SLIME, RaceStage.GREATER);
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
@@ -148,11 +94,11 @@ public class SlimeCavernAttacker extends NPC {
 			inventory.setMoney(50 + Util.random.nextInt(getLevel()*10) + 1);
 			CharacterUtils.generateItemsInInventory(this);
 	
-			equipClothing(true, true, true, true);
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			CharacterUtils.applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
-			initAttributes();
+			initPerkTreeAndBackgroundPerks();
 			
 			this.useItem(AbstractItemType.generateItem(ItemType.MUSHROOM), this, false);
 			
@@ -160,7 +106,7 @@ public class SlimeCavernAttacker extends NPC {
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
 
-		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE);
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 	}
 	
 	@Override
@@ -174,8 +120,8 @@ public class SlimeCavernAttacker extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
+	public void equipClothing(List<EquipClothingSetting> settings) {
+		super.equipClothing(settings); //TODO - add unique outfit type
 	}
 	
 	@Override

@@ -13,12 +13,12 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Ass implements BodyPartInterface {
 
-
+	
 	protected AbstractAssType type;
 	protected int assSize;
 	protected int hipSize;
@@ -234,6 +234,14 @@ public class Ass implements BodyPartInterface {
 						+ "</p>");
 			}
 		}
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Ass.class) && getType().getRace().isBestialPartsAvailable();
 	}
 	
 }

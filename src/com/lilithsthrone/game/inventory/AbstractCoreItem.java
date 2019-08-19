@@ -21,13 +21,15 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.3.4
  * @author Innoxia
  */
 public abstract class AbstractCoreItem implements XMLSaving {
 
 
-	protected String name, namePlural, SVGString;
+	protected String name;
+	protected String namePlural;
+	protected String SVGString;
 	protected Colour colourShade;
 	protected Rarity rarity;
 
@@ -124,7 +126,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	// Other:
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(o instanceof AbstractCoreItem){
 			if(((AbstractCoreItem)o).getName().equals(this.getName())
 				&& ((AbstractCoreItem)o).getColour() == this.getColour()

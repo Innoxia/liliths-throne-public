@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body;
 
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.TesticleType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
@@ -8,12 +9,14 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidExpulsion;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.7
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Testicle implements BodyPartInterface {
@@ -41,7 +44,7 @@ public class Testicle implements BodyPartInterface {
 		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.SEVEN_ABSURD.getValue()));
 		this.cumStorage = cumStorage;
 		cumStored = cumStorage;
-		cumRegeneration = FluidRegeneration.ONE_AVERAGE.getValue();
+		cumRegeneration = FluidRegeneration.CUM_REGEN_DEFAULT;
 		cumExpulsion = FluidExpulsion.THREE_LARGE.getMinimumValue();
 		
 		this.testicleCount = Math.max(MIN_TESTICLE_COUNT, Math.min(testicleCount, MAX_TESTICLE_COUNT));
@@ -187,7 +190,10 @@ public class Testicle implements BodyPartInterface {
 		}
 	}
 
-	public boolean isInternal() {
+	public boolean isInternal(GameCharacter owner) {
+		if(!Main.getProperties().hasValue(PropertyValue.futanariTesticles) && owner!=null && owner.isFeminine()) {
+			return true;
+		}
 		return internal;
 	}
 
@@ -313,9 +319,9 @@ public class Testicle implements BodyPartInterface {
 		} else {
 			return UtilText.parse(owner, "<p style='text-align:center;'><i style='color:"+Colour.CUM.toWebHexString()+";'>"
 					+ UtilText.returnStringAtRandom(
-							cumChange+"ml of [npc.cum+] squirts out of [npc.her] [npc.cock+].",
-							cumChange+"ml of [npc.cum+] shoots out of [npc.her] [npc.cock+].",
-							cumChange+"ml of [npc.cum+] spurts out of [npc.her] [npc.cock+].")
+							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] squirts out of [npc.her] [npc.cock+].",
+							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] shoots out of [npc.her] [npc.cock+].",
+							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] spurts out of [npc.her] [npc.cock+].")
 				+ "</i>"
 				+ (this.cumStored==0
 					?"<br/><i>[npc.Name] now [npc.has] no more [npc.cum] stored in [npc.her] [npc.balls]!</i>"
@@ -335,11 +341,11 @@ public class Testicle implements BodyPartInterface {
 	}
 
 	/**
-	 * Sets the cumRegeneration. Value is bound to >=0 && <=FluidRegeneration.FOUR_MAXIMUM.getMaximumValue()
+	 * Sets the cumRegeneration. Value is bound to >=0 && <=FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay()
 	 */
 	public String setCumProductionRegeneration(GameCharacter owner, int cumRegeneration) {
 		int oldRegeneration = this.cumRegeneration;
-		this.cumRegeneration = Math.max(0, Math.min(cumRegeneration, FluidRegeneration.FOUR_MAXIMUM.getValue()));
+		this.cumRegeneration = Math.max(0, Math.min(cumRegeneration, FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay()));
 		int regenerationChange = this.cumRegeneration - oldRegeneration;
 		
 		if(owner==null) {
@@ -420,5 +426,13 @@ public class Testicle implements BodyPartInterface {
 						+ "[npc.She] will now expel [style.boldSex(" + UtilText.generateSingularDeterminer(expulsionDescriptor) + " "+expulsionDescriptor+")] amount of stored cum at each orgasm!"
 					+ "</p>");
 		}
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Testicle.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

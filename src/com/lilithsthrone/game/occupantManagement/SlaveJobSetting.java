@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.87
- * @version 0.2.5
+ * @version 0.3.1
  * @author Innoxia
  */
 public enum SlaveJobSetting {
@@ -19,6 +19,7 @@ public enum SlaveJobSetting {
 	MILKING_REGULAR(Colour.BASE_YELLOW_LIGHT, "Regular Milking", "RG", "Set this slave to work in a milking room with regular milkers."),
 	MILKING_ARTISAN(Colour.GENERIC_MINOR_GOOD, "Artisan Milking", "AR", "Set this slave to work in a milking room with artisan milkers."),
 	MILKING_MILK_DISABLE(Colour.BASE_YELLOW_LIGHT, "Forbid Milk", "DM", "Do not allow this slave's milk to be collected."),
+	MILKING_MILK_CROTCH_DISABLE(Colour.BASE_YELLOW_LIGHT, "Forbid Udder-milk", "DU", "Do not allow this slave's udders to be milked."),
 	MILKING_CUM_DISABLE(Colour.BASE_BLUE_LIGHT, "Forbid Cum", "DC", "Do not allow this slave's cum to be collected."),
 	MILKING_GIRLCUM_DISABLE(Colour.BASE_PINK_LIGHT, "Forbid Girlcum", "DG", "Do not allow this slave's girlcum to be collected."),
 	

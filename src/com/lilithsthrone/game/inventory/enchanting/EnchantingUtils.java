@@ -56,8 +56,7 @@ public class EnchantingUtils {
 	public static AbstractClothing craftClothing(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		AbstractClothing craftedClothing = null;
 
-		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
-		effectsToBeAdded.addAll(effects);
+		List<ItemEffect> effectsToBeAdded = new ArrayList<>(effects);
 		
 		craftedClothing = AbstractClothingType.generateClothing(
 				(AbstractClothingType) ingredient.getEnchantmentItemType(effects),
@@ -73,15 +72,16 @@ public class EnchantingUtils {
 		
 		craftedClothing.setName(EnchantmentDialogue.getOutputName());
 		
-		craftedClothing.setEnchantmentKnown(true);
+		craftedClothing.setEnchantmentKnown(null, true);
 		
 		return craftedClothing;
 	}
 	
-	public static void craftTattoo(AbstractCoreItem ingredient, List<ItemEffect> effects) {
+	public static Tattoo craftTattoo(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>(effects);
 		((Tattoo)ingredient).setEffects(effectsToBeAdded);
 		((Tattoo)ingredient).setName(EnchantmentDialogue.getOutputName());
+		return (Tattoo) ingredient;
 	}
 	
 	public static AbstractWeapon craftWeapon(AbstractCoreItem ingredient, List<ItemEffect> effects) {
@@ -127,14 +127,12 @@ public class EnchantingUtils {
 		String potionName = ((AbstractItemType) ingredient.getEnchantmentItemType(effects)).getName(false);
 		String potionDescriptor = "";
 		String potionSuffix = "";
-		String potionPreSuffix = ""; // it was either PreSuffix or PrefixSuffix...
+		String potionPreSuffix = "";
 		
 		if(ingredient!=null) {
 			try {
 				potionDescriptor = ingredient.getEffects().get(0).getItemEffectType().getPotionDescriptor();
 			} catch(Exception ex) {
-				// :3
-				// Cat-face comments aren't helpful damn it!
 				System.err.println("EnchantingUtils: getPotionName() error 1."); 
 			}
 		}
@@ -169,12 +167,19 @@ public class EnchantingUtils {
 	
 	
 	
-	private static Set<TFModifier> freePrimaryModifiers = Util.newHashSetOfValues(TFModifier.TF_MOD_WETNESS, TFModifier.TF_MILK, TFModifier.TF_CUM, TFModifier.TF_GIRLCUM);
+	private static Set<TFModifier> freePrimaryModifiers = Util.newHashSetOfValues(TFModifier.TF_MOD_WETNESS, TFModifier.TF_MILK, TFModifier.TF_MILK_CROTCH, TFModifier.TF_CUM, TFModifier.TF_GIRLCUM);
 	private static Set<TFModifier> freeSecondaryModifiers = Util.newHashSetOfValues(TFModifier.TF_MOD_WETNESS, TFModifier.TF_MOD_REGENERATION, TFModifier.TF_MOD_CUM_EXPULSION);
 	
 	private static boolean isEffectFreeForWaterSchool(ItemEffect effect) {
 		return freePrimaryModifiers.contains(effect.getPrimaryModifier())
 				|| freeSecondaryModifiers.contains(effect.getSecondaryModifier());
+	}
+	
+	private static boolean isEffectFreeForRemovingPositiveAttribute(ItemEffect effect) {
+		if(effect.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE || effect.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
+			return !effect.getPotency().isNegative();
+		}
+		return false;
 	}
 	
 	private static int applyDiscountsForPerksAndFetishes(AbstractCoreItem ingredient, int cost) {
@@ -184,13 +189,20 @@ public class EnchantingUtils {
 		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CLOTHING_ENCHANTER) && ingredient instanceof AbstractClothing) {
 			cost/=2;
 		}
+		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.WEAPON_ENCHANTER) && ingredient instanceof AbstractWeapon) {
+			cost/=2;
+		}
 		return cost;
 	}
 	
-	public static int getModifierEffectCost(AbstractCoreItem ingredient, ItemEffect effect) {
+	public static int getModifierEffectCost(boolean addingEffect, AbstractCoreItem ingredient, ItemEffect effect) {
 		if(!(ingredient instanceof Tattoo)
 				&& Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
 				&& isEffectFreeForWaterSchool(effect)) {
+			return 0;
+		}
+		
+		if(!addingEffect && isEffectFreeForRemovingPositiveAttribute(effect)) {
 			return 0;
 		}
 		
@@ -204,9 +216,13 @@ public class EnchantingUtils {
 		}
 		for(ItemEffect ie : ingredient.getEffects()) {
 			if(effects.contains(ie)) {
-				effectCount.merge(ie, -1, Integer::sum);
+				if(effectCount.get(ie)>0 || !isEffectFreeForRemovingPositiveAttribute(ie)) {
+					effectCount.merge(ie, -1, Integer::sum);
+				}
 			} else {
-				effectCount.merge(ie, 1, Integer::sum);
+				if(!isEffectFreeForRemovingPositiveAttribute(ie)) {
+					effectCount.merge(ie, 1, Integer::sum);
+				}
 			}
 		}
 		

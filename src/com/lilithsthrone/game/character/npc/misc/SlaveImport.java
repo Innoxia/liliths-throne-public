@@ -1,15 +1,18 @@
 package com.lilithsthrone.game.character.npc.misc;
 
 import java.time.Month;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -57,7 +60,7 @@ public class SlaveImport extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		// Not needed
 	}
 	
@@ -68,6 +71,11 @@ public class SlaveImport extends NPC {
 			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK, true);
 			
 			this.endPregnancy(false);
+
+			this.washAllOrifices(true);
+			this.calculateStatusEffects(0);
+			this.cleanAllDirtySlots();
+			this.cleanAllClothing(true);
 			
 			this.clearNonEquippedInventory();
 			if(this.getClothingInSlot(InventorySlot.NECK)!=null) {
@@ -84,12 +92,14 @@ public class SlaveImport extends NPC {
 			this.getSlavesOwned().clear();
 			
 			this.setPlayerKnowsName(true);
+			
+			this.setHistory(Occupation.NPC_SLAVE);
 //		}
 	}
 	
 	@Override
 	public String getDescription() {
-		return UtilText.parse(this, "As a slave, [npc.name] is no more than someone's property. The first time you saw [npc.herHim], [npc.she] was being sold off at auction in Slaver Alley.");
+		return UtilText.parse(this, "As a slave, [npc.name] is no more than someone's property. The first time you saw [npc.herHim], [npc.she] was being sold in Slaver Alley.");
 	}
 	
 	@Override

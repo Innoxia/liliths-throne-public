@@ -39,7 +39,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	}
 	
 	@Override
-	public boolean equals (Object o) {
+	public boolean equals(Object o) {
 		if(super.equals(o)) {
 			return (o instanceof AbstractItem)
 					&& ((AbstractItem)o).getItemType().equals(itemType)
@@ -94,7 +94,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			}
 			item.setItemEffects(effectsToBeAdded);
 			
-			if(!effectsToBeAdded.isEmpty() && (item.getItemType().getId().equals(ItemType.ELIXIR.getId()) || item.getItemType().getId().equals(ItemType.POTION.getId()))) {
+			if(!effectsToBeAdded.isEmpty()
+					&& (item.getItemType().getId().equals(ItemType.ELIXIR.getId()) || item.getItemType().getId().equals(ItemType.POTION.getId()) || item.getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId()))) {
 				item.setSVGString(EnchantingUtils.getImportedSVGString(item, (parentElement.getAttribute("colour").isEmpty()?Colour.GENERIC_ARCANE:Colour.valueOf(parentElement.getAttribute("colour"))), effectsToBeAdded));
 			}
 			
@@ -109,6 +110,15 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		return itemType;
 	}
 
+	public boolean isBreakOutOfInventory() {
+		for(ItemEffect effect : this.getEffects()) {
+			if(effect.getItemEffectType().isBreakOutOfInventory()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public List<ItemEffect> getEffects() {
 		return itemEffects;
@@ -162,7 +172,15 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	}
 	
 	public String getDisplayName(boolean withRarityColour) {
-		return Util.capitaliseSentence((itemType.getDeterminer()==""?"":itemType.getDeterminer()+" ") + (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
+		return Util.capitaliseSentence(
+				(!itemType.getDeterminer().equalsIgnoreCase("a") && !itemType.getDeterminer().equalsIgnoreCase("an")
+						? itemType.getDeterminer() + " "
+						: (Util.isVowel(name.charAt(0)) ? "an " : "a "))
+				+ (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
+	}
+	
+	public String getDisplayNamePlural(boolean withRarityColour) {
+		return Util.capitaliseSentence((withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>") : namePlural));
 	}
 
 	@Override
@@ -172,7 +190,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	
 	@Override
 	public int getValue() {
-		return itemType.getValue();
+		return itemType.getValue(this.getEffects());
 	}
 	
 	public String getExtraDescription(GameCharacter user, GameCharacter target) {
@@ -224,11 +242,11 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	}
 
 	public boolean isAbleToBeUsedInCombat(){
-		return itemType.isAbleToBeUsedInCombat();
+		return !this.isBreakOutOfInventory() && itemType.isAbleToBeUsedInCombat();
 	}
 
 	public boolean isAbleToBeUsedInSex(){
-		return itemType.isAbleToBeUsedInSex();
+		return !this.isBreakOutOfInventory() && itemType.isAbleToBeUsedInSex();
 	}
 	
 	public boolean isGift() {

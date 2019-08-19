@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex.sexActions;
 
 /**
  * @since 0.3
- * @version 0.3
+ * @version 0.3.1
  * @author Innoxia
  */
 public abstract class SexActionOrgasmOverride {
@@ -17,6 +17,9 @@ public abstract class SexActionOrgasmOverride {
 	}
 
 	public abstract void applyEffects();
+	
+	public void applyEndEffects() {
+	}
 
 	public boolean isEndsSex() {
 		return endsSex;

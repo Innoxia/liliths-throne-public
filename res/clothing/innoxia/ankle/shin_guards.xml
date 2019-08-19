@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>250</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[shin guard]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[shin guards]]></namePlural>
+		<description><![CDATA[A pair of protective shin guards, designed to protect the lower half of the wearer's legs from physical blows.]]></description>
+		<physicalResistance>0.2</physicalResistance> 
+		<femininity>ANDROGYNOUS</femininity> 
+		<slot>ANKLE</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>shin_guards.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>CALVES</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked> 
+					<clothingAccess>CALVES</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots/> 
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_RED_DARK</colour>
+			<colour>CLOTHING_GREEN</colour>
+			<colour>CLOTHING_YELLOW</colour>
+			<colour>CLOTHING_BLUE</colour>
+			<colour>CLOTHING_ORANGE</colour>
+			<colour>CLOTHING_PINK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(fasten)] the shin guards around [npc.her] ankles.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(fasten)] the shin guards around [npc2.namePos] ankles.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(fasten)] the shin guards around [npc2.namePos] ankles.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc.her] shin guards, before taking them off.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc2.namePos] shin guards, before taking them off.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] quickly [npc.verb(unfasten)] [npc2.namePos] shin guards, before roughly snatching them off.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

@@ -3,12 +3,11 @@ package com.lilithsthrone.game.dialogue.places.submission;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
-import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
@@ -28,8 +27,6 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.BaseColour;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -49,8 +46,8 @@ public class SubmissionGenericPlaces {
 		}
 		
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 		
 		@Override
@@ -75,8 +72,8 @@ public class SubmissionGenericPlaces {
 		}
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 		
 		@Override
@@ -86,26 +83,22 @@ public class SubmissionGenericPlaces {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "TUNNEL"));
 
 			boolean pacified = true;
-			BaseColour colour = Main.game.getPlayer().getLocationPlace().getPlaceType().getColour();
-			switch(Main.game.getPlayer().getLocationPlace().getPlaceType()) {
-				case SUBMISSION_IMP_TUNNELS_ALPHA:
-					pacified = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated);
-					break;
-				case SUBMISSION_IMP_TUNNELS_DEMON:
-					pacified = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated);
-					break;
-				case SUBMISSION_IMP_TUNNELS_FEMALES:
-					pacified = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated);
-					break;
-				case SUBMISSION_IMP_TUNNELS_MALES:
-					pacified = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated);
-					break;
-				default:
-					break;
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA)) {
+				pacified = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated);
 			}
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_DEMON)) {
+				pacified = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressDemonDefeated);
+			}
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)) {
+				pacified = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated);
+			}
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_MALES)) {
+				pacified = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated);
+			}
+			
 			if(!pacified) {
 				UtilText.nodeContentSB.append(
-						"<span color:"+colour.toWebHexString()+";>"
+						"<span color:"+Main.game.getPlayer().getLocationPlace().getPlaceType().getColourString()+";>"
 						+ UtilText.parseFromXMLFile("places/submission/submissionPlaces", "TUNNEL_IMP_CONTROL")
 						+"</span>");
 			}
@@ -138,8 +131,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode BAT_CAVERNS = new DialogueNode("Bat Caverns", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 		
 		@Override
@@ -167,8 +160,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode RAT_WARREN = new DialogueNode("The Rat Warren", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 		
 		@Override
@@ -190,8 +183,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode GAMBLING_DEN = new DialogueNode("Gambling Den", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 		
 		@Override
@@ -236,8 +229,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode LILIN_PALACE_CAVERN = new DialogueNode("Cavern", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 		
 		@Override
@@ -269,8 +262,8 @@ public class SubmissionGenericPlaces {
 		}
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -452,8 +445,8 @@ public class SubmissionGenericPlaces {
 		}
 		
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -470,8 +463,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode LILIN_PALACE = new DialogueNode("Lyssieth's Palace", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -505,21 +498,7 @@ public class SubmissionGenericPlaces {
 							Main.game.getPlayer().removeAllCompanions(true);
 							Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_ENTRANCE);
 							Main.game.getNpc(Elizabeth.class).setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_ENTRANCE);
-							// Make sure siren is placed properly:
-							GameCharacter siren = Main.game.getNpc(DarkSiren.class);
-							siren.setObedience(ObedienceLevel.NEGATIVE_ONE_DISOBEDIENT.getMedianValue());
-							siren.setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE, true);
-							siren.unequipAllClothingIntoVoid(true);
-							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_PURPLE_VERY_DARK, false), true, siren);
-							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_PURPLE_VERY_DARK, false), true, siren);
-							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TRAINER_SOCKS, Colour.CLOTHING_WHITE, false), true, siren);
-							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, siren);
-							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_PENCIL_SKIRT, Colour.CLOTHING_BLACK, false), true, siren);
-							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torso_feminine_short_sleeve_shirt", Colour.CLOTHING_PINK_LIGHT, false), true, siren);
-							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torsoOver_feminine_blazer", Colour.CLOTHING_BLACK, false), true, siren);
-							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_PINK_LIGHT, false), true, siren);
-							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_BLACK_STEEL, false), true, siren);
-							siren.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_darkSiren_siren_seal", false), true, siren);
+							((DarkSiren)Main.game.getNpc(DarkSiren.class)).postDefeatReset();
 						}
 					};
 					
@@ -543,8 +522,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode IMP_FORTRESS_ALPHA = new DialogueNode("Crude Fortress", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 		
 		@Override
@@ -624,8 +603,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode IMP_FORTRESS_FEMALES = new DialogueNode("Crude Fortress", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 		
 		@Override
@@ -706,8 +685,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode IMP_FORTRESS_MALES = new DialogueNode("Crude Fortress", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 		
 		@Override
@@ -788,8 +767,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode IMP_FORTRESS_DEMON = new DialogueNode("Stone Citadel", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 		
 		@Override
@@ -884,8 +863,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode SEWER_ENTRANCE = new DialogueNode("Enforcer Checkpoint", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 5;
+		public int getSecondsPassed() {
+			return 3*60;
 		}
 		
 		@Override
@@ -946,8 +925,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode CLAIRE_INFO_REPORT_BACK = new DialogueNode("Enforcer Checkpoint", "", true, true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -969,8 +948,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK = new DialogueNode("Enforcer Checkpoint", "", true, true) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -996,8 +975,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode CLAIRE_INFO_SUBMISSION_SOCIETY = new DialogueNode("Enforcer Checkpoint", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -1017,8 +996,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode CLAIRE_INFO_LYSSIETH = new DialogueNode("Enforcer Checkpoint", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override
@@ -1038,8 +1017,8 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNode CLAIRE_INFO_TELEPORTATION = new DialogueNode("Enforcer Checkpoint", "", false) {
 
 		@Override
-		public int getMinutesPassed(){
-			return 2;
+		public int getSecondsPassed() {
+			return 2*60;
 		}
 		
 		@Override

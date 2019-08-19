@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.npc.misc;
 
 import java.time.Month;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -10,6 +11,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -34,7 +36,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
-import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -55,7 +57,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.4
- * @version 0.2.11
+ * @version 0.3.4
  * @author Innoxia
  */
 public class Elemental extends NPC {
@@ -126,7 +128,7 @@ public class Elemental extends NPC {
 			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 0);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 0);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
-			this.resetPerksMap();
+			this.resetPerksMap(true);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
 			this.setElementalSchool(this.getCurrentSchool());
@@ -144,9 +146,9 @@ public class Elemental extends NPC {
 		this.setAgeAppearanceDifferenceToAppearAsAge(summoner.getAppearsAsAgeValue());
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.DEMON_COMMON);
-		this.setWingSize(WingSize.TWO_AVERAGE.getValue());
+		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		this.setLegType(LegType.DEMON_COMMON);
-		if(summoner.getHornType()==HornType.NONE || summoner.getHornType().getRace()==Race.DEMON) {
+		if(summoner.getHornType().equals(HornType.NONE) || summoner.getHornType().getRace()==Race.DEMON) {
 			this.setHornType(summoner.getHornType());
 		} else if(this.isFeminine()) {
 			this.setHornType(HornType.SWEPT_BACK);
@@ -214,12 +216,7 @@ public class Elemental extends NPC {
 			// Anus settings and modifiers
 			
 			// Penis:
-//				this.setPenisVirgin(false);
-//				this.setPenisGirth(PenisGirth.TWO_AVERAGE);
-//				this.setPenisSize(8);
-//				this.setTesticleSize(TesticleSize.TWO_AVERAGE);
-//				this.setPenisCumStorage(100);
-//				this.fillCumToMaxStorage();
+			// n/a
 			
 			// Vagina:
 			this.setVaginaVirgin(true);
@@ -236,7 +233,7 @@ public class Elemental extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
+	public void equipClothing(List<EquipClothingSetting> settings) {
 		// Not needed
 	}
 	
@@ -282,8 +279,8 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	public String rollForPregnancy(GameCharacter partner, int cum) {
-		return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner)
+	public String rollForPregnancy(GameCharacter partner, float cum, boolean directSexInsemination) {
+		return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination)
 				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
 	}
 
@@ -293,7 +290,7 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	public boolean addPerk(int row, Perk perk) {
+	public boolean addPerk(int row, AbstractPerk perk) {
 		perks.putIfAbsent(row, new HashSet<>());
 		
 		if (perks.get(row).contains(perk)) {
@@ -315,8 +312,8 @@ public class Elemental extends NPC {
 		this.resetSpells();
 		
 		// Add spells:
-		for(Set<Perk> perkSet : this.getPerksMap().values()) {
-			for(Perk p : perkSet) {
+		for(Set<AbstractPerk> perkSet : this.getPerksMap().values()) {
+			for(AbstractPerk p : perkSet) {
 				if(p.getSchool()==school) {
 					if(p.getSpellUpgrade()!=null) {
 						this.addSpellUpgrade(p.getSpellUpgrade());

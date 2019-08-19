@@ -13,12 +13,12 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum TFPotency {
 	
-	MAJOR_DRAIN("Major Drain", Colour.GENERIC_TERRIBLE, 8, -5),
-	DRAIN("Drain", Colour.GENERIC_BAD, 4, -3),
+	MAJOR_DRAIN("Major Drain", Colour.GENERIC_TERRIBLE, 8, -3),
+	DRAIN("Drain", Colour.GENERIC_BAD, 4, -2),
 	MINOR_DRAIN("Minor Drain", Colour.GENERIC_MINOR_BAD, 1, -1),
 	MINOR_BOOST("Minor Boost", Colour.GENERIC_MINOR_GOOD, 1, 1),
-	BOOST("Boost", Colour.GENERIC_GOOD, 4, 3),
-	MAJOR_BOOST("Major Boost", Colour.GENERIC_EXCELLENT, 8, 5);
+	BOOST("Boost", Colour.GENERIC_GOOD, 4, 2),
+	MAJOR_BOOST("Major Boost", Colour.GENERIC_EXCELLENT, 8, 3);
 	
 	private static List<TFPotency> allPotencies = new ArrayList<>();
 

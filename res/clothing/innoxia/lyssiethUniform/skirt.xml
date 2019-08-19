@@ -11,7 +11,7 @@
 		
 		<description><![CDATA[An officer's service dress skirt, complete with metal buttons. This style of uniform is worn only by Lyssieth's elite guards.]]></description> 
 		
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<femininity>FEMININE</femininity> 
 		
@@ -63,7 +63,9 @@
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>FITS_NON_BIPED_BODY_HUMANOID</tag>
+		</itemTags>
 	</coreAttributes>
 	
 </clothing>

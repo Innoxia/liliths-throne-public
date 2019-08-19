@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<pattern>
+	<name><![CDATA[cow-patterned]]></name>
+	<defaultPattern>true</defaultPattern>
+    <patternName>cow_patterned.svg</patternName>
+</pattern>

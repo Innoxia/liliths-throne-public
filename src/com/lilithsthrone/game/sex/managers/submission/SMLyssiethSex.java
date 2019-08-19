@@ -8,20 +8,20 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.3
- * @version 0.3
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMLyssiethSex extends SexManagerDefault {
 
-	public SMLyssiethSex(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.MISSIONARY_DESK,
+	public SMLyssiethSex(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPositionBipeds.MISSIONARY_DESK,
 				dominants,
 				submissives);
 	}
@@ -40,7 +40,7 @@ public class SMLyssiethSex extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 	
@@ -54,7 +54,7 @@ public class SMLyssiethSex extends SexManagerDefault {
 		if(!character.isPlayer()) {
 			if(Main.game.getPlayer().getRace()==Race.HUMAN) {
 				if(Sex.isDom(character)) {
-					return SexPace.DOM_GENTLE;
+					return SexPace.DOM_NORMAL;
 				} else {
 					return SexPace.SUB_EAGER;
 				}

@@ -4,17 +4,23 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.85
- * @version 0.3
+ * @version 0.3.4
  * @author Innoxia
  */
 public class EventLogEntry implements XMLSaving {
 	
 	protected long time;
-	protected String name, description;
+	protected String name;
+	protected String description;
+
+	public EventLogEntry(String name, String description) {
+		this(Main.game.getSecondsPassed(), name, description);
+	}
 	
 	public EventLogEntry(long time, String name, String description) {
 		this.time = time;

@@ -2,7 +2,9 @@ package com.lilithsthrone.game.character.race;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -16,10 +18,6 @@ public enum Race {
 
 	NONE("none",
 			"none",
-			"none",
-			"none",
-			"none",
-			"none",
 			Colour.RACE_HUMAN,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
@@ -27,41 +25,35 @@ public enum Race {
 			1,
 			1,
 			Attribute.DAMAGE_HUMAN,
-			Attribute.RESISTANCE_HUMAN,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			false),
 	
 	// HUMAN:
 	HUMAN("human",
-			"humans",
-			
-			"man",
-			"woman",
-			
-			"men",
-			"women",
-			
+			"human",
 			Colour.RACE_HUMAN,
+			
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
+			
 			0.5f,
 			1,
+			
 			1,
 			Attribute.DAMAGE_HUMAN,
-			Attribute.RESISTANCE_HUMAN,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			false),
+			false) {
+		@Override
+		public boolean isBestialPartsAvailable() {
+			return false;
+		}
+	},
 
 	// ANGEL:
 	ANGEL("angel",
-			"angels",
 			"angel",
-			"angel",
-			"angel",
-			"angel",
-
 			Colour.CLOTHING_WHITE,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
@@ -69,21 +61,16 @@ public enum Race {
 					Attack.SPELL),
 			0.25f,
 			1,
+
 			1,
 			Attribute.DAMAGE_ANGEL,
-			Attribute.RESISTANCE_ANGEL,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			false),
 
 	// DEMON:
 	DEMON("demon",
-			"demons",
-			"incubus",
-			"succubus",
-			"incubi",
-			"succubi",
-
+			"demonic-horse",
 			Colour.RACE_DEMON,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
@@ -92,21 +79,28 @@ public enum Race {
 					Attack.SPELL),
 			0.75f,
 			2,
+
 			3,
 			Attribute.DAMAGE_DEMON,
-			Attribute.RESISTANCE_DEMON,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
-			false),
+			false) {
+		public String getName(GameCharacter character, boolean bestial) {
+			if(bestial) {
+				Race r = character.getLegType().getRace();
+				return character.getLegConfiguration()!=LegConfiguration.BIPEDAL
+						?r==Race.DEMON
+							?"demonic-horse"
+							:"demonic-"+r.getName(bestial)
+						:"demon";
+			}
+			return "demon";
+		}
+	},
 
 	// BOVINES:
 	COW_MORPH("cow-morph",
-			"cow-morphs",
-			"cow-boy",
-			"cow-girl",
-			"cow-boys",
-			"cow-girls",
-
+			"cow",
 			Colour.RACE_COW_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
@@ -114,40 +108,30 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+
 			1,
 			Attribute.DAMAGE_COW_MORPH,
-			Attribute.RESISTANCE_COW_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
 
 	// CANINES:
 	DOG_MORPH("dog-morph",
-			"dog-morphs",
-			"dog-boy",
-			"dog-girl",
-			"dog-boys",
-			"dog-girls",
-
+			"dog",
 			Colour.RACE_DOG_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
 			0.5f,
 			1,
+
 			2,
 			Attribute.DAMAGE_DOG_MORPH,
-			Attribute.RESISTANCE_DOG_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
 
 	WOLF_MORPH("wolf-morph",
-			"wolf-morphs",
-			"wolf-boy",
-			"wolf-girl",
-			"wolf-boys",
-			"wolf-girls",
-			
+			"wolf",
 			Colour.RACE_WOLF_MORPH,
 			Disposition.SAVAGE,
 			Util.newArrayListOfValues(
@@ -155,20 +139,15 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+			
 			2,
 			Attribute.DAMAGE_WOLF_MORPH,
-			Attribute.RESISTANCE_WOLF_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
 	
 	FOX_MORPH("fox-morph",
-			"fox-morphs",
-			"fox-boy",
-			"fox-girl",
-			"fox-boys",
-			"fox-girls",
-			
+			"fox",
 			Colour.RACE_FOX_MORPH,
 			Disposition.UNPREDICTABLE,
 			Util.newArrayListOfValues(
@@ -177,21 +156,16 @@ public enum Race {
 					Attack.SPELL),
 			0.5f,
 			1,
+			
 			2,
 			Attribute.DAMAGE_FOX_MORPH,
-			Attribute.RESISTANCE_FOX_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
 
 	// FELINES:
 	CAT_MORPH("cat-morph",
-			"cat-morphs",
-			"cat-boy",
-			"cat-girl",
-			"cat-boys",
-			"cat-girls",
-
+			"cat",
 			Colour.RACE_CAT_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
@@ -199,21 +173,16 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+
 			2,
 			Attribute.DAMAGE_CAT_MORPH,
-			Attribute.RESISTANCE_CAT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
 
 	// EQUINE:
 	HORSE_MORPH("horse-morph",
-			"horse-morphs",
-			"horse-boy",
-			"horse-girl",
-			"horse-boys",
-			"horse-girls",
-			
+			"horse",
 			Colour.RACE_HORSE_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
@@ -221,63 +190,48 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+			
 			1,
 			Attribute.DAMAGE_HORSE_MORPH,
-			Attribute.RESISTANCE_HORSE_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
 
 	
 	 REINDEER_MORPH("reindeer-morph",
-			"reindeer-morphs",
-			"reindeer-boy",
-			"reindeer-girl",
-			"reindeer-boys",
-			"reindeer-girls",
-		 
-	  Colour.RACE_REINDEER_MORPH,
+			"reindeer",
+			Colour.RACE_REINDEER_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+		 
 			2,
 			Attribute.DAMAGE_REINDEER_MORPH,
-			Attribute.RESISTANCE_REINDEER_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
 			
 
 	SQUIRREL_MORPH("squirrel-morph",
-			"squirrel-morphs",
-			"squirrel-boy",
-			"squirrel-girl",
-			"squirrel-boys",
-			"squirrel-girls",
-
+			"squirrel",
 			Colour.RACE_SQUIRREL_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
 					Attack.MAIN),
 			0.5f,
 			1,
+
 			2,
 			Attribute.DAMAGE_SQUIRREL_MORPH,
-			Attribute.RESISTANCE_SQUIRREL_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
 
 	RAT_MORPH("rat-morph",
-			"rat-morphs",
-			"rat-boy",
-			"rat-girl",
-			"rat-boys",
-			"rat-girls",
-
+			"rat",
 			Colour.RACE_RAT_MORPH,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
@@ -285,20 +239,15 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+
 			4,
 			Attribute.DAMAGE_RAT_MORPH,
-			Attribute.RESISTANCE_RAT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
 
 	RABBIT_MORPH("rabbit-morph",
-			"rabbit-morphs",
-			"rabbit-boy",
-			"rabbit-girl",
-			"rabbit-boys",
-			"rabbit-girls",
-
+			"rabbit",
 			Colour.RACE_RABBIT_MORPH,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
@@ -306,20 +255,15 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			2,
+
 			8,
 			Attribute.DAMAGE_RABBIT_MORPH,
-			Attribute.RESISTANCE_RABBIT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
 	
 	BAT_MORPH("bat-morph",
-			"bat-morphs",
-			"bat-boy",
-			"bat-girl",
-			"bat-boys",
-			"bat-girls",
-
+			"bat",
 			Colour.RACE_BAT_MORPH,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
@@ -327,20 +271,15 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+
 			2,
 			Attribute.DAMAGE_BAT_MORPH,
-			Attribute.RESISTANCE_BAT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
 	
 	ALLIGATOR_MORPH("alligator-morph",
-			"alligator-morphs",
-			"alligator-boy",
-			"alligator-girl",
-			"alligator-boys",
-			"alligator-girls",
-
+			"alligator",
 			Colour.RACE_ALLIGATOR_MORPH,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
@@ -348,41 +287,31 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
+
 			4,
 			Attribute.DAMAGE_ALLIGATOR_MORPH,
-			Attribute.RESISTANCE_ALLIGATOR_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
 
 	// SLIME:
 	SLIME("slime",
-			"slimes",
 			"slime",
-			"slime",
-			"slimes",
-			"slimes",
-
 			Colour.RACE_SLIME,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(Attack.SEDUCTION),
 			0.5f,
 			1,
+
 			1,
 			Attribute.DAMAGE_SLIME,
-			Attribute.RESISTANCE_SLIME,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
 			false),
 
 	// AVIAN:
 	HARPY("harpy",
-			"harpies",
-			"harpy",
-			"harpy",
-			"harpies",
-			"harpies",
-			
+			"avian",
 			Colour.RACE_HARPY,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
@@ -390,9 +319,9 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			3,
+			
 			4,
 			Attribute.DAMAGE_HARPY,
-			Attribute.RESISTANCE_HARPY,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			false),
@@ -506,12 +435,7 @@ public enum Race {
 //			false),
 
 	ELEMENTAL("elemental",
-			"elementals",
 			"elemental",
-			"elemental",
-			"elementals",
-			"elementals",
-
 			Colour.SPELL_SCHOOL_ARCANE,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
@@ -520,9 +444,9 @@ public enum Race {
 					Attack.SPELL),
 			0.5f,
 			1,
+
 			1,
 			Attribute.DAMAGE_ELEMENTAL,
-			Attribute.RESISTANCE_ELEMENTAL,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
 			false),
@@ -1008,77 +932,6 @@ public enum Race {
 	 * StatusEffect.LAMIA),
 	 * 
 	 * 
-	 * 
-	 * FOX_MORPH("fox morph",
-	 * 
-	 * "Vulpines are a humanoid race most commonly found in the city of Dominion."
-	 * +
-	 * " Vulpines are very cunning and mischievous, and love nothing more than playing practical jokes on others."
-	 * +
-	 * " They often seem insensitive to other's feeling because of this, though to them it's just a bit of fun."
-	 * +
-	 * " Vulpines make friends easily, and are one of the most common races in Dominion."
-	 * ,
-	 * 
-	 * "Vulpines are humanoid, with a human body and face." +
-	 * " Their legs and arms are covered in dark orange fur, ending at the thigh and upper arm."
-	 * + " A large fox-like bushy tail grows from above their ass." +
-	 * " Vulpines have a pair of fox-like ears." +
-	 * " Females typically have three pairs of average sized breasts." +
-	 * " Males have a dog-like cock.",
-	 * 
-	 * "Vulpines are not aggressive, but will defend themselves when attacked."
-	 * +
-	 * " They typically know a small amount of magic, which they primarily use to play tricks on others."
-	 * +
-	 * "When forced into confrontation, Vulpines will typically use magic or seduction."
-	 * ,
-	 * 
-	 * " Vulpines will breed with any other race." +
-	 * " A Vulpine pregnancy results in up to 4 Vulpines, which will rapidly reach full maturity and leave to make their own way in Dominion."
-	 * ,
-	 * 
-	 * RacialBody.VULPINE, Genus.VULPINE, Disposition.CIVILIZED,
-	 * StatusEffect.FOX_MORPH), KITSUNE("kitsune",
-	 * 
-	 * "Kitsunes are an exclusively female humanoid monster race found everywhere."
-	 * +
-	 * " Like Vulpines, Kitsunes are very cunning and mischievous, and love nothing more than playing practical jokes on others."
-	 * +
-	 * " They have a strong mastery of illusion-based magic, which they use to play pranks on others."
-	 * +
-	 * " They are more aggressive than Vulpines, and their practical jokes will typically go too far."
-	 * +
-	 * " Due to this, there have been many attempts to force Kitsunes out of Dominion, but die to their strong illusion magic, all efforts have so far been in vain."
-	 * ,
-	 * 
-	 * "Vulpines are humanoid monsters, covered in fur that ranges from dark orange to pure white."
-	 * +
-	 * " They have digitigrade legs, and their hands and feet have leathery pads, with each digit ending in little claws."
-	 * +
-	 * " Kitsunes can have up to nine fox-like bushy tails growing from above their ass."
-	 * +
-	 * " The number of tails they have is typically a good indication of their mastery of illusion magic."
-	 * +
-	 * " Their faces are of an anthropomorphic fox-like appearance, and they have a pair of fox-like ears."
-	 * + " Kitsunes have three pairs of large breasts.",
-	 * 
-	 * "Kitsunes are not too aggressive, but will sometimes decide to attack individuals."
-	 * +
-	 * " They know a large amount amount of magic, which is limited to illusion-based spells."
-	 * + "When fighting, Kitsunes will typically use magic or seduction.",
-	 * 
-	 * " Kitsunes will only rarely seek to breed with other races, instead inflicting orgasm-denial on their defeated foes."
-	 * +
-	 * " A Kitsune pregnancy results in up to 4 Kitsunes, which will rapidly reach full maturity and leave to make their own way."
-	 * ,
-	 * 
-	 * RacialBody.KITSUNE, Genus.VULPINE, Disposition.NEUTRAL,
-	 * StatusEffect.KITSUNE),
-	 * 
-	 * 
-	 * 
-	 * 
 	 * SPIDER_MORPH("spider morph",
 	 * 
 	 * "Spider morphs are a humanoid race most commonly found in the city of Dominion."
@@ -1262,42 +1115,37 @@ public enum Race {
 	 */
 
 	private String name;
+	private String nameBestial;
 	private Colour colour;
 	private Disposition disposition;
 	private List<Attack> preferredAttacks;
 	private int numberOfOffspringLow;
 	private int numberOfOffspringHigh;
 	private float chanceForMaleOffspring;
-	private Attribute damageMultiplier, resistanceMultiplier;
+	private Attribute damageMultiplier;
 	private FurryPreference defaultFemininePreference;
 	private FurryPreference defaultMasculinePreference;
 	private boolean affectedByFurryPreference;
 	
 	private Race(String name,
-			String namePlural,
-			String singularMaleName,
-			String singularFemaleName,
-			String pluralMaleName,
-			String pluralFemaleName,
-
+			String nameBestial,
+			
 			Colour colour,
 			Disposition disposition,
 			List<Attack> preferredAttacks,
-			
 			float chanceForMaleOffspring,
 			int numberOfOffspringLow,
-			int numberOfOffspringHigh,
 			
+			int numberOfOffspringHigh,
 			Attribute damageMultiplier,
-			Attribute resistanceMultiplier,
 			
 			FurryPreference defaultFemininePreference,
 			FurryPreference defaultMasculinePreference,
-			
 			boolean affectedByFurryPreference) {
 		
 		this.name = name;
-
+		this.nameBestial = nameBestial;
+		
 		this.colour = colour;
 		this.disposition = disposition;
 
@@ -1309,7 +1157,6 @@ public enum Race {
 		this.numberOfOffspringHigh = numberOfOffspringHigh;
 		
 		this.damageMultiplier = damageMultiplier;
-		this.resistanceMultiplier = resistanceMultiplier;
 		
 		this.defaultFemininePreference = defaultFemininePreference;
 		this.defaultMasculinePreference = defaultMasculinePreference;
@@ -1317,7 +1164,21 @@ public enum Race {
 		this.affectedByFurryPreference = affectedByFurryPreference;
 	}
 
-	public String getName() {
+	public boolean isBestialPartsAvailable() {
+		return true;
+	}
+	
+	public String getName(GameCharacter character, boolean bestial) {
+		if(bestial) {
+			return nameBestial;
+		}
+		return name;
+	}
+	
+	public String getName(boolean bestial) {
+		if(bestial) {
+			return nameBestial;
+		}
 		return name;
 	}
 
@@ -1350,17 +1211,10 @@ public enum Race {
 	}
 
 	/**
-	 * <b>Should only be used in Subspecies' getDamageMultipler() method!</b>
+	 * <b>Should only be used in Subspecies' getDamageMultiplier() method!</b>
 	 */
 	public Attribute getDefaultDamageMultiplier() {
 		return damageMultiplier;
-	}
-
-	/**
-	 * <b>Should only be used in Subspecies' getResistanceMultiplier() method!</b>
-	 */
-	public Attribute getDefaultResistanceMultiplier() {
-		return resistanceMultiplier;
 	}
 
 	public FurryPreference getDefaultFemininePreference() {

@@ -3,19 +3,19 @@ package com.lilithsthrone.game.sex.managers.dominion;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 
 /**
  * @since 0.2.8
- * @version 0.2.8
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMKrugerThreesome extends SexManagerDefault {
 
-	public SMKrugerThreesome(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.OVER_TABLE_KRUGER_THREESOME,
+	public SMKrugerThreesome(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPositionBipeds.OVER_TABLE_KRUGER_THREESOME,
 				dominants,
 				submissives);
 	}
@@ -26,7 +26,7 @@ public class SMKrugerThreesome extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 }

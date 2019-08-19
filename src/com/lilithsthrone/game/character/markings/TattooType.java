@@ -21,7 +21,7 @@ public class TattooType {
 			"none",
 			"none",
 			"This tattoo has no particular pattern, and simply displays either writing or a counter.",
-			ColourListPresets.JUST_GREY.getPresetColourList(),
+			ColourListPresets.JUST_GREY,
 			null,
 			null,
 			null);
@@ -30,16 +30,16 @@ public class TattooType {
 			"flowers",
 			"flowers",
 			"This tattoo depicts a flowing series of intertwined flowers.",
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.ALL,
+			ColourListPresets.ALL,
+			ColourListPresets.ALL,
 			null);
 
 	public static AbstractTattooType TRIBAL = new AbstractTattooType(
 			"tribal",
 			"tribal",
 			"A series of flowing lines and intricate patterns.",
-			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.ALL,
 			null,
 			null,
 			null);
@@ -48,16 +48,16 @@ public class TattooType {
 			"butterflies",
 			"butterflies",
 			"An artistic depiction of a trio of butterflies in mid-flight.",
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.ALL,
+			ColourListPresets.ALL,
+			ColourListPresets.ALL,
 			null);
 	
 	public static AbstractTattooType LINES = new AbstractTattooType(
 			"lines",
 			"lines",
 			"A series of flowing, swirling lines.",
-			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.ALL,
 			null,
 			null,
 			null);

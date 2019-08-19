@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.4
  * @author Innoxia
  */
 public enum Occupation {
@@ -24,42 +25,46 @@ public enum Occupation {
 	ELEMENTAL_AIR(Perk.ELEMENTAL_BOUND_AIR, "air elemental", "[npc.NameIsFull] currently bound to the arcane school of Air.", OccupationTag.HAS_PREREQUISITES),
 	ELEMENTAL_ARCANE(Perk.ELEMENTAL_BOUND_ARCANE, "arcane elemental", "[npc.NameIsFull] currently bound to the arcane school of Arcane.", OccupationTag.HAS_PREREQUISITES),
 
-	REINDEER_OVERSEER(Perk.JOB_MISC, "overseer", "-", OccupationTag.HAS_PREREQUISITES),
 	
-	NPC_HARPY_MATRIARCH(Perk.JOB_MISC, "harpy matriarch", "-", OccupationTag.HAS_PREREQUISITES),
-	
-	NPC_HARPY_FLOCK_MEMBER(Perk.JOB_MISC, "harpy flock member", "-", OccupationTag.HAS_PREREQUISITES),
-	
-	NPC_ARCANE_RESEARCHER(Perk.JOB_MISC, "arcane researcher", "-", OccupationTag.HAS_PREREQUISITES),
-	
-	NPC_HIGH_RANKING_ENFORCER(Perk.JOB_MISC, "Enforcer chief", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_HARPY_MATRIARCH(Perk.JOB_NPC_HARPY_MATRIARCH, "harpy matriarch", "[npc.NameIsFull] a matriarch of a harpy flock.", OccupationTag.HAS_PREREQUISITES),
+	NPC_HARPY_FLOCK_MEMBER(Perk.JOB_NPC_HARPY_FLOCK_MEMBER, "harpy flock member", "[npc.NameIsFull] a member of a harpy flock", OccupationTag.HAS_PREREQUISITES),
 
-	NPC_SLAVER_ADMIN(Perk.JOB_MISC, "slaver administration staff", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_ENFORCER_PATROL_INSPECTOR(Perk.JOB_NPC_ENFORCER_PATROL_INSPECTOR, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES),
+	NPC_ENFORCER_PATROL_SERGEANT(Perk.JOB_NPC_ENFORCER_PATROL_SERGEANT, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES),
+	NPC_ENFORCER_PATROL_CONSTABLE(Perk.JOB_NPC_ENFORCER_PATROL_CONSTABLE, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES),
+	
+	NPC_CULTIST(Perk.JOB_NPC_CULTIST, "Cultist", "[npc.NameIs] a full-time member of the 'Cult of Lilith'.", OccupationTag.HAS_PREREQUISITES),
 
-	NPC_NIGHTCLUB_OWNER(Perk.JOB_MISC, "nightclub owner", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_SLAVER_ADMIN(Perk.JOB_NPC_SLAVER_ADMIN, "slaver administration overseer", "[npc.NameIsFull] the overseer of the slaver administration.", OccupationTag.HAS_PREREQUISITES),
 
-	NPC_CLOTHING_STORE_OWNER(Perk.JOB_MISC, "clothing store owner", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_NIGHTCLUB_OWNER(Perk.JOB_NPC_NIGHTCLUB_OWNER, "nightclub owner", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_BAR_TENDER(Perk.JOB_NPC_BARMAID, "bartender", "[npc.Name] [npc.verb(work)] as a bartender.", OccupationTag.EVENING_SHIFT),
+	NPC_BOUNCER(Perk.JOB_NPC_BOUNCER, "bouncer", "[npc.NameIsFull] a bouncer, in charge of keeping the riff-raff out of nightclubs and bars."),
+
+	NPC_BEAUTICIAN(Perk.JOB_NPC_BEAUTICIAN, "beautician", "[npc.Name] [npc.verb(work)] as a beautician."),
 	
-	NPC_GYM_OWNER(Perk.JOB_MISC, "gym owner", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_ARCANE_RESEARCHER(Perk.JOB_NPC_ARCANE_RESEARCHER, "arcane researcher", "-", OccupationTag.HAS_PREREQUISITES),
+
+	NPC_CLOTHING_STORE_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "clothing store owner", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_GYM_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "gym owner", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_STORE_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "store owner", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_CASINO_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "casino owner", "-", OccupationTag.HAS_PREREQUISITES),
 	
-	NPC_STORE_OWNER(Perk.JOB_MISC, "store owner", "-", OccupationTag.HAS_PREREQUISITES),
-	
-	NPC_CASINO_OWNER(Perk.JOB_MISC, "casino owner", "-", OccupationTag.HAS_PREREQUISITES),
+	REINDEER_OVERSEER(Perk.JOB_NPC_REINDEER_OVERSEER, "overseer", "-", OccupationTag.HAS_PREREQUISITES),
+
+	NPC_SLIME_QUEEN(Perk.JOB_NPC_SLIME_QUEEN, "slime queen", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_SLIME_QUEEN_GUARD(Perk.JOB_NPC_SLIME_QUEEN_GUARD, "slime queen's guard", "-", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_EPONA(Perk.JOB_MISC, "pregnancy roulette manager", "-", OccupationTag.HAS_PREREQUISITES),
-
-	NPC_SLIME_QUEEN(Perk.JOB_MISC, "slime queen", "-", OccupationTag.HAS_PREREQUISITES),
 	
-	NPC_SLIME_QUEEN_GUARD(Perk.JOB_MISC, "slime queen's guard", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_ELDER_LILIN(Perk.JOB_ELDER_LILIN, "elder lilin", "-", OccupationTag.HAS_PREREQUISITES),
 	
-	NPC_LILIN(Perk.JOB_MISC, "lilin", "-", OccupationTag.HAS_PREREQUISITES),
 	
 	// NPC histories:
 
 	NPC_UNEMPLOYED(Perk.JOB_UNEMPLOYED, "unemployed", "[npc.NameIsFull] unemployed.", OccupationTag.HAS_PREREQUISITES),
 	
-	// Sociable personality:
-
+	
 	NPC_SLAVE(Perk.JOB_SLAVE, "slave", "[npc.NameIsFull] a slave, and must carry out [npc.her] owner's wishes.", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_PROSTITUTE(Perk.JOB_PROSTITUTE, "prostitute", "[npc.NameIsFull] a prostitute, making a living by selling [npc.her] body.", OccupationTag.LOWLIFE),
@@ -75,13 +80,6 @@ public enum Occupation {
 		}
 	},
 	
-	NPC_BAR_TENDER(Perk.JOB_MISC, "barmaid", "[npc.Name] [npc.verb(work)] as a barmaid.", OccupationTag.EVENING_SHIFT) {
-		@Override
-		public boolean isAvailable(GameCharacter character) {
-			return character.isFeminine();
-		}
-	},
-	
 	NPC_MASSAGE_THERAPIST(Perk.JOB_MISC, "massage therapist", "[npc.Name] [npc.verb(work)] at a spa as a massage therapist."),
 	
 	NPC_WAITRESS(Perk.JOB_MISC, "waitress", "[npc.Name] [npc.verb(work)] as a waitress in a restaurant.") {
@@ -91,29 +89,21 @@ public enum Occupation {
 		}
 	},
 	
-	NPC_BEAUTICIAN(Perk.JOB_MISC, "beautician", "[npc.Name] [npc.verb(work)] as a beautician in a spa."),
-	
 	NPC_MUSICIAN(Perk.JOB_MISC, "musician", "[npc.Name] [npc.verb(work)] as a musician.", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_FITNESS_INSTRUCTOR(Perk.JOB_MISC, "fitness instructor", "-", OccupationTag.HAS_PREREQUISITES),
 	
-	
-	// Commanding personality:
-	
 	NPC_MUGGER(Perk.JOB_MUGGER, "mugger", "[npc.NameIsFull] a mugger, and [npc.verb(make)] a living by stealing other people's possessions.", OccupationTag.LOWLIFE),
 	
-	NPC_CONSTRUCTION_WORKER(Perk.JOB_MISC, "construction worker", "-"),
+	NPC_CONSTRUCTION_WORKER(Perk.JOB_CONSTRUCTION_WORKER, "construction worker", "-"),
+	NPC_CONSTRUCTION_WORKER_ARCANE(Perk.JOB_CONSTRUCTION_WORKER_ARCANE, "arcane construction worker", "-"),
 
-	NPC_BOUNCER(Perk.JOB_MISC, "bouncer", "-"),
-	
 	NPC_MECHANIC(Perk.JOB_MISC, "mechanic", "-", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_TEACHER(Perk.JOB_MISC, "teacher", "-", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_ENFORCER(Perk.JOB_MISC, "enforcer", "-"),
 	
-	// Analytical personality:
-
 	NPC_LIBRARIAN(Perk.JOB_MISC, "librarian", "-"),
 	
 	NPC_UNIVERSITY_STUDENT(Perk.JOB_MISC, "university student", "-", OccupationTag.HAS_PREREQUISITES),
@@ -126,9 +116,6 @@ public enum Occupation {
 	
 	NPC_DOCTOR(Perk.JOB_MISC, "doctor", "-", OccupationTag.HAS_PREREQUISITES),
 	
-	
-	// Calm personality:
-
 	NPC_MAID(Perk.JOB_MISC, "maid", "-") {
 		@Override
 		public boolean isAvailable(GameCharacter character) {
@@ -158,6 +145,8 @@ public enum Occupation {
 			return DayOfWeek.SATURDAY;
 		}
 	},
+
+	NPC_OFFICE_WORKER(Perk.JOB_MISC, "office worker", "-"),
 	
 	NPC_RECEPTIONIST(Perk.JOB_MISC, "receptionist", "-"),
 	
@@ -279,10 +268,10 @@ public enum Occupation {
 
 	private String name;
 	private String description;
-	private Perk associatedPerk;
+	private AbstractPerk associatedPerk;
 	private List<OccupationTag> occupationTags;
 
-	private Occupation(Perk associatedPerk,
+	private Occupation(AbstractPerk associatedPerk,
 			String name,
 			String description,
 			OccupationTag... occupationTags) {
@@ -298,7 +287,7 @@ public enum Occupation {
 	}
 	
 	public boolean isAvailable(GameCharacter character) {
-		return true;
+		return !occupationTags.contains(OccupationTag.HAS_PREREQUISITES);
 	}
 
 	public void applyExtraEffects(GameCharacter character) {
@@ -311,9 +300,10 @@ public enum Occupation {
 		return occupationTags.contains(OccupationTag.PLAYER_ONLY);
 	}
 
-	public Perk getAssociatedPerk() {
+	public AbstractPerk getAssociatedPerk() {
 		return associatedPerk;
 	}
+	
 	public String getName() {
 		return name;
 	}

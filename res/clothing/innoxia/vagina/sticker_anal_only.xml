@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAttributes>
+    <value>500</value>
+    <determiner><![CDATA[an]]></determiner>
+    <name><![CDATA[anal-only pastie]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[anal-only pasties]]></namePlural>
+    <description><![CDATA[An adhesive strip of flexible plastic, designed to be stuck over someone's vagina in order to prohibit access. The words 'anal only' make it clear as to which orifice this person prefers to have used.]]></description>
+
+    <physicalResistance>0</physicalResistance>
+    <femininity>ANDROGYNOUS</femininity>
+    <slot>VAGINA</slot>
+    <rarity>COMMON</rarity>
+
+    <imageName>sticker_anal_only.svg</imageName>
+
+    <clothingSet/>
+    <imageEquippedName/>
+    <enchantmentLimit/>
+    <effects/>
+
+    <blockedPartsList>
+      <blockedParts>
+
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+
+        <clothingAccessRequired>
+          <clothingAccess>GROIN</clothingAccess>
+        </clothingAccessRequired>
+		<blockedBodyParts>
+          <bodyPart>VAGINA</bodyPart>
+        </blockedBodyParts>
+		<clothingAccessBlocked/>
+        <concealedSlots/>
+
+      </blockedParts>
+    </blockedPartsList>
+
+    <incompatibleSlots/>
+
+    <primaryColours>
+		<colour>CLOTHING_WHITE</colour>
+    </primaryColours>
+    <primaryColoursDye values="ALL"/>
+    <secondaryColours>
+		<colour>CLOTHING_RED_DARK</colour>
+    </secondaryColours>
+    <secondaryColoursDye values="ALL"/>
+    <tertiaryColours>
+		<colour>CLOTHING_WHITE</colour>
+    </tertiaryColours>
+    <tertiaryColoursDye values="ALL"/>
+
+    <itemTags>
+      <tag>SOLD_BY_FINCH</tag>
+      <tag>REQUIRES_VAGINA</tag>
+      <tag>SEALS_VAGINA</tag>
+      <tag>ENABLE_SEX_EQUIP</tag>
+    </itemTags>
+
+  </coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(stick)] the anal-only pastie over [npc.her] [npc.pussy+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(stick)] the anal-only pastie over [npc2.namePos] [npc2.pussy+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(stick)] the anal-only pastie over [npc2.namePos] [npc2.pussy+].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] carefully [npc.verb(peel)] off the anal-only pastie that was covering [npc.her] [npc.pussy+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] carefully [npc.verb(peel)] off the anal-only pastie that was covering [npc2.namePos] [npc2.pussy+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] quickly [npc.verb(rip)] off the anal-only pastie that was covering [npc2.namePos] [npc2.pussy+], causing [npc2.herHim] to let out a startled yell.]]>
+    </otherRough>
+  </displacementText>
+
+
+</clothing>

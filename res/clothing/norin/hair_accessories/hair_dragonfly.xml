@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<clothingAuthorTag><![CDATA[Small engraved lettering informs you that these sticks were made by 'Norin'.]]></clothingAuthorTag>
+		<value>200</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[dragonfly bobby pin]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[dragonfly bobby pins]]></namePlural> 
+		<description><![CDATA[A pair of bobby pins in the shape of a dragonfly.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity> 
+		<slot>HAIR</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>hair_dragonfly.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList> 	
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/> 
+				<clothingAccessBlocked/> 
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+		  <colour>CLOTHING_PLATINUM</colour>
+		  <colour>CLOTHING_STEEL</colour>
+		  <colour>CLOTHING_SILVER</colour>
+		  <colour>CLOTHING_ROSE_GOLD</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours values="ALL_WITH_METAL"/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+    
+		<defaultPatterns patternChance="1" colourNameDerivedFromPattern="false">
+		  <pattern>polka_dots_tiny</pattern>
+		  <pattern>polka_dots_small</pattern>
+		</defaultPatterns>
+    
+		<patternPrimaryColours values="ALL"/>
+		<patternSecondaryColours values="ALL"/>
+		<patternTertiaryColours/>
+  
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>TRANSPARENT</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] a pair of dragonfly bobby pins out from [npc.her] [npc.hairSkin+], letting it flow free.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] a pair of dragonfly bobby pins out from [npc2.NamePos] [npc2.hairSkin+], letting it flow free.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(rip)] a pair of dragonfly bobby pins out from [npc2.NamePos] [npc2.hairSkin+].]]>
+		</otherRough>
+	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc.her] [npc.hairSkin+] and [npc.verb(slide)] in a pair of dragonfly bobby pins.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc2.NamePos] [npc2.hairSkin+] and [npc.verb(slide)] in a pair of dragonfly bobby pins.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(gather)] [npc2.NamePos] [npc2.hairSkin+] and [npc.verb(force)] in a pair of dragonfly bobby pins.]]>
+		</otherRough>
+	</replacementText>
+</clothing>

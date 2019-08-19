@@ -552,10 +552,8 @@ public enum Fetish {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You love cumming. You don't really care where it goes; all you want is to pump out load after load of your salty seed...";
-			else
-				return UtilText.parse(owner, "[npc.Name] has a fetish for cumming.");
+				return UtilText.parse(owner,
+						"[npc.NameHasFull] a particular obsession with cumming. Pumping any and all orifices full of cum is what [npc.she] [npc.verb(love)] the most, but spurting it all over someone's body is also an acceptable pastime.");
 		}
 
 		@Override
@@ -939,8 +937,7 @@ public enum Fetish {
 			FetishExperience.BASE_RARE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
 			null,
-			Util.newArrayListOfValues(
-					"Unlocks <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Deny</span> in non-submissive sex"),
+			null,
 			null) {
 
 		@Override
@@ -968,7 +965,9 @@ public enum Fetish {
 			"fetish_denial_self",
 			FetishExperience.BASE_RARE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 2)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 1),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 2)),
 			null,
 			null) {
 
@@ -1092,9 +1091,9 @@ public enum Fetish {
 			"fetish_masochist",
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2)),
 			Util.newArrayListOfValues(
-					"All incoming <span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>energy damage</span> is reduced by 25%",
+					"All incoming <span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>"+Attribute.HEALTH_MAXIMUM.getName()+" damage</span> is reduced by 25%",
 					"Reduced damage is converted to <span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>",
 					"Gain [style.boldArcane(1 essence)] when you are critically hit"),
 			null) {
@@ -1126,8 +1125,8 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues(
-					"All dealt <span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>energy damage</span> is increased by 5%",
-					"You take 10% of dealt <span style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</span> as <span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>",
+					"All dealt [style.colourHealth("+Attribute.HEALTH_MAXIMUM.getName()+" damage)] is increased by 5%",
+					"You take 10% of dealt [style.colourHealth("+Attribute.HEALTH_MAXIMUM.getName()+" damage)] as <span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>",
 					"Gain [style.boldArcane(1 essence)] when you critically hit"),
 			null) {
 
@@ -1411,7 +1410,7 @@ public enum Fetish {
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 10),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 3),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10)),
 			null,
 			Util.newArrayListOfValues(

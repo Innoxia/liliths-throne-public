@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.controller.MainController;
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
@@ -30,18 +29,17 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class PrologueDialogue {
@@ -51,7 +49,12 @@ public class PrologueDialogue {
 	}
 	
 	public static final DialogueNode INTRO = new DialogueNode("In the Museum", "", true) {
-
+		
+		@Override
+		public int getSecondsPassed() {
+			return 90;
+		}
+		
 		@Override
 		public String getContent() {
 			if(femalePrologueNPC()) {
@@ -94,6 +97,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_EMPTY_ROOM = new DialogueNode("In the Museum", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 90;
+		}
+		
+		@Override
 		public String getContent() {
 			if(femalePrologueNPC()) {
 				return UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_FEMALE");
@@ -111,11 +119,11 @@ public class PrologueDialogue {
 							null, null, null,
 							null, null, null,
 							true, true,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(PrologueFemale.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getNpc(PrologueFemale.class)),
 							null,
-							null,
+							null),
 							AFTER_SEX,
 							(Main.game.getPlayer().hasPenis()
 								?UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_FEMALE_AS_MALE_START")
@@ -124,7 +132,7 @@ public class PrologueDialogue {
 						@Override
 						public void effects() {
 							if(Main.game.getPlayer().hasPenis()) {
-								Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, Colour.CLOTHING_WHITE, false), false);
+								Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_penis_condom", Colour.CLOTHING_WHITE, false), false);
 							}
 						}
 					};
@@ -134,19 +142,19 @@ public class PrologueDialogue {
 							null, null, null,
 							null, null, null,
 							true, true,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(PrologueMale.class), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getNpc(PrologueMale.class)),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
 							null,
-							null,
+							null),
 							AFTER_SEX,
 							UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_MALE_START") + UtilText.parseFromXMLFile("misc/prologue", "SEX_CLOTHING_MANAGEMENT_TIP")) {
 						@Override
 						public void effects() {
 							if(Main.game.getPlayer().hasPenis()) {
-								Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, Colour.CLOTHING_WHITE, false), false);
+								Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_penis_condom", Colour.CLOTHING_WHITE, false), false);
 							}
-							Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, Colour.CLOTHING_WHITE, false), false);
+							Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_penis_condom", Colour.CLOTHING_WHITE, false), false);
 						}
 					};
 				}
@@ -166,14 +174,14 @@ public class PrologueDialogue {
 	};
 	
 
-	public static final DialogueNode AFTER_SEX = new DialogueNode("In the Museum", "", true) {
+	public static final DialogueNode AFTER_SEX = new DialogueNode("In the Museum", "Now that you've had your fun, you really should go and find your aunt Lily...", true) {
 
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(femalePrologueNPC()) {
-				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueFemale.class))>0) {
+				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueFemale.class))>=Main.game.getNpc(PrologueFemale.class).getOrgasmsBeforeSatisfied()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "AFTER_SEX_FEMALE_SATISFIED"));
 					
 				} else {
@@ -181,7 +189,7 @@ public class PrologueDialogue {
 				}
 				
 			} else {
-				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueMale.class))>0) {
+				if(Sex.getNumberOfOrgasms(Main.game.getNpc(PrologueMale.class))>=Main.game.getNpc(PrologueMale.class).getOrgasmsBeforeSatisfied()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "AFTER_SEX_MALE_SATISFIED"));
 					
 				} else {
@@ -213,6 +221,11 @@ public class PrologueDialogue {
 	
 	public static final DialogueNode INTRO_SECOND_THOUGHTS = new DialogueNode("In the Museum", "", true, true) {
 
+		@Override
+		public int getSecondsPassed() {
+			return 30;
+		}
+		
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -247,6 +260,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_NO = new DialogueNode("In the Museum", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 30;
+		}
+		
+		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
@@ -280,6 +298,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_2 = new DialogueNode("In the Museum", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60*10;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_2");
 		}
@@ -299,6 +322,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_3A = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 20;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_3A");
 		}
@@ -315,6 +343,11 @@ public class PrologueDialogue {
 
 	public static final DialogueNode INTRO_3B = new DialogueNode("", "", true, true) {
 
+		@Override
+		public int getSecondsPassed() {
+			return 20;
+		}
+		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_3B");
@@ -333,6 +366,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_4 = new DialogueNode("The horror!", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 20;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_4");
 		}
@@ -350,6 +388,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_5 = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 20;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_5");
 		}
@@ -361,7 +404,7 @@ public class PrologueDialogue {
 					@Override
 					public void effects() {
 						
-						Main.game.setWeather(Weather.MAGIC_STORM, 300);
+						Main.game.setWeatherInSeconds(Weather.MAGIC_STORM, 5*60*60);
 
 						Main.game.setRenderMap(true);
 						
@@ -378,6 +421,11 @@ public class PrologueDialogue {
 
 	public static final DialogueNode INTRO_NEW_WORLD_1 = new DialogueNode("A new world", "", true, false) {
 
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_1");
@@ -428,6 +476,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_NEW_WORLD_1_STRUGGLE = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		
+		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_1_STRUGGLE"));
@@ -452,6 +505,11 @@ public class PrologueDialogue {
 	};
 	
 	public static final DialogueNode INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES = new DialogueNode("", "", true, true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
 
 		@Override
 		public String getContent() {
@@ -481,6 +539,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		
+		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES"));
@@ -508,6 +571,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_NEW_WORLD_2 = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_2");
 		}
@@ -524,6 +592,11 @@ public class PrologueDialogue {
 	};
 
 	public static final DialogueNode INTRO_NEW_WORLD_2_A = new DialogueNode("", "", true, true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
 
 		@Override
 		public String getContent() {
@@ -549,6 +622,11 @@ public class PrologueDialogue {
 	};
 
 	public static final DialogueNode INTRO_NEW_WORLD_3 = new DialogueNode("Lilaya's Home", "", true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 60*5;
+		}
 		
 		@Override
 		public String getContent() {
@@ -574,6 +652,11 @@ public class PrologueDialogue {
 	};
 
 	public static final DialogueNode INTRO_NEW_WORLD_4 = new DialogueNode("", "", true, true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
 
 		@Override
 		public String getContent() {
@@ -605,6 +688,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_NEW_WORLD_5 = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_5");
 		}
@@ -616,10 +704,9 @@ public class PrologueDialogue {
 					@Override
 					public void effects() {
 						// Equip clothing:
-						List<AbstractClothing> tempList = new ArrayList<>();
-						tempList.addAll(Main.game.getPlayerCell().getInventory().getAllClothingInInventory());
+						List<AbstractClothing> tempList = new ArrayList<>(Main.game.getPlayerCell().getInventory().getAllClothingInInventory().keySet());
 
-						for (AbstractClothing c : tempList) {
+						for(AbstractClothing c : tempList) {
 							if(!c.getClothingType().equals(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES)) {
 								Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
 							}
@@ -639,6 +726,11 @@ public class PrologueDialogue {
 	};
 
 	public static final DialogueNode INTRO_NEW_WORLD_6 = new DialogueNode("", "", true, true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
 
 		@Override
 		public String getContent() {
@@ -667,6 +759,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_NEW_WORLD_7 = new DialogueNode("", "", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_7");
 		}
@@ -689,6 +786,11 @@ public class PrologueDialogue {
 	};
 
 	public static final DialogueNode INTRO_NEW_WORLD_8 = new DialogueNode("Your room", "You follow Rose as she leads you up to your new room.", true, true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
 
 		@Override
 		public String getContent() {
@@ -718,6 +820,11 @@ public class PrologueDialogue {
 	public static final DialogueNode INTRO_NEW_WORLD_9 = new DialogueNode("Knocking", "Rose said she'd be back in about half an hour, so that must be her knocking at your door.", true, true) {
 
 		@Override
+		public int getSecondsPassed() {
+			return 60*30;
+		}
+
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("misc/prologue", "INTRO_NEW_WORLD_9");
 		}
@@ -728,9 +835,8 @@ public class PrologueDialogue {
 				return new Response("Freedom!", "Decide what you want to do next.", RoomPlayer.ROOM){
 					@Override
 					public void effects() {
-						Main.game.setPrologueFinished(true);
 						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
-						Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(), true);
+						Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(false), true);
 					}
 				};
 				

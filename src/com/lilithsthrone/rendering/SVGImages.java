@@ -82,10 +82,19 @@ public enum SVGImages {
 			hypnoWatchBase, hypnoWatchGynephilic, hypnoWatchAmbiphilic, hypnoWatchAndrophilic,
 			
 			// Sex:
-			coverableAreaMouth, coverableAreaAnus, coverableAreaAss, coverableAreaBreasts, coverableAreaBreastsFlat, coverableAreaNipple, coverableAreaVagina, coverableAreaThighs, coverableAreaUrethraVagina, coverableAreaUrethraPenis,
-			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue, penetrationTypeFoot,
+			coverableAreaMouth,
+			coverableAreaAnus, coverableAreaAss,
+			coverableAreaBreasts, coverableAreaBreastsFlat, coverableAreaNipple,
+			coverableAreaBreastsCrotch, coverableAreaUdders, coverableAreaNippleCrotch,
+			coverableAreaVagina, coverableAreaUrethraVagina,
+			coverableAreaMound,
+			coverableAreaThighs,
+			coverableAreaUrethraPenis,
+			
+			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue, penetrationTypeFoot, penetrationTypeClit,
 			combinationStretching, combinationTooLoose, combinationWet, combinationDry,
-			stretching, holeTooBig;
+			stretching, holeTooBig,
+			activeSexBackground;
 
 	private Map<Integer, String> youkoTailsMap = new HashMap<>();
 	private Map<Integer, String> youkoTailsDesaturatedMap = new HashMap<>();
@@ -632,6 +641,16 @@ public enum SVGImages {
 			coverableAreaNipple = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaVagina.svg");
 			coverableAreaVagina = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaMound.svg");
+			coverableAreaMound = Util.inputStreamToString(is);
+			
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaBreastsCrotch.svg");
+			coverableAreaBreastsCrotch = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaUdders.svg");
+			coverableAreaUdders = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaNippleCrotch.svg");
+			coverableAreaNippleCrotch = Util.inputStreamToString(is);
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaUrethraVagina.svg");
 			coverableAreaUrethraVagina = Util.inputStreamToString(is);
@@ -651,6 +670,9 @@ public enum SVGImages {
 			penetrationTypeTongue = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeFoot.svg");
 			penetrationTypeFoot = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/penetrationTypeClit.svg");
+			penetrationTypeClit = Util.inputStreamToString(is);
+			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationStretching.svg");
 			combinationStretching = Util.inputStreamToString(is);
@@ -666,6 +688,10 @@ public enum SVGImages {
 			stretching = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/holeTooBig.svg");
 			holeTooBig = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/active_background.svg");
+			activeSexBackground = Util.inputStreamToString(is);
+			
 			
 			String tempString = "";
 			for(AbstractItemEffectType effect : ItemEffectType.getAllEffectTypes()) {
@@ -1021,8 +1047,24 @@ public enum SVGImages {
 		return coverableAreaBreastsFlat;
 	}
 
+	public String getCoverableAreaBreastsCrotch() {
+		return coverableAreaBreastsCrotch;
+	}
+
+	public String getCoverableAreaUdders() {
+		return coverableAreaUdders;
+	}
+
+	public String getCoverableAreaNippleCrotch() {
+		return coverableAreaNippleCrotch;
+	}
+
 	public String getCoverableAreaVagina() {
 		return coverableAreaVagina;
+	}
+
+	public String getCoverableAreaMound() {
+		return coverableAreaMound;
 	}
 	
 	public String getCoverableAreaUrethraVagina() {
@@ -1057,6 +1099,10 @@ public enum SVGImages {
 		return penetrationTypeFoot;
 	}
 	
+	public String getPenetrationTypeClit() {
+		return penetrationTypeClit;
+	}
+	
 	public String getCombinationStretching() {
 		return combinationStretching;
 	}
@@ -1079,6 +1125,10 @@ public enum SVGImages {
 	
 	public String getHoleTooBig() {
 		return holeTooBig;
+	}
+
+	public String getActiveSexBackground() {
+		return activeSexBackground;
 	}
 
 	public Map<Colour, String> getRefinedBackgroundMap() {

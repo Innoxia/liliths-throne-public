@@ -17,35 +17,34 @@ import com.lilithsthrone.utils.Util;
  */
 public enum FetishDesire {
 	
-	ZERO_HATE(0, "hate", "hate", "hates", "fondness1", -25f, Colour.BASE_CRIMSON),
+	ZERO_HATE(0, "hate", "hate", "hates", "fondness1", Colour.BASE_CRIMSON),
 	
-	ONE_DISLIKE(1, "dislike", "dislike", "dislikes", "fondness2", -10f, Colour.BASE_RED),
+	ONE_DISLIKE(1, "dislike", "dislike", "dislikes", "fondness2", Colour.BASE_RED),
 	
-	TWO_NEUTRAL(2, "indifferent", "are indifferent to", "is indifferent to", "fondness3", 0, Colour.BASE_BLUE_STEEL),
+	TWO_NEUTRAL(2, "indifferent", "are indifferent to", "is indifferent to", "fondness3", Colour.BASE_BLUE_STEEL),
 	
-	THREE_LIKE(3, "like", "like", "likes", "fondness4", 5f, Colour.BASE_PINK_LIGHT),
+	THREE_LIKE(3, "like", "like", "likes", "fondness4", Colour.BASE_PINK_LIGHT),
 	
-	FOUR_LOVE(4, "love", "love", "loves", "fondness5", 10f, Colour.BASE_PINK);
+	FOUR_LOVE(4, "love", "love", "loves", "fondness5", Colour.BASE_PINK);
 	
 	private int value;
 	private String name;
 	private String nameAsPlayerVerb;
 	private String nameAsVerb;
-	private String SVGImage, SVGImageDesaturated;
-	private float lustIncrement;
+	private String SVGImage;
+	private String SVGImageDesaturated;
 	private Colour colour;
 	private List<String> modifiersList;
 	
-	private FetishDesire(int value, String name, String nameAsPlayerVerb, String nameAsVerb, String pathName, float lustIncrement, Colour colour) {
+	private FetishDesire(int value, String name, String nameAsPlayerVerb, String nameAsVerb, String pathName, Colour colour) {
 		this.value = value;
 		this.name = name;
 		this.nameAsPlayerVerb = nameAsPlayerVerb;
 		this.nameAsVerb = nameAsVerb;
-		this.lustIncrement = lustIncrement;
 		this.colour = colour;
 		
 		modifiersList = new ArrayList<>();
-		modifiersList.add((lustIncrement >= 0 ? "[style.boldSex(+" + lustIncrement : "[style.boldBad(" + lustIncrement) + ")] [style.boldLust("+ Util.capitaliseSentence(Attribute.LUST.getAbbreviatedName())+ ")] from related sex actions");
+		modifiersList.add("Modifies sex actions' [style.boldLust("+ Util.capitaliseSentence(Attribute.LUST.getAbbreviatedName())+ " increments)]");
 
 		
 		try {
@@ -142,10 +141,6 @@ public enum FetishDesire {
 	
 	public String getNameAsVerb() {
 		return nameAsVerb;
-	}
-
-	public float getLustIncrement() {
-		return lustIncrement;
 	}
 
 	public String getSVGImage() {

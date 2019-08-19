@@ -34,7 +34,13 @@ public enum SexualOrientationPreference {
 		orientationPreferencesMap.put(SexualOrientation.AMBIPHILIC, Main.getProperties().orientationPreferencesMap.get(SexualOrientation.AMBIPHILIC) * ambiphilicWeight);
 		orientationPreferencesMap.put(SexualOrientation.ANDROPHILIC, Main.getProperties().orientationPreferencesMap.get(SexualOrientation.ANDROPHILIC) * androphilicWeight);
 		
+//		System.out.println(Main.getProperties().orientationPreferencesMap.get(SexualOrientation.GYNEPHILIC));
+//		System.out.println(Main.getProperties().orientationPreferencesMap.get(SexualOrientation.AMBIPHILIC));
+//		System.out.println(Main.getProperties().orientationPreferencesMap.get(SexualOrientation.ANDROPHILIC));
+		
 		SexualOrientation orientation = Util.getRandomObjectFromWeightedMap(orientationPreferencesMap);
+		
+//		System.out.println("set to "+orientation);
 		
 		if(orientation!=null) {
 			return orientation;

@@ -1,11 +1,11 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.world.Weather;
 
 /**
  * @since 0.1.0
@@ -16,8 +16,8 @@ public class LilithsTower {
 	public static final DialogueNode OUTSIDE = new DialogueNode("Lilith's Tower", "Lilith's tower.", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 5;
+		public int getSecondsPassed() {
+			return 5*60;
 		}
 
 		@Override

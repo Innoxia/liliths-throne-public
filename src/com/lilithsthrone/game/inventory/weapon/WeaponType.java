@@ -20,6 +20,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.ColourListPresets;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -94,12 +95,12 @@ public class WeaponType {
 					return Util.newArrayListOfValues(Spell.ICE_SHARD);
 				case LUST:
 					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
-				case MISC:
-					break;
 				case PHYSICAL:
 					return Util.newArrayListOfValues(Spell.SLAM);
 				case POISON:
 					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+				default:
+					break;
 			}
 			return null;
 		}
@@ -170,12 +171,12 @@ public class WeaponType {
 					return Util.newArrayListOfValues(Spell.ICE_SHARD);
 				case LUST:
 					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
-				case MISC:
-					break;
 				case PHYSICAL:
 					return Util.newArrayListOfValues(Spell.SLAM);
 				case POISON:
 					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+				default:
+					break;
 			}
 			return null;
 		}
@@ -247,12 +248,12 @@ public class WeaponType {
 					return Util.newArrayListOfValues(Spell.ICE_SHARD);
 				case LUST:
 					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
-				case MISC:
-					break;
 				case PHYSICAL:
 					return Util.newArrayListOfValues(Spell.SLAM);
 				case POISON:
 					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+				default:
+					break;
 			}
 			return null;
 		}
@@ -287,10 +288,10 @@ public class WeaponType {
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_MELEE_WEAPON, TFPotency.MAJOR_BOOST, 0),
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_MELEE_WEAPON, TFPotency.MAJOR_BOOST, 0)),
 			null,
-			ColourListPresets.JUST_BLACK.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.JUST_STEEL.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_BLACK,
+			ColourListPresets.ALL,
+			ColourListPresets.JUST_STEEL,
+			ColourListPresets.ALL_METAL,
 			Util.newArrayListOfValues(
 					ItemTag.SOLD_BY_VICKY,
 					ItemTag.WEAPON_BLADE)) {
@@ -366,12 +367,12 @@ public class WeaponType {
 			5,
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_CHANCE, TFPotency.MAJOR_BOOST, 0)),
+					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_DAMAGE, TFPotency.MAJOR_BOOST, 0)),
 			null,
-			ColourListPresets.JUST_BLACK.getPresetColourList(),
-			ColourListPresets.ALL.getPresetColourList(),
-			ColourListPresets.JUST_STEEL.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_BLACK,
+			ColourListPresets.ALL,
+			ColourListPresets.JUST_STEEL,
+			ColourListPresets.ALL_METAL,
 			Util.newArrayListOfValues(
 					ItemTag.SOLD_BY_VICKY,
 					ItemTag.WEAPON_BLADE)) {
@@ -430,7 +431,7 @@ public class WeaponType {
 			"Buckler",
 			"Bucklers",
 			"Bash",
-			"A small metal shield, measuring 45cm in diameter, and gripped in one hand by means of a handle positioned behind the boss."
+			"A small metal shield, measuring "+ Units.size(45, Units.UnitType.LONG) +" in diameter, and gripped in one hand by means of a handle positioned behind the boss."
 					+ " Shields such as this one are typically enchanted to help the wielder resist a certain type of arcane damage.",
 			"buckler",
 			"buckler",
@@ -451,10 +452,10 @@ public class WeaponType {
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_PHYSICAL, TFPotency.MAJOR_BOOST, 0),
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_PHYSICAL, TFPotency.MAJOR_BOOST, 0)),
 			null,
-			ColourListPresets.JUST_STEEL.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
-			ColourListPresets.JUST_STEEL.getPresetColourList(),
-			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_STEEL,
+			ColourListPresets.ALL_METAL,
+			ColourListPresets.JUST_STEEL,
+			ColourListPresets.ALL_METAL,
 			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
 
 		@Override
@@ -565,12 +566,12 @@ public class WeaponType {
 					return Util.newArrayListOfValues(Spell.ICE_SHARD);
 				case LUST:
 					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
-				case MISC:
-					break;
 				case PHYSICAL:
 					return Util.newArrayListOfValues(Spell.SLAM);
 				case POISON:
 					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+				default:
+					break;
 			}
 			return null;
 		}
@@ -637,65 +638,14 @@ public class WeaponType {
 					return Util.newArrayListOfValues(Spell.ICE_SHARD);
 				case LUST:
 					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
-				case MISC:
-					break;
 				case PHYSICAL:
 					return Util.newArrayListOfValues(Spell.SLAM);
 				case POISON:
 					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+				default:
+					break;
 			}
 			return null;
-		}
-	};
-	
-	// I made this in one of my lunch breaks x_x
-	public static AbstractWeaponType MAIN_WESTERN_KKP = new AbstractWeaponType(25000,
-			false,
-			false,
-			"a",
-			false,
-			"Western KKP",
-			"Western KKPs",
-			"Fire KKP",
-			"A blowback-operated semi-automatic pistol, featuring an exposed hammer, a traditional double-action trigger mechanism, a single-column magazine, and a fixed barrel that also acts as the guide rod for the recoil spring.",
-			"western_kkp",
-			"western_kkp",
-			Rarity.LEGENDARY,
-			null,
-			Util.newArrayListOfValues(DamageType.PHYSICAL),
-			100000,
-			0,
-			DamageVariance.LOW,
-			0,
-			null,
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(
-					ItemTag.REMOVE_FROM_DEBUG_SPAWNER
-					)) {
-
-		@Override
-		public String equipText(GameCharacter character) {
-			return UtilText.parse(character, "[npc.Name] [npc.verb(ready)] [npc.her] pistol.");
-		}
-
-		@Override
-		public String unequipText(GameCharacter character) {
-			return UtilText.parse(character, "[npc.Name] [npc.verb(holster)] [npc.her] pistol.");
-		}
-
-		@Override
-		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
-			return UtilText.parse(character, target, "[npc.Name] just [npc.verb(shoot)] [npc2.name]... Thankfully, there seems to be some kind of arcane force preventing [npc.her] gun from actually killing [npc2.herHim]...");
-		}
-
-		@Override
-		public String getAttackDescription(GameCharacter user, GameCharacter target) {
-			return UtilText.parse(target,
-					"The name's [pc.surname]... [pc.name] [pc.surname].");
 		}
 	};
 	
@@ -897,7 +847,7 @@ public class WeaponType {
 		@Override
 
 		public String getDescription() {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP)) {
 				return "A short-handled feather duster, ideal for keeping a house clean, but not much use in combat..."
 						+ " [Ashley.speech(A feather duster: the epitome of romance, at least for those who don't know anything about their lover, other than that they're the person who keeps the house clean.)]";
 //						+ " Surely, that's all that's going on with their lives, right?)]";
@@ -983,7 +933,7 @@ public class WeaponType {
 			5,
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_CHANCE, TFPotency.MAJOR_BOOST, 0)),
+					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_DAMAGE, TFPotency.MAJOR_BOOST, 0)),
 			null,
 			null,
 			null,
@@ -1029,7 +979,7 @@ public class WeaponType {
 	};
 	
 	public static List<AbstractWeaponType> rareWeapons = new ArrayList<>();
-	private static List<AbstractWeaponType> allweapons = new ArrayList<>();
+	private static List<AbstractWeaponType> allWeapons = new ArrayList<>();
 	public static List<AbstractWeaponType> moddedWeapons = new ArrayList<>();
 	
 	public static Map<AbstractWeaponType, String> weaponToIdMap = new HashMap<>();
@@ -1047,8 +997,7 @@ public class WeaponType {
 	}
 
 	static {
-		
-		// Load in modded clothing:
+		// Load in modded weapons:
 		moddedWeapons = new ArrayList<>();
 		File dir = new File("res/mods");
 		
@@ -1066,10 +1015,9 @@ public class WeaponType {
 								if (innerDirectoryListing != null) {
 									for (File innerChild : innerDirectoryListing) {
 										try {
-											AbstractWeaponType ct = new AbstractWeaponType(innerChild) {};
-											moddedWeapons.add(ct);
 											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-//													System.out.println(id);
+											AbstractWeaponType ct = new AbstractWeaponType(innerChild, modAuthorDirectory.getName()) {};
+											moddedWeapons.add(ct);
 											weaponToIdMap.put(ct, id);
 											idToWeaponMap.put(id, ct);
 										} catch(Exception ex) {
@@ -1084,7 +1032,7 @@ public class WeaponType {
 			}
 		}
 		
-		allweapons.addAll(moddedWeapons);
+		allWeapons.addAll(moddedWeapons);
 		
 		
 		// Add in external res clothing:
@@ -1102,10 +1050,9 @@ public class WeaponType {
 								if (innerDirectoryListing != null) {
 									for (File innerChild : innerDirectoryListing) {
 										try {
-											AbstractWeaponType ct = new AbstractWeaponType(innerChild) {};
-											allweapons.add(ct);
 											String id = authorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-		//											System.out.println(id);
+											AbstractWeaponType ct = new AbstractWeaponType(innerChild, authorDirectory.getName()) {};
+											allWeapons.add(ct);
 											weaponToIdMap.put(ct, id);
 											idToWeaponMap.put(id, ct);
 										} catch(Exception ex) {
@@ -1135,7 +1082,7 @@ public class WeaponType {
 					weaponToIdMap.put(weapon, f.getName());
 					idToWeaponMap.put(f.getName(), weapon);
 					
-					allweapons.add(weapon);
+					allWeapons.add(weapon);
 				
 					if (weapon.getRarity() == Rarity.RARE) {
 						rareWeapons.add(weapon);
@@ -1148,7 +1095,7 @@ public class WeaponType {
 		}
 	}
 
-	public static List<AbstractWeaponType> getAllweapons() {
-		return allweapons;
+	public static List<AbstractWeaponType> getAllWeapons() {
+		return allWeapons;
 	}
 }

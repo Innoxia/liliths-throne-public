@@ -141,7 +141,7 @@
 		[siren.speech(M-Mom,)] [siren.name] stutters, [siren.speech(it seals my dark powers away! If I take it off, then the whole universe could be destroyed!)]
 	</p>
 	<p>
-		[lyssieth.speech([siren.Name]! You're embarrassing me in front of our guest, now, not another word!)] Lyssieth says, before finally turning to face you, [lyssieth.speech(I do apologise on behalf of my troublesome daughter, and thank you so much for bringing her back to m-)]
+		[lyssieth.speech([siren.Name]! You're embarrassing me in front of our guest! Now, not another word from you!)] Lyssieth says, before finally turning to face you, [lyssieth.speech(I do apologise on behalf of my troublesome daughter, and thank you so much for bringing her back to m-)]
 	</p>
 	<p>
 		As Lyssieth's gaze comes to rest on your face, her eyes suddenly open wide, and you see the hand that's placed on the back of her chair suddenly clench tightly into the leather padding. Her calm, friendly voice completely changes to take on a deep, spine-chilling tone, and as she speaks, the ground beneath your feet almost seems to tremble, [lyssieth.speech(It's <i>you</i>?! <i>You're</i> the one who's been living with my dear Lilaya?!)]
@@ -182,7 +182,7 @@
 		Refusing to submit, you try to shake your head clear of the intrusive thoughts, and at the same time, you put all of your strength into resisting the crushing downwards force. From what little awareness you have left of your surroundings, you're able to make out a highly-amused smile on Lyssieth's face, and, as she steps towards you, she tuts, [lyssieth.speech(Now, now, that won't do at all. When I give people an order, they're expected to [style.glowArcane(obey)].)]
 	</p>
 	<p>
-		The physical force pushing down on you suddenly increases in strength, and, try as you might, it's far too powerful for you to resist. As you're finally forced down onto your knees before the elder lilin, your head starts to swim, and you feel as though you're dipping in and out of conciousness. The only words that you can seem to form in your mind are 'yes' and 'mistress', but, still refusing to capitulate, you decide to stay silent instead of using your now severely-limited vocabulary.
+		The physical force pushing down on you suddenly increases in strength, and, try as you might, it's far too powerful for you to resist. As you're finally forced down onto your knees before the elder lilin, your head starts to swim, and you feel as though you're dipping in and out of consciousness. The only words that you can seem to form in your mind are 'yes' and 'mistress', but, still refusing to capitulate, you decide to stay silent instead of using your now severely-limited vocabulary.
 	</p>
 	]]>
 	</htmlContent>
@@ -192,7 +192,7 @@
 		Accepting your fate, you give in to the voices of submission in your mind, and allow yourself to be pushed down onto your knees before Lyssieth. Looking up at the elder lilin, you see a highly-amused smile on her face, and, as she steps towards you, she laughs, [lyssieth.speech(Very good. If I were to tell you to surrender yourself to Lilith, allow her to drain your arcane power, and then live out the rest of your life as her slave, would you [style.glowArcane(obey)]?)]
 	</p>
 	<p>
-		As yet another forceful command is uttered, your head starts to swim, and you feel as though you're dipping in and out of conciousness. The only words that you can seem to form in your mind are 'yes' and 'mistress', and, wanting to do as you're told, you speak them out loud, [pc.speech(Yes, Mistress...)]
+		As yet another forceful command is uttered, your head starts to swim, and you feel as though you're dipping in and out of consciousness. The only words that you can seem to form in your mind are 'yes' and 'mistress', and, wanting to do as you're told, you speak them out loud, [pc.speech(Yes, Mistress...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -366,10 +366,10 @@
 		[lyssieth.speech(Well, to go right back to the very start, my six sisters and I were born of Lilith and an unknown father over six thousand years ago. Along with our mother, we brought about the creation of the first human civilisations, with the intention of ruling over all of humankind as goddesses. Although we elder lilin are the only natural-born daughters of Lilith, she corrupted many, many humans into lilin as well. With their help, as well as that of their demon offspring, we easily subdued the humans,)] Lyssieth explains, [lyssieth.speech(However, after around two thousand years spent forging what would later become the Akkadian empire, the angels arrived.)]
 	</p>
 	<p>
-		[lilaya.speech(Angels? What are those?)] Lilaya asks.
+		[lilaya.speech(Angels? They're real?)] Lilaya asks.
 	</p>
 	<p>
-		[lyssieth.speech(A race opposite to demons in almost every way. They hold the sickening belief that purity and chastity are qualities to be admired,)] Lyssieth explains, the disgust in her voice clear for all to hear, [lyssieth.speech(They were well known in the previous reality, as I'm sure [pc.name] can attest, but Lilith's spell wrote them out of history. Anyway, one day, over four thousand years ago, the angelic equivalents to Lilith and my sisters appeared. With seven archangels in tow, a being known as Samael rudely demanded that we leave humanity alone. To cut a long story short, they vastly underestimated our power, and we soon defeated and captured all seven of the archangels.)]
+		[lyssieth.speech(Yes, and they're almost exactly the same as their stereotypical depiction, being opposite to demons in almost every way. They hold the sickening belief that purity and chastity are qualities to be admired,)] Lyssieth explains, the disgust in her voice clear for all to hear, [lyssieth.speech(Anyway, one day, over four thousand years ago, the angelic equivalents to Lilith and my sisters appeared. With seven archangels in tow, a being known as Samael rudely demanded that we leave humanity alone. To cut a long story short, they vastly underestimated our power, and we soon defeated and captured all seven of the archangels.)]
 	</p>
 	<p>
 		[pc.speech(But not Samael?)] you observe.
@@ -449,12 +449,12 @@
 		You can tell that Lilaya's existential crisis has reached breaking point, and, realising that the simple truth will be enough to calm her down, you reassure her, [pc.speech(Yes, you're a half-demon now, Lilaya, but your personality, your mannerisms, even your looks are all the same as they were when you were Lily. You're still fundamentally the same person deep down inside, even if you can't feel it. Remember how I instantly recognised you the first time I saw you? You're still <i>you</i>, Lilaya.)]
 	</p>
 	<p>
-		Thankfully, your words have the desired effect, and your aunt's anger dissipates as quickly as it appeared. Collapsing down onto a nearby chair, she sighs, [lilaya.speech(I don't know... So I'm really your aunt, huh? Just in a different body, in a different reality...
+		Thankfully, your words have the desired effect, and your aunt's anger dissipates as quickly as it appeared. Collapsing down onto a nearby chair, she sighs, [lilaya.speech(I don't know... So I was really your aunt, huh? I'm just a different version of.. well... myself. In a different body, in a different reality...
 		#IF pc.getSexCount(lilaya)>0
 		#THEN
-			 And we had sex... One thing's for sure; that's not happening again. I mean, you're <i>actually</i> my [pc.niece], after all...
+			 And we had sex... Well, I mean, I suppose you're not <i>really</i> my [pc.niece] any more, so I guess I don't mind that...
 		#ELSE
-			 I don't think I'll be offering any more of those special tests... I mean, you're <i>actually</i> my [pc.niece], after all...
+			 I mean, I suppose you're not <i>really</i> my [pc.niece] any more, so I guess I don't mind still offering you those tests...
 		#ENDIF)]
 	</p>
 	<p>
@@ -505,7 +505,7 @@
 		[pc.speech(Why did you choose to betray Lilith, and not simply hand me over to her?)] you ask.
 	</p>
 	<p>
-		[lyssieth.speech(Because if I did that, then mother might finally be able to turn all of humanity into demons,)] Lyssieth replies, [lyssieth.speech(And I cna't let that happen!)]
+		[lyssieth.speech(Because if I did that, then mother might finally be able to turn all of humanity into demons,)] Lyssieth replies, [lyssieth.speech(And I can't let that happen!)]
 	</p>
 	<p>
 		[pc.speech(Yes, but why do you care for humans so much? From what you've already said, your sisters don't seem to have any qualms about treating humans like dirt.)]
@@ -685,7 +685,7 @@
 		[pc.speech(There's no way that I'll stand a chance against that!)] you exclaim, [pc.speech(Not would I have to defeat who-knows how many centaurs all at once, but I'd also have to fight an elder lilin at the same time?! All it took for you to incapacitate me was to use that arcane order. What's to stop Lunette from doing the same?)]
 	</p>
 	<p>
-		[lyssieth.speech(Once I've granted you my essence, it will render you immune to Lilith's Command spell, so Lunette will be unable to defeat you without facing you in combat,)] Lyssieth syas, [lyssieth.speech(And as for her centaur followers, well, erm, I'm sure you can think of something...)]
+		[lyssieth.speech(Once I've granted you my essence, it will render you immune to Lilith's Command spell, so Lunette will be unable to defeat you without facing you in combat,)] Lyssieth says, [lyssieth.speech(And as for her centaur followers, well, erm, I'm sure you can think of something...)]
 	</p>
 	<p>
 		[siren.speech(Why don't you get the youko to help?)] [siren.name] chimes in, [siren.speech(If there's anyone who could match the power of a demon, it's a youko. I'm sure you could find a way to get their help.)]
@@ -700,7 +700,7 @@
 		[pc.speech(I seriously doubt that she's in the citadel anymore,)] you state, [pc.speech(Where could I find her?)]
 	</p>
 	<p>
-		[siren.speech(I first met her in the town of Elis, back before I decided to conquer all of Submission. It's the closest town to the youko's forest homeland, and one of the largest and post prosperous in all the Foloi fields. She's probably gone back there.)]
+		[siren.speech(I first met her in the town of Elis, back before I decided to conquer all of Submission. It's the closest town to the youko's forest homeland, and one of the largest and most prosperous in all the Foloi fields. She's probably gone back there.)]
 	</p>
 	<p>
 		[pc.speech(I suppose a 'probably' is better than nothing, and I will need some help against those centaurs,)] you sigh, [pc.speech(I guess I head there.)]
@@ -784,7 +784,7 @@
 		[lyssieth.speech(Ok...)] Lyssieth says, still pouting for a moment, before letting out a long, deep sigh and closing her eyes. [lyssieth.speech(Sit down and relax. This will be done in a flash...)]
 	</p>
 	<p>
-		Doing as instructed, you sit down on one of the chairs before Lyssieth's desk, and, closing your eyes, you try to relax. As you let out a sigh of your own, you start to feel a strange warmth pulsating all around you, and before you know what's happening, you're slipping out of conciousness...
+		Doing as instructed, you sit down on one of the chairs before Lyssieth's desk, and, closing your eyes, you try to relax. As you let out a sigh of your own, you start to feel a strange warmth pulsating all around you, and before you know what's happening, you're slipping out of consciousness...
 	</p>
 	]]>
 	</htmlContent>
@@ -808,7 +808,7 @@
 		[lyssieth.speech(Ok...)] Lyssieth says, still pouting for a moment, before letting out a long, deep sigh and closing her eyes. [lyssieth.speech(Sit down and relax. This will be done in a flash...)]
 	</p>
 	<p>
-		Doing as instructed, you sit down on one of the chairs before Lyssieth's desk, and, closing your eyes, you try to relax. As you let out a sigh of your own, you start to feel a strange warmth pulsating all around you, and before you know what's happening, you're slipping out of conciousness...
+		Doing as instructed, you sit down on one of the chairs before Lyssieth's desk, and, closing your eyes, you try to relax. As you let out a sigh of your own, you start to feel a strange warmth pulsating all around you, and before you know what's happening, you're slipping out of consciousness...
 	</p>
 	]]>
 	</htmlContent>
@@ -856,7 +856,7 @@
 		Orialyss falls in behind you, following in your footsteps as you make your way to where your other lilin subordinates have trapped your angelic foe. With Valoel soon to be captured, you'll finally be able to return to the comfort of your human harem, and, with that thought in mind, you can't help but grin as you step over the shattered remains of the throne room's doors and come face-to-face with the archangel himself.
 	</p>
 	<p>
-		You feel your heart skip a beat as you see that he looks almost identical to a human, and an incredibly hot human at that. Light-skinned, with blonde hair and blue eyes, the arcahngel's masculine, handsome face turns this way and that as he prepares to defend from an attack coming from any direction. Letting your eyes wander down, you see that his tunic has been half-torn open, revealing his rippling abs and muscular chest. Pressed up against the wall behind him is the only visible mark of his angelic nature, taking the form of a pair of huge, white-feathered wings. They look a little tattered from his struggle with your sisters, and you're surprised to feel a pang of sympathy as you see the fear in his eyes.
+		You feel your heart skip a beat as you see that he looks almost identical to a human, and an incredibly hot human at that. Light-skinned, with blonde hair and blue eyes, the archangel's masculine, handsome face turns this way and that as he prepares to defend from an attack coming from any direction. Letting your eyes wander down, you see that his tunic has been half-torn open, revealing his rippling abs and muscular chest. Pressed up against the wall behind him is the only visible mark of his angelic nature, taking the form of a pair of huge, white-feathered wings. They look a little tattered from his struggle with your sisters, and you're surprised to feel a pang of sympathy as you see the fear in his eyes.
 	</p>
 	<p>
 		Shaking your head clear of such unwanted thoughts, you take note of the fact that ten of your sisters are keeping Valoel backed into his corner of the room, and by his side, he has three of his human companions. Around twenty incapacitated humans litter the floor, and you playfully bite your lip as you imagine the fun that you'll be able to have with them later on. Stepping up alongside your sisters, you carelessly sweep your hand to one side, causing the trio of humans before you to be hurled some distance across the room, where they're instantly set upon and restrained by Orialyss.

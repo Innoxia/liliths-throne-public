@@ -8,11 +8,13 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.?
- * @version 0.1.?
+ * @version 0.3.3
  * @author Innoxia
  */
 public abstract class ParserCommand {
-	private boolean allowsCapitalisation, allowPronoun;
+	
+	private boolean allowsCapitalisation;
+	private boolean allowPronoun;
 	private String description, arguments;
 	private List<String> tags;
 	private BodyPartType relatedBodyPart;
@@ -29,7 +31,7 @@ public abstract class ParserCommand {
 		this.arguments=arguments;
 		this.relatedBodyPart=relatedBodyPart;
 	}
-	
+
 	public boolean isAllowsCapitalisation() {
 		return allowsCapitalisation;
 	}
@@ -63,7 +65,7 @@ public abstract class ParserCommand {
 				+(arguments==""?"":"<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>("+arguments+")</i>")+"]";
 	}
 	
-	public abstract String parse(String command, String arguments, String target, GameCharacter character);
+	public abstract String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character);
 	
 	/**
 	 * Some methods might return a null or empty string for a descriptor. This method accounts for that, applying a descriptor if one is available and then returning the descriptor + name combination.

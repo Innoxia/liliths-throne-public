@@ -1,11 +1,15 @@
 package com.lilithsthrone.game.dialogue.encounters;
 
-import com.lilithsthrone.game.Weather;
+import java.time.Month;
+
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.Weather;
+import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
@@ -165,7 +169,7 @@ public class DominionEncounterDialogue {
 							+ " The bright flash of purple-hued arcane lightning occasionally illuminates your surroundings, and it's just as one of these happens to strike that you spot something strange up ahead."
 						+ "</p>"
 						+ "<p>"
-							+ "About fifty metres in front of you, standing alone in the middle of the road, is a small, silver-furred fox."
+							+ "About [unit.lSizes(5000)] in front of you, standing alone in the middle of the road, is a small, silver-furred fox."
 							+ " It appears to have spotted you at the exact same moment that you saw it, and, raising its head, it turns to face in your direction."
 						+ "</p>"
 						+ "<p>"
@@ -199,7 +203,7 @@ public class DominionEncounterDialogue {
 						+ " Weaving your way through the throngs of shoppers and passersby, you suddenly spot something strange through a gap in the crowds up ahead."
 					+ "</p>"
 					+ "<p>"
-						+ "About fifty metres in front of you, standing alone in the middle of the road, is a small, silver-furred fox."
+						+ "About [unit.lSizes(5000)] in front of you, standing alone in the middle of the road, is a small, silver-furred fox."
 						+ " It appears to have spotted you at the exact same moment that you saw it, and, raising its head, it turns to face in your direction."
 					+ "</p>"
 					+ "<p>"
@@ -241,4 +245,82 @@ public class DominionEncounterDialogue {
 		}
 	};
 
+
+	public static final DialogueNode DOMINION_STREET_VIXEN_VIRILITY_HANDOUT = new DialogueNode("Mother's Week Gift", "", true) {
+
+		@Override
+		public String getContent() {
+			
+			if(Main.game.getDateNow().getMonth()==Month.MAY) { // Mother's day:
+				String name = Util.randomItemFrom(Subspecies.getWorldSpecies().get(WorldType.DOMINION).keySet()).getSingularFemaleName(null);
+				String litter = Util.randomItemFrom(new String[] {"twins", "triplets", "quadruplets", "quintuplets", "sextuplets"});
+				
+				return "<p>"
+							+ "As you walk down Dominion's wide boulevard, an exceptionally happy-looking "+name+" bounces up in front of you, blocking your way."
+							+ " After taking note of the fact that she looks to be having the time of her life, you observe that she has a large, rounded tummy, and is quite clearly heavily pregnant."
+							+ " Before you can ask her to move aside, she exclaims, in a voice just as bubbly and enthusiastic as you'd imagine,"
+							+ " [genericFemale.speech(Isn't Mother's week just the most wonderful time of year?! I'm already expecting "+litter+"! I couldn't be happier!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "With this unsolicited information now having been delivered to you, the "+name+" reaches into the wicker basket which she's carrying,"
+								+ " before grabbing a handful of little pink pills and forcefully thrusting them into your [pc.hands]."
+							+ "#IF(pc.isFeminine())"
+								+ "#IF(pc.isVisiblyPregnant())"
+								+ " [genericFemale.speech(Already got a bun or two in the oven, I see! Well, once you've got them popped out, you can use these pills to make sure that you'll quickly get knocked up again!)]"
+								+ "#ELSE"
+								+ " [genericFemale.speech(Here you go, hun! Pop one of these, and give one to the next stud who fucks you, and you're sure to become a mommy!)]"
+								+ "#ENDIF"
+							+ "#ELSE"
+								+ " [genericFemale.speech(Here you go, stud! Get your next fuck to swallow one of these, and you do the same, and you're sure to make her into a mommy!)]"
+							+ "#ENDIF"
+						+ "</p>"
+						+ "<p>"
+							+ "Before you can reply, the excitable "+name+" suddenly catches sight of her next target, and as she darts away into the crowd, she calls out,"
+							+ " [genericFemale.speech(There's no charge for the pills! Just make sure to use them!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "With nothing to be done except pocketing the pills for another time, you continue on your way..."
+						+ "</p>";
+				
+			} else { // Father's day:
+				String name = Util.randomItemFrom(Subspecies.getWorldSpecies().get(WorldType.DOMINION).keySet()).getSingularMaleName(null);
+				return "<p>"
+							+ "As you walk down Dominion's wide boulevard, a tall, handsome "+name+" suddenly steps up in front of you, blocking your way."
+							+ " Before you can ask him to step aside, he grins, and in a deep, booming voice, declares,"
+							+ " [genericMale.speech(Father's week is the best time of year, isn't it?! I've already knocked up a dozen or so mothers-to-be!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "With this unsolicited information now having been delivered to you, the "+name+" reaches into the bum bag which he's got strapped around his waist,"
+								+ " before grabbing a handful of little pink pills and forcefully thrusting them into your [pc.hands]."
+							+ "#IF(pc.isFeminine())"
+								+ "#IF(pc.isCoverableAreaExposed(CA_PENIS) && pc.hasPenisIgnoreDildo())"
+								+ " [genericMale.speech(Here you go, babe! I see you're packing, so just pop one of these before you give your next fuck a nice big creampie, and you're sure to become a father!)]"
+								+ "#ELSE"
+								+ " [genericMale.speech(Here you go, babe! Just get your next fuck to pop one of these before he gives you a creampie, and you're sure to make him a father!"
+									+ " I'd take the time to knock up you up myself, but I've got these pills to hand out!)]"
+								+ "#ENDIF"
+							+ "#ELSE"
+								+ " [genericMale.speech(Here you go, stud! Just pop one of these before you give your next fuck a nice big creampie, and you're sure to become a father!)]"
+							+ "#ENDIF"
+						+ "</p>"
+						+ "<p>"
+							+ "Before you can reply, the boisterous "+name+" suddenly catches sight of his next target, and as he strides away into the crowd, he calls out,"
+							+ " [genericMale.speech(There's no charge for the pills! Just make sure to use them!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "With nothing to be done except pocketing the pills for another time, you continue on your way..."
+						+ "</p>";
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Continue on your way.", Main.game.getDefaultDialogueNoEncounter());
+				
+			} else {
+				return null;
+			}
+		}
+	};
 }

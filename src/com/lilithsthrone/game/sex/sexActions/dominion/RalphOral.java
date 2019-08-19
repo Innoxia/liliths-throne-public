@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -11,6 +13,8 @@ import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.Sex;
@@ -69,7 +73,7 @@ public class RalphOral {
 					+ " Opening your mouth, you simply move your lips down to kiss the flared head of his horse-like shaft.");
 			
 			if(Sex.hasLubricationTypeFromAnyone(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, LubricationType.PRECUM))
-				UtilText.nodeContentSB.append(" As the tip of your tongue slides over his bumpy equine urethra, a dollop of salty pre-cum leaks into your mouth."
+				UtilText.nodeContentSB.append(" As the tip of your tongue slides over his bumpy equine urethra, a dollop of salty precum leaks into your mouth."
 						+ " You let out a surprised moan as the salty liquid drips past your lips");
 			else
 				UtilText.nodeContentSB.append(" As the tip of your tongue slides over his bumpy equine urethra, you feel the heat of his bestial cock radiating across your face."
@@ -123,7 +127,7 @@ public class RalphOral {
 		@Override
 		public String getDescription() {
 			return "You sit perfectly still, trying your best not to make a sound as Ralph finishes dealing with the customer above you."
-					+ " A slimy stream of saliva and pre-cum drools down from your stretched lips, and you silently slide forwards a little more as you try to use Ralph's cock to push the liquid back down your throat.";
+					+ " A slimy stream of saliva and precum drools down from your stretched lips, and you silently slide forwards a little more as you try to use Ralph's cock to push the liquid back down your throat.";
 		}
 	};
 	
@@ -157,7 +161,7 @@ public class RalphOral {
 		public String getDescription() {
 			return "As Ralph finishes dealing with the customer above you, you decide to have a little fun."
 					+ " Pulling back, you gently run your tongue around the flared head of his equine cock, teasing the tip over his bumpy urethra."
-					+ " A slimy stream of saliva and pre-cum drools down from your stretched lips, and you reach up to smear the natural lubricant up and down his shaft, gently stroking his balls as you carry on teasing his head with your tongue."
+					+ " A slimy stream of saliva and precum drools down from your stretched lips, and you reach up to smear the natural lubricant up and down his shaft, gently stroking his balls as you carry on teasing his head with your tongue."
 					+ " You grin mischievously as you hear Ralph struggling to maintain his composure in front of the customer, and as you hear him tactfully directing the customer to look at the other side of the shop,"
 					+ " he slams his cock forwards down your throat, letting you know that he's clearly not amused by your little game...";
 		}
@@ -273,7 +277,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "Deep throat";
+			return "Deepthroat";
 		}
 
 		@Override
@@ -359,8 +363,13 @@ public class RalphOral {
 				SexFlags.alertedCustomer=true;
 			
 			SexFlags.askedForBigDiscount=true;
-			
-			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.VAGINA);
+
+			Map<AbstractClothing, DisplacementType> clothingTouched = Main.game.getPlayer().displaceClothingForAccess(CoverableArea.VAGINA, null);
+			for(Entry<AbstractClothing, DisplacementType> e : clothingTouched.entrySet()) {
+				if(e.getValue()==DisplacementType.REMOVE_OR_EQUIP) {
+					Main.game.getPlayerCell().getInventory().addClothing(e.getKey());
+				}
+			}
 		}
 		
 		@Override
@@ -420,12 +429,18 @@ public class RalphOral {
 
 		@Override
 		public void applyEffects() {
-			if(SexFlags.customerAtCounter)
+			if(SexFlags.customerAtCounter) {
 				SexFlags.alertedCustomer=true;
+			}
 			
 			SexFlags.askedForBigDiscount=true;
 			
-			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.ANUS);
+			Map<AbstractClothing, DisplacementType> clothingTouched = Main.game.getPlayer().displaceClothingForAccess(CoverableArea.ANUS, null);
+			for(Entry<AbstractClothing, DisplacementType> e : clothingTouched.entrySet()) {
+				if(e.getValue()==DisplacementType.REMOVE_OR_EQUIP) {
+					Main.game.getPlayerCell().getInventory().addClothing(e.getKey());
+				}
+			}
 		}
 		
 		@Override
@@ -1620,7 +1635,7 @@ public class RalphOral {
 						UtilText.nodeContentSB.append("out into the condom that you're wearing.");
 						
 					} else if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)) {
-						UtilText.nodeContentSB.append(" into your [pc.lowClothing(penis)].");
+						UtilText.nodeContentSB.append(" into your [pc.lowClothing(PENIS)].");
 						
 					} else {
 						UtilText.nodeContentSB.append(" out all over the floor beneath you.");
@@ -1708,7 +1723,7 @@ public class RalphOral {
 					&& Main.game.getPlayer().getPenisType()!=PenisType.NONE
 					&& !Main.game.getPlayer().isWearingCondom()
 					&& Main.game.getPlayer().getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE)
-				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
+				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(Main.game.getPlayer(), true);
 			
 			if(SexFlags.customerAtCounter) {
 				if(SexFlags.ralphDiscount>0)
@@ -1810,8 +1825,8 @@ public class RalphOral {
 							+ "As Ralph's balls finish emptying themselves, he steps back, sliding his rapidly-softening member from your well-used pussy."
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you roll over onto your back and playfully wrap your legs around Ralph,"
 							+ " pulling him forwards and rubbing your pussy against his now-flaccid equine cock as he finishes tying up the used condom."
-							+ " He places the little seed-filled package down next to you, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction, "
-							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getNpc(Ralph.class)));
+							+ " He places the little seed-filled package down next to you, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction,"
+							+ " [ralph.speechNoEffects(Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...)]");
 				} else {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load"
 							+ (Main.game.getPlayer().isVisiblyPregnant()
@@ -1825,8 +1840,8 @@ public class RalphOral {
 							+ "As Ralph's balls finish emptying themselves, he steps back, and with a wet sucking sound, slips his rapidly-softening member out of your well-used slit."
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you feel a little trickle of his warm, wet seed escaping from your entrance."
 							+ " Rolling over onto your back, you playfully wrap your legs around Ralph, pulling him forwards and rubbing your cum-filled pussy against his now-flaccid equine cock."
-							+ " It seems as though he's not up for round two, however, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction, "
-							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getNpc(Ralph.class)));
+							+ " It seems as though he's not up for round two, however, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction,"
+							+ " [ralph.speechNoEffects(Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...)]");
 				}
 				
 			}else if(!Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty()){
@@ -1842,8 +1857,8 @@ public class RalphOral {
 							+ "As Ralph's balls finish emptying themselves, he steps back, sliding his rapidly-softening member from your well-used back door."
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you roll over onto your back and playfully wrap your legs around Ralph,"
 							+ " pulling him forwards and rubbing your groin against his now-flaccid equine cock as he finishes tying up the used condom."
-							+ " He places the little seed-filled package down next to you, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction, "
-							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getNpc(Ralph.class)));
+							+ " He places the little seed-filled package down next to you, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction,"
+							+ " [ralph.speechNoEffects(Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...)]");
 				} else {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into your ass, and as you feel the hot seed filling you up, you let out a satisfied groan."
 							+ " His cock continues to pump a few more times, the huge, black equine shaft making sure to deposit its seed deep into your hungry back door."
@@ -1852,8 +1867,8 @@ public class RalphOral {
 							+ "As Ralph's balls finish emptying themselves, he steps back, and with a wet sucking sound, slips his rapidly-softening member out of your well-used fuck hole."
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you feel a little trickle of his warm, wet seed escaping from your rear entrance."
 							+ " Rolling over onto your back, you playfully wrap your legs around Ralph, pulling him forwards and rubbing your cum-filled asshole against his now-flaccid equine cock."
-							+ " It seems as though he's not up for round two, however, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction, "
-							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getNpc(Ralph.class)));
+							+ " It seems as though he's not up for round two, however, and you pout at him as he takes hold of your legs and disentangles himself, laughing as he sees your reaction,"
+							+ " [ralph.speechNoEffects(Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...)]");
 				}
 				
 			} else {
@@ -1890,7 +1905,7 @@ public class RalphOral {
 				} else {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into your stomach, and as you feel the hot seed filling you up, you let out a very muffled moan."
 							+ " The huge, black equine shaft continues to pump and twitch a few more times as it deposits its seed deep down your facial fuck hole."
-							+ " Only once your stomach is completely filled with sticky white horse-jizz, does Ralph finally come to the end of his orgasm."
+							+ " Only once your stomach is completely full of sticky white horse-jizz, does Ralph finally come to the end of his orgasm."
 							+ "<br/><br/>"
 							+ "As his balls finish emptying themselves, he steps back, sliding his rapidly-softening member from your well-used throat."
 							+ " A thick, slimy strand of cummy saliva drools down to form a little stream beneath your mouth, and you shuffle forwards, wiping yourself clean as you playfully smile up at Ralph."

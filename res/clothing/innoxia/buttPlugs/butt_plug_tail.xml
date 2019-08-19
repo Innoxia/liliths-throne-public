@@ -7,7 +7,7 @@
 		<name><![CDATA[tail butt plug]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[tail butt plugs]]></namePlural>
 		<description><![CDATA[A metal plug, designed to be inserted into someone's anus. Attached to the cap, there's a long, furry, fox-like tail.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>ANUS</slot>
 		<rarity>COMMON</rarity>
@@ -50,62 +50,33 @@
 			<tag>SOLD_BY_FINCH</tag>
 			<tag>PLUGS_ANUS</tag>
 			<tag>ENABLE_SEX_EQUIP</tag>
+			<tag>TRANSPARENT</tag>
 		</itemTags>
 	</coreAttributes>
 
 	
-  <displacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You pull the butt plug out from your [pc.ass+].]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You pull out [npc.name]'s butt plug.]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You firmly grab [npc.name]'s butt plug and yank it out of [npc.her] [npc.ass+].]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] pulls out [npc.her] butt plug.]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] pulls the butt plug out from your [pc.ass+].]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] firmly grabs your butt plug and yanks it out of your [pc.ass+].]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] pulls out [npc2.name]'s butt plug.]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc.Name] firmly grabs [npc2.name]'s butt plug and yanks it out of [npc2.herHis] [npc2.ass+].]]>
-    </NPCOtherNPCRough>
-  </displacementText>
-
   <replacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You push the butt plug into your [pc.ass+].]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You push the butt plug into [npc.name]'s [npc.ass+].]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You hold [npc.name] still as you roughly force the butt plug into [npc.her] [npc.ass+].]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] pushes the butt plug into [npc.her] [npc.ass+].]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] push the butt plug into your [pc.ass+].]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] holds you still as [npc.sheHe] roughly forces the butt plug into your [pc.ass+]]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] pushes the butt plug into [npc2.Name]'s [npc2.ass+].]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc1.Name] holds [npc2.name] still as [npc1.sheHe] roughly forces the butt plug into [npc2.herHis] [npc2.ass+].]]>
-    </NPCOtherNPCRough>
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(push)] the butt plug into [npc.her] [npc.asshole+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(push)] the butt plug into [npc2.namePos] [npc2.asshole+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] firmly [npc.verb(hold)] [npc2.name] still as [npc.she] roughly [npc.verb(force)] the butt plug into [npc2.her] [npc2.asshole+].]]>
+    </otherRough>
   </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the butt plug out from [npc.her] [npc.asshole+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the butt plug out from [npc2.namePos] [npc2.asshole+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos] butt plug and [npc.verb(yank)] it out of [npc2.her] [npc2.asshole+].]]>
+    </otherRough>
+  </displacementText>
 	
 </clothing>

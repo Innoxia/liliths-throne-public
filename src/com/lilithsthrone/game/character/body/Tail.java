@@ -4,16 +4,18 @@ package com.lilithsthrone.game.character.body;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.1
  * @author Innoxia
  */
 public class Tail implements BodyPartInterface {
+
 	
 	public static final int MAXIMUM_COUNT = 9;
 	
@@ -66,17 +68,10 @@ public class Tail implements BodyPartInterface {
 		
 		if (type == getType()) {
 			if(type == TailType.NONE) {
-				if(owner.isPlayer()) {
-					return "<p style='text-align:center;'>[style.colourDisabled(You already lack a tail, so nothing happens...)]</p>";
-				} else {
-					return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already lacks a tail, so nothing happens...)]</p>");
-				}
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.verb(lack)] a tail, so nothing happens...)]</p>");
+				
 			} else {
-				if(owner.isPlayer()) {
-					return "<p style='text-align:center;'>[style.colourDisabled(You already have the [pc.tail] of [pc.a_tailRace], so nothing happens...)]</p>";
-				} else {
-					return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already has the [npc.tail] of [npc.a_tailRace], so nothing happens...)]</p>");
-				}
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.tail] of [npc.a_tailRace], so nothing happens...)]</p>");
 			}
 		}
 		
@@ -224,6 +219,19 @@ public class Tail implements BodyPartInterface {
 										+owner.getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(owner, true)+".</p>")
 							);
 				}
+				break;
+			case DEMON_HORSE:
+				UtilText.transformationContentSB.append(
+						(owner.getTailCount()==1
+							?" A horse-like tail sprouts from just above [npc.her] ass, rapidly growing in length until it hangs to just over half-way down [npc.her] legs."
+								+ " [npc.She] quickly [npc.verb(discover)] that [npc.her] control over it is limited to swishing it from side to side."
+								+ "<br/>"
+								+ "[npc.Name] now [npc.has] a [style.boldDemon(demonic, horse-like tail)]"
+							:" [npc.TailCount] horse-like tails sprout from just above [npc.her] ass, rapidly growing in length until they hang to just over half-way down [npc.her] legs."
+								+ " [npc.She] quickly [npc.verb(discover)] that [npc.her] control over them is limited to swishing them from side to side."
+								+ "<br/>"
+								+ "[npc.Name] now [npc.has] [npc.tailCount] [style.boldDemon(demonic, horse-like tails)]")
+						);
 				break;
 			case DOG_MORPH: case DOG_MORPH_STUBBY:
 				if (owner.isPlayer()) {
@@ -541,6 +549,19 @@ public class Tail implements BodyPartInterface {
 							);
 				}
 				break;
+			case BAT_MORPH:
+				UtilText.transformationContentSB.append(
+						(owner.getTailCount()==1
+							?" A small tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about as long as one of [npc.her] forearms."
+								+ " [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] a decent amount of control over it, and can twist it almost anywhere [npc.she] [npc.verb(please)]."
+								+ "<br/>"
+								+ "[npc.Name] now [npc.has] a [style.boldBatMorph(bat-like tail)]"
+							:" [npc.TailCount] small tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about as long as one of [npc.her] forearms."
+								+ " [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] a decent amount of control over them, and can twist them almost anywhere [npc.she] [npc.verb(please)]."
+								+ "<br/>"
+								+ "[npc.Name] now [npc.has] [npc.tailCount] [style.boldBatMorph(bat-like tails)]")
+						);
+				break;
 			case RABBIT_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -599,8 +620,22 @@ public class Tail implements BodyPartInterface {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
+		if(owner.getTailType().equals(TailType.FOX_MORPH_MAGIC)) {
+			return "<p style='text-align:center;'>"
+						+ "[style.colourMinorBad([npc.NamePos] arcane-infused "
+							+(this.tailCount==1
+								?"tail absorbs and nullifies"
+								:"tails absorb and nullify")
+							+" the transformative effect, preventing any alteration to the number of tails [npc.she] [npc.has]!)]"
+					+ "</p>";
+		}
+		
+		owner.removeStatusEffect(StatusEffect.SUBSPECIES_BONUS);
+		
 		boolean removingTails = owner.getTailCount() > tailCount;
 		this.tailCount = tailCount;
+
+		owner.addStatusEffect(StatusEffect.SUBSPECIES_BONUS, -1);
 		
 		if (owner.getTailType() == TailType.NONE) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
@@ -656,5 +691,13 @@ public class Tail implements BodyPartInterface {
 						+ "</p>");
 			}
 		}
+	}
+
+	@Override
+	public boolean isBestial(GameCharacter owner) {
+		if(owner==null) {
+			return false;
+		}
+		return owner.getLegConfiguration().getBestialParts().contains(Tail.class) && getType().getRace().isBestialPartsAvailable();
 	}
 }

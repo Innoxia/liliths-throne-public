@@ -159,7 +159,7 @@
 	<p>
 		[claire.speech(Hmm... A Slime Queen...)]
 		 Claire mutters, before starting to pace back and forth. You can't help but notice the way her massive hips and huge breasts rhythmically sway from side to side as she struts back and forth, and look on in amusement as you notice that the other enforcers are all giving her a wide berth.
-		 [claire.speech(You know, we'd heard rumours of a slime calling herself a Queen before, but we've scoured every last inch of the tunnels, and haven't found any trace of her.)]
+		 [claire.speech(You know, we'd heard rumours of a slime calling herself a Queen before, but we've scoured every last [unit.size] of the tunnels, and haven't found any trace of her.)]
 	</p>
 	<p>
 		[pc.speech(Perhaps she isn't in the tunnels?)]
@@ -270,7 +270,7 @@
 	<p>
 		The main tunnels of Submission are surprisingly spacious, clean and full of life.
 		 A deep channel of opaque, greenish water flows at a steady pace down the centre of each passage, and to either side, well-maintained wooden walkways have been built up against the grey stone walls.
-		 Numerous bridges cross the watery divide at regular intervals, and every hundred metres or so, a series of stone steps trails down into the murky river to provide easy access for Submission's aquatic inhabitants.
+		 Numerous bridges cross the watery divide at regular intervals, and every [unit.lSizes(10000)] or so, a series of stone steps trails down into the murky river to provide easy access for Submission's aquatic inhabitants.
 	</p>
 	<p>
 		The damp atmosphere holds just enough chill to gently caress any exposed skin, but, thanks to the wide iron grates built into the ceiling, the air doesn't feel stagnant down here.
@@ -331,7 +331,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="TUNNEL_IMP_CONTROL"><![CDATA[
-	<p style='color:[#pc.getLocationPlace().getPlaceType().getColour().toWebHexString()];'>
+	<p style='color:[#pc.getLocationPlace().getPlaceType().getColourString()];'>
 		<i>This tunnel is part of a network that's currently being controlled by an imp fortress! Until the fortress is cleared, anyone who calls these tunnels home is sure to remain in hiding...</i>
 	</p>
 	]]>
@@ -362,7 +362,7 @@
 	<p>
 		Instantly, the dark grey hue of the staircase beneath your [pc.feet] is replaced by a soft, turquoise glow.
 		 Looking down, you see that the stone steps are coated in a blanket of bioluminescent lichens and mosses, which, when pressure is applied to them, light up to illuminate their the area around them.
-		 Although bright enough to allow you to see your immediate surroundings, the lichen's light drops off at a distance of about fifteen metres or so, and you can't help but feel like it's painting you as a target to anyone lurking in the darkness beyond.
+		 Although bright enough to allow you to see your immediate surroundings, the lichen's light drops off at a distance of about [unit.lSizes(1500)] or so, and you can't help but feel like it's painting you as a target to anyone lurking in the darkness beyond.
 	</p>
 	<p>
 		Determined to continue on your downwards journey, you proceed to the bottom of the staircase, and find yourself stepping forwards into pitch-black cavern.
@@ -379,7 +379,7 @@
 		 A pair of heavy oaken doors, firmly shut tight, fill the opening, leaving you to wonder what could possibly be on the other side.
 	</p>
 	<p>
-		Stepping forwards to take a closer look, you see that the name 'Rengar' has been crudely carved into the wood.
+		Stepping forwards to take a closer look, you see that the name 'Vengar' has been crudely carved into the wood.
 		 Pressing your [pc.ear] against the surface, you can hear the distinct sounds of life within, and you wonder if you should give the doors a knock, or simply carry on your way...
 	</p>
 	]]>
@@ -486,7 +486,7 @@
 	
 	<htmlContent tag="LILIN_PALACE_GATE_ENTRY_BLOCKED"><![CDATA[
 	<p>
-		As you approach, a light-skinned half-succubus, with crimson-skinned demonic parts, steps forwards to bar your passage. [elizabeth.speech(Stop right there, [pc.race]. Her Highness, Lyssieth, isn't receiving visitors at the moment, and it's quite out of the ordinary for someone to just waltz up to us like this. Identify yourself!)]
+		As you approach, a light-skinned half-succubus, with crimson-skinned demonic parts, steps forwards to bar your passage. [elizabeth.speech(Stop right there#IF(pc.getRace()==RACE_HUMAN)!#ELSE, [pc.race].#ENDIF Her Highness, Lyssieth, isn't receiving visitors at the moment, and it's quite out of the ordinary for someone to just waltz up to us like this. Identify yourself!)]
 	</p>
 	<p>
 		You notice that the small army of demons around you are alert and ready for a fight, and, realising that it would be best to cooperate, you decide to do as the half-succubus asks.
@@ -616,13 +616,13 @@
 		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you bested Lyssieth's daughter in combat. As you recount the battle you had in the stone keep, Elizabeth raises her eyebrows and gazes at you in disbelief. [elizabeth.speech(You actually beat her in a fight?! There's no way... But that would mean you still have the ring I gave you! Show it to me, and prove that you're not lying.)]
 	</p>
 	<p>
-		Producing Lyssieth's signet ring, you hand it over to Elizabeth, who stammers and trips over her words as she realises that you were actually telling the truth. [elizabeth.speech(Wow... But Lyssieth herself taught her how to use the arcane... i_I mean, everyone in the palace knows about how she over-estimates her abilities, but she... I mean... Who <i>are</i> you?!)]
+		Producing Lyssieth's signet ring, you hand it over to Elizabeth, who stammers and trips over her words as she realises that you were actually telling the truth, [elizabeth.speech(Wow... But Lyssieth herself taught her how to use the arcane... I-I mean, everyone in the palace knows about how she over-estimates her abilities, but she... I mean... Who <i>are</i> you?!)]
 	</p>
 	<p>
 		[pc.speech(As I told you before, I'm Lilaya's [pc.niece]. Well, sort of, anyway. That's why I need to speak with Lyssieth so badly; I have a lot of questions that I need answered.)]
 	</p>
 	<p>
-		[elizabeth.speech(Well, as promised, you've earned the right to do just that,)] Elizabeth replies, before handing the ring you've just given her over to one of her subordinates, and then producing an identical ring from one of her pockets. She then holds out this ring to you, and as you take it, she explains, [elizabeth.speech(Don't worry, this one doesn't carry an enslavement enchantment. Her Highness instructed us to give this to you as a reward if you managed to deal with her daughter.)]
+		[elizabeth.speech(Well, as promised, you've earned the right to do just that,)] Elizabeth replies, before handing the ring to one of her subordinates, and then producing an identical ring from her pocket. She then holds out this ring to you, and as you take it, she explains, [elizabeth.speech(Don't worry, this one doesn't carry an enslavement enchantment. Her Highness instructed us to give this to you as a reward if you managed to deal with her daughter.)]
 	</p>
 	<p>
 		After you've thanked her, Elizabeth suddenly shouts out a sharp order for her troops to stand to one side. As one, they do as they're commanded, granting you access to the drawbridge that they've been tasked to defend. Turning towards you once more, Elizabeth smiles and says, [elizabeth.speech(You're now free to come and go as you please. That being said, I will have to escort you through the palace. We can't just let people wander around in there unsupervised, I'm sure you understand.)]
@@ -638,13 +638,22 @@
 		[elizabeth.speech(So, how did you do it?)]
 	</p>
 	<p>
-		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you tricked Lyssieth's daughter into wearing the ring you were given. As you recount the conversation the two of you had in the stone keep, Elizabeth rolls her eyes and starts impatiently tapping her foot on the ground. As your story comes to an end, she sighs, [elizabeth.speech(I can't imagine what it must be like to be in the presence of the two of you at once...)]
+		You spend the next fifteen minutes or so explaining your methods, starting at how you got an arcane key from one of the surrounding imp fortress, and finishing with a description of how you tricked Lyssieth's daughter into wearing the enslavement ring.
+		#IF(pc.hasTraitActivated(PERK_CHUUNI))
+		 As you recount the conversation the two of you had in the stone keep, Elizabeth rolls her eyes and starts impatiently tapping her foot on the ground. As your story comes to an end, she sighs, [elizabeth.speech(I can't imagine what it must be like to be in the presence of the two of you at once...)]
+		#ELSE
+		 As your story comes to an end, Elizabeth raises an eyebrow and says, [elizabeth.speech(I can't believe she actually fell for that...)]
+		#ENDIF
 	</p>
 	<p>
-		Taking that as a compliment, you smirk as you reply, [pc.speech(It is rather hard to picture such a cataclysmic encounter between two of the greatest arcane-wielders to ever have lived! But anyway, enough of that! I have a lot of questions that I need Lyssieth to answer. Can I please enter the palace now?)]
+		#IF(pc.hasTraitActivated(PERK_CHUUNI))
+			Taking that as a compliment, you smirk as you reply, [pc.speech(I suppose that it must be rather hard for you to picture such a cataclysmic encounter between two of the greatest arcane-wielders to ever have lived! But anyway, enough of that! I have a lot of questions that I need Lyssieth to answer. Can I please enter the palace now?)]
+		#ELSE
+			[pc.speech(It <i>was</i> easier than I expected,)] you reply, [pc.speech(Anyway, as I said before, I have a lot of questions that I need Lyssieth to answer. Can I please enter the palace now?)]
+		#ENDIF
 	</p>
 	<p>
-		[elizabeth.speech(Well, as promised, you've earned the right to do just that,)] Elizabeth replies, before producing a very familiar-looking signet ring from her right pocket. She then holds out this ring to you, and as you take it, she explains, [elizabeth.speech(Don't worry, this one doesn't carry an enslavement enchantment. Her Highness instructed us to give this to you as a reward if you managed to deal with her daughter.)]
+		[elizabeth.speech(Well, as promised, you've earned the right to do just that,)] Elizabeth replies, before producing a very familiar-looking signet ring from her pocket. She then holds out this ring to you, and as you take it, she explains, [elizabeth.speech(Don't worry, this one doesn't carry an enslavement enchantment. Her Highness instructed us to give this to you as a reward if you managed to deal with her daughter.)]
 	</p>
 	<p>
 		After you've thanked her, Elizabeth suddenly shouts out a sharp order for her troops to stand to one side. As one, they do as they're commanded, granting you access to the drawbridge that they've been tasked to defend. Turning towards you once more, Elizabeth smiles and says, [elizabeth.speech(You're now free to come and go as you please. That being said, I will have to escort you through the palace. We can't just let people wander around in there unsupervised, I'm sure you understand.)]

@@ -22,7 +22,7 @@ public enum SpellSchool {
 				+ "A prerequisite to harnessing Earth spells is the ability to freely manipulate solid, non-organic matter."
 				+ " Easily learned by anyone possessing a demon-strength aura, and outlined in the introduction of all Earth spell books, this ability allows the practitioner to change the colour and material of any object."
 			+ "</p>",
-			"Dye clothing without a dye-brush.",
+			"Dye clothing and reforge weapons at will.",
 			Colour.BASE_BROWN),
 
 	WATER("water",
@@ -51,7 +51,7 @@ public enum SpellSchool {
 			+ "<p>"
 				+ "Students of the school of Air are able to effortlessly control the temperature of air around them, making sure that they're never too hot or too cold."
 			+ "</p>",
-			"Passive energy and arcane regeneration is doubled.",
+			"Passive "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+" regeneration is doubled.",
 			Colour.BASE_BLUE_LIGHT),
 	
 	FIRE("fire",
@@ -65,7 +65,7 @@ public enum SpellSchool {
 			+ "<p>"
 				+ "Students of the school of Fire are able to temporarily envelop their melee weapons in arcane fire, which grants them additional fire damage on every attack."
 			+ "</p>",
-			"All melee attacks deal an additional 2 "+Attribute.DAMAGE_FIRE.getName()+".",
+			"When out of aura, fire spells will be cast at 1/4 spell cost by using "+Attribute.HEALTH_MAXIMUM.getName()+".",
 			Colour.BASE_ORANGE),
 
 	ARCANE("arcane",

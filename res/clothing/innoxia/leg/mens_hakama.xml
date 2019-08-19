@@ -12,7 +12,7 @@
 		
 		<description><![CDATA[Tied at the waist and falling approximately to the ankles, hakama, such as this one, are meant to be worn over a kimono.]]></description> 
 		
-		<physicalResistance>2</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<femininity>MASCULINE</femininity> 
 		
@@ -67,6 +67,7 @@
 		
 		<itemTags>
 			<tag>REINDEER_GIFT</tag>
+			<tag>FITS_NON_BIPED_BODY_HUMANOID</tag>
 		</itemTags>
 	</coreAttributes>
 

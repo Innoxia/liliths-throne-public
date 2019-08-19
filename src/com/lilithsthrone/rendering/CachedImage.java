@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 /**
  * @since 0.2.5.5
- * @version 0.2.9
+ * @version 0.3.0
  * @author Addi
  */
 public class CachedImage {
@@ -28,13 +28,7 @@ public class CachedImage {
 		try (ByteArrayOutputStream byteStream = new ByteArrayOutputStream()) {
 			// Load the image
 			BufferedImage image = ImageIO.read(f);
-			width = image.getWidth();
-			height = image.getHeight();
-			if(height == width) {
-				percentageWidth = 45;
-			} else if(height < width) {
-				percentageWidth = 65;
-			}
+			updatePercentageWidth(image);
 
 			// Resize image
 			int[] targetSize = getAdjustedSize(600, 600);
@@ -53,6 +47,16 @@ public class CachedImage {
 		return true;
 	}
 
+	void updatePercentageWidth(BufferedImage image) {
+		width = image.getWidth();
+		height = image.getHeight();
+		if(height == width) {
+			percentageWidth = 45;
+		} else if(height < width) {
+			percentageWidth = 65;
+		}
+	}
+
 	/**
 	 * Retrieve the image in base 64 encoded string format. The string must start with 'data:image/png;base64'.
 	 * @return The image as base64 string
@@ -61,11 +65,21 @@ public class CachedImage {
 		return imageString;
 	}
 
+	/**
+	 * Retrieve the thumbnail of the image.
+	 * @return The thumbnail image as base64 string
+	 */
+	public String getThumbnailString() {
+		return imageString;
+	}
+
 	public int getWidth() {
 		return width;
 	}
 
-	public int getHeight() { return height; }
+	public int getHeight() {
+		return height;
+	}
 
 	/**
 	 * Retrieve the width percentage that the image is supposed to take on the character information page. The value is
@@ -98,9 +112,9 @@ public class CachedImage {
 	 * @param original The BufferedImage to scale
 	 * @param targetWidth The targeted width, ignoring aspect ratio
 	 * @param targetHeight The targeted height, ignoring aspect ratio
-	 * @return
+	 * @return The rescaled image
 	 */
-	public static BufferedImage scaleDown(BufferedImage original, int targetWidth, int targetHeight) {
+	static BufferedImage scaleDown(BufferedImage original, int targetWidth, int targetHeight) {
 		int width = original.getWidth();
 		int height = original.getHeight();
 		BufferedImage rv = original;

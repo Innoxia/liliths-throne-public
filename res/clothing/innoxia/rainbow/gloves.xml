@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>250</value> 
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[rainbow glove]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[rainbow gloves]]></namePlural> 
+		<description><![CDATA[A pair of brightly-coloured rainbow fingerless gloves, which reach up to wearer's mid-forearm.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity>
+		<slot>HAND</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet>RAINBOW</clothingSet>
+		<imageName>gloves.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		
+		<effects> 
+            <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+		</effects>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>FINGERS</clothingAccess>
+					<clothingAccess>WRISTS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_MULTICOLOURED</colour>
+		</primaryColours>
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves over [npc.her] [npc.hands], before pulling them up to [npc.her] mid-forearm.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves over [npc2.namePos] [npc2.hands], before pulling them up to [npc2.her] mid-forearm.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(forces)] the gloves onto [npc2.namePos] [npc2.hands], before yanking them up to [npc2.her] mid-forearm.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc.her] forearms, before pulling them free from [npc.her] [npc.hands].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves down from [npc2.namePos] forearms, before pulling them free from [npc2.her] [npc2.hands].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(yank)] the gloves down from [npc2.namePos] forearms, before roughly pulling them free from [npc2.her] [npc2.hands].]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

@@ -108,7 +108,7 @@ public abstract class AbstractAssType implements BodyPartTypeInterface {
 	 */
 	public BodyCoveringType getBodyCoveringType(Body body) {
 		if(body!=null) {
-			return body.getSkin().getType().getBodyCoveringType(body);
+			return body.getSkin().getBodyCoveringType(body);
 		}
 		return skinType;
 	}

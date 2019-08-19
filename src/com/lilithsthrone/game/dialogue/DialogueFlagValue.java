@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.2.12
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -24,6 +24,12 @@ public enum DialogueFlagValue {
 	visitedSubmission,
 	mommyFound,
 	
+	daddyFound,
+	rudeToDaddy,
+	flirtingWithDaddy,
+	talkedWithDaddy,
+	daddySendingReward,
+	
 	// Gym:
 	gymIntroduced,
 	gymHadTour,
@@ -40,6 +46,7 @@ public enum DialogueFlagValue {
 	nyanIntroduced,
 	kateIntroduced,
 	vickyIntroduced,
+	vanessaIntroduced,
 
 	roxyIntroduced,
 	axelIntroduced,
@@ -49,6 +56,16 @@ public enum DialogueFlagValue {
 	
 	// Red-light district:
 	prostitutionLicenseObtained,
+
+	
+	// City hall:
+	vanessaHelped,
+	vanessaDailyHelped,
+	vanessaDailyMassage,
+	vanessaMassaged,
+	vanessaFucked,
+	vanessaAskedAboutCatalogue,
+	vanessaAskedAboutSolitary,
 	
 	
 	// Shopping arcade:
@@ -74,10 +91,13 @@ public enum DialogueFlagValue {
 	lilayaDateTalk,
 	auntHomeJustEntered,
 	hadSexWithLilaya,
+	lilayaCondomBroke,
 	reactedToPregnancyLilaya,
 	waitingOnLilayaPregnancyResults,
+	waitingOnLilayaBirthNews,
 	essenceExtractionKnown,
 	roseToldOnYou,
+	lilayaReactedToPlayerAsDemon,
 	
 	readBook1,
 	readBook2,
@@ -112,6 +132,7 @@ public enum DialogueFlagValue {
 	
 	// Slaver Alley:
 	finchIntroduced,
+	statueTruthRevealed,
 	
 	// Zaranix:
 	zaranixDiscoveredHome,
@@ -139,6 +160,7 @@ public enum DialogueFlagValue {
 	slimeGuardsDefeated,
 	slimeRoyalGuardIntroduced,
 	slimeRoyalGuardDefeated,
+	slimeRoyalGuardDefeatReacted,
 	slimeQueenHelped,
 	slimeQueenConvinced,
 	slimeQueenForced,
@@ -195,6 +217,8 @@ public enum DialogueFlagValue {
 	lyssiethQuestionAsked3,
 	lyssiethQuestionAsked4,
 	lyssiethQuestionAsked5,
+
+	meraxisRepeatDemonTF,
 	
 	;
 }

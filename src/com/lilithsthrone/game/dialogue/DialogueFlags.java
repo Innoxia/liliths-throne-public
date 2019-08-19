@@ -29,6 +29,7 @@ public class DialogueFlags implements XMLSaving {
 	public int scarlettPrice;
 	public int eponaStamps;
 	public long kalahariBreakStartTime;
+	public long daddyResetTimer;
 
 	public long impFortressAlphaDefeatedTime;
 	public long impFortressDemonDefeatedTime;
@@ -59,6 +60,8 @@ public class DialogueFlags implements XMLSaving {
 		
 		ralphDiscountStartTime = -1;
 		kalahariBreakStartTime = -1;
+		daddyResetTimer = -1;
+				
 		ralphDiscount = 0;
 		
 		eponaStamps = 0;
@@ -79,6 +82,7 @@ public class DialogueFlags implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, element, "scarlettPrice", String.valueOf(scarlettPrice));
 		CharacterUtils.createXMLElementWithValue(doc, element, "eponaStamps", String.valueOf(eponaStamps));
 		CharacterUtils.createXMLElementWithValue(doc, element, "kalahariBreakStartTime", String.valueOf(kalahariBreakStartTime));
+		CharacterUtils.createXMLElementWithValue(doc, element, "daddyResetTimer", String.valueOf(daddyResetTimer));
 
 		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressAlphaDefeatedTime", String.valueOf(impFortressAlphaDefeatedTime));
 		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressDemonDefeatedTime", String.valueOf(impFortressDemonDefeatedTime));
@@ -132,6 +136,11 @@ public class DialogueFlags implements XMLSaving {
 		
 		try {
 			newFlags.kalahariBreakStartTime = Long.valueOf(((Element)parentElement.getElementsByTagName("kalahariBreakStartTime").item(0)).getAttribute("value"));
+		} catch(Exception ex) {
+		}
+		
+		try {
+			newFlags.daddyResetTimer = Long.valueOf(((Element)parentElement.getElementsByTagName("daddyResetTimer").item(0)).getAttribute("value"));
 		} catch(Exception ex) {
 		}
 

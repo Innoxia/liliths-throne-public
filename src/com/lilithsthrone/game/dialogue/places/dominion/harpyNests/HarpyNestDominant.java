@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 
-import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.HarpyDominant;
@@ -16,11 +15,10 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.Weather;
 
 /**
  * @since 0.1.8
@@ -32,8 +30,8 @@ public class HarpyNestDominant {
 	public static final DialogueNode HARPY_NEST_DOMINANT = new DialogueNode("Harpy nest", ".", false) {
 
 		@Override
-		public int getMinutesPassed() {
-			return 1;
+		public int getSecondsPassed() {
+			return 60;
 		}
 		
 		@Override
@@ -225,7 +223,7 @@ public class HarpyNestDominant {
 							+ "Recognising this as one of the nests that you agreed to pacify, you start walking towards the centre podium."
 							+ " As you make your way towards the matriarch, you get a good look at the harpies that reside in this particular nest."
 							+ " Just as you saw from the outskirts, there's a red-feathered harpy sitting on top of each of the small podiums that are scattered about the area."
-							+ " Each one has a plume of jet-black feathers on top of their heads, and the skin that covers their human parts is exclusively a dark ebony colour."
+							+ " Each one has a plume of jet-black feathers on top of their heads, and the skin that covers their human parts is invariably a light olive colour."
 						+ "</p>"
 						+ "<p>"
 							+ "The groups that are huddled around each one of these podiums are, unlike their apparent leaders, made up of all sorts of differently coloured harpies."
@@ -261,7 +259,7 @@ public class HarpyNestDominant {
 							+ "As the matriarch, [harpyDominant.Name], stands up on top of her podium, you finally get a good look at her."
 							+ " Just like the other harpy leaders that you've seen, the feathers covering [harpyDominant.NamePos] wings and tail-feathers are bright red,"
 								+ " and instead of hair, she's got a long plume of jet-black feathers on top of her head."
-							+ " Her face, one the most beautiful that you've ever seen, is covered in dark, ebony skin, just like the rest of her human body parts."
+							+ " Her face, one the most beautiful that you've ever seen, is covered in flawless, olive skin, just like the rest of her human body parts."
 							+ " She has average-sized breasts for a harpy, being B-cups, which are covered by her silky black plunge dress."
 						+ "</p>"
 						+ "<p>"
@@ -279,11 +277,11 @@ public class HarpyNestDominant {
 				if (index == 1) {
 					return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].",
 							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyDominant.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+							new SMGeneric(
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									Util.newArrayListOfValues(Main.game.getNpc(HarpyDominant.class)),
 							null,
-							null, HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
+							null), HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
 								+ "Eager to put [harpyDominant.name] in her place in front of her flock, you reach down and grab her wings."
 								+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 							+ "</p>"
@@ -557,11 +555,11 @@ public class HarpyNestDominant {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].",
 						true, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyDominant.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(HarpyDominant.class)),
 						null,
-						null, HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
+						null), HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 						+ "</p>"
@@ -668,6 +666,9 @@ public class HarpyNestDominant {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
+				if(Main.game.isSpittingDisabled()) {
+					return Response.getDisallowedSpittingResponse("Smash bottle");
+				}
 				return new Response("Smash bottle", "Don't let [harpyDominant.Name] spray you with that strange perfume...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
 			} else if (index == 2) {
@@ -774,6 +775,9 @@ public class HarpyNestDominant {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
+				if(Main.game.isSpittingDisabled()) {
+					return Response.getDisallowedSpittingResponse("Smash bottle");
+				}
 				return new Response("Smash bottle", "Don't let [harpyDominant.Name] spray you with that strange perfume...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
 			} else if (index == 2) {
@@ -859,11 +863,11 @@ public class HarpyNestDominant {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].",
 						true, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(HarpyDominant.class), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMGeneric(
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								Util.newArrayListOfValues(Main.game.getNpc(HarpyDominant.class)),
 						null,
-						null, HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
+						null), HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 						+ "</p>"
@@ -1021,7 +1025,7 @@ public class HarpyNestDominant {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(HarpyDominant.class)) >= Main.game.getNpc(HarpyDominant.class).getOrgasmsBeforeSatisfied()) {
 				return "<p>"
 							+ "As you step back from [harpyDominant.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
 							+ " The surrounding harpies, having watched the whole thing, kneel in submission as you finish with their matriarch."

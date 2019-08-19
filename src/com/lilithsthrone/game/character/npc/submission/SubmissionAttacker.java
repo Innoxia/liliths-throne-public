@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.w3c.dom.Document;
@@ -9,6 +10,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -19,6 +21,7 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -31,6 +34,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelSlimeDialogu
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -73,72 +77,19 @@ public class SubmissionAttacker extends NPC {
 			
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
-				switch(s) {
-					// No chance of spawn:
-					case ANGEL:
-					case CAT_MORPH:
-					case CAT_MORPH_LYNX:
-					case CAT_MORPH_LEOPARD_SNOW:
-					case CAT_MORPH_LEOPARD:
-					case CAT_MORPH_LION:
-					case CAT_MORPH_TIGER:
-					case CAT_MORPH_CHEETAH:
-					case CAT_MORPH_CARACAL:
-					case COW_MORPH:
-					case HALF_DEMON:
-					case DEMON:
-					case LILIN:
-					case ELDER_LILIN:
-					case DOG_MORPH:
-					case DOG_MORPH_DOBERMANN:
-					case DOG_MORPH_BORDER_COLLIE:
-					case FOX_MORPH:
-					case FOX_MORPH_FENNEC:
-					case FOX_ASCENDANT:
-					case FOX_ASCENDANT_FENNEC:
-					case HARPY:
-					case HARPY_RAVEN:
-					case HARPY_BALD_EAGLE:
-					case HORSE_MORPH:
-					case HORSE_MORPH_ZEBRA:
-					case HUMAN:
-					case REINDEER_MORPH:
-					case SQUIRREL_MORPH:
-					case WOLF_MORPH:
-					case RABBIT_MORPH:
-					case RABBIT_MORPH_LOP:
-					case ELEMENTAL_AIR:
-					case ELEMENTAL_ARCANE:
-					case ELEMENTAL_EARTH:
-					case ELEMENTAL_FIRE:
-					case ELEMENTAL_WATER:
-						break;
+				if(s==Subspecies.SLIME) {
+					addToSubspeciesMap(slimeChance, gender, s, availableRaces);
 					
-					// Rare spawns:
-					case BAT_MORPH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
-					case IMP_ALPHA:
-						addToSubspeciesMap(10, gender, s, availableRaces);
-						break;
-						
-					// Common spawns:
-					case ALLIGATOR_MORPH:
-						addToSubspeciesMap(30, gender, s, availableRaces);
-						break;
-					case IMP:
-						addToSubspeciesMap(50, gender, s, availableRaces);
-						break;
-					case RAT_MORPH:
-						addToSubspeciesMap(40, gender, s, availableRaces);
-						break;
-					case SLIME:
-						addToSubspeciesMap(slimeChance, gender, s, availableRaces);
-						break;
+				} else if(Subspecies.getWorldSpecies().get(WorldType.SUBMISSION).containsKey(s)) {
+					addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies().get(WorldType.SUBMISSION).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 			}
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces);
+			
+			if(Math.random()<0.05 && !this.getRace().equals(Race.DEMON) && this.getSubspecies()!=Subspecies.SLIME) { //5% chance for the NPC to be a half-demon
+				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true));
+			}
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
@@ -171,17 +122,17 @@ public class SubmissionAttacker extends NPC {
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 			CharacterUtils.generateItemsInInventory(this);
 	
-			equipClothing(true, true, true, true);
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			CharacterUtils.applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
-			initAttributes();
+			initPerkTreeAndBackgroundPerks();
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
 		
-		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE);
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 	}
 	
 	@Override
@@ -195,8 +146,9 @@ public class SubmissionAttacker extends NPC {
 	}
 
 	@Override
-	public void equipClothing(boolean replaceUnsuitableClothing, boolean addWeapons, boolean addScarsAndTattoos, boolean addAccessories) {
-		CharacterUtils.equipClothing(this, replaceUnsuitableClothing, false);
+	public void equipClothing(List<EquipClothingSetting> settings) {
+		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
+//		super.equipClothing(settings);
 	}
 	
 	@Override

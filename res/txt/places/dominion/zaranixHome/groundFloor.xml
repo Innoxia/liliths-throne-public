@@ -238,7 +238,7 @@
 		[pc.speech(Yes, Mistress Amber!)]
 		 you enthusiastically reply, before pressing your [pc.lips] down against the tip of her shoe.
 		 Pushing forwards, you eagerly drag your [pc.tongue+] up and over her feminine footwear, relishing the bitter, tangy taste of leather, dirt, and shoe polish that immediately strikes your taste buds.
-		 Pulling back, you start once more from the tip of Amber's shoe, licking up and down as you seek to clean every inch of the delicious black leather.
+		 Pulling back, you start once more from the tip of Amber's shoe, licking up and down as you seek to clean every [unit.size] of the delicious black leather.
 	</p>
 	<p>
 		[amber.speech(Hahaha! How pathetic!)] Amber laughs, tilting her foot to one side to present the un-licked areas of her shoe to your eager [pc.tongue].
@@ -330,8 +330,14 @@
 	
 	<htmlContent tag="MEETING_ZARANIX"><![CDATA[
 	<p>
-		Wasting no time, Amber clicks her fingers once more, pointing down at her side as she motions for you to follow her on all fours.
-		 Eager to get this whole business with Arthur settled once and for all, you obediently do as you're instructed, and crawl alongside the succubus maid as she sets off into the house.
+		#IF(pc.hasCompanions())
+				Wasting no time, Amber clicks her fingers once more, pointing down at her side as she motions for you to follow her on all fours. Looking across to your companion, she then snarls, [amber.speech(You stay here, bitch. If you cause any trouble, I'll be sure to make you pay.)]
+			</p>
+			<p>
+				Eager to get this whole business with Arthur settled once and for all, you tell [companion.name] to do as Amber says, before obediently crawling up alongside the succubus maid. Giving you one last disgusted glance, Amber sets off into the house, with you pathetically crawling along beside her.
+		#ELSE
+			Wasting no time, Amber clicks her fingers once more, pointing down at her side as she motions for you to follow her on all fours. Eager to get this whole business with Arthur settled once and for all, you obediently do as you're instructed, and crawl alongside the succubus maid as she sets off into the house.
+		#ENDIF
 	</p>
 	<p>
 		Your hands and knees are thankfully cushioned by the immaculate red carpet that lines the wide corridor you find yourself travelling down, and as you shuffle along beside Amber, you glance around at your surroundings.
@@ -604,31 +610,42 @@
 	
 	<htmlContent tag="MEETING_ZARANIX_ARTHUR_THANK_ZARANIX"><![CDATA[
 	<p>
-		You weren't really expecting it to be so easy to convince Zaranix to part with Arthur, and, feeling more than a little grateful for how reasonable he's been, you decide that you'd better repay him.
-		 Looking down at his crotch and biting your [pc.lip], you let out a pleading little whine,
-		 [pc.speech(I'd like to show you my thanks...)]
+		You weren't really expecting it to be so easy to convince Zaranix to part with Arthur, and, feeling more than a little grateful for how reasonable he's been, you decide that you'd better repay him. Looking down at his crotch and biting your [pc.lip], you let out a pleading little whine, [pc.speech(I'd like to show you my thanks...)]
 	</p>
 	<p>
-		Zaranix spreads his legs a little wider, grinning at you as he calls out,
-		 [zaranix.speech(Amber, why don't you show your new bitch how to thank me in the proper manner!)]
+		Zaranix spreads his legs a little wider, grinning at you as he calls out, [zaranix.speech(Amber, why don't you show your new bitch how to thank me in the proper manner!)]
 	</p>
 	<p>
-		[amber.speech(Yes, master,)]
-		 you hear Amber reply from behind you, and before you can say or do anything else, the firm grip of the succubus' hand closes around the back of your neck.
-		 With a determined push, Amber forces you down onto your hands and knees, and, not loosening her grip on you for a moment, starts to drag you towards Zaranix.
+		[amber.speech(Yes, master,)] you hear Amber reply from behind you, and before you can say or do anything else, the firm grip of the succubus' hand closes around the back of your neck. With a determined push, Amber forces you down onto your hands and knees, and, not loosening her grip on you for a moment, starts to drag you towards Zaranix.
 	</p>
 	<p>
-		You obediently crawl alongside Amber as she leads you between Zaranix's legs, and with one last push, forces your head down into his crotch.
-		 Letting go of you, Amber then reaches down to her master's groin, before unfastening his trousers and shifting aside his black briefs.
-		 You can't help but let out a little whine as you suddenly find your face just inches away from Zaranix's huge, purple demon-cock.
+		You obediently crawl alongside Amber as she leads you between Zaranix's legs, and with one last push, forces your head down into his crotch. Letting go of you, Amber then reaches down to her master's groin, before unfastening his trousers and shifting aside his black briefs. You can't help but let out a little whine as you suddenly find your face just [unit.sizes] away from Zaranix's huge, purple demon-cock.
 	</p>
 	<p>
-		[amber.speech(Open wide, bitch,)]
-		 Amber commands, stroking her master's ribbed, tentacle-lined cock to attention, before kneeling down behind you and holding you in place.
-		 Left with little option but to do as you're told, you prepare to show Zaranix how thankful you are...
+		[amber.speech(Open wide, bitch,)] Amber commands, stroking her master's ribbed, tentacle-lined cock to attention, before kneeling down behind you and holding you in place. Left with little option but to do as you're told, you prepare to show Zaranix how thankful you are...
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="MEETING_ZARANIX_ARTHUR_THANK_ZARANIX_START_SEX"><![CDATA[
+	<p>
+		[amber.speech(So what are you waiting for, bitch?)] Amber snarls in your ear, [amber.speech(Open your fucking mouth!)]
+	</p>
+	<p>
+		Doing as you're told, you open wide, and the moment the fiery-haired succubus sees that you're obeying her command, she pushes your head down, forcing the head of [zaranix.namePos] cock into your mouth. She doesn't stop there, however, and continues exerting a steady pressure on the back of your head, causing the thick purple cock to be rammed deep down your throat. 
+	</p>
+	<p>
+		[amber.speech(That's right, you worthless bitch,)] the sadistic maid sneers, [amber.speech(take that cock all the way to the base!)]
+	</p>
+	<p>
+		Regardless of whether or not you wanted to, this is exactly what happens next. With one last rough push, Amber slams your head down into [zaranix.namePos] crotch, and with your throat now completely full of [zaranix.his] thick demonic cock, you find your lips pressing tightly against the incubus's groin. As you let out a gurgled choking noise, Amber finally lets go, allowing you to raise your head until only the [zaranix.cockHead+] of [zaranix.namePos] saliva-coated cock remains in your mouth.
+	</p>
+	<p>
+		[amber.speech(Not bad, whore,)] Amber snarls, [amber.speech(now let's see you repeat that a few more times...)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<htmlContent tag="MEETING_ZARANIX_ARTHUR_THANK_AMBER"><![CDATA[
 	<p>
@@ -859,9 +876,7 @@
 	
 	<htmlContent tag="CORRIDOR"><![CDATA[
 	<p>
-		You find yourself comparing the corridors of Zaranix's home to those of Lilaya's.
-		 While they're just as well-furnished as those of your aunt's house, being home to numerous fine paintings, cushioned chairs, and well-crafted cabinets, they're not quite as wide nor high.
-		 Where once you might have been deeply impressed by the extravagant luxury of this incubus's mansion, you now find yourself thinking that it's not quite as grand as the one you live in.
+		You find yourself comparing the corridors of Zaranix's home to those of Lilaya's. While they're just as well-furnished as those of your aunt's house, being home to numerous fine paintings, cushioned chairs, and well-crafted cabinets, they're not quite as wide nor high. Where once you might have been deeply impressed by the extravagant luxury of this incubus's mansion, you now find yourself thinking that it's not quite as grand as the one you live in.
 	</p>
 	]]>
 	</htmlContent>
@@ -1006,17 +1021,14 @@
 	
 	<htmlContent tag="ROOM"><![CDATA[
 	<p>
-		The door to this room is locked, and there's no sound of anyone within.
-		 Knowing that it's sure to just be a dull and uninteresting dead-end, you decide against trying to force the door open, and turn around to continue on your exploration of Zaranix's home.
+		The door to this room is locked, and there's no sound of anyone within. Knowing that it's sure to just be a dull and uninteresting dead-end, you decide against trying to force the door open, and turn around to continue on your exploration of Zaranix's home.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_EMPTY"><![CDATA[
 	<p>
-		You find yourself standing in Zaranix's grand drawing room.
-		 Several sofas and chairs are tastefully arranged around a low table in the centre of the room, while numerous bookcases and cabinets line the floral-wallpapered walls.
-		 The high ceiling is home to an exceptionally extravagant chandelier, while the floor underfoot is covered in thick, cream-coloured carpet.
+		You find yourself standing in Zaranix's grand drawing room. Several sofas and chairs are tastefully arranged around a low table in the centre of the room, while numerous bookcases and cabinets line the floral-wallpapered walls. The high ceiling is home to an exceptionally extravagant chandelier, while the floor underfoot is covered in thick, cream-coloured carpet.
 	</p>
 	<p>
 		There doesn't appear to be anyone here right now, so you should probably continue on your way...

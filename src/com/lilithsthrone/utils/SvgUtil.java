@@ -14,6 +14,8 @@ public class SvgUtil {
 	
 		s = s.replaceAll("linearGradient\\d|innoGrad\\d|radialGradient\\d",
 				gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "$0");
+
+		s = sanitizeImageString(s, false);
 		
 		if(colour!=null) {
 			s = s.replaceAll("#f4d7d7", colour.getShades()[0]);
@@ -53,9 +55,8 @@ public class SvgUtil {
 			s = s.replaceAll("linearGradient\\d|innoGrad\\d|radialGradient\\d",
 					gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "$0");
 		}
-		
-		// Fixes issue of SVG icons overflowing:
-		s = s.replaceFirst("width=\"100%\"\\R   height=\"100%\"", "");
+
+		s = sanitizeImageString(s, true);
 		
 		if(colour!=null) {
 			s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
@@ -97,9 +98,8 @@ public class SvgUtil {
 			s = s.replaceAll("linearGradient\\d|innoGrad\\d|radialGradient\\d",
 					gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "$0");
 		}
-		
-		// Fixes issue of SVG icons overflowing:
-		s = s.replaceFirst("width=\"100%\"\\R   height=\"100%\"", "");
+
+		s = sanitizeImageString(s, true);
 		
 		if(colour!=null) {
 			s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
@@ -127,5 +127,40 @@ public class SvgUtil {
 		
 		return s;
 	}
+
+
+	public static String colourReplacement(String gradientReplacementID, String colour, String inputString) {
+		String s = inputString;
 	
+		if(gradientReplacementID!=null) {
+			s = s.replaceAll("linearGradient\\d|innoGrad\\d|radialGradient\\d",
+					gradientReplacementID + colour.toString() + "$0");
+		}
+
+		s = sanitizeImageString(s, true);
+		
+		if(colour!=null) {
+			s = s.replaceAll("#ff2a2a", colour);
+			s = s.replaceAll("#ff5555|#f55(?!\\d)", colour);
+			s = s.replaceAll("#ff8080", colour);
+			s = s.replaceAll("#ffaaaa|#faa(?!\\d)", colour);
+			s = s.replaceAll("#ffd5d5", colour);
+		}
+		
+		return s;
+	}
+
+	private static String sanitizeImageString(String imageString, boolean sanitizeSizes) {
+		String s = imageString;
+
+		// Remove xml header from svg, if it has one
+		s = s.replaceFirst("<\\?xml[^?]*\\?>", "");
+
+		if (sanitizeSizes) {
+			// Fixes issue of SVG icons overflowing:
+			s = s.replaceFirst("width=\"100%\"\\R   height=\"100%\"", "");
+		}
+
+		return s;
+	}
 }

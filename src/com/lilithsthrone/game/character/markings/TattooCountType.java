@@ -18,7 +18,7 @@ public enum TattooCountType {
 	TALLY("tally markings") {
 		@Override
 		public String convertInt(int input) {
-			return Util.intToTally(input);
+			return Util.intToTally(input, 50);
 		}
 	},
 	NUMERALS("Roman numerals") {
