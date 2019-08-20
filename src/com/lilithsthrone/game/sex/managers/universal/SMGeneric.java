@@ -13,9 +13,10 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.game.sex.positions.SexPositionOther;
-import com.lilithsthrone.game.sex.positions.SexSlot;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
-import com.lilithsthrone.game.sex.positions.SexSlotOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 
 /**
  * A generic sex manager, meant to be used for initialising generic sex scenes. Will typically start in the 'standing' position.
@@ -90,16 +91,16 @@ public class SMGeneric extends SexManagerDefault {
 				slotsSubmissive = new SexSlot[] {SexSlotOther.ALL_FOURS_FUCKED, SexSlotOther.ALL_FOURS_FUCKED_TWO};
 				
 			} else if(tags.contains(ResponseTag.PREFER_ORAL)) {
-				this.position = SexPositionOther.ORAL;
-				slotsDominant = new SexSlot[] {SexSlotOther.RECEIVING_ORAL, SexSlotOther.RECEIVING_ORAL_TWO};
+				this.position = SexPositionOther.STANDING;
+				slotsDominant = new SexSlot[] {SexSlotStanding.STANDING_DOMINANT, SexSlotStanding.STANDING_DOMINANT_TWO, SexSlotStanding.STANDING_DOMINANT_THREE, SexSlotStanding.STANDING_DOMINANT_FOUR};
 				if(dominants.size()==1) {
 					if(dominants.get(0).hasPenis() || dominants.get(0).getLegConfiguration().isBipedalPositionedGenitals()) {
-						slotsSubmissive = new SexSlot[] {SexSlotOther.PERFORMING_ORAL, SexSlotOther.PERFORMING_ORAL_BEHIND};
+						slotsSubmissive = new SexSlot[] {SexSlotStanding.PERFORMING_ORAL, SexSlotStanding.PERFORMING_ORAL_BEHIND, SexSlotStanding.PERFORMING_ORAL_TWO, SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO};
 					} else {
-						slotsSubmissive = new SexSlot[] {SexSlotOther.PERFORMING_ORAL_BEHIND, SexSlotOther.PERFORMING_ORAL};
+						slotsSubmissive = new SexSlot[] {SexSlotStanding.PERFORMING_ORAL_BEHIND, SexSlotStanding.PERFORMING_ORAL, SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO, SexSlotStanding.PERFORMING_ORAL_TWO};
 					}
 				} else {
-					slotsSubmissive = new SexSlot[] {SexSlotOther.PERFORMING_ORAL, SexSlotOther.PERFORMING_ORAL_TWO, SexSlotOther.PERFORMING_ORAL_BEHIND, SexSlotOther.PERFORMING_ORAL_BEHIND_TWO};
+					slotsSubmissive = new SexSlot[] {SexSlotStanding.PERFORMING_ORAL, SexSlotStanding.PERFORMING_ORAL_TWO, SexSlotStanding.PERFORMING_ORAL_THREE, SexSlotStanding.PERFORMING_ORAL_FOUR};
 				}
 				
 			} else if(tags.contains(ResponseTag.PREFER_COW_GIRL)) {
@@ -113,8 +114,8 @@ public class SMGeneric extends SexManagerDefault {
 				
 			} else {
 				this.position = SexPositionOther.STANDING;
-				slotsDominant = new SexSlot[] {SexSlotOther.STANDING_DOMINANT, SexSlotOther.STANDING_DOMINANT_TWO};
-				slotsSubmissive = new SexSlot[] {SexSlotOther.STANDING_SUBMISSIVE, SexSlotOther.STANDING_SUBMISSIVE_TWO};
+				slotsDominant = new SexSlot[] {SexSlotStanding.STANDING_DOMINANT, SexSlotStanding.STANDING_DOMINANT_TWO, SexSlotStanding.STANDING_DOMINANT_THREE, SexSlotStanding.STANDING_DOMINANT_FOUR};
+				slotsSubmissive = new SexSlot[] {SexSlotStanding.STANDING_SUBMISSIVE, SexSlotStanding.STANDING_SUBMISSIVE_TWO, SexSlotStanding.STANDING_SUBMISSIVE_THREE, SexSlotStanding.STANDING_SUBMISSIVE_FOUR};
 			}
 			
 		} else {

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.positions;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,6 +17,7 @@ import com.lilithsthrone.game.sex.SexActionInteractions;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -80,7 +82,19 @@ public abstract class AbstractSexPosition {
 		return specialClasses;
 	}
 
-	public abstract String getDescription();
+	public abstract String getDescription(Map<GameCharacter, SexSlot> occupiedSlots);
+
+	public Value<Boolean, String> isAcceptablePosition(Map<GameCharacter, SexSlot> positioningSlots) { //TODO make abstract
+		return new Value<Boolean, String>(true, "");
+	}
+	
+	public Value<Boolean, String> isSlotUnlocked(GameCharacter characterToTakeSlot, SexSlot slot, Map<GameCharacter, SexSlot> positioningSlots) { //TODO make abstract
+		return new Value<Boolean, String>(true, "");
+	}
+
+	public List<SexSlot> getAllSlots() { //TODO make abstract
+		return new ArrayList<>();
+	}
 	
 	public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
 		if(action.getActionType()==SexActionType.START_ONGOING

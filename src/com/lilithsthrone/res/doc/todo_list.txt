@@ -142,6 +142,8 @@
 		Added a calendar entry for the month of June (in the calendar menu in your room).
 		Added option to change age appearance in demon and slime self-transformation menus.
 		Compacted information in the character view page, and added the character's birthday information (only displayed if you know their name and they are friendly towards you, or if you are their mother or owner).
+		Added indication in characters' information tooltip, and their information page, for if they are significantly taller or shorter than you.
+		Characters now only need a wolf-morph's arms in order to unlock the 'Savage attack' special attack.
 	
 	Bugs:
 		Fixed major issue where starting some sex scenes (such as Pix's) would result in a background error, causing any of your clothes which were stripped to not be returned to you after the sex scene.
@@ -169,49 +171,118 @@
 		Fixed issue where spectators in sex would have their area availability limited by what position the actual participants were in. (Was most noticeable in mating-press, where spectators would be unable to use their fingers.)
 		Fixed bug in sex where characters would never remove their equipped sex toys in order to start the actions they wanted. (So, for example, if they have a butt-plug equipped, and want to receive anal, they will now correctly remove it to do so.)
 		Fixed bug where your character would not be affected by changes to age appearance, and corrected code such that your character's age is handled like any other character's, although you gain a -3 year age modifier upon entering the new world.
+		Fixed issue where repeat actions in sex could be used on a third character who shouldn't have been able to have had those actions performed on them.
+		Fixed some game-breaking bugs related to clicking out of the debug menu instead of closing it manually.
+		Fixed bug where any character orgasming while receiving a handjob would sometimes break sex.
+		Fixed incorrect descriptions in the 'Receive anilingus' sex action.
+		Fixed bug where some expected sex actions would be missing in some positions.
 	
 	
+	
+	
+	make post update
 	
 	need to convert all old positioning actions to new format...
-		Change positioning actions to be a simple position select, then choose who goes in which slot
-		New screen to explain position, and beneath that, a description of what actions are available for each character
-		Action0 is cancel
-		Action1 is accept
-		Action2 is switch active character
-		Actions3-X are for what slot they should go into
-			x Masturbation
-				Kneeling
-			Standing
-				Standing
-				Kneeling oral
-			Against wall
-				Back-to-wall
-				Face-to-wall
-			Over desk
-				Missionary
-			x Stocks
-			x Milking stall
-			All fours
-				Doggy
-			Lying down
-				Cowgirl
-				Face sitting
-				Sixty nine
-				Mating press
-				Scissoring
-			Sitting
-			
-		Limit default configurations to AI
-			
-			
+		[x] Change positioning actions to be a simple position select, then choose who goes in which slot
+		[x] New screen to explain position
+			[Cancelled] beneath that, a description of what actions are available for each character
+		[x] Action0 is cancel
+		[x] Action1 is accept
+		[x] Action2 is switch active character
+		[x] Actions3-X are for what slot they should go into
+		[x] Colour action if someone is in the slot. Add their name to the description.
+		Configure positions:
+			[x] Standing (with generic orgasm text)
+				[x] Standing
+				[x] Kneeling oral
+			[x] Against wall (with generic orgasm text)
+				[x] Back-to-wall
+				[x] Face-to-wall
+				[x] Kneeling oral
+				[x] Standing behind/infront
+			[x] Make standing have actions based on size difference (so just oral). Also add description of this in position desc. - an extra thing at the end like (As X is so much smaller than Y and Z, she is in a position to perform oral on them, even though she is standing.)
+			[x] Add indication in tooltip when someone is considerably taller or shorter than you
+			[x] Need a method that can block slots. Need this for oral/standing wall, which have slots that conflict with one another.
+			[x] Over desk (with generic orgasm text)
+				[x] Between legs
+				[x] At face
+				[x] Missionary (Lying back)
+				[x] Face-down (Bent over)
+			[x] Stocks (with generic orgasm text)
+				[x] Taur + regular is not having player's "you" first
+				[x] Revert generic orgasm text
+				[x] Set available fingers to none for those in stocks
+				[x] In stocks
+				[x] Mounting
+				[x] Performing oral
+				[x] Receiving oral
+			[x] Milking stall
+				[x] Copy stocks but renamed
+			[x] Breeding stall
+				[x] In stall front
+				[x] In stall back
+				[x] Character fucking
+				[x] Limit back slot to non-taurs
+			[x] Sitting
+				[x] Sitting
+				[x] Giving oral
+				[x] Receiving oral
+				[x] In lap
+				[x] Standing between legs
+			[x] Masturbation
+				[x] Standing
+				[x] Sitting
+				[x] Kneeling
+				[x] Panties
+			[x] All fours
+				[x] All fours
+				[x] Mounting
+				[x] Dom receiving oral
+				[x] Dom receiving oral (anal)
+				[x] Dom giving oral
+			[] Lying down
+				[] lap pillow (suckle)
+				[x] Cowgirl
+				[x] Missionary (interact with cowgirl for DP)
+				[x] Face sitting
+				[x] Sixty nine
+				[x] Mating press
+				[x] Scissoring
+		[] If change a slot and other slots become unavailable, move them to spectator with warning at bottom
+		[] Make abstract methods in AbstractSexPosition
+		[] Sort out AI actions. Need to make default setups for them (just set all old positioning actions to AI-only?)
+		[] Add DP for anal and vaginal
+			[] Make sure stretching effects work correctly
+		
+	Add masturbation action
+		
+	Make an isTaur() method to replace calls of getLegConfiguration().isBipedalPositionedGenitals()
+	
+	tooltips say areas will be added in 0.3.4
+		
+	Move actions out of DoggyStlye and into generic actions	
+	
 	Need to block position request after having it refused
 	
+	make suckle an ongoing action
+	
+	add time passed for birthing dialogue nodes
+	
+	does orgasm text say pussy is empty even if something is plugging it?
+	
+	arcane impotence has 'maximum arcane limited to 5' but it isn't
+	
+	PRs
+	
+	make vicky anal just a desire, not a certainty
 	
 	muggers don't have weapons?
 	
 	need taur spawn % preferences
 	
 	fix item usage in combat
+	
+	no grope own breasts action?
 	
 	
 	cannot make corruption potions?
@@ -234,6 +305,7 @@
 	magic in combat from you or your companion causes freeze
 		Pull request
 	
+	add tooltip indication that you should look at calendar to reveal date
 	
 	
 	there's is a button to leave the appearance screen and it used to work in old versions, but it doesn't work for me now

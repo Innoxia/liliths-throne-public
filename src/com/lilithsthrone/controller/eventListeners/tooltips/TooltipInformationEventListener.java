@@ -743,9 +743,15 @@ public class TooltipInformationEventListener implements EventListener {
 
 					// GREATER:
 					tooltipSB.append(getBodyPartDivFace(owner, "Face", owner.getFaceRace(), owner.getFaceCovering(), owner.isFaceBestial()));
-					tooltipSB.append(getBodyPartDiv(owner, "Torso", owner.getSkinRace(), owner.getSkinCovering(), owner.isSkinBestial(), "Height: [unit.sizeShort(" + owner.getHeightValue()+ ")]"));
+					tooltipSB.append(getBodyPartDiv(owner, "Torso", owner.getSkinRace(), owner.getSkinCovering(), owner.isSkinBestial(),
+							(owner.isSizeDifferenceShorterThan(Main.game.getPlayer())
+							?"<span style='color:"+Colour.BODY_SIZE_ONE.toWebHexString()+";'>"
+							:(owner.isSizeDifferenceTallerThan(Main.game.getPlayer())
+								?"<span style='color:"+Colour.BODY_SIZE_FOUR.toWebHexString()+";'>"
+								:"<span>"))
+							+"Height: [unit.sizeShort(" + owner.getHeightValue()+ ")]</span>"));
 					
-	
+					
 					// LESSER:
 					tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getArmRows()*2))+" arms", owner.getArmRace(), owner.getArmCovering(), owner.isArmBestial()));
 					tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getLegCount()))+" legs", owner.getLegRace(), owner.getLegCovering(), owner.isLegBestial()));

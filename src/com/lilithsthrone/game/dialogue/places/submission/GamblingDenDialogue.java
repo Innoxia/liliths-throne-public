@@ -43,7 +43,7 @@ import com.lilithsthrone.game.sex.managers.submission.SMBreedingStallBack;
 import com.lilithsthrone.game.sex.managers.submission.SMBreedingStallFront;
 import com.lilithsthrone.game.sex.managers.submission.SMRoxyPussyLicker;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotBipeds;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;

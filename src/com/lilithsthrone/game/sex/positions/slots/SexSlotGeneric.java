@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.positions;
+package com.lilithsthrone.game.sex.positions.slots;
 
 /**
  * @since 0.3.1

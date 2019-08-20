@@ -325,7 +325,7 @@ public class CMSpecialAttack {
         
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
-            return new Value<>(source.getFaceType().getRace().equals(Race.WOLF_MORPH) && source.getArmType().getRace().equals(Race.WOLF_MORPH), "Available to characters who have a wolf-morph's face and arms.");
+            return new Value<>(source.getArmType().getRace().equals(Race.WOLF_MORPH), "Available to characters who have a wolf-morph's arms.");
         }
 
         @Override

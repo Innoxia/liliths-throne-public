@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.positions;
+package com.lilithsthrone.game.sex.positions.slots;
 
 import java.util.List;
 import java.util.Map;
@@ -8,6 +8,8 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.SexActionInteractions;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.VariableInteractions;
 
 /**
  * Slots which characters can occupy in sex positions.
@@ -37,7 +39,7 @@ public class SexSlot {
 	public SexSlot(SexSlot slotToCopy) {
 		this.name = slotToCopy.getName(null);
 		this.description = slotToCopy.getDescription();
-		this.orgasmDescription = slotToCopy.getOrgasmDescription();
+		this.orgasmDescription = slotToCopy.orgasmDescription;
 		this.standing = slotToCopy.isStanding(null);
 	}
 
@@ -56,10 +58,21 @@ public class SexSlot {
 	}
 	
 	/**
-	 * return The description of the character in this slot orgasming. 'npc' is the parser tag used for the orgasming character, while 'npc2' is for the targeted character that they're interacting with.
+	 * @return The description of the character in this slot orgasming. 'npc' is the parser tag used for the orgasming character, while 'npc2' is for the targeted character that they're interacting with.<br/>
+	 * If orgasmDescription is null, getGenericOrgasmDescription() is returned instead.
 	 */
 	public String getOrgasmDescription() {
+		if(orgasmDescription==null) {
+			return getGenericOrgasmDescription();
+		}
 		return orgasmDescription;
+	}
+	
+	/**
+	 * @return A generic orgasm description, based on who the character in this slot is targeting. Will be returned if orgasmDescription is null.
+	 */
+	public String getGenericOrgasmDescription() {
+		return "Pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
 	}
 
 	/**

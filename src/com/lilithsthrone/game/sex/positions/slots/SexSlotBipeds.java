@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.positions;
+package com.lilithsthrone.game.sex.positions.slots;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;

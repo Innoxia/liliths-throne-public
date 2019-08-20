@@ -21,6 +21,8 @@ import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotBipeds;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -96,7 +98,7 @@ public class SexPositionBipeds {
 															OrgasmCumTarget.LEGS,
 															OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.STANDING_DOMINANT), Sex.getCharacterInPosition(SexSlotBipeds.STANDING_SUBMISSIVE),
 					"[npc.NameIsFull] standing face-to-face with [npc2.name].");
 		}
@@ -138,7 +140,7 @@ public class SexPositionBipeds {
 														OrgasmCumTarget.FLOOR,
 														OrgasmCumTarget.FEET))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.STANDING_SD_TALLER), Sex.getCharacterInPosition(SexSlotBipeds.STANDING_SD_SMALLER),
 					"[npc.NameIsFull] and [npc2.name] are standing in front of one another, but due to [npc2.namePos] smaller stature, [npc2.sheIs] facing [npc.namePos] crotch...");
 		}
@@ -252,7 +254,7 @@ public class SexPositionBipeds {
 												Util.newArrayListOfValues(
 														OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.STANDING_SUBMISSIVE),
@@ -315,7 +317,7 @@ public class SexPositionBipeds {
 													OrgasmCumTarget.STOMACH,
 													OrgasmCumTarget.LEGS))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.BACK_TO_WALL_AGAINST_WALL), Sex.getCharacterInPosition(SexSlotBipeds.BACK_TO_WALL_FACING_TARGET),
 					"[npc2.NameIsFull] pinning [npc1.name] back against the wall, ready to step forwards and start having some fun...");
 		}
@@ -372,7 +374,7 @@ public class SexPositionBipeds {
 													OrgasmCumTarget.BACK,
 													OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL), Sex.getCharacterInPosition(SexSlotBipeds.FACE_TO_WALL_FACING_TARGET),
 					"[npc2.NameIsFull] pinning [npc1.name] up against the wall, ready to step forwards and start having some fun...");
 		}
@@ -464,7 +466,7 @@ public class SexPositionBipeds {
 											Util.newArrayListOfValues(
 													OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.COWGIRL_ON_BACK), Sex.getCharacterInPosition(SexSlotBipeds.COWGIRL_RIDING),
@@ -539,7 +541,7 @@ public class SexPositionBipeds {
 														OrgasmCumTarget.SELF_LEGS,
 														OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.FACE_SITTING_ON_BACK), Sex.getCharacterInPosition(SexSlotBipeds.FACE_SITTING_ON_FACE),
 					"[npc.NameIsFull] lying on [npc.her] back as [npc2.name] [npc2.verb(sit)] on [npc.her] [npc.face+].");
 		}
@@ -1182,7 +1184,7 @@ public class SexPositionBipeds {
 		}
 		
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			StringBuilder sb = new StringBuilder();
 			
 			boolean twoDoggies = false;
@@ -1474,7 +1476,7 @@ public class SexPositionBipeds {
 												OrgasmCumTarget.HAIR,
 												OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.SIXTY_NINE_TOP), Sex.getCharacterInPosition(SexSlotBipeds.SIXTY_NINE_BOTTOM),
 					"[npc.NameIsFull] on all fours over the top of [npc2.name], with [npc.her] crotch being positioned over [npc2.namePos] [npc2.face+]."
 							+ " [npc.NameIsFull] looking down at [npc2.namePos] groin, ready to perform oral even as [npc.she] [npc.verb(receive)] it.");
@@ -1569,7 +1571,7 @@ public class SexPositionBipeds {
 							SexSlotBipeds.KNEELING_PERFORMING_ORAL_SECOND_THREE,
 							Util.newHashMapOfValues(new Value<>(SexSlotBipeds.KNEELING_RECEIVING_ORAL, new SexActionInteractions( null, null)))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			StringBuilder descriptionSB = new StringBuilder();
 			
 			if(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_RECEIVING_ORAL_TWO)==null && Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_RECEIVING_ORAL_SECOND)==null) { // Up to 6 subs on 1 dom
@@ -1997,7 +1999,7 @@ public class SexPositionBipeds {
 													Util.newArrayListOfValues(
 															OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			StringBuilder positionSB = new StringBuilder();
 			
 			if(Sex.getCharacterInPosition(SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND)!=null) {
@@ -2599,7 +2601,7 @@ public class SexPositionBipeds {
 														OrgasmCumTarget.GROIN,
 														OrgasmCumTarget.LEGS))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.MATING_PRESS_TOP), Sex.getCharacterInPosition(SexSlotBipeds.MATING_PRESS_BOTTOM),
 					"[npc2.NameIsFull] lying on [npc2.her] back, with [npc2.her] [npc2.legs] fully spread and pushed back up towards [npc2.her] head."
 					+ " [npc.NameIsFull] pinning [npc2.herHim] into this position by lying down on top of [npc2.herHim], with [npc.her] groin hovering just over [npc2.hers]."
@@ -2680,7 +2682,7 @@ public class SexPositionBipeds {
 														OrgasmCumTarget.GROIN,
 														OrgasmCumTarget.LEGS))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_VICKYS_SHOP)) {
 				return "You're lying back on top of Arcane Arts' front desk, with the aggressive owner, Vicky, standing between your [pc.legs]."
 						+ " She lets out a menacing growl as she steps forwards, preparing to fuck you in the missionary position.";
@@ -2748,7 +2750,7 @@ public class SexPositionBipeds {
 //													OrgasmCumTarget.GROIN,
 //													OrgasmCumTarget.FLOOR))))))) {
 //		@Override
-//		public String getDescription() {
+//		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 //			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.CHAIR_TOP), Sex.getCharacterInPosition(SexSlotBipeds.CHAIR_BOTTOM),
 //					"[npc2.NameIs] sitting down on the chair, looking up at [npc.name] as [npc.she] [npc.verb(smile)] down at [npc2.herHim].");
 //		}
@@ -2816,7 +2818,7 @@ public class SexPositionBipeds {
 //												OrgasmCumTarget.HAIR,
 //												OrgasmCumTarget.FLOOR))))))) {
 //		@Override
-//		public String getDescription() {
+//		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 //			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.CHAIR_KNEELING), Sex.getCharacterInPosition(SexSlotBipeds.CHAIR_ORAL_SITTING),
 //					"[npc2.NameIs] sitting down on the chair, looking down at [npc.name] as [npc.she] [npc.verb(kneel)] before [npc2.herHim], ready to perform oral.");
 //		}
@@ -2851,7 +2853,7 @@ public class SexPositionBipeds {
 													OrgasmCumTarget.SELF_FEET,
 													OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.MASTURBATING_KNEELING),
 					"[npc.NameIs] kneeling on the floor, ready to masturbate.");
 		}
@@ -2875,7 +2877,7 @@ public class SexPositionBipeds {
 													OrgasmCumTarget.SELF_FEET,
 													OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.MASTURBATING_KNEELING),
 					"[npc.NameIs] kneeling on the floor, ready to masturbate with the panties clenched in [npc.her] [npc.hand].");
 		}
@@ -2961,7 +2963,7 @@ public class SexPositionBipeds {
 														OrgasmCumTarget.FEET,
 														OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.STOCKS_LOCKED_IN_STOCKS),
@@ -3098,7 +3100,7 @@ public class SexPositionBipeds {
 														OrgasmCumTarget.FEET,
 														OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.MILKING_STALL_LOCKED_IN_MILKING_STALL),
@@ -3182,7 +3184,7 @@ public class SexPositionBipeds {
 											SexActionPresets.appendagesToAllAreas,
 											DOGGY_STYLE.getSexInteractions(SexSlotBipeds.DOGGY_BEHIND, SexSlotBipeds.DOGGY_ON_ALL_FOURS).getAvailableCumTargets())))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.PET_MOUNTING_ON_ALL_FOURS), Sex.getCharacterInPosition(SexSlotBipeds.PET_MOUNTING_HUMPING),
 					"[npc.NameIs] down on all fours, and [npc.has] been mounted by [npc2.name], who's desperate to penetrate and start humping [npc.herHim].");
 		}
@@ -3224,7 +3226,7 @@ public class SexPositionBipeds {
 											SexActionPresets.groinToMouth),
 										KNEELING_ORAL.getSexInteractions(SexSlotBipeds.KNEELING_RECEIVING_ORAL, SexSlotBipeds.KNEELING_PERFORMING_ORAL).getAvailableCumTargets())))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.PET_ORAL_ON_ALL_FOURS), Sex.getCharacterInPosition(SexSlotBipeds.PET_ORAL_COCKED_LEG),
 					"[npc.NameIs] down on all fours, with [npc2.namePos] [npc2.leg] hooked over [npc.her] neck, leaving [npc.her] face just [unit.sizes] away from [npc2.namePos] [npc2.cock+].");
 		}
@@ -3259,7 +3261,7 @@ public class SexPositionBipeds {
 											SexActionPresets.penisToFeet),
 											KNEELING_ORAL.getSexInteractions(SexSlotBipeds.KNEELING_PERFORMING_ORAL, SexSlotBipeds.KNEELING_RECEIVING_ORAL).getAvailableCumTargets())))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return "You're kneeling under Ralph's counter, with your face just [unit.sizes] away from his crotch.";
 		}
 
@@ -3302,7 +3304,7 @@ public class SexPositionBipeds {
 											SexActionPresets.appendagesToAllAreas,
 										FACING_WALL.getSexInteractions(SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL, SexSlotBipeds.FACE_TO_WALL_FACING_TARGET).getAvailableCumTargets())))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return "You're standing with your face pressed up against one wall of the shower, and behind you, Pix is growling hungrily into your ear.";
 		}
 	};
@@ -3332,7 +3334,7 @@ public class SexPositionBipeds {
 											null,
 											STANDING.getSexInteractions(SexSlotBipeds.STANDING_SUBMISSIVE, SexSlotBipeds.STANDING_DOMINANT).getAvailableCumTargets())))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return "You and the cat-girl maid, Rose, are standing facing one another, ready to perform lewd acts with one another's hands.";
 		}
 	};
@@ -3453,7 +3455,7 @@ public class SexPositionBipeds {
 											SexActionPresets.fingerToLowerHalf,
 											DOGGY_STYLE.getSexInteractions(SexSlotBipeds.DOGGY_BEHIND_ORAL, SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND).getAvailableCumTargets())))))) {
 		@Override
-		public String getDescription() {//TODO
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {//TODO
 			return "You're lying back on top of Arcane Arts' front desk, with the aggressive owner, Vicky, standing between your [pc.legs]."
 					+ " She lets out a menacing growl as she steps forwards, preparing to fuck you in the missionary position.";
 		}
@@ -3483,7 +3485,7 @@ public class SexPositionBipeds {
 											SexActionPresets.fingerToLowerHalf,
 											KNEELING_ORAL.getSexInteractions(SexSlotBipeds.KNEELING_PERFORMING_ORAL, SexSlotBipeds.KNEELING_RECEIVING_ORAL).getAvailableCumTargets())))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return "You're kneeling at the feet of [npc.name], with your [pc.face+] hovering just [unit.sizes] away from [npc.her] groin.";
 		}
 
@@ -3566,7 +3568,7 @@ public class SexPositionBipeds {
 											Util.newArrayListOfValues(
 													OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {//TODO
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {//TODO
 			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotBipeds.MISSIONARY_ALTAR_LYING_ON_ALTAR) {
 				if(Sex.getSexPositionSlot(Sex.getActivePartner())==SexSlotBipeds.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS) {
 					return "You're lying back on top of the chapel's altar, and [npc.namePos] standing between your [pc.legs], ready to have some fun with you in the missionary position.";
@@ -3669,7 +3671,7 @@ public class SexPositionBipeds {
 											Util.newArrayListOfValues(
 													OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {//TODO
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {//TODO
 			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotBipeds.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR) {
 				return "You're lying back on top of the chapel's altar, and [npc.namePos] standing between your [pc.legs], ready to have some fun with you in the missionary position.";
 			} else if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotBipeds.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS) {
@@ -3740,7 +3742,7 @@ public class SexPositionBipeds {
 													OrgasmCumTarget.FEET,
 													OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotBipeds.BREEDING_STALL_FRONT) {
 				return "You're lying on your front on the padded bench, with your legs and lower abdomen projecting out of the hole in the wall, exposing your pussy to the breeders beyond."
 						+ (Main.game.getPlayer().hasTail()
@@ -3825,7 +3827,7 @@ public class SexPositionBipeds {
 													OrgasmCumTarget.FEET,
 													OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotBipeds.BREEDING_STALL_FRONT) {
 				return "You're lying on your back on the padded bench, with your legs and lower abdomen projecting out of the hole in the wall, exposing your pussy to the breeders beyond."
 						+ (Main.game.getPlayer().hasTail()
@@ -3900,7 +3902,7 @@ public class SexPositionBipeds {
 												SexActionPresets.appendagesToAllAreas,
 												STANDING.getSexInteractions(SexSlotBipeds.STANDING_SUBMISSIVE, SexSlotBipeds.STANDING_DOMINANT).getAvailableCumTargets())))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.STANDING_DOMINANT), Sex.getCharacterInPosition(SexSlotBipeds.STANDING_SUBMISSIVE),
 					"[npc.NameIsFull] standing face-to-face with [npc2.name] in one of the toilet's stalls.");
 		}
@@ -3933,7 +3935,7 @@ public class SexPositionBipeds {
 													SexActionPresets.appendagesToAllAreas),
 											BACK_TO_WALL.getSexInteractions(SexSlotBipeds.BACK_TO_WALL_FACING_TARGET, SexSlotBipeds.BACK_TO_WALL_AGAINST_WALL).getAvailableCumTargets())))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.BACK_TO_WALL_AGAINST_WALL), Sex.getCharacterInPosition(SexSlotBipeds.BACK_TO_WALL_FACING_TARGET),
 					"[npc2.NameIsFull] pinning [npc1.name] back against the wall of the toilet, ready to step forwards and start having some fun...");
 		}
@@ -3971,7 +3973,7 @@ public class SexPositionBipeds {
 													SexActionPresets.appendagesToAllAreas),
 											FACING_WALL.getSexInteractions(SexSlotBipeds.FACE_TO_WALL_FACING_TARGET, SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL).getAvailableCumTargets())))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL), Sex.getCharacterInPosition(SexSlotBipeds.FACE_TO_WALL_FACING_TARGET),
 					"[npc2.NameIsFull] pinning [npc1.name] up against the wall of the toilet, ready to step forwards and start having some fun...");
 		}
@@ -4009,7 +4011,7 @@ public class SexPositionBipeds {
 												SexActionPresets.penisToFeet),
 											KNEELING_ORAL.getSexInteractions(SexSlotBipeds.KNEELING_PERFORMING_ORAL, SexSlotBipeds.KNEELING_RECEIVING_ORAL).getAvailableCumTargets())))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return UtilText.parse(Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_RECEIVING_ORAL), Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL),
 					"[npc2.NameIsFull] kneeling on the floor of the toilet in front of [npc.name], with [npc2.her] [npc2.face+] hovering just [unit.sizes] away from [npc.her] groin.");
 		}
@@ -4076,7 +4078,7 @@ public class SexPositionBipeds {
 												OrgasmCumTarget.SELF_LEGS,
 												OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			List<GameCharacter> characters = new ArrayList<>();
 			characters.add(Sex.getCharacterInPosition(SexSlotBipeds.GLORY_HOLE_KNEELING));
 			characters.add(Sex.getCharacterInPosition(SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE));
@@ -4141,7 +4143,7 @@ public class SexPositionBipeds {
 													OrgasmCumTarget.SELF_LEGS,
 													OrgasmCumTarget.FLOOR))))))) {
 		@Override
-		public String getDescription() {
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			List<GameCharacter> characters = new ArrayList<>();
 			characters.add(Sex.getCharacterInPosition(SexSlotBipeds.GLORY_HOLE_FUCKED));
 			characters.add(Sex.getCharacterInPosition(SexSlotBipeds.GLORY_HOLE_FUCKING));

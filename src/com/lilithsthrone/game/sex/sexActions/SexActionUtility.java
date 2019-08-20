@@ -9,7 +9,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.positions.SexSlotGeneric;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PositioningMenu;
 import com.lilithsthrone.main.Main;
 
 /**
@@ -296,6 +297,39 @@ public class SexActionUtility {
 		@Override
 		public String getDescription() {
 			return Sex.getDyeClothingText();
+		}
+	};
+	
+	public static final SexAction POSITION_SELECTION = new SexAction(
+			SexActionType.ONGOING,
+			ArousalIncrease.ZERO_NONE,
+			ArousalIncrease.ZERO_NONE,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
+		@Override
+		public String getActionTitle() {
+			return "New Position";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "";
+		}
+
+		@Override
+		public String getDescription() {
+			return "";
+		}
+		
+		@Override
+		public void applyEffects() {
+			PositioningMenu.setNewSexManager();
+			Sex.setSexStarted(true);
 		}
 	};
 }
