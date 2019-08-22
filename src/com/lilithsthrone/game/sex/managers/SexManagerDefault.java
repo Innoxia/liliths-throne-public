@@ -726,14 +726,18 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				for(SexActionInterface action : availableActions) {
 					if(action.getActionType() == SexActionType.STOP_ONGOING) {
 						// Don't stop kissing or fetishised oral actions:
-						if(!((action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE)
-								|| action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH))
-								&& (action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.TONGUE)
-										|| action.getTargetedCharacterOrifices().contains(SexAreaOrifice.MOUTH)))
-								&& !(performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING)
-										&& (action.getTargetedCharacterOrifices().contains(SexAreaOrifice.MOUTH) || action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.TONGUE)))
-								&& !(performingCharacter.hasFetish(Fetish.FETISH_ORAL_GIVING)
-										&& (action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH) || action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE)))) {
+						if(Sex.getMainSexPreference(performingCharacter, targetedCharacter)==null) { //TODO More testing
+							if(!((action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE)
+									|| action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH))
+									&& (action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.TONGUE)
+											|| action.getTargetedCharacterOrifices().contains(SexAreaOrifice.MOUTH)))
+									&& !(performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING)
+											&& (action.getTargetedCharacterOrifices().contains(SexAreaOrifice.MOUTH) || action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.TONGUE)))
+									&& !(performingCharacter.hasFetish(Fetish.FETISH_ORAL_GIVING)
+											&& (action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH) || action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE)))) {
+								returnableActions.add(action);
+							}
+						} else {
 							returnableActions.add(action);
 						}
 					}
@@ -869,7 +873,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			if(action.getActionType() == SexActionType.STOP_ONGOING) {
 				if(performingCharacter.getMainSexPreference(targetedCharacter)!=null
 						&& (action.getPerformingCharacterAreas().contains(performingCharacter.getMainSexPreference(targetedCharacter).getPerformingSexArea())
-						&& action.getTargetedCharacterAreas().contains(performingCharacter.getMainSexPreference(targetedCharacter).getTargetedSexArea()))) {
+								&& action.getTargetedCharacterAreas().contains(performingCharacter.getMainSexPreference(targetedCharacter).getTargetedSexArea()))) {
 					if(debug) {
 						System.out.println("banned action from preference");
 					}

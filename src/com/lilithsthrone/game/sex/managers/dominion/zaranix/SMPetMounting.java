@@ -5,24 +5,29 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionUnique;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 
 /**
  * @since 0.2.3
- * @version 0.3.3.10
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMPetMounting extends SexManagerDefault {
 
 	public SMPetMounting(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionBipeds.PET_MOUNTING,
+		super(SexPositionUnique.PET_MOUNTING,
 				dominants,
 				submissives);
 	}
 	
 	@Override
 	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+		return false;
+	}
+	
+	@Override
+	public boolean isPositionChangingAllowed(GameCharacter character) {
 		return false;
 	}
 

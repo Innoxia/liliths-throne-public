@@ -14,12 +14,13 @@ public class SexSlotStanding {
 
 	public static final SexSlot STANDING_DOMINANT = new SexSlot(
 			"Standing",
-			"standing (dom)",
+			"standing",
 			"[npc.Name] [npc.verb(lean)] heavily into [npc2.namePos] [npc2.breasts] and [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			true) {
+			true,
+			SexSlotTag.STANDING) {
 		@Override
 		public String getOrgasmDescription() {
-			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(Sex.getCharacterInPosition(this)));
+			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(getCharacterInSlot(this)));
 			if(targetedSlot==SexSlotStanding.PERFORMING_ORAL || targetedSlot==SexSlotStanding.PERFORMING_ORAL_TWO || targetedSlot==SexSlotStanding.PERFORMING_ORAL_THREE || targetedSlot==SexSlotStanding.PERFORMING_ORAL_FOUR) {
 				return "With a small thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
 			}
@@ -33,11 +34,11 @@ public class SexSlotStanding {
 	public static final SexSlot STANDING_DOMINANT_TWO = new SexSlot(STANDING_DOMINANT) {
 		@Override
 		public String getDescription() {
-			return "standing (2nd dom)";
+			return "standing (2nd)";
 		}
 		@Override
 		public String getOrgasmDescription() {
-			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(Sex.getCharacterInPosition(this)));
+			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(getCharacterInSlot(this)));
 			if(targetedSlot==SexSlotStanding.PERFORMING_ORAL || targetedSlot==SexSlotStanding.PERFORMING_ORAL_TWO || targetedSlot==SexSlotStanding.PERFORMING_ORAL_THREE || targetedSlot==SexSlotStanding.PERFORMING_ORAL_FOUR) {
 				return "With a small thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
 			}
@@ -50,11 +51,11 @@ public class SexSlotStanding {
 	public static final SexSlot STANDING_DOMINANT_THREE = new SexSlot(STANDING_DOMINANT) {
 		@Override
 		public String getDescription() {
-			return "standing (3rd dom)";
+			return "standing (3rd)";
 		}
 		@Override
 		public String getOrgasmDescription() {
-			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(Sex.getCharacterInPosition(this)));
+			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(getCharacterInSlot(this)));
 			if(targetedSlot==SexSlotStanding.PERFORMING_ORAL || targetedSlot==SexSlotStanding.PERFORMING_ORAL_TWO || targetedSlot==SexSlotStanding.PERFORMING_ORAL_THREE || targetedSlot==SexSlotStanding.PERFORMING_ORAL_FOUR) {
 				return "With a small thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
 			}
@@ -67,11 +68,11 @@ public class SexSlotStanding {
 	public static final SexSlot STANDING_DOMINANT_FOUR = new SexSlot(STANDING_DOMINANT) {
 		@Override
 		public String getDescription() {
-			return "standing (4th dom)";
+			return "standing (4th)";
 		}
 		@Override
 		public String getOrgasmDescription() {
-			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(Sex.getCharacterInPosition(this)));
+			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(getCharacterInSlot(this)));
 			if(targetedSlot==SexSlotStanding.PERFORMING_ORAL || targetedSlot==SexSlotStanding.PERFORMING_ORAL_TWO || targetedSlot==SexSlotStanding.PERFORMING_ORAL_THREE || targetedSlot==SexSlotStanding.PERFORMING_ORAL_FOUR) {
 				return "With a small thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
 			}
@@ -84,26 +85,51 @@ public class SexSlotStanding {
 
 	public static final SexSlot STANDING_SUBMISSIVE = new SexSlot(
 			"Standing",
-			"standing (sub)",
+			"standing (in front)",
 			"[npc.Name] [npc.verb(lean)] heavily into [npc2.namePos] [npc2.breasts] and [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
 			true);
 
 	public static final SexSlot STANDING_SUBMISSIVE_TWO = new SexSlot(STANDING_SUBMISSIVE) {
 		@Override
 		public String getDescription() {
-			return "standing (2nd sub)";
+			return "standing (2nd in front)";
 		}
 	};
 	public static final SexSlot STANDING_SUBMISSIVE_THREE = new SexSlot(STANDING_SUBMISSIVE) {
 		@Override
 		public String getDescription() {
-			return "standing (3rd sub)";
+			return "standing (3rd in front)";
 		}
 	};
 	public static final SexSlot STANDING_SUBMISSIVE_FOUR = new SexSlot(STANDING_SUBMISSIVE) {
 		@Override
 		public String getDescription() {
-			return "standing (4th sub)";
+			return "standing (4th in front)";
+		}
+	};
+
+	public static final SexSlot STANDING_SUBMISSIVE_BEHIND = new SexSlot(
+			"Standing",
+			"standing (behind)",
+			"[npc.Name] [npc.verb(lean)] heavily into [npc2.namePos] [npc2.breasts] and [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
+			true);
+
+	public static final SexSlot STANDING_SUBMISSIVE_BEHIND_TWO = new SexSlot(STANDING_SUBMISSIVE) {
+		@Override
+		public String getDescription() {
+			return "standing (2nd behind)";
+		}
+	};
+	public static final SexSlot STANDING_SUBMISSIVE_BEHIND_THREE = new SexSlot(STANDING_SUBMISSIVE) {
+		@Override
+		public String getDescription() {
+			return "standing (3rd behind)";
+		}
+	};
+	public static final SexSlot STANDING_SUBMISSIVE_BEHIND_FOUR = new SexSlot(STANDING_SUBMISSIVE) {
+		@Override
+		public String getDescription() {
+			return "standing (4th behind)";
 		}
 	};
 
@@ -111,7 +137,8 @@ public class SexSlotStanding {
 			"Performing oral (front)",
 			"performing oral (front)",
 			"[npc.Name] [npc.verb(reach)] up and [npc.verb(place)] a [npc.hand] on one of [npc2.namePos] [npc2.legs], before letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			false) {
+			false,
+			SexSlotTag.PERFORMING_ORAL) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
@@ -122,7 +149,8 @@ public class SexSlotStanding {
 			"Performing oral (front)",
 			"performing oral (2nd front)",
 			null,
-			false) {
+			false,
+			SexSlotTag.PERFORMING_ORAL) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
@@ -133,7 +161,8 @@ public class SexSlotStanding {
 			"Performing oral (front)",
 			"performing oral (3rd front)",
 			null,
-			false) {
+			false,
+			SexSlotTag.PERFORMING_ORAL) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
@@ -144,7 +173,8 @@ public class SexSlotStanding {
 			"Performing oral (front)",
 			"performing oral (4th front)",
 			null,
-			false) {
+			false,
+			SexSlotTag.PERFORMING_ORAL) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
@@ -155,7 +185,8 @@ public class SexSlotStanding {
 			"Performing oral (behind)",
 			"performing oral (behind)",
 			"[npc.Name] [npc.verb(reach)] up and [npc.verb(place)] a [npc.hand] on one of [npc2.namePos] [npc2.legs], before letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			false) {
+			false,
+			SexSlotTag.PERFORMING_ORAL_BEHIND) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
@@ -166,7 +197,8 @@ public class SexSlotStanding {
 			"Performing oral (behind)",
 			"performing oral (2nd behind)",
 			null,
-			false) {
+			false,
+			SexSlotTag.PERFORMING_ORAL_BEHIND) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
@@ -177,7 +209,8 @@ public class SexSlotStanding {
 			"Performing oral (behind)",
 			"performing oral (3rd behind)",
 			null,
-			false) {
+			false,
+			SexSlotTag.PERFORMING_ORAL_BEHIND) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
@@ -188,7 +221,8 @@ public class SexSlotStanding {
 			"Performing oral (behind)",
 			"performing oral (4th behind)",
 			null,
-			false) {
+			false,
+			SexSlotTag.PERFORMING_ORAL_BEHIND) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);

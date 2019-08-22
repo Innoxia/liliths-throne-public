@@ -86,8 +86,8 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.ImageCache;
@@ -2138,9 +2138,9 @@ public class MainController implements Initializable {
 							false,
 							false,
 							new SexManagerDefault(
-									SexPositionBipeds.MATING_PRESS,
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MATING_PRESS_TOP)),
-									Util.newHashMapOfValues(new Value<>(target, SexSlotBipeds.MATING_PRESS_BOTTOM))) {
+									SexPositionOther.LYING_DOWN,
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MATING_PRESS)),
+									Util.newHashMapOfValues(new Value<>(target, SexSlotLyingDown.LYING_DOWN))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
@@ -2216,9 +2216,9 @@ public class MainController implements Initializable {
 							false,
 							false,
 							new SexManagerDefault(
-									SexPositionBipeds.MATING_PRESS,
-									Util.newHashMapOfValues(new Value<>(target, SexSlotBipeds.MATING_PRESS_TOP)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MATING_PRESS_BOTTOM))) {
+									SexPositionOther.LYING_DOWN,
+									Util.newHashMapOfValues(new Value<>(target, SexSlotLyingDown.MATING_PRESS)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;

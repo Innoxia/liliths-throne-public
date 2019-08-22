@@ -42,7 +42,6 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.TongueNippleCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
-import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioningNew;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
@@ -244,6 +243,8 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> mouthToCrotchBoobs = new HashMap<>();
 	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> breastsToMouth = new HashMap<>();
+
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> handHolding = new HashMap<>();
 	
 	
 	static {
@@ -261,6 +262,9 @@ public class SexActionPresets {
 		
 		tentacleToUpperTorso = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(mouthAreas, breastAreas)));
 		tentacleToLowerHalf = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TENTACLE, Util.mergeLists(groinAreas, lowerHalf, assAreas)));
+		
+		handHolding = Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.mergeLists(mouthAreas, Util.newArrayListOfValues(SexAreaPenetration.FINGER))));
+		
 		
 		lowerHalf.addAll(groinAreas);
 		lowerHalf.addAll(thighAreas);
@@ -360,7 +364,6 @@ public class SexActionPresets {
 		}
 	}
 
-	public static List<Class<?>> positioningActions = new ArrayList<>();
 	public static List<Class<?>> positioningActionsNew = new ArrayList<>();
 	public static List<Class<?>> miscActions = new ArrayList<>();
 	public static List<Class<?>> sexActions = new ArrayList<>();
@@ -369,9 +372,9 @@ public class SexActionPresets {
 	public static List<Class<?>> allCommonActions = new ArrayList<>();
 	
 	static {
-		positioningActions.add(GenericPositioning.class);
-		positioningActionsNew.add(GenericPositioningNew.class);
+//		positioningActions.add(GenericPositioning.class);
 		positioningActionsNew.add(PositioningMenu.class);
+		positioningActionsNew.add(GenericPositioningNew.class);
 		
 		miscActions.add(GenericActions.class);
 		miscActions.add(GenericOrgasms.class);

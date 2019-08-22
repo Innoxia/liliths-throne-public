@@ -24,7 +24,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.dominion.SMDaddyDinnerOral;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
@@ -807,11 +807,11 @@ public class DaddyDialogue {
 							true,
 							new SMDaddyDinnerOral(
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(Daddy.class), SexSlotOther.SITTING)),
+											new Value<>(Main.game.getNpc(Daddy.class), SexSlotSitting.SITTING)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getPlayer(), SexSlotOther.PERFORMING_ORAL),
+											new Value<>(Main.game.getPlayer(), SexSlotSitting.PERFORMING_ORAL),
 											isLilayaPresent()
-												?new Value<>(Main.game.getNpc(Lilaya.class), SexSlotOther.PERFORMING_ORAL_TWO)
+												?new Value<>(Main.game.getNpc(Lilaya.class), SexSlotSitting.PERFORMING_ORAL_TWO)
 												:null)),
 							null,
 							null,

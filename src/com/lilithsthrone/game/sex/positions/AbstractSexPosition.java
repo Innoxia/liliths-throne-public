@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.sex.positions;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -84,16 +83,12 @@ public abstract class AbstractSexPosition {
 
 	public abstract String getDescription(Map<GameCharacter, SexSlot> occupiedSlots);
 
-	public Value<Boolean, String> isAcceptablePosition(Map<GameCharacter, SexSlot> positioningSlots) { //TODO make abstract
+	public Value<Boolean, String> isAcceptablePosition(Map<GameCharacter, SexSlot> positioningSlots) {
 		return new Value<Boolean, String>(true, "");
 	}
 	
-	public Value<Boolean, String> isSlotUnlocked(GameCharacter characterToTakeSlot, SexSlot slot, Map<GameCharacter, SexSlot> positioningSlots) { //TODO make abstract
+	public Value<Boolean, String> isSlotUnlocked(GameCharacter characterToTakeSlot, SexSlot slot, Map<GameCharacter, SexSlot> positioningSlots) {
 		return new Value<Boolean, String>(true, "");
-	}
-
-	public List<SexSlot> getAllSlots() { //TODO make abstract
-		return new ArrayList<>();
 	}
 	
 	public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
@@ -109,12 +104,12 @@ public abstract class AbstractSexPosition {
 					// If the person already using the penis is using it with an orifice that is not allowed for inter-penetrations:
 					if(!Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer).isEmpty()
 							&& Collections.disjoint(Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer), SexActionPresets.allowedInterPenetrationAreas)) {
-						// return blocked if the targeted area is not an appendage:
-						return Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas);
+						// return blocked if the targeted area is not an interPenetrationArea:
+						return Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.allowedInterPenetrationAreas);
 						
 					} else {
-						// return blocked if the penetrated area is a vagina and the targeted area is a non-appendage area:
-						if(Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)) {
+						// return blocked if the penetrated area is a vagina and the targeted area is a non-interPenetrationArea:
+						if(Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.allowedInterPenetrationAreas)) {
 							return Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer).contains(SexAreaOrifice.VAGINA);
 						} else {
 							return false;
@@ -128,12 +123,12 @@ public abstract class AbstractSexPosition {
 					// If the person already using the penis is using it with an orifice that is not allowed for inter-penetrations:
 					if(!Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target).isEmpty()
 							&& Collections.disjoint(Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target), SexActionPresets.allowedInterPenetrationAreas)) {
-						// return blocked if the targeted area is not an appendage:
-						return Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas);
+						// return blocked if the targeted area is not an interPenetrationArea:
+						return Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.allowedInterPenetrationAreas);
 						
 					} else {
-						// return blocked if the penetrated area is a vagina and the targeted area is a non-appendage area:
-						if(Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas)) {
+						// return blocked if the penetrated area is a vagina and the targeted area is a non-interPenetrationArea:
+						if(Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.allowedInterPenetrationAreas)) {
 							return Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target).contains(SexAreaOrifice.VAGINA);
 						} else {
 							return false;
@@ -180,7 +175,14 @@ public abstract class AbstractSexPosition {
 	}
 	
 	public int getMaximumSlots() {
-		return getSlotTargets().size();
+		Set<SexSlot> uniqueSlots = new HashSet<>();
+		
+		for(Entry<SexSlot, Map<SexSlot, SexActionInteractions>> e : getSlotTargets().entrySet()) {
+			uniqueSlots.add(e.getKey());
+			uniqueSlots.addAll(e.getValue().keySet());
+		}
+		
+		return uniqueSlots.size();
 	}
 
 	public Set<SexSlot> getAllAvailableSexPositions() {

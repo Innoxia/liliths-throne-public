@@ -8,7 +8,6 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.dominion.Vanessa;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
 import com.lilithsthrone.game.sex.positions.SexPositionOther;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
@@ -17,14 +16,14 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.2
- * @version 0.3.3.10
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMVanessaSex extends SexManagerDefault {
 	
 	public SMVanessaSex(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
 		super(Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()
-					?SexPositionBipeds.MISSIONARY_DESK
+					?SexPositionOther.OVER_DESK
 					:SexPositionOther.ALL_FOURS,
 				dominants,
 				submissives);
@@ -39,6 +38,11 @@ public class SMVanessaSex extends SexManagerDefault {
 	
 	@Override
 	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+		return false;
+	}
+	
+	@Override
+	public boolean isPositionChangingAllowed(GameCharacter character) {
 		return false;
 	}
 	

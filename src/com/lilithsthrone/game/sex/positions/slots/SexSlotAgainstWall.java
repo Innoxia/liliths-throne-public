@@ -11,13 +11,13 @@ import com.lilithsthrone.game.sex.Sex;
  * @author Innoxia
  */
 public class SexSlotAgainstWall {
-
+	
 	public static final SexSlot FACE_TO_WALL = new SexSlot(
 			"Face-to-wall",
 			"facing wall",
 			"[npc1.Name] [npc1.verb(brace)] [npc1.herself] against the wall in front of [npc1.herHim], letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
-			true);
-	
+			true,
+			SexSlotTag.FACE_TO_WALL);
 	public static final SexSlot FACE_TO_WALL_TWO = new SexSlot(FACE_TO_WALL) {
 		@Override
 		public String getDescription() {
@@ -41,8 +41,8 @@ public class SexSlotAgainstWall {
 			"Back against wall",
 			"back to wall",
 			"Leaning back, [npc.name] [npc.verb(brace)] [npc.herself] against the wall as [npc.she] [npc.verb(feel)] [npc.herself] reaching [npc.her] climax.",
-			true);
-
+			true,
+			SexSlotTag.BACK_TO_WALL);
 	public static final SexSlot BACK_TO_WALL_TWO = new SexSlot(BACK_TO_WALL) {
 		@Override
 		public String getDescription() {

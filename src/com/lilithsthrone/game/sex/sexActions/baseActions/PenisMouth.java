@@ -20,9 +20,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotBipeds;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -107,7 +105,7 @@ public class PenisMouth {
 			GameCharacter primary = PenisMouth.getPrimaryBlowjobPerformer(performer);
 			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
 			
-			if(Sex.getSexPositionSlot(performer)==SexSlotBipeds.KNEELING_PERFORMING_ORAL) {
+			if(Sex.getSexPositionSlot(performer).hasTag(SexSlotTag.PERFORMING_ORAL)) {
 				return UtilText.parse(Util.newArrayListOfValues(performer, primary, target),
 						UtilText.returnStringAtRandom(
 							"Grinning down at "+PenisMouth.getOngoingNames(performer)+", [npc.name] [npc.verb(pull)] back, sliding [npc.her] [npc.cock+] out of [npc2.namePos] mouth."
@@ -732,13 +730,24 @@ public class PenisMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			boolean found = false;
 			try {
-				if(!Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
+				if(Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
 						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH)) {
-					return false;
+					found = true;
 				}
 			} catch(Exception ex) {
-				return false; // No available finger-mouth actions, so can't reach face
+			}
+			try {
+				if(Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))).get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()))
+						.getInteractions().get(SexAreaOrifice.MOUTH).contains(SexAreaPenetration.FINGER)) {
+					found = true;
+				}
+			} catch(Exception ex) {
+			}
+			
+			if(!found) { // No available finger-mouth actions, so can't reach face
+				return false;
 			}
 			
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
@@ -898,13 +907,24 @@ public class PenisMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			boolean found = false;
 			try {
-				if(!Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
+				if(Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())).get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)))
 						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.MOUTH)) {
-					return false;
+					found = true;
 				}
 			} catch(Exception ex) {
-				return false; // No available finger-mouth actions, so can't reach face
+			}
+			try {
+				if(Sex.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))).get(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()))
+						.getInteractions().get(SexAreaOrifice.MOUTH).contains(SexAreaPenetration.FINGER)) {
+					found = true;
+				}
+			} catch(Exception ex) {
+			}
+			
+			if(!found) { // No available finger-mouth actions, so can't reach face
+				return false;
 			}
 			
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
@@ -1226,7 +1246,7 @@ public class PenisMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionBipeds.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.KNEELING_PERFORMING_ORAL) {
+			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.PERFORMING_ORAL)) {
 				
 				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
@@ -1266,7 +1286,7 @@ public class PenisMouth {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPositionBipeds.SIXTY_NINE && Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.SIXTY_NINE_BOTTOM) {
+			} else if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.LYING_DOWN)) {
 				
 				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
@@ -1732,8 +1752,8 @@ public class PenisMouth {
 			GameCharacter primary = PenisMouth.getPrimaryBlowjobPerformer(performer);
 			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
 			
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.KNEELING_RECEIVING_ORAL
-					|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotOther.SITTING) {
+			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.STANDING)
+					|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.SITTING)) {
 
 				if(PenisMouth.getOngoingCharacters(Sex.getCharacterPerformingAction()).size()>1 && !primary.equals(target)) {
 					
@@ -1819,7 +1839,7 @@ public class PenisMouth {
 				}
 				
 				
-			} else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.SIXTY_NINE_TOP) {
+			} else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.SIXTY_NINE)) {
 				
 				for(PenetrationModifier pm : Sex.getCharacterPerformingAction().getPenisModifiers()) {
 					switch(pm) {
@@ -2161,7 +2181,7 @@ public class PenisMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.SIXTY_NINE_TOP) {
+			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.SIXTY_NINE)) {
 				UtilText.nodeContentSB.append("Using [npc.her] knees to lift [npc.herself] up, [npc.name] [npc.verb(allow)] [npc.her] [npc.cock+] to slide up and out of [npc2.namePos] mouth."
 							+ " A slimy strand of saliva links [npc2.namePos] [npc2.lips+] to the [npc.cockHead+] of [npc.her] [npc.cock] for a brief moment, before breaking to fall down over [npc2.her] face.");
 				
@@ -2228,7 +2248,7 @@ public class PenisMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.SIXTY_NINE_TOP) {
+			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.SIXTY_NINE)) {
 				
 				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:

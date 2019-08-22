@@ -194,53 +194,53 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				Util.newHashMapOfValues(new Value<>(equipSlot, itemTags==null?new ArrayList<>():itemTags)));
 	}
 	
-	protected AbstractClothingType(
-			int baseValue,
-			String determiner,
-			boolean plural,
-			String name,
-			String namePlural,
-			String description,
-			float physicalResistance,
-			Femininity femininityRestriction,
-			List<InventorySlot> equipSlots,
-			Rarity rarity,
-			ClothingSet clothingSet,
-			String pathName,
-			List<ItemEffect> effects,
-			Map<InventorySlot, List<BlockedParts>> blockedPartsMap,
-			Map<InventorySlot, List<InventorySlot>> incompatibleSlotsMap,
-			List<Colour> availablePrimaryColours,
-			List<Colour> availablePrimaryDyeColours,
-			List<Colour> availableSecondaryColours,
-			List<Colour> availableSecondaryDyeColours,
-			List<Colour> availableTertiaryColours,
-			List<Colour> availableTertiaryDyeColours,
-			Map<InventorySlot, List<ItemTag>> itemTags) {
-		this(baseValue,
-				determiner,
-				plural,
-				name,
-				namePlural,
-				description,
-				physicalResistance,
-				femininityRestriction,
-				equipSlots,
-				rarity,
-				clothingSet,
-				pathName,
-				null,
-				effects,
-				blockedPartsMap,
-				incompatibleSlotsMap,
-				availablePrimaryColours,
-				availablePrimaryDyeColours,
-				availableSecondaryColours,
-				availableSecondaryDyeColours,
-				availableTertiaryColours,
-				availableTertiaryDyeColours,
-				itemTags);
-	}
+//	protected AbstractClothingType(
+//			int baseValue,
+//			String determiner,
+//			boolean plural,
+//			String name,
+//			String namePlural,
+//			String description,
+//			float physicalResistance,
+//			Femininity femininityRestriction,
+//			List<InventorySlot> equipSlots,
+//			Rarity rarity,
+//			ClothingSet clothingSet,
+//			String pathName,
+//			List<ItemEffect> effects,
+//			Map<InventorySlot, List<BlockedParts>> blockedPartsMap,
+//			Map<InventorySlot, List<InventorySlot>> incompatibleSlotsMap,
+//			List<Colour> availablePrimaryColours,
+//			List<Colour> availablePrimaryDyeColours,
+//			List<Colour> availableSecondaryColours,
+//			List<Colour> availableSecondaryDyeColours,
+//			List<Colour> availableTertiaryColours,
+//			List<Colour> availableTertiaryDyeColours,
+//			Map<InventorySlot, List<ItemTag>> itemTags) {
+//		this(baseValue,
+//				determiner,
+//				plural,
+//				name,
+//				namePlural,
+//				description,
+//				physicalResistance,
+//				femininityRestriction,
+//				equipSlots,
+//				rarity,
+//				clothingSet,
+//				pathName,
+//				null,
+//				effects,
+//				blockedPartsMap,
+//				incompatibleSlotsMap,
+//				availablePrimaryColours,
+//				availablePrimaryDyeColours,
+//				availableSecondaryColours,
+//				availableSecondaryDyeColours,
+//				availableTertiaryColours,
+//				availableTertiaryDyeColours,
+//				itemTags);
+//	}
 	
 	public AbstractClothingType(
 			int baseValue,
@@ -1797,7 +1797,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			return false;
 		}
 		
-		List<ItemTag> tags = this.getItemTags().get(slot);
+		List<ItemTag> tags = this.getItemTags(slot);
 		BodyPartClothingBlock block = slot.getBodyPartClothingBlock(clothingOwner);
 		
 		if (block != null && Collections.disjoint(block.getRequiredTags(), tags)) {
@@ -1889,7 +1889,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 	public String getCannotBeEquippedText(GameCharacter clothingOwner, InventorySlot slot) { // ...
 		BodyPartClothingBlock block = slot.getBodyPartClothingBlock(clothingOwner);
-		List<ItemTag> tags = this.getItemTags().get(slot);
+		List<ItemTag> tags = this.getItemTags(slot);
 		
 		if(!this.getEquipSlots().contains(slot)) {
 			return  UtilText.parse("[style.colourBad(The "+this.getName()+" cannot be equipped into this slot!)]");
@@ -1982,25 +1982,25 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public boolean isMufflesSpeech(InventorySlot slotEquippedTo) {
-		return getItemTags().get(slotEquippedTo).contains(ItemTag.MUFFLES_SPEECH);
+		return getItemTags(slotEquippedTo).contains(ItemTag.MUFFLES_SPEECH);
 	}
 	
 	public boolean isHindersLegMovement(InventorySlot slotEquippedTo) {
-		return getItemTags().get(slotEquippedTo).contains(ItemTag.HINDERS_LEG_MOVEMENT);
+		return getItemTags(slotEquippedTo).contains(ItemTag.HINDERS_LEG_MOVEMENT);
 	}
 	
 	public boolean isHindersArmMovement(InventorySlot slotEquippedTo) {
-		return getItemTags().get(slotEquippedTo).contains(ItemTag.HINDERS_ARM_MOVEMENT);
+		return getItemTags(slotEquippedTo).contains(ItemTag.HINDERS_ARM_MOVEMENT);
 	}
 	
 	// Getters & setters:
 	
 	public boolean isDiscardedOnUnequip(InventorySlot slotEquippedTo) {
-		return getItemTags().get(slotEquippedTo).contains(ItemTag.DISCARDED_WHEN_UNEQUIPPED);
+		return getItemTags(slotEquippedTo).contains(ItemTag.DISCARDED_WHEN_UNEQUIPPED);
 	}
 	
 	public boolean isAbleToBeEquippedDuringSex(InventorySlot slotEquippedTo) {
-		return getItemTags().get(slotEquippedTo).contains(ItemTag.ENABLE_SEX_EQUIP);
+		return getItemTags(slotEquippedTo).contains(ItemTag.ENABLE_SEX_EQUIP);
 	}
 	
 	public String getDeterminer() {
@@ -2052,7 +2052,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 
 	public List<BlockedParts> getBlockedPartsMap(GameCharacter character, InventorySlot slotEquippedTo) {
-		List<ItemTag> tags = this.getItemTags().get(slotEquippedTo);
+		List<ItemTag> tags = this.getItemTags(slotEquippedTo);
 		
 		if(character!=null) {
 			boolean replaceCrotchBoobAccess = false;
@@ -2138,7 +2138,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public boolean isConcealsSlot(GameCharacter character, InventorySlot slotEquippedTo, InventorySlot slotToCheck) {
 		for(BlockedParts blockedPart : this.getBlockedPartsMap(character, slotEquippedTo)) {
-			if(blockedPart.concealedSlots.contains(slotToCheck) && !this.getItemTags().get(slotEquippedTo).contains(ItemTag.TRANSPARENT)) {
+			if(blockedPart.concealedSlots.contains(slotToCheck) && !this.getItemTags(slotEquippedTo).contains(ItemTag.TRANSPARENT)) {
 				return true;
 			}
 		}
@@ -2152,7 +2152,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public boolean isConcealsCoverableArea(GameCharacter character, InventorySlot slotEquippedTo, CoverableArea area) {
 		for(BlockedParts blockedPart : this.getBlockedPartsMap(character, slotEquippedTo)) {
-			if(blockedPart.blockedBodyParts.contains(area) && !this.getItemTags().get(slotEquippedTo).contains(ItemTag.TRANSPARENT)) {
+			if(blockedPart.blockedBodyParts.contains(area) && !this.getItemTags(slotEquippedTo).contains(ItemTag.TRANSPARENT)) {
 				return true;
 			}
 		}
@@ -2170,12 +2170,12 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:
-					if(!this.getItemTags().get(slotEquippedTo).contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
+					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
 						replace = true;
 					}
 					break;
 				case TAUR:
-					if(!this.getItemTags().get(slotEquippedTo).contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
+					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
 						replace = true;
 					}
 					break;
@@ -2207,13 +2207,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					// These are all in such a position that normal clothing conceals as normal
 					break;
 				case ARACHNID:
-					if(!this.getItemTags().get(slotEquippedTo).contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
+					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_ARACHNID_BODY)) { // Arachnid-specific clothing is configured to be correct.
 						// Arachnid crotch boobs are on the front, so that conceals as normal. Genitalia are not concealed.
 						replaceGroinAccess = true;
 					}
 					break;
 				case TAUR:
-					if(!this.getItemTags().get(slotEquippedTo).contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
+					if(!this.getItemTags(slotEquippedTo).contains(ItemTag.FITS_TAUR_BODY)) { // Taur-specific clothing is configured to be correct.
 						replaceCrotchBoobAccess = true;
 						replaceGroinAccess = true;
 					}
@@ -2795,11 +2795,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return this;
 	}
 
-	public Map<InventorySlot, List<ItemTag>> getItemTags() {
-		return itemTags;
-	}
+//	public Map<InventorySlot, List<ItemTag>> getItemTags() {
+//		return itemTags;
+//	}
 
 	public List<ItemTag> getItemTags(InventorySlot slotEquippedTo) {
+		if(!itemTags.containsKey(slotEquippedTo)) {
+			return new ArrayList<>();
+		}
 		return itemTags.get(slotEquippedTo);
 	}
 
@@ -2808,7 +2811,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public boolean isSexToy(InventorySlot slotEquippedTo) {
-		for(ItemTag tag : this.getItemTags().get(slotEquippedTo)) {
+		for(ItemTag tag : this.getItemTags(slotEquippedTo)) {
 			if(tag.isSexToy()) {
 				return true;
 			}
@@ -2817,11 +2820,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public boolean isCondom(InventorySlot slotEquippedTo) {
-		return getItemTags().get(slotEquippedTo).contains(ItemTag.CONDOM);
+		return getItemTags(slotEquippedTo).contains(ItemTag.CONDOM);
 	}
 	
 	public boolean isTransparent(InventorySlot slotEquippedTo) {
-		return getItemTags().get(slotEquippedTo).contains(ItemTag.TRANSPARENT);
+		return getItemTags(slotEquippedTo).contains(ItemTag.TRANSPARENT);
 	}
 
 	public boolean isColourDerivedFromPattern() {

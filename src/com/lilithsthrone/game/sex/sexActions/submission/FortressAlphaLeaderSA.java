@@ -16,7 +16,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -26,15 +26,15 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.11
- * @version 0.2.11
+ * @version 0.3.4
  * @author Innoxia
  */
 public class FortressAlphaLeaderSA {
 	
 	public static boolean isBothTargetsUsed() {
 		try {
-			return Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))>0
-					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL_TWO), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))>0;
+			return Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))>0
+					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL_TWO), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))>0;
 		} catch(Exception ex) {
 			return true;
 		}
@@ -49,15 +49,15 @@ public class FortressAlphaLeaderSA {
 	private static GameCharacter getOtherTarget() {
 		try {
 			if(getBlowjobTarget()==null) {
-				if(Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))>0) {
-					return Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL_TWO);
+				if(Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))>0) {
+					return Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL_TWO);
 				} else {
-					return Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL);
+					return Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL);
 				}
 			}
-			return Sex.getSexPositionSlot(getBlowjobTarget())==SexSlotBipeds.KNEELING_PERFORMING_ORAL
-					?Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL_TWO)
-					:Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL);
+			return Sex.getSexPositionSlot(getBlowjobTarget())==SexSlotStanding.PERFORMING_ORAL
+					?Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL_TWO)
+					:Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL);
 		} catch(Exception ex) {
 			return null;
 		}

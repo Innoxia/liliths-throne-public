@@ -13,7 +13,8 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPositionOther;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.game.sex.sexActions.PositioningData;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
@@ -61,15 +62,15 @@ public class ChairSex {
 		private PositioningData data = new PositioningData(
 				SexPositionOther.STANDING,
 				Util.newArrayListOfValues(
-						SexSlotOther.STANDING_DOMINANT,
-						SexSlotOther.STANDING_DOMINANT_TWO,
-						SexSlotOther.STANDING_DOMINANT_THREE,
-						SexSlotOther.STANDING_DOMINANT_FOUR),
+						SexSlotStanding.STANDING_DOMINANT,
+						SexSlotStanding.STANDING_DOMINANT_TWO,
+						SexSlotStanding.STANDING_DOMINANT_THREE,
+						SexSlotStanding.STANDING_DOMINANT_FOUR),
 				Util.newArrayListOfValues(
-						SexSlotOther.STANDING_SUBMISSIVE,
-						SexSlotOther.STANDING_SUBMISSIVE_TWO,
-						SexSlotOther.STANDING_SUBMISSIVE_THREE,
-						SexSlotOther.STANDING_SUBMISSIVE_FOUR));
+						SexSlotStanding.STANDING_SUBMISSIVE,
+						SexSlotStanding.STANDING_SUBMISSIVE_TWO,
+						SexSlotStanding.STANDING_SUBMISSIVE_THREE,
+						SexSlotStanding.STANDING_SUBMISSIVE_FOUR));
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -134,8 +135,8 @@ public class ChairSex {
 		
 		private PositioningData data = new PositioningData(
 				SexPositionOther.SITTING,
-				Util.newArrayListOfValues(SexSlotOther.PERFORMING_ORAL),
-				Util.newArrayListOfValues(SexSlotOther.SITTING));
+				Util.newArrayListOfValues(SexSlotSitting.PERFORMING_ORAL),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -159,9 +160,9 @@ public class ChairSex {
 		public void applyEffects() {
 			applyChangeSlotEffects(
 					Sex.getCharacterPerformingAction(),
-					SexSlotOther.PERFORMING_ORAL,
+					SexSlotSitting.PERFORMING_ORAL,
 					Sex.getCharacterTargetedForSexAction(this),
-					SexSlotOther.SITTING);
+					SexSlotSitting.SITTING);
 //			GenericPositioningNew.setNewSexManager(data, false);
 		}
 	};
@@ -176,8 +177,8 @@ public class ChairSex {
 
 		private PositioningData data = new PositioningData(
 				SexPositionOther.SITTING,
-				Util.newArrayListOfValues(SexSlotOther.PERFORMING_ORAL),
-				Util.newArrayListOfValues(SexSlotOther.SITTING));
+				Util.newArrayListOfValues(SexSlotSitting.PERFORMING_ORAL),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -211,8 +212,8 @@ public class ChairSex {
 
 		private PositioningData data = new PositioningData(
 				SexPositionOther.SITTING,
-				Util.newArrayListOfValues(SexSlotOther.SITTING),
-				Util.newArrayListOfValues(SexSlotOther.PERFORMING_ORAL));
+				Util.newArrayListOfValues(SexSlotSitting.SITTING),
+				Util.newArrayListOfValues(SexSlotSitting.PERFORMING_ORAL));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -237,9 +238,9 @@ public class ChairSex {
 		public void applyEffects() {
 			applyChangeSlotEffects(
 					Sex.getCharacterPerformingAction(),
-					SexSlotOther.SITTING,
+					SexSlotSitting.SITTING,
 					Sex.getCharacterTargetedForSexAction(this),
-					SexSlotOther.PERFORMING_ORAL);
+					SexSlotSitting.PERFORMING_ORAL);
 //			GenericPositioningNew.setNewSexManager(data, false);
 		}
 	};
@@ -254,8 +255,8 @@ public class ChairSex {
 
 		private PositioningData data = new PositioningData(
 				SexPositionOther.SITTING,
-				Util.newArrayListOfValues(SexSlotOther.SITTING),
-				Util.newArrayListOfValues(SexSlotOther.PERFORMING_ORAL));
+				Util.newArrayListOfValues(SexSlotSitting.SITTING),
+				Util.newArrayListOfValues(SexSlotSitting.PERFORMING_ORAL));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -290,8 +291,8 @@ public class ChairSex {
 
 		private PositioningData data = new PositioningData(
 				SexPositionOther.SITTING,
-				Util.newArrayListOfValues(SexSlotOther.SITTING_TAUR_PRESENTING_ORAL),
-				Util.newArrayListOfValues(SexSlotOther.SITTING));
+				Util.newArrayListOfValues(SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -316,9 +317,9 @@ public class ChairSex {
 		public void applyEffects() {
 			applyChangeSlotEffects(
 					Sex.getCharacterPerformingAction(),
-					SexSlotOther.SITTING_TAUR_PRESENTING_ORAL,
+					SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL,
 					Sex.getCharacterTargetedForSexAction(this),
-					SexSlotOther.SITTING);
+					SexSlotSitting.SITTING);
 //			GenericPositioningNew.setNewSexManager(data, false);
 		}
 	};
@@ -333,8 +334,8 @@ public class ChairSex {
 
 		private PositioningData data = new PositioningData(
 				SexPositionOther.SITTING,
-				Util.newArrayListOfValues(SexSlotOther.SITTING_TAUR_PRESENTING_ORAL),
-				Util.newArrayListOfValues(SexSlotOther.SITTING));
+				Util.newArrayListOfValues(SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -370,8 +371,8 @@ public class ChairSex {
 
 		private PositioningData data = new PositioningData(
 				SexPositionOther.SITTING,
-				Util.newArrayListOfValues(SexSlotOther.SITTING),
-				Util.newArrayListOfValues(SexSlotOther.SITTING_IN_LAP));
+				Util.newArrayListOfValues(SexSlotSitting.SITTING),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING_IN_LAP));
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -396,9 +397,9 @@ public class ChairSex {
 		public void applyEffects() {
 			applyChangeSlotEffects(
 					Sex.getCharacterPerformingAction(),
-					SexSlotOther.SITTING,
+					SexSlotSitting.SITTING,
 					Sex.getCharacterTargetedForSexAction(this),
-					SexSlotOther.SITTING_IN_LAP);
+					SexSlotSitting.SITTING_IN_LAP);
 //			GenericPositioningNew.setNewSexManager(data, false);
 		}
 	};
@@ -413,8 +414,8 @@ public class ChairSex {
 
 		private PositioningData data = new PositioningData(
 				SexPositionOther.SITTING,
-				Util.newArrayListOfValues(SexSlotOther.SITTING),
-				Util.newArrayListOfValues(SexSlotOther.SITTING_IN_LAP));
+				Util.newArrayListOfValues(SexSlotSitting.SITTING),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING_IN_LAP));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -449,8 +450,8 @@ public class ChairSex {
 
 		private PositioningData data = new PositioningData(
 				SexPositionOther.SITTING,
-				Util.newArrayListOfValues(SexSlotOther.SITTING_IN_LAP),
-				Util.newArrayListOfValues(SexSlotOther.SITTING));
+				Util.newArrayListOfValues(SexSlotSitting.SITTING_IN_LAP),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -484,9 +485,9 @@ public class ChairSex {
 		public void applyEffects() {
 			applyChangeSlotEffects(
 					Sex.getCharacterPerformingAction(),
-					SexSlotOther.SITTING_IN_LAP,
+					SexSlotSitting.SITTING_IN_LAP,
 					Sex.getCharacterTargetedForSexAction(this),
-					SexSlotOther.SITTING);
+					SexSlotSitting.SITTING);
 //			GenericPositioningNew.setNewSexManager(data, false);
 		}
 	};
@@ -501,8 +502,8 @@ public class ChairSex {
 
 		private PositioningData data = new PositioningData(
 				SexPositionOther.SITTING,
-				Util.newArrayListOfValues(SexSlotOther.SITTING_IN_LAP),
-				Util.newArrayListOfValues(SexSlotOther.SITTING));
+				Util.newArrayListOfValues(SexSlotSitting.SITTING_IN_LAP),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -536,8 +537,8 @@ public class ChairSex {
 
 		private PositioningData data = new PositioningData(
 				SexPositionOther.SITTING,
-				Util.newArrayListOfValues(SexSlotOther.SITTING_BETWEEN_LEGS),
-				Util.newArrayListOfValues(SexSlotOther.SITTING));
+				Util.newArrayListOfValues(SexSlotSitting.SITTING_BETWEEN_LEGS),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -551,12 +552,12 @@ public class ChairSex {
 		@Override
 		public String getActionDescription() {
 			return "Switch position so that [npc2.name] is the one sitting down, with you "
-					+(SexSlotOther.SITTING_BETWEEN_LEGS.isStanding(Sex.getCharacterPerformingAction())?"standing":"kneeling")+" between [npc2.her] [npc2.legs], ready to fuck [npc2.herHim].";
+					+(SexSlotSitting.SITTING_BETWEEN_LEGS.isStanding(Sex.getCharacterPerformingAction())?"standing":"kneeling")+" between [npc2.her] [npc2.legs], ready to fuck [npc2.herHim].";
 		}
 		@Override
 		public String getDescription() {
 			return "[npc.Name] [npc.verb(decide)] to switch positions, and, with [npc2.name] sitting down, [npc.she] [npc.verb(move)] to "
-						+(SexSlotOther.SITTING_BETWEEN_LEGS.isStanding(Sex.getCharacterPerformingAction())?"stand":"kneel")+" between [npc2.her] [npc2.legs]."
+						+(SexSlotSitting.SITTING_BETWEEN_LEGS.isStanding(Sex.getCharacterPerformingAction())?"stand":"kneel")+" between [npc2.her] [npc2.legs]."
 					+ " Looking down into [npc2.her] [npc2.eyes], [npc.she] [npc.moansVerb], "
 					+ "[npc.speech(Time to give you a good fuck!)]";
 		}
@@ -564,9 +565,9 @@ public class ChairSex {
 		public void applyEffects() {
 			applyChangeSlotEffects(
 					Sex.getCharacterPerformingAction(),
-					SexSlotOther.SITTING_BETWEEN_LEGS,
+					SexSlotSitting.SITTING_BETWEEN_LEGS,
 					Sex.getCharacterTargetedForSexAction(this),
-					SexSlotOther.SITTING);
+					SexSlotSitting.SITTING);
 //			GenericPositioningNew.setNewSexManager(data, false);
 		}
 	};
@@ -581,8 +582,8 @@ public class ChairSex {
 
 		private PositioningData data = new PositioningData(
 				SexPositionOther.SITTING,
-				Util.newArrayListOfValues(SexSlotOther.SITTING_BETWEEN_LEGS),
-				Util.newArrayListOfValues(SexSlotOther.SITTING));
+				Util.newArrayListOfValues(SexSlotSitting.SITTING_BETWEEN_LEGS),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -596,12 +597,12 @@ public class ChairSex {
 		@Override
 		public String getActionDescription() {
 			return "Try to switch position so that [npc2.name] is the one sitting down, with you "
-						+(SexSlotOther.SITTING_BETWEEN_LEGS.isStanding(Sex.getCharacterPerformingAction())?"standing":"kneeling")+" between [npc2.her] [npc2.legs], ready to fuck [npc2.herHim].";
+						+(SexSlotSitting.SITTING_BETWEEN_LEGS.isStanding(Sex.getCharacterPerformingAction())?"standing":"kneeling")+" between [npc2.her] [npc2.legs], ready to fuck [npc2.herHim].";
 		}
 		@Override
 		public String getDescription() {
 			return "You try to manoeuvre around in such a way that [npc2.nameIsFull] sitting down, with you "
-						+(SexSlotOther.SITTING_BETWEEN_LEGS.isStanding(Sex.getCharacterPerformingAction())?"standing":"kneeling")+" between [npc2.her] [npc2.legs]."
+						+(SexSlotSitting.SITTING_BETWEEN_LEGS.isStanding(Sex.getCharacterPerformingAction())?"standing":"kneeling")+" between [npc2.her] [npc2.legs]."
 						+ " As you do this, you [npc.moan], [npc.speech(Please, I want to fuck you like this...)]";
 		}
 		@Override
@@ -647,7 +648,7 @@ public class ChairSex {
 					Sex.getPositionRequest().getPerformerSlots().get(0),
 					Main.game.getPlayer());
 			
-			if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.SITTING_IN_LAP) {
+			if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotSitting.SITTING_IN_LAP) {
 				if(isHappy) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
@@ -663,8 +664,8 @@ public class ChairSex {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.SITTING) {
-				if(Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotOther.SITTING_IN_LAP) {
+			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotSitting.SITTING) {
+				if(Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotSitting.SITTING_IN_LAP) {
 					if(isHappy) {
 						switch(Sex.getSexPace(Sex.getActivePartner())) {
 							case DOM_ROUGH:
@@ -682,7 +683,7 @@ public class ChairSex {
 								+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 					}
 					
-				} else if(Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotOther.SITTING_TAUR_PRESENTING_ORAL) {
+				} else if(Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL) {
 					if(isHappy) {
 						switch(Sex.getSexPace(Sex.getActivePartner())) {
 							case DOM_ROUGH:
@@ -700,7 +701,7 @@ public class ChairSex {
 								+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 					}
 					
-				} else if(Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotOther.SITTING_BETWEEN_LEGS) {
+				} else if(Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotSitting.SITTING_BETWEEN_LEGS) {
 					if(isHappy) {
 						switch(Sex.getSexPace(Sex.getActivePartner())) {
 							case DOM_ROUGH:
@@ -737,7 +738,7 @@ public class ChairSex {
 					}
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotOther.PERFORMING_ORAL) {
+			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotSitting.PERFORMING_ORAL) {
 				if(isHappy) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:

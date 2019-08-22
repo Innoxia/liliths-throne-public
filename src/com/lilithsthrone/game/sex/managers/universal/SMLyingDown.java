@@ -4,20 +4,19 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 
 /**
- * @since 0.1.69
- * @version 0.1.97
+ * @since 0.1.98
+ * @version 0.3.4
  * @author Innoxia
  */
-public class SMDoggy extends SexManagerDefault {
+public class SMLyingDown extends SexManagerDefault {
 
-	public SMDoggy(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionBipeds.DOGGY_STYLE,
+	public SMLyingDown(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPositionOther.LYING_DOWN,
 				dominants,
 				submissives);
 	}
-	
 }

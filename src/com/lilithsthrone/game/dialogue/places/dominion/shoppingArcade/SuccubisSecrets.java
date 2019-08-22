@@ -31,8 +31,8 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.sex.managers.universal.SMChair;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotOther;
+import com.lilithsthrone.game.sex.managers.universal.SMSitting;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -169,9 +169,9 @@ public class SuccubisSecrets {
 			if (index == 1) {
 				return new ResponseSex("Sex", "You can't resist the horny succubus's request...",
 						true, true,
-						new SMChair(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.SITTING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotOther.SITTING))),
+						new SMSitting(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotSitting.SITTING))),
 						null,
 						null,
 						Kate.AFTER_SEX,
@@ -197,9 +197,9 @@ public class SuccubisSecrets {
 			if (index == 1) {
 				return new ResponseSex("Fuck her", "Do as she says and start having sex with her.",
 						true, true,
-						new SMChair(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.SITTING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotOther.SITTING))),
+						new SMSitting(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotSitting.SITTING))),
 						null,
 						null,
 						Kate.AFTER_SEX,
@@ -409,9 +409,9 @@ public class SuccubisSecrets {
 					"You roll your eyes as you reach the end of the brochure."
 							+ " On a double-page spread, there's an extremely lewd collection of pictures of Kate inserting her tail into her various orifices, with the suggestive caption 'Don't make me do it myself...'",
 					true, true,
-					new SMChair(
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.SITTING_BETWEEN_LEGS)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotOther.SITTING))),
+					new SMSitting(
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_BETWEEN_LEGS)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotSitting.SITTING))),
 					null,
 					null,
 					Kate.AFTER_SEX_REPEATED,

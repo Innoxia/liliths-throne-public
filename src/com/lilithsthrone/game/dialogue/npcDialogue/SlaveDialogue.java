@@ -30,7 +30,7 @@ import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotMilkingStall;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -751,8 +751,8 @@ public class SlaveDialogue {
 							return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
 									false, false,
 									new SMMilkingStall(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MILKING_STALL_FUCKING)),
-											Util.newHashMapOfValues(new Value<>(getSlave(), SexSlotBipeds.MILKING_STALL_LOCKED_IN_MILKING_STALL))),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
+											Util.newHashMapOfValues(new Value<>(getSlave(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
 									getDominantSpectators(),
 									getSubmissiveSpectators(),
 									AFTER_SEX,
@@ -772,8 +772,8 @@ public class SlaveDialogue {
 							return new ResponseSex("Sex", "Have sex with [npc.name].", 
 									true, false,
 									new SMMilkingStall(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MILKING_STALL_FUCKING)),
-											Util.newHashMapOfValues(new Value<>(getSlave(), SexSlotBipeds.MILKING_STALL_LOCKED_IN_MILKING_STALL))),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
+											Util.newHashMapOfValues(new Value<>(getSlave(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
 									getDominantSpectators(),
 									getSubmissiveSpectators(),
 									AFTER_SEX,

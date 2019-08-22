@@ -207,6 +207,7 @@ public class Sex {
 
 	// Positioning, requests, tracking:
 	private static Map<GameCharacter, List<SexType>> requestsBlocked;
+	private static Map<GameCharacter, List<AbstractSexPosition>> positioningRequestsBlocked;
 	private static PositioningData positionRequest;
 	private static Set<GameCharacter> charactersRequestingCreampie;
 	private static Set<GameCharacter> charactersRequestingPullout;
@@ -373,9 +374,11 @@ public class Sex {
 		// Populate exposed areas:
 		areasExposed = new HashMap<>();
 		requestsBlocked = new HashMap<>();
+		positioningRequestsBlocked = new HashMap<>();
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			areasExposed.put(character, new ArrayList<>());
 			requestsBlocked.put(character, new ArrayList<>());
+			positioningRequestsBlocked.put(character, new ArrayList<>());
 		}
 		
 		positionRequest = null;
@@ -1666,7 +1669,12 @@ public class Sex {
 				}
 			}
 		}
-		positionActionsPlayer.sort((a1, a2) -> a1.getActionTitle().compareTo(a2.getActionTitle()));
+		positionActionsPlayer.sort((a1, a2) -> 
+			a1.getActionType()==a2.getActionType()
+				?a1.getActionTitle().compareTo(a2.getActionTitle())
+				:a1.getActionType()==SexActionType.POSITIONING_MENU
+					?-1:
+					1);
 		
 		if(Sex.getTotalParticipantCount(false)>2) {
 			for(GameCharacter character : Sex.getAllParticipants(false)) {
@@ -3219,6 +3227,20 @@ public class Sex {
 			requestsBlocked.get(character).add(sexTypeRequest);
 		}
 	}
+	
+	public static List<AbstractSexPosition> getPositioningRequestsBlocked(GameCharacter character) {
+		return positioningRequestsBlocked.get(character);
+	}
+
+	public static void addPositioningRequestsBlocked(GameCharacter character, AbstractSexPosition position) {
+		if(!positioningRequestsBlocked.get(character).contains(position)) {
+			positioningRequestsBlocked.get(character).add(position);
+		}
+	}
+	
+	public static boolean isPositioningRequestBlocked(GameCharacter character, AbstractSexPosition position) {
+		return positioningRequestsBlocked.get(character).contains(position);
+	}
 
 	/**
 	 * @param targeter The character whose target is to be found.
@@ -4243,6 +4265,10 @@ public class Sex {
 	 * @return null if no character is in the slot.
 	 */
 	public static GameCharacter getCharacterInPosition(SexSlot position) {
+		if(!Sex.isSexStarted()) {
+			return Main.game.getPlayer(); // This is just a ctach for when calculating maximum slot size before sex has started.
+		}
+		
 		for(Entry<GameCharacter, SexSlot> entry : Sex.dominants.entrySet()) {
 			if(entry.getValue()==position) {
 				return entry.getKey();

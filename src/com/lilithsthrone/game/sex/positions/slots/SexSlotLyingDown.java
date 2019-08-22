@@ -13,77 +13,79 @@ public class SexSlotLyingDown {
 			"Lying on back",
 			"lying on back",
 			"With a buck of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
+			false,
+			SexSlotTag.LYING_DOWN);
+	public static final SexSlot LYING_DOWN_TWO = new SexSlot(LYING_DOWN) {
+		@Override
+		public String getDescription() {
+			return "lying on back (2nd)";
+		}
+	};
+	public static final SexSlot LYING_DOWN_THREE = new SexSlot(LYING_DOWN) {
+		@Override
+		public String getDescription() {
+			return "lying on back (3rd)";
+		}
+	};
+	public static final SexSlot LYING_DOWN_FOUR = new SexSlot(LYING_DOWN) {
+		@Override
+		public String getDescription() {
+			return "lying on back (4th)";
+		}
+	};
 
-	public static final SexSlot LYING_DOWN_TWO = new SexSlot(
-			"Lying on back",
-			"lying on back (2nd)",
-			"With a buck of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
-
-	public static final SexSlot LYING_DOWN_THREE = new SexSlot(
-			"Lying on back",
-			"lying on back (3rd)",
-			"With a buck of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
-
-	public static final SexSlot LYING_DOWN_FOUR = new SexSlot(
-			"Lying on back",
-			"lying on back (4th)",
-			"With a buck of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
-
-	
 	
 	public static final SexSlot COWGIRL = new SexSlot(
-			"Riding",
-			"riding cow-girl style",
+			"Cowgirl",
+			"cowgirl",
 			"With trembling [npc.legs], [npc.name] [npc.verb(sink)] down into [npc2.namePos] groin, letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
-
-	public static final SexSlot COWGIRL_TWO = new SexSlot(
-			"Riding",
-			"riding cow-girl style (2nd)",
-			"With trembling [npc.legs], [npc.name] [npc.verb(sink)] down into [npc2.namePos] groin, letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
-
-	public static final SexSlot COWGIRL_THREE = new SexSlot(
-			"Riding",
-			"riding cow-girl style (3rd)",
-			"With trembling [npc.legs], [npc.name] [npc.verb(sink)] down into [npc2.namePos] groin, letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
-
-	public static final SexSlot COWGIRL_FOUR = new SexSlot(
-			"Riding",
-			"riding cow-girl style (4th)",
-			"With trembling [npc.legs], [npc.name] [npc.verb(sink)] down into [npc2.namePos] groin, letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
+			false,
+			SexSlotTag.COWGIRL);
+	public static final SexSlot COWGIRL_TWO = new SexSlot(COWGIRL) {
+		@Override
+		public String getDescription() {
+			return "cowgirl (2nd)";
+		}
+	};
+	public static final SexSlot COWGIRL_THREE = new SexSlot(COWGIRL) {
+		@Override
+		public String getDescription() {
+			return "cowgirl (3rd)";
+		}
+	};
+	public static final SexSlot COWGIRL_FOUR = new SexSlot(COWGIRL) {
+		@Override
+		public String getDescription() {
+			return "cowgirl (4th)";
+		}
+	};
 
 	
 	
 	public static final SexSlot COWGIRL_REVERSE = new SexSlot(
-			"Reversed riding",
-			"riding reverse cow-girl style",
+			"Reverse cowgirl",
+			"reverse cowgirl",
 			"With trembling [npc.legs], [npc.name] [npc.verb(sink)] down into [npc2.namePos] groin, letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
-
-	public static final SexSlot COWGIRL_REVERSE_TWO = new SexSlot(
-			"Reversed riding",
-			"riding reverse cow-girl style (2nd)",
-			"With trembling [npc.legs], [npc.name] [npc.verb(sink)] down into [npc2.namePos] groin, letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
-
-	public static final SexSlot COWGIRL_REVERSE_THREE = new SexSlot(
-			"Reversed riding",
-			"riding reverse cow-girl style (3rd)",
-			"With trembling [npc.legs], [npc.name] [npc.verb(sink)] down into [npc2.namePos] groin, letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
-
-	public static final SexSlot COWGIRL_REVERSE_FOUR = new SexSlot(
-			"Reversed riding",
-			"riding reverse cow-girl style (4th)",
-			"With trembling [npc.legs], [npc.name] [npc.verb(sink)] down into [npc2.namePos] groin, letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
+			false,
+			SexSlotTag.COWGIRL_REVERSE);
+	public static final SexSlot COWGIRL_REVERSE_TWO = new SexSlot(COWGIRL_REVERSE) {
+		@Override
+		public String getDescription() {
+			return "reverse cowgirl (2nd)";
+		}
+	};
+	public static final SexSlot COWGIRL_REVERSE_THREE = new SexSlot(COWGIRL_REVERSE) {
+		@Override
+		public String getDescription() {
+			return "reverse cowgirl (3rd)";
+		}
+	};
+	public static final SexSlot COWGIRL_REVERSE_FOUR = new SexSlot(COWGIRL_REVERSE) {
+		@Override
+		public String getDescription() {
+			return "reverse cowgirl (4th)";
+		}
+	};
 
 	
 	
@@ -169,25 +171,26 @@ public class SexSlotLyingDown {
 			"Sixty-nine",
 			"sixty-nine",
 			"With trembling [npc.legs], [npc.name] [npc.verb(allow)] [npc.her] crotch to drop down onto [npc2.namePos] face, letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
-
-	public static final SexSlot SIXTY_NINE_TWO = new SexSlot(
-			"Sixty-nine",
-			"sixty-nine (2nd)",
-			"With trembling [npc.legs], [npc.name] [npc.verb(allow)] [npc.her] crotch to drop down onto [npc2.namePos] face, letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
-
-	public static final SexSlot SIXTY_NINE_THREE = new SexSlot(
-			"Sixty-nine",
-			"sixty-nine (3rd)",
-			"With trembling [npc.legs], [npc.name] [npc.verb(allow)] [npc.her] crotch to drop down onto [npc2.namePos] face, letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
-
-	public static final SexSlot SIXTY_NINE_FOUR = new SexSlot(
-			"Sixty-nine",
-			"sixty-nine (4th)",
-			"With trembling [npc.legs], [npc.name] [npc.verb(allow)] [npc.her] crotch to drop down onto [npc2.namePos] face, letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
+			false,
+			SexSlotTag.SIXTY_NINE);
+	public static final SexSlot SIXTY_NINE_TWO = new SexSlot(SIXTY_NINE) {
+		@Override
+		public String getDescription() {
+			return "sixty-nine (2nd)";
+		}
+	};
+	public static final SexSlot SIXTY_NINE_THREE = new SexSlot(SIXTY_NINE) {
+		@Override
+		public String getDescription() {
+			return "sixty-nine (3rd)";
+		}
+	};
+	public static final SexSlot SIXTY_NINE_FOUR = new SexSlot(SIXTY_NINE) {
+		@Override
+		public String getDescription() {
+			return "sixty-nine (4th)";
+		}
+	};
 	
 	
 	
@@ -195,25 +198,26 @@ public class SexSlotLyingDown {
 			"Between legs",
 			"between legs",
 			"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, leaning down on top of [npc2.name], [npc.she] [npc.verb(gaze)] lustfully down into [npc2.her] [npc2.eyes+].",
-			false);
-
-	public static final SexSlot MISSIONARY_TWO = new SexSlot(
-			"Between legs",
-			"between legs (2nd)",
-			"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, leaning down on top of [npc2.name], [npc.she] [npc.verb(gaze)] lustfully down into [npc2.her] [npc2.eyes+].",
-			false);
-
-	public static final SexSlot MISSIONARY_THREE = new SexSlot(
-			"Between legs",
-			"between legs (3rd)",
-			"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, leaning down on top of [npc2.name], [npc.she] [npc.verb(gaze)] lustfully down into [npc2.her] [npc2.eyes+].",
-			false);
-
-	public static final SexSlot MISSIONARY_FOUR = new SexSlot(
-			"Between legs",
-			"between legs (4th)",
-			"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, leaning down on top of [npc2.name], [npc.she] [npc.verb(gaze)] lustfully down into [npc2.her] [npc2.eyes+].",
-			false);
+			false,
+			SexSlotTag.MISSIONARY);
+	public static final SexSlot MISSIONARY_TWO = new SexSlot(MISSIONARY) {
+		@Override
+		public String getDescription() {
+			return "between legs (2nd)";
+		}
+	};
+	public static final SexSlot MISSIONARY_THREE = new SexSlot(MISSIONARY) {
+		@Override
+		public String getDescription() {
+			return "between legs (3rd)";
+		}
+	};
+	public static final SexSlot MISSIONARY_FOUR = new SexSlot(MISSIONARY) {
+		@Override
+		public String getDescription() {
+			return "sixty-nine (4th)";
+		}
+	};
 
 	
 	
@@ -266,4 +270,31 @@ public class SexSlotLyingDown {
 			"scissoring (4th)",
 			"Desperately thrusting [npc.her] [npc.hips] forwards in order to grind [npc.her] groin against [npc2.namePos], [npc.name] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
 			false);
+	
+	
+
+	public static final SexSlot BESIDE = new SexSlot(
+			"Beside",
+			"beside",
+			"With a buck of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
+			false,
+			SexSlotTag.LYING_DOWN);
+	public static final SexSlot BESIDE_TWO = new SexSlot(BESIDE) {
+		@Override
+		public String getDescription() {
+			return "beside (2nd)";
+		}
+	};
+	public static final SexSlot BESIDE_THREE = new SexSlot(BESIDE) {
+		@Override
+		public String getDescription() {
+			return "beside (3rd)";
+		}
+	};
+	public static final SexSlot BESIDE_FOUR = new SexSlot(BESIDE) {
+		@Override
+		public String getDescription() {
+			return "beside (4th)";
+		}
+	};
 }

@@ -1179,7 +1179,10 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			if(Main.game.getPlayer().isVisiblyPregnant()) {
+				return "Fuck [pc.herHim]";
+			}
+			return "Breed [pc.herHim]";
 		}
 
 		@Override
@@ -1276,7 +1279,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Fuck [pc.her] ass";
 		}
 
 		@Override

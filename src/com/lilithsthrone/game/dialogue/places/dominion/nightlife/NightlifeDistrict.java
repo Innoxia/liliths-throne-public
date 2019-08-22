@@ -39,11 +39,12 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.managers.dominion.SMKrugerChair;
 import com.lilithsthrone.game.sex.managers.dominion.gloryHole.SMGloryHole;
 import com.lilithsthrone.game.sex.managers.dominion.toiletStall.SMStallSex;
-import com.lilithsthrone.game.sex.managers.universal.SMChair;
+import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.SexPositionOther;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotBipeds;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -480,8 +481,8 @@ public class NightlifeDistrict {
 								true,
 								false,
 								new SMJulesCockSucking(
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Jules.class), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Jules.class), SexSlotStanding.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL))),
 								null,
 								null,
 								AFTER_JULES_BLOWJOB,
@@ -1260,9 +1261,9 @@ public class NightlifeDistrict {
 
 				} else if(index==4) {
 					if(likesSex(getPartner())) {
-						SexManagerDefault sm = new SMChair(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.SITTING)),
-								Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotOther.SITTING_IN_LAP))) {
+						SexManagerDefault sm = new SMSitting(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotSitting.SITTING_IN_LAP))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -1272,8 +1273,8 @@ public class NightlifeDistrict {
 						if(!Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()) { // Player is a taur/arachnid:
 							sm = new SexManagerDefault(
 									SexPositionOther.STANDING,
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotOther.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_SUBMISSIVE))) {
 								@Override
 								public boolean isPublicSex() {
 									return false;
@@ -1308,9 +1309,9 @@ public class NightlifeDistrict {
 					
 				} else if(index==5) {
 					if(likesSex(getPartner())) {
-						SexManagerDefault sm = new SMChair(
-								Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotOther.SITTING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.SITTING_IN_LAP))) {
+						SexManagerDefault sm = new SMSitting(
+								Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_IN_LAP))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -1321,8 +1322,8 @@ public class NightlifeDistrict {
 							if(!getPartner().getLegConfiguration().isBipedalPositionedGenitals()) { // Both taurs/arachnids:
 								sm = new SexManagerDefault(
 										SexPositionOther.STANDING,
-										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotOther.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.STANDING_SUBMISSIVE))) {
+										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_SUBMISSIVE))) {
 									@Override
 									public boolean isPublicSex() {
 										return false;
@@ -1332,9 +1333,9 @@ public class NightlifeDistrict {
 							
 						} else if(!getPartner().getLegConfiguration().isBipedalPositionedGenitals()) { // Partner is a taur/arachnid:
 							sm = new SexManagerDefault(
-									SexPositionOther.ORAL,
-									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotOther.RECEIVING_ORAL)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), getPartner().hasPenis()?SexSlotOther.PERFORMING_ORAL:SexSlotOther.PERFORMING_ORAL_BEHIND))) {
+									SexPositionOther.STANDING,
+									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), getPartner().hasPenis()?SexSlotStanding.PERFORMING_ORAL:SexSlotStanding.PERFORMING_ORAL_BEHIND))) {
 								@Override
 								public boolean isPublicSex() {
 									return false;
@@ -2646,9 +2647,9 @@ public class NightlifeDistrict {
 					if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kalahariWantsSex)) {
 						return new Response("Sex (dom)", "You need to get Kalahari fully into the mood before having sex with her.", null);
 					} else {
-						SexManagerDefault sm = new SMChair(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.SITTING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotOther.SITTING_IN_LAP))) {
+						SexManagerDefault sm = new SMSitting(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotSitting.SITTING_IN_LAP))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -2657,8 +2658,8 @@ public class NightlifeDistrict {
 						if(!Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()) { // Player is a taur/arachnid:
 							sm = new SexManagerDefault(
 									SexPositionOther.STANDING,
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotOther.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotStanding.STANDING_SUBMISSIVE))) {
 								@Override
 								public boolean isPublicSex() {
 									return false;
@@ -2687,8 +2688,8 @@ public class NightlifeDistrict {
 //						return new ResponseSex("Sex (sub)", "Slide into Kalahari's lap and start having submissive sex with her.",
 //								true, true,
 //								new SMChair(
-//										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotOther.SITTING)),
-//										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.SITTING_IN_LAP))) {
+//										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotSitting.SITTING)),
+//										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_IN_LAP))) {
 //									@Override
 //									public boolean isPublicSex() {
 //										return false;
@@ -3039,8 +3040,8 @@ public class NightlifeDistrict {
 					return new ResponseSex("Sex (sub)", "Slide into Kruger's lap and start having submissive sex with [npc.herHim].",
 							true, true,
 							new SMKrugerChair(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kruger.class), SexSlotOther.SITTING)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.PERFORMING_ORAL))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kruger.class), SexSlotSitting.SITTING)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.PERFORMING_ORAL))),
 							null,
 							null,
 							WATERING_HOLE_VIP_KRUGER_AFTER_SEX,
@@ -3411,8 +3412,8 @@ public class NightlifeDistrict {
 										}
 									}
 									:new SMStallSex(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-											Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+											Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_SUBMISSIVE))) {
 										@Override
 										public boolean isPublicSex() {
 											return false;
@@ -3526,8 +3527,8 @@ public class NightlifeDistrict {
 				return new ResponseSex("Use glory hole", UtilText.parse(characters.get(0), "Do as [npc.name] says and step up to the glory hole."),
 						true, false,
 						new SMGloryHole(
-								Util.newHashMapOfValues(new Value<>(characters.get(0), SexSlotBipeds.GLORY_HOLE_KNEELING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE))) {
+								Util.newHashMapOfValues(new Value<>(characters.get(0), SexSlotUnique.GLORY_HOLE_KNEELING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -3600,10 +3601,10 @@ public class NightlifeDistrict {
 				return new ResponseSex("Start (close door)", "Close the door, affording yourself some privacy as you start to service the cocks before you.",
 						true, false,
 						new SMGloryHole(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.GLORY_HOLE_KNEELING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_KNEELING)),
 								Util.newHashMapOfValues(
-										new Value<>(characters.get(0), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE),
-										new Value<>(characters.get(1), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_TWO))) {
+										new Value<>(characters.get(0), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE),
+										new Value<>(characters.get(1), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -3620,10 +3621,10 @@ public class NightlifeDistrict {
 				return new ResponseSex("Start (public view)", "Leave the door open, so that everyone in the toilets can watch as you service the cocks before you.",
 						true, false,
 						new SMGloryHole(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.GLORY_HOLE_KNEELING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_KNEELING)),
 								Util.newHashMapOfValues(
-										new Value<>(characters.get(0), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE),
-										new Value<>(characters.get(1), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_TWO))) {
+										new Value<>(characters.get(0), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE),
+										new Value<>(characters.get(1), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO))) {
 						},
 						null,
 						null, WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING_PUBLIC", characters));
@@ -4814,9 +4815,9 @@ public class NightlifeDistrict {
 					break;
 				case SIT_DOWN_SEX:
 					if(index==1) {
-						SexManagerDefault sm = new SMChair(
-								Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotOther.SITTING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.SITTING_IN_LAP))) {
+						SexManagerDefault sm = new SMSitting(
+								Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_IN_LAP))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -4826,8 +4827,8 @@ public class NightlifeDistrict {
 						if(!getPartner().getLegConfiguration().isBipedalPositionedGenitals()) { // Partner is a taur/arachnid:
 							sm = new SexManagerDefault(
 									SexPositionOther.STANDING,
-									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotOther.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotOther.STANDING_SUBMISSIVE))) {
+									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_SUBMISSIVE))) {
 								@Override
 								public boolean isPublicSex() {
 									return false;
@@ -4915,8 +4916,8 @@ public class NightlifeDistrict {
 										}
 									}
 									:new SMStallSex(
-											Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotBipeds.STANDING_DOMINANT)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
+											Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_SUBMISSIVE))) {
 										@Override
 										public boolean isPublicSex() {
 											return false;

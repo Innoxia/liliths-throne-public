@@ -1502,6 +1502,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(this.getSlotEquippedTo()==null) {
 			return new HashSet<>(this.getClothingType().getDefaultItemTags());
 		}
-		return new HashSet<>(this.getClothingType().getItemTags().get(this.getSlotEquippedTo()));
+		return new HashSet<>(this.getClothingType().getItemTags(this.getSlotEquippedTo()));
 	}
 }

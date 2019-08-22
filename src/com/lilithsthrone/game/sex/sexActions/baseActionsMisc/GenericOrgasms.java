@@ -42,6 +42,7 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
@@ -2242,7 +2243,10 @@ public class GenericOrgasms {
 			}
 			
 			// Will not use if obeying pull out requests:
-			if(!Sex.getCharacterPerformingAction().isPlayer() && Sex.getRequestedPulloutWeighting(Sex.getCharacterPerformingAction())>0) {
+			if((Sex.getSexManager().getCharacterOrgasmBehaviour(Sex.getCharacterPerformingAction())!=OrgasmBehaviour.CREAMPIE
+					&& !Sex.getCharacterPerformingAction().isPlayer()
+					&& Sex.getRequestedPulloutWeighting(Sex.getCharacterPerformingAction())>0)
+				|| Sex.getSexManager().getCharacterOrgasmBehaviour(Sex.getCharacterPerformingAction())==OrgasmBehaviour.PULL_OUT) {
 				return false;
 			}
 			
@@ -2251,11 +2255,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public SexActionPriority getPriority() {
-			if(!Sex.getCharacterPerformingAction().isPlayer()
-					&& ((Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_FUTA_PREGNANCY)
-							|| Sex.getCharacterPerformingAction().getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_PREGNANCY))
-						|| (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0)==SexAreaOrifice.VAGINA
-							&& Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_IMPREGNATION)))) {
+			if(Sex.getSexManager().getCharacterOrgasmBehaviour(Sex.getCharacterPerformingAction())==OrgasmBehaviour.CREAMPIE) {
 				return SexActionPriority.UNIQUE_MAX;
 			}
 			if(Sex.getCreampieLockedBy()!=null) {
@@ -2263,7 +2263,9 @@ public class GenericOrgasms {
 			}
 			if(Math.random()<0.66f
 					|| Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive()
-					|| Sex.getRequestedPulloutWeighting(Sex.getCharacterPerformingAction())<0) {
+					|| Sex.getRequestedPulloutWeighting(Sex.getCharacterPerformingAction())<0
+					|| (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0)==SexAreaOrifice.VAGINA
+							&& Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_IMPREGNATION))) {
 				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;
@@ -2675,7 +2677,10 @@ public class GenericOrgasms {
 			}
 			
 			// Will not use if obeying the player and player asked for pull out:
-			if(!Sex.getCharacterPerformingAction().isPlayer() && Sex.getRequestedPulloutWeighting(Sex.getCharacterPerformingAction())>0) {
+			if((Sex.getSexManager().getCharacterOrgasmBehaviour(Sex.getCharacterPerformingAction())!=OrgasmBehaviour.CREAMPIE
+					&& !Sex.getCharacterPerformingAction().isPlayer()
+					&& Sex.getRequestedPulloutWeighting(Sex.getCharacterPerformingAction())>0)
+				|| Sex.getSexManager().getCharacterOrgasmBehaviour(Sex.getCharacterPerformingAction())==OrgasmBehaviour.PULL_OUT) {
 				return false;
 			}
 			
@@ -2684,9 +2689,14 @@ public class GenericOrgasms {
 		
 		@Override
 		public SexActionPriority getPriority() {
+			if(Sex.getSexManager().getCharacterOrgasmBehaviour(Sex.getCharacterPerformingAction())==OrgasmBehaviour.CREAMPIE) {
+				return SexActionPriority.UNIQUE_MAX;
+			}
 			if(Math.random()<0.5f
 					|| Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive()
-					|| Sex.getRequestedPulloutWeighting(Sex.getCharacterPerformingAction())<0) {
+					|| Sex.getRequestedPulloutWeighting(Sex.getCharacterPerformingAction())<0
+					|| (Sex.getAllContactingSexAreas(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0)==SexAreaOrifice.VAGINA
+							&& Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_IMPREGNATION))) {
 				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;

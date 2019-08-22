@@ -129,6 +129,7 @@
 		Added support for weapons to have natural physical shielding. Added 0.5 natural physical shielding to crude shields, and 1 natural physical shielding to bucklers.
 	
 	Sex:
+		Refactored the positioning code, and added a new system of position selection for when you're a dominant participant in sex (or if you have the same level of control as the dom).
 		Pure virgin fetishists now gain fetish experience at the end of sex (if they have satisfied their partners) based on if their vagina, penis, ass, and mouth are still virginal.
 		Lusty maiden fetishists gain experience at the end of sex (also having needed to satisfy their partners) if they have retained their vaginal virginity, as well as had their ass or mouth penetrated, or performed hotdogging or paizuri/naizuri.
 		Added a 'Prostate massage' sex action, available for the performer of anal fingering if the recipient has a penis, and also added a line to describe prostate milking for if a cahracter cums while someone is anally fingering them.
@@ -176,11 +177,19 @@
 		Fixed bug where any character orgasming while receiving a handjob would sometimes break sex.
 		Fixed incorrect descriptions in the 'Receive anilingus' sex action.
 		Fixed bug where some expected sex actions would be missing in some positions.
+		Fixed several incorrect sex action descriptions and parsing.
+		Fixed bug where futa characters couldn't simultaneously fuck one another.
+		You are now correctly banned from asking for the same position request after being denied it once.
+		Amber now correctly ends sex after orgasming enough times to be satisfied, instead of after her first orgasm.
+		Fixed Ralph's sex scene never accepting your request for a big discount.
+		Fixed being able to initiate penetration when locked in the breeding stall, and being able to lie in your back if you were a taur.
+		Fixed bug where the game would sometimes freeze when generating a new character's outfit.
+		October cultists now correctly prefer to get you to eat them out before giving them a blowjob, as their dialogue implied.
+		Fixed NPC's sex AI not stopping oral actions even if they were blocking the NPC from performing their desired action.
+		Fixed issue in Lyssieth's demon TF scenes, where even though the descriptions were of her cumming inside of you, the effects (getting a creampie) would sometimes fail to be applied.
+		Fixed characters in the glory hole not having their inventory slots concealed.
 	
 	
-	
-	
-	make post update
 	
 	need to convert all old positioning actions to new format...
 		[x] Change positioning actions to be a simple position select, then choose who goes in which slot
@@ -240,19 +249,59 @@
 				[x] Dom receiving oral
 				[x] Dom receiving oral (anal)
 				[x] Dom giving oral
-			[] Lying down
-				[] lap pillow (suckle)
+			[x] Lying down
+				[x] lap pillow (suckle)
 				[x] Cowgirl
 				[x] Missionary (interact with cowgirl for DP)
 				[x] Face sitting
 				[x] Sixty nine
 				[x] Mating press
 				[x] Scissoring
-		[] If change a slot and other slots become unavailable, move them to spectator with warning at bottom
-		[] Make abstract methods in AbstractSexPosition
-		[] Sort out AI actions. Need to make default setups for them (just set all old positioning actions to AI-only?)
+		[x] Add a way to limit positions
+			[x] Fully implement this
+		[x] Check all SexSlotSitting.PERFORMING_ORAL
+		[x] If change a slot and other slots become unavailable, move them to spectator with warning at bottom
+		[cancelled] Make abstract methods in AbstractSexPosition
+		[x] Sort out all positioning actions
+			[x] Make new actions different colour and always in same order at top
 		[] Add DP for anal and vaginal
 			[] Make sure stretching effects work correctly
+		[x] Make sure futas can fuck one another
+		[x] Restrict vaginal/anal if positioning would make it impossible (mainly for cowgirl/behind and humping/behind)
+		
+	Test:
+		[x] Positioning actions
+			[x] Remove availability of menu
+			[x] Fix request tooltip text
+		[x] As submissive
+			[x] Test requests
+		[x] Amber
+		[x] Ralph
+		[x] Vanessa
+		[x] Breeding stall
+		[x] Cultists
+			[x] AI having trouble switching from receiving cunnilingus to blowjob
+		[x] Lyssieth TF (standing position check for T1 actions might not work)
+			[x] Her orgasms don't fill you with cum?
+		[] Characters can fuck your ass while getting fucked. Fix this in AbstractSexPosition's isActionBlocked()
+		[x] Glory hole
+		[] Imp fortresses
+		[x] Pix shower
+		[] Masturbation
+		[] Breeding stalls are 5 humans, one anthro?
+		
+		
+java.lang.ArithmeticException: / by zero
+	at com.lilithsthrone.game.character.effects.StatusEffect.getExposedStatus(StatusEffect.java:12111)
+	at com.lilithsthrone.game.character.effects.StatusEffect$100.getSVGString(StatusEffect.java:5123)
+	at com.lilithsthrone.rendering.RenderingEngine.getCharacterPanelDiv(RenderingEngine.java:2123)
+	at com.lilithsthrone.rendering.RenderingEngine.renderAttributesPanelRight(RenderingEngine.java:1124)
+	at com.lilithsthrone.controller.MainController.updateUI(MainController.java:2182)
+		
+	Really need to figure out that demon+human making half-demon bug. Seems like human+demon is making full demons as well
+		half demon spawn are apparently all females at 5'11" with F cup breasts?
+		
+	Amber does not regrow dick?
 		
 	Add masturbation action
 		
@@ -284,6 +333,7 @@
 	
 	no grope own breasts action?
 	
+	the 1/2 reduction in potion making cost seems a bit too powerful for a fetish bonus. Therefore I suggest it be given to a perk
 	
 	cannot make corruption potions?
 		Make ItemType modded

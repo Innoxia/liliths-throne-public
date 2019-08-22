@@ -6,21 +6,22 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionUnique;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.dominion.CultistSexActions;
 
 /**
  * @since 0.1.88
- * @version 0.3.3.10
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMAltarMissionary extends SexManagerDefault {
 
 	public SMAltarMissionary(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionBipeds.MISSIONARY_ALTAR_CULTIST,
+		super(SexPositionUnique.MISSIONARY_ALTAR_CULTIST,
 				dominants,
 				submissives);
 	}
@@ -53,5 +54,13 @@ public class SMAltarMissionary extends SexManagerDefault {
 	@Override
 	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
+	}
+
+	@Override
+	public SexControl getSexControl(GameCharacter character) {
+		if(!Sex.isDom(character) && character.isPlayer()) {
+			return SexControl.ONGOING_ONLY;
+		}
+		return super.getSexControl(character);
 	}
 }

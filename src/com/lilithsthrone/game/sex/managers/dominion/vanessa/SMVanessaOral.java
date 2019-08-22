@@ -18,7 +18,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.2
- * @version 0.3.3.10
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMVanessaOral extends SexManagerDefault {
@@ -26,7 +26,7 @@ public class SMVanessaOral extends SexManagerDefault {
 	public SMVanessaOral(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
 		super(Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()
 					?SexPositionOther.SITTING
-					:SexPositionOther.ORAL,
+					:SexPositionOther.STANDING,
 				dominants,
 				submissives);
 	}
@@ -58,7 +58,7 @@ public class SMVanessaOral extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+	public boolean isPositionChangingAllowed(GameCharacter character) {
 		return false;
 	}
 	

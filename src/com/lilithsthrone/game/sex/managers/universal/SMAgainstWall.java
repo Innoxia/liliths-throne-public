@@ -4,18 +4,18 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 
 /**
- * @since 0.2.8
- * @version 0.2.8
+ * @since 0.1.69
+ * @version 0.3.4
  * @author Innoxia
  */
-public class SMFaceSitting extends SexManagerDefault {
-	
-	public SMFaceSitting(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionBipeds.FACE_SITTING,
+public class SMAgainstWall extends SexManagerDefault {
+
+	public SMAgainstWall(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPositionOther.AGAINST_WALL,
 				dominants,
 				submissives);
 	}

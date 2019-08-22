@@ -25,6 +25,7 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
@@ -36,7 +37,7 @@ import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.4
  * @author Innoxia
  */
 public interface SexManagerInterface {
@@ -116,6 +117,16 @@ public interface SexManagerInterface {
 		return false;
 	}
 
+	public default List<AbstractSexPosition> getAllowedSexPositions() {
+		return Util.newArrayListOfValues(
+				SexPositionOther.AGAINST_WALL,
+				SexPositionOther.ALL_FOURS,
+				SexPositionOther.LYING_DOWN,
+				SexPositionOther.OVER_DESK,
+				SexPositionOther.SITTING,
+				SexPositionOther.STANDING);
+	}
+	
 	public default boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return character.isPlayer() && isPositionChangingAllowed(character);
 	}
@@ -288,6 +299,14 @@ public interface SexManagerInterface {
 	
 	public default boolean isPartnerUsingForeplayActions() {
 		return true;
+	}
+	
+	/**
+	 * @param character
+	 * @return The OrgasmBehaviour for this character. Normally returns DEFAULT, but can also return CREAMPIE or PULL_OUT, in which case the character will ignore requests and treat associated orgasm actions as having a SexActionPriority of UNIQUE_MAX.
+	 */
+	public default OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
+		return OrgasmBehaviour.DEFAULT;
 	}
 	
 	public default boolean isPublicSex() {

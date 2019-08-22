@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.dialogue.responses;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,18 +14,19 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
+import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -154,83 +154,42 @@ public class ResponseSex extends Response {
 			}
 			
 			if(!sexManagerSet) {
-				if(Sex.isSizeDifference(Util.mergeLists(submissives, dominants))) {
-					this.sexManager = new SexManagerDefault(
-							SexPositionBipeds.STANDING_SIZE_DIFFERENCE,
-							Util.newHashMapOfValues(new Value<>(dominants.get(0), dominants.get(0).getHeightValue()>submissives.get(0).getHeightValue()?SexSlotBipeds.STANDING_SD_TALLER:SexSlotBipeds.STANDING_SD_SMALLER)),
-							Util.newHashMapOfValues(new Value<>(submissives.get(0), submissives.get(0).getHeightValue()>dominants.get(0).getHeightValue()?SexSlotBipeds.STANDING_SD_TALLER:SexSlotBipeds.STANDING_SD_SMALLER))) {
-						@Override
-						public SexPace getStartingSexPaceModifier(GameCharacter character) {
-							if(character.isPlayer()) {
-								for(ResponseTag tag : tags) {
-									if(tag!=null) {
-										switch(tag) {
-											case START_PACE_PLAYER_DOM_GENTLE:
-												return SexPace.DOM_GENTLE;
-											case START_PACE_PLAYER_DOM_ROUGH:
-												return SexPace.DOM_ROUGH;
-											case START_PACE_PLAYER_SUB_RESISTING:
-												return SexPace.SUB_RESISTING;
-											case START_PACE_PLAYER_SUB_EAGER:
-												return SexPace.SUB_EAGER;
-											case PREFER_ORAL:
-											case PREFER_MISSIONARY:
-											case PREFER_DOGGY:
-											case PREFER_COW_GIRL:
-												break;
-										}
+				this.sexManager = new SMStanding(
+						Util.newHashMapOfValues(new Value<>(dominants.get(0), SexSlotStanding.STANDING_DOMINANT)),
+						Util.newHashMapOfValues(new Value<>(submissives.get(0), SexSlotStanding.STANDING_SUBMISSIVE))) {
+					@Override
+					public SexPace getStartingSexPaceModifier(GameCharacter character) {
+						if(character.isPlayer()) {
+							for(ResponseTag tag : tags) {
+								if(tag!=null) {
+									switch(tag) {
+										case START_PACE_PLAYER_DOM_GENTLE:
+											return SexPace.DOM_GENTLE;
+										case START_PACE_PLAYER_DOM_ROUGH:
+											return SexPace.DOM_ROUGH;
+										case START_PACE_PLAYER_SUB_RESISTING:
+											return SexPace.SUB_RESISTING;
+										case START_PACE_PLAYER_SUB_EAGER:
+											return SexPace.SUB_EAGER;
+										case PREFER_ORAL:
+										case PREFER_MISSIONARY:
+										case PREFER_DOGGY:
+										case PREFER_COW_GIRL:
+											break;
 									}
 								}
 							}
-							return null;
 						}
-						@Override
-						public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-							if(ResponseSex.this.exposeAtStartOfSexMap()!=null) {
-								return ResponseSex.this.exposeAtStartOfSexMap();
-							}
-							return super.exposeAtStartOfSexMap();
+						return null;
+					}
+					@Override
+					public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+						if(ResponseSex.this.exposeAtStartOfSexMap()!=null) {
+							return ResponseSex.this.exposeAtStartOfSexMap();
 						}
-					};
-					
-				} else {
-					this.sexManager = new SMStanding(
-							Util.newHashMapOfValues(new Value<>(dominants.get(0), SexSlotBipeds.STANDING_DOMINANT)),
-							Util.newHashMapOfValues(new Value<>(submissives.get(0), SexSlotBipeds.STANDING_SUBMISSIVE))) {
-						@Override
-						public SexPace getStartingSexPaceModifier(GameCharacter character) {
-							if(character.isPlayer()) {
-								for(ResponseTag tag : tags) {
-									if(tag!=null) {
-										switch(tag) {
-											case START_PACE_PLAYER_DOM_GENTLE:
-												return SexPace.DOM_GENTLE;
-											case START_PACE_PLAYER_DOM_ROUGH:
-												return SexPace.DOM_ROUGH;
-											case START_PACE_PLAYER_SUB_RESISTING:
-												return SexPace.SUB_RESISTING;
-											case START_PACE_PLAYER_SUB_EAGER:
-												return SexPace.SUB_EAGER;
-											case PREFER_ORAL:
-											case PREFER_MISSIONARY:
-											case PREFER_DOGGY:
-											case PREFER_COW_GIRL:
-												break;
-										}
-									}
-								}
-							}
-							return null;
-						}
-						@Override
-						public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-							if(ResponseSex.this.exposeAtStartOfSexMap()!=null) {
-								return ResponseSex.this.exposeAtStartOfSexMap();
-							}
-							return super.exposeAtStartOfSexMap();
-						}
-					};
-				}
+						return super.exposeAtStartOfSexMap();
+					}
+				};
 			}
 			
 		// If group sex:
@@ -449,42 +408,20 @@ public class ResponseSex extends Response {
 		Map<GameCharacter, SexSlot> domMap = new HashMap<>();
 		
 		List<SexSlot> subSlots = new ArrayList<>();
-		subSlots.add(SexSlotBipeds.KNEELING_PERFORMING_ORAL);
-		if(sortedDominants.size()>1) {
-			subSlots.add(SexSlotBipeds.KNEELING_PERFORMING_ORAL_SECOND);
-		}
-		subSlots.add(SexSlotBipeds.KNEELING_PERFORMING_ORAL_TWO);
-		if(sortedDominants.size()>1) {
-			subSlots.add(SexSlotBipeds.KNEELING_PERFORMING_ORAL_SECOND_TWO);
-		}
-		subSlots.add(SexSlotBipeds.KNEELING_PERFORMING_ORAL_THREE);
-		if(sortedDominants.size()>1) {
-			subSlots.add(SexSlotBipeds.KNEELING_PERFORMING_ORAL_SECOND_THREE);
-		}
+		subSlots.add(SexSlotStanding.PERFORMING_ORAL);
+		subSlots.add(SexSlotStanding.PERFORMING_ORAL_TWO);
+		subSlots.add(SexSlotStanding.PERFORMING_ORAL_THREE);
 		if(sortedDominants.size()==1) {
-			subSlots.add(SexSlotBipeds.KNEELING_PERFORMING_ORAL_SECOND);
-			subSlots.add(SexSlotBipeds.KNEELING_PERFORMING_ORAL_SECOND_TWO);
-			subSlots.add(SexSlotBipeds.KNEELING_PERFORMING_ORAL_SECOND_THREE);
+			subSlots.add(SexSlotStanding.PERFORMING_ORAL_BEHIND);
+		} else {
+			subSlots.add(SexSlotStanding.PERFORMING_ORAL_FOUR);
 		}
 
 		List<SexSlot> domSlots = new ArrayList<>();
-		domSlots.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL);
-		if(submissives.size()>1) {
-			domSlots.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL_SECOND);
-		}
-		domSlots.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL_TWO);
-		if(submissives.size()>1) {
-			domSlots.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL_SECOND_TWO);
-		}
-		domSlots.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL_THREE);
-		if(submissives.size()>1) {
-			domSlots.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL_SECOND_THREE);
-		}
-		if(submissives.size()==1) {
-			domSlots.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL_SECOND);
-			domSlots.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL_SECOND_TWO);
-			domSlots.add(SexSlotBipeds.KNEELING_RECEIVING_ORAL_SECOND_THREE);
-		}
+		domSlots.add(SexSlotStanding.STANDING_DOMINANT);
+		domSlots.add(SexSlotStanding.STANDING_DOMINANT_TWO);
+		domSlots.add(SexSlotStanding.STANDING_DOMINANT_THREE);
+		domSlots.add(SexSlotStanding.STANDING_DOMINANT_FOUR);
 		
 		for(int i=0; i<submissives.size(); i++) {
 			subMap.put(submissives.get(i), subSlots.get(i));
@@ -494,7 +431,7 @@ public class ResponseSex extends Response {
 			domMap.put(sortedDominants.get(i), domSlots.get(i));
 		}
 		
-		this.sexManager = new SexManagerDefault(SexPositionBipeds.KNEELING_ORAL, domMap, subMap) {
+		this.sexManager = new SexManagerDefault(SexPositionOther.STANDING, domMap, subMap) {
 			@Override
 			public SexPace getStartingSexPaceModifier(GameCharacter character) {
 				if(character.isPlayer()) {
@@ -533,122 +470,51 @@ public class ResponseSex extends Response {
 
 	private void generateMissionaryPosition(List<GameCharacter> submissives, List<GameCharacter> sortedDominants, List<GameCharacter> dominantSpectators, List<GameCharacter> submissiveSpectators, ResponseTag... tags) {
 		
-		Map<GameCharacter, SexSlot> subMap = Util.newHashMapOfValues(new Value<>(submissives.get(0), SexSlotBipeds.MISSIONARY_ON_BACK));
+		Map<GameCharacter, SexSlot> subMap = new HashMap<>();
 		Map<GameCharacter, SexSlot> domMap = new HashMap<>();
+
+		List<SexSlot> domSlots = new ArrayList<>();
+		List<SexSlot> subSlots = new ArrayList<>();
+
+		subSlots.add(SexSlotLyingDown.LYING_DOWN);
+		subSlots.add(SexSlotLyingDown.LYING_DOWN_TWO);
+		subSlots.add(SexSlotLyingDown.LYING_DOWN_THREE);
+		subSlots.add(SexSlotLyingDown.LYING_DOWN_FOUR);
 		
 		if(submissives.size()==1) {
-			
-			List<SexSlot> domSlots = new ArrayList<>();
-			domSlots.add(SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS);
-			domSlots.add(SexSlotBipeds.MISSIONARY_FACE_SITTING);
-			domSlots.add(SexSlotBipeds.MISSIONARY_KNEELING_BESIDE);
-			domSlots.add(SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO);
+			domSlots.add(SexSlotLyingDown.MISSIONARY);
+			domSlots.add(SexSlotLyingDown.FACE_SITTING);
 			domSlots.add(SexSlotGeneric.MISC_WATCHING);
 			domSlots.add(SexSlotGeneric.MISC_WATCHING);
-			
-
-			List<SexSlot> addedSDSlots = new ArrayList<>();
-			
-			for(int i=1; i<sortedDominants.size(); i++) {
-				if(sortedDominants.get(i).isSizeDifferenceShorterThan(submissives.get(0)) && !addedSDSlots.contains(SexSlotBipeds.MISSIONARY_SD_HUMPING)) {
-					domSlots.add(i, SexSlotBipeds.MISSIONARY_SD_HUMPING);
-					addedSDSlots.add(SexSlotBipeds.MISSIONARY_SD_HUMPING);
-				}
-				if(i>1 && sortedDominants.get(i).hasPenis() && !addedSDSlots.contains(SexSlotBipeds.MISSIONARY_SD_PAIZURI)) {
-					domSlots.add(i, SexSlotBipeds.MISSIONARY_SD_PAIZURI);
-					addedSDSlots.add(SexSlotBipeds.MISSIONARY_SD_PAIZURI);
-				}
-			}
-			
-			outerCheck:
-			for(int i=0; i<domSlots.size() && i<sortedDominants.size();i++) {
-				if(domSlots.get(i)==SexSlotBipeds.MISSIONARY_FACE_SITTING) {
-					if(sortedDominants.get(i).getFetishDesire(Fetish.FETISH_ORAL_RECEIVING).isNegative()) {
-						for(int j=0; j<domSlots.size() && j<sortedDominants.size();j++) {
-							if(j!=i && domSlots.get(j)!=SexSlotBipeds.MISSIONARY_SD_HUMPING && !sortedDominants.get(j).getFetishDesire(Fetish.FETISH_ORAL_RECEIVING).isNegative()) {
-								Collections.swap(sortedDominants, i, j);
-								break outerCheck;
-							}
-						}
-					}
-				}
-			}
-			
-			for(int i=0; i<sortedDominants.size(); i++) {
-				domMap.put(sortedDominants.get(i), domSlots.get(i));
-			}
 			
 		} else if(submissives.size()==2) {
-			subMap.put(submissives.get(1), SexSlotBipeds.MISSIONARY_ON_BACK_SECOND);
-
-			for(GameCharacter character : sortedDominants) {
-				if(!character.getFetishDesire(Fetish.FETISH_ORAL_RECEIVING).isPositive()) {
-					if(!domMap.values().contains(SexSlotBipeds.MISSIONARY_FACE_SITTING)) {
-						domMap.put(character, SexSlotBipeds.MISSIONARY_FACE_SITTING);
-						
-					} else if(!domMap.values().contains(SexSlotBipeds.MISSIONARY_FACE_SITTING_SECOND)) {
-						domMap.put(character, SexSlotBipeds.MISSIONARY_FACE_SITTING_SECOND);
-						
-					}
-				}
-				if(domMap.containsKey(character)) {
-					continue;
-				}
-				
-				if(character.isSizeDifferenceShorterThan(submissives.get(0)) && !domMap.values().contains(SexSlotBipeds.MISSIONARY_SD_HUMPING)) {
-					domMap.put(character, SexSlotBipeds.MISSIONARY_SD_HUMPING);
-					
-				} else if(character.isSizeDifferenceShorterThan(submissives.get(1)) && !domMap.values().contains(SexSlotBipeds.MISSIONARY_SD_HUMPING_SECOND)) {
-					domMap.put(character, SexSlotBipeds.MISSIONARY_SD_HUMPING_SECOND);
-					
-				}
-				
-				if(character.hasPenis()) { // These should fill up first, due to sortedDominants ordering characters with a penis first:
-					 if(!domMap.values().contains(SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)) {
-						domMap.put(character, SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS);
-						
-					} else if(!domMap.values().contains(SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND)) {
-						domMap.put(character, SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND);
-					}
-				}
-				if(domMap.containsKey(character)) {
-					continue;
-				}
-				
-				if(!domMap.values().contains(SexSlotBipeds.MISSIONARY_KNEELING_BESIDE)) {
-					domMap.put(character, SexSlotBipeds.MISSIONARY_KNEELING_BESIDE);
-					
-				} else if(!domMap.values().contains(SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO)) {
-					domMap.put(character, SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO);
-					
-				} else if(!domMap.values().contains(SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)) {
-					domMap.put(character, SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS);
-					
-				} else if(!domMap.values().contains(SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND)) {
-					domMap.put(character, SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND);
-					
-				} else if(!domMap.values().contains(SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO)) {
-					domMap.put(character, SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_TWO);
-					
-				} else if(!domMap.values().contains(SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_SECOND_TWO)) {
-					domMap.put(character, SexSlotBipeds.MISSIONARY_KNEELING_BESIDE_SECOND_TWO);
-				}
-			}
+			domSlots.add(SexSlotLyingDown.MISSIONARY);
+			domSlots.add(SexSlotLyingDown.FACE_SITTING);
+			domSlots.add(SexSlotLyingDown.MISSIONARY_TWO);
+			domSlots.add(SexSlotLyingDown.FACE_SITTING_TWO);
+			
+		} else if(submissives.size()==3) {
+			domSlots.add(SexSlotLyingDown.MISSIONARY);
+			domSlots.add(SexSlotLyingDown.FACE_SITTING);
+			domSlots.add(SexSlotLyingDown.MISSIONARY_TWO);
+			domSlots.add(SexSlotLyingDown.MISSIONARY_THREE);
 			
 		} else {
-			domMap.put(sortedDominants.get(0), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS);
-			if(sortedDominants.size()>1) {
-				domMap.put(sortedDominants.get(1), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS_SECOND);
-			}
+			domSlots.add(SexSlotLyingDown.MISSIONARY);
+			domSlots.add(SexSlotLyingDown.MISSIONARY_TWO);
+			domSlots.add(SexSlotLyingDown.MISSIONARY_THREE);
+			domSlots.add(SexSlotLyingDown.MISSIONARY_FOUR);
+		}
 
-			SexSlot[] subSlots = new SexSlot[] {SexSlotBipeds.MISSIONARY_ON_BACK_SECOND, SexSlotBipeds.MISSIONARY_ON_BACK_THIRD, SexSlotBipeds.MISSIONARY_ON_BACK_FOURTH};
-
-			for(int i=0; i<submissives.size()-1; i++) {
-				subMap.put(submissives.get(i+1), subSlots[i]);
-			}
+		for(int i=0; i<submissives.size(); i++) {
+			subMap.put(submissives.get(i), subSlots.get(i));
 		}
 		
-		this.sexManager = new SMMissionary(domMap, subMap) {
+		for(int i=0; i<sortedDominants.size(); i++) {
+			domMap.put(sortedDominants.get(i), domSlots.get(i));
+		}
+		
+		this.sexManager = new SMLyingDown(domMap, subMap) {
 			@Override
 			public SexPace getStartingSexPaceModifier(GameCharacter character) {
 				if(character.isPlayer()) {
@@ -686,113 +552,51 @@ public class ResponseSex extends Response {
 	
 	private void generateDoggyPosition(List<GameCharacter> submissives, List<GameCharacter> sortedDominants, List<GameCharacter> dominantSpectators, List<GameCharacter> submissiveSpectators, ResponseTag... tags) {
 		
-		Map<GameCharacter, SexSlot> subMap = Util.newHashMapOfValues(new Value<>(submissives.get(0), SexSlotBipeds.DOGGY_ON_ALL_FOURS));
+		Map<GameCharacter, SexSlot> subMap = new HashMap<>();
 		Map<GameCharacter, SexSlot> domMap = new HashMap<>();
+
+		List<SexSlot> domSlots = new ArrayList<>();
+		List<SexSlot> subSlots = new ArrayList<>();
+
+		subSlots.add(SexSlotAllFours.ALL_FOURS);
+		subSlots.add(SexSlotAllFours.ALL_FOURS_TWO);
+		subSlots.add(SexSlotAllFours.ALL_FOURS_THREE);
+		subSlots.add(SexSlotAllFours.ALL_FOURS_FOUR);
 		
 		if(submissives.size()==1) {
-			
-			List<SexSlot> domSlots = new ArrayList<>();
-			domSlots.add(SexSlotBipeds.DOGGY_BEHIND);
-			domSlots.add(SexSlotBipeds.DOGGY_INFRONT);
-			domSlots.add(SexSlotBipeds.DOGGY_INFRONT_TWO);
-			domSlots.add(SexSlotBipeds.DOGGY_FEET);
-			domSlots.add(SexSlotBipeds.DOGGY_FEET_SECOND);
+			domSlots.add(SexSlotAllFours.BEHIND);
+			domSlots.add(SexSlotAllFours.IN_FRONT);
 			domSlots.add(SexSlotGeneric.MISC_WATCHING);
-
-			List<SexSlot> addedSDSlots = new ArrayList<>();
-			
-			for(int i=0; i<sortedDominants.size(); i++) {
-				if(sortedDominants.get(i).isSizeDifferenceShorterThan(submissives.get(0)) && !addedSDSlots.contains(SexSlotBipeds.DOGGY_SD_HUMPING)) {
-					domSlots.add(i, SexSlotBipeds.DOGGY_SD_HUMPING);
-					addedSDSlots.add(SexSlotBipeds.DOGGY_SD_HUMPING);
-				}
-				if(i>3 && sortedDominants.get(i).isSizeDifferenceShorterThan(submissives.get(0)) && !addedSDSlots.contains(SexSlotBipeds.DOGGY_SD_UNDER)) {
-					domSlots.add(i, SexSlotBipeds.DOGGY_SD_UNDER);
-					addedSDSlots.add(SexSlotBipeds.DOGGY_SD_UNDER);
-				}
-			}
-			
-			for(int i=0; i<sortedDominants.size(); i++) {
-				domMap.put(sortedDominants.get(i), domSlots.get(i));
-			}
+			domSlots.add(SexSlotGeneric.MISC_WATCHING);
 			
 		} else if(submissives.size()==2) {
-			subMap.put(submissives.get(1), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND);
-
-//			SexPositionSlot[] extraDomSlots = new SexPositionSlot[] {SexPositionSlot.DOGGY_INFRONT, SexPositionSlot.DOGGY_INFRONT_SECOND, SexPositionSlot.DOGGY_INFRONT_TWO, SexPositionSlot.DOGGY_INFRONT_SECOND_TWO};
+			domSlots.add(SexSlotAllFours.BEHIND);
+			domSlots.add(SexSlotAllFours.IN_FRONT);
+			domSlots.add(SexSlotAllFours.BEHIND_TWO);
+			domSlots.add(SexSlotAllFours.IN_FRONT_TWO);
 			
-			for(GameCharacter character : sortedDominants) {
-				if(character.hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
-					if(!domMap.values().contains(SexSlotBipeds.DOGGY_INFRONT)) {
-						domMap.put(character, SexSlotBipeds.DOGGY_INFRONT);
-						
-					} else if(!domMap.values().contains(SexSlotBipeds.DOGGY_INFRONT_SECOND)) {
-						domMap.put(character, SexSlotBipeds.DOGGY_INFRONT_SECOND);
-						
-					} else if(!domMap.values().contains(SexSlotBipeds.DOGGY_INFRONT_SECOND)) {
-						domMap.put(character, SexSlotBipeds.DOGGY_INFRONT_SECOND);
-						
-					} else if(!domMap.values().contains(SexSlotBipeds.DOGGY_INFRONT_SECOND_TWO)) {
-						domMap.put(character, SexSlotBipeds.DOGGY_INFRONT_SECOND_TWO);
-					}
-				}
-				if(domMap.containsKey(character)) {
-					continue;
-				}
-				
-				if(character.hasPenis()) { // These should fill up first, due to sortedDominants ordering characters with a penis first:
-					if(character.isSizeDifferenceShorterThan(submissives.get(0)) && !domMap.values().contains(SexSlotBipeds.DOGGY_SD_HUMPING)) {
-						domMap.put(character, SexSlotBipeds.DOGGY_SD_HUMPING);
-						
-					} else if(character.isSizeDifferenceShorterThan(submissives.get(1)) && !domMap.values().contains(SexSlotBipeds.DOGGY_SD_HUMPING_SECOND)) {
-						domMap.put(character, SexSlotBipeds.DOGGY_SD_HUMPING_SECOND);
-						
-					} else if(!domMap.values().contains(SexSlotBipeds.DOGGY_BEHIND)) {
-						domMap.put(character, SexSlotBipeds.DOGGY_BEHIND);
-						
-					} else if(!domMap.values().contains(SexSlotBipeds.DOGGY_BEHIND_SECOND)) {
-						domMap.put(character, SexSlotBipeds.DOGGY_BEHIND_SECOND);
-					}
-				}
-				if(domMap.containsKey(character)) {
-					continue;
-				}
-				
-				if(!domMap.values().contains(SexSlotBipeds.DOGGY_INFRONT)) {
-					domMap.put(character, SexSlotBipeds.DOGGY_INFRONT);
-					
-				} else if(!domMap.values().contains(SexSlotBipeds.DOGGY_INFRONT_SECOND)) {
-					domMap.put(character, SexSlotBipeds.DOGGY_INFRONT_SECOND);
-					
-				} else if(!domMap.values().contains(SexSlotBipeds.DOGGY_BEHIND)) {
-					domMap.put(character, SexSlotBipeds.DOGGY_BEHIND);
-					
-				} else if(!domMap.values().contains(SexSlotBipeds.DOGGY_BEHIND_SECOND)) {
-					domMap.put(character, SexSlotBipeds.DOGGY_BEHIND_SECOND);
-					
-				} else if(!domMap.values().contains(SexSlotBipeds.DOGGY_INFRONT_SECOND)) {
-					domMap.put(character, SexSlotBipeds.DOGGY_INFRONT_SECOND);
-					
-				} else if(!domMap.values().contains(SexSlotBipeds.DOGGY_INFRONT_SECOND_TWO)) {
-					domMap.put(character, SexSlotBipeds.DOGGY_INFRONT_SECOND_TWO);
-				}
-				
-			}
+		} else if(submissives.size()==3) {
+			domSlots.add(SexSlotAllFours.BEHIND);
+			domSlots.add(SexSlotAllFours.IN_FRONT);
+			domSlots.add(SexSlotAllFours.BEHIND_TWO);
+			domSlots.add(SexSlotAllFours.BEHIND_THREE);
 			
 		} else {
-			domMap.put(sortedDominants.get(0), SexSlotBipeds.DOGGY_BEHIND);
-			if(sortedDominants.size()>1) {
-				domMap.put(sortedDominants.get(1), SexSlotBipeds.DOGGY_BEHIND_SECOND);
-			}
+			domSlots.add(SexSlotAllFours.BEHIND);
+			domSlots.add(SexSlotAllFours.BEHIND_TWO);
+			domSlots.add(SexSlotAllFours.BEHIND_THREE);
+			domSlots.add(SexSlotAllFours.BEHIND_FOUR);
+		}
 
-			SexSlot[] subSlots = new SexSlot[] {SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND, SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD, SexSlotBipeds.DOGGY_ON_ALL_FOURS_FOURTH};
-
-			for(int i=0; i<submissives.size()-1; i++) {
-				subMap.put(submissives.get(i+1), subSlots[i]);
-			}
+		for(int i=0; i<submissives.size(); i++) {
+			subMap.put(submissives.get(i), subSlots.get(i));
 		}
 		
-		this.sexManager = new SMDoggy(domMap, subMap) {
+		for(int i=0; i<sortedDominants.size(); i++) {
+			domMap.put(sortedDominants.get(i), domSlots.get(i));
+		}
+		
+		this.sexManager = new SMAllFours(domMap, subMap) {
 			@Override
 			public SexPace getStartingSexPaceModifier(GameCharacter character) {
 				if(character.isPlayer()) {

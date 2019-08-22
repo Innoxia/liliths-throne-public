@@ -15,7 +15,8 @@ public class SexSlotDesk {
 			"Lying back",
 			"lying back",
 			"[npc.Name] [npc.verb(collapse)] back down onto the desk's surface, before letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			false);
+			false,
+			SexSlotTag.OVER_DESK_BACK);
 	public static final SexSlot OVER_DESK_ON_BACK_TWO = new SexSlot(OVER_DESK_ON_BACK) {
 		@Override
 		public String getDescription() {
@@ -65,8 +66,8 @@ public class SexSlotDesk {
 			"Between legs",
 			"between legs",
 			null,
-			true);
-	
+			true,
+			SexSlotTag.OVER_DESK_BETWEEN_LEGS);
 	public static final SexSlot BETWEEN_LEGS_TWO = new SexSlot(BETWEEN_LEGS) {
 		@Override
 		public String getDescription() {

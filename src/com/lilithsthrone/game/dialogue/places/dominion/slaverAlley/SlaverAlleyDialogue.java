@@ -37,7 +37,7 @@ import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
 import com.lilithsthrone.game.occupantManagement.SlavePermission;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.managers.dominion.SMStocks;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStocks;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
@@ -48,7 +48,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SlaverAlleyDialogue {
@@ -1038,8 +1038,8 @@ public class SlaverAlleyDialogue {
 								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL),
 								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL),
 								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STOCKS_FUCKING)),
-								Util.newHashMapOfValues(new Value<>(charactersPresent.get(index-1), SexSlotBipeds.STOCKS_LOCKED_IN_STOCKS))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.BEHIND_STOCKS)),
+								Util.newHashMapOfValues(new Value<>(charactersPresent.get(index-1), SexSlotStocks.LOCKED_IN_STOCKS))),
 						null,
 						null, AFTER_STOCKS_SEX, "<p>"
 							+ "Deciding that you'd like to have some fun with the [npc.race] in the stocks nearest to you, you walk up behind [npc.herHim]."

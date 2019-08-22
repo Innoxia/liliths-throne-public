@@ -1,22 +1,25 @@
 package com.lilithsthrone.game.sex.managers.dominion;
 
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.3
- * @version 0.3.3.10
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMMilkingStall extends SexManagerDefault {
 
 	public SMMilkingStall(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionBipeds.MILKING_STALL,
+		super(SexPositionOther.MILKING_STALL,
 				dominants,
 				submissives);
 	}
@@ -29,6 +32,12 @@ public class SMMilkingStall extends SexManagerDefault {
 	@Override
 	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
 		return getDominants().containsKey(character);
+	}
+	
+	@Override
+	public List<AbstractSexPosition> getAllowedSexPositions() {
+		return Util.newArrayListOfValues(
+				SexPositionOther.MILKING_STALL);
 	}
 	
 	@Override

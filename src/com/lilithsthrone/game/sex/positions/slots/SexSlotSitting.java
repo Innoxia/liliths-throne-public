@@ -16,7 +16,8 @@ public class SexSlotSitting {
 			"Sitting",
 			"sitting down",
 			"With a small thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false);
+			false,
+			SexSlotTag.SITTING);
 	public static final SexSlot SITTING_TWO = new SexSlot(SITTING){
 		@Override
 		public String getDescription() {
@@ -41,7 +42,8 @@ public class SexSlotSitting {
 			"Sitting in lap",
 			"sitting in lap",
 			"With trembling [npc.legs], [npc.name] [npc.verb(sink)] down into [npc2.namePos] lap, and with [npc.a_moan+], [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			false);
+			false,
+			SexSlotTag.SITTING_IN_LAP);
 	public static final SexSlot SITTING_IN_LAP_TWO = new SexSlot(SITTING_IN_LAP){
 		@Override
 		public String getDescription() {
@@ -69,7 +71,7 @@ public class SexSlotSitting {
 			false) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			GameCharacter partner = Sex.getCharacterInPosition(SITTING);
+			GameCharacter partner = getCharacterInSlot(SITTING);
 			return partner!=null && !partner.isSizeDifferenceTallerThan(target);
 		}
 	};
@@ -80,7 +82,7 @@ public class SexSlotSitting {
 			false) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			GameCharacter partner = Sex.getCharacterInPosition(SITTING_TWO);
+			GameCharacter partner = getCharacterInSlot(SITTING_TWO);
 			return partner!=null && !partner.isSizeDifferenceTallerThan(target);
 		}
 	};
@@ -91,7 +93,7 @@ public class SexSlotSitting {
 			false) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			GameCharacter partner = Sex.getCharacterInPosition(SITTING_THREE);
+			GameCharacter partner = getCharacterInSlot(SITTING_THREE);
 			return partner!=null && !partner.isSizeDifferenceTallerThan(target);
 		}
 	};
@@ -102,7 +104,7 @@ public class SexSlotSitting {
 			false) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			GameCharacter partner = Sex.getCharacterInPosition(SITTING_FOUR);
+			GameCharacter partner = getCharacterInSlot(SITTING_FOUR);
 			return partner!=null && !partner.isSizeDifferenceTallerThan(target);
 		}
 	};

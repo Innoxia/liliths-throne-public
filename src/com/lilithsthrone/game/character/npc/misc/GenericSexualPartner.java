@@ -37,7 +37,7 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -48,7 +48,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.2
- * @version 0.2.6
+ * @version 0.3.4
  * @author Innoxia
  */
 public class GenericSexualPartner extends NPC {
@@ -197,9 +197,9 @@ public class GenericSexualPartner extends NPC {
 			
 		} else {
 			if(Sex.isInForeplay() || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
-				return slot==SexSlotBipeds.GLORY_HOLE_KNEELING;
+				return slot==SexSlotUnique.GLORY_HOLE_KNEELING;
 			} else {
-				return slot==SexSlotBipeds.GLORY_HOLE_FUCKED;
+				return slot==SexSlotUnique.GLORY_HOLE_FUCKED;
 			}
 		}
 	}

@@ -960,10 +960,13 @@ public interface SexActionInterface {
 				}
 				@Override
 				public boolean isSexPositioningHighlight() {
-					return SexActionInterface.this.getCategory()==SexActionCategory.POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX);
+					return SexActionInterface.this.getActionType()==SexActionType.POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX);
 				}
 				@Override
 				public Colour getHighlightColour() {
+					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
+						return Colour.BASE_LILAC;
+					}
 					if(isSexPenetrationHighlight()) {
 						if(SexActionInterface.this.getPerformingCharacterAreas().stream().anyMatch((area) -> area.isPenetration())) {
 							return Colour.GENERIC_SEX_AS_DOM;
@@ -1010,10 +1013,13 @@ public interface SexActionInterface {
 				}
 				@Override
 				public boolean isSexPositioningHighlight() {
-					return SexActionInterface.this.getCategory()==SexActionCategory.POSITIONING;
+					return SexActionInterface.this.getActionType()==SexActionType.POSITIONING;
 				}
 				@Override
 				public Colour getHighlightColour() {
+					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
+						return Colour.BASE_LILAC;
+					}
 					if(getCategory()==SexActionCategory.CHARACTER_SWITCH) {
 						return Colour.BASE_PURPLE_LIGHT;
 					}

@@ -5,20 +5,23 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexControl;
+import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionUnique;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 
 /**
  * @since 0.2.7
- * @version 0.3.3.10
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMBreedingStallFront extends SexManagerDefault {
 
 	public SMBreedingStallFront(boolean vaginalAllowed, boolean analAllowed, boolean oralAllowed, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionBipeds.BREEDING_STALL_FRONT,
+		super(SexPositionUnique.BREEDING_STALL_FRONT,
 				dominants,
 				submissives);
 		
@@ -58,5 +61,21 @@ public class SMBreedingStallFront extends SexManagerDefault {
 	@Override
 	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
+	}
+	
+	@Override
+	public OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
+		if(!character.isPlayer()) {
+			return OrgasmBehaviour.CREAMPIE;
+		}
+		return super.getCharacterOrgasmBehaviour(character);
+	}
+
+	@Override
+	public SexControl getSexControl(GameCharacter character) {
+		if(!Sex.isDom(character)) {
+			return SexControl.ONGOING_ONLY;
+		}
+		return super.getSexControl(character);
 	}
 }

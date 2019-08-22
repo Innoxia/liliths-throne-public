@@ -43,7 +43,8 @@ import com.lilithsthrone.game.sex.managers.submission.SMBreedingStallBack;
 import com.lilithsthrone.game.sex.managers.submission.SMBreedingStallFront;
 import com.lilithsthrone.game.sex.managers.submission.SMRoxyPussyLicker;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -54,7 +55,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.6
- * @version 0.2.6
+ * @version 0.3.4
  * @author Innoxia
  */
 public class GamblingDenDialogue {
@@ -399,8 +400,8 @@ public class GamblingDenDialogue {
 								Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 								true, false,
 								new SMRoxyPussyLicker(
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexSlotBipeds.FACE_SITTING_ON_FACE)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_SITTING_ON_BACK))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexSlotLyingDown.FACE_SITTING)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))),
 								null,
 								null,
 								AFTER_ROXY_SEX,
@@ -451,8 +452,8 @@ public class GamblingDenDialogue {
 									Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 									true, false,
 									new SMRoxyPussyLicker(
-											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexSlotBipeds.FACE_SITTING_ON_FACE)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_SITTING_ON_BACK))),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexSlotLyingDown.FACE_SITTING)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))),
 									null,
 									null,
 									AFTER_ROXY_SEX_ADDICT,
@@ -478,8 +479,8 @@ public class GamblingDenDialogue {
 									Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 									true, false,
 									new SMRoxyPussyLicker(
-											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexSlotBipeds.FACE_SITTING_ON_FACE)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_SITTING_ON_BACK))),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexSlotLyingDown.FACE_SITTING)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))),
 									null,
 									null,
 									AFTER_ROXY_SEX,
@@ -1227,8 +1228,8 @@ public class GamblingDenDialogue {
 						null, null, null, null, null, null,
 						true, false,
 						new SMBreedingStallFront(true, false, false,
-								Util.newHashMapOfValues(new Value<>(breeder, SexSlotBipeds.BREEDING_STALL_FUCKING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.BREEDING_STALL_FRONT))) {
+								Util.newHashMapOfValues(new Value<>(breeder, SexSlotUnique.BREEDING_STALL_FUCKING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.BREEDING_STALL_FRONT))) {
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
@@ -1259,13 +1260,19 @@ public class GamblingDenDialogue {
 				
 			} else if(index==2) {
 				NPC breeder = breeders.get(breederIndex);
+
+				if(!Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()) {
+					return new Response("Back "+breeder.getName(true),
+							"Due to your lower body being that of a feral [pc.legRace], you're unable to fit into the breeding stall by lying on your back. You'll have to lie down on your front instead...",
+							null);
+				}
 				
 				return new ResponseSex("Back "+breeder.getName(true), "Lie on your back, where "+breeder.getName(true)+" will be the first to move up to fuck you.",
 						null, null, null, null, null, null,
 						true, false,
 						new SMBreedingStallBack(true, false, false,
-								Util.newHashMapOfValues(new Value<>(breeder, SexSlotBipeds.BREEDING_STALL_FUCKING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.BREEDING_STALL_BACK))) {
+								Util.newHashMapOfValues(new Value<>(breeder, SexSlotUnique.BREEDING_STALL_FUCKING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.BREEDING_STALL_BACK))) {
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
@@ -1323,8 +1330,8 @@ public class GamblingDenDialogue {
 							null, null, null, null, null, null,
 							true, false,
 							new SMBreedingStallFront(true, false, false,
-									Util.newHashMapOfValues(new Value<>(breeder, SexSlotBipeds.BREEDING_STALL_FUCKING)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.BREEDING_STALL_FRONT))) {
+									Util.newHashMapOfValues(new Value<>(breeder, SexSlotUnique.BREEDING_STALL_FUCKING)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.BREEDING_STALL_FRONT))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
@@ -1355,13 +1362,19 @@ public class GamblingDenDialogue {
 					
 				} else if(index==2) {
 					NPC breeder = breeders.get(breederIndex);
+
+					if(!Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()) {
+						return new Response("Back "+breeder.getName(true),
+								"Due to your lower body being that of a feral [pc.legRace], you're unable to fit into the breeding stall by lying on your back. You'll have to lie down on your front instead...",
+								null);
+					}
 					
 					return new ResponseSex("Back "+breeder.getName(true), "Position yourself so that you're lying on your back, where "+breeder.getName(true)+" will be the next breeder to move up to fuck you.",
 							null, null, null, null, null, null,
 							true, false,
 							new SMBreedingStallBack(true, false, false,
-									Util.newHashMapOfValues(new Value<>(breeder, SexSlotBipeds.BREEDING_STALL_FUCKING)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.BREEDING_STALL_BACK))) {
+									Util.newHashMapOfValues(new Value<>(breeder, SexSlotUnique.BREEDING_STALL_FUCKING)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.BREEDING_STALL_BACK))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
@@ -1548,8 +1561,8 @@ public class GamblingDenDialogue {
 						null, null, null, null, null, null,
 						true, false,
 						new SMBreedingStallBack(true, false, false,
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.BREEDING_STALL_FUCKING)),
-								Util.newHashMapOfValues(new Value<>(mother, SexSlotBipeds.BREEDING_STALL_BACK))) {
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.BREEDING_STALL_FUCKING)),
+								Util.newHashMapOfValues(new Value<>(mother, SexSlotUnique.BREEDING_STALL_BACK))) {
 							@Override
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 								Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();

@@ -1,21 +1,26 @@
 package com.lilithsthrone.game.sex.positions.slots;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexActionInteractions;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.VariableInteractions;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PositioningMenu;
+import com.lilithsthrone.main.Main;
 
 /**
  * Slots which characters can occupy in sex positions.
  * 
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SexSlot {
@@ -24,12 +29,14 @@ public class SexSlot {
 	private String description;
 	private String orgasmDescription;
 	private boolean standing;
+	private List<SexSlotTag> tags;
 	
-	public SexSlot(String name, String description, String orgasmDescription, boolean standing) {
+	public SexSlot(String name, String description, String orgasmDescription, boolean standing, SexSlotTag... tags) {
 		this.name = name;
 		this.description = description;
 		this.orgasmDescription = orgasmDescription;
 		this.standing = standing;
+		this.tags = Arrays.asList(tags);
 	}
 	
 	/**
@@ -41,6 +48,7 @@ public class SexSlot {
 		this.description = slotToCopy.getDescription();
 		this.orgasmDescription = slotToCopy.orgasmDescription;
 		this.standing = slotToCopy.isStanding(null);
+		this.tags = new ArrayList<>(slotToCopy.getTags());
 	}
 
 	/**
@@ -84,6 +92,26 @@ public class SexSlot {
 		return standing;
 	}
 	
+	public List<SexSlotTag> getTags() {
+		return tags;
+	}
+	
+	public boolean hasTag(SexSlotTag tag) {
+		return tags.contains(tag);
+	}
+	
+	protected GameCharacter getCharacterInSlot(SexSlot targetedSlot) {
+		if(Main.game.getCurrentDialogueNode()==PositioningMenu.POSITIONING_MENU) {
+			for(Entry<GameCharacter, SexSlot> e : PositioningMenu.positioningSlots.entrySet()) {
+				if(e.getValue()==targetedSlot) {
+					return e.getKey();
+				}
+			}
+		}
+		
+		return Sex.getCharacterInPosition(targetedSlot);
+	}
+		
 	public boolean isMeetsPreferenceCriteria(GameCharacter character, AbstractSexPosition position, SexSlot targetedSlot, SexType preference) {
 		VariableInteractions.setCharacterForPositionTesting(character);
 		
