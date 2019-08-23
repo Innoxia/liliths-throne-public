@@ -18,7 +18,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.2
- * @version 0.3.2
+ * @version 0.3.4
  * @author Innoxia
  */
 public class FingerMouth {
@@ -71,6 +71,7 @@ public class FingerMouth {
 //		}
 //	};
 	
+
 	public static final SexAction PARTNER_ASSIST_BLOWJOB = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,

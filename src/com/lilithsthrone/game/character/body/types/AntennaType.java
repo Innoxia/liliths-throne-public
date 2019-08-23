@@ -100,6 +100,9 @@ public enum AntennaType implements BodyPartTypeInterface {
 				types.add(type);
 			}
 		}
+		if(types.isEmpty()) {
+			types.add(AntennaType.NONE);
+		}
 		typesMap.put(r, types);
 		return types;
 	}

@@ -418,7 +418,7 @@ public class CityHallDemographics {
 			if(index==1) {
 				if(Main.game.getPlayer().hasPenis() && (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true) || !Main.game.getPlayer().hasVagina())) {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
-						boolean biped = Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals();
+						boolean biped = !Main.game.getPlayer().isTaur();
 						return new ResponseSex("Sex",
 								biped
 									?"Push [vanessa.name] back onto her desk and fuck her."
@@ -451,7 +451,7 @@ public class CityHallDemographics {
 					
 				} else if(Main.game.getPlayer().hasVagina()) {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-						boolean biped = Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals();
+						boolean biped = !Main.game.getPlayer().isTaur();
 						return new ResponseSex("Receive cunnilingus",
 								biped
 									?"Allow [vanessa.name] to swap places with you so that she can eat you out."
@@ -484,7 +484,7 @@ public class CityHallDemographics {
 					
 				} else {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-						boolean biped = Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals();
+						boolean biped = !Main.game.getPlayer().isTaur();
 						return new ResponseSex("Receive oral",
 								biped
 									?"Allow [vanessa.name] to swap places with you so that she can perform oral on your genderless mound."

@@ -123,6 +123,13 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		Added a content toggle for 'sadistic sex', which now needs to be turned on in order for actions such as slapping, choking, and spitting to be available during sex. (This content is set to 'off' by default, so you'll need to manually enable it in the content options if you want to see or use this content.)
+		Added ability to masturbate almost anywhere in the game, via an action in your phone menu.
+	
+	Contributors:
+		Fixed bug where combat would sometimes freeze/crash when using effects that targeted multiple combatants. (PR#1190 by Shadowheart329)
+	
 	Clothing:
 		Added ability to define itemTags based on the slot that a piece of clothing is to be equipped into. Updated the template folder's 'socks.xml' file to show how this is defined.
 		Added 'physical' as an available damage type for bucklers.
@@ -135,6 +142,10 @@
 		Added a 'Prostate massage' sex action, available for the performer of anal fingering if the recipient has a penis, and also added a line to describe prostate milking for if a cahracter cums while someone is anally fingering them.
 		Added 'Encourage creampie' and Encourage pullout' orgasm preparation actions, for when the targeted character is penetrating a third character in sex. These requests are influenced by the 'convincing requests' perk, although the targeted character may ignore you if they are not submissive, have more control in the scene than you do, or are an unruly slave.
 		Information regarding whether a character will listen to your requests or not is now displayed in their 'desires' status effect's tooltip.
+		Added a 'spit in face' sex action, which is locked behind the new 'sadistic sex' toggle.
+		Added vaginal and anal penetration description variations for non-bipedal characters, so they aren't described as being able to reach their partner's cock in order to guide it into their orifices anymore.
+		Added double-penetration actions and description variations, allowing two characters to be simultaneously penetrating a character's vagina or asshole.
+		Added a setting in the furry preferences to set how furry you want randomly-generated NPC taurs to be. By default, this setting is set to 'normal', which means that all taurs will spawn in with fully-human upper bodies.
 	
 	Other:
 		Made some minor improvements to some sex action descriptions.
@@ -145,6 +156,11 @@
 		Compacted information in the character view page, and added the character's birthday information (only displayed if you know their name and they are friendly towards you, or if you are their mother or owner).
 		Added indication in characters' information tooltip, and their information page, for if they are significantly taller or shorter than you.
 		Characters now only need a wolf-morph's arms in order to unlock the 'Savage attack' special attack.
+		Slightly adjusted maximum arousal increments in multiple-partner sex.
+		The minimap now correctly displays unexplored tiles as black squares.
+		Increased chance for muggers to spawn with weapons from 50% to 90%.
+		Added a secondary confirmation click for removing friendly occupants from your house or their apartments.
+		Added indication in the 'Toggle Calendar Display' tooltip text that you need to look at the calendar in your room to reveal the date.
 	
 	Bugs:
 		Fixed major issue where starting some sex scenes (such as Pix's) would result in a background error, causing any of your clothes which were stripped to not be returned to you after the sex scene.
@@ -188,9 +204,27 @@
 		Fixed NPC's sex AI not stopping oral actions even if they were blocking the NPC from performing their desired action.
 		Fixed issue in Lyssieth's demon TF scenes, where even though the descriptions were of her cumming inside of you, the effects (getting a creampie) would sometimes fail to be applied.
 		Fixed characters in the glory hole not having their inventory slots concealed.
+		Fixed issues with characters being able to penetrate you in impossible-to-reach areas while you were fucking them.
+		Fixed background errors being thrown when hovering the cursor over the right-hand-side's inventory panel during masturbation.
+		Characters who are spectating sex can no longer deny orgasms of those who are actively involved.
+		Offspring now correctly have their body stats slightly randomised from their base values.
+		Amber, Zaranix, Kelly, and Katherine now self-transform back into their preferred bodies when you leave Zaranix's house.
+		Time now correctly passes in the scenes in which you give birth.
+		The status effect 'arcane impotence' (gained when a cahracter's arcane stat is under 5) now correctly limits that character's maximum aura to 5 (as the status effect's tooltip said it should be doing).
 	
 	
 	
+	Add a way to buy Brax from Candi.
+	make it so Brax TF doesn't force you to have sex with them
+	
+	Make choking ongoing and add hand-holding (need to support misc. ongoing actions)
+	make suckle an ongoing action
+	need eating out eating cum
+	Move actions out of DoggyStlye and into generic actions
+	
+	
+		
+		
 	need to convert all old positioning actions to new format...
 		[x] Change positioning actions to be a simple position select, then choose who goes in which slot
 		[x] New screen to explain position
@@ -264,8 +298,6 @@
 		[cancelled] Make abstract methods in AbstractSexPosition
 		[x] Sort out all positioning actions
 			[x] Make new actions different colour and always in same order at top
-		[] Add DP for anal and vaginal
-			[] Make sure stretching effects work correctly
 		[x] Make sure futas can fuck one another
 		[x] Restrict vaginal/anal if positioning would make it impossible (mainly for cowgirl/behind and humping/behind)
 		
@@ -283,51 +315,31 @@
 			[x] AI having trouble switching from receiving cunnilingus to blowjob
 		[x] Lyssieth TF (standing position check for T1 actions might not work)
 			[x] Her orgasms don't fill you with cum?
-		[] Characters can fuck your ass while getting fucked. Fix this in AbstractSexPosition's isActionBlocked()
+		[x] Characters can fuck your ass while getting fucked. Fix this in AbstractSexPosition's isActionBlocked()
+			[x] Check handjob
 		[x] Glory hole
-		[] Imp fortresses
+		[x][x][x] Imp fortresses
+			[x] Add text in description for when clothing is forced on player
 		[x] Pix shower
-		[] Masturbation
-		[] Breeding stalls are 5 humans, one anthro?
+		[x] Masturbation
+			[x] Add action
+			[x] Account for taurs not being able to reach themselves (in all sex scenes)
+		[x] Breeding stalls are 5 humans, one anthro?
+		[x] "Denied!" follow up action triggered randomly after Jhortrax's first orgasm
+		[x] Tidy up positioning actions some more
+		[x] Spread legs action, and others from unique scene actions, need to be converted over
+		[x] Fix imp group sex scenes
 		
 		
-java.lang.ArithmeticException: / by zero
-	at com.lilithsthrone.game.character.effects.StatusEffect.getExposedStatus(StatusEffect.java:12111)
-	at com.lilithsthrone.game.character.effects.StatusEffect$100.getSVGString(StatusEffect.java:5123)
-	at com.lilithsthrone.rendering.RenderingEngine.getCharacterPanelDiv(RenderingEngine.java:2123)
-	at com.lilithsthrone.rendering.RenderingEngine.renderAttributesPanelRight(RenderingEngine.java:1124)
-	at com.lilithsthrone.controller.MainController.updateUI(MainController.java:2182)
-		
-	Really need to figure out that demon+human making half-demon bug. Seems like human+demon is making full demons as well
-		half demon spawn are apparently all females at 5'11" with F cup breasts?
-		
-	Amber does not regrow dick?
-		
-	Add masturbation action
-		
-	Make an isTaur() method to replace calls of getLegConfiguration().isBipedalPositionedGenitals()
+	[x] Add DP vaginal
+	[x] Add DP anal
+		[x] Add status effect indication + text
+		[x] Make sure stretching effects work correctly
 	
-	tooltips say areas will be added in 0.3.4
-		
-	Move actions out of DoggyStlye and into generic actions	
 	
-	Need to block position request after having it refused
 	
-	make suckle an ongoing action
 	
-	add time passed for birthing dialogue nodes
 	
-	does orgasm text say pussy is empty even if something is plugging it?
-	
-	arcane impotence has 'maximum arcane limited to 5' but it isn't
-	
-	PRs
-	
-	make vicky anal just a desire, not a certainty
-	
-	muggers don't have weapons?
-	
-	need taur spawn % preferences
 	
 	fix item usage in combat
 	
@@ -341,26 +353,11 @@ java.lang.ArithmeticException: / by zero
 	Need AI to want to swap to other character hole if already cummed in other one
 		Make them recalculate wants after orgasming
 	
-	One of the submission leaders doesn't drop the key?
-	
-	Add a way to buy Brax from Candi.
-	make it so Brax TF doesn't force you to have sex with them
-	
 	change personality system
 	
-	make shoes not fit digitgrade
-	
-	Make it so you have to confirm kicking out guests
-	
-	magic in combat from you or your companion causes freeze
-		Pull request
-	
-	add tooltip indication that you should look at calendar to reveal date
-	
+	make it so you can ask Lilaiya to revert back to her original skin colour even after she becomes a full demon
 	
 	there's is a button to leave the appearance screen and it used to work in old versions, but it doesn't work for me now
-	
-	scissoring
 	
 	skin colour settings
 	

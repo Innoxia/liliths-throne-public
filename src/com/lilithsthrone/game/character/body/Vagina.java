@@ -277,7 +277,7 @@ public class Vagina implements BodyPartInterface {
 							+ " Within moments, a deep furrow has formed "
 							+ (!owner.hasPenisIgnoreDildo()
 								? "in the middle of [npc.her] groin,"
-								: (owner.getLegConfiguration().isBipedalPositionedGenitals()
+								: (!owner.isTaur()
 										?"beneath [npc.her] cock,"
 										:"above and behind [npc.her] cock,"))
 							+ " and [npc.she] starts panting and squirming as the strange feeling shows no sign of stopping there."

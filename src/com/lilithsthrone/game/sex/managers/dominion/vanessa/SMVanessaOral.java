@@ -24,7 +24,7 @@ import com.lilithsthrone.utils.Util.Value;
 public class SMVanessaOral extends SexManagerDefault {
 	
 	public SMVanessaOral(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()
+		super(!Main.game.getPlayer().isTaur()
 					?SexPositionOther.SITTING
 					:SexPositionOther.STANDING,
 				dominants,

@@ -29,7 +29,7 @@
 		<clothingConditional2 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional2> <!-- knuckle dusters or pipe -->
 		<clothingConditional3 constant="true"><![CDATA[RND.​nextInt(100)<=25]]></clothingConditional3>
 		<clothingConditional4 constant="true"><![CDATA[RND.​nextInt(100)<=25]]></clothingConditional4> <!-- For legwear femininity -->
-		<clothingConditional5 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional5> <!-- weapons -->
+		<clothingConditional5 constant="true"><![CDATA[RND.​nextInt(100)<=90]]></clothingConditional5> <!-- weapons -->
 		<clothingConditional6 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></clothingConditional6> <!-- is bipedal -->
 		
 		<presetColourGroup1>

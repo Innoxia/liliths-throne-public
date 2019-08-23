@@ -194,7 +194,7 @@
 	</p>
 	<p>
 		You find yourself stepping into the plush-carpeted hallway of Nyan's apartment. Barely giving a moment to take in your surroundings, your host quickly pulls you through another door and into her bedroom.
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			 Wrapping her arms around you, the cat-girl takes a step backwards, pulling you down onto her double-sized bed as she moans, [nyan.speech(<i>~Mmm!~</i> Yes! T-Take me!)]
 		#ELSE
 			 Wrapping her arms around you, the cat-girl gazes lovingly into your [pc.eyes] as she moans, [nyan.speech(<i>~Mmm!~</i> Yes! T-Take me!)]

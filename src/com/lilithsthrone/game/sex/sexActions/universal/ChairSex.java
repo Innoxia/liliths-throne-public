@@ -19,7 +19,7 @@ import com.lilithsthrone.game.sex.sexActions.PositioningData;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioningNew;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -48,7 +48,7 @@ public class ChairSex {
 	}
 	
 	private static boolean isSittingAvailable(GameCharacter gettingFucked) {
-		return gettingFucked.getLegConfiguration().isBipedalPositionedGenitals();
+		return !gettingFucked.isTaur();
 	}
 	
 	public static final SexAction SWITCH_TO_STANDING = new SexAction(
@@ -92,7 +92,7 @@ public class ChairSex {
 		}
 		@Override
 		public void applyEffects() {
-			GenericPositioningNew.setNewSexManager(data, false);
+			GenericPositioning.setNewSexManager(data, false);
 		}
 	};
 	
@@ -296,7 +296,7 @@ public class ChairSex {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals()
+			return Sex.getCharacterPerformingAction().isTaur()
 					&& checkBaseRequirements(data, false);
 		}
 		@Override
@@ -339,7 +339,7 @@ public class ChairSex {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals()
+			return Sex.getCharacterPerformingAction().isTaur()
 					&& checkBaseRequirements(data, true);
 		}
 		@Override
@@ -463,7 +463,7 @@ public class ChairSex {
 		}
 		@Override
 		public String getActionDescription() {
-			if(Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals()) {
+			if(!Sex.getCharacterPerformingAction().isTaur()) {
 				return "Switch positions so that [npc2.name] is the one sitting down, with you sitting in [npc2.her] lap.";
 			} else {
 				return "Switch positions so that [npc2.name] is the one sitting down, with you having turned around and lowered your animalistic genitals down into [npc2.her] lap";
@@ -471,7 +471,7 @@ public class ChairSex {
 		}
 		@Override
 		public String getDescription() {
-			if(Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals()) {
+			if(!Sex.getCharacterPerformingAction().isTaur()) {
 				return "[npc.Name] [npc.verb(decide)] to switch positions, and, getting [npc2.name] to sit down, [npc.she] [npc.verb(sit)] down on [npc2.her] lap."
 						+ " Looking down into [npc2.her] [npc2.eyes], [npc.she] [npc.moansVerb], "
 						+ "[npc.speech(Good [npc2.girl]!)]";

@@ -1261,7 +1261,7 @@ public class GamblingDenDialogue {
 			} else if(index==2) {
 				NPC breeder = breeders.get(breederIndex);
 
-				if(!Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()) {
+				if(Main.game.getPlayer().isTaur()) {
 					return new Response("Back "+breeder.getName(true),
 							"Due to your lower body being that of a feral [pc.legRace], you're unable to fit into the breeding stall by lying on your back. You'll have to lie down on your front instead...",
 							null);
@@ -1363,7 +1363,7 @@ public class GamblingDenDialogue {
 				} else if(index==2) {
 					NPC breeder = breeders.get(breederIndex);
 
-					if(!Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()) {
+					if(Main.game.getPlayer().isTaur()) {
 						return new Response("Back "+breeder.getName(true),
 								"Due to your lower body being that of a feral [pc.legRace], you're unable to fit into the breeding stall by lying on your back. You'll have to lie down on your front instead...",
 								null);

@@ -51,6 +51,7 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
@@ -1452,11 +1453,12 @@ public class MainController implements Initializable {
 			String day = Main.game.getDateNow().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Calendar Display",
 					"Toggle the date's display between a calendar and day count.<br/>"
-						+ "The current date is: <b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
-						+ Main.game.getDisplayDate(true)
-						+"</b><br/>"
-						+ "It is currently <b>"+UtilText.generateSingularDeterminer(day)+" "+day+"</b>.<br/>"
-						+ "You've been in this new world for: <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b>");
+						+ (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate) && Main.game.isInNewWorld()
+								?"[style.italicsMinorBad(Look at the calendar in your room to reveal the date!)]"
+								:"The current date is: [style.colourGood("+ Main.game.getDisplayDate(true)+")]")
+						+ "<br/>"
+						+ "It is currently "+UtilText.generateSingularDeterminer(day)+" [style.colourBlueLight("+day+")].<br/>"
+						+ "You've been in this new world for: [style.colourExcellent("+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+")]");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		

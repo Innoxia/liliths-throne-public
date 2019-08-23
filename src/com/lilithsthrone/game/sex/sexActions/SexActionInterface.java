@@ -1224,7 +1224,7 @@ public interface SexActionInterface {
 	
 	public default boolean isPhysicallyPossible() {
 		if(this.getParticipantType()==SexParticipantType.SELF) {
-			if(!Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedGenitals()) {
+			if(Sex.getCharacterPerformingAction().isTaur()) {
 				if(this.getSexAreaInteractions().keySet().contains(SexAreaPenetration.FINGER)) {
 					if(!Collections.disjoint(prohibitedNonBipedFingerSelfAreas, this.getSexAreaInteractions().values())) {
 						return false;

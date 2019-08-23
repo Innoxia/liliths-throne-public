@@ -430,14 +430,14 @@
 		Although there's no wall to partition these seating areas from the crowds that fill the main floor, they're still the quietest parts of the club, by virtue of being the furthest you can get from the loud speakers positioned above the central dance floor. 
 	</p>
 	<p>
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
-			#IF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
+			#IF(!npc.isTaur())
 				Leading [npc.name] over to an empty booth, you sit down with [npc.herHim], before leaning forwards over the table and preparing to make your next move...
 			#ELSE
 				Taking a quick look around the area, you see that there's an empty extra-large booth, which appears to be specifically designed to seat someone with a lower body like [npc.namePos]. Leading [npc.herHim] over to the wide sofa, you sit down next to [npc.herHim], before shuffling up close and preparing to make your next move...
 			#ENDIF
 		#ELSE
-			#IF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc.isTaur())
 				Taking a quick look around the area, you see that there's an empty extra-large booth, which appears to be specifically designed to seat someone with a lower body like yours. Leading [npc.name] over to the wide sofa, you sit down next to [npc.herHim], before shuffling up close and preparing to make your next move...
 			#ELSE
 				Taking a quick look around the area, you see that there's an empty extra-large booth, which appears to be specifically designed to seat people with lower bodies like yours and [npc.namePos]. Leading [npc.herHim] over to the wide sofa, you sit down next to [npc.herHim], before shuffling up close and preparing to make your next move...
@@ -448,7 +448,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_SEATING_FOOTSIE"><![CDATA[
-	#IF(pc.getLegConfiguration().isBipedalPositionedGenitals() && npc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(!pc.isTaur() && !npc.isTaur())
 		<p>
 			Moving your [pc.foot] under the table, you slowly run it up the length of one of [npc.namePos] [npc.legs].
 			#IF npc.isNeurotic()
@@ -480,7 +480,7 @@
 			For the next few minutes, you continue playing with [npc.herHim] under the table, before finally dropping your [pc.foot] back down to the floor and grinning at the now-panting [npc.race].
 		</p>
 	#ELSE
-		#IF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!npc.isTaur())
 			<p>
 				Leaning your humanoid upper body in against [npc.name], you slip your [pc.hand] down between [npc.her] [npc.legs], before starting to grope and stroke [npc.her] groin.
 				#IF(npc.hasPenis())
@@ -542,7 +542,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_SEATING_FOOTSIE_REJECTED"><![CDATA[
-	#IF(pc.getLegConfiguration().isBipedalPositionedGenitals() && npc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(!pc.isTaur() && !npc.isTaur())
 		<p>
 			Moving your [pc.foot] under the table, you slowly run it up the length of one of [npc.namePos] [npc.legs].
 			#IF(npc.isNeurotic())
@@ -559,7 +559,7 @@
 			With your playful advances spurned, you let your [pc.foot] drop back down to the floor. [npc.Name] crosses [npc.her] [npc.arms] and leans back on the sofa, glaring angrily at you for a moment, before letting [npc.her] expression soften.
 		</p>
 	#ELSE
-		#IF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!npc.isTaur())
 			<p>
 				Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down between [npc.her] [npc.legs].
 				#IF npc.isNeurotic()
@@ -602,8 +602,8 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_SUB"><![CDATA[
-	#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
-		#IF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(!pc.isTaur())
+		#IF(!npc.isTaur())
 			<p>
 				Sliding around on the semi-circular sofa, you lean in against [npc.name], which results in [npc.herHim] letting out a hungry [npc.moan]. Taking that as a sign of consent, you lift yourself up and sit in [npc.her] lap, before leaning forwards and pressing your [pc.lips+] against [npc.hers].
 			</p>
@@ -622,7 +622,7 @@
 			</p>
 		#ENDIF
 	#ELSE
-		#IF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!npc.isTaur())
 			<p>
 				Desperate to have sex with [npc.name], you tell [npc.herHim] to remain seated, before quickly standing up and turning around. Positioning yourself so that your animalistic rear end is facing your partner, you take a step backwards, lowering your groin down into [npc.her] lap as you [pc.moan], [pc.speech(Please... Fuck me...)]
 			</p>
@@ -661,8 +661,8 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_DOM"><![CDATA[
-	#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
-		#IF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(!pc.isTaur())
+		#IF(!npc.isTaur())
 			<p>
 				Sliding around on the semi-circular sofa, you lean in against [npc.name], which results in [npc.herHim] letting out a desperate little [npc.moan]. Taking that as a sign of consent, you wrap your [pc.arms] around [npc.herHim] and pull [npc.herHim] into your lap, before moving your head forwards and pressing your [pc.lips+] against [npc.hers].
 			</p>
@@ -846,7 +846,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_SEATING_TALK"><![CDATA[
 	<p>
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals() && npc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur() && !npc.isTaur())
 			You lean forwards over the table towards [npc.name], and, over the background noise, spend the next few minutes chatting with [npc.herHim].
 		#ELSE
 			You lean in towards [npc.name] a little, and, over the background noise, spend the next few minutes chatting with [npc.herHim].
@@ -1179,7 +1179,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_DOM"><![CDATA[
-	#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(!pc.isTaur())
 		<p>
 			With the way Kalahari is lewdly panting, combined with the fact that she's completely exposing herself to you, there's no other option in your mind but to give her what she's so desperately craving. Reaching forwards, you take hold of the horny lioness, and in one swift movement, pull her into your lap.
 		</p>
@@ -1324,7 +1324,7 @@
 		[kruger.speech(Come on, [pc.name]. Sit down. I don't bite... much,)] the lion snarls, but despite his choice of words and the mildly-threatening tone of his voice, you don't sense any real malice behind his offer.
 	</p>
 	<p>
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			Doing as he instructs, you sit down next to Kruger, who turns towards you and smirks, before growling,
 		#ELSE
 			Doing as he instructs, and finding the sofa large enough to accommodate your lower body, you sit down next to Kruger, who turns towards you and smirks, before growling,
@@ -1401,7 +1401,7 @@
 	<p>
 		The zebra-girl on the other side of you leans across, reaching down to take hold of your thigh and giving it a sharp tug as she snaps, [genericFemale.speech(Spread your legs, slut.)]
 	</p>
-	#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(!pc.isTaur())
 		<p>
 			Doing as you're told, you lean back on the sofa and part your [pc.legs] for Kruger, who instantly reaches down with his free hand to stroke and stimulate
 			#IF pc.hasPenis() && pc.hasVagina()
@@ -2100,14 +2100,14 @@
 	</p>
 	<p>
 		Weaving your way through the bustling crowds which fill the club's main floor, both you and [npc.name] soon find yourselves stepping into one of the club's many seating areas.
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
-			#IF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
+			#IF(!npc.isTaur())
 				 The noisy music originating from the central dance floor is a little quieter over here, and as you and [npc.name] sit down in one of the vacant booths, you wonder if [npc.sheIs] going to want to take this opportunity to talk with you for a little while...
 			#ELSE
 				 Taking a quick look around the area, [npc.name] spots an empty extra-large booth, which appears to be specifically designed to seat someone with a lower body like [npc.hers]. Leading you over to the wide sofa, [npc.name] gets you to sit down beside [npc.herHim], and you wonder if [npc.sheIs] going to want to take this opportunity to talk with you for a little while...
 			#ENDIF
 		#ELSE
-			#IF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc.isTaur())
 				 Taking a quick look around the area, [npc.name] spots an empty extra-large booth, which appears to be specifically designed to seat someone with a lower body like yours. Leading you over to the wide sofa, [npc.name] gets you to sit down beside [npc.herHim], and you wonder if [npc.sheIs] going to want to take this opportunity to talk with you for a little while...
 			#ELSE
 				 Taking a quick look around the area, [npc.name] spots an empty extra-large booth, which appears to be specifically designed to seat people with lower bodies like yours and [npc.hers]. Leading you over to the wide sofa, [npc.name] gets you to sit down beside [npc.herHim], and you wonder if [npc.sheIs] going to want to take this opportunity to talk with you for a little while...
@@ -2818,7 +2818,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FLIRT"><![CDATA[
 	<p>
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals() && npc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur() && !npc.isTaur())
 			#IF(npc.isTrusting())
 				Leaning forwards over the small table, [npc.name] starts flirting with you, offering you compliments on your appearance and mannerisms. [npc.Her] charming words are carefully chosen, and [npc.she] makes no move to initiate physical contact, preferring to wait and judge your response before taking things any further...
 			#ELSE
@@ -2878,10 +2878,10 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FOOTSIE"><![CDATA[
 	<p>
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals() && npc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur() && !npc.isTaur())
 			[npc.Name] throws you a playful smile, but before you can ask [npc.herHim] what's on [npc.her] mind, you suddenly feel [npc.her] [npc.foot] rubbing against your [pc.leg]. Your partner playfully laughs as [npc.she] starts to lift [npc.her] [npc.foot] up towards your groin, and you realise that unless you say something, [npc.sheIs] going to press it right into your crotch!
 		#ELSE
-			#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!pc.isTaur())
 				#IF(npc.isTrusting())
 					Feeling an increase in sexual tension between the two of you, [npc.name] shuffles up to press [npc.herself] against you, and, with a playful, flirtatious remark, places [npc.her] [npc.hand] on your [pc.hips+]. As [npc.she] starts to slide [npc.her] touch down and around to your [pc.ass+], you wonder if you should play along, and let [npc.herHim] feel you up, or quickly put a stop to this unsolicited contact.
 				#ELSE
@@ -2911,7 +2911,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FOOTSIE_ACCEPT"><![CDATA[
-	#IF(pc.getLegConfiguration().isBipedalPositionedGenitals() && npc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(!pc.isTaur() && !npc.isTaur())
 		<p>
 			Happy to let [npc.name] do as [npc.she] wants, you spread your [pc.legs] and sink down on your seat a little lower, pushing your groin out towards [npc.herHim] beneath the table. Biting your [pc.lip] and putting on your most seductive smile, you softly [pc.moanVerb], [pc.speech(Yes... Keep going...)]
 		</p>
@@ -2951,7 +2951,7 @@
 			You happily reply in the affirmative, and, panting from the intense stimulation, you push yourself back upright on your seat and prepare yourself for [npc.namePos] next move...
 		</p>
 	#ELSE
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			<p>
 				Turned on by [npc.namePos] dominant move, you happily lean in against [npc.herHim], letting out [pc.a_moan+] as [npc.she] starts feeling you up.
 				#IF pc.hasBreasts()
@@ -3060,7 +3060,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FOOTSIE_DECLINE"><![CDATA[
-	#IF(pc.getLegConfiguration().isBipedalPositionedGenitals() && npc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(!pc.isTaur() && !npc.isTaur())
 		<p>
 			Not wanting [npc.namePos] [npc.feet] anywhere near your groin, you quickly shuffle away from [npc.her] touch, before angrily frowning at [npc.herHim]. [pc.speech(Hey! Cut that out!)]
 		</p>
@@ -3159,10 +3159,10 @@
 		[npc.Name] shuffles up right next to you on the seat, and, leaning in towards you, [npc.she] whispers in a playful tone, [npc.speech(You know, nobody would notice if we had sex right here in this booth. Come on, it'll be so exciting!)]
 	</p>
 	<p>
-		#IF(!npc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(npc.isTaur())
 			With that, [npc.she] quickly reaches forwards and takes hold of your [pc.hands], before trying to get you to stand up with [npc.herHim]. [npc.SheIs] clearly desperate to start having sex with you...
 		#ELSE
-			#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!pc.isTaur())
 				With that, [npc.she] quickly reaches forwards and tries to pull you into [npc.her] lap, clearly desperate to start having sex with you...
 			#ELSE
 				With that, [npc.she] quickly reaches forwards and tries to get to you stand up, clearly desperate for you to reposition yourself so that your animalistic rear end is in [npc.her] lap...
@@ -3173,7 +3173,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_SEX_START"><![CDATA[
-	#IF(!npc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(npc.isTaur())
 		<p>
 			Letting out a delighted [pc.moan] in response to [npc.namePos] suggestion, you allow yourself to be pulled to your [pc.feet] before [npc.herHim]. Once in this position, [npc.name] quickly leans forwards, before planting a passionate kiss on your [pc.lips+]. Eagerly returning [npc.her] display of affection, the two of you start passionately making out with one another.
 		</p>
@@ -3181,7 +3181,7 @@
 			After a few moments of this, [npc.name] breaks away, before grinning and letting out [npc.a_moan] of [npc.her] own, [npc.speech(Mmm, yeah, now let's have some real fun!)]
 		</p>
 	#ELSE
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			<p>
 				Letting out a delighted [pc.moan] in response to [npc.namePos] suggestion, you allow yourself to be pulled into [npc.her] lap. Once in this position, [npc.name] quickly leans forwards, before planting a passionate kiss on your [pc.lips+]. Eagerly returning [npc.her] display of affection, the two of you start passionately making out with one another.
 			</p>

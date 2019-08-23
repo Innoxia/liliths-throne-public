@@ -85,10 +85,9 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
-import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.SadisticActions;
 import com.lilithsthrone.game.sex.sexActions.dominion.AmberSpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -647,10 +646,8 @@ public class Amber extends NPC {
 			List<SexActionInterface> actionsAvailable = new ArrayList<>();
 			
 			actionsAvailable.add(FingerMouth.PARTNER_ASSIST_BLOWJOB);
-			actionsAvailable.add(GenericActions.CHOKE);
-			actionsAvailable.add(GenericActions.SLAP_FACE);
+			actionsAvailable.addAll(this.getSexActionInterfacesFromClass(SadisticActions.class));
 			actionsAvailable.add(PartnerTalk.PARTNER_DIRTY_TALK);
-			actionsAvailable.add(GenericTalk.ROUGH_TALK);
 			actionsAvailable.addAll(this.getSexActionInterfacesFromClass(GenericOrgasms.class));
 
 //			actionsAvailable.addAll(this.getSexActionInterfacesFromClass(GenericActions.class));

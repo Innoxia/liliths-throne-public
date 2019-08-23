@@ -13,7 +13,7 @@ import com.lilithsthrone.game.sex.sexActions.PositioningData;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioningNew;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -43,7 +43,8 @@ public class ToiletStall {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isSwapPositionAllowed(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this))
+			return !Sex.getCharacterPerformingAction().equals(Sex.getCharacterTargetedForSexAction(this))
+					&& Sex.getSexManager().isSwapPositionAllowed(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this))
 //					&& Sex.getInitialSexManager().isPositionChangingAllowed(Sex.getCharacterPerformingAction()) // Should be covered in the method above
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
@@ -121,7 +122,7 @@ public class ToiletStall {
 		}
 		@Override
 		public void applyEffects() {
-			GenericPositioningNew.setNewSexManager(data, false);
+			GenericPositioning.setNewSexManager(data, false);
 		}
 	};
 	
@@ -194,7 +195,7 @@ public class ToiletStall {
 		}
 		@Override
 		public void applyEffects() {
-			GenericPositioningNew.setNewSexManager(data, false);
+			GenericPositioning.setNewSexManager(data, false);
 		}
 	};
 	
@@ -267,7 +268,7 @@ public class ToiletStall {
 		}
 		@Override
 		public void applyEffects() {
-			GenericPositioningNew.setNewSexManager(data, false);
+			GenericPositioning.setNewSexManager(data, false);
 		}
 	};
 	
@@ -339,7 +340,7 @@ public class ToiletStall {
 		}
 		@Override
 		public void applyEffects() {
-			GenericPositioningNew.setNewSexManager(data, false);
+			GenericPositioning.setNewSexManager(data, false);
 		}
 	};
 
@@ -496,7 +497,7 @@ public class ToiletStall {
 					Sex.getPositionRequest().getPartnerSlots().get(0),
 					Sex.getPositionRequest().getPerformerSlots().get(0),
 					Main.game.getPlayer())) {
-				GenericPositioningNew.setNewSexManager(Sex.getPositionRequest(), true);
+				GenericPositioning.setNewSexManager(Sex.getPositionRequest(), true);
 			}
 			
 			Sex.setPositionRequest(null);

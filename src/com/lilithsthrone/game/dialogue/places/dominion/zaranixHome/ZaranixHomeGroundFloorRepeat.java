@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
+import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
@@ -54,6 +55,14 @@ public class ZaranixHomeGroundFloorRepeat {
 	private static NPC pet;
 	private static NPC owner;
 	
+
+	public static void resetHouseAfterLeaving() {
+		((Zaranix)Main.game.getNpc(Zaranix.class)).setStartingBody(false);
+		((Amber)Main.game.getNpc(Amber.class)).setStartingBody(false);
+		((ZaranixMaidKatherine)Main.game.getNpc(ZaranixMaidKatherine.class)).setStartingBody(false);
+		((ZaranixMaidKelly)Main.game.getNpc(ZaranixMaidKelly.class)).setStartingBody(false);
+	}
+	
 	public static final DialogueNode OUTSIDE = new DialogueNode("Zaranix's Home", "", true) {
 
 		@Override
@@ -77,6 +86,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					return new Response("Knock door", "Knock on the door and wait for someone to answer.", OUTSIDE_KNOCK_ON_DOOR_KNOWS_AMBER) {
 						@Override
 						public void effects() {
+							resetHouseAfterLeaving(); // Reset here as well in case the player teleported out of the house.
 							Main.game.getNpc(Amber.class).setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 							Main.game.getNpc(Amber.class).setPlayerKnowsName(true);
 							Main.game.getNpc(Zaranix.class).returnToHome();
@@ -87,6 +97,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					return new Response("Knock door", "Knock on the door and wait for someone to answer.", OUTSIDE_KNOCK_ON_DOOR) {
 						@Override
 						public void effects() {
+							resetHouseAfterLeaving(); // Reset here as well in case the player teleported out of the house.
 							Main.game.getNpc(Amber.class).setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 							Main.game.getNpc(Amber.class).setPlayerKnowsName(true);
 							Main.game.getNpc(Zaranix.class).returnToHome();
@@ -363,6 +374,7 @@ public class ZaranixHomeGroundFloorRepeat {
 				return new Response("Exit", "Leave Zaranix's house and head back out into Demon Home.", PlaceType.DOMINION_DEMON_HOME_ARTHUR.getDialogue(false)) {
 					@Override
 					public void effects() {
+						resetHouseAfterLeaving();
 						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 					}
 				};

@@ -2072,9 +2072,13 @@ public class Sex {
 					entry.getKey().incrementArousal(sexAction.getArousalGainTarget().getArousalIncreaseValue());
 					
 				} else {
+					int sideDifference = Math.max(0, (Sex.isDom(entry.getKey())?-1:1)*Sex.getDominantParticipants(false).size()-Sex.getSubmissiveParticipants(false).size());
+					
 					float increment = Math.min(
-							(5f+arousalCapIncrease)/(Math.min(2, Sex.getTotalParticipantCount(false))),
+							(5f+arousalCapIncrease)*(1f-(sideDifference/5f)),
 							arousal * entry.getKey().getLustLevel().getArousalModifier()); // Modify arousal value based on lust
+
+//					System.out.println(entry.getKey().getName()+": "+increment+" | "+(5f+arousalCapIncrease)+", "+(1f-(sideDifference/5f)));
 					
 					entry.getKey().incrementArousal(increment);
 				}
@@ -2990,7 +2994,7 @@ public class Sex {
 					break;
 				}
 			}
-			boolean twoPenisesInOrifice = false;
+			boolean twoPenisesInOrifice = Sex.getOngoingCharactersUsingAreas(characterPenetrated, orifice, SexAreaPenetration.PENIS).size()>1;
 
 			areasCurrentlyStretching.get(characterPenetrated).clear();
 			if (orifice == SexAreaOrifice.ANUS){
@@ -3209,6 +3213,9 @@ public class Sex {
 	}
 	
 	public static boolean isPositionChangingAllowed(GameCharacter characterWantingToChangePosition) {
+		if(Sex.isMasturbation()) {
+			return true;
+		}
 		if(isCharacterBannedFromPositioning(characterWantingToChangePosition)
 				|| Sex.isCharacterForbiddenByOthersFromPositioning(characterWantingToChangePosition)
 				|| Sex.isDom(characterWantingToChangePosition)==Sex.isDom(Sex.getTargetedPartner(characterWantingToChangePosition))) { // Don't allow position changing if the character/target are sub/sub or dom/dom as it can break positioning
@@ -3308,17 +3315,7 @@ public class Sex {
 	}
 
 	public static int getTotalParticipantCount(boolean includeSpectators) {
-		int size = Sex.getAllParticipants().size();
-		
-		if(!includeSpectators) {
-			for(GameCharacter character : Sex.getAllParticipants()) {
-				if(Sex.getSexPositionSlot(character)==SexSlotGeneric.MISC_WATCHING) {
-					size--;
-				}
-			}
-		}
-		
-		return size;
+		return getAllParticipants(includeSpectators).size();
 	}
 	
 	public static boolean isMasturbation() {
@@ -3651,7 +3648,7 @@ public class Sex {
 	
 	/**
 	 * Makes the supplied character the primary character who is interacting with the targetedCharacter's targetsSexArea.
-	 * The 'primary' cahracter is not used much, other than for some sex descriptions.
+	 * The 'primary' character is not used much, other than for some sex descriptions.
 	 * e.g. In multiple-character blowjobs, the 'primary' character is the one considered to currently have the target's cock in their mouth, while the others are simply kissing/licking the sides.
 	 * @param character The character to make the primary interacting character.
 	 * @param targetedCharacter The character who is being interacted with.
@@ -3994,7 +3991,7 @@ public class Sex {
 		for(GameCharacter character : Sex.allParticipants) {
 			for(GameCharacter target : Sex.allParticipants) {
 				if((!character.equals(target) || Sex.isMasturbation())
-						&& (Sex.sexManager.getPosition().getAllAvailableSexPositions().contains(Sex.getSexPositionSlot(character)) || Sex.getSexPositionSlot(character)==SexSlotGeneric.MISC_WATCHING)) { //TODO check spectator check here
+						&& (Sex.sexManager.getPosition().getAllAvailableSexPositions().contains(Sex.getSexPositionSlot(character)) || Sex.getSexPositionSlot(character)==SexSlotGeneric.MISC_WATCHING)) {
 					
 					//TODO Handle cloacas in here as well:
 					if((character instanceof NPC) && ((NPC) character).getLimitedSexClasses()!=null) {
@@ -4174,7 +4171,7 @@ public class Sex {
 		}
 		
 		if(Sex.isMasturbation()
-				?action.getParticipantType()==SexParticipantType.SELF
+				?action.getParticipantType()==SexParticipantType.SELF || action.getCategory()==SexActionCategory.POSITIONING
 				:((Sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING && Sex.getSexPositionSlot(target)!=SexSlotGeneric.MISC_WATCHING)
 						|| action.getParticipantType()==SexParticipantType.SELF
 						|| (Sex.isDom(character) && action.getCategory()==SexActionCategory.POSITIONING)

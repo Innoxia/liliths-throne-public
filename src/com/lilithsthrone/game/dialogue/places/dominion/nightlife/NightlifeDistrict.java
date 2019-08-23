@@ -1230,7 +1230,7 @@ public class NightlifeDistrict {
 					
 				} else if(index==3) {
 					boolean bothBipeds = true;
-					if(!Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals() || !getPartner().getLegConfiguration().isBipedalPositionedGenitals()) {
+					if(Main.game.getPlayer().isTaur() || getPartner().isTaur()) {
 						bothBipeds = false;
 					}
 					return new Response( // If both partners are bipeds, play footsie. If not, feeling up occurs instead.
@@ -1270,7 +1270,7 @@ public class NightlifeDistrict {
 							}
 						};
 						
-						if(!Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()) { // Player is a taur/arachnid:
+						if(Main.game.getPlayer().isTaur()) { // Player is a taur/arachnid:
 							sm = new SexManagerDefault(
 									SexPositionOther.STANDING,
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
@@ -1318,8 +1318,8 @@ public class NightlifeDistrict {
 							}
 						};
 						
-						if(!Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()) {
-							if(!getPartner().getLegConfiguration().isBipedalPositionedGenitals()) { // Both taurs/arachnids:
+						if(Main.game.getPlayer().isTaur()) {
+							if(getPartner().isTaur()) { // Both taurs/arachnids:
 								sm = new SexManagerDefault(
 										SexPositionOther.STANDING,
 										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
@@ -1331,7 +1331,7 @@ public class NightlifeDistrict {
 								};
 							}
 							
-						} else if(!getPartner().getLegConfiguration().isBipedalPositionedGenitals()) { // Partner is a taur/arachnid:
+						} else if(getPartner().isTaur()) { // Partner is a taur/arachnid:
 							sm = new SexManagerDefault(
 									SexPositionOther.STANDING,
 									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
@@ -2655,7 +2655,7 @@ public class NightlifeDistrict {
 								return false;
 							}
 						};
-						if(!Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()) { // Player is a taur/arachnid:
+						if(Main.game.getPlayer().isTaur()) { // Player is a taur/arachnid:
 							sm = new SexManagerDefault(
 									SexPositionOther.STANDING,
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
@@ -2668,7 +2668,7 @@ public class NightlifeDistrict {
 						}
 						
 						return new ResponseSex("Sex (dom)",
-								Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()
+								!Main.game.getPlayer().isTaur()
 									?"Pull Kalahari into your lap and start having dominant sex with her."
 									:"Stand up, pulling Kalahari to her feet as you do so, and start having dominant sex with her.",
 								true, true,
@@ -3400,25 +3400,14 @@ public class NightlifeDistrict {
 					if(likesSex(getPartner())) {
 						return new ResponseSex("Stall sex", UtilText.parse(getClubbersPresent(), "Try and get [npc.name] to have sex in one of the toilet's stalls."),
 								true, true,
-								Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals() || getPartner().getLegConfiguration().isBipedalPositionedGenitals()
-									?new SMGeneric(
-											Util.newArrayListOfValues(Main.game.getPlayer()),
-											Util.newArrayListOfValues(getPartner()),
-											null,
-											null) {
-										@Override
-										public boolean isPublicSex() {
-											return false;
-										}
+								new SMStallSex(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_SUBMISSIVE))) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
 									}
-									:new SMStallSex(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
-											Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_SUBMISSIVE))) {
-										@Override
-										public boolean isPublicSex() {
-											return false;
-										}
-									},
+								},
 								null,
 								null,
 								WATERING_HOLE_TOILETS_AFTER_SEX,
@@ -4701,7 +4690,7 @@ public class NightlifeDistrict {
 					break;
 				case SIT_DOWN_FOOTSIE:
 					boolean bothBipeds = true;
-					if(!Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals() || !getPartner().getLegConfiguration().isBipedalPositionedGenitals()) {
+					if(Main.game.getPlayer().isTaur() || getPartner().isTaur()) {
 						bothBipeds = false;
 					}
 					// If both partners are bipeds, play footsie. If not, feeling up occurs instead.
@@ -4824,7 +4813,7 @@ public class NightlifeDistrict {
 							}
 						};
 
-						if(!getPartner().getLegConfiguration().isBipedalPositionedGenitals()) { // Partner is a taur/arachnid:
+						if(getPartner().isTaur()) { // Partner is a taur/arachnid:
 							sm = new SexManagerDefault(
 									SexPositionOther.STANDING,
 									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
@@ -4904,25 +4893,14 @@ public class NightlifeDistrict {
 					if(index==1) {
 						return new ResponseSex("Stall sex", UtilText.parse(getClubbersPresent(), "Let [npc.name] fuck you in one of the toilet's stalls."),
 								true, true,
-								Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals() || getPartner().getLegConfiguration().isBipedalPositionedGenitals()
-									?new SMGeneric(
-											Util.newArrayListOfValues(getPartner()),
-											Util.newArrayListOfValues(Main.game.getPlayer()),
-											null,
-											null) {
-										@Override
-										public boolean isPublicSex() {
-											return false;
-										}
+								new SMStallSex(
+										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_SUBMISSIVE))) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
 									}
-									:new SMStallSex(
-											Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_SUBMISSIVE))) {
-										@Override
-										public boolean isPublicSex() {
-											return false;
-										}
-									},
+								},
 								null,
 								null,
 								WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX,

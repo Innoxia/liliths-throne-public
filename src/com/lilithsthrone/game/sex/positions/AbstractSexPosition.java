@@ -96,42 +96,43 @@ public abstract class AbstractSexPosition {
 				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED
 				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
 			
-			
 			// Block penis+non-appendage-non-pussy actions if target's penis is already in use:
 			try {
 				// Trying to interact a penis with a character who is already using a penis:
-				if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS) && Sex.isPenetrationNonSelfOngoingAction(target, SexAreaPenetration.PENIS)) {
-					// If the person already using the penis is using it with an orifice that is not allowed for inter-penetrations:
-					if(!Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer).isEmpty()
-							&& Collections.disjoint(Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer), SexActionPresets.allowedInterPenetrationAreas)) {
-						// return blocked if the targeted area is not an interPenetrationArea:
-						return Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.allowedInterPenetrationAreas);
-						
-					} else {
-						// return blocked if the penetrated area is a vagina and the targeted area is a non-interPenetrationArea:
-						if(Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.allowedInterPenetrationAreas)) {
-							return Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer).contains(SexAreaOrifice.VAGINA);
-						} else {
-							return false;
+				if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)) {
+					boolean ongoingAllowedFound = false;
+					for(SexAreaInterface sa : Sex.getContactingSexAreas(target, SexAreaPenetration.PENIS, performer)) {
+						if(!SexActionPresets.allowedInterPenetrationAreas.contains(sa)) {
+							return true;
+						} else if(sa==SexAreaOrifice.VAGINA) {
+							ongoingAllowedFound = true;
+						}
+					}
+					if(ongoingAllowedFound) {
+						for(SexAreaInterface sa : action.getSexAreaInteractions().values()) {
+							if(!SexActionPresets.allowedInterPenetrationAreas.contains(sa)) {
+								return true;
+							}
 						}
 					}
 				}
 			}catch(Exception ex) {}
 			try {
 				// Trying to interact a penis with a character who is already using a penis:
-				if(action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS) && Sex.isPenetrationNonSelfOngoingAction(performer, SexAreaPenetration.PENIS)) {
-					// If the person already using the penis is using it with an orifice that is not allowed for inter-penetrations:
-					if(!Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target).isEmpty()
-							&& Collections.disjoint(Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target), SexActionPresets.allowedInterPenetrationAreas)) {
-						// return blocked if the targeted area is not an interPenetrationArea:
-						return Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.allowedInterPenetrationAreas);
-						
-					} else {
-						// return blocked if the penetrated area is a vagina and the targeted area is a non-interPenetrationArea:
-						if(Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.allowedInterPenetrationAreas)) {
-							return Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target).contains(SexAreaOrifice.VAGINA);
-						} else {
-							return false;
+				if(action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)) {
+					boolean ongoingAllowedFound = false;
+					for(SexAreaInterface sa : Sex.getContactingSexAreas(performer, SexAreaPenetration.PENIS, target)) {
+						if(!SexActionPresets.allowedInterPenetrationAreas.contains(sa)) {
+							return true;
+						} else if(sa==SexAreaOrifice.VAGINA) {
+							ongoingAllowedFound = true;
+						}
+					}
+					if(ongoingAllowedFound) {
+						for(SexAreaInterface sa : action.getSexAreaInteractions().keySet()) {
+							if(!SexActionPresets.allowedInterPenetrationAreas.contains(sa)) {
+								return true;
+							}
 						}
 					}
 				}

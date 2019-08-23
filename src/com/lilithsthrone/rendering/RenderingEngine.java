@@ -131,7 +131,7 @@ public enum RenderingEngine {
 		
 		equippedPanelSB.setLength(0);
 		
-		if(charactersInventoryToRender == null) { //TODO
+		if(charactersInventoryToRender == null) {
 			equippedPanelSB.append("<div class='inventory-equipped'>");
 
 			for (InventorySlot invSlot : mainInventorySlots) {
@@ -1836,7 +1836,7 @@ public enum RenderingEngine {
 								}
 
 								// Put place icon onto tile:
-								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null) { //TODO border
+								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null) {
 									if (y == playerPosition.getY() && x == playerPosition.getX()) {
 										mapSB.append("<div class='place-icon' style='margin:calc(18% - 4px); width:64%;'>"
 												+ "<div class='map-tile-content' style='background-color:"+getPlayerIconColour(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()).toWebHexString()+";"
@@ -1872,6 +1872,9 @@ public enum RenderingEngine {
 
 						}
 						
+					} else if(Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE) {
+						mapSB.append("<div class='map-tile' style='background-color:"+Colour.MAP_BACKGROUND_UNEXPLORED.toWebHexString()+"; "+tileWidthStyle+"'></div>");
+
 					} else {
 						mapSB.append("<div class='map-tile blank' style='"+tileWidthStyle+"'></div>");
 					}

@@ -93,7 +93,7 @@ public class SMGeneric extends SexManagerDefault {
 				this.position = SexPositionOther.STANDING;
 				slotsDominant = new SexSlot[] {SexSlotStanding.STANDING_DOMINANT, SexSlotStanding.STANDING_DOMINANT_TWO, SexSlotStanding.STANDING_DOMINANT_THREE, SexSlotStanding.STANDING_DOMINANT_FOUR};
 				if(dominants.size()==1) {
-					if(dominants.get(0).hasPenis() || dominants.get(0).getLegConfiguration().isBipedalPositionedGenitals()) {
+					if(dominants.get(0).hasPenis() || !dominants.get(0).isTaur()) {
 						slotsSubmissive = new SexSlot[] {SexSlotStanding.PERFORMING_ORAL, SexSlotStanding.PERFORMING_ORAL_BEHIND, SexSlotStanding.PERFORMING_ORAL_TWO, SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO};
 					} else {
 						slotsSubmissive = new SexSlot[] {SexSlotStanding.PERFORMING_ORAL_BEHIND, SexSlotStanding.PERFORMING_ORAL, SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO, SexSlotStanding.PERFORMING_ORAL_TWO};
@@ -208,6 +208,7 @@ public class SMGeneric extends SexManagerDefault {
 				case PREFER_MISSIONARY:
 				case PREFER_ORAL:
 				case PREFER_COW_GIRL:
+				case DISABLE_POSITIONING:
 					break;
 				case START_PACE_PLAYER_DOM_GENTLE:
 					if(character.isPlayer()) {

@@ -534,6 +534,13 @@ public class TooltipInventoryEventListener implements EventListener {
 
 
 	private void setEmptyInventorySlotTooltipContent(){
+		if(equippedToCharacter==null) {
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
+			Main.mainController.setTooltipContent("<div class='title'>"
+					+ Util.capitaliseSentence(invSlot.getName())
+			+ "</div>");
+			return;
+		}
 		boolean dirty = equippedToCharacter.isDirtySlot(invSlot);
 		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60+(dirty?56:0));
 		Main.mainController.setTooltipContent(UtilText.parse(equippedToCharacter,

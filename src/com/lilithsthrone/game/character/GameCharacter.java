@@ -4520,6 +4520,73 @@ public abstract class GameCharacter implements XMLSaving {
 				|| getCompanionSexRejectionReason(companionIsSub).isEmpty();
 	}
 	
+	public final Value<Boolean, String> getSexAvailabilityBasedOnLocation() {
+		switch(this.getWorldLocation()) {
+			case WORLD_MAP:
+				break;
+			case MUSEUM:
+			case MUSEUM_LOST:
+			case ANGELS_KISS_FIRST_FLOOR:
+			case ANGELS_KISS_GROUND_FLOOR:
+			case BAT_CAVERNS:
+			case DOMINION:
+			case EMPTY:
+			case SLAVER_ALLEY:
+			case SUBMISSION:
+			case HARPY_NEST:
+			case LILAYAS_HOUSE_FIRST_FLOOR:
+			case LILAYAS_HOUSE_GROUND_FLOOR:
+			case NIGHTLIFE_CLUB:
+				break;
+				
+			case ENFORCER_HQ:
+				return new Value<>(false, "You can't have sex in the Enforcer HQ!");
+				
+			case SHOPPING_ARCADE:
+				if(!this.getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_PATH)) {
+					return new Value<>(false, "This isn't a suitable place in which to be having sex!");
+				}
+				break;
+			case SUPPLIER_DEN:
+			case SLIME_QUEENS_LAIR_GROUND_FLOOR:
+			case SLIME_QUEENS_LAIR_FIRST_FLOOR:
+			case GAMBLING_DEN:
+			case IMP_FORTRESS_ALPHA:
+			case IMP_FORTRESS_DEMON:
+			case IMP_FORTRESS_FEMALES:
+			case IMP_FORTRESS_MALES:
+			case CITY_HALL:
+				return new Value<>(false, "This isn't a suitable place in which to be having sex!");
+			case ZARANIX_HOUSE_FIRST_FLOOR:
+			case ZARANIX_HOUSE_GROUND_FLOOR:
+				return new Value<>(false, "You can't have sex while in Zaranix's house!");
+			case LYSSIETH_PALACE:
+				return new Value<>(false, "You can't have sex while in Lyssieth's Palace!");
+			case DADDYS_APARTMENT:
+				return new Value<>(false, "You can't have sex while in [daddy.namePos] apartment!");
+		}
+	
+		AbstractPlaceType placeType = this.getLocationPlace().getPlaceType();
+		boolean charactersImmediatelyPresent = 
+				!placeType.equals(PlaceType.DOMINION_BACK_ALLEYS)
+					&& !placeType.equals(PlaceType.DOMINION_DARK_ALLEYS)
+					&& !placeType.equals(PlaceType.SUBMISSION_TUNNELS)
+					&& !placeType.equals(PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA)
+					&& !placeType.equals(PlaceType.SUBMISSION_IMP_TUNNELS_DEMON)
+					&& !placeType.equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)
+					&& !placeType.equals(PlaceType.SUBMISSION_IMP_TUNNELS_MALES);
+		
+		if(charactersImmediatelyPresent) {
+			for(GameCharacter character : Main.game.getCharactersPresent()) {
+				if(!character.isSlave() && (this.getPartyLeader()==null || !this.getPartyLeader().getCompanions().contains(character))) {
+					return new Value<>(false, UtilText.parse(character, "You can't have sex in front of [npc.name]!"));
+				}
+			}
+		}
+		
+		return new Value<>(true, "");
+	}
+	
 	/**
 	 * Override this to see if companion is willing to have sex with player
 	 */
@@ -4571,67 +4638,10 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
+		Value<Boolean, String> availability = getSexAvailabilityBasedOnLocation();
 		
-		AbstractPlaceType placeType = this.getLocationPlace().getPlaceType();
-		boolean charactersImmediatelyPresent = 
-				!placeType.equals(PlaceType.DOMINION_BACK_ALLEYS)
-					&& !placeType.equals(PlaceType.DOMINION_DARK_ALLEYS)
-					&& !placeType.equals(PlaceType.SUBMISSION_TUNNELS)
-					&& !placeType.equals(PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA)
-					&& !placeType.equals(PlaceType.SUBMISSION_IMP_TUNNELS_DEMON)
-					&& !placeType.equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)
-					&& !placeType.equals(PlaceType.SUBMISSION_IMP_TUNNELS_MALES);
-		
-		switch(this.getWorldLocation()) {
-			case WORLD_MAP:
-				break;
-			case MUSEUM:
-			case MUSEUM_LOST:
-			case ANGELS_KISS_FIRST_FLOOR:
-			case ANGELS_KISS_GROUND_FLOOR:
-			case BAT_CAVERNS:
-			case DOMINION:
-			case EMPTY:
-			case SLAVER_ALLEY:
-			case SUBMISSION:
-			case HARPY_NEST:
-			case LILAYAS_HOUSE_FIRST_FLOOR:
-			case LILAYAS_HOUSE_GROUND_FLOOR:
-			case NIGHTLIFE_CLUB:
-				break;
-				
-			case ENFORCER_HQ:
-				return "You can't have sex in the Enforcer HQ!";
-			case SHOPPING_ARCADE:
-				if(!this.getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_PATH)) {
-					return "This isn't a suitable place to be having sex with [npc.name]!";
-				}
-				break;
-			case SUPPLIER_DEN:
-			case SLIME_QUEENS_LAIR_GROUND_FLOOR:
-			case SLIME_QUEENS_LAIR_FIRST_FLOOR:
-			case GAMBLING_DEN:
-			case IMP_FORTRESS_ALPHA:
-			case IMP_FORTRESS_DEMON:
-			case IMP_FORTRESS_FEMALES:
-			case IMP_FORTRESS_MALES:
-			case CITY_HALL:
-				return "This isn't a suitable place to be having sex with [npc.name]!";
-			case ZARANIX_HOUSE_FIRST_FLOOR:
-			case ZARANIX_HOUSE_GROUND_FLOOR:
-				return "You can't have sex with [npc.name] in Zaranix's house!";
-			case LYSSIETH_PALACE:
-				return "You can't have sex with [npc.name] in Lyssieth's Palace!";
-			case DADDYS_APARTMENT:
-				return "You can't have sex with [npc.name] in [daddy.namePos] apartment!";
-		}
-		
-		if(charactersImmediatelyPresent) {
-			for(GameCharacter character : Main.game.getCharactersPresent()) {
-				if(!character.isSlave() && !this.getPartyLeader().getCompanions().contains(character)) {
-					return UtilText.parse(character, "You can't have sex in front of [npc.name]!");
-				}
-			}
+		if(!availability.getKey()) {
+			return availability.getValue();
 		}
 		
 		return "";
@@ -4978,7 +4988,9 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		if(att == Attribute.HEALTH_MAXIMUM || att == Attribute.MANA_MAXIMUM) {
-			if(this.hasStatusEffect(StatusEffect.CLOTHING_ENCHANTMENT_OVER_LIMIT)) {
+			if(this.hasStatusEffect(StatusEffect.INTELLIGENCE_PERK_0)) {
+				return 5;
+			} else if(this.hasStatusEffect(StatusEffect.CLOTHING_ENCHANTMENT_OVER_LIMIT)) {
 				value *= 0.9f;
 			} else if(this.hasStatusEffect(StatusEffect.CLOTHING_ENCHANTMENT_OVER_LIMIT_2)) {
 				value *= 0.5f;
@@ -18596,8 +18608,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public AntennaType getAntennaType() {
 		return body.getAntenna().getType();
 	}
-	public String setAntennaType(AntennaType hornType) {
-		return body.getAntenna().setType(this, hornType);
+	public String setAntennaType(AntennaType antennaType) {
+		return body.getAntenna().setType(this, antennaType);
 	}
 	public BodyCoveringType getAntennaCovering() {
 		return getCovering(body.getAntenna());
@@ -20802,6 +20814,12 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getLeg().setFootStructure(this, footStructure);
 	}
 	// LegConfiguration:
+	/**
+	 * @return true if this character has either a taur or arachnid lower body.
+	 */
+	public boolean isTaur() {
+		return !this.getLegConfiguration().isBipedalPositionedGenitals();
+	}
 	public LegConfiguration getLegConfiguration() {
 		return body.getLeg().getLegConfiguration();
 	}

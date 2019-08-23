@@ -1535,8 +1535,7 @@ public class Game implements XMLSaving {
 			}
 			
 			if(npc.isPendingTransformationToGenderIdentity()
-					&& !npc.getLocation().equals(Main.game.getPlayer().getLocation())
-					) {
+					&& !npc.getLocation().equals(Main.game.getPlayer().getLocation())) {
 				boolean assVirgin = npc.isAssVirgin();
 				boolean faceVirgin = npc.isFaceVirgin();
 				boolean nippleVirgin = npc.isNippleVirgin();
@@ -3084,7 +3083,7 @@ public class Game implements XMLSaving {
 					return date.substring(0, date.length()-5);
 				}
 			}
-			return "Unknown";
+			return UtilText.parse("[style.colourMinorBad(Unknown date)]");
 		}
 		
 		if(withYear) {

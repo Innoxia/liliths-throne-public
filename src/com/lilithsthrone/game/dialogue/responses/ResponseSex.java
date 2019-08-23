@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.responses;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -175,12 +176,20 @@ public class ResponseSex extends Response {
 										case PREFER_MISSIONARY:
 										case PREFER_DOGGY:
 										case PREFER_COW_GIRL:
+										case DISABLE_POSITIONING:
 											break;
 									}
 								}
 							}
 						}
 						return null;
+					}
+					@Override
+					public boolean isPositionChangingAllowed(GameCharacter character) {
+						if(Arrays.asList(tags).contains(ResponseTag.DISABLE_POSITIONING)) {
+							return false;
+						}
+						return super.isPositionChangingAllowed(character);
 					}
 					@Override
 					public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
@@ -416,12 +425,16 @@ public class ResponseSex extends Response {
 		} else {
 			subSlots.add(SexSlotStanding.PERFORMING_ORAL_FOUR);
 		}
+		subSlots.add(SexSlotGeneric.MISC_WATCHING);
+		subSlots.add(SexSlotGeneric.MISC_WATCHING);
 
 		List<SexSlot> domSlots = new ArrayList<>();
 		domSlots.add(SexSlotStanding.STANDING_DOMINANT);
 		domSlots.add(SexSlotStanding.STANDING_DOMINANT_TWO);
 		domSlots.add(SexSlotStanding.STANDING_DOMINANT_THREE);
 		domSlots.add(SexSlotStanding.STANDING_DOMINANT_FOUR);
+		domSlots.add(SexSlotGeneric.MISC_WATCHING);
+		domSlots.add(SexSlotGeneric.MISC_WATCHING);
 		
 		for(int i=0; i<submissives.size(); i++) {
 			subMap.put(submissives.get(i), subSlots.get(i));
@@ -450,12 +463,20 @@ public class ResponseSex extends Response {
 								case PREFER_MISSIONARY:
 								case PREFER_DOGGY:
 								case PREFER_COW_GIRL:
+								case DISABLE_POSITIONING:
 									break;
 							}
 						}
 					}
 				}
 				return null;
+			}
+			@Override
+			public boolean isPositionChangingAllowed(GameCharacter character) {
+				if(Arrays.asList(tags).contains(ResponseTag.DISABLE_POSITIONING)) {
+					return false;
+				}
+				return super.isPositionChangingAllowed(character);
 			}
 			@Override
 			public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
@@ -480,12 +501,14 @@ public class ResponseSex extends Response {
 		subSlots.add(SexSlotLyingDown.LYING_DOWN_TWO);
 		subSlots.add(SexSlotLyingDown.LYING_DOWN_THREE);
 		subSlots.add(SexSlotLyingDown.LYING_DOWN_FOUR);
+		subSlots.add(SexSlotGeneric.MISC_WATCHING);
+		subSlots.add(SexSlotGeneric.MISC_WATCHING);
 		
 		if(submissives.size()==1) {
 			domSlots.add(SexSlotLyingDown.MISSIONARY);
 			domSlots.add(SexSlotLyingDown.FACE_SITTING);
-			domSlots.add(SexSlotGeneric.MISC_WATCHING);
-			domSlots.add(SexSlotGeneric.MISC_WATCHING);
+			domSlots.add(SexSlotLyingDown.BESIDE);
+			domSlots.add(SexSlotLyingDown.BESIDE_TWO);
 			
 		} else if(submissives.size()==2) {
 			domSlots.add(SexSlotLyingDown.MISSIONARY);
@@ -505,6 +528,8 @@ public class ResponseSex extends Response {
 			domSlots.add(SexSlotLyingDown.MISSIONARY_THREE);
 			domSlots.add(SexSlotLyingDown.MISSIONARY_FOUR);
 		}
+		domSlots.add(SexSlotGeneric.MISC_WATCHING);
+		domSlots.add(SexSlotGeneric.MISC_WATCHING);
 
 		for(int i=0; i<submissives.size(); i++) {
 			subMap.put(submissives.get(i), subSlots.get(i));
@@ -533,12 +558,20 @@ public class ResponseSex extends Response {
 								case PREFER_MISSIONARY:
 								case PREFER_DOGGY:
 								case PREFER_COW_GIRL:
+								case DISABLE_POSITIONING:
 									break;
 							}
 						}
 					}
 				}
 				return null;
+			}
+			@Override
+			public boolean isPositionChangingAllowed(GameCharacter character) {
+				if(Arrays.asList(tags).contains(ResponseTag.DISABLE_POSITIONING)) {
+					return false;
+				}
+				return super.isPositionChangingAllowed(character);
 			}
 			@Override
 			public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
@@ -562,12 +595,14 @@ public class ResponseSex extends Response {
 		subSlots.add(SexSlotAllFours.ALL_FOURS_TWO);
 		subSlots.add(SexSlotAllFours.ALL_FOURS_THREE);
 		subSlots.add(SexSlotAllFours.ALL_FOURS_FOUR);
+		subSlots.add(SexSlotGeneric.MISC_WATCHING);
+		subSlots.add(SexSlotGeneric.MISC_WATCHING);
 		
 		if(submissives.size()==1) {
 			domSlots.add(SexSlotAllFours.BEHIND);
 			domSlots.add(SexSlotAllFours.IN_FRONT);
-			domSlots.add(SexSlotGeneric.MISC_WATCHING);
-			domSlots.add(SexSlotGeneric.MISC_WATCHING);
+			domSlots.add(SexSlotAllFours.IN_FRONT_TWO);
+			domSlots.add(SexSlotAllFours.HUMPING);
 			
 		} else if(submissives.size()==2) {
 			domSlots.add(SexSlotAllFours.BEHIND);
@@ -587,6 +622,8 @@ public class ResponseSex extends Response {
 			domSlots.add(SexSlotAllFours.BEHIND_THREE);
 			domSlots.add(SexSlotAllFours.BEHIND_FOUR);
 		}
+		domSlots.add(SexSlotGeneric.MISC_WATCHING);
+		domSlots.add(SexSlotGeneric.MISC_WATCHING);
 
 		for(int i=0; i<submissives.size(); i++) {
 			subMap.put(submissives.get(i), subSlots.get(i));
@@ -615,12 +652,20 @@ public class ResponseSex extends Response {
 								case PREFER_MISSIONARY:
 								case PREFER_DOGGY:
 								case PREFER_COW_GIRL:
+								case DISABLE_POSITIONING:
 									break;
 							}
 						}
 					}
 				}
 				return null;
+			}
+			@Override
+			public boolean isPositionChangingAllowed(GameCharacter character) {
+				if(Arrays.asList(tags).contains(ResponseTag.DISABLE_POSITIONING)) {
+					return false;
+				}
+				return super.isPositionChangingAllowed(character);
 			}
 			@Override
 			public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {

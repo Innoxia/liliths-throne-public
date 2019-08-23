@@ -56,8 +56,13 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	
 
 	public SexManagerDefault(AbstractSexPosition position, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		
+		this.position = position;
+		this.dominants = dominants==null?new HashMap<>():dominants;
+		this.submissives = submissives==null?new HashMap<>():submissives;
+		
 		if(position!=null) {
-			int totalParticipants = dominants.size() + submissives.size();
+			int totalParticipants = this.dominants.size() + this.submissives.size();
 			
 			if(totalParticipants > position.getMaximumSlots()) {
 				throw new IllegalArgumentException("Too many characters("+totalParticipants+") for Sex Manager("+(position.getMaximumSlots())+")!");
@@ -66,10 +71,10 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			try {
 				for(SexSlot slot : position.getAllAvailableSexPositions()) {
 					int count = 0;
-					if(dominants.values().contains(slot)) {
+					if(this.dominants.values().contains(slot)) {
 						count++;
 					}
-					if(submissives.values().contains(slot)) {
+					if(this.submissives.values().contains(slot)) {
 						count++;
 					}
 					if(count>1) {
@@ -80,10 +85,6 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 //				System.err.println("Error in sex position '"+position.getName()+"': Cannot check if partners are assigned to the same slot.");
 			}
 		}
-		
-		this.position = position;
-		this.dominants = dominants;
-		this.submissives = submissives;
 		
 		areasBannedMap = new HashMap<>();
 	}

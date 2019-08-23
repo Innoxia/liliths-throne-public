@@ -5339,6 +5339,9 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotGeneric.MISC_WATCHING) {
+				return false;
+			}
 			if(Sex.isDom(Sex.getCharacterPerformingAction()) && !Sex.isCharacterDeniedOrgasm(Sex.getCharacterTargetedForSexAction(this))) {
 				if(Sex.getCharacterPerformingAction().isPlayer()) {
 					return true;

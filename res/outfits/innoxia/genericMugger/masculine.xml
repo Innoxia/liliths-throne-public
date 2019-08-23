@@ -28,7 +28,7 @@
 		<clothingConditional1 constant="true"><![CDATA[RND.​nextInt(100)<=75]]></clothingConditional1>
 		<clothingConditional2 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional2> <!-- knuckle dusters or pipe -->
 		<clothingConditional3 constant="true"><![CDATA[RND.​nextInt(100)<=25]]></clothingConditional3>
-		<clothingConditional4 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional4> <!-- weapons -->
+		<clothingConditional4 constant="true"><![CDATA[RND.​nextInt(100)<=90]]></clothingConditional4> <!-- weapons -->
 		<clothingConditional5 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></clothingConditional5> <!-- is bipedal -->
 		
 		

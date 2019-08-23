@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Arm;
@@ -35,7 +36,14 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.game.sex.sexActions.universal.ChairSex;
+import com.lilithsthrone.game.sex.sexActions.universal.Cowgirl;
+import com.lilithsthrone.game.sex.sexActions.universal.DoggyStyle;
+import com.lilithsthrone.game.sex.sexActions.universal.FaceSitting;
 import com.lilithsthrone.game.sex.sexActions.universal.Masturbation;
+import com.lilithsthrone.game.sex.sexActions.universal.MatingPress;
+import com.lilithsthrone.game.sex.sexActions.universal.Missionary;
+import com.lilithsthrone.game.sex.sexActions.universal.MissionaryDesk;
+import com.lilithsthrone.game.sex.sexActions.universal.SixtyNine;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -51,9 +59,21 @@ public class SexPositionOther {
 	
 	public static final AbstractSexPosition MASTURBATION = new AbstractSexPosition("Kneeling",
 			true,
-			null,
+			SexActionPresets.positioningActionsNew,
 			Util.newArrayListOfValues(Masturbation.class),
 			null) {
+		@Override
+		public Set<SexSlot> getAllAvailableSexPositions() {
+			return Util.newHashSetOfValues(SexSlotMasturbation.KNEELING, SexSlotMasturbation.KNEELING_PANTIES, SexSlotMasturbation.SITTING, SexSlotMasturbation.STANDING);
+		}
+		@Override
+		public Value<Boolean, String> isSlotUnlocked(GameCharacter characterToTakeSlot, SexSlot slot, Map<GameCharacter, SexSlot> positioningSlots) {
+			if(characterToTakeSlot.isTaur() && slot==SexSlotMasturbation.SITTING) {
+				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, "Due to the proportions of [npc.her] animalistic lower body, [npc.nameIsFull] unable to sit down and masturbate at the same time."));
+			}
+			
+			return new Value<Boolean, String>(true, "");
+		}
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			if(Sex.getCharacterInPosition(SexSlotMasturbation.KNEELING)!=null) {
@@ -182,7 +202,7 @@ public class SexPositionOther {
 						if(mainDom==null) {
 							mainDom=e.getKey();
 						}
-						if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+						if(!e.getKey().isTaur()) {
 							doms.put(e.getKey(), e.getValue());
 						} else {
 							domTaurs.put(e.getKey(), e.getValue());
@@ -828,7 +848,7 @@ public class SexPositionOther {
 	public static final AbstractSexPosition OVER_DESK = new AbstractSexPosition("Over desk",
 			true,
 			SexActionPresets.positioningActionsNew,
-			new ArrayList<>(),
+			Util.newArrayListOfValues(MissionaryDesk.class),
 			null) {
 		@Override
 		public Value<Boolean, String> isSlotUnlocked(GameCharacter characterToTakeSlot, SexSlot slot, Map<GameCharacter, SexSlot> positioningSlots) {
@@ -853,7 +873,7 @@ public class SexPositionOther {
 				}
 			}
 			
-			if(!characterToTakeSlot.getLegConfiguration().isBipedalPositionedGenitals()
+			if(characterToTakeSlot.isTaur()
 					&& (slot==SexSlotDesk.OVER_DESK_ON_BACK
 						|| slot==SexSlotDesk.OVER_DESK_ON_BACK_TWO
 						|| slot==SexSlotDesk.OVER_DESK_ON_BACK_THREE
@@ -927,21 +947,21 @@ public class SexPositionOther {
 							|| e.getValue()==SexSlotDesk.OVER_DESK_ON_FRONT_TWO
 							|| e.getValue()==SexSlotDesk.OVER_DESK_ON_FRONT_THREE
 							|| e.getValue()==SexSlotDesk.OVER_DESK_ON_FRONT_FOUR) {
-						if(mainDeskFront==null && e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+						if(mainDeskFront==null && !e.getKey().isTaur()) {
 							mainDeskFront=e.getKey();
 						}
-						if(mainDeskFrontTaur==null && !e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+						if(mainDeskFrontTaur==null && e.getKey().isTaur()) {
 							mainDeskFrontTaur=e.getKey();
 						}
 						if(e.getKey().isPlayer()) {
 							playerDeskFront = true;
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								deskFrontNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								deskFrontTaurNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							}
 						} else {
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								deskFrontNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								deskFrontTaurNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
@@ -970,13 +990,13 @@ public class SexPositionOther {
 							mainStanding=e.getKey();
 						}
 						if(e.getKey().isPlayer()) {
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								standingNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								standingNamesTaur.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							}
 						} else {
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								standingNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								standingNamesTaur.add(UtilText.parse(e.getKey(), "[npc.name]"));
@@ -1126,7 +1146,7 @@ public class SexPositionOther {
 
 			// Size difference:
 			// Taurs cannot bend down far enough to perform oral.
-			boolean playerTaurPerformingOral = playerDeskFront&&!Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals();
+			boolean playerTaurPerformingOral = playerDeskFront&&Main.game.getPlayer().isTaur();
 			List<String> sizeDifferenceAdditions = new ArrayList<>();
 			
 			if(!deskFrontTaurNames.isEmpty() && !receivingOralNames.isEmpty()) {
@@ -1369,23 +1389,23 @@ public class SexPositionOther {
 							|| e.getValue()==SexSlotStocks.LOCKED_IN_STOCKS_TWO
 							|| e.getValue()==SexSlotStocks.LOCKED_IN_STOCKS_THREE
 							|| e.getValue()==SexSlotStocks.LOCKED_IN_STOCKS_FOUR) {
-						if(mainStocks==null && e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+						if(mainStocks==null && !e.getKey().isTaur()) {
 							mainStocks=e.getKey();
 						}
-						if(mainStocksTaur==null && !e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+						if(mainStocksTaur==null && e.getKey().isTaur()) {
 							mainStocksTaur=e.getKey();
 						}
 						if(e.getKey().isPlayer()) {
 							playerStocks = true;
 							allStocksNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								stocksNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								stocksTaurNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							}
 						} else {
 							allStocksNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								stocksNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								stocksTaurNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
@@ -1400,13 +1420,13 @@ public class SexPositionOther {
 							mainStanding=e.getKey();
 						}
 						if(e.getKey().isPlayer()) {
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								standingNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								standingNamesTaur.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							}
 						} else {
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								standingNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								standingNamesTaur.add(UtilText.parse(e.getKey(), "[npc.name]"));
@@ -1691,23 +1711,23 @@ public class SexPositionOther {
 							|| e.getValue()==SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_TWO
 							|| e.getValue()==SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_THREE
 							|| e.getValue()==SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_FOUR) {
-						if(mainStocks==null && e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+						if(mainStocks==null && !e.getKey().isTaur()) {
 							mainStocks=e.getKey();
 						}
-						if(mainStocksTaur==null && !e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+						if(mainStocksTaur==null && e.getKey().isTaur()) {
 							mainStocksTaur=e.getKey();
 						}
 						if(e.getKey().isPlayer()) {
 							playerStocks = true;
 							allStocksNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								stocksNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								stocksTaurNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							}
 						} else {
 							allStocksNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								stocksNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								stocksTaurNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
@@ -1722,13 +1742,13 @@ public class SexPositionOther {
 							mainStanding=e.getKey();
 						}
 						if(e.getKey().isPlayer()) {
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								standingNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								standingNamesTaur.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							}
 						} else {
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								standingNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								standingNamesTaur.add(UtilText.parse(e.getKey(), "[npc.name]"));
@@ -2115,25 +2135,25 @@ public class SexPositionOther {
 					switch(count) {
 						case 0:
 							sb.append(UtilText.parse(allFours,
-									(allFours.getLegConfiguration().isBipedalPositionedGenitals()
+									(!allFours.isTaur()
 											?"[npc.NameIsFull] down on all fours, ready to be fucked in the doggy-style position. "
 											:"[npc.NameHasFull] dropped the front legs of [npc.her] lower feral [npc.legRace]'s body down into a kneeling position, while keeping [npc.her] rear end raised up, ready to be fucked.")));
 							break;
 						case 1:
 							sb.append(UtilText.parse(allFours, fallBackAllFours3,
-									(allFours.getLegConfiguration().isBipedalPositionedGenitals()
+									(!allFours.isTaur()
 											?"In a similar manner to [npc2.name], [npc.nameHas] dropped down on all fours, presenting [npc.herself] in order to be fucked like an animal. "
 											:"In a similar manner to [npc2.name], [npc.nameHasFull] knelt down with the front half of [npc.her] [npc.legRace] body, while raising [npc.her] [npc.ass+] up in order to be fucked like an animal.")));
 							break;
 						case 2:
 							sb.append(UtilText.parse(Util.newArrayListOfValues(allFours, fallBackAllFours3, fallBackAllFours2),
-									(allFours.getLegConfiguration().isBipedalPositionedGenitals()
+									(!allFours.isTaur()
 											?"Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto [npc.her] [npc.hands] and knees. "
 											:"Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto [npc.her] front [npc.legs], while lifting [npc.her] [npc.ass+] up and presenting [npc.her] lower [npc.legRace]'s body to be rutted.")));
 							break;
 						case 3:
 							sb.append(UtilText.parse(Util.newArrayListOfValues(allFours, fallBackAllFours3, fallBackAllFours2, fallBackAllFours1),
-									(allFours.getLegConfiguration().isBipedalPositionedGenitals()
+									(!allFours.isTaur()
 											?"Finishing off the group of four, [npc.nameIsFull] down on all fours beside [npc2.name], [npc3.name], and [npc4.name]. "
 											:"Finishing off the group of four, [npc.nameIsFull] down beside [npc2.name], [npc3.name], and [npc4.name], and [npc.is] presenting [npc.her] feral [npc.legRace]'s body like a horny animal.")));
 							break;
@@ -2153,7 +2173,7 @@ public class SexPositionOther {
 				}
 				if(behind!=null) {
 					sb.append(UtilText.parse(behind, allFours,
-							behind.getLegConfiguration().isBipedalPositionedGenitals()
+							!behind.isTaur()
 								?" [npc.NameIsFull] "+(positions.get(1).isStanding(behind)?"standing":"kneeling")+" just behind [npc2.herHim], in a position where [npc.she] can start fucking [npc2.herHim] at any moment."
 								:" [npc.NameHasFull] stepped fully over the top of [npc2.herHim] with [npc.her] feral [npc.legRace]'s body, effectively mounting [npc2.herHim]."));
 					continuation = true;
@@ -2174,7 +2194,7 @@ public class SexPositionOther {
 							continuation
 							?" Meanwhile, around the other side of [npc2.name], [npc.nameHasFull] "+(positions.get(5).isStanding(inFront)?"stepped up":"knelt down")
 									+" in front of [npc2.her] [npc2.face], ready to receive oral from [npc2.herHim]."
-							:" Instead of taking advantage of [npc2.her] from behind, [npc.nameHasFull] "+(positions.get(5).isStanding(inFront)?"stepped up":"knelt down")
+							:" Instead of taking advantage of [npc2.herHim] from behind, [npc.nameHasFull] "+(positions.get(5).isStanding(inFront)?"stepped up":"knelt down")
 								+" right in front of [npc2.her] [npc2.face], ready to receive oral from [npc2.herHim]."));
 				}
 				if(inFrontAnal!=null) {
@@ -2182,7 +2202,7 @@ public class SexPositionOther {
 							continuation
 							?" Meanwhile, around the other side of [npc2.name], [npc.nameHasFull] "+(positions.get(6).isStanding(inFrontAnal)?"stepped up and turned around":"knelt down and shuffled back")
 									+" towards [npc2.her] [npc2.face], ready to put [npc2.her] mouth to use on [npc.her] [npc.ass+]."
-							:" Instead of taking advantage of [npc2.her] from behind, [npc.nameHasFull] "+(positions.get(6).isStanding(inFrontAnal)?"stepped up and turned around":"knelt down and shuffled back")
+							:" Instead of taking advantage of [npc2.herHim] from behind, [npc.nameHasFull] "+(positions.get(6).isStanding(inFrontAnal)?"stepped up and turned around":"knelt down and shuffled back")
 								+" towards [npc2.her] [npc2.face], ready to put [npc2.her] mouth to use on [npc.her] [npc.ass+]."));
 				}
 				
@@ -2221,7 +2241,7 @@ public class SexPositionOther {
 					interactions.add(StandardSexActionInteractions.allFoursBehindToHumping.getSexActionInteractions(behindSlot, humpingSlot));
 				}
 				for(SexSlot inFrontSlot : inFrontList) {
-					interactions.add(StandardSexActionInteractions.faceToFace.getSexActionInteractions(behindSlot, inFrontSlot));
+					interactions.add(StandardSexActionInteractions.characterToCharactersFront.getSexActionInteractions(behindSlot, inFrontSlot));
 				}
 			}
 			
@@ -2243,11 +2263,11 @@ public class SexPositionOther {
 				}
 				// All those receiving oral interact with all those on all fours:
 				for(SexSlot inFrontSlot : inFrontList) {
-					interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(allFoursSlot, inFrontSlot));
+					interactions.add(StandardSexActionInteractions.allFoursPerformingOral.getSexActionInteractions(allFoursSlot, inFrontSlot));
 				}
 				// All those receiving anal oral interact with all those on all fours:
 				for(SexSlot inFrontAnalSlot : inFrontAnalList) {
-					interactions.add(StandardSexActionInteractions.performingOralBehind.getSexActionInteractions(allFoursSlot, inFrontAnalSlot));
+					interactions.add(StandardSexActionInteractions.allFoursPerformingOralBehind.getSexActionInteractions(allFoursSlot, inFrontAnalSlot));
 				}
 			}
 			
@@ -2280,7 +2300,7 @@ public class SexPositionOther {
 				}
 			}
 			// Non-bipedal characters performing oral can use their arm(s) to force a mouth creampie:
-			if(!cumTarget.getLegConfiguration().isBipedalPositionedGenitals()
+			if(cumTarget.isTaur()
 					&& (Sex.getSexPositionSlot(cumTarget)==SexSlotAllFours.ALL_FOURS
 						|| Sex.getSexPositionSlot(cumTarget)==SexSlotAllFours.ALL_FOURS_TWO
 						|| Sex.getSexPositionSlot(cumTarget)==SexSlotAllFours.ALL_FOURS_THREE
@@ -2332,7 +2352,7 @@ public class SexPositionOther {
 	public static final AbstractSexPosition LYING_DOWN = new AbstractSexPosition("Lying down",
 			true,
 			SexActionPresets.positioningActionsNew,
-			new ArrayList<>(),
+			Util.newArrayListOfValues(Cowgirl.class, DoggyStyle.class, FaceSitting.class, MatingPress.class, Missionary.class, SixtyNine.class),
 			null) {
 		
 		private List<SexSlot> position1 = Util.newArrayListOfValues(
@@ -2399,14 +2419,14 @@ public class SexPositionOther {
 				}
 			}
 			
-			if(!characterToTakeSlot.getLegConfiguration().isBipedalPositionedGenitals()
+			if(characterToTakeSlot.isTaur()
 					&& (slot==SexSlotLyingDown.SCISSORING
 						|| slot==SexSlotLyingDown.SCISSORING_TWO
 						|| slot==SexSlotLyingDown.SCISSORING_THREE
 						|| slot==SexSlotLyingDown.SCISSORING_FOUR)) {
 				return new Value<Boolean, String>(false, "The slot '"+Util.capitaliseSentence(slot.getDescription())+"' can only be used by characters with a bipedal lower body.");
 			}
-			if(!characterToTakeSlot.getLegConfiguration().isBipedalPositionedGenitals()
+			if(characterToTakeSlot.isTaur()
 					&& (slot==SexSlotLyingDown.SIXTY_NINE
 						|| slot==SexSlotLyingDown.SIXTY_NINE_TWO
 						|| slot==SexSlotLyingDown.SIXTY_NINE_THREE
@@ -2576,25 +2596,25 @@ public class SexPositionOther {
 					switch(count) {
 						case 0:
 							sb.append(UtilText.parse(lyingDown,
-									(lyingDown.getLegConfiguration().isBipedalPositionedGenitals()
+									(!lyingDown.isTaur()
 											?"[npc.NameIsFull] lying down on [npc.her] back, submissively exposing [npc.her] stomach, [npc.face], and groin. "
 											:"[npc.NameHasFull] lay down on [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back in order to submissively expose [npc.her] stomach.")));// floofy tummy for strokings and pats.")));
 							break;
 						case 1:
 							sb.append(UtilText.parse(lyingDown, fallBackLyingDown3,
-									(lyingDown.getLegConfiguration().isBipedalPositionedGenitals()
+									(!lyingDown.isTaur()
 											?"In a similar manner to [npc2.name], [npc.nameHas] dropped down to lie on [npc.her] back. "
 											:"In a similar manner to [npc2.name], [npc.nameHasFull] knelt down onto [npc.her] feral [npc.legRace]'s body, before rolling over and presenting [npc.her] underside.")));
 							break;
 						case 2:
 							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDown, fallBackLyingDown3, fallBackLyingDown2),
-									(lyingDown.getLegConfiguration().isBipedalPositionedGenitals()
+									(!lyingDown.isTaur()
 											?"Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto the floor, before lying down on [npc.her] back. "
 											:"Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back and presenting [npc.herself].")));
 							break;
 						case 3:
 							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDown, fallBackLyingDown3, fallBackLyingDown2, fallBackLyingDown1),
-									(lyingDown.getLegConfiguration().isBipedalPositionedGenitals()
+									(!lyingDown.isTaur()
 											?"Finishing off the group of four, [npc.nameIsFull] lying down on [npc.her] back beside [npc2.name], [npc3.name], and [npc4.name]. "
 											:"Finishing off the group of four, [npc.nameIsFull] lying down beside [npc2.name], [npc3.name], and [npc4.name], and [npc.has] rolled over to present the underside of [npc.her] feral [npc.legRace]'s body.")));
 							break;
@@ -2604,7 +2624,7 @@ public class SexPositionOther {
 				boolean continuation = false;
 				// These four slots are mutually exclusive:
 				if(cowgirl!=null) {
-					if(cowgirl.getLegConfiguration().isBipedalPositionedGenitals()) {
+					if(!cowgirl.isTaur()) {
 						sb.append(UtilText.parse(cowgirl, lyingDown,
 								" [npc.NameHasFull] stepped over the top of [npc2.name], before lowering [npc.herself] down and straddling [npc2.her] groin, ready to start riding [npc2.herHim] in the cowgirl position."));
 					} else {
@@ -2614,7 +2634,7 @@ public class SexPositionOther {
 					continuation = true;
 				}
 				if(cowgirlReverse!=null) {
-					if(cowgirlReverse.getLegConfiguration().isBipedalPositionedGenitals()) {
+					if(!cowgirlReverse.isTaur()) {
 						sb.append(UtilText.parse(cowgirlReverse, lyingDown,
 								" [npc.NameHasFull] stepped over the top of [npc2.name], before turning around and lowering [npc.herself] down and straddling [npc2.her] groin, ready to start riding [npc2.herHim] in the reverse cowgirl position."));
 					} else {
@@ -2624,7 +2644,7 @@ public class SexPositionOther {
 					continuation = true;
 				}
 				if(matingPress!=null) {
-					if(matingPress.getLegConfiguration().isBipedalPositionedGenitals()) {
+					if(!matingPress.isTaur()) {
 						sb.append(UtilText.parse(matingPress, lyingDown,
 								" [npc.nameHasFull] pushed [npc2.namePos] [npc2.legs] apart and back up towards [npc2.her] head, before lying down on top of [npc2.herHim] with [npc.her] groin hovering just over [npc2.hers]."
 									+ " [npc.SheIs] dominantly using [npc.her] [npc.hands] to pin [npc2.namePos] wrists to the floor on either side of [npc2.her] head,"
@@ -2646,7 +2666,7 @@ public class SexPositionOther {
 				}
 
 				if(missionary!=null) {
-					if(missionary.getLegConfiguration().isBipedalPositionedGenitals()) {
+					if(!missionary.isTaur()) {
 						sb.append(UtilText.parse(missionary, lyingDown,
 								" [npc.NameHasFull] dropped down between [npc2.namePos] [npc2.legs], ready to fuck [npc2.herHim] in the missionary position."));
 					} else {
@@ -2657,7 +2677,7 @@ public class SexPositionOther {
 				}
 				
 				if(faceSitting!=null) {
-					if(faceSitting.getLegConfiguration().isBipedalPositionedGenitals()) {
+					if(!faceSitting.isTaur()) {
 						sb.append(UtilText.parse(faceSitting, lyingDown,
 								continuation
 								?" Meanwhile, eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name], before lowering [npc.herself] down and plating [npc.her] groin firmly over [npc2.her] [npc2.face]."
@@ -2672,7 +2692,7 @@ public class SexPositionOther {
 					}
 				}
 				if(faceSittingReverse!=null) {
-					if(faceSitting.getLegConfiguration().isBipedalPositionedGenitals()) {
+					if(!faceSitting.isTaur()) {
 						sb.append(UtilText.parse(faceSitting, lyingDown,
 								continuation
 								?" Meanwhile, [npc.nameHasFull] stepped over the top of [npc2.name], before turning around to face [npc2.her] lower body and then lowering [npc.herself] down in order to assume the reverse face-sitting position."
@@ -2942,14 +2962,14 @@ public class SexPositionOther {
 				}
 			}
 			
-			if(!characterToTakeSlot.getLegConfiguration().isBipedalPositionedGenitals()
+			if(characterToTakeSlot.isTaur()
 					&& (slot==SexSlotSitting.SITTING
 							|| slot==SexSlotSitting.SITTING_TWO
 							|| slot==SexSlotSitting.SITTING_THREE
 							|| slot==SexSlotSitting.SITTING_FOUR)) {
 				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, "Due to the proportions of [npc.her] animalistic lower body, [npc.nameIsFull] unable to use the '"+Util.capitaliseSentence(slot.getDescription())+"' slot."));
 			}
-			if(characterToTakeSlot.getLegConfiguration().isBipedalPositionedGenitals()
+			if(!characterToTakeSlot.isTaur()
 					&& (slot==SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL
 							|| slot==SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL_TWO
 							|| slot==SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL_THREE
@@ -3018,22 +3038,22 @@ public class SexPositionOther {
 							|| e.getValue()==SexSlotSitting.SITTING_IN_LAP_TWO
 							|| e.getValue()==SexSlotSitting.SITTING_IN_LAP_THREE
 							|| e.getValue()==SexSlotSitting.SITTING_IN_LAP_FOUR) {
-						if(mainInLap==null && e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+						if(mainInLap==null && !e.getKey().isTaur()) {
 							mainInLap=e.getKey();
 						}
-						if(mainInLapTaur==null && !e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+						if(mainInLapTaur==null && e.getKey().isTaur()) {
 							mainInLapTaur=e.getKey();
 						}
 						if(e.getKey().isPlayer()) {
 							allInLapNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								inLapNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								inLapNamesTaur.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							}
 						} else {
 							allInLapNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								inLapNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								inLapNamesTaur.add(UtilText.parse(e.getKey(), "[npc.name]"));
@@ -3050,14 +3070,14 @@ public class SexPositionOther {
 						if(e.getKey().isPlayer()) {
 							playerBetweenLegs = true;
 							allBetweenLegsNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								betweenLegsNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								betweenLegsNamesTaur.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
 							}
 						} else {
 							allBetweenLegsNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
-							if(e.getKey().getLegConfiguration().isBipedalPositionedGenitals()) {
+							if(!e.getKey().isTaur()) {
 								betweenLegsNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
 							} else {
 								betweenLegsNamesTaur.add(UtilText.parse(e.getKey(), "[npc.name]"));
@@ -3400,7 +3420,7 @@ public class SexPositionOther {
 			null) {
 		@Override
 		public Value<Boolean, String> isSlotUnlocked(GameCharacter characterToTakeSlot, SexSlot slot, Map<GameCharacter, SexSlot> positioningSlots) {
-			if(!characterToTakeSlot.getLegConfiguration().isBipedalPositionedGenitals() && (slot==SexSlotBreedingStall.BREEDING_STALL_BACK)) {
+			if(characterToTakeSlot.isTaur() && (slot==SexSlotBreedingStall.BREEDING_STALL_BACK)) {
 				return new Value<Boolean, String>(false, UtilText.parse(characterToTakeSlot, "Due to the proportions of [npc.her] animalistic lower body, [npc.nameIsFull] unable to lie down on [npc.her] back in order to get bred."));
 			}
 			

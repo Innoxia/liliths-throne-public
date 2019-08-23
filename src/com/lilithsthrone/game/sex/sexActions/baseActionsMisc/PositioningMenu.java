@@ -794,7 +794,7 @@ public class PositioningMenu {
 		public boolean isBaseRequirementsMet() {
 			int taurs = 0;
 			for(GameCharacter participant : Sex.getAllParticipants(true)) {
-				if(!participant.getLegConfiguration().isBipedalPositionedGenitals()) {
+				if(participant.isTaur()) {
 					taurs++;
 				}
 			}
@@ -839,7 +839,7 @@ public class PositioningMenu {
 				int inLapCount = 0;
 				
 				for(int i=0; i<doms.size(); i++) {
-					if(doms.get(i).getLegConfiguration().isBipedalPositionedGenitals()) {
+					if(!doms.get(i).isTaur()) {
 						positioningSlots.put(doms.get(i), domSlots[sittingCount]);
 						sittingCount++;
 					} else {
@@ -848,7 +848,7 @@ public class PositioningMenu {
 					}
 				}
 				for(int i=0; i<subs.size(); i++) {
-					if(subs.get(i).getLegConfiguration().isBipedalPositionedGenitals()) {
+					if(!subs.get(i).isTaur()) {
 						positioningSlots.put(subs.get(i), domSlots[sittingCount]);
 						sittingCount++;
 					} else {

@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.Util.Value;
 public class SMVanessaSex extends SexManagerDefault {
 	
 	public SMVanessaSex(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()
+		super(!Main.game.getPlayer().isTaur()
 					?SexPositionOther.OVER_DESK
 					:SexPositionOther.ALL_FOURS,
 				dominants,

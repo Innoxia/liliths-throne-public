@@ -5147,6 +5147,72 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, "furry_preference_human_encounter_four", "mouseenter", el, false);
 			}
 			
+			// Taur furry spawns:
+			if (((EventTarget) MainController.document.getElementById("taur_furry_preference_zero")) != null) {
+				((EventTarget) MainController.document.getElementById("taur_furry_preference_zero")).addEventListener("click", e -> {
+					Main.getProperties().taurFurryLevel=0;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				MainController.addEventListener(MainController.document, "taur_furry_preference_zero", "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, "taur_furry_preference_zero", "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Disabled",
+						"The only randomly generated NPCs to be spawned as taurs will be those that are of a taur-specific race (and as such, you can set their spawn rate in the detailed menu below).");
+				MainController.addEventListener(MainController.document, "taur_furry_preference_zero", "mouseenter", el, false);
+			}
+			if (((EventTarget) MainController.document.getElementById("taur_furry_preference_one")) != null) {
+				((EventTarget) MainController.document.getElementById("taur_furry_preference_one")).addEventListener("click", e -> {
+					Main.getProperties().taurFurryLevel=1;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				MainController.addEventListener(MainController.document, "taur_furry_preference_one", "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, "taur_furry_preference_one", "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Normal",
+						"There will be a 5% chance for any randomly spawned NPC to be a taur, and they will always have a human upper-body.");
+				MainController.addEventListener(MainController.document, "taur_furry_preference_one", "mouseenter", el, false);
+			}
+			if (((EventTarget) MainController.document.getElementById("taur_furry_preference_two")) != null) {
+				((EventTarget) MainController.document.getElementById("taur_furry_preference_two")).addEventListener("click", e -> {
+					Main.getProperties().taurFurryLevel=2;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				MainController.addEventListener(MainController.document, "taur_furry_preference_two", "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, "taur_furry_preference_two", "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Lesser",
+						"There will be a 5% chance for any randomly spawned NPC to be a taur, and they will always have the upper-body of a lesser morph (so just eyes, ears, horns will be non-human).");
+				MainController.addEventListener(MainController.document, "taur_furry_preference_two", "mouseenter", el, false);
+			}
+			if (((EventTarget) MainController.document.getElementById("taur_furry_preference_three")) != null) {
+				((EventTarget) MainController.document.getElementById("taur_furry_preference_three")).addEventListener("click", e -> {
+					Main.getProperties().taurFurryLevel=3;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				MainController.addEventListener(MainController.document, "taur_furry_preference_three", "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, "taur_furry_preference_three", "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Untouched Conversion",
+						"There will be a 5% chance for any randomly spawned NPC to be a taur, and their upper body's furriness will be based on your furry preferences below.");
+				MainController.addEventListener(MainController.document, "taur_furry_preference_three", "mouseenter", el, false);
+			}
+			if (((EventTarget) MainController.document.getElementById("taur_furry_preference_four")) != null) {
+				((EventTarget) MainController.document.getElementById("taur_furry_preference_four")).addEventListener("click", e -> {
+					Main.getProperties().taurFurryLevel=4;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				MainController.addEventListener(MainController.document, "taur_furry_preference_four", "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, "taur_furry_preference_four", "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Always Greater",
+						"There will be a 5% chance for any randomly spawned NPC to be a taur, and their upper body will always be fully furry.");
+				MainController.addEventListener(MainController.document, "taur_furry_preference_four", "mouseenter", el, false);
+			}
 			
 			// Forced TF racial limits:
 			id = "forced_tf_limit_human";
@@ -5222,8 +5288,8 @@ public class MainControllerInitMethod {
 			
 			
 			// Race preferences:
-			if (((EventTarget) MainController.document.getElementById("furry_preference_female_human_all")) != null) {
-				((EventTarget) MainController.document.getElementById("furry_preference_female_human_all")).addEventListener("click", e -> {
+			if (((EventTarget) MainController.document.getElementById("furry_preference_human_all")) != null) {
+				((EventTarget) MainController.document.getElementById("furry_preference_human_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
 						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
 						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);
@@ -5232,8 +5298,8 @@ public class MainControllerInitMethod {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
-			if (((EventTarget) MainController.document.getElementById("furry_preference_female_minimum_all")) != null) {
-				((EventTarget) MainController.document.getElementById("furry_preference_female_minimum_all")).addEventListener("click", e -> {
+			if (((EventTarget) MainController.document.getElementById("furry_preference_minimum_all")) != null) {
+				((EventTarget) MainController.document.getElementById("furry_preference_minimum_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
 						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MINIMUM);
 						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MINIMUM);
@@ -5242,8 +5308,8 @@ public class MainControllerInitMethod {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
-			if (((EventTarget) MainController.document.getElementById("furry_preference_female_reduced_all")) != null) {
-				((EventTarget) MainController.document.getElementById("furry_preference_female_reduced_all")).addEventListener("click", e -> {
+			if (((EventTarget) MainController.document.getElementById("furry_preference_reduced_all")) != null) {
+				((EventTarget) MainController.document.getElementById("furry_preference_reduced_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
 						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.REDUCED);
 						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.REDUCED);
@@ -5252,8 +5318,8 @@ public class MainControllerInitMethod {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
-			if (((EventTarget) MainController.document.getElementById("furry_preference_female_normal_all")) != null) {
-				((EventTarget) MainController.document.getElementById("furry_preference_female_normal_all")).addEventListener("click", e -> {
+			if (((EventTarget) MainController.document.getElementById("furry_preference_normal_all")) != null) {
+				((EventTarget) MainController.document.getElementById("furry_preference_normal_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
 						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.NORMAL);
 						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.NORMAL);
@@ -5262,8 +5328,8 @@ public class MainControllerInitMethod {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
-			if (((EventTarget) MainController.document.getElementById("furry_preference_female_maximum_all")) != null) {
-				((EventTarget) MainController.document.getElementById("furry_preference_female_maximum_all")).addEventListener("click", e -> {
+			if (((EventTarget) MainController.document.getElementById("furry_preference_maximum_all")) != null) {
+				((EventTarget) MainController.document.getElementById("furry_preference_maximum_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
 						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
 						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
@@ -5428,6 +5494,7 @@ public class MainControllerInitMethod {
 					new Value<>("SILLY", PropertyValue.sillyMode),
 					new Value<>("AUTO_SEX_CLOTHING_MANAGEMENT", PropertyValue.autoSexClothingManagement),
 					new Value<>("NON_CON", PropertyValue.nonConContent),
+					new Value<>("SADISTIC_SEX", PropertyValue.sadisticSexContent),
 					new Value<>("VOLUNTARY_NTR", PropertyValue.voluntaryNTR),
 					new Value<>("INVOLUNTARY_NTR", PropertyValue.involuntaryNTR),
 					new Value<>("INCEST", PropertyValue.incestContent),
@@ -6232,7 +6299,7 @@ public class MainControllerInitMethod {
 								case ANUS:
 									Main.game.getTextEndStringBuilder().append(UtilText.parse(MilkingRoom.getTargetedCharacter(),
 												"Wanting to pump [npc.namePos] [npc.ass+] full of "+fluidOwnerName+" "+fluidName+", you instruct [npc.herHim] to"
-													+ (MilkingRoom.getTargetedCharacter().getLegConfiguration().isBipedalPositionedGenitals() && MilkingRoom.getTargetedCharacter().getGenitalArrangement()==GenitalArrangement.NORMAL
+													+ (!MilkingRoom.getTargetedCharacter().isTaur() && MilkingRoom.getTargetedCharacter().getGenitalArrangement()==GenitalArrangement.NORMAL
 															?" bend over before you."
 															:" kneel down and present [npc.herself] to you.")
 												+ " As soon as [npc.her] [npc.asshole+] is fully on display, you grab one of the free tubes connected to your selected vat of fluid,"
@@ -6255,7 +6322,7 @@ public class MainControllerInitMethod {
 								case VAGINA:
 									Main.game.getTextEndStringBuilder().append(UtilText.parse(MilkingRoom.getTargetedCharacter(),
 											"Wanting to pump [npc.namePos] [npc.pussy+] full of "+fluidOwnerName+" "+fluidName+", you instruct [npc.herHim] to"
-												+ (MilkingRoom.getTargetedCharacter().getLegConfiguration().isBipedalPositionedGenitals() && MilkingRoom.getTargetedCharacter().getGenitalArrangement()==GenitalArrangement.NORMAL
+												+ (!MilkingRoom.getTargetedCharacter().isTaur() && MilkingRoom.getTargetedCharacter().getGenitalArrangement()==GenitalArrangement.NORMAL
 														?" sit down on a nearby chair and spread [npc.her] [npc.legs]."
 														:" kneel down and present [npc.herself] to you.")
 												+ " As soon as [npc.she] complies, and [npc.her] [npc.pussy+] is fully on display, you grab one of the free tubes connected to your selected vat of fluid,"

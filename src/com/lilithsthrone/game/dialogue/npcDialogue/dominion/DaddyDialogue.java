@@ -788,7 +788,7 @@ public class DaddyDialogue {
 								:"As you haven't got [daddy.herHim] into the mood by flirting with [daddy.him] this evening, any attempt to get some special 'dessert' from [daddy.name] would almost certainly end in embarrassed disaster.",
 							null);
 				
-				} else if(!Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()) {
+				} else if(Main.game.getPlayer().isTaur()) {
 					return new Response("'Dessert'",
 							"Due to your large lower body, there's no way you can fit under the table in order to perform oral sex on [daddy.name]...",
 							null);

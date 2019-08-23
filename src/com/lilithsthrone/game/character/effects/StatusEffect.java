@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
+import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
@@ -10252,64 +10253,104 @@ public enum StatusEffect {
 			SexAreaOrifice type = SexAreaOrifice.ANUS;
 
 			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
-			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
-				for(SexAreaInterface sArea : entry.getValue()) {
-					if(sArea.isPenetration()) {
-						switch((SexAreaPenetration)sArea) {
-							case FINGER:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.asshole]!"));
-								break;
-							case PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.asshole]!"));
-								break;
-							case TAIL:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.asshole]!"));
-								break;
-							case TENTACLE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.asshole]!"));
-								break;
-							case TONGUE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc2.name]!"));
-								break;
-							case CLIT:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] [npc2.asshole]!"));
-								break;
-							case FOOT:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>foot-fucking</b> [npc2.namePos] [npc2.asshole]!"));
-								break;
-						}
-						
-					} else if(sArea.isOrifice()) {
-						switch((SexAreaOrifice)sArea) {
-							case ANUS:
-								break;
-							case ASS:
-								break;
-							case BREAST:
-								break;
-							case NIPPLE:
-								break;
-							case BREAST_CROTCH:
-								break;
-							case NIPPLE_CROTCH:
-								break;
-							case MOUTH:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc2.name]!"));
-								break;
-							case THIGHS:
-								break;
-							case URETHRA_PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.asshole]!"));
-								break;
-							case URETHRA_VAGINA:
-								break;
-							case VAGINA:
-								break;
-						}
+
+			boolean descriptionAdded = false;
+			for(SexAreaPenetration pen : SexAreaPenetration.values()) {
+				List<String> names = new ArrayList<>();
+				GameCharacter main = null;
+				for(GameCharacter c : Sex.getOngoingCharactersUsingAreas(target, type, pen)) {
+					if(main==null) {
+						main = c;
+					}
+					if(c.isPlayer()) {
+						names.add(0, UtilText.parse(c, "[npc.name]"));
+					} else {
+						names.add(UtilText.parse(c, "[npc.name]"));
+					}
+				}
+				if(!names.isEmpty()) {
+					descriptionAdded = true;
+					switch(pen) {
+						case FINGER:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" [style.boldSex(fingering)] [npc.namePos] [npc.asshole]!"));
+							break;
+						case PENIS:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" [style.boldSex(fucking)] [npc.namePos] [npc.asshole]!"));
+							break;
+						case TAIL:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" [style.boldSex(tail-fucking)] [npc.namePos] [npc.asshole]!"));
+							break;
+						case TENTACLE:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" [style.boldSex(tentacle-fucking)] [npc.namePos] [npc.asshole]!"));
+							break;
+						case TONGUE:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" performing [style.boldSex(anilingus)] on [npc.name]!"));
+							break;
+						case CLIT:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" [style.boldSex(clit-fucking)] [npc.namePos] [npc.asshole]!"));
+							break;
+						case FOOT:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))
+									+(names.size()==1?UtilText.parse(main, " [npc.is] [style.boldSex(pushing [npc.her] [npc.toes])]"):" are [style.boldSex(pushing their toes)]")
+									+"  into [npc.namePos] [npc.asshole]!"));
+							break;
 					}
 				}
 			}
-			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+
+			for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+				List<String> names = new ArrayList<>();
+				GameCharacter main = null;
+				for(GameCharacter c : Sex.getOngoingCharactersUsingAreas(target, type, orifice)) {
+					if(main==null) {
+						main = c;
+					}
+					if(c.isPlayer()) {
+						names.add(0, UtilText.parse(c, "[npc.name]"));
+					} else {
+						names.add(UtilText.parse(c, "[npc.name]"));
+					}
+				}
+				if(!names.isEmpty()) {
+					descriptionAdded = true;
+					switch(orifice) {
+						case ANUS:
+							break;
+						case ASS:
+							break;
+						case BREAST:
+							break;
+						case NIPPLE:
+							break;
+						case BREAST_CROTCH:
+							break;
+						case NIPPLE_CROTCH:
+							break;
+						case MOUTH:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" performing [style.boldSex(anilingus)] on [npc2.name]!"));
+							break;
+						case THIGHS:
+							break;
+						case URETHRA_PENIS:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" [style.boldSex(fucking)] [npc.namePos] [npc.pussy]!"));
+							break;
+						case URETHRA_VAGINA:
+							break;
+						case VAGINA:
+							break;
+					}
+				}
+			}
+			
+			if(!descriptionAdded) {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
@@ -10327,7 +10368,8 @@ public enum StatusEffect {
 				return null;
 			}
 			
-			GameCharacter partner = Sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+			List<GameCharacter> ongoingCharacters = Sex.getCharactersHavingOngoingActionWith(target, orifice);
+			GameCharacter partner = ongoingCharacters.get(Util.random.nextInt(ongoingCharacters.size()));
 			
 			return Sex.formatPenetration(
 					target.getPenetrationDescription(false,
@@ -11504,65 +11546,112 @@ public enum StatusEffect {
 			SexAreaOrifice type = SexAreaOrifice.VAGINA;
 
 			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
-			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
-				for(SexAreaInterface sArea : entry.getValue()) {
-					if(sArea.isPenetration()) {
-						switch((SexAreaPenetration)sArea) {
-							case FINGER:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.pussy]!"));
-								break;
-							case PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.pussy]!"));
-								break;
-							case TAIL:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.pussy]!"));
-								break;
-							case TENTACLE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.pussy]!"));
-								break;
-							case TONGUE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc2.name]!"));
-								break;
-							case CLIT:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] [npc2.pussy]!"));
-								break;
-							case FOOT:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>pushing [npc.her] [npc.toes]</b> into [npc2.namePos] [npc2.pussy]!"));
-								break;
-						}
-						
-					} else if(sArea.isOrifice()) {
-						switch((SexAreaOrifice)sArea) {
-							case ANUS:
-								break;
-							case ASS:
-								break;
-							case BREAST:
-								break;
-							case NIPPLE:
-								break;
-							case BREAST_CROTCH:
-								break;
-							case NIPPLE_CROTCH:
-								break;
-							case MOUTH:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc2.name]!"));
-								break;
-							case THIGHS:
-								break;
-							case URETHRA_PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.pussy]!"));
-								break;
-							case URETHRA_VAGINA:
-								break;
-							case VAGINA:
-								break;
-						}
+			
+			boolean descriptionAdded = false;
+			for(SexAreaPenetration pen : SexAreaPenetration.values()) {
+				List<String> names = new ArrayList<>();
+				GameCharacter main = null;
+				for(GameCharacter c : Sex.getOngoingCharactersUsingAreas(target, type, pen)) {
+					if(main==null) {
+						main = c;
+					}
+					if(c.isPlayer()) {
+						names.add(0, UtilText.parse(c, "[npc.name]"));
+					} else {
+						names.add(UtilText.parse(c, "[npc.name]"));
+					}
+				}
+				if(!names.isEmpty()) {
+					descriptionAdded = true;
+					switch(pen) {
+						case FINGER:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" [style.boldSex(fingering)] [npc.namePos] [npc.pussy]!"));
+							break;
+						case PENIS:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" [style.boldSex(fucking)] [npc.namePos] [npc.pussy]!"));
+							break;
+						case TAIL:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" [style.boldSex(tail-fucking)] [npc.namePos] [npc.pussy]!"));
+							break;
+						case TENTACLE:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" [style.boldSex(tentacle-fucking)] [npc.namePos] [npc.pussy]!"));
+							break;
+						case TONGUE:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" performing [style.boldSex(cunnilingus)] on [npc.name]!"));
+							break;
+						case CLIT:
+							if(main.getVaginaClitorisSize()!=ClitorisSize.ZERO_AVERAGE) {
+								descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+										+" [style.boldSex(clit-fucking)] [npc.namePos] [npc.pussy]!"));
+							} else {
+								descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+										+" [style.boldSex(tribbing)] with [npc2.name]!"));
+							}
+							break;
+						case FOOT:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))
+									+(names.size()==1?UtilText.parse(main, " [npc.is] [style.boldSex(pushing [npc.her] [npc.toes])]"):" are [style.boldSex(pushing their toes)]")
+									+"  into [npc.namePos] [npc.pussy]!"));
+							break;
 					}
 				}
 			}
-			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+
+			for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+				List<String> names = new ArrayList<>();
+				GameCharacter main = null;
+				for(GameCharacter c : Sex.getOngoingCharactersUsingAreas(target, type, orifice)) {
+					if(main==null) {
+						main = c;
+					}
+					if(c.isPlayer()) {
+						names.add(0, UtilText.parse(c, "[npc.name]"));
+					} else {
+						names.add(UtilText.parse(c, "[npc.name]"));
+					}
+				}
+				if(!names.isEmpty()) {
+					descriptionAdded = true;
+					switch(orifice) {
+						case ANUS:
+							break;
+						case ASS:
+							break;
+						case BREAST:
+							break;
+						case NIPPLE:
+							break;
+						case BREAST_CROTCH:
+							break;
+						case NIPPLE_CROTCH:
+							break;
+						case MOUTH:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" performing [style.boldSex(cunnilingus)] on [npc2.name]!"));
+							break;
+						case THIGHS:
+							break;
+						case URETHRA_PENIS:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" [style.boldSex(fucking)] [npc.namePos] [npc.pussy]!"));
+							break;
+						case URETHRA_VAGINA:
+							break;
+						case VAGINA:
+							descriptionSB.append(UtilText.parse(target, Util.capitaliseSentence(Util.stringsToStringList(names, false))+(names.size()==1?UtilText.parse(main, " [npc.is]"):" are")
+									+" [style.boldSex(tribbing)] with [npc2.name]!"));
+							break;
+					}
+				}
+			}
+			
+			if(!descriptionAdded) {
+				descriptionSB.append("[style.boldDisabled(No ongoing actions.)]");
 			}
 			
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.pussy]"), descriptionSB);
@@ -11578,8 +11667,9 @@ public enum StatusEffect {
 			if(Sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
 				return null;
 			}
-			
-			GameCharacter partner = Sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+
+			List<GameCharacter> ongoingCharacters = Sex.getCharactersHavingOngoingActionWith(target, orifice);
+			GameCharacter partner = ongoingCharacters.get(Util.random.nextInt(ongoingCharacters.size()));
 			
 			return Sex.formatPenetration(
 					target.getPenetrationDescription(false,
@@ -12202,37 +12292,35 @@ public enum StatusEffect {
 		SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;left:0;top:0;'>"+baseSVG+"</div>");
 		
 		if(!Sex.getContactingSexAreas(owner, orifice).isEmpty()) {
-			SexAreaPenetration firstPenetration = SexAreaPenetration.FINGER;
-			outerloop:
+			int rightOffset = 0;
 			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(owner, orifice).entrySet()) {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
-						firstPenetration = (SexAreaPenetration) sArea;
-						break outerloop;
+						switch((SexAreaPenetration)sArea) {
+							case FINGER:
+								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
+								break;
+							case PENIS:
+								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
+								break;
+							case TAIL:
+								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
+								break;
+							case TONGUE:
+								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
+								break;
+							case CLIT:
+								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeClit()+"</div>");
+								break;
+							case FOOT:
+								SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:"+rightOffset+"%;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFoot()+"</div>");
+								break;
+							case TENTACLE:
+								break;
+						}
+						rightOffset+=8;
 					}
 				}
-			}
-			switch(firstPenetration) {
-				case FINGER:
-					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-					break;
-				case PENIS:
-					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-					break;
-				case TAIL:
-					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
-					break;
-				case TONGUE:
-					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-					break;
-				case CLIT:
-					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeClit()+"</div>");
-					break;
-				case FOOT:
-					SVGImageSB.append("<div style='width:50%;height:50%;position:absolute;right:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFoot()+"</div>");
-					break;
-				case TENTACLE:
-					break;
 			}
 		}
 		

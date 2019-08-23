@@ -1175,7 +1175,7 @@ public class Lab {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response(
-						Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()
+						!Main.game.getPlayer().isTaur()
 							?"Sit down"
 							:"Step forwards",
 						"You know exactly why Lilaya seems embarrassed about these 'tests'...",
@@ -1213,7 +1213,7 @@ public class Lab {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()) {
+				if(!Main.game.getPlayer().isTaur()) {
 					return new ResponseSex("Sex",
 							"Start having sex with Lilaya.",
 							Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
@@ -1338,7 +1338,7 @@ public class Lab {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()) {
+				if(!Main.game.getPlayer().isTaur()) {
 					return new ResponseSex("Let it happen",
 							Main.game.getPlayer().hasFetish(Fetish.FETISH_INCEST)
 								?"You know that this can only end one way, and the fact that Lilaya reminds you of your aunt Lily only makes it all the more exciting..."
@@ -1532,7 +1532,12 @@ public class Lab {
 	};
 
 	public static final DialogueNode LILAYA_ASSISTS_PREGNANCY = new DialogueNode("", "", true, true) {
-
+		
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		
 		@Override
 		public String getContent() {
 			PlayerCharacter player = Main.game.getPlayer();
@@ -1736,6 +1741,11 @@ public class Lab {
 	};
 	
 	public static final DialogueNode LILAYA_ASSISTS_PREGNANCY_REPEAT = new DialogueNode("", "", true, true) {
+		
+		@Override
+		public int getSecondsPassed() {
+			return 30;
+		}
 
 		@Override
 		public String getContent() {
@@ -1791,6 +1801,11 @@ public class Lab {
 	};
 	
 	public static final DialogueNode LILAYA_DETECTS_BIRTHING_TYPE = new DialogueNode("", "", true) {
+		
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
 
 		@Override
 		public String getLabel() {
@@ -1887,6 +1902,11 @@ public class Lab {
 	};
 	
 	public static final DialogueNode LILAYA_ASSISTS_BIRTHING = new DialogueNode("", "", true) {
+		
+		@Override
+		public int getSecondsPassed() {
+			return 10*60;
+		}
 
 		@Override
 		public String getLabel() {
@@ -1950,6 +1970,11 @@ public class Lab {
 	};
 
 	public static final DialogueNode LILAYA_ASSISTS_BIRTHING_DELIVERS = new DialogueNode("", "", true, true) {
+		
+		@Override
+		public int getSecondsPassed() {
+			return 240*60;
+		}
 
 		@Override
 		public String getContent() {
@@ -2041,6 +2066,11 @@ public class Lab {
 	};
 	
 	public static final DialogueNode LILAYA_ASSISTS_BIRTHING_KNOCK_OUT = new DialogueNode("Your room", "", true, true) {
+		
+		@Override
+		public int getSecondsPassed() {
+			return 240*60;
+		}
 
 		@Override
 		public String getContent() {
@@ -2096,6 +2126,11 @@ public class Lab {
 	};
 	
 	public static final DialogueNode LILAYA_ASSISTS_EGG_LAYING = new DialogueNode("", "", true) {
+		
+		@Override
+		public int getSecondsPassed() {
+			return 10*60;
+		}
 
 		@Override
 		public String getLabel() {
@@ -2181,6 +2216,11 @@ public class Lab {
 	};
 	
 	public static final DialogueNode LILAYA_ASSISTS_EGG_LAYING_DELIVERS = new DialogueNode("", "", true, true) {
+		
+		@Override
+		public int getSecondsPassed() {
+			return 30*60;
+		}
 
 		@Override
 		public String getContent() {
@@ -2246,6 +2286,11 @@ public class Lab {
 	};
 	
 	public static final DialogueNode LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS = new DialogueNode("", "", true, true) {
+		
+		@Override
+		public int getSecondsPassed() {
+			return 24*60*60;
+		}
 
 		@Override
 		public String getContent() {
@@ -2356,6 +2401,11 @@ public class Lab {
 	
 	private static StringBuilder litterSB;
 	public static final DialogueNode LILAYA_ASSISTS_BIRTHING_FINISHED = new DialogueNode("Your room", "", true, true) {
+		
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
 
 		@Override
 		public String getContent() {

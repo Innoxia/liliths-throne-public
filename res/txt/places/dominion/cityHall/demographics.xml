@@ -430,7 +430,7 @@
 	<p>
 		Having had enough of being eaten out, [vanessa.name] releases her grip on the back of your head, before gently pushing you back and teasing, [vanessa.speech(I know you just orgasmed, but you're not done yet, are you?)]
 	</p>
-	#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(!pc.isTaur())
 		#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
 			<p>
 				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to her desk, before sitting on top of it and spreading her legs for you. [vanessa.speech(Come on, give my little pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
@@ -466,7 +466,7 @@
 	<p>
 		Having had enough of being eaten out, [vanessa.name] releases her grip on the back of your head, before gently pushing you back and teasing, [vanessa.speech(Now that I've had my fun, it's only fair that I return the favour...)]
 	</p>
-	#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(!pc.isTaur())
 		#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
 			<p>
 				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to her desk, before sitting on top of it and spreading her legs at you. [vanessa.speech(Come on then, give my wet little pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
@@ -499,7 +499,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="START_SEX_FUCKING_VANESSA"><![CDATA[
-	#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(!pc.isTaur())
 		<p>
 			Smiling at [vanessa.name], you step forwards between her legs, before taking hold of your cock and teasing the [pc.cockHead+] up and down between her wet labia. The feel of your hard cock sliding up and down over her hot cunt is too much for [vanessa.name] to bear, and with a desperate look on her face, she pleads, [vanessa.speechNoEffects(Yes! Please, fuck me!)]
 		</p>
@@ -518,7 +518,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="START_SEX_EATEN_OUT"><![CDATA[
-	#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(!pc.isTaur())
 		<p>
 			Smiling down at [vanessa.name], you spread your legs and present your [pc.pussy+] to her. Placing her hands on your thighs, the horny fox-girl shuffles forwards, letting out an excited moan before leaning in to plant a wet kiss on your [pc.labia+].
 		</p>
@@ -543,7 +543,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="START_SEX_EATEN_OUT_MOUND"><![CDATA[
-	#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+	#IF(!pc.isTaur())
 		<p>
 			Smiling down at [vanessa.name], you spread your legs and present your genderless mound to her. Placing her hands on your thighs, the horny fox-girl shuffles forwards, letting out an excited moan before leaning in to plant a wet kiss on your doll-like crotch.
 		</p>

@@ -39,6 +39,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -51,6 +52,8 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.managers.dominion.SMMasturbation;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotMasturbation;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
@@ -59,6 +62,7 @@ import com.lilithsthrone.utils.Pathing;
 import com.lilithsthrone.utils.TreeNode;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.comparators.ClothingTypeRarityComparator;
 import com.lilithsthrone.utils.comparators.ItemTypeRarityComparator;
 import com.lilithsthrone.utils.comparators.WeaponTypeRarityComparator;
@@ -199,6 +203,33 @@ public class PhoneDialogue {
 					return new Response("Combat Moves", "You are too busy to change your combat moves.", null);
 				}
 				
+			} else if (index == 12) {
+				if(!Main.game.isSavedDialogueNeutral()) {
+						return new Response("Masturbate", "You are too busy to masturbate right now. (Can only be performed in a neutral scene.)", null);
+						
+				} else if(!Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getKey()) {
+					return new Response("Masturbate", Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getValue(), null);
+					
+				} else if(Main.game.getPlayerCell().getPlace().isPopulated() && !Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+					return new Response("Masturbate",
+							"As you do not have the [style.colourFetish("+Fetish.FETISH_EXHIBITIONIST.getName(Main.game.getPlayer())+" fetish)], you are not comfortable with masturbating in a place where people could see you!",
+							null);
+					
+				} else {
+					return new ResponseSex("Masturbate",
+							"Decide to take a break from what you're currently doing in order to masturbate.",
+							true,
+							true,
+							new SMMasturbation(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMasturbation.STANDING))),
+							Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)
+								?Main.game.getPlayer().getParty()
+								:null,
+							null,
+							AFTER_MASTURBATION,
+							UtilText.parseFromXMLFile("misc/misc", "MASTURBATION"));
+				}
+				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
 					@Override
@@ -215,6 +246,24 @@ public class PhoneDialogue {
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.PHONE;
+		}
+	};
+	
+	public static final DialogueNode AFTER_MASTURBATION = new DialogueNode("Finished", "You've had enough of maturbating for now.", true) {
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("misc/misc", "AFTER_MASTURBATION");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Continue on your way...", Main.game.getDefaultDialogueNoEncounter());
+
+			} else {
+				return null;
+			}
 		}
 	};
 

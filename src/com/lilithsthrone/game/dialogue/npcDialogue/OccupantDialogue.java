@@ -24,6 +24,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -39,6 +40,7 @@ public class OccupantDialogue {
 	private static NPC characterForSexSecondary;
 	private static List<NPC> charactersPresent;
 	private static boolean isApartment;
+	private static boolean confirmKickOut;
 	
 	public static void initDialogue(NPC targetedOccupant, boolean isApartment) {
 		Main.game.setActiveNPC(targetedOccupant);
@@ -55,6 +57,7 @@ public class OccupantDialogue {
 		charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
 		
 		OccupantDialogue.isApartment = isApartment;
+		confirmKickOut = false;
 	}
 	
 	private static DialogueNode getAfterSexDialogue() {
@@ -93,6 +96,7 @@ public class OccupantDialogue {
 			Main.game.getPlayer().setCharacterReactedToPregnancy(occupant(), true);
 		}
 		occupant().removeFlag(NPCFlagValue.occupantHasNewJob);
+		confirmKickOut = false;
 	}
 
 	private static String getTextFilePath() {
@@ -283,18 +287,33 @@ public class OccupantDialogue {
 						};
 						
 					} else {
-						return new Response("Kick out", "Tell [npc.name] that you want [npc.herHim] to leave.<br/>"
-								+ "[style.italicsBad(Removes this character from the game.)]",
-								OCCUPANT_KICK_OUT) {
-							@Override
-							public void effects() {
-								applyReactionReset();
-								Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_KICK_OUT", occupant()));
-								Main.game.getPlayer().removeFriendlyOccupant(occupant());
-								Main.game.banishNPC(occupant());
-							}
-						};
+						if(confirmKickOut) {
+							return new Response("Confirm removal", "Tell [npc.name] that you want [npc.herHim] to leave.<br/>"
+									+ "[style.italicsBad(Permanently removes this character from the game.)]",
+									OCCUPANT_KICK_OUT) {
+								@Override
+								public Colour getHighlightColour() {
+									return Colour.GENERIC_BAD;
+								}
+								@Override
+								public void effects() {
+									applyReactionReset();
+									Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_KICK_OUT", occupant()));
+									Main.game.getPlayer().removeFriendlyOccupant(occupant());
+									Main.game.banishNPC(occupant());
+								}
+							};
+							
+						} else {
+							return new ResponseEffectsOnly("Kick out", "Tell [npc.name] that you want [npc.herHim] to leave.<br/>"
+									+ "[style.italicsMinorBad(After choosing this action, you'll need to click again to confirm that you want this character removed from the game forever.)]") {
+								@Override
+								public void effects() {
+									confirmKickOut = true;
+								}
+							};
+						}
 					}
 					
 				} else if (index == 0) {
@@ -1030,17 +1049,33 @@ public class OccupantDialogue {
 				};
 				
 			} else if(index==10) {
-				return new Response("Remove character", "Tell [npc.name] that the [npc.she] should move on with [npc.her] life.<br/>"
-						+ "[style.italicsBad(Removes this character from the game.)]",
-						OCCUPANT_KICK_OUT) {
-					@Override
-					public void effects() {
-						Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_MOVE_OUT_REMOVE_CHARACTER", occupant()));
-						Main.game.getPlayer().removeFriendlyOccupant(occupant());
-						Main.game.banishNPC(occupant());
-					}
-				};
+				if(confirmKickOut) {
+					return new Response("Confirm removal", "Tell [npc.name] that the [npc.she] should move on with [npc.her] life.<br/>"
+							+ "[style.italicsBad(Permanently removes this character from the game.)]",
+							OCCUPANT_KICK_OUT) {
+						@Override
+						public Colour getHighlightColour() {
+							return Colour.GENERIC_BAD;
+						}
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_MOVE_OUT_REMOVE_CHARACTER", occupant()));
+							Main.game.getPlayer().removeFriendlyOccupant(occupant());
+							Main.game.banishNPC(occupant());
+							confirmKickOut = false;
+						}
+					};
+					
+				} else {
+					return new ResponseEffectsOnly("Remove character", "Tell [npc.name] that the [npc.she] should move on with [npc.her] life.<br/>"
+							+ "[style.italicsMinorBad(After choosing this action, you'll need to click again to confirm that you want this character removed from the game forever.)]") {
+						@Override
+						public void effects() {
+							confirmKickOut = true;
+						}
+					};
+				}
 				
 			} else {
 				return null;
@@ -1245,17 +1280,33 @@ public class OccupantDialogue {
 					}
 					
 				} else if (index == 10) {
-					return new Response("Remove Character", "Tell [npc.name] that you need to move on, and that you won't see [npc.herHim] ever again.<br/>"
-							+ "[style.italicsBad(This will remove [npc.name] from the game!)]",
-							OCCUPANT_APARTMENT_REMOVE) {
-						@Override
-						public void effects() {
-							applyReactionReset();
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_REMOVE", occupant()));
-							Main.game.getPlayer().removeFriendlyOccupant(occupant());
-							Main.game.banishNPC(occupant());
-						}
-					};
+					if(confirmKickOut) {
+						return new Response("Confirm removal", "Tell [npc.name] that you need to move on, and that you won't see [npc.herHim] ever again.<br/>"
+								+ "[style.italicsBad(This will permanently remove [npc.name] from the game!)]",
+								OCCUPANT_APARTMENT_REMOVE) {
+							@Override
+							public Colour getHighlightColour() {
+								return Colour.GENERIC_BAD;
+							}
+							@Override
+							public void effects() {
+								applyReactionReset();
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_APARTMENT_REMOVE", occupant()));
+								Main.game.getPlayer().removeFriendlyOccupant(occupant());
+								Main.game.banishNPC(occupant());
+								confirmKickOut = false;
+							}
+						};
+						
+					} else {
+						return new ResponseEffectsOnly("Remove character", "Tell [npc.name] that you need to move on, and that you won't see [npc.herHim] ever again.<br/>"
+								+ "[style.italicsMinorBad(After choosing this action, you'll need to click again to confirm that you want this character removed from the game forever.)]") {
+							@Override
+							public void effects() {
+								confirmKickOut = true;
+							}
+						};
+					}
 					
 				} else if (index == 0) {
 					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {

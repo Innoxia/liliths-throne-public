@@ -2,11 +2,13 @@ package com.lilithsthrone.game.dialogue.responses;
 
 /**
  * @since 0.2.11
- * @version 0.3.3.10
+ * @version 0.3.4
  * @author Innoxia
  */
 public enum ResponseTag {
 
+	DISABLE_POSITIONING,
+	
 	PREFER_ORAL,
 	PREFER_MISSIONARY,
 	PREFER_DOGGY,

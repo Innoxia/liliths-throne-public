@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.game.character.body.types.AbstractHornType;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
@@ -223,6 +222,9 @@ public class HornType {
 			}
 		}
 		typesMap.put(r, types);
+		if(types.isEmpty()) {
+			types.add(HornType.NONE);
+		}
 		return types;
 	}
 }

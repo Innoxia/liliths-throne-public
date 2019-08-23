@@ -285,7 +285,7 @@ public class ClothingEmporium {
 									"Have sex with Nyan.",
 									null, null, null, null, null, null,
 									true, true,
-									Main.game.getPlayer().getLegConfiguration().isBipedalPositionedGenitals()
+									!Main.game.getPlayer().isTaur()
 										?new SMLyingDown(
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MISSIONARY)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Nyan.class), SexSlotLyingDown.LYING_DOWN)))

@@ -1185,7 +1185,7 @@
 	#ENDIF
 	<p>
 		You do as she instructs, and make your way over to where Lilaya's standing. Rose quickly moves out of the way, hurrying over to a corner of the room and blushing as you say hello.
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			 Lilaya motions for you to sit down in the chair she just vacated, and as you do so, she grabs a smooth, wand-like instrument from another table.
 		#ELSE
 			 Lilaya motions for you to stand next to the chair she just vacated, and as you do so, she grabs a smooth, wand-like instrument from another table.
@@ -1234,7 +1234,7 @@
 	#ENDIF
 	<p>
 		Rose quickly moves out of the way, hurrying over to a corner of the room and blushing as you say hello.
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			 Looking back over to Lilaya, you see her motioning for you to come and sit down in the chair she just vacated.
 		#ELSE
 			 Looking back over to Lilaya, you see her motioning for you to come and stand next to the chair she just vacated.
@@ -1372,7 +1372,7 @@
 	</p>
 	<p>
 		You remain quite still as Lilaya steps in front of you, holding the wand out to run it over your head.
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			 As she does this, she places one hand on your shoulder and leans down, lowering her chest so that her large breasts are directly in front of your face.
 		#ELSE
 			 As she does this, she places one hand on your shoulder and pushes her chest out, immediately drawing your attention towards her large breasts.
@@ -1394,7 +1394,7 @@
 	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_HORNY_LILAYA_DECLINED"><![CDATA[
 	<p>
 		Not feeling completely comfortable with the way your demonic [lilaya.relation(pc)] is trying to get you turned on,
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			 you quickly stand up and make your excuses as to why you need to leave.
 		#ELSE
 			 you quickly step back and make your excuses as to why you need to leave.
@@ -1468,7 +1468,7 @@
 	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_HORNY_LILAYA_WANTS_SEX_DECLINED"><![CDATA[
 	<p>
 		Not feeling comfortable with the way your demonic [lilaya.relation(pc)] is fully prepared and eager to have sex with you,
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			 you quickly stand up and make your excuses as to why you need to leave.
 		#ELSE
 			 you quickly step back and make your excuses as to why you need to leave.

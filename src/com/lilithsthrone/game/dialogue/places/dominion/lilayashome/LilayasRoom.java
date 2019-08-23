@@ -19,7 +19,7 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.sex.managers.dominion.SMPantyMasturbation;
+import com.lilithsthrone.game.sex.managers.dominion.SMMasturbation;
 import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
 import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
@@ -126,10 +126,15 @@ public class LilayasRoom {
 				};
 
 			} else if (index == 1) {
-				return new ResponseSex("Panty Masturbation", "Use Lilaya's panties to help you masturbate",
+				return new ResponseSex("Panty Masturbation", "Use Lilaya's panties to help you masturbate.",
 						true, true,
-						new SMPantyMasturbation(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMasturbation.KNEELING_PANTIES))),
+						new SMMasturbation(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMasturbation.KNEELING_PANTIES))) {
+							@Override
+							public String applyEndSexEffects() {
+								return Main.game.getPlayer().addClothing(LilayasRoom.lilayasPanties, false);
+							}
+						},
 						null,
 						null, PANTIES_POST_MASTURBATION, UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "PANTIES_MASTURBATION"));
 

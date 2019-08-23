@@ -165,9 +165,9 @@ public class FortressMalesLeaderSA {
 							?" Shuffling to one side, [npc.she] then quickly removes the clothing blocking [npc3.namePos] [npc3.pussy], before starting to rub the head of [npc.her] cock up and down between [npc3.her] [npc3.labia+]."
 							:" Shuffling to one side, [npc.she] then quickly lines [npc.her] [npc.cock+] up to [npc3.namePos] [npc3.pussy], before starting to rub the head up and down between [npc3.her] [npc3.labia+].")
 					+" Suddenly thrusting [npc.her] [npc.hips] forwards, [npc.she] sinks [npc.her] [npc.cock+] deep into [npc3.namePos] [npc2.pussy+], letting out a deep growl as [npc.she] penetrates [npc3.herHim],"
-					+ " [npc.speechNoEffects(Don't think I forgot about you!)]</br>"
+					+ " [npc.speechNoEffects(Don't think I forgot about you!)]</br></br>"
 					+ "Keeping [npc.her] [npc.cock+] hilted in [npc3.namePos] [npc3.pussy], [npc.name] then produces a small bottle filled with a light blue liquid."
-					+ " Pulling out the stopper with [npc.her] teeth, [npc.she] quickly downs the potion, before throwing the now-empty vial to one side.</br>"
+					+ " Pulling out the stopper with [npc.her] teeth, [npc.she] quickly downs the potion, before throwing the now-empty vial to one side.</br></br>"
 					+ "Pulling [npc.her] [npc.hips] back, [npc.name] then starts to rhythmically fuck [npc3.name],"
 						+ " with each of [npc.her] thrusts easily sliding in and out, thanks to the cum and juices from [npc2.namePos] pussy lubricating [npc.her] thick shaft.</br>"
 					+ "[npc3.Name] soon [npc3.verb(realise)] what the the potion [npc.name] just drank was for, as each time the [npc.race]'s balls slap against [npc3.her] [npc3.assSkin], they feel noticeably heavier and heavier."
@@ -301,9 +301,9 @@ public class FortressMalesLeaderSA {
 							?" Shuffling to one side, [npc.she] quickly removes the clothing blocking [npc3.namePos] [npc3.pussy], before starting to rub the head of [npc.her] cock up and down between [npc3.her] [npc3.labia+]."
 							:" Shuffling to one side, [npc.she] quickly lines [npc.her] [npc.cock+] up to [npc3.namePos] [npc3.pussy], before starting to rub the head up and down between [npc3.her] [npc3.labia+].")
 					+" Suddenly thrusting [npc.her] [npc.hips] forwards, [npc.she] sinks [npc.her] [npc.cock+] deep into [npc3.namePos] [npc2.pussy+], letting out a deep growl as [npc.she] penetrates [npc3.herHim],"
-					+ " [npc.speechNoEffects(Don't think I forgot about you!)]</br>"
+					+ " [npc.speechNoEffects(Don't think I forgot about you!)]</br></br>"
 					+ "Keeping [npc.her] [npc.cock+] hilted in [npc3.namePos] [npc3.pussy], [npc.name] then produces a small bottle filled with a light blue liquid."
-					+ " Pulling out the stopper with [npc.her] teeth, [npc.she] quickly downs the potion, before throwing the now-empty vial to one side.</br>"
+					+ " Pulling out the stopper with [npc.her] teeth, [npc.she] quickly downs the potion, before throwing the now-empty vial to one side.</br></br>"
 					+ "Pulling [npc.her] [npc.hips] back, [npc.name] then starts to rhythmically fuck [npc3.name],"
 						+ " with each of [npc.her] thrusts easily sliding in and out of [npc3.her] [npc3.pussy+], thanks to the cum and juices from [npc2.namePos] pussy lubricating [npc.her] thick shaft.</br>"
 					+ "[npc3.Name] soon [npc3.verb(realise)] what the the potion [npc.name] just drank was for, as each time the [npc.race]'s balls slap against [npc3.her] [npc3.assSkin], they feel noticeably heavier and heavier."

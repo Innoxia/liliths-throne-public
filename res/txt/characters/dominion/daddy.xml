@@ -696,7 +696,7 @@
 	</p>
 	<p>
 		#IF(game.getDialogueFlags().hasFlag(FLAG_flirtingWithDaddy))
-			#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!pc.isTaur())
 				Running your [pc.foot] up the length of [daddy.namePos] leg, you bite your lip as you ask if that's what [daddy.she] does for a living. Clearly getting turned on by your teasing, the silver-haired [daddy.race] gazes hungrily into your [pc.eyes] as [daddy.she] answers,
 			#ELSE
 				Making a show of glancing down at [daddy.namePos] muscular chest, you bite your lip as you ask if that's what [daddy.she] does for a living. Clearly getting turned on by your teasing, the silver-haired [daddy.race] gazes hungrily into your [pc.eyes] as [daddy.she] answers,
@@ -725,7 +725,7 @@
 	</p>
 	<p>
 		#IF(game.getDialogueFlags().hasFlag(FLAG_flirtingWithDaddy))
-			#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!pc.isTaur())
 				Running your [pc.foot] up the length of [daddy.namePos] leg, you bite your lip as you ask if that's what [daddy.she] does for a living. Clearly getting turned on by your teasing, the silver-haired [daddy.race] gazes hungrily into your [pc.eyes] as [daddy.she] answers,
 			#ELSE
 				Making a show of glancing down at [daddy.namePos] muscular chest, you bite your lip as you ask if that's what [daddy.she] does for a living. Clearly getting turned on by your teasing, the silver-haired [daddy.race] gazes hungrily into your [pc.eyes] as [daddy.she] answers,
@@ -887,7 +887,7 @@
 	<p>
 		Soon enough, your food arrives, and your current conversation is momentarily put on hold as the two of you start eating.
 		#IF(game.getDialogueFlags().hasFlag(FLAG_flirtingWithDaddy))
-			#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!pc.isTaur())
 				 Not letting a moment go to waste, you continue your flirting by running your [pc.foot] up the length of [daddy.namePos] leg, pausing now and again to bite your lip and coyly ask if [daddy.sheIs] enjoying your company. Clearly getting turned on by your teasing, the silver-haired [daddy.race] responds very much in the positive, and makes it well known to you that [daddy.she] would like for you to come back to [daddy.her] apartment after your meal. 
 			#ELSE
 				Making a show of hungrily glancing down at [daddy.namePos] body, you bite your lip as you coyly ask if [daddy.sheIs] enjoying your company. Clearly getting turned on by your teasing, the silver-haired [daddy.race] responds very much in the positive, and makes it well known to you that [daddy.she] would like for you to come back to [daddy.her] apartment after your meal.
@@ -944,7 +944,7 @@
 	<p>
 		Soon enough, your food arrives, and your current conversation is momentarily put on hold as the three of you start eating.
 		#IF(game.getDialogueFlags().hasFlag(FLAG_flirtingWithDaddy))
-			#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!pc.isTaur())
 				 Not letting a moment go to waste, you continue your flirting by running your [pc.foot] up the length of Lilaya's and [daddy.namePos] legs, pausing now and again to bite your lip and coyly ask if they are enjoying your company. Clearly getting turned on by your teasing, the two of them respond very much in the positive, with [daddy.name] making it well known to that [daddy.she] would like for the two of you to come back to [daddy.her] apartment after your meal. 
 			#ELSE
 				Making a show of hungrily glancing down at Lilaya's and [daddy.namePos] bodies, you bite your lip as you coyly ask if they are enjoying your company. Clearly getting turned on by your teasing, the two of them respond very much in the positive, with [daddy.name] making it well known to that [daddy.she] would like for the two of you to come back to [daddy.her] apartment after your meal. 
@@ -1325,7 +1325,7 @@
 	<htmlContent tag="AFTER_DINNER_SEX"><![CDATA[
 	<p>
 		More than happy to do as [daddy.she] tells you to do, you head into [daddy.namePos] bedroom, with [daddy.herHim] right on your heels. Stepping over towards [daddy.her] king-sized bed, you climb up on top of it,
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			 before falling forwards onto your [pc.hands] and knees and presenting your rear end to your [daddy.daddy].
 		#ELSE
 			 before lying down on your animalistic lower half and presenting your rear end to your [daddy.daddy].
@@ -1346,7 +1346,7 @@
 	<htmlContent tag="LILAYA_AFTER_DINNER_SEX"><![CDATA[
 	<p>
 		More than happy to do as [daddy.she] commands, both you and Lilaya head into [daddy.namePos] bedroom, with [daddy.herHim] right on your heels. Stepping over towards [daddy.her] king-sized bed, the two of you share a wet, passionate kiss, before climbing up on top of the sheets together.
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			 Mirroring one another's movements, the two of you fall forwards onto your hands and knees, presenting your rear ends to your [daddy.daddy].
 		#ELSE
 			 As Lilaya falls forwards onto her hands and knees, you lie down on your animalistic lower half beside her, presenting your rear ends to your [daddy.daddy].
@@ -1359,7 +1359,7 @@
 		[pc.speech(Please,)] you [pc.moan].
 	</p>
 	<p>
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			#IF(lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
 				[lilaya.speech(Come and fuck us! J-Just don't cum inside me, ok? I'm <i>not</i> getting pregnant from this!)] Lilaya finishes, before turning towards you and pulling you into a desperate kiss.
 			#ELSE
@@ -1388,7 +1388,7 @@
 	</p>
 	<p>
 		[daddy.speech(Easy now, there's no need to rush-)] [daddy.name] starts, but [daddy.her] voice is cut off as you jump forwards and, lowering yourself down over the top of [daddy.herHim], firmly press your [pc.lips+] down against [daddy.hers]. After dominantly kissing [daddy.herHim] in this fashion for a moment, you pull back,
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			 before swinging your [pc.legs] over [daddy.hers] and straddling [daddy.her] crotch.
 		#ELSE
 			 before repositioning yourself and lowering your animalistic rear end down over [daddy.her] crotch.
@@ -1414,7 +1414,7 @@
 		[daddy.speech(Easy now, there's no need to rush-)] [daddy.name] starts, but [daddy.her] voice is cut off as Lilaya jumps forwards and, facing down towards [daddy.her] lower body, plants her panty-covered pussy over [daddy.her] mouth.
 	</p>
 	<p>
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			Quickly moving to straddle [daddy.namePos] crotch, you find yourself face-to-face with Lilaya,
 		#ELSE
 			Quickly moving to press your animalistic rear end down over [daddy.namePos] crotch, you look back over your shoulder towards Lilaya,
