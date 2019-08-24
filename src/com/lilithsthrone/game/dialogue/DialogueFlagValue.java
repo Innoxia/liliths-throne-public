@@ -69,6 +69,8 @@ public enum DialogueFlagValue {
 	
 	
 	// Shopping arcade:
+	ralphAskedAboutHundredKisses,
+	
 	nyanTalkedTo,
 	nyanComplimented,
 	nyanFlirtedWith,
@@ -111,7 +113,7 @@ public enum DialogueFlagValue {
 	givenLilayaPresent2,
 	givenLilayaPresent3,
 	
-	// Brax:
+	// Enforcer HQ:
 	braxEncountered,
 	accessToEnforcerHQ,
 	braxTransformedPlayer,
@@ -119,6 +121,7 @@ public enum DialogueFlagValue {
 	seenBraxAfterQuest,
 	feminisedBrax,
 	bimbofiedBrax,
+	candiHarpyTransformation,
 	
 	// Harpy Nests:
 	hasHarpyNestAccess,

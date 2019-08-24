@@ -126,6 +126,7 @@
 	Gameplay:
 		Added a content toggle for 'sadistic sex', which now needs to be turned on in order for actions such as slapping, choking, and spitting to be available during sex. (This content is set to 'off' by default, so you'll need to manually enable it in the content options if you want to see or use this content.)
 		Added ability to masturbate almost anywhere in the game, via an action in your phone menu.
+		Added small side quest to buy Brax from Candi.
 	
 	Contributors:
 		Fixed bug where combat would sometimes freeze/crash when using effects that targeted multiple combatants. (PR#1190 by Shadowheart329)
@@ -214,14 +215,32 @@
 	
 	
 	
-	Add a way to buy Brax from Candi.
+	
+	[x]Buying Brax
+		[x] Dialogue at reception desk variations
+		[x] Kate
+		[x] Harpy nest
+		[x] Lipstick
+		[x] Candi artwork as harpy
+		[x] Complete and test
+		[] Candi post-sex behaviour and pregnancies
+	
+	add colour to penis, labia descriptors			
+	
 	make it so Brax TF doesn't force you to have sex with them
+	
+	Add action to get carried away when wolf-teasing and let Brax fuck you
+	
+	
+	Add action to tell pill handouters to get lost (for the year)
 	
 	Make choking ongoing and add hand-holding (need to support misc. ongoing actions)
 	make suckle an ongoing action
 	need eating out eating cum
 	Move actions out of DoggyStlye and into generic actions
 	
+	bug: flash was nerfed a lot and only lasts one turn against your target sooo yeah why bother criting with it?
+			
 	
 		
 		
@@ -375,8 +394,6 @@
 	
 	Add 'forage' action in caverns to get mushrooms
 	
-			
-	bug: flash was nerfed a lot and only lasts one turn against your target sooo yeah why bother criting with it?
 			
 	How can I get the rental mommy off a tile
 		Report to Angel

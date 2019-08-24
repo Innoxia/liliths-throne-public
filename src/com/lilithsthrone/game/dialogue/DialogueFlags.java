@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.4
  * @author Innoxia
  */
 public class DialogueFlags implements XMLSaving {
@@ -30,6 +30,8 @@ public class DialogueFlags implements XMLSaving {
 	public int eponaStamps;
 	public long kalahariBreakStartTime;
 	public long daddyResetTimer;
+	public long candiSexTimer;
+	public long ralphSexTimer;
 
 	public long impFortressAlphaDefeatedTime;
 	public long impFortressDemonDefeatedTime;
@@ -61,6 +63,8 @@ public class DialogueFlags implements XMLSaving {
 		ralphDiscountStartTime = -1;
 		kalahariBreakStartTime = -1;
 		daddyResetTimer = -1;
+		candiSexTimer = -1;
+		ralphSexTimer = -1;
 				
 		ralphDiscount = 0;
 		

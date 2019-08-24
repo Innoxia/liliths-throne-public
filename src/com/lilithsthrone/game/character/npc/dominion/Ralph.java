@@ -37,6 +37,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -49,6 +50,9 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -361,9 +365,38 @@ public class Ralph extends NPC {
 			}
 		}
 	};
+
+	@Override
+	public SexType getForeplayPreference(GameCharacter target) {
+		if(Sex.getSexManager().getPosition() == SexPositionOther.OVER_DESK) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+		}
+		return super.getForeplayPreference(target);
+	}
+
+	@Override
+	public SexType getMainSexPreference(GameCharacter target) {
+		if(Sex.getSexManager().getPosition() == SexPositionOther.OVER_DESK) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+		}
+		return super.getMainSexPreference(target);
+	}
 	
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+
+		if(Sex.getSexManager().getPosition() == SexPositionOther.OVER_DESK) {
+			AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
+			if(clothing!=null && clothing.getClothingType().isCondom(InventorySlot.PENIS)) {
+				target.unequipClothingIntoVoid(clothing, true, equipper);
+			}
+			return UtilText.parse(target,
+					"<p>"
+						+ "You pull out a condom and try to give it to [npc.name], but he simply swats it away and dismissively grunts,"
+						+ " [npc.speech(I don't think so! You agreed to let me breed you, and that's exactly what I'm going to do!)]"
+					+ "</p>");
+		}
+		
 		if(Main.game.isInSex() && !target.isPlayer()) {
 			if(Sex.getContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS)) {
 				return "<p>"
@@ -482,7 +515,7 @@ public class Ralph extends NPC {
 				return itemOwner.useItem(item, target, false);
 				
 			// Player uses item on NPC:
-			}else{
+			} else {
 				if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
 					itemOwner.useItem(item, target, false);
 					if(Sex.getContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH, Main.game.getNpc(Ralph.class)).contains(SexAreaPenetration.PENIS))

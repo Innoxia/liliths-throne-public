@@ -21,6 +21,8 @@ import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -31,6 +33,8 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.main.Main;
@@ -424,6 +428,25 @@ public class SuccubisSecrets {
 				}
 			};
 			
+		} else if (index == 10
+				&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_BUYING_BRAX)
+				&& Main.game.getPlayer().getQuest(QuestLine.SIDE_BUYING_BRAX)==Quest.BUYING_BRAX_START
+				&& !Main.game.getPlayer().hasItemType(ItemType.CANDI_PERFUMES)) {
+			if(Main.game.getPlayer().getMoney()<500) {
+				return new Response("Candi's perfume", "You need at least 500 flames in order to pay for Candi's perfume!", null);
+			}
+			return new Response("Candi's perfume", "Tell Kate that you're here to collect Candi's order of perfume.", SHOP_BEAUTY_SALON_CANDI_PERFUME) {
+				@Override
+				public void effects() {
+					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
+					}
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-500));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CANDI_PERFUMES), false));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.BUYING_BRAX_DELIVER_PERFUME));
+				}
+			};
+			
 		} else if (index == 0) {
 			return new Response("Leave", "Leave Kate's shop, heading back out into the Shopping Arcade.", EXTERIOR){
 				@Override
@@ -438,6 +461,19 @@ public class SuccubisSecrets {
 			return null;
 		}
 	}
+
+	public static final DialogueNode SHOP_BEAUTY_SALON_CANDI_PERFUME = new DialogueNode("Succubi's Secrets", "-", true) {
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_CANDI_PERFUME");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return getMainResponse(index);
+		}
+	};
 	
 	private static String getMoneyRemainingString() {
 		return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_MONEY_REMAINING");

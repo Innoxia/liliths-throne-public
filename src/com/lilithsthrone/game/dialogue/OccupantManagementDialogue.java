@@ -1177,7 +1177,7 @@ public class OccupantManagementDialogue {
 					} else if(!characterSelected().getOwner().isPlayer()) {
 						return new Response("Combat Moves", "You can't manage the combat moves of slaves that you do not own!", null);
 					}
-					return new Response("Combat Moves", "Adjust the moves [npc.name] can perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+					return new Response("Combat Moves", UtilText.parse(characterSelected(), "Adjust the moves [npc.name] can perform in combat."), CombatMovesSetup.COMBAT_MOVES_CORE) {
 						@Override
 						public void effects() {
 							CombatMovesSetup.setTarget(characterSelected(), SLAVE_LIST);

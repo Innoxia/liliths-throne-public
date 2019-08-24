@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.99
- * @version 0.2.10
+ * @version 0.3.4
  * @author Innoxia
  */
 public class QuestTree {
@@ -19,6 +19,7 @@ public class QuestTree {
 	public static TreeNode<Quest> angryHarpyTree = new TreeNode<Quest>(Quest.HARPY_PACIFICATION_ONE);
 	public static TreeNode<Quest> slimeQueenTree = new TreeNode<Quest>(Quest.SLIME_QUEEN_ONE);
 	public static TreeNode<Quest> daddyTree = new TreeNode<Quest>(Quest.DADDY_START);
+	public static TreeNode<Quest> buyingBraxTree = new TreeNode<Quest>(Quest.BUYING_BRAX_START);
 	
 	
 	static {
@@ -135,6 +136,22 @@ public class QuestTree {
 		node2.addChild(node1);
 		
 		node1.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+		
+
+		// Buying Brax:
+
+		node1 = new TreeNode<Quest>(Quest.BUYING_BRAX_DELIVER_PERFUME);
+		buyingBraxTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.BUYING_BRAX_LOLLIPOPS);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.BUYING_BRAX_DELIVER_LOLLIPOPS);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.BUYING_BRAX_LIPSTICK);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.BUYING_BRAX_DELIVER_LIPSTICK);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node1.addChild(node2);
 		
 	}
 }

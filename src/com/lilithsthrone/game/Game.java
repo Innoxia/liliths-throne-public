@@ -3677,4 +3677,8 @@ public class Game implements XMLSaving {
 	public boolean isBypassSexActions() {
 		return Main.getProperties().hasValue(PropertyValue.bypassSexActions);
 	}
+	
+	public boolean isBraxMainQuestComplete() {
+		return Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN);
+	}
 }
