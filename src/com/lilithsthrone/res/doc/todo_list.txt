@@ -99,9 +99,6 @@
 	
 	- Improve sex action descriptions to factor in body parts. (Comparing penis size/girth to orifice capacity, using horns as handles during sex, adding size difference content, etc.)
 	
-	- Add a way to buy Brax from Candi.
-		Simply offer to buy, and she sells him/her to you
-	
 	- Adding mod support for items.
 	
 	- Add Enforcer alleyway encounter
@@ -123,63 +120,19 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Added a 'loiter' action to the phone menu, allowing you to advance time by four hours in safe, suitable areas.
-	
-	Contributors:
-		Fixed bug where characters would only have 5 health when affected by the 'arcane impotence' status effect. (PR#1193 by AlacoGit)
-		Added support for OccupationTags to be read by the parsing engine, and added 'ENFORCER' occupation tags to relevant occupations. (by Stadler)
-		Added support for multiple-slot equipping on: Realistic dildo (vagina, mouth, anus); Leather Bracelets (wrists, ankles); Siren's Cloak (over-torso, neck); Key Chain Necklace (neck, wrist); Clover Clamps (nipples, vagina). (by Norin)
-	
-	Sex:
-		Reduced intercrural sex's default corruption from 'horny' level to 'vanilla'.
-		Prostate massage is no longer achieved via anal fingering for futa characters, with their prostate instead being stimulated through vaginal fingering.
-	
-	Other:
-	 	Candi can now be impregnated.
-		Slightly improved dialogue flow in Brax's feminisation scenes.
-		Added options to keep Brax as a futa when feminising him into Bree or Brandi.
-		Slightly improved display of capacity-related random descriptors for orifices, and added colour to random descriptors for lips, nipples, labia, and penis.
-		NPCs with a neutral fetish desire towards feet-related actions will now use those actions if your corresponding foot-fetish desire is positive. (i.e. An NPC with a neutral 'dominant foot' fetish will not use their feet in sex, unless your character has a positive desire towards the 'submissive foot' fetish.)
-		Improved visibility of character-swapping positioning actions.
-		Added finger to lower-half actions to the sex position slot where you're kneeling behind someone who's down on all fours.
-	
-	Bugs:
-		Fixed major issue where you wouldn't be able to request access to the harpy nests, nor ask about the side quest up there.
-		Fixed issue where the game would freeze when selecting masturbation while having a positive desire towards exhibitionism, and also having a companion in your party.
-		Fixed semi-major bug where the actions available in sex would not update correctly after switching position using the new positioning menu actions.
-		Fixed numerous minor parsing errors, as well as incorrect description in anal actions, and incorrect parsing in prostate orgasm descriptions.
-		Fixed taurs spawning in with crotch-boobs even if you'd turned them off in the content options.
-		Fixed taurs having a 95% chance of appearing instead of 5%.
-		Fixed incorrect sex title for masturbation.
-		Fixed horse-morphs as being described as being present on the streets of Dominion during an arcane storm.
-		Candi no longer behaves as though she was satisfied from sex immediately after a sex scene in which you didn't let her orgasm.
-		The positioning menu actions now correctly work in the prologue's sex scene.
-		Fixed issue where the game would freeze after Rose's hand-holding scene (and any other sex scene in which no 'real' sex interactions were performed).
-		Fixed being able to interact with characters on the other end of a taur when you were spitroasting said taur, and improved action availability between these slots for when the in-between character is a non-taur.
-		Fixed positioning menu actions not being available when targeting characters who were on the same dom/sub 'side' as you.
-		Clothing now shows up in every category into which it can be equipped when using the debug menu's spawn menu. (Type 'buggy' when standing on a neutral tile to open the debug menu.)
-		Fixed issue where the sex slot descriptions being displayed beneath each character's name would sometimes be incorrect on the first turn of sex.
-		Fixed expanded positioning actions not being available when in the sitting position.
-		Fixed Ms. Cunningham's 'Perform cunnilingus' action causing a softlock if you were a taur.
-		If she's unable to access your ass, Vicky should now prefer to use your vagina, if you have one, instead of penetrating herself on your cock.
-		Fixed new positioning menu actions not causing sex to calculate a turn correctly when selected.
-		Debug menu's 'Reveal maps' action now correctly unlocks all maps to be viewed in the maps screen.
-		Fixed cause of a bug where duplicate 'Arthur's home' tiles could be created in Demon Home. (Also the game will delete any duplicates in your save file when loading into this version.)
-		The cultists which spawn during October can now appear on tiles which have friendly occupants living on them. (So that they can now spawn even if you've filled Dominion with friendly characters.)
-		Fixed bug where setting your birthday in the character creation would allow the year to go past the boundaries.
-		Lyssieth now correctly always creampies Lilaya/Meraxis during their demon TF scenes.
-		Fixed bug where Lyssieth would transform her penis away between the scenes in which she corrupts Lilaya and Meraxis.
-		Fixed issue where the 'degrading talk' sex action was never available.
-		The new taur spawn preference setting is now correctly saved in your properties file, so you don't have to set it every time the game is restarted.
-		When being transformed into a demon, your anus, nipples, vagina, and penis now correctly transform to have the same colour as your new demonic skin.
 	
 	
 	
 	
 	
+	Every modded item using the code for displacement text is not working and giving the generic text
 	
 	
+	Can't masturbate when elemental is in party
+	
+	Age selection in character creation is using +3 year date for calculating age
+	
+	Minor bug: the buyback option in shops lets you duplicate items (if you've got the money).  If you sell something to a shop, you can buy it back in the main shop inventory screen (with the shop's markup), and also buy it back in the buyback UI (twice).
 	
 	
 	Make 'Help Candi' a locked scene and add action to move away
