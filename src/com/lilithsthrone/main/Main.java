@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.4";
+	public static final String VERSION_NUMBER = "0.3.4.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -88,16 +88,16 @@ public class Main extends Application {
 		"<p>"
 			+ "Hello again!"
 		+ "</p>"
-			
+		
 		+ "<p>"
-			+ "As I mentioned in a recent blog post, I ended up spending a lot of time refactoring the sex position code for this update,"
-			+ " in order to get all sex positions correctly supporting taur bodies (as well as to support more precise positioning actions)."
-			+ " While I was able to add some other things as well, I didn't really have enough the time to get all of the reported bugs fixed, so I might have to release a hotfix mid-next-week, depending on how buggy this turns out to be..."
+			+ "There were quite a few bugs in v0.3.4, with a few of them being quite major, so I decided to get this hotfix out earlier than I'd originally planned in order to address them."
+			+ " Hopefully everything should be working ok now, but if there are still some big bugs which I've somehow missed, I'll get another hotfix out (but I really don't think this will be needed)."
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I also need to tidy up and edit some of the new 'buying Brax' dialogue, as I didn't have time before release to properly proof-read it (so I'm sure there are a few mistakes in there)."
-			+ " Anyway, I'll keep the blog updated to let you know if there will be a hotfix or not, so make sure to check there!"
+			+ "I'll move on to getting some more content added for the next version, and will also get some more bugs fixed."
+			+ " I'll aim to have the preview out in a week or so, with the full release out a week after that."
+			+ " As usual, these release estimates are just a rough guess, so I may end up taking a little longer than that..."
 		+ "</p>"
 			
 		+ "<br/>"
@@ -109,6 +109,61 @@ public class Main extends Application {
 			
 		+ "<br/>"
 
+		+ "<list>"
+			+ "<h6>v0.3.4.1</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Added a 'loiter' action to the phone menu, allowing you to advance time by four hours in safe, suitable areas.</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed bug where characters would only have 5 health when affected by the 'arcane impotence' status effect. (PR#1193 by AlacoGit)</ul>"
+			+"<ul>Added support for OccupationTags to be read by the parsing engine, and added 'ENFORCER' occupation tags to relevant occupations. (by Stadler)</ul>"
+			+"<ul>Added support for multiple-slot equipping on: Realistic dildo (vagina, mouth, anus); Leather Bracelets (wrists, ankles); Siren's Cloak (over-torso, neck); Key Chain Necklace (neck, wrist); Clover Clamps (nipples, vagina). (by Norin)</ul>"
+			
+			+"<li>Sex:</li>"
+			+"<ul>Reduced intercrural sex's default corruption from 'horny' level to 'vanilla'.</ul>"
+			+"<ul>Prostate massage is no longer achieved via anal fingering for futa characters, with their prostate instead being stimulated through vaginal fingering.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Candi can now be impregnated.</ul>"
+			+"<ul>Slightly improved dialogue flow in Brax's feminisation scenes.</ul>"
+			+"<ul>Added options to keep Brax as a futa when feminising him into Bree or Brandi.</ul>"
+			+"<ul>Slightly improved display of capacity-related random descriptors for orifices, and added colour to random descriptors for lips, nipples, labia, and penis.</ul>"
+			+"<ul>NPCs with a neutral fetish desire towards feet-related actions will now use those actions if your corresponding foot-fetish desire is positive. (i.e. An NPC with a neutral 'dominant foot' fetish will not use their feet in sex, unless your character has a positive desire towards the 'submissive foot' fetish.)</ul>"
+			+"<ul>Improved visibility of character-swapping positioning actions.</ul>"
+			+"<ul>Added finger to lower-half actions to the sex position slot where you're kneeling behind someone who's down on all fours.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed major issue where you wouldn't be able to request access to the harpy nests, nor ask about the side quest up there.</ul>"
+			+"<ul>Fixed issue where the game would freeze when selecting masturbation while having a positive desire towards exhibitionism, and also having a companion in your party.</ul>"
+			+"<ul>Fixed semi-major bug where the actions available in sex would not update correctly after switching position using the new positioning menu actions.</ul>"
+			+"<ul>Fixed numerous minor parsing errors, as well as incorrect description in anal actions, and incorrect parsing in prostate orgasm descriptions.</ul>"
+			+"<ul>Fixed taurs spawning in with crotch-boobs even if you'd turned them off in the content options.</ul>"
+			+"<ul>Fixed taurs having a 95% chance of appearing instead of 5%.</ul>"
+			+"<ul>Fixed incorrect sex title for masturbation.</ul>"
+			+"<ul>Fixed horse-morphs as being described as being present on the streets of Dominion during an arcane storm.</ul>"
+			+"<ul>Candi no longer behaves as though she was satisfied from sex immediately after a sex scene in which you didn't let her orgasm.</ul>"
+			+"<ul>The positioning menu actions now correctly work in the prologue's sex scene.</ul>"
+			+"<ul>Fixed issue where the game would freeze after Rose's hand-holding scene (and any other sex scene in which no 'real' sex interactions were performed).</ul>"
+			+"<ul>Fixed being able to interact with characters on the other end of a taur when you were spitroasting said taur, and improved action availability between these slots for when the in-between character is a non-taur.</ul>"
+			+"<ul>Fixed positioning menu actions not being available when targeting characters who were on the same dom/sub 'side' as you.</ul>"
+			+"<ul>Clothing now shows up in every category into which it can be equipped when using the debug menu's spawn menu. (Type 'buggy' when standing on a neutral tile to open the debug menu.)</ul>"
+			+"<ul>Fixed issue where the sex slot descriptions being displayed beneath each character's name would sometimes be incorrect on the first turn of sex.</ul>"
+			+"<ul>Fixed expanded positioning actions not being available when in the sitting position.</ul>"
+			+"<ul>Fixed Ms. Cunningham's 'Perform cunnilingus' action causing a softlock if you were a taur.</ul>"
+			+"<ul>If she's unable to access your ass, Vicky should now prefer to use your vagina, if you have one, instead of penetrating herself on your cock.</ul>"
+			+"<ul>Fixed new positioning menu actions not causing sex to calculate a turn correctly when selected.</ul>"
+			+"<ul>Debug menu's 'Reveal maps' action now correctly unlocks all maps to be viewed in the maps screen.</ul>"
+			+"<ul>Fixed cause of a bug where duplicate 'Arthur's home' tiles could be created in Demon Home. (Also the game will delete any duplicates in your save file when loading into this version.)</ul>"
+			+"<ul>The cultists which spawn during October can now appear on tiles which have friendly occupants living on them. (So that they can now spawn even if you've filled Dominion with friendly characters.)</ul>"
+			+"<ul>Fixed bug where setting your birthday in the character creation would allow the year to go past the boundaries.</ul>"
+			+"<ul>Lyssieth now correctly always creampies Lilaya/Meraxis during their demon TF scenes.</ul>"
+			+"<ul>Fixed bug where Lyssieth would transform her penis away between the scenes in which she corrupts Lilaya and Meraxis.</ul>"
+			+"<ul>Fixed issue where the 'degrading talk' sex action was never available.</ul>"
+			+"<ul>The new taur spawn preference setting is now correctly saved in your properties file, so you don't have to set it every time the game is restarted.</ul>"
+			+"<ul>When being transformed into a demon, your anus, nipples, vagina, and penis now correctly transform to have the same colour as your new demonic skin.</ul>"
+		+ "</list>"
+
+		+ "<br/>"
 		+ "<list>"
 			+ "<h6>v0.3.4</h6>"
 			+"<li>Gameplay:</li>"

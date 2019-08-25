@@ -1674,11 +1674,13 @@ public class Sex {
 		
 		positionActionsPlayer.sort((a1, a2) -> 
 		a1.getActionType()==SexActionType.POSITIONING_MENU
-				?a2.getActionType()==SexActionType.POSITIONING_MENU
-					?a1.getActionTitle().compareTo(a2.getActionTitle())
-					:-1
-				:a2.getActionType()!=SexActionType.POSITIONING_MENU && a1.isPositionSwap()
-					?-1
+			?a2.getActionType()==SexActionType.POSITIONING_MENU
+				?a1.getActionTitle().compareTo(a2.getActionTitle())
+				:-1
+			:a2.getActionType()!=SexActionType.POSITIONING_MENU && a1.isPositionSwap()
+				?-1
+				:a1.getActionType()!=SexActionType.POSITIONING_MENU && a2.isPositionSwap()
+					?1
 					:a1.getActionTitle().compareTo(a2.getActionTitle()));
 		
 		if(Sex.getTotalParticipantCount(false)>2) {
