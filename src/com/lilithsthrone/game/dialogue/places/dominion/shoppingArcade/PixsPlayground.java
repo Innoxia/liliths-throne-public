@@ -1,6 +1,9 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import java.util.List;
+
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.npc.dominion.Pix;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -10,8 +13,11 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.managers.dominion.SMPixShowerTime;
-import com.lilithsthrone.game.sex.managers.universal.SMFaceToWall;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.managers.universal.SMAgainstWall;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -525,12 +531,24 @@ public class PixsPlayground {
 			if (index == 1) {
 				if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
 					return new Response("Pix's reward",
-							"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'...", // OR DO YOU?! :D
-							GYM_PIX_ASSAULT);
+							"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'...",
+							GYM_PIX_ASSAULT) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().cleanAllDirtySlots();
+							Main.game.getNpc(Pix.class).cleanAllDirtySlots();
+						}
+					};
 				} else {
 					return new Response("Pix's reward",
 							"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'...",
-							GYM_PIX_ASSAULT_CONSENSUAL);
+							GYM_PIX_ASSAULT_CONSENSUAL) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().cleanAllDirtySlots();
+							Main.game.getNpc(Pix.class).cleanAllDirtySlots();
+						}
+					};
 				}
 				
 			} else 
@@ -576,8 +594,8 @@ public class PixsPlayground {
 						"Tell Pix that you're far too tired to do any more physical exercise right now.",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotUnique.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_TOO_TIRED"));
 				
@@ -586,8 +604,8 @@ public class PixsPlayground {
 						"Tell Pix that you can make it up to her right now...",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotUnique.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_OFFER_SEX"));
 				
@@ -596,15 +614,15 @@ public class PixsPlayground {
 						"Apologise to Pix and accept her punishment.",
 						false, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotUnique.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_ACCEPT_PUNISHMENT"));
 				
 			} else if(index==4) {
 				if(Main.game.getPlayer().getHealthPercentage()<0.4f) {
 					return new Response("Break free",
-							"You simply don't have enough energy left to try and break free! You need at least 40% energy for this ("+(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4)+")",
+							"You simply don't have enough energy left to try and break free! You need at least 40% "+Attribute.HEALTH_MAXIMUM.getName()+" for this ("+(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4)+")",
 							null);
 					
 				} else {
@@ -622,24 +640,24 @@ public class PixsPlayground {
 					
 				} else if(Main.game.getPlayer().getHealthPercentage()<0.4f) {
 					return new Response("Turn Tables",
-							"You simply don't have enough energy left to try and turn the tables on Pix! You need at least 40% energy for this ("+(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4)+")",
+							"You simply don't have enough energy left to try and turn the tables on Pix! You need at least 40% "+Attribute.HEALTH_MAXIMUM.getName()+" for this ("+(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4)+")",
 							null);
 					
 				} else {
 					return new ResponseSex("Turn Tables",
 							"Use the energy that you've saved by holding back during your exercise to break free from Pix, and then turn the tables on her...",
 							false, false,
-							new SMFaceToWall(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL))) {
+							new SMAgainstWall(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAgainstWall.STANDING_WALL)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotAgainstWall.FACE_TO_WALL))) {
 								@Override
-								public boolean isPlayerStartNaked() {
+								public boolean isCharacterStartNaked(GameCharacter character) {
 									return true;
 								}
-		
 								@Override
-								public boolean isPartnerStartNaked() {
-									return true;
+								public List<AbstractSexPosition> getAllowedSexPositions() {
+									return Util.newArrayListOfValues(
+											SexPositionOther.AGAINST_WALL);
 								}
 							},
 							null,
@@ -731,8 +749,8 @@ public class PixsPlayground {
 						"Let Pix have her fun with you.",
 						true, false,
 						new SMPixShowerTime(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotBipeds.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Pix.class), SexSlotUnique.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
 						null,
 						null, PIX_POST_SEX_CONSENSUAL, UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_CONSENSUAL_START"));
 				

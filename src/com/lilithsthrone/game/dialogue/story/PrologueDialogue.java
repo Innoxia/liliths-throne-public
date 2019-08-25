@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.controller.MainController;
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
@@ -411,6 +412,8 @@ public class PrologueDialogue {
 						MainController.updateUI();
 						
 						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+						
+						Main.game.getPlayer().setAgeAppearanceDifference(-Game.TIME_SKIP_YEARS);
 					}
 				};
 			} else {

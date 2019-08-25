@@ -149,9 +149,9 @@ public class DominionSuccubusAttacker extends NPC {
 	@Override
 	public void endSex() {
 		if(!isSlave()) {
-			if(this.getGender()!=this.getGenderIdentity() && !this.isPregnant()) {
-				this.setPendingTransformationToGenderIdentity(true);
-			}
+//			if(this.getGender()!=this.getGenderIdentity() && !this.isPregnant()) {
+//				this.setPendingTransformationToGenderIdentity(true);
+//			}
 			setPendingClothingDressing(true);
 		}
 	}
@@ -223,7 +223,7 @@ public class DominionSuccubusAttacker extends NPC {
 				
 			} else if (!target.isPlayer()){
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
-				if(clothing!=null && clothing.getClothingType().isCondom()) {
+				if(clothing!=null && clothing.getClothingType().isCondom(clothing.getClothingType().getEquipSlots().get(0))) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
 				}
 				return UtilText.parse(equipper, target,

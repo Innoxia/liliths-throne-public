@@ -115,6 +115,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
@@ -240,6 +241,34 @@ public class MainControllerInitMethod {
 					"Export Character",
 					"Export the currently displayed character to the 'data/characters' folder. Exported characters can be imported at the auction block in Slaver Alley."), false);
 		}
+		
+		if(Main.game.isInCombat()) {
+			for(GameCharacter combatant : Combat.getAllCombatants(true)) {
+				for(DamageType dt : DamageType.values()) {
+					id = combatant.getId()+"_COMBAT_SHIELD_"+dt;
+					
+					if (MainController.document.getElementById(id) != null) {
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+								Util.capitaliseSentence(dt.getName())+" shielding",
+								dt==DamageType.HEALTH
+									? UtilText.parse(combatant, "[npc.Name] will block incoming damage from any non-lust source by this amount."
+											+ " Other damage type shielding will be used first, with health shielding used as the last resort."
+											+ " Negative values have no effect.")
+									: dt!=DamageType.LUST
+										? UtilText.parse(combatant, "[npc.Name] will block incoming "+dt.getName()+" damage by this amount."
+												+ " Once this shielding is broken, health shielding will be used, and once that's broken, damage will be dealt [npc.her] health."
+												+ " Negative values have no effect.")
+										: UtilText.parse(combatant, "[npc.Name] will block incoming "+dt.getName()+" damage by this amount."
+												+ " Once this shielding is broken, incoming "+dt.getName()+" damage will cause [npc.her] lust to rise."
+												+ " Negative values have no effect.")),
+								false);
+					}
+				}
+			}
+		}
 
 		if(Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU)
 				|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER)
@@ -356,7 +385,7 @@ public class MainControllerInitMethod {
 		
 		// -------------------- Debug menu -------------------- //
 		
-		if(Main.game.getCurrentDialogueNode().equals(DebugDialogue.SPAWN_MENU) || Main.game.getCurrentDialogueNode().equals(DebugDialogue.ALL_ITEMS_VIEW)) {
+		if(Main.game.getCurrentDialogueNode().equals(DebugDialogue.SPAWN_MENU) || Main.game.getCurrentDialogueNode().equals(DebugDialogue.ITEM_VIEWER)) {
 			id = "";
 			
 			for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
@@ -1266,7 +1295,7 @@ public class MainControllerInitMethod {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveSurnameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() == 0
+								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
 										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
 									unsuitableName = true;
 								else {
@@ -2330,7 +2359,40 @@ public class MainControllerInitMethod {
 				}
 				
 				
-			
+				// Height:
+				id = "AGE_APPEARANCE_INCREASE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().setAgeAppearanceDifferenceToAppearAsAge(Math.max(18, Math.min(BodyChanging.getTarget().getAppearsAsAgeValue()+1, BodyChanging.getTarget().getAgeValue()+10)));
+						System.out.println(
+								BodyChanging.getTarget().getName()+" "+BodyChanging.getTarget().getAgeAppearanceDifference()+" "+BodyChanging.getTarget().getAppearsAsAgeValue()
+								+" ("+(BodyChanging.getTarget().getAgeValue() + BodyChanging.getTarget().getAgeAppearanceDifference())+")");
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "AGE_APPEARANCE_INCREASE_LARGE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().setAgeAppearanceDifferenceToAppearAsAge(Math.max(18, Math.min(BodyChanging.getTarget().getAppearsAsAgeValue()+5, BodyChanging.getTarget().getAgeValue()+10)));
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "AGE_APPEARANCE_DECREASE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().setAgeAppearanceDifferenceToAppearAsAge(Math.max(18, Math.min(BodyChanging.getTarget().getAppearsAsAgeValue()-1, BodyChanging.getTarget().getAgeValue()+10)));
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "AGE_APPEARANCE_DECREASE_LARGE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().setAgeAppearanceDifferenceToAppearAsAge(Math.max(18, Math.min(BodyChanging.getTarget().getAppearsAsAgeValue()-5, BodyChanging.getTarget().getAgeValue()+10)));
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				
+				
 				// Height:
 				id = "HEIGHT_INCREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -4669,11 +4731,12 @@ public class MainControllerInitMethod {
 
 			
 			for(AbstractPerk perk : Perk.getAllPerks()) {
-				GameCharacter character = Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP
-						?Main.game.getPlayer()
-						:(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS
-							?OccupantManagementDialogue.characterSelected()
-							:CharactersPresentDialogue.characterViewed);
+				GameCharacter character =
+						(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP || Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_APPEARANCE)
+							?Main.game.getPlayer()
+							:(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS
+								?OccupantManagementDialogue.characterSelected()
+								:CharactersPresentDialogue.characterViewed);
 
 				boolean availableForSelection =
 						Main.game.getCurrentDialogueNode() != PhoneDialogue.CONTACTS_CHARACTER
@@ -5084,6 +5147,72 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, "furry_preference_human_encounter_four", "mouseenter", el, false);
 			}
 			
+			// Taur furry spawns:
+			if (((EventTarget) MainController.document.getElementById("taur_furry_preference_zero")) != null) {
+				((EventTarget) MainController.document.getElementById("taur_furry_preference_zero")).addEventListener("click", e -> {
+					Main.getProperties().taurFurryLevel=0;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				MainController.addEventListener(MainController.document, "taur_furry_preference_zero", "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, "taur_furry_preference_zero", "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Disabled",
+						"The only randomly generated NPCs to be spawned as taurs will be those that are of a taur-specific race (and as such, you can set their spawn rate in the detailed menu below).");
+				MainController.addEventListener(MainController.document, "taur_furry_preference_zero", "mouseenter", el, false);
+			}
+			if (((EventTarget) MainController.document.getElementById("taur_furry_preference_one")) != null) {
+				((EventTarget) MainController.document.getElementById("taur_furry_preference_one")).addEventListener("click", e -> {
+					Main.getProperties().taurFurryLevel=1;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				MainController.addEventListener(MainController.document, "taur_furry_preference_one", "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, "taur_furry_preference_one", "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Normal",
+						"There will be a 5% chance for any randomly spawned NPC to be a taur, and they will always have a human upper-body.");
+				MainController.addEventListener(MainController.document, "taur_furry_preference_one", "mouseenter", el, false);
+			}
+			if (((EventTarget) MainController.document.getElementById("taur_furry_preference_two")) != null) {
+				((EventTarget) MainController.document.getElementById("taur_furry_preference_two")).addEventListener("click", e -> {
+					Main.getProperties().taurFurryLevel=2;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				MainController.addEventListener(MainController.document, "taur_furry_preference_two", "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, "taur_furry_preference_two", "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Lesser",
+						"There will be a 5% chance for any randomly spawned NPC to be a taur, and they will always have the upper-body of a lesser morph (so just eyes, ears, horns will be non-human).");
+				MainController.addEventListener(MainController.document, "taur_furry_preference_two", "mouseenter", el, false);
+			}
+			if (((EventTarget) MainController.document.getElementById("taur_furry_preference_three")) != null) {
+				((EventTarget) MainController.document.getElementById("taur_furry_preference_three")).addEventListener("click", e -> {
+					Main.getProperties().taurFurryLevel=3;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				MainController.addEventListener(MainController.document, "taur_furry_preference_three", "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, "taur_furry_preference_three", "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Untouched Conversion",
+						"There will be a 5% chance for any randomly spawned NPC to be a taur, and their upper body's furriness will be based on your furry preferences below.");
+				MainController.addEventListener(MainController.document, "taur_furry_preference_three", "mouseenter", el, false);
+			}
+			if (((EventTarget) MainController.document.getElementById("taur_furry_preference_four")) != null) {
+				((EventTarget) MainController.document.getElementById("taur_furry_preference_four")).addEventListener("click", e -> {
+					Main.getProperties().taurFurryLevel=4;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				MainController.addEventListener(MainController.document, "taur_furry_preference_four", "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, "taur_furry_preference_four", "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation("Always Greater",
+						"There will be a 5% chance for any randomly spawned NPC to be a taur, and their upper body will always be fully furry.");
+				MainController.addEventListener(MainController.document, "taur_furry_preference_four", "mouseenter", el, false);
+			}
 			
 			// Forced TF racial limits:
 			id = "forced_tf_limit_human";
@@ -5159,8 +5288,8 @@ public class MainControllerInitMethod {
 			
 			
 			// Race preferences:
-			if (((EventTarget) MainController.document.getElementById("furry_preference_female_human_all")) != null) {
-				((EventTarget) MainController.document.getElementById("furry_preference_female_human_all")).addEventListener("click", e -> {
+			if (((EventTarget) MainController.document.getElementById("furry_preference_human_all")) != null) {
+				((EventTarget) MainController.document.getElementById("furry_preference_human_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
 						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
 						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);
@@ -5169,8 +5298,8 @@ public class MainControllerInitMethod {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
-			if (((EventTarget) MainController.document.getElementById("furry_preference_female_minimum_all")) != null) {
-				((EventTarget) MainController.document.getElementById("furry_preference_female_minimum_all")).addEventListener("click", e -> {
+			if (((EventTarget) MainController.document.getElementById("furry_preference_minimum_all")) != null) {
+				((EventTarget) MainController.document.getElementById("furry_preference_minimum_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
 						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MINIMUM);
 						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MINIMUM);
@@ -5179,8 +5308,8 @@ public class MainControllerInitMethod {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
-			if (((EventTarget) MainController.document.getElementById("furry_preference_female_reduced_all")) != null) {
-				((EventTarget) MainController.document.getElementById("furry_preference_female_reduced_all")).addEventListener("click", e -> {
+			if (((EventTarget) MainController.document.getElementById("furry_preference_reduced_all")) != null) {
+				((EventTarget) MainController.document.getElementById("furry_preference_reduced_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
 						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.REDUCED);
 						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.REDUCED);
@@ -5189,8 +5318,8 @@ public class MainControllerInitMethod {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
-			if (((EventTarget) MainController.document.getElementById("furry_preference_female_normal_all")) != null) {
-				((EventTarget) MainController.document.getElementById("furry_preference_female_normal_all")).addEventListener("click", e -> {
+			if (((EventTarget) MainController.document.getElementById("furry_preference_normal_all")) != null) {
+				((EventTarget) MainController.document.getElementById("furry_preference_normal_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
 						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.NORMAL);
 						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.NORMAL);
@@ -5199,8 +5328,8 @@ public class MainControllerInitMethod {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
-			if (((EventTarget) MainController.document.getElementById("furry_preference_female_maximum_all")) != null) {
-				((EventTarget) MainController.document.getElementById("furry_preference_female_maximum_all")).addEventListener("click", e -> {
+			if (((EventTarget) MainController.document.getElementById("furry_preference_maximum_all")) != null) {
+				((EventTarget) MainController.document.getElementById("furry_preference_maximum_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
 						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
 						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
@@ -5326,13 +5455,7 @@ public class MainControllerInitMethod {
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.CONTENT_PREFERENCE
 				|| Main.game.getCurrentDialogueNode() == CharacterCreation.CONTENT_PREFERENCES
 				|| Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS) {
-			createToggleListener("ARTWORK_ON", PropertyValue.artwork, true);
-			createToggleListener("ARTWORK_OFF", PropertyValue.artwork, false);
-			createToggleListener("SILLY_ON", PropertyValue.sillyMode, true);
-			createToggleListener("SILLY_OFF", PropertyValue.sillyMode, false);
-			createToggleListener("THUMBNAIL_ON", PropertyValue.thumbnail, true);
-			createToggleListener("THUMBNAIL_OFF", PropertyValue.thumbnail, false);
-
+			
 			for(Artist artist : Artwork.allArtists) {
 				id = "ARTIST_"+artist.getFolderName();
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -5365,9 +5488,13 @@ public class MainControllerInitMethod {
 			}
 			
 			Map<String, PropertyValue> settingsMap = Util.newHashMapOfValues(
+					new Value<>("ENCHANTMENT_LIMITS", PropertyValue.enchantmentLimits),
 					new Value<>("ARTWORK", PropertyValue.artwork),
+					new Value<>("THUMBNAIL", PropertyValue.thumbnail),
+					new Value<>("SILLY", PropertyValue.sillyMode),
 					new Value<>("AUTO_SEX_CLOTHING_MANAGEMENT", PropertyValue.autoSexClothingManagement),
 					new Value<>("NON_CON", PropertyValue.nonConContent),
+					new Value<>("SADISTIC_SEX", PropertyValue.sadisticSexContent),
 					new Value<>("VOLUNTARY_NTR", PropertyValue.voluntaryNTR),
 					new Value<>("INVOLUNTARY_NTR", PropertyValue.involuntaryNTR),
 					new Value<>("INCEST", PropertyValue.incestContent),
@@ -5699,7 +5826,8 @@ public class MainControllerInitMethod {
 		// Save/load:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD) {
 			for (File f : Main.getSavedGames()) {
-				String fileIdentifier = f.getName().substring(0, f.getName().lastIndexOf('.'));
+				String fileIdentifier = Util.getFileIdentifier(f);
+				String fileName = Util.getFileName(f);
 				
 				id = "overwrite_saved_" + fileIdentifier;
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -5707,7 +5835,7 @@ public class MainControllerInitMethod {
 						
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || OptionsDialogue.overwriteConfirmationName.equals(f.getName())) {
 							OptionsDialogue.overwriteConfirmationName = "";
-							Main.saveGame(fileIdentifier, true);
+							Main.saveGame(fileName, true);
 						} else {
 							OptionsDialogue.overwriteConfirmationName = f.getName();
 							OptionsDialogue.loadConfirmationName = "";
@@ -5738,7 +5866,8 @@ public class MainControllerInitMethod {
 						
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || OptionsDialogue.loadConfirmationName.equals(f.getName())) {
 							OptionsDialogue.loadConfirmationName = "";
-							Main.loadGame(fileIdentifier);
+							Main.loadGame(fileName);
+//							Main.loadGame(f);
 						} else {
 							OptionsDialogue.overwriteConfirmationName = "";
 							OptionsDialogue.loadConfirmationName = f.getName();
@@ -5759,7 +5888,7 @@ public class MainControllerInitMethod {
 						
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || OptionsDialogue.deleteConfirmationName.equals(f.getName())) {
 							OptionsDialogue.deleteConfirmationName = "";
-							Main.deleteGame(fileIdentifier);
+							Main.deleteGame(fileName);
 						} else {
 							OptionsDialogue.overwriteConfirmationName = "";
 							OptionsDialogue.loadConfirmationName = "";
@@ -5803,7 +5932,8 @@ public class MainControllerInitMethod {
 		// Import:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.IMPORT_EXPORT) {
 			for (File f : Main.getCharactersForImport()) {
-				String fileIdentifier = f.getName().substring(0, f.getName().lastIndexOf('.'));
+				String fileIdentifier = Util.getFileIdentifier(f);
+				String fileName = Util.getFileName(f);
 				
 				id = "delete_saved_character_" + fileIdentifier;
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -5811,7 +5941,7 @@ public class MainControllerInitMethod {
 						
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || OptionsDialogue.deleteConfirmationName.equals(f.getName())) {
 							OptionsDialogue.deleteConfirmationName = "";
-							Main.deleteExportedCharacter(fileIdentifier);
+							Main.deleteExportedCharacter(fileName);
 						} else {
 							OptionsDialogue.overwriteConfirmationName = "";
 							OptionsDialogue.loadConfirmationName = "";
@@ -5838,7 +5968,7 @@ public class MainControllerInitMethod {
 		
 		if (Main.game.getCurrentDialogueNode() == CharacterCreation.IMPORT_CHOOSE) {
 			for (File f : Main.getCharactersForImport()) {
-				String fileIdentifier = f.getName().substring(0, f.getName().lastIndexOf('.'));
+				String fileIdentifier = Util.getFileIdentifier(f);
 				
 				if (((EventTarget) MainController.document.getElementById("character_import_" + fileIdentifier )) != null) {
 					((EventTarget) MainController.document.getElementById("character_import_" + fileIdentifier )).addEventListener("click", e -> {
@@ -5852,13 +5982,14 @@ public class MainControllerInitMethod {
 		// Slave import:
 		if (Main.game.getCurrentDialogueNode() == SlaverAlleyDialogue.AUCTION_IMPORT) {
 			for (File f : Main.getSlavesForImport()) {
-				String fileIdentifier = f.getName().substring(0, f.getName().lastIndexOf('.'));
+				String fileIdentifier = Util.getFileIdentifier(f);
+				String fileName = Util.getFileName(f);
 				
 				if (((EventTarget) MainController.document.getElementById("import_slave_" + fileIdentifier )) != null) {
 					((EventTarget) MainController.document.getElementById("import_slave_" + fileIdentifier )).addEventListener("click", e -> {
 						
 						try {
-							Game.importCharacterAsSlave(fileIdentifier);
+							Game.importCharacterAsSlave(fileName);
 							MainController.updateUI();
 							Main.game.flashMessage(Colour.GENERIC_GOOD, "Imported Character!");
 						
@@ -5904,7 +6035,8 @@ public class MainControllerInitMethod {
 		// Save/load enchantment:
 		if (Main.game.getCurrentDialogueNode() == EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD) {
 			for (File f : EnchantmentDialogue.getSavedEnchants()) {
-				String fileIdentifier = f.getName().substring(0, f.getName().lastIndexOf('.'));
+				String fileIdentifier = Util.getFileIdentifier(f);
+				String fileName = Util.getFileName(f);
 				
 				id = "overwrite_saved_" + fileIdentifier;
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -5912,7 +6044,7 @@ public class MainControllerInitMethod {
 						
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || EnchantmentDialogue.overwriteConfirmationName.equals(f.getName())) {
 							EnchantmentDialogue.overwriteConfirmationName = "";
-							EnchantmentDialogue.saveEnchant(fileIdentifier, true);
+							EnchantmentDialogue.saveEnchant(fileName, true);
 							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
 							
 						} else {
@@ -5935,7 +6067,7 @@ public class MainControllerInitMethod {
 						
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || EnchantmentDialogue.loadConfirmationName.equals(f.getName())) {
 							EnchantmentDialogue.loadConfirmationName = "";
-							LoadedEnchantment lEnch = EnchantmentDialogue.loadEnchant(fileIdentifier);
+							LoadedEnchantment lEnch = EnchantmentDialogue.loadEnchant(fileName);
 							
 							EnchantmentDialogue.resetNonTattooEnchantmentVariables();
 							EnchantmentDialogue.initModifiers(lEnch.getSuitableItem());
@@ -5966,7 +6098,7 @@ public class MainControllerInitMethod {
 						
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || EnchantmentDialogue.deleteConfirmationName.equals(f.getName())) {
 							EnchantmentDialogue.deleteConfirmationName = "";
-							EnchantmentDialogue.deleteEnchant(fileIdentifier);
+							EnchantmentDialogue.deleteEnchant(fileName);
 							EnchantmentDialogue.initSaveLoadMenu();
 							Main.game.setContent(new Response("Save/Load", ".", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
 							
@@ -6167,7 +6299,7 @@ public class MainControllerInitMethod {
 								case ANUS:
 									Main.game.getTextEndStringBuilder().append(UtilText.parse(MilkingRoom.getTargetedCharacter(),
 												"Wanting to pump [npc.namePos] [npc.ass+] full of "+fluidOwnerName+" "+fluidName+", you instruct [npc.herHim] to"
-													+ (MilkingRoom.getTargetedCharacter().getLegConfiguration().isBipedalPositionedGenitals() && MilkingRoom.getTargetedCharacter().getGenitalArrangement()==GenitalArrangement.NORMAL
+													+ (!MilkingRoom.getTargetedCharacter().isTaur() && MilkingRoom.getTargetedCharacter().getGenitalArrangement()==GenitalArrangement.NORMAL
 															?" bend over before you."
 															:" kneel down and present [npc.herself] to you.")
 												+ " As soon as [npc.her] [npc.asshole+] is fully on display, you grab one of the free tubes connected to your selected vat of fluid,"
@@ -6190,7 +6322,7 @@ public class MainControllerInitMethod {
 								case VAGINA:
 									Main.game.getTextEndStringBuilder().append(UtilText.parse(MilkingRoom.getTargetedCharacter(),
 											"Wanting to pump [npc.namePos] [npc.pussy+] full of "+fluidOwnerName+" "+fluidName+", you instruct [npc.herHim] to"
-												+ (MilkingRoom.getTargetedCharacter().getLegConfiguration().isBipedalPositionedGenitals() && MilkingRoom.getTargetedCharacter().getGenitalArrangement()==GenitalArrangement.NORMAL
+												+ (!MilkingRoom.getTargetedCharacter().isTaur() && MilkingRoom.getTargetedCharacter().getGenitalArrangement()==GenitalArrangement.NORMAL
 														?" sit down on a nearby chair and spread [npc.her] [npc.legs]."
 														:" kneel down and present [npc.herself] to you.")
 												+ " As soon as [npc.she] complies, and [npc.her] [npc.pussy+] is fully on display, you grab one of the free tubes connected to your selected vat of fluid,"

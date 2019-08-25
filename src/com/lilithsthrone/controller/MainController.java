@@ -40,10 +40,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.effects.PerkCategory;
-import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
-import com.lilithsthrone.game.character.effects.TreeEntry;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
@@ -54,6 +51,7 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
@@ -89,8 +87,8 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.ImageCache;
@@ -248,12 +246,16 @@ public class MainController implements Initializable {
 		}
 	}
 
+	public boolean isPhoneDisabled() {
+		return !Main.game.isStarted() || !Main.game.isInNewWorld();
+	}
+	
 	public void openPhone() {
 		openPhone(PhoneDialogue.MENU);
 	}
 	
 	public void openPhone(DialogueNode toDialogue) {
-		if(!Main.game.isStarted() || !Main.game.isInNewWorld()) {
+		if(isPhoneDisabled()) {
 			return;
 		}
 		
@@ -296,7 +298,7 @@ public class MainController implements Initializable {
 			
 		} else if(Main.game.isInCombat()) {
 			if(Combat.getTargetedCombatant(Main.game.getPlayer()).isPlayer()) {
-				openInventory(Combat.getEnemies().get(0), InventoryInteraction.COMBAT);
+				openInventory((NPC) Combat.getEnemies(Main.game.getPlayer()).get(0), InventoryInteraction.COMBAT);
 			} else {
 				openInventory((NPC) Combat.getTargetedCombatant(Main.game.getPlayer()), InventoryInteraction.COMBAT);
 			}
@@ -456,9 +458,9 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-							Pathing.aStarPathingPerkTree(PerkManager.MANAGER.getPerkTree(Main.game.getPlayer()),
-									new TreeEntry<PerkCategory, AbstractPerk>(PerkCategory.PHYSICAL, 1, Perk.PHYSICAL_BASE),
-									new TreeEntry<PerkCategory, AbstractPerk>(PerkCategory.ARCANE, 10, Perk.ARCANE_VAMPYRISM));
+//							Pathing.aStarPathingPerkTree(PerkManager.MANAGER.getPerkTree(Main.game.getPlayer()),
+//									new TreeEntry<PerkCategory, AbstractPerk>(PerkCategory.PHYSICAL, 1, Perk.PHYSICAL_BASE),
+//									new TreeEntry<PerkCategory, AbstractPerk>(PerkCategory.ARCANE, 10, Perk.ARCANE_VAMPYRISM));
 						}
 						 
 
@@ -687,7 +689,7 @@ public class MainController implements Initializable {
 									 
 										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveSurnameInput').value;");
 										if(Main.mainController.getWebEngine().getDocument()!=null) {
-											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() == 0
+											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
 															|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 										}
 										
@@ -1422,7 +1424,7 @@ public class MainController implements Initializable {
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
 					Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName()),
 					"The total amount of weapon, clothing, and tattoo attribute enchantments you're able to handle without incurring massive penalties."
-					+" Your maximum is calculated from: <i>10 + (level) + (perk gains)</i>");
+					+" Your limit is calculated from: <i>10 + (level) + (perk gains)</i>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
@@ -1451,11 +1453,12 @@ public class MainController implements Initializable {
 			String day = Main.game.getDateNow().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Calendar Display",
 					"Toggle the date's display between a calendar and day count.<br/>"
-						+ "The current date is: <b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
-						+ Main.game.getDisplayDate(true)
-						+"</b><br/>"
-						+ "It is currently <b>"+UtilText.generateSingularDeterminer(day)+" "+day+"</b>.<br/>"
-						+ "You've been in this new world for: <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b>");
+						+ (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate) && Main.game.isInNewWorld()
+								?"[style.italicsMinorBad(Look at the calendar in your room to reveal the date!)]"
+								:"The current date is: [style.colourGood("+ Main.game.getDisplayDate(true)+")]")
+						+ "<br/>"
+						+ "It is currently "+UtilText.generateSingularDeterminer(day)+" [style.colourBlueLight("+day+")].<br/>"
+						+ "You've been in this new world for: [style.colourExcellent("+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+")]");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
@@ -1503,7 +1506,7 @@ public class MainController implements Initializable {
 			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants(true).keySet());
 		} else if(Main.game.isInCombat()) {
 			charactersBeingRendered.add(Main.game.getPlayer());
-			charactersBeingRendered.addAll(Combat.getAllies());
+			charactersBeingRendered.addAll(Combat.getAllies(Main.game.getPlayer()));
 		} else {
 			if(Main.game.getPlayer()!=null) {
 				charactersBeingRendered.add(Main.game.getPlayer());
@@ -1856,7 +1859,7 @@ public class MainController implements Initializable {
 			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants(true).keySet());
 			
 		} else if(Main.game.isInCombat()) {
-			charactersBeingRendered.addAll(Combat.getEnemies());
+			charactersBeingRendered.addAll(Combat.getEnemies(Main.game.getPlayer()));
 			
 		} else if(RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
 			charactersBeingRendered.add(RenderingEngine.getCharacterToRender());
@@ -2098,6 +2101,8 @@ public class MainController implements Initializable {
 		if (lastKeysEqual(KeyCode.B, KeyCode.U, KeyCode.G, KeyCode.G, KeyCode.Y)) {
 			if(Main.game!=null) {
 				if(Main.game.isStarted() && Main.game.isInNewWorld() && Main.game.isPrologueFinished()) {
+					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+					Main.game.saveDialogueNode();
 					Main.game.setContent(new Response("", "", DebugDialogue.DEBUG_MENU));
 				} else {
 					Main.game.flashMessage(Colour.GENERIC_BAD, "Unavailable in prologue!");
@@ -2120,13 +2125,13 @@ public class MainController implements Initializable {
 				if(Main.game.isStarted()
 						&& Main.game.isInNewWorld()
 						&& Main.game.isInCombat()
-						&& Combat.getAllCombatants().size()==1
-						&& !Combat.getEnemies().get(0).isUnique()
+						&& Combat.getAllCombatants(false).size()==1
+						&& !Combat.getEnemies(Main.game.getPlayer()).get(0).isUnique()
 						&& Main.game.getPlayer().hasPenis()
 						&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
-						&& Combat.getEnemies().get(0).hasVagina()
-						&& Combat.getEnemies().get(0).isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-					GameCharacter target = Combat.getEnemies().get(0);
+						&& Combat.getEnemies(Main.game.getPlayer()).get(0).hasVagina()
+						&& Combat.getEnemies(Main.game.getPlayer()).get(0).isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					GameCharacter target = Combat.getEnemies(Main.game.getPlayer()).get(0);
 					Combat.endCombat(true);
 //					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
 					Main.game.setContent(new ResponseSex(
@@ -2135,15 +2140,15 @@ public class MainController implements Initializable {
 							false,
 							false,
 							new SexManagerDefault(
-									SexPositionBipeds.MATING_PRESS,
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MATING_PRESS_TOP)),
-									Util.newHashMapOfValues(new Value<>(target, SexSlotBipeds.MATING_PRESS_BOTTOM))) {
+									SexPositionOther.LYING_DOWN,
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MATING_PRESS)),
+									Util.newHashMapOfValues(new Value<>(target, SexSlotLyingDown.LYING_DOWN))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
 								}
 								@Override
-								public boolean isPlayerAbleToSwapPositions() {
+								public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 									return false;
 								}
 								@Override
@@ -2198,13 +2203,13 @@ public class MainController implements Initializable {
 				if(Main.game.isStarted()
 						&& Main.game.isInNewWorld()
 						&& Main.game.isInCombat()
-						&& Combat.getAllCombatants().size()==1
-						&& !Combat.getEnemies().get(0).isUnique()
-						&& Combat.getEnemies().get(0).hasPenis()
-						&& Combat.getEnemies().get(0).isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
+						&& Combat.getAllCombatants(false).size()==1
+						&& !Combat.getEnemies(Main.game.getPlayer()).get(0).isUnique()
+						&& Combat.getEnemies(Main.game.getPlayer()).get(0).hasPenis()
+						&& Combat.getEnemies(Main.game.getPlayer()).get(0).isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
 						&& Main.game.getPlayer().hasVagina()
 						&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-					GameCharacter target = Combat.getEnemies().get(0);
+					GameCharacter target = Combat.getEnemies(Main.game.getPlayer()).get(0);
 					Combat.endCombat(false);
 //					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
 					Main.game.setContent(new ResponseSex(
@@ -2213,15 +2218,15 @@ public class MainController implements Initializable {
 							false,
 							false,
 							new SexManagerDefault(
-									SexPositionBipeds.MATING_PRESS,
-									Util.newHashMapOfValues(new Value<>(target, SexSlotBipeds.MATING_PRESS_TOP)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MATING_PRESS_BOTTOM))) {
+									SexPositionOther.LYING_DOWN,
+									Util.newHashMapOfValues(new Value<>(target, SexSlotLyingDown.MATING_PRESS)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
 								}
 								@Override
-								public boolean isPlayerAbleToSwapPositions() {
+								public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 									return false;
 								}
 								@Override

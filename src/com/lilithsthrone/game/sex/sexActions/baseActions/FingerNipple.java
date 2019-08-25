@@ -239,10 +239,10 @@ public class FingerNipple {
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"[npc.Name] digs [npc.her] [npc.fingers+] into [npc2.namePos] [npc2.breasts+], before moving [npc.her] rough touch up to [npc2.her] [npc2.nipples+]."
+							"[npc.Name] [npc.verb(dig)] [npc.her] [npc.fingers+] into [npc2.namePos] [npc2.breasts+], before moving [npc.her] rough touch up to [npc2.her] [npc2.nipples+]."
 								+ " Forcefully pinching and squeezing [npc2.namePos] [npc2.nipples+], [npc.name] [npc.verb(let)] out a triumphant growl as [npc.she] [npc.verb(manage)] to draw out",
 
-							"With [npc.a_moan+], [npc.name] roughly digs [npc.her] [npc.fingers] into [npc2.namePos] [npc2.breasts+], before quickly moving down to roughly flick [npc2.her] [npc2.nipples+]."
+							"With [npc.a_moan+], [npc.name] roughly [npc.verb(dig)] [npc.her] [npc.fingers] into [npc2.namePos] [npc2.breasts+], before quickly moving down to roughly flick [npc2.her] [npc2.nipples+]."
 									+ " Dominantly pinching and squeezing at [npc2.namePos] [npc2.nipples+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(manage)] to draw out"));
 					break;
 				case SUB_RESISTING:

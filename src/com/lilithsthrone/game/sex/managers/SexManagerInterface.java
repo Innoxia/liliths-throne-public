@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -24,8 +25,9 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexSlot;
-import com.lilithsthrone.game.sex.positions.SexSlotGeneric;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -35,7 +37,7 @@ import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.4
  * @author Innoxia
  */
 public interface SexManagerInterface {
@@ -78,10 +80,6 @@ public interface SexManagerInterface {
 	public default String getStartSexDescription() {
 		return "";
 	}
-
-	public default boolean isPlayerAbleToSwapPositions() {
-		return true;
-	}
 	
 	public default SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
 		return character.getForeplayPreference(targetedCharacter);
@@ -117,6 +115,56 @@ public interface SexManagerInterface {
 	 */
 	public default boolean isSelfTransformDisabled(GameCharacter character) {
 		return false;
+	}
+
+	public default List<AbstractSexPosition> getAllowedSexPositions() {
+		List<AbstractSexPosition> positions = Util.newArrayListOfValues(
+				SexPositionOther.AGAINST_WALL,
+				SexPositionOther.ALL_FOURS,
+				SexPositionOther.LYING_DOWN,
+				SexPositionOther.STANDING);
+		
+		switch(Main.game.getPlayerCell().getType()) {
+			case ANGELS_KISS_FIRST_FLOOR:
+			case ANGELS_KISS_GROUND_FLOOR:
+			case CITY_HALL:
+			case DADDYS_APARTMENT:
+			case ENFORCER_HQ:
+			case GAMBLING_DEN:
+			case LILAYAS_HOUSE_FIRST_FLOOR:
+			case LILAYAS_HOUSE_GROUND_FLOOR:
+			case LYSSIETH_PALACE:
+			case MUSEUM:
+			case MUSEUM_LOST:
+			case SUPPLIER_DEN:
+			case ZARANIX_HOUSE_FIRST_FLOOR:
+			case ZARANIX_HOUSE_GROUND_FLOOR:
+				positions.add(SexPositionOther.OVER_DESK);
+				positions.add(SexPositionOther.SITTING);
+				break;
+			case BAT_CAVERNS:
+			case DOMINION:
+			case EMPTY:
+			case HARPY_NEST:
+			case IMP_FORTRESS_ALPHA:
+			case IMP_FORTRESS_DEMON:
+			case IMP_FORTRESS_FEMALES:
+			case IMP_FORTRESS_MALES:
+			case NIGHTLIFE_CLUB:
+			case SHOPPING_ARCADE:
+			case SLAVER_ALLEY:
+			case SLIME_QUEENS_LAIR_FIRST_FLOOR:
+			case SLIME_QUEENS_LAIR_GROUND_FLOOR:
+			case SUBMISSION:
+			case WORLD_MAP:
+				break;
+			
+		}
+		return positions;
+	}
+	
+	public default boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+		return character.isPlayer() && isPositionChangingAllowed(character);
 	}
 	
 	/**
@@ -230,29 +278,51 @@ public interface SexManagerInterface {
 	 * @return true if this character is able to remove other people's clothing in sex.
 	 */
 	public default boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
-		if(clothing!=null
-				&& !Sex.isDom(character)
-				&& clothing.getClothingType().isSexToy()) {
-			return false;
-		}
+		// Is now handled in SexManager as of v0.3.3.8
+//		if(clothing!=null
+//				&& !Sex.isDom(character)
+//				&& clothing.getClothingType().isSexToy()) {
+//			return false;
+//		}
 		
-		if(character.isPlayer()) {
-			return true;
-		}
+//		if(character.isPlayer()) {
+//			return true;
+//		}
+//		
+//		return Sex.getSexControl(character)==SexControl.FULL;
 		
-		return Sex.getSexControl(character)==SexControl.FULL;
+		// The only thing that should limit this is overridden special conditions:
+		return true;
 	}
 	
 	public default boolean isItemUseAvailable() {
 		return true;
 	}
 	
-	public default boolean isPlayerStartNaked() {
+	public default boolean isCharacterStartNaked(GameCharacter character) {
 		return false;
 	}
-
-	public default boolean isPartnerStartNaked() {
-		return false;
+	
+	/**
+	 * @return A mapping of characters to the areas which they should have exposed at the start of sex.
+	 *  The initial Boolean is to determine if clothing is to be removed (true), or displaced (false).
+	 *  The inner map's key is which area is to be exposed, while the value (a list of InventorySlots) corresponds to what slots should not be touched while exposing this area.
+	 *  To see how it's used, reference GameCharacter's displaceClothingForAccess() method.
+	 */
+	public default Map<Boolean, Map<GameCharacter, Map<CoverableArea, List<InventorySlot>>>> exposeAtStartOfSexMapExtendedInformation() {
+		Map<Boolean, Map<GameCharacter, Map<CoverableArea, List<InventorySlot>>>> map = new HashMap<>();
+		
+		map.put(false, new HashMap<>());
+		
+		for(Entry<GameCharacter, List<CoverableArea>> e : this.exposeAtStartOfSexMap().entrySet()) {
+			map.get(false).put(e.getKey(), new HashMap<>());
+			
+			for(CoverableArea c : e.getValue()) {
+				map.get(false).get(e.getKey()).put(c, null);
+			}
+		}
+			
+		return map;
 	}
 	
 	public default Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
@@ -265,6 +335,14 @@ public interface SexManagerInterface {
 	
 	public default boolean isPartnerUsingForeplayActions() {
 		return true;
+	}
+	
+	/**
+	 * @param character
+	 * @return The OrgasmBehaviour for this character. Normally returns DEFAULT, but can also return CREAMPIE or PULL_OUT, in which case the character will ignore requests and treat associated orgasm actions as having a SexActionPriority of UNIQUE_MAX.
+	 */
+	public default OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
+		return OrgasmBehaviour.DEFAULT;
 	}
 	
 	public default boolean isPublicSex() {
@@ -304,32 +382,52 @@ public interface SexManagerInterface {
 			}
 			
 			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
-					+ "A crowd of "+Util.stringsToStringList(raceNames, false)+" quickly forms around you and [npc.name], eager to watch your erotic display..."
+					+ (Sex.isMasturbation()
+							?"A crowd of "+Util.stringsToStringList(raceNames, false)+" quickly forms around you, eager to watch your erotic display..."
+							:"A crowd of "+Util.stringsToStringList(raceNames, false)+" quickly forms around you and [npc.name], eager to watch your erotic display...")
 					+ "</p>";
 			
 		} else {
 			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
-						+ "A crowd quickly forms around you and [npc.name], eager to watch your erotic display..."
+					+ (Sex.isMasturbation()
+							?""
+							:"A crowd quickly forms around you and [npc.name], eager to watch your erotic display...")
 					+ "</p>";
 		}
 	}
 	
 	public default String getRandomPublicSexDescription() {
-		return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
-					+UtilText.parse(Sex.getActivePartner(),
-							UtilText.returnStringAtRandom(
-							"The crowd of onlookers laugh and cheer as they look on.",
-							"You hear someone in the crowd wolf-whistling as they watch you having sex.",
-							"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance.",
-							"You hear the crowd that's gathered to watch you commenting on your performance.",
-							"You hear the crowd that's gathered to watch you commenting on [npc.namePos] performance.",
-							"Cheering and laughing, the crowd of onlookers watch as you continue having sex with [npc.name].",
-							"You glance across to see several members of the crowd touching themselves as they watch you and [npc.name] go at it.",
-							"The crowd cheers you on as you and [npc.name] carry on having sex in front of them.",
-							"The crowd laughs and cheers as you and [npc.name] carry on having sex in front of them.",
-							"Several members of the crowd shout and cheer as you and [npc.name] carry on having sex in front of them.",
-							"Several members of the crowd cheer you on as you and [npc.name] carry on having sex in front of them."))
-				+"</p>";
+		if(Sex.isMasturbation()) {
+			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+						+UtilText.parse(Sex.getActivePartner(),
+								UtilText.returnStringAtRandom(
+								"The crowd of onlookers laugh and cheer as they look on.",
+								"You hear someone in the crowd wolf-whistling as they watch you masturbating.",
+								"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance.",
+								"You hear the crowd that's gathered to watch you commenting on your performance.",
+								"Cheering and laughing, the crowd of onlookers watch as you continue masturbating.",
+								"You glance across to see several members of the crowd touching themselves as they watch you go at it.",
+								"The crowd cheers you on as you carry on masturbating in front of them.",
+								"Several members of the crowd shout and cheer as you carry on masturbating in front of them."))
+					+"</p>";
+			
+		} else {
+			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+						+UtilText.parse(Sex.getActivePartner(),
+								UtilText.returnStringAtRandom(
+								"The crowd of onlookers laugh and cheer as they look on.",
+								"You hear someone in the crowd wolf-whistling as they watch you having sex.",
+								"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance.",
+								"You hear the crowd that's gathered to watch you commenting on your performance.",
+								"You hear the crowd that's gathered to watch you commenting on [npc.namePos] performance.",
+								"Cheering and laughing, the crowd of onlookers watch as you continue having sex with [npc.name].",
+								"You glance across to see several members of the crowd touching themselves as they watch you and [npc.name] go at it.",
+								"The crowd cheers you on as you and [npc.name] carry on having sex in front of them.",
+								"The crowd laughs and cheers as you and [npc.name] carry on having sex in front of them.",
+								"Several members of the crowd shout and cheer as you and [npc.name] carry on having sex in front of them.",
+								"Several members of the crowd cheer you on as you and [npc.name] carry on having sex in front of them."))
+					+"</p>";
+		}
 	}
 	
 	public Map<GameCharacter, List<SexAreaInterface>> getAreasBannedMap();

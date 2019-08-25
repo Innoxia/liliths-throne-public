@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -13,6 +14,7 @@ import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerHQDialogue;
@@ -55,6 +57,7 @@ import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
 import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -332,22 +335,79 @@ public class PlaceType {
 	}.initMapBackgroundColour(Colour.MAP_BACKGROUND_PINK);
 	
 	public static final AbstractPlaceType DOMINION_DEMON_HOME_ARTHUR = new AbstractPlaceType(
-			"Demon Home",
+			"Demon Home (Arthur)",
 			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
-			"dominion/demonHomeIcon",
+			"dominion/demonHomeArthurIcon",
 			BaseColour.PINK,
 			DemonHome.DEMON_HOME_STREET_ARTHUR,
 			null,
 			"in the streets of Demon Home") {
 		@Override
-		public String getTooltipDescription() {
-			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
-				return tooltipDescription;
+		public String getName() {
+			if(Main.game.isStarted()) {
+				return UtilText.parse("Demon Home ([arthur.Name])");
 			}
-			return tooltipDescription+" Arthur's apartment is in this particular area.";
+			return name;
+		}
+		@Override
+		public String getTooltipDescription() {
+			return tooltipDescription+" Arthur's apartment is located in this particular area.";
 		}
 		@Override
 		public Population getPopulation() {
+			return DOMINION_PLAZA.getPopulation();
+		}
+	}.initMapBackgroundColour(Colour.MAP_BACKGROUND_PINK);
+	
+	public static final AbstractPlaceType DOMINION_DEMON_HOME_ZARANIX = new AbstractPlaceType(
+			"Demon Home (Zaranix)",
+			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
+			"dominion/demonHomeZaranixIcon",
+			BaseColour.PINK,
+			DemonHome.DEMON_HOME_STREET_ZARANIX,
+			null,
+			"in the streets of Demon Home") {
+		@Override
+		public String getName() {
+			if(Main.game.isStarted()) {
+				return UtilText.parse("Demon Home ([zaranix.Name])");
+			}
+			return name;
+		}
+		@Override
+		public String getTooltipDescription() {
+			return tooltipDescription+UtilText.parse(" [zaranix.NamePos] apartment is located in this particular area.");
+		}
+		@Override
+		public Population getPopulation() {
+			return DOMINION_PLAZA.getPopulation();
+		}
+	}.initMapBackgroundColour(Colour.MAP_BACKGROUND_PINK);
+	
+	public static final AbstractPlaceType DOMINION_DEMON_HOME_DADDY = new AbstractPlaceType(
+			"Demon Home (Daddy)",
+			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
+			"dominion/demonHomeDaddyIcon",
+			BaseColour.PINK,
+			DemonHome.DEMON_HOME_STREET_DADDY,
+			null,
+			"in the streets of Demon Home") {
+		@Override
+		public String getName() {
+			if(Main.game.isStarted()) {
+				return UtilText.parse("Demon Home ([daddy.Name])");
+			}
+			return name;
+		}
+		@Override
+		public String getTooltipDescription() {
+			return tooltipDescription+UtilText.parse(" [daddy.NamePos] apartment is located in this particular area.");
+		}
+		@Override
+		public Population getPopulation() {
+			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Daddy.class))) {
+				return new Population(PopulationType.DINERS, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies().get(WorldType.DOMINION));
+			}
 			return DOMINION_PLAZA.getPopulation();
 		}
 	}.initMapBackgroundColour(Colour.MAP_BACKGROUND_PINK);
@@ -2211,6 +2271,48 @@ public class PlaceType {
 		}
 	}.initWeatherImmune();
 	
+	
+	// Daddy's apartment:
+	
+	public static final AbstractPlaceType DADDY_APARTMENT_ENTRANCE = new AbstractPlaceType(
+			"Entrance Hall",
+			"The entrance hall to the apartment.",
+			"dominion/daddy/entranceHall",
+			BaseColour.GREEN,
+			DaddyDialogue.PLACE_ENTRANCE_HALL,
+			null,
+			"in the entrance hall of Daddy's apartment"
+		).initWeatherImmune();
+
+	public static final AbstractPlaceType DADDY_APARTMENT_LOUNGE = new AbstractPlaceType(
+			"Lounge",
+			"The apartment's lounge.",
+			"dominion/daddy/lounge",
+			BaseColour.ORANGE,
+			DaddyDialogue.PLACE_LOUNGE,
+			null,
+			"in the lounge of Daddy's apartment"
+		).initWeatherImmune();
+
+	public static final AbstractPlaceType DADDY_APARTMENT_KITCHEN = new AbstractPlaceType(
+			"Kitchen",
+			"The apartment's kitchen.",
+			"dominion/daddy/kitchen",
+			BaseColour.TAN,
+			DaddyDialogue.PLACE_KITCHEN,
+			null,
+			"in the kitchen of Daddy's apartment"
+		).initWeatherImmune();
+
+	public static final AbstractPlaceType DADDY_APARTMENT_BEDROOM = new AbstractPlaceType(
+			"Bedroom",
+			"The apartment's bedroom.",
+			"dominion/daddy/bedroom",
+			BaseColour.CRIMSON,
+			DaddyDialogue.PLACE_BEDROOM,
+			null,
+			"in Daddy's bedroom"
+		).initWeatherImmune();
 	
 	
 	// Submission:

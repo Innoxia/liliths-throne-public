@@ -254,8 +254,10 @@ public class MasturbationPanties {
 		public boolean isBaseRequirementsMet() {
 			return (Main.game.getPlayer().hasPenisIgnoreDildo()
 						&& Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
+						&& SexAreaPenetration.PENIS.isFree(Main.game.getPlayer())
 						&& !Main.game.getPlayer().isWearingCondom())
 					|| (Main.game.getPlayer().hasVagina()
+						&& SexAreaOrifice.VAGINA.isFree(Main.game.getPlayer())
 						&& Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA));
 		}
 

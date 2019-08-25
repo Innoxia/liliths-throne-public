@@ -6,7 +6,7 @@
 		<name><![CDATA[pearl stud earring]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[pearl stud earrings]]></namePlural>
 		<description><![CDATA[A pair of stud earrings, each of which holds a perfectly-formed pearl.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>PIERCING_EAR</slot> 
 		<rarity>COMMON</rarity>

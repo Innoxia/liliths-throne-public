@@ -13,14 +13,14 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3
- * @version 0.3.1
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SMLilayaDemonTF extends SexManagerDefault {
@@ -50,7 +50,7 @@ public class SMLilayaDemonTF extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 	
@@ -60,12 +60,7 @@ public class SMLilayaDemonTF extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isPlayerStartNaked() {
-		return true;
-	}
-
-	@Override
-	public boolean isPartnerStartNaked() {
+	public boolean isCharacterStartNaked(GameCharacter character) {
 		return true;
 	}
 	

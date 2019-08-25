@@ -12,7 +12,7 @@
 		
 		<description><![CDATA[A pair of long, fingerless gloves, which are made out of soft wool. Their most notable feature is the looping pattern of colourful stripes that they're decorated with.]]></description> 
 		
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<femininity>ANDROGYNOUS</femininity> 
 		
@@ -31,21 +31,13 @@
 		<effects/>
 		
 		<blockedPartsList> 
-		
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				
-				<clothingAccessRequired> 
-					<clothingAccess>FINGERS</clothingAccess>
-				</clothingAccessRequired>
-				
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
 				<blockedBodyParts/>
-				
 				<clothingAccessBlocked/>
-				
 				<concealedSlots/>
 			</blockedParts>
-			
 		</blockedPartsList>
 		
 		<incompatibleSlots/> 

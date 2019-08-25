@@ -12,7 +12,6 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -326,7 +325,7 @@ public class CMSpecialAttack {
         
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
-            return new Value<>(source.getRace()==Race.WOLF_MORPH && source.getRaceStage()==RaceStage.GREATER, "Available to characters who are greater wolf-morphs.");
+            return new Value<>(source.getArmType().getRace().equals(Race.WOLF_MORPH), "Available to characters who have a wolf-morph's arms.");
         }
 
         @Override

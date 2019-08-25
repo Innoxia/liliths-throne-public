@@ -50,10 +50,11 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
-import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
-import com.lilithsthrone.game.sex.positions.SexSlot;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -855,24 +856,24 @@ public class ImpCitadelDialogue {
 				
 				if(!Main.game.getPlayer().isFeminine()) {
 					spectators.add(Main.game.getPlayer());
-					subSlots = Util.newHashMapOfValues(new Value<>(getMainCompanion(), SexSlotBipeds.KNEELING_PERFORMING_ORAL));
+					subSlots = Util.newHashMapOfValues(new Value<>(getMainCompanion(), SexSlotStanding.PERFORMING_ORAL));
 					
 				} else if(isCompanionDialogue () && !getMainCompanion().isFeminine()) {
 					spectators.add(getMainCompanion());
-					subSlots = Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL));
+					subSlots = Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL));
 					
 				} else {
 					if(isCompanionDialogue()) {
 						subSlots = Util.newHashMapOfValues(
-								new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL),
-								new Value<>(getMainCompanion(), SexSlotBipeds.KNEELING_PERFORMING_ORAL_TWO));
+								new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL),
+								new Value<>(getMainCompanion(), SexSlotStanding.PERFORMING_ORAL_TWO));
 					} else {
-						subSlots = Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL));
+						subSlots = Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL));
 					}
 				}
 
-				SexManagerInterface manager = new SMKneeling(
-						Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
+				SexManagerInterface manager = new SMStanding(
+						Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotStanding.STANDING_DOMINANT)),
 						subSlots) {
 					@Override
 					public boolean isPositionChangingAllowed(GameCharacter character) {
@@ -1298,9 +1299,9 @@ public class ImpCitadelDialogue {
 								UtilText.parse(getArcanist(), "Agree to do as [npc.name] says, and get down on your knees to perform oral on her."),
 								true,
 								false,
-								new SMKneeling(
-										Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL))){
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotStanding.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL))){
 									@Override
 									public boolean isPositionChangingAllowed(GameCharacter character) {
 										return false;
@@ -1353,9 +1354,9 @@ public class ImpCitadelDialogue {
 								UtilText.parse(getArcanist(), getMainCompanion(), "Tell [npc2.name] to get down on [npc2.her] knees and perform oral on [npc.name] while you watch."),
 								true,
 								false,
-								new SMKneeling(
-										Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
-										Util.newHashMapOfValues(new Value<>(getMainCompanion(), SexSlotBipeds.KNEELING_PERFORMING_ORAL))) {
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotStanding.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(getMainCompanion(), SexSlotStanding.PERFORMING_ORAL))) {
 									@Override
 									public boolean isPositionChangingAllowed(GameCharacter character) {
 										return false;
@@ -1437,11 +1438,11 @@ public class ImpCitadelDialogue {
 								UtilText.parse(getArcanist(), getMainCompanion(), "Tell [npc2.name] to get down on [npc2.her] knees and join you in performing oral on [npc.name]."),
 								true,
 								false,
-								new SMKneeling(
-										Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotStanding.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(
-												new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL),
-												new Value<>(getMainCompanion(), SexSlotBipeds.KNEELING_PERFORMING_ORAL_TWO))) {
+												new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL),
+												new Value<>(getMainCompanion(), SexSlotStanding.PERFORMING_ORAL_TWO))) {
 									@Override
 									public boolean isPositionChangingAllowed(GameCharacter character) {
 										return false;
@@ -1565,9 +1566,9 @@ public class ImpCitadelDialogue {
 						UtilText.parse(getArcanist(), "Agree to do as [npc.name] says, and get down on your knees to perform oral on [npc.herHim]."),
 						true,
 						false,
-						new SMKneeling(
-								Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL))){
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotStanding.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL))){
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
@@ -1615,9 +1616,9 @@ public class ImpCitadelDialogue {
 						UtilText.parse(getArcanist(), getMainCompanion(), "Agree to do as [npc.name] says, and tell [npc2.name] to get down on [npc2.her] knees to perform oral on [npc.herHim] while you watch."),
 						true,
 						false,
-						new SMKneeling(
-								Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
-								Util.newHashMapOfValues(new Value<>(getMainCompanion(), SexSlotBipeds.KNEELING_PERFORMING_ORAL))){
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotStanding.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(getMainCompanion(), SexSlotStanding.PERFORMING_ORAL))){
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
@@ -1665,11 +1666,11 @@ public class ImpCitadelDialogue {
 						UtilText.parse(getArcanist(), getMainCompanion(), "Agree to do as [npc.name] says, and tell [npc2.name] to join you in getting down on your knees to perform oral on [npc.herHim]."),
 						true,
 						false,
-						new SMKneeling(
-								Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(getArcanist(), SexSlotStanding.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL),
-										new Value<>(getMainCompanion(), SexSlotBipeds.KNEELING_PERFORMING_ORAL_TWO))){
+										new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL),
+										new Value<>(getMainCompanion(), SexSlotStanding.PERFORMING_ORAL_TWO))){
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
@@ -2151,31 +2152,31 @@ public class ImpCitadelDialogue {
 				Map<GameCharacter, SexSlot> domSlots = new HashMap<>();
 				
 				if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-					domSlots.put(Main.game.getNpc(FortressMalesLeader.class), SexSlotBipeds.DOGGY_BEHIND);
+					domSlots.put(Main.game.getNpc(FortressMalesLeader.class), SexSlotAllFours.BEHIND);
 				} else if(isCompanionDialogue() && getMainCompanion().hasVagina() && getMainCompanion().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-					domSlots.put(Main.game.getNpc(FortressMalesLeader.class), SexSlotBipeds.DOGGY_BEHIND_SECOND);
+					domSlots.put(Main.game.getNpc(FortressMalesLeader.class), SexSlotAllFours.BEHIND_TWO);
 				} else {
-					domSlots.put(Main.game.getNpc(FortressMalesLeader.class), SexSlotBipeds.DOGGY_BEHIND);
+					domSlots.put(Main.game.getNpc(FortressMalesLeader.class), SexSlotAllFours.BEHIND);
 				}
 				if(isCompanionDialogue()) {
 					domSlots.put(Main.game.getNpc(FortressAlphaLeader.class),
-							domSlots.get(Main.game.getNpc(FortressMalesLeader.class))==SexSlotBipeds.DOGGY_BEHIND_SECOND
-								?SexSlotBipeds.DOGGY_BEHIND
-								:SexSlotBipeds.DOGGY_BEHIND_SECOND);
-					domSlots.put(Main.game.getNpc(FortressFemalesLeader.class), SexSlotBipeds.DOGGY_INFRONT);
+							domSlots.get(Main.game.getNpc(FortressMalesLeader.class))==SexSlotAllFours.BEHIND_TWO
+								?SexSlotAllFours.BEHIND
+								:SexSlotAllFours.BEHIND_TWO);
+					domSlots.put(Main.game.getNpc(FortressFemalesLeader.class), SexSlotAllFours.IN_FRONT);
 				} else {
-					domSlots.put(Main.game.getNpc(FortressAlphaLeader.class), SexSlotBipeds.DOGGY_INFRONT);
-					domSlots.put(Main.game.getNpc(FortressFemalesLeader.class), SexSlotBipeds.DOGGY_INFRONT_TWO);
+					domSlots.put(Main.game.getNpc(FortressAlphaLeader.class), SexSlotAllFours.IN_FRONT);
+					domSlots.put(Main.game.getNpc(FortressFemalesLeader.class), SexSlotAllFours.IN_FRONT_TWO);
 				}
 				
 				Map<GameCharacter, SexSlot> subSlots = new HashMap<>();
 
-				subSlots.put(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS);
+				subSlots.put(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS);
 				if(isCompanionDialogue()) {
-					subSlots.put(getMainCompanion(), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND);
+					subSlots.put(getMainCompanion(), SexSlotAllFours.ALL_FOURS_TWO);
 				}
 				
-				SexManagerInterface manager = new SMDoggy(
+				SexManagerInterface manager = new SMAllFours(
 						domSlots,
 						subSlots) {
 					@Override
@@ -2517,14 +2518,14 @@ public class ImpCitadelDialogue {
 			Map<GameCharacter, SexSlot> subSlots;
 			if(isCompanionDialogue()) {
 				subSlots = Util.newHashMapOfValues(
-						new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL),
-						new Value<>(getMainCompanion(), SexSlotBipeds.KNEELING_PERFORMING_ORAL_TWO));
+						new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL),
+						new Value<>(getMainCompanion(), SexSlotStanding.PERFORMING_ORAL_TWO));
 			} else {
-				subSlots = Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL));
+				subSlots = Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL));
 			}
 			
-			SexManagerInterface manager = new SMKneeling(
-					Util.newHashMapOfValues(new Value<>(getOwner(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
+			SexManagerInterface manager = new SMStanding(
+					Util.newHashMapOfValues(new Value<>(getOwner(), SexSlotStanding.STANDING_DOMINANT)),
 					subSlots) {
 				@Override
 				public boolean isPositionChangingAllowed(GameCharacter character) {

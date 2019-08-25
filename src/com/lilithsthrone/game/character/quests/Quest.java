@@ -1,10 +1,13 @@
 package com.lilithsthrone.game.character.quests;
 
+import java.time.LocalTime;
+
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Units;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.4
  * @author Innoxia
  */
 public enum Quest {
@@ -830,6 +833,221 @@ public enum Quest {
 			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward.";
 		}
 	},
+	
+	
+	// Daddy:
+	
+	DADDY_START(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Meeting [daddy.name]";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Rose has asked you to pay [daddy.name] a visit in order to convince [daddy.herHim] to leave Lilaya in peace."
+					+ " ([daddy.He] is only available at [daddy.his] apartment in Demon Home between "+Units.time(LocalTime.of(18, 00))+" and "+Units.time(LocalTime.of(21, 00))+".)";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "At Rose's behest, you met with [daddy.name] at [daddy.her] apartment in Demon Home.";
+		}
+	},
+	
+	DADDY_MEETING(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Dinner with [daddy.name]";
+		}
+
+		@Override
+		public String getDescription() {
+			return "[daddy.Name] is insisting upon explaining [daddy.her] motives over dinner. You're going to have to either accept [daddy.her] offer, or bluntly refuse [daddy.herHim] and insist that [daddy.she] leave Lilaya alone.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You gave [daddy.name] your answer in response to [daddy.her] request to take you out for dinner.";
+		}
+	},
+	
+	DADDY_REFUSED(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "[daddy.Name] denied";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You told [daddy.name] that you aren't at all interested in going out for a meal with [daddy.herHim], and that [daddy.sheIs] never to bother Lilaya again.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You told [daddy.name] that you aren't at all interested in going out for a meal with [daddy.herHim], and that [daddy.sheIs] never to bother Lilaya again.";
+		}
+	},
+	
+	DADDY_REFUSED_2(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "[daddy.Name] denied";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You told [daddy.name] that you aren't interested in convincing Lilaya to meet with [daddy.herHim], and that [daddy.she] should never bother your [lilaya.relation(pc)] again.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You told [daddy.name] that you aren't interested in convincing Lilaya to meet with [daddy.herHim], and that [daddy.she] should never bother your [lilaya.relation(pc)] again.";
+		}
+	},
+	
+	DADDY_ACCEPTED(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Convincing Lilaya";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You agreed to convince Lilaya to meet with [daddy.name] for dinner, and to then help persuade her to ask Lyssieth to meet with [daddy.herHim].";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You convinced Lilaya to meet with [daddy.name] for dinner, on the condition that you go with her. ";
+		}
+	},
+	
+	DADDY_LILAYA_MEETING(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Lilaya's date with [daddy.name]";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Lilaya has agreed to go out for dinner with [daddy.name], so now you just need to accompany her and make sure the evening goes smoothly.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You went with Lilaya to meet [daddy.name] for dinner, and while she had bad news for [daddy.herHim] regarding Lyssieth's romantic preferences, she did seem to like [daddy.herHim] well enough...";
+		}
+	},
+	
+	
+	// Buying Brax:
+	
+	BUYING_BRAX_START(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Perfume collection";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Candi said that she'd consider selling [brax.name] to you, but before she gives you a definite answer, she wants you to go and fetch her order of perfume from the shop 'Succubi's Secrets' in the shopping arcade.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You both paid for and collected Candi's order of perfume from Succubi's Secrets.";
+		}
+	},
+	
+	BUYING_BRAX_DELIVER_PERFUME(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Perfume delivery";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Now that you've collected the bottles of perfume, you need to deliver them to Candi back at the Enforcer headquarters.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You delivered Candi's bottles of perfume to her.";
+		}
+	},
+	
+	BUYING_BRAX_LOLLIPOPS(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Lollipop contraband";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Candi said she'd be willing to sell Brax to you, but she needs to think of how much [brax.sheIs] worth."
+					+ " She said that she'll have a price for you after you've fetched a box of contraband lollipops from the Harpy Nests' Enforcer checkpoint.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You retrieved the lollipops from the Harpy Nests' Enforcer checkpoint.";
+		}
+	},
+	
+	BUYING_BRAX_DELIVER_LOLLIPOPS(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Lollipops for Candi";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Now that the box of contraband lollipops are in your possession, you need to return them to Candi back at the Enforcer headquarters.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You delivered the box of contraband lollipops to Candi, who seemed to pay no attention to the warnings stamped all over it.";
+		}
+	},
+	
+	BUYING_BRAX_LIPSTICK(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "A wolf's weight in lipstick";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Candi said that Brax is far too precious to be sold for mere flames, but she'd be willing to give [brax.herHim] to you in exchange for something just as valuable; a box of limited-edition lipsticks, branded as 'A Hundred Kisses'."
+					+ " Apparently, Candi has discovered the whereabouts of one of the only boxes left for sale, which is at a store in the shopping arcade called 'Ralph's Snacks'.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You retrieved the box of 'A Hundred Kisses' from Ralph.";
+		}
+	},
+	
+	BUYING_BRAX_DELIVER_LIPSTICK(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "At the wolf's door";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Now that you've secured the box of 'A Hundred Kisses', all that's left to do is deliver it to Candi in exchange for ownership of [brax.name].";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You handed over the box of 'A Hundred Kisses' to Candi, and finally gained your prize; ownership of [brax.name].";
+		}
+	},
+	
+	
 	
 	;
 

@@ -1517,13 +1517,13 @@ public abstract class AbstractItemEffectType {
 	private static void addResourceDescriptionsRestore(int value, ResourceRestoration restorationType) {
 		switch(restorationType){
 			case HEALTH:
-					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldHealth(energy)]");
+					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]");
 				break;
 			case MANA:
 					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldAura(aura)]");
 				break;
 			case ALL:
-					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldHealth(energy)]");
+					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]");
 					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldAura(aura)]");
 				break;
 		}
@@ -1531,13 +1531,13 @@ public abstract class AbstractItemEffectType {
 	private static void addResourceDescriptionsDrain(int value, ResourceRestoration restorationType) {
 		switch(restorationType){
 			case HEALTH:
-					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldHealth(energy)]");
+					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]");
 				break;
 			case MANA:
 					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldAura(aura)]");
 				break;
 			case ALL:
-					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldHealth(energy)]");
+					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]");
 					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldAura(aura)]");
 				break;
 		}
@@ -3612,20 +3612,32 @@ public abstract class AbstractItemEffectType {
 							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(0)); } };
 						
 					case TF_TYPE_2:
-						return new RacialEffectUtil(TailType.getTailTypes(race).get(1)==TailType.NONE?"Removes tail.":Util.capitaliseSentence(TailType.getTailTypes(race).get(1).getTransformName())+" tail transformation.") {
-							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(1)); } };
+						return new RacialEffectUtil(
+								TailType.getTailTypes(race).size()<2 || TailType.getTailTypes(race).get(1)==TailType.NONE
+									?"Removes tail."
+									:Util.capitaliseSentence(TailType.getTailTypes(race).get(1).getTransformName())+" tail transformation.") {
+							@Override public String applyEffect() { if(TailType.getTailTypes(race).size()<2) {return target.setTailType(TailType.NONE); } else {return target.setTailType(TailType.getTailTypes(race).get(1));} } };
 	
 					case TF_TYPE_3:
-						return new RacialEffectUtil(TailType.getTailTypes(race).get(2)==TailType.NONE?"Removes tail.":Util.capitaliseSentence(TailType.getTailTypes(race).get(2).getTransformName())+" tail transformation.") {
-							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(2)); } };
+						return new RacialEffectUtil(
+								TailType.getTailTypes(race).size()<3 || TailType.getTailTypes(race).get(2)==TailType.NONE
+									?"Removes tail."
+									:Util.capitaliseSentence(TailType.getTailTypes(race).get(1).getTransformName())+" tail transformation.") {
+							@Override public String applyEffect() { if(TailType.getTailTypes(race).size()<3) {return target.setTailType(TailType.NONE); } else {return target.setTailType(TailType.getTailTypes(race).get(2));} } };
 	
 					case TF_TYPE_4:
-						return new RacialEffectUtil(TailType.getTailTypes(race).get(3)==TailType.NONE?"Removes tail.":Util.capitaliseSentence(TailType.getTailTypes(race).get(3).getTransformName())+" tail transformation.") {
-							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(3)); } };
+						return new RacialEffectUtil(
+								TailType.getTailTypes(race).size()<4 || TailType.getTailTypes(race).get(3)==TailType.NONE
+									?"Removes tail."
+									:Util.capitaliseSentence(TailType.getTailTypes(race).get(1).getTransformName())+" tail transformation.") {
+							@Override public String applyEffect() { if(TailType.getTailTypes(race).size()<4) {return target.setTailType(TailType.NONE); } else {return target.setTailType(TailType.getTailTypes(race).get(3));} } };
 	
 					case TF_TYPE_5:
-						return new RacialEffectUtil(TailType.getTailTypes(race).get(4)==TailType.NONE?"Removes tail.":Util.capitaliseSentence(TailType.getTailTypes(race).get(4).getTransformName())+" tail transformation.") {
-							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(4)); } };
+						return new RacialEffectUtil(
+								TailType.getTailTypes(race).size()<5 || TailType.getTailTypes(race).get(4)==TailType.NONE
+									?"Removes tail."
+									:Util.capitaliseSentence(TailType.getTailTypes(race).get(1).getTransformName())+" tail transformation.") {
+							@Override public String applyEffect() { if(TailType.getTailTypes(race).size()<5) {return target.setTailType(TailType.NONE); } else {return target.setTailType(TailType.getTailTypes(race).get(4));} } };
 							
 					default:
 						TailType tailType = RacialBody.valueOfRace(race).getRandomTailType(false);

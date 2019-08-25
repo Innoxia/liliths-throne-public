@@ -1357,23 +1357,25 @@ public class ItemType {
 		}
 		
 		@Override
-		public int getValue() {
+		public int getValue(List<ItemEffect> effects) {
 			int value = 0;
-			for(ItemEffect ie : this.getEffects()) {
-				switch(ie.getPotency()) {
-				case BOOST:
-					value += 1000;
-					break;
-				case MAJOR_BOOST:
-					value += 1500;
-					break;
-				case MINOR_BOOST:
-					value += 500;
-					break;
-				case MINOR_DRAIN:
-				case DRAIN:
-				case MAJOR_DRAIN:
-					break;
+			if(effects!=null) {
+				for(ItemEffect ie : effects) {
+					switch(ie.getPotency()) {
+						case BOOST:
+							value += 1000;
+							break;
+						case MAJOR_BOOST:
+							value += 1500;
+							break;
+						case MINOR_BOOST:
+							value += 500;
+							break;
+						case MINOR_DRAIN:
+						case DRAIN:
+						case MAJOR_DRAIN:
+							break;
+					}
 				}
 			}
 			return value;
@@ -4304,6 +4306,90 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType CANDI_PERFUMES = new AbstractItemType(500,
+			"",
+			true,
+			"Candi's Perfume",
+			"Candi's Perfumes",
+			"A couple of bottles of perfume which you collected from Kate at Succubi's Secrets. You need to deliver these to Candi back at the Enforcer Headquarters.",
+			"candiPerfumes",
+			Colour.BASE_ROSE,
+			Colour.BASE_PURPLE_LIGHT,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "There's nothing really out of the ordinary about these bottles of perfume. It would be best to deliver them to Candi as soon as possible.";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType CANDI_CONTRABAND = new AbstractItemType(1000,
+			"",
+			false,
+			"Box of Contraband Lollipops",
+			"Boxes of Contraband Lollipops",
+			"A box full of contraband lollipops, seized by the Enforcers up in the Harpy Nests, and very much desired by Candi.",
+			"contrabandBox",
+			Colour.BASE_PINK_DEEP,
+			null,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "This box has been marked with several large red crosses, making it clear that the contents are in some way dangerous."
+					+ " The Enforcer who handed this box over to you said that the lollipops contained within are some form of permanent aphrodisiac, and that the box should be immediately locked away in safe storage.";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType CANDI_HUNDRED_KISSES = new AbstractItemType(50000,
+			"",
+			false,
+			"'A Hundred Kisses'",
+			"'A Hundred Kisses'",
+			"A limited-edition box containing a hundred differently-coloured lipsticks, produced by one of the most exclusive and upmarket cosmetics companies in all of Dominion.",
+			"candiHundredKisses",
+			Colour.BASE_PINK_DEEP,
+			null,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "It's obvious from even a casual glance at this stylish box that it contains nothing other than the best lipsticks money can buy.";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
 	
 	// Standard non-racial transformatives:
 	

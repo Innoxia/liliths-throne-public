@@ -9,7 +9,7 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.dominion.SMStocks;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStocks;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
@@ -33,8 +33,8 @@ public class StocksSex {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotBipeds.STOCKS_FUCKING
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotBipeds.STOCKS_LOCKED_IN_STOCKS
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotStocks.BEHIND_STOCKS
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotStocks.LOCKED_IN_STOCKS
 					&& Sex.isDom(Sex.getCharacterPerformingAction());
 		}
 		
@@ -62,8 +62,8 @@ public class StocksSex {
 					!Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.VAGINA),
 					!Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.ANUS),
 					!Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.MOUTH),
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotBipeds.STOCKS_FUCKING)),
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotBipeds.STOCKS_LOCKED_IN_STOCKS))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotStocks.BEHIND_STOCKS)),
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotStocks.LOCKED_IN_STOCKS))));
 		}
 	};
 	
@@ -78,8 +78,8 @@ public class StocksSex {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotBipeds.STOCKS_PERFORMING_ORAL
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotBipeds.STOCKS_LOCKED_IN_STOCKS
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotStocks.PERFORMING_ORAL
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotStocks.LOCKED_IN_STOCKS
 					&& Sex.isDom(Sex.getCharacterPerformingAction());
 		}
 		
@@ -106,8 +106,8 @@ public class StocksSex {
 					!Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.VAGINA),
 					!Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.ANUS),
 					!Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.MOUTH),
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotBipeds.STOCKS_PERFORMING_ORAL)),
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotBipeds.STOCKS_LOCKED_IN_STOCKS))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotStocks.PERFORMING_ORAL)),
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotStocks.LOCKED_IN_STOCKS))));
 		}
 	};
 	
@@ -122,8 +122,8 @@ public class StocksSex {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotBipeds.STOCKS_RECEIVING_ORAL
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotBipeds.STOCKS_LOCKED_IN_STOCKS
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotStocks.RECEIVING_ORAL
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotStocks.LOCKED_IN_STOCKS
 					&& Sex.isDom(Sex.getCharacterPerformingAction());
 		}
 		
@@ -150,8 +150,8 @@ public class StocksSex {
 					!Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.VAGINA),
 					!Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.ANUS),
 					!Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterTargetedForSexAction(this)).contains(SexAreaOrifice.MOUTH),
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotBipeds.STOCKS_RECEIVING_ORAL)),
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotBipeds.STOCKS_LOCKED_IN_STOCKS))));
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotStocks.RECEIVING_ORAL)),
+					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotStocks.LOCKED_IN_STOCKS))));
 		}
 	};
 
@@ -167,8 +167,8 @@ public class StocksSex {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.STOCKS_LOCKED_IN_STOCKS
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) == SexSlotBipeds.STOCKS_FUCKING;
+					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotStocks.LOCKED_IN_STOCKS
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) == SexSlotStocks.BEHIND_STOCKS;
 		}
 		
 		@Override

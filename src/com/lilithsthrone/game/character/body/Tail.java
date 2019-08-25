@@ -4,6 +4,7 @@ package com.lilithsthrone.game.character.body;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -619,8 +620,22 @@ public class Tail implements BodyPartInterface {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
+		if(owner.getTailType().equals(TailType.FOX_MORPH_MAGIC)) {
+			return "<p style='text-align:center;'>"
+						+ "[style.colourMinorBad([npc.NamePos] arcane-infused "
+							+(this.tailCount==1
+								?"tail absorbs and nullifies"
+								:"tails absorb and nullify")
+							+" the transformative effect, preventing any alteration to the number of tails [npc.she] [npc.has]!)]"
+					+ "</p>";
+		}
+		
+		owner.removeStatusEffect(StatusEffect.SUBSPECIES_BONUS);
+		
 		boolean removingTails = owner.getTailCount() > tailCount;
 		this.tailCount = tailCount;
+
+		owner.addStatusEffect(StatusEffect.SUBSPECIES_BONUS, -1);
 		
 		if (owner.getTailType() == TailType.NONE) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";

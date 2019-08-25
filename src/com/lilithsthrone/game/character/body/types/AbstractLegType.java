@@ -408,8 +408,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		// Ass:
 		partsList.add(bestialRaceNameWithDeterminer+"'s ass");
 		// Crotch boobs:
-		if(Main.getProperties().udders>0
-				&& (legConfiguration!=LegConfiguration.BIPEDAL || (Main.getProperties().udders==2 && body.getRaceStage()==RaceStage.GREATER))) {
+		if((Main.getProperties().udders==1 && legConfiguration!=LegConfiguration.BIPEDAL) || (Main.getProperties().udders==2 && body.getRaceStage()==RaceStage.GREATER)) {
 			if(body.getBreastCrotch().getType()!=BreastType.NONE && !legConfiguration.isBipedalPositionedCrotchBoobs()) {
 				partsList.add("animal-like "+body.getBreastCrotch().getName(null));
 			}

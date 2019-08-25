@@ -6,7 +6,7 @@
 		<name><![CDATA[stocking]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[stockings]]></namePlural>
 		<description><![CDATA[A pair of nylon stockings, which reach up to the wearer's upper-thigh.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>SOCK</slot> 
 		<rarity>COMMON</rarity>

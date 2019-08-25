@@ -4,18 +4,18 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexSlot;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 
 /**
  * @since 0.1.69
- * @version 0.1.97
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMStanding extends SexManagerDefault {
 
 	public SMStanding(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionBipeds.STANDING,
+		super(SexPositionOther.STANDING,
 				dominants,
 				submissives);
 	}

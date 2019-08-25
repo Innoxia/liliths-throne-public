@@ -1885,7 +1885,8 @@ public enum Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"Anyone who has the feral, quadrupedal lower body of a horse is classified as a centaur.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE))) { //TODO add to fields
+					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE))) { //TODO add to fields
 		@Override
 		public boolean isNonBiped() {
 			return true;
@@ -1942,7 +1943,8 @@ public enum Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"Anyone who has the feral, winged, quadrupedal lower body of a horse is classified as a pegataur.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE))) { //TODO add to fields
+					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE))) { //TODO add to fields
 		@Override
 		public boolean isNonBiped() {
 			return true;
@@ -2001,7 +2003,8 @@ public enum Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"Anyone who has the feral, quadrupedal lower body of a horse, along with a single unicorn horn, is classified as a unitaur.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE))) { //TODO add to fields
+					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE))) { //TODO add to fields
 		@Override
 		public boolean isNonBiped() {
 			return true;
@@ -2061,7 +2064,8 @@ public enum Subspecies {
 			SubspeciesPreference.ONE_LOW,
 			"Anyone who has the feral, winged, quadrupedal lower body of a horse, along with a single unicorn horn, is classified as an alitaur.",
 			Util.newHashMapOfValues(
-					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE))) { //TODO add to fields
+					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE))) { //TODO add to fields
 		@Override
 		public boolean isNonBiped() {
 			return true;
@@ -2807,11 +2811,7 @@ public enum Subspecies {
 			"earth",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Earth.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 45f),
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 50f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f)),
 			null,
 			"Earth Elementals",
 			"Earth Elementals'",
@@ -2847,11 +2847,7 @@ public enum Subspecies {
 			"water",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Water.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 45f),
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 50f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f)),
 			null,
 			"Water Elementals",
 			"Water Elementals'",
@@ -2887,11 +2883,7 @@ public enum Subspecies {
 			"air",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Air.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 45f),
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 50f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f)),
 			null,
 			"Air Elementals",
 			"Air Elementals'",
@@ -2927,11 +2919,7 @@ public enum Subspecies {
 			"fire",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Fire.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 45f),
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 50f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f)),
 			null,
 			"Fire Elementals",
 			"Fire Elementals'",
@@ -2967,11 +2955,7 @@ public enum Subspecies {
 			"arcane",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Arcane.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 45f),
-					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f)),
 			null,
 			"Arcane Elementals",
 			"Arcane Elementals'",
@@ -3152,7 +3136,11 @@ public enum Subspecies {
 		this.feralName = feralName;
 
 		this.statusEffectDescription = statusEffectDescription;
+		
 		this.statusEffectAttributeModifiers = statusEffectAttributeModifiers;
+		if(this.statusEffectAttributeModifiers!=null) {
+			this.statusEffectAttributeModifiers.entrySet().removeIf((entry) -> entry.getValue()==0);
+		}
 		
 		if(perkWeightingFeminine!=null) {
 			this.perkWeightingFeminine = perkWeightingFeminine;

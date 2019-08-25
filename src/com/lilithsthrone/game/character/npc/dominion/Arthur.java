@@ -51,8 +51,10 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -108,7 +110,7 @@ public class Arthur extends NPC {
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		this.addSpecialPerk(Perk.ARCANE_ALLERGY);
+		this.addSpecialPerk(Perk.SPECIAL_ARCANE_ALLERGY);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
@@ -242,6 +244,18 @@ public class Arthur extends NPC {
 	@Override
 	public boolean isTrader() {
 		return true; // TODO Wait, what?
+	}
+	
+	// Misc.:
+	
+	public void generateNewTile() {
+		Vector2i towerLoc = new Vector2i(Main.game.getWorlds().get(WorldType.DOMINION).getCell(PlaceType.DOMINION_LILITHS_TOWER).getLocation());
+		towerLoc.setX(towerLoc.getX()-2);
+		towerLoc.setY(towerLoc.getY()-1);
+		if(!Main.game.getWorlds().get(WorldType.DOMINION).getCell(towerLoc).getPlace().getPlaceType().equals(PlaceType.DOMINION_DEMON_HOME)) {
+			towerLoc = new Vector2i(Main.game.getWorlds().get(WorldType.DOMINION).getRandomCell(PlaceType.DOMINION_DEMON_HOME).getLocation());
+		}
+		Main.game.getWorlds().get(WorldType.DOMINION).getCell(towerLoc).setPlace(new GenericPlace(PlaceType.DOMINION_DEMON_HOME_ARTHUR), false);
 	}
 
 }

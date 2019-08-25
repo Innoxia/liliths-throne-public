@@ -41,7 +41,7 @@ public class AbstractTattooType extends AbstractCoreType {
 	private int value;
 
 	@SuppressWarnings("unused")
-	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment stability mechanics.
+	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment capacity mechanics.
 	
 	private List<InventorySlot> slotAvailability;
 

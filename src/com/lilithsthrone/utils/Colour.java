@@ -69,7 +69,7 @@ public enum Colour {
 	BACKGROUND(false, Util.newColour(0x222222), Util.newColour(0xcccccc), "grey"),
 	BACKGROUND_ALT(false, Util.newColour(0x292929), Util.newColour(0xbbbbbb), "grey"),
 	
-	MAP_BACKGROUND_UNEXPLORED(false, Util.newColour(0x111), Util.newColour(0x111), "black"),
+	MAP_BACKGROUND_UNEXPLORED(false, Util.newColour(0x121212), Util.newColour(0x121212), "black"),
 	MAP_BACKGROUND_PINK(false, Util.newColour(0xb2a4bb), Util.newColour(0xb2a4bb), "pink"),
 	MAP_BACKGROUND(false, Util.newColour(0xbbbbbb), Util.newColour(0xbbbbbb), "grey"),
 	MAP_BACKGROUND_DARK(false, Util.newColour(0x888888), Util.newColour(0x8f8f8f), "dark grey"),
@@ -78,6 +78,8 @@ public enum Colour {
 	
 	GENERIC_SEX(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("sex")),
 	GENERIC_SEX_AS_DOM(false,Util.newColour(0xFF75BA), Util.newColour(0xD82C8B), "pink", Util.newArrayListOfValues("sexDom", "domSex")),
+	DOMINANT(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("dom", "dominant")),
+	SUBMISSIVE(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("sub", "submissive")),
 	GENERIC_COMBAT(false, BaseColour.CRIMSON, "crimson"),
 	GENERIC_ARCANE(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("arcane")),
 	GENERIC_TERRIBLE(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("terrible")),
@@ -88,6 +90,7 @@ public enum Colour {
 	GENERIC_EXCELLENT(false, BaseColour.GOLD, "gold", Util.newArrayListOfValues("excellent")),
 	GENERIC_ATTRIBUTE(false, BaseColour.MAGENTA, "magenta"),
 	GENERIC_EXPERIENCE(false, BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("experience", "xp")),
+	GENERIC_ACTION_POINTS(false, BaseColour.AQUA, "aqua", Util.newArrayListOfValues("actionPoint", "actionPoints", "ap")),
 	GENERIC_ENCHANTMENT(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("enchantment", "enchanting")),
 	COOLDOWN(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("cooldown")),
 	CRIT(false, BaseColour.GOLD, "gold", Util.newArrayListOfValues("crit")),

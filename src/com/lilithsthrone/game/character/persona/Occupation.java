@@ -59,12 +59,12 @@ public enum Occupation {
 	
 	NPC_ELDER_LILIN(Perk.JOB_ELDER_LILIN, "elder lilin", "-", OccupationTag.HAS_PREREQUISITES),
 	
+	
 	// NPC histories:
 
 	NPC_UNEMPLOYED(Perk.JOB_UNEMPLOYED, "unemployed", "[npc.NameIsFull] unemployed.", OccupationTag.HAS_PREREQUISITES),
 	
-	// Sociable personality:
-
+	
 	NPC_SLAVE(Perk.JOB_SLAVE, "slave", "[npc.NameIsFull] a slave, and must carry out [npc.her] owner's wishes.", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_PROSTITUTE(Perk.JOB_PROSTITUTE, "prostitute", "[npc.NameIsFull] a prostitute, making a living by selling [npc.her] body.", OccupationTag.LOWLIFE),
@@ -93,12 +93,10 @@ public enum Occupation {
 	
 	NPC_FITNESS_INSTRUCTOR(Perk.JOB_MISC, "fitness instructor", "-", OccupationTag.HAS_PREREQUISITES),
 	
-	
-	// Commanding personality:
-	
 	NPC_MUGGER(Perk.JOB_MUGGER, "mugger", "[npc.NameIsFull] a mugger, and [npc.verb(make)] a living by stealing other people's possessions.", OccupationTag.LOWLIFE),
 	
-	NPC_CONSTRUCTION_WORKER(Perk.JOB_MISC, "construction worker", "-"),
+	NPC_CONSTRUCTION_WORKER(Perk.JOB_CONSTRUCTION_WORKER, "construction worker", "-"),
+	NPC_CONSTRUCTION_WORKER_ARCANE(Perk.JOB_CONSTRUCTION_WORKER_ARCANE, "arcane construction worker", "-"),
 
 	NPC_MECHANIC(Perk.JOB_MISC, "mechanic", "-", OccupationTag.HAS_PREREQUISITES),
 	
@@ -106,8 +104,6 @@ public enum Occupation {
 	
 	NPC_ENFORCER(Perk.JOB_MISC, "enforcer", "-"),
 	
-	// Analytical personality:
-
 	NPC_LIBRARIAN(Perk.JOB_MISC, "librarian", "-"),
 	
 	NPC_UNIVERSITY_STUDENT(Perk.JOB_MISC, "university student", "-", OccupationTag.HAS_PREREQUISITES),
@@ -120,9 +116,6 @@ public enum Occupation {
 	
 	NPC_DOCTOR(Perk.JOB_MISC, "doctor", "-", OccupationTag.HAS_PREREQUISITES),
 	
-	
-	// Calm personality:
-
 	NPC_MAID(Perk.JOB_MISC, "maid", "-") {
 		@Override
 		public boolean isAvailable(GameCharacter character) {

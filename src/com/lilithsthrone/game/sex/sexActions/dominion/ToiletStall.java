@@ -6,13 +6,14 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.game.sex.sexActions.PositioningData;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioningNew;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -42,10 +43,9 @@ public class ToiletStall {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return 
-//					Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					Sex.getInitialSexManager().isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexManager().isPlayerAbleToSwapPositions()
+			return !Sex.getCharacterPerformingAction().equals(Sex.getCharacterTargetedForSexAction(this))
+					&& Sex.getSexManager().isSwapPositionAllowed(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this))
+//					&& Sex.getInitialSexManager().isPositionChangingAllowed(Sex.getCharacterPerformingAction()) // Should be covered in the method above
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -98,9 +98,9 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionBipeds.FACING_WALL_STALL,
-				Util.newArrayListOfValues(SexSlotBipeds.FACE_TO_WALL_FACING_TARGET),
-				Util.newArrayListOfValues(SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL));
+				SexPositionOther.AGAINST_WALL,
+				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL),
+				Util.newArrayListOfValues(SexSlotAgainstWall.FACE_TO_WALL));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -122,7 +122,7 @@ public class ToiletStall {
 		}
 		@Override
 		public void applyEffects() {
-			GenericPositioningNew.setNewSexManager(data, false);
+			GenericPositioning.setNewSexManager(data, false);
 		}
 	};
 	
@@ -135,9 +135,9 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionBipeds.FACING_WALL_STALL,
-				Util.newArrayListOfValues(SexSlotBipeds.FACE_TO_WALL_AGAINST_WALL),
-				Util.newArrayListOfValues(SexSlotBipeds.FACE_TO_WALL_FACING_TARGET));
+				SexPositionOther.AGAINST_WALL,
+				Util.newArrayListOfValues(SexSlotAgainstWall.FACE_TO_WALL),
+				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -171,9 +171,9 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionBipeds.BACK_TO_WALL_STALL,
-				Util.newArrayListOfValues(SexSlotBipeds.BACK_TO_WALL_FACING_TARGET),
-				Util.newArrayListOfValues(SexSlotBipeds.BACK_TO_WALL_AGAINST_WALL));
+				SexPositionOther.AGAINST_WALL,
+				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL),
+				Util.newArrayListOfValues(SexSlotAgainstWall.BACK_TO_WALL));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -195,7 +195,7 @@ public class ToiletStall {
 		}
 		@Override
 		public void applyEffects() {
-			GenericPositioningNew.setNewSexManager(data, false);
+			GenericPositioning.setNewSexManager(data, false);
 		}
 	};
 	
@@ -208,9 +208,9 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionBipeds.BACK_TO_WALL_STALL,
-				Util.newArrayListOfValues(SexSlotBipeds.BACK_TO_WALL_AGAINST_WALL),
-				Util.newArrayListOfValues(SexSlotBipeds.BACK_TO_WALL_FACING_TARGET));
+				SexPositionOther.AGAINST_WALL,
+				Util.newArrayListOfValues(SexSlotAgainstWall.BACK_TO_WALL),
+				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -244,9 +244,9 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionBipeds.KNEELING_ORAL_STALL,
-				Util.newArrayListOfValues(SexSlotBipeds.KNEELING_RECEIVING_ORAL),
-				Util.newArrayListOfValues(SexSlotBipeds.KNEELING_PERFORMING_ORAL));
+				SexPositionOther.STANDING,
+				Util.newArrayListOfValues(SexSlotStanding.STANDING_DOMINANT),
+				Util.newArrayListOfValues(SexSlotStanding.PERFORMING_ORAL));
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -268,7 +268,7 @@ public class ToiletStall {
 		}
 		@Override
 		public void applyEffects() {
-			GenericPositioningNew.setNewSexManager(data, false);
+			GenericPositioning.setNewSexManager(data, false);
 		}
 	};
 	
@@ -281,9 +281,9 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionBipeds.KNEELING_ORAL_STALL,
-				Util.newArrayListOfValues(SexSlotBipeds.KNEELING_PERFORMING_ORAL),
-				Util.newArrayListOfValues(SexSlotBipeds.KNEELING_RECEIVING_ORAL));
+				SexPositionOther.STANDING,
+				Util.newArrayListOfValues(SexSlotStanding.PERFORMING_ORAL),
+				Util.newArrayListOfValues(SexSlotStanding.STANDING_DOMINANT));
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -316,9 +316,9 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionBipeds.KNEELING_ORAL_STALL,
-				Util.newArrayListOfValues(SexSlotBipeds.KNEELING_PERFORMING_ORAL),
-				Util.newArrayListOfValues(SexSlotBipeds.KNEELING_RECEIVING_ORAL));
+				SexPositionOther.STANDING,
+				Util.newArrayListOfValues(SexSlotStanding.PERFORMING_ORAL),
+				Util.newArrayListOfValues(SexSlotStanding.STANDING_DOMINANT));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -340,7 +340,7 @@ public class ToiletStall {
 		}
 		@Override
 		public void applyEffects() {
-			GenericPositioningNew.setNewSexManager(data, false);
+			GenericPositioning.setNewSexManager(data, false);
 		}
 	};
 
@@ -353,9 +353,9 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionBipeds.KNEELING_ORAL_STALL,
-				Util.newArrayListOfValues(SexSlotBipeds.KNEELING_RECEIVING_ORAL),
-				Util.newArrayListOfValues(SexSlotBipeds.KNEELING_PERFORMING_ORAL));
+				SexPositionOther.STANDING,
+				Util.newArrayListOfValues(SexSlotStanding.STANDING_DOMINANT),
+				Util.newArrayListOfValues(SexSlotStanding.PERFORMING_ORAL));
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -416,7 +416,7 @@ public class ToiletStall {
 					Sex.getPositionRequest().getPerformerSlots().get(0),
 					Main.game.getPlayer());
 			
-			if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.FACE_TO_WALL_FACING_TARGET) {
+			if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAgainstWall.STANDING_WALL) {
 				if(isHappy) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
@@ -431,7 +431,7 @@ public class ToiletStall {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.BACK_TO_WALL_FACING_TARGET) {
+			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAgainstWall.STANDING_WALL) {
 				if(isHappy) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
@@ -449,7 +449,7 @@ public class ToiletStall {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.KNEELING_RECEIVING_ORAL) {
+			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotStanding.STANDING_DOMINANT) {
 				if(isHappy) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
@@ -467,7 +467,7 @@ public class ToiletStall {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotBipeds.KNEELING_PERFORMING_ORAL) {
+			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL) {
 				if(isHappy) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
@@ -497,7 +497,7 @@ public class ToiletStall {
 					Sex.getPositionRequest().getPartnerSlots().get(0),
 					Sex.getPositionRequest().getPerformerSlots().get(0),
 					Main.game.getPlayer())) {
-				GenericPositioningNew.setNewSexManager(Sex.getPositionRequest(), true);
+				GenericPositioning.setNewSexManager(Sex.getPositionRequest(), true);
 			}
 			
 			Sex.setPositionRequest(null);

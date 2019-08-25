@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.3.1
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -23,6 +23,12 @@ public enum DialogueFlagValue {
 	foundHappiness,
 	visitedSubmission,
 	mommyFound,
+	
+	daddyFound,
+	rudeToDaddy,
+	flirtingWithDaddy,
+	talkedWithDaddy,
+	daddySendingReward,
 	
 	// Gym:
 	gymIntroduced,
@@ -63,6 +69,8 @@ public enum DialogueFlagValue {
 	
 	
 	// Shopping arcade:
+	ralphAskedAboutHundredKisses,
+	
 	nyanTalkedTo,
 	nyanComplimented,
 	nyanFlirtedWith,
@@ -105,7 +113,7 @@ public enum DialogueFlagValue {
 	givenLilayaPresent2,
 	givenLilayaPresent3,
 	
-	// Brax:
+	// Enforcer HQ:
 	braxEncountered,
 	accessToEnforcerHQ,
 	braxTransformedPlayer,
@@ -113,6 +121,7 @@ public enum DialogueFlagValue {
 	seenBraxAfterQuest,
 	feminisedBrax,
 	bimbofiedBrax,
+	candiHarpyTransformation,
 	
 	// Harpy Nests:
 	hasHarpyNestAccess,

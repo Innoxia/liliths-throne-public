@@ -11,10 +11,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
-import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -23,6 +23,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
+
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -72,6 +73,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 	private ClothingSet clothingSet;
 	private Rarity rarity;
+	private float physicalResistance;
 	
 	private String equipText;
 	private String unequipText;
@@ -93,7 +95,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 	// Enchantments:
 	@SuppressWarnings("unused")
-	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment stability mechanics.
+	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment capacity mechanics.
 	protected List<ItemEffect> effects;
 	
 	private Map<DamageType, Map<Colour, Map<Colour, String>>> SVGStringMap;
@@ -121,6 +123,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			String pathName,
 			String pathNameEquipped,
 			Rarity rarity,
+			float physicalResistance,
 			ClothingSet clothingSet,
 			List<DamageType> availableDamageTypes,
 			int damage,
@@ -147,6 +150,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				pathName,
 				pathNameEquipped,
 				rarity,
+				physicalResistance,
 				clothingSet,
 				availableDamageTypes,
 				damage,
@@ -179,6 +183,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			String pathName,
 			String pathNameEquipped,
 			Rarity rarity,
+			float physicalResistance,
 			ClothingSet clothingSet,
 			List<DamageType> availableDamageTypes,
 			int damage,
@@ -216,6 +221,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		this.description = description;
 		
 		this.rarity = rarity;
+		this.physicalResistance = physicalResistance;
 		this.clothingSet = clothingSet;
 
 		this.availableDamageTypes = availableDamageTypes;
@@ -390,6 +396,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 				this.rarity = Rarity.valueOf(coreAttributes.getMandatoryFirstOf("rarity").getTextContent());
 				
+				if(coreAttributes.getOptionalFirstOf("physicalResistance").isPresent()) {
+					this.physicalResistance = Float.valueOf(coreAttributes.getMandatoryFirstOf("physicalResistance").getTextContent());
+				}
 				
 				// Hit/miss descriptions:
 				
@@ -467,6 +476,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						&& ((AbstractWeaponType)o).isMelee() == isMelee()
 						&& ((AbstractWeaponType)o).isTwoHanded() == isTwoHanded()
 						&& ((AbstractWeaponType)o).getPathName().equals(getPathName())
+						&& ((AbstractWeaponType)o).getPhysicalResistance() == getPhysicalResistance()
 						&& ((AbstractWeaponType)o).getDamage() == getDamage()
 						&& ((AbstractWeaponType)o).getDamageVariance() == getDamageVariance()
 						&& ((AbstractWeaponType)o).getRarity() == getRarity()
@@ -487,6 +497,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		int result = super.hashCode();
 		result = 31 * result + getName().hashCode();
 		result = 31 * result + getPathName().hashCode();
+		result = 31 * result + Float.floatToIntBits(getPhysicalResistance());
 		result = 31 * result + getDamage();
 		result = 31 * result + getDamageVariance().hashCode();
 		result = 31 * result + (melee ? 1 : 0);
@@ -503,6 +514,14 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 	public static AbstractWeapon generateWeapon(AbstractWeaponType wt, DamageType dt) {
 		return generateWeapon(wt, dt, null, null);
+	}
+	
+	public static AbstractWeapon generateWeapon(String id, DamageType dt) {
+		return generateWeapon(id, dt, null, null);
+	}
+	
+	public static AbstractWeapon generateWeapon(String id, DamageType dt, Colour primaryColour, Colour secondaryColour) {
+		return generateWeapon(WeaponType.getWeaponTypeFromId(id), dt, primaryColour, secondaryColour);
 	}
 	
 	public static AbstractWeapon generateWeapon(AbstractWeaponType wt, DamageType dt, Colour primaryColour, Colour secondaryColour) {
@@ -882,6 +901,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 	public Rarity getRarity() {
 		return rarity;
+	}
+
+	public float getPhysicalResistance() {
+		return physicalResistance;
 	}
 
 	public ClothingSet getClothingSet() {

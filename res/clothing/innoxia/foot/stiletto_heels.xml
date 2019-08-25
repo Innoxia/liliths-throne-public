@@ -6,7 +6,7 @@
 		<name><![CDATA[stiletto heel]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[stiletto heels]]></namePlural>
 		<description><![CDATA[A pair of shoes which have long, thin high heels, commonly referred to as stiletto heels. The significantly-raised heel serves to make the wearer taller, as well as to accentuate their calf muscles and the overall length of their legs.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>FOOT</slot> 
 		<rarity>COMMON</rarity>

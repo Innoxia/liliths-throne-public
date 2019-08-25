@@ -93,9 +93,14 @@ public class OptionsDialogue {
 			
 			 if (index == 1) {
 				 if(confirmNewGame || !Main.game.isStarted()) {
-					 
 					return new ResponseEffectsOnly(
-							(!Main.game.isStarted()?"New Game":"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Confirm</b>"), "Start a new game.<br/><br/><b>Remember to save your game first!</b>"){
+							(!Main.game.isStarted()
+									?"New Game"
+									:"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Confirm</b>"),
+							"Start a new game."
+								+(Main.game.isStarted()
+									?"<br/><br/>[style.italicsMinorBad(Remember to save your game first!)]</b>"
+									:"")){
 						@Override
 						public void effects() {
 							//Fixes a bug where inventory would stay on screen
@@ -112,8 +117,15 @@ public class OptionsDialogue {
 							confirmNewGame = false;
 						}
 					};
+					
 				 } else {
-					 return new Response("New Game", "Start a new game.<br/><br/><b>Remember to save your game first!</b>", MENU){
+					 return new Response(
+							 "New Game",
+							 "Start a new game."
+								+(Main.game.isStarted()
+									?"<br/><br/>[style.italicsMinorBad(Remember to save your game first!)]"
+									:""),
+								MENU){
 							@Override
 							public void effects() {
 								confirmNewGame = true;
@@ -390,7 +402,7 @@ public class OptionsDialogue {
 						+ " Any NPC can be exported in-game by viewing their information screen (either from the 'characters present' or your phone's 'contacts' screen), and then pressing the small 'export character' button in the top-right."
 					+ "</p>"
 					+ "<p>"
-						+ "Exported characters can be used as a playable character when starting a new game (choose 'Start (Import)'), or as a importable slave at the Auction Block in Slaver Alley."
+						+ "Exported characters can be used as a playable character when starting a new game (choose 'Start (Import)'), or as an importable slave at the Auction Block in Slaver Alley."
 					+ "</p>"
 					+ "<div class='container-full-width' style='padding:0; margin:0;'>"
 						+ "<div class='container-quarter-width' style='text-align:center;'>"
@@ -469,7 +481,8 @@ public class OptionsDialogue {
 	
 	private static String getSaveLoadRow(String date, String name, boolean altColour) {
 		if(name!=null){
-			String baseName = name.substring(0, name.lastIndexOf('.'));
+			String baseName = Util.getFileName(name);
+			String identifierName = Util.getFileIdentifier(name);
 			
 			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
@@ -481,18 +494,18 @@ public class OptionsDialogue {
 						+ "<div class='container-full-width' style='width:calc(25% - 16px);text-align:center; background:transparent;'>"
 							+ (Main.isSaveGameAvailable()
 									?(name.equals(overwriteConfirmationName)
-										?"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
-										:"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
-									:"<div class='square-button saveIcon disabled' id='overwrite_saved_" + baseName + "_disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
+										?"<div class='square-button saveIcon' id='overwrite_saved_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
+										:"<div class='square-button saveIcon' id='overwrite_saved_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
+									:"<div class='square-button saveIcon disabled' id='overwrite_saved_" + identifierName + "_disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
 							
 							+ (name.equals(loadConfirmationName)
-									?"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
-									:"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
+									?"<div class='square-button saveIcon' id='load_saved_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
+									:"<div class='square-button saveIcon' id='load_saved_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
 	
 	
 							+ (name.equals(deleteConfirmationName)
-								?"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
-								:"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
+								?"<div class='square-button saveIcon' id='delete_saved_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
+								:"<div class='square-button saveIcon' id='delete_saved_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
 						+ "</div>"
 					+ "</div>";
 			
@@ -515,7 +528,9 @@ public class OptionsDialogue {
 	}
 
 	private static String getImportRow(String date, String name, boolean altColour) {
-		String baseName = name.substring(0, name.lastIndexOf('.'));
+		String baseName = Util.getFileName(name);
+		String identifierName = Util.getFileIdentifier(name);
+		
 		return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
 					+ "<div class='container-quarter-width' style='background:transparent;'>"
 						+ date
@@ -525,8 +540,8 @@ public class OptionsDialogue {
 					+ "</div>"
 					+ "<div class='container-quarter-width' style='padding:auto 0; margin:auto 0; width:20%; text-align:center; background:transparent;'>"
 					+ (name.equals(deleteConfirmationName)
-							?"<div class='square-button big' id='delete_saved_character_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
-							:"<div class='square-button big' id='delete_saved_character_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
+							?"<div class='square-button big' id='delete_saved_character_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
+							:"<div class='square-button big' id='delete_saved_character_" + identifierName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
 					+ "</div>"
 				+ "</div>";
 	}
@@ -557,22 +572,6 @@ public class OptionsDialogue {
 					+ " Although it makes scene transitions a little prettier, it is off by default, as it can cause some annoying lag in inventory screens."
 					+ "</p>"
 
-					+"<p>"
-					+ "<b>Locale:</b>"
-					+ "<br/>This changes the way in which your locale and therefore the date, time and number formats are determined."
-					+ " For automatic, the system locale is used. Otherwise, you may override the formats using the following settings."
-					+ "</p>"
-
-					+"<p>"
-					+ "<b>Time:</b>"
-					+ "<br/>This toggles the time format between 12 hour (AM/PM) and 24 hour display."
-					+ "</p>"
-
-					+"<p>"
-					+ "<b>Numbers:</b>"
-					+ "<br/>This toggles the units between metric and imperial. If set manually, the english number format is used."
-					+ "</p>"
-					
 					+"<p>"
 					+ "<b>Difficulty (Currently set to "+Main.getProperties().difficultyLevel.getName()+"):</b>");
 			
@@ -695,8 +694,7 @@ public class OptionsDialogue {
 						Main.saveProperties();
 						
 						for(NPC npc : Main.game.getAllNPCs()) {
-							if(Main.game.isInCombat() && (Combat.getEnemies().contains(npc) || Combat.getAllies().contains(npc))) {
-							} else {
+							if(!Main.game.isInCombat() || !Combat.getAllCombatants(false).contains(npc)) {
 								npc.setMana(npc.getAttributeValue(Attribute.MANA_MAXIMUM));
 								npc.setHealth(npc.getAttributeValue(Attribute.HEALTH_MAXIMUM));
 							}
@@ -1524,70 +1522,98 @@ public class OptionsDialogue {
 					
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width'>"
-						+"<div class='container-half-width inner'>"
+					
+						+"<div class='container-half-width inner' style='width:31.3%; margin:1%; padding:1%;'>"
 							+ "<b style='color:"+Colour.RACE_HUMAN.toWebHexString()+"; float:left; width:100%; text-align:center;'>Human encounters</b>"
-							+ "<div style='display:inline-block; padding-left:25%; width:100%;'>"
-								+ "<div id='furry_preference_human_encounter_zero' class='square-button small"+(Main.getProperties().humanEncountersLevel==0
+							+ "<div style='display:inline-block; padding-left:5%; width:100%;'>"
+								+ "<div id='furry_preference_human_encounter_zero' class='square-button"+(Main.getProperties().humanEncountersLevel==0
 									?" selected' style='border-color:"+Colour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZero()+"</div></div>"
 									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZeroDisabled()+"</div></div>")
 							
-								+ "<div id='furry_preference_human_encounter_one' class='square-button small"+(Main.getProperties().humanEncountersLevel==1
+								+ "<div id='furry_preference_human_encounter_one' class='square-button"+(Main.getProperties().humanEncountersLevel==1
 									?" selected' style='border-color:"+Colour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOne()+"</div></div>"
 									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOneDisabled()+"</div></div>")
 								
-								+ "<div id='furry_preference_human_encounter_two' class='square-button small"+(Main.getProperties().humanEncountersLevel==2
+								+ "<div id='furry_preference_human_encounter_two' class='square-button"+(Main.getProperties().humanEncountersLevel==2
 									?" selected' style='border-color:"+Colour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwo()+"</div></div>"
 									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwoDisabled()+"</div></div>")
 								
-								+ "<div id='furry_preference_human_encounter_three' class='square-button small"+(Main.getProperties().humanEncountersLevel==3
+								+ "<div id='furry_preference_human_encounter_three' class='square-button"+(Main.getProperties().humanEncountersLevel==3
 									?" selected' style='border-color:"+Colour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThree()+"</div></div>"
 									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThreeDisabled()+"</div></div>")
 								
-								+ "<div id='furry_preference_human_encounter_four' class='square-button small"+(Main.getProperties().humanEncountersLevel==4
+								+ "<div id='furry_preference_human_encounter_four' class='square-button"+(Main.getProperties().humanEncountersLevel==4
 									?" selected' style='border-color:"+Colour.RACE_HUMAN.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFour()+"</div></div>"
 									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFourDisabled()+"</div></div>")
 							+"</div>"
 						+ "</div>"
+					
+						+"<div class='container-half-width inner' style='width:31.3%; margin:1%; padding:1%;'>"
+							+ "<b style='color:"+Colour.RACE_CENTAUR.toWebHexString()+"; float:left; width:100%; text-align:center;'>Taurs</b>"
+							+ "<div style='display:inline-block; padding-left:5%; width:100%;'>"
+								+ "<div id='taur_furry_preference_zero' class='square-button"+(Main.getProperties().taurFurryLevel==0
+									?" selected' style='border-color:"+Colour.RACE_CENTAUR.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZero()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZeroDisabled()+"</div></div>")
+							
+								+ "<div id='taur_furry_preference_one' class='square-button"+(Main.getProperties().taurFurryLevel==1
+									?" selected' style='border-color:"+Colour.RACE_CENTAUR.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOne()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOneDisabled()+"</div></div>")
+								
+								+ "<div id='taur_furry_preference_two' class='square-button"+(Main.getProperties().taurFurryLevel==2
+									?" selected' style='border-color:"+Colour.RACE_CENTAUR.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwo()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwoDisabled()+"</div></div>")
+								
+								+ "<div id='taur_furry_preference_three' class='square-button"+(Main.getProperties().taurFurryLevel==3
+									?" selected' style='border-color:"+Colour.RACE_CENTAUR.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThree()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThreeDisabled()+"</div></div>")
+								
+								+ "<div id='taur_furry_preference_four' class='square-button"+(Main.getProperties().taurFurryLevel==4
+									?" selected' style='border-color:"+Colour.RACE_CENTAUR.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFour()+"</div></div>"
+									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFourDisabled()+"</div></div>")
+							+"</div>"
+						+ "</div>"
 						
-						+"<div class='container-half-width inner'>"
+						+"<div class='container-half-width inner' style='width:31.3%; margin:1%; padding:1%;'>"
 							+ "<b style='color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+"; float:left; width:100%; text-align:center;'>Forced TF Racial Limits</b>"
-							+ "<div style='display:inline-block; padding-left:25%; width:100%;'>"
-								+ "<div id='forced_tf_limit_human' class='square-button small"+(Main.getProperties().getForcedTFPreference()==FurryPreference.HUMAN
+							+ "<div style='display:inline-block; padding-left:5%; width:100%;'>"
+								+ "<div id='forced_tf_limit_human' class='square-button"+(Main.getProperties().getForcedTFPreference()==FurryPreference.HUMAN
 									?" selected' style='border-color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZero()+"</div></div>"
 									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleZeroDisabled()+"</div></div>")
 							
-								+ "<div id='forced_tf_limit_minimum' class='square-button small"+(Main.getProperties().getForcedTFPreference()==FurryPreference.MINIMUM
+								+ "<div id='forced_tf_limit_minimum' class='square-button"+(Main.getProperties().getForcedTFPreference()==FurryPreference.MINIMUM
 									?" selected' style='border-color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOne()+"</div></div>"
 									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleOneDisabled()+"</div></div>")
 								
-								+ "<div id='forced_tf_limit_reduced' class='square-button small"+(Main.getProperties().getForcedTFPreference()==FurryPreference.REDUCED
+								+ "<div id='forced_tf_limit_reduced' class='square-button"+(Main.getProperties().getForcedTFPreference()==FurryPreference.REDUCED
 									?" selected' style='border-color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwo()+"</div></div>"
 									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleTwoDisabled()+"</div></div>")
 								
-								+ "<div id='forced_tf_limit_normal' class='square-button small"+(Main.getProperties().getForcedTFPreference()==FurryPreference.NORMAL
+								+ "<div id='forced_tf_limit_normal' class='square-button"+(Main.getProperties().getForcedTFPreference()==FurryPreference.NORMAL
 									?" selected' style='border-color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThree()+"</div></div>"
 									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleThreeDisabled()+"</div></div>")
 								
-								+ "<div id='forced_tf_limit_maximum' class='square-button small"+(Main.getProperties().getForcedTFPreference()==FurryPreference.MAXIMUM
+								+ "<div id='forced_tf_limit_maximum' class='square-button"+(Main.getProperties().getForcedTFPreference()==FurryPreference.MAXIMUM
 									?" selected' style='border-color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFour()+"</div></div>"
 									:"'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getScaleFourDisabled()+"</div></div>")
 							+"</div>"
 						+ "</div>"
+							
 					+ "</div>");
 			
 			
 			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align: center;'>"
 												+ "<div style='display:inline-block; margin:0 auto;'>"
-													+"<div style='float:left; text-align:right;'>"
-														+ "<b>Set all:</b>&nbsp;"
+													+"<div style='float:left; text-align:right; margin-right:16px;'>"
+														+ "<b>Set all:</b>"
 													+ "</div>"
-													+ "<div id='furry_preference_female_human_all' class='preference-button'>"+FurryPreference.HUMAN.getName()+"</div>"
-													+ "<div id='furry_preference_female_minimum_all' class='preference-button'>"+FurryPreference.MINIMUM.getName()+"</div>"
-													+ "<div id='furry_preference_female_reduced_all' class='preference-button'>"+FurryPreference.REDUCED.getName()+"</div>"
-													+ "<div id='furry_preference_female_normal_all' class='preference-button'>"+FurryPreference.NORMAL.getName()+"</div>"
-													+ "<div id='furry_preference_female_maximum_all' class='preference-button'>"+FurryPreference.MAXIMUM.getName()+"</div>"
+													+ "<div id='furry_preference_human_all' class='preference-button'>"+FurryPreference.HUMAN.getName()+"</div>"
+													+ "<div id='furry_preference_minimum_all' class='preference-button'>"+FurryPreference.MINIMUM.getName()+"</div>"
+													+ "<div id='furry_preference_reduced_all' class='preference-button'>"+FurryPreference.REDUCED.getName()+"</div>"
+													+ "<div id='furry_preference_normal_all' class='preference-button'>"+FurryPreference.NORMAL.getName()+"</div>"
+													+ "<div id='furry_preference_maximum_all' class='preference-button'>"+FurryPreference.MAXIMUM.getName()+"</div>"
 												+"</div>"
 											+"</div>"
+												
 											+ "<div class='container-full-width' style='text-align: center;'>"
 											+"<div class='container-full-width' style='text-align:center; background:"+getEntryBackgroundColour(false)+";'>"
 												+"<div class='container-full-width' style='text-align:center; width:calc(60% - 16px);background:transparent; margin:0 0 0 40%; padding:0;'>"
@@ -1769,6 +1795,13 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append("</div></div>");
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+								"ENCHANTMENT_LIMITS",
+								Colour.GENERIC_ARCANE,
+								"Enchantment Capacity",
+								"Toggle the 'enchantment capacity' mechanic, which restricts how many enchanted items you can wear. This is on by default, and you will potentially break the balance of the game's combat by turning it off.",
+								Main.getProperties().hasValue(PropertyValue.enchantmentLimits)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 								"ARTWORK",
 								Colour.BASE_BLUE_LIGHT,
 								"Artwork",
@@ -1818,7 +1851,14 @@ public class OptionsDialogue {
 							"Non-consent",
 							"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions.",
 							Main.getProperties().hasValue(PropertyValue.nonConContent)));
-
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"SADISTIC_SEX",
+							Colour.BASE_RED,
+							"Sadistic sex",
+							"This unlocks 'sadistic' sex actions, such as choking, slapping, and spitting on partners in sex.",
+							Main.getProperties().hasValue(PropertyValue.sadisticSexContent)));
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"SILLY",
 							Colour.GENERIC_GOOD,
@@ -1830,7 +1870,7 @@ public class OptionsDialogue {
 							"OPPORTUNISTIC_ATTACKERS",
 							Colour.BASE_CRIMSON,
 							"Opportunistic attackers",
-							"This makes random attacks more likely when you're high on lust, low on energy, covered in fluids, exposed, or drunk.",
+							"This makes random attacks more likely when you're high on lust, low on health, covered in fluids, exposed, or drunk.",
 							Main.game.isOpportunisticAttackersEnabled()));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(

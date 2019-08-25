@@ -13,9 +13,9 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum DamageType {
 
-	ENERGY("energy",
+	HEALTH("health",
 			Colour.ATTRIBUTE_HEALTH,
-			"energy damaging",
+			"health damaging",
 			Attribute.ENERGY_SHIELDING,
 			Attribute.HEALTH_MAXIMUM,
 			SpellSchool.EARTH,
@@ -27,7 +27,7 @@ public enum DamageType {
 			Attribute.RESISTANCE_PHYSICAL,
 			Attribute.DAMAGE_PHYSICAL,
 			SpellSchool.EARTH,
-			DamageType.ENERGY),
+			DamageType.HEALTH),
 	
 	ICE("ice",
 			Colour.DAMAGE_TYPE_COLD,
@@ -35,7 +35,7 @@ public enum DamageType {
 			Attribute.RESISTANCE_ICE,
 			Attribute.DAMAGE_ICE,
 			SpellSchool.WATER,
-			DamageType.ENERGY),
+			DamageType.HEALTH),
 	
 	FIRE("fire",
 			Colour.DAMAGE_TYPE_FIRE,
@@ -43,7 +43,7 @@ public enum DamageType {
 			Attribute.RESISTANCE_FIRE,
 			Attribute.DAMAGE_FIRE,
 			SpellSchool.FIRE,
-			DamageType.ENERGY),
+			DamageType.HEALTH),
 	
 	POISON("poison",
 			Colour.DAMAGE_TYPE_POISON,
@@ -51,7 +51,7 @@ public enum DamageType {
 			Attribute.RESISTANCE_POISON,
 			Attribute.DAMAGE_POISON,
 			SpellSchool.AIR,
-			DamageType.ENERGY),
+			DamageType.HEALTH),
 
 	UNARMED("unarmed",
 			Colour.DAMAGE_TYPE_PHYSICAL,
@@ -59,7 +59,7 @@ public enum DamageType {
 			Attribute.RESISTANCE_PHYSICAL,
 			Attribute.DAMAGE_PHYSICAL,
 			SpellSchool.EARTH,
-			DamageType.ENERGY) {
+			DamageType.HEALTH) {
 		@Override
 		public int damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
 			// Flame cloak gives fire melee damage at a cost of arcane.
@@ -121,9 +121,9 @@ public enum DamageType {
 		public int damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
 			damageAmount = shieldCheck(source, target, damageAmount);
 			if(damageAmount > 0) {
-				if(target.getLust()>=100) {
+				if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 					target.incrementMana(-damageAmount);
-					return ENERGY.damageTarget(source, target, damageAmount*2);
+					return HEALTH.damageTarget(source, target, damageAmount*2);
 				} else {
 					target.setLust(target.getLust()+damageAmount);
 				}
@@ -138,7 +138,7 @@ public enum DamageType {
 			Attribute.RESISTANCE_PHYSICAL,
 			Attribute.DAMAGE_PHYSICAL,
 			SpellSchool.ARCANE,
-			DamageType.ENERGY);
+			DamageType.HEALTH);
 
 	private String name;
 	private Colour colour;

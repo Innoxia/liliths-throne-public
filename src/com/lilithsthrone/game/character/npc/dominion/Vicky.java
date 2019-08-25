@@ -77,8 +77,8 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexSlot;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -88,7 +88,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.4
  * @author Innoxia
  */
 public class Vicky extends NPC {
@@ -282,7 +282,7 @@ public class Vicky extends NPC {
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		this.addSpecialPerk(Perk.MARTIAL_BACKGROUND);
+		this.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(
@@ -436,7 +436,7 @@ public class Vicky extends NPC {
 		}
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			try {
-				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+				if(clothing!=null && clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
 					types.add(clothing);
 				} 
 			} catch(Exception ex) {
@@ -580,7 +580,7 @@ public class Vicky extends NPC {
 	
 	@Override
 	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
-		return slot==SexSlotBipeds.MISSIONARY_DESK_DOM;
+		return slot==SexSlotDesk.BETWEEN_LEGS;
 	}
 
 	@Override

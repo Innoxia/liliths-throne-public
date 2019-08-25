@@ -216,14 +216,14 @@ public class Penis implements BodyPartInterface {
 						"<p>"
 							+ "[npc.Name] [npc.verb(feel)] an intense heat building up in [npc.her] groin, and [npc.she] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] the [npc.skin] "
 									+ (owner.hasVagina()
-											? (owner.getLegConfiguration().isBipedalPositionedGenitals()
+											? (!owner.isTaur()
 												?"above [npc.her] pussy"
 												:"beneath [npc.her] pussy")
 											: "between [npc.her] legs")
 								+ " tighten up and start to press outwards."
 							+ " Within moments, a large bump has formed "
 								+ (owner.hasVagina()
-										? (owner.getLegConfiguration().isBipedalPositionedGenitals()
+										? (!owner.isTaur()
 											?"above [npc.her] feminine slit"
 											:"beneath [npc.her] feminine slit")
 										: "in the middle of [npc.her] groin,")
@@ -233,7 +233,7 @@ public class Penis implements BodyPartInterface {
 					UtilText.transformationContentSB.append(
 							" As [npc.her] new cock flops down "
 								+ (owner.hasVagina()
-									? (owner.getLegConfiguration().isBipedalPositionedGenitals()
+									? (!owner.isTaur()
 											?"to bump against [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] growing within [npc.her] groin,"
 											:"beneath [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] growing within [npc.her] groin,")
 									: "between [npc.her] legs, [npc.she] [npc.verb(feel)] [npc.a_balls] growing within [npc.her] groin,")
@@ -242,7 +242,7 @@ public class Penis implements BodyPartInterface {
 					UtilText.transformationContentSB.append(
 							" As [npc.her] new cock flops down "
 								+ (owner.hasVagina()
-									? (owner.getLegConfiguration().isBipedalPositionedGenitals()
+									? (!owner.isTaur()
 											?"to bump against [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] pushing out between [npc.her] two sexes,"
 											:"beneath [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] pushing out between [npc.her] two sexes,")
 									: "between [npc.her] legs, [npc.she] [npc.verb(feel)] [npc.a_balls] push out underneath the base of [npc.her] new shaft,")

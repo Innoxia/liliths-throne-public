@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.Locale;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -8,6 +10,7 @@ import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
@@ -27,7 +30,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.3.1
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class RoomPlayer {
@@ -42,7 +45,9 @@ public class RoomPlayer {
 				: (int) ((60 * (minutesPassed<(60*7)?7:31)) - minutesPassed));
 
 		if (index == 1) {
-			return new Response("Rest", "Rest for four hours. As well as replenishing your energy and aura, you will also get the 'Well Rested' status effect.", AUNT_HOME_PLAYERS_ROOM_SLEEP){
+			return new Response("Rest",
+					"Rest for four hours. As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
+					AUNT_HOME_PLAYERS_ROOM_SLEEP){
 				@Override
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -59,9 +64,10 @@ public class RoomPlayer {
 		} else if (index == 2) {
 			return new Response("Rest until " + (Main.game.isDayTime() ? "Evening" : "Morning"),
 					"Rest for " + (sleepTimer >= 60 ? sleepTimer / 60 + " hours " : " ")
-					+ (sleepTimer % 60 != 0 ? sleepTimer % 60 + " minutes" : "")
-					+ " until " + (Main.game.isDayTime() ? "evening (21:00)." : "morning (07:00).")
-					+ " As well as replenishing your energy and aura, you will also get the 'Well Rested' status effect.", AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG){
+						+ (sleepTimer % 60 != 0 ? sleepTimer % 60 + " minutes" : "")
+						+ " until " + (Main.game.isDayTime() ? "evening (21:00)." : "morning (07:00).")
+						+ " As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
+					AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG){
 				@Override
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -341,41 +347,173 @@ public class RoomPlayer {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Step away from the calendar.", ROOM);
-				
 			} else if(index==1) {
-				return new Response("May", "Read the information on May's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY);
-				
+				return new Response("January", "Read the information on January's page. [style.italicsMinorBad(There are currently no special events during January.)]", null);
 			} else if(index==2) {
-				return new Response("October", "Read the information on October's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER);
-				
+				return new Response("February", "Read the information on February page. [style.italicsMinorBad(There are currently no special events during February.)]", null);
 			} else if(index==3) {
+				return new Response("March", "Read the information on March's page. [style.italicsMinorBad(There are currently no special events during March.)]", null);
+			} else if(index==4) {
+				return new Response("April", "Read the information on April's page. [style.italicsMinorBad(There are currently no special events during April.)]", null);
+			} else if(index==5) {
+				return new Response("May", "Read the information on May's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY);
+			} else if(index==6) {
+				return new Response("June", "Read the information on June's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_JUNE);
+			} else if(index==7) {
+				return new Response("July", "Read the information on July's page. [style.italicsMinorBad(There are currently no special events during July.)]", null);
+			} else if(index==8) {
+				return new Response("August", "Read the information on August's page. [style.italicsMinorBad(There are currently no special events during August.)]", null);
+			} else if(index==9) {
+				return new Response("September", "Read the information on September's page. [style.italicsMinorBad(There are currently no special events during September.)]", null);
+			} else if(index==10) {
+				return new Response("October", "Read the information on October's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER);
+			} else if(index==11) {
+				return new Response("November", "Read the information on November's page. [style.italicsMinorBad(There are currently no special events during November.)]", null);
+			} else if(index==12) {
 				return new Response("December", "Read the information on December's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER);
-				
 			} else {
 				return null;
 			}
 		}
 	};
 	
+	/** Calendar's associated animal-morphs are based on the twelve animals of the Chinese zodiac, with the Monkey being replaced with a demon, the Rooster with a harpy, and the Snake with a lamia.
+	 *  The ordering of the demon and harpy have also been switched, so that October has demons.<br/>
+	 *  There is also a 20% chance of giving a different, random animal-morph for each month.<br/>
+	 * Animals are:<br/>
+	 * Rat, Cow, Tiger, Rabbit, Dragon, Lamia (Snake), Horse, Sheep/Goat, Harpy (Rooster), Demon (Monkey), Dog, Pig
+	 */
+	private static String getCalendarImageDescription(Month month) {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("<p>"
+				+ "Flicking through the calendar until you're looking at the page for "+month.getDisplayName(TextStyle.FULL, Locale.ENGLISH)+", you see that this month's image is now of ");
+		
+		if(Util.random.nextInt()<15) {
+			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+				sb.append(UtilText.returnStringAtRandom(
+						"a handsome merman, who's busily flexing his muscles while perched on a wave-swept rock.",
+						"muscular reindeer-boy, who's grinning as he presents his huge cock to you."));
+			} else {
+				sb.append(UtilText.returnStringAtRandom(
+						"a beautiful mermaid, who's happily showing off her exposed breasts while perched on a wave-swept rock.",
+						"a curvy reindeer-girl, who's bending over a wooden table and presenting her wet pussy to you."));
+			}
+			
+		} else {
+			switch(month) {
+				case JANUARY:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a toned "+Subspecies.RAT_MORPH.getSingularMaleName(null)+", who's grinning mischievously at you while stroking his fat, erect cock.");
+					} else {
+						sb.append("a horny "+Subspecies.RAT_MORPH.getSingularFemaleName(null)+", who's bent over a table in order to present her dripping pussy to you.");
+					}
+					break;
+				case FEBRUARY:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a topless "+Subspecies.COW_MORPH.getSingularMaleName(null)+"."
+								+ " His huge muscles are flexing as he carries a felled tree over one shoulder, while between his legs, you can't help but notice that he's got a massive bulge pressing out against the fabric of his shorts.");
+					} else {
+						sb.append("a black-and-white "+Subspecies.COW_MORPH.getSingularFemaleName(null)+", who's sitting on a small milking stool."
+								+ " With a happy smile on her face, she's busily pinching and tugging at at her engorged nipples, causing a stream of milk to flow out into a metal bucket.");
+					}
+					break;
+				case MARCH:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a fierce-looking "+Subspecies.CAT_MORPH_TIGER.getSingularMaleName(null)+"."
+								+ " Striking a dominant pose, he's flashing you a toothy grin, clearly excited by the fact that his huge feline cock is fully on display.");
+					} else {
+						sb.append("a fierce-looking "+Subspecies.CAT_MORPH_TIGER.getSingularFemaleName(null)+"."
+								+ " Striking a dominant pose, she's flashing you a toothy grin, clearly excited by the fact that her large breasts and tight pussy are fully on display.");
+					}
+					break;
+				case APRIL:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a handsome "+Subspecies.RABBIT_MORPH.getSingularMaleName(null)+", who's holding his massive cock in one hand while giving you a suggestive wink.");
+					} else {
+						sb.append("three blushing "+Subspecies.RABBIT_MORPH.getPluralFemaleName(null)+", who are down on all fours, side-by-side, presenting their pussies to you.");
+					}
+					break;
+				case MAY:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a powerful dragon, who's sitting on a golden throne perched on the top of a huge pile of treasure."
+								+ " His huge, scaly cock is fully on display, and with a grin on his face, he's giving you an expectant look, as though he's waiting for you to climb up and get a taste of it.");
+					} else {
+						sb.append("a powerful dragoness, who's sitting on a golden throne perched on the top of a huge pile of treasure."
+								+ " Her wet, scaly pussy is fully on display, and with a grin on her face, she's giving you an expectant look, as though she's waiting for you to climb up and get a taste of it.");
+					}
+					break;
+				case JUNE:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("an exotic-looking male lamia."
+								+ " He's quite clearly turned on and eager to have sex with someone, for his twin-cocks have pushed out from his cloaca; their heads already glistening in the sun from the slimy precum they're starting to exude.");
+					} else {
+						sb.append("an exotic-looking female lamia."
+								+ " She's quite clearly turned on and eager to have sex with someone, for she's reaching down to spread her cloaca and present her dripping-wet pussy to you.");
+					}
+					break;
+				case JULY:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("an impressively-endowed "+Subspecies.HORSE_MORPH.getSingularMaleName(null)+", who's flexing his muscles as he presents his fully-erect flared cock to you.");
+					} else {
+						sb.append("a fit "+Subspecies.HORSE_MORPH.getPluralFemaleName(null)+", who's leaning against a fence, flicking her tail to one side in order to present her animalistic-pussy to you.");
+					}
+					break;
+				case AUGUST:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a sheep-boy and goat-boy, standing side-by-side and presenting their erect cocks as they wink playfully at you.");
+					} else {
+						sb.append("a wooly sheep-girl and goat-girl, who are lying back and spreading their legs, presenting you with their tight, wet pussies.");
+					}
+					break;
+				case SEPTEMBER:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("an unusually-masculine harpy."
+								+ " Although the size of his cock is nothing to write home about, he's extremely handsome, and you feel your heart beating faster as you see him winking at you.");
+					} else {
+						sb.append("a beautiful female harpy."
+								+ " Although she's willingly presenting her wet pussy to you, the look on her face is one of condescending superiority,"
+									+ " and you get the impression that she'd make some kind of outrageous demand in exchange for allowing you to have sex with her.");
+					}
+					break;
+				case OCTOBER:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a fit, handsome "+Subspecies.DEMON.getSingularMaleName(null)+", who's suggestively winking at you as he runs his fingers over his huge, erect cock.");
+					} else {
+						sb.append("a fit, beautiful "+Subspecies.DEMON.getSingularFemaleName(null)+", wearing nothing but a witch's hat, who's suggestively winking at you as she runs her fingers over her wet pussy and huge breasts.");
+					}
+					break;
+				case NOVEMBER:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("an energetic-looking "+Subspecies.DOG_MORPH.getSingularMaleName(null)+", who's smiling at you as he strokes his erect, knotted dog-cock.");
+					} else {
+						sb.append("an excited-looking "+Subspecies.DOG_MORPH.getPluralFemaleName(null)+", who's down on all fours, raising her hips in order to present you with her wet pussy.");
+					}
+					break;
+				case DECEMBER:
+					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+						sb.append("a muscular boar-boy, who's grinning at you in anticipation as he strokes his huge cock and pair of massive, cum-filled balls.");
+					} else {
+						sb.append("a pretty, blushing pig-girl, who's leaning back against a wall and reaching down to spread her puffy pink pussy to you.");
+					}
+					break;
+			}
+		}
+		
+		sb.append(" After gazing at the picture for a few moments, you force yourself to look away and read the information that's written beneath:"
+				+ "</p>");
+		
+		return sb.toString();
+	}
+	
+	
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY = new DialogueNode("Your Room", "", false) {
 
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
-			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "Flicking through the calendar until you're looking at the page for May, you see that this month's image is now of a merman flexing his muscles while perched on a wave-swept rock."
-							+ " After gazing at the picture for a few moments, you force yourself to look away and read the information that's written beneath:"
-						+ "</p>");
-			} else {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "Flicking through the calendar until you're looking at the page for May, you see that this month's image is now of a beautiful mermaid, who's happily showing off her exposed breasts while perched on a wave-swept rock."
-							+ " After gazing at the picture for a few moments, you force yourself to look away and read the information that's written beneath:"
-						+ "</p>");
-			}
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.MAY));
 
 			UtilText.nodeContentSB.append(
 					"<h4 style='text-align:center;'>"
@@ -384,7 +522,7 @@ public class RoomPlayer {
 							+ "<span style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Mother's Week</span>"
 					+ "</h4>"
 					+ "<p><i>"
-						+ "The second week of May is a time in which to celebrate mothers, motherhood, and the nature of maternal bond between mother and child."
+						+ "The second week of May is a time in which to celebrate mothers, motherhood, and the nature of the maternal bond between mother and child."
 						+ " During this time, fertility-enhancing consumables are generously provided free of charge for all residents of Dominion, and are handed out by volunteers down the main boulevards."
 						+ " In this way, Lilith shows her love for mothers, and ensures that many more will be made!"
 					+ "</i></p>");
@@ -395,8 +533,41 @@ public class RoomPlayer {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
+			if(index==5) {
 				return new Response("May", "You are already reading the calendar's page concerning the month of May.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_JUNE = new DialogueNode("Your Room", "", false) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.JUNE));
+
+			UtilText.nodeContentSB.append(
+					"<h4 style='text-align:center;'>"
+							+ "<span style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>June</span>"
+							+ "<br/>"
+							+ "<span style='color:"+Colour.BASE_BLUE.toWebHexString()+";'>Father's Week</span>"
+					+ "</h4>"
+					+ "<p><i>"
+						+ "The third week of June is a time in which to celebrate fathers, fatherhood, and the nature of the paternal bond between father and child."
+						+ " During this time, fertility-enhancing consumables are generously provided free of charge for all residents of Dominion, and are handed out by volunteers down the main boulevards."
+						+ " In this way, Lilith shows her love for fathers, and ensures that many more will be made!"
+					+ "</i></p>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==6) {
+				return new Response("June", "You are already reading the calendar's page concerning the month of June.", null);
 			}
 			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
@@ -407,24 +578,12 @@ public class RoomPlayer {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
-			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "Flicking through the calendar until you're looking at the page for October, you see that this month's image is now of a topless incubus flexing his muscles."
-							+ " After gazing at the picture for a few moments, you force yourself to look away and read the information that's written beneath:"
-						+ "</p>");
-			} else {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "Flicking through the calendar until you're looking at the page for October, you see that this month's image is now of a suggestively-posed succubus wearing nothing but a witch's hat."
-							+ " After gazing at the picture for a few moments, you force yourself to look away and read the information that's written beneath:"
-						+ "</p>");
-			}
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.OCTOBER));
 
 			UtilText.nodeContentSB.append(
 					"<h4 style='text-align:center;'>"
-							+ "<span style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October</span>"
+							+ "<span style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>October</span>"
 							+ "<br/>"
 							+ "<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month</span>"
 					+ "</h4>"
@@ -446,7 +605,7 @@ public class RoomPlayer {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==2) {
+			if(index==10) {
 				return new Response("October", "You are already reading the calendar's page concerning the month of October.", null);
 			}
 			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
@@ -459,23 +618,11 @@ public class RoomPlayer {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "You turn the calendar to the month of December, and discover that the model adorning this page is a muscular reindeer-boy, who's grinning as he presents his huge cock to the viewer."
-							+ " After gazing at the picture for a few moments, you force yourself to look away and read the information that's written beneath:"
-						+ "</p>");
-			} else {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "You turn the calendar to the month of December, and discover that the model adorning this page is a curvy reindeer-girl, who's bending over a wooden table and presenting her wet pussy to the viewer."
-							+ " After gazing at the picture for a few moments, you force yourself to look away and read the information that's written beneath:"
-						+ "</p>");
-			}
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.DECEMBER));
 
 			UtilText.nodeContentSB.append(
 					"<h4 style='text-align:center;'>"
-							+ "<span style='color:"+Colour.BASE_RED.toWebHexString()+";'>December</span>"
+							+ "<span style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>December</span>"
 							+ "<br/>"
 							+ "<span style='color:"+Colour.BASE_GOLD.toWebHexString()+";'>Yuletide</span>"
 					+ "</h4>"
@@ -500,7 +647,7 @@ public class RoomPlayer {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==3) {
+			if(index==12) {
 				return new Response("December", "You are already reading the calendar's page concerning the month of December.", null);
 			}
 			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);

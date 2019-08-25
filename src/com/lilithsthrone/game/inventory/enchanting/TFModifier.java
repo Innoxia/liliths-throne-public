@@ -73,7 +73,7 @@ public enum TFModifier {
 	HEALTH_MAXIMUM(AttributeCategory.STRENGTH,
 			Attribute.HEALTH_MAXIMUM,
 			"Applies an effect related to the primary attribute 'Maximum Energy'.",
-			"modifier_circle_health",
+			"modifier_circle_strength",//"modifier_circle_health",
 			Rarity.EPIC),
 
 	MANA_MAXIMUM(AttributeCategory.INTELLIGENCE,
@@ -193,31 +193,31 @@ public enum TFModifier {
 	
 	RESISTANCE_LUST(AttributeCategory.CORRUPTION,
 			Attribute.RESISTANCE_LUST,
-			"Applies an effect related to the secondary attribute 'Seduction resistance'.",
+			"Applies an effect related to the secondary attribute 'Seduction shielding'.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
 	RESISTANCE_PHYSICAL(AttributeCategory.STRENGTH,
 			Attribute.RESISTANCE_PHYSICAL,
-			"Applies an effect related to the secondary attribute 'Physical resistance'.",
+			"Applies an effect related to the secondary attribute 'Physical shielding'.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
 	RESISTANCE_FIRE(AttributeCategory.INTELLIGENCE,
 			Attribute.RESISTANCE_FIRE,
-			"Applies an effect related to the secondary attribute 'Fire resistance'.",
+			"Applies an effect related to the secondary attribute 'Fire shielding'.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
 	RESISTANCE_ICE(AttributeCategory.INTELLIGENCE,
 			Attribute.RESISTANCE_ICE,
-			"Applies an effect related to the secondary attribute 'Ice resistance'.",
+			"Applies an effect related to the secondary attribute 'Ice shielding'.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
 	RESISTANCE_POISON(AttributeCategory.INTELLIGENCE,
 			Attribute.RESISTANCE_POISON,
-			"Applies an effect related to the secondary attribute 'Poison resistance'.",
+			"Applies an effect related to the secondary attribute 'Poison shielding'.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 
@@ -226,7 +226,7 @@ public enum TFModifier {
 	 */
 	RESISTANCE_WEAPON(AttributeCategory.STRENGTH,
 			Attribute.RESISTANCE_PHYSICAL,
-			"Applies a resistance effect related to the weapon's damage type.",
+			"Applies a shielding effect related to the weapon's damage type.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	

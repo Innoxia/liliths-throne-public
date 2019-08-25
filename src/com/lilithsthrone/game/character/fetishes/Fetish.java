@@ -1093,7 +1093,7 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2)),
 			Util.newArrayListOfValues(
-					"All incoming <span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>energy damage</span> is reduced by 25%",
+					"All incoming <span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>"+Attribute.HEALTH_MAXIMUM.getName()+" damage</span> is reduced by 25%",
 					"Reduced damage is converted to <span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>",
 					"Gain [style.boldArcane(1 essence)] when you are critically hit"),
 			null) {
@@ -1125,8 +1125,8 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues(
-					"All dealt <span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>energy damage</span> is increased by 5%",
-					"You take 10% of dealt <span style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</span> as <span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>",
+					"All dealt [style.colourHealth("+Attribute.HEALTH_MAXIMUM.getName()+" damage)] is increased by 5%",
+					"You take 10% of dealt [style.colourHealth("+Attribute.HEALTH_MAXIMUM.getName()+" damage)] as <span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>",
 					"Gain [style.boldArcane(1 essence)] when you critically hit"),
 			null) {
 

@@ -18,8 +18,7 @@
 		<blockedPartsList> 
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				<clothingAccessRequired> 
-					<clothingAccess>FINGERS</clothingAccess>
+				<clothingAccessRequired>
 					<clothingAccess>WRISTS</clothingAccess>
 				</clothingAccessRequired>
 				<blockedBodyParts/>

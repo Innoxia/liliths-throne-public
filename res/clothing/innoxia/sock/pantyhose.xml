@@ -6,7 +6,7 @@
 		<name><![CDATA[pantyhose]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[pantyhose]]></namePlural>
 		<description><![CDATA[A pair of nylon pantyhose which reach up to the wearer's lower abdomen.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>SOCK</slot> 
 		<rarity>COMMON</rarity>

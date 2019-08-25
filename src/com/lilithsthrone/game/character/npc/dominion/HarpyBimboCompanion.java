@@ -92,7 +92,7 @@ public class HarpyBimboCompanion extends NPC {
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		this.addSpecialPerk(Perk.SLUT);
+		this.addSpecialPerk(Perk.SPECIAL_SLUT);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),

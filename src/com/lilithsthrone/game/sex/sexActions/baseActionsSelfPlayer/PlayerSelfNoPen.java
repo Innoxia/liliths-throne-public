@@ -37,6 +37,11 @@ public class PlayerSelfNoPen {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.HANDS);
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -87,6 +92,11 @@ public class PlayerSelfNoPen {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.HANDS);
 		}
 		
 		@Override
@@ -141,11 +151,12 @@ public class PlayerSelfNoPen {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
-
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.game.getPlayer().hasPenis()
-					&& !Main.game.getPlayer().hasVagina();
+					&& !Main.game.getPlayer().hasVagina()
+					 && Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.HANDS);
 		}
 		
 		@Override

@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.character;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -64,7 +63,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.managers.submission.SMLyssiethDemonTF;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionOrgasmOverride;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -137,7 +136,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		worldsVisited = new ArrayList<>();
 		
-		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 10f, false);
+		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 0f, false);
 		this.setAttribute(Attribute.MAJOR_ARCANE, 0f, false);
 		this.setAttribute(Attribute.MAJOR_CORRUPTION, 0f, false);
 	}
@@ -406,6 +405,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			character.equipBasicCombatMoves();
 		}
 		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4")) {
+			character.ageAppearanceDifference = -Game.TIME_SKIP_YEARS;
+		}
+		
 		return character;
 	}
 
@@ -438,23 +441,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	@Override
 	public boolean isPlayer() {
 		return true;
-	}
-	
-	@Override
-	public int getAppearsAsAgeValue() {
-		if(Main.game.isInNewWorld()) {
-			return getAgeValue() - Game.TIME_SKIP_YEARS;
-		}
-		return getAgeValue();
-	}
-
-	@Override
-	public int getAgeValue() {
-		if(Main.game.isInNewWorld()) {
-			return super.getAgeValue();
-		} else {
-			return (int) ChronoUnit.YEARS.between(birthday, Main.game.getDateNow().minusYears(Game.TIME_SKIP_YEARS));
-		}
 	}
 	
 	@Override
@@ -1044,7 +1030,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				} else if(Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==3) {
 					// Stage 3) Player is fucking/breeding Lyssieth:
 					if(Sex.getContactingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(Lyssieth.class)).contains(SexAreaOrifice.VAGINA)) {
-						if(Sex.getPosition()==SexPositionBipeds.MATING_PRESS) {
+						if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotLyingDown.MATING_PRESS) {
 							sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_BREEDING_LYSSIETH_END"));
 						} else {
 							sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_FUCKING_LYSSIETH_END"));

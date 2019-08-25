@@ -1796,19 +1796,27 @@ public class CharacterUtils {
 	}
 	
 	public static void generateItemsInInventory(NPC character) {
+		List<AbstractCoreItem> items;
+		List<AbstractCoreItem> itemsRemoved = new ArrayList<>();
+		
 		for(int i=0; i<Util.random.nextInt(4)+2; i++) {
-			List<AbstractCoreItem> items = character.getLootItems();
+			items = new ArrayList<>(character.getLootItems());
 			if(!items.isEmpty()) {
 				AbstractCoreItem item = items.get(Util.random.nextInt(items.size()));
-				items.remove(item);
-				if (item instanceof AbstractItem) {
-					character.addItem((AbstractItem) item, false);
-					
-				} else if (item instanceof AbstractClothing) {
-					character.addClothing((AbstractClothing) item, false);
-					
-				} else if (item instanceof AbstractWeapon) {
-					character.addWeapon((AbstractWeapon) item, false);
+				if(!itemsRemoved.contains(item)) {
+					if(item instanceof AbstractItem
+							&& ((AbstractItem)item).getItemType() == ItemType.getLoreBook(character.getSubspecies())) {
+						itemsRemoved.add(item);
+					}
+					if (item instanceof AbstractItem) {
+						character.addItem((AbstractItem) item, false);
+						
+					} else if (item instanceof AbstractClothing) {
+						character.addClothing((AbstractClothing) item, false);
+						
+					} else if (item instanceof AbstractWeapon) {
+						character.addWeapon((AbstractWeapon) item, false);
+					}
 				}
 			}
 		}
@@ -2193,7 +2201,6 @@ public class CharacterUtils {
 					// Don't add leg clothing if dress has been added
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || (slot.isJewellery() && character.getBodyMaterial().isRequiresPiercing())) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
-
 						List<AbstractClothingType> clothingToUse = ClothingType.getCommonClothingMapFemaleIncludingAndrogynous().get(slot);
 						if(character.getHistory()==Occupation.NPC_PROSTITUTE) {
 							clothingToUse = ClothingType.getSuitableFeminineClothing().get(Occupation.NPC_PROSTITUTE);
@@ -2201,12 +2208,12 @@ public class CharacterUtils {
 						if(!clothingToUse.isEmpty()) {
 							BodyPartClothingBlock block = slot.getBodyPartClothingBlock(character);
 							clothingToUse = clothingToUse.stream().filter((c) ->
-								!c.isCondom()
-									&& (block==null || !Collections.disjoint(c.getItemTags(), block.getRequiredTags()))
+								!c.isCondom(slot)
+									&& (block==null || !Collections.disjoint(c.getItemTags(slot), block.getRequiredTags()))
 									&& (!character.hasBreastsCrotch()
 											|| character.getLegConfiguration()==LegConfiguration.TAUR  // Taurs crotch boobs are not concealed by stomach clothing, so don't bother
-											|| c.isConcealsSlot(character, InventorySlot.STOMACH)
-											|| c.getSlot()!=InventorySlot.TORSO_UNDER || c.getSlot()!=InventorySlot.TORSO_OVER
+											|| c.isConcealsSlot(character, c.getEquipSlots().get(0), InventorySlot.STOMACH)
+											|| c.getEquipSlots().get(0)!=InventorySlot.TORSO_UNDER || c.getEquipSlots().get(0)!=InventorySlot.TORSO_OVER
 											|| character.getInventorySlotsConcealed().containsKey(InventorySlot.STOMACH))
 								).collect(Collectors.toList());
 							
@@ -2223,7 +2230,7 @@ public class CharacterUtils {
 															?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
 															:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
 											false);
-									character.equipClothingFromNowhere(clothingToAdd, true, character);
+									character.equipClothingFromNowhere(clothingToAdd, slot, true, character);
 								}
 							}
 						}
@@ -2254,12 +2261,12 @@ public class CharacterUtils {
 						if(!clothingToUse.isEmpty()) {
 							BodyPartClothingBlock block = slot.getBodyPartClothingBlock(character);
 							clothingToUse = clothingToUse.stream().filter((c) ->
-								!c.isCondom()
-								&& (block==null || !Collections.disjoint(c.getItemTags(), block.getRequiredTags()))
+								!c.isCondom(slot)
+								&& (block==null || !Collections.disjoint(c.getItemTags(slot), block.getRequiredTags()))
 									&& (!character.hasBreastsCrotch()
 											|| character.getLegConfiguration()==LegConfiguration.TAUR  // Taurs crotch boobs are not concealed by stomach clothing, so don't bother
-											|| c.isConcealsSlot(character, InventorySlot.STOMACH)
-											|| c.getSlot()!=InventorySlot.TORSO_UNDER || c.getSlot()!=InventorySlot.TORSO_OVER
+											|| c.isConcealsSlot(character, c.getEquipSlots().get(0), InventorySlot.STOMACH)
+											|| c.getEquipSlots().get(0)!=InventorySlot.TORSO_UNDER || c.getEquipSlots().get(0)!=InventorySlot.TORSO_OVER
 											|| character.getInventorySlotsConcealed().containsKey(InventorySlot.STOMACH))
 								).collect(Collectors.toList());
 							
@@ -2275,7 +2282,7 @@ public class CharacterUtils {
 																	?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
 																	:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
 											false);
-									character.equipClothingFromNowhere(clothingToAdd, true, character);
+									character.equipClothingFromNowhere(clothingToAdd, slot, true, character);
 								}
 							}
 								
@@ -2307,12 +2314,12 @@ public class CharacterUtils {
 
 					BodyPartClothingBlock block = slot.getBodyPartClothingBlock(character);
 					List<AbstractClothingType> clothingToUse = clothingMap.get(slot);
-					clothingToUse = clothingToUse.stream().filter((c) -> (block==null || !Collections.disjoint(c.getItemTags(), block.getRequiredTags()))).collect(Collectors.toList());
+					clothingToUse = clothingToUse.stream().filter((c) -> (block==null || !Collections.disjoint(c.getItemTags(slot), block.getRequiredTags()))).collect(Collectors.toList());
 					
 					AbstractClothingType ct = getClothingTypeForSlot(character, slot, clothingToUse);
 					
 					if(ct!=null) {
-						character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ct, false), true, character);
+						character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ct, false), slot, true, character);
 					}
 				}
 			}
@@ -2325,7 +2332,7 @@ public class CharacterUtils {
 		boolean canEquip=true;
 		
 		for(AbstractClothingType ct : clothingOptions) {
-			if(ct.getSlot()!=slot) {
+			if(!ct.getEquipSlots().contains(slot)) {
 				continue;
 			}
 			canEquip=true;
@@ -2334,21 +2341,20 @@ public class CharacterUtils {
 				canEquip = false;
 				
 			} else if(character.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-				
-				for(BlockedParts bp : ct.getBlockedPartsList(character)) {
+				for(BlockedParts bp : ct.getBlockedPartsMap(character, slot)) {
 					boolean leavesAnusExposed = character.isCoverableAreaExposed(CoverableArea.ANUS) && !bp.blockedBodyParts.contains(CoverableArea.ANUS);
 					boolean leavesNipplesExposed = character.isCoverableAreaExposed(CoverableArea.NIPPLES) && !bp.blockedBodyParts.contains(CoverableArea.NIPPLES);
 					boolean leavesPenisExposed = !character.hasPenis() || (character.isCoverableAreaExposed(CoverableArea.PENIS) && !bp.blockedBodyParts.contains(CoverableArea.PENIS));
 					boolean leavesVaginaExposed = !character.hasVagina() || (character.isCoverableAreaExposed(CoverableArea.VAGINA) && !bp.blockedBodyParts.contains(CoverableArea.VAGINA));
 					//TODO check this:
-					if(!ct.isTransparent() && (!leavesNipplesExposed || (!leavesAnusExposed || (!leavesPenisExposed && !leavesVaginaExposed)))) {
+					if(!ct.isTransparent(slot) && (!leavesNipplesExposed || (!leavesAnusExposed || (!leavesPenisExposed && !leavesVaginaExposed)))) {
 						canEquip = false;
 					}
 				}
 				
 				
 			} else {
-				for(InventorySlot is : ct.getIncompatibleSlots(character)) {
+				for(InventorySlot is : ct.getIncompatibleSlots(character, slot)) {
 					if(character.getClothingInSlot(is) != null) {
 						canEquip = false;
 					}

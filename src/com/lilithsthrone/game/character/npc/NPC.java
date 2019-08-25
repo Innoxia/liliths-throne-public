@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc;
 
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -80,7 +81,8 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -382,7 +384,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public boolean isClothingStealable() {
 		return false;
 	}
-	
+
+	/**
+	 * Allows the player to equip items onto this character, overriding the normal unique-NPC checks to prevent it. False by default.
+	 */
+	public boolean isOverrideInventoryEquip() {
+		return false;
+	}
 
 	public String getPresentInTileDescription(boolean inHiding) {
 		StringBuilder tileSB = new StringBuilder();
@@ -1163,15 +1171,20 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isPendingTransformationToGenderIdentity() {
-		return NPCFlagValues.contains(NPCFlagValue.pendingTransformationToGenderIdentity);
+		return this.getGender()!=this.getGenderIdentity()
+				&& !this.isPregnant()
+				&& !this.isUnique()
+				&& !this.isSlave()
+				&& (this.getSubspeciesOverride()==Subspecies.DEMON || this.getSubspecies()==Subspecies.SLIME);
+//		return NPCFlagValues.contains(NPCFlagValue.pendingTransformationToGenderIdentity);
 	}
-	public void setPendingTransformationToGenderIdentity(boolean pendingTransformationToGenderIdentity) {
-		if(pendingTransformationToGenderIdentity) {
-			NPCFlagValues.add(NPCFlagValue.pendingTransformationToGenderIdentity);
-		} else {
-			NPCFlagValues.remove(NPCFlagValue.pendingTransformationToGenderIdentity);
-		}
-	}
+//	public void setPendingTransformationToGenderIdentity(boolean pendingTransformationToGenderIdentity) {
+//		if(pendingTransformationToGenderIdentity) {
+//			NPCFlagValues.add(NPCFlagValue.pendingTransformationToGenderIdentity);
+//		} else {
+//			NPCFlagValues.remove(NPCFlagValue.pendingTransformationToGenderIdentity);
+//		}
+//	}
 	
 	public long getLastTimeEncountered() {
 		return lastTimeEncountered;
@@ -3475,6 +3488,35 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	/**
+	 * Override this method and return a non-null list of SexActionInterfaces in order to limit what actions are available to this character during sex. For an example, see the Amber class.
+	 * Use the <b>getSexActionInterfacesFromClass()</b> helper method to add all SexActionInterfaces from a containing class.
+	 */
+	public List<SexActionInterface> getLimitedSexClasses() {
+		return null;
+	}
+	
+	/**
+	 * Helper method for the getLimitedSexClasses() method. Extracts all SexActionInterfaces from a class, and returns them in a list.
+	 */
+	protected List<SexActionInterface> getSexActionInterfacesFromClass(Class<?> classToAddSexActionsFrom) {
+		List<SexActionInterface> actions = new ArrayList<>();
+		Field[] fields = classToAddSexActionsFrom.getFields();
+		
+		for(Field f : fields){
+			if (SexAction.class.isAssignableFrom(f.getType())) {
+				try {
+					SexAction action = ((SexAction) f.get(null));
+					actions.add(action);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return actions;
+	}
+	
+	/**
 	 * Override this to set a preferred target for this character in sex. If there is an orgasm happening, and the returned character is not an orgasming character, this preference will be ignored.
 	 */
 	public GameCharacter getPreferredSexTarget() {
@@ -3509,7 +3551,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 					
 				} else if(isItemOrdinary
-						|| (!Main.game.isInCombat() && Combat.isPlayerVictory() && Combat.getEnemies().contains(target))
+						|| (!Main.game.isInCombat() && Combat.isPlayerVictory() && Combat.getEnemies(Main.game.getPlayer()).contains(target))
 						|| (target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user))) {
 					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
 					

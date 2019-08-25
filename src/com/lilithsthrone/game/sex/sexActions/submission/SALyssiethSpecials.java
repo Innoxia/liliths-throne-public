@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.utils.ParserTag;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -38,8 +39,11 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.submission.SMLyssiethDemonTF;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
@@ -110,7 +114,7 @@ public class SALyssiethSpecials {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexManager() instanceof SMLyssiethDemonTF
 					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
-					&& Sex.getPosition()==SexPositionBipeds.KNEELING_ORAL
+					&& Sex.getPosition()==SexPositionOther.STANDING
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -135,7 +139,7 @@ public class SALyssiethSpecials {
 
 		@Override
 		public String getDescription() {
-			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_CHOICE_GET_FUCKED");
+			return UtilText.parseFromXMLFile(Util.newArrayListOfValues(ParserTag.SEX_ALLOW_MUFFLED_SPEECH), "characters/submission/lyssieth", "DEMON_TF_STAGE_1_CHOICE_GET_FUCKED");
 		}
 
 		@Override
@@ -161,9 +165,9 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionBipeds.MISSIONARY_DESK,
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))));
+							SexPositionOther.OVER_DESK,
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.BETWEEN_LEGS)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))));
 			
 			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
 		}
@@ -181,7 +185,7 @@ public class SALyssiethSpecials {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexManager() instanceof SMLyssiethDemonTF
 					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
-					&& Sex.getPosition()==SexPositionBipeds.KNEELING_ORAL
+					&& Sex.getPosition()==SexPositionOther.STANDING
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -206,7 +210,7 @@ public class SALyssiethSpecials {
 
 		@Override
 		public String getDescription() {
-			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_CHOICE_GET_FUCKED_ANALLY");
+			return UtilText.parseFromXMLFile(Util.newArrayListOfValues(ParserTag.SEX_ALLOW_MUFFLED_SPEECH), "characters/submission/lyssieth", "DEMON_TF_STAGE_1_CHOICE_GET_FUCKED_ANALLY");
 		}
 
 		@Override
@@ -248,9 +252,9 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionBipeds.MISSIONARY_DESK,
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))));
+							SexPositionOther.OVER_DESK,
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.BETWEEN_LEGS)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))));
 			
 			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
 		}
@@ -268,7 +272,7 @@ public class SALyssiethSpecials {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexManager() instanceof SMLyssiethDemonTF
 					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
-					&& Sex.getPosition()==SexPositionBipeds.KNEELING_ORAL
+					&& Sex.getPosition()==SexPositionOther.STANDING
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -295,7 +299,7 @@ public class SALyssiethSpecials {
 
 		@Override
 		public String getDescription() {
-			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_CHOICE_FUCK_LYSSIETH");
+			return UtilText.parseFromXMLFile(Util.newArrayListOfValues(ParserTag.SEX_ALLOW_MUFFLED_SPEECH), "characters/submission/lyssieth", "DEMON_TF_STAGE_1_CHOICE_FUCK_LYSSIETH");
 		}
 
 		@Override
@@ -334,9 +338,9 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionBipeds.MISSIONARY_DESK,
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_DOM)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.MISSIONARY_DESK_SUB))));
+							SexPositionOther.OVER_DESK,
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.BETWEEN_LEGS)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.OVER_DESK_ON_BACK))));
 
 			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
 		}
@@ -385,9 +389,9 @@ public class SALyssiethSpecials {
 		@Override
 		public String getDescription() {
 			if(Main.game.getPlayer().hasPenis() && Main.game.getPlayer().getPenisType().getRace()==Race.DEMON && Main.game.getPlayer().getPenisRawSizeValue()<=4) {
-				return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_FUCK_LYSSIETH_AS_SISSY");
+				return UtilText.parseFromXMLFile(Util.newArrayListOfValues(ParserTag.SEX_ALLOW_MUFFLED_SPEECH), "characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_FUCK_LYSSIETH_AS_SISSY");
 			} else {
-				return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_FUCK_LYSSIETH");
+				return UtilText.parseFromXMLFile(Util.newArrayListOfValues(ParserTag.SEX_ALLOW_MUFFLED_SPEECH), "characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_FUCK_LYSSIETH");
 			}
 		}
 
@@ -402,9 +406,9 @@ public class SALyssiethSpecials {
 
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionBipeds.DOGGY_STYLE,
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS))));
+							SexPositionOther.ALL_FOURS,
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.BEHIND)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotAllFours.ALL_FOURS))));
 
 			Main.game.getPlayer().fillCumToMaxStorage();
 			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
@@ -447,9 +451,9 @@ public class SALyssiethSpecials {
 		@Override
 		public String getDescription() {
 			if(Main.game.getPlayer().hasPenis() && Main.game.getPlayer().getPenisType().getRace()==Race.DEMON && Main.game.getPlayer().getPenisRawSizeValue()<=4) {
-				return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_LYSSIETH_ORAL_AS_SISSY");
+				return UtilText.parseFromXMLFile(Util.newArrayListOfValues(ParserTag.SEX_ALLOW_MUFFLED_SPEECH), "characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_LYSSIETH_ORAL_AS_SISSY");
 			} else {
-				return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_LYSSIETH_ORAL");
+				return UtilText.parseFromXMLFile(Util.newArrayListOfValues(ParserTag.SEX_ALLOW_MUFFLED_SPEECH), "characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_LYSSIETH_ORAL");
 			}
 		}
 
@@ -464,9 +468,9 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionBipeds.CHAIR_SEX_ORAL,
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.CHAIR_KNEELING)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_ORAL_SITTING))));
+							SexPositionOther.SITTING,
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotSitting.PERFORMING_ORAL)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING))));
 			
 			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
 		}
@@ -518,9 +522,9 @@ public class SALyssiethSpecials {
 		@Override
 		public String getDescription() {
 			if(Main.game.getNpc(Lyssieth.class).getForeplayPreference(Main.game.getPlayer()).getTargetedSexArea()==SexAreaOrifice.ANUS) {
-				return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_ASK_FOR_MORE_GETTING_FUCKED_ANAL");
+				return UtilText.parseFromXMLFile(Util.newArrayListOfValues(ParserTag.SEX_ALLOW_MUFFLED_SPEECH), "characters/submission/lyssieth", "DEMON_TF_STAGE_2_ASK_FOR_MORE_GETTING_FUCKED_ANAL");
 			}
-			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_ASK_FOR_MORE_GETTING_FUCKED");
+			return UtilText.parseFromXMLFile(Util.newArrayListOfValues(ParserTag.SEX_ALLOW_MUFFLED_SPEECH), "characters/submission/lyssieth", "DEMON_TF_STAGE_2_ASK_FOR_MORE_GETTING_FUCKED");
 		}
 
 		@Override
@@ -576,9 +580,9 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionBipeds.DOGGY_STYLE,
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.DOGGY_BEHIND)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))));
+							SexPositionOther.ALL_FOURS,
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotAllFours.BEHIND)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))));
 			
 			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
 		}
@@ -624,7 +628,7 @@ public class SALyssiethSpecials {
 
 		@Override
 		public String getDescription() {
-			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_GET_FUCKED");
+			return UtilText.parseFromXMLFile(Util.newArrayListOfValues(ParserTag.SEX_ALLOW_MUFFLED_SPEECH), "characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_GET_FUCKED");
 		}
 
 		@Override
@@ -646,9 +650,9 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionBipeds.MISSIONARY_DESK,
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))));
+							SexPositionOther.OVER_DESK,
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.BETWEEN_LEGS)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))));
 			
 			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
 		}
@@ -689,7 +693,7 @@ public class SALyssiethSpecials {
 
 		@Override
 		public String getDescription() {
-			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_GET_FUCKED_ANALLY");
+			return UtilText.parseFromXMLFile(Util.newArrayListOfValues(ParserTag.SEX_ALLOW_MUFFLED_SPEECH), "characters/submission/lyssieth", "DEMON_TF_STAGE_2_CHOICE_GET_FUCKED_ANALLY");
 		}
 
 		@Override
@@ -723,9 +727,9 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionBipeds.MISSIONARY_DESK,
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))));
+							SexPositionOther.OVER_DESK,
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.BETWEEN_LEGS)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))));
 			
 			Main.game.getNpc(Lyssieth.class).fillCumToMaxStorage();
 		}
@@ -773,7 +777,7 @@ public class SALyssiethSpecials {
 
 		@Override
 		public String getDescription() {
-			return UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_MATING_PRESS");
+			return UtilText.parseFromXMLFile(Util.newArrayListOfValues(ParserTag.SEX_ALLOW_MUFFLED_SPEECH), "characters/submission/lyssieth", "DEMON_TF_STAGE_2_MATING_PRESS");
 		}
 
 		@Override
@@ -797,11 +801,11 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionBipeds.MATING_PRESS,
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MATING_PRESS_TOP)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotBipeds.MATING_PRESS_BOTTOM))));
+							SexPositionOther.LYING_DOWN,
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MATING_PRESS)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotLyingDown.LYING_DOWN))));
 			
-			Sex.applyOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, Main.game.getNpc(Lyssieth.class), SexAreaOrifice.VAGINA);
+			Sex.applyOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, Main.game.getNpc(Lyssieth.class), SexAreaOrifice.VAGINA, true);
 		}
 	};
 }

@@ -12,7 +12,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
@@ -49,7 +49,7 @@ public class PenisBreasts {
 					&& Sex.getCharacterPerformingAction().getPenisRawSizeValue()>=6
 					&& Sex.isOrificeFree(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH)
 //					&& Sex.getCharacterTargetedForSexAction(this).isBreastFuckablePaizuri()
-					&& Sex.getPosition() != SexPositionBipeds.SIXTY_NINE;
+					&& !Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.SIXTY_NINE);
 		}
 
 		@Override
@@ -183,7 +183,7 @@ public class PenisBreasts {
 					&& Sex.getCharacterTargetedForSexAction(this).getPenisRawSizeValue()>=6
 					&& Sex.isOrificeFree(Sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH)
 //					&& Sex.getCharacterTargetedForSexAction(this).isBreastFuckablePaizuri()
-					&& Sex.getPosition() != SexPositionBipeds.SIXTY_NINE;
+					&& !Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.SIXTY_NINE);
 		}
 
 		@Override

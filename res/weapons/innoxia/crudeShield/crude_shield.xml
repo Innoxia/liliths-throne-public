@@ -52,6 +52,9 @@
 		<!-- The file name of this weapon's image when equipped. Can be (and usually is) the same as the imageName (which in this example would be "dagger_sheathed.svg"). -->
 		<imageEquippedName>crude_shield.svg</imageEquippedName>
 		
+		<!-- How much natural physical resistance this weapon provides when equipped. Should only really be above 0 for shields or other such protective weapons. -->
+		<physicalResistance>0.5</physicalResistance> 
+		
 		<!-- The base damage that this weapon deals. -->
 		<damage>6</damage> 
 		
@@ -86,7 +89,6 @@
 		For example, if this dagger spawned in as type POISON, and I'd replaced both instances of CRITICAL_CHANCE with DAMAGE_WEAPON, then this dagger would spawn with two +5 Poison Damage effects.-->
 		<effects> 
               <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_WEAPON" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_PHYSICAL" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_PHYSICAL" timer="0"/>
 		</effects>
 		

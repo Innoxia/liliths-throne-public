@@ -6,7 +6,7 @@
 		<name><![CDATA[toeless striped stocking]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[toeless striped stockings]]></namePlural>
 		<description><![CDATA[A pair of striped nylon stockings, which reach up to the wearer's upper-thigh. The material around the toes and heel has been cut out, leaving the wearer's feet mostly exposed.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>SOCK</slot> 
 		<rarity>COMMON</rarity>
