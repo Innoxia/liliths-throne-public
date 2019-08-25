@@ -4993,7 +4993,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		if(att == Attribute.HEALTH_MAXIMUM || att == Attribute.MANA_MAXIMUM) {
-			if(this.hasStatusEffect(StatusEffect.INTELLIGENCE_PERK_0)) {
+			if(att == Attribute.MANA_MAXIMUM && this.hasStatusEffect(StatusEffect.INTELLIGENCE_PERK_0)) {
 				return 5;
 			} else if(this.hasStatusEffect(StatusEffect.CLOTHING_ENCHANTMENT_OVER_LIMIT)) {
 				value *= 0.9f;
