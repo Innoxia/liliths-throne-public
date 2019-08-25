@@ -9,37 +9,66 @@
     <description><![CDATA[A thick, veiny [unit.size(20)] dildo made of arcane-cured silicone.]]></description>
     
     <physicalResistance>0</physicalResistance>
-    <femininity>FEMININE</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
-    <slot>VAGINA</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+    <femininity>ANDROGYNOUS</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
+
+    <equipSlots>
+      <slot>VAGINA</slot>
+      <slot>ANUS</slot>
+      <slot>MOUTH</slot>
+    </equipSlots>
+    
     <rarity>COMMON</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
     
     <imageName>realistic_dildo.svg</imageName>
+
+    <imageEquippedName slot="ANUS">realistic_dildo.svg</imageEquippedName>
+    <imageEquippedName slot="MOUTH">realistic_dildo.svg</imageEquippedName>
     
     <clothingSet/> <!-- No way to define custom sets yet -->
     <imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
     <enchantmentLimit/> <!-- Custom values override game -->
     <effects/> <!-- Default enchantments -->
-
-    <blockedPartsList>
+    
+    
+    <blockedPartsList slot="VAGINA">
       <blockedParts>
-        
         <displacementType>REMOVE_OR_EQUIP</displacementType> <!-- displacementType values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
-        
         <clothingAccessRequired> <!-- clothingAccess values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
           <clothingAccess>GROIN</clothingAccess>
         </clothingAccessRequired>
-        
-        <blockedBodyParts> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
-          <bodyPart>VAGINA</bodyPart>
-        </blockedBodyParts>
-        
+        <blockedBodyParts/> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
         <clothingAccessBlocked/> <!-- clothingAccess -->
         <concealedSlots/> <!-- slot -->
-        
+      </blockedParts>
+    </blockedPartsList>
+
+    <blockedPartsList slot="ANUS">
+      <blockedParts>
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        <clothingAccessRequired>
+          <clothingAccess>GROIN</clothingAccess>
+        </clothingAccessRequired>
+        <blockedBodyParts/>
+        <clothingAccessBlocked/>
+        <concealedSlots/>
+      </blockedParts>
+    </blockedPartsList>
+
+    <blockedPartsList slot="MOUTH">
+      <blockedParts>
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        <clothingAccessRequired>
+          <clothingAccess>MOUTH</clothingAccess>
+        </clothingAccessRequired>
+        <blockedBodyParts/>
+        <clothingAccessBlocked/>
+        <concealedSlots/>
       </blockedParts>
     </blockedPartsList>
     
-    <incompatibleSlots/> <!-- slot(s) not compatible -->
+    <incompatibleSlots slot="VAGINA"/> <!-- slot(s) not compatible -->
+    <incompatibleSlots slot="ANUS"/>
+    <incompatibleSlots slot="MOUTH"/>
     
     <!-- colourList presets: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
     <!-- Colour values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->
@@ -54,67 +83,86 @@
     
     <itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
       <tag>SOLD_BY_FINCH</tag>
-      <tag>REQUIRES_VAGINA</tag>
-      <tag>PLUGS_VAGINA</tag>
       <tag>ENABLE_SEX_EQUIP</tag>
       <tag>TRANSPARENT</tag>
     </itemTags>
-    
+    <itemTags slot="VAGINA">
+      <tag>PLUGS_VAGINA</tag>
+    </itemTags>
+    <itemTags slot="ANUS">
+      <tag>PLUGS_ANUS</tag>
+    </itemTags>
+    <itemTags slot="MOUTH">
+      <tag>MUFFLES_SPEECH</tag>
+    </itemTags>
   </coreAttributes>
 
-  <displacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You pull the dildo out of your [pc.vagina+].]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You pull out [npc.name]'s dildo.]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You grab [npc.name]'s dildo and yank it out of [npc.herHis] [npc.vagina+].]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] pulls out [npc.herHis] dildo.]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] pulls the dildo out of your [pc.vagina+].]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] grabs your dildo and yanks it out of your [pc.vagina+].]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] pulls out [npc2.name]'s dildo.]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc.Name] firmly grabs [npc2.name]'s dildo and yanks it out of [npc2.herHis] [npc2.vagina+].]]>
-    </NPCOtherNPCRough>
+  <replacementText slot="VAGINA" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the dildo into [npc.her] [npc.vagina+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the dildo into [npc2.namePos] [npc.vagina+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(force)] the dildo into [npc2.namePos] [npc2.vagina+].]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="VAGINA" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc.her] [npc.vagina+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc2.namePos] [npc.vagina+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.vagina+].]]>
+    </otherRough>
   </displacementText>
 
-  <replacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You slide the dildo into your [pc.vagina+].]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You slide the dildo into [npc.name]'s [npc.vagina+].]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You hold [npc.name] still as you roughly force the dildo into [npc.herHis] [npc.vagina+].]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] slides the dildo into [npc.herHis] [npc.vagina+].]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] slide the dildo into your [pc.vagina+].]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] holds you still as [npc.sheHe] roughly forces the dildo into your [pc.vagina+]]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] slides the dildo into [npc2.Name]'s [npc2.vagina+].]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc1.Name] holds [npc2.name] still as [npc1.sheHe] roughly forces the dildo into [npc2.herHis] [npc2.vagina+].]]>
-    </NPCOtherNPCRough>
+  <replacementText slot="ANUS" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the dildo into [npc.her] [npc.anus+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the dildo into [npc2.namePos] [npc.anus+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(force)] the dildo into [npc2.namePos] [npc2.anus+].]]>
+    </otherRough>
   </replacementText>
-  
-  
+  <displacementText slot="ANUS" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc.her] [npc.anus+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc2.namePos] [npc.anus+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.anus+].]]>
+    </otherRough>
+  </displacementText>
+
+  <replacementText slot="MOUTH" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the dildo into [npc.her] [npc.mouth+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the dildo into [npc2.namePos] [npc.mouth+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(force)] the dildo into [npc2.namePos] [npc2.mouth+].]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="MOUTH" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc.her] [npc.mouth+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the dildo out of [npc2.namePos] [npc.mouth+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.mouth+].]]>
+    </otherRough>
+  </displacementText>
 </clothing>

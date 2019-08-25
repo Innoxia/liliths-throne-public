@@ -152,7 +152,7 @@ public class DominionAlleywayAttacker extends NPC {
 				}
 			}
 			
-			if(Math.random()<0.95 && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { //5% chance for the NPC to be a taur
+			if(Math.random()<0.05 && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { //5% chance for the NPC to be a taur
 				int taurLevel = Main.getProperties().taurFurryLevel;
 				if(this.getRace()==Race.DEMON) {
 					taurLevel = 3; // Demons should always be untouched

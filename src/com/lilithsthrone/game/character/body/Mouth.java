@@ -11,6 +11,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
@@ -67,9 +68,11 @@ public class Mouth implements BodyPartInterface {
 		for(OrificeModifier om : orificeMouth.getOrificeModifiers()) {
 			descriptorList.add(om.getName());
 		}
+		descriptorList.add(owner.getCovering(owner.getMouthCovering()).getPrimaryColour().getName());
+		
 		descriptorList.add(type.getDescriptor(owner));
 		
-		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+		return Util.randomItemFrom(descriptorList);
 	}
 	
 	public String getLipsNameSingular(GameCharacter gc) {
@@ -91,8 +94,8 @@ public class Mouth implements BodyPartInterface {
 			descriptorList.add("soft");
 			descriptorList.add("delicate");
 		}
-		
-		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+
+		return Util.randomItemFrom(descriptorList);
 	}
 
 	public void setType(MouthType type) {

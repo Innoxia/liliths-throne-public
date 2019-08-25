@@ -660,7 +660,7 @@ public class DebugDialogue {
 				
 			} else {
 				for(AbstractClothingType clothingType : clothingTotal) {
-					if(clothingType.getEquipSlots().get(0)==activeSlot) {
+					if(clothingType.getEquipSlots().contains(activeSlot)) {
 						inventorySB.append("<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "'>"
 												+ "<div class='inventory-icon-content'>"
 													+clothingType.getSVGImage(

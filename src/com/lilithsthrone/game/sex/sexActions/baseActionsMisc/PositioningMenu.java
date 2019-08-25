@@ -525,7 +525,7 @@ public class PositioningMenu {
 				if(!acceptableValue.getKey()) {
 					return new Response("Accept", acceptableValue.getValue(), null);
 				}
-				return new Response("Accept", "Move into the selected position.", Sex.SEX_DIALOGUE){
+				return new ResponseEffectsOnly("Accept", "Move into the selected position."){
 					@Override
 					public boolean isSexPositioningHighlight() {
 						return true;
@@ -545,7 +545,12 @@ public class PositioningMenu {
 											:"you manoeuvre your partners into their new places")
 										+", before assuming the posture you had in mind..."));
 
+						SexActionUtility.POSITION_SELECTION.applyEffects();
 						Sex.endSexTurn(SexActionUtility.POSITION_SELECTION);
+						Main.game.setContent(new Response("", "", Sex.SEX_DIALOGUE));
+//						Sex.endSexTurn(PlayerTalk.DIRTY_TALK);
+//						Main.game.setContent(SexActionUtility.POSITION_SELECTION.toResponse());
+//						
 					}
 				};
 				
@@ -661,7 +666,7 @@ public class PositioningMenu {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionChangingAllowed(Main.game.getPlayer())
+					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPositionOther.STANDING);
 		}
@@ -727,7 +732,7 @@ public class PositioningMenu {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionChangingAllowed(Main.game.getPlayer())
+					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPositionOther.AGAINST_WALL);
 		}
@@ -801,7 +806,7 @@ public class PositioningMenu {
 			return Sex.getAllParticipants(true).size()!=taurs // Need at least one non-taur
 					&& taurs<=4 // Cannot have more than 4 taurs
 					&& Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionChangingAllowed(Main.game.getPlayer())
+					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPositionOther.SITTING);
 		}
@@ -883,7 +888,7 @@ public class PositioningMenu {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionChangingAllowed(Main.game.getPlayer())
+					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPositionOther.OVER_DESK);
 		}
@@ -949,7 +954,7 @@ public class PositioningMenu {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionChangingAllowed(Main.game.getPlayer())
+					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPositionOther.ALL_FOURS);
 		}
@@ -1015,7 +1020,7 @@ public class PositioningMenu {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionChangingAllowed(Main.game.getPlayer())
+					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPositionOther.LYING_DOWN);
 		}
@@ -1081,7 +1086,7 @@ public class PositioningMenu {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionChangingAllowed(Main.game.getPlayer())
+					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPositionOther.STOCKS);
 		}
@@ -1147,7 +1152,7 @@ public class PositioningMenu {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionChangingAllowed(Main.game.getPlayer())
+					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPositionOther.MILKING_STALL);
 		}

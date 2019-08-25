@@ -390,6 +390,25 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 						+ "</p>");
 				break;
 		}
+
+		if(Main.getProperties().udders==0) {
+			AbstractRacialBody startingBodyType = RacialBody.valueOfRace(this.getRace());
+			body.setBreastCrotch(
+					new BreastCrotch(
+						BreastType.NONE,
+						Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
+						startingBodyType.getBreastCrotchSize(),
+						startingBodyType.getBreastCrotchLactationRate(),
+						startingBodyType.getBreastCrotchCount(),
+						startingBodyType.getBreastCrotchNippleSize(),
+						startingBodyType.getBreastCrotchNippleShape(),
+						startingBodyType.getBreastCrotchAreolaeSize(),
+						startingBodyType.getNippleCountPerBreastCrotch(),
+						startingBodyType.getBreastCrotchCapacity(),
+						startingBodyType.getBreastCrotchElasticity(),
+						startingBodyType.getBreastCrotchPlasticity(), 
+						true));
+		}
 		
 		bestialStringBuilder.append("<p><i>"
 				+ "[style.boldTfGeneric(Every part)] of [npc.her] lower body has transformed into that of a "+(feral?"feral "+bestialRaceName:"regular "+this.getRace().getName(false))+", meaning that [npc.she] now [npc.has]");

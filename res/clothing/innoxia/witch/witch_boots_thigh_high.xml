@@ -76,7 +76,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(push)] [npc2.namePos] [npc2.feet] into the boots.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] roughly [npc.verb(forces)] [npc2.namePos] [npc2.feet] into the boots.]]>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] [npc2.namePos] [npc2.feet] into the boots.]]>
 	  </otherRough>
 	</replacementText>
 

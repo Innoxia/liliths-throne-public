@@ -124,113 +124,76 @@
 	Patch notes:
 	
 	Gameplay:
-		Added a content toggle for 'sadistic sex', which now needs to be turned on in order for actions such as slapping, choking, and spitting to be available during sex. (This content is set to 'off' by default, so you'll need to manually enable it in the content options if you want to see or use this content.)
-		Added ability to masturbate almost anywhere in the game, via an action in your phone menu.
-		Added small side quest to buy Brax from Candi.
+		Added a 'loiter' action to the phone menu, allowing you to advance time by four hours in safe, suitable areas.
 	
 	Contributors:
-		Fixed bug where combat would sometimes freeze/crash when using effects that targeted multiple combatants. (PR#1190 by Shadowheart329)
-	
-	Clothing:
-		Added ability to define itemTags based on the slot that a piece of clothing is to be equipped into. Updated the template folder's 'socks.xml' file to show how this is defined.
-		Added 'physical' as an available damage type for bucklers.
-		Added support for weapons to have natural physical shielding. Added 0.5 natural physical shielding to crude shields, and 1 natural physical shielding to bucklers.
+		Fixed bug where characters would only have 5 health when affected by the 'arcane impotence' status effect. (PR#1193 by AlacoGit)
+		Added support for OccupationTags to be read by the parsing engine, and added 'ENFORCER' occupation tags to relevant occupations. (by Stadler)
+		Added support for multiple-slot equipping on: Realistic dildo (vagina, mouth, anus); Leather Bracelets (wrists, ankles); Siren's Cloak (over-torso, neck); Key Chain Necklace (neck, wrist); Clover Clamps (nipples, vagina). (by Norin)
 	
 	Sex:
-		Refactored the positioning code, and added a new system of position selection for when you're a dominant participant in sex (or if you have the same level of control as the dom).
-		Pure virgin fetishists now gain fetish experience at the end of sex (if they have satisfied their partners) based on if their vagina, penis, ass, and mouth are still virginal.
-		Lusty maiden fetishists gain experience at the end of sex (also having needed to satisfy their partners) if they have retained their vaginal virginity, as well as had their ass or mouth penetrated, or performed hotdogging or paizuri/naizuri.
-		Added a 'Prostate massage' sex action, available for the performer of anal fingering if the recipient has a penis, and also added a line to describe prostate milking for if a cahracter cums while someone is anally fingering them.
-		Added 'Encourage creampie' and Encourage pullout' orgasm preparation actions, for when the targeted character is penetrating a third character in sex. These requests are influenced by the 'convincing requests' perk, although the targeted character may ignore you if they are not submissive, have more control in the scene than you do, or are an unruly slave.
-		Information regarding whether a character will listen to your requests or not is now displayed in their 'desires' status effect's tooltip.
-		Added a 'spit in face' sex action, which is locked behind the new 'sadistic sex' toggle.
-		Added vaginal and anal penetration description variations for non-bipedal characters, so they aren't described as being able to reach their partner's cock in order to guide it into their orifices anymore.
-		Added double-penetration actions and description variations, allowing two characters to be simultaneously penetrating a character's vagina or asshole.
-		Added a setting in the furry preferences to set how furry you want randomly-generated NPC taurs to be. By default, this setting is set to 'normal', which means that all taurs will spawn in with fully-human upper bodies.
+		Reduced intercrural sex's default corruption from 'horny' level to 'vanilla'.
+		Prostate massage is no longer achieved via anal fingering for futa characters, with their prostate instead being stimulated through vaginal fingering.
 	
 	Other:
-		Made some minor improvements to some sex action descriptions.
-		Removed almost all String character restrictions for saved game names and saved enchantment names. Only the double quotation mark character is restricted.
-		Altered health icons to use a heart symbol, instead of a lightning bolt.
-		Added a calendar entry for the month of June (in the calendar menu in your room).
-		Added option to change age appearance in demon and slime self-transformation menus.
-		Compacted information in the character view page, and added the character's birthday information (only displayed if you know their name and they are friendly towards you, or if you are their mother or owner).
-		Added indication in characters' information tooltip, and their information page, for if they are significantly taller or shorter than you.
-		Characters now only need a wolf-morph's arms in order to unlock the 'Savage attack' special attack.
-		Slightly adjusted maximum arousal increments in multiple-partner sex.
-		The minimap now correctly displays unexplored tiles as black squares.
-		Increased chance for muggers to spawn with weapons from 50% to 90%.
-		Added a secondary confirmation click for removing friendly occupants from your house or their apartments.
-		Added indication in the 'Toggle Calendar Display' tooltip text that you need to look at the calendar in your room to reveal the date.
+	 	Candi can now be impregnated.
+		Slightly improved dialogue flow in Brax's feminisation scenes.
+		Added options to keep Brax as a futa when feminising him into Bree or Brandi.
+		Slightly improved display of capacity-related random descriptors for orifices, and added colour to random descriptors for lips, nipples, labia, and penis.
+		NPCs with a neutral fetish desire towards feet-related actions will now use those actions if your corresponding foot-fetish desire is positive. (i.e. An NPC with a neutral 'dominant foot' fetish will not use their feet in sex, unless your character has a positive desire towards the 'submissive foot' fetish.)
+		Improved visibility of character-swapping positioning actions.
+		Added finger to lower-half actions to the sex position slot where you're kneeling behind someone who's down on all fours.
 	
 	Bugs:
-		Fixed major issue where starting some sex scenes (such as Pix's) would result in a background error, causing any of your clothes which were stripped to not be returned to you after the sex scene.
-		Fixed bug where selecting the 'sex' tab when interacting with a slave or occupant in their room would cause the game to freeze/break.
-		Fixed an issue where having sex with slaves/occupants would display them as being both a submissive and dominant participant.
-		Several typo and parsing fixes.
-		Father's day content can now correctly be triggered on the 14th June.
-		Fixed issue where selecting sex actions which were outside of your corruption range would not give you an increase in corruption.
-		The phone icon is now correctly greyed-out during the prologue.
-		You and Lilaya no longer lose your clothes after having sex with Desryth in his/her apartment.
-		Lilaya now correctly puts her lab coat outfit on when returning from an evening out with Desryth. (This will also reset her clothing to her lab outfit when you load into this version.)
-		Fixed characters with flat chests being described as having 'null' breasts/pecs under the character information tooltip.
-		The 'Double creampie' action is now correctly unavailable if the secondary target's orifice is blocked or already in use.
-		Fixed the error.log file getting spammed with warnings if you entered Lilaya's lab without having started the Father's day quest.
-		If Lilaya is a half-demon, her skin and hair colours will be reset to their correct values when loading into this version.
-		Fixed bug where when resisting in sex, sometimes using an action wouldn't work for one turn.
-		Fixed issue where if you loaded a pre-saved enchantment of a differing type to the item you're viewing in your inventory, the game would sometimes freeze when pressing the 'Back' button.
-		Fixed issue where saved games with a single quote character in them would not load.
-		Fixed enchantment menu displaying a clothing/weapon capacity cost for fertility and virility enchantments.
-		Fixed characters having their hoofed feet referred to as normal feet in some orgasm descriptions.
-		Fixed some actions not being available when in the 'standing face-to-face' sex position.
-		Rose now correctly unequips her strapon after her dominant sex scene, and Kalahari correctly replaces her clothes after interacting with you.
-		Fixed NPCs reacting to your orgasms when you were a spectator in sex.
-		Fixed speech in sex not being muffled even if your tongue was busy inside an orifice.
-		Fixed issue where spectators in sex would have their area availability limited by what position the actual participants were in. (Was most noticeable in mating-press, where spectators would be unable to use their fingers.)
-		Fixed bug in sex where characters would never remove their equipped sex toys in order to start the actions they wanted. (So, for example, if they have a butt-plug equipped, and want to receive anal, they will now correctly remove it to do so.)
-		Fixed bug where your character would not be affected by changes to age appearance, and corrected code such that your character's age is handled like any other character's, although you gain a -3 year age modifier upon entering the new world.
-		Fixed issue where repeat actions in sex could be used on a third character who shouldn't have been able to have had those actions performed on them.
-		Fixed some game-breaking bugs related to clicking out of the debug menu instead of closing it manually.
-		Fixed bug where any character orgasming while receiving a handjob would sometimes break sex.
-		Fixed incorrect descriptions in the 'Receive anilingus' sex action.
-		Fixed bug where some expected sex actions would be missing in some positions.
-		Fixed several incorrect sex action descriptions and parsing.
-		Fixed bug where futa characters couldn't simultaneously fuck one another.
-		You are now correctly banned from asking for the same position request after being denied it once.
-		Amber now correctly ends sex after orgasming enough times to be satisfied, instead of after her first orgasm.
-		Fixed Ralph's sex scene never accepting your request for a big discount.
-		Fixed being able to initiate penetration when locked in the breeding stall, and being able to lie in your back if you were a taur.
-		Fixed bug where the game would sometimes freeze when generating a new character's outfit.
-		October cultists now correctly prefer to get you to eat them out before giving them a blowjob, as their dialogue implied.
-		Fixed NPC's sex AI not stopping oral actions even if they were blocking the NPC from performing their desired action.
-		Fixed issue in Lyssieth's demon TF scenes, where even though the descriptions were of her cumming inside of you, the effects (getting a creampie) would sometimes fail to be applied.
-		Fixed characters in the glory hole not having their inventory slots concealed.
-		Fixed issues with characters being able to penetrate you in impossible-to-reach areas while you were fucking them.
-		Fixed background errors being thrown when hovering the cursor over the right-hand-side's inventory panel during masturbation.
-		Characters who are spectating sex can no longer deny orgasms of those who are actively involved.
-		Offspring now correctly have their body stats slightly randomised from their base values.
-		Amber, Zaranix, Kelly, and Katherine now self-transform back into their preferred bodies when you leave Zaranix's house.
-		Time now correctly passes in the scenes in which you give birth.
-		The status effect 'arcane impotence' (gained when a cahracter's arcane stat is under 5) now correctly limits that character's maximum aura to 5 (as the status effect's tooltip said it should be doing).
+		Fixed major issue where you wouldn't be able to request access to the harpy nests, nor ask about the side quest up there.
+		Fixed issue where the game would freeze when selecting masturbation while having a positive desire towards exhibitionism, and also having a companion in your party.
+		Fixed semi-major bug where the actions available in sex would not update correctly after switching position using the new positioning menu actions.
+		Fixed numerous minor parsing errors, as well as incorrect description in anal actions, and incorrect parsing in prostate orgasm descriptions.
+		Fixed taurs spawning in with crotch-boobs even if you'd turned them off in the content options.
+		Fixed taurs having a 95% chance of appearing instead of 5%.
+		Fixed incorrect sex title for masturbation.
+		Fixed horse-morphs as being described as being present on the streets of Dominion during an arcane storm.
+		Candi no longer behaves as though she was satisfied from sex immediately after a sex scene in which you didn't let her orgasm.
+		The positioning menu actions now correctly work in the prologue's sex scene.
+		Fixed issue where the game would freeze after Rose's hand-holding scene (and any other sex scene in which no 'real' sex interactions were performed).
+		Fixed being able to interact with characters on the other end of a taur when you were spitroasting said taur, and improved action availability between these slots for when the in-between character is a non-taur.
+		Fixed positioning menu actions not being available when targeting characters who were on the same dom/sub 'side' as you.
+		Clothing now shows up in every category into which it can be equipped when using the debug menu's spawn menu. (Type 'buggy' when standing on a neutral tile to open the debug menu.)
+		Fixed issue where the sex slot descriptions being displayed beneath each character's name would sometimes be incorrect on the first turn of sex.
+		Fixed expanded positioning actions not being available when in the sitting position.
+		Fixed Ms. Cunningham's 'Perform cunnilingus' action causing a softlock if you were a taur.
+		If she's unable to access your ass, Vicky should now prefer to use your vagina, if you have one, instead of penetrating herself on your cock.
+		Fixed new positioning menu actions not causing sex to calculate a turn correctly when selected.
+		Debug menu's 'Reveal maps' action now correctly unlocks all maps to be viewed in the maps screen.
+		Fixed cause of a bug where duplicate 'Arthur's home' tiles could be created in Demon Home. (Also the game will delete any duplicates in your save file when loading into this version.)
+		The cultists which spawn during October can now appear on tiles which have friendly occupants living on them. (So that they can now spawn even if you've filled Dominion with friendly characters.)
+		Fixed bug where setting your birthday in the character creation would allow the year to go past the boundaries.
+		Lyssieth now correctly always creampies Lilaya/Meraxis during their demon TF scenes.
+		Fixed bug where Lyssieth would transform her penis away between the scenes in which she corrupts Lilaya and Meraxis.
+		Fixed issue where the 'degrading talk' sex action was never available.
+		The new taur spawn preference setting is now correctly saved in your properties file, so you don't have to set it every time the game is restarted.
+		When being transformed into a demon, your anus, nipples, vagina, and penis now correctly transform to have the same colour as your new demonic skin.
 	
 	
 	
 	
-	[x]Buying Brax
-		[x] Dialogue at reception desk variations
-		[x] Kate
-		[x] Harpy nest
-		[x] Lipstick
-		[x] Candi artwork as harpy
-		[x] Complete and test
-		[] Candi post-sex behaviour and pregnancies
 	
-	add colour to penis, labia descriptors			
+	characters spawning with depleted hp
 	
-	make it so Brax TF doesn't force you to have sex with them
+	merge from dev
 	
-	Add action to get carried away when wolf-teasing and let Brax fuck you
 	
+	
+	In Lilaya transformation, if chosen give her blowjob, and then get covered in her fluid (paizuri request cum, or nipple fuck creampie) after scene end, but before Meraxis scene, will be message about clothes being dirtied.
+		(Make these notifications only trigger in non-locked scenes)
+	
+	And I also notice that Lilaya was able to perform handjob on Lyssieth while receiving anal. 
+	
+	meraxis loses affection post-sex
+	
+	need lying down oral
+	
+	sort out cloaca actions
 	
 	Add action to tell pill handouters to get lost (for the year)
 	
@@ -241,124 +204,6 @@
 	
 	bug: flash was nerfed a lot and only lasts one turn against your target sooo yeah why bother criting with it?
 			
-	
-		
-		
-	need to convert all old positioning actions to new format...
-		[x] Change positioning actions to be a simple position select, then choose who goes in which slot
-		[x] New screen to explain position
-			[Cancelled] beneath that, a description of what actions are available for each character
-		[x] Action0 is cancel
-		[x] Action1 is accept
-		[x] Action2 is switch active character
-		[x] Actions3-X are for what slot they should go into
-		[x] Colour action if someone is in the slot. Add their name to the description.
-		Configure positions:
-			[x] Standing (with generic orgasm text)
-				[x] Standing
-				[x] Kneeling oral
-			[x] Against wall (with generic orgasm text)
-				[x] Back-to-wall
-				[x] Face-to-wall
-				[x] Kneeling oral
-				[x] Standing behind/infront
-			[x] Make standing have actions based on size difference (so just oral). Also add description of this in position desc. - an extra thing at the end like (As X is so much smaller than Y and Z, she is in a position to perform oral on them, even though she is standing.)
-			[x] Add indication in tooltip when someone is considerably taller or shorter than you
-			[x] Need a method that can block slots. Need this for oral/standing wall, which have slots that conflict with one another.
-			[x] Over desk (with generic orgasm text)
-				[x] Between legs
-				[x] At face
-				[x] Missionary (Lying back)
-				[x] Face-down (Bent over)
-			[x] Stocks (with generic orgasm text)
-				[x] Taur + regular is not having player's "you" first
-				[x] Revert generic orgasm text
-				[x] Set available fingers to none for those in stocks
-				[x] In stocks
-				[x] Mounting
-				[x] Performing oral
-				[x] Receiving oral
-			[x] Milking stall
-				[x] Copy stocks but renamed
-			[x] Breeding stall
-				[x] In stall front
-				[x] In stall back
-				[x] Character fucking
-				[x] Limit back slot to non-taurs
-			[x] Sitting
-				[x] Sitting
-				[x] Giving oral
-				[x] Receiving oral
-				[x] In lap
-				[x] Standing between legs
-			[x] Masturbation
-				[x] Standing
-				[x] Sitting
-				[x] Kneeling
-				[x] Panties
-			[x] All fours
-				[x] All fours
-				[x] Mounting
-				[x] Dom receiving oral
-				[x] Dom receiving oral (anal)
-				[x] Dom giving oral
-			[x] Lying down
-				[x] lap pillow (suckle)
-				[x] Cowgirl
-				[x] Missionary (interact with cowgirl for DP)
-				[x] Face sitting
-				[x] Sixty nine
-				[x] Mating press
-				[x] Scissoring
-		[x] Add a way to limit positions
-			[x] Fully implement this
-		[x] Check all SexSlotSitting.PERFORMING_ORAL
-		[x] If change a slot and other slots become unavailable, move them to spectator with warning at bottom
-		[cancelled] Make abstract methods in AbstractSexPosition
-		[x] Sort out all positioning actions
-			[x] Make new actions different colour and always in same order at top
-		[x] Make sure futas can fuck one another
-		[x] Restrict vaginal/anal if positioning would make it impossible (mainly for cowgirl/behind and humping/behind)
-		
-	Test:
-		[x] Positioning actions
-			[x] Remove availability of menu
-			[x] Fix request tooltip text
-		[x] As submissive
-			[x] Test requests
-		[x] Amber
-		[x] Ralph
-		[x] Vanessa
-		[x] Breeding stall
-		[x] Cultists
-			[x] AI having trouble switching from receiving cunnilingus to blowjob
-		[x] Lyssieth TF (standing position check for T1 actions might not work)
-			[x] Her orgasms don't fill you with cum?
-		[x] Characters can fuck your ass while getting fucked. Fix this in AbstractSexPosition's isActionBlocked()
-			[x] Check handjob
-		[x] Glory hole
-		[x][x][x] Imp fortresses
-			[x] Add text in description for when clothing is forced on player
-		[x] Pix shower
-		[x] Masturbation
-			[x] Add action
-			[x] Account for taurs not being able to reach themselves (in all sex scenes)
-		[x] Breeding stalls are 5 humans, one anthro?
-		[x] "Denied!" follow up action triggered randomly after Jhortrax's first orgasm
-		[x] Tidy up positioning actions some more
-		[x] Spread legs action, and others from unique scene actions, need to be converted over
-		[x] Fix imp group sex scenes
-		
-		
-	[x] Add DP vaginal
-	[x] Add DP anal
-		[x] Add status effect indication + text
-		[x] Make sure stretching effects work correctly
-	
-	
-	
-	
-	
 	
 	fix item usage in combat
 	

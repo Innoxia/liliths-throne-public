@@ -983,7 +983,6 @@ public class Game implements XMLSaving {
 						Main.game.getWorlds().get(WorldType.DOMINION).getCell(PlaceType.DOMINION_DEMON_HOME_ARTHUR).getPlace().setPlaceType(PlaceType.DOMINION_DEMON_HOME);
 					}
 				}
-				
 
 				if(Main.isVersionOlderThan(loadingVersion, "0.3.3.9")) { // Set Lilaya's and Meraxis's coverings to their correct colours:
 					List<NPC> demons = Util.newArrayListOfValues(Main.game.getNpc(Lilaya.class), Main.game.getNpc(DarkSiren.class));
@@ -995,6 +994,31 @@ public class Game implements XMLSaving {
 							demon.setSkinCovering(new Covering(BodyCoveringType.VAGINA, demon.getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
 							demon.setSkinCovering(new Covering(BodyCoveringType.PENIS, demon.getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
 						}
+					}
+				}
+
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.4.1")) {
+					Cell c = Main.game.getWorlds().get(WorldType.DOMINION).getCell(PlaceType.DOMINION_DEMON_HOME_ARTHUR);
+					if(c!=null) {
+						while(c!=null) {
+							c.getPlace().setPlaceType(PlaceType.DOMINION_DEMON_HOME);
+							c = Main.game.getWorlds().get(WorldType.DOMINION).getCell(PlaceType.DOMINION_DEMON_HOME_ARTHUR);
+						}
+						((Arthur)Main.game.getNpc(Arthur.class)).generateNewTile();
+					}
+					
+					if(Main.game.getNpc(Lilaya.class).getSubspecies()==Subspecies.DEMON) {
+						Main.game.getNpc(Lilaya.class).setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
+						Main.game.getNpc(Lilaya.class).setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_RED_DARK), false);
+						Main.game.getNpc(Lilaya.class).setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, Colour.SKIN_RED_DARK), false);
+						Main.game.getNpc(Lilaya.class).setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_RED_DARK), false);
+					}
+
+					if(Main.game.getNpc(DarkSiren.class).getSubspecies()==Subspecies.DEMON) {
+						Main.game.getNpc(DarkSiren.class).setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
+						Main.game.getNpc(DarkSiren.class).setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_RED_DARK), false);
+						Main.game.getNpc(DarkSiren.class).setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, Colour.SKIN_RED_DARK), false);
+						Main.game.getNpc(DarkSiren.class).setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_RED_DARK), false);
 					}
 				}
 				
@@ -1828,6 +1852,7 @@ public class Game implements XMLSaving {
 			} else if(response instanceof ResponseSex) {
 				setContent(new Response("", "", ((ResponseSex)response).initSex()));
 				((ResponseSex)response).postSexInitEffects();
+				Main.mainController.updateUILeftPanel();
 				return;
 				
 			} else if(response instanceof ResponseEffectsOnly) {
@@ -2034,6 +2059,7 @@ public class Game implements XMLSaving {
 		} else if(response instanceof ResponseSex) {
 			setContent(new Response("", "", ((ResponseSex)response).initSex()));
 			((ResponseSex)response).postSexInitEffects();
+			Main.mainController.updateUILeftPanel();
 			return;
 			
 		} else if(response instanceof ResponseEffectsOnly) {
@@ -3643,10 +3669,12 @@ public class Game implements XMLSaving {
 		return occupancyUtil;
 	}
 	
-	// Should probably never be used, so I commented it out.
-//	public DialogueNode getDefaultDialogue() {
-//		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-//	}
+	/**
+	 *  Be careful using this, as it has a chance to trigger the tile's random encounter.
+	 */
+	public DialogueNode getDefaultDialogue() {
+		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+	}
 
 	public DialogueNode getDefaultDialogueNoEncounter() {
 		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);

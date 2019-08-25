@@ -2071,8 +2071,6 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusYears(1));
-							int age = Main.game.getPlayer().getAgeValue();
-							CharacterModificationUtils.performPlayerAgeCheck(age);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2080,8 +2078,6 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusYears(5));
-							int age = Main.game.getPlayer().getAgeValue();
-							CharacterModificationUtils.performPlayerAgeCheck(age);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2089,8 +2085,6 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusYears(1));
-							int age = Main.game.getPlayer().getAgeValue();
-							CharacterModificationUtils.performPlayerAgeCheck(age);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2098,8 +2092,6 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusYears(5));
-							int age = Main.game.getPlayer().getAgeValue();
-							CharacterModificationUtils.performPlayerAgeCheck(age);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}

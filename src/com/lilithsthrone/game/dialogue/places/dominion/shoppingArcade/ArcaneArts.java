@@ -150,7 +150,7 @@ public class ArcaneArts {
 								true, false,
 								new SMVickyOverDesk(
 										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotDesk.BETWEEN_LEGS)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_FRONT))),
 								null,
 								null,
 								VICKY_POST_SEX,
@@ -170,7 +170,7 @@ public class ArcaneArts {
 							false, false,
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotDesk.BETWEEN_LEGS)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_FRONT))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -232,7 +232,7 @@ public class ArcaneArts {
 							true, false,
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotDesk.BETWEEN_LEGS)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_FRONT))),
 							null,
 							null,
 							VICKY_POST_SEX_PACKAGE,
@@ -253,7 +253,7 @@ public class ArcaneArts {
 							false, false,
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotDesk.BETWEEN_LEGS)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_FRONT))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {

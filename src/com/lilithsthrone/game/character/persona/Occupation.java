@@ -29,9 +29,9 @@ public enum Occupation {
 	NPC_HARPY_MATRIARCH(Perk.JOB_NPC_HARPY_MATRIARCH, "harpy matriarch", "[npc.NameIsFull] a matriarch of a harpy flock.", OccupationTag.HAS_PREREQUISITES),
 	NPC_HARPY_FLOCK_MEMBER(Perk.JOB_NPC_HARPY_FLOCK_MEMBER, "harpy flock member", "[npc.NameIsFull] a member of a harpy flock", OccupationTag.HAS_PREREQUISITES),
 
-	NPC_ENFORCER_PATROL_INSPECTOR(Perk.JOB_NPC_ENFORCER_PATROL_INSPECTOR, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES),
-	NPC_ENFORCER_PATROL_SERGEANT(Perk.JOB_NPC_ENFORCER_PATROL_SERGEANT, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES),
-	NPC_ENFORCER_PATROL_CONSTABLE(Perk.JOB_NPC_ENFORCER_PATROL_CONSTABLE, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES),
+	NPC_ENFORCER_PATROL_INSPECTOR(Perk.JOB_NPC_ENFORCER_PATROL_INSPECTOR, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
+	NPC_ENFORCER_PATROL_SERGEANT(Perk.JOB_NPC_ENFORCER_PATROL_SERGEANT, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
+	NPC_ENFORCER_PATROL_CONSTABLE(Perk.JOB_NPC_ENFORCER_PATROL_CONSTABLE, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
 	
 	NPC_CULTIST(Perk.JOB_NPC_CULTIST, "Cultist", "[npc.NameIs] a full-time member of the 'Cult of Lilith'.", OccupationTag.HAS_PREREQUISITES),
 

@@ -66,7 +66,7 @@
       <![CDATA[[npc.Name] [npc.verb(slip)] off [npc.her] stiletto heels.]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(slips)] off [npc2.namePos] stiletto heels.]]>
+      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc2.namePos] stiletto heels.]]>
     </other>
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] stiletto heels.]]>

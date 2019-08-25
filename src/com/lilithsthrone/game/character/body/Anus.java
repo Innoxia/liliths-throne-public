@@ -86,9 +86,9 @@ public class Anus implements BodyPartInterface {
 			descriptorList.add(type.getDescriptor(owner));
 		}
 
-		descriptorList.add(Capacity.getCapacityFromValue(orificeAnus.getStretchedCapacity()).getDescriptor());
-		
-		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+		descriptorList.add(Capacity.getCapacityFromValue(orificeAnus.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
+
+		return Util.randomItemFrom(descriptorList);
 	}
 
 	@Override

@@ -67,7 +67,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(put)] the Witch's hat onto [npc2.namePos] head.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] roughly [npc.verb(forces)] the Witch's hat onto [npc2.namePos] head.]]>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] the Witch's hat onto [npc2.namePos] head.]]>
 	  </otherRough>
 	</replacementText>
 

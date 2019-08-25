@@ -54,7 +54,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(slide)] the elbow-length gloves over [npc2.namePos] [npc2.hands], before pulling them up length of [npc2.her] [npc2.arms].]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] roughly [npc.verb(forces)] the elbow-length gloves onto [npc2.namePos] [npc2.hands], before yanking them up the length of [npc2.her] [npc2.arms].]]>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] the elbow-length gloves onto [npc2.namePos] [npc2.hands], before yanking them up the length of [npc2.her] [npc2.arms].]]>
 	  </otherRough>
 	</replacementText>
 

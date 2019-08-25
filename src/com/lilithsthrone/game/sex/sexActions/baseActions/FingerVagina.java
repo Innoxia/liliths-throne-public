@@ -329,6 +329,110 @@ public class FingerVagina {
 		}
 	};
 	
+	public static final SexAction FINGERING_PROSTATE_MASSAGE = new SexAction(
+			SexActionType.ONGOING,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
+			CorruptionLevel.TWO_HORNY,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
+					&& Sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo();
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Prostate massage";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Curl your [npc.fingers] up inside [npc2.namePos] [npc2.pussy+] and start stroking [npc2.her] prostate.";
+		}
+
+		@Override
+		public String getDescription() {
+			UtilText.nodeContentSB.setLength(0);
+
+			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+				case DOM_GENTLE:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Gently pushing the palm of [npc.her] [npc.hand] in against [npc2.namePos] [npc2.labia+],"
+								+ " [npc.name] [npc.verb(slide)] [npc.her] [npc.fingers] deep into [npc2.her] [npc2.pussy], before curling them up and starting to softly stroke and massage [npc2.her] prostate.",
+							"With a soft [npc.moan], [npc.name] gently [npc.verb(slide)] [npc.her] [npc.fingers+] as deep as possible into [npc2.namePos] [npc2.pussy+],"
+								+ " before curling them up and starting to rhythmically stroke and massage [npc2.her] prostate.",
+							"Slowly pushing [npc.her] [npc.fingers+] as deep as possible into [npc2.namePos] [npc2.pussy+],"
+									+ " [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] then [npc.verb(curl)] them up and [npc.verb(start)] to gently massage [npc2.her] prostate."));
+					break;
+				case DOM_ROUGH:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Roughly slamming the palm of [npc.her] [npc.hand] in against [npc2.namePos] [npc2.labia+],"
+								+ " [npc.name] [npc.verb(force)] [npc.her] [npc.fingers] deep into [npc2.her] [npc2.pussy], before curling them up and starting to forcefully stroke and massage [npc2.her] prostate.",
+							"With [npc.a_moan+], [npc.name] violently [npc.verb(slam)] [npc.her] [npc.fingers+] as deep as possible into [npc2.namePos] [npc2.pussy+],"
+								+ " before curling them up and starting to aggressively stroke and massage [npc2.her] prostate.",
+							"Forcefully pushing [npc.her] [npc.fingers+] as deep as possible into [npc2.namePos] [npc2.pussy+],"
+									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] then [npc.verb(curl)] them up and [npc.verb(start)] to roughly massage [npc2.her] prostate."));
+					break;
+				case SUB_NORMAL:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Pushing the palm of [npc.her] [npc.hand] in against [npc2.namePos] [npc2.labia+],"
+								+ " [npc.name] [npc.verb(slide)] [npc.her] [npc.fingers] deep into [npc2.her] [npc2.pussy], before curling them up and starting to stroke and massage [npc2.her] prostate.",
+							"With [npc.a_moan+], [npc.name] [npc.verb(push)] [npc.her] [npc.fingers+] as deep as possible into [npc2.namePos] [npc2.pussy+],"
+								+ " before curling them up and starting to stroke and massage [npc2.her] prostate.",
+							"Pushing [npc.her] [npc.fingers+] as deep as possible into [npc2.namePos] [npc2.pussy+],"
+									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] then [npc.verb(curl)] them up and [npc.verb(start)] to massage [npc2.her] prostate."));
+					break;
+				default: // Normal dom and eager sub:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Eagerly pushing the palm of [npc.her] [npc.hand] in against [npc2.namePos] [npc2.labia+],"
+								+ " [npc.name] [npc.verb(slide)] [npc.her] [npc.fingers] deep into [npc2.her] [npc2.pussy], before curling them up and starting to rapidly stroke and massage [npc2.her] prostate.",
+							"With [npc.a_moan+], [npc.name] desperately [npc.verb(push)] [npc.her] [npc.fingers+] as deep as possible into [npc2.namePos] [npc2.pussy+],"
+								+ " before curling them up and starting to eagerly stroke and massage [npc2.her] prostate.",
+							"Happily pushing [npc.her] [npc.fingers+] as deep as possible into [npc2.namePos] [npc2.pussy+],"
+									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] then [npc.verb(curl)] them up and [npc.verb(start)] to energetically massage [npc2.her] prostate."));
+					break;
+			}
+			
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				case DOM_GENTLE:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" Upon feeling this sudden stimulating sensation, [npc2.name] [npc2.verb(let)] out [npc2.a_moan+], before gently pushing [npc2.her] [npc2.labia+] against [npc.namePos] [npc.hand].",
+							" Immediately, [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] in response, before gently bucking [npc2.her] hips against [npc.namePos] touch.",
+							" Responding to this move by letting out [npc2.a_moan+], [npc2.name] gently [npc2.verb(push)] [npc2.her] [npc2.labia+] out against [npc.namePos] [npc.hand]."));
+					break;
+				case DOM_ROUGH:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" Upon feeling this sudden stimulating sensation, [npc2.name] [npc2.verb(let)] out [npc2.a_moan+], before roughly forcing [npc2.her] [npc2.labia+] against [npc.namePos] [npc.hand].",
+							" Immediately, [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] in response, before forcefully slamming [npc2.her] [npc2.labia+] against [npc.namePos] touch.",
+							" Responding to this move by letting out [npc2.a_moan+], [npc2.name] aggressively [npc2.verb(slam)] [npc2.her] [npc2.labia+] against [npc.namePos] [npc.hand]."));
+					break;
+				case SUB_NORMAL:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" Upon feeling this sudden stimulating sensation, [npc2.name] [npc2.verb(let)] out [npc2.a_moan+], before pushing [npc2.her] [npc2.labia+] against [npc.namePos] [npc.hand].",
+							" Immediately, [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] in response, before bucking [npc2.her] hips against [npc.namePos] touch.",
+							" Responding to this move by letting out [npc2.a_moan+], [npc2.name] [npc2.verb(push)] [npc2.her] [npc2.labia+] against [npc.namePos] [npc.hand]."));
+					break;
+				case SUB_RESISTING:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" Upon feeling this unwanted stimulating sensation, [npc2.name] [npc2.verb(let)] out [npc2.a_moan+], before desperately trying to pull [npc2.her] [npc2.labia+] away from [npc.namePos] [npc.hand].",
+							" Immediately, [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] in response, before desperately attempting to pull [npc2.her] hips away from [npc.namePos] touch.",
+							" Responding to this move by letting out [npc2.a_moan+], [npc2.name] desperately [npc2.verb(try)] to pull [npc2.her] [npc2.labia+] away from [npc.namePos] [npc.name]."));
+					break;
+				default: // Normal dom and eager sub:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" Upon feeling this sudden stimulating sensation, [npc2.name] [npc2.verb(let)] out [npc2.a_moan+], before pushing [npc2.her] [npc2.labia+] against [npc.namePos] [npc.hand].",
+							" Immediately, [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] in response, before desperately bucking [npc2.her] hips against [npc.namePos] touch.",
+							" Responding to this move by letting out [npc2.a_moan+], [npc2.name] desperately [npc2.verb(push)] [npc2.her] [npc2.labia+] against [npc.namePos] [npc.hand]."));
+					break;
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+	};
 	
 	public static final SexAction FINGERING_START = new SexAction(
 			SexActionType.START_ONGOING,
@@ -814,7 +918,7 @@ public class FingerVagina {
 							"Sliding [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.pussy+],"
 									+ " [npc.name] [npc.verb(give)] [npc2.her] [npc2.clit+] a little squeeze before taking [npc.her] [npc.hand] away from [npc2.her] groin.",
 
-							"Pushing deep inside of [npc2.name] one last time, [npc.name] then slides [npc.her] [npc.fingers] back out of [npc2.namePos] [npc2.pussy+], putting an end to [npc.her] fingering."));
+							"Pushing deep inside of [npc2.name] one last time, [npc.name] then [npc.verb(slide)] [npc.her] [npc.fingers] back out of [npc2.namePos] [npc2.pussy+], putting an end to [npc.her] fingering."));
 					break;
 			}
 			

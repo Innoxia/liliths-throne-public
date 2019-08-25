@@ -65,6 +65,7 @@ import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.OccupationTag;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -5889,8 +5890,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.VAGINA){//TODO
+				"A name for the supplied character's labia.",
+				BodyPartType.VAGINA){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return "labia";
@@ -5904,11 +5905,18 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.VAGINA){//TODO
+				"A name for the supplied character's labia, with a descriptor appended before it.",
+				BodyPartType.VAGINA){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return character.getVaginaLabiaSize().getName()+" labia";
+				List<String> descriptors = Util.newArrayListOfValues(character.getVaginaLabiaSize().getName());
+				
+				if(character.getVaginaCovering()!=null) {
+					descriptors.add(character.getVaginaLabiaSize().getName());
+					descriptors.add(character.getCovering(character.getVaginaCovering()).getPrimaryColour().getName());
+				}
+				
+				return Util.randomItemFrom(descriptors)+" labia";
 			}
 		});
 		
@@ -6503,6 +6511,9 @@ public class UtilText {
 		}
 		for(Occupation occ : Occupation.values()) {
 			engine.put("OCCUPATION_"+occ.toString(), occ);
+		}
+		for (OccupationTag occupationTag : OccupationTag.values()) {
+			engine.put("OCCUPATION_TAG_" + occupationTag.toString(), occupationTag);
 		}
 		for(AbstractPerk p : Perk.getAllPerks()) {
 			engine.put("PERK_"+Perk.getIdFromPerk(p), p);

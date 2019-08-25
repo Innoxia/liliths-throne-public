@@ -253,6 +253,7 @@ public class Properties {
 			
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
+			createXMLElementWithValue(doc, settings, "taurFurryLevel", String.valueOf(taurFurryLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "udders", String.valueOf(udders));
 			createXMLElementWithValue(doc, settings, "autoSaveFrequency", String.valueOf(autoSaveFrequency));
@@ -683,6 +684,12 @@ public class Properties {
 					humanEncountersLevel = Integer.valueOf(((Element)element.getElementsByTagName("humanEncountersLevel").item(0)).getAttribute("value"));
 				} else {
 					humanEncountersLevel = 1;
+				}
+				
+				if(element.getElementsByTagName("taurFurryLevel").item(0)!=null) {
+					taurFurryLevel = Integer.valueOf(((Element)element.getElementsByTagName("taurFurryLevel").item(0)).getAttribute("value"));
+				} else {
+					taurFurryLevel = 1;
 				}
 				
 				if(element.getElementsByTagName("multiBreasts").item(0)!=null) {

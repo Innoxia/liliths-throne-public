@@ -249,7 +249,7 @@ public class PenisAnus {
 								"Not satisfied with having just [npc3.namePos] [npc3.cock] penetrating [npc.herHim], [npc.name] [npc.verb(take)] hold of [npc2.namePos] [npc2.cock+],"
 										+ " before guiding it up to an exposed part of [npc.her] [npc.asshole] and gently teasing the [npc.cockHead] over [npc.her] [npc.assCloaca+].",
 								"Wanting more than just [npc3.namePos] [npc3.cock+] stuffed in [npc.her] [npc.asshole+],"
-										+ " [npc.name] gently [npc.verb(take)] hold of [npc2.namePos] [npc2.cock+], before starting to slide the [npc2.cockTip] up and down between an exposed part of [npc.her] [npc.assCloaca+].",
+										+ " [npc.name] gently [npc.verb(take)] hold of [npc2.namePos] [npc2.cock+], before starting to slide the [npc2.cockTip] up and down over an exposed part of [npc.her] [npc.assCloaca+].",
 								"With [npc3.namePos] [npc3.cock+] still thrusting in and out of [npc.her] [npc.asshole+],"
 										+ " [npc.name] [npc.verb(grab)] [npc2.namePos] [npc2.cock+], before gently sliding the [npc2.cockTip+] over an exposed part of [npc.her] [npc.assCloaca+].")));
 						break;
@@ -259,7 +259,7 @@ public class PenisAnus {
 								"Not satisfied with having just [npc3.namePos] [npc3.cock] penetrating [npc.herHim], [npc.name] roughly [npc.verb(grab)] hold of [npc2.namePos] [npc2.cock+],"
 										+ " before guiding it up to an exposed part of [npc.her] [npc.asshole] and forcefully rubbing the [npc.cockHead] over [npc.her] [npc.assCloaca+].",
 								"Wanting more than just [npc3.namePos] [npc3.cock+] stuffed in [npc.her] [npc.asshole+],"
-										+ " [npc.name] roughly [npc.verb(seize)] hold of [npc2.namePos] [npc2.cock+], before starting to forcefully rub the [npc2.cockTip] up and down between an exposed part of [npc.her] [npc.assCloaca+].",
+										+ " [npc.name] roughly [npc.verb(seize)] hold of [npc2.namePos] [npc2.cock+], before starting to forcefully rub the [npc2.cockTip] up and down over an exposed part of [npc.her] [npc.assCloaca+].",
 								"With [npc3.namePos] [npc3.cock+] still thrusting in and out of [npc.her] [npc.asshole+],"
 										+ " [npc.name] forcefully [npc.verb(grab)] [npc2.namePos] [npc2.cock+], before roughly rubbing the [npc2.cockTip+] over an exposed part of [npc.her] [npc.assCloaca+].")));
 						break;
@@ -269,7 +269,7 @@ public class PenisAnus {
 								"Not satisfied with having just [npc3.namePos] [npc3.cock] penetrating [npc.herHim], [npc.name] [npc.verb(take)] hold of [npc2.namePos] [npc2.cock+],"
 										+ " before guiding it up to an exposed part of [npc.her] [npc.asshole] and rubbing the [npc.cockHead] over [npc.her] [npc.assCloaca+].",
 								"Wanting more than just [npc3.namePos] [npc3.cock+] stuffed in [npc.her] [npc.asshole+],"
-										+ " [npc.name] [npc.verb(take)] hold of [npc2.namePos] [npc2.cock+], before starting to rub the [npc2.cockTip] up and down between an exposed part of [npc.her] [npc.assCloaca+].",
+										+ " [npc.name] [npc.verb(take)] hold of [npc2.namePos] [npc2.cock+], before starting to rub the [npc2.cockTip] up and down over an exposed part of [npc.her] [npc.assCloaca+].",
 								"With [npc3.namePos] [npc3.cock+] still thrusting in and out of [npc.her] [npc.asshole+],"
 										+ " [npc.name] [npc.verb(grab)] [npc2.namePos] [npc2.cock+], before rubbing the [npc2.cockTip+] over an exposed part of [npc.her] [npc.assCloaca+].")));
 						break;
@@ -279,7 +279,7 @@ public class PenisAnus {
 								"Not satisfied with having just [npc3.namePos] [npc3.cock] penetrating [npc.herHim], [npc.name] eagerly [npc.verb(grab)] hold of [npc2.namePos] [npc2.cock+],"
 										+ " before guiding it up to an exposed part of [npc.her] [npc.asshole] and desperately rubbing the [npc.cockHead] over [npc.her] [npc.assCloaca+].",
 								"Wanting more than just [npc3.namePos] [npc3.cock+] stuffed in [npc.her] [npc.asshole+],"
-										+ " [npc.name] desperately [npc.verb(seize)] hold of [npc2.namePos] [npc2.cock+], before starting to energetically rub the [npc2.cockTip] up and down between an exposed part of [npc.her] [npc.assCloaca+].",
+										+ " [npc.name] desperately [npc.verb(seize)] hold of [npc2.namePos] [npc2.cock+], before starting to energetically rub the [npc2.cockTip] up and down over an exposed part of [npc.her] [npc.assCloaca+].",
 								"With [npc3.namePos] [npc3.cock+] still thrusting in and out of [npc.her] [npc.asshole+],"
 										+ " [npc.name] eagerly [npc.verb(grab)] [npc2.namePos] [npc2.cock+], before happily rubbing the [npc2.cockTip+] over an exposed part of [npc.her] [npc.assCloaca+].")));
 						break;
@@ -459,42 +459,42 @@ public class PenisAnus {
 			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Slowly teasing the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.assCloaca+],"
+							"Slowly teasing the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.assCloaca+],"
 									+ " [npc.name] [npc.verb(let)] out a little [npc.moan] before slowly pushing forwards, sinking [npc.her] [npc.cock+] into [npc2.her] [npc2.asshole+].",
 
-							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.assCloaca+],"
+							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.assCloaca+],"
 									+ " and with a slow, steady pressure, [npc.she] gently [npc.verb(sink)] it deep into [npc2.her] [npc2.asshole+]."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Eagerly teasing the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.assCloaca+],"
+							"Eagerly teasing the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.assCloaca+],"
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, greedily sinking [npc.her] [npc.cock+] into [npc2.her] [npc2.asshole+].",
 
-							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.assCloaca+], "
+							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.assCloaca+], "
 									+ "and with a determined thrust, [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.asshole+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Roughly grinding the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.assCloaca+],"
+							"Roughly grinding the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.assCloaca+],"
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before violently slamming forwards, forcing [npc.her] [npc.cock+] deep into [npc2.her] [npc2.asshole+].",
 
-							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.assCloaca+],"
+							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.assCloaca+],"
 									+ " and with a forceful thrust, [npc.she] roughly slams it deep into [npc2.her] [npc2.asshole+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Eagerly teasing the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.assCloaca+],"
+							"Eagerly teasing the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.assCloaca+],"
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, greedily sinking [npc.her] [npc.cock+] into [npc2.her] [npc2.asshole+].",
 
-							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.assCloaca+],"
+							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.assCloaca+],"
 									+ " and with a determined thrust, [npc.she] eagerly [npc.verb(sink)] it deep into [npc2.her] [npc2.asshole+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Teasing the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.assCloaca+],"
+							"Teasing the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.assCloaca+],"
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before thrusting forwards, sinking [npc.her] [npc.cock+] into [npc2.her] [npc2.asshole+].",
 
-							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] between [npc2.namePos] [npc2.assCloaca+],"
+							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.assCloaca+],"
 									+ " and with a little thrust, [npc.she] [npc.verb(sink)] it deep into [npc2.her] [npc2.asshole+]."));
 					break;
 				default:

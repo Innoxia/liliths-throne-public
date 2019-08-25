@@ -144,30 +144,44 @@ public enum Encounter {
 				return Main.game.getActiveNPC().getEncounterDialogue();
 				
 				
-			} else if(node == EncounterType.SPECIAL_DOMINION_CULTIST
+			}
+			
+			if(node == EncounterType.SPECIAL_DOMINION_CULTIST
 					&& Main.game.getCurrentWeather() != Weather.MAGIC_STORM
 					&& Main.game.getDateNow().getMonth().equals(Month.OCTOBER)
-					&& Main.game.getNonCompanionCharactersPresent().isEmpty()
 					&& Main.game.getNumberOfWitches()<4
 					&& Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.DOMINION_STREET)) {
 				
-				Main.game.setActiveNPC(new Cultist());
-				
-				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
-				} catch (Exception e) {
-					e.printStackTrace();
+				boolean suitableTile = true;
+				for(GameCharacter character : Main.game.getNonCompanionCharactersPresent()) {
+					if(!Main.game.getPlayer().getFriendlyOccupants().contains(character.getId())) {
+						suitableTile = false;
+						break;
+					}
 				}
-	
-				return Main.game.getActiveNPC().getEncounterDialogue();
 				
-			} else if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS
+				if(suitableTile) {
+					Main.game.setActiveNPC(new Cultist());
+					
+					try {
+						Main.game.addNPC(Main.game.getActiveNPC(), false);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+		
+					return Main.game.getActiveNPC().getEncounterDialogue();
+				}
+			}
+			
+			if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS
 					&& Main.game.getPlayer().getName(false).equalsIgnoreCase("Kinariu")
 					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness)) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.foundHappiness, true);
 				return DominionEncounterDialogue.DOMINION_STREET_FIND_HAPPINESS;
 				
-			} else if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
+			}
+			
+			if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
 				if(slave==null) {
 					return null;
@@ -176,9 +190,9 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 				return SlaveDialogue.SLAVE_USES_YOU_STREETS;
 				
-			} else {
-				return null;
 			}
+			
+			return null;
 		}
 	},
 	

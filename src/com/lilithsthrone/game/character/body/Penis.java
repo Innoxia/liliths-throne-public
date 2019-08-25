@@ -105,6 +105,10 @@ public class Penis implements BodyPartInterface {
 			}
 		}
 
+		if(owner.getPenisCovering()!=null) {
+			list.add(owner.getCovering(owner.getPenisCovering()).getColourDescriptor(owner, false, false));
+		}
+		
 		if(owner.isPenisBestial()) {
 			list.add(Util.randomItemFrom(Util.newArrayListOfValues(
 					"feral",
@@ -129,8 +133,8 @@ public class Penis implements BodyPartInterface {
 				}
 			}
 		}
-		
-        return UtilText.returnStringAtRandom(list.toArray(new String[]{}));
+
+		return Util.randomItemFrom(list);
 	}
 	
 	public String getUrethraDescriptor(GameCharacter owner) {
@@ -142,9 +146,9 @@ public class Penis implements BodyPartInterface {
 		
 		descriptorList.add(type.getDescriptor(owner));
 		
-		descriptorList.add(Capacity.getCapacityFromValue(orificeUrethra.getStretchedCapacity()).getDescriptor());
-		
-		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+		descriptorList.add(Capacity.getCapacityFromValue(orificeUrethra.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
+
+		return Util.randomItemFrom(descriptorList);
 	}
 	
 	public String getPenisHeadName(GameCharacter gc) {
@@ -154,8 +158,8 @@ public class Penis implements BodyPartInterface {
 		if(penisModifiers.contains(PenetrationModifier.TAPERED)) {
 			list.add("tip");
 		}
-		
-        return UtilText.returnStringAtRandom(list.toArray(new String[]{}));
+
+		return Util.randomItemFrom(list);
 	}
 	
 	public String getPenisHeadDescriptor(GameCharacter gc) {
@@ -170,8 +174,8 @@ public class Penis implements BodyPartInterface {
 			list.add("flared");
 			list.add("flat");
 		}
-		
-        return UtilText.returnStringAtRandom(list.toArray(new String[]{}));
+
+		return Util.randomItemFrom(list);
 	}
 	
 	public String setType(GameCharacter owner, PenisType type) {

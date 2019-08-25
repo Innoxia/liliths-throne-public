@@ -49,7 +49,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(pull)] the fishnet gloves onto [npc2.namePos] [npc2.hands] and up to [npc.her] elbows.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] roughly [npc.verb(forces)] the fishnet gloves onto [npc2.namePos] [npc2.hands] and up to [npc.her] elbows.]]>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] the fishnet gloves onto [npc2.namePos] [npc2.hands] and up to [npc.her] elbows.]]>
 	  </otherRough>
 	</replacementText>
 
