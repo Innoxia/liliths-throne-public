@@ -543,7 +543,7 @@ public class TongueAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Gently pressing [npc.her] [npc.assCloaca+] down against [npc2.namePos] [npc2.face],"
@@ -588,7 +588,7 @@ public class TongueAnus {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] slowly [npc2.verb(slide)] [npc2.her] [npc2.tongue+] into [npc.namePos] [npc.asshole+], letting out a muffled [npc2.moan] as [npc2.she] [npc2.verb(start)] gently licking and kissing [npc.her] [npc.assCloaca+].",
@@ -727,7 +727,7 @@ public class TongueAnus {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Gently pressing [npc.her] [npc.assCloaca+] down over [npc2.namePos] [npc2.face+],"
-							+ " [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] firmly plants [npc.her] [npc.asshole+] down over [npc2.her] [npc2.lips+].",
+							+ " [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] firmly [npc.verb(plant)] [npc.her] [npc.asshole+] down over [npc2.her] [npc2.lips+].",
 
 					"With a soft [npc.moan], [npc.name] [npc.verb(press)] [npc.her] [npc.assCloaca+] against [npc2.namePos] [npc2.face+], before gently grinding [npc.her] [npc.asshole+] against [npc2.her] [npc2.lips+].",
 
@@ -765,7 +765,7 @@ public class TongueAnus {
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly pressing [npc.her] [npc.assCloaca+] down over [npc2.namePos] [npc2.face+],"
-							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] firmly plants [npc.her] [npc.asshole+] down over [npc2.her] [npc2.lips+].",
+							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] firmly [npc.verb(plant)] [npc.her] [npc.asshole+] down over [npc2.her] [npc2.lips+].",
 
 					"With [npc.a_moan+], [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.assCloaca+] against [npc2.namePos] [npc2.face+], before greedily grinding [npc.her] [npc.asshole+] against [npc2.her] [npc2.lips+].",
 
@@ -846,7 +846,7 @@ public class TongueAnus {
 									+ " letting out [npc.a_sob+] as [npc2.name] gently [npc2.verb(slide)] [npc2.her] [npc2.tongue] deep into [npc.her] [npc.asshole+].",
 
 							"Letting out [npc.a_sob+], [npc.name] desperately [npc.verb(try)] to pull [npc.her] [npc.asshole+] away from [npc2.namePos] [npc2.lips+]."
-									+ " Ignoring [npc.her] protests, [npc2.name] [npc2.verb(hold)] [npc.name] in place as [npc2.she] plants a soft kiss on [npc.her] [npc.assCloaca+],"
+									+ " Ignoring [npc.her] protests, [npc2.name] [npc2.verb(hold)] [npc.name] in place as [npc2.she] [npc2.verb(plant)] a soft kiss on [npc.her] [npc.assCloaca+],"
 									+ " before gently sliding [npc2.her] [npc2.tongue+] deep into [npc.her] [npc.asshole+].",
 
 							"With [npc.a_sob+], [npc.name] frantically [npc.verb(try)] to pull [npc.her] [npc.assCloaca+] away from [npc2.namePos] [npc2.lips+], but [npc2.she] holds [npc.herHim] in place,"
@@ -858,7 +858,7 @@ public class TongueAnus {
 									+ " letting out [npc.a_sob+] as [npc2.name] roughly [npc2.verb(slide)] [npc2.her] [npc2.tongue] deep into [npc.her] [npc.asshole+].",
 
 							"Letting out [npc.a_sob+], [npc.name] desperately [npc.verb(try)] to pull [npc.her] [npc.asshole+] away from [npc2.namePos] [npc2.lips+]."
-									+ " Ignoring [npc.her] protests, [npc2.name] [npc2.verb(hold)] [npc.name] in place as [npc2.she] plants a wet kiss on [npc.her] [npc.assCloaca+],"
+									+ " Ignoring [npc.her] protests, [npc2.name] [npc2.verb(hold)] [npc.name] in place as [npc2.she] [npc2.verb(plant)] a wet kiss on [npc.her] [npc.assCloaca+],"
 									+ " before roughly thrusting [npc2.her] [npc2.tongue+] deep into [npc.her] [npc.asshole+].",
 
 							"With [npc.a_sob+], [npc.name] frantically [npc.verb(try)] to pull [npc.her] [npc.assCloaca+] away from [npc2.namePos] [npc2.lips+], but [npc2.she] firmly holds [npc.herHim] in place,"
@@ -870,7 +870,7 @@ public class TongueAnus {
 									+ " letting out [npc.a_sob+] as [npc2.name] greedily [npc2.verb(slide)] [npc2.her] [npc2.tongue] deep into [npc.her] [npc.asshole+].",
 
 							"Letting out [npc.a_sob+], [npc.name] desperately [npc.verb(try)] to pull [npc.her] [npc.asshole+] away from [npc2.namePos] [npc2.lips+]."
-									+ " Ignoring [npc.her] protests, [npc2.name] [npc2.verb(hold)] [npc.name] in place as [npc2.she] plants a passionate kiss on [npc.her] [npc.assCloaca+],"
+									+ " Ignoring [npc.her] protests, [npc2.name] [npc2.verb(hold)] [npc.name] in place as [npc2.she] [npc2.verb(plant)] a passionate kiss on [npc.her] [npc.assCloaca+],"
 									+ " before greedily sliding [npc2.her] [npc2.tongue+] deep into [npc.her] [npc.asshole+].",
 
 							"With [npc.a_sob+], [npc.name] frantically [npc.verb(try)] to pull [npc.her] [npc.assCloaca+] away from [npc2.namePos] [npc2.lips+], but [npc2.she] holds [npc.herHim] in place,"
@@ -908,7 +908,7 @@ public class TongueAnus {
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Pressing [npc.her] [npc.assCloaca+] down over [npc2.namePos] [npc2.face+],"
-							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] firmly plants [npc.her] [npc.asshole+] down over [npc2.her] [npc2.lips+].",
+							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] firmly [npc.verb(plant)] [npc.her] [npc.asshole+] down over [npc2.her] [npc2.lips+].",
 
 					"With [npc.a_moan+], [npc.name] [npc.verb(press)] [npc.her] [npc.assCloaca+] against [npc2.namePos] [npc2.face+], before grinding [npc.her] [npc.asshole+] against [npc2.her] [npc2.lips+].",
 
@@ -946,7 +946,7 @@ public class TongueAnus {
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly pressing [npc.her] [npc.assCloaca+] down over [npc2.namePos] [npc2.face+],"
-							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] firmly plants [npc.her] [npc.asshole+] down over [npc2.her] [npc2.lips+].",
+							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] firmly [npc.verb(plant)] [npc.her] [npc.asshole+] down over [npc2.her] [npc2.lips+].",
 
 					"With [npc.a_moan+], [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.assCloaca+] against [npc2.namePos] [npc2.face+], before greedily grinding [npc.her] [npc.asshole+] against [npc2.her] [npc2.lips+].",
 

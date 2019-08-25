@@ -15,7 +15,7 @@ public enum NPCFlagValue {
 	knowsPlayerGender,
 	introducedToPlayer,
 	pendingClothingDressing,
-	pendingTransformationToGenderIdentity,
+//	pendingTransformationToGenderIdentity,
 	
 	flagSlaveBackground,
 	flagSlaveSmallTalk,

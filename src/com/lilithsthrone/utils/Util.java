@@ -25,6 +25,7 @@ import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -195,7 +196,9 @@ public class Util {
 		LinkedHashMap<T, S> map = new LinkedHashMap<>();
 
 		for (Value<T, S> v : values) {
-			map.put(v.getKey(), v.getValue());
+			if(v!=null) {
+				map.put(v.getKey(), v.getValue());
+			}
 		}
 		
 		return map;
@@ -246,11 +249,11 @@ public class Util {
 		return "Unknown";
 	}
 	
-	@SafeVarargs
 	/**
 	 * @param values The values to add to the new list.
 	 * @return A list of provided values, with nulls stripped.
 	 */
+	@SafeVarargs
 	public static <U> ArrayList<U> newArrayListOfValues(U... values) {
 		ArrayList<U> list = new ArrayList<>(Arrays.asList(values));
 		list.removeIf(e -> e==null);
@@ -459,6 +462,17 @@ public class Util {
 		return intToString;
 	}
 
+	public static String intToDate(int integer) {
+		if(integer%10==1) {
+			return integer+"st";
+		} else if(integer%10==2) {
+			return integer+"nd";
+		} else if(integer%10==3) {
+			return integer+"rd";
+		}
+		return integer+"th";
+	}
+	
 	/**
 	 * @param integer Input number to convert.
 	 * @return 'once', 'twice', or 'integer times'
@@ -775,6 +789,16 @@ public class Util {
 	public static String addMuffle(String sentence, int frequency) {
 		return insertIntoSentences(sentence, frequency, muffledSounds);
 	}
+	
+	public static String replaceWithMuffle(String sentence, int wordToMuffleRatio) {
+		int muffles = sentence.split(" ").length/wordToMuffleRatio;
+		StringBuilder muffleSB = new StringBuilder();
+		for(int i=0; i<muffles; i++) {
+			muffleSB.append(muffledSounds[random.nextInt(muffledSounds.length)]);
+		}
+		muffleSB.delete(0, 1); // Remove space at start
+		return muffleSB.toString();
+	}
 
 	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", "~Ooh!~" };
 	/**
@@ -944,6 +968,10 @@ public class Util {
 		return Util.toStringList(inventorySlots, InventorySlot::getName, "and");
 	}
 	
+	public static String inventorySlotsToParsedStringList(List<InventorySlot> inventorySlots, GameCharacter owner) {
+		return Util.toStringList(inventorySlots, ((slot) -> slot.getNameOfAssociatedPart(owner)), "and");
+	}
+	
 	public static String tattooInventorySlotsToStringList(List<InventorySlot> inventorySlots) {
 		return Util.toStringList(inventorySlots, InventorySlot::getTattooSlotName, "and");
 	}
@@ -1025,5 +1053,21 @@ public class Util {
 				errorLogMap.get(method).add(id);
 			}
 		}
+	}
+
+	public static String getFileName(File f) {
+		return f.getName().substring(0, f.getName().lastIndexOf('.'));
+	}
+	
+	public static String getFileIdentifier(File f) {
+		return f.getName().substring(0, f.getName().lastIndexOf('.')).replaceAll("'", "Q");
+	}
+	
+	public static String getFileName(String filePath) {
+		return filePath.substring(0, filePath.lastIndexOf('.'));
+	}
+	
+	public static String getFileIdentifier(String filePath) {
+		return filePath.substring(0, filePath.lastIndexOf('.')).replaceAll("'", "Q");
 	}
 }

@@ -26,7 +26,7 @@ public abstract class AbstractPerk {
 	
 	private int renderingPriority;
 	protected String name;
-	private Colour colour;
+	private List<Colour> colours;
 	private boolean equippableTrait;
 	
 	private Spell spell;
@@ -65,6 +65,7 @@ public abstract class AbstractPerk {
 				null);
 	}
 	
+
 	public AbstractPerk(int renderingPriority,
 			boolean major,
 			String name,
@@ -76,10 +77,34 @@ public abstract class AbstractPerk {
 			Spell spell,
 			SpellUpgrade spellUpgrade,
 			SpellSchool school) {
+		this(renderingPriority,
+				major,
+				name,
+				perkCategory,
+				pathName,
+				Util.newArrayListOfValues(colour),
+				attributeModifiers,
+				extraEffects,
+				spell,
+				spellUpgrade,
+				school);
+	}
+	
+	public AbstractPerk(int renderingPriority,
+			boolean major,
+			String name,
+			PerkCategory perkCategory,
+			String pathName,
+			List<Colour> colours,
+			HashMap<Attribute, Integer> attributeModifiers,
+			List<String> extraEffects,
+			Spell spell,
+			SpellUpgrade spellUpgrade,
+			SpellSchool school) {
 
 		this.renderingPriority = renderingPriority;
 		this.name = name;
-		this.colour = colour;
+		this.colours = colours;
 		
 		this.equippableTrait = major;
 		
@@ -101,7 +126,7 @@ public abstract class AbstractPerk {
 				}
 				SVGString = Util.inputStreamToString(is);
 				
-				SVGString = SvgUtil.colourReplacement(name.replaceAll(" ", ""), colour, SVGString);
+				SVGString = SvgUtil.colourReplacement(name.replaceAll(" ", ""), colours.get(0), colours.size()>=2?colours.get(1):null, colours.size()>=3?colours.get(2):null, SVGString);
 	
 				is.close();
 	
@@ -162,7 +187,7 @@ public abstract class AbstractPerk {
 	}
 
 	public Colour getColour() {
-		return colour;
+		return colours.get(0);
 	}
 
 	public boolean isEquippableTrait() {

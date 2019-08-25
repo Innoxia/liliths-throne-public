@@ -127,9 +127,9 @@ public class Vagina implements BodyPartInterface {
 			descriptorList.add(type.getDescriptor(owner));
 		}
 		
-		descriptorList.add(Capacity.getCapacityFromValue(orificeVagina.getStretchedCapacity()).getDescriptor());
-		
-		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+		descriptorList.add(Capacity.getCapacityFromValue(orificeVagina.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
+
+		return Util.randomItemFrom(descriptorList);
 	}
 	
 	public String getUrethraDescriptor(GameCharacter owner) {
@@ -141,9 +141,9 @@ public class Vagina implements BodyPartInterface {
 		
 		descriptorList.add(type.getDescriptor(owner));
 		
-		descriptorList.add(Capacity.getCapacityFromValue(orificeUrethra.getStretchedCapacity()).getDescriptor());
-		
-		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+		descriptorList.add(Capacity.getCapacityFromValue(orificeUrethra.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
+
+		return Util.randomItemFrom(descriptorList);
 	}
 	
 	public String setType(GameCharacter owner, VaginaType type) {
@@ -277,7 +277,7 @@ public class Vagina implements BodyPartInterface {
 							+ " Within moments, a deep furrow has formed "
 							+ (!owner.hasPenisIgnoreDildo()
 								? "in the middle of [npc.her] groin,"
-								: (owner.getLegConfiguration().isBipedalPositionedGenitals()
+								: (!owner.isTaur()
 										?"beneath [npc.her] cock,"
 										:"above and behind [npc.her] cock,"))
 							+ " and [npc.she] starts panting and squirming as the strange feeling shows no sign of stopping there."

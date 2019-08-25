@@ -89,9 +89,10 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
-import com.lilithsthrone.game.sex.managers.universal.SMCowgirl;
-import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -277,7 +278,7 @@ public class Brax extends NPC {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_PLEATED, Colour.CLOTHING_PINK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_fishnets", Colour.CLOTHING_WHITE, false), true, this);
 //				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_stiletto_heels", Colour.CLOTHING_BLACK, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HAND_FISHNET_GLOVES, Colour.CLOTHING_WHITE, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_fishnet_gloves", Colour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false), true, this);
 
@@ -636,9 +637,9 @@ public class Brax extends NPC {
 			if (index == 1) {
 				return new ResponseSex("Get started", "Start dominating your new bitch.",
 						false, false,
-						new SMKneeling(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotBipeds.KNEELING_PERFORMING_ORAL))),
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotStanding.PERFORMING_ORAL))),
 						null,
 						null, AFTER_DOMINANT_SEX, "<p>"
 							+ "With a forceful push, you shove Brax down onto his knees before you."
@@ -692,8 +693,8 @@ public class Brax extends NPC {
 				return new ResponseSex("Obey", "Do as Brax says and present yourself for him.",
 						false, true,
 						new SMBraxDoggy(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotBipeds.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotAllFours.BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))),
 						null,
 						null, AFTER_SUBMISSIVE_SEX, "<p>"
 							+ "You obediently do as Brax commands and drop down on all fours right there in the middle of his office."
@@ -948,8 +949,8 @@ public class Brax extends NPC {
 				return new ResponseSex("Dominated", "Brax is far too strong for you to resist...",
 						false, false,
 						new SMBraxDoggy(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotBipeds.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotAllFours.BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))),
 						null,
 						null, AFTER_SUBMISSIVE_SEX, "<p>"
 							+ "Brax spins you around, and with a forceful shove, pushes you down to the ground."
@@ -1060,8 +1061,8 @@ public class Brax extends NPC {
 				return new ResponseSex("Obey", "The arousing liquid you've just been forced to drink is forcing you to obey, and you eagerly fall down on all fours so that Brax can fuck you, doggy-style.",
 						false, false,
 						new SMBraxDoggy(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotBipeds.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotAllFours.BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))),
 						null,
 						null, AFTER_SUBMISSIVE_SEX, "<p>"
 							+ "You obediently do as Brax commands and drop down on all fours right there in the middle of his office."
@@ -1192,7 +1193,7 @@ public class Brax extends NPC {
 	@Override
 	public String getPenetrationDescription(boolean initialPenetration, GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaInterface orifice) {
 		if(Math.random()>0.3) {
-			if(Sex.getSexManager() instanceof SMCowgirl){
+			if(Sex.getSexPositionSlot(characterPenetrated)==SexSlotLyingDown.COWGIRL){
 				if(orifice == SexAreaOrifice.VAGINA) {
 					if(penetrationType == SexAreaPenetration.PENIS && characterPenetrated.equals(this)) {
 						return UtilText.returnStringAtRandom(

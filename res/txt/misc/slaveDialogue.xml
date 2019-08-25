@@ -5,7 +5,7 @@
 	
 	<htmlContent tag="RAPE_START_MILKING_ROOM"><![CDATA[
 	<p>
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			As [npc.name] is locked into the milking machine, [npc.sheIs] left completely powerless as you step around behind [npc.herHim] and reach down to grab [npc.her] [npc.ass+]. Letting out [npc.a_sob+], [npc.she] pleads, [npc.speech(No! Please! Just leave me alone!)]
 		#ELSE
 			As [npc.name] is locked into the milking machine, [npc.sheIs] left completely powerless as you step forwards over the top of [npc.herHim] and press your animalistic [pc.legConfiguration] body down against [npc.her] back. Letting out [npc.a_sob+], [npc.she] pleads, [npc.speech(No! Please! Just leave me alone!)]
@@ -28,7 +28,7 @@
 	
 	<htmlContent tag="SEX_START_MILKING_ROOM"><![CDATA[
 	<p>
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			As [npc.name] is locked into the milking machine, [npc.sheIs] left completely powerless as you step around behind [npc.herHim] and reach down to grab [npc.her] [npc.ass+]. Letting out [npc.a_moan+], [npc.she] pleads, [npc.speech(~Mmm!~ Yes! Fuck me!)]
 		#ELSE
 			As [npc.name] is locked into the milking machine, [npc.sheIs] left completely powerless as you step forwards over the top of [npc.herHim] and press your animalistic [pc.legConfiguration] body down against [npc.her] back. Letting out [npc.a_moan+], [npc.she] pleads, [npc.speech(~Ooh!~ Yes! Mount me and rut me like an animal!)]
@@ -42,7 +42,7 @@
 	
 	<htmlContent tag="RAPE_START"><![CDATA[
 	#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_CRAWLING))
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			<p>
 				As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply stepping around behind [npc.herHim] and dropping to your knees, ready to fuck [npc.herHim] in the doggy-style position. Reaching down to grab [npc.her] [npc.ass+], you [npc.moanVerb], [pc.speech(~Mmm!~ This is going to be good!)]
 			</p>
@@ -94,7 +94,7 @@
 			#ENDIF
 		</p>
 		<p>
-			#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!pc.isTaur())
 				Stepping around behind your submissive slave, you drop to your knees, before taking hold of [npc.her] [npc.hips+] and pulling [npc.herHim] in against your groin. Letting out an especially horny [npc.moan], [npc.she] cries out, [npc.speech(Yes, fuck me like an animal!)]
 			#ELSE
 				Moving around behind your submissive slave, you step forwards over the top of [npc.herHim], before lowering your [pc.legConfiguration] body down to grind against [npc.herHim]. Letting out an especially horny [npc.moan], [npc.she] cries out, [npc.speech(Yes, mount me and rut me like an animal!)]
@@ -137,7 +137,7 @@
 			positioning = "onto [npc.her] hands and knees ";
 		}
 		var playerPositioning = "Falling to your knees in front of [npc.name], you say,";
-		if(!pc.getLegConfiguration().isBipedalPositionedGenitals()) {
+		if(pc.isTaur()) {
 			playerPositioning = "Turning your [pc.legConfiguration] body to one side, you present your groin to [npc.name], before calling down to [npc.herHim],";
 		}
 	#ENDVAR
@@ -154,7 +154,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.her] ass.
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 					 Sinking down onto [npc2.her] knees behind [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
 				</p>
 				<p>
@@ -188,7 +188,7 @@
 		</p>
 		<p>
 			Grabbing hold of [npc.her] shoulders, you push [npc.name] down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.her] ass.
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 					 Sinking down onto [npc2.her] knees behind [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will soon put you in your place!)]
 				</p>
 				<p>
@@ -225,7 +225,7 @@
 		}
 		var playerPositioning = "Falling to your knees behind [npc.name], you say,";
 		var playerMounting = "take [npc.herHim]! Make sure to give me a good, hard fucking while I pleasure [npc2.name] with my mouth!";
-		if(!pc.getLegConfiguration().isBipedalPositionedGenitals()) {
+		if(pc.isTaur()) {
 			playerPositioning = "Stepping forwards so that your [pc.legConfiguration] body is over the top of [npc.name], you call down to [npc.herHim],";
 			playerMounting = "mount [npc.herHim]! Make sure to give me a good, hard rutting while I pleasure [npc2.name] with my mouth!";
 		}
@@ -243,7 +243,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.herHim].
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				 Sinking down onto [npc2.her] knees in front of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
 			</p>
 			<p>
@@ -277,7 +277,7 @@
 		</p>
 		<p>
 			Grabbing hold of [npc.her] shoulders, you push [npc.name] down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.herHim].
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				 Sinking down onto [npc2.her] knees in front of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will soon put you in your place!)]
 			</p>
 			<p>
@@ -319,7 +319,7 @@
 			[npc2.speech(Mmm, yes, put us in our place!)] [npc2.name] joins in, copying [npc.name] as [npc2.she] glances back over [npc2.her] shoulder and bats [npc.her] eyelids at you. 
 		</p>
 		<p>
-			#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!pc.isTaur())
 				Dropping down onto your knees behind them, you prepare to do exactly as they say, and, reaching forwards to grab their asses in each [pc.hand], you [pc.moan], [pc.speech(I wonder which of you I'll fuck first...)]
 			#ELSE
 				Stepping forwards and preparing to use your [pc.legConfiguration] body to mount one of them, you wonder out loud, [pc.speech(I wonder which of you I'll rut first...)]
@@ -612,16 +612,16 @@
 		Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine!)]
 	</p>
 	<p>
-		#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!npc2.isTaur())
 			With agreement from [npc.name], [npc2.name] takes hold of your [pc.hips] and pulls you down onto your knees as [npc2.she] drops down behind you.
 		#ELSE
 			With agreement from [npc.name], [npc2.name] takes hold of your [pc.hips] and pushes you down onto your knees, before stepping forwards and positioning [npc2.her] [npc2.legConfiguration] body over the top of you, ready to mount you.
 		#ENDIF
 	</p>
 	<p>
-		#IF(npc.getLegConfiguration().isBipedalPositionedGenitals() && pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!npc.isTaur() && !pc.isTaur())
 			Kneeling down before you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
-		#ELSEIF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+		#ELSEIF(npc.isTaur())
 			Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 		#ELSE
 			Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.

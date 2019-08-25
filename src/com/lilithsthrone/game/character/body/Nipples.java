@@ -19,6 +19,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
@@ -83,8 +84,13 @@ public class Nipples implements BodyPartInterface {
 		for(OrificeModifier om : orificeNipples.getOrificeModifiers()) {
 			descriptorList.add(om.getName());
 		}
+
 		
 		if(isCrotchNipples()) {
+			if(owner.getNippleCrotchCovering()!=null) {
+				descriptorList.add(owner.getCovering(owner.getNippleCrotchCovering()).getColourDescriptor(owner, false, false));
+			}
+			
 			if(owner.isBreastCrotchFuckableNipplePenetration()) {
 				switch(owner.getBreastCrotchMilkStorage().getAssociatedWetness()) {
 					case ONE_SLIGHTLY_MOIST:
@@ -103,6 +109,10 @@ public class Nipples implements BodyPartInterface {
 			}
 			
 		} else {
+			if(owner.getNippleCovering()!=null) {
+				descriptorList.add(owner.getCovering(owner.getNippleCovering()).getColourDescriptor(owner, false, false));
+			}
+			
 			if(owner.isBreastFuckableNipplePenetration()) {
 				switch(owner.getBreastMilkStorage().getAssociatedWetness()) {
 					case ONE_SLIGHTLY_MOIST:
@@ -129,10 +139,10 @@ public class Nipples implements BodyPartInterface {
 		
 		descriptorList.add(type.getDescriptor(owner));
 		if(orificeNipples.getCapacity()!= Capacity.ZERO_IMPENETRABLE) {
-			descriptorList.add(Capacity.getCapacityFromValue(orificeNipples.getStretchedCapacity()).getDescriptor());
+			descriptorList.add(Capacity.getCapacityFromValue(orificeNipples.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
 		}
-		
-		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+
+		return Util.randomItemFrom(descriptorList);
 	}
 
 	@Override

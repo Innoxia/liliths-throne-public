@@ -6,7 +6,7 @@
 		<name><![CDATA[stiletto heel]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[stiletto heels]]></namePlural>
 		<description><![CDATA[A pair of shoes which have long, thin high heels, commonly referred to as stiletto heels. The significantly-raised heel serves to make the wearer taller, as well as to accentuate their calf muscles and the overall length of their legs.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>FOOT</slot> 
 		<rarity>COMMON</rarity>
@@ -66,7 +66,7 @@
       <![CDATA[[npc.Name] [npc.verb(slip)] off [npc.her] stiletto heels.]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(slips)] off [npc2.namePos] stiletto heels.]]>
+      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc2.namePos] stiletto heels.]]>
     </other>
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] stiletto heels.]]>

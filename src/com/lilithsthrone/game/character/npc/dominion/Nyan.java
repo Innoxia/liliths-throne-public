@@ -175,6 +175,9 @@ public class Nyan extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.resetPerksMap(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.10")) {
+			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
+		}
 	}
 
 	@Override
@@ -205,6 +208,7 @@ public class Nyan extends NPC {
 			this.setHistory(Occupation.NPC_CLOTHING_STORE_OWNER);
 	
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.ONE_DISLIKE);
 			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
@@ -332,13 +336,13 @@ public class Nyan extends NPC {
 
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			try {
-				if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)) {
+				if(clothing!=null && clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)) {
 					if(clothing.getRarity() == Rarity.COMMON) {
 						if(clothing.getFemininityRestriction()==Femininity.FEMININE) {
-							if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
+							if(ClothingType.getCoreClothingSlots().contains(clothing.getEquipSlots().get(0))) {
 								commonFemaleClothing.add(AbstractClothingType.generateClothing(clothing, false));
 								
-							} else if(ClothingType.getLingerieSlots().contains(clothing.getSlot())) {
+							} else if(ClothingType.getLingerieSlots().contains(clothing.getEquipSlots().get(0))) {
 								commonFemaleUnderwear.add(AbstractClothingType.generateClothing(clothing, false));
 								
 							} else {
@@ -346,10 +350,10 @@ public class Nyan extends NPC {
 							}
 							
 						} else if(clothing.getFemininityRestriction()==Femininity.MASCULINE) {
-							if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
+							if(ClothingType.getCoreClothingSlots().contains(clothing.getEquipSlots().get(0))) {
 								commonMaleClothing.add(AbstractClothingType.generateClothing(clothing, false));
 								
-							} else if(ClothingType.getLingerieSlots().contains(clothing.getSlot())) {
+							} else if(ClothingType.getLingerieSlots().contains(clothing.getEquipSlots().get(0))) {
 								commonMaleLingerie.add(AbstractClothingType.generateClothing(clothing, false));
 								
 							} else {
@@ -357,10 +361,10 @@ public class Nyan extends NPC {
 							}
 							
 						} else {
-							if(ClothingType.getCoreClothingSlots().contains(clothing.getSlot())) {
+							if(ClothingType.getCoreClothingSlots().contains(clothing.getEquipSlots().get(0))) {
 								commonAndrogynousClothing.add(AbstractClothingType.generateClothing(clothing, false));
 								
-							} else if(ClothingType.getLingerieSlots().contains(clothing.getSlot())) {
+							} else if(ClothingType.getLingerieSlots().contains(clothing.getEquipSlots().get(0))) {
 								commonAndrogynousLingerie.add(AbstractClothingType.generateClothing(clothing, false));
 								
 							} else {

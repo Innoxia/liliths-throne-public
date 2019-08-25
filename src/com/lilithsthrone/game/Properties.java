@@ -36,7 +36,7 @@ import java.util.*;
 
 /**
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.4
  * @author Innoxia
  */
 public class Properties {
@@ -55,6 +55,8 @@ public class Properties {
 	public int money = 0;
 	public int arcaneEssences = 0;
 	public int humanEncountersLevel = 1;
+	public int taurFurryLevel = 1;
+	
 	
 	public int multiBreasts = 1;
 	public static String[] multiBreastsLabels = new String[] {"Off", "Furry-only", "On"};
@@ -251,6 +253,7 @@ public class Properties {
 			
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
+			createXMLElementWithValue(doc, settings, "taurFurryLevel", String.valueOf(taurFurryLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "udders", String.valueOf(udders));
 			createXMLElementWithValue(doc, settings, "autoSaveFrequency", String.valueOf(autoSaveFrequency));
@@ -599,6 +602,9 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.3.1.7")) {
 						values.add(PropertyValue.footContent);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.3.9")) {
+						values.add(PropertyValue.enchantmentLimits);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						
@@ -678,6 +684,12 @@ public class Properties {
 					humanEncountersLevel = Integer.valueOf(((Element)element.getElementsByTagName("humanEncountersLevel").item(0)).getAttribute("value"));
 				} else {
 					humanEncountersLevel = 1;
+				}
+				
+				if(element.getElementsByTagName("taurFurryLevel").item(0)!=null) {
+					taurFurryLevel = Integer.valueOf(((Element)element.getElementsByTagName("taurFurryLevel").item(0)).getAttribute("value"));
+				} else {
+					taurFurryLevel = 1;
 				}
 				
 				if(element.getElementsByTagName("multiBreasts").item(0)!=null) {
@@ -908,7 +920,7 @@ public class Properties {
 						Element e = ((Element)element.getElementsByTagName("weaponType").item(i));
 						
 						if(!e.getAttribute("id").isEmpty()) {
-							weaponsDiscovered.add(WeaponType.idToWeaponMap.get(e.getAttribute("id")));
+							weaponsDiscovered.add(WeaponType.getWeaponTypeFromId(e.getAttribute("id")));
 						}
 					}
 				}

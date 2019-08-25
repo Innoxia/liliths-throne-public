@@ -329,9 +329,9 @@ public abstract class AbstractOutfit {
 					
 					Collections.shuffle(guaranteedClothingEquips);
 					for(AbstractClothing c : guaranteedClothingEquips) {
-						if(c.getClothingType().getSlot().isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES)) {
+						if(c.getClothingType().getEquipSlots().get(0).isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES)) {
 							c.setName(UtilText.parse(character, c.getName()));
-							character.equipClothingOverride(c, false, false);
+							character.equipClothingOverride(c, c.getClothingType().getEquipSlots().get(0), false, false);
 						}
 					}
 				}
@@ -358,7 +358,7 @@ public abstract class AbstractOutfit {
 										.map( e -> ItemTag.valueOf(e.getTextContent()))
 										.filter(Objects::nonNull)
 										.collect(Collectors.toList());
-								if(!ct.getItemTags().containsAll(tags)) {
+								if(!ct.getDefaultItemTags().containsAll(tags)) {
 									continue;
 								}
 							}
@@ -421,7 +421,7 @@ public abstract class AbstractOutfit {
 								anyConditionalsFound = true;
 								
 								InventorySlot slot = InventorySlot.valueOf(genericClothingType.getMandatoryFirstOf("slot").getTextContent());
-								if(ct.getSlot()!=slot) {
+								if(ct.getEquipSlots().get(0)!=slot) {
 									continue;
 								}
 							}
@@ -462,7 +462,7 @@ public abstract class AbstractOutfit {
 						if(!anyConditionalsFound) {
 							break;
 						}
-						if(ct.isCanBeEquipped(character)) {
+						if(ct.isCanBeEquipped(character, ct.getEquipSlots().get(0))) {
 							ctList.add(ct);
 						}
 					}
@@ -484,7 +484,7 @@ public abstract class AbstractOutfit {
 							.stream()
 							.map( e -> {
 								AbstractClothingType ct = ClothingType.getClothingTypeFromId(e.getTextContent());
-								if(!ct.isCanBeEquipped(character)) {
+								if(!ct.isCanBeEquipped(character, ct.getEquipSlots().get(0))) {
 									return null;
 								}
 								return ct;
@@ -519,8 +519,8 @@ public abstract class AbstractOutfit {
 				for(OutfitPotential ot : outfitPotentials) {
 					Collections.shuffle(ot.getTypes());
 					for(AbstractClothingType ct : ot.getTypes()) {
-						if(character.getClothingInSlot(ct.getSlot())==null
-								&& (ct.getSlot().isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES))) {
+						if(character.getClothingInSlot(ct.getEquipSlots().get(0))==null
+								&& (ct.getEquipSlots().get(0).isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES))) {
 							AbstractClothing clothing = AbstractClothingType.generateClothing(
 									ct,
 									ot.getPrimaryColours().isEmpty()?null:Util.randomItemFrom(ot.getPrimaryColours()),
@@ -529,6 +529,7 @@ public abstract class AbstractOutfit {
 							
 							character.equipClothingOverride(
 									clothing,
+									ct.getEquipSlots().get(0),
 									false,
 									false);
 							

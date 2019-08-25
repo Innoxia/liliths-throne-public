@@ -232,7 +232,7 @@ public class Finch extends NPC {
 		List<AbstractClothing> clothingToSell = new ArrayList<>();
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
 				clothingToSell.add(AbstractClothingType.generateClothing(clothing, false));
 			}
 		}

@@ -5,27 +5,32 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexSlot;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionUnique;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 
 /**
  * @since 0.2.3
- * @version 0.2.3
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMPetOral extends SexManagerDefault {
 
 	public SMPetOral(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionBipeds.PET_ORAL,
+		super(SexPositionUnique.PET_ORAL,
 				dominants,
 				submissives);
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 
+	@Override
+	public boolean isPositionChangingAllowed(GameCharacter character) {
+		return false;
+	}
+	
 	@Override
 	public boolean isPartnerUsingForeplayActions() {
 		return false;

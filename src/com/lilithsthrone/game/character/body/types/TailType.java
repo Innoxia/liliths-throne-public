@@ -273,7 +273,7 @@ public enum TailType implements BodyPartTypeInterface {
 		
 		List<TailType> types = new ArrayList<>();
 		for(TailType type : TailType.values()) {
-			if(type.getRace()==r) {
+			if(type.getRace()==r && type!=TailType.FOX_MORPH_MAGIC) {
 				types.add(type);
 			}
 		}

@@ -150,8 +150,9 @@ public abstract class SexAction implements SexActionInterface {
 				} else {
 					// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
 					for(SexAreaInterface sArea : this.getSexAreaInteractions().values()) {
-						if((sArea.isOrifice() && ((SexAreaOrifice)sArea).getBaseArousalWhenPenetrated()>1)
-								|| (sArea.isPenetration() && ((SexAreaPenetration)sArea).getBaseArousalWhenPenetrating()>1)) {
+						if(sArea!=null
+								&& ((sArea.isOrifice() && ((SexAreaOrifice)sArea).getBaseArousalWhenPenetrated()>1)
+										|| (sArea.isPenetration() && ((SexAreaPenetration)sArea).getBaseArousalWhenPenetrating()>1))) {
 							return ArousalIncrease.TWO_LOW;
 						}
 					}

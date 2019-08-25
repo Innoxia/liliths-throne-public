@@ -954,8 +954,8 @@ public class AlleywayAttackerDialogue {
 							new SMGeneric(
 									Util.newArrayListOfValues(getMugger()),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-							null,
-							null),
+									null,
+									null),
 							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_SEX", getMugger()));
 					
 				} else if (index == 2) {

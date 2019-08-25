@@ -1,7 +1,9 @@
 package com.lilithsthrone.game.dialogue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -21,9 +23,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.dialogue.npcDialogue.unique.LumiDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.ParserCommand;
@@ -46,8 +46,6 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.world.Weather;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -89,6 +87,9 @@ public class DebugDialogue {
 				
 			} else if(index == 2) {
 				return "Misc.";
+
+			} else if(index == 3) {
+				return "Item view";
 				
 			}
 			return null;
@@ -148,9 +149,6 @@ public class DebugDialogue {
 							Main.getProperties().setValue(PropertyValue.concealedSlotsReveal, !Main.game.isConcealedSlotsReveal());
 						}
 					};
-					
-				} else if(index==5) {
-					return new Response("All items", "View icons and ids of all the clothing, weapon, and items in the game. You can also spawn these items by clicking on their icons. <i>Warning: Very sluggish and slow to load.</i>", ALL_ITEMS_VIEW);
 					
 				} else if (index == 6) {
 					return new Response("Spawn Menu", "View the clothing, weapon, and item spawn menu.", SPAWN_MENU);
@@ -322,24 +320,26 @@ public class DebugDialogue {
 							}
 						};
 						
-				}  else if (index == 5) {
-					if(!Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BACK_ALLEYS)) {
-						return new Response("Lumi test", "Lumi can only be spawned in alleyway tiles.", null);
-						
-					} else if(!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
-						return new Response("Lumi test", "Lumi can only be spawned into empty tiles!", null);
-						
-					}  else if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-						return new Response("Lumi test", "Lumi can not be spawned during an arcane storm.", null);
-					}
-					return new ResponseEffectsOnly("Lumi test", "Spawn Lumi to test her dialogue and scenes."){
-						@Override
-						public void effects() {
-							Main.game.setContent(new Response("", "", LumiDialogue.LUMI_APPEARS));
-						}
-					};
-					
-				} else if (index == 6) {
+				}
+//				else if (index == 5) {
+//					if(!Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BACK_ALLEYS)) {
+//						return new Response("Lumi test", "Lumi can only be spawned in alleyway tiles.", null);
+//						
+//					} else if(!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
+//						return new Response("Lumi test", "Lumi can only be spawned into empty tiles!", null);
+//						
+//					}  else if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+//						return new Response("Lumi test", "Lumi can not be spawned during an arcane storm.", null);
+//					}
+//					return new ResponseEffectsOnly("Lumi test", "Spawn Lumi to test her dialogue and scenes."){
+//						@Override
+//						public void effects() {
+//							Main.game.setContent(new Response("", "", LumiDialogue.LUMI_APPEARS));
+//						}
+//					};
+//					
+//				} 
+				else if (index == 6) {
 					return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -410,6 +410,69 @@ public class DebugDialogue {
 							}
 						}
 					};
+				}
+				
+			} else if(responseTab == 3) {
+				if(index==1) {
+					return new Response("All",
+							"View icons and ids of all the clothing, weapons, and items in the game. You can also spawn these items by clicking on their icons. <i>Warning: Very sluggish and slow to load.</i>",
+							ITEM_VIEWER) {
+						@Override
+						public void effects() {
+							viewItemVariablesReset();
+							viewAll = true;
+						}
+					};
+					
+				} else if(index==2) {
+					return new Response("Items",
+							"View icons and ids of all the items in the game. You can also spawn these items by clicking on their icons. <i>Warning: Very sluggish and slow to load.</i>",
+							ITEM_VIEWER) {
+						@Override
+						public void effects() {
+							viewItemVariablesReset();
+						}
+					};
+					
+				} else if(index==3) {
+					return new Response("Weapons",
+							"View icons and ids of all the weapons in the game. You can also spawn these items by clicking on their icons. <i>Warning: May be very sluggish and slow to load.</i>",
+							ITEM_VIEWER) {
+						@Override
+						public void effects() {
+							viewItemVariablesReset();
+							itemViewSlot = InventorySlot.WEAPON_MAIN;
+						}
+					};
+					
+				} else if(index==4) {
+					return new Response("All clothing",
+							"View icons and ids of all the clothing in the game. You can also spawn these items by clicking on their icons. <i>Warning: Very sluggish and slow to load.</i>",
+							ITEM_VIEWER) {
+						@Override
+						public void effects() {
+							viewItemVariablesReset();
+							viewAllClothing = true;
+						}
+					};
+					
+				} else {
+					List<InventorySlot> clothingSlots = new ArrayList<>(Arrays.asList(InventorySlot.values()));
+					clothingSlots.remove(InventorySlot.WEAPON_MAIN);
+					clothingSlots.remove(InventorySlot.WEAPON_OFFHAND);
+					
+					if(index-5 < clothingSlots.size()) {
+						InventorySlot is = clothingSlots.get(index-5);
+						return new Response(Util.capitaliseSentence(is.getName()),
+								"View icons and ids of all the clothing in the the slot '"+is.getName()+"'. You can also spawn these items by clicking on their icons. <i>Warning: May be very sluggish and slow to load.</i>",
+								ITEM_VIEWER) {
+							@Override
+							public void effects() {
+								viewItemVariablesReset();
+								itemViewSlot = is;
+							}
+						};
+					}
 				}
 			}
 			
@@ -493,7 +556,7 @@ public class DebugDialogue {
 	public static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
 	static {
 		clothingTotal.addAll(ClothingType.getAllClothing());
-		clothingTotal.removeIf((c) -> c.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || c.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
+		clothingTotal.removeIf((c) -> c.getDefaultItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || c.getDefaultItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
 		
 		weaponsTotal.addAll(WeaponType.getAllWeapons());
 		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || w.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
@@ -526,14 +589,15 @@ public class DebugDialogue {
 			inventorySB.append("<div class='inventory-not-equipped'>");
 			if(itemTag==ItemTag.HIDDEN_IN_DEBUG_SPAWNER) {
 				for(AbstractClothingType c : ClothingType.getAllClothing()) {
-					if(c.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER)) {
+					if(c.getDefaultItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER)) {
 						inventorySB.append("<div class='inventory-item-slot unequipped "+ c.getRarity().getName() + "'>"
 								+ "<div class='inventory-icon-content'>"
 									+c.getSVGImage(
-										c.getAllAvailablePrimaryColours().get(0),
-										c.getAvailableSecondaryColours().isEmpty()?null:c.getAvailableSecondaryColours().get(0),
-										c.getAvailableTertiaryColours().isEmpty()?null:c.getAvailableTertiaryColours().get(0),
-										null, null, null, null)
+											c.getEquipSlots().get(0),
+											c.getAllAvailablePrimaryColours().get(0),
+											c.getAvailableSecondaryColours().isEmpty()?null:c.getAvailableSecondaryColours().get(0),
+											c.getAvailableTertiaryColours().isEmpty()?null:c.getAvailableTertiaryColours().get(0),
+											null, null, null, null)
 								+"</div>"
 								+ "<div class='overlay' id='" + c.getId() + "_SPAWN'></div>"
 							+ "</div>");
@@ -596,14 +660,15 @@ public class DebugDialogue {
 				
 			} else {
 				for(AbstractClothingType clothingType : clothingTotal) {
-					if(clothingType.getSlot()==activeSlot) {
+					if(clothingType.getEquipSlots().contains(activeSlot)) {
 						inventorySB.append("<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "'>"
 												+ "<div class='inventory-icon-content'>"
 													+clothingType.getSVGImage(
-														clothingType.getAllAvailablePrimaryColours().get(0),
-														clothingType.getAvailableSecondaryColours().isEmpty()?null:clothingType.getAvailableSecondaryColours().get(0),
-														clothingType.getAvailableTertiaryColours().isEmpty()?null:clothingType.getAvailableTertiaryColours().get(0),
-														null, null, null, null)
+															clothingType.getEquipSlots().get(0),
+															clothingType.getAllAvailablePrimaryColours().get(0),
+															clothingType.getAvailableSecondaryColours().isEmpty()?null:clothingType.getAvailableSecondaryColours().get(0),
+															clothingType.getAvailableTertiaryColours().isEmpty()?null:clothingType.getAvailableTertiaryColours().get(0),
+															null, null, null, null)
 												+"</div>"
 												+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
 											+ "</div>");
@@ -656,7 +721,17 @@ public class DebugDialogue {
 		}
 	};
 	
-	public static final DialogueNode ALL_ITEMS_VIEW = new DialogueNode("", "", false) {
+	private static void viewItemVariablesReset() {
+		viewAll = false;
+		viewAllClothing = false;
+		itemViewSlot = null;
+	}
+	
+	private static boolean viewAll = false;
+	private static boolean viewAllClothing = false;
+	private static InventorySlot itemViewSlot = null;
+	
+	public static final DialogueNode ITEM_VIEWER = new DialogueNode("", "", false) {
 
 		@Override
 		public String getContent() {
@@ -668,71 +743,93 @@ public class DebugDialogue {
 			}
 			int imgWidth = 15;
 			
-			int count=0;
-			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>");
-			for(AbstractItemType itemType : itemsTotal) {
-				if((itemTag==null
-						&& (!itemType.getItemTags().contains(ItemTag.BOOK)
-						&& !itemType.getItemTags().contains(ItemTag.ESSENCE)
-						&& !itemType.getItemTags().contains(ItemTag.SPELL_BOOK)
-						&& !itemType.getItemTags().contains(ItemTag.SPELL_SCROLL)))
-						|| (itemTag!=null
-							&& (itemType.getItemTags().contains(itemTag)
-									|| (itemTag==ItemTag.SPELL_BOOK && itemType.getItemTags().contains(ItemTag.SPELL_SCROLL))))) {
+			if(!viewAllClothing && (viewAll || itemViewSlot == null)) {
+				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+						+ "<h5>Total items: "+itemsTotal.size()+"</h5>");
+				for(AbstractItemType itemType : itemsTotal) {
+					if((itemTag==null
+							&& (!itemType.getItemTags().contains(ItemTag.BOOK)
+							&& !itemType.getItemTags().contains(ItemTag.ESSENCE)
+							&& !itemType.getItemTags().contains(ItemTag.SPELL_BOOK)
+							&& !itemType.getItemTags().contains(ItemTag.SPELL_SCROLL)))
+							|| (itemTag!=null
+								&& (itemType.getItemTags().contains(itemTag)
+										|| (itemTag==ItemTag.SPELL_BOOK && itemType.getItemTags().contains(ItemTag.SPELL_SCROLL))))) {
+						inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+												+ "<div class='inventory-item-slot unequipped "+ itemType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
+													+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
+													+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+												+ "</div>"
+												+ ItemType.getItemToIdMap().get(itemType)
+											+ "</div>");
+					}
+				}
+				inventorySB.append("</div>");
+			}
+
+			if(viewAll || itemViewSlot == InventorySlot.WEAPON_MAIN || itemViewSlot == InventorySlot.WEAPON_OFFHAND) {
+				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+						+ "<h5>Total weapons: "+weaponsTotal.size()+"</h5>");
+				for(AbstractWeaponType weaponType : weaponsTotal) {
 					inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
-											+ "<div class='inventory-item-slot unequipped "+ itemType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
-												+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
-												+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+											+ "<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
+												+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
+														weaponType.getAvailableDamageTypes().get(0),
+														weaponType.getAvailablePrimaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailablePrimaryColours()),
+														weaponType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailableSecondaryColours()))
+												+"</div>"
+												+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
 											+ "</div>"
-											+ ItemType.getItemToIdMap().get(itemType)
+											+ WeaponType.getIdFromWeaponType(weaponType)
 										+ "</div>");
 				}
-				count++;
+				inventorySB.append("</div>");
 			}
-			inventorySB.append("</div>");
 
-			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
-					+ "<h5>Weapons: "+weaponsTotal.size()+" items</h5>");
-			for(AbstractWeaponType weaponType : weaponsTotal) {
-				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
-										+ "<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
-											+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
-													weaponType.getAvailableDamageTypes().get(0),
-													weaponType.getAvailablePrimaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailablePrimaryColours()),
-													weaponType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailableSecondaryColours()))
+			if(viewAll || viewAllClothing) {
+				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+						+ "<h5>Total clothing: "+clothingTotal.size()+"</h5>");
+				for(AbstractClothingType clothingType : clothingTotal) {
+					inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+										+ "<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
+											+ "<div class='inventory-icon-content'>"
+												+clothingType.getSVGImage(
+														clothingType.getEquipSlots().get(0),
+														Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
+														clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
+														clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
+														null, null, null, null)
 											+"</div>"
-											+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
+											+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
 										+ "</div>"
-										+ WeaponType.getIdFromWeaponType(weaponType)
+										+ ClothingType.getIdFromClothingType(clothingType)
 									+ "</div>");
-				count++;
-			}
-			inventorySB.append("</div>");
-
-			inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
-					+ "<h5>Clothing: "+clothingTotal.size()+" items</h5>");
-			for(AbstractClothingType clothingType : clothingTotal) {
-				inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
-									+ "<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
-										+ "<div class='inventory-icon-content'>"
-											+clothingType.getSVGImage(
-												Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
-												clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
-												clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
-												null, null, null, null)
-										+"</div>"
-										+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
-									+ "</div>"
-									+ ClothingType.getIdFromClothingType(clothingType)
-								+ "</div>");
-				count++;
+				}
+				inventorySB.append("</div>");
+				
+			} else if(itemViewSlot!=null && itemViewSlot != InventorySlot.WEAPON_MAIN && itemViewSlot != InventorySlot.WEAPON_OFFHAND) {
+				List<AbstractClothingType> clothingToDisplay = clothingTotal.stream().filter((c) -> c.getEquipSlots().get(0)==itemViewSlot).collect(Collectors.toList());
+				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
+						+ "<h5>Total '"+itemViewSlot.getName()+"' slot clothing: "+clothingToDisplay.size()+"</h5>");
+				for(AbstractClothingType clothingType : clothingToDisplay) {
+					inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
+							+ "<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0;'>"
+								+ "<div class='inventory-icon-content'>"
+									+clothingType.getSVGImage(
+											clothingType.getEquipSlots().get(0),
+											Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
+											clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
+											clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
+											null, null, null, null)
+								+"</div>"
+								+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
+							+ "</div>"
+							+ ClothingType.getIdFromClothingType(clothingType)
+						+ "</div>");
+				}
+				inventorySB.append("</div>");
 			}
 			
-			// Fill space:
-			for (int i = count; i <48; i++) {
-				inventorySB.append("<div class='inventory-item-slot unequipped'></div>");
-			}
-			inventorySB.append("</div>");
 			
 			
 			return inventorySB.toString();

@@ -44,6 +44,7 @@ public class FingerBreasts {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterTargetedForSexAction(this).hasBreasts()
+					&& Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.HANDS)
 					&& Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
 
@@ -378,6 +379,7 @@ public class FingerBreasts {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterPerformingAction().hasBreasts()
+					&& Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.HANDS)
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue();
 		}
 

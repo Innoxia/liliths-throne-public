@@ -39,6 +39,8 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
@@ -50,6 +52,8 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.sex.managers.dominion.SMMasturbation;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotMasturbation;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
@@ -58,6 +62,7 @@ import com.lilithsthrone.utils.Pathing;
 import com.lilithsthrone.utils.TreeNode;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.comparators.ClothingTypeRarityComparator;
 import com.lilithsthrone.utils.comparators.ItemTypeRarityComparator;
 import com.lilithsthrone.utils.comparators.WeaponTypeRarityComparator;
@@ -198,6 +203,59 @@ public class PhoneDialogue {
 					return new Response("Combat Moves", "You are too busy to change your combat moves.", null);
 				}
 				
+			} else if (index == 12) {
+				if(!Main.game.isSavedDialogueNeutral()) {
+						return new Response("Masturbate", "You are too busy to masturbate right now. (Can only be performed in a neutral scene.)", null);
+						
+				} else if(!Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getKey()) {
+					return new Response("Masturbate", Main.game.getPlayer().getSexAvailabilityBasedOnLocation().getValue(), null);
+					
+				} else if(Main.game.getPlayerCell().getPlace().isPopulated() && !Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+					return new Response("Masturbate",
+							"As you do not have the [style.colourFetish("+Fetish.FETISH_EXHIBITIONIST.getName(Main.game.getPlayer())+" fetish)], you are not comfortable with masturbating in a place where people could see you!",
+							null);
+					
+				} else {
+					return new ResponseSex("Masturbate",
+							"Decide to take a break from what you're currently doing in order to masturbate.",
+							true,
+							true,
+							new SMMasturbation(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMasturbation.STANDING))),
+							Main.game.getPlayer().hasFetish(Fetish.FETISH_EXHIBITIONIST)
+								?Main.game.getPlayer().getParty()
+								:null,
+							null,
+							AFTER_MASTURBATION,
+							UtilText.parseFromXMLFile("misc/misc", "MASTURBATION"));
+				}
+				
+			} else if (index == 13){
+				if(!Main.game.isSavedDialogueNeutral()) {
+					return new Response("Loiter", "You can only loiter to pass the time when in a neutral dialogue scene!", null);
+				}
+				if(Main.game.getPlayerCell().getPlace().isDangerous()) {
+					return new Response("Loiter", "You can only loiter to pass the time when in a safe area!", null);
+				}
+				if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
+					return new Response("Loiter", "This is not a suitable place in which to loitering about for four hours!", null);
+				}
+				return new ResponseEffectsOnly("Loiter", "Loiter in this area for the next four hours.") {
+					@Override
+					public int getSecondsPassed() {
+						return 60*60*4;
+					}
+					@Override
+					public void effects() {
+						Main.mainController.openPhone();
+						Main.game.getTextStartStringBuilder().append(
+								"<p style='text-align:center;'>"
+								+ "<i>You spent the next four hours loitering about, doing nothing in particular...</i>"
+								+ "</p>");
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+					}
+				};
+				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
 					@Override
@@ -214,6 +272,24 @@ public class PhoneDialogue {
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.PHONE;
+		}
+	};
+	
+	public static final DialogueNode AFTER_MASTURBATION = new DialogueNode("Finished", "You've had enough of maturbating for now.", true) {
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("misc/misc", "AFTER_MASTURBATION");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Continue on your way...", Main.game.getDefaultDialogueNoEncounter());
+
+			} else {
+				return null;
+			}
 		}
 	};
 
@@ -543,6 +619,15 @@ public class PhoneDialogue {
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.MAJOR_PHYSIQUE, "")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.MAJOR_ARCANE, "")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.MAJOR_CORRUPTION, "")
+
+					+ (Main.game.isEnchantmentCapacityEnabled()
+						?"<div class='container-full-width' style='text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>"
+								+ "<b style='color:"+Colour.GENERIC_ENCHANTMENT.toWebHexString()+";'>"+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+":</b>"
+								+ " <i>"
+									+(int)Main.game.getPlayer().getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
+								+"</i>"
+							+ "</div>"
+						:"")
 					
 				+"</div>"
 				+"<div class='container-full-width'>"
@@ -1793,8 +1878,14 @@ public class PhoneDialogue {
 					journalSB.append(
 							"<div class='container-full-width' style='margin-bottom:0;'>"
 							+ "<div class='container-full-width' style='width:calc(40% - 16px)'>"
-									+ "<b style='color:" + clothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</b> ("+Util.capitaliseSentence(clothing.getSlot().getName())+")"
-							+ "</div>"
+									+ "<b style='color:" + clothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</b> (");
+					
+					for(int i=0; i<clothing.getEquipSlots().size(); i++) {
+						InventorySlot slot = clothing.getEquipSlots().get(i);
+						journalSB.append(Util.capitaliseSentence(slot.getName())+(i==clothing.getEquipSlots().size()-1?"":"/"));
+					}
+					
+					journalSB.append(")</div>"
 							+ "<div class='container-full-width' style='width:calc(60% - 16px)'>");
 					
 					for (Colour c : clothing.getAllAvailablePrimaryColours()) {
@@ -1807,7 +1898,14 @@ public class PhoneDialogue {
 				} else {
 					journalSB.append(
 						"<div class='container-full-width' style='text-align:center; margin-bottom:0;'>"
-								+ "[style.boldDisabled(Undiscovered ("+Util.capitaliseSentence(clothing.getSlot().getName())+"))]"
+								+ "[style.boldDisabled(Undiscovered (");
+
+					for(int i=0; i<clothing.getEquipSlots().size(); i++) {
+						InventorySlot slot = clothing.getEquipSlots().get(i);
+						journalSB.append(Util.capitaliseSentence(slot.getName())+(i==clothing.getEquipSlots().size()-1?"":"/"));
+					}
+					
+					journalSB.append("))]"
 						+ "</div>");
 				}
 			}
@@ -2228,7 +2326,10 @@ public class PhoneDialogue {
 							}
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_ARCANE.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+								Main.game.getTextStartStringBuilder().append(
+										"<p>"
+											+Spell.ELEMENTAL_ARCANE.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false)
+										+"</p>");
 							}
 						};
 					}
@@ -2329,7 +2430,10 @@ public class PhoneDialogue {
 							}
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_EARTH.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+								Main.game.getTextStartStringBuilder().append(
+										"<p>"
+											+Spell.ELEMENTAL_EARTH.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false)
+										+"</p>");
 							}
 						};
 					}
@@ -2430,7 +2534,10 @@ public class PhoneDialogue {
 							}
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_WATER.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+								Main.game.getTextStartStringBuilder().append(
+										"<p>"
+											+Spell.ELEMENTAL_WATER.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false)
+										+"</p>");
 							}
 						};
 					}
@@ -2531,7 +2638,10 @@ public class PhoneDialogue {
 							}
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_AIR.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+								Main.game.getTextStartStringBuilder().append(
+										"<p>"
+											+Spell.ELEMENTAL_AIR.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false)
+										+"</p>");
 							}
 						};
 					}
@@ -2619,12 +2729,14 @@ public class PhoneDialogue {
 							return new Response("Fire Elemental", "You can only summon your elemental in a neutral scene!", null);
 						}
 						
-					} else if(Main.game.getPlayer().getMana()<Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())) {
-						return new Response("Fire Elemental", "You need at least <b>"+Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)] in order to cast this spell!", null);
-						
 					} else {
+						String description = "Summon your elemental by binding it to the school of Fire! This will cost <b>"+Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!";
+						if(Main.game.getPlayer().getMana()<Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())) {
+							description = "Summon your elemental by binding it to the school of Fire! This will cost <b>"
+									+Math.round(Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())*0.25f)+"</b> [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]!";
+						}
 						return new Response("Fire Elemental",
-								"Summon your elemental by binding it to the school of Fire! This will cost <b>"+Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
+								description,
 								CHARACTER_SPELLS_FIRE) {
 							@Override
 							public DialogueNode getNextDialogue() {
@@ -2632,7 +2744,10 @@ public class PhoneDialogue {
 							}
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_FIRE.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+								Main.game.getTextStartStringBuilder().append(
+										"<p>"
+											+Spell.ELEMENTAL_FIRE.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false)
+										+"</p>");
 							}
 						};
 					}
@@ -2855,7 +2970,7 @@ public class PhoneDialogue {
 						if(worldTypeMap==world) {
 							return new Response(Util.capitaliseSentence(world.getName()), "You are already viewing the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), null);
 							
-						} else if(Main.game.getPlayer().getWorldsVisited().contains(world)) { 
+						} else if(Main.game.getPlayer().getWorldsVisited().contains(world) || Main.getProperties().hasValue(PropertyValue.mapReveal)) { 
 							return new Response(Util.capitaliseSentence(world.getName()), "View the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), MAP) {
 								@Override
 								public Colour getHighlightColour() {

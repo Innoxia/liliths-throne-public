@@ -36,7 +36,12 @@ public class PartnerSelfNoPen {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.NPC_ONLY;
 		}
-		
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.HANDS);
+		}
+
 		@Override
 		public String getActionTitle() {
 			return "Touch self";
@@ -90,6 +95,11 @@ public class PartnerSelfNoPen {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.NPC_ONLY;
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.HANDS);
 		}
 		
 		@Override
@@ -150,7 +160,8 @@ public class PartnerSelfNoPen {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.getCharacterPerformingAction().hasPenis()
-					&& !Sex.getCharacterPerformingAction().hasVagina();
+					&& !Sex.getCharacterPerformingAction().hasVagina()
+					&& Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.HANDS);
 		}
 		
 		@Override

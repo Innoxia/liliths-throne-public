@@ -53,7 +53,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.positions.SexSlotGeneric;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
@@ -131,7 +131,7 @@ public enum RenderingEngine {
 		
 		equippedPanelSB.setLength(0);
 		
-		if(charactersInventoryToRender == null) { //TODO
+		if(charactersInventoryToRender == null) {
 			equippedPanelSB.append("<div class='inventory-equipped'>");
 
 			for (InventorySlot invSlot : mainInventorySlots) {
@@ -170,8 +170,8 @@ public enum RenderingEngine {
 		Set<InventorySlot> blockedSlots = new HashSet<>();
 		
 		for (AbstractClothing c : charactersInventoryToRender.getClothingCurrentlyEquipped()) {
-			if (c.getClothingType().getIncompatibleSlots(charactersInventoryToRender) != null) {
-				for (InventorySlot is : c.getClothingType().getIncompatibleSlots(charactersInventoryToRender)) {
+			if (c.getClothingType().getIncompatibleSlots(charactersInventoryToRender, c.getSlotEquippedTo()) != null) {
+				for (InventorySlot is : c.getClothingType().getIncompatibleSlots(charactersInventoryToRender, c.getSlotEquippedTo())) {
 					blockedSlots.add(is);
 				}
 			}
@@ -809,7 +809,7 @@ public enum RenderingEngine {
 				}
 			} else if (item instanceof AbstractClothing) {
 				AbstractClothing clothing = (AbstractClothing)item;
-				if (Main.game.isInCombat() || (Main.game.isInSex() && (isTraderInv || !clothing.getClothingType().isAbleToBeEquippedDuringSex()))) {
+				if (Main.game.isInCombat() || (Main.game.isInSex() && (isTraderInv || !clothing.getClothingType().isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0))))) {
 					overlay += " disabled";
 				}
 			}
@@ -835,7 +835,7 @@ public enum RenderingEngine {
 			}
 		} else if (item instanceof AbstractClothing) {
 			AbstractClothing clothing = (AbstractClothing)item;
-			if (Main.game.isInCombat() || (Main.game.isInSex() && !clothing.getClothingType().isAbleToBeEquippedDuringSex())) {
+			if (Main.game.isInCombat() || (Main.game.isInSex() && !clothing.getClothingType().isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0)))) {
 				overlay += " disabled";
 			}
 		}
@@ -935,8 +935,8 @@ public enum RenderingEngine {
 				"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
 					+ "<div class='full-width-container'>"
 						+ "<p class='character-name' style='color:"+ (Sex.isDom(Main.game.getPlayer())
-								?Colour.BASE_CRIMSON.toWebHexString()+";'>Dominant"+(Sex.getDominantParticipants(true).size()>1?"s":"")+"</b>"
-								:Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissive"+(Sex.getSubmissiveParticipants(true).size()>1?"s":"")+"</b>")
+								?Colour.DOMINANT.toWebHexString()+";'>Dominant"+(Sex.getDominantParticipants(true).size()>1?"s":"")+"</b>"
+								:Colour.SUBMISSIVE.toWebHexString()+";'>Submissive"+(Sex.getSubmissiveParticipants(true).size()>1?"s":"")+"</b>")
 						+"</p>"
 					+ "</div>"
 				+ "</div>"
@@ -968,9 +968,9 @@ public enum RenderingEngine {
 				+ "</div>"
 				+ "<div class='full-width-container' style='height: calc(100% - 128vw); overflow-y: auto;'>");
 			
-			uiAttributeSB.append(getCharacterPanelDiv(Combat.getAllies().size()>0, "PLAYER_", Main.game.getPlayer()));
+			uiAttributeSB.append(getCharacterPanelDiv(Combat.getAllies(Main.game.getPlayer()).size()>0, "PLAYER_", Main.game.getPlayer()));
 			
-			for(GameCharacter character : Combat.getAllies()) {
+			for(GameCharacter character : Combat.getAllies(Main.game.getPlayer())) {
 				uiAttributeSB.append(getCharacterPanelDiv(true, "NPC_"+character.getId()+"_", character));
 			}
 			
@@ -1002,7 +1002,7 @@ public enum RenderingEngine {
 
 		
 		uiAttributeSB.append("<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>");
-		if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY) {
+		if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY && Main.game.isEnchantmentCapacityEnabled()) {
 			int enchantmentPointsUsed = Main.game.getPlayer().getEnchantmentPointsUsedTotal();
 			uiAttributeSB.append(UtilText.parse(
 					"<div class='full-width-container' style='text-align:center;'>"
@@ -1161,14 +1161,14 @@ public enum RenderingEngine {
 					"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
 						+ "<div class='full-width-container'>"
 							+ "<p class='character-name' style='color:"+ Colour.BASE_CRIMSON.toWebHexString()+";'>"
-								+ (Combat.getEnemies().size()>1?"Enemies":"Enemy")
+								+ (Combat.getEnemies(Main.game.getPlayer()).size()>1?"Enemies":"Enemy")
 							+"</p>"
 						+ "</div>"
 					+ "</div>"
 					+ "<div class='full-width-container' style='height: calc(100% - 128vw); overflow-y: auto;'>");
 				
-				for(GameCharacter character : Combat.getEnemies()) {
-					uiAttributeSB.append(getCharacterPanelDiv(Combat.getEnemies().size()>1, "NPC_"+character.getId()+"_", character));
+				for(GameCharacter character : Combat.getEnemies(Main.game.getPlayer())) {
+					uiAttributeSB.append(getCharacterPanelDiv(Combat.getEnemies(Main.game.getPlayer()).size()>1, "NPC_"+character.getId()+"_", character));
 				}
 				
 				
@@ -1189,7 +1189,7 @@ public enum RenderingEngine {
 			}
 
 			uiAttributeSB.append("<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>");
-			if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY) {
+			if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY && Main.game.isEnchantmentCapacityEnabled() && getCharacterToRender()!=null) {
 				int enchantmentPointsUsed = getCharacterToRender().getEnchantmentPointsUsedTotal();
 				uiAttributeSB.append(UtilText.parse(
 						"<div class='full-width-container' style='text-align:center;'>"
@@ -1836,7 +1836,7 @@ public enum RenderingEngine {
 								}
 
 								// Put place icon onto tile:
-								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null) { //TODO border
+								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null) {
 									if (y == playerPosition.getY() && x == playerPosition.getX()) {
 										mapSB.append("<div class='place-icon' style='margin:calc(18% - 4px); width:64%;'>"
 												+ "<div class='map-tile-content' style='background-color:"+getPlayerIconColour(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()).toWebHexString()+";"
@@ -1872,6 +1872,9 @@ public enum RenderingEngine {
 
 						}
 						
+					} else if(Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE) {
+						mapSB.append("<div class='map-tile' style='background-color:"+Colour.MAP_BACKGROUND_UNEXPLORED.toWebHexString()+"; "+tileWidthStyle+"'></div>");
+
 					} else {
 						mapSB.append("<div class='map-tile blank' style='"+tileWidthStyle+"'></div>");
 					}
@@ -1955,17 +1958,20 @@ public enum RenderingEngine {
 
 				+ "<div class='quarterContainer'>"
 					+ "<div class='button" + (
-							Main.game.getPlayer().isMainQuestUpdated()
-							|| Main.game.getPlayer().isSideQuestUpdated()
-							|| Main.game.getPlayer().isRelationshipQuestUpdated()
-							|| Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
-							|| Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
-							|| Main.getProperties().hasValue(PropertyValue.newItemDiscovered)
-							|| Main.getProperties().hasValue(PropertyValue.newRaceDiscovered)
-							|| Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
-								?" highlight"
-								:"")
+							(Main.mainController.isPhoneDisabled())
+								?" disabled"
+								:(Main.game.getPlayer().isMainQuestUpdated()
+									|| Main.game.getPlayer().isSideQuestUpdated()
+									|| Main.game.getPlayer().isRelationshipQuestUpdated()
+									|| Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
+									|| Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
+									|| Main.getProperties().hasValue(PropertyValue.newItemDiscovered)
+									|| Main.getProperties().hasValue(PropertyValue.newRaceDiscovered)
+									|| Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
+										?" highlight"
+										:""))
 						+ "' id='journal'>" + SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
+						+ (Main.mainController.isPhoneDisabled() ? "<div class='disabledLayer'></div>" : "")
 					+ "</div>"
 				+ "</div>"
 

@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -78,9 +79,15 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
-import com.lilithsthrone.game.sex.positions.SexSlot;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
+import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FingerMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.SadisticActions;
 import com.lilithsthrone.game.sex.sexActions.dominion.AmberSpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -538,8 +545,8 @@ public class Amber extends NPC {
 				return new ResponseSex("Used", "Amber starts fucking you.",
 						false, false,
 						new SMAmberDoggyFucked(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Amber.class), SexSlotBipeds.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Amber.class), SexSlotAllFours.BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))),
 						null,
 						null, AFTER_SEX_DEFEAT, "<p>"
 							+ "Amber takes a firm grasp of your hips, before roughly lifting your ass a little higher."
@@ -601,7 +608,7 @@ public class Amber extends NPC {
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexManager().getPosition() == SexPositionBipeds.DOGGY_STYLE) {
+		if(Sex.getSexManager().getPosition() == SexPositionOther.ALL_FOURS) {
 			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && target.hasVagina()) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA);
 			} else {
@@ -614,7 +621,7 @@ public class Amber extends NPC {
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(Sex.getSexManager().getPosition() == SexPositionBipeds.DOGGY_STYLE) {
+		if(Sex.getSexManager().getPosition() == SexPositionOther.ALL_FOURS) {
 			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && target.hasVagina()) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			} else {
@@ -624,14 +631,82 @@ public class Amber extends NPC {
 
 		return super.getMainSexPreference(target);
 	}
+	
+	@Override
+	public GameCharacter getPreferredSexTarget() {
+		if(Sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) { // Assisting the player to suck Zaranix's cock:
+			return Main.game.getPlayer();
+		}
+		return super.getPreferredSexTarget();
+	}
+	
+	@Override
+	public List<SexActionInterface> getLimitedSexClasses() {
+		if(Sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) { // Assisting the player to suck Zaranix's cock:
+			List<SexActionInterface> actionsAvailable = new ArrayList<>();
+			
+			actionsAvailable.add(FingerMouth.PARTNER_ASSIST_BLOWJOB);
+			actionsAvailable.addAll(this.getSexActionInterfacesFromClass(SadisticActions.class));
+			actionsAvailable.add(PartnerTalk.PARTNER_DIRTY_TALK);
+			actionsAvailable.addAll(this.getSexActionInterfacesFromClass(GenericOrgasms.class));
 
+//			actionsAvailable.addAll(this.getSexActionInterfacesFromClass(GenericActions.class));
+//			actionsAvailable.addAll(this.getSexActionInterfacesFromClass(GenericTalk.class));
+//			actionsAvailable.addAll(this.getSexActionInterfacesFromClass(PartnerTalk.class));
+			
+			return actionsAvailable;
+		}
+		return super.getLimitedSexClasses();
+	}
+	
+	@Override
+	public int getOrgasmsBeforeSatisfied() {
+		if(Sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) {
+			return 0;
+		}
+		return super.getOrgasmsBeforeSatisfied();
+	}
+	
 	@Override
 	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
-		return slot==SexSlotBipeds.DOGGY_BEHIND;
+		if(Sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) {
+			return slot==SexSlotSitting.PERFORMING_ORAL_TWO;
+		}
+		return slot==SexSlotAllFours.BEHIND;
 	}
 	
 	@Override
 	public SexPace getSexPaceDomPreference(){
 		return SexPace.DOM_ROUGH;
+	}
+	
+	@Override
+	public String getRoughTalk() {
+		if(Sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) { // Assisting the player to suck Zaranix's cock:
+			if(Main.game.getNpc(Zaranix.class).getArousal()>=95) {
+				return "[npc.speech(Get ready for your [zaranix.master]'s cum, you worthless whore!)]";
+			}
+			return UtilText.returnStringAtRandom(
+					"[npc.speech(That's right, you worthless bitch, show your [zaranix.master] that you're nothing but [zaranix.his] slutty little fuck-toy!)]",
+					"[npc.speech(Hah! I love watching pathetic, submissive sluts getting face-fucked!)]",
+					"[npc.speech(You're nothing but your [zaranix.master]'s worthless fuck-toy, understand?! Your mouth belongs to [zaranix.him]!)]",
+					"[npc.speech(That's right! You love taking [zaranix.his] cock, don't you, you worthless slut?!)]");
+		}
+		return super.getRoughTalk();
+	}
+	
+	@Override
+	public String getDirtyTalk() {
+		if(Sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) { // Assisting the player to suck Zaranix's cock:
+			if(Main.game.getNpc(Zaranix.class).getArousal()>=95) {
+				return "[npc.speech(Get ready for your [zaranix.master]'s cum, you worthless whore!)]";
+			}
+			return UtilText.returnStringAtRandom(
+					"[npc.speech(Come on, bitch, you can take [zaranix.his] cock deeper than that!)]",
+					"[npc.speech(That's right, whore, do your best to please your [zaranix.master]'s cock!)]",
+					"[npc.speech(Deeper, bitch! Take [zaranix.his] cock deeper!)]",
+					"[npc.speech(Come on, you worthless slut, get your tongue working as well!)]");
+		}
+		return super.getDirtyTalk();
 	}
 }

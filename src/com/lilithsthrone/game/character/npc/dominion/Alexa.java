@@ -101,7 +101,7 @@ public class Alexa extends NPC {
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		this.addSpecialPerk(Perk.ARCANE_TRAINING);
+		this.addSpecialPerk(Perk.SPECIAL_ARCANE_TRAINING);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(

@@ -197,7 +197,7 @@
 			positioning = "onto [npc.her] hands and knees ";
 		}
 		var playerPositioning = "Falling to your knees in front of [npc.name], you say,";
-		if(!pc.getLegConfiguration().isBipedalPositionedGenitals()) {
+		if(pc.isTaur()) {
 			playerPositioning = "Turning your [pc.legConfiguration] body to one side, you present your groin to [npc.name], before calling down to [npc.herHim],";
 		}
 	#ENDVAR
@@ -214,7 +214,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc2.her] [npc.relation(npc2)]'s ass.
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 					 Sinking down onto [npc2.her] knees behind [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(That's my good [npc.relation(npc2)]! [pc.Name] and I will show you a real good time, so you just relax and enjoy this.)]
 				</p>
 				<p>
@@ -244,7 +244,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.her] ass.
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 					 Sinking down onto [npc2.her] knees behind [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
 				</p>
 				<p>
@@ -274,7 +274,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.her] ass.
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				 Sinking down onto [npc2.her] knees behind [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
 			</p>
 			<p>
@@ -304,7 +304,7 @@
 		}
 		var playerPositioning = "Falling to your knees behind [npc.name], you say,";
 		var playerMounting = "take [npc.herHim]! Make sure to give me a good, hard fucking while I pleasure [npc2.name] with my mouth!";
-		if(!pc.getLegConfiguration().isBipedalPositionedGenitals()) {
+		if(pc.isTaur()) {
 			playerPositioning = "Stepping forwards so that your [pc.legConfiguration] body is over the top of [npc.name], you call down to [npc.herHim],";
 			playerMounting = "mount [npc.herHim]! Make sure to give me a good, hard rutting while I pleasure [npc2.name] with my mouth!";
 		}
@@ -322,7 +322,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc2.her] [npc.relation(npc2)].
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				 Sinking down onto [npc2.her] knees in front of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(That's my good [npc.relation(npc2)]! [pc.Name] and I will show you a real good time, so you just relax and enjoy this.)]
 			</p>
 			<p>
@@ -352,7 +352,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at your [npc.relation(pc)].
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				 Sinking down onto [npc2.her] knees in front of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, your [pc.relation(npc)] and I will show you a real good time, so you just relax and enjoy this.)]
 			</p>
 			<p>
@@ -382,7 +382,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.herHim].
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				 Sinking down onto [npc2.her] knees in front of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
 			</p>
 			<p>
@@ -450,7 +450,7 @@
 		#ENDIF
 	</p>
 	<p>
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			Dropping down onto your knees behind them, you prepare to do exactly as they say, and, reaching forwards to grab their asses in each [pc.hand], you [pc.moan], [pc.speech(I wonder which of you I'll fuck first...)]
 		#ELSE
 			Stepping forwards and preparing to use your [pc.legConfiguration] body to mount one of them, you wonder out loud, [pc.speech(I wonder which of you I'll rut first...)]
@@ -534,16 +534,16 @@
 			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 		</p>
 		<p>
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				With agreement from [npc2.her] [npc.relation(npc2)], [npc2.name] takes hold of your [pc.hips] and pulls you down onto your knees as [npc2.she] drops down behind you.
 			#ELSE
 				With agreement from [npc2.her] [npc.relation(npc2)], [npc2.name] takes hold of your [pc.hips] and pushes you down onto your knees, before stepping forwards and positioning [npc2.her] [npc2.legConfiguration] body over the top of you, ready to mount you.
 			#ENDIF
 		</p>
 		<p>
-			#IF(npc.getLegConfiguration().isBipedalPositionedGenitals() && pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc.isTaur() && !pc.isTaur())
 				Moving around in front of you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
-			#ELSEIF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+			#ELSEIF(npc.isTaur())
 				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 			#ELSE
 				Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
@@ -575,16 +575,16 @@
 			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 		</p>
 		<p>
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				With agreement from [npc.your] [npc.relation(pc)], [npc2.name] takes hold of your [pc.hips] and pulls you down onto your knees as [npc2.she] drops down behind you.
 			#ELSE
 				With agreement from [npc.your] [npc.relation(pc)], [npc2.name] takes hold of your [pc.hips] and pushes you down onto your knees, before stepping forwards and positioning [npc2.her] [npc2.legConfiguration] body over the top of you, ready to mount you.
 			#ENDIF
 		</p>
 		<p>
-			#IF(npc.getLegConfiguration().isBipedalPositionedGenitals() && pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc.isTaur() && !pc.isTaur())
 				Kneeling down before you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
-			#ELSEIF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+			#ELSEIF(npc.isTaur())
 				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 			#ELSE
 				Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
@@ -608,16 +608,16 @@
 			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 		</p>
 		<p>
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				With agreement from [npc.name], your [npc2.relation(pc)] takes hold of your [pc.hips] and pulls you down onto your knees as [npc2.she] drops down behind you.
 			#ELSE
 				With agreement from [npc.name], your [npc2.relation(pc)] takes hold of your [pc.hips] and pushes you down onto your knees, before stepping forwards and positioning [npc2.her] [npc2.legConfiguration] body over the top of you, ready to mount you.
 			#ENDIF
 		</p>
 		<p>
-			#IF(npc.getLegConfiguration().isBipedalPositionedGenitals() && pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc.isTaur() && !pc.isTaur())
 				Kneeling down before you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
-			#ELSEIF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+			#ELSEIF(!npc.isTaur())
 				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 			#ELSE
 				Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
@@ -669,7 +669,7 @@
 		#ENDIF
 	</p>
 	<p>
-		#IF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!npc.isTaur())
 			Dropping down onto [npc.her] knees behind the two of you, [npc.name] prepares to do exactly as you say, and, reaching forwards to grab your asses in each [npc.hand], [npc.she] [npc.moans], [npc.speech(I wonder which of you I'll fuck first...)]
 		#ELSE
 			Stepping forwards and preparing to use [npc.her] [npc.legConfiguration] body to mount one of you, [npc.name] wonders out loud, [npc.speech(I wonder which of you I'll rut first...)]

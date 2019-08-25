@@ -11,17 +11,18 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexSlot;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3
- * @version 0.3.1
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMLyssiethDemonTF extends SexManagerDefault {
@@ -43,7 +44,7 @@ public class SMLyssiethDemonTF extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 	
@@ -53,12 +54,7 @@ public class SMLyssiethDemonTF extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isPlayerStartNaked() {
-		return true;
-	}
-
-	@Override
-	public boolean isPartnerStartNaked() {
+	public boolean isCharacterStartNaked(GameCharacter character) {
 		return true;
 	}
 	
@@ -70,6 +66,14 @@ public class SMLyssiethDemonTF extends SexManagerDefault {
 	@Override
 	public boolean isAbleToEquipSexClothing(GameCharacter character){
 		return false;
+	}
+	
+	@Override
+	public OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
+		if(character.equals(Main.game.getNpc(Lyssieth.class))) {
+			return OrgasmBehaviour.CREAMPIE;
+		}
+		return super.getCharacterOrgasmBehaviour(character);
 	}
 	
 	@Override
@@ -100,7 +104,7 @@ public class SMLyssiethDemonTF extends SexManagerDefault {
 		}
 		// Limit tail during doggy style, so that she can use tail-lock and prevent the player from pulling out:
 		if(Sex.getContactingSexAreas(Main.game.getNpc(Lyssieth.class), SexAreaOrifice.VAGINA, Main.game.getPlayer()).contains(SexAreaPenetration.PENIS)
-				&& Sex.getPosition()==SexPositionBipeds.DOGGY_STYLE) {
+				&& Sex.getPosition()==SexPositionOther.ALL_FOURS) {
 			return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), Util.newArrayListOfValues(SexAreaPenetration.TAIL)));
 		}
 		return super.getAreasBannedMap();

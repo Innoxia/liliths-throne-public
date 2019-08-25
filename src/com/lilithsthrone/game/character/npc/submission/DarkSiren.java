@@ -188,7 +188,7 @@ public class DarkSiren extends NPC {
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		this.addSpecialPerk(Perk.MERAXIS);
+		this.addSpecialPerk(Perk.SPECIAL_MERAXIS);
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
 						Perk.CHUUNI,

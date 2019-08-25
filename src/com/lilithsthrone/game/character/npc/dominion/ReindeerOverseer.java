@@ -186,7 +186,7 @@ public class ReindeerOverseer extends NPC {
 			}
 			
 			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
-				if(clothing!=null && clothing.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
+				if(clothing!=null && clothing.getDefaultItemTags().contains(ItemTag.REINDEER_GIFT)) {
 					for (int i = 0; i < 1 + (Util.random.nextInt(2)); i++) {
 						this.addClothing(AbstractClothingType.generateClothing(clothing), false);
 					}

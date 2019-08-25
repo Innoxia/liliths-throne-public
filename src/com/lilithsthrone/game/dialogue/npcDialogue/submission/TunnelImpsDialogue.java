@@ -1139,7 +1139,8 @@ public class TunnelImpsDialogue {
 						Util.newArrayListOfValues(getMainCompanion()),
 						null,
 						Util.newArrayListOfValues(Main.game.getPlayer()),
-						AFTER_SEX_WATCHING_COMPANION, UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_START_SEX", getAllCharacters()));
+						AFTER_SEX_WATCHING_COMPANION,
+						UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_START_SEX", getAllCharacters()));
 			} else {
 				return null;
 			}

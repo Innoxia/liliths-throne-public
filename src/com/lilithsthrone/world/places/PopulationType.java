@@ -20,6 +20,8 @@ public enum PopulationType {
 	ENFORCERS("enforcers", true),
 	
 	SHOPPERS("shoppers", true),
+	
+	DINERS("diners", true),
 
 	VIPS("VIPs", true),
 	

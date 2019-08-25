@@ -209,7 +209,7 @@ public class ImpAttacker extends NPC {
 			// Alpha-imps also wear accessories as symbols of status.
 			if(this.getSubspecies()==Subspecies.IMP_ALPHA) {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_foot_wraps"), false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HAND_WRAPS, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_wraps", false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_SARASHI, false), true, this);
 			}
 		}
@@ -343,7 +343,7 @@ public class ImpAttacker extends NPC {
 					public void effects() {
 						if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.FORTRESS_LAB)) {
 							if(Main.game.isNonConEnabled() && (Main.game.getPlayer().isFeminine() || (ImpCitadelDialogue.isCompanionDialogue() && ImpCitadelDialogue.getMainCompanion().isFeminine()))) {
-								ImpCitadelDialogue.getArcanist().displaceClothingForAccess(CoverableArea.VAGINA);
+								ImpCitadelDialogue.getArcanist().displaceClothingForAccess(CoverableArea.VAGINA, null);
 								ImpCitadelDialogue.getArcanist().setLustNoText(50);
 							}
 						}

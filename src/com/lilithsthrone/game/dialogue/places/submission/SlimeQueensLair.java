@@ -24,10 +24,11 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -153,11 +154,11 @@ public class SlimeQueensLair {
 							"Push [slimeFire.name] and [slimeIce.name] down onto all fours, side-by-side, and get ready to fuck them.",
 							null, null, null, null, null, null,
 							true, false,
-							new SMDoggy(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
+							new SMAllFours(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.BEHIND)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
-											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))) {
+											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotAllFours.ALL_FOURS),
+											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotAllFours.ALL_FOURS_TWO))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
@@ -171,11 +172,11 @@ public class SlimeQueensLair {
 							"Let [slimeFire.name] and [slimeIce.name] spitroast you.",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 							true, true,
-							new SMDoggy(
+							new SMAllFours(
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotBipeds.DOGGY_INFRONT),
-											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotBipeds.DOGGY_BEHIND)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))) {
+											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotAllFours.IN_FRONT),
+											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotAllFours.BEHIND)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
@@ -193,11 +194,11 @@ public class SlimeQueensLair {
 							"Push [slimeFire.name] and [slimeIce.name] down onto all fours, side-by-side, and get ready to fuck them.",
 							null, null, null, null, null, null,
 							true, false,
-							new SMDoggy(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
+							new SMAllFours(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.BEHIND)),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS),
-											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND))) {
+											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotAllFours.ALL_FOURS),
+											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotAllFours.ALL_FOURS_TWO))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
@@ -211,11 +212,11 @@ public class SlimeQueensLair {
 							"Let [slimeFire.name] and [slimeIce.name] spitroast you.",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 							true, true,
-							new SMDoggy(
+							new SMAllFours(
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotBipeds.DOGGY_INFRONT),
-											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotBipeds.DOGGY_BEHIND)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))) {
+											new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotAllFours.IN_FRONT),
+											new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotAllFours.BEHIND)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))) {
 								@Override
 								public boolean isPositionChangingAllowed(GameCharacter character) {
 									return false;
@@ -400,11 +401,11 @@ public class SlimeQueensLair {
 						"[slimeFire.name] and [slimeIce.name] move to have some fun with you...",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 						false, false,
-						new SMDoggy(
+						new SMAllFours(
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotBipeds.DOGGY_INFRONT),
-										new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotBipeds.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))) {
+										new Value<>(Main.game.getNpc(SlimeGuardIce.class), SexSlotAllFours.IN_FRONT),
+										new Value<>(Main.game.getNpc(SlimeGuardFire.class), SexSlotAllFours.BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))) {
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
@@ -1165,10 +1166,10 @@ public class SlimeQueensLair {
 						UtilText.parse(Main.game.getNpc(SlimeQueen.class), "Play along with [slimeQueen.namePos] fantasies and force yourself on her."),
 						null, null, null, null, null, null,
 						true, false,
-						new SMMissionary(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)),
+						new SMLyingDown(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MISSIONARY)),
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeQueen.class), SexSlotBipeds.MISSIONARY_ON_BACK))),
+										new Value<>(Main.game.getNpc(SlimeQueen.class), SexSlotLyingDown.LYING_DOWN))),
 						null,
 						null,
 						AFTER_SLIME_QUEEN_SEX, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_SEX_START"));
@@ -1240,10 +1241,10 @@ public class SlimeQueensLair {
 						UtilText.parse(Main.game.getNpc(SlimeQueen.class), "Play along with [slimeQueen.namePos] fantasies and force yourself on her."),
 						null, null, null, null, null, null,
 						true, false,
-						new SMDoggy(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_BEHIND)),
+						new SMAllFours(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.BEHIND)),
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeQueen.class), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
+										new Value<>(Main.game.getNpc(SlimeQueen.class), SexSlotAllFours.ALL_FOURS))),
 						null,
 						null, AFTER_SLIME_QUEEN_SEX, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_BATH_SEX_START"));
 				

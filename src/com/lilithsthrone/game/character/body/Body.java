@@ -92,7 +92,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class Body implements XMLSaving {
@@ -1752,19 +1752,26 @@ public class Body implements XMLSaving {
 								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[npc.a_femininity]</span> [npc.gender(true)] [style.colourHuman(human)]. "
 								:"[npc.a_fullRace(true)] [npc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
-						+ " Standing at full height, [npc.she] measures [npc.heightValue].");
+						+ " Standing at full height, [npc.she] measures [npc.heightValue]");
 			} else {
 				if(Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true)) {
 					sb.append("<p>"
 							+ "Thanks to your observant perk, you can detect that [npc.name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
 							+ owner.getAppearsAsGenderDescription(true)
-							+ " Standing at full height, [npc.she] measures [npc.heightValue].");
+							+ " Standing at full height, [npc.she] measures [npc.heightValue]");
 				} else {
 					sb.append("<p>"
 								+ "[npc.Name] is a [npc.a_fullRace(true)]. "
 								+ owner.getAppearsAsGenderDescription(true)
-								+ " Standing at full height, [npc.she] measures [npc.heightValue].");
+								+ " Standing at full height, [npc.she] measures [npc.heightValue]");
 				}
+			}
+			if(owner.isSizeDifferenceTallerThan(Main.game.getPlayer())) {
+				sb.append(", making [npc.herHim] <span style='color:"+Colour.BODY_SIZE_FOUR.toWebHexString()+";'>significantly taller</span> than you.");
+			} else if(owner.isSizeDifferenceShorterThan(Main.game.getPlayer())) {
+				sb.append(", making [npc.herHim] <span style='color:"+Colour.BODY_SIZE_ZERO.toWebHexString()+";'>significantly shorter</span> than you.");
+			} else {
+				sb.append(".");
 			}
 		}
 		
@@ -1924,6 +1931,15 @@ public class Body implements XMLSaving {
 			case HARPY:
 				sb.append(", anthropomorphic bird-like face, complete with beak.");
 				break;
+		}
+		
+		Covering faceCovering = owner.getCovering(face.getBodyCoveringType(owner));
+		if(faceCovering.getPattern()==CoveringPattern.FRECKLED_FACE) {
+			sb.append(" While mostly "
+						+Covering.getFormattedColour(faceCovering.getPrimaryColour(), "", faceCovering.isPrimaryGlowing(), false)
+						+" in colour, [npc.she] [npc.has] a scattering of "
+						+Covering.getFormattedColour(faceCovering.getSecondaryColour(), "", faceCovering.isSecondaryGlowing(), false)
+						+" freckles on [npc.her] cheeks.");
 		}
 		
 		// Lynx side fluff
@@ -2559,7 +2575,7 @@ public class Body implements XMLSaving {
 					if(this.leg.getLegConfiguration()!=LegConfiguration.BIPEDAL
 							|| (this.getRaceStage()==RaceStage.GREATER && RacialBody.valueOfRace(this.getRace()).getBreastCrotchType()!=BreastType.NONE && Main.getProperties().udders==2)) {
 						sb.append("<p>"
-									+ "[style.colourDisabled([npc.She] does not have any crotch-boobs or udders.)]"
+									+ "[style.colourDisabled([npc.She] [npc.do] not have any crotch-boobs or udders.)]"
 								+ "</p>");
 					}
 				}

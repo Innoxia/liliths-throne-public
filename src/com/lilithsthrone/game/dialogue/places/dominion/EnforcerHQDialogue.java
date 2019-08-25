@@ -31,10 +31,12 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -44,17 +46,13 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.3.4
  * @author Innoxia
  */
 public class EnforcerHQDialogue {
 	
-	private static boolean isBraxMainQuestComplete() {
-		return Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN);
-	}
 
 	public static final DialogueNode EXTERIOR = new DialogueNode("Enforcer HQ", "Enforcer HQ", false) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -62,11 +60,7 @@ public class EnforcerHQDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "A huge building is set back from one side of the street, and a nearby sign declares it to be the 'Enforcer HQ'."
-						+ " A paved pathway leading straight to the front entrance cuts through the neatly-mowed lawn which separates the building from the busy road."
-						+ " You see a sign labelled 'public inquiries' positioned to one side of the front door, making it clear that that's where you need to go if you have any business here."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "EXTERIOR");
 		}
 		
 		@Override
@@ -94,10 +88,7 @@ public class EnforcerHQDialogue {
 		
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "A series of doors line either side of this rather ordinary-looking corridor, each one marked with a different name and title."
-						+ " You scan each one for the name '[brax.name]' as you walk along, smiling in your most disarming manner at any enforcers that you pass along the way."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "CORRIDOR");
 		}
 		
 		@Override
@@ -115,11 +106,7 @@ public class EnforcerHQDialogue {
 		
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "A pair of glass doors link the outside world to the small entrance hall that you find yourself standing in."
-						+ " There's a noticeboard hanging from a nearby wall, covered in posters and information leaflets of all kinds."
-						+ " Other than that, however, this room is completely empty, and you'll have to proceed through another set of internal doors if you wanted to enter the building proper."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "ENTRANCE");
 		}
 		
 		@Override
@@ -147,36 +134,7 @@ public class EnforcerHQDialogue {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().getCharactersEncountered().contains(Main.game.getNpc(CandiReceptionist.class).getId())) {
-				return "<p>"
-						+ "A couple of rough-looking dog-boys are lounging about on one of the many low sofas littered around this waiting area."
-						+ " A reception desk sits off to one side of the room, and you see Candi, the lesser cat-girl bimbo, sitting behind it."
-						+ " She has long, bleach-blonde hair, a beautiful face that's been completely plastered in makeup, and a massive pair of G-cup breasts that threaten to spill out of her half-buttoned-up shirt at any moment."
-						+ " Her cute cat-like ears twitch this way and that as she stares into a little mirror on her desk, and you notice that she's busy applying a layer of bright pink lipstick to her plump, bimbo-like lips."
-					+ "</p>"
-					+ "<p>"
-						+ "The only other person you can see takes the form of a greater horse-boy, who's standing guard beside the door to the rest of the building's interior."
-						+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ)
-								?" His watchful gaze sweeps the room, making sure that nobody is able to sneak past him."
-								:" From the moment you entered the waiting area, he hasn't taken his eyes off of you, and you realise that there's absolutely no possibility of being able to sneak through the door he's guarding."
-									+ " If you wanted to get access to the HQ's interior, you'll have to negotiate with the bimbo cat-girl receptionist.")
-					+ "</p>";
-				
-			} else {
-				return "<p>"
-						+ "A couple of rough-looking dog-boys are lounging about on one of the many low sofas littered around this waiting area."
-						+ " A reception desk sits off to one side of the room, and you see a lesser cat-girl, wearing an enforcer's uniform, sitting behind it."
-						+ " She has long, bleach-blonde hair, a beautiful face that's been completely plastered in makeup, and a massive pair of G-cup breasts that threaten to spill out of her half-buttoned-up shirt at any moment."
-						+ " Her cute cat-like ears twitch this way and that as she stares into a little mirror on her desk, and you notice that she's busy applying a layer of bright pink lipstick to her plump, bimbo-like lips."
-					+ "</p>"
-					+ "<p>"
-						+ "The only other person you can see takes the form of a greater horse-boy, who's standing guard beside the door to the rest of the building's interior."
-						+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ)
-								?" His watchful gaze sweeps the room, making sure that nobody is able to sneak past him."
-								:" From the moment you entered the waiting area, he hasn't taken his eyes off of you, and you realise that there's absolutely no possibility of being able to sneak through the door he's guarding."
-									+ " If you wanted to get access to the HQ's interior, you'll have to negotiate with the bimbo cat-girl receptionist.")
-					+ "</p>";
-			}
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "WAITING_AREA");
 		}
 		
 		@Override
@@ -194,50 +152,16 @@ public class EnforcerHQDialogue {
 		
 		@Override
 		public String getContent() {
-			if(isBraxMainQuestComplete()) {
-				return "<p>"
-						+ "You flash the pass that Candi gave to you at the horse-boy guard, but he refuses to step aside."
-						+ " [style.speechMasculine(Those passes aren't valid anymore, don't waste my time.)]"
-					+ "</p>"
-					+ "<p>"
-						+ "It looks like he's not going to let you pass, and you don't really have any business back there anyway..."
-					+ "</p>";
-				
-			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ)) {
-				return "<p>"
-							+ "You flash the pass that Candi gave to you at the horse-boy guard, and, with a grunt, he steps aside to let you pass."
-						+ "</p>"
-						+ "<p>"
-							+ " As you walk through the doors, you hear him muttering, "
-							+ " [style.speechMasculine(That slut's gonna get in trouble with [brax.name] again..."
-							+ " Giving out passes like she does blowjobs...)]"
-						+ "</p>";
-					
-			} else {
-				return "<p>"
-							+ "As you walk up to the horse-boy guard, he crosses his arms and frowns at you."
-							+ " [style.speechMasculine(I don't know what you're thinking, but there's no way you're getting through here, understood?"
-							+ " Unless you want to be thrown out, you'd better back off. Now.)]"
-						+ "</p>"
-						+ "<p>"
-							+ "It looks like he means business, and it probably wouldn't be the smartest idea to start a fight in the middle of the Enforcer HQ."
-							+ " If you had any business with one of the enforcers here, you might be able to get a pass from the cat-girl receptionist, which would allow you to get past these guarded doors..."
-						+ "</p>";
-				
-			}
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "GUARDED_DOOR");
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1 && (!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ) || isBraxMainQuestComplete())) {
+			if (index == 1 && (!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ) || Main.game.isBraxMainQuestComplete())) {
 				return new ResponseEffectsOnly("Step back", "You don't really see much option other than to do as the enforcer says.") {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(
-								"<p>"
-									+ "Realising that you'd stand no chance in a fight against all of the enforcers that would soon arrive as backup, you decide not to try and force your way through into the HQ's interior."
-									+ " Agreeing to do as the horse-boy says, you step back into the waiting room..."
-								+ "</p>");
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "GUARDED_DOOR_STEP_BACK"));
 						
 						Main.game.setActiveWorld(Main.game.getActiveWorld(), PlaceType.ENFORCER_HQ_WAITING_AREA, true);
 					}
@@ -250,7 +174,7 @@ public class EnforcerHQDialogue {
 		
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ) || isBraxMainQuestComplete();
+			return !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ) || Main.game.isBraxMainQuestComplete();
 		}
 	};
 
@@ -263,357 +187,196 @@ public class EnforcerHQDialogue {
 		
 		@Override
 		public String getContent() {
-			if(isBraxMainQuestComplete()) {
-				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.seenBraxAfterQuest)) {
-					return "<p>"
-								+ "You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk."
-								+ " Curiously, there's another placard next to hers, and as you come to a halt in front of Candi, your eyes go wide as you read the words '[brax.name], Candi's assistant'."
-							+ "</p>"
-							+ "<p>"
-								+ "[pc.speech(Hi, Candi,)] you greet her, continuing to smile as she looks up from her mirror, [pc.speech(how are you and [brax.name] doing? I see his name here, but where is he?)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[candi.speechNoEffects(Like, omigosh! Heya, I recognise you!)] she cries out, her voice bubbling with excitement. [candi.speechNoEffects(You, like, know my little pet? Come say hello [brax.name]!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Candi reaches down to tug on something, and you hear a familiar voice respond, [brax.speech(Candi, please, I don't wa-)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[brax.namePos] protest is cut off as Candi stands up, sharply yanking on what you now see to be a pink leash."
-								+ " [candi.speechNoEffects(Bad pet! Bad! You, like, have to do as I say! The chief said so, remember?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Letting out another groan, [brax.name] crawls out from under Candi's desk and stands up to face you."
-								+ " A look of shock crosses his face, and he desperately pulls on his leash as he shouts out,"
-								+ " [brax.speech(That's [pc.herHim]! Candi! That's the one who took the documents! Call the chi- Arg!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[brax.namePos] accusation is interrupted by a violent tug on his leash. Candi's face has gone bright red, and she looks absolutely furious as she starts to shout,"
-								+ " [candi.speechNoEffects(Bad pet! Bad, bad, BAD! How <i>dare</i> you treat a visitor like that! Like, [pc.sheIs] even a friend of yours, remember?!"
-								+ " If you say <i>one more word</i>, I'm going to, like, get the ballgag out, and no more talking for a week!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "With [brax.name] suitably subdued, Candi turns back to face you."
-								+ " [candi.speechNoEffects(Like, I am soooo sorry! [brax.name] is kinda stupid, don't mind him!"
-								+ " He gave away some kind of really important paper or something, and the chief said I could, like, have him as a pet."
-								+ " I even have, like, permission to punish him and stuff. Hey! You know what would be fun! How about you get to punish him for being so super mean to you?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Candi finally stops talking, giving you a moment to process what's going on."
-								+ " It looks like [brax.name] got demoted for giving you that information about Arthur, and is now Candi's pet."
-								+ " She's far too stupid to understand what [brax.name] is trying to tell her, and you see a look of intense frustration cross over the unfortunate wolf-boy's face as his owner silences him."
-							+ "</p>"
-							+ "<p>"
-								+ "You could take up Candi's offer and have some fun with [brax.name] in her office."
-								+ " As you're deciding what to do, you notice a little cardboard box, marked '[brax.namePos] junk', sitting on a shelf behind Candi's desk."
-								+ (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxTransformedPlayer)
-										?" The neck of a very familiar-looking bottle is poking out of the top, and an interesting idea runs through your head..."
-										:" The neck of a delicate-looking bottle is poking out of the top, and, remembering Candi's warning about [brax.name] having a wolf-girl transformation potion, an interesting idea runs through your head...")
-							+ "</p>";
-					
-				} else {
-					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
-						return "<p>"
-								+ "You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk."
-								+ " As you come to a halt in front of her, you look down over the top of the desk to see [brax.name] furiously masturbating on the floor."
-							+ "</p>"
-							+ "<p>"
-								+ "[pc.speech(Hi again, Candi,)] you say, continuing to smile as she looks up from her mirror, [pc.speech(it looks like [brax.namePos] having fun down there!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[candi.speechNoEffects(Like, omigosh! Heya!)] she cries out, her voice bubbling with excitement,"
-								+ " [candi.speechNoEffects(and, like, eugh! I know right?! [brax.Name], like, won't stop masturbating, even after I've told [brax.him] to like a million times!"
-								+ " I'm, like, far too busy to punish [brax.him] properly as well!)]"
-								
-							+ "</p>"
-							+ "<p>"
-								+ "As she speaks, Candi reaches down to tug [brax.namePos] [brax.arms] away from [brax.her] [brax.pussy], causing the horny bimbo to cry out,"
-								+ " [brax.speechNoEffects(Awww! Candi! Please! I, like, <i>need</i> this! You gotta let m- ~Aah!~)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[brax.NamePos] pathetic whining is cut off as Candi stands up, sharply yanking on [brax.his] pink leash."
-								+ " [candi.speechNoEffects(Like, try to control yourself pet! Lucky for you, your super best friend is, like, here to play!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[brax.name] immediately jumps to [brax.his] feet, and as [brax.he] catches sight of you, [brax.he] lets out a delighted squeal,"
-								+ " [brax.speechNoEffects(Yes! Heya! Please, like, can we play together?! I'm, like, thinking of you all the time and stuff!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "As [brax.name] drops [brax.his] hands back down to [brax.her] groin and starts masturbating, Candi turns back to face you."
-								+ " [candi.speechNoEffects(You'd be, like, doin' me a huuuge favour if you'd, like, help out with [brax.namePos] horniness!"
-								+ " How about, like, you take [brax.him] into my office, and, like, give [brax.him] a good fucking?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone..."
-							+ "</p>";
-						
-					} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
-						return "<p>"
-								+ "You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk."
-								+ " As you come to a halt in front of her, you read the words on the placard next to hers; '[brax.name], Candi's assistant'."
-							+ "</p>"
-							+ "<p>"
-								+ "[pc.speech(Hi again, Candi,)] you greet her, continuing to smile as she looks up from her mirror, [pc.speech(how are you and [brax.name] doing?)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[candi.speechNoEffects(Like, omigosh! Heya!)] she cries out, her voice bubbling with excitement."
-								+ " [candi.speechNoEffects([brax.namePos] been, like, super disobedient! [brax.He], like, refused to suck my friend's cock earlier! Can you believe that?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "As she speaks, Candi reaches down to tug on something, and you hear a familiar whimper in response, [brax.speech(Sorry, Cand-)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[brax.namePos] apology is cut off as Candi stands up, sharply yanking on [brax.his] pink leash."
-								+ " [candi.speechNoEffects(Like, come on pet! Stand up and say hello to your friend again!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[brax.name] obediently crawls out from under Candi's desk and stands up to face you."
-								+ " [brax.speech(Hello...)]"
-							+ "</p>"
-							+ "<p>"
-								+ "With [brax.name] displaying an acceptable level of submission, Candi turns back to face you."
-								+ " [candi.speechNoEffects(Hey, like, [brax.name] still hasn't been punished for disobeying me earlier! How about, like, you punish [brax.him] for me?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone."
-								+ " As you're making up your mind, you take another look at Candi, wondering if you could ask her to make [brax.name] a little more like her..."
-							+ "</p>";
-						
-					} else {
-						return "<p>"
-								+ "You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk."
-								+ " As you come to a halt in front of her, you read the words on the placard next to hers; '[brax.name], Candi's assistant'."
-							+ "</p>"
-							+ "<p>"
-								+ "[pc.speech(Hi again, Candi,)] you greet her, continuing to smile as she looks up from her mirror, [pc.speech(how are you and [brax.name] doing?)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[candi.speechNoEffects(Like, omigosh! Heya!)] she cries out, her voice bubbling with excitement."
-								+ " [candi.speechNoEffects([brax.namePos] been, like, super disobedient! [brax.He], like, refused to lick my shoes clean earlier! Can you believe that?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "As she speaks, Candi reaches down to tug on something, and you hear a familiar whimper in response, [brax.speech(Sorry, Cand-)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[brax.namePos] apology is cut off as Candi stands up, sharply yanking on [brax.his] pink leash."
-								+ " [candi.speechNoEffects(Like, come on pet! Stand up and say hello to your friend again!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[brax.name] reluctantly crawls out from under Candi's desk and stands up to face you."
-								+ " [brax.speech(Eugh, not you aga- Aah!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Candi yanks on [brax.namePos] leash once again, before starting to furiously scold [brax.him]."
-								+ " After a few minutes, she's forced [brax.name] to apologise to you, and turns back to face you."
-								+ " [candi.speechNoEffects(Hey, like, I'm pretty sure you'll agree that [brax.name] <i>really</i> needs to be punished again!"
-								+ " How about, like, you take [brax.him] into my office and show [brax.him] how to behave?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone."
-								+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxTransformedPlayer)
-									?" As you're deciding what to do, you notice a little cardboard box, marked '[brax.namePos] junk', sitting on a shelf behind Candi's desk."
-										+" The neck of a very familiar-looking bottle is poking out of the top, and an interesting idea runs through your head..."
-									:" As you're deciding what to do, you notice a little cardboard box, marked '[brax.namePos] junk', sitting on a shelf behind Candi's desk."
-										+" The neck of a delicate-looking bottle is poking out of the top, and, remembering Candi's warning about [brax.name] having a wolf-girl transformation potion,"
-										+ " an interesting idea runs through your head...")
-							+ "</p>";
-					}
-				}
-				
-			} else {
-				return "<p>"
-							+ "You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach."
-							+ " She's completely engrossed in doing her makeup, and faint little oohs and aahs drift out her open mouth as she vacantly gazes into a little mirror that's sitting on her desk."
-							+ " Every now and then, she has to tuck loose strands of bleach-blonde hair back behind her cat-like ears, interrupting her sighs with an annoyed tutting sound each time she does so."
-						+ "</p>"
-						+ "<p>"
-							+ "In amongst her messy collection of beauty products scattered all over the desk, you see a little placard with the name 'Candi' on it."
-							+ " It seems as though Candi is completely oblivious to the world outside of her mirror, so you'll need to raise your voice in order to get her attention if you wanted to ask anything of her."
-						+ "</p>"
-						+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ)
-							?"<p>"
-								+ "<i>You've already got a pass from Candi, so there's no point interrupting her again...</i>"
-							+ "</p>"
-							:"");
-			}
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "RECEPTION_DESK");
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(isBraxMainQuestComplete()) {
-				if (index == 1) {
-					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
-						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].",
-								false, false,
-								new SMKneeling(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotBipeds.KNEELING_PERFORMING_ORAL))),
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_BUYING_BRAX)) {
+				if(index==1) {
+					if(Main.game.getSecondsPassed()-Main.game.getDialogueFlags().candiSexTimer>60*60*12) {
+						return new ResponseSex("Help Candi",
+								"Agree to help Candi deal with her overwhelming horniness.",
+								null, null, null, null, null, null,
+								true,
+								true,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(CandiReceptionist.class), SexSlotStanding.STANDING_SUBMISSIVE))),
 								null,
-								null, AFTER_SEX, "<p>"
-									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
-								+ "</p>"
-								+ "<p>"
-									+ "[candi.speechNoEffects(Thanks, I've got, like, loads of work and stuff to do, so you're really helping me out here!)]"
-									+ " Candi replies, handing you [brax.namePos] pink leash as she returns to applying makeup in her little mirror."
-								+ "</p>"
-								+ "<p>"
-									+ "With a tug, you get [brax.name] to follow you into Candi's little office."
-									+ " Closing the door behind you, you turn to face the [brax.race], smiling as you unclip the leash from [brax.his] collar."
-								+ "</p>"
-								+ "<p>"
-									+ "[pc.speech(I bet you're pretty angry right now, huh [brax.name]?)] you tease, laughing as [brax.he] lets out a low growl."
-									+ " [pc.speech(You'd better quiet down, unless you want Candi to know how bad you've been!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[brax.Name] shuffles [brax.his] feet, looking down at the ground as [brax.he] lets out an annoyed grunt."
-									+ " Stepping forwards, you take hold of [brax.his] shoulders, and with a forceful shove, you push [brax.him] down onto [brax.his] knees before you."
-								+ "</p>"
-								+ "<p>"
-									+ "[pc.speech(Good [brax.boy]! Now, time for your punishment!)]"
-								+ "</p>"){
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
-							}
-						};
-						
-					} else if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
-						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].",
-								false, false,
-								new SMKneeling(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotBipeds.KNEELING_PERFORMING_ORAL))),
 								null,
-								null, AFTER_SEX, "<p>"
-									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
-								+ "</p>"
-								+ "<p>"
-									+ "[candi.speechNoEffects(Thanks, I've got, like, loads of work and stuff to do, so you're really helping me out here!)]"
-									+ " Candi replies, handing you [brax.namePos] pink leash as she returns to applying makeup in her little mirror."
-								+ "</p>"
-								+ "<p>"
-									+ "With a tug, you get [brax.name] to follow you into Candi's little office."
-									+ " Closing the door behind you, you turn to face the [brax.race], smiling as you unclip the leash from [brax.his] collar."
-								+ "</p>"
-								+ "<p>"
-									+ "[pc.speech(You're going to do as you're told, aren't you [brax.name]?)] you tease, laughing as [brax.he] lets out a meek little whimper."
-									+ " [pc.speech(Don't worry, I'll be sure to let Candi know how good you've been!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Knowing what's expected of [brax.herHim], [brax.name] drops to [brax.her] knees before you."
-									+ " Stepping forwards, you reach down to stroke the top of [brax.her] head."
-								+ "</p>"
-								+ "<p>"
-									+ "[pc.speech(Good [brax.girl]! Now, time for your punishment!)]"
-								+ "</p>"){
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
-							}
-						};
+								AFTER_SEX_CANDI,
+								UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "START_SEX_CANDI"));
 						
 					} else {
-						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].",
-								false, false,
-								new SMKneeling(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotBipeds.KNEELING_PERFORMING_ORAL))),
-								null,
-								null, AFTER_SEX, "<p>"
-									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
-								+ "</p>"
-								+ "<p>"
-									+ "[candi.speechNoEffects(Thanks, I've got, like, loads of work and stuff to do, so you're really helping me out here!)]"
-									+ " Candi replies, handing you [brax.namePos] pink leash as she returns to applying makeup in her little mirror."
-								+ "</p>"
-								+ "<p>"
-									+ "With a tug, you get [brax.name] to follow you into Candi's little office."
-									+ " Closing the door behind you, you turn to face the [brax.race], smiling as you unclip the leash from [brax.his] collar."
-								+ "</p>"
-								+ "<p>"
-									+ "[brax.Name] immediately drops to [brax.her] knees, shuffling forwards as [brax.she] begs,"
-									+ " [brax.speechNoEffects(Please! I, like, <i>need</i> to be punished! Please use me!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[pc.speech(What a good [brax.girl]!)] you say, grinning as [brax.he] lets out a desperate, hungry whimper."
-									+ " [pc.speech(Seeing as you asked so nicely, I'll give you what you want!)]"
-								+ "</p>"){
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
-							}
-						};
+						return new Response("Help Candi", "You've recently helped Candi to deal with her overwhelming horniness, but it's only going to be a matter of hours before she's begging to have sex with you again...", null);
 					}
-					
-				} else if (index == 2) {
-					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
-						return new ResponseSex("Get punished by [brax.name]", "Get [brax.name] to take out [brax.his] frustration on you.", Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
-								null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-								true, false,
-								new SMBraxDoggy(
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotBipeds.DOGGY_BEHIND)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
-								null,
-								null, AFTER_SEX, "<p>"
-									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
-								+ "</p>"
-								+ "<p>"
-									+ "[candi.speechNoEffects(Thanks, I've got, like, loads of work and stuff to do, so you're really helping me out here!)]"
-									+ " Candi replies, handing you [brax.namePos] pink leash as she returns to applying makeup in her little mirror."
-								+ "</p>"
-								+ "<p>"
-									+ "With a tug, you get [brax.name] to follow you into Candi's little office."
-									+ " Closing the door behind you, you turn to face the [brax.race], smiling as you unclip the leash from [brax.his] collar."
-								+ "</p>"
-								+ "<p>"
-									+ "[pc.speech(I bet you're pretty angry right now, huh [brax.name]?)] you tease, laughing as [brax.he] lets out a low growl."
-									+ " [pc.speech(Mmm, you want to be the one punishing me, don't you?)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[brax.speech(If I wasn't on the verge of being enslaved, I'd give you a hard fuck to teach you a lesson right now!)] [brax.name] growls as [brax.he] steps up to you."
-								+ "</p>"
-								+ "<p>"
-									+ "Letting out a playful giggle, you trace [pc.a_finger] over [brax.his] chest."
-									+ " [pc.speech(Well, I won't tell if you won't... Or is Candi's pet too submissive to try anyth- eek!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Obviously having had enough of your teasing, and with a clear invitation to fuck you, [brax.name] grabs you by the shoulders and throws you to the floor."
-									+ " You let out a delighted [pc.moan] as [brax.he] manhandles you into a doggystyle position."
-									+ " Leaning down over your back, [brax.name] growls into your [pc.ear], [brax.speech(Remember, bitch, <i>I'm</i> the real alpha here!)]"
-								+ "</p>"){
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
-							}
-						};
+				}
+				
+			} else if(Main.game.isBraxMainQuestComplete()) {
+				if(Main.game.getNpc(Brax.class).isSlave() && Main.game.getNpc(Brax.class).getOwner().equals(Main.game.getNpc(CandiReceptionist.class))) {
+					if (index == 1) {
+						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
+							return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].",
+									false, false,
+									new SMStanding(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotStanding.PERFORMING_ORAL))),
+									null,
+									null,
+									AFTER_SEX,
+									UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "RECEPTION_DESK_PUNISH_BRAX")) {
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
+								}
+							};
+							
+						} else if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
+							return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].",
+									false, false,
+									new SMStanding(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotStanding.PERFORMING_ORAL))),
+									null,
+									null,
+									AFTER_SEX,
+									UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "RECEPTION_DESK_PUNISH_BREE")){
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
+								}
+							};
+							
+						} else {
+							return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].",
+									false, false,
+									new SMStanding(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotStanding.PERFORMING_ORAL))),
+									null,
+									null,
+									AFTER_SEX,
+									UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "RECEPTION_DESK_PUNISH_BRANDI")){
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
+								}
+							};
+						}
 						
-					} else {
-						return new Response("Get punished by [brax.name]", "[brax.Name] is too submissive to punish you. If you want to have sex with [brax.him], you'll have to take charge.", null);
+					} else if (index == 2) {
+						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
+							return new ResponseSex("Get punished by [brax.name]", "Get [brax.name] to take out [brax.his] frustration on you.", Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
+									null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
+									true, false,
+									new SMBraxDoggy(
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotAllFours.BEHIND)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))),
+									null,
+									null,
+									AFTER_SEX,
+									UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "RECEPTION_DESK_PUNISHED_BY_BRAX")){
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
+								}
+							};
+							
+						} else {
+							return new Response("Get punished by [brax.name]", "[brax.Name] is too submissive to punish you. If you want to have sex with [brax.him], you'll have to take charge.", null);
+						}
+						
+					} else if (index == 3) {
+						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
+							return new Response("Feminise [brax.name]", "Transform [brax.name] into a wolf-girl.", INTERIOR_SECRETARY_BRAX_FEMINISE){
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
+								}
+							};
+							
+						} else if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
+							return new Response("Bimbofy [brax.name]", "Transform [brax.name] into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY){
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
+								}
+							};
+						}
+						
+					} else if (index == 4) {
+						if(!Main.game.getPlayer().isHasSlaverLicense()) {
+							return new Response("Buy [brax.name]", "As you don't have a slaver license, you're unable to own slaves, and so couldn't buy [brax.name] even if Candi was willing to sell [brax.herHim].", null);
+						}
+						if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_BUYING_BRAX)) {
+							return new Response("Buy [brax.name]", "Ask Candi if she'd be willing to sell [brax.name] to you.", BUYING_BRAX_INITIAL){
+								@Override
+								public void effects() {
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_BUYING_BRAX));
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(500));
+									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.seenBraxAfterQuest, true);
+								}
+							};
+							
+						} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_BUYING_BRAX)==Quest.BUYING_BRAX_START
+								|| Main.game.getPlayer().getQuest(QuestLine.SIDE_BUYING_BRAX)==Quest.BUYING_BRAX_DELIVER_PERFUME) {
+							if(Main.game.getPlayer().hasItemType(ItemType.CANDI_PERFUMES)) {
+								return new Response("Deliver perfumes", "Give Candi the bottles of perfume which you collected from Kate.", BUYING_BRAX_PERFUME_DELIVERY){
+									@Override
+									public void effects() {
+										Main.game.getPlayer().removeItemByType(ItemType.CANDI_PERFUMES);
+										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().removedItemFromInventoryText(ItemType.CANDI_PERFUMES));
+										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.BUYING_BRAX_LOLLIPOPS));
+									}
+								};
+								
+							} else {
+								return new Response("Deliver perfumes", "You need to collect Candi's perfumes from the shop 'Succubi's Secrets' in the Shopping Arcade before being able to deliver them to her!", null);
+							}
+							
+						} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_BUYING_BRAX)==Quest.BUYING_BRAX_LOLLIPOPS
+								|| Main.game.getPlayer().getQuest(QuestLine.SIDE_BUYING_BRAX)==Quest.BUYING_BRAX_DELIVER_LOLLIPOPS) {
+							if(Main.game.getPlayer().hasItemType(ItemType.CANDI_CONTRABAND)) {
+								return new Response("Deliver lollipops", "Give Candi the box of contraband lollipops which you retrieved from the Harpy Nests' Enforcer checkpoint.", BUYING_BRAX_LOLLIPOP_DELIVERY){
+									@Override
+									public void effects() {
+										Main.game.getPlayer().removeItemByType(ItemType.CANDI_CONTRABAND);
+										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().removedItemFromInventoryText(ItemType.CANDI_CONTRABAND));
+										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.BUYING_BRAX_LIPSTICK));
+									}
+								};
+								
+							} else {
+								return new Response("Deliver lollipops", "You need to collect the box of lollipops from the Harpy Nests' Enforcer checkpoint before being able to deliver them to her!", null);
+							}
+							
+						} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_BUYING_BRAX)==Quest.BUYING_BRAX_LIPSTICK
+								|| Main.game.getPlayer().getQuest(QuestLine.SIDE_BUYING_BRAX)==Quest.BUYING_BRAX_DELIVER_LIPSTICK) {
+							if(Main.game.getPlayer().hasItemType(ItemType.CANDI_HUNDRED_KISSES)) {
+								return new Response("Deliver lipstick", "Give Candi the box of 'A Hundred Kisses'.", BUYING_BRAX_LIPSTICK_DELIVERY){
+									@Override
+									public void effects() {
+										Main.game.getPlayer().removeItemByType(ItemType.CANDI_HUNDRED_KISSES);
+										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().removedItemFromInventoryText(ItemType.CANDI_HUNDRED_KISSES));
+										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.SIDE_UTIL_COMPLETE));
+										Main.game.getPlayer().addSlave(Main.game.getNpc(Brax.class));
+										if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bimbofiedBrax)) {
+											Main.game.getNpc(Brax.class).setObedience(50);
+										} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feminisedBrax)) {
+											Main.game.getNpc(Brax.class).setObedience(-20);
+										} else {
+											Main.game.getNpc(Brax.class).setObedience(-80);
+										}
+										Main.game.getNpc(Brax.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION);
+									}
+								};
+								
+							} else {
+								return new Response("Deliver lipstick", "You need to collect the box of 'A Hundred Kisses' from the shop 'Ralph's Snacks' in the Shopping Arcade before being able to deliver them to her!", null);
+							}
+						}
 					}
-					
-				} else if (index == 3) {
-					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
-						return new Response("Feminise [brax.name]", "Transform [brax.name] into a wolf-girl.", INTERIOR_SECRETARY_BRAX_FEMINISE){
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
-							}
-						};
-						
-					} else if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
-						return new Response("Bimbofy [brax.name]", "Transform [brax.name] into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY){
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
-							}
-						};
-						
-					} else {
-						return null;
-					}
-					
-				} else {
-					return null;
 				}
 				
 			} else if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_C_WOLFS_DEN && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.accessToEnforcerHQ)) {
@@ -625,13 +388,10 @@ public class EnforcerHQDialogue {
 						return new Response("Greet Candi", "Get her attention by saying hello.", INTERIOR_SECRETARY,
 								null, null, null, null, null);
 					}
-					
-				} else {
-					return null;
 				}
-			} else {
-				return null;
 			}
+			
+			return null;
 		}
 	};
 	
@@ -639,21 +399,7 @@ public class EnforcerHQDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "You call out to Candi in order to get her attention,"
-						+ " [pc.speech(Hello!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[candi.speechNoEffects(Oh! Like, heya! Soz about, like, not seein' ya and stuff!)]"
-						+ " she exclaims, breaking off from applying her makeup to happily smile up at you."
-						+ " Leaning forwards over her desk, she bites her lip and pushes out her chest."
-						+ " Due to the fact that the top few buttons of her shirt are undone, you end up looking straight down at her impressive cleavage, noting to yourself that she isn't wearing a bra."
-					+ "</p>"
-					+ "<p>"
-						+ "[candi.speechNoEffects(Haha! What'cha lookin' at?!)]"
-						+ " she giggles, pressing her breasts forwards in an enticing manner. "
-						+ "[candi.speechNoEffects(Y'need any help with, like, enforcer things and stuff?)]"
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY");
 		}
 		
 		@Override
@@ -663,6 +409,10 @@ public class EnforcerHQDialogue {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.accessToEnforcerHQ);
+						
+						if(!Main.game.getNpc(CandiReceptionist.class).isCharacterReactedToPregnancy(Main.game.getPlayer()) && Main.game.getNpc(CandiReceptionist.class).isVisiblyPregnant()) {
+							Main.game.getNpc(CandiReceptionist.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+						}
 					}
 				};
 
@@ -670,13 +420,13 @@ public class EnforcerHQDialogue {
 				return new ResponseEffectsOnly("Leave", "Tell Candi that you'll be back later and step away from her desk, allowing her to continue applying her makeup.") {
 						@Override
 						public void effects() {
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "[pc.speech(Actually, I don't need anything right now, I'll be back later,)]"
-										+ " you say, stepping back into the waiting area and allowing Candi to continue applying her makeup."
-									+ "</p>");
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_LEAVE"));
 
 							Main.game.setActiveWorld(Main.game.getActiveWorld(), PlaceType.ENFORCER_HQ_WAITING_AREA, true);
+
+							if(!Main.game.getNpc(CandiReceptionist.class).isCharacterReactedToPregnancy(Main.game.getPlayer()) && Main.game.getNpc(CandiReceptionist.class).isVisiblyPregnant()) {
+								Main.game.getNpc(CandiReceptionist.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+							}
 						}
 					};
 
@@ -690,40 +440,7 @@ public class EnforcerHQDialogue {
 
 		@Override
 		public String getContent() {
-				return "<p>"
-							+ "Using the name that was provided on the warrant, you ask Candi about Arthur's arrest,"
-							+ " [pc.speech(A friend of mine seems to have been arrested, and I was hoping to talk to someone named [brax.name] about what's going on.)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Ooh! You're, like, super lucky and stuff! [brax.name] is, like, totally the hottest guy here!)]"
-							+ " Candi squeals, excitedly reaching down to get something from under her desk. "
-							+ "[candi.speechNoEffects(When you see him, tell him that his little slut's, like, super horny and stuff, will ya?"
-									+ " And tell him he'd, like, better have given up on tryin' to use that stupid little potion of his on me again!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "With a huge smile plastered on her face, Candi hands you a slip of paper."
-							+ " Taking a look, you see that's it's some kind of pass that will grant you access to the interior parts of the building."
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Y'know, I'm sure he, like, told me something about these passes... Huh... Well, if I can't remember, it's, like, not important, right?"
-								+ " Anyway, his office is, umm, like, down there, then over to the left... no... right!"
-								+ " Then, like, just look for his name on one of the doors! That's how I find him!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[pc.speech(Thanks, Candi, oh, and one last thing, what do you mean by that 'stupid little potion'?)]"
-							+ " you ask, curious about the sort of person [brax.name] might turn out to be."
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Eugh... Like, [brax.name] is, like, super hot and stuff, but he has a sorta thing for wolf-girls."
-							+ " He got, like, some demon to make him this super expensive potion that'd, like, turn me completely into a wolf-girl!"
-							+ " I dunno what he was thinkin', I put, like, so much effort into how I look, I'm not, like, gonna let him transform me like that, even <i>if</i> he's super good at fuckin' and stuff,)]"
-							+ " Candi explains. "
-							+ "[candi.speechNoEffects(Ah yeah, that reminds me, like, he said he'd just use it on the next person that pisses him off, so,"
-								+ " like, don't do anything to anger him, or else you're gonna', like, get turned into his little wolf-bitch!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Thanking Candi for the warning, you say goodbye, and no sooner than you take one step away from her desk, she starts busily applying her makeup once again."
-						+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BRAX");
 		}
 		
 		@Override
@@ -736,21 +453,7 @@ public class EnforcerHQDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "You can't believe how beautiful this girl is, and can't resist calling out to her,"
-						+ " [pc.speechNoEffects(Like, oh my gosh! You're, like, so super pretty and stuff!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[candi.speechNoEffects(Like, thank you so much! Soz about, like, not seein' ya and stuff! I was, y'know, like puttin' my makeup on!)]"
-						+ " she exclaims, breaking off from applying her makeup to happily smile up at you."
-						+ " Leaning forwards over her desk, she bites her lip and pushes out her chest."
-						+ " Due to the fact that the top few buttons of her shirt are undone, you end up looking straight down at her impressive cleavage, noting to yourself that she isn't wearing a bra."
-					+ "</p>"
-					+ "<p>"
-						+ "[candi.speechNoEffects(Haha! What'cha lookin' at?!)]"
-						+ " she giggles, pressing her breasts forwards in an enticing manner. "
-						+ "[candi.speechNoEffects(Y'need any help with, like, enforcer things and stuff?)]"
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BIMBO");
 		}
 		
 		@Override
@@ -767,11 +470,7 @@ public class EnforcerHQDialogue {
 				return new ResponseEffectsOnly("Leave", "Tell Candi that you'll be back later and step away from her desk, allowing her to continue applying her makeup.") {
 						@Override
 						public void effects() {
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "[pc.speechNoEffects(Ummm, like, actually, I just wanted to let you know how, like, super hot you are and stuff, I'll be back later,)]"
-										+ " you say, stepping back into the waiting area and allowing Candi to continue applying her makeup."
-									+ "</p>");
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BIMBO_LEAVE"));
 
 							Main.game.setActiveWorld(Main.game.getActiveWorld(), PlaceType.ENFORCER_HQ_WAITING_AREA, true);
 						}
@@ -787,44 +486,7 @@ public class EnforcerHQDialogue {
 
 		@Override
 		public String getContent() {
-				return "<p>"
-							+ "Using the name that was provided on the warrant, you ask Candi about Arthur's arrest,"
-							+ " [pc.speechNoEffects(Eugh, like, so you wouldn't believe what's happened."
-							+ " This friend of mine, y'know, well, not really <i>my</i> friend, but kinda like my aunt's friend, right, yeah, he was kinda arrested,"
-							+ " and there was like, some kind of note on his door about some guy called [brax.name]?"
-							+ " And I was like \"oh-em-gee, now I gotta like, go down to the Enforcer HQ, and, like, find this [brax.name] guy\", and it's like, <i>so</i> much work, y'know?)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Like, no way!"
-							+ " Well, you're actually, like, super lucky and stuff! [brax.name] is, like, totally the hottest guy here!)]"
-							+ " Candi squeals, excitedly reaching down to get something from under her desk. "
-							+ "[candi.speechNoEffects(When you see him, tell him that his little slut's, like, super horny and stuff, will ya?"
-									+ " And tell him he'd, like, better have given up on tryin' to use that stupid little potion of his on me again!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "With a huge smile plastered on her face, Candi hands you a slip of paper."
-							+ " Taking a look, you see that's it's some kind of pass that will grant you access to the interior parts of the building."
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Y'know, I'm sure he, like, told me something about these passes... Huh... Well, if I can't remember, it's, like, not important, right?"
-								+ " Anyway, his office is, umm, like, down there, then over to the left... no... right!"
-								+ " Then, like, just look for his name on one of the doors! That's how I find him!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[pc.speechNoEffects(Thanks, Candi, you're, like, the best and stuff! Oh, and, like, whaddya mean by that 'stupid little potion'?)]"
-							+ " you ask, curious about the sort of person [brax.name] might turn out to be."
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Eugh... Like, [brax.name] is, like, super hot and stuff, but he has a sorta thing for wolf-girls."
-							+ " He got, like, some demon to make him this super expensive potion that'd, like, turn me completely into a wolf-girl!"
-							+ " I dunno what he was thinkin', I put, like, so much effort into how I look, I'm not, like, gonna let him transform me like that, even <i>if</i> he's super good at fuckin' and stuff,)]"
-							+ " Candi explains. "
-							+ "[candi.speechNoEffects(Ah yeah, that reminds me, like, he said he'd just use it on the next person that pisses him off, so,"
-								+ " like, don't do anything to anger him, or else you're gonna', like, get turned into his little wolf-bitch!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Thanking Candi for the warning, you say goodbye, and no sooner than you take one step away from her desk, she starts busily applying her makeup once again."
-						+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BIMBO");
 		}
 		
 		@Override
@@ -837,71 +499,15 @@ public class EnforcerHQDialogue {
 
 		@Override
 		public String getContent() {
-			return (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxTransformedPlayer)
-								?"<p>"
-									+ "[pc.speech(Hey, Candi, I've actually got something to tell you about Brax,)] you say, grinning at Brax as you reveal what he did to you."
-									+ " [pc.speech(He forced me to drink a potion that turned me into a wolf-girl!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[candi.speechNoEffects(Like, no way! Brax! Is this true?!)] Candi shouts, turning towards Brax as she tugs sharply on his leash."
-								+ "</p>"
-								+ "<p>"
-									+ "[brax.speech(E-Erm... Y-Yes...)] Brax responds, trying to make himself as small as possible as Candi's cheeks flush red with rage."
-								+ "</p>"
-								+ "<p>"
-									+ "[candi.speechNoEffects(Bad Brax!)] Candi shouts."
-									+ " [candi.speechNoEffects(You're going to need an extra special punishment this time!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[pc.speech(I think he's still got one of those potions,)] you say, pointing to the shelf behind Candi."
-									+ " [pc.speech(Why don't we give him a taste of his own medicine?)]"
-								+ "</p>"
-								:"<p>"
-									+ "[pc.speech(Hey, Candi,)] you say, grinning at Brax before pointing to the shelf behind the reception desk."
-									+ " [pc.speech(Just so you know, that looks like one of those potions you warned me about, and I'm sure Brax was planning on using it on someone without their permission!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[candi.speechNoEffects(Like, no way! Brax! Is this true?!)] Candi shouts, turning towards Brax as she tugs sharply on his leash."
-								+ "</p>"
-								+ "<p>"
-									+ "[brax.speech(W-Well... K-Kinda...)] Brax responds, trying to make himself as small as possible as Candi's cheeks flush red with rage."
-								+ "</p>"
-								+ "<p>"
-									+ "[candi.speechNoEffects(Bad Brax!)] Candi shouts."
-									+ " [candi.speechNoEffects(You're going to need an extra special punishment this time!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Candi reacted just as you though she would, and, still grinning at Brax, you reveal your idea,"
-									+ " [pc.speech(Hey Candi, why don't we give him a taste of his own medicine?)]"
-								+ "</p>")
-					
-						+ "<p>"
-							+ "Candi's eyes light up as she hears your suggestion."
-							+ " Happily clapping her hands together, she turns around and grabs Brax's potion off the shelf."
-							+ " Seeing what's about to happen, Brax tries to run, but with a violent yank of his leash, Candi pulls him back towards her."
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Bad Brax! Stay still! You, like, have to do what I say, remember?!)] Candi shouts."
-							+ " [candi.speechNoEffects(Hey! Can you, like, help me with this?!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Not needing to be asked twice, you rush around to the other side of the counter, and, grabbing Brax's arms, you push him down onto his back."
-							+ " You and Candi quickly pin the struggling wolf-boy to the floor, ignoring his shouts and protests as you hold him still."
-							+ " Grinning, Candi pulls the bottle's stopper out, before leaning down towards Brax's face."
-						+ "</p>"
-						+ "<p>"
-							+ "[brax.speech(No! Wait! I don't want to be a girl!)] Brax yells, and you see a desperate look in his eyes as he pleads for you to spare him."
-						+ "</p>"
-						+ "<p>"
-							+ "You wonder if you should go through with this."
-							+ " While you're sure that Brax deserves it, there's no telling how he'll react to being turned into a girl, and there may be no going back..."
-						+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BRAX_FEMINISE");
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Turn Brax into Bree", "You and Candi force-feed [brax.name] his own potion.", INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED,
+				return new Response("Bree",
+						"You and Candi force-feed [brax.name] his own potion, turning him into a wolf-girl named Bree.",
+						INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED,
 						Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 						Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 						null,
@@ -909,7 +515,7 @@ public class EnforcerHQDialogue {
 						null) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.feminisedBrax);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.feminisedBrax, true);
 						Main.game.getNpc(Brax.class).setName(new NameTriplet("Bree", "Bree", "Bree"));
 						
 						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_DOMINANT);
@@ -937,6 +543,44 @@ public class EnforcerHQDialogue {
 					}
 				};
 				
+			} if (index == 2) {
+				return new Response("Bree (futa)",
+						"You and Candi force-feed [brax.name] his own potion, turning him into a wolf-girl futanari named Bree.",
+						INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED,
+						Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
+						Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.feminisedBrax, true);
+						Main.game.getNpc(Brax.class).setName(new NameTriplet("Bree", "Bree", "Bree"));
+						
+						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_DOMINANT);
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_SUBMISSIVE);
+						
+						Main.game.getNpc(Brax.class).setFemininity(75);
+						Main.game.getNpc(Brax.class).setBreastSize(CupSize.C.getMeasurement());
+						
+						Main.game.getNpc(Brax.class).setBreastRows(3);
+						
+						Main.game.getNpc(Brax.class).setHipSize(HipSize.THREE_GIRLY.getValue());
+						Main.game.getNpc(Brax.class).setAssSize(AssSize.FOUR_LARGE.getValue());
+						Main.game.getNpc(Brax.class).setVaginaType(VaginaType.WOLF_MORPH);
+						Main.game.getNpc(Brax.class).setVaginaWetness(Wetness.ONE_SLIGHTLY_MOIST.getValue());
+						Main.game.getNpc(Brax.class).setVaginaElasticity(OrificeElasticity.ONE_RIGID.getValue());
+
+						Main.game.getNpc(Brax.class).setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+						
+						Main.game.getNpc(Brax.class).setHeight(175);
+						
+						Main.game.getNpc(Brax.class).setVaginaVirgin(true);
+
+						Main.game.getNpc(Brax.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_ACCESSORIES));
+					}
+				};
+				
 			} else if (index == 0) {
 				return new Response("Leave", "Change your mind and leave [brax.name] the way he is.", INTERIOR_SECRETARY_BRAX_FEMINISE_CHANGE_MIND);
 				
@@ -946,55 +590,11 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNode INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED = new DialogueNode("Enforcer HQ", "-", false) {
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED = new DialogueNode("Enforcer HQ", "-", true) {
 
 		@Override
 		public String getContent() {
-				return "<p>"
-							+ "Deciding to go ahead with this plan, you sit down on Brax's chest, pinning him to the floor and using your [pc.hands] to hold his arms down."
-							+ " Giggling in delight, Candi grabs Brax's muzzle, and, forcing his mouth open, she roughly shoves the neck of the bottle past his lips."
-						+ "</p>"
-						+ "<p>"
-							+ "Brax thrashes about beneath you, growling and groaning as Candi starts emptying the bottle's contents down his throat."
-							+ " Once the liquid has been emptied into the wolf-boy's mouth, Candi clamps his mouth shut, making soothing shushing noises as she strokes his throat to encourage him to swallow the last few drops."
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Good boy Brax! Drink it all down!)] Candi moans, clearly excited to see what's about to happen."
-						+ "</p>"
-						+ "<p>"
-							+ "As she releases her grip on his muzzle, Brax lets out a surprisingly high-pitched moan."
-							+ " He continues to struggle, but it seems to be because of the potion's effects rather than an attempt to resist."
-							+ " Letting go of his arms, you stand up and look on as Brax's body starts to change."
-						+ "</p>"
-						+ "<p>"
-							+ "His body and face are the first to transform; rapidly shifting and changing into a distinctly feminine shape."
-							+ " His broad shoulders and muscular frame narrow down, and you see his hips and ass grow, leaving him with a very womanly body."
-							+ " As his body shifts into that of a girl, his face similarly transforms, and while you can still tell that it's Brax, his face is soon that of an attractive wolf-girl."
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Aww Brax! You're, like, so cute!)] Candi squeals, bouncing up and down in excitement."
-							+ " [candi.speechNoEffects(Ooh! You need a new name! You can be Bree! You like that, pet?!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Bree lets out a soft whimper, and her hands suddenly dart down between her legs."
-							+ " Her large bulge quickly shrinks, and she squeals and pants as her genitalia are the next to take on a new form."
-							+ " Although you can't see what's happening down there, you have a good idea of what's going on, and you grin as you realise that Bree is now a wolf-girl in every way."
-						+ "</p>"
-						+ "<p>"
-							+ "The final transformation to take place is located in Bree's chest, and you see her new breasts swelling up as she continues to writhe around on the floor."
-							+ " Panting, and totally exhausted from her transformation, the potion's effects come to an end, leaving Bree with C-cup breasts, girly hips, a large ass, and a pretty wolf-girl's face."
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(You're so cute, Bree!)] Candi cries out."
-							+ " [candi.speechNoEffects(I bet you, like, can't wait to try out your new body! Hey! How about your friend helps you out?!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[brax.speech(Y-Yes Candi...)] Bree sighs, meekly looking up at you."
-						+ "</p>"
-						+ "<p>"
-							+ "All of the dominance and fiery spirit has gone from Bree's eyes, and she submissively kneels on the floor beneath you, awaiting your response."
-							+ " You could pull her into Candi's office and help her get used to her new body, or you could leave and come back to have some fun later."
-						+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED");
 		}
 		
 		@Override
@@ -1002,32 +602,16 @@ public class EnforcerHQDialogue {
 			if (index == 1) {
 				return new ResponseSex("Sex with [brax.name]", "Have sex with [brax.name].",
 						false, false,
-						new SMKneeling(
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotBipeds.KNEELING_PERFORMING_ORAL))),
+						new SMStanding(
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotStanding.PERFORMING_ORAL))),
 						null,
-						null, AFTER_SEX, "<p>"
-							+ "[pc.speech(Good idea, Candi, I can show Bree her true place!)] you say, grinning down at Bree's meek form."
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Like, don't go easy on her! She's been, like, super bad lately.)]"
-							+ " Candi replies, handing you [brax.namePos] pink leash as she returns to applying makeup in her little mirror."
-						+ "</p>"
-						+ "<p>"
-							+ "With a tug, you get [brax.name] to follow you into Candi's little office."
-							+ " Closing the door behind you, you turn to face the [brax.race], smiling as you unclip the leash from [brax.his] collar."
-						+ "</p>"
-						+ "<p>"
-							+ "[pc.speech(You're going to do as you're told, aren't you, [brax.name]?)] you tease, laughing as [brax.he] lets out a meek little whimper."
-							+ " [pc.speech(Don't worry, I'll be sure to let Candi know how good you've been!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Knowing what's expected of [brax.herHim], [brax.name] remains on [brax.her] knees in front of you."
-							+ " Stepping forwards, you reach down to stroke the top of [brax.her] head."
-						+ "</p>"
-						+ "<p>"
-							+ "[pc.speech(Good [brax.girl]! Now, time to show you your true place!)]"
-						+ "</p>");
+						null,
+						AFTER_SEX,
+						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED_SEX"));
+				
+			} else if(index==2) {
+				return new Response("Decline", "Decide against having sex with Bree.", INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED_NO_SEX);
 				
 			} else {
 				return null;
@@ -1035,24 +619,22 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNode INTERIOR_SECRETARY_BRAX_FEMINISE_CHANGE_MIND = new DialogueNode("Enforcer HQ", "-", false) {
-
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED_NO_SEX = new DialogueNode("Enforcer HQ", "-", false) {
 		@Override
 		public String getContent() {
-				return "<p>"
-							+ "Although it seemed like a good idea at first, you aren't so sure that you want to go through with this."
-							+ " Releasing Brax's arms, you stand up, allowing him to scramble to his feet."
-						+ "</p>"
-						+ "<p>"
-							+ "[pc.speech(Sorry, Candi, this is a bit too much, maybe we can punish Brax another time,)] you say."
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Awww! Well, like, I'll keep hold of this potion and stuff, so if you, like, want to do it another time, just let me know!)]"
-							+ " Candi calls out, before turning to Brax. [candi.speechNoEffects(Bad Brax! That was your fault!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "You walk back to the other side of the reception desk, leaving Candi to continue scolding Brax."
-						+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED_NO_SEX");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_FEMINISE_CHANGE_MIND = new DialogueNode("Enforcer HQ", "-", false) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BRAX_FEMINISE_CHANGE_MIND");
 		}
 		
 		@Override
@@ -1065,31 +647,13 @@ public class EnforcerHQDialogue {
 
 		@Override
 		public String getContent() {
-				return "<p>"
-							+ "Candi's bimbo body, with her huge breasts, ass, and hips, gives you an idea."
-							+ " Leaning over the reception desk, you look into Candi's vacant eyes,"
-							+ " [pc.speech(Hey, Candi, perhaps Bree would behave a little better if she were more like you...)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Huh? Whattya mean?)] Candi replies, looking confused."
-						+ "</p>"
-						+ "<p>"
-							+ "[pc.speech(I mean that Bree would behave a lot better if she were a bubbly bimbo as well.)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Ooh! Like, you're so right!)] Candi replies, clapping her hands together excitedly."
-							+ " [candi.speechNoEffects(I've got, like, these amazing potions to try out! Perhaps I should use one on Bree?!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Bree shuffles about nervously as she hears what you're planning, and, while she doesn't openly complain, you can tell that she really doesn't want this to happen."
-							+ " You wonder if this is going too far, or if it's what Bree really deserves..."
-						+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BRAX_BIMBOFY");
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Turn Bree into Brandi", "Transform Bree into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED,
+				return new Response("Brandi", "Transform Bree into a brain-dead bimbo, called Brandi.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED,
 						Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 						Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 						null,
@@ -1121,6 +685,41 @@ public class EnforcerHQDialogue {
 					}
 				};
 				
+			} else if (index == 2) {
+				return new Response("Brandi (futa)", "Transform Bree into a brain-dead futanari bimbo, called Brandi.",
+						INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED,
+						Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
+						Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimbofiedBrax);
+						Main.game.getNpc(Brax.class).setName(new NameTriplet("Brandi", "Brandi", "Brandi"));
+						
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_BIMBO);
+						
+						Main.game.getNpc(Brax.class).setFemininity(100);
+						Main.game.getNpc(Brax.class).setBreastSize(CupSize.KK.getMeasurement());
+						Main.game.getNpc(Brax.class).setHipSize(HipSize.SEVEN_ABSURDLY_WIDE.getValue());
+						Main.game.getNpc(Brax.class).setAssWetness(Wetness.SIX_SOPPING_WET.getValue());
+						Main.game.getNpc(Brax.class).setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+						Main.game.getNpc(Brax.class).setAssSize(AssSize.SEVEN_GIGANTIC.getValue());
+
+						Main.game.getNpc(Brax.class).setPenisType(PenisType.LUPINE);
+						Main.game.getNpc(Brax.class).setVaginaWetness(Wetness.SIX_SOPPING_WET.getValue());
+						Main.game.getNpc(Brax.class).setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
+
+						Main.game.getNpc(Brax.class).setHeight(162);
+
+						Main.game.getNpc(Brax.class).setHairLength(HairLength.FIVE_ABOVE_ASS.getMedianValue());
+						Main.game.getNpc(Brax.class).setSkinCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, CoveringPattern.NONE, Colour.COVERING_BLEACH_BLONDE, false, Colour.COVERING_BLEACH_BLONDE, false), true);
+						
+						Main.game.getNpc(Brax.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_ACCESSORIES));
+					}
+				};
+				
 			} else if (index == 0) {
 				return new Response("Leave", "Change your mind and leave Bree the way she is.", INTERIOR_SECRETARY_BRAX_BIMBOFY_CHANGE_MIND);
 				
@@ -1130,58 +729,11 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNode INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED = new DialogueNode("Enforcer HQ", "-", false) {
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED = new DialogueNode("Enforcer HQ", "-", true) {
 
 		@Override
 		public String getContent() {
-				return "<p>"
-							+ "[pc.speech(Yeah, you should definitely use one! Right Bree?!)] you ask the submissive wolf-girl."
-						+ "</p>"
-						+ "<p>"
-							+ "[brax.speech(I-If you want...)] she meekly replies."
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Good girl, Bree!)] Candi squeals, excitedly pulling out a potion from beneath her desk."
-							+ " [candi.speechNoEffects(I got this made to be, like, pink flavour, so it's gonna taste good!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Bree allows Candi to push her down onto her chair, before obediently opening her mouth."
-							+ " Candi pulls out the bottle's stopper, and, tilting it into Bree's mouth, she empties the pink liquid down her throat."
-							+ " Gulping it down, Bree licks her lips as Candi pulls away from her, before letting out a little sigh."
-						+ "</p>"
-						+ "<p>"
-							+ "Bree starts shifting around uncomfortably in her seat, and, looking down, you see the cause of her discomfort."
-							+ " Her ass and hips are rapidly expanding, and with an audible tear, her enforcer shorts split at the seams."
-							+ " Letting out a little cry, Bree clutches the fabric against her groin, trying to conceal herself as the next transformation starts to take place."
-						+ "</p>"
-						+ "<p>"
-							+ "Just like her lower body, Bree's upper body starts to expand, and you watch, wide-eyed, as her breasts swell up."
-							+ " Her enforcer uniform can't take the stress, and as you watch, the buttons of her shirt ping off, revealing her massive breasts."
-						+ "</p>"
-						+ "<p>"
-							+ "This time, however, Bree doesn't bother to try and cover herself up."
-							+ " Leaning back in her chair, she lets out an extremely lewd moan, and, seeming to forget where she is, she reaches down between her legs,"
-							+ " dropping her torn shorts and panties to the floor as she starts fingering her dripping pussy."
-						+ "</p>"
-						+ "<p>"
-							+ "[brax.speechNoEffects(Candi... I... Need... Cock...)] Bree moans, her tongue lolling out of her mouth as she loses herself to her pleasure."
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Ooh! Bree! You naughty slut! Y'know, you, like, need a new name to go with your new attitude! Erm... How about Candi?!)]"
-							+ " Candi exclaims, before realising what's wrong."
-							+ " [candi.speechNoEffects(Wait, no, that's, like, my name... You can be Brandi!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "As Candi gives her a new name, you see Brandi's hair lengthening and turning bleach-blonde."
-							+ " That seems to be the final transformation, leaving her with KK-cup breasts, a massive ass, wide hips, and an overwhelming lust for sex."
-						+ "</p>"
-						+ "<p>"
-							+ "Before you have any time to comment on her new body and personality, Candi grabs her arm and pulls her into her office, shouting behind her,"
-							+ " [candi.speechNoEffects(I'm gonna give Brandi some of my old clothes, give us five mins, then come have some fun with her!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "You could either do as Candi says, and go into the office after five minutes, or leave and come back another time to have some fun with Brandi."
-						+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED");
 		}
 		
 		@Override
@@ -1189,40 +741,16 @@ public class EnforcerHQDialogue {
 			if (index == 1) {
 				return new ResponseSex("Sex with Brandi", "Have sex with Brandi.",
 						true, false,
-						new SMKneeling(
-							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotBipeds.KNEELING_PERFORMING_ORAL))),
+						new SMStanding(
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotStanding.PERFORMING_ORAL))),
 						null,
-						null, AFTER_SEX, "<p>"
-							+ "After waiting for five minutes, you follow Candi into her office."
-							+ " There, waiting for you, is the one-time 'Chief of Dominion Operations'."
-							+ " Having being transformed into a brain-dead bimbo, and being dressed up to look like a cheap whore, she's completely unrecognisable from the first time you met her."
-						+ "</p>"
-						+ "<p>"
-							+ "A fishnet top does nothing to conceal her massive KK-cup breasts, and you see that a tiny miniskirt isn't doing much better of a job downstairs."
-							+ " Candi must have a thing for fishnets, as she's given Brandi a pair of fishnet stocking, as well as gloves, finishing off her slutty appearance."
-						+ "</p>"
-						+ "<p>"
-							+ "The most noticeable thing, however, is how Brandi's facial expression has changed."
-							+ " Her once-dominant-and-intimidating stare has shifted into a vacant, hungry gaze, and her eyes travel up the length of your body as she licks her lips."
-						+ "</p>"
-						+ "<p>"
-							+ "[brax.speechNoEffects(Like, you wanna fuck or something?)]"
-							+ " she asks. [brax.speechNoEffects(I'm, like, totally horny right now!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Hehe! Good girl, Brandi! You gotta, like, remember to ask nicely like that, ok?)]"
-							+ " Candi says, handing you [brax.namePos] pink leash before moving to make her exit."
-							+ " [candi.speechNoEffects(I gotta, like, watch the front desk, or else the chief's gonna take Brandi away from me!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "As Candi leaves the office, you turn to face the [brax.race] bimbo, smiling as you unclip the leash from her collar."
-							+ " Brandi immediately drops to her knees, shuffling forwards as she begs,"
-							+ " [brax.speechNoEffects(Please! I, like, <i>need</i> a good fuck right now! Please use me!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[pc.speech(What a good [brax.girl]!)] you say, grinning as she lets out a desperate, hungry whine."
-						+ "</p>");
+						null,
+						AFTER_SEX,
+						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED_SEX"));
+
+			} else if(index==2) {
+				return new Response("Decline", "Decide against having sex with Brandi.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED_NO_SEX);
 				
 			} else {
 				return null;
@@ -1230,24 +758,10 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNode INTERIOR_SECRETARY_BRAX_BIMBOFY_CHANGE_MIND = new DialogueNode("Enforcer HQ", "-", false) {
-
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED_NO_SEX = new DialogueNode("Enforcer HQ", "-", false) {
 		@Override
 		public String getContent() {
-				return "<p>"
-							+ "Although it seemed like a good idea at first, you aren't so sure that you want to go through with this."
-							+ " Shaking your head, you decide to leave Bree the way she is."
-						+ "</p>"
-						+ "<p>"
-							+ "[pc.speech(Sorry, Candi, maybe that would be going too far, maybe we can punish Bree another time.)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[candi.speechNoEffects(Awww! Well, like, I'll keep hold of these potions and stuff, so if you, like, want to do it another time, just let me know!)]"
-							+ " Candi replies."
-						+ "</p>"
-						+ "<p>"
-							+ "You turn away from the reception desk, confident that you did the right thing."
-						+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED_NO_SEX");
 		}
 		
 		@Override
@@ -1256,19 +770,90 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNode AFTER_SEX = new DialogueNode("Enforcer HQ", "Return to the Reception desk.", false) {
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_BIMBOFY_CHANGE_MIND = new DialogueNode("Enforcer HQ", "-", false) {
 
 		@Override
 		public String getContent() {
-				return "<p>"
-							+ "Leaving [brax.name] to recover in Candi's office, you make your exit."
-							+ " As you leave, you let Candi know that her pet behaved, smiling to yourself as you wonder when you'll decide to drop in to pay [brax.him] visit again..."
-						+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BRAX_BIMBOFY_CHANGE_MIND");
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return null;
+		}
+	};
+	
+	public static final DialogueNode AFTER_SEX = new DialogueNode("Finished", "Return to the Reception desk.", false) {
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "AFTER_SEX");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNode AFTER_SEX_CANDI = new DialogueNode("Finished", "Step back around to the other side of the reception desk.", false) {
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "AFTER_SEX_CANDI");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNode BUYING_BRAX_INITIAL = new DialogueNode("Reception desk", "", false) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "BUYING_BRAX_INITIAL");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return RECEPTION_DESK.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode BUYING_BRAX_PERFUME_DELIVERY = new DialogueNode("Reception desk", "", false) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "BUYING_BRAX_PERFUME_DELIVERY");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return RECEPTION_DESK.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode BUYING_BRAX_LOLLIPOP_DELIVERY = new DialogueNode("Reception desk", "", false) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "BUYING_BRAX_LOLLIPOP_DELIVERY");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return RECEPTION_DESK.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode BUYING_BRAX_LIPSTICK_DELIVERY = new DialogueNode("Reception desk", "", false) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "BUYING_BRAX_LIPSTICK_DELIVERY");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return RECEPTION_DESK.getResponse(responseTab, index);
 		}
 	};
 	
@@ -1737,8 +1322,8 @@ public class EnforcerHQDialogue {
 				return new ResponseSex("Get fucked", "Let [brax.name] take control and fuck you.",
 						true, false, 
 						new SMBraxDoggy(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotBipeds.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.DOGGY_ON_ALL_FOURS))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Brax.class), SexSlotAllFours.BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))),
 						null,
 						null, Brax.AFTER_SUBMISSIVE_SEX, "<p>"
 							+ "[brax.namePos] strong, confident grip on your hips quickly moves down and around to your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass,"

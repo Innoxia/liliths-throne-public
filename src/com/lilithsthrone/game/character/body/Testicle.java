@@ -1,6 +1,9 @@
 package com.lilithsthrone.game.character.body;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.TesticleType;
@@ -91,7 +94,13 @@ public class Testicle implements BodyPartInterface {
 
 	@Override
 	public String getDescriptor(GameCharacter owner) {
-		return type.getDescriptor(owner);
+		List<String> list = new ArrayList<>();
+		
+		list.add(owner.getTesticleSize().getDescriptor());
+		
+		list.add(type.getDescriptor(owner));
+		
+		return Util.randomItemFrom(list);
 	}
 	
 	public void setType(GameCharacter owner, TesticleType type) {

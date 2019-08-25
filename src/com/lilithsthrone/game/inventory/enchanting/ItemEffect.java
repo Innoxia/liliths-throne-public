@@ -15,7 +15,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.8
- * @version 0.2.11
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class ItemEffect implements XMLSaving {
@@ -48,6 +48,14 @@ public class ItemEffect implements XMLSaving {
 		this.potency = potency;
 		this.limit = limit;
 		this.timer = new ItemEffectTimer();
+	}
+	
+	public String getId() {
+		return (itemEffectType==null?"n":itemEffectType.toString())
+				+ (primaryModifier==null?"n":primaryModifier.toString())
+				+ (secondaryModifier==null?"n":secondaryModifier.toString())
+				+ (potency==null?"n":potency.toString())
+				+ limit;
 	}
 	
 	@Override

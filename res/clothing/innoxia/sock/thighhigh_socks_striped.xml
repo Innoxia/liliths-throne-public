@@ -4,9 +4,9 @@
 		<value>200</value>
 		<determiner><![CDATA[a pair of]]></determiner>
 		<name><![CDATA[striped thigh-high sock]]></name>
-		<namePlural pluralByDefault="true"><![CDATA[striped thigh-high sock]]></namePlural>
+		<namePlural pluralByDefault="true"><![CDATA[striped thigh-high socks]]></namePlural>
 		<description><![CDATA[A pair of striped thigh-high socks. They are made from cotton and have an elasticated band at the top in order to keep them in place.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>SOCK</slot> 
 		<rarity>COMMON</rarity>

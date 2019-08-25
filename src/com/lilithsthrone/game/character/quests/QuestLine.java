@@ -55,7 +55,15 @@ public enum QuestLine {
 
 	SIDE_SLIME_QUEEN("Slime Queen", "You dealt with the Slime Queen!",
 			QuestType.SIDE,
-			QuestTree.slimeQueenTree)
+			QuestTree.slimeQueenTree),
+
+	SIDE_DADDY("An Inquiring Incubus", "You dealt with the demon, [daddy.name], who was showing an interest in Lilaya.",
+			QuestType.SIDE,
+			QuestTree.daddyTree),
+
+	SIDE_BUYING_BRAX("A wolf of your own", "After she'd got you to perform a series of tedious tasks for her, Candi finally sold [brax.name] to you.",
+			QuestType.SIDE,
+			QuestTree.buyingBraxTree)
 	
 	;
 

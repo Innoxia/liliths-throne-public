@@ -344,7 +344,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.performImpregnationCheck();
+			target.performImpregnationCheck(false);
 			if(target.isPregnant()) {
 				List <GameCharacter> fathers = new ArrayList<>();
 				for(PregnancyPossibility pp : target.getPotentialPartnersAsMother()) {
@@ -476,7 +476,7 @@ public class ItemEffectType {
 	// Strength:
 	
 	public static AbstractItemEffectType STR_EQUINE_CIDER = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
 			"[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'",
 			"[style.boldMinorBad(Adds)] 15% to [style.boldAlcohol(intoxication level)]"),
 			Colour.ATTRIBUTE_PHYSIQUE) {
@@ -496,7 +496,7 @@ public class ItemEffectType {
 	};
 
 	public static AbstractItemEffectType STR_BUBBLE_MILK = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
 			"[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'"),
 			Colour.ATTRIBUTE_PHYSIQUE) {
 		
@@ -525,7 +525,7 @@ public class ItemEffectType {
 	};
 
 	public static AbstractItemEffectType STR_WOLF_WHISKEY = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
 			"[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'",
 			"[style.boldMinorBad(Adds)] 40% to [style.boldAlcohol(intoxication level)]"),
 			Colour.ATTRIBUTE_PHYSIQUE) {
@@ -545,7 +545,7 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType STR_SWAMP_WATER = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
 			"[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'",
 			"[style.boldMinorBad(Adds)] 75% to [style.boldAlcohol(intoxication level)]"),
 			Colour.ATTRIBUTE_PHYSIQUE) {
@@ -563,7 +563,7 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType STR_BLACK_RATS_RUM = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
 			"[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'",
 			"[style.boldMinorBad(Adds)] 50% to [style.boldAlcohol(intoxication level)]"),
 			Colour.ATTRIBUTE_PHYSIQUE) {
@@ -643,7 +643,7 @@ public class ItemEffectType {
 	// Fitness:
 	
 	public static AbstractItemEffectType FIT_CANINE_CRUSH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
 			"[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'",
 			"[style.boldMinorBad(Adds)] 5% to [style.boldAlcohol(intoxication level)]"),
 			Colour.ATTRIBUTE_PHYSIQUE) {
@@ -663,7 +663,7 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType FIT_SQUIRREL_JAVA = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
 			"[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'"),
 			Colour.ATTRIBUTE_PHYSIQUE) {
 		
@@ -699,7 +699,7 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType FIT_EGG_NOG = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
 			"[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'"),
 			Colour.ATTRIBUTE_PHYSIQUE) {
 		
@@ -792,7 +792,7 @@ public class ItemEffectType {
 	// Corruption:
 	
 	public static AbstractItemEffectType COR_LILITHS_GIFT = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
 			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
 			"[style.boldGood(+1)] [style.boldCorruption(corruption)] to 'potion effects'"),
 			Colour.ATTRIBUTE_CORRUPTION) {
@@ -988,7 +988,7 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType EGGPLANT = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
 			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]"),
 			Colour.ATTRIBUTE_CORRUPTION) {
 		
@@ -1084,7 +1084,7 @@ public class ItemEffectType {
 								+ "For a moment, it looks as though nothing is going to happen,"
 									+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purify energy rushes through [npc.herHim]."
 								+ " Accompanied by a faint, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
-									+ " where it quickly gets to work purifying [npc.her] thoughts and calming [np.her] libido..."
+									+ " where it quickly gets to work purifying [npc.her] thoughts and calming [npc.her] libido..."
 							+"</p>"
 							+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -5);
 				case BOOST:
@@ -1092,7 +1092,7 @@ public class ItemEffectType {
 							+ "For a moment, it looks as though nothing is going to happen,"
 								+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purify energy rushes through [npc.herHim]."
 							+ " Accompanied by a bright, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
-								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [np.her] libido..."
+								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [npc.her] libido..."
 						+"</p>"
 						+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -10);
 				case MAJOR_BOOST:
@@ -1100,7 +1100,7 @@ public class ItemEffectType {
 							+ "For a moment, it looks as though nothing is going to happen,"
 								+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purify energy rushes through [npc.herHim]."
 							+ " Accompanied by a blinding, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
-								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [np.her] libido..."
+								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [npc.her] libido..."
 						+"</p>"
 						+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -15);
 				case MINOR_DRAIN:
@@ -1113,7 +1113,7 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType GIFT_CHOCOLATES = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 30% [style.boldHealth(energy)]"),
+			"[style.boldGood(Restores)] 30% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]"),
 			Colour.ATTRIBUTE_HEALTH) {
 		
 		@Override
@@ -1581,8 +1581,8 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType BOTTLED_ESSENCE_CAT_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldCat(cat-morphs)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldCat(cat-morphs)]"),
+			"[style.boldGood(+2)] [style.boldPhysique("+Util.capitaliseSentence(Attribute.MAJOR_PHYSIQUE.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldCat(cat-morphs)]"),
 			Colour.RACE_CAT_MORPH) {
 		
 		@Override
@@ -1595,8 +1595,8 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType BOTTLED_ESSENCE_COW_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldCow(cow-morphs)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldCow(cow-morphs)]"),
+			"[style.boldGood(+2)] [style.boldPhysique("+Util.capitaliseSentence(Attribute.MAJOR_PHYSIQUE.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldCow(cow-morphs)]"),
 			Colour.RACE_COW_MORPH) {
 		
 		@Override
@@ -1609,8 +1609,8 @@ public class ItemEffectType {
 
  	public static AbstractItemEffectType BOTTLED_ESSENCE_SQUIRREL_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldSquirrel(squirrel-morphs)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldSquirrel(squirrel-morphs)]"),
+			"[style.boldGood(+2)] [style.boldPhysique("+Util.capitaliseSentence(Attribute.MAJOR_PHYSIQUE.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldSquirrel(squirrel-morphs)]"),
 			Colour.RACE_SQUIRREL_MORPH) {
 		
 		@Override
@@ -1623,8 +1623,8 @@ public class ItemEffectType {
 
  	public static AbstractItemEffectType BOTTLED_ESSENCE_RAT_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldRat(rat-morphs)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldRat(rat-morphs)]"),
+			"[style.boldGood(+2)] [style.boldPhysique("+Util.capitaliseSentence(Attribute.MAJOR_PHYSIQUE.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldRat(rat-morphs)]"),
 			Colour.RACE_RAT_MORPH) {
 		
 		@Override
@@ -1637,8 +1637,8 @@ public class ItemEffectType {
 
  	public static AbstractItemEffectType BOTTLED_ESSENCE_RABBIT_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldRabbit(rabbit-morphs)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldRabbit(rabbit-morphs)]"),
+			"[style.boldGood(+5)] [style.boldLust("+Util.capitaliseSentence(Attribute.DAMAGE_LUST.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldRabbit(rabbit-morphs)]"),
 			Colour.RACE_RABBIT_MORPH) {
 		
 		@Override
@@ -1651,8 +1651,8 @@ public class ItemEffectType {
 
  	public static AbstractItemEffectType BOTTLED_ESSENCE_BAT_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldBat(bat-morphs)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldBat(bat-morphs)]"),
+			"[style.boldGood(+2)] [style.boldPhysique("+Util.capitaliseSentence(Attribute.MAJOR_PHYSIQUE.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldBat(bat-morphs)]"),
 			Colour.RACE_BAT_MORPH) {
 		
 		@Override
@@ -1665,8 +1665,8 @@ public class ItemEffectType {
 	
  	public static AbstractItemEffectType BOTTLED_ESSENCE_ALLIGATOR_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldAlligator(alligator-morphs)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldAlligator(alligator-morphs)]"),
+			"[style.boldGood(+2)] [style.boldPhysique("+Util.capitaliseSentence(Attribute.MAJOR_PHYSIQUE.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldAlligator(alligator-morphs)]"),
 			Colour.RACE_ALLIGATOR_MORPH) {
 		
 		@Override
@@ -1679,8 +1679,8 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType BOTTLED_ESSENCE_DEMON = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldDemon(demons)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldDemon(demons)]"),
+			"[style.boldGood(+2)] [style.boldArcane("+Util.capitaliseSentence(Attribute.MAJOR_ARCANE.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldDemon(demons)]"),
 			Colour.RACE_DEMON) {
 		
 		@Override
@@ -1693,8 +1693,8 @@ public class ItemEffectType {
 
 	public static AbstractItemEffectType BOTTLED_ESSENCE_IMP = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldImp(imps)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldImp(imps)]"),
+			"[style.boldGood(+5)] [style.boldLust("+Util.capitaliseSentence(Attribute.DAMAGE_LUST.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldImp(imps)]"),
 			Colour.RACE_IMP) {
 		
 		@Override
@@ -1707,8 +1707,8 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType BOTTLED_ESSENCE_DOG_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldDog(dog-morphs)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldDog(dog-morphs)]"),
+			"[style.boldGood(+2)] [style.boldPhysique("+Util.capitaliseSentence(Attribute.MAJOR_PHYSIQUE.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldDog(dog-morphs)]"),
 			Colour.RACE_DOG_MORPH) {
 		
 		@Override
@@ -1721,8 +1721,8 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType BOTTLED_ESSENCE_HARPY = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldHarpy(harpies)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldHarpy(harpies)]"),
+			"[style.boldGood(+5)] [style.boldLust("+Util.capitaliseSentence(Attribute.DAMAGE_LUST.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldHarpy(harpies)]"),
 			Colour.RACE_HARPY) {
 		
 		@Override
@@ -1735,8 +1735,8 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType BOTTLED_ESSENCE_HORSE_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldHorse(horse-morphs)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldHorse(horse-morphs)]"),
+			"[style.boldGood(+2)] [style.boldPhysique("+Util.capitaliseSentence(Attribute.MAJOR_PHYSIQUE.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldHorse(horse-morphs)]"),
 			Colour.RACE_HORSE_MORPH) {
 		
 		@Override
@@ -1749,8 +1749,8 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType BOTTLED_ESSENCE_REINDEER_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldReindeer(reindeer-morphs)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldReindeer(reindeer-morphs)]"),
+			"[style.boldGood(+2)] [style.boldPhysique("+Util.capitaliseSentence(Attribute.MAJOR_PHYSIQUE.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldReindeer(reindeer-morphs)]"),
 			Colour.RACE_REINDEER_MORPH) {
 		
 		@Override
@@ -1763,8 +1763,8 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType BOTTLED_ESSENCE_HUMAN = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldHuman(humans)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldHuman(humans)]"),
+			"[style.boldGood(+2)] [style.boldPhysique("+Util.capitaliseSentence(Attribute.MAJOR_PHYSIQUE.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldHuman(humans)]"),
 			Colour.RACE_HUMAN) {
 		
 		@Override
@@ -1777,8 +1777,8 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType BOTTLED_ESSENCE_WOLF_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldWolf(wolf-morphs)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldWolf(wolf-morphs)]"),
+			"[style.boldGood(+2)] [style.boldPhysique("+Util.capitaliseSentence(Attribute.MAJOR_PHYSIQUE.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldWolf(wolf-morphs)]"),
 			Colour.RACE_WOLF_MORPH) {
 		
 		@Override
@@ -1791,8 +1791,8 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType BOTTLED_ESSENCE_FOX_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldFox(fox-morphs)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldFox(fox-morphs)]"),
+			"[style.boldGood(+2)] [style.boldPhysique("+Util.capitaliseSentence(Attribute.MAJOR_PHYSIQUE.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldFox(fox-morphs)]"),
 			Colour.RACE_FOX_MORPH) {
 		
 		@Override
@@ -1805,8 +1805,8 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType BOTTLED_ESSENCE_SLIME = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
-			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldSlime(slimes)]",
-			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldSlime(slimes)]"),
+			"[style.boldGood(+5)] [style.boldLust("+Util.capitaliseSentence(Attribute.DAMAGE_LUST.getName())+")]",
+			"[style.boldGood(+25)] [style.bold(damage vs)] [style.boldSlime(slimes)]"),
 			Colour.RACE_WOLF_MORPH) {
 		
 		@Override

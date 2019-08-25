@@ -238,7 +238,7 @@ public class SupplierDepot {
 							Main.game.getDialogueFlags().supplierStorageRoomsChecked.add(Main.game.getPlayer().getLocation());
 							
 							List<AbstractClothingType> clothingToGenerate = new ArrayList<>(ClothingType.getAllClothing());
-							clothingToGenerate.removeIf((clothing) -> !clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN));
+							clothingToGenerate.removeIf((clothing) -> !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN));
 							
 							Main.game.getTextEndStringBuilder().append(
 									UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "STORAGE_ROOM_SEARCHING")

@@ -35,12 +35,16 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.managers.dominion.SMKrugerChair;
 import com.lilithsthrone.game.sex.managers.dominion.gloryHole.SMGloryHole;
 import com.lilithsthrone.game.sex.managers.dominion.toiletStall.SMStallSex;
-import com.lilithsthrone.game.sex.managers.universal.SMChair;
+import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -477,8 +481,8 @@ public class NightlifeDistrict {
 								true,
 								false,
 								new SMJulesCockSucking(
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Jules.class), SexSlotBipeds.KNEELING_RECEIVING_ORAL)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Jules.class), SexSlotStanding.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL))),
 								null,
 								null,
 								AFTER_JULES_BLOWJOB,
@@ -1225,8 +1229,19 @@ public class NightlifeDistrict {
 					};
 					
 				} else if(index==3) {
-					return new Response("Footsie",
-							UtilText.parse(getClubbersPresent(), "Lightly push your [pc.foot] into [npc.namePos] groin."+(likesGroping(getPartner())?"":"</br>[style.italicsBad([npc.She] might not react well to this!)]")),
+					boolean bothBipeds = true;
+					if(Main.game.getPlayer().isTaur() || getPartner().isTaur()) {
+						bothBipeds = false;
+					}
+					return new Response( // If both partners are bipeds, play footsie. If not, feeling up occurs instead.
+							bothBipeds
+								?"Footsie"
+								:"Feel up",
+							UtilText.parse(getClubbersPresent(),
+									(bothBipeds
+										?"Lightly push your [pc.foot] into [npc.namePos] groin."
+										:"Press yourself against [npc.name] and start groping [npc.herHim].")
+									+(likesGroping(getPartner())?"":"</br>[style.italicsBad([npc.She] might not react well to this!)]")),
 							WATERING_HOLE_SEATING_FOOTSIE) {
 						@Override
 						public void effects() {
@@ -1246,16 +1261,31 @@ public class NightlifeDistrict {
 
 				} else if(index==4) {
 					if(likesSex(getPartner())) {
-						return new ResponseSex("Sex (dom)", UtilText.parse(getClubbersPresent(), "Pull [npc.name] into your lap and start having dominant sex with [npc.herHim]."),
+						SexManagerDefault sm = new SMSitting(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotSitting.SITTING_IN_LAP))) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+						};
+						
+						if(Main.game.getPlayer().isTaur()) { // Player is a taur/arachnid:
+							sm = new SexManagerDefault(
+									SexPositionOther.STANDING,
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_SUBMISSIVE))) {
+								@Override
+								public boolean isPublicSex() {
+									return false;
+								}
+							};
+						}
+						
+						return new ResponseSex("Sex (dom)",
+								UtilText.parse(getClubbersPresent(), "You can't resist [npc.name] any longer! Make a move to start having dominant sex with [npc.herHim]."),
 								true, true,
-								new SMChair(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotBipeds.CHAIR_TOP))) {
-									@Override
-									public boolean isPublicSex() {
-										return false;
-									}
-								},
+								sm,
 								null,
 								null,
 								WATERING_HOLE_SEATING_AFTER_SEX,
@@ -1263,7 +1293,7 @@ public class NightlifeDistrict {
 						
 					} else {
 						return new Response("Sex (dom)",
-								UtilText.parse(getClubbersPresent(), "Pull [npc.name] into your lap and start having dominant sex with [npc.herHim].</br>[style.italicsBad([npc.She] might not react well to this!)]"),
+								UtilText.parse(getClubbersPresent(), "You can't resist [npc.name] any longer! Make a move to start having dominant sex with [npc.herHim].</br>[style.italicsBad([npc.She] might not react well to this!)]"),
 								WATERING_HOLE_SEATING_SEX_AS_DOM_REJECTED) {
 							@Override
 							public void effects() {
@@ -1279,22 +1309,52 @@ public class NightlifeDistrict {
 					
 				} else if(index==5) {
 					if(likesSex(getPartner())) {
-						return new ResponseSex("Sex (sub)", UtilText.parse(getClubbersPresent(), "Slide into [npc.namePos] lap and start having submissive sex with [npc.herHim]."),
-								true, true,
-								new SMChair(
-										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotBipeds.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP))) {
+						SexManagerDefault sm = new SMSitting(
+								Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_IN_LAP))) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+						};
+						
+						if(Main.game.getPlayer().isTaur()) {
+							if(getPartner().isTaur()) { // Both taurs/arachnids:
+								sm = new SexManagerDefault(
+										SexPositionOther.STANDING,
+										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_SUBMISSIVE))) {
 									@Override
 									public boolean isPublicSex() {
 										return false;
 									}
-								},
+								};
+							}
+							
+						} else if(getPartner().isTaur()) { // Partner is a taur/arachnid:
+							sm = new SexManagerDefault(
+									SexPositionOther.STANDING,
+									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), getPartner().hasPenis()?SexSlotStanding.PERFORMING_ORAL:SexSlotStanding.PERFORMING_ORAL_BEHIND))) {
+								@Override
+								public boolean isPublicSex() {
+									return false;
+								}
+							};
+						}
+						return new ResponseSex(
+								"Sex (sub)",
+								UtilText.parse(getClubbersPresent(), "You can't resist [npc.name] any longer! Make a move to start having submissive sex with [npc.herHim]."),
+								true, true,
+								sm,
 								null,
-								null, WATERING_HOLE_SEATING_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEATING_SEX_AS_SUB", getClubbersPresent()));
+								null,
+								WATERING_HOLE_SEATING_AFTER_SEX,
+								UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEATING_SEX_AS_SUB", getClubbersPresent()));
 						
 					} else {
 						return new Response("Sex (sub)",
-								UtilText.parse(getClubbersPresent(), "Pull [npc.name] into your lap and start having submissive sex with [npc.herHim].</br>[style.italicsBad([npc.She] might not react well to this!)]"),
+								UtilText.parse(getClubbersPresent(), "You can't resist [npc.name] any longer! Make a move to start having submissive sex with [npc.herHim].</br>[style.italicsBad([npc.She] might not react well to this!)]"),
 								WATERING_HOLE_SEATING_SEX_AS_SUB_REJECTED) {
 							@Override
 							public void effects() {
@@ -1686,7 +1746,7 @@ public class NightlifeDistrict {
 			if(!hasPartner() || responseTab==0) {
 				if(index==1) {
 					AbstractItemType drink = ItemType.INT_INGREDIENT_VANILLA_WATER;
-					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
+					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
 						return new Response("Water ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a bottle of "+drink.getName(false)+"!", null);
 						
@@ -1720,7 +1780,7 @@ public class NightlifeDistrict {
 				
 				} else if(index==2) {
 					AbstractItemType drink = ItemType.FIT_INGREDIENT_CANINE_CRUSH;
-					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
+					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
 						return new Response("Beer ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a bottle of "+drink.getName(false)+"!", null);
 						
@@ -1756,7 +1816,7 @@ public class NightlifeDistrict {
 				
 				} else if(index==3) {
 					AbstractItemType drink = ItemType.INT_INGREDIENT_FELINE_FANCY;
-					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
+					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
 						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false)+"!", null);
 						
@@ -1792,7 +1852,7 @@ public class NightlifeDistrict {
 				
 				} else if(index==4) {
 					AbstractItemType drink = ItemType.STR_INGREDIENT_WOLF_WHISKEY;
-					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
+					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
 						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false)+"!", null);
 						
@@ -1827,7 +1887,7 @@ public class NightlifeDistrict {
 				
 				} else if(index==5) {
 					AbstractItemType drink = ItemType.STR_INGREDIENT_BLACK_RATS_RUM;
-					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
+					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
 						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false)+"!", null);
 						
@@ -1931,7 +1991,7 @@ public class NightlifeDistrict {
 				
 				if(index==1) {
 					AbstractItemType drink = ItemType.INT_INGREDIENT_VANILLA_WATER;
-					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
+					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
 						return new Response("Water ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a bottle of "+drink.getName(false)+"!", null);
 						
@@ -1971,7 +2031,7 @@ public class NightlifeDistrict {
 				
 				} else if(index==2) {
 					AbstractItemType drink = ItemType.FIT_INGREDIENT_CANINE_CRUSH;
-					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
+					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
 						return new Response("Beer ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a bottle of "+drink.getName(false)+"!", null);
 						
@@ -2012,7 +2072,7 @@ public class NightlifeDistrict {
 				
 				} else if(index==3) {
 					AbstractItemType drink = ItemType.INT_INGREDIENT_FELINE_FANCY;
-					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
+					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
 						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false)+"!", null);
 						
@@ -2053,7 +2113,7 @@ public class NightlifeDistrict {
 				
 				} else if(index==4) {
 					AbstractItemType drink = ItemType.STR_INGREDIENT_WOLF_WHISKEY;
-					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
+					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
 						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false)+"!", null);
 						
@@ -2094,7 +2154,7 @@ public class NightlifeDistrict {
 				
 				} else if(index==5) {
 					AbstractItemType drink = ItemType.STR_INGREDIENT_BLACK_RATS_RUM;
-					int price = (int) (drink.getValue()*KALAHARI_SELL_MODIFIER);
+					int price = (int) (drink.getValue(null)*KALAHARI_SELL_MODIFIER);
 					if(Main.game.getPlayer().getMoney()<price) {
 						return new Response(Util.capitaliseSentence(drink.getName(false))+" ("+UtilText.formatAsMoneyUncoloured(price, "span")+")", "You can't afford a glass of "+drink.getName(false)+"!", null);
 						
@@ -2509,6 +2569,7 @@ public class NightlifeDistrict {
 						public void effects() {
 							Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, false);
+							Main.game.getNpc(Kalahari.class).equipClothing(null);
 						}
 					};
 				}
@@ -2576,8 +2637,8 @@ public class NightlifeDistrict {
 								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.NIPPLES, Main.game.getPlayer(), true);
 								Main.game.getNpc(Kalahari.class).setAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer(), true);
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, true);
-								Main.game.getNpc(Kalahari.class).displaceClothingForAccess(CoverableArea.BREASTS);
-								Main.game.getNpc(Kalahari.class).displaceClothingForAccess(CoverableArea.VAGINA);
+								Main.game.getNpc(Kalahari.class).displaceClothingForAccess(CoverableArea.BREASTS, null);
+								Main.game.getNpc(Kalahari.class).displaceClothingForAccess(CoverableArea.VAGINA, null);
 							}
 						};
 					}
@@ -2586,41 +2647,59 @@ public class NightlifeDistrict {
 					if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kalahariWantsSex)) {
 						return new Response("Sex (dom)", "You need to get Kalahari fully into the mood before having sex with her.", null);
 					} else {
-						return new ResponseSex("Sex (dom)", "Pull Kalahari into your lap and start having dominant sex with her.",
+						SexManagerDefault sm = new SMSitting(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotSitting.SITTING_IN_LAP))) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+						};
+						if(Main.game.getPlayer().isTaur()) { // Player is a taur/arachnid:
+							sm = new SexManagerDefault(
+									SexPositionOther.STANDING,
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotStanding.STANDING_SUBMISSIVE))) {
+								@Override
+								public boolean isPublicSex() {
+									return false;
+								}
+							};
+						}
+						
+						return new ResponseSex("Sex (dom)",
+								!Main.game.getPlayer().isTaur()
+									?"Pull Kalahari into your lap and start having dominant sex with her."
+									:"Stand up, pulling Kalahari to her feet as you do so, and start having dominant sex with her.",
 								true, true,
-								new SMChair(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotBipeds.CHAIR_TOP))) {
-									@Override
-									public boolean isPublicSex() {
-										return false;
-									}
-								},
+								sm,
 								null,
 								null,
 								WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX,
 								UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_DOM"));
 					}
 					
-				} else if(index==7) {
-					if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kalahariWantsSex)) {
-						return new Response("Sex (sub)", "You need to get Kalahari fully into the mood before having sex with her.", null);
-					} else {
-						return new ResponseSex("Sex (sub)", "Slide into Kalahari's lap and start having submissive sex with her.",
-								true, true,
-								new SMChair(
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotBipeds.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP))) {
-									@Override
-									public boolean isPublicSex() {
-										return false;
-									}
-								},
-								null,
-								null, WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_SUB"));
-					}
-					
 				}
+				// Kalahari is too submissive to want to be the dom. This shouldn't have been added...
+//				else if(index==7) {
+//					if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kalahariWantsSex)) {
+//						return new Response("Sex (sub)", "You need to get Kalahari fully into the mood before having sex with her.", null);
+//					} else {
+//						return new ResponseSex("Sex (sub)", "Slide into Kalahari's lap and start having submissive sex with her.",
+//								true, true,
+//								new SMChair(
+//										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotSitting.SITTING)),
+//										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_IN_LAP))) {
+//									@Override
+//									public boolean isPublicSex() {
+//										return false;
+//									}
+//								},
+//								null,
+//								null, WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_SUB"));
+//					}
+//					
+//				}
 				//TODO requires several improvements to sex AI and positioning first
 //				else if(index==6) {
 //					if(!Main.game.getPlayer().isFeminine()) {
@@ -2645,6 +2724,7 @@ public class NightlifeDistrict {
 						public void effects() {
 							Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, false);
+							Main.game.getNpc(Kalahari.class).equipClothing(null);
 						}
 					};
 				}
@@ -2960,8 +3040,8 @@ public class NightlifeDistrict {
 					return new ResponseSex("Sex (sub)", "Slide into Kruger's lap and start having submissive sex with [npc.herHim].",
 							true, true,
 							new SMKrugerChair(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kruger.class), SexSlotBipeds.CHAIR_ORAL_SITTING)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_KNEELING))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kruger.class), SexSlotSitting.SITTING)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.PERFORMING_ORAL))),
 							null,
 							null,
 							WATERING_HOLE_VIP_KRUGER_AFTER_SEX,
@@ -3321,8 +3401,8 @@ public class NightlifeDistrict {
 						return new ResponseSex("Stall sex", UtilText.parse(getClubbersPresent(), "Try and get [npc.name] to have sex in one of the toilet's stalls."),
 								true, true,
 								new SMStallSex(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_SUBMISSIVE))) {
 									@Override
 									public boolean isPublicSex() {
 										return false;
@@ -3436,8 +3516,8 @@ public class NightlifeDistrict {
 				return new ResponseSex("Use glory hole", UtilText.parse(characters.get(0), "Do as [npc.name] says and step up to the glory hole."),
 						true, false,
 						new SMGloryHole(
-								Util.newHashMapOfValues(new Value<>(characters.get(0), SexSlotBipeds.GLORY_HOLE_KNEELING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE))) {
+								Util.newHashMapOfValues(new Value<>(characters.get(0), SexSlotUnique.GLORY_HOLE_KNEELING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -3510,10 +3590,10 @@ public class NightlifeDistrict {
 				return new ResponseSex("Start (close door)", "Close the door, affording yourself some privacy as you start to service the cocks before you.",
 						true, false,
 						new SMGloryHole(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.GLORY_HOLE_KNEELING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_KNEELING)),
 								Util.newHashMapOfValues(
-										new Value<>(characters.get(0), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE),
-										new Value<>(characters.get(1), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_TWO))) {
+										new Value<>(characters.get(0), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE),
+										new Value<>(characters.get(1), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -3530,10 +3610,10 @@ public class NightlifeDistrict {
 				return new ResponseSex("Start (public view)", "Leave the door open, so that everyone in the toilets can watch as you service the cocks before you.",
 						true, false,
 						new SMGloryHole(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.GLORY_HOLE_KNEELING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_KNEELING)),
 								Util.newHashMapOfValues(
-										new Value<>(characters.get(0), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE),
-										new Value<>(characters.get(1), SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_TWO))) {
+										new Value<>(characters.get(0), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE),
+										new Value<>(characters.get(1), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO))) {
 						},
 						null,
 						null, WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING_PUBLIC", characters));
@@ -3647,7 +3727,7 @@ public class NightlifeDistrict {
 		if(npc.hasPenis()) {
 			npc.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
 		}
-		npc.displaceClothingForAccess(CoverableArea.PENIS);
+		npc.displaceClothingForAccess(CoverableArea.PENIS, null);
 		npc.setPenisVirgin(false);
 		npc.setVaginaVirgin(false);
 		try {
@@ -3724,7 +3804,7 @@ public class NightlifeDistrict {
 		if(Math.random()>0.75f) {
 			npc.addFetish(Fetish.FETISH_ORAL_GIVING);
 		}
-		npc.displaceClothingForAccess(CoverableArea.MOUTH);
+		npc.displaceClothingForAccess(CoverableArea.MOUTH, null);
 		npc.setPenisVirgin(false);
 		npc.setVaginaVirgin(false);
 		npc.setAssVirgin(false);
@@ -4609,10 +4689,21 @@ public class NightlifeDistrict {
 					}
 					break;
 				case SIT_DOWN_FOOTSIE:
+					boolean bothBipeds = true;
+					if(Main.game.getPlayer().isTaur() || getPartner().isTaur()) {
+						bothBipeds = false;
+					}
+					// If both partners are bipeds, play footsie. If not, feeling up occurs instead.
 					if(index==1) {
 						// Enjoy
-						return new Response("Play footsie",
-								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Let [npc.namePos] [npc.foot] work all the way up to your groin, and start reciprocating [npc.her] flirtatious movements."),
+						return new Response(
+								bothBipeds
+									?"Play footsie"
+									:"Submit",
+								UtilText.parse(NightlifeDistrict.getClubbersPresent(),
+										bothBipeds
+											?"Let [npc.namePos] [npc.foot] work all the way up to your groin, and start reciprocating [npc.her] flirtatious movements."
+											:"Buck your body back against [npc.name] and let [npc.herHim] feel you up."),
 								WATERING_HOLE_DOM_PARTNER_REACT) {
 							@Override
 							public void effects() {
@@ -4625,7 +4716,10 @@ public class NightlifeDistrict {
 					} else if(index==2) {
 						// Shut down
 						return new Response("Pull away",
-								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Pull away from [npc.namePos] [npc.foot], before angrily telling [npc.herHim] to stop."),
+								UtilText.parse(NightlifeDistrict.getClubbersPresent(),
+										bothBipeds
+											?"Pull away from [npc.namePos] [npc.foot], before angrily telling [npc.herHim] to stop."
+											:"Pull away from [npc.namePos] unwanted touch, before angrily telling [npc.herHim] to stop."),
 								WATERING_HOLE_DOM_PARTNER_REACT) {
 							@Override
 							public void effects() {
@@ -4710,16 +4804,31 @@ public class NightlifeDistrict {
 					break;
 				case SIT_DOWN_SEX:
 					if(index==1) {
-						return new ResponseSex("Sex (sub)", UtilText.parse(getClubbersPresent(), "Slide into [npc.namePos] lap and start having submissive sex with [npc.herHim]."),
+						SexManagerDefault sm = new SMSitting(
+								Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_IN_LAP))) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+						};
+
+						if(getPartner().isTaur()) { // Partner is a taur/arachnid:
+							sm = new SexManagerDefault(
+									SexPositionOther.STANDING,
+									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_SUBMISSIVE))) {
+								@Override
+								public boolean isPublicSex() {
+									return false;
+								}
+							};
+						}
+						
+						return new ResponseSex("Sex (sub)",
+								UtilText.parse(getClubbersPresent(), "Do as [npc.name] says and start having submissive sex with [npc.herHim]."),
 								true, true,
-								new SMChair(
-										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotBipeds.CHAIR_BOTTOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_TOP))) {
-									@Override
-									public boolean isPublicSex() {
-										return false;
-									}
-								},
+								sm,
 								null,
 								null,
 								WATERING_HOLE_SEATING_AFTER_SEX,
@@ -4785,8 +4894,8 @@ public class NightlifeDistrict {
 						return new ResponseSex("Stall sex", UtilText.parse(getClubbersPresent(), "Let [npc.name] fuck you in one of the toilet's stalls."),
 								true, true,
 								new SMStallSex(
-										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotBipeds.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.STANDING_SUBMISSIVE))) {
+										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_SUBMISSIVE))) {
 									@Override
 									public boolean isPublicSex() {
 										return false;

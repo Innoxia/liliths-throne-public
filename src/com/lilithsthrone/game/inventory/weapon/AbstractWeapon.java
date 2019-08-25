@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.inventory.weapon;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -34,7 +35,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.3.11
  * @author Innoxia
  */
 public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSaving {
@@ -81,7 +82,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 							break;
 						case MISC:
 						case UNARMED:
-						case ENERGY:
+						case HEALTH:
 							break;
 						case PHYSICAL:
 							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0));
@@ -104,7 +105,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 							break;
 						case MISC:
 						case UNARMED:
-						case ENERGY:
+						case HEALTH:
 							break;
 						case PHYSICAL:
 							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_PHYSICAL, TFPotency.MAJOR_BOOST, 0));
@@ -148,6 +149,27 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		if(!weapon.name.isEmpty()) {
 			this.setName(weapon.name);
 		}
+	}
+
+	
+	public String getId() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(WeaponType.getIdFromWeaponType(this.getWeaponType()));
+		sb.append(this.getColour().toString());
+		sb.append(this.getSecondaryColour()!=null?this.getSecondaryColour().toString():"n");
+		sb.append(this.getDamageType().toString());
+		sb.append(this.getCoreEnchantment()==null?"n":this.getCoreEnchantment().toString());
+		
+		for(Spell s : this.getSpells()) {
+			sb.append(s.toString());
+		}
+		
+		for(ItemEffect ie : this.getEffects()) {
+			sb.append(ie.getId());
+		}
+		
+		return sb.toString();
 	}
 	
 	@Override
@@ -221,11 +243,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		
 		try {
 			String id = parentElement.getAttribute("id");
-			if(id.equals("MAIN_WESTERN_KKP")) {	
-				id = "innoxia_western_kkp_western_kkp";
-			}
-			weapon = AbstractWeaponType.generateWeapon(WeaponType.idToWeaponMap.get(id), DamageType.valueOf(parentElement.getAttribute("damageType")));
+			weapon = AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId(id), DamageType.valueOf(parentElement.getAttribute("damageType")));
 		} catch(Exception ex) {
+			ex.printStackTrace();
 			System.err.println("Warning: An instance of AbstractWeapon was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			return null;
 		}
@@ -327,6 +347,17 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 					+ "<p>"
 						+ weaponType.getDescription()
 					+ "</p>");
+		
+
+		// Physical resistance
+		if(getWeaponType().getPhysicalResistance()>0) {
+			descriptionSB.append("<p>"
+							+ (getWeaponType().isPlural()
+									? "They are armoured, and provide "
+									: "It is armoured, and provides ")
+								+ " <b>" + getWeaponType().getPhysicalResistance() + "</b> [style.colourResPhysical(" + Attribute.RESISTANCE_PHYSICAL.getName() + ")]."
+							+ "</p>");
+		}
 
 		if (!attributeModifiers.isEmpty()) {
 			descriptionSB.append("<p>It provides ");
@@ -509,8 +540,13 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		return attributeModifiers;
 	}
 	
-	public int getEnchantmentStabilityCost() {
-		return this.getAttributeModifiers().values().stream().reduce(0, (a, b) -> a + Math.max(0, b));//Math.abs(b));
+	/**
+	 * @return An integer value of the 'enchantment capacity cost' for this particular weapon. Does not count negative attribute values, nor values of Corruption.
+	 */
+	public int getEnchantmentCapacityCost() {
+		Map<Attribute, Integer> noCorruption = new HashMap<>();
+		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.MAJOR_CORRUPTION && ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()));
+		return noCorruption.values().stream().reduce(0, (a, b) -> a + Math.max(0, b));
 	}
 	
 	@Override

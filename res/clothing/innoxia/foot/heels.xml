@@ -6,7 +6,7 @@
 		<name><![CDATA[heel]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[heels]]></namePlural>
 		<description><![CDATA[A pair of slip-on shoes, with the heel being raised off the ground in order to make the wearer taller, as well as to accentuate their calf muscles and the overall length of their legs.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>FOOT</slot> 
 		<rarity>COMMON</rarity>
@@ -63,7 +63,7 @@
       <![CDATA[[npc.Name] [npc.verb(slip)] off [npc.her] heels.]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(slips)] off [npc2.namePos] heels.]]>
+      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc2.namePos] heels.]]>
     </other>
     <otherRough>
       <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] heels.]]>

@@ -56,7 +56,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.4
  * @author Innoxia
  */
 public enum Encounter {
@@ -144,30 +144,44 @@ public enum Encounter {
 				return Main.game.getActiveNPC().getEncounterDialogue();
 				
 				
-			} else if(node == EncounterType.SPECIAL_DOMINION_CULTIST
+			}
+			
+			if(node == EncounterType.SPECIAL_DOMINION_CULTIST
 					&& Main.game.getCurrentWeather() != Weather.MAGIC_STORM
 					&& Main.game.getDateNow().getMonth().equals(Month.OCTOBER)
-					&& Main.game.getNonCompanionCharactersPresent().isEmpty()
 					&& Main.game.getNumberOfWitches()<4
 					&& Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.DOMINION_STREET)) {
 				
-				Main.game.setActiveNPC(new Cultist());
-				
-				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
-				} catch (Exception e) {
-					e.printStackTrace();
+				boolean suitableTile = true;
+				for(GameCharacter character : Main.game.getNonCompanionCharactersPresent()) {
+					if(!Main.game.getPlayer().getFriendlyOccupants().contains(character.getId())) {
+						suitableTile = false;
+						break;
+					}
 				}
-	
-				return Main.game.getActiveNPC().getEncounterDialogue();
 				
-			} else if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS
+				if(suitableTile) {
+					Main.game.setActiveNPC(new Cultist());
+					
+					try {
+						Main.game.addNPC(Main.game.getActiveNPC(), false);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+		
+					return Main.game.getActiveNPC().getEncounterDialogue();
+				}
+			}
+			
+			if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS
 					&& Main.game.getPlayer().getName(false).equalsIgnoreCase("Kinariu")
 					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness)) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.foundHappiness, true);
 				return DominionEncounterDialogue.DOMINION_STREET_FIND_HAPPINESS;
 				
-			} else if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
+			}
+			
+			if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
 				if(slave==null) {
 					return null;
@@ -176,9 +190,9 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 				return SlaveDialogue.SLAVE_USES_YOU_STREETS;
 				
-			} else {
-				return null;
 			}
+			
+			return null;
 		}
 	},
 	
@@ -189,23 +203,25 @@ public enum Encounter {
 			if(getSlaveWantingToUseYouInDominion()!=null) {
 				return Util.newHashMapOfValues(
 						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f),
-						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_VIXEN_VIRILITY_HANDOUT, 5f),
+						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_PILL_HANDOUT, 5f),
 						new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f));
 			} else {
 				return Util.newHashMapOfValues(
 						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f),
-						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_VIXEN_VIRILITY_HANDOUT, 5f));
+						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_PILL_HANDOUT, 5f));
 			}
 		}
 		
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			LocalDateTime time = Main.game.getDateNow();
-			if(time.getMonth().equals(Month.MAY) && time.getDayOfMonth()>7 && time.getDayOfMonth()<=14) {
+			if(time.getMonth().equals(Month.MAY) && time.getDayOfMonth()>7 && time.getDayOfMonth()<=14) { // Mother's day timing, 2nd week of May
 				if(node == EncounterType.DOMINION_STREET_RENTAL_MOMMY
 						&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.mommyFound)
 						&& Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
-					Main.game.setActiveNPC(new RentalMommy());
+					Main.game.setActiveNPC(Main.game.getNpc(RentalMommy.class));
+					Main.game.getNpc(RentalMommy.class).setLocation(WorldType.DOMINION, Main.game.getPlayer().getLocation(), true);
+					
 					try {
 						Main.game.addNPC(Main.game.getActiveNPC(), false);
 					} catch (Exception e) {
@@ -213,10 +229,20 @@ public enum Encounter {
 					}
 					return Main.game.getActiveNPC().getEncounterDialogue();
 					
-				} else if(node==EncounterType.DOMINION_STREET_VIXEN_VIRILITY_HANDOUT
+				} else if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT
 						&& Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
 					
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), true));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
+					
+					return DominionEncounterDialogue.DOMINION_STREET_VIXEN_VIRILITY_HANDOUT;
+				}
+			}
+			
+			if(time.getMonth().equals(Month.JUNE) && time.getDayOfMonth()>14 && time.getDayOfMonth()<=21) { // Father's day timing, 3rd week of June
+				if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT
+						&& Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+					
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
 					
 					return DominionEncounterDialogue.DOMINION_STREET_VIXEN_VIRILITY_HANDOUT;
 				}
@@ -311,9 +337,9 @@ public enum Encounter {
 				} else {
 					List<AbstractClothingType> randomClothingList = new ArrayList<>(ClothingType.getAllClothing());
 					randomClothingList.removeIf((clothing) ->
-							(!clothing.getItemTags().contains(ItemTag.SOLD_BY_KATE)
-							&& !clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)
-							&& !clothing.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
+							(!clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_KATE)
+							&& !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
+							&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
 							|| clothing.getRarity()==Rarity.EPIC
 							|| clothing.getRarity()==Rarity.LEGENDARY);
 					randomClothing = AbstractClothingType.generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
@@ -990,7 +1016,7 @@ public enum Encounter {
 		if(Main.game.isOpportunisticAttackersEnabled()) {
 			// lust: linear boost; 25% max
 			opportunisticMultiplier += Main.game.getPlayer().getLust() / 200;
-			// energy: linear boost; 25% (theoretical) max
+			// health: linear boost; 25% (theoretical) max
 			opportunisticMultiplier += 0.25f - Main.game.getPlayer().getHealthPercentage() * 0.25f;
 			// smelly body: 25% boost
 			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.BODY_CUM)

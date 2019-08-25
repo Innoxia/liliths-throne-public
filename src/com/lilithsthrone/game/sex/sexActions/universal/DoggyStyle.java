@@ -16,8 +16,9 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.positions.SexSlot;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
@@ -45,12 +46,8 @@ public class DoggyStyle {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Sex.getCharacterPerformingAction())
-					&& (Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS
-						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND
-						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD
-						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_FOURTH)
-					&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_BEHIND
-						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_BEHIND_SECOND);
+					&& (Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.ALL_FOURS))
+					&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BEHIND_ALL_FOURS));
 		}
 		
 		@Override
@@ -202,34 +199,22 @@ public class DoggyStyle {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			boolean suitableSlot = false;
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_BEHIND) {
-				if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS) {
-					suitableSlot = Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_SD_HUMPING)==null;
-					
-				} else if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND) {
-					suitableSlot = Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_SD_HUMPING_SECOND)==null
-							&& (Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_BEHIND_SECOND)==null || Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD)!=null);
-					
-				} else if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD
-						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_FOURTH) {
-					suitableSlot = Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_BEHIND_SECOND)==null;
-				}
-				
-			} else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_BEHIND_SECOND) {
-				if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND) {
-					suitableSlot = Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_SD_HUMPING_SECOND)==null
-							&& Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD)==null;
-					
-				} else if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD
-						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_FOURTH) {
-					suitableSlot = true;;
-				}
-				
-			} else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_SD_HUMPING) {
-				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS;
-				
-			}else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_SD_HUMPING_SECOND) {
-				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND;
+			
+			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS) {
+				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING;
+			}
+			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS_TWO) {
+				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND_TWO
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING_TWO;
+			}
+			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS_THREE) {
+				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND_THREE
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING_THREE;
+			}
+			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS_FOUR) {
+				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND_FOUR
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING_FOUR;
 			}
 			
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
@@ -343,34 +328,22 @@ public class DoggyStyle {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			boolean suitableSlot = false;
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_BEHIND) {
-				if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS) {
-					suitableSlot = Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_SD_HUMPING)==null;
-					
-				} else if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND) {
-					suitableSlot = Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_SD_HUMPING_SECOND)==null
-							&& (Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_BEHIND_SECOND)==null || Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD)!=null);
-					
-				} else if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD
-						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_FOURTH) {
-					suitableSlot = Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_BEHIND_SECOND)==null;
-				}
-				
-			} else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_BEHIND_SECOND) {
-				if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND) {
-					suitableSlot = Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_SD_HUMPING_SECOND)==null
-							&& Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD)==null;
-					
-				} else if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD
-						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_FOURTH) {
-					suitableSlot = true;;
-				}
-				
-			} else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_SD_HUMPING) {
-				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS;
-				
-			}else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_SD_HUMPING_SECOND) {
-				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND;
+
+			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS) {
+				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING;
+			}
+			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS_TWO) {
+				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND_TWO
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING_TWO;
+			}
+			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS_THREE) {
+				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND_THREE
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING_THREE;
+			}
+			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS_FOUR) {
+				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND_FOUR
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING_FOUR;
 			}
 			
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
@@ -485,34 +458,22 @@ public class DoggyStyle {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			boolean suitableSlot = false;
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_BEHIND) {
-				if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS) {
-					suitableSlot = Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_SD_HUMPING)==null;
-					
-				} else if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND) {
-					suitableSlot = Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_SD_HUMPING_SECOND)==null
-							&& (Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_BEHIND_SECOND)==null || Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD)!=null);
-					
-				} else if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD
-						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_FOURTH) {
-					suitableSlot = Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_BEHIND_SECOND)==null;
-				}
-				
-			} else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_BEHIND_SECOND) {
-				if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND) {
-					suitableSlot = Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_SD_HUMPING_SECOND)==null
-							&& Sex.getCharacterInPosition(SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD)==null;
-					
-				} else if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD
-						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_FOURTH) {
-					suitableSlot = true;;
-				}
-				
-			} else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_SD_HUMPING) {
-				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS;
-				
-			}else if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotBipeds.DOGGY_SD_HUMPING_SECOND) {
-				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND;
+
+			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS) {
+				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING;
+			}
+			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS_TWO) {
+				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND_TWO
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING_TWO;
+			}
+			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS_THREE) {
+				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND_THREE
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING_THREE;
+			}
+			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotAllFours.ALL_FOURS_FOUR) {
+				suitableSlot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.BEHIND_FOUR
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotAllFours.HUMPING_FOUR;
 			}
 			
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
@@ -613,8 +574,8 @@ public class DoggyStyle {
 			SexSlot slot = Sex.getSexPositionSlot(Sex.getCharacterPerformingAction());
 			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this));
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					&& (slot==SexSlotBipeds.DOGGY_ON_ALL_FOURS || slot==SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND || slot==SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD || slot==SexSlotBipeds.DOGGY_ON_ALL_FOURS_FOURTH)
-					&& (targetedSlot==SexSlotBipeds.DOGGY_BEHIND || targetedSlot==SexSlotBipeds.DOGGY_BEHIND_SECOND || targetedSlot==SexSlotBipeds.DOGGY_BEHIND_ORAL || targetedSlot==SexSlotBipeds.DOGGY_BEHIND_ORAL_SECOND);
+					&& (slot.hasTag(SexSlotTag.ALL_FOURS))
+					&& (targetedSlot.hasTag(SexSlotTag.BEHIND_ALL_FOURS));
 		}
 		
 		@Override
@@ -657,6 +618,7 @@ public class DoggyStyle {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.MOUTH)
 					&& Sex.isDom(Sex.getCharacterPerformingAction())
+					&& Sex.getDominantParticipants(false).size()==1
 					&& Sex.getCharacterPerformingAction().hasPenisIgnoreDildo();
 		}
 		
@@ -732,7 +694,7 @@ public class DoggyStyle {
 				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" into the condom that [npc.sheIs] wearing.");
 				} else {
-					UtilText.nodeContentSB.append(" deep into [npc2.namePos] [npc.asshole+].");
+					UtilText.nodeContentSB.append(" deep into [npc2.namePos] [npc2.asshole+].");
 				}
 			}
 
@@ -791,6 +753,7 @@ public class DoggyStyle {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.MOUTH)
 					&& Sex.isDom(Sex.getCharacterPerformingAction())
+					&& Sex.getDominantParticipants(false).size()==1
 					&& Sex.getCharacterPerformingAction().hasPenisIgnoreDildo();
 		}
 		
@@ -866,7 +829,7 @@ public class DoggyStyle {
 				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" into the condom that [npc.sheIs] wearing.");
 				} else {
-					UtilText.nodeContentSB.append(" deep into [npc2.namePos] [npc.pussy+].");
+					UtilText.nodeContentSB.append(" deep into [npc2.namePos] [npc2.pussy+].");
 				}
 			}
 

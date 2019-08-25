@@ -6,7 +6,7 @@
 		<name><![CDATA[thigh high boot]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[thigh high boots]]></namePlural>
 		<description><![CDATA[A pair of thigh-high boots, with the heel being raised off the ground in order to make the wearer taller, as well as to accentuate their calf muscles and the overall length of their legs.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>FOOT</slot> 
 		<rarity>COMMON</rarity>

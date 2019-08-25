@@ -115,7 +115,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7?
- * @version 0.3.1
+ * @version 0.3.4
  * @author Innoxia
  */
 public class CharacterModificationUtils {
@@ -134,7 +134,7 @@ public class CharacterModificationUtils {
 	
 	public static String getInformationDiv(String id, TooltipInformationEventListener information) {
 		informationTooltips.put(id, information);
-		return "<div class='title-button no-select' id='"+id+"' style='position:absolute; left:auto; right:8px; top:8px; background:transparent;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>";
+		return "<div class='title-button no-select' id='"+id+"' style='position:absolute; left:auto; right:8px; top:8px; background:transparent; padding:0; margin:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>";
 	}
 	
 	public static String getStartDateDiv() {
@@ -341,10 +341,15 @@ public class CharacterModificationUtils {
 	}
 	
 	public static void performPlayerAgeCheck(int ageTarget) {
-		if(Main.game.getPlayer().getAgeValue()>ageTarget) {
-			Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusYears(1));
-		} else if(Main.game.getPlayer().getAgeValue()<ageTarget) {
-			Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusYears(1));
+		int ageDiff = Math.abs(Main.game.getPlayer().getAgeValue()-ageTarget);
+		
+		if(ageDiff>0) {
+			if(Main.game.getPlayer().getAgeValue()>ageTarget) {
+				Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusYears(ageDiff));
+				
+			} else if(Main.game.getPlayer().getAgeValue()<ageTarget) {
+				Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusYears(ageDiff));
+			}
 		}
 	}
 	
@@ -639,18 +644,18 @@ public class CharacterModificationUtils {
 	private static String applyWrapper(String title, String description, String id, String input, boolean halfWidth) {
 		if(halfWidth) {
 			return "<div class='cosmetics-inner-container' style='margin:1% 1%; width:48%; padding:1%; box-sizing:border-box; position:relative;'>"
+						+ getInformationDiv(id, new TooltipInformationEventListener().setInformation(title, description))
 						+ "<p style='text-align:center; margin:0; padding:0;'>"
-							+ getInformationDiv(id, new TooltipInformationEventListener().setInformation(title, description))
-							+ "<b>" +title+"</b>"
+							+ "<b>"+title+"</b>"
 						+"</p>"
 						+ input
 					+ "</div>";
 			
 		} else {
 			return "<div class='container-full-width'>"
+						+ getInformationDiv(id, new TooltipInformationEventListener().setInformation(title, description))
 						+"<div class='cosmetics-inner-container left'>"
 							+ "<p style='text-align:center; margin:0; padding:0;'>"
-								+ getInformationDiv(id, new TooltipInformationEventListener().setInformation(title, description))
 								+ "<b>" +title+"</b>"
 							+"</p>"
 						+ "</div>"
@@ -729,6 +734,30 @@ public class CharacterModificationUtils {
 						+ "</div>"
 					+ "</div>"
 				+ "</div>";
+	}
+	
+
+	public static String getAgeAppearanceChoiceDiv() {
+		return applyFullVariableWrapper(
+				"Age Appearance",
+				UtilText.parse(BodyChanging.getTarget(), "Change how old [npc.name] [npc.verb(appear)] to be. [npc.She] [npc.is] limited to looking as young as 18, or up to ten years older than [npc.her] real age."
+						+ "<br/><i>This is purely a cosmetic change, and doesn't affect any in-game choices.</i>"),
+				"AGE_APPEARANCE",
+				"1",
+				"5",
+				String.valueOf(BodyChanging.getTarget().getAppearsAsAgeValue()),
+				BodyChanging.getTarget().getAppearsAsAgeValue()<=18,
+				BodyChanging.getTarget().getAppearsAsAgeValue()>=(BodyChanging.getTarget().getAgeValue()+10))
+				
+				+ applyWrapper("Birthday",
+						UtilText.parse(BodyChanging.getTarget(), "[npc.NamePos] birthday can not ever be changed, but by transforming [npc.her] body, [npc.she] may appear to be younger or older than [npc.she] really is."),
+						"BIRTHDAY",
+						"<p style='text-align:center; margin:0; padding:0;'>"
+							+ BodyChanging.getTarget().getBirthdayString()
+								+ UtilText.parse(BodyChanging.getTarget(),
+									"</br>Making [npc.namePos] real age: <b style='color:"+BodyChanging.getTarget().getAge().getColour().toWebHexString()+"'>"+BodyChanging.getTarget().getAgeValue()+"</b>")
+						+"</p>",
+						true);
 	}
 	
 	public static String getHeightChoiceDiv() {

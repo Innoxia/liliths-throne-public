@@ -7,7 +7,7 @@
 		<name><![CDATA[insertable dildo]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[insertable dildos]]></namePlural>
 		<description><![CDATA[A dildo-shaped sex toy, designed to be discreetly inserted into the vagina.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>VAGINA</slot>
 		<rarity>COMMON</rarity>

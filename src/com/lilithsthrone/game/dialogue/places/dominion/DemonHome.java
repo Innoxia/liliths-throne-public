@@ -3,10 +3,12 @@ package com.lilithsthrone.game.dialogue.places.dominion;
 import java.time.Month;
 
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -15,10 +17,12 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
+import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class DemonHome {
@@ -90,7 +94,8 @@ public class DemonHome {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-
+			
+			
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "From the wide, marble-paved streets, to the immaculate frontages of the regency-style buildings, it's quite clear that this district of 'Demon Home' is one of the more upmarket areas of Dominion."
@@ -103,6 +108,15 @@ public class DemonHome {
 									+ " evidence that the wealthy and influential residents of the city are afforded extra protection."
 					+ "</p>");
 			
+			if(Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.DOMINION_DEMON_HOME_DADDY)) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>[daddy.NamePos] residence:</b><br/>"
+							+ "[daddy.NamePos] apartment is located in this particular area of Demon Home."
+							+ Daddy.getAvailabilityText()
+						+ "</p>");
+			}
+
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
@@ -164,7 +178,27 @@ public class DemonHome {
 					return null;
 				}
 
-			} else if (index == 2) {
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNode DEMON_HOME_STREET_ZARANIX = new DialogueNode("Demon Home", "Demon Home", false) {
+		
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
+		
+		@Override
+		public String getContent() {
+			return DEMON_HOME_STREET.getContent();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_H_THE_GREAT_ESCAPE) {
 					return new Response("Zaranix's Home", "A little way down the road from Arthur's apartment building stands the home of Zaranix; the demon that Scarlett told you about.", ZaranixHomeGroundFloor.OUTSIDE);
 					
@@ -172,6 +206,53 @@ public class DemonHome {
 					return new Response("Zaranix's Home", "Pay Zaranix another visit.", ZaranixHomeGroundFloorRepeat.OUTSIDE);
 				}
 				return null;
+
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNode DEMON_HOME_STREET_DADDY = new DialogueNode("Demon Home", "Demon Home", false) {
+		
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
+		
+		@Override
+		public String getContent() {
+			return DEMON_HOME_STREET.getContent();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				if(!Daddy.isAvailable()) {
+					return new Response("[daddy.Name]",
+							Daddy.getAvailabilityText(),
+							null);
+					
+				} else if(Main.game.getPlayer().hasCompanions()) {
+					return new Response("[daddy.Name]",
+							"[style.italicsBad(You cannot meet [daddy.name] while you have companions in your party!)]",
+							null);
+					
+				} else {
+					return new Response("[daddy.Name]",
+							"Head over to [daddy.namePos] apartment and knock on [daddy.her] door.",
+							DaddyDialogue.MEETING) {
+						@Override
+						public void effects() {
+							if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_DADDY, Quest.DADDY_MEETING)) {
+								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_DADDY, Quest.DADDY_MEETING));
+							}
+							Main.game.getPlayer().setLocation(WorldType.DADDYS_APARTMENT, PlaceType.DADDY_APARTMENT_ENTRANCE);
+							Main.game.getNpc(Daddy.class).setLocation(Main.game.getPlayer(), false);
+						}
+					};
+					
+				}
 
 			} else {
 				return null;
