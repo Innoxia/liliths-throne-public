@@ -1172,7 +1172,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.NECK,
 			Rarity.COMMON,
-			null,
+			ClothingSet.HEARTS,
 			"clothing/neck_heartNecklace",
 			null,
 			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),

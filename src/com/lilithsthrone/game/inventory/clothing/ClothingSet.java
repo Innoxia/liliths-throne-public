@@ -155,7 +155,21 @@ public enum ClothingSet {
 			null,
 			null),
 
-	DARK_SIREN("Dark Siren",
+	HEARTS("Romantic",
+			StatusEffect.SET_HEARTS,
+			3,
+			null,
+                        null,
+			null),
+
+	SKULL("Gothic",
+			StatusEffect.SET_SKULL,
+			3,
+			null,
+			null,
+                        null),
+        
+        DARK_SIREN("Dark Siren",
 			StatusEffect.SET_DARK_SIREN,
 			4,
 			Util.newArrayListOfValues(
