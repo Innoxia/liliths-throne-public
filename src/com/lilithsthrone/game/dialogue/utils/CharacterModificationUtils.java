@@ -341,10 +341,15 @@ public class CharacterModificationUtils {
 	}
 	
 	public static void performPlayerAgeCheck(int ageTarget) {
-		if(Main.game.getPlayer().getAgeValue()>ageTarget) {
-			Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusYears(1));
-		} else if(Main.game.getPlayer().getAgeValue()<ageTarget) {
-			Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusYears(1));
+		int ageDiff = Math.abs(Main.game.getPlayer().getAgeValue()-ageTarget);
+		
+		if(ageDiff>0) {
+			if(Main.game.getPlayer().getAgeValue()>ageTarget) {
+				Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusYears(ageDiff));
+				
+			} else if(Main.game.getPlayer().getAgeValue()<ageTarget) {
+				Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusYears(ageDiff));
+			}
 		}
 	}
 	

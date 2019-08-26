@@ -21,6 +21,7 @@ import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaOral;
 import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaSex;
+import com.lilithsthrone.game.sex.positions.SexPositionOther;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
@@ -371,6 +372,7 @@ public class CityHallDemographics {
 						"Shuffle forwards between [vanessa.namePos] legs and start eating her out.",
 						true, true,
 						new SMVanessaOral(
+								SexPositionOther.SITTING,
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotSitting.SITTING)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.PERFORMING_ORAL))),
 						null,
@@ -426,9 +428,11 @@ public class CityHallDemographics {
 								true, true,
 								biped
 									?new SMVanessaSex(
+											SexPositionOther.OVER_DESK,
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.BETWEEN_LEGS)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotDesk.OVER_DESK_ON_BACK)))
 									:new SMVanessaSex(
+											SexPositionOther.ALL_FOURS,
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.BEHIND)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotAllFours.ALL_FOURS))),
 								null,
@@ -459,9 +463,11 @@ public class CityHallDemographics {
 								true, true,
 								biped
 									?new SMVanessaOral(
+											SexPositionOther.SITTING,
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotSitting.PERFORMING_ORAL)))
 									:new SMVanessaOral(
+											SexPositionOther.STANDING,
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotStanding.PERFORMING_ORAL_BEHIND))),
 								null,
@@ -492,9 +498,11 @@ public class CityHallDemographics {
 								true, true,
 								biped
 									?new SMVanessaOral(
+											SexPositionOther.SITTING,
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotSitting.PERFORMING_ORAL)))
 									:new SMVanessaOral(
+											SexPositionOther.STANDING,
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotStanding.PERFORMING_ORAL_BEHIND))),
 								null,

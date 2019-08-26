@@ -301,7 +301,7 @@ public class SexActionUtility {
 	};
 	
 	public static final SexAction POSITION_SELECTION = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.POSITIONING_MENU,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,

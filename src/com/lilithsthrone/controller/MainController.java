@@ -90,6 +90,7 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPositionOther;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PositioningMenu;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.ImageCache;
 import com.lilithsthrone.rendering.RenderingEngine;
@@ -255,7 +256,7 @@ public class MainController implements Initializable {
 	}
 	
 	public void openPhone(DialogueNode toDialogue) {
-		if(isPhoneDisabled()) {
+		if(isPhoneDisabled() && toDialogue!=PositioningMenu.POSITIONING_MENU) {
 			return;
 		}
 		

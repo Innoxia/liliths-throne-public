@@ -195,7 +195,7 @@ public class SexSlotLyingDown {
 	
 	
 	public static final SexSlot MISSIONARY = new SexSlot(
-			"Between legs",
+			"Missionary",
 			"between legs",
 			"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, leaning down on top of [npc2.name], [npc.she] [npc.verb(gaze)] lustfully down into [npc2.her] [npc2.eyes+].",
 			false,
@@ -215,7 +215,32 @@ public class SexSlotLyingDown {
 	public static final SexSlot MISSIONARY_FOUR = new SexSlot(MISSIONARY) {
 		@Override
 		public String getDescription() {
-			return "sixty-nine (4th)";
+			return "between legs (4th)";
+		}
+	};
+	
+	public static final SexSlot MISSIONARY_ORAL = new SexSlot(
+			"Missionary oral",
+			"face between legs",
+			"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, pressing [npc.her] [npc.face] into [npc2.namePos] groin, [npc.she] [npc.verb(prepare)] to reach [npc1.her] climax.",
+			false,
+			SexSlotTag.MISSIONARY_ORAL);
+	public static final SexSlot MISSIONARY_ORAL_TWO = new SexSlot(MISSIONARY_ORAL) {
+		@Override
+		public String getDescription() {
+			return "face between legs (2nd)";
+		}
+	};
+	public static final SexSlot MISSIONARY_ORAL_THREE = new SexSlot(MISSIONARY_ORAL) {
+		@Override
+		public String getDescription() {
+			return "face between legs (3rd)";
+		}
+	};
+	public static final SexSlot MISSIONARY_ORAL_FOUR = new SexSlot(MISSIONARY_ORAL) {
+		@Override
+		public String getDescription() {
+			return "face between legs (4th)";
 		}
 	};
 

@@ -224,6 +224,11 @@ public class CandiReceptionist extends NPC {
 	}
 
 	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
+	
+	@Override
 	public boolean isUnique() {
 		return true;
 	}
@@ -235,6 +240,13 @@ public class CandiReceptionist extends NPC {
 	@Override
 	public DialogueNode getEncounterDialogue() {
 		return null;
+	}
+	
+	@Override
+	public void endSex() {
+		if(this.isSatisfiedFromLastSex()) {
+			Main.game.getDialogueFlags().candiSexTimer = Main.game.getSecondsPassed();
+		}
 	}
 
 }

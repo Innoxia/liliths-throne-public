@@ -157,7 +157,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] jacket.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] practically [npc.verb(rips)] off [npc2.namePos] jacket.]]>
+		  <![CDATA[[npc.Name] practically [npc.verb(rip)] off [npc2.namePos] jacket.]]>
 		</otherRough>
 	</displacementText>
 	 
@@ -170,7 +170,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the jacket's sleeves and [npc.verb(pull)] the rest of it over [npc.her] shoulders.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[CDATA[[npc.Name] [npc.verb(forces)] [npc2.namePos] [npc2.arms] through the jacket's sleeves and [npc.verb(yank)] the rest of it over [npc.her] shoulders.]]>
+		  <![CDATA[CDATA[[npc.Name] [npc.verb(force)] [npc2.namePos] [npc2.arms] through the jacket's sleeves and [npc.verb(yank)] the rest of it over [npc.her] shoulders.]]>
 		</otherRough>
 	</replacementText>
 

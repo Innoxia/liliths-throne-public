@@ -31,7 +31,8 @@ public class FingerAnus {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					&& Sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo();
+					&& Sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo()
+					&& !Sex.getCharacterTargetedForSexAction(this).hasVagina();
 		}
 		
 		@Override
@@ -712,7 +713,7 @@ public class FingerAnus {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Sliding [npc.her] [npc.fingers] out of [npc2.namePos]  [npc2.asshole+], [npc.name] quickly takes [npc.her] [npc.hand] away from [npc2.namePos] [npc2.assCloaca].",
 
-							"Pushing deep inside of [npc2.name] one last time, [npc.name] then slides [npc.her] [npc.fingers] back out of [npc2.namePos] [npc2.asshole+], putting an end to [npc.her] fingering."));
+							"Pushing deep inside of [npc2.name] one last time, [npc.name] then [npc.verb(slide)] [npc.her] [npc.fingers] back out of [npc2.namePos] [npc2.asshole+], putting an end to [npc.her] fingering."));
 					break;
 			}
 			

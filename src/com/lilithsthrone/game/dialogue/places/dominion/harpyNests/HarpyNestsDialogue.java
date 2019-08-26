@@ -145,6 +145,9 @@ public class HarpyNestsDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(index==0) {
+				return null;
+			}
 			if (index == 1) {
 				return new ResponseEffectsOnly("To street level", "Travel back down to Dominion's streets."){
 					@Override
@@ -165,7 +168,6 @@ public class HarpyNestsDialogue {
 						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_HARPY_NESTS_ENTRANCE, true);
 					}
 				};
-
 			}
 			
 			List<Response> responses = new ArrayList<>();
@@ -223,7 +225,7 @@ public class HarpyNestsDialogue {
 			}
 			
 			for(int i=0;i<responses.size();i++) {
-				if(index-1==i) {
+				if(index-2==i) {
 					return responses.get(i);
 				}
 			}

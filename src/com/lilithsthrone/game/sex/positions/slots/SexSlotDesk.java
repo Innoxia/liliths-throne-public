@@ -91,7 +91,7 @@ public class SexSlotDesk {
 	public static final SexSlot PERFORMING_ORAL = new SexSlot(
 			"Performing oral",
 			"performing oral",
-			"[npc.Name] [npc.verb(lower)] [npc.her] [npc.head] down into [npc2.namePos] groin, before letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
+			"[npc.Name] [npc.verb(lower)] [npc.her] head down into [npc2.namePos] groin, before letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
 			false) {
 		@Override
 		public boolean isStanding(GameCharacter target) {

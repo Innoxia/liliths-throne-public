@@ -137,7 +137,7 @@ public class PartnerSelfFingerAnus {
 					"Gently pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.asshole+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] rhythmically fingers [npc.her] [npc.ass].",
 					
 					"Curling [npc.her] [npc.fingers] up inside [npc.her] [npc.asshole], [npc.name] lets out a little whimper as [npc.she] starts "
-							+(Sex.getCharacterPerformingAction().hasPenis()?"gently stroking [npc.her] prostate.":"gently fingering [npc.her] [npc.ass+]."),
+							+(Sex.getCharacterPerformingAction().hasPenis() && !Sex.getCharacterPerformingAction().hasVagina()?"gently stroking [npc.her] prostate.":"gently fingering [npc.her] [npc.ass+]."),
 					
 					"Focusing on pleasuring [npc.her] [npc.ass+], [npc.name] starts gently pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.asshole+].");
 		}
@@ -175,7 +175,7 @@ public class PartnerSelfFingerAnus {
 					"Pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.asshole+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] rhythmically fingers [npc.her] [npc.ass].",
 					
 					"Curling [npc.her] [npc.fingers] up inside [npc.her] [npc.asshole], [npc.name] lets out [npc.a_moan] as [npc.she] starts "
-							+(Sex.getCharacterPerformingAction().hasPenis()?"stroking [npc.her] prostate.":"fingering [npc.her] [npc.ass+]."),
+							+(Sex.getCharacterPerformingAction().hasPenis() && !Sex.getCharacterPerformingAction().hasVagina()?"stroking [npc.her] prostate.":"fingering [npc.her] [npc.ass+]."),
 					
 					"Focusing on pleasuring [npc.her] [npc.ass+], [npc.name] starts pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.asshole+].");
 		}
@@ -213,7 +213,7 @@ public class PartnerSelfFingerAnus {
 					"Roughly pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.asshole+], [npc.name] [npc.verb(start)] letting out a series of delighted [npc.moans] as [npc.she] ruthlessly fingers [npc.her] own [npc.ass].",
 					
 					"Forcefully curling [npc.her] [npc.fingers] up inside [npc.her] [npc.asshole], [npc.name] lets out [npc.a_moan] as [npc.she] [npc.verb(start)] "
-							+(Sex.getCharacterPerformingAction().hasPenis()
+							+(Sex.getCharacterPerformingAction().hasPenis() && !Sex.getCharacterPerformingAction().hasVagina()
 									?"roughly grinding [npc.her] fingertips up against [npc.her] prostate."
 									:"roughly grinding [npc.her] digits in and out of [npc.her] [npc.ass+]."),
 					
@@ -253,7 +253,7 @@ public class PartnerSelfFingerAnus {
 					"Pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.asshole+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] rhythmically fingers [npc.her] [npc.ass].",
 					
 					"Curling [npc.her] [npc.fingers] up inside [npc.her] [npc.asshole], [npc.name] lets out [npc.a_moan] as [npc.she] starts "
-							+(Sex.getCharacterPerformingAction().hasPenis()?"stroking [npc.her] prostate.":"fingering [npc.her] [npc.ass+]."),
+							+(Sex.getCharacterPerformingAction().hasPenis() && !Sex.getCharacterPerformingAction().hasVagina()?"stroking [npc.her] prostate.":"fingering [npc.her] [npc.ass+]."),
 					
 					"Focusing on pleasuring [npc.her] [npc.ass+], [npc.name] starts pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.asshole+].");
 		}
@@ -291,7 +291,7 @@ public class PartnerSelfFingerAnus {
 					"Enthusiastically pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.asshole+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] frantically fingers [npc.her] own [npc.ass].",
 					
 					"Desperately curling [npc.her] [npc.fingers] up inside [npc.her] [npc.asshole], [npc.name] lets out [npc.a_moan] as [npc.she] starts "
-							+(Sex.getCharacterPerformingAction().hasPenis()
+							+(Sex.getCharacterPerformingAction().hasPenis() && !Sex.getCharacterPerformingAction().hasVagina()
 									?"eagerly grinding [npc.her] fingertips up against [npc.her] prostate."
 									:"eagerly grinding [npc.her] digits in and out of [npc.her] [npc.ass+]."),
 					

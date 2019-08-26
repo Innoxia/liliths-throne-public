@@ -155,7 +155,8 @@ public class PlayerSelfFingerAnus {
 					
 					"Gently pumping your [pc.fingers] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.ass].",
 					
-					"Curling your [pc.fingers] up inside your [pc.asshole], you let out a little whimper as you start "+(Main.game.getPlayer().hasPenis()?"gently stroking your prostate.":"gently fingering your [pc.ass+]."),
+					"Curling your [pc.fingers] up inside your [pc.asshole], you let out a little whimper as you start "
+							+(Main.game.getPlayer().hasPenis() && !Sex.getCharacterPerformingAction().hasVagina()?"gently stroking your prostate.":"gently fingering your [pc.ass+]."),
 					
 					"Focusing on pleasuring your [pc.ass+], you start gently pumping your [pc.fingers] in and out of your [pc.asshole+].");
 		}
@@ -197,7 +198,7 @@ public class PlayerSelfFingerAnus {
 					
 					"Pumping your [pc.fingers] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.ass].",
 					
-					"Curling your [pc.fingers] up inside your [pc.asshole], you let out [pc.a_moan] as you start "+(Main.game.getPlayer().hasPenis()?"stroking your prostate.":"fingering your [pc.ass+]."),
+					"Curling your [pc.fingers] up inside your [pc.asshole], you let out [pc.a_moan] as you start "+(Main.game.getPlayer().hasPenis() && !Sex.getCharacterPerformingAction().hasVagina()?"stroking your prostate.":"fingering your [pc.ass+]."),
 					
 					"Focusing on pleasuring your [pc.ass+], you start pumping your [pc.fingers] in and out of your [pc.asshole+].");
 		}
@@ -240,7 +241,7 @@ public class PlayerSelfFingerAnus {
 					"Roughly pumping your [pc.fingers] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you ruthlessly finger your own [pc.ass].",
 					
 					"Forcefully curling your [pc.fingers] up inside your [pc.asshole], you let out [pc.a_moan] as you start "
-							+(Main.game.getPlayer().hasPenis()
+							+(Main.game.getPlayer().hasPenis() && !Sex.getCharacterPerformingAction().hasVagina()
 									?"roughly grinding your fingertips up against your prostate."
 									:"roughly grinding your digits in and out of your [pc.ass+]."),
 					
@@ -284,7 +285,8 @@ public class PlayerSelfFingerAnus {
 					
 					"Pumping your [pc.fingers] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically finger your [pc.ass].",
 					
-					"Curling your [pc.fingers] up inside your [pc.asshole], you let out [pc.a_moan] as you start "+(Main.game.getPlayer().hasPenis()?"stroking your prostate.":"fingering your [pc.ass+]."),
+					"Curling your [pc.fingers] up inside your [pc.asshole], you let out [pc.a_moan] as you start "
+							+(Main.game.getPlayer().hasPenis() && !Sex.getCharacterPerformingAction().hasVagina()?"stroking your prostate.":"fingering your [pc.ass+]."),
 					
 					"Focusing on pleasuring your [pc.ass+], you start pumping your [pc.fingers] in and out of your [pc.asshole+].");
 		}
@@ -327,7 +329,7 @@ public class PlayerSelfFingerAnus {
 					"Enthusiastically pumping your [pc.fingers] in and out of your [pc.asshole+], you find yourself letting out a series of delighted [pc.moans] as you frantically finger your own [pc.ass].",
 					
 					"Desperately curling your [pc.fingers] up inside your [pc.asshole], you let out [pc.a_moan] as you start "
-							+(Main.game.getPlayer().hasPenis()
+							+(Main.game.getPlayer().hasPenis() && !Sex.getCharacterPerformingAction().hasVagina()
 									?"eagerly grinding your fingertips up against your prostate."
 									:"eagerly grinding your digits in and out of your [pc.ass+]."),
 					

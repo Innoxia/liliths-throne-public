@@ -10,7 +10,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -23,10 +23,8 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public class SMVanessaOral extends SexManagerDefault {
 	
-	public SMVanessaOral(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(!Main.game.getPlayer().isTaur()
-					?SexPositionOther.SITTING
-					:SexPositionOther.STANDING,
+	public SMVanessaOral(AbstractSexPosition position, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(position,
 				dominants,
 				submissives);
 	}

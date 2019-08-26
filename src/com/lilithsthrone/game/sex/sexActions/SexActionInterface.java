@@ -960,12 +960,15 @@ public interface SexActionInterface {
 				}
 				@Override
 				public boolean isSexPositioningHighlight() {
-					return SexActionInterface.this.getActionType()==SexActionType.POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX);
+					return !SexActionInterface.this.isPositionSwap() && (SexActionInterface.this.getActionType()==SexActionType.POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX));
 				}
 				@Override
 				public Colour getHighlightColour() {
 					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
 						return Colour.BASE_LILAC;
+					}
+					if(SexActionInterface.this.isPositionSwap()) {
+						return Colour.BASE_PURPLE_LIGHT;
 					}
 					if(isSexPenetrationHighlight()) {
 						if(SexActionInterface.this.getPerformingCharacterAreas().stream().anyMatch((area) -> area.isPenetration())) {
@@ -1013,12 +1016,15 @@ public interface SexActionInterface {
 				}
 				@Override
 				public boolean isSexPositioningHighlight() {
-					return SexActionInterface.this.getActionType()==SexActionType.POSITIONING;
+					return !SexActionInterface.this.isPositionSwap() && SexActionInterface.this.getActionType()==SexActionType.POSITIONING;
 				}
 				@Override
 				public Colour getHighlightColour() {
 					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
 						return Colour.BASE_LILAC;
+					}
+					if(SexActionInterface.this.isPositionSwap()) {
+						return Colour.BASE_PURPLE_LIGHT;
 					}
 					if(getCategory()==SexActionCategory.CHARACTER_SWITCH) {
 						return Colour.BASE_PURPLE_LIGHT;
@@ -1070,7 +1076,7 @@ public interface SexActionInterface {
 				}
 				@Override
 				public boolean isSexPositioningHighlight() {
-					return getActionType()==SexActionType.POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX);
+					return !SexActionInterface.this.isPositionSwap() && (getActionType()==SexActionType.POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX));
 				}
 				@Override
 				public SexPace getSexPace() {
@@ -1175,7 +1181,7 @@ public interface SexActionInterface {
 			}
 			@Override
 			public boolean isSexPositioningHighlight() {
-				return getActionType()==SexActionType.POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX);
+				return !SexActionInterface.this.isPositionSwap() && (getActionType()==SexActionType.POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX));
 			}
 			@Override
 			public SexPace getSexPace() {

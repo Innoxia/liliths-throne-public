@@ -69,8 +69,8 @@ public class Tongue implements BodyPartInterface {
 			list.add(tm.getName());
 		}
 		list.add(type.getDescriptor(owner));
-		
-        return UtilText.returnStringAtRandom(list.toArray(new String[]{}));
+
+		return Util.randomItemFrom(list);
 	}
 	
 	/**

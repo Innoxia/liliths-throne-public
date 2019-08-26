@@ -3697,11 +3697,12 @@ public abstract class GameCharacter implements XMLSaving {
 		this.birthday = birthday;
 		
 		if(this.isPlayer()) {
-			if(this.getAgeValue()<MINIMUM_AGE) {
-				this.birthday = (this.getBirthday().minusYears(MINIMUM_AGE-this.getAgeValue()));
+			long age = ChronoUnit.YEARS.between(birthday, Main.game.getDateNow());
+			if(age<MINIMUM_AGE) {
+				this.birthday = (this.getBirthday().minusYears(MINIMUM_AGE-age));
 				
-			} else if(this.getAgeValue()>50) {
-				this.birthday = (this.getBirthday().plusYears(this.getAgeValue()-50));
+			} else if(age>50) {
+				this.birthday = (this.getBirthday().plusYears(age-50));
 			}
 		}
 	}
@@ -3758,7 +3759,11 @@ public abstract class GameCharacter implements XMLSaving {
 //		}
 		return history;
 	}
-
+	
+	public boolean hasOccupationTag(OccupationTag tag) {
+		return history.getOccupationTags().contains(tag);
+	}
+	
 	public boolean hasJob() {
 		return !getHistory().isLowlife() && getHistory()!=Occupation.UNEMPLOYED;
 	}
@@ -6645,10 +6650,10 @@ public abstract class GameCharacter implements XMLSaving {
 			weight-=100000;
 		}
 
-		if(fetishes.contains(Fetish.FETISH_FOOT_GIVING) && !this.getFetishDesire(Fetish.FETISH_FOOT_GIVING).isPositive()) {
+		if(fetishes.contains(Fetish.FETISH_FOOT_GIVING) && (this.getFetishDesire(Fetish.FETISH_FOOT_GIVING).isNegative() || !Main.game.getPlayer().getFetishDesire(Fetish.FETISH_FOOT_RECEIVING).isPositive())) {
 			weight-=100000;
 		}
-		if(fetishes.contains(Fetish.FETISH_FOOT_RECEIVING) && !this.getFetishDesire(Fetish.FETISH_FOOT_RECEIVING).isPositive()) {
+		if(fetishes.contains(Fetish.FETISH_FOOT_RECEIVING) && (this.getFetishDesire(Fetish.FETISH_FOOT_RECEIVING).isNegative() || !Main.game.getPlayer().getFetishDesire(Fetish.FETISH_FOOT_GIVING).isPositive())) {
 			weight-=100000;
 		}
 		if((fetishes.contains(Fetish.FETISH_FOOT_GIVING) || fetishes.contains(Fetish.FETISH_FOOT_RECEIVING)) && !Main.game.isFootContentEnabled()) {

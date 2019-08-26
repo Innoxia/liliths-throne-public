@@ -345,6 +345,7 @@ public class Sex {
 		
 		lastUsedSexAction = new HashMap<>();
 		for(GameCharacter character : Sex.getAllParticipants()) {
+			sexCountMap.put(character, new HashMap<>());
 			if(character.isPlayer()) {
 				lastUsedSexAction.put(character, SexActionUtility.PLAYER_NONE);
 			} else {
@@ -1241,8 +1242,9 @@ public class Sex {
 		public String getLabel() {
 			return (!Sex.isConsensual() && Main.getProperties().hasValue(PropertyValue.nonConContent)?"Non-consensual ":"")
 					+(Sex.isPublicSex()?"Public ":"")
-					+(Sex.getAllParticipants().size()>1?"Sex: ":"Masturbation: ")
-					+getPosition().getName();
+					+(getPosition().getName().isEmpty()
+							?(Sex.getAllParticipants(false).size()>1?"Sex":"Masturbation")
+							:(Sex.getAllParticipants(false).size()>1?"Sex: ":"Masturbation: ")+getPosition().getName());
 		}
 
 		@Override
@@ -1669,12 +1671,17 @@ public class Sex {
 				}
 			}
 		}
+		
 		positionActionsPlayer.sort((a1, a2) -> 
-			a1.getActionType()==a2.getActionType()
+		a1.getActionType()==SexActionType.POSITIONING_MENU
+			?a2.getActionType()==SexActionType.POSITIONING_MENU
 				?a1.getActionTitle().compareTo(a2.getActionTitle())
-				:a1.getActionType()==SexActionType.POSITIONING_MENU
-					?-1:
-					1);
+				:-1
+			:a2.getActionType()!=SexActionType.POSITIONING_MENU && a1.isPositionSwap()
+				?-1
+				:a1.getActionType()!=SexActionType.POSITIONING_MENU && a2.isPositionSwap()
+					?1
+					:a1.getActionTitle().compareTo(a2.getActionTitle()));
 		
 		if(Sex.getTotalParticipantCount(false)>2) {
 			for(GameCharacter character : Sex.getAllParticipants(false)) {
@@ -3224,6 +3231,18 @@ public class Sex {
 		
 		return Sex.getInitialSexManager().isPositionChangingAllowed(characterWantingToChangePosition);
 	}
+
+	public static boolean isPositionMenuChangingAllowed(GameCharacter characterWantingToChangePosition) {
+		if(Sex.isMasturbation()) {
+			return true;
+		}
+		if(isCharacterBannedFromPositioning(characterWantingToChangePosition)
+				|| Sex.isCharacterForbiddenByOthersFromPositioning(characterWantingToChangePosition)) {
+			return false;
+		}
+		
+		return Sex.getInitialSexManager().isPositionChangingAllowed(characterWantingToChangePosition);
+	}
 	
 	public static List<SexType> getRequestsBlocked(GameCharacter character) {
 		return requestsBlocked.get(character);
@@ -3257,7 +3276,7 @@ public class Sex {
 		if(targeter!=null
 				&& targeter.isPlayer()
 				&& Sex.allParticipants!=null
-				&& Sex.allParticipants.size()>1) {
+				&& Sex.getAllParticipants(false).size()>1) {
 			return activePartner;
 			
 		} else {
@@ -3319,7 +3338,7 @@ public class Sex {
 	}
 	
 	public static boolean isMasturbation() {
-		return Sex.allParticipants.size()==1;
+		return Sex.getAllParticipants(false).size()==1;
 	}
 	
 	public static List<GameCharacter> getAllParticipants(boolean includeSpectators) {
@@ -3856,21 +3875,6 @@ public class Sex {
 		
 		Sex.resetAllOngoingActions(!sexInitFinished);
 		
-		actionsAvailable.clear();
-		orgasmActionsAvailable.clear();
-		for(GameCharacter character : Sex.allParticipants) {
-			actionsAvailable.put(character, new HashMap<>());
-			orgasmActionsAvailable.put(character, new HashMap<>());
-			
-			for(GameCharacter target : Sex.allParticipants) {
-				if(!character.equals(target) || Sex.isMasturbation()) {
-					actionsAvailable.get(character).put(target, new HashSet<>());
-					orgasmActionsAvailable.get(character).put(target, new HashSet<>());
-				}
-			}
-		}
-		
-		
 		// Add dominants to map, with the leader as the first entry:
 		List<GameCharacter> tempCharacterList = new ArrayList<>(sexManager.getDominants().keySet());
 		tempCharacterList.addAll(dominantSpectators);
@@ -3937,6 +3941,20 @@ public class Sex {
 			}
 		}
 		
+		actionsAvailable.clear();
+		orgasmActionsAvailable.clear();
+		for(GameCharacter character : Sex.allParticipants) {
+			actionsAvailable.put(character, new HashMap<>());
+			orgasmActionsAvailable.put(character, new HashMap<>());
+			
+			for(GameCharacter target : Sex.allParticipants) {
+				if(!character.equals(target) || Sex.isMasturbation()) {
+					actionsAvailable.get(character).put(target, new HashSet<>());
+					orgasmActionsAvailable.get(character).put(target, new HashSet<>());
+				}
+			}
+		}
+		
 		Sex.sexManager = sexManager;
 		
 		Main.game.setInSex(true);
@@ -3978,7 +3996,7 @@ public class Sex {
 		}
 	}
 	
-	private static void updateAvailableActions() {
+	public static void updateAvailableActions() {
 		for(GameCharacter character : Sex.allParticipants) {
 			for(GameCharacter target : Sex.allParticipants) {
 				if(!character.equals(target) || Sex.isMasturbation()) {
@@ -4263,7 +4281,7 @@ public class Sex {
 	 */
 	public static GameCharacter getCharacterInPosition(SexSlot position) {
 		if(!Sex.isSexStarted()) {
-			return Main.game.getPlayer(); // This is just a ctach for when calculating maximum slot size before sex has started.
+			return Main.game.getPlayer(); // This is just a catch for when calculating maximum slot size before sex has started.
 		}
 		
 		for(Entry<GameCharacter, SexSlot> entry : Sex.dominants.entrySet()) {

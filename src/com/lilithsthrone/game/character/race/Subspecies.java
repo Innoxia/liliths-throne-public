@@ -3086,7 +3086,7 @@ public enum Subspecies {
 				worldSpecies.get(type.getKey()).put(species, type.getValue());
 				
 				try {
-					if(type.getKey()==WorldType.DOMINION && species.getStatusEffectAttributeModifiers(null).get(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue()) {
+					if(type.getKey()==WorldType.DOMINION && species.getRace()==Race.DEMON && species.getStatusEffectAttributeModifiers(null).get(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue()) {
 						dominionStormImmuneSpecies.put(species, type.getValue());
 					}
 				} catch(Exception ex) {	

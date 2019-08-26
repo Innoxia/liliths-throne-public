@@ -57,7 +57,7 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public class SexPositionOther {
 	
-	public static final AbstractSexPosition MASTURBATION = new AbstractSexPosition("Kneeling",
+	public static final AbstractSexPosition MASTURBATION = new AbstractSexPosition("",
 			true,
 			SexActionPresets.positioningActionsNew,
 			Util.newArrayListOfValues(Masturbation.class),
@@ -2240,8 +2240,12 @@ public class SexPositionOther {
 				for(SexSlot humpingSlot : humpingList) {
 					interactions.add(StandardSexActionInteractions.allFoursBehindToHumping.getSexActionInteractions(behindSlot, humpingSlot));
 				}
-				for(SexSlot inFrontSlot : inFrontList) {
-					interactions.add(StandardSexActionInteractions.characterToCharactersFront.getSexActionInteractions(behindSlot, inFrontSlot));
+			}
+			for(int i=0; i<4; i++) {
+				if(Sex.getCharacterInPosition(allFoursList.get(i))!=null && !Sex.getCharacterInPosition(allFoursList.get(i)).isTaur()) {
+					for(SexSlot inFrontSlot : inFrontList) {
+						interactions.add(StandardSexActionInteractions.allFourscharacterBehindToCharactersFront.getSexActionInteractions(behindList.get(i), inFrontSlot));
+					}
 				}
 			}
 			
@@ -2715,8 +2719,8 @@ public class SexPositionOther {
 				if(lapPillow!=null) {
 					sb.append(UtilText.parse(lapPillow, lyingDown,
 							continuation
-							?" Meanwhile, eager to fuss over [npc2.herHim], [npc.nameHasFull] knelt down beside [npc2.namePos] [npc2.face], before lifting [npc2.her] [npc2.head] and resting it on [npc.her] lap."
-							:" Eager to fuss over [npc2.herHim], [npc.nameHasFull] knelt down beside [npc2.namePos] [npc2.face], before lifting [npc2.her] [npc2.head] and resting it on [npc.her] lap."));
+							?" Meanwhile, eager to fuss over [npc2.herHim], [npc.nameHasFull] knelt down beside [npc2.namePos] [npc2.face], before lifting [npc2.her] head and resting it on [npc.her] lap."
+							:" Eager to fuss over [npc2.herHim], [npc.nameHasFull] knelt down beside [npc2.namePos] [npc2.face], before lifting [npc2.her] head and resting it on [npc.her] lap."));
 				}
 				
 				
@@ -2936,7 +2940,9 @@ public class SexPositionOther {
 	
 	public static final AbstractSexPosition SITTING = new AbstractSexPosition("Sitting Down",
 			true,
-			Util.newArrayListOfValues(ChairSex.class),
+			Util.mergeLists(
+					SexActionPresets.positioningActionsNew,
+					Util.newArrayListOfValues(ChairSex.class)),
 			new ArrayList<>(),
 			null) {
 		@Override
@@ -3356,7 +3362,7 @@ public class SexPositionOther {
 					interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL_FOUR, SexSlotSitting.SITTING_THREE));
 				}
 			}
-			
+
 			return generateSlotTargetsMap(interactions);
 		}
 		@Override

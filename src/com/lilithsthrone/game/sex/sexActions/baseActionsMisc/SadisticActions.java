@@ -14,8 +14,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.4
@@ -23,67 +21,6 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class SadisticActions {
-
-	public static final SexAction ROUGH_TALK = new SexAction(
-			SexActionType.REQUIRES_NO_PENETRATION,
-			ArousalIncrease.THREE_NORMAL,
-			ArousalIncrease.THREE_NORMAL,
-			CorruptionLevel.THREE_DIRTY,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, null)),
-			SexParticipantType.NORMAL,
-			SexPace.DOM_ROUGH) {
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return (Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_DOMINANT) || Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST)) && !Sex.isDom(Sex.getCharacterTargetedForSexAction(this));
-		}
-		
-		@Override
-		public String getActionTitle() {
-			if(Sex.getCharacterPerformingAction().isSpeechMuffled()) {
-				return "Threatening growl";
-			}
-			return "Degrading talk";
-		}
-
-		@Override
-		public String getActionDescription() {
-			if(Sex.getCharacterPerformingAction().isSpeechMuffled()) {
-				return "As your mouth is blocked, you're not able to tell [npc2.name] that [npc2.sheIs] your little fuck-toy, but you can still make an aggressive growling noise to let [npc2.her] know you still mean business.";
-			}
-			return "Tell [npc2.name] that [npc2.sheIs] your little fuck-toy.";
-		}
-
-		@Override
-		public String getDescription() {
-			StringBuilder sb = new StringBuilder();
-
-			if(Sex.getCharacterPerformingAction().isSpeechMuffled()) {
-				sb.append(
-						UtilText.returnStringAtRandom(
-						"As [npc.namePos] mouth is blocked, [npc.sheIs] not able to speak, but, still wanting to give [npc2.name] an audible reminder that [npc2.sheIs] [npc.her] bitch, [npc.she] [npc.verb(let)] out a particularly aggressive growl.",
-						"Due to [npc.her] mouth currently being blocked, [npc.nameIsFull] not able to speak, and instead decides to let out a deep, menacing growl to let [npc2.name] know that [npc2.sheIs] still [npc.her] worthless bitch.",
-						"Not being deterred by [npc.her] current lack of ability to speak, [npc.name] [npc.verb(let)] out a particularly threatening growl, letting [npc2.name] know that [npc2.sheIs] going to be treated like a pathetic fuck-toy.",
-						"Although [npc.her] mouth is blocked, making [npc.herHim] unable to speak,"
-								+ " [npc.nameIsFull] not deterred from making one of the most menacing growls [npc.she] can muster, letting [npc2.name] know that [npc2.sheIs] going to be treated like a submissive bitch."));
-				
-			} else {
-				if(Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_SADIST).isPositive()) {
-					sb.append(UtilText.returnStringAtRandom(
-							"With an evil grin, [npc.name] [npc.verb(snarl)] at [npc2.name], ",
-							"[npc.NamePos] voice drips with sadistic glee as [npc.she] [npc.verb(snarl)], "));
-				} else {
-					sb.append(UtilText.returnStringAtRandom(
-							"Grinning to [npc.herself], [npc.name] [npc.verb(snarl)] at [npc2.name], ",
-							"[npc.Name] puts on [npc.her] most dominant voice as [npc.she] [npc.verb(snarl)], "));
-				}
-				
-				sb.append(Sex.getCharacterPerformingAction().getRoughTalk());
-			}
-			
-			return sb.toString();
-		}
-	};
 	
 	public static final SexAction SLAP_FACE = new SexAction(
 			SexActionType.ONGOING,

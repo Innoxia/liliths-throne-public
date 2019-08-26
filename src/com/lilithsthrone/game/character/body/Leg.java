@@ -124,8 +124,8 @@ public class Leg implements BodyPartInterface {
 		descriptorList.add(type.getDescriptor(gc));
 		descriptorList.add(type.getDescriptor(gc));
 		descriptorList.add(Util.randomItemFrom(gc.getBodyShape().getLimbDescriptors()));
-		
-		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+
+		return Util.randomItemFrom(descriptorList);
 	}
 
 	public String setType(GameCharacter owner, AbstractLegType type) {

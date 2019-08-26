@@ -230,6 +230,32 @@ public class PhoneDialogue {
 							UtilText.parseFromXMLFile("misc/misc", "MASTURBATION"));
 				}
 				
+			} else if (index == 13){
+				if(!Main.game.isSavedDialogueNeutral()) {
+					return new Response("Loiter", "You can only loiter to pass the time when in a neutral dialogue scene!", null);
+				}
+				if(Main.game.getPlayerCell().getPlace().isDangerous()) {
+					return new Response("Loiter", "You can only loiter to pass the time when in a safe area!", null);
+				}
+				if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
+					return new Response("Loiter", "This is not a suitable place in which to loitering about for four hours!", null);
+				}
+				return new ResponseEffectsOnly("Loiter", "Loiter in this area for the next four hours.") {
+					@Override
+					public int getSecondsPassed() {
+						return 60*60*4;
+					}
+					@Override
+					public void effects() {
+						Main.mainController.openPhone();
+						Main.game.getTextStartStringBuilder().append(
+								"<p style='text-align:center;'>"
+								+ "<i>You spent the next four hours loitering about, doing nothing in particular...</i>"
+								+ "</p>");
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+					}
+				};
+				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
 					@Override
@@ -2944,7 +2970,7 @@ public class PhoneDialogue {
 						if(worldTypeMap==world) {
 							return new Response(Util.capitaliseSentence(world.getName()), "You are already viewing the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), null);
 							
-						} else if(Main.game.getPlayer().getWorldsVisited().contains(world)) { 
+						} else if(Main.game.getPlayer().getWorldsVisited().contains(world) || Main.getProperties().hasValue(PropertyValue.mapReveal)) { 
 							return new Response(Util.capitaliseSentence(world.getName()), "View the map of "+world.getName()+"."+(playerPresent?"<br/>[style.colourGood(You are currently in this area!)]":""), MAP) {
 								@Override
 								public Colour getHighlightColour() {

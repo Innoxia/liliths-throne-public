@@ -127,9 +127,9 @@ public class Vagina implements BodyPartInterface {
 			descriptorList.add(type.getDescriptor(owner));
 		}
 		
-		descriptorList.add(Capacity.getCapacityFromValue(orificeVagina.getStretchedCapacity()).getDescriptor());
-		
-		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+		descriptorList.add(Capacity.getCapacityFromValue(orificeVagina.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
+
+		return Util.randomItemFrom(descriptorList);
 	}
 	
 	public String getUrethraDescriptor(GameCharacter owner) {
@@ -141,9 +141,9 @@ public class Vagina implements BodyPartInterface {
 		
 		descriptorList.add(type.getDescriptor(owner));
 		
-		descriptorList.add(Capacity.getCapacityFromValue(orificeUrethra.getStretchedCapacity()).getDescriptor());
-		
-		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+		descriptorList.add(Capacity.getCapacityFromValue(orificeUrethra.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
+
+		return Util.randomItemFrom(descriptorList);
 	}
 	
 	public String setType(GameCharacter owner, VaginaType type) {

@@ -273,7 +273,7 @@ public class Lyssieth extends NPC {
 		// Anus settings and modifiers
 		
 		// Penis:
-		// n/a
+		this.setPenisType(PenisType.NONE);
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -378,6 +378,12 @@ public class Lyssieth extends NPC {
 		if(Main.game.getPlayer().hasPenis()) {
 			Main.game.getPlayer().fillCumToMaxStorage();
 		}
+
+		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
+		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_RED_DARK), false);
+		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, Colour.SKIN_RED_DARK), false);
+		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_RED_DARK), false);
+		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED), false);
 	}
 	
 	public void setDaughterToFullDemon(Class<? extends NPC> daughterClass) {
@@ -389,11 +395,11 @@ public class Lyssieth extends NPC {
 		Main.game.getNpc(daughterClass).setFaceType(FaceType.DEMON_COMMON);
 		Main.game.getNpc(daughterClass).setSubspeciesOverride(Subspecies.DEMON);
 
-		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.ANUS, Main.game.getNpc(daughterClass).getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
-		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Main.game.getNpc(daughterClass).getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
-		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, Main.game.getNpc(daughterClass).getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
-		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.VAGINA, Main.game.getNpc(daughterClass).getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
-		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.PENIS, Main.game.getNpc(daughterClass).getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
+		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
+		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_RED_DARK), false);
+		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, Colour.SKIN_RED_DARK), false);
+		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_RED_DARK), false);
+		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED), false);
 		
 		Main.game.getNpc(Lilaya.class).setArousal(100);
 		Main.game.getPlayer().setArousal(100, true);
@@ -703,7 +709,7 @@ public class Lyssieth extends NPC {
 	
 	@Override
 	public void endSex() {
-		this.setPenisType(PenisType.NONE);
+//		this.setPenisType(PenisType.NONE);
 	}
 
 	@Override
@@ -791,6 +797,12 @@ public class Lyssieth extends NPC {
 		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
 		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
 //			this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_BLACK));
+		
+		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_RED_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, Colour.SKIN_RED_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_RED_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED), false);
 		
 		// Face:
 		this.setFaceVirgin(false);
