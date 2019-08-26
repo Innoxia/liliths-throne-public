@@ -2696,13 +2696,13 @@ public class SexPositionOther {
 					}
 				}
 				if(faceSittingReverse!=null) {
-					if(!faceSitting.isTaur()) {
-						sb.append(UtilText.parse(faceSitting, lyingDown,
+					if(!faceSittingReverse.isTaur()) {
+						sb.append(UtilText.parse(faceSittingReverse, lyingDown,
 								continuation
 								?" Meanwhile, [npc.nameHasFull] stepped over the top of [npc2.name], before turning around to face [npc2.her] lower body and then lowering [npc.herself] down in order to assume the reverse face-sitting position."
 								:" [npc.NameHasFull] stepped over the top of [npc2.name], before turning around to face [npc2.her] lower body and then lowering [npc.herself] down in order to assume the reverse face-sitting position."));
 					} else {
-						sb.append(UtilText.parse(faceSitting, lyingDown,
+						sb.append(UtilText.parse(faceSittingReverse, lyingDown,
 								continuation
 								?" Meanwhile, [npc.nameHasFull] stepped over the top of [npc2.name],"
 										+ " before turning around to face [npc2.her] lower body and then lowering [npc.her] feral [npc.legRace]'s body down in order to assume the reverse face-sitting position."
