@@ -250,7 +250,7 @@ public class OccupancyUtil implements XMLSaving {
 				
 				// chance to gain experience based on profits
 				if(workQuality > (float)Math.random() * 2) {
-					slave.incrementExperience(3, false);
+					slave.incrementExperience((int)(Math.random()*3), false);
 				}
 				
 			} else {
