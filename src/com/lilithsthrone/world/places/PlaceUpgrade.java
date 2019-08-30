@@ -704,7 +704,7 @@ public enum PlaceUpgrade {
 
 	public static ArrayList<PlaceUpgrade> getSlaveQuartersUpgradesQuadruple() {
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
-			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(slaveQuartersUpgradesDouble);
+			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(slaveQuartersUpgradesQuadruple);
 			listArthurRemoved.remove(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
 			return listArthurRemoved;
 		}
