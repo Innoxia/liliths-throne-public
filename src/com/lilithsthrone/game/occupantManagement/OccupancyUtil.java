@@ -239,7 +239,9 @@ public class OccupancyUtil implements XMLSaving {
 					generatedIncome += income;
 					incrementSlaveDailyIncome(slave, income);
 					
-					workQuality += (float)income / (float)slave.getSlaveJob().getIncome();
+					if(slave.getSlaveJob().getIncome()>0) { // Some jobs have 0 income
+						workQuality += (float)income / (float)slave.getSlaveJob().getIncome();
+					}
 				}
 				// Overworked effect:
 				if(slave.hasStatusEffect(StatusEffect.OVERWORKED)) {
