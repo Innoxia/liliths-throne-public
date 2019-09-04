@@ -1322,7 +1322,7 @@ public class DebugDialogue {
 				return new Response("Help", "", PARSER_HELP);
 				
 			} else if (index == 3) {
-				return new Response("Targets", "", null);
+				return new Response("Targets", "", PARSER_TARGETS); //Yay! I fixed Innoxia's super fun and interesting guide to parsing!
 				
 			} else if (index == 4) {
 				return new Response("Commands", "", PARSER_COMMANDS_NEAT);
