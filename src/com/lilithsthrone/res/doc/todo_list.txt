@@ -127,6 +127,7 @@
 		Fixed bug in lying down position where when using reverse face-sitting, the sex scene would sometimes break. (PR#1200 by Sphilia)
 		Fixed bug where quadruple slave room upgrades would instead be showing upgrades for the double slave room. (PR#1196 by EPSIL0N)
 		Added support for clover clamps and realistic dildo to be equipped in sex, and to not conceal the vagina. Also added support for slaves to gain experience from working at their job. (PR#1201 by Norin)
+		Fixed issues with slave/occupant selection when choosing who to have sex with in rooms in Lilaya's house. (PR#1205 by EPSIL0N)
 	
 	Items:
 		Renamed 'knightly sword' to 'arming sword', and added a sheathed icon for when it's not equipped.
