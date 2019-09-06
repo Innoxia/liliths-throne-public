@@ -88,12 +88,18 @@
     </itemTags>
     <itemTags slot="VAGINA">
       <tag>PLUGS_VAGINA</tag>
+      <tag>ENABLE_SEX_EQUIP</tag>
+      <tag>TRANSPARENT</tag>
     </itemTags>
     <itemTags slot="ANUS">
       <tag>PLUGS_ANUS</tag>
+      <tag>ENABLE_SEX_EQUIP</tag>
+      <tag>TRANSPARENT</tag>
     </itemTags>
     <itemTags slot="MOUTH">
       <tag>MUFFLES_SPEECH</tag>
+      <tag>ENABLE_SEX_EQUIP</tag>
+      <tag>TRANSPARENT</tag>
     </itemTags>
   </coreAttributes>
 

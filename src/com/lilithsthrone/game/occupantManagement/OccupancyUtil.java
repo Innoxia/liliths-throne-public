@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -227,17 +228,31 @@ public class OccupancyUtil implements XMLSaving {
 			
 			boolean isAtWork = slave.getWorkHours()[hour];
 			
+			
 			// If at work:
 			if(isAtWork) {
+				float workQuality = 0f;
+				
 				// Get paid for hour's work:
 				if(slave.getSlaveJob()!=SlaveJob.MILKING) {
 					int income = slave.getSlaveJob().getFinalHourlyIncomeAfterModifiers(slave);
 					generatedIncome += income;
 					incrementSlaveDailyIncome(slave, income);
+					
+					if(slave.getSlaveJob().getIncome()>0) { // Some jobs have 0 income
+						workQuality += (float)income / (float)slave.getSlaveJob().getIncome();
+					}
 				}
 				// Overworked effect:
 				if(slave.hasStatusEffect(StatusEffect.OVERWORKED)) {
 					slave.incrementAffection(slave.getOwner(), -0.1f);
+					
+					workQuality /= 2;
+				}
+				
+				// chance to gain experience based on profits
+				if(workQuality > (float)Math.random() * 2) {
+					slave.incrementExperience(3, false);
 				}
 				
 			} else {
@@ -246,6 +261,8 @@ public class OccupancyUtil implements XMLSaving {
 					slave.setLastTimeHadSex((day*24*60l) + hour*60l, true);
 				}
 			}
+			
+			
 			
 			// ***** EVENTS: ***** //
 			
