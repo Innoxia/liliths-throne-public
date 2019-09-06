@@ -252,10 +252,6 @@
 		Fixed bug in sex where NPCs would use opposite actions to the ones they wanted. (i.e. A character whose preference was to receive a blowjob would be equally as happy to start performing a blowjob, even if their fetish desires should normally have prohibited it.)
 	
 	
-	
-	merge
-		test slave experience
-		
 		
 		
 	Add action to tell pill handouters to get lost (for the year)

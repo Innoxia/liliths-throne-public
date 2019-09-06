@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -242,12 +241,15 @@ public class OccupancyUtil implements XMLSaving {
 					if(slave.getSlaveJob().getIncome()>0) { // Some jobs have 0 income
 						workQuality += (float)income / (float)slave.getSlaveJob().getIncome();
 					}
+					
+				} else {
+					workQuality = 0.1f; // Small chance to gain experience by being milked
 				}
 				// Overworked effect:
 				if(slave.hasStatusEffect(StatusEffect.OVERWORKED)) {
 					slave.incrementAffection(slave.getOwner(), -0.1f);
 					
-					workQuality /= 2;
+					workQuality = 0.05f; // If overworked, they have a very small chance to gain experience.
 				}
 				
 				// chance to gain experience based on profits
