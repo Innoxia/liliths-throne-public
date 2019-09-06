@@ -1282,7 +1282,13 @@
 	
 	<htmlContent tag="LILAYA_DINNER_END_ACCEPT"><![CDATA[
 	<p>
-		Rubbing up against your [daddy.daddy], you and Lilaya tell [daddy.herHim] that you'd both love to go back to [daddy.her] place, and that you can't wait to find out what [daddy.sheIs] got in store for the two of you. Moving [daddy.her] grip down from your waists, [daddy.name] gives each of your asses a firm squeeze, before saying, [daddy.speech(I'm going to show you how your [daddy.daddy] treats [daddy.her] good little [pc.girl]s...)]
+		Rubbing up against your [daddy.daddy], you and Lilaya tell [daddy.herHim] that you'd both love to go back to [daddy.her] place, and that you can't wait to find out what [daddy.sheIs] got in store for the two of you. Moving [daddy.her] grip down from your waists, [daddy.name] gives each of your asses a firm squeeze, before saying, [daddy.speech(I'm going to show you how your [daddy.daddy] treats [daddy.her] good little
+		#IF(lilaya.isFeminine()==pc.isFeminine())
+			 [pc.girls]
+		#ELSE
+			 [pc.girl] and [lilaya.girl]
+		#ENDIF
+		...)]
 	</p>
 	<p>
 		Hurriedly crossing the street, [daddy.name] leads you inside [daddy.her] apartment building and up the flight of stairs, before unlocking his door and pulling you both into [daddy.her] apartment. Immediately, your hands are all over one another, and as [daddy.namePos] hot lips plant kisses on both your and Lilaya's mouths, you feel [daddy.her] touch roam down to grope between your [pc.legs].
@@ -1291,7 +1297,13 @@
 		In your haste to move forwards into the apartment's lounge, the hallway table is bumped into and sent crashing to the ground, but you're all so caught up in your passion that none of you care. Stripping your [daddy.daddy]'s t-shirt off, you press your lips down against [daddy.her] [daddy.breasts+], kissing [daddy.her] [daddy.nipples+] as your [lilaya.relation(pc)] thrusts her tongue into [daddy.her] mouth. Reaching across, you help Lilaya to slip off her plunge dress, revealing a matching pair of lacy black panties and bra. Pulling back to return the favour, Lilaya runs her hands over your body, helping you to strip off your outer layers as your [daddy.daddy] gives you your turn of having [daddy.her] tongue thrust into your mouth.
 	</p>
 	<p>
-		With you and Lilaya stripped to your underwear in record time, [daddy.name] pulls back, before moving [daddy.her] [daddy.eyes+] up over your exposed bodies and ordering, [daddy.speech(That's [daddy.daddy]'s good [pc.girl]s... Now get on my bed and present yourselves to me...)]
+		With you and Lilaya stripped to your underwear in record time, [daddy.name] pulls back, before moving [daddy.her] [daddy.eyes+] up over your exposed bodies and ordering, [daddy.speech(That's [daddy.daddy]'s good
+		#IF(lilaya.isFeminine()==pc.isFeminine())
+			 [pc.girls]
+		#ELSE
+			 [pc.girl] and [lilaya.girl]
+		#ENDIF
+		... Now get on my bed and present yourselves to me...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1308,7 +1320,13 @@
 	
 	<htmlContent tag="LILAYA_DINNER_END_HOME"><![CDATA[
 	<p>
-		Telling [daddy.herHim] that you had a lot of fun this evening, both you and Lilaya thank [daddy.name] for treating you to dinner. In a happy tone, [daddy.she] replies, [daddy.speech(You're more than welcome! Anything for my good [pc.girl]s! I really had a lot of fun tonight as well, and please come back and visit me any evening you want.)]
+		Telling [daddy.herHim] that you had a lot of fun this evening, both you and Lilaya thank [daddy.name] for treating you to dinner. In a happy tone, [daddy.she] replies, [daddy.speech(You're more than welcome! Anything for my good
+		#IF(lilaya.isFeminine()==pc.isFeminine())
+			 [pc.girls]
+		#ELSE
+			 [pc.girl] and [lilaya.girl]
+		#ENDIF
+		! I really had a lot of fun tonight as well, and please come back and visit me any evening you want.)]
 	</p>
 	<p>
 		Saying that you'll be sure to visit [daddy.herHim] again soon, you and Lilaya give your [daddy.daddy] one last goodbye, before parting ways with [daddy.herHim]. As [daddy.name] heads back to [daddy.her] apartment, you and Lilaya set off back to her mansion, talking with one another about your evening the entire way there.
@@ -1568,7 +1586,13 @@
 		Just a moment later, you find yourself standing next to Lilaya, helping her to slip off her plunge dress and reveal her matching pair of lacy black panties and bra. Pulling back to return the favour, Lilaya runs her hands over your body, helping you to strip off your outer layers as your [daddy.daddy] steps forwards and gives you your turn of having [daddy.her] tongue explore the insides of your mouth.
 	</p>
 	<p>
-		With you and Lilaya stripped to your underwear in record time, [daddy.name] pulls back, before moving [daddy.her] [daddy.eyes+] up over your exposed bodies and ordering, [daddy.speech(That's [daddy.daddy]'s good [pc.girl]s... Now get on my bed and present yourselves to me...)]
+		With you and Lilaya stripped to your underwear in record time, [daddy.name] pulls back, before moving [daddy.her] [daddy.eyes+] up over your exposed bodies and ordering, [daddy.speech(That's [daddy.daddy]'s good
+		#IF(lilaya.isFeminine()==pc.isFeminine())
+			 [pc.girls]
+		#ELSE
+			 [pc.girl] and [lilaya.girl]
+		#ENDIF
+		... Now get on my bed and present yourselves to me...)]
 	</p>
 	]]>
 	</htmlContent>

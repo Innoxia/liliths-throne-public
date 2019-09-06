@@ -4,7 +4,6 @@ package com.lilithsthrone.game.character.body;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.TesticleType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
@@ -200,7 +199,7 @@ public class Testicle implements BodyPartInterface {
 	}
 
 	public boolean isInternal(GameCharacter owner) {
-		if(!Main.getProperties().hasValue(PropertyValue.futanariTesticles) && owner!=null && owner.isFeminine()) {
+		if(!Main.game.isFutanariTesticlesEnabled() && owner!=null && owner.hasVagina()) {
 			return true;
 		}
 		return internal;

@@ -435,7 +435,7 @@ public class EnchantmentDialogue {
 							
 						} else if(ingredient instanceof AbstractWeapon){
 							if(InventoryDialogue.getWeapon()==null) {
-								InventoryDialogue.setWeapon((AbstractWeapon) ingredient);
+								InventoryDialogue.setWeapon(isEquippedIn, (AbstractWeapon) ingredient);
 							}
 							if(Main.game.getPlayer().hasWeaponEquipped((AbstractWeapon) ingredient)) {
 								return InventoryDialogue.WEAPON_EQUIPPED;

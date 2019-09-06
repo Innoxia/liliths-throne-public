@@ -237,34 +237,144 @@ public class TooltipInventoryEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (invSlot != null) {
-			if (invSlot == InventorySlot.WEAPON_MAIN) {
-
+			if (invSlot == InventorySlot.WEAPON_MAIN_1) {
 				if (equippedToCharacter != null) {
-					if (equippedToCharacter.getMainWeapon() == null) {
+					if (equippedToCharacter.getMainWeapon(0) == null) {
 						Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
 						Main.mainController.setTooltipContent("<div class='title'>Primary Weapon</div>");
 
 					} else {
-						weaponTooltip(equippedToCharacter.getMainWeapon());
+						weaponTooltip(equippedToCharacter.getMainWeapon(0));
 					}
 				} else {
 					Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
 					Main.mainController.setTooltipContent("<div class='title'>Primary Weapon</div>");
 				}
 
-			} else if (invSlot == InventorySlot.WEAPON_OFFHAND) {
-
+			} else if (invSlot == InventorySlot.WEAPON_MAIN_2) {
 				if (equippedToCharacter != null) {
-					if (equippedToCharacter.getOffhandWeapon() == null) {
-						Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
-						Main.mainController.setTooltipContent("<div class='title'>Secondary Weapon</div>");
+					if (equippedToCharacter.getMainWeapon(1) == null) {
+						if(equippedToCharacter.getArmRows()<2) {
+							setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+									"You do not have a second pair of arms with which to hold another primary weapon!",
+									"[npc.Name] [npc.does] not have a second pair of arms with which to hold another primary weapon!"));
+						} else {
+							Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
+							Main.mainController.setTooltipContent("<div class='title'>Primary Weapon (2nd)</div>");
+						}
+						
+					} else {
+						weaponTooltip(equippedToCharacter.getMainWeapon(1));
+					}
+				} else {
+					Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
+					Main.mainController.setTooltipContent("<div class='title'>Primary Weapon (2nd)</div>");
+				}
+
+			} else if (invSlot == InventorySlot.WEAPON_MAIN_3) {
+				if (equippedToCharacter != null) {
+					if (equippedToCharacter.getMainWeapon(2) == null) {
+						if(equippedToCharacter.getArmRows()<3) {
+							setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+									"You do not have a third pair of arms with which to hold another primary weapon!",
+									"[npc.Name] [npc.does] not have a third pair of arms with which to hold another primary weapon!"));
+						} else {
+							Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
+							Main.mainController.setTooltipContent("<div class='title'>Primary Weapon (3rd)</div>");
+						}
+						
+					} else {
+						weaponTooltip(equippedToCharacter.getMainWeapon(2));
+					}
+				} else {
+					Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
+					Main.mainController.setTooltipContent("<div class='title'>Primary Weapon (3rd)</div>");
+				}
+
+			} else if (invSlot == InventorySlot.WEAPON_OFFHAND_1) {
+				if (equippedToCharacter != null) {
+					if (equippedToCharacter.getOffhandWeapon(0) == null) {
+						AbstractWeapon primary = equippedToCharacter.getMainWeapon(0);
+						if(primary!=null && primary.getWeaponType().isTwoHanded()) {
+							setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+									primary.getWeaponType().isPlural()
+										?"As your "+primary.getName()+" require two hands to wield correctly, you are unable to equip a weapon in your off-hand."
+										:"As your "+primary.getName()+" requires two hands to wield correctly, you are unable to equip a weapon in your off-hand",
+									primary.getWeaponType().isPlural()
+										?"As [npc.namePos] "+primary.getName()+" require two hands to wield correctly, [npc.sheIsFull] unable to equip a weapon in [npc.her] off-hand."
+										:"As [npc.namePos] "+primary.getName()+" requires two hands to wield correctly, [npc.sheIsFull] unable to equip a weapon in [npc.her] off-hand"));
+							
+						} else {
+							Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
+							Main.mainController.setTooltipContent("<div class='title'>Secondary Weapon</div>");
+						}
 
 					} else {
-						weaponTooltip(equippedToCharacter.getOffhandWeapon());
+						weaponTooltip(equippedToCharacter.getOffhandWeapon(0));
 					}
 				} else {
 					Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
 					Main.mainController.setTooltipContent("<div class='title'>Secondary Weapon</div>");
+				}
+
+			} else if (invSlot == InventorySlot.WEAPON_OFFHAND_2) {
+
+				if (equippedToCharacter != null) {
+					if (equippedToCharacter.getOffhandWeapon(1) == null) {
+						AbstractWeapon primary = equippedToCharacter.getMainWeapon(1);
+						if(primary!=null && primary.getWeaponType().isTwoHanded()) {
+							setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+									primary.getWeaponType().isPlural()
+										?"As your "+primary.getName()+" require two hands to wield correctly, you are unable to equip a weapon in your off-hand."
+										:"As your "+primary.getName()+" requires two hands to wield correctly, you are unable to equip a weapon in your off-hand",
+									primary.getWeaponType().isPlural()
+										?"As [npc.namePos] "+primary.getName()+" require two hands to wield correctly, [npc.sheIsFull] unable to equip a weapon in [npc.her] off-hand."
+										:"As [npc.namePos] "+primary.getName()+" requires two hands to wield correctly, [npc.sheIsFull] unable to equip a weapon in [npc.her] off-hand"));
+							
+						} else if(equippedToCharacter.getArmRows()<2) {
+							setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+									"You do not have a second pair of arms with which to hold another secondary weapon!",
+									"[npc.Name] [npc.does] not have a second pair of arms with which to hold another secondary weapon!"));
+						} else {
+							Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
+							Main.mainController.setTooltipContent("<div class='title'>Secondary Weapon (2nd)</div>");
+						}
+					} else {
+						weaponTooltip(equippedToCharacter.getOffhandWeapon(1));
+					}
+				} else {
+					Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
+					Main.mainController.setTooltipContent("<div class='title'>Secondary Weapon (2nd)</div>");
+				}
+
+			} else if (invSlot == InventorySlot.WEAPON_OFFHAND_3) {
+
+				if (equippedToCharacter != null) {
+					if (equippedToCharacter.getOffhandWeapon(2) == null) {
+						AbstractWeapon primary = equippedToCharacter.getMainWeapon(2);
+						if(primary!=null && primary.getWeaponType().isTwoHanded()) {
+							setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+									primary.getWeaponType().isPlural()
+										?"As your "+primary.getName()+" require two hands to wield correctly, you are unable to equip a weapon in your off-hand."
+										:"As your "+primary.getName()+" requires two hands to wield correctly, you are unable to equip a weapon in your off-hand",
+									primary.getWeaponType().isPlural()
+										?"As [npc.namePos] "+primary.getName()+" require two hands to wield correctly, [npc.sheIsFull] unable to equip a weapon in [npc.her] off-hand."
+										:"As [npc.namePos] "+primary.getName()+" requires two hands to wield correctly, [npc.sheIsFull] unable to equip a weapon in [npc.her] off-hand"));
+							
+						} else if(equippedToCharacter.getArmRows()<3) {
+							setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+									"You do not have a third pair of arms with which to hold another secondary weapon!",
+									"[npc.Name] [npc.does] not have a third pair of arms with which to hold another secondary weapon!"));
+						} else {
+							Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
+							Main.mainController.setTooltipContent("<div class='title'>Secondary Weapon (3rd)</div>");
+						}
+					} else {
+						weaponTooltip(equippedToCharacter.getOffhandWeapon(2));
+					}
+				} else {
+					Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
+					Main.mainController.setTooltipContent("<div class='title'>Secondary Weapon (3rd)</div>");
 				}
 
 			} else {
@@ -297,7 +407,6 @@ public class TooltipInventoryEventListener implements EventListener {
 							setBlockedTooltipContent("<span style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>Restricted!</span>", UtilText.parse(equippedToCharacter, block.getDescription()));
 							
 						} else {
-							
 							boolean piercingBlocked=false;
 							boolean bypassesPiercing = !equippedToCharacter.getBody().getBodyMaterial().isRequiresPiercing();
 							
@@ -910,7 +1019,9 @@ public class TooltipInventoryEventListener implements EventListener {
 		// Picture:
 		tooltipSB.append("<div class='item-image'>"
 							+ "<div class='item-image-content'>"
-								+ (owner!=null && (absWep.equals(owner.getMainWeapon()) || absWep.equals(owner.getOffhandWeapon()))?absWep.getSVGEquippedString(owner):absWep.getSVGString())
+								+ ((owner!=null && owner.hasWeaponEquipped(absWep))
+									?absWep.getSVGEquippedString(owner)
+									:absWep.getSVGString())
 							+ "</div>"
 						+ "</div>");
 
@@ -1158,9 +1269,11 @@ public class TooltipInventoryEventListener implements EventListener {
 			int enchCapacityCost = absClothing.getEnchantmentCapacityCost();
 			tooltipSB.append(
 					"<div class='container-full-width titular'>"
-							+(enchCapacityCost==0
-								?Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost: [style.boldDisabled("+enchCapacityCost+")]"
-								:"[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost)]: [style.boldBad("+enchCapacityCost+")]")
+							+(absClothing.isEnchantmentKnown() ?
+								(enchCapacityCost==0
+									?Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost: [style.boldDisabled("+enchCapacityCost+")]"
+									:"[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost)]: [style.boldBad("+enchCapacityCost+")]")
+							:Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost: ?")
 					+ "</div>");
 		}
 		

@@ -414,6 +414,8 @@ public class PrologueDialogue {
 						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 						
 						Main.game.getPlayer().setAgeAppearanceDifference(-Game.TIME_SKIP_YEARS);
+						
+						Main.game.applyStartingDateChange();
 					}
 				};
 			} else {

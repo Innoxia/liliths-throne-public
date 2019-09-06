@@ -303,7 +303,7 @@
 	<p>
 	#IF !lilaya.isCharacterReactedToPregnancy(pc) && !lilaya.getBaseFetishDesire(FETISH_PREGNANCY).isNegative() && lilaya.isVisiblyPregnant()
 	#THEN
-		#IF lilaya.isCharacterPossiblyFather(pc.getId())
+		#IF lilaya.getPregnantLitter().isFatherId(pc.getId())
 		#THEN
 			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], you got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. But anyway, it's a good job that you came here to see me, [pc.name]. Rose has already told me all about your little adventure in my room with my underwear. So, what do you have to say for yourself?)]
 		#ELSE
@@ -346,7 +346,7 @@
 	<p>
 	#IF !lilaya.isCharacterReactedToPregnancy(pc) && !lilaya.getBaseFetishDesire(FETISH_PREGNANCY).isNegative() && lilaya.isVisiblyPregnant()
 	#THEN
-		#IF lilaya.isCharacterPossiblyFather(pc.getId())
+		#IF lilaya.getPregnantLitter().isFatherId(pc.getId())
 		#THEN
 			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], you got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. So, what is it you want?)]
 		#ELSE
@@ -1043,7 +1043,7 @@
 	<p>
 		[lilaya.speech(You have to sort of feel how much essence you want to pour into the enchantment. The more you put in, the better the resulting item!)] Lilaya picks up the little potion and places it off to one side. [lilaya.speech(And that's all there is to it!)]
 	</p>
-	#IF(game.getDialogueFlags().hasFlag(FLAG_jinxedClothingDiscovered) && SPECIAL_PARSE_0!="false") {
+	#IF(game.getDialogueFlags().hasFlag(FLAG_jinxedClothingDiscovered) && SPECIAL_PARSE_0!="false")
 		<p>
 			Just as your about to thank her for explaining about essences, Lilaya suddenly exclaims, [lilaya.speech(Oh, and this is also how items can be identified, as well as how that sealed clothing of yours needs to be removed! All you need to do is channel some of your absorbed essences into an unidentified item to discover the enchantment, or into sealed clothing to allow you to remove it. Sealed clothing is a major problem for people without demonic-strength auras, as they need to pay demons to remove the seal for them, but for you and I, sealed clothing is no more than a minor inconvenience.)]
 		</p>

@@ -49,6 +49,7 @@ import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
@@ -169,7 +170,7 @@ public class Game implements XMLSaving {
 			worlds.put(type, null);
 		}
 		OccupantManagementDialogue.resetImportantCells();
-		startingDate = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 00, 00).plusYears(TIME_SKIP_YEARS);
+		startingDate = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 00, 00);
 		secondsPassed = TIME_START_SECONDS;
 		inCombat = false;
 		inSex = false;
@@ -932,15 +933,6 @@ public class Game implements XMLSaving {
 					}
 				}
 				
-				// Catch for storm attackers who were stuck on a dominion street tile:
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.1.6")) {
-					for(NPC npc : Main.game.getAllNPCs()) {
-						if(npc instanceof DominionAlleywayAttacker && ((DominionAlleywayAttacker) npc).isStormAttacker()) {
-							Main.game.banishNPC(npc);
-						}
-					}
-				}
-				
 				// Fix overflow of clients in brothel:
 				for(Cell cell : Main.game.getWorlds().get(WorldType.ANGELS_KISS_GROUND_FLOOR).getCells(PlaceType.ANGELS_KISS_BEDROOM)) {
 					if(Main.isVersionOlderThan(loadingVersion, "0.3.1.7")) {
@@ -1019,6 +1011,20 @@ public class Game implements XMLSaving {
 						Main.game.getNpc(DarkSiren.class).setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_RED_DARK), false);
 						Main.game.getNpc(DarkSiren.class).setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, Colour.SKIN_RED_DARK), false);
 						Main.game.getNpc(DarkSiren.class).setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_RED_DARK), false);
+					}
+				}
+				
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.4.5")) {
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(npc instanceof DominionAlleywayAttacker && ((DominionAlleywayAttacker) npc).isStormAttacker()) { 
+							Main.game.banishNPC(npc); // Catch for storm attackers who were stuck on a dominion street tile.
+							
+						} else {
+							if(!npc.isSlave() && !npc.isUnique() && !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) {
+								npc.setHomeLocation();
+							}
+						}
+						
 					}
 				}
 				
@@ -1697,6 +1703,7 @@ public class Game implements XMLSaving {
 		
 		if(!Main.game.getPlayer().getStatusEffectDescriptions().isEmpty()
 				&& Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS
+				&& !Main.game.getCurrentDialogueNode().isTravelDisabled()
 				&& !Main.game.isInSex()
 				&& !Main.game.isInCombat()) {
 			
@@ -2561,14 +2568,17 @@ public class Game implements XMLSaving {
 	}
 
 	private String getResponseBoxDiv(Response response, int option) {
-		String style="", iconRight="", iconLeft="";
+		String style="";
+		String iconLeftBottom="";
+		String iconLeftTop="";
+		String iconRight="";
 		boolean responseDisabled = false;
 		
 		if(response.disabledOnNullDialogue() && response.getNextDialogue()==null) {
 			responseDisabled = true;
 			
 		} else if (response.isAbleToBypass()) {
-			iconRight = "<div class='response-icon'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseCorruptionBypass()+"</div>";
+			iconLeftBottom = "<div class='response-icon-leftBottom'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseCorruptionBypass()+"</div>";
 		}
 		else if(response.hasRequirements()) {
 			if(response.isAvailable()) {
@@ -2581,26 +2591,32 @@ public class Game implements XMLSaving {
 		if(response.getSexPace()!=null) {
 			switch(response.getSexPace()) {
 				case DOM_GENTLE:
-					iconLeft = "<div class='response-icon-left'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseDomGentle()+"</div>";
+					iconLeftTop = "<div class='response-icon-leftTop'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseDomGentle()+"</div>";
 					break;
 				case DOM_NORMAL:
-					iconLeft = "<div class='response-icon-left'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseDomNormal()+"</div>";
+					iconLeftTop = "<div class='response-icon-leftTop'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseDomNormal()+"</div>";
 					break;
 				case DOM_ROUGH:
-					iconLeft = "<div class='response-icon-left'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseDomRough()+"</div>";
+					iconLeftTop = "<div class='response-icon-leftTop'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseDomRough()+"</div>";
 					break;
 				case SUB_EAGER:
-					iconLeft = "<div class='response-icon-left'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseSubEager()+"</div>";
+					iconLeftTop = "<div class='response-icon-leftTop'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseSubEager()+"</div>";
 					break;
 				case SUB_NORMAL:
-					iconLeft = "<div class='response-icon-left'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseSubNormal()+"</div>";
+					iconLeftTop = "<div class='response-icon-leftTop'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseSubNormal()+"</div>";
 					break;
 				case SUB_RESISTING:
-					iconLeft = "<div class='response-icon-left'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseSubResist()+"</div>";
+					iconLeftTop = "<div class='response-icon-leftTop'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseSubResist()+"</div>";
 					break;
 			}
 		}
-		
+
+		if(response.isSexActionSwitch()) {
+			iconRight = "<div class='response-icon-rightBottom'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseSexSwitch()+"</div>";
+			
+		} else if(response.getSexActionType()==SexActionType.START_ADDITIONAL_ONGOING) {
+			iconRight = "<div class='response-icon-rightBottom'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseSexAdditional()+"</div>";
+		}
 		
 		float fontSize = 1;
 		String strippedTitle = UtilText.parse(response.getTitle()).replaceAll("<.*?>", "").replaceAll(UtilText.getCurrencySymbol(), "1");
@@ -2619,7 +2635,8 @@ public class Game implements XMLSaving {
 			return "<div class='response-box"+(responsePointer==option?" selected":"")+"' id='option_" + option + "'>"
 						+ "<b class='hotkey-icon'>" + getResponseHotkey(option) + "</b>"
 						+ "<p class='response-text"+(responsePointer==option?" selected":"")+"' "+style+">" + (!responseDisabled ? titleText : UtilText.getDisabledResponse(titleText)) + "</p>"
-						+ iconLeft
+						+ iconLeftTop
+						+ iconLeftBottom
 						+ iconRight
 					+ "</div>";
 			
@@ -2629,7 +2646,8 @@ public class Game implements XMLSaving {
 						+ "<b class='hotkey-icon'>" + getResponseHotkey(option) + "</b>"
 						+ "<p class='response-text"+(responsePointer-((responsePage+1)*MainController.RESPONSE_COUNT)+1==option?" selected":"")+"' "+style+">"
 						+ (!responseDisabled ? titleText : UtilText.getDisabledResponse(titleText)) + "</p>"
-						+ iconLeft
+						+ iconLeftTop
+						+ iconLeftBottom
 						+ iconRight
 					+ "</div>";
 			} else {
@@ -2637,7 +2655,8 @@ public class Game implements XMLSaving {
 						+ "<b class='hotkey-icon'>" + getResponseHotkey(option) + "</b>"
 						+ "<p class='response-text"+(responsePointer-(responsePage*MainController.RESPONSE_COUNT)+1==option?" selected":"")+"' "+style+">"
 						+ (!responseDisabled ? titleText : UtilText.getDisabledResponse(titleText)) + "</p>"
-						+ iconLeft
+						+ iconLeftTop
+						+ iconLeftBottom
 						+ iconRight
 					+ "</div>";
 			}
@@ -3082,6 +3101,10 @@ public class Game implements XMLSaving {
 	
 	public LocalDateTime getStartingDate() {
 		return startingDate;
+	}
+	
+	public void applyStartingDateChange() {
+		startingDate = startingDate.plusYears(TIME_SKIP_YEARS);
 	}
 	
 	public void setStartingDateMonth(Month month) {

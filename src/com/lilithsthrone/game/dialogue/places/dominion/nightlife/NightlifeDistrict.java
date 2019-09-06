@@ -41,7 +41,7 @@ import com.lilithsthrone.game.sex.managers.dominion.gloryHole.SMGloryHole;
 import com.lilithsthrone.game.sex.managers.dominion.toiletStall.SMStallSex;
 import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
@@ -1272,7 +1272,7 @@ public class NightlifeDistrict {
 						
 						if(Main.game.getPlayer().isTaur()) { // Player is a taur/arachnid:
 							sm = new SexManagerDefault(
-									SexPositionOther.STANDING,
+									SexPosition.STANDING,
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_SUBMISSIVE))) {
 								@Override
@@ -1321,7 +1321,7 @@ public class NightlifeDistrict {
 						if(Main.game.getPlayer().isTaur()) {
 							if(getPartner().isTaur()) { // Both taurs/arachnids:
 								sm = new SexManagerDefault(
-										SexPositionOther.STANDING,
+										SexPosition.STANDING,
 										Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_SUBMISSIVE))) {
 									@Override
@@ -1333,7 +1333,7 @@ public class NightlifeDistrict {
 							
 						} else if(getPartner().isTaur()) { // Partner is a taur/arachnid:
 							sm = new SexManagerDefault(
-									SexPositionOther.STANDING,
+									SexPosition.STANDING,
 									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), getPartner().hasPenis()?SexSlotStanding.PERFORMING_ORAL:SexSlotStanding.PERFORMING_ORAL_BEHIND))) {
 								@Override
@@ -2657,7 +2657,7 @@ public class NightlifeDistrict {
 						};
 						if(Main.game.getPlayer().isTaur()) { // Player is a taur/arachnid:
 							sm = new SexManagerDefault(
-									SexPositionOther.STANDING,
+									SexPosition.STANDING,
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotStanding.STANDING_SUBMISSIVE))) {
 								@Override
@@ -4815,7 +4815,7 @@ public class NightlifeDistrict {
 
 						if(getPartner().isTaur()) { // Partner is a taur/arachnid:
 							sm = new SexManagerDefault(
-									SexPositionOther.STANDING,
+									SexPosition.STANDING,
 									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_SUBMISSIVE))) {
 								@Override

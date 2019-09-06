@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.npc.dominion.Jules;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -23,7 +23,7 @@ import com.lilithsthrone.utils.Util.Value;
 public class SMJulesCockSucking extends SexManagerDefault {
 
 	public SMJulesCockSucking(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionOther.STANDING,
+		super(SexPosition.STANDING,
 				dominants,
 				submissives);
 	}

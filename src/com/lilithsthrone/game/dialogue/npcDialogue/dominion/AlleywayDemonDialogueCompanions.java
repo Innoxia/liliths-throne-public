@@ -22,7 +22,6 @@ import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -938,7 +937,7 @@ public class AlleywayDemonDialogueCompanions {
 						}
 					};
 					
-				} else if (index == 7 && getDemon().getLocationPlace().getPlaceType().getEncounterType()!=Encounter.DOMINION_STREET) {
+				} else if (index == 7) {
 					if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 						return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
 						

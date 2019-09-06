@@ -12,7 +12,6 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -106,8 +105,7 @@ public class DominionSuccubusAttacker extends NPC {
 			// Set starting perks based on the character's race
 			initPerkTreeAndBackgroundPerks();
 			
-			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+			initHealthAndManaToMax();
 		}
 
 		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
@@ -141,6 +139,11 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	@Override
 	public String getDescription() {
+		if(isSlave()) {
+			return UtilText.parse(this,
+					"Having lost [npc.herself] to [npc.her] powerful libido, [npc.name] ended up stalking the alleyways of Dominion in search of innocent citizens to force [npc.herself] on."
+					+ " Being unlucky enough to have been placed on the Enforcer's wanted list, and then to have encountered you, [npc.she] soon ended up being enslaved and owned by you.");
+		}
 		return UtilText.parse(this,
 				"Although all demons have an extremely powerful libido, some suffer from it far more than others."
 				+ " While most are able to control their sexual desires, others, such as this [npc.race], struggle to think of anything but how to secure their next sexual conquest.");
@@ -182,7 +185,10 @@ public class DominionSuccubusAttacker extends NPC {
 	// Combat:
 
 	@Override
-	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
+	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
+		if(this.isSlave()) {
+			return super.getMainAttackDescription(armRow, target, isHit);
+		}
 		if(this.isFeminine()) {
 			return UtilText.parse(this, target,
 					UtilText.returnStringAtRandom(
@@ -247,7 +253,7 @@ public class DominionSuccubusAttacker extends NPC {
 	private static StringBuilder StringBuilderSB;
 	@Override
 	public String getVirginityLossOrificeDescription(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice){
-		if(!characterPenetrated.isPlayer() || penetrationType!=SexAreaPenetration.PENIS || orifice!=SexAreaOrifice.VAGINA || !characterPenetrating.equals(this)) {
+		if(!characterPenetrated.isPlayer() || penetrationType!=SexAreaPenetration.PENIS || orifice!=SexAreaOrifice.VAGINA || !characterPenetrating.equals(this) || this.isSlave()) {
 			return super.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
 		}
 		
@@ -387,6 +393,10 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	@Override
 	public String getDirtyTalkNoPenetration(GameCharacter target, boolean isPlayerDom){
+		if(this.isSlave()) {
+			return super.getDirtyTalkNoPenetration(target, isPlayerDom);
+		}
+		
 		List<String> speech = new ArrayList<>();
 		
 		if(isPlayerDom && Sex.getSexPace(this)!=SexPace.SUB_RESISTING){

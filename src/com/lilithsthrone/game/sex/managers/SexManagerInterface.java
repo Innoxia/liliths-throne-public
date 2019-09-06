@@ -25,7 +25,7 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
@@ -119,10 +119,10 @@ public interface SexManagerInterface {
 
 	public default List<AbstractSexPosition> getAllowedSexPositions() {
 		List<AbstractSexPosition> positions = Util.newArrayListOfValues(
-				SexPositionOther.AGAINST_WALL,
-				SexPositionOther.ALL_FOURS,
-				SexPositionOther.LYING_DOWN,
-				SexPositionOther.STANDING);
+				SexPosition.AGAINST_WALL,
+				SexPosition.ALL_FOURS,
+				SexPosition.LYING_DOWN,
+				SexPosition.STANDING);
 		
 		switch(Main.game.getPlayerCell().getType()) {
 			case ANGELS_KISS_FIRST_FLOOR:
@@ -136,11 +136,12 @@ public interface SexManagerInterface {
 			case LYSSIETH_PALACE:
 			case MUSEUM:
 			case MUSEUM_LOST:
+			case SHOPPING_ARCADE:
 			case SUPPLIER_DEN:
 			case ZARANIX_HOUSE_FIRST_FLOOR:
 			case ZARANIX_HOUSE_GROUND_FLOOR:
-				positions.add(SexPositionOther.OVER_DESK);
-				positions.add(SexPositionOther.SITTING);
+				positions.add(SexPosition.OVER_DESK);
+				positions.add(SexPosition.SITTING);
 				break;
 			case BAT_CAVERNS:
 			case DOMINION:
@@ -151,7 +152,6 @@ public interface SexManagerInterface {
 			case IMP_FORTRESS_FEMALES:
 			case IMP_FORTRESS_MALES:
 			case NIGHTLIFE_CLUB:
-			case SHOPPING_ARCADE:
 			case SLAVER_ALLEY:
 			case SLIME_QUEENS_LAIR_FIRST_FLOOR:
 			case SLIME_QUEENS_LAIR_GROUND_FLOOR:
@@ -176,6 +176,10 @@ public interface SexManagerInterface {
 	
 	public default boolean isPlayerAbleToStopSex() {
 		return Sex.isDom(Main.game.getPlayer()) || (Sex.getSexControl(Main.game.getPlayer())==SexControl.FULL && Sex.isConsensual());
+	}
+	
+	public default boolean isEndSexAffectionChangeEnabled(GameCharacter character) {
+		return true;
 	}
 	
 	public default boolean isPartnerWantingToStopSex(GameCharacter partner) {

@@ -342,29 +342,29 @@ public class ClitClit {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"[npc.Name] [npc.verb(try)] to pull [npc.her] groin away from [npc2.namePos],"
+							"[npc.Name] [npc.verb(try)] to pull [npc.her] groin away from [npc2.nameHers],"
 									+ " but [npc.her] efforts prove to be in vain as [npc2.she] quickly [npc2.verb(buck)] [npc2.her] [npc.hips] forwards, keeping [npc2.her] [npc2.clit+] gently pressed against [npc.her] [npc.pussy+].",
-							"With [npc.a_sob+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.namePos],"
+							"With [npc.a_sob+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.nameHers],"
 									+ " but [npc2.she] quickly [npc2.verb(buck)] [npc2.her] [npc2.hips] forwards, before continuing to gently rub [npc2.her] [npc2.clit+] against [npc.her] [npc.vagina+].",
-							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.namePos],"
+							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.nameHers],"
 									+ " but [npc2.she] quickly [npc2.verb(shift)] position, ignoring [npc.her] protests as [npc2.she] gently [npc2.verb(rub)] [npc2.her] [npc2.vagina+] up against [npc2.hers]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"[npc.Name] [npc.verb(try)] to pull [npc.her] groin away from [npc2.namePos],"
+							"[npc.Name] [npc.verb(try)] to pull [npc.her] groin away from [npc2.nameHers],"
 									+ " but [npc.her] efforts prove to be in vain as [npc2.she] roughly [npc2.verb(slam)] [npc2.her] [npc.hips] forwards, keeping [npc2.her] [npc2.clit+] forcefully ground against [npc.her] [npc.pussy+].",
-							"With [npc.a_sob+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.namePos],"
+							"With [npc.a_sob+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.nameHers],"
 									+ " but [npc2.she] quickly [npc2.verb(buck)] [npc2.her] [npc2.hips] forwards, before continuing to roughly grind [npc2.her] [npc2.clit+] against [npc.her] [npc.vagina+].",
-							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.namePos],"
+							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.nameHers],"
 									+ " but [npc2.she] quickly [npc2.verb(shift)] position, ignoring [npc.her] protests as [npc2.she] forcefully [npc2.verb(grind)] [npc2.her] [npc2.vagina+] up against [npc2.hers]."));
 					break;
 				default: // DOM_NORMAL and in case anything goes wrong:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"[npc.Name] [npc.verb(try)] to pull [npc.her] groin away from [npc2.namePos],"
+							"[npc.Name] [npc.verb(try)] to pull [npc.her] groin away from [npc2.nameHers],"
 									+ " but [npc.her] efforts prove to be in vain as [npc2.she] quickly [npc2.verb(buck)] [npc2.her] [npc.hips] forwards, keeping [npc2.her] [npc2.clit+] pressed against [npc.her] [npc.pussy+].",
-							"With [npc.a_sob+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.namePos],"
+							"With [npc.a_sob+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.nameHers],"
 									+ " but [npc2.she] quickly [npc2.verb(buck)] [npc2.her] [npc2.hips] forwards, before continuing to eagerly rub [npc2.her] [npc2.clit+] against [npc.her] [npc.vagina+].",
-							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.namePos],"
+							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.nameHers],"
 									+ " but [npc2.she] quickly [npc2.verb(shift)] position, ignoring [npc.her] protests as [npc2.she] enthusiastically [npc2.verb(rub)] [npc2.her] [npc2.vagina+] up against [npc2.hers]."));
 					break;
 			}

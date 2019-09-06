@@ -59,7 +59,6 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -237,7 +236,7 @@ public class SlimeGuardFire extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		CharacterUtils.generateItemsInInventory(this);
 		
-		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_KNIGHTLY_SWORD, DamageType.FIRE));
+		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_europeanSwords_arming_sword", DamageType.FIRE));
 		this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_buckler_buckler", DamageType.FIRE));
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(

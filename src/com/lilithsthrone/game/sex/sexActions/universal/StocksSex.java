@@ -10,7 +10,9 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.dominion.SMStocks;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStocks;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -33,8 +35,8 @@ public class StocksSex {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotStocks.BEHIND_STOCKS
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotStocks.LOCKED_IN_STOCKS
+					&& !Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BEHIND_STOCKS)
+					&& !Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.LOCKED_IN_STOCKS)
 					&& Sex.isDom(Sex.getCharacterPerformingAction());
 		}
 		
@@ -78,8 +80,8 @@ public class StocksSex {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotStocks.PERFORMING_ORAL
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotStocks.LOCKED_IN_STOCKS
+					&& !Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.PERFORMING_ORAL_STOCKS)
+					&& !Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.LOCKED_IN_STOCKS)
 					&& Sex.isDom(Sex.getCharacterPerformingAction());
 		}
 		
@@ -122,8 +124,8 @@ public class StocksSex {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotStocks.RECEIVING_ORAL
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) != SexSlotStocks.LOCKED_IN_STOCKS
+					&& !Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.RECEIVING_ORAL_STOCKS)
+					&& !Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.LOCKED_IN_STOCKS)
 					&& Sex.isDom(Sex.getCharacterPerformingAction());
 		}
 		
@@ -167,8 +169,13 @@ public class StocksSex {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Sex.getCharacterPerformingAction())
-					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))==SexSlotStocks.LOCKED_IN_STOCKS
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()) == SexSlotStocks.BEHIND_STOCKS;
+					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.LOCKED_IN_STOCKS)
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BEHIND_STOCKS);
+		}
+		
+		@Override
+		public SexActionCategory getCategory() {
+			return SexActionCategory.SEX;
 		}
 		
 		@Override

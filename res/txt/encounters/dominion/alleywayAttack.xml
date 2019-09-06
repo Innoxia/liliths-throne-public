@@ -158,7 +158,7 @@
 			<p>
 				[npc.speech(Yeah, before you ask, it was you! You got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. After confirming that you're the father of [npc.her] children, [npc.she] continues,
 					#IF npc.isAttractedTo(pc)
-					#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
+					#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 					#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
 					#ENDIF
 			</p>
@@ -166,7 +166,7 @@
 			<p>
 				[npc.speech(Yeah, before you ask, it was you. You got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that you're the father of [npc.her] children. 
 					#IF npc.isAttractedTo(pc)
-					#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
+					#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 					#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
 					#ENDIF
 			</p>
@@ -180,7 +180,7 @@
 			<p>
 				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFather().getName()]! They got me knocked up! It feels so fantastic to be pregnant!)] she explains, the excitement in [npc.her] voice clearly giving away the fact that [npc.she] has a fetish for being pregnant. After confirming that your old companion is the father of [npc.her] children, [npc.she] continues,
 					#IF npc.isAttractedTo(pc)
-					#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
+					#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 					#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
 					#ENDIF
 			</p>
@@ -188,7 +188,7 @@
 			<p>
 				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFather().getName()]. They got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that your old companion is the father of [npc.her] children. 
 					#IF npc.isAttractedTo(pc)
-					#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
+					#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 					#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
 					#ENDIF
 			</p>
@@ -205,13 +205,13 @@
 			#THEN
 				As you step forwards and start to say hello, you see that [npc.name] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] laughs,
 					#IF npc.isAttractedTo(pc)
-					#THEN [npc.speech(That's right, I'm still pregnant, all thanks to you! If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
+					#THEN [npc.speech(That's right, I'm still pregnant, all thanks to you! If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 					#ELSE [npc.speech(That's right, I'm still pregnant, all thanks to you! If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too!)])
 					#ENDIF
 			#ELSE
 				As you step forwards and start to say hello, you see that [npc.name] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] sighs,
 					#IF npc.isAttractedTo(pc)
-					#THEN [npc.speech(That's right, I'm still pregnant... If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
+					#THEN [npc.speech(That's right, I'm still pregnant... If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 					#ELSE [npc.speech(That's right, I'm still pregnant... If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too!)])
 					#ENDIF
 			#ENDIF
@@ -220,13 +220,13 @@
 			#THEN
 				As you step forwards and start to say hello, you see that [npc.name] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] laughs,
 					#IF npc.isAttractedTo(pc)
-					#THEN [npc.speech(That's right, I'm still pregnant, all thanks to [#npc.getPregnantLitter().getFather().getName()]! If you wanted to take responsibility for what they've done, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
+					#THEN [npc.speech(That's right, I'm still pregnant, all thanks to [#npc.getPregnantLitter().getFather().getName()]! If you wanted to take responsibility for what they've done, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, if anything, now that I'm pregnant, I'm hornier than ever, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 					#ELSE [npc.speech(That's right, I'm still pregnant, all thanks to [#npc.getPregnantLitter().getFather().getName()]! If you wanted to take responsibility for what they've done, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too!)])
 					#ENDIF
 			#ELSE
 				As you step forwards and start to say hello, you see that [npc.name] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] sighs,
 					#IF npc.isAttractedTo(pc)
-					#THEN [npc.speech(That's right, I'm still pregnant with [#npc.getPregnantLitter().getFather().getName()]'s children... If you wanted to take responsibility for what they've done, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
+					#THEN [npc.speech(That's right, I'm still pregnant with [#npc.getPregnantLitter().getFather().getName()]'s children... If you wanted to take responsibility for what they've done, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girls], then just say the word...)]
 					#ELSE [npc.speech(That's right, I'm still pregnant with [#npc.getPregnantLitter().getFather().getName()]'s children... If you wanted to take responsibility for what they've done, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that would be great too!)])
 					#ENDIF
 			#ENDIF
@@ -753,9 +753,11 @@
 	<p>
 		[npc.speech(J-Just take all my money and leave!)] [npc.she] pleads, throwing [npc.her] #IFnpc.isFeminine()#THENpurse#ELSEwallet#ENDIF at your feet. [npc.speech(I thought you were different, but you just wanted to hurt me, like all the others!)]
 	</p>
-	<p>
-		You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone. Then again, you <i>could</i> take advantage of [npc.her] weakened, vulnerable body...
-	</p>
+	#IF(game.isNonConEnabled())
+		<p>
+			You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone. Then again, you <i>could</i> take advantage of [npc.her] weakened, vulnerable body...
+		</p>
+	#ENDIF
 	<p style='text-align:center;'>
 		[style.italicsBad(After betraying [npc.namePos] trust in such a brutal manner, you can be sure that this will be the last time you ever see [npc.herHim].)]
 	</p>
@@ -769,9 +771,11 @@
 	<p>
 		[npc.speech(J-Just take my money and leave me alone!)] [npc.she] pleads, throwing [npc.her] #IFnpc.isFeminine()#THENpurse#ELSEwallet#ENDIF at your feet.
 	</p>
-	<p>
-		You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone. Then again, you <i>could</i> take advantage of [npc.her] weakened, vulnerable body...
-	</p>
+	#IF(game.isNonConEnabled())
+		<p>
+			You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone. Then again, you <i>could</i> take advantage of [npc.her] weakened, vulnerable body...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -114,8 +113,7 @@ public class NPCOffspring extends NPC {
 		
 		CharacterUtils.applyMakeup(this, true);
 
-		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+		initHealthAndManaToMax();
 
 		this.setEnslavementDialogue(GenericOffspringDialogue.ENSLAVEMENT_DIALOGUE, true);
 	}

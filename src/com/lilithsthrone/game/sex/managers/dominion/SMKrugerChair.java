@@ -10,7 +10,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -24,7 +24,7 @@ import com.lilithsthrone.utils.Util;
 public class SMKrugerChair extends SexManagerDefault {
 
 	public SMKrugerChair(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionOther.SITTING,
+		super(SexPosition.SITTING,
 				dominants,
 				submissives);
 	}
@@ -32,7 +32,7 @@ public class SMKrugerChair extends SexManagerDefault {
 	@Override
 	public List<AbstractSexPosition> getAllowedSexPositions() {
 		return Util.newArrayListOfValues(
-				SexPositionOther.SITTING);
+				SexPosition.SITTING);
 	}
 	
 	@Override

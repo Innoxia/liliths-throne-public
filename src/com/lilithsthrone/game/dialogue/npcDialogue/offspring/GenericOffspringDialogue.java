@@ -286,9 +286,13 @@ public class GenericOffspringDialogue {
 	};
 	
 	private static void setOffspringFlags() {
+		if(offspring().isVisiblyPregnant()) {
+			offspring().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+		}
+		if(Main.game.getPlayer().isVisiblyPregnant()) {
+			Main.game.getPlayer().setCharacterReactedToPregnancy(offspring(), true);
+		}
 		offspring().setFlag(NPCFlagValue.flagOffspringIntroduced, true);
-		offspring().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
-		Main.game.getPlayer().setCharacterReactedToPregnancy(offspring(), true);
 		Main.game.getDialogueFlags().offspringDialogueTokens = 2;
 	}
 	

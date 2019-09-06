@@ -243,8 +243,10 @@ public class UtilText {
 		
 		if(!parserTags.contains(ParserTag.SEX_ALLOW_MUFFLED_SPEECH) && Main.game.isInSex()
 				&& Sex.getAllParticipants().contains(target)
-				&& (!SexAreaOrifice.MOUTH.isFree(target) || target.isSpeechMuffled())) {
-			modifiedSentence = Util.replaceWithMuffle(modifiedSentence, 2);// + " <i style='font-size:66%;'>("+modifiedSentence+")</i>";
+				&& target.isSpeechMuffled()) {
+			if(Sex.isOngoingActionsBlockingSpeech(target)) {
+				modifiedSentence = Util.replaceWithMuffle(modifiedSentence, 2);// + " <i style='font-size:66%;'>("+modifiedSentence+")</i>";
+			}
 			
 		} else {
 			if (target.hasFetish(Fetish.FETISH_BIMBO)) {
@@ -256,25 +258,14 @@ public class UtilText {
 			}
 			
 			// Apply speech effects:
-	//		if(Main.game.isInSex() && target.isPlayer()) {
-	//			if(Sex.isCharacterEngagedInOngoingAction(Main.game.getPlayer())) {
-	//				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
-	//			}
-	//			if(!Sex.getContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH).isEmpty()) {
-	//				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-	//				
-	//			} else if(target.isSpeechMuffled()) {
-	//				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-	//			}
-	//			
-	//		} else 
-			if(Main.game.isInSex() && Sex.getAllParticipants().contains(target)) {
+			if(target.isSpeechMuffled()) {
+				modifiedSentence = Util.addMuffle(modifiedSentence, 5);
+				
+			} else if(Main.game.isInSex() && Sex.getAllParticipants().contains(target)) {
 				if(Sex.isCharacterEngagedInOngoingAction(target)) {
 					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 				}
 				
-			} else if(target.isSpeechMuffled()) {
-				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 			}
 			
 			if(target.getLipSize().isImpedesSpeech()) {
@@ -4042,17 +4033,55 @@ public class UtilText {
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"mainWeapon",
-						"primaryWeapon"),
+						"primaryWeapon",
+						"mainWeapon1",
+						"primaryWeapon1"),
 				true,
 				true,
 				"",
-				"Returns the name of the main weapon equipped by the character. Returns 'fists' if no weapon is equipped."){//TODO
+				"Returns the name of the main weapon equipped by the character in their primary arm row. Returns 'fists' if no weapon is equipped."){//TODO
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(character.getMainWeapon()==null) {
+				if(character.getMainWeapon(0)==null) {
 					return "fists";
 				} else {
-					return character.getMainWeapon().getName();
+					return character.getMainWeapon(0).getName();
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"mainWeapon2",
+						"primaryWeapon2"),
+				true,
+				true,
+				"",
+				"Returns the name of the main weapon equipped by the character in their secondary arm row (for characters who have more than one pair of arms). Returns 'fists' if no weapon is equipped."){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getMainWeapon(1)==null) {
+					return "fists";
+				} else {
+					return character.getMainWeapon(1).getName();
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"mainWeapon3",
+						"primaryWeapon3"),
+				true,
+				true,
+				"",
+				"Returns the name of the main weapon equipped by the character in their tertiary arm row (for characters who have more than one pair of arms). Returns 'fists' if no weapon is equipped."){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getMainWeapon(2)==null) {
+					return "fists";
+				} else {
+					return character.getMainWeapon(2).getName();
 				}
 			}
 		});
@@ -4061,21 +4090,58 @@ public class UtilText {
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"offhandWeapon",
-						"secondaryWeapon"),
+						"secondaryWeapon",
+						"offhandWeapon0",
+						"secondaryWeapon0"),
 				true,
 				true,
 				"",
-				"Returns the name of the offhand weapon equipped by the character. Returns 'fists' if no weapon is equipped."){//TODO
+				"Returns the name of the offhand weapon equipped by the character in their primary arm row. Returns 'fists' if no weapon is equipped."){//TODO
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(character.getOffhandWeapon()==null) {
+				if(character.getOffhandWeapon(0)==null) {
 					return "fists";
 				} else {
-					return character.getOffhandWeapon().getName();
+					return character.getOffhandWeapon(0).getName();
 				}
 			}
 		});
-		
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"offhandWeapon2",
+						"secondaryWeapon2"),
+				true,
+				true,
+				"",
+				"Returns the name of the offhand weapon equipped by the character in their primary arm row (for characters who have more than one pair of arms). Returns 'fists' if no weapon is equipped."){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getOffhandWeapon(1)==null) {
+					return "fists";
+				} else {
+					return character.getOffhandWeapon(1).getName();
+				}
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"offhandWeapon3",
+						"secondaryWeapon3"),
+				true,
+				true,
+				"",
+				"Returns the name of the offhand weapon equipped by the character in their tertiary arm row (for characters who have more than one pair of arms). Returns 'fists' if no weapon is equipped."){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getOffhandWeapon(2)==null) {
+					return "fists";
+				} else {
+					return character.getOffhandWeapon(2).getName();
+				}
+			}
+		});
 		
 		
 		

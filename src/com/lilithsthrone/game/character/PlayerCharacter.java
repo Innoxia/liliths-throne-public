@@ -799,9 +799,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 
 	@Override
-	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
-		if(this.getMainWeapon()!=null) {
-			return this.getMainWeapon().getWeaponType().getAttackDescription(this, target, isHit);
+	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
+		if(this.getMainWeapon(armRow)!=null) {
+			return this.getMainWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit);
 		} else {
 			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}

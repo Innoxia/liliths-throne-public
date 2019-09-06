@@ -534,7 +534,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					Consumer<String> toPlayerMap = putTagContentTo.apply(playerMap);
 					Consumer<String> toNPCMap = putTagContentTo.apply(npcMap);
 					Consumer<String> toUniversalMap = putTagContentTo.apply(universalMap);
-
+					//TODO this is messing up
 					toPlayerMap.accept("playerNPC");
 					toPlayerMap.accept("playerNPCRough");
 					toPlayerMap.accept("playerSelf");
@@ -549,7 +549,13 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					toUniversalMap.accept("self");
 					toUniversalMap.accept("other");
 					toUniversalMap.accept("otherRough");
-					
+
+					if(displacementDescriptionsPlayer.get(slot).get(type).isEmpty()) {
+						displacementDescriptionsPlayer.get(slot).remove(type);
+					}
+					if(displacementDescriptionsNPC.get(slot).get(type).isEmpty()) {
+						displacementDescriptionsNPC.get(slot).remove(type);
+					}
 					if(displacementDescriptions.get(slot).get(type).isEmpty()) {
 						displacementDescriptions.get(slot).remove(type);
 					}
@@ -1317,14 +1323,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			return "";
 		}
 		
-		if(displacementDescriptions!=null && !displacementDescriptions.isEmpty()) {
+		if(displacementDescriptions!=null && displacementDescriptions.get(slotToEquipInto)!=null && !displacementDescriptions.get(slotToEquipInto).isEmpty()) {
 			if(clothingOwner.equals(clothingEquipper)) {
 				if(displacementDescriptions.get(slotToEquipInto)!=null
 						&& displacementDescriptions.get(slotToEquipInto).containsKey(DisplacementType.REMOVE_OR_EQUIP)
 						&& displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
 					return UtilText.parse(clothingOwner, displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_SELF));
 				}
-				return UtilText.parse(clothingOwner, "[npc.name] [npc.verb(equip)] the "+clothing.getName());
+				return UtilText.parse(clothingOwner, "[npc.Name] [npc.verb(equip)] the "+clothing.getName()+"."); //TODO
 				
 			} else {
 				if(rough) {
@@ -1333,7 +1339,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							&& displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
 						return UtilText.parse(clothingEquipper, clothingOwner, displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
 					}
-					return UtilText.parse(clothingEquipper, clothingOwner, "[npc.name] [npc.verb(get)] [npc2.name] to equip the "+clothing.getName());
+					return UtilText.parse(clothingEquipper, clothingOwner, "[npc.Name] [npc.verb(get)] [npc2.name] to equip the "+clothing.getName()+".");
 					
 				} else {
 					if(displacementDescriptions.get(slotToEquipInto)!=null
@@ -1341,7 +1347,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							&& displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
 						return UtilText.parse(clothingEquipper, clothingOwner, displacementDescriptions.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT));
 					}
-					return UtilText.parse(clothingEquipper, clothingOwner, "[npc.name] roughly [npc.verb(force)] [npc2.name] to equip the "+clothing.getName());
+					return UtilText.parse(clothingEquipper, clothingOwner, "[npc.Name] roughly [npc.verb(force)] [npc2.name] to equip the "+clothing.getName()+".");
 				}
 			}
 			
@@ -1355,7 +1361,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								&& displacementDescriptionsPlayer.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
 							return displacementDescriptionsPlayer.get(slotToEquipInto).get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_SELF);
 						}
-						return "You equip the "+clothing.getName()+"";
+						return "You equip the "+clothing.getName()+".";
 						
 					} else {
 						if(rough) {

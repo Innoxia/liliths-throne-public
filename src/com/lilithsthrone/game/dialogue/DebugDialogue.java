@@ -441,7 +441,7 @@ public class DebugDialogue {
 						@Override
 						public void effects() {
 							viewItemVariablesReset();
-							itemViewSlot = InventorySlot.WEAPON_MAIN;
+							itemViewSlot = InventorySlot.WEAPON_MAIN_1;
 						}
 					};
 					
@@ -458,8 +458,12 @@ public class DebugDialogue {
 					
 				} else {
 					List<InventorySlot> clothingSlots = new ArrayList<>(Arrays.asList(InventorySlot.values()));
-					clothingSlots.remove(InventorySlot.WEAPON_MAIN);
-					clothingSlots.remove(InventorySlot.WEAPON_OFFHAND);
+					clothingSlots.remove(InventorySlot.WEAPON_MAIN_1);
+					clothingSlots.remove(InventorySlot.WEAPON_MAIN_2);
+					clothingSlots.remove(InventorySlot.WEAPON_MAIN_3);
+					clothingSlots.remove(InventorySlot.WEAPON_OFFHAND_1);
+					clothingSlots.remove(InventorySlot.WEAPON_OFFHAND_2);
+					clothingSlots.remove(InventorySlot.WEAPON_OFFHAND_3);
 					
 					if(index-5 < clothingSlots.size()) {
 						InventorySlot is = clothingSlots.get(index-5);
@@ -580,8 +584,8 @@ public class DebugDialogue {
 							?"[style.boldExcellent(Hidden Spawn Menu)]"
 							:(activeSlot==null
 								?"<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Spawn Item</b>"
-								:(activeSlot == InventorySlot.WEAPON_MAIN || activeSlot == InventorySlot.WEAPON_OFFHAND
-									? "<b style='color:"+Colour.BASE_RED_LIGHT.toWebHexString()+";'>Spawn Weapon</b> ("+Util.capitaliseSentence(activeSlot.getName())+")"
+								:(activeSlot.isWeapon()
+									? "<b style='color:"+Colour.BASE_RED_LIGHT.toWebHexString()+";'>Spawn Weapon</b> ("+Util.capitaliseSentence(activeSlot==InventorySlot.WEAPON_MAIN_1?"Melee":"Ranged")+")"
 									: "<b style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>Spawn Clothing</b> ("+Util.capitaliseSentence(activeSlot.getName())+")")))
 					+"</p>");
 			
@@ -642,10 +646,10 @@ public class DebugDialogue {
 					count++;
 				}
 				
-			} else if(activeSlot == InventorySlot.WEAPON_MAIN || activeSlot == InventorySlot.WEAPON_OFFHAND) {
+			} else if(activeSlot.isWeapon()) {
 				for(AbstractWeaponType weaponType : weaponsTotal) {
-					if((weaponType.isMelee() && activeSlot==InventorySlot.WEAPON_MAIN)
-							|| (!weaponType.isMelee() && activeSlot==InventorySlot.WEAPON_OFFHAND)) {
+					if((weaponType.isMelee() && activeSlot==InventorySlot.WEAPON_MAIN_1)
+							|| (!weaponType.isMelee() && activeSlot==InventorySlot.WEAPON_OFFHAND_1)) {
 						inventorySB.append("<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "'>"
 												+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
 														weaponType.getAvailableDamageTypes().get(0),
@@ -686,14 +690,19 @@ public class DebugDialogue {
 			
 			inventorySB.append("<div class='container-half-width'>");
 			for(InventorySlot slot : InventorySlot.values()) {
-				inventorySB.append("<div class='normal-button' id='"+slot+"_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"
-						+ (slot == InventorySlot.WEAPON_MAIN || slot == InventorySlot.WEAPON_OFFHAND ? Colour.BASE_RED_LIGHT.toWebHexString() : Colour.BASE_YELLOW_LIGHT.toWebHexString())+";'>"
-						+(slot == InventorySlot.WEAPON_MAIN
-							?"Melee"
-							:(slot == InventorySlot.WEAPON_OFFHAND
-									?"Ranged"
-									:Util.capitaliseSentence(slot.getName())))
-						+"</div>");
+				if(slot!=InventorySlot.WEAPON_MAIN_2
+						&& slot!=InventorySlot.WEAPON_MAIN_3
+						&& slot!=InventorySlot.WEAPON_OFFHAND_2
+						&& slot!=InventorySlot.WEAPON_OFFHAND_3) {
+					inventorySB.append("<div class='normal-button' id='"+slot+"_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"
+							+ (slot.isWeapon() ? Colour.BASE_RED_LIGHT.toWebHexString() : Colour.BASE_YELLOW_LIGHT.toWebHexString())+";'>"
+							+(slot == InventorySlot.WEAPON_MAIN_1
+								?"Melee"
+								:(slot == InventorySlot.WEAPON_OFFHAND_1
+										?"Ranged"
+										:Util.capitaliseSentence(slot.getName())))
+							+"</div>");
+				}
 			}
 			inventorySB.append("<div class='normal-button' id='ITEM_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Items</div>");
 			inventorySB.append("<div class='normal-button' id='ESSENCE_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Essences</div>");
@@ -767,7 +776,7 @@ public class DebugDialogue {
 				inventorySB.append("</div>");
 			}
 
-			if(viewAll || itemViewSlot == InventorySlot.WEAPON_MAIN || itemViewSlot == InventorySlot.WEAPON_OFFHAND) {
+			if(viewAll || itemViewSlot.isWeapon()) {
 				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
 						+ "<h5>Total weapons: "+weaponsTotal.size()+"</h5>");
 				for(AbstractWeaponType weaponType : weaponsTotal) {
@@ -807,7 +816,7 @@ public class DebugDialogue {
 				}
 				inventorySB.append("</div>");
 				
-			} else if(itemViewSlot!=null && itemViewSlot != InventorySlot.WEAPON_MAIN && itemViewSlot != InventorySlot.WEAPON_OFFHAND) {
+			} else if(itemViewSlot!=null && !itemViewSlot.isWeapon()) {
 				List<AbstractClothingType> clothingToDisplay = clothingTotal.stream().filter((c) -> c.getEquipSlots().get(0)==itemViewSlot).collect(Collectors.toList());
 				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
 						+ "<h5>Total '"+itemViewSlot.getName()+"' slot clothing: "+clothingToDisplay.size()+"</h5>");

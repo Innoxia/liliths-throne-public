@@ -750,7 +750,7 @@ public class CharacterModificationUtils {
 				BodyChanging.getTarget().getAppearsAsAgeValue()>=(BodyChanging.getTarget().getAgeValue()+10))
 				
 				+ applyWrapper("Birthday",
-						UtilText.parse(BodyChanging.getTarget(), "[npc.NamePos] birthday can not ever be changed, but by transforming [npc.her] body, [npc.she] may appear to be younger or older than [npc.she] really is."),
+						UtilText.parse(BodyChanging.getTarget(), "[npc.NamePos] birthday can not ever be changed, but by transforming [npc.her] body, [npc.she] may appear to be younger or older than [npc.she] really [npc.is]."),
 						"BIRTHDAY",
 						"<p style='text-align:center; margin:0; padding:0;'>"
 							+ BodyChanging.getTarget().getBirthdayString()
@@ -800,13 +800,13 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getTailType() == tail) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(tail.getRace()==null? "None": tail.getTransformName())+(tail.isPrehensile()?"*":"")+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.isPrehensile()?"*":"")+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_TAIL_"+tail+"' class='cosmetics-button'>"
-								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getRace()==null? "None": tail.getTransformName())+(tail.isPrehensile()?"*":"")+"</span>"
+								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.isPrehensile()?"*":"")+"</span>"
 							+ "</div>");
 				}
 			}
@@ -892,13 +892,13 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getWingType() == wing) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(wing.getRace()==null? "None": wing.getTransformName())+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(wing.getTransformName())+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_WING_"+wing+"' class='cosmetics-button'>"
-								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(wing.getRace()==null? "None": wing.getTransformName())+"</span>"
+								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(wing.getTransformName())+"</span>"
 							+ "</div>");
 				}
 			}
@@ -2593,14 +2593,14 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getVaginaType() == vagina) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(vagina.getRace()==null?"None":vagina.getTransformName())+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(vagina.getTransformName())+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div "+(BodyChanging.getTarget().isPregnant()?"":"id='CHANGE_VAGINA_"+vagina+"'")+" class='cosmetics-button"+(BodyChanging.getTarget().isPregnant()?" disabled":"")+"'>"
 								+ "<span style='color:"+(BodyChanging.getTarget().isPregnant()?Colour.TEXT_GREY.toWebHexString():c.getShades()[0])+";'>"
-									+Util.capitaliseSentence(vagina.getRace()==null?"None":vagina.getTransformName())
+									+Util.capitaliseSentence(vagina.getTransformName())
 								+"</span>"
 							+ "</div>");
 				}
@@ -2949,13 +2949,13 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getPenisType() == penis) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(penis.getRace()==null?"None":penis.getTransformName())+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(penis.getTransformName())+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_PENIS_"+penis+"' class='cosmetics-button'>"
-								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(penis.getRace()==null?"None":penis.getTransformName())+"</span>"
+								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(penis.getTransformName())+"</span>"
 							+ "</div>");
 				}
 			}

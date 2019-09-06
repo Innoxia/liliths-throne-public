@@ -219,7 +219,11 @@ public class GenericActions {
 
 		@Override
 		public String getActionDescription() {
-			return "Get [npc2.name] to grow a demonic cock.";
+			if(Sex.getCharacterTargetedForSexAction(this).getRace()==Race.DEMON) {
+				return "Get [npc2.name] to use [npc.her] demonic self-transformative powers to grow [npc.herself] a demonic cock.";
+			} else {
+				return "Get [npc2.name] to use [npc.her] slimy body's self-transformative powers to grow [npc.herself] a slimy cock.";
+			}
 		}
 
 		@Override
@@ -1481,6 +1485,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexManager().isPartnerWantingToStopSex(Sex.getCharacterPerformingAction())
+					&& !Sex.isAnyCharacterReadyToOrgasm(false)
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		

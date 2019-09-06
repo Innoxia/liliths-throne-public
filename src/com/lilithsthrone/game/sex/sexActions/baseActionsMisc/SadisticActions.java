@@ -87,16 +87,30 @@ public class SadisticActions {
 						" The horny squeal that escapes [npc2.namePos] mouth is enough to let anyone realise that [npc2.sheIs] getting turned on from being treated in such a degrading manner.",
 						" Instead of a painful cry, [npc2.name] [npc2.verb(let)] out a horny moan, letting [npc.name] know that [npc2.sheIs] a masochist who's getting turned on by being abused like this."));
 			} else {
-				sb.append(UtilText.returnStringAtRandom(
-						" A protesting yelp escapes from [npc2.namePos] mouth at the moment of contact,"
-								+ (Sex.getCharacterPerformingAction().isPlayer()
-										?" which is precisely the reaction you were looking for."
-										:" and from the wicked grin that settles on [npc.namePos] face, this was just the reaction [npc.she] [npc.was] looking for."),
-						" The pained squeal which immediately escapes from [npc2.namePos] mouth is exactly what [npc.name] [npc.was] looking for, and [npc.she] can't help but grin as [npc.she] [npc.verb(see)] tears well up in"
-								+ (Sex.getCharacterTargetedForSexAction(this).isPlayer()
-										?" your [npc2.eyes+]."
-										:" [npc.her] submissive bitch's [npc2.eyes+]."),
-						" After letting out a shocked cry, tears start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] abuse is having the exact effect [npc.she] [npc.was] looking for."));
+				if(Sex.getCharacterTargetedForSexAction(this).isFeminine()) {
+					sb.append(UtilText.returnStringAtRandom(
+							" A protesting yelp escapes from [npc2.namePos] mouth at the moment of contact,"
+									+ (Sex.getCharacterPerformingAction().isPlayer()
+											?" which is precisely the reaction you were looking for."
+											:" and from the wicked grin that settles on [npc.namePos] face, this was just the reaction [npc.she] [npc.was] looking for."),
+							" The pained squeal which immediately escapes from [npc2.namePos] mouth is exactly what [npc.name] [npc.was] looking for, and [npc.she] can't help but grin as [npc.she] [npc.verb(see)] tears well up in"
+									+ (Sex.getCharacterTargetedForSexAction(this).isPlayer()
+											?" your [npc2.eyes+]."
+											:" [npc.her] submissive bitch's [npc2.eyes+]."),
+							" After letting out a shocked cry, tears start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] abuse is having the exact effect [npc.she] [npc.was] looking for."));
+					
+				} else {
+					sb.append(UtilText.returnStringAtRandom(
+							" A protesting shout escapes from [npc2.namePos] mouth at the moment of contact,"
+									+ (Sex.getCharacterPerformingAction().isPlayer()
+											?" which is precisely the reaction you were looking for."
+											:" and from the wicked grin that settles on [npc.namePos] face, this was just the reaction [npc.she] [npc.was] looking for."),
+							" The pained exclamation which immediately escapes from [npc2.namePos] mouth is exactly what [npc.name] [npc.was] looking for, and [npc.she] can't help but grin as [npc.she] [npc.verb(see)] the shocked look in"
+									+ (Sex.getCharacterTargetedForSexAction(this).isPlayer()
+											?" your [npc2.eyes+]."
+											:" [npc.her] submissive bitch's [npc2.eyes+]."),
+							" [npc2.Name] immediately [npc2.verb(let)] out a shocked cry, revealing to [npc.name] that [npc.her] abuse is having the exact effect [npc.she] [npc.was] looking for."));	
+				}
 			}
 			
 			return sb.toString();
@@ -158,7 +172,7 @@ public class SadisticActions {
 			StringBuilder sb = new StringBuilder();
 
 			sb.append(UtilText.returnStringAtRandom(
-					"Wanting to show [npc2.name] that [npc2.sheIs] a worthless bitch, [npc.name] [npc.verb(lean)] in towards [npc.herHim], before spitting on [npc2.her] face.",
+					"Wanting to show [npc2.name] that [npc2.sheIs] a worthless bitch, [npc.name] [npc.verb(lean)] in towards [npc2.herHim], before spitting on [npc2.her] face.",
 					"Leaning in towards [npc2.name], [npc.name] [npc.verb(purse)] [npc.her] [npc.lips+], before spitting directly on [npc2.her] face.",
 					"Seeking to remind [npc2.name] of how worthless [npc2.sheIsFull], [npc.name] [npc.verb(lean)] in towards [npc2.herHim], before pursing [npc.her] [npc.lips+] and spitting directly on [npc2.her] face."));
 			
@@ -168,16 +182,30 @@ public class SadisticActions {
 						" The horny squeal that escapes [npc2.namePos] mouth is enough to let anyone realise that [npc2.sheIs] getting turned on from being treated in such a degrading manner.",
 						" Instead of a disgusted cry, [npc2.name] [npc2.verb(let)] out a horny [npc2.moan], letting [npc.name] know that [npc2.sheIs] a masochist who's getting turned on by being abused like this."));
 			} else {
-				sb.append(UtilText.returnStringAtRandom(
-						" A disgusted cry escapes from [npc2.namePos] mouth as the ball of saliva splatters onto [npc2.her] cheek,"
-								+ (Sex.getCharacterPerformingAction().isPlayer()
-										?" which is precisely the reaction you were looking for."
-										:" and from the wicked grin that settles on [npc.namePos] face, this was just the reaction [npc.she] [npc.was] looking for."),
-						" The horrified protestations which [npc2.name] immediately [npc2.verb(make)] is exactly what [npc.name] [npc.was] looking for, and [npc.she] can't help but grin as [npc.she] [npc.verb(see)] tears well up in"
-								+ (Sex.getCharacterTargetedForSexAction(this).isPlayer()
-										?" your [npc2.eyes+]."
-										:" [npc.her] submissive bitch's [npc2.eyes+]."),
-						" After letting out a shocked cry, tears start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] abuse is having the exact effect [npc.she] [npc.was] looking for."));
+				if(Sex.getCharacterTargetedForSexAction(this).isFeminine()) {
+					sb.append(UtilText.returnStringAtRandom(
+							" A disgusted cry escapes from [npc2.namePos] mouth as the ball of saliva splatters onto [npc2.her] cheek,"
+									+ (Sex.getCharacterPerformingAction().isPlayer()
+											?" which is precisely the reaction you were looking for."
+											:" and from the wicked grin that settles on [npc.namePos] face, this was just the reaction [npc.she] [npc.was] looking for."),
+							" The horrified protestations which [npc2.name] immediately [npc2.verb(make)] is exactly what [npc.name] [npc.was] looking for, and [npc.she] can't help but grin as [npc.she] [npc.verb(see)] tears well up in"
+									+ (Sex.getCharacterTargetedForSexAction(this).isPlayer()
+											?" your [npc2.eyes+]."
+											:" [npc.her] submissive bitch's [npc2.eyes+]."),
+							" After letting out a shocked cry, tears start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] abuse is having the exact effect [npc.she] [npc.was] looking for."));
+					
+				} else {
+					sb.append(UtilText.returnStringAtRandom(
+							" A disgusted cry escapes from [npc2.namePos] mouth as the ball of saliva splatters onto [npc2.her] cheek,"
+									+ (Sex.getCharacterPerformingAction().isPlayer()
+											?" which is precisely the reaction you were looking for."
+											:" and from the wicked grin that settles on [npc.namePos] face, this was just the reaction [npc.she] [npc.was] looking for."),
+							" The horrified protestations which [npc2.name] immediately [npc2.verb(make)] is exactly what [npc.name] [npc.was] looking for, and [npc.she] can't help but grin as [npc.she] [npc.verb(see)] the shocked look in"
+									+ (Sex.getCharacterTargetedForSexAction(this).isPlayer()
+											?" your [npc2.eyes+]."
+											:" [npc.her] submissive bitch's [npc2.eyes+]."),
+							" [npc2.Name] immediately [npc2.verb(let)] out a shocked cry, revealing to [npc.name] that [npc.her] abuse is having the exact effect [npc.she] [npc.was] looking for."));	
+				}
 			}
 			
 			return sb.toString();
@@ -265,16 +293,31 @@ public class SadisticActions {
 						" The horny, gargled [npc2.moans] which [npc2.name] immediately [npc2.verb(start)] to produce are more than enough to let anyone realise that [npc2.sheIs] a masochist, and is getting aroused by this poor treatment.",
 						" The spluttering gasps which [npc2.name] [npc2.verb(begin)] to emit are intermingled with several horny [npc2.moans], letting [npc.name] know that [npc2.sheIs] deriving masochistic pleasure from being abused in such a fashion."));
 			} else {
-				sb.append(UtilText.returnStringAtRandom(
-						" A series of gargled spluttering noises escape from [npc2.namePos] mouth,"
-								+ (Sex.getCharacterPerformingAction().isPlayer()
-										?" which is precisely the reaction you were looking for."
-										:" and from the wicked grin that settles on [npc.namePos] face, this was just the reaction [npc.she] [npc.was] looking for."),
-						" The distressed, gargled cries which [npc2.name] [npc2.verb(start)] to make are exactly what [npc.name] [npc.was] looking for, and [npc.she] can't help but grin as [npc.she] [npc.verb(see)] tears well up in"
-								+ (Sex.getCharacterTargetedForSexAction(this).isPlayer()
-										?" your [npc2.eyes+]."
-										:" [npc.her] submissive bitch's [npc2.eyes+]."),
-						" Letting out a series of spluttering gasps, tears quickly start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] abuse is having the exact effect [npc.she] [npc.was] looking for."));
+				if(Sex.getCharacterTargetedForSexAction(this).isFeminine()) {
+					sb.append(UtilText.returnStringAtRandom(
+							" A series of gargled spluttering noises escape from [npc2.namePos] mouth,"
+									+ (Sex.getCharacterPerformingAction().isPlayer()
+											?" which is precisely the reaction you were looking for."
+											:" and from the wicked grin that settles on [npc.namePos] face, this was just the reaction [npc.she] [npc.was] looking for."),
+							" The distressed, gargled cries which [npc2.name] [npc2.verb(start)] to make are exactly what [npc.name] [npc.was] looking for, and [npc.she] can't help but grin as [npc.she] [npc.verb(see)] tears well up in"
+									+ (Sex.getCharacterTargetedForSexAction(this).isPlayer()
+											?" your [npc2.eyes+]."
+											:" [npc.her] submissive bitch's [npc2.eyes+]."),
+							" Letting out a series of spluttering gasps, tears quickly start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] abuse is having the exact effect [npc.she] [npc.was] looking for."));
+					
+				} else {
+					sb.append(UtilText.returnStringAtRandom(
+							" A series of gargled spluttering noises escape from [npc2.namePos] mouth,"
+									+ (Sex.getCharacterPerformingAction().isPlayer()
+											?" which is precisely the reaction you were looking for."
+											:" and from the wicked grin that settles on [npc.namePos] face, this was just the reaction [npc.she] [npc.was] looking for."),
+							" The distressed, gargled cries which [npc2.name] immediately [npc2.verb(make)] is exactly what [npc.name] [npc.was] looking for, and [npc.she] can't help but grin as [npc.she] [npc.verb(see)] the shocked look in"
+									+ (Sex.getCharacterTargetedForSexAction(this).isPlayer()
+											?" your [npc2.eyes+]."
+											:" [npc.her] submissive bitch's [npc2.eyes+]."),
+							" [npc2.Name] immediately [npc2.verb(let)] out a spluttering gasp, revealing to [npc.name] that [npc.her] abuse is having the exact effect [npc.she] [npc.was] looking for."));	
+				}
+				
 			}
 			
 			return sb.toString();

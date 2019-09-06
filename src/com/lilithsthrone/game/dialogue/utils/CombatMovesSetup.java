@@ -35,12 +35,15 @@ public class CombatMovesSetup {
             UtilText.nodeContentSB.setLength(0);
 
             UtilText.nodeContentSB.append(
-                    "<div class='container-full-width' style='padding:8px;'>"
-                            + "Every character can have up to "+String.valueOf(GameCharacter.MAX_COMBAT_MOVES)+" combat moves available to them at a time in combat, but they may know an infinite amount themselves. <br/>"
-                            + "You can click on the active moves to remove them from your active move list and click on the known ones to add them."
+                    "<div class='container-full-width' style='padding:8px; text-align:center;'>"
+                            + "While there is no limit on the number of moves which a character can know and use in combat,"
+                            	+ " it's only possible for "+String.valueOf(GameCharacter.MAX_COMBAT_MOVES)+" [style.colourMinorGood(core combat moves)] to be selected at a time."
+                            + " Any [style.colourMinorBad(non-core moves)] cost [style.colourBad(+1 action point)] to use in combat, and will suffer a [style.colourBad(+1 turn cooldown)].<br/>"
+                            + UtilText.parse(getTarget(), "<i>(You can click on the icons below to add and remove them from [npc.namePos] core combat moves.)</i>")
+                            +(getTarget().isPlayer()?"":"<i>([npc.Name] will only choose to use [npc.her] core moves when in combat, unless [npc.she] has none available, in which case [npc.she] will choose from [npc.her] non-core moves.)</i>")
                             + "</div>"
                             + "<div class='container-full-width' style='padding:8px; text-align:center;'>"
-                            + "<h6 style='text-align:center;'>Active Moves</h6>");
+                            + "<h6 style='text-align:center;'>[style.colourMinorGood(Core Combat Moves)]</h6>");
 
             for(int i=0;i<GameCharacter.MAX_COMBAT_MOVES;i++) {
                 CombatMove mv = null;
@@ -61,7 +64,7 @@ public class CombatMovesSetup {
 
             UtilText.nodeContentSB.append(
                             "<div class='container-full-width' style='padding:8px; text-align:center;'>"
-                            + "<h6 style='text-align:center;'>Known Moves</h6>");
+                            + "<h6 style='text-align:center;'>[style.colourMinorBad(Non-Core Combat Moves)]</h6>");
 
             for(int i=0;i<target.getAvailableMoves().size();i++) {
                 CombatMove mv = target.getAvailableMoves().get(i);

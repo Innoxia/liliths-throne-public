@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.AbstractMap.SimpleEntry;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -1789,7 +1790,10 @@ public class CharacterCreation {
 		
 		Main.getProperties().addRaceDiscovered(Main.game.getNpc(Lilaya.class).getSubspecies());
 		Main.getProperties().addRaceDiscovered(Main.game.getNpc(Rose.class).getSubspecies());
-
+		
+		Main.game.applyStartingDateChange();
+		Main.game.getPlayer().setAgeAppearanceDifference(-Game.TIME_SKIP_YEARS);
+		
 		moveNPCOutOfPlayerTile();
 	}
 	

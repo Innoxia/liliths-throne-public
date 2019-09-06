@@ -850,7 +850,7 @@
 		[genericFemale.speech(Lyssieth, we have Valoel cornered in the throne room,)] your lilin sister, Orialyss, informs you. [genericFemale.speech(What shall we do with the humans?)]
 	</p>
 	<p>
-		[lyssieth.speech(Restrain them,)] you command, sweeping past the scarlet-skinned succubus as you set off down the palace's hallway. [lyssieth.speech(Their treachery cannot go unpunished. I will see to them later.)]
+		[lyssieth.speechNoEffects(Restrain them,)] you command, sweeping past the scarlet-skinned succubus as you set off down the palace's hallway. [lyssieth.speechNoEffects(Their treachery cannot go unpunished. I will see to them later.)]
 	</p>
 	<p>
 		Orialyss falls in behind you, following in your footsteps as you make your way to where your other lilin subordinates have trapped your angelic foe. With Valoel soon to be captured, you'll finally be able to return to the comfort of your human harem, and, with that thought in mind, you can't help but grin as you step over the shattered remains of the throne room's doors and come face-to-face with the archangel himself.
@@ -865,13 +865,13 @@
 		[genericMale.speech(Stop it!)] Valoel weakly shouts, clutching his side in pain, [genericMale.speech(Just spare my friends, and I'll surrender!)]
 	</p>
 	<p>
-		[lyssieth.speech(Ha... Hahaha!)] you can't help but burst out laughing at the foolish archangel's request, and, seeing the hilarity of a defeated foe trying to make demands of you, the ten lilin start jeering and snickering at Valoel.
+		[lyssieth.speechNoEffects(Ha... Hahaha!)] you can't help but burst out laughing at the foolish archangel's request, and, seeing the hilarity of a defeated foe trying to make demands of you, the ten lilin start jeering and snickering at Valoel.
 	</p>
 	<p>
 		[genericMale.speech(Foul creatures!)] the archangel shouts, and with surprising speed, he lunges directly at you, sword in hand.
 	</p>
 	<p>
-		Although an immensely powerful being in his own right, he's no match for a natural-born daughter of Lilith herself, and you let out a patronising 'aww' as you easily sidestep his attack. Grabbing him by the neck, you use a blast of arcane force to swiftly disarm him, and, pulling him into your embrace, you tease, [lyssieth.speech(My, my, what a spirited thing you are! My sisters and I will have a lot of fun with you...)]
+		Although an immensely powerful being in his own right, he's no match for a natural-born daughter of Lilith herself, and you let out a patronising 'aww' as you easily sidestep his attack. Grabbing him by the neck, you use a blast of arcane force to swiftly disarm him, and, pulling him into your embrace, you tease, [lyssieth.speechNoEffects(My, my, what a spirited thing you are! My sisters and I will have a lot of fun with you...)]
 	</p>
 	<p>
 		At that moment, the other lilin in the room suddenly all turn to face the doorway through which you entered, and, as one, they drop down onto one knee. [genericFemale.speech([style.glowArcane(Most impressive, Lyssieth. As a reward, you may keep that creature as your pet.)])]

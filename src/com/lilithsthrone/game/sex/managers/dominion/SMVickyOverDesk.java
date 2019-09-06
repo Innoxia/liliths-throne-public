@@ -7,7 +7,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.utils.Util;
 
@@ -19,7 +19,7 @@ import com.lilithsthrone.utils.Util;
 public class SMVickyOverDesk extends SexManagerDefault {
 
 	public SMVickyOverDesk(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionOther.OVER_DESK,
+		super(SexPosition.OVER_DESK,
 				dominants,
 				submissives);
 	}
@@ -32,7 +32,7 @@ public class SMVickyOverDesk extends SexManagerDefault {
 	@Override
 	public List<AbstractSexPosition> getAllowedSexPositions() {
 		return Util.newArrayListOfValues(
-				SexPositionOther.OVER_DESK);
+				SexPosition.OVER_DESK);
 	}
 	
 	@Override

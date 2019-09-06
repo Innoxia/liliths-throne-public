@@ -75,7 +75,7 @@
       <![CDATA[[npc.Name] [npc.verb(drape)] the amulet's chain around [npc2.namePos] neck, which causes [npc2.herHim] to let out out an evil laugh as [npc2.she] [npc2.verb(feel)] the immense, corruptive power seeping into [npc2.her] mind.]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos], before [npc.verb(drape)] the amulet's chain around [npc2.her] neck. Almost immediately, [npc2.name] [npc2.verb(let)] out out an evil laugh as [npc2.she] [npc2.verb(feel)] the immense, corruptive power seeping into [npc2.her] mind.]]>
+      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before [npc.verb(drape)] the amulet's chain around [npc2.her] neck. Almost immediately, [npc2.name] [npc2.verb(let)] out out an evil laugh as [npc2.she] [npc2.verb(feel)] the immense, corruptive power seeping into [npc2.her] mind.]]>
     </otherRough>
   </replacementText>
 

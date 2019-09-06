@@ -20,7 +20,7 @@ import com.lilithsthrone.utils.Util;
  * @author Innoxia
  */
 public enum PenisType implements BodyPartTypeInterface {
-	NONE(null, TesticleType.NONE, null),
+	NONE(null, TesticleType.NONE, Race.NONE),
 
 	DILDO(BodyCoveringType.DILDO, TesticleType.DILDO, Race.NONE),
 	

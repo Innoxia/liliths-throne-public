@@ -275,25 +275,25 @@ public class SexSlotLyingDown {
 	public static final SexSlot SCISSORING = new SexSlot(
 			"Scissoring",
 			"scissoring",
-			"Desperately thrusting [npc.her] [npc.hips] forwards in order to grind [npc.her] groin against [npc2.namePos], [npc.name] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
+			"Desperately thrusting [npc.her] [npc.hips] forwards in order to grind [npc.her] groin against [npc2.nameHers], [npc.name] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
 			false);
 
 	public static final SexSlot SCISSORING_TWO = new SexSlot(
 			"Scissoring",
 			"scissoring (2nd)",
-			"Desperately thrusting [npc.her] [npc.hips] forwards in order to grind [npc.her] groin against [npc2.namePos], [npc.name] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
+			"Desperately thrusting [npc.her] [npc.hips] forwards in order to grind [npc.her] groin against [npc2.nameHers], [npc.name] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
 			false);
 
 	public static final SexSlot SCISSORING_THREE = new SexSlot(
 			"Scissoring",
 			"scissoring (3rd)",
-			"Desperately thrusting [npc.her] [npc.hips] forwards in order to grind [npc.her] groin against [npc2.namePos], [npc.name] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
+			"Desperately thrusting [npc.her] [npc.hips] forwards in order to grind [npc.her] groin against [npc2.nameHers], [npc.name] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
 			false);
 
 	public static final SexSlot SCISSORING_FOUR = new SexSlot(
 			"Scissoring",
 			"scissoring (4th)",
-			"Desperately thrusting [npc.her] [npc.hips] forwards in order to grind [npc.her] groin against [npc2.namePos], [npc.name] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
+			"Desperately thrusting [npc.her] [npc.hips] forwards in order to grind [npc.her] groin against [npc2.nameHers], [npc.name] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
 			false);
 	
 	

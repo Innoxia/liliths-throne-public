@@ -39,7 +39,7 @@ public class CMSpecialAttack {
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 1))) {
 
         private int getBaseDamage(GameCharacter source) {
-            return source.getUnarmedDamage()*2;
+            return (int) Math.max(1, (source.getUnarmedDamage() * 2 * (source.isLegMovementHindered()?0.1f:1)));
         }
 
         private int getDamage(GameCharacter source, GameCharacter target) {
@@ -72,11 +72,11 @@ public class CMSpecialAttack {
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
-            int dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)) * (source.isLegMovementHindered()?0.1f:1));
+            int dealtDamage = damageType.damageTarget(source, target, getDamage(source, target));
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             int dealtCritDamage = 0;
             if(isCrit) {
-            	dealtCritDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target))/2 * (source.isLegMovementHindered()?0.1f:1)); // Second kick damage from the crit.
+            	dealtCritDamage = damageType.damageTarget(source, target, getDamage(source, target))/2; // Second kick damage from the crit.
             }
             
             return formatAttackOutcome(source, target,
@@ -120,7 +120,7 @@ public class CMSpecialAttack {
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.VULNERABLE, 2))) {
 
         private int getBaseDamage(GameCharacter source) {
-            return (int) (source.getUnarmedDamage()*1.5f);
+            return (int) Math.max(1, ((source.getUnarmedDamage()*1.5f) * (source.isArmMovementHindered()?0.5f:1)));
         }
 
         private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -154,7 +154,7 @@ public class CMSpecialAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target, false)) * (source.isArmMovementHindered()?0.5f:1));
+            int dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, false));
             
             return formatAttackOutcome(source, target,
             		(source.isArmMovementHindered()
@@ -168,7 +168,7 @@ public class CMSpecialAttack {
         }
         
         @Override
-        public float getCritStatusEffectDurationIncrease() {
+        public float getCritStatusEffectDurationMultiplier() {
         	return 2;
         }
     };
@@ -230,7 +230,7 @@ public class CMSpecialAttack {
         }
         
         @Override
-        public float getCritStatusEffectDurationIncrease() {
+        public float getCritStatusEffectDurationMultiplier() {
         	return 2;
         }
     };
@@ -248,7 +248,7 @@ public class CMSpecialAttack {
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.VULNERABLE, 1))) {
 
         private int getBaseDamage(GameCharacter source) {
-            return source.getUnarmedDamage();
+            return (int) Math.max(1, source.getUnarmedDamage() * (source.isArmMovementHindered()?0.5f:1));
         }
 
         private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -282,12 +282,12 @@ public class CMSpecialAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target, false)) * (source.isArmMovementHindered()?0.5f:1));
+            int dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, false));
             int dealtCritDamage2 = 0;
             int dealtCritDamage3 = 0;
             if(isCrit) {
-            	dealtCritDamage2 = (int) (damageType.damageTarget(source, target, getDamage(source, target, false))/2 * (source.isLegMovementHindered()?0.1f:1));
-            	dealtCritDamage3 = (int) (damageType.damageTarget(source, target, getDamage(source, target, false))/2 * (source.isLegMovementHindered()?0.1f:1));
+            	dealtCritDamage2 = damageType.damageTarget(source, target, getDamage(source, target, false))/2;
+            	dealtCritDamage3 = damageType.damageTarget(source, target, getDamage(source, target, false))/2;
             }
             
             return formatAttackOutcome(source, target,
@@ -315,7 +315,7 @@ public class CMSpecialAttack {
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 3))) {
 
         private int getBaseDamage(GameCharacter source) {
-            return source.getUnarmedDamage()*4;
+            return (int) Math.max(1, source.getUnarmedDamage() * 4 * (source.isArmMovementHindered()?0.5f:1));
         }
 
         private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
@@ -349,14 +349,12 @@ public class CMSpecialAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target, false)) * (source.isArmMovementHindered()?0.5f:1));
+            int dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, false));
             
             return formatAttackOutcome(source, target,
             		(source.isArmMovementHindered()
             				?"As [npc.her] clothing is restricting [npc.her] arm movement, [npc.name] [npc.verb(struggle)] to land [npc.her] savage slashes, dealing only half damage to [npc2.name]..."
-            				:"With a savage howl, [npc.name] [npc.verb(launch)] [npc.herself] at [npc2.name]!"
-            					+ " [npc.Her] wolf-like muzzle clamps down on one of [npc2.her] [npc2.arms], and [npc.she] [npc.verb(rake)] at [npc2.her] body with [npc.her] sharp claws,"
-									+ " doing a considerable amount of damage before [npc2.she] [npc2.verb(manage)] to break free."),
+            				:"With a savage howl, [npc.name] [npc.verb(launch)] [npc.herself] at [npc2.name], managing to do considerable damage to [npc2.herHim] by raking at [npc2.her] body with [npc.her] sharp claws."),
             		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
             		(isCrit
             			?"The ferocity of [npc.namePos] attack catches [npc2.name] off guard!"
@@ -365,7 +363,7 @@ public class CMSpecialAttack {
         }
         
         @Override
-        public float getCritStatusEffectDurationIncrease() {
+        public float getCritStatusEffectDurationMultiplier() {
         	return 2;
         }
 
@@ -438,7 +436,7 @@ public class CMSpecialAttack {
         }
         
         @Override
-        public float getCritStatusEffectDurationIncrease() {
+        public float getCritStatusEffectDurationMultiplier() {
         	return 2;
         }
     };
@@ -500,7 +498,7 @@ public class CMSpecialAttack {
         }
         
         @Override
-        public float getCritStatusEffectDurationIncrease() {
+        public float getCritStatusEffectDurationMultiplier() {
         	return 2;
         }
     };
@@ -517,6 +515,14 @@ public class CMSpecialAttack {
             false,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 2))) {
 
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(!source.isCoverableAreaExposed(CoverableArea.MOUTH)) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+    	
         private int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage() * 2 * (!source.isCoverableAreaExposed(CoverableArea.MOUTH)?0:1);
         }
@@ -573,7 +579,7 @@ public class CMSpecialAttack {
         }
         
         @Override
-        public float getCritStatusEffectDurationIncrease() {
+        public float getCritStatusEffectDurationMultiplier() {
         	return 2;
         }
     };

@@ -4286,11 +4286,11 @@ public class ItemType {
 							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
 							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.HARPY_NEST_WALKWAYS
 							|| target.getLocationPlace().getPlaceType().getEncounterType()==Encounter.SUBMISSION_TUNNELS)
-					&& Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).isEmpty();
+					&& Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size()<=1;
 		}
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You need to be in one of Dominion's alleyway or canal tiles, a Harpy Nest walkway tile, or a Submission tunnel tile, and with no character already present in that tile, in order to be able to use the map!";
+			return "You need to be in one of Dominion's alleyway or canal tiles, a Harpy Nest walkway tile, or a Submission tunnel tile, and with no more than one character already present in that tile, in order to be able to use the map!";
 		}
 		@Override
 		public String getUseTooltipDescription(GameCharacter user, GameCharacter target) {

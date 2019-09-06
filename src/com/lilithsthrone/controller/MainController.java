@@ -87,7 +87,7 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PositioningMenu;
@@ -459,9 +459,10 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-//							Pathing.aStarPathingPerkTree(PerkManager.MANAGER.getPerkTree(Main.game.getPlayer()),
-//									new TreeEntry<PerkCategory, AbstractPerk>(PerkCategory.PHYSICAL, 1, Perk.PHYSICAL_BASE),
-//									new TreeEntry<PerkCategory, AbstractPerk>(PerkCategory.ARCANE, 10, Perk.ARCANE_VAMPYRISM));
+							for(GameCharacter c : Main.game.getCharactersPresent()) {
+								System.out.println(c.getHomeCell().getPlaceName()+" "+c.getHomeCell().getLocation()+" "+Main.game.getPlayer().getLocation());
+							}
+							System.out.println(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size());
 						}
 						 
 
@@ -1379,7 +1380,7 @@ public class MainController implements Initializable {
 		String id;
 		for (InventorySlot invSlot : InventorySlot.values()) {
 			id = invSlot.toString() + "Slot";
-			if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
+			if (!invSlot.isWeapon()) {
 				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 					if(!RenderingEngine.ENGINE.isRenderingTattoosLeft()) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(Main.game.getPlayer(), invSlot);
@@ -1686,7 +1687,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseenter", el, false);
 				}
 			}
-			for (CombatMove combatMove : character.getEquippedMoves()) {
+			for (CombatMove combatMove : character.getAvailableMoves()) {
 				id = "CM_"+idModifier + combatMove.getIdentifier();
 				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
@@ -1744,7 +1745,7 @@ public class MainController implements Initializable {
 		String id;
 		for (InventorySlot invSlot : InventorySlot.values()) {
 			id = invSlot.toString() + "Slot";
-			if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
+			if (!invSlot.isWeapon()) {
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(concealedSlots.keySet().contains(invSlot)) {
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
@@ -2001,7 +2002,7 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseenter", el, false);
 					}
 				}
-				for (CombatMove combatMove : character.getEquippedMoves()) {
+				for (CombatMove combatMove : character.getAvailableMoves()) {
 					id = "CM_NPC_"+idModifier + combatMove.getIdentifier();
 					if (((EventTarget) documentRight.getElementById(id)) != null) {
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
@@ -2141,7 +2142,7 @@ public class MainController implements Initializable {
 							false,
 							false,
 							new SexManagerDefault(
-									SexPositionOther.LYING_DOWN,
+									SexPosition.LYING_DOWN,
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MATING_PRESS)),
 									Util.newHashMapOfValues(new Value<>(target, SexSlotLyingDown.LYING_DOWN))) {
 								@Override
@@ -2219,7 +2220,7 @@ public class MainController implements Initializable {
 							false,
 							false,
 							new SexManagerDefault(
-									SexPositionOther.LYING_DOWN,
+									SexPosition.LYING_DOWN,
 									Util.newHashMapOfValues(new Value<>(target, SexSlotLyingDown.MATING_PRESS)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))) {
 								@Override

@@ -36,16 +36,14 @@ import com.lilithsthrone.utils.Util.Value;
  *   are available for the character on all fours, in relation to a character kneeling behind them.
  * 
  * @since 0.1.97
- * @version 0.3.3
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public abstract class AbstractSexPosition {
 
 	private String name;
+	private int maximumSlots;
 	private boolean addStandardActions;
-	
-	/**Key is role position. Value is list of all slots that this slot can interact with.*/
-	private Map<SexSlot, Map<SexSlot, SexActionInteractions>> slotTargets;
 	
 	private List<Class<?>> positioningClasses;
 	private List<Class<?>> specialClasses;
@@ -54,15 +52,15 @@ public abstract class AbstractSexPosition {
 	public static List<SexAreaOrifice> genericFaceForceCreampieAreas = Util.newArrayListOfValues(SexAreaOrifice.MOUTH);
 	
 	public AbstractSexPosition(String name,
+			int maximumSlots,
 			boolean addStandardActions,
 			List<Class<?>> positioningClasses,
-			List<Class<?>> specialClasses,
-			Map<SexSlot, Map<SexSlot, SexActionInteractions>> slotTargets) {
+			List<Class<?>> specialClasses) {
 		this.name = name;
+		this.maximumSlots = maximumSlots;
 		this.addStandardActions = addStandardActions;
 		this.positioningClasses = positioningClasses;
 		this.specialClasses = specialClasses;
-		this.slotTargets = slotTargets;
 	}
 	
 	public String getName() {
@@ -99,7 +97,8 @@ public abstract class AbstractSexPosition {
 			// Block penis+non-appendage-non-pussy actions if target's penis is already in use:
 			try {
 				// Trying to interact a penis with a character who is already using a penis:
-				if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)) {
+				if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)
+						&& Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)) {
 					boolean ongoingAllowedFound = false;
 					for(SexAreaInterface sa : Sex.getContactingSexAreas(target, SexAreaPenetration.PENIS, performer)) {
 						if(!SexActionPresets.allowedInterPenetrationAreas.contains(sa)) {
@@ -119,7 +118,8 @@ public abstract class AbstractSexPosition {
 			}catch(Exception ex) {}
 			try {
 				// Trying to interact a penis with a character who is already using a penis:
-				if(action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)) {
+				if(action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)
+						&& Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas)) {
 					boolean ongoingAllowedFound = false;
 					for(SexAreaInterface sa : Sex.getContactingSexAreas(performer, SexAreaPenetration.PENIS, target)) {
 						if(!SexActionPresets.allowedInterPenetrationAreas.contains(sa)) {
@@ -176,15 +176,17 @@ public abstract class AbstractSexPosition {
 	}
 	
 	public int getMaximumSlots() {
-		Set<SexSlot> uniqueSlots = new HashSet<>();
-		
-		for(Entry<SexSlot, Map<SexSlot, SexActionInteractions>> e : getSlotTargets().entrySet()) {
-			uniqueSlots.add(e.getKey());
-			uniqueSlots.addAll(e.getValue().keySet());
-		}
-		
-		return uniqueSlots.size();
+		return maximumSlots;
 	}
+//		Set<SexSlot> uniqueSlots = new HashSet<>();
+//		
+//		for(Entry<SexSlot, Map<SexSlot, SexActionInteractions>> e : getSlotTargets().entrySet()) {
+//			uniqueSlots.add(e.getKey());
+//			uniqueSlots.addAll(e.getValue().keySet());
+//		}
+//		
+//		return uniqueSlots.size();
+//	}
 
 	public Set<SexSlot> getAllAvailableSexPositions() {
 		Set<SexSlot> positions = new HashSet<>(getSlotTargets().keySet());
@@ -194,9 +196,10 @@ public abstract class AbstractSexPosition {
 		return positions;
 	}
 
-	public Map<SexSlot, Map<SexSlot, SexActionInteractions>> getSlotTargets() {
-		return slotTargets;
-	}
+	/**
+	 * Key is role position. Value is list of all slots that this slot can interact with.
+	 */
+	public abstract Map<SexSlot, Map<SexSlot, SexActionInteractions>> getSlotTargets();
 	
 	protected static Map<SexSlot, Map<SexSlot, SexActionInteractions>> generateSlotTargetsMap(List<Value<SexSlot, Map<SexSlot, SexActionInteractions>>> values) {
 		Map<SexSlot, Map<SexSlot, SexActionInteractions>> returnMap = new HashMap<>();

@@ -602,7 +602,7 @@ public enum Fetish {
 			"deflowering",
 			"deflowering",
 			"fetish_deflowering",
-			FetishExperience.BASE_VERY_RARE_EXPERIENCE_GAIN,
+			FetishExperience.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues("Gain <span style='color:"+ Colour.GENERIC_EXPERIENCE.toWebHexString()+ ";'>xp</span> from <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>taking virginities</span>"),

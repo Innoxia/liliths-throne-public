@@ -14,7 +14,7 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -104,7 +104,7 @@ public class SMLyssiethDemonTF extends SexManagerDefault {
 		}
 		// Limit tail during doggy style, so that she can use tail-lock and prevent the player from pulling out:
 		if(Sex.getContactingSexAreas(Main.game.getNpc(Lyssieth.class), SexAreaOrifice.VAGINA, Main.game.getPlayer()).contains(SexAreaPenetration.PENIS)
-				&& Sex.getPosition()==SexPositionOther.ALL_FOURS) {
+				&& Sex.getPosition()==SexPosition.ALL_FOURS) {
 			return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), Util.newArrayListOfValues(SexAreaPenetration.TAIL)));
 		}
 		return super.getAreasBannedMap();

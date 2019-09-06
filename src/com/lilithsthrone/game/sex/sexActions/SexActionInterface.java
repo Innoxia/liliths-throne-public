@@ -458,9 +458,11 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isSwitchOngoingActionAvailable() {
-		if(Sex.getCharacterPerformingAction().isPlayer() && Sex.getSexControl(Sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
-			// If targeted area is having multiple ongoing actions, do not allow switch:
-			if(Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0)).size()>1) {
+		if(Sex.getCharacterPerformingAction().isPlayer()
+				&& Sex.getSexControl(Sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
+			// If targeted area is having multiple ongoing actions, or actions that do not involve the player do not allow switch:
+			if(Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0)).size()>1
+					|| !Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0)).contains(Main.game.getPlayer())) {
 				return false;
 			}
 			
@@ -639,6 +641,13 @@ public interface SexActionInterface {
 						if(!canStartPenetration || getSexPace()==SexPace.SUB_RESISTING) {
 							return null;
 						}
+					}
+				}
+
+				// If this ongoing action is already ongoing, don't show the 'start' action:
+				if(getActionType()==SexActionType.START_ONGOING) {
+					if(Sex.getOngoingCharactersUsingAreas(Sex.getCharacterPerformingAction(), this.getPerformingCharacterAreas().get(0), this.getTargetedCharacterAreas().get(0)).contains(Sex.getCharacterTargetedForSexAction(this))) {
+						return null;
 					}
 				}
 				
@@ -850,6 +859,14 @@ public interface SexActionInterface {
 				return convertToResponse();
 				
 			
+			} else if(getActionType()==SexActionType.SPEECH) {
+				// Check penetrations:
+				if(Sex.isOngoingActionsBlockingSpeech(Sex.getCharacterPerformingAction())) {
+					return convertToNullResponse();
+				}
+				
+				return convertToResponse();
+				
 			} else {
 				if(!this.getSexAreaInteractions().isEmpty()) {
 					boolean ongoingFound = false;
@@ -988,6 +1005,22 @@ public interface SexActionInterface {
 					return getActionType();
 				}
 				@Override
+				public boolean isSexActionSwitch() {
+					if(getActionType()==SexActionType.START_ONGOING) {
+						for(SexAreaInterface sArea : SexActionInterface.this.getPerformingCharacterAreas()) {
+							if(!sArea.isFree(Sex.getCharacterPerformingAction())) {
+								return isSwitchOngoingActionAvailable();
+							}
+						}
+						for(SexAreaInterface sArea : SexActionInterface.this.getTargetedCharacterAreas()) {
+							if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(SexActionInterface.this))) {
+								return isSwitchOngoingActionAvailable();
+							}
+						}
+					}
+					return false;
+				}
+				@Override
 				public Map<String, Boolean> getAdditionalOngoingAvailableMap() {
 					return SexActionInterface.this.getAdditionalOngoingAvailableMap();
 				}
@@ -1040,6 +1073,22 @@ public interface SexActionInterface {
 					return getActionType();
 				}
 				@Override
+				public boolean isSexActionSwitch() {
+					if(getActionType()==SexActionType.START_ONGOING) {
+						for(SexAreaInterface sArea : SexActionInterface.this.getPerformingCharacterAreas()) {
+							if(!sArea.isFree(Sex.getCharacterPerformingAction())) {
+								return isSwitchOngoingActionAvailable();
+							}
+						}
+						for(SexAreaInterface sArea : SexActionInterface.this.getTargetedCharacterAreas()) {
+							if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(SexActionInterface.this))) {
+								return isSwitchOngoingActionAvailable();
+							}
+						}
+					}
+					return false;
+				}
+				@Override
 				public Map<String, Boolean> getAdditionalOngoingAvailableMap() {
 					return SexActionInterface.this.getAdditionalOngoingAvailableMap();
 				}
@@ -1085,6 +1134,22 @@ public interface SexActionInterface {
 				@Override
 				public SexActionType getSexActionType() {
 					return getActionType();
+				}
+				@Override
+				public boolean isSexActionSwitch() {
+					if(getActionType()==SexActionType.START_ONGOING) {
+						for(SexAreaInterface sArea : SexActionInterface.this.getPerformingCharacterAreas()) {
+							if(!sArea.isFree(Sex.getCharacterPerformingAction())) {
+								return isSwitchOngoingActionAvailable();
+							}
+						}
+						for(SexAreaInterface sArea : SexActionInterface.this.getTargetedCharacterAreas()) {
+							if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(SexActionInterface.this))) {
+								return isSwitchOngoingActionAvailable();
+							}
+						}
+					}
+					return false;
 				}
 				@Override
 				public Map<String, Boolean> getAdditionalOngoingAvailableMap() {
@@ -1190,6 +1255,22 @@ public interface SexActionInterface {
 			@Override
 			public SexActionType getSexActionType() {
 				return getActionType();
+			}
+			@Override
+			public boolean isSexActionSwitch() {
+				if(getActionType()==SexActionType.START_ONGOING) {
+					for(SexAreaInterface sArea : SexActionInterface.this.getPerformingCharacterAreas()) {
+						if(!sArea.isFree(Sex.getCharacterPerformingAction())) {
+							return isSwitchOngoingActionAvailable();
+						}
+					}
+					for(SexAreaInterface sArea : SexActionInterface.this.getTargetedCharacterAreas()) {
+						if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(SexActionInterface.this))) {
+							return isSwitchOngoingActionAvailable();
+						}
+					}
+				}
+				return false;
 			}
 			@Override
 			public Map<String, Boolean> getAdditionalOngoingAvailableMap() {

@@ -67,17 +67,17 @@ public class PlayerSelfFingerAnus {
 				if(Sex.getSexPositionSlot(Main.game.getPlayer()).hasTag(SexSlotTag.ALL_FOURS)) {
 					return UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
 							UtilText.returnStringAtRandom(
-							"Reaching back with one [pc.hand], you grab your [pc.ass+] and pull to one side, letting out [pc.a_moan+] as you present your [pc.asshole+] to [npc.name].",
-							"You reach back with one [pc.hand], moaning softly as you take hold of your [pc.ass+], before invitingly pulling to one side and presenting your [pc.asshole+] to [npc.name].",
-							"Sliding your fingertips over your [pc.asshole+], you let out [pc.a_moan+] as you grab one of your [pc.assSize] ass cheeks and pull to one one side in order to present your [pc.asshole+] to [npc.name].",
-							"You eagerly slide your [pc.fingers] over your needy [pc.asshole], [pc.moaning+] as you use your [pc.hand] to pull your ass cheek to one side and present yourself for anal penetration."));
+							"Reaching back with one [npc.hand], you grab your [npc.ass+] and pull to one side, letting out [npc.a_moan+] as you present your [npc.asshole+] to [npc2.name].",
+							"You reach back with one [npc.hand], moaning softly as you take hold of your [npc.ass+], before invitingly pulling to one side and presenting your [npc.asshole+] to [npc2.name].",
+							"Sliding your fingertips over your [npc.asshole+], you let out [npc.a_moan+] as you grab one of your [npc.assSize] ass cheeks and pull to one one side in order to present your [npc.asshole+] to [npc2.name].",
+							"You eagerly slide your [npc.fingers] over your needy [npc.asshole], [npc.moaning+] as you use your [npc.hand] to pull your ass cheek to one side and present yourself for anal penetration."));
 				} else {
 					return UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
 							UtilText.returnStringAtRandom(
-							"Reaching back with both [pc.hands], you grab your [pc.assSize] ass cheeks and pull them apart, letting out [pc.a_moan+] as you present your [pc.asshole+] to [npc.name].",
-							"You reach back with both [pc.hands], moaning softly as you invitingly pull your [pc.assSize] ass cheeks apart and present your [pc.asshole+] to [npc.name].",
-							"Sliding your fingertips over your [pc.asshole+], you let out [pc.a_moan+] as you grab your [pc.assSize] ass cheeks and pull them apart in order to present your [pc.asshole+] to [npc.name].",
-							"You eagerly slide your [pc.fingers] over your needy [pc.asshole], [pc.moaning+] as you use your [pc.hands] to pull your ass cheeks aside and present yourself for anal penetration."));
+							"Reaching back with both [npc.hands], you grab your [npc.assSize] ass cheeks and pull them apart, letting out [npc.a_moan+] as you present your [npc.asshole+] to [npc2.name].",
+							"You reach back with both [npc.hands], moaning softly as you invitingly pull your [npc.assSize] ass cheeks apart and present your [npc.asshole+] to [npc2.name].",
+							"Sliding your fingertips over your [npc.asshole+], you let out [npc.a_moan+] as you grab your [npc.assSize] ass cheeks and pull them apart in order to present your [npc.asshole+] to [npc2.name].",
+							"You eagerly slide your [npc.fingers] over your needy [npc.asshole], [npc.moaning+] as you use your [npc.hands] to pull your ass cheeks aside and present yourself for anal penetration."));
 				}
 			}
 			

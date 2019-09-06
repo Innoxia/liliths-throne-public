@@ -57,6 +57,7 @@ public enum SVGImages {
 			responseCombat, responseSex, responseLocked, responseUnlocked, responseUnlockedDisabled, responseOption, responseOptionDisabled, responseCorruptionBypass,
 			responseSubResist, responseSubNormal, responseSubEager,
 			responseDomGentle, responseDomNormal, responseDomRough,
+			responseSexSwitch, responseSexAdditional,
 			
 			NPCWarningMale, NPCWarningFemale, NPCWarningDemon,
 
@@ -389,7 +390,11 @@ public enum SVGImages {
 			responseDomNormal = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseDomRough.svg");
 			responseDomRough = Util.inputStreamToString(is);
-			
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseSexSwitch.svg");
+			responseSexSwitch = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseSexAdditional.svg");
+			responseSexAdditional = Util.inputStreamToString(is);
 			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseNPC.svg");
@@ -1011,6 +1016,14 @@ public enum SVGImages {
 		return responseDomRough;
 	}
 
+	public String getResponseSexSwitch() {
+		return responseSexSwitch;
+	}
+
+	public String getResponseSexAdditional() {
+		return responseSexAdditional;
+	}
+	
 	public String getNPCWarningMale() {
 		return NPCWarningMale;
 	}

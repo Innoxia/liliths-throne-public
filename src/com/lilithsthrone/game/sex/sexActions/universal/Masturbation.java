@@ -5,7 +5,7 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMasturbation;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -29,7 +29,7 @@ public class Masturbation {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return SexPositionOther.MASTURBATION.isSlotUnlocked(Sex.getCharacterPerformingAction(), SexSlotMasturbation.STANDING, Sex.getAllOccupiedSlots(true)).getKey()
+			return SexPosition.MASTURBATION.isSlotUnlocked(Sex.getCharacterPerformingAction(), SexSlotMasturbation.STANDING, Sex.getAllOccupiedSlots(true)).getKey()
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotMasturbation.KNEELING_PANTIES
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotMasturbation.STANDING;
 		}
@@ -54,7 +54,7 @@ public class Masturbation {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SexManagerDefault(
-					SexPositionOther.MASTURBATION,
+					SexPosition.MASTURBATION,
 					Sex.isDom(Sex.getCharacterPerformingAction())
 						?Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotMasturbation.STANDING))
 						:null,
@@ -75,7 +75,7 @@ public class Masturbation {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return SexPositionOther.MASTURBATION.isSlotUnlocked(Sex.getCharacterPerformingAction(), SexSlotMasturbation.SITTING, Sex.getAllOccupiedSlots(true)).getKey()
+			return SexPosition.MASTURBATION.isSlotUnlocked(Sex.getCharacterPerformingAction(), SexSlotMasturbation.SITTING, Sex.getAllOccupiedSlots(true)).getKey()
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotMasturbation.KNEELING_PANTIES
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotMasturbation.SITTING;
 		}
@@ -95,7 +95,7 @@ public class Masturbation {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SexManagerDefault(
-					SexPositionOther.MASTURBATION,
+					SexPosition.MASTURBATION,
 					Sex.isDom(Sex.getCharacterPerformingAction())
 						?Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotMasturbation.SITTING))
 						:null,
@@ -116,7 +116,7 @@ public class Masturbation {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return SexPositionOther.MASTURBATION.isSlotUnlocked(Sex.getCharacterPerformingAction(), SexSlotMasturbation.KNEELING, Sex.getAllOccupiedSlots(true)).getKey()
+			return SexPosition.MASTURBATION.isSlotUnlocked(Sex.getCharacterPerformingAction(), SexSlotMasturbation.KNEELING, Sex.getAllOccupiedSlots(true)).getKey()
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotMasturbation.KNEELING_PANTIES
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotMasturbation.KNEELING;
 		}
@@ -141,7 +141,7 @@ public class Masturbation {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SexManagerDefault(
-					SexPositionOther.MASTURBATION,
+					SexPosition.MASTURBATION,
 					Sex.isDom(Sex.getCharacterPerformingAction())
 						?Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotMasturbation.KNEELING))
 						:null,

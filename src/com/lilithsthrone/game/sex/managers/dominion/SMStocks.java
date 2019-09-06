@@ -11,7 +11,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStocks;
 import com.lilithsthrone.utils.Util;
@@ -24,7 +24,7 @@ import com.lilithsthrone.utils.Util;
 public class SMStocks extends SexManagerDefault {
 
 	public SMStocks(boolean vaginalAllowed, boolean analAllowed, boolean oralAllowed, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionOther.STOCKS,
+		super(SexPosition.STOCKS,
 				dominants,
 				submissives);
 		
@@ -64,7 +64,7 @@ public class SMStocks extends SexManagerDefault {
 	@Override
 	public List<AbstractSexPosition> getAllowedSexPositions() {
 		return Util.newArrayListOfValues(
-				SexPositionOther.STOCKS);
+				SexPosition.STOCKS);
 	}
 	
 	@Override

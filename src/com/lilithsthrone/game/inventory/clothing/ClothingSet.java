@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -217,14 +218,19 @@ public enum ClothingSet {
 			}
 		}
 		
-		if(target.getMainWeapon()!=null && target.getMainWeapon().getWeaponType().getClothingSet() == this) {
-			setCount++;
-			atLeastOneClothingFound = true;
+		for(AbstractWeapon weapon : target.getMainWeaponArray()) {
+			if(weapon!=null && weapon.getWeaponType().getClothingSet() == this) {
+				setCount++;
+				atLeastOneClothingFound = true;
+				break; // Only one main weapon should be counted.
+			}
 		}
-		
-		if(target.getOffhandWeapon()!=null && target.getOffhandWeapon().getWeaponType().getClothingSet() == this) {
-			setCount++;
-			atLeastOneClothingFound = true;
+		for(AbstractWeapon weapon : target.getOffhandWeaponArray()) {
+			if(weapon!=null && weapon.getWeaponType().getClothingSet() == this) {
+				setCount++;
+				atLeastOneClothingFound = true;
+				break; // Only one offhand weapon should be counted.
+			}
 		}
 		
 		return atLeastOneClothingFound && setCount >= this.getNumberRequiredForCompleteSet();

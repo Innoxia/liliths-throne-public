@@ -99,9 +99,8 @@ public class Elemental extends NPC {
 			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 0);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 0);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
-			
-			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+
+			initHealthAndManaToMax();
 		}
 	}
 	

@@ -451,14 +451,6 @@ h6{
 .inventory-item-slot.secondary{
 	width:14.67%;
 }
-.inventory-item-slot.piercing{
-	width:40%;
-	margin:5%;
-}
-.inventory-item-slot.weapon{
-	width:46%;
-	margin:2%;
-}
 .inventory-item-slot.unequipped{
 	width:11.5%;
 	margin:0.5%;

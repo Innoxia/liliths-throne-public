@@ -291,7 +291,7 @@ public class ZaranixMaidKatherine extends NPC {
 	// Combat:
 
 	@Override
-	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
+	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
 		return "<p>"
 				+ UtilText.parse(target,
 						UtilText.returnStringAtRandom(

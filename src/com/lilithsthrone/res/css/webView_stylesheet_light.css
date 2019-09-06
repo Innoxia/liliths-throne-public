@@ -2268,19 +2268,26 @@ border-radius:5px;
 	line-height:20px;
 }
 
-.response-icon{
+.response-icon-leftTop{
 	position:absolute;
-	height:14px;
-	width:14px;
+	height:11px;
+	width:11px;
 	bottom:2px;
 	left:2px;
 }
-.response-icon-left{
+.response-icon-leftBottom{
 	position:absolute;
-	height:14px;
-	width:14px;
+	height:11px;
+	width:11px;
 	top:2px;
 	left:2px;
+}
+.response-icon-rightBottom{
+	position:absolute;
+	height:11px;
+	width:11px;
+	bottom:2px;
+	right:2px;
 }
 
 .option-disabled{

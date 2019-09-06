@@ -6,7 +6,7 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.game.sex.sexActions.PositioningData;
@@ -98,7 +98,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.FACE_TO_WALL));
 		
@@ -135,7 +135,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.FACE_TO_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL));
 		
@@ -171,7 +171,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.BACK_TO_WALL));
 		
@@ -208,7 +208,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.BACK_TO_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL));
 		
@@ -244,7 +244,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				Util.newArrayListOfValues(SexSlotStanding.STANDING_DOMINANT),
 				Util.newArrayListOfValues(SexSlotStanding.PERFORMING_ORAL));
 
@@ -281,7 +281,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				Util.newArrayListOfValues(SexSlotStanding.PERFORMING_ORAL),
 				Util.newArrayListOfValues(SexSlotStanding.STANDING_DOMINANT));
 
@@ -316,7 +316,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				Util.newArrayListOfValues(SexSlotStanding.PERFORMING_ORAL),
 				Util.newArrayListOfValues(SexSlotStanding.STANDING_DOMINANT));
 		
@@ -353,7 +353,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				Util.newArrayListOfValues(SexSlotStanding.STANDING_DOMINANT),
 				Util.newArrayListOfValues(SexSlotStanding.PERFORMING_ORAL));
 

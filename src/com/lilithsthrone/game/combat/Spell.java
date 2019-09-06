@@ -149,7 +149,7 @@ public enum Spell {
 			false,
 			"Flash",
 			"flash",
-			"Creates a blinding flash of light that stuns the target.",
+			"Creates a blinding flash of light which stuns the target.",
 			0,
 			DamageVariance.LOW,
 			75,
@@ -213,7 +213,6 @@ public enum Spell {
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 				
@@ -1870,10 +1869,34 @@ public enum Spell {
 						
 					}
 					
-					if(caster.hasSpellUpgrade(SpellUpgrade.STEAL_2)) {
-						mainWeaponSteal = target.getMainWeapon()!=null;
-						offhandWeaponSteal = target.getOffhandWeapon()!=null;
+					int mainWeaponIndex = 0;
+					AbstractWeapon mainWeapon = null;
+					int offhandWeaponIndex = 0;
+					AbstractWeapon offhandWeapon = null;
+					List<Integer> weaponIndexes = new ArrayList<>();
+					for(int i=0;i<target.getMainWeaponArray().length; i++) {
+						if(target.getMainWeapon(i)!=null) {
+							weaponIndexes.add(i);
+						}
+					}
+					if(!weaponIndexes.isEmpty()) {
+						mainWeaponIndex = Util.randomItemFrom(weaponIndexes);
+						mainWeapon = target.getMainWeapon(mainWeaponIndex);
+					}
+					weaponIndexes = new ArrayList<>();
+					for(int i=0;i<target.getOffhandWeaponArray().length; i++) {
+						if(target.getOffhandWeapon(i)!=null) {
+							weaponIndexes.add(i);
+						}
+					}
+					if(!weaponIndexes.isEmpty()) {
+						offhandWeaponIndex = Util.randomItemFrom(weaponIndexes);
+						offhandWeapon = target.getOffhandWeapon(offhandWeaponIndex);
+					}
 						
+					if(caster.hasSpellUpgrade(SpellUpgrade.STEAL_2)) {
+						mainWeaponSteal = mainWeapon!=null;
+						offhandWeaponSteal = offhandWeapon!=null;
 					}
 					
 					stealItem = target.getInventorySlotsTaken()>0;
@@ -1882,32 +1905,30 @@ public enum Spell {
 					double rnd = Math.random();
 					
 					if(mainWeaponSteal && (rnd<0.2 || (!offhandWeaponSteal && !stealItem && clothingToSteal==null))) {
-						AbstractWeapon weapon = target.getMainWeapon();
-						target.unequipMainWeapon(true, target.isPlayer());
+						target.unequipMainWeapon(mainWeaponIndex, true, target.isPlayer());
 						descriptionSB.append("<br/>"
 								+ getCastDescription(caster, target,
 										null,
-										"You stole your own "+weapon.getName()+"...",
-										"You stole [npc.namePos] "+weapon.getName()+" from out of [npc.her] [npc.hands]!",
+										"You stole your own "+mainWeapon.getName()+"...",
+										"You stole [npc.namePos] "+mainWeapon.getName()+" from out of [npc.her] [npc.hands]!",
 										"",
-										"[npc.Name] stole your "+weapon.getName()+" from out of your [pc.hands]!",
-										"[npc1.Name] stole [npc2.namePos] "+weapon.getName()+" from out of [npc2.her] [npc2.hands]!")
+										"[npc.Name] stole your "+mainWeapon.getName()+" from out of your [pc.hands]!",
+										"[npc1.Name] stole [npc2.namePos] "+mainWeapon.getName()+" from out of [npc2.her] [npc2.hands]!")
 								+ "<br/>"
-								+ caster.addWeapon(weapon, true));
+								+ caster.addWeapon(mainWeapon, true));
 						
 					} else if(offhandWeaponSteal && (rnd<0.2 || (!stealItem && clothingToSteal==null))) {
-						AbstractWeapon weapon = target.getOffhandWeapon();
-						target.unequipOffhandWeapon(true, target.isPlayer());
+						target.unequipOffhandWeapon(offhandWeaponIndex, true, target.isPlayer());
 						descriptionSB.append("<br/>"
 								+ getCastDescription(caster, target,
 										null,
-										"You stole your own "+weapon.getName()+"...",
-										"You stole [npc.namePos] "+weapon.getName()+" from out of [npc.her] [npc.hands]!",
+										"You stole your own "+offhandWeapon.getName()+"...",
+										"You stole [npc.namePos] "+offhandWeapon.getName()+" from out of [npc.her] [npc.hands]!",
 										"",
-										"[npc.Name] stole your "+weapon.getName()+" from out of your [pc.hands]!",
-										"[npc1.Name] stole [npc2.namePos] "+weapon.getName()+" from out of [npc2.her] [npc2.hands]!")
+										"[npc.Name] stole your "+offhandWeapon.getName()+" from out of your [pc.hands]!",
+										"[npc1.Name] stole [npc2.namePos] "+offhandWeapon.getName()+" from out of [npc2.her] [npc2.hands]!")
 								+ "<br/>"
-								+ caster.addWeapon(weapon, true));
+								+ caster.addWeapon(offhandWeapon, true));
 						
 					} else if(stealItem && (rnd<0.5 || (clothingToSteal==null))) {
 						AbstractItem item = null;
@@ -2679,7 +2700,7 @@ public enum Spell {
 	
 	protected void applyStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 		for (Entry<StatusEffect, Integer> se : getStatusEffects(caster, target, isCritical).entrySet()) {
-			target.addStatusEffect(se.getKey(), se.getValue() * (caster.isPlayer() && caster.hasTrait(Perk.JOB_MUSICIAN, true)?2:1) * (isCritical?2:1));
+			Combat.addStatusEffectToApply(target, se.getKey(), se.getValue() * (caster.isPlayer() && caster.hasTrait(Perk.JOB_MUSICIAN, true)?2:1) * (isCritical?2:1));
 		}
 	}
 
@@ -3100,7 +3121,17 @@ public enum Spell {
 		if(isCanTargetAllies() && allies.isEmpty()) {
 			return 0.0f;
 		}
-		return (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(CombatMoveType.SPELL);
+		int behaviourMultiplier = 1;
+		if(source.getCombatBehaviour()==CombatBehaviour.ATTACK && !this.isBeneficial()) {
+			behaviourMultiplier = 2;
+		}
+		if(source.getCombatBehaviour()==CombatBehaviour.SUPPORT && this.isBeneficial()) {
+			behaviourMultiplier = 10;
+		}
+		if(source.getCombatBehaviour()==CombatBehaviour.SPELLS) {
+			behaviourMultiplier = 10;
+		}
+		return (0.2f*behaviourMultiplier) - 0.2f * source.getSelectedMovesByType(CombatMoveType.SPELL);
 	}
 
 	public GameCharacter getPreferredTarget(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
@@ -3230,8 +3261,8 @@ public enum Spell {
 	
 	//Differs from normal version; spells have special crit requirements.
 	public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-		if(this.getSpellSchool() == SpellSchool.FIRE && source.getHealthPercentage()<=0.25f) { // Fire school spells crit when below 25% health.
-			return true;
+		if(this.getSpellSchool() == SpellSchool.FIRE) {
+			return source.getHealthPercentage()<=0.25f; // Fire school spells crit when below 25% health.
 		} else {
 			return source.getSelectedMoves().size()<=1;
 		}

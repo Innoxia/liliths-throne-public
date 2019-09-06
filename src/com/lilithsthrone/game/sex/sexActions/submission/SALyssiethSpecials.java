@@ -41,7 +41,7 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.submission.SMLyssiethDemonTF;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
@@ -123,7 +123,7 @@ public class SALyssiethSpecials {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexManager() instanceof SMLyssiethDemonTF
 					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
-					&& Sex.getPosition()==SexPositionOther.STANDING
+					&& Sex.getPosition()==SexPosition.STANDING
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -175,7 +175,7 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionOther.OVER_DESK,
+							SexPosition.OVER_DESK,
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.BETWEEN_LEGS)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))));
 			
@@ -195,7 +195,7 @@ public class SALyssiethSpecials {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexManager() instanceof SMLyssiethDemonTF
 					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
-					&& Sex.getPosition()==SexPositionOther.STANDING
+					&& Sex.getPosition()==SexPosition.STANDING
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -265,7 +265,7 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionOther.OVER_DESK,
+							SexPosition.OVER_DESK,
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.BETWEEN_LEGS)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))));
 			
@@ -285,7 +285,7 @@ public class SALyssiethSpecials {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexManager() instanceof SMLyssiethDemonTF
 					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
-					&& Sex.getPosition()==SexPositionOther.STANDING
+					&& Sex.getPosition()==SexPosition.STANDING
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
@@ -352,7 +352,7 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionOther.OVER_DESK,
+							SexPosition.OVER_DESK,
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.BETWEEN_LEGS)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.OVER_DESK_ON_BACK))));
 
@@ -420,7 +420,7 @@ public class SALyssiethSpecials {
 
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionOther.ALL_FOURS,
+							SexPosition.ALL_FOURS,
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.BEHIND)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotAllFours.ALL_FOURS))));
 
@@ -482,7 +482,7 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionOther.SITTING,
+							SexPosition.SITTING,
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotSitting.PERFORMING_ORAL)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING))));
 			
@@ -595,7 +595,7 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionOther.ALL_FOURS,
+							SexPosition.ALL_FOURS,
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotAllFours.BEHIND)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))));
 			
@@ -666,7 +666,7 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionOther.OVER_DESK,
+							SexPosition.OVER_DESK,
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.BETWEEN_LEGS)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))));
 			
@@ -745,7 +745,7 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionOther.OVER_DESK,
+							SexPosition.OVER_DESK,
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.BETWEEN_LEGS)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))));
 			
@@ -819,7 +819,7 @@ public class SALyssiethSpecials {
 			
 			Sex.setSexManager(
 					new SMLyssiethDemonTF(
-							SexPositionOther.LYING_DOWN,
+							SexPosition.LYING_DOWN,
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MATING_PRESS)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotLyingDown.LYING_DOWN))));
 			
