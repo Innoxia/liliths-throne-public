@@ -10,7 +10,6 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -18,21 +17,20 @@ import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.3
- * @version 0.3.3.10
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public class GenericTalk {
 
 	public static final SexAction ROUGH_TALK = new SexAction(
-			SexActionType.REQUIRES_NO_PENETRATION,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, null)),
+			null,
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
 
@@ -93,11 +91,11 @@ public class GenericTalk {
 	};
 	
 	public static final SexAction SUBMISSIVE_TALK = new SexAction(
-			SexActionType.REQUIRES_NO_PENETRATION,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, null)),
+			null,
 			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
 
@@ -166,11 +164,11 @@ public class GenericTalk {
 	};
 	
 	public static final SexAction ASKING_FOR_ROUGH_SEX = new SexAction(
-			SexActionType.REQUIRES_NO_PENETRATION,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, null)),
+			null,
 			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
 		
@@ -283,11 +281,11 @@ public class GenericTalk {
 	};
 	
 	public static final SexAction ASKING_FOR_GENTLE_SEX = new SexAction(
-			SexActionType.REQUIRES_NO_PENETRATION,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, null)),
+			null,
 			SexParticipantType.NORMAL) {
 		
 		@Override
@@ -333,6 +331,7 @@ public class GenericTalk {
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& !Sex.isDom(Sex.getCharacterPerformingAction())
 					&& Sex.isDom(Sex.getCharacterTargetedForSexAction(this))
+					&& Sex.isConsensual()
 					&& Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))!=SexPace.DOM_GENTLE
 					&& Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_MASOCHIST).isNegative();
 		}

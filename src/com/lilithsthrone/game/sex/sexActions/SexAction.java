@@ -331,6 +331,9 @@ public abstract class SexAction implements SexActionInterface {
 						characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_DOMINANT);
 						characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_SUBMISSIVE);
 						characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_SADIST);
+						if(this.getParticipantType()==SexParticipantType.SELF) {
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_MASOCHIST);
+						}
 						characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_MASOCHIST);
 						break;
 					case SUB_EAGER:

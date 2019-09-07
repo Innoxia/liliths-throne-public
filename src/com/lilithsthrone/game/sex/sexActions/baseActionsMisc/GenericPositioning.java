@@ -18,7 +18,7 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
@@ -236,7 +236,7 @@ public class GenericPositioning {
 	
 	private static PositioningData generateReceivingOralData(GameCharacter performer, GameCharacter receiver) {
 		return new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				Util.newArrayListOfValues(
 						SexSlotStanding.STANDING_DOMINANT,
 						SexSlotStanding.STANDING_DOMINANT_TWO),
@@ -245,7 +245,7 @@ public class GenericPositioning {
 
 	private static PositioningData generatePerformingOralData(GameCharacter performer, GameCharacter receiver) {
 		return new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				generatePerformerOralData(performer, receiver),
 				Util.newArrayListOfValues(
 						SexSlotStanding.STANDING_DOMINANT,
@@ -266,7 +266,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionTitle() {
-			return "Receive oral";
+			return "Standing receive oral";
 		}
 		@Override
 		public String getActionDescription() {
@@ -357,7 +357,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionTitle() {
-			return "Receive oral (R)";
+			return "Standing receive oral (R)";
 		}
 		@Override
 		public String getActionDescription() {
@@ -414,7 +414,7 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPosition()==SexPositionOther.STANDING
+			return Sex.getPosition()==SexPosition.STANDING
 					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT
 					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT_TWO
 					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.PERFORMING_ORAL_BEHIND
@@ -479,7 +479,7 @@ public class GenericPositioning {
 			}
 
 			Sex.setSexManager(new SexManagerDefault(
-					SexPositionOther.STANDING,
+					SexPosition.STANDING,
 					dominants,
 					submissives){
 			});
@@ -508,7 +508,7 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPosition()==SexPositionOther.STANDING
+			return Sex.getPosition()==SexPosition.STANDING
 					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.PERFORMING_ORAL
 					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT
 					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT_TWO
@@ -581,7 +581,7 @@ public class GenericPositioning {
 			}
 
 			Sex.setSexManager(new SexManagerDefault(
-					SexPositionOther.STANDING,
+					SexPosition.STANDING,
 					dominants,
 					submissives){
 			});
@@ -875,7 +875,7 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPosition()==SexPositionOther.STANDING
+			return Sex.getPosition()==SexPosition.STANDING
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT_TWO
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_BEHIND
@@ -944,7 +944,7 @@ public class GenericPositioning {
 			}
 
 			Sex.setSexManager(new SexManagerDefault(
-					SexPositionOther.STANDING,
+					SexPosition.STANDING,
 					dominants,
 					submissives){
 			});
@@ -973,7 +973,7 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPosition()==SexPositionOther.STANDING
+			return Sex.getPosition()==SexPosition.STANDING
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT_TWO
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL
@@ -1046,7 +1046,7 @@ public class GenericPositioning {
 			}
 
 			Sex.setSexManager(new SexManagerDefault(
-					SexPositionOther.STANDING,
+					SexPosition.STANDING,
 					dominants,
 					submissives){
 			});
@@ -1077,7 +1077,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.FACE_TO_WALL));
 		
@@ -1123,7 +1123,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.FACE_TO_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL));
 		
@@ -1160,7 +1160,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.BACK_TO_WALL));
 		
@@ -1206,7 +1206,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.BACK_TO_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL));
 		
@@ -1249,7 +1249,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.MISSIONARY),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 		
@@ -1295,7 +1295,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.MISSIONARY),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 		
@@ -1331,7 +1331,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.MISSIONARY));
 
@@ -1377,7 +1377,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.MISSIONARY));
 		
@@ -1413,7 +1413,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.SIXTY_NINE),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 
@@ -1452,7 +1452,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.SIXTY_NINE),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 		
@@ -1489,7 +1489,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.SIXTY_NINE));
 
@@ -1529,7 +1529,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.SIXTY_NINE));
 		
@@ -1566,7 +1566,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.COWGIRL),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 
@@ -1613,7 +1613,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.COWGIRL),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 		
@@ -1650,7 +1650,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.COWGIRL));
 
@@ -1697,7 +1697,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.COWGIRL));
 		
@@ -1734,7 +1734,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.FACE_SITTING),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 
@@ -1771,7 +1771,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.FACE_SITTING),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 
@@ -1808,7 +1808,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.FACE_SITTING));
 		
@@ -1845,7 +1845,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.FACE_SITTING));
 		
@@ -1883,7 +1883,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.MATING_PRESS),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 		
@@ -1935,7 +1935,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.MATING_PRESS));
 		
@@ -2002,7 +2002,7 @@ public class GenericPositioning {
 	
 	private static PositioningData generateReceivingAllFoursData(GameCharacter receiver) {
 		return new PositioningData(
-				SexPositionOther.ALL_FOURS,
+				SexPosition.ALL_FOURS,
 				Util.newArrayListOfValues(
 						SexSlotAllFours.ALL_FOURS,
 						SexSlotAllFours.ALL_FOURS_TWO),
@@ -2011,7 +2011,7 @@ public class GenericPositioning {
 
 	private static PositioningData generatePerformingAllFoursData(GameCharacter receiver) {
 		return new PositioningData(
-				SexPositionOther.ALL_FOURS,
+				SexPosition.ALL_FOURS,
 				generatePerformerAllFoursData(receiver),
 				Util.newArrayListOfValues(
 						SexSlotAllFours.ALL_FOURS,
@@ -2399,7 +2399,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(
 						SexSlotSitting.SITTING),
 				Util.newArrayListOfValues(
@@ -2441,7 +2441,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(
 						SexSlotSitting.SITTING_BETWEEN_LEGS),
 				Util.newArrayListOfValues(

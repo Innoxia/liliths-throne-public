@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
 
@@ -21,7 +21,7 @@ import com.lilithsthrone.main.Main;
 public class SMLyssiethSex extends SexManagerDefault {
 
 	public SMLyssiethSex(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionOther.OVER_DESK,
+		super(SexPosition.OVER_DESK,
 				dominants,
 				submissives);
 	}

@@ -625,7 +625,7 @@ public class SlimeQueensLair {
 					
 				} else if(index==3 && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeRoyalGuardDefeatReacted)) {
 					return new Response("Continue",
-							UtilText.parse(Main.game.getNpc(SlimeRoyalGuard.class), "Let [slimeRoyalGuard.name] fuck you."),
+							"Continue on your way through the tower.",
 							CORRIDOR) {
 						@Override
 						public void effects() {

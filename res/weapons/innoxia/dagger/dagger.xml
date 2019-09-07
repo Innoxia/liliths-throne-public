@@ -32,10 +32,13 @@
 		
 		<!-- The description that's displayed when hovering over the attack action in combat. Follow the same guidelines as equipText (a couple of entries further down this page).
 		As this tooltip is only ever seen from the player's perspective, you can always write in the first-person narrative. (Still use npc2 for the target, though.)-->
-		<attackTooltipDescription>Strike out with your Demon's Dagger at [npc2.name].</attackTooltipDescription>
+		<attackTooltipDescription><![CDATA[Strike out with your Demon's Dagger at [npc2.name].]]></attackTooltipDescription>
 		
 		<!-- The rarity of this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
 		<rarity>EPIC</rarity> 
+		
+		<!-- What set this weapon is a part of. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
+		<weaponSet/> 
 		
 		<!-- The description that's used when equipping this weapon. The description should be generic, able to be used by both the player and NPCs. Just make sure to use the tag "[npc.verb()]" whenever using a verb, which will then, for example, parse like this:
 		[npc.verb(run)] if npc is player = "run"

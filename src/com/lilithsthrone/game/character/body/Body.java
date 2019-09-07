@@ -3180,7 +3180,7 @@ public class Body implements XMLSaving {
 	}
 
 	private void addRaceWeight(Map<Race, Integer> raceWeightMap, Race race, int weight) {
-		if(race!=null) {
+		if(race!=null && race!=Race.NONE) {
 			raceWeightMap.putIfAbsent(race, 0);
 			raceWeightMap.put(race, raceWeightMap.get(race)+weight);
 		}
@@ -5961,7 +5961,7 @@ public class Body implements XMLSaving {
 	}
 	
 	public void updateVaginaColouring() {
-		if(vagina.getType().getRace()!=null) {
+		if(vagina.getType()!=VaginaType.NONE) {
 			switch(vagina.getType().getRace()) {
 				case ANGEL:
 					coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
@@ -5989,7 +5989,7 @@ public class Body implements XMLSaving {
 	}
 	
 	public void updatePenisColouring() {
-		if(penis.getType().getRace()!=null) {
+		if(penis.getType()!=PenisType.NONE) {
 			switch(penis.getType().getRace()) {
 				case ANGEL:
 					coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));

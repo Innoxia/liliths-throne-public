@@ -344,89 +344,6 @@ public class WeaponType {
 					"Strike at [npc.name] with your zweihander!");
 		}
 	};
-	
-	public static AbstractWeaponType MELEE_KNIGHTLY_SWORD = new AbstractWeaponType(2500,
-			true,
-			false,
-			"a",
-			false,
-			"Knightly Sword",
-			"Knightly Swords",
-			"Slash",
-			"This straight-edged sword has a single-handed cruciform hilt."
-					+ " The 75cm-long blade is made out of ethereal arcane energy, which, instead of cutting someone, drains their energy as it passes through them.",
-			"knightlySword",
-			"knightlySword",
-			Rarity.EPIC,
-			0,
-			null,
-			Util.newArrayListOfValues(
-					DamageType.PHYSICAL,
-					DamageType.FIRE,
-					DamageType.ICE,
-					DamageType.POISON),
-			18,
-			0,
-			DamageVariance.LOW,
-			5,
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_DAMAGE, TFPotency.MAJOR_BOOST, 0)),
-			null,
-			ColourListPresets.JUST_BLACK,
-			ColourListPresets.ALL,
-			ColourListPresets.JUST_STEEL,
-			ColourListPresets.ALL_METAL,
-			Util.newArrayListOfValues(
-					ItemTag.SOLD_BY_VICKY,
-					ItemTag.WEAPON_BLADE)) {
-
-		@Override
-		public String equipText(GameCharacter character) {
-			return UtilText.parse(character, "[npc.Name] [npc.verb(ready)] [npc.her] "+this.getName()+".");
-		}
-
-		@Override
-		public String unequipText(GameCharacter character) {
-			return UtilText.parse(character, "[npc.Name] [npc.verb(put)] [npc.her] "+this.getName()+" away.");
-		}
-
-		@Override
-		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
-			return getDescriptions(character, target, isHit,
-					UtilText.returnStringAtRandom(
-							"You slash your "+this.getName()+" at [npc.name], grinning as the ethereal arcane blade travels through [npc.her] body!",
-							"Slashing out at [npc.name] with your "+this.getName()+", you grin as you see the ethereal blade travel straight through [npc.her] body!",
-							"You slash at [npc.name] with your "+this.getName()+", causing [npc.herHim] to stagger back as the ethereal blade passes right through [npc.her] chest!"),
-					UtilText.returnStringAtRandom(
-							"[npc.Name] slashes [npc.her] "+this.getName()+" at you, grinning as the ethereal arcane blade travels through your body!",
-							"Slashing out at you with [npc.her] "+this.getName()+", [npc.name] grins as [npc.she] sees the ethereal blade travel straight through your body!",
-							"[npc.Name] slashes at you with [npc.her] "+this.getName()+", causing you to stagger back as the ethereal blade passes right through your chest!"),
-					UtilText.returnStringAtRandom(
-							"[npc.Name] slashes [npc.her] "+this.getName()+" at [npc2.name], grinning as the ethereal arcane blade travels through [npc2.her] body!",
-							"Slashing out at [npc2.name] with [npc.her] "+this.getName()+", [npc.name] grins as [npc.she] sees the ethereal blade travel straight through [npc2.her] body!",
-							"[npc.Name] slashes at [npc2.name] with [npc.her] "+this.getName()+", causing [npc2.herHim] to stagger back as the ethereal blade passes right through [npc2.her] chest!"),
-					UtilText.returnStringAtRandom(
-							"You slash your "+this.getName()+" at [npc.name], but the blade sails harmlessly through mid-air as you miss your target!",
-							"Slashing out at [npc.name] with your "+this.getName()+", you sigh in frustration as you end up missing your target!",
-							"You slash at [npc.name] with your "+this.getName()+", but fail to land a hit!"),
-					UtilText.returnStringAtRandom(
-							"[npc.Name] slashes [npc.her] "+this.getName()+" at you, but the blade sails harmlessly through mid-air as [npc.she] misses you!",
-							"Slashing out at you with [npc.her] "+this.getName()+", [npc.name] sighs in frustration as [npc.she] ends up missing you!",
-							"[npc.Name] slashes at you with [npc.her] "+this.getName()+", but fails to land a hit!"),
-					UtilText.returnStringAtRandom(
-							"[npc.Name] slashes [npc.her] "+this.getName()+" at [npc2.name], but the blade sails harmlessly through mid-air as [npc.she] misses [npc2.herHim]!",
-							"Slashing out at [npc2.name] with [npc.her] "+this.getName()+", [npc.name] sighs in frustration as [npc.she] ends up missing [npc2.herHim]!",
-							"[npc.Name] slashes at [npc2.name] with [npc.her] "+this.getName()+", but fails to land a hit!"));
-		}
-
-		@Override
-		public String getAttackDescription(GameCharacter user, GameCharacter target) {
-			return UtilText.parse(target,
-					"Strike at [npc.name] with your "+this.getName()+"!");
-		}
-	};
-	
 
 	// OFFHAND
 	public static AbstractWeaponType OFFHAND_CHAOS_RARE = new AbstractWeaponType(1000,
@@ -921,6 +838,9 @@ public class WeaponType {
 		}
 		if(id.equals("MAIN_WESTERN_KKP")) {	
 			id = "innoxia_western_kkp_western_kkp";
+		}
+		if(id.equals("MELEE_KNIGHTLY_SWORD")) {	
+			id = "innoxia_european_swords_arming_sword";
 		}
 		id = Util.getClosestStringMatch(id, idToWeaponMap.keySet());
 //		System.out.println("  set to: "+id);

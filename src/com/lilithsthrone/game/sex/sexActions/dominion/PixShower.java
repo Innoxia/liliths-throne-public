@@ -930,7 +930,7 @@ public class PixShower {
 	};
 	
 	public static final SexAction PLAYER_ORGASM_REFUSE = new SexAction(
-			SexActionType.ORGASM_NO_AROUSAL_RESET,
+			SexActionType.ORGASM_DENIAL,
 			ArousalIncrease.NEGATIVE_MAJOR,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,

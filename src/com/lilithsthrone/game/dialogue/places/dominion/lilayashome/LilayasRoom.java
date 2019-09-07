@@ -342,7 +342,9 @@ public class LilayasRoom {
 							}
 						},
 						null,
-						null, AFTER_ROSE_AS_DOM, UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "ROSE_AS_DOM")){
+						null,
+						AFTER_ROSE_AS_DOM,
+						UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "ROSE_AS_DOM")){
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Rose.class).incrementAffection(Main.game.getPlayer(), 15));

@@ -51,6 +51,11 @@ public class SMLilayaDemonTF extends SexManagerDefault {
 	}
 	
 	@Override
+	public boolean isEndSexAffectionChangeEnabled(GameCharacter character) {
+		return false;
+	}
+	
+	@Override
 	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}

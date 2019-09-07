@@ -142,9 +142,15 @@ public enum Encounter {
 				}
 				Main.game.setActiveNPC(npc);
 				return Main.game.getActiveNPC().getEncounterDialogue();
-				
-				
 			}
+
+//			System.out.println(node);
+//			if(node == EncounterType.SPECIAL_DOMINION_CULTIST) {
+//				System.out.println(Main.game.getCurrentWeather() != Weather.MAGIC_STORM);
+//				System.out.println(Main.game.getDateNow().getMonth().equals(Month.OCTOBER));
+//				System.out.println(Main.game.getNumberOfWitches()<4);
+//				System.out.println(Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.DOMINION_STREET));
+//			}
 			
 			if(node == EncounterType.SPECIAL_DOMINION_CULTIST
 					&& Main.game.getCurrentWeather() != Weather.MAGIC_STORM
@@ -234,7 +240,7 @@ public enum Encounter {
 					
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
 					
-					return DominionEncounterDialogue.DOMINION_STREET_VIXEN_VIRILITY_HANDOUT;
+					return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
 				}
 			}
 			
@@ -244,7 +250,7 @@ public enum Encounter {
 					
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
 					
-					return DominionEncounterDialogue.DOMINION_STREET_VIXEN_VIRILITY_HANDOUT;
+					return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
 				}
 			}
 			
@@ -288,11 +294,11 @@ public enum Encounter {
 			if (node == EncounterType.DOMINION_ALLEY_ATTACK) {
 				
 				// Prioritise re-encountering the NPC on this tile:
-				for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
-					if(npc instanceof Lumi) {
-						return null;
-					}
-					Main.game.setActiveNPC(npc);
+				List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+				encounterPossibilities.removeIf(npc -> npc instanceof Lumi);
+				if(!encounterPossibilities.isEmpty()) {
+					NPC encounterNpc = Util.randomItemFrom(encounterPossibilities);
+					Main.game.setActiveNPC(encounterNpc);
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
@@ -374,8 +380,11 @@ public enum Encounter {
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 				
-			for (NPC npc : Main.game.getNonCompanionCharactersPresent()) {
-				Main.game.setActiveNPC(npc);
+			// Prioritise re-encountering the NPC on this tile:
+			List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+			if(!encounterPossibilities.isEmpty()) {
+				NPC encounterNpc = Util.randomItemFrom(encounterPossibilities);
+				Main.game.setActiveNPC(encounterNpc);
 				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
 			
@@ -409,8 +418,10 @@ public enum Encounter {
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if(node==EncounterType.DOMINION_ALLEY_ATTACK) {
 				// Prioritise re-encountering the NPC on this tile:
-				for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
-					Main.game.setActiveNPC(npc);
+				List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+				if(!encounterPossibilities.isEmpty()) {
+					NPC encounterNpc = Util.randomItemFrom(encounterPossibilities);
+					Main.game.setActiveNPC(encounterNpc);
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
@@ -466,9 +477,12 @@ public enum Encounter {
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if (node == EncounterType.HARPY_NEST_ATTACK && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
-				
-				for (NPC npc : Main.game.getNonCompanionCharactersPresent()) {
-					Main.game.setActiveNPC(npc);
+
+				// Prioritise re-encountering the NPC on this tile:
+				List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+				if(!encounterPossibilities.isEmpty()) {
+					NPC encounterNpc = Util.randomItemFrom(encounterPossibilities);
+					Main.game.setActiveNPC(encounterNpc);
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
@@ -552,8 +566,11 @@ public enum Encounter {
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if (node == EncounterType.HARPY_NEST_ATTACK) {
 
-				for (NPC npc : Main.game.getNonCompanionCharactersPresent()) {
-					Main.game.setActiveNPC(npc);
+				// Prioritise re-encountering the NPC on this tile:
+				List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+				if(!encounterPossibilities.isEmpty()) {
+					NPC encounterNpc = Util.randomItemFrom(encounterPossibilities);
+					Main.game.setActiveNPC(encounterNpc);
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
@@ -826,8 +843,10 @@ public enum Encounter {
 				}
 
 				// Prioritise re-encountering the NPC on this tile:
-				for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
-					Main.game.setActiveNPC(npc);
+				List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+				if(!encounterPossibilities.isEmpty()) {
+					NPC encounterNpc = Util.randomItemFrom(encounterPossibilities);
+					Main.game.setActiveNPC(encounterNpc);
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
@@ -869,10 +888,12 @@ public enum Encounter {
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if (node == EncounterType.BAT_CAVERN_BAT_ATTACK) {
-				
+
 				// Prioritise re-encountering the NPC on this tile:
-				for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
-					Main.game.setActiveNPC(npc);
+				List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+				if(!encounterPossibilities.isEmpty()) {
+					NPC encounterNpc = Util.randomItemFrom(encounterPossibilities);
+					Main.game.setActiveNPC(encounterNpc);
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
@@ -906,7 +927,11 @@ public enum Encounter {
 				
 			} else if (node == EncounterType.BAT_CAVERN_FIND_ITEM) {
 				
-				randomItem = AbstractItemType.generateItem(ItemType.getBatCavernItems().get(Util.random.nextInt(ItemType.getBatCavernItems().size())));
+				if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.BAT_CAVERN_LIGHT && Math.random()<0.8f) {
+					randomItem = AbstractItemType.generateItem(ItemType.MUSHROOM);
+				} else {
+					randomItem = AbstractItemType.generateItem(ItemType.getBatCavernItems().get(Util.random.nextInt(ItemType.getBatCavernItems().size())));
+				}
 
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);
 				return BatCavernsEncounterDialogue.FIND_ITEM;
@@ -1052,7 +1077,9 @@ public enum Encounter {
 			EncounterType encounter = e.getKey();
 			float encounterChance = e.getValue();
 			// opportunistic attackers: compare with amplified chance
-			if(encounter.isOpportunistic()) encounterChance *= opportunisticMultiplier;
+			if(encounter.isOpportunistic()) {
+				encounterChance *= opportunisticMultiplier;
+			}
 			if (r <= total + encounterChance) {
 				return initialiseEncounter(encounter);
 			}

@@ -18,6 +18,7 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -78,7 +79,8 @@ public class CharacterInventory implements XMLSaving {
 	protected BlockedParts extraBlockedParts;
 	
 	// Weapons
-	private AbstractWeapon mainWeapon, offhandWeapon;
+	private AbstractWeapon[] mainWeapon;
+	private AbstractWeapon[] offhandWeapon;
 
 	private List<AbstractClothing> clothingCurrentlyEquipped;
 
@@ -107,8 +109,8 @@ public class CharacterInventory implements XMLSaving {
 			essenceMap.put(essence, 0);
 		}
 		
-		mainWeapon = null;
-		offhandWeapon = null;
+		mainWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
+		offhandWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
 		
 		clothingCurrentlyEquipped = new ArrayList<>();
 		clothingSetCount = new EnumMap<>(ClothingSet.class);
@@ -141,16 +143,22 @@ public class CharacterInventory implements XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "slot", slot.toString());
 		}
 		
-		if(this.getMainWeapon() != null) {
-			Element mainWeapon = doc.createElement("mainWeapon");
-			characterInventory.appendChild(mainWeapon);
-			this.getMainWeapon().saveAsXML(mainWeapon, doc);
+		for(int i=0;i<this.mainWeapon.length;i++) {
+			AbstractWeapon weapon = this.mainWeapon[i];
+			if(weapon != null) {
+				Element mainWeapon = doc.createElement("mainWeapon"+i);
+				characterInventory.appendChild(mainWeapon);
+				weapon.saveAsXML(mainWeapon, doc);
+			}
 		}
-		
-		if(this.getOffhandWeapon() != null) {
-			Element offhandWeapon = doc.createElement("offhandWeapon");
-			characterInventory.appendChild(offhandWeapon);
-			this.getOffhandWeapon().saveAsXML(offhandWeapon, doc);
+
+		for(int i=0;i<this.offhandWeapon.length;i++) {
+			AbstractWeapon weapon = this.offhandWeapon[i];
+			if(weapon != null) {
+				Element offhandWeapon = doc.createElement("offhandWeapon"+i);
+				characterInventory.appendChild(offhandWeapon);
+				weapon.saveAsXML(offhandWeapon, doc);
+			}
 		}
 		
 		Element clothingEquipped = doc.createElement("clothingEquipped");
@@ -232,18 +240,38 @@ public class CharacterInventory implements XMLSaving {
 		}
 		
 		nodes = parentElement.getElementsByTagName("mainWeapon");
-		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+		if(nodes.getLength()>0 && nodes.item(0)!=null) { // Pre v0.3.4.5 version support:
 			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)nodes.item(0)).getElementsByTagName("weapon").item(0), doc);
 			if(weapon!=null) {
-				inventory.equipMainWeapon(weapon);
+				inventory.equipMainWeapon(0, weapon);
+			}
+		} else {
+			for(int i=0;i<inventory.mainWeapon.length;i++) {
+				nodes = parentElement.getElementsByTagName("mainWeapon"+i);
+				if(nodes.getLength()>0 && nodes.item(0)!=null) {
+					AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)nodes.item(0)).getElementsByTagName("weapon").item(0), doc);
+					if(weapon!=null) {
+						inventory.equipMainWeapon(i, weapon);
+					}
+				}
 			}
 		}
 
 		nodes = parentElement.getElementsByTagName("offhandWeapon");
-		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+		if(nodes.getLength()>0 && nodes.item(0)!=null) { // Pre v0.3.4.5 version support:
 			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)nodes.item(0)).getElementsByTagName("weapon").item(0), doc);
 			if(weapon!=null) {
-				inventory.equipOffhandWeapon(weapon);
+				inventory.equipOffhandWeapon(0, weapon);
+			}
+		} else {
+			for(int i=0;i<inventory.offhandWeapon.length;i++) {
+				nodes = parentElement.getElementsByTagName("offhandWeapon"+i);
+				if(nodes.getLength()>0 && nodes.item(0)!=null) {
+					AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)nodes.item(0)).getElementsByTagName("weapon").item(0), doc);
+					if(weapon!=null) {
+						inventory.equipOffhandWeapon(i, weapon);
+					}
+				}
 			}
 		}
 		
@@ -663,24 +691,54 @@ public class CharacterInventory implements XMLSaving {
 		return false;
 	}
 	
-	public AbstractWeapon getMainWeapon() {
-		return mainWeapon;
-	}
-	public void equipMainWeapon(AbstractWeapon weapon) {
-		mainWeapon = weapon;
-	}
-	public void unequipMainWeapon() {
-		mainWeapon = null;
+	public AbstractWeapon getMainWeapon(int armRow) {
+		return mainWeapon[armRow];
 	}
 	
-	public AbstractWeapon getOffhandWeapon() {
+	/**
+	 * <b>DO NOT MODIFY!</b><br/>
+	 * Use the <i>equipMainWeapon(int armRow, AbstractWeapon weapon)<i> and <i>unequipMainWeapon(int armRow)</i> methods to modify the underlying array.
+	 * 
+	 * @return The underlying array which stores weapons equipped in the main hand. The index corresponds to which arm row the weapon is held in.
+	 */
+	public AbstractWeapon[] getMainWeaponArray() {
+		return mainWeapon;
+	}
+	
+	public void equipMainWeapon(int armRow, AbstractWeapon weapon) {
+		if(armRow>=Arm.MAXIMUM_ROWS) {
+			throw new IllegalArgumentException("Equipping main weapon failed! Row was passed in as "+armRow+", but maximum arm rows is "+Arm.MAXIMUM_ROWS+"!");
+		}
+		mainWeapon[armRow] = weapon;
+	}
+	
+	public void unequipMainWeapon(int armRow) {
+		mainWeapon[armRow] = null;
+	}
+	
+	public AbstractWeapon getOffhandWeapon(int armRow) {
+		return offhandWeapon[armRow];
+	}
+
+	/**
+	 * <b>DO NOT MODIFY!</b><br/>
+	 * Use the <i>equipOffhandWeapon(int armRow, AbstractWeapon weapon)<i> and <i>unequipOffhandWeapon(int armRow)</i> methods to modify the underlying array.
+	 * 
+	 * @return The underlying array which stores weapons equipped in the off hand. The index corresponds to which arm row the weapon is held in.
+	 */
+	public AbstractWeapon[] getOffhandWeaponArray() {
 		return offhandWeapon;
 	}
-	public void equipOffhandWeapon(AbstractWeapon weapon) {
-		offhandWeapon = weapon;
+	
+	public void equipOffhandWeapon(int armRow, AbstractWeapon weapon) {
+		if(armRow>=Arm.MAXIMUM_ROWS) {
+			throw new IllegalArgumentException("Equipping main weapon failed! Row was passed in as "+armRow+", but maximum arm rows is "+Arm.MAXIMUM_ROWS+"!");
+		}
+		offhandWeapon[armRow] = weapon;
 	}
-	public void unequipOffhandWeapon() {
-		offhandWeapon = null;
+	
+	public void unequipOffhandWeapon(int armRow) {
+		offhandWeapon[armRow] = null;
 	}
 	
 	
@@ -956,7 +1014,7 @@ public class CharacterInventory implements XMLSaving {
 
 	private StringBuilder tempSB;
 
-	public String calculateClothingPostTransformation(GameCharacter character) {
+	public String calculateClothingAndWeaponsPostTransformation(GameCharacter character) {
 		tempSB = new StringBuilder();
 		List<AbstractClothing> clothingToRemove = new ArrayList<>();
 		for (AbstractClothing c : clothingCurrentlyEquipped){
@@ -971,22 +1029,51 @@ public class CharacterInventory implements XMLSaving {
 			}
 		}
 		clothingCurrentlyEquipped.removeAll(clothingToRemove);
-
+		
+		for(int i=0; i<character.getMainWeaponArray().length; i++) {
+			if(character.getArmRows()-1<i) {
+				AbstractWeapon weapon = character.getMainWeaponArray()[i];
+				if(weapon!=null) {
+					transformationIncompatibleWeapon(character, weapon, character.unequipMainWeapon(i, false, true));
+				}
+			}
+		}
+		for(int i=0; i<character.getOffhandWeaponArray().length; i++) {
+			if(character.getArmRows()-1<i) {
+				AbstractWeapon weapon = character.getOffhandWeaponArray()[i];
+				if(weapon!=null) {
+					transformationIncompatibleWeapon(character, weapon, character.unequipOffhandWeapon(i, false, true));
+				}
+			}
+		}
+		
 		return tempSB.toString();
 	}
 	
 	private void transformationIncompatible(GameCharacter character, AbstractClothing c, List<AbstractClothing> clothingRemovalList, String description){
-		if (tempSB.length() != 0)
+		if (tempSB.length() != 0) {
 			tempSB.append("<br/><br/>");
+		}
 		tempSB.append("<br/><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+UtilText.parse(character, description)+"</span>");
+		
 		if (isInventoryFull() && !hasClothing(c)) {
 			Main.game.getWorlds().get(character.getWorldLocation()).getCell(character.getLocation()).getInventory().addClothing(c);
 			tempSB.append("<br/>" + character.droppedItemText(c));
+			
 		} else {
 			character.addClothing(c, false);
 			tempSB.append("<br/>" + character.addedItemToInventoryText(c));
 		}
 		clothingRemovalList.add(c);	
+	}
+	
+	private void transformationIncompatibleWeapon(GameCharacter character, AbstractWeapon w, String description){
+		if (tempSB.length() != 0) {
+			tempSB.append("<br/><br/>");
+		}
+		tempSB.append("<br/><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+UtilText.parse(character, "Due to the loss of [npc.her] extra pair of arms, [npc.name] can no longer hold the "+w.getName()+"!")+"</span>");
+		
+		tempSB.append("<br/>" + description);
 	}
 	
 	
@@ -1403,10 +1490,10 @@ public class CharacterInventory implements XMLSaving {
 		if (!automaticClothingManagement && clothingToRemove.size() > 1) { // Greater than 1, as it will contain the item of clothing that's trying to be removed.
 			Set<AbstractClothing> blockingClothingSet = clothingToRemove.keySet().stream().filter(c -> c != clothing).collect(Collectors.toSet());
 			equipTextSB.append(characterClothingOwner.isPlayer()
-					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(blockingClothingSet, false) + " need"
+					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, your " + Util.clothesToStringList(blockingClothingSet, false) + " need"
 						+ (blockingClothingSet.size() > 1 ? "" : "s") + " to be removed."
 					:UtilText.parse(characterClothingOwner,
-							"Before [npc.namePos] " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(blockingClothingSet, false) + " need"
+							"Before [npc.namePos] " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, [npc.her] " + Util.clothesToStringList(blockingClothingSet, false) + " need"
 									+ (blockingClothingSet.size() > 1 ? "" : "s") + " to be removed."));
 			
 			blockingClothing = blockingClothingSet.stream().findAny().orElse(blockingClothing);

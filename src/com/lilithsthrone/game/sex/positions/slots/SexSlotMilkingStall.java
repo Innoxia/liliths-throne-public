@@ -16,7 +16,8 @@ public class SexSlotMilkingStall {
 			"Locked in stall",
 			"locked in stall",
 			"Unable to move, [npc1.name] [npc1.verb(wriggle)] around in the stall and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
-			false);
+			false,
+			SexSlotTag.LOCKED_IN_STOCKS);
 	public static final SexSlot LOCKED_IN_MILKING_STALL_TWO = new SexSlot(LOCKED_IN_MILKING_STALL) {
 		@Override
 		public String getDescription() {
@@ -41,7 +42,8 @@ public class SexSlotMilkingStall {
 			"Behind stall",
 			"behind stall",
 			"[npc1.Name] [npc1.verb(buck)] [npc.her] hips forwards, thrusting into [npc2.namePos] groin and letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
-			false);
+			false,
+			SexSlotTag.BEHIND_STOCKS);
 	public static final SexSlot BEHIND_MILKING_STALL_TWO = new SexSlot(BEHIND_MILKING_STALL) {
 		@Override
 		public String getDescription() {
@@ -66,7 +68,8 @@ public class SexSlotMilkingStall {
 			"Performing oral",
 			"performing oral",
 			"[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(place)] a [npc1.hand] on one of [npc2.namePos] [npc2.legs], letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
-			false) {
+			false,
+			SexSlotTag.PERFORMING_ORAL_STOCKS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
@@ -76,7 +79,8 @@ public class SexSlotMilkingStall {
 			"Performing oral",
 			"performing oral (2nd)",
 			null,
-			false) {
+			false,
+			SexSlotTag.PERFORMING_ORAL_STOCKS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
@@ -86,7 +90,8 @@ public class SexSlotMilkingStall {
 			"Performing oral",
 			"performing oral (3rd)",
 			null,
-			false) {
+			false,
+			SexSlotTag.PERFORMING_ORAL_STOCKS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
@@ -96,7 +101,8 @@ public class SexSlotMilkingStall {
 			"Performing oral",
 			"performing oral (4th)",
 			null,
-			false) {
+			false,
+			SexSlotTag.PERFORMING_ORAL_STOCKS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
@@ -108,7 +114,8 @@ public class SexSlotMilkingStall {
 			"Receiving oral",
 			"receiving oral",
 			"[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(place)] a [npc1.hand] on [npc2.namePos] head, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
-			true);
+			true,
+			SexSlotTag.RECEIVING_ORAL_STOCKS);
 	public static final SexSlot RECEIVING_ORAL_TWO = new SexSlot(RECEIVING_ORAL) {
 		@Override
 		public String getDescription() {

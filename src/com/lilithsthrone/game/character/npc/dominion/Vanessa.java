@@ -58,7 +58,7 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaOral;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -280,8 +280,8 @@ public class Vanessa extends NPC {
 		if(Sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotSitting.PERFORMING_ORAL) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
 		}
-		if(Sex.getPosition()==SexPositionOther.OVER_DESK) {
-			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+		if(Sex.getPosition()==SexPosition.OVER_DESK) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
 		}
 		
 		return super.getForeplayPreference(target);

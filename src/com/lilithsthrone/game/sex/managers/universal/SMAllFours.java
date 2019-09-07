@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 
 /**
@@ -15,7 +15,7 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 public class SMAllFours extends SexManagerDefault {
 
 	public SMAllFours(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionOther.ALL_FOURS,
+		super(SexPosition.ALL_FOURS,
 				dominants,
 				submissives);
 	}

@@ -9,6 +9,9 @@ public enum SexActionType {
 	
 	/**Standard ongoing action. Requires all SexAreaInterfaces to be occupied with each other.*/
 	ONGOING,
+
+	/**An action in which a character is speaking.*/
+	SPEECH,
 	
 	/**Standard non-penetrative action. Requires all SexAreaInterfaces to be exposed.*/
 	REQUIRES_EXPOSED,
@@ -40,8 +43,8 @@ public enum SexActionType {
 	/**Orgasm.*/
 	ORGASM,
 	
-	/**Orgasm that doesn't reset arousal.*/
-	ORGASM_NO_AROUSAL_RESET,
+	/**Orgasm that it denied (so it doesn't reset arousal, increment orgasm count, nor apply any orgasm-related effects).*/
+	ORGASM_DENIAL,
 	
 	/**Special miscellaneous actions such as stopping sex.*/
 	SPECIAL;
@@ -55,6 +58,6 @@ public enum SexActionType {
 	}
 	
 	public boolean isOrgasmOption() {
-		return this == ORGASM || this == ORGASM_NO_AROUSAL_RESET;
+		return this == ORGASM || this == ORGASM_DENIAL;
 	}
 }

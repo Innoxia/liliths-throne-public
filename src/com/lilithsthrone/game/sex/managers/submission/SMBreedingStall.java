@@ -10,18 +10,18 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionUnique;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 
 /**
  * @since 0.2.7
- * @version 0.3.4
+ * @version 0.3.4.5
  * @author Innoxia
  */
-public class SMBreedingStallBack extends SexManagerDefault {
+public class SMBreedingStall extends SexManagerDefault {
 
-	public SMBreedingStallBack(boolean vaginalAllowed, boolean analAllowed, boolean oralAllowed, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionUnique.BREEDING_STALL_BACK,
+	public SMBreedingStall(boolean vaginalAllowed, boolean analAllowed, boolean oralAllowed, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(SexPosition.BREEDING_STALL,
 				dominants,
 				submissives);
 		

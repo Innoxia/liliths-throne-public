@@ -12,7 +12,6 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -125,8 +124,7 @@ public class Cultist extends NPC {
 			
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
-			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+			initHealthAndManaToMax();
 			
 			setStartingCombatMoves();
 		}
@@ -463,27 +461,29 @@ public class Cultist extends NPC {
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
 		if(Sex.getSexPositionSlot(this)==SexSlotUnique.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexSlotUnique.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS) {
-			if(requestedAnal) {
+			if(requestedAnal || !target.hasVagina()) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS);
-			} else {
+			} else if(target.hasVagina()) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
 			}
 		} else {
 			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
 		}
+		return super.getForeplayPreference(target);
 	}
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
 		if(Sex.getSexPositionSlot(this)==SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS) {
-			if(requestedAnal) {
+			if(requestedAnal || !target.hasVagina()) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
-			} else {
+			} else if(target.hasVagina()) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			}
 		} else {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
+		return super.getMainSexPreference(target);
 	}
 	
 	@Override

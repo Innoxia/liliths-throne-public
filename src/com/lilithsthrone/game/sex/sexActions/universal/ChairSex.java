@@ -11,7 +11,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
@@ -60,7 +60,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				Util.newArrayListOfValues(
 						SexSlotStanding.STANDING_DOMINANT,
 						SexSlotStanding.STANDING_DOMINANT_TWO,
@@ -119,7 +119,7 @@ public class ChairSex {
 		}
 
 		Sex.setSexManager(new SexManagerDefault(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				dominants,
 				submissives){
 		});
@@ -134,7 +134,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.PERFORMING_ORAL),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 
@@ -176,7 +176,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.PERFORMING_ORAL),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
@@ -211,7 +211,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING),
 				Util.newArrayListOfValues(SexSlotSitting.PERFORMING_ORAL));
 		
@@ -254,7 +254,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING),
 				Util.newArrayListOfValues(SexSlotSitting.PERFORMING_ORAL));
 		
@@ -290,7 +290,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
@@ -333,7 +333,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
@@ -370,7 +370,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_IN_LAP));
 
@@ -413,7 +413,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_IN_LAP));
 		
@@ -449,7 +449,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_IN_LAP),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 
@@ -501,7 +501,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_IN_LAP),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
@@ -536,7 +536,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_BETWEEN_LEGS),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 
@@ -581,7 +581,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_BETWEEN_LEGS),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		

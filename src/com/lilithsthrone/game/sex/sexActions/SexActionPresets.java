@@ -160,6 +160,7 @@ public class SexActionPresets {
 			SexAreaPenetration.FINGER,
 			SexAreaPenetration.TAIL,
 			SexAreaPenetration.TENTACLE,
+			SexAreaOrifice.MOUTH,
 			SexAreaOrifice.VAGINA);
 	
 	private static List<SexAreaInterface> allAreas;

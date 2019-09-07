@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
@@ -28,7 +29,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.69
- * @version 0.3.4
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public class Response {
@@ -45,7 +46,9 @@ public class Response {
 	private Femininity femininityRequired;
 	private Race raceRequired;
 
-	// Sexa ction variables:
+	private CombatMove combatMove;
+	
+	// Sex action variables:
 	
 	private SexActionType sexActionType;
 	
@@ -102,6 +105,8 @@ public class Response {
 		this.perksRequired = perksRequired;
 		this.femininityRequired = femininityRequired;
 		this.raceRequired = raceRequired;
+		
+		combatMove = null;
 		
 		// Sex action variables:
 		
@@ -174,6 +179,10 @@ public class Response {
 		return false;
 	}
 	
+	public CombatMove getAssociatedCombatMove() {
+		return combatMove;
+	}
+	
 	public Colour getHighlightColour() {
 		if(isSexHighlight()) {
 			return Colour.GENERIC_SEX;
@@ -205,7 +214,13 @@ public class Response {
 	public SexActionType getSexActionType() {
 		return null;
 	}
-	
+
+	/**
+	 * @return true if this response is generated from a SexAction which applies a START_ONGOING action while the related body parts are already in use (thus switching them).
+	 */
+	public boolean isSexActionSwitch() {
+		return false;
+	}
 	/**
 	 * @return Typically null, unless this method is overridden in order to set special requirements related to the availability of a sex action of type START_ADDITIONAL_ONGOING.
 	 *  The keys correspond descriptions of requirements, while the value is used to determine if this requirement is met.
@@ -237,6 +252,7 @@ public class Response {
 				|| perksRequired != null
 				|| femininityRequired != null
 				|| raceRequired != null
+				|| sexActionType==SexActionType.SPEECH
 				|| getAdditionalOngoingAvailableMap()!=null
 				|| !sexAreaAccessRequiredForPerformer.isEmpty()
 				|| !sexAreaAccessRequiredForTargeted.isEmpty();
@@ -251,6 +267,7 @@ public class Response {
 					&& !isBlockedFromPerks()
 					&& isFemininityInRange()
 					&& isRequiredRace()
+					&& (sexActionType!=SexActionType.SPEECH || !Sex.isOngoingActionsBlockingSpeech(Main.game.getPlayer()))
 					&& (isAvailableFromAdditionalOngoingAvailableMap() || (isPenetrationTypeAvailable() && isOrificeTypeAvailable())));
 	}
 	
@@ -296,8 +313,24 @@ public class Response {
 		return SB.toString();
 	}
 	
+	public String getAdditionalSexActionInformationText() {
+		if(this.getSexActionType()==SexActionType.START_ADDITIONAL_ONGOING) {
+			return "This action will cause you to [style.colourSex(join in)] with the related ongoing action.";
+			
+		} else if(isSwitchOngoingActionAvailable()) {
+			return "This action will cause [style.colourCorruption(some ongoing actions to be stopped)] before starting the related ongoing action.";
+		}
+		return "";
+	}
+	
 	private boolean isSwitchOngoingActionAvailable() {
-		if(this.sexActionType ==SexActionType.START_ONGOING && Sex.getCharacterPerformingAction().isPlayer() && Sex.getSexControl(characterPerformingSexAction).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
+		if(this.sexActionType ==SexActionType.START_ONGOING
+				&& Sex.getCharacterPerformingAction().isPlayer()
+				&& Sex.getSexControl(characterPerformingSexAction).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
+			if(Sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).size()>1
+					|| !Sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).contains(Main.game.getPlayer())) {
+				return false;
+			}
 			try {
 				return !Sex.getOngoingActionsMap(Sex.getCharacterPerformingAction()).get(this.sexAreaAccessRequiredForPerformer.get(0)).get(characterTargetedForSexAction).contains(this.sexAreaAccessRequiredForTargeted.get(0));
 			} catch(Exception ex) {
@@ -352,6 +385,18 @@ public class Response {
 						+"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
 						+ " (Race): "
 						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName(false))+"</span>");
+			}
+		}
+		
+		if(sexActionType==SexActionType.SPEECH) {
+			if(!Sex.isOngoingActionsBlockingSpeech(Main.game.getPlayer())) {
+				SB.append("<br/>"
+						+"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
+						+ " (Speech): [style.colourMinorGood(Unblocked mouth)]");
+			} else {
+				SB.append("<br/>"
+						+"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
+						+ " (Speech): [style.colourMinorBad(Unblocked mouth)]");
 			}
 		}
 		
@@ -516,6 +561,9 @@ public class Response {
 			lineHeight++;
 		}
 		if(raceRequired!=null) {
+			lineHeight++;
+		}
+		if(sexActionType==SexActionType.SPEECH) {
 			lineHeight++;
 		}
 		

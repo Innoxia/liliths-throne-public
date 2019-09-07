@@ -21,21 +21,20 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
- * @version 0.3.3.10
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public class PlayerTalk {
 	
 	public static final SexAction DIRTY_TALK = new SexAction(
-			SexActionType.REQUIRES_NO_PENETRATION,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, null)),
+			null,
 			SexParticipantType.NORMAL) {
 		
 		@Override

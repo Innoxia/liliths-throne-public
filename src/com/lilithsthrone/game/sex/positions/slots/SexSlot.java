@@ -69,9 +69,9 @@ public class SexSlot {
 	 * @return The description of the character in this slot orgasming. 'npc' is the parser tag used for the orgasming character, while 'npc2' is for the targeted character that they're interacting with.<br/>
 	 * If orgasmDescription is null, getGenericOrgasmDescription() is returned instead.
 	 */
-	public String getOrgasmDescription() {
+	public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
 		if(orgasmDescription==null) {
-			return getGenericOrgasmDescription();
+			return getGenericOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 		return orgasmDescription;
 	}
@@ -79,7 +79,7 @@ public class SexSlot {
 	/**
 	 * @return A generic orgasm description, based on who the character in this slot is targeting. Will be returned if orgasmDescription is null.
 	 */
-	public String getGenericOrgasmDescription() {
+	public String getGenericOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
 		return "Pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
 	}
 

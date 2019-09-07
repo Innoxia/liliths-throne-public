@@ -220,41 +220,19 @@
 	
 	<htmlContent tag="KEEP_MALES_TAMESHIGIRI_MAIN"><![CDATA[
 	<p>
-		Sensing an opportunity to intimidate this [npc.race] into submission, you grip your weapon as you step forwards and issue your challenge, [pc.speech(Your blades are no match for my [pc.mainWeapon], and it would be a disgrace for me to have to fight someone with such puny swords. Stand aside, and I'll demonstrate this on those bamboo poles for you.)]
+		Sensing an opportunity to intimidate this [npc.race] into submission, you grip your weapon as you step forwards and issue your challenge, [pc.speech(Your blades are no match for my [#SPECIAL_PARSE_0], and it would be a disgrace for me to have to fight someone with such puny swords. Stand aside, and I'll demonstrate this on those bamboo poles for you.)]
 	</p>
 	<p>
 		[npc.speech(Hah! How ridiculous! None can match my katana!)] [npc.name] booms, but, despite [npc.her] words, [npc.she] stands aside. [npc.speech(So, you consider yourself a competent practitioner of tameshigiri, do you? Oh, that'd be 'test cutting' to someone not familiar with the youko's tongue.)]
 	</p>
 	<p>
-		[pc.speech(Not particularly, but anything you and your flimsy swords can do, my [pc.mainWeapon] can do better,)] you reply, stepping up to the bamboo poles. [pc.speech(Which one's the hardest?)]
+		[pc.speech(Not particularly, but anything you and your flimsy swords can do, my [#SPECIAL_PARSE_0] can do better,)] you reply, stepping up to the bamboo poles. [pc.speech(Which one's the hardest?)]
 	</p>
 	<p>
-		The [npc.race] points to a blackened bamboo pole at the far end of the dojo. Its sides have been scored with countless cuts and gashes, and you realise that [npc.name] has repeatedly tried, and failed, to slice through it with [npc.her] katana. [npc.speech(Your pathetic [pc.mainWeapon] is likely to shatter if you try cutting it! One of the eight-tailed youko themselves enchanted it to be resistant to bladed weapons! If you even manage to make a mark, I'd be impressed! Not that it'd be enough to escape without a punishment! Hah!)]
+		The [npc.race] points to a blackened bamboo pole at the far end of the dojo. Its sides have been scored with countless cuts and gashes, and you realise that [npc.name] has repeatedly tried, and failed, to slice through it with [npc.her] katana. [npc.speech(Your pathetic [#SPECIAL_PARSE_0] is likely to shatter if you try cutting it! One of the eight-tailed youko themselves enchanted it to be resistant to bladed weapons! If you even manage to make a mark, I'd be impressed! Not that it'd be enough to escape without a punishment! Hah!)]
 	</p>
 	<p>
-		Walking up to the enchanted target, you notice a faint purple shimmer rippling across the blackened surface. Determined to show this [npc.race] how powerful you are, you raise your [pc.mainWeapon] and slice it down with full force into the bamboo pole. [pc.speech(Hyah!)]
-	</p>
-	<p>
-		At first, [npc.name] seems to think that you've missed the target completely, for [npc.she] starts to let out a booming laugh as [npc.she] sees that your blade seemed to encounter no resistance, and is now on the other side of the pole. [npc.Her] mocking roar is suddenly cut short, however, as the top half of the blackened pole slides to one side, before falling to the floor with a heavy thud.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="KEEP_MALES_TAMESHIGIRI_OFFHAND"><![CDATA[
-	<p>
-		Sensing an opportunity to intimidate this [npc.race] into submission, you grip your weapon as you step forwards and issue your challenge, [pc.speech(Your blades are no match for my [pc.secondaryWeapon], and it would be a disgrace for me to have to fight someone with such puny swords. Stand aside, and I'll demonstrate this on those bamboo poles for you.)]
-	</p>
-	<p>
-		[npc.speech(Hah! How ridiculous! None can match my katana!)] [npc.name] booms, but, despite [npc.her] words, [npc.she] stands aside. [npc.speech(So, you consider yourself a competent practitioner of tameshigiri, do you? Oh, that'd be 'test cutting' to someone not familiar with the youko's tongue.)]
-	</p>
-	<p>
-		[pc.speech(Not particularly, but anything you and your flimsy swords can do, my [pc.secondaryWeapon] can do better,)] you reply, stepping up to the bamboo poles. [pc.speech(Which one's the hardest?)]
-	</p>
-	<p>
-		The [npc.race] points to a blackened bamboo pole at the far end of the dojo. Its sides have been scored with countless cuts and gashes, and you realise that [npc.name] has repeatedly tried, and failed, to slice through it with [npc.her] katana. [npc.speech(Your pathetic [pc.secondaryWeapon] is likely to shatter if you try cutting it! One of the eight-tailed youko themselves enchanted it to be resistant to bladed weapons! If you even manage to make a mark, I'd be impressed! Not that it'd be enough to escape without a punishment! Hah!)]
-	</p>
-	<p>
-		Walking up to the enchanted target, you notice a faint purple shimmer rippling across the blackened surface. Determined to show this [npc.race] how powerful you are, you raise your [pc.secondaryWeapon] and slice it down with full force into the bamboo pole. [pc.speech(Hyah!)]
+		Walking up to the enchanted target, you notice a faint purple shimmer rippling across the blackened surface. Determined to show this [npc.race] how powerful you are, you raise your [#SPECIAL_PARSE_0] and slice it down with full force into the bamboo pole. [pc.speech(Hyah!)]
 	</p>
 	<p>
 		At first, [npc.name] seems to think that you've missed the target completely, for [npc.she] starts to let out a booming laugh as [npc.she] sees that your blade seemed to encounter no resistance, and is now on the other side of the pole. [npc.Her] mocking roar is suddenly cut short, however, as the top half of the blackened pole slides to one side, before falling to the floor with a heavy thud.
@@ -317,7 +295,7 @@
 		[pc.speech(You do realise that she's under lock and key in Lyssieth's palace, right?)] you ask.
 	</p>
 	<p>
-		[npc.speech(That doesn't matter. She'll find a way to escape,)] [npc.name] says. [npc.speech(But until [npc.she] does, I'll leave this place. Just let me go, and we can avoid a fight.)]
+		[npc.speech(That doesn't matter. She'll find a way to escape,)] [npc.name] says. [npc.speech(But until [siren.she] does, I'll leave this place. Just let me go, and we can avoid a fight.)]
 	</p>
 	<p>
 		You don't believe for one moment that [npc.name] intends to wait until [npc.her] leader is released before returning, and you doubt that even beating [npc.herHim] in combat would change that...

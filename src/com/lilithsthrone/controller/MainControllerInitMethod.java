@@ -2851,7 +2851,7 @@ public class MainControllerInitMethod {
 					id = "CHANGE_LEG_CONFIGURATION_"+legConfig;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							BodyChanging.getTarget().getLegType().applyLegConfigurationTransformation(BodyChanging.getTarget(), legConfig, true);
+							BodyChanging.getTarget().getLegType().applyLegConfigurationTransformation(BodyChanging.getTarget(), legConfig, true, false);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -4776,7 +4776,7 @@ public class MainControllerInitMethod {
 			}
 
 
-			for(CombatMove move : CombatMove.allCombatMoves) {
+			for(CombatMove move : CombatMove.getAllCombatMoves()) {
 				GameCharacter character = CombatMovesSetup.getTarget();
 
 				id = "MOVE_"+move.getIdentifier();
@@ -4786,12 +4786,10 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setCombatMove(move, character), false);
 
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", event -> {
-						if(character.getEquippedMoves().contains(move))
-						{
+						if(character.getEquippedMoves().contains(move)) {
 							character.unequipMove(move.getIdentifier());
-						}
-						else if(character.getEquippedMoves().size() < GameCharacter.MAX_COMBAT_MOVES)
-						{
+							
+						} else if(character.getEquippedMoves().size() < GameCharacter.MAX_COMBAT_MOVES) {
 							character.equipMove(move.getIdentifier());
 						}
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));

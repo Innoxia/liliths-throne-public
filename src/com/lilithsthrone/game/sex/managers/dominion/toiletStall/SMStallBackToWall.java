@@ -6,7 +6,7 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.utils.Util;
 
@@ -18,7 +18,7 @@ import com.lilithsthrone.utils.Util;
 public class SMStallBackToWall extends SexManagerDefault {
 
 	public SMStallBackToWall(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionOther.AGAINST_WALL,
+		super(SexPosition.AGAINST_WALL,
 				dominants,
 				submissives);
 	}
@@ -26,7 +26,7 @@ public class SMStallBackToWall extends SexManagerDefault {
 	@Override
 	public List<AbstractSexPosition> getAllowedSexPositions() {
 		return Util.newArrayListOfValues(
-				SexPositionOther.STANDING,
-				SexPositionOther.AGAINST_WALL);
+				SexPosition.STANDING,
+				SexPosition.AGAINST_WALL);
 	}
 }

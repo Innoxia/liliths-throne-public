@@ -3472,6 +3472,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	PREGNANT_1(
 			80,
 			"pregnant",
@@ -3479,24 +3480,16 @@ public enum StatusEffect {
 			Colour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 2f)),
-			null) {
+			Util.newArrayListOfValues("-5% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer()) {
-				return "From one of your recent sexual encounters, you've been impregnated!"
-						+ (target.getBodyMaterial()==BodyMaterial.SLIME
-							?" Through the [pc.skinColour] [pc.skin] that makes up your body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
-								+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you..."
-							:" Due to the fact that the arcane accelerates people's pregnancies, you'll move onto the next stage in a matter of days.");
-			} else {
-				return UtilText.parse(target,
-							"From one of [npc.namePos] recent sexual encounters, [npc.sheIs] been impregnated!"
-								+ (target.getBodyMaterial()==BodyMaterial.SLIME
-									?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
-										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]..."
-									:""));
-			}
+			return UtilText.parse(target,
+						"From one of [npc.namePos] recent sexual encounters, [npc.sheHas] been impregnated!"
+							+ (target.getBodyMaterial()==BodyMaterial.SLIME
+								?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
+									+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]."
+								:" Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll move onto the next stage in a matter of days."));
 		}
 
 		@Override
@@ -3576,7 +3569,7 @@ public enum StatusEffect {
 			Colour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 4f)),
-			null) {
+			Util.newArrayListOfValues("-10% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3682,7 +3675,7 @@ public enum StatusEffect {
 			Colour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 6f)),
-			null) {
+			Util.newArrayListOfValues("-15% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7381,7 +7374,7 @@ public enum StatusEffect {
 			false,
 			null,
 			Util.newArrayListOfValues(
-					"-50% [style.colourHealth(maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
+					"-50% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7824,7 +7817,7 @@ public enum StatusEffect {
 			false,
 			null,
 			Util.newArrayListOfValues(
-					"-50% [style.colourHealth(maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
+					"-50% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -8463,7 +8456,7 @@ public enum StatusEffect {
 			false,
 			null,
 			Util.newArrayListOfValues(
-					"-50% [style.colourHealth(maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
+					"-50% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -9005,7 +8998,7 @@ public enum StatusEffect {
 			false,
 			null,
 			Util.newArrayListOfValues(
-					"-50% [style.colourHealth(maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
+					"-50% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -9554,7 +9547,7 @@ public enum StatusEffect {
 			false,
 			null,
 			Util.newArrayListOfValues(
-					"-50% [style.colourHealth(maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
+					"-50% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
 		
 		@Override
 		public String getDescription(GameCharacter target) {

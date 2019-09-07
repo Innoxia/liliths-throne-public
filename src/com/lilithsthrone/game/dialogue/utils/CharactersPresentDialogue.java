@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.PerkManager;
@@ -49,7 +50,7 @@ public class CharactersPresentDialogue {
 
 		if(Main.game.getPlayer().getCompanions().size()>1) {
 			companionCharacter = (NPC) Main.game.getPlayer().getMainCompanion();
-			if(getCompanionCharacter().equals(targetedCharacterForSex)) {
+			if(Objects.equals(getCompanionCharacter(), targetedCharacterForSex)) {
 				companionCharacter = (NPC) Main.game.getPlayer().getCompanions().stream().filter((npc) -> !npc.equals(getCharacterViewed())).findFirst().get();
 			}
 		} else {
@@ -73,7 +74,7 @@ public class CharactersPresentDialogue {
 	private static NPC getTargetedCharacterForSex() {
 		if(!Main.game.getCharactersPresent().contains(targetedCharacterForSex)) {
 			targetedCharacterForSex = (NPC) CharactersPresentDialogue.characterViewed;
-			if(getCompanionCharacter().equals(targetedCharacterForSex)) {
+			if(Objects.equals(getCompanionCharacter(), targetedCharacterForSex)) {
 				if(Main.game.getPlayer().getCompanions().size()>1) {
 					companionCharacter = (NPC) Main.game.getPlayer().getCompanions().stream().filter((npc) -> !npc.equals(getCharacterViewed())).findFirst().get();
 				}
@@ -86,7 +87,7 @@ public class CharactersPresentDialogue {
 		if(!Main.game.getCharactersPresent().contains(companionCharacter)) {
 			if(Main.game.getPlayer().getCompanions().size()>1) {
 				companionCharacter = (NPC) Main.game.getPlayer().getMainCompanion();
-				if(getCompanionCharacter().equals(targetedCharacterForSex)) {
+				if(Objects.equals(getCompanionCharacter(), targetedCharacterForSex)) {
 					companionCharacter = (NPC) Main.game.getPlayer().getCompanions().stream().filter((npc) -> !npc.equals(getCharacterViewed())).findFirst().get();
 				}
 			} else {

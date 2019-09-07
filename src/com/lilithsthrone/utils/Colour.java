@@ -322,9 +322,9 @@ public enum Colour {
 	RARITY_QUEST(false, BaseColour.TEAL, "teal", Util.newArrayListOfValues("teal")),
 
 	// Inventory colours:
-	CURRENCY_GOLD(true, BaseColour.GOLD, "gold"),
-	CURRENCY_SILVER(true, BaseColour.SILVER, "gold"),
-	CURRENCY_COPPER(true, BaseColour.COPPER, "gold"),
+	CURRENCY_GOLD(true, BaseColour.GOLD, "gold", Util.newArrayListOfValues("currency", "currencyGold")),
+	CURRENCY_SILVER(true, BaseColour.SILVER, "silver", Util.newArrayListOfValues("currencySilver")),
+	CURRENCY_COPPER(true, BaseColour.COPPER, "copper", Util.newArrayListOfValues("currencyCopper")),
 
 	MILK(false, BaseColour.YELLOW_LIGHT,  "light yellow", Util.newArrayListOfValues("milk", "lactation")),
 	CUM(false, BaseColour.BLUE_LIGHT,  "light blue", Util.newArrayListOfValues("cum", "cummed", "dirty")),
@@ -639,8 +639,9 @@ public enum Colour {
 	EYE_ORANGE(false, BaseColour.ORANGE, "orange"),
 	EYE_BLACK(false, BaseColour.BLACK, "black");
 	
-	
 
+	public static final Colour[] ACTION_POINT_COLOURS = new Colour[] {Colour.GENERIC_EXCELLENT, Colour.GENERIC_GOOD, Colour.GENERIC_MINOR_GOOD, Colour.GENERIC_MINOR_BAD, Colour.GENERIC_BAD, Colour.GENERIC_TERRIBLE};
+	
 	// Skin/fur/body part groups:
 	
 	public static List<Colour> humanSkinColours = Util.newArrayListOfValues(

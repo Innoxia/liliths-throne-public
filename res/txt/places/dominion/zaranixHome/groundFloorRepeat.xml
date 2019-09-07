@@ -3,14 +3,10 @@
 
 	<htmlContent tag="OUTSIDE"><![CDATA[
 	<p>
-		Once more you find yourself standing outside Zaranix's home.
-		 Much like all the other buildings in this area of the city, the incubi's residence takes the form of a grand, regency-style townhouse.
-		 Unlike the majority of the other buildings, however, his home has what appears to be a modestly sized private garden adjoining the property to the right-hand side.
-		 A cast-iron fence, standing at around eight-feet tall, separates the garden from the street in which you're standing.
+		Once more you find yourself standing outside Zaranix's home. Much like all the other buildings in this area of the city, the incubus's residence takes the form of a grand, regency-style town-house. Unlike the majority of the surrounding buildings, however, there's a modestly sized private garden adjoined to the right-hand side of the property. A tall, cast-iron fence separates this garden from the street in which you're standing.
 	</p>
 	<p>
-		Since your first visit, the security seems to have been increased, and you can see the faint shimmer of a magical barrier above the garden's fence, making any entry from that direction impossible.
-		 Similarly, the front door has been replaced by a far sturdier-looking one, and you imagine that even the strongest of demons would have difficulty in breaking it down.
+		Since your first visit, the security seems to have been increased, and you can see the faint shimmer of a magical barrier above the garden's fence, making any entry from that direction impossible. Similarly, the front door has been replaced by a far sturdier-looking one, and you imagine that even the strongest of demons would have difficulty in breaking it down.
 	</p>
 	]]>
 	</htmlContent>
@@ -23,131 +19,87 @@
 	</htmlContent>
 	
 	<htmlContent tag="KNOCK_ON_DOOR_KNOWS_AMBER"><![CDATA[
-		<p>
-			As Zaranix didn't seem to be too hostile towards you when you last visited, you decide that there'd be no harm in knocking on his door once more.
-			 Hoping for the best, you step forwards and take hold of the ornate brass door knocker, before delivering a sharp rap to alert those inside of your presence.
-		</p>
-		<p>
-			After just a few moments, you hear the sound of a lock being slid back, before the heavy oaken door swings inwards to reveal the fiery-haired form of Zaranix's maid, Amber.
-			 A fearsome snarl instantly breaks out across her face as she recognises you, and you see her knuckles turning white as she grips the edge of the door in anger.
-			 Her glowing amber eyes lock onto yours, and she growls,
-			 [amber.speech(You fucking <i>bitch</i>! How <i>dare</i> you show your face here again?! What the fuck do you want this time?!)]
-		</p>
-		<p>
-			Despite her angry words, it doesn't look like she's going to slam the door on your face.
-			 Her willingness to listen to what it is you have to say takes you a little by surprise, and, not wanting to waste the opportunity, you explain,
-			 [pc.speech(I wanted to pay Zaranix another visit. There were some things I wanted to ask him.)]
-		</p>
-		<p>
-			As her tail swishes from side to side with impatience, Amber narrows her piercing, luminescent-amber eyes and glares at you in an intimidating manner as she responds,
-			 [amber.speech(You're lucky that you're under the protection of Lilaya, bitch. If you weren't, I'd have had the Enforcers enslave you, and you'd be nothing more than my worthless cumdump right now.)]
-			 Amber releases her grip on the door and crosses her arms, still snarling at you as she continues,
-			 [amber.speech(But we can't all have our own way, can we? As it so happens, Zaranix has instructed me to allow you in. That name of Lilaya's sure does carry some weight in certain circles.)]
-		</p>
-		<p>
-			[pc.speech(So, can you let me in then?)]
-			 you ask, hoping that Amber will step back and allow you pass.
-		</p>
-		<p>
-			[amber.speech(Not so fast, bitch,)]
-			 Amber says, her voice dripping with malice.
-			 [amber.speech(I can't disobey my master's wishes, but if you want to get on my good side - which you should - then before stepping foot in this house, you'll drop to your knees and beg for me to forgive you for all you've done.)]
-		</p>
-		<p>
-			Knowing that Zaranix has instructed Amber to let you inside, you could refuse and simply push your way past the angry maid.
-			 Then again, maybe it would be a good idea to just do as Amber says and apologise... 
-		</p>
+	<p>
+		As Zaranix didn't seem to be too hostile towards you when you last visited, you decide that there'd be no harm in knocking on his door once more. Hoping for the best, you step forwards and take hold of the ornate brass door knocker, before delivering a sharp rap to alert those inside of your presence.
+	</p>
+	<p>
+		After just a few moments, you hear the sound of a lock being slid back, before the heavy oaken door swings inwards to reveal the fiery-haired form of Zaranix's maid, Amber. A fearsome snarl instantly breaks out across her face as she recognises you, and you see her knuckles turning white as she grips the edge of the door in anger. Her glowing amber eyes lock onto yours, and she growls, [amber.speech(You fucking <i>bitch</i>! How <i>dare</i> you show your face here again?! What the fuck do you want this time?!)]
+	</p>
+	<p>
+		Despite her angry words, it doesn't look like she's going to slam the door on your face. Her willingness to listen to what it is you have to say takes you a little by surprise, and, not wanting to waste the opportunity, you explain, [pc.speech(I wanted to pay Zaranix another visit. There were some things I wanted to ask him.)]
+	</p>
+	<p>
+		As her tail swishes from side to side with impatience, Amber narrows her piercing, luminescent-amber eyes and glares at you in an intimidating manner as she responds, [amber.speech(You're lucky that you're under the protection of Lilaya, bitch. If you weren't, I'd have had the Enforcers enslave you, and you'd be nothing more than my worthless cumdump right now.)] Amber releases her grip on the door and crosses her arms, still snarling at you as she continues, [amber.speech(But we can't all have our own way, can we? As it so happens, Zaranix has instructed me to allow you in. That name of Lilaya's sure does carry some weight in certain circles.)]
+	</p>
+	<p>
+		[pc.speech(So, can you let me in then?)] you ask, hoping that Amber will step back and allow you pass.
+	</p>
+	<p>
+		[amber.speech(Not so fast, bitch,)] Amber says, her voice dripping with malice. [amber.speech(I can't disobey my master's wishes, but if you want to get on my good side - which you should - then before stepping foot in this house, you'll drop to your knees and beg for me to forgive you for all you've done.)]
+	</p>
+	<p>
+		Knowing that Zaranix has instructed Amber to let you inside, you could refuse and simply push your way past the angry maid. Then again, maybe it would be a good idea to just do as Amber says and apologise... 
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="KNOCK_ON_DOOR"><![CDATA[
-		<p>
-			As Zaranix didn't seem to be too hostile towards you when you last visited, you decide that there'd be no harm in knocking on his door once more.
-			 Hoping for the best, you step forwards and take hold of the ornate brass door knocker, before delivering a sharp rap to alert those inside of your presence.
-		</p>
-		<p>
-			After just a few moments, you hear the sound of a lock being slid back, before the heavy oak door swings inwards to reveal one of the most striking succubi you've ever seen.
-			 Her gorgeous face and perfectly proportioned body are covered in pitch-black ebony skin, but it's not her voluptuous figure which your eyes are drawn to.
-			 Styled into loose waves, and giving off a luminescent, yellowy-orange glow, it's her extraordinary amber hair, which reaches down to just above her ass, that you find yourself gazing at.
-			 As her eyes fixate themselves onto yours, you see that her irises are the exact same glowing-amber shade as her hair, giving this demon a truly remarkable appearance.
-			 Seeing who it is at her master's front door, she snarls,
-			 [amber.speech(You're the bitch that took my master's slave, aren't you? How <i>dare</i> you show your face here again?! What the fuck do you want this time?!)]
-		</p>
-		<p>
-			Despite her angry words, it doesn't look like she's going to slam the door on your face.
-			 Her willingness to listen to what it is you have to say takes you a little by surprise, and, not wanting to waste the opportunity, you explain,
-			 [pc.speech(I wanted to pay Zaranix another visit. There were some things I wanted to ask him.)]
-		</p>
-		<p>
-			As her tail swishes from side to side with impatience, the maid narrows her piercing, luminescent-amber eyes and glares at you in an intimidating manner as she responds,
-			 [amber.speech(You're lucky that you're under the protection of Lilaya, bitch. If you weren't, I'd have had the Enforcers enslave you, and you'd be nothing more than my worthless cumdump right now.)]
-			 Stepping forwards and crossing her arms, the succubus snarls at you as she continues,
-			 [amber.speech(But we can't all have our own way, can we? As it so happens, Zaranix has instructed me to allow you in. That name of Lilaya's sure does carry some weight in certain circles.)]
-		</p>
-		<p>
-			[pc.speech(So, can you let me in then?)]
-			 you ask, hoping that she'll step back and allow you pass.
-		</p>
-		<p>
-			[amber.speech(Not so fast, bitch,)]
-			 She says, her voice dripping with malice.
-			 [amber.speech(I can't disobey my master's wishes, but if you want to get on my good side - which you should - then before stepping foot in this house, you'll drop to your knees and beg for me to forgive you for all that you've done.
-			  Oh, and you'll address me as 'Mistress Amber' if you know what's good for you.)]
-		</p>
-		<p>
-			Knowing that Zaranix has instructed 'Mistress' Amber to let you inside, you could refuse and simply push your way past.
-			 Then again, maybe it would be a good idea to just do as Amber says and apologise... 
-		</p>
+	<p>
+		As Zaranix didn't seem to be too hostile towards you when you last visited, you decide that there'd be no harm in knocking on his door once more. Hoping for the best, you step forwards and take hold of the ornate brass door knocker, before delivering a sharp rap to alert those inside of your presence.
+	</p>
+	<p>
+		After just a few moments, you hear the sound of a lock being slid back, before the heavy oak door swings inwards to reveal one of the most striking succubi you've ever seen. Her gorgeous face and perfectly proportioned body are covered in pitch-black ebony skin, but it's not her voluptuous figure which your eyes are drawn to. Styled into loose waves, and giving off a luminescent, yellowy-orange glow, it's her extraordinary amber hair, which reaches down to just above her ass, that you find yourself gazing at. As her eyes fixate themselves onto yours, you see that her irises are the exact same glowing-amber shade as her hair, giving this demon a truly remarkable appearance. Seeing who it is at her master's front door, she snarls, [amber.speech(You're the bitch that took my master's slave, aren't you? How <i>dare</i> you show your face here again?! What the fuck do you want this time?!)]
+	</p>
+	<p>
+		Despite her angry words, it doesn't look like she's going to slam the door on your face. Her willingness to listen to what it is you have to say takes you a little by surprise, and, not wanting to waste the opportunity, you explain, [pc.speech(I wanted to pay Zaranix another visit. There were some things I wanted to ask him.)]
+	</p>
+	<p>
+		As her tail swishes from side to side with impatience, the maid narrows her piercing, luminescent-amber eyes and glares at you in an intimidating manner as she responds, [amber.speech(You're lucky that you're under the protection of Lilaya, bitch. If you weren't, I'd have had the Enforcers enslave you, and you'd be nothing more than my worthless cumdump right now.)] Stepping forwards and crossing her arms, the succubus snarls at you as she continues, [amber.speech(But we can't all have our own way, can we? As it so happens, Zaranix has instructed me to allow you in. That name of Lilaya's sure does carry some weight in certain circles.)]
+	</p>
+	<p>
+		[pc.speech(So, can you let me in then?)] you ask, hoping that she'll step back and allow you pass.
+	</p>
+	<p>
+		[amber.speech(Not so fast, bitch,)] she says, her voice dripping with malice, [amber.speech(I can't disobey my master's wishes, but if you want to get on my good side - which you should - then before stepping foot in this house, you'll drop to your knees and beg for me to forgive you for all that you've done. Oh, and you'll address me as 'Mistress Amber' if you know what's good for you.)]
+	</p>
+	<p>
+		Knowing that Zaranix has instructed 'Mistress' Amber to let you inside, you could refuse and simply push your way past. Then again, maybe it would be a good idea to just do as Amber says and apologise... 
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="KNOCK_ON_DOOR_REPEAT"><![CDATA[
-		<p>
-			Deciding to pay Zaranix's household another visit, you step forwards and take hold of the ornate brass door knocker, before delivering a sharp rap to alert those inside of your presence.
-		</p>
-		<p>
-			After just a few moments, you hear the familiar sound of a lock being slid back, before the heavy oaken door swings inwards to reveal the fiery-haired form of Zaranix's maid, Amber.
-			 A look of disgust instantly breaks out across her face as she recognises you, and you see her tail swish to one side in annoyance as she crosses her arms.
-			 Her glowing amber eyes lock onto yours, and she growls,
-			 [amber.speech(What is it this time, bitch?!)]
-		</p>
-		<p>
-			Despite her angry tone, you know that Amber's been instructed by Zaranix to let you inside.
-			 With that in mind, you answer,
-			 [pc.speech(I'm here to visit Zaranix again.)]
-		</p>
-		<p>
-			Amber narrows her piercing, luminescent-amber eyes and glares at you in an intimidating manner as she responds,
-			 [amber.speech(You really don't know how lucky you are to be under the protection of Lilaya...
-			 As per my master's instructions, I'll let you in, sure.
-			 <i>However</i>, if you know what's good for you, then you'll drop to your knees and apologise for wasting my time first.)]
-		</p>
-		<p>
-			You could refuse Amber's demand and simply push your way past her, but, then again, maybe it would be a good idea to just do as Amber says and apologise... 
-		</p>
+	<p>
+		Deciding to pay Zaranix's household another visit, you step forwards and take hold of the ornate brass door knocker, before delivering a sharp rap to alert those inside of your presence.
+	</p>
+	<p>
+		After just a few moments, you hear the familiar sound of a lock being slid back, before the heavy oaken door swings inwards to reveal the fiery-haired form of Zaranix's maid, Amber. A look of disgust instantly breaks out across her face as she recognises you, and you see her tail swish to one side in annoyance as she crosses her arms. Her glowing amber eyes lock onto yours, and she growls, [amber.speech(What is it this time, bitch?!)]
+	</p>
+	<p>
+		Despite her angry tone, you know that Amber's been instructed by Zaranix to let you inside. With that in mind, you answer, [pc.speech(I'm here to visit Zaranix again.)]
+	</p>
+	<p>
+		Amber narrows her piercing, luminescent-amber eyes and glares at you in an intimidating manner as she responds, [amber.speech(You really don't know how lucky you are to be under the protection of Lilaya... As per my master's instructions, I'll let you in, sure. <i>However</i>, if you know what's good for you, then you'll drop to your knees and apologise for wasting my time first.)]
+	</p>
+	<p>
+		You could refuse Amber's demand and simply push your way past her, but, then again, maybe it would be a good idea to just do as Amber says and apologise... 
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="KNOCK_ON_DOOR_APOLOGISE"><![CDATA[
 	<p>
-		Amber's threatening manner is too much for you to bear, and, dropping down on your knees in front of her, you deliver your apology,
-		 [pc.speech(Sorry, Mistress Amber! I didn't mean to get you angry... Please forgive me!)]
+		Amber's threatening manner is too much for you to bear, and, dropping down on your knees in front of her, you deliver your apology, [pc.speech(Sorry, Mistress Amber! I didn't mean to get you angry... Please forgive me!)]
 	</p>
 	<p>
-		[amber.speech(How pathetic,)]
-		 Amber snarls, lifting up her right foot and pushing the heel into your chest.
-		 [amber.speech(You're such a little bitch, aren't you?)]
+		[amber.speech(How pathetic,)] Amber snarls, lifting up her right foot and pushing the heel into your chest. [amber.speech(You're such a little bitch, aren't you?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="KNOCK_ON_DOOR_APOLOGISE_MOUTH_BLOCKED"><![CDATA[
 	<p>
-		Before you can respond, the fiery-haired maid suddenly pushes her leg forwards, and, unable to keep your balance, you find yourself being kicked backwards down the couple of steps that lead up to the front door.
-		 Laughing out loud, Mistress Amber snarls down at you,
-		 [amber.speech(Stupid bitch, having your mouth blocked like that. I wanted to get you to lick my shoes in front of everyone here.
-		 Oh well. Heel.)]
-		 The fiery-haired maid snaps her fingers at her side.
+		Before you can respond, the fiery-haired maid suddenly pushes her leg forwards, and, unable to keep your balance, you find yourself being kicked backwards down the couple of steps that lead up to the front door. Laughing out loud, Mistress Amber snarls down at you, [amber.speech(Stupid bitch, having your mouth blocked like that. I wanted to get you to lick my shoes in front of everyone here. Oh well. Heel.)] The fiery-haired maid snaps her fingers at her side.
 	</p>
 	<p>
 		You do as you're told, looking down at the ground and trying your best to ignore Mistress Amber's piercing gaze as you crawl back up the couple of steps to her side.
@@ -157,328 +109,233 @@
 	
 	<htmlContent tag="KNOCK_ON_DOOR_APOLOGISE_MOUTH_FREE"><![CDATA[
 	<p>
-		Before you can respond, the fiery-haired maid suddenly pushes her leg forwards, and, unable to keep your balance, you find yourself being kicked backwards down the couple of steps that lead up to the front door.
-		 Laughing out loud, Mistress Amber steps forwards, reaching down to grab
+		Before you can respond, the fiery-haired maid suddenly pushes her leg forwards, and, unable to keep your balance, you find yourself being kicked backwards down the couple of steps that lead up to the front door. Laughing out loud, Mistress Amber steps forwards, reaching down to grab
 		#IF pc.getHairLength()>6
 		#THEN
 			a fistful of your [pc.hair+]
 		#ELSE
 			the back of your neck
 		#ENDIF
-		, before dragging you out into the street in front of her master's home.
-		 Glaring down at you as you shuffle about on your knees, Mistress Amber sneers,
-		 [amber.speech(Now, you're going to show everyone here what a useless bitch you are!)]
+		, before dragging you out into the street in front of her master's home. Glaring down at you as you shuffle about on your knees, Mistress Amber sneers, [amber.speech(Now, you're going to show everyone here what a useless bitch you are!)]
 	</p>
 	<p>
-		Letting you go, Mistress Amber moves around in front of you, before raising her foot and pushing her heel into your face.
-		 [amber.speech(Lick it, bitch.)]
+		Letting you go, Mistress Amber moves around in front of you, before raising her foot and pushing her heel into your face. [amber.speech(Lick it, bitch.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ENTRY"><![CDATA[
-		<p>
-			[pc.speech(I have nothing to apologise for, Amber,)]
-			 you state.
-			 [pc.speech(So if you'll kindly step aside, I have business with your master.)]
-		</p>
-		<p>
-			Amber grits her teeth, but, bound by her master's instructions, she steps back and allows you to step inside.
-			 With a furious snarl, she slams the door behind you as you enter, and, pushing her way past you, she looks back over her shoulder as she growls,
-			 [amber.speech(If you cause any trouble, I <i>will</i> get the Enforcers involved; Lilaya's protection be damned!)]
-			 With that, she strides off into the house, leaving you alone in the entrance hall.
-		</p>
+	<p>
+		[pc.speech(I have nothing to apologise for, Amber,)] you state. [pc.speech(So if you'll kindly step aside, I have business with your master.)]
+	</p>
+	<p>
+		Amber grits her teeth, but, bound by her master's instructions, she steps back and allows you to step inside. With a furious snarl, she slams the door behind you as you enter, and, pushing her way past you, she looks back over her shoulder as she growls, [amber.speech(If you cause any trouble, I <i>will</i> get the Enforcers involved; Lilaya's protection be damned!)] With that, she strides off into the house, leaving you alone in the entrance hall.
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ENTRY_MOUTH_BLOCKED"><![CDATA[
-		<p>
-			Mistress Amber grins evilly down at you as she raises her foot and kicks your [pc.arms] out from under you.
-			 [amber.speech(Stupid bitch. Push yourself up and crawl inside like the worthless worm that you are.)]
-		</p>
-		<p>
-			You let out a sigh, but, not wanting to anger your Mistress, you do as she says, and crawl forwards into the entrance hall.
-			 With a derisive laugh, Mistress Amber shuts the door behind you as you make your humiliating entry, and, stepping past you, she turns to look down at you as she growls,
-			 [amber.speech(If you cause any trouble, I <i>will</i> get the Enforcers involved; Lilaya's protection be damned!
-			 Do you understand, bitch?)]
-		</p>
-		<p>
-			[pc.speech(Yes, Mistress Amber.)]
-			 you reply, eager to get this over and done with.
-		</p>
-		<p>
-			[amber.speech(Good bitch.
-			 Now, I'm not going to waste my time escorting you around the house, so you'd better be on your best behaviour in my absence.
-			 Let yourself out when you're ready to leave.)]
-			 With that, she strides off into the house, leaving you alone in the entrance hall.
-		</p>
+	<p>
+		Mistress Amber grins evilly down at you as she raises her foot and kicks your [pc.arms] out from under you. [amber.speech(Stupid bitch. Push yourself up and crawl inside like the worthless worm that you are.)]
+	</p>
+	<p>
+		You let out a sigh, but, not wanting to anger your Mistress, you do as she says, and crawl forwards into the entrance hall. With a derisive laugh, Mistress Amber shuts the door behind you as you make your humiliating entry, and, stepping past you, she turns to look down at you as she growls, [amber.speech(If you cause any trouble, I <i>will</i> get the Enforcers involved; Lilaya's protection be damned! Do you understand, bitch?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress Amber.)] you reply, eager to get this over and done with.
+	</p>
+	<p>
+		[amber.speech(Good bitch. Now, I'm not going to waste my time escorting you around the house, so you'd better be on your best behaviour in my absence. Let yourself out when you're ready to leave.)] With that, she strides off into the house, leaving you alone in the entrance hall.
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ENTRY_APOLOGISE"><![CDATA[
-		<p>
-			[pc.speech(You're being completely unreasonable here, Amber,)]
-			 you say, standing up and shaking your head at the fiery-haired maid.
-			 [pc.speech(I've already apologised, I'm <i>not</i> going to lick your shoes!)]
-		</p>
-		<p>
-			[amber.speech(Don't you <i>dare</i> take that tone with me, you worthless bitch!)]
-			 Amber spits, her eyes glowing with an intense fury as you disobey her command.
-		</p>
-		<p>
-			[pc.speech(Just let me inside,)]
-			 you sigh, stepping forwards.
-		</p>
-		<p>
-			Amber snarls, but, bound by her master's orders, she steps back, allowing you to enter Zaranix's home.
-			 With a furious snarl, she slams the door behind you as you enter, and, pushing her way past you, she looks back over her shoulder as she growls,
-			 [amber.speech(If you cause any trouble, I <i>will</i> get the Enforcers involved; Lilaya's protection be damned!)]
-			 With that, she strides off into the house, leaving you alone in the entrance hall.
-		</p>
+	<p>
+		[pc.speech(You're being completely unreasonable here, Amber,)] you say, standing up and shaking your head at the fiery-haired maid. [pc.speech(I've already apologised, I'm <i>not</i> going to lick your shoes!)]
+	</p>
+	<p>
+		[amber.speech(Don't you <i>dare</i> take that tone with me, you worthless bitch!)] Amber spits, her eyes glowing with an intense fury as you disobey her command.
+	</p>
+	<p>
+		[pc.speech(Just let me inside,)] you sigh, stepping forwards.
+	</p>
+	<p>
+		Amber snarls, but, bound by her master's orders, she steps back, allowing you to enter Zaranix's home. With a furious snarl, she slams the door behind you as you enter, and, pushing her way past you, she looks back over her shoulder as she growls, [amber.speech(If you cause any trouble, I <i>will</i> get the Enforcers involved; Lilaya's protection be damned!)] With that, she strides off into the house, leaving you alone in the entrance hall.
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ENTRY_RELUCTANT_LICKING"><![CDATA[
-		<p>
-			[pc.speech(Was that to your liking, Mistress Amber?)]
-			 you ask, trying to push the thought of what you've just done out of your head as you look up at the fiery-haired maid.
-		</p>
-		<p>
-			[amber.speech(I suppose.)]
-			 Amber grins evilly down at you as she raises her foot one last time and pushes her shoe against your [pc.lips+].
-			 [amber.speech(Good bitch. Now crawl inside like the worthless worm that you are.)]
-		</p>
-		<p>
-			You let out a sigh, but, not wanting to anger Amber, you do as she says, and crawl forwards into the entrance hall.
-			 With a derisive laugh, Amber shuts the door behind you as you make your humiliating entry, and, stepping past you, she turns to look down at you as she growls,
-			 [amber.speech(If you cause any trouble, I <i>will</i> get the Enforcers involved; Lilaya's protection be damned!
-			 Do you understand, bitch?)]
-		</p>
-		<p>
-			[pc.speech(Yes, Mistress Amber.)]
-			 you reply, eager to get this over and done with.
-		</p>
-		<p>
-			[amber.speech(Good bitch.
-			 Now, I'm not going to waste my time escorting you around the house, so you'd better be on your best behaviour in my absence.
-			 Let yourself out when you're ready to leave.)]
-			 With that, she strides off into the house, leaving you alone in the entrance hall.
-		</p>
+	<p>
+		[pc.speech(Was that to your liking, Mistress Amber?)] you ask, trying to push the thought of what you've just done out of your head as you look up at the fiery-haired maid.
+	</p>
+	<p>
+		[amber.speech(I suppose.)] Amber grins evilly down at you as she raises her foot one last time and pushes her shoe against your [pc.lips+]. [amber.speech(Good bitch. Now crawl inside like the worthless worm that you are.)]
+	</p>
+	<p>
+		You let out a sigh, but, not wanting to anger Amber, you do as she says, and crawl forwards into the entrance hall. With a derisive laugh, Amber shuts the door behind you as you make your humiliating entry, and, stepping past you, she turns to look down at you as she growls, [amber.speech(If you cause any trouble, I <i>will</i> get the Enforcers involved; Lilaya's protection be damned! Do you understand, bitch?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress Amber.)] you reply, eager to get this over and done with.
+	</p>
+	<p>
+		[amber.speech(Good bitch. Now, I'm not going to waste my time escorting you around the house, so you'd better be on your best behaviour in my absence. Let yourself out when you're ready to leave.)] With that, she strides off into the house, leaving you alone in the entrance hall.
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ENTRY_EAGER_LICKING"><![CDATA[
-		<p>
-			[pc.speech(Mistress Amber... Please... I don't want to...)]
-			 you meekly whimper, reluctant to lick the filthy soles of Mistress Amber's shoes.
-		</p>
-		<p>
-			[amber.speech(<i>Bad</i> bitch,)]
-			 Mistress Amber spits, glaring evilly down at you as she raises her foot one last time to roughly push her shoe against your [pc.lips+].
-			 [amber.speech(You can kiss it instead.)]
-		</p>
-		<p>
-			[pc.speech(Thank you, Mistress Amber!)]
-			 you cry out, happy that your Mistress isn't going to force you to lick her soles.
-			 Obediently doing as you're told, you plant a loving kiss on Mistress Amber's shoe, before leaning back and looking up at her.
-			 [pc.speech(May I enter now, Mistress Amber?)]
-		</p>
-		<p>
-			Having had her fun, Amber snaps her fingers at her side.
-			 [amber.speech(Fine. Heel.)]
-		</p>
-		<p>
-			You do as you're told, looking down at the ground and trying your best to ignore the fading laughter of the succubi as they move off and carry on with their business.
-			 Crawling alongside Amber, you're quickly led back up the couple of steps to Zaranix's front door.
-		</p>
-		<p>
-			[amber.speech(Come on then, bitch. Crawl inside like the worthless worm that you are.)]
-		</p>
-		<p>
-			You let out a happy little cry, and, rushing to obey Mistress Amber, you do as she says and crawl forwards into the entrance hall.
-			 With a derisive laugh, Mistress Amber shuts the door behind you as you make your humiliating entry, and, stepping past you, she turns to look down at you as she growls,
-			 [amber.speech(If you cause any trouble, I <i>will</i> get the Enforcers involved; Lilaya's protection be damned!
-			 Do you understand, bitch?)]
-		</p>
-		<p>
-			[pc.speech(Yes, Mistress Amber! I'll be good, Mistress Amber!)]
-			 you quickly reply, eager to obey.
-		</p>
-		<p>
-			[amber.speech(Good bitch.
-			 Now, I'm not going to waste my time escorting you around the house, so you'd better be on your best behaviour in my absence.
-			 Let yourself out when you're ready to leave.)]
-			 With that, she strides off into the house, leaving you alone in the entrance hall.
-		</p>
+	<p>
+		[pc.speech(Mistress Amber... Please... I don't want to...)] you meekly whimper, reluctant to lick the filthy soles of Mistress Amber's shoes.
+	</p>
+	<p>
+		[amber.speech(<i>Bad</i> bitch,)] Mistress Amber spits, glaring evilly down at you as she raises her foot one last time to roughly push her shoe against your [pc.lips+]. [amber.speech(You can kiss it instead.)]
+	</p>
+	<p>
+		[pc.speech(Thank you, Mistress Amber!)] you cry out, happy that your Mistress isn't going to force you to lick her soles. Obediently doing as you're told, you plant a loving kiss on Mistress Amber's shoe, before leaning back and looking up at her. [pc.speech(May I enter now, Mistress Amber?)]
+	</p>
+	<p>
+		Having had her fun, Amber snaps her fingers at her side. [amber.speech(Fine. Heel.)]
+	</p>
+	<p>
+		You do as you're told, looking down at the ground and trying your best to ignore the fading laughter of the succubi as they move off and carry on with their business. Crawling alongside Amber, you're quickly led back up the couple of steps to Zaranix's front door.
+	</p>
+	<p>
+		[amber.speech(Come on then, bitch. Crawl inside like the worthless worm that you are.)]
+	</p>
+	<p>
+		You let out a happy little cry, and, rushing to obey Mistress Amber, you do as she says and crawl forwards into the entrance hall. With a derisive laugh, Mistress Amber shuts the door behind you as you make your humiliating entry, and, stepping past you, she turns to look down at you as she growls, [amber.speech(If you cause any trouble, I <i>will</i> get the Enforcers involved; Lilaya's protection be damned! Do you understand, bitch?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress Amber! I'll be good, Mistress Amber!)] you quickly reply, eager to obey.
+	</p>
+	<p>
+		[amber.speech(Good bitch. Now, I'm not going to waste my time escorting you around the house, so you'd better be on your best behaviour in my absence. Let yourself out when you're ready to leave.)] With that, she strides off into the house, leaving you alone in the entrance hall.
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ENTRY_SOLES_LICKING"><![CDATA[
-		<p>
-			[amber.speech(What a good bitch you are,)]
-			 Mistress Amber sneers, glaring evilly down at you as she raises her foot one last time to roughly push the sole of her shoe against your [pc.lips+].
-			 [amber.speech(You're very lucky to be allowed to clean the grim from my shoes, aren't you?)]
-		</p>
-		<p>
-			[pc.speech(Yes, Mistress Amber!)]
-			 you cry out, desperately licking the bottom of Mistress Amber's shoe, before she steps back and moves to one side.
-		</p>
-		<p>
-			[amber.speech(Come on then, bitch. Crawl inside like the worthless worm that you are,)]
-			 Mistress Amber commands.
-		</p>
-		<p>
-			You let out a happy little cry, and, rushing to obey your Mistress, you do as she says and crawl forwards into the entrance hall.
-			 With a derisive laugh, Mistress Amber shuts the door behind you as you make your humiliating entry, and, stepping past you, she turns to look down at you as she growls,
-			 [amber.speech(If you cause any trouble, I <i>will</i> get the Enforcers involved; Lilaya's protection be damned!
-			 Do you understand, bitch?)]
-		</p>
-		<p>
-			[pc.speech(Yes, Mistress Amber! I'll be good, Mistress Amber!)]
-			 you quickly reply, eager to obey.
-		</p>
-		<p>
-			[amber.speech(Good bitch.
-			 Now, I'm not going to waste my time escorting you around the house, so you'd better be on your best behaviour in my absence.
-			 Let yourself out when you're ready to leave.)]
-			 With that, she strides off into the house, leaving you alone in the entrance hall.
-		</p>
+	<p>
+		[amber.speech(What a good bitch you are,)] Mistress Amber sneers, glaring evilly down at you as she raises her foot one last time to roughly push the sole of her shoe against your [pc.lips+]. [amber.speech(You're very lucky to be allowed to clean the grim from my shoes, aren't you?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress Amber!)] you cry out, desperately licking the bottom of Mistress Amber's shoe, before she steps back and moves to one side.
+	</p>
+	<p>
+		[amber.speech(Come on then, bitch. Crawl inside like the worthless worm that you are,)] Mistress Amber commands.
+	</p>
+	<p>
+		You let out a happy little cry, and, rushing to obey your Mistress, you do as she says and crawl forwards into the entrance hall. With a derisive laugh, Mistress Amber shuts the door behind you as you make your humiliating entry, and, stepping past you, she turns to look down at you as she growls, [amber.speech(If you cause any trouble, I <i>will</i> get the Enforcers involved; Lilaya's protection be damned! Do you understand, bitch?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress Amber! I'll be good, Mistress Amber!)] you quickly reply, eager to obey.
+	</p>
+	<p>
+		[amber.speech(Good bitch. Now, I'm not going to waste my time escorting you around the house, so you'd better be on your best behaviour in my absence. Let yourself out when you're ready to leave.)] With that, she strides off into the house, leaving you alone in the entrance hall.
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="OUTSIDE_LICKING_RELUCTANT"><![CDATA[
 	<p>
-		Not seeing any alternative, you hesitantly resolve to do as the maid commands.
-		 [pc.speech(Ok...)]
-		 you mumble, dropping your face down towards her feet.
+		Not seeing any alternative, you hesitantly
+		#IF(pc.isTaur())
+			 lie down on your lower [pc.legRace]'s body
+		#ELSE
+			 drop down onto all fours
+		#ENDIF
+		 as the maid commands. Sensing your reluctance, the succubus growls down to you, [amber.speech(Come on, bitch, I haven't got all day!)]
 	</p>
 	<p>
-		[amber.speech('Ok'?!)]
-		 the succubus angrily shouts.
-		 [amber.speech(Don't you <i>dare</i> 'ok' me again! 'Yes, Mistress Amber!' is the correct response! Let's try it again, shall we?!)]
+		Still feeling uneasy about what it is you're expected to do, you falter a little as you slowly drop your face down towards her feet.
 	</p>
 	<p>
-		You let out a humiliated whimper as you do as you're told, and address Amber in the proper manner,
-		 [pc.speech(Yes, Mistress Amber!)]
+		[amber.speech(What are you doing?!)] the succubus angrily shouts, [amber.speech(You're to answer, 'Yes, Mistress Amber!', and immediately obey my commands! Now let's try it again shall we?! 'Come on, bitch, I haven't got all day!')]
 	</p>
 	<p>
-		An evil, mocking laugh drifts down to you, and, still in full sight of the street behind you, you drop your mouth down to Amber's feet.
-		 The black high heels that she's wearing are in keeping with the rest of her maid's uniform, with a little lacy white bow adorning each one.
-		 Deciding to choose her right foot, you bring your [pc.lips+] down to the black leather, breathing in the faint, warm scent of sweat as your nose draws near to her white cotton stockings.
+		You let out a humiliated whimper as you do as you're told, and answer Amber in the proper manner, [pc.speech(Yes, Mistress Amber!)]
 	</p>
 	<p>
-		[amber.speech(Lick it, bitch,)]
-		 Amber snarls, eager to see you humiliate yourself.
-		 [amber.speech(You wouldn't want to make me angry, now, would you?)]
+		An evil, mocking laugh drifts down to you, and, still in full sight of the street behind you, you drop your mouth down to Amber's feet. The black high heels that she's wearing are in keeping with the rest of her maid's uniform, with a little lacy white bow adorning each one. Deciding to choose her right foot, you bring your [pc.lips+] down to the black leather, breathing in the faint, warm scent of sweat as your nose draws near to her white cotton stockings.
 	</p>
 	<p>
-		Deciding that it's best to do this quickly and get it over with, you press your [pc.lips] down against the tip of Amber's shoe, before pushing forwards and dragging your [pc.tongue+] up and over her feminine footwear.
-		 The bitter, tangy taste of leather, dirt, and shoe polish overwhelms your taste buds, and you struggle to stop yourself from gagging as you draw back, wiping your tongue on your shoulder as you try to remove the horrible taste from your mouth.
+		[amber.speech(Lick it, bitch,)] Amber snarls, eager to see you humiliate yourself. [amber.speech(You wouldn't want to make me angry, now, would you?)]
 	</p>
 	<p>
-		[amber.speech(Hahaha! How pathetic!)]
-		 Amber laughs, lifting her foot and using your [pc.arm] to wipe the saliva clean from her shoe, before turning to call out to a group of passing succubi.
-		 [amber.speech(Do you girls want to see something fun?)]
+		Deciding that it's best to do this quickly and get it over with, you press your [pc.lips] down against the tip of Amber's shoe, before pushing forwards and dragging your [pc.tongue+] up and over her feminine footwear. The bitter, tangy taste of leather, dirt, and shoe polish overwhelms your taste buds, and you struggle to stop yourself from gagging as you draw back, wiping your tongue on your shoulder as you try to remove the horrible taste from your mouth.
 	</p>
 	<p>
-		The succubi turn towards Amber, and, seeing you on all fours in front of her, they burst out laughing.
-		 Amber turns back to you and snarls,
-		 [amber.speech(Lick it again, bitch. Slowly, this time.)]
+		[amber.speech(Hahaha! How pathetic!)] Amber laughs, lifting her foot and using your [pc.arm] to wipe the saliva clean from her shoe, before turning to call out to a group of passing succubi. [amber.speech(Do you girls want to see something fun?)]
 	</p>
 	<p>
-		Just wanting to get this experience over with, you do as Amber commands, and, ignoring the giggles and mocking taunts of the group of succubi that quickly surrounds you, you slowly drag your [pc.tongue] once more up the length of Amber's shoe.
-		 Once you're done, Amber makes you repeat the motion with her other shoe, laughing along with the group of demons as they cruelly taunt you.
+		The succubi turn towards Amber, and upon seeing your submissive form, they burst out laughing. Amber turns back to you and snarls, [amber.speech(Lick it again, bitch. Slowly, this time.)]
 	</p>
 	<p>
-		Having had her fun, Amber snaps her fingers at her side.
-		 [amber.speech(Heel.)]
+		Just wanting to get this experience over with, you do as Amber commands, and, ignoring the giggles and mocking taunts of the group of succubi that quickly surrounds you, you slowly drag your [pc.tongue] once more up the length of Amber's shoe. Once you're done, Amber makes you repeat the motion with her other shoe, laughing along with the group of demons as they cruelly taunt you.
 	</p>
 	<p>
-		You do as you're told, looking down at the ground and trying your best to ignore the fading laughter of the succubi as they move off and carry on with their business.
-		 Crawling alongside Amber, you're quickly led back up the couple of steps to Zaranix's front door.
+		Having had her fun, Amber snaps her fingers at her side. [amber.speech(Heel.)]
+	</p>
+	<p>
+		You do as you're told, looking down at the ground and trying your best to ignore the fading laughter of the succubi as they move off and carry on with their business. Crawling alongside Amber, you're quickly led back up the couple of steps to Zaranix's front door.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="KNOCK_ON_DOOR_EAGER_LICKING"><![CDATA[
 	<p>
-		Eager to show your submission to the dominant maid, you immediately move to do as you're commanded.
-		 [pc.speech(Yes, Mistress Amber!)]
-		 You happily cry, and, in full sight of the street behind you, you drop your face down towards her feet.
+		Eager to show your submission to the dominant maid, you immediately move to do as you're commanded. [pc.speech(Yes, Mistress Amber!)] You happily cry, and, in full sight of the street behind you, you drop your face down towards her feet.
 	</p>
 	<p>
-		[amber.speech(What an obedient bitch! Come on now, get started! I haven't got all day!)]
-		 Mistress Amber laughs, pushing her heel into your face.
+		[amber.speech(What an obedient bitch! Come on now, get started! I haven't got all day!)] Mistress Amber laughs, pushing her heel into your face.
 	</p>
 	<p>
-		As an evil, mocking laugh drifts down from above, you lower your mouth to Amber's feet.
-		 The black high heels that she's wearing are in keeping with the rest of her maid's uniform, with a little lacy white bow adorning each one.
-		 Deciding to start with her right foot, you bring your [pc.lips+] down to the black leather, letting out a little moan in anticipation as you breathe in the warm, faintly sweaty scent of her white cotton stockings.
+		As an evil, mocking laugh drifts down from above, you lower your mouth to Amber's feet. The black high heels that she's wearing are in keeping with the rest of her maid's uniform, with a little lacy white bow adorning each one. Deciding to start with her right foot, you bring your [pc.lips+] down to the black leather, letting out a little moan in anticipation as you breathe in the warm, faintly sweaty scent of her white cotton stockings.
 	</p>
 	<p>
-		[amber.speech(Lick it, bitch.)]
-		 Amber snarls, eager to see you humiliate yourself.
-		 [amber.speech(You're enjoying this, aren't you, you filthy slut?)]
+		[amber.speech(Lick it, bitch.)] Amber snarls, eager to see you humiliate yourself. [amber.speech(You're enjoying this, aren't you, you filthy slut?)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber!)]
-		 you enthusiastically reply, before pressing your [pc.lips] down against the tip of her shoe.
-		 Pushing forwards, you eagerly drag your [pc.tongue+] up and over her feminine footwear, relishing the bitter, tangy taste of leather, dirt, and shoe polish that immediately strikes your taste buds.
-		 Pulling back, you start once more from the tip of Mistress Amber's shoe, licking up and down as you seek to clean every [unit.size] of the delicious black leather.
+		[pc.speech(Yes, Mistress Amber!)] you enthusiastically reply, before pressing your [pc.lips] down against the tip of her shoe. Pushing forwards, you eagerly drag your [pc.tongue+] up and over her feminine footwear, relishing the bitter, tangy taste of leather, dirt, and shoe polish that immediately strikes your taste buds. Pulling back, you start once more from the tip of Mistress Amber's shoe, licking up and down as you seek to clean every [unit.size] of the delicious black leather.
 	</p>
 	<p>
-		[amber.speech(Hahaha! How pathetic!)]
-		 Mistress Amber laughs, lifting her foot and using your [pc.arm] to wipe the saliva clean from her shoe, before turning to call out to a group of passing succubi.
-		 [amber.speech(Do you girls want to see something fun?)]
+		[amber.speech(Hahaha! How pathetic!)] Mistress Amber laughs, lifting her foot and using your [pc.arm] to wipe the saliva clean from her shoe, before turning to call out to a group of passing succubi. [amber.speech(Do you girls want to see something fun?)]
 	</p>
 	<p>
-		The succubi turn towards Mistress Amber, and, seeing you on all fours in front of her, they burst out laughing.
-		 Amber turns back to you and snarls,
-		 [amber.speech(Lick it again, bitch. Slowly, this time.)]
+		The succubi turn towards Mistress Amber, and upon seeing your submissive form, they burst out laughing. Amber turns back to you and snarls, [amber.speech(Lick it again, bitch. Slowly, this time.)]
 	</p>
 	<p>
-		You happily do as the fiery maid commands, and, as the crowd of succubi giggle and taunt you, you slowly lick and kiss your Mistress's shoe.
-		 The sadistic succubus joins in with the other girls, cruelly mocking you as you lick her shoe to a spotlessly clean finish.
-		 Pulling her foot back, she then pushes her left shoe towards your face, and you submissively set about licking that one clean as well.
+		You happily do as the fiery maid commands, and, as the crowd of succubi giggle and taunt you, you slowly lick and kiss your Mistress's shoe. The sadistic succubus joins in with the other girls, cruelly mocking you as you lick her shoe to a spotlessly clean finish. Pulling her foot back, she then pushes her left shoe towards your face, and you submissively set about licking that one clean as well.
 	</p>
 	<p>
-		After a short while, you've polished both of Mistress Amber's heels to a shiny finish, and she lets out a spiteful, derisive laugh,
-		 [amber.speech(Hahaha! I can't believe how pathetic you are! I bet you want more, don't you bitch?! What do you say girls, should this slut clean my soles as well?)]
+		After a short while, you've polished both of Mistress Amber's heels to a shiny finish, and she lets out a spiteful, derisive laugh, [amber.speech(Hahaha! I can't believe how pathetic you are! I bet you want more, don't you bitch?! What do you say girls, should this slut clean my soles as well?)]
 	</p>
 	<p>
-		The crowd of succubi laugh and cry out in assent.
-		 You look up at Mistress Amber to see a manic smile break out across her face, and she lifts her shoe up to present the grimy sole to your face.
-		 [amber.speech(Get to it, bitch!)]
+		The crowd of succubi laugh and cry out in assent. You look up at Mistress Amber to see a manic smile break out across her face, and she lifts her shoe up to present the grimy sole to your face. [amber.speech(Get to it, bitch!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="KNOCK_ON_DOOR_SOLES_LICKING"><![CDATA[
 	<p>
-		As Mistress Amber pushes the filthy sole of her heel into your face, you obediently dart out your tongue and start eagerly licking and kissing the undersides of the sadistic maid's shoes.
-		 The salty, grimy taste of dirt fills your mouth as you submissively clean the soles, moaning in delight as both Mistress Amber and the crow of succubi continue to sneer and call you degrading names.
+		As Mistress Amber pushes the filthy sole of her heel into your face, you obediently dart out your tongue and start eagerly licking and kissing the undersides of the sadistic maid's shoes. The salty, grimy taste of dirt fills your mouth as you submissively clean the soles, moaning in delight as both Mistress Amber and the crow of succubi continue to sneer and call you degrading names.
 	</p>
 	<p>
-		After you've finished with the first shoe, Mistress Amber quickly switches you to the next.
-		 Pushing the dirty underside of her other heel into your face, she snarls,
-		 [amber.speech(Pathetic bitch! Come on, you can do better than that!)]
+		After you've finished with the first shoe, Mistress Amber quickly switches you to the next. Pushing the dirty underside of her other heel into your face, she snarls, [amber.speech(Pathetic bitch! Come on, you can do better than that!)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber!)]
-		 you reply, letting out whimpering little moans as you obediently lick all the dirt from the soles of her shoes.
+		[pc.speech(Yes, Mistress Amber!)] you reply, letting out whimpering little moans as you obediently lick all the dirt from the soles of her shoes.
 	</p>
 	<p>
-		Once she's satisfied that you've done enough, Mistress Amber lifts her foot a little higher, before forcing the heel into your mouth.
-		 After obediently sucking it clean, you lick your lips as Amber pulls back, before forcing you to perform the same treatment on the heel of her other shoe.
+		Once she's satisfied that you've done enough, Mistress Amber lifts her foot a little higher, before forcing the heel into your mouth. After obediently sucking it clean, you lick your lips as Amber pulls back, before forcing you to perform the same treatment on the heel of her other shoe.
 	</p>
 	<p>
-		Finally, you're done, and as Mistress Amber steps back, you feel thoroughly pleased with your work.
-		 Both of her shoes are now spotlessly clean, and, having had her fun, the fiery-haired maid snaps her fingers at her side.
-		 [amber.speech(Heel.)]
+		Finally, you're done, and as Mistress Amber steps back, you feel thoroughly pleased with your work. Both of her shoes are now spotlessly clean, and, having had her fun, the fiery-haired maid snaps her fingers at her side. [amber.speech(Heel.)]
 	</p>
 	<p>
-		You do as you're told, looking down at the ground and trying your best to ignore the fading laughter of the succubi as they move off and carry on with their business.
-		 Crawling alongside Amber, you're quickly led back up the couple of steps to Zaranix's front door.
+		You do as you're told, looking down at the ground and trying your best to ignore the fading laughter of the succubi as they move off and carry on with their business. Crawling alongside Amber, you're quickly led back up the couple of steps to Zaranix's front door.
 	</p>
 	]]>
 	</htmlContent>
@@ -488,8 +345,7 @@
 	
 	<htmlContent tag="ENTRANCE"><![CDATA[
 	<p>
-		The entrance hall to Zaranix's home, while nothing compared to that of Lilaya's, is nonetheless very impressive.
-		 A huge crystal chandelier casts its bright, arcane-powered light over the entire area, and fine paintings in golden frames hang on each of the surrounding walls.
+		The entrance hall to Zaranix's home, while nothing compared to that of Lilaya's, is nonetheless very impressive. A huge crystal chandelier casts its bright, arcane-powered light over the entire area, and fine paintings in golden frames hang on each of the surrounding walls.
 	</p>
 	<p>
 		The main door to Zaranix's home is made from thick, sturdy oak, and while it would be impossible to break it down, you're already inside, so there's nothing stopping you from simply unlocking it and taking your leave.
@@ -499,12 +355,10 @@
 	
 	<htmlContent tag="STAIRS"><![CDATA[
 	<p>
-		Before you, a wide, red-carpeted staircase leads up to the first floor of Zaranix's house.
-		 On either side, a corridor leads to other parts of the house, and behind you, the entrance hall offers an opportunity to make your exit.
+		Before you, a wide, red-carpeted staircase leads up to the first floor of Zaranix's house. On either side, a corridor leads to other parts of the house, and behind you, the entrance hall offers an opportunity to make your exit.
 	</p>
 	<p>
-		Much like the rest of the house, the walls surrounding you are home to several fine paintings.
-		 Well-crafted cabinets, cushioned chairs, and little wooden tables are strategically dotted about here and there, but not so much so as to make the area seem cluttered.
+		Much like the rest of the house, the walls surrounding you are home to several fine paintings. Well-crafted cabinets, cushioned chairs, and little wooden tables are strategically dotted about here and there, but not so much so as to make the area seem cluttered.
 	</p>
 	<p>
 		You could use the stairs here to gain access to the first floor, where both Zaranix and his succubus maid, Kelly, are to be found.
@@ -514,23 +368,17 @@
 	
 	<htmlContent tag="CORRIDOR"><![CDATA[
 	<p>
-		You find yourself comparing the corridors of Zaranix's home to those of Lilaya's.
-		 While they're just as well-furnished as those of your aunt's house, being home to numerous fine paintings, cushioned chairs, and well-crafted cabinets, they're not quite as wide nor high.
-		 Where once you might have been deeply impressed by the extravagant luxury of this incubus's mansion, you now find yourself thinking that it's not quite as grand as the one you live in.
+		You find yourself comparing the corridors of Zaranix's home to those of Lilaya's. While they're just as well-furnished as those of your aunt's house, being home to numerous fine paintings, cushioned chairs, and well-crafted cabinets, they're not quite as wide nor high. Where once you might have been deeply impressed by the extravagant luxury of this incubus's mansion, you now find yourself thinking that it's not quite as grand as the one you live in.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GARDEN_ENTRY"><![CDATA[
 	<p>
-		A gravel path snakes through the entirety of Zaranix's garden, but, finding that the stones crunch loudly underfoot, you opt to walk on the small grass verge instead so as to remain as quiet as possible.
-		 To either side of the path, numerous flowerbeds and small glass structures are home to an incredible variety of plant-life, much of which is quite clearly alien to your old world.
+		A gravel path snakes through the entirety of Zaranix's garden, but, finding that the stones crunch loudly underfoot, you opt to walk on the small grass verge instead so as to remain as quiet as possible. To either side of the path, numerous flowerbeds and small glass structures are home to an incredible variety of plant-life, much of which is quite clearly alien to your old world.
 	</p>
 	<p>
-		Although small enough not to pose a threat, you see several, tentacle-like varieties squirming and twisting about with a mind of their own; the brightly coloured flower in the centre of each one looking unmistakably like a vagina.
-		 Inspecting yet more of the flora as you move along, you notice that some of these tentacled plants have penis-like endings,
-			 and you spend a moment reflecting on the fact that even the plant-life in this world is sexual in nature.
-		 From the variety of herbs, plants, and flowers, and the evidence of careful cultivation techniques, it appears as though this garden is less for show, and more for the practical purpose of gathering arcane ingredients.
+		Although small enough not to pose a threat, you see several, tentacle-like varieties squirming and twisting about with a mind of their own; the brightly coloured flower in the centre of each one looking unmistakably like a vagina. Inspecting yet more of the flora as you move along, you notice that some of these tentacled plants have penis-like endings, and you spend a moment reflecting on the fact that even the plant-life in this world is sexual in nature. From the variety of herbs, plants, and flowers, and the evidence of careful cultivation techniques, it appears as though this garden is less for show, and more for the practical purpose of gathering arcane ingredients.
 	</p>
 	<p>
 		The faint shimmer of a magical barrier can faintly be seen above the garden's fence, resulting in the only means of exit being to travel back through Zaranix's house to the front door.
@@ -540,22 +388,17 @@
 	
 	<htmlContent tag="GARDEN"><![CDATA[
 	<p>
-		A gravel path snakes through the entirety of Zaranix's garden, but, finding that the stones crunch loudly underfoot, you opt to walk on the small grass verge instead so as to remain as quiet as possible.
-		 To either side of the path, numerous flowerbeds and small glass structures are home to an incredible variety of plant-life, much of which is quite clearly alien to your old world.
+		A gravel path snakes through the entirety of Zaranix's garden, but, finding that the stones crunch loudly underfoot, you opt to walk on the small grass verge instead so as to remain as quiet as possible. To either side of the path, numerous flowerbeds and small glass structures are home to an incredible variety of plant-life, much of which is quite clearly alien to your old world.
 	</p>
 	<p>
-		Although small enough not to pose a threat, you see several, tentacle-like varieties squirming and twisting about with a mind of their own; the brightly coloured flower in the centre of each one looking unmistakably like a vagina.
-		 Inspecting yet more of the flora as you move along, you notice that some of these tentacled plants have penis-like endings,
-			 and you spend a moment reflecting on the fact that even the plant-life in this world is sexual in nature.
-		 From the variety of herbs, plants, and flowers, and the evidence of careful cultivation techniques, it appears as though this garden is less for show, and more for the practical purpose of gathering arcane ingredients.
+		Although small enough not to pose a threat, you see several, tentacle-like varieties squirming and twisting about with a mind of their own; the brightly coloured flower in the centre of each one looking unmistakably like a vagina. Inspecting yet more of the flora as you move along, you notice that some of these tentacled plants have penis-like endings, and you spend a moment reflecting on the fact that even the plant-life in this world is sexual in nature. From the variety of herbs, plants, and flowers, and the evidence of careful cultivation techniques, it appears as though this garden is less for show, and more for the practical purpose of gathering arcane ingredients.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GARDEN_ROOM"><![CDATA[
 	<p>
-		Connected to the garden by means of a pair of sliding glass doors, the room you find yourself standing in appears to be some sort of utility room.
-		 A row of cupboards and cabinets line one of the walls, while a long counter-top runs the length of the opposite one.
+		Connected to the garden by means of a pair of sliding glass doors, the room you find yourself standing in appears to be some sort of utility room. A row of cupboards and cabinets line one of the walls, while a long counter-top runs the length of the opposite one.
 	</p>
 	<p>
 		A wooden door, opposite to the glass ones that provide access to the garden, connects this room to the rest of the house, and you wonder if you should proceed into the main building itself, or go back out into the garden.
@@ -565,96 +408,68 @@
 	
 	<htmlContent tag="KATHERINE_PRESENT"><![CDATA[
 	<p>
-		As you walk down the corridor, an ivory-skinned succubus, wearing a light pink maid's uniform, suddenly stands up from behind a cabinet.
-		 She doesn't notice you at first, and continues to swipe her little feather-duster over the top of the wooden furniture, happily humming away as she works.
+		As you walk down the corridor, an ivory-skinned succubus, wearing a light pink maid's uniform, suddenly stands up from behind a cabinet. She doesn't notice you at first, and continues to swipe her little feather-duster over the top of the wooden furniture, happily humming away as she works.
 	</p>
 	<p>
-		Before you have a chance to say anything, she looks up and catches sight of you.
-		 Letting out a little cry, she curtsies as she greets you,
-		 [katherine.speech(Ah! [pc.Miss] [pc.name]! Mistress Amber informed me of your visit. I'm Katherine, at your service!)]
+		Before you have a chance to say anything, she looks up and catches sight of you. Letting out a little cry, she curtsies as she greets you, [katherine.speech(Ah! [pc.Miss] [pc.name]! Mistress Amber informed me of your visit. I'm Katherine, at your service!)]
 	</p>
 	<p>
-		As the maid stands up, you see her lustful gaze roaming up and down your body.
-		 Biting her lip, she steps towards you, and with more than a little lust in her voice, she moans,
-		 [katherine.speech(If there's <i>anything</i> I can do for you, just let me know.
-		 Master Zaranix only has time for Amber these days... N-Not that I'm complaining, but... Well... My sister and I get lonely, you understand...)]
+		As the maid stands up, you see her lustful gaze roaming up and down your body. Biting her lip, she steps towards you, and with more than a little lust in her voice, she moans, [katherine.speech(If there's <i>anything</i> I can do for you, just let me know. Master Zaranix only has time for Amber these days... N-Not that I'm complaining, but... Well... My sister and I get lonely, you understand...)]
 	</p>
 	<p>
-		Katherine giggles, and, as she bats her eyelids at you, drops the little feather duster that she's holding.
-		 [katherine.speech(Oops!)]
-		 she cries, pretending that it was by accident.
-		 Bending over right in front of you, she makes a show of flashing her crotchless pink thong in your direction, granting you an unobstructed view of her [katherine.pussy+].
-		 Obviously desperate for you to fuck her, you wonder if you should make a move on this horny maid...
+		Katherine giggles, and, as she bats her eyelids at you, drops the little feather duster that she's holding. [katherine.speech(Oops!)] she cries, pretending that it was by accident. Bending over right in front of you, she makes a show of flashing her crotchless pink thong in your direction, granting you an unobstructed view of her [katherine.pussy+]. Obviously desperate for you to fuck her, you wonder if you should make a move on this horny maid...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="KATHERINE_PRESENT_REPEAT"><![CDATA[
 	<p>
-		Up ahead, you see the ivory-skinned maid, Katherine, busily dusting one of the corridor's picture frames.
-		 As you approach, you see that the maid glances at you out of the corner of her eye.
-		 Instead of turning and acknowledging your presence, however, Katherine pretends not to have seen you, and suddenly bends over to dust the skirting board.
-		 The horny maid makes a show of flashing her crotchless pink thong in your direction, granting you an unobstructed view of her [katherine.pussy+].
+		Up ahead, you see the ivory-skinned maid, Katherine, busily dusting one of the corridor's picture frames. As you approach, you see that the maid glances at you out of the corner of her eye. Instead of turning and acknowledging your presence, however, Katherine pretends not to have seen you, and suddenly bends over to dust the skirting board. The horny maid makes a show of flashing her crotchless pink thong in your direction, granting you an unobstructed view of her [katherine.pussy+].
 	</p>
 	<p>
-		Turning her head to look back at you, Katherine lets out a little cry as she rather-unconvincingly pretends to have only just noticed you.
-		 Standing up to face you, she curtsies and bites her lip to suppress a needy moan.
-		 [katherine.speech([pc.Miss] [pc.name]! How pleasant to see you again! If there's <i>anything</i> I can help you with, just let me know!)]
+		Turning her head to look back at you, Katherine lets out a little cry as she rather-unconvincingly pretends to have only just noticed you. Standing up to face you, she curtsies and bites her lip to suppress a needy moan. [katherine.speech([pc.Miss] [pc.name]! How pleasant to see you again! If there's <i>anything</i> I can help you with, just let me know!)]
 	</p>
-	<p>
-		 Obviously desperate for you to fuck her, you wonder if you should make a move on this horny maid...
+	<p> Obviously desperate for you to fuck her, you wonder if you should make a move on this horny maid...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="KATHERINE_SEX"><![CDATA[
 	<p>
-		Deciding to take up Katherine's transparent offer of sex, you step forwards, grinning as you let your gaze wander up and down over the maid's perfect body.
-		 [pc.speech(Well, there is one thing that a horny little succubus like you could do for me.)]
-		 
+		Deciding to take up Katherine's transparent offer of sex, you step forwards, grinning as you let your gaze wander up and down over the maid's perfect body. [pc.speech(Well, there is one thing that a horny little succubus like you could do for me.)] 
 	</p>
 	<p>
-		Katherine lets out an excited squeal as she gazes into your eyes, and you see them filled with a desperate, burning lust.
-		 Bounding forwards, she suddenly wraps her arms around your back, and with a desperate moan, presses her [katherine.lips+] against yours.
-		 You reciprocate the gesture, and after spending a few moments sliding your tongues into one another's mouths, you pull back, grinning...
+		Katherine lets out an excited squeal as she gazes into your eyes, and you see them filled with a desperate, burning lust. Bounding forwards, she suddenly wraps her arms around your back, and with a desperate moan, presses her [katherine.lips+] against yours. You reciprocate the gesture, and after spending a few moments sliding your tongues into one another's mouths, you pull back, grinning...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="KATHERINE_SEX_SUB"><![CDATA[
 	<p>
-		Not willing to take the dominant role, but with a deep desire to have sex with this horny succubus, you smile coyly at her.
-		 [pc.speech(Katherine... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]
+		Not willing to take the dominant role, but with a deep desire to have sex with this horny succubus, you smile coyly at her. [pc.speech(Katherine... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]
 	</p>
 	<p>
-		Katherine lets out an excited squeal, interrupting your sentence as she bounds forwards and wraps her arms around your back.
-		 With a desperate moan, she quickly presses her [katherine.lips+] against yours.
-		 You reciprocate the gesture, but only spend a few moments sliding your tongues into one another's mouths before Katherine pulls back, moaning,
-		 [katherine.speech(Oh yes! Fuck... I'm so fucking horny! I <i>need</i> you!)]
+		Katherine lets out an excited squeal, interrupting your sentence as she bounds forwards and wraps her arms around your back. With a desperate moan, she quickly presses her [katherine.lips+] against yours. You reciprocate the gesture, but only spend a few moments sliding your tongues into one another's mouths before Katherine pulls back, moaning, [katherine.speech(Oh yes! Fuck... I'm so fucking horny! I <i>need</i> you!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="KATHERINE_SEX_DECLINED"><![CDATA[
 	<p>
-		You're not really interested in Katherine's transparent offer of sex right now.
-		 [pc.speech(Thank you, Katherine, but there's nothing I need from you at the moment.)]
+		You're not really interested in Katherine's transparent offer of sex right now. [pc.speech(Thank you, Katherine, but there's nothing I need from you at the moment.)]
 	</p>
 	<p>
-		[katherine.speech(Aww! Well, if you change your mind, you know where to find me!)]
-		 Katherine smiles, before turning away and continuing with her work.
+		[katherine.speech(Aww! Well, if you change your mind, you know where to find me!)] Katherine smiles, before turning away and continuing with her work.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_KATHERINE_SEX"><![CDATA[
 	<p>
-		Katherine lets out a deeply satisfied sigh as you pull away from her,
-		 [katherine.speech(~Aaah!~ Fuck... That was great!)]
+		Katherine lets out a deeply satisfied sigh as you pull away from her, [katherine.speech(~Aaah!~ Fuck... That was great!)]
 	</p>
 	<p>
-		As you gather your things and prepare to move on, Katherine slumps back against the nearest wall, her hand slipping down between her legs as she slowly strokes herself.
-		 [katherine.speech(~Mmm!~ That was so good...)]
+		As you gather your things and prepare to move on, Katherine slumps back against the nearest wall, her hand slipping down between her legs as she slowly strokes herself. [katherine.speech(~Mmm!~ That was so good...)]
 	</p>
 	<p>
 		Deciding to leave Katherine to bask in her post-sex afterglow, you turn around and continue down the corridor.
@@ -664,12 +479,10 @@
 	
 	<htmlContent tag="AFTER_KATHERINE_SEX_NO_ORGASM"><![CDATA[
 	<p>
-		Katherine lets out a disappointed whine as you pull away from her,
-		 [katherine.speech(Aww! I didn't even get to cum!)]
+		Katherine lets out a disappointed whine as you pull away from her, [katherine.speech(Aww! I didn't even get to cum!)]
 	</p>
 	<p>
-		As you gather your things and prepare to move on, Katherine slumps back against the nearest wall, her hand slipping down between her legs as she seeks to finish herself off.
-		 [katherine.speech(Y-You carry on... ~Mmm!~ This won't take me long... ~Aaah!~)]
+		As you gather your things and prepare to move on, Katherine slumps back against the nearest wall, her hand slipping down between her legs as she seeks to finish herself off. [katherine.speech(Y-You carry on... ~Mmm!~ This won't take me long... ~Aaah!~)]
 	</p>
 	<p>
 		Doing as the unsatisfied maid suggests, you turn around and continue down the corridor.
@@ -679,90 +492,73 @@
 	
 	<htmlContent tag="ROOM"><![CDATA[
 	<p>
-		The door to this room is locked, and there's no sound of anyone within.
-		 Knowing that it's sure to just be a dull and uninteresting dead-end, you decide against trying to force the door open, and turn around to continue on your exploration of Zaranix's home.
+		The door to this room is locked, and there's no sound of anyone within. Knowing that it's sure to just be a dull and uninteresting dead-end, you decide against trying to force the door open, and turn around to continue on your exploration of Zaranix's home.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE"><![CDATA[
 	<p>
-		You find yourself standing in Zaranix's grand drawing room.
-		 Several sofas and chairs are tastefully arranged around a low table in the centre of the room, while numerous bookcases and cabinets line the floral-wallpapered walls.
-		 The high ceiling is home to an exceptionally extravagant chandelier, while the floor underfoot is covered in thick, cream-coloured carpet.
+		You find yourself standing in Zaranix's grand drawing room. Several sofas and chairs are tastefully arranged around a low table in the centre of the room, while numerous bookcases and cabinets line the floral-wallpapered walls. The high ceiling is home to an exceptionally extravagant chandelier, while the floor underfoot is covered in thick, cream-coloured carpet.
 	</p>
 	<p>
-		Amber is present in this room, and, being occupied with busily dusting and polishing several ornamental objects in a display cabinet, she hasn't noticed your entry.
-		 You could walk up to her and say hello, but, knowing her fiery temperament, she's sure to demand something of you...
+		Amber is present in this room, and, being occupied with busily dusting and polishing several ornamental objects in a display cabinet, she hasn't noticed your entry. You could walk up to her and say hello, but, knowing her fiery temperament, she's sure to demand something of you...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_GREETING"><![CDATA[
 	<p>
-		Deciding that you'd like to say hello to the fiery-haired succubus, you start to walk towards her.
-		 As you draw near, she turns her head to one side, and, obviously having heard your approach, she then turns to face you.
+		Deciding that you'd like to say hello to the fiery-haired succubus, you start to walk towards her. As you draw near, she turns her head to one side, and, obviously having heard your approach, she then turns to face you.
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_GREETING_BAD_WEATHER"><![CDATA[
-		[amber.speech(Well, if it isn't the worthless bitch.
-		 If it wasn't for this awful weather, I'd have considered taking you out for a walk.
-		 It looks as though I'll have to find another way to put you in your place.)]
+		[amber.speech(Well, if it isn't the worthless bitch. If it wasn't for this awful weather, I'd have considered taking you out for a walk. It looks as though I'll have to find another way to put you in your place.)]
 	</p>
 	<p>
-		Amber places her feather duster down on a nearby cabinet, before walking over to one of the sofas.
-		 Glaring at you with her luminescent amber eyes, she snaps her fingers at the floor.
-		 [amber.speech(Come over here and get down on all fours.
-		 I need a break, and you're going to be my foot stall.)]
+		Amber places her feather duster down on a nearby cabinet, before walking over to one of the sofas. Glaring at you with her luminescent amber eyes, she snaps her fingers at the floor. [amber.speech(Come over here and get down on the floor. I need a break, and you're going to be my foot stall.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_GREETING_GOOD_WEATHER"><![CDATA[
-		[amber.speech(Well, if it isn't the worthless bitch.
-		 As the weather outside is acceptable at the moment, I think I'll take you for a walk.)]
+		[amber.speech(Well, if it isn't the worthless bitch. As the weather outside is acceptable at the moment, I think I'll take you for a walk.)]
 	</p>
 	<p>
-		Before you can respond, the fiery maid snaps her fingers at the floor, before snarling at you,
-		 [amber.speech(Come over here and get down on all fours.
-		 A bit of public humiliation will do you good.)]
+		Before you can respond, the fiery maid snaps her fingers at the floor, before snarling at you, [amber.speech(Come over here and get down on all fours. A bit of public humiliation will do you good.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_FOOT_STALL"><![CDATA[
 	<p>
-		[pc.speech(Yes, Mistress Amber.)]
-		 you reply, obediently walking over to where the fiery demon is standing, before dropping down on all fours in front of her.
+		[pc.speech(Yes, Mistress Amber,)] you reply, obediently walking over to where the fiery demon is standing, before
+		#IF(pc.isTaur())
+			 lying down on your lower [pc.legRace]'s body
+		#ELSE
+			 dropping down onto all fours
+		#ENDIF
+		 in front of her.
 	</p>
 	<p>
-		[amber.speech(Good bitch,)]
-		 Amber says, collapsing down onto the sofa.
-		 Lifting her legs up, she then roughly drops her feet down onto your back.
-		 [amber.speech(Now stay still while I relax.)]
+		[amber.speech(Good bitch,)] Amber says, collapsing down onto the sofa. Lifting her legs up, she then roughly drops her feet down onto your back. [amber.speech(Now stay still while I relax.)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber.)]
-		 you reply once more, holding yourself steady as the sadistic succubus uses you as her foot rest.
+		[pc.speech(Yes, Mistress Amber,)] you reply once more, holding yourself steady as the sadistic succubus uses you as her foot rest.
 	</p>
 	<p>
-		After a few minutes of relative peace, Mistress Amber moves her feet off your back, and, dropping them down in front of your face, she snarls,
-		 [amber.speech(That's enough easy work for you.
-		 Take my shoes off and give me a foot massage, bitch.)]
+		After a few minutes of relative peace, Mistress Amber moves her feet off your back, and, dropping them down in front of your face, she snarls, [amber.speech(That's enough easy work for you. Take my shoes off and give me a foot massage, bitch.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_DECLINED_FOOT_STALL"><![CDATA[
 	<p>
-		[pc.speech(I'm not going to be your foot stool, Amber,)]
-		 you reply, crossing your arms and frowning at the demanding succubus.
+		[pc.speech(I'm not going to be your foot stool, Amber,)] you reply, crossing your arms and frowning at the demanding succubus.
 	</p>
 	<p>
-		[amber.speech(Useless bitch!)]
-		 Amber growls, before turning back to continue with her work.
-		 [amber.speech(Don't disturb me again, unless you've decided to act like the worthless bitch you are.)]
+		[amber.speech(Useless bitch!)] Amber growls, before turning back to continue with her work. [amber.speech(Don't disturb me again, unless you've decided to act like the worthless bitch you are.)]
 	</p>
 	<p>
 		Letting out a sigh, you step back from the fiery-haired succubus, before wondering what to do next.
@@ -772,279 +568,174 @@
 	
 	<htmlContent tag="LOUNGE_AMBER_FOOT_MASSAGE_REFUSED"><![CDATA[
 	<p>
-		[pc.speech(Sorry, Mistress Amber, but that's a little too much for me...)]
-		 you say, averting your eyes from the succubus's furious glare as you refuse to obey her command.
+		[pc.speech(Sorry, Mistress Amber, but that's a little too much for me...)] you say, averting your eyes from the succubus's furious glare as you refuse to obey her command.
 	</p>
 	<p>
-		[amber.speech(Worthless bitch!)]
-		 Amber growls, before kicking you in the side and standing up.
-		 [amber.speech(Get out of my sight, and don't bother disturbing me again until you've decided to act like the worthless bitch you are.)]
+		[amber.speech(Worthless bitch!)] Amber growls, before kicking you in the side and standing up. [amber.speech(Get out of my sight, and don't bother disturbing me again until you've decided to act like the worthless bitch you are.)]
 	</p>
 	<p>
-		As Mistress Amber moves off to continue with her work, you stand up and move towards the door.
-		 Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning.
-		 Having failed your Mistress, you wonder what you should do next.
+		As Mistress Amber moves off to continue with her work, you stand up and move towards the door. Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning. Having failed your Mistress, you wonder what you should do next.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_FOOT_MASSAGE"><![CDATA[
 	<p>
-		[pc.speech(Yes, Mistress Amber!)]
-		 you quickly respond, before reaching down and taking hold of her right foot.
-		 Taking care to be extra gentle, you delicately slide her high heel off, before placing it to one side.
-		 Gently lowering her foot, you then repeat the gesture with her left, leaving her feet covered only by her white cotton stockings.
+		[pc.speech(Yes, Mistress Amber!)] you quickly respond, before reaching down and taking hold of her right foot. Taking care to be extra gentle, you delicately slide her high heel off, before placing it to one side. Gently lowering her foot, you then repeat the gesture with her left, leaving her feet covered only by her white cotton stockings.
 	</p>
 	<p>
-		[amber.speech(Come on then, bitch, get started already!)]
-		 Amber snaps, swiping her right foot across to deliver a quick kick to your [pc.arm].
+		[amber.speech(Come on then, bitch, get started already!)] Amber snaps, swiping her right foot across to deliver a quick kick to your [pc.arm].
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber! Sorry, Mistress Amber!)]
-		 you cry, quickly moving your [pc.hands] down to take hold of the foot that just whacked into you.
+		[pc.speech(Yes, Mistress Amber! Sorry, Mistress Amber!)] you cry, quickly moving your [pc.hands] down to take hold of the foot that just whacked into you.
 	</p>
 	<p>
-		Slowly moving your [pc.fingers] over the soft cotton of her stockings, you apply a gentle pressure to Mistress Amber's slender foot as you start your massage.
-		 Working your way up from the heel, you press your fingertips up against her high arches, smiling with delight as you hear your Mistress let out a heavy, satisfied sigh.
-		 Continuing with your upwards movement, you start to massage Mistress Amber's toes, lovingly working your [pc.fingers] over each one as you seek to leave no part of her foot untouched.
+		Slowly moving your [pc.fingers] over the soft cotton of her stockings, you apply a gentle pressure to Mistress Amber's slender foot as you start your massage. Working your way up from the heel, you press your fingertips up against her high arches, smiling with delight as you hear your Mistress let out a heavy, satisfied sigh. Continuing with your upwards movement, you start to massage Mistress Amber's toes, lovingly working your [pc.fingers] over each one as you seek to leave no part of her foot untouched.
 	</p>
 	<p>
-		[amber.speech(Good bitch,)]
-		 Amber sighs, the noticeably softer tone of her voice revealing how much she's enjoying your attention.
-		 [amber.speech(Now move on to my left.)]
+		[amber.speech(Good bitch,)] Amber sighs, the noticeably softer tone of her voice revealing how much she's enjoying your attention. [amber.speech(Now move on to my left.)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber.)]
-		 you say, gently lowering her right foot, before taking hold of her left and starting to repeat the process.
-		 Working your way up from her heel, you slowly and lovingly apply a steady pressure to each part of her foot, before finishing with her little cotton-covered toes.
+		[pc.speech(Yes, Mistress Amber.)] you say, gently lowering her right foot, before taking hold of her left and starting to repeat the process. Working your way up from her heel, you slowly and lovingly apply a steady pressure to each part of her foot, before finishing with her little cotton-covered toes.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_FOOT_MASSAGE_MOUTH_BLOCKED"><![CDATA[
 	<p>
-		[amber.speech(What a good bitch.)]
-		 Amber says, grinning down at you.
-		 [amber.speech(It's a shame I can't get to your mouth.
-		 I <i>was</i> going to let you suck on my toes, but oh well.
-		 Put my shoes back on. I'm done with you now.)]
+		[amber.speech(What a good bitch.)] Amber says, grinning down at you. [amber.speech(It's a shame I can't get to your mouth. I <i>was</i> going to let you suck on my toes, but oh well. Put my shoes back on. I'm done with you now.)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber!)]
-		 you reply, quickly doing as your Mistress says and slipping her shoes back on to her feet.
+		[pc.speech(Yes, Mistress Amber!)] you reply, quickly doing as your Mistress says and slipping her shoes back on to her feet.
 	</p>
 	<p>
-		[amber.speech(Good bitch,)]
-		 Amber says once you're all done, before standing up and stepping over to the other side of the room.
-		 [amber.speech(Come back when the weather's nice, and I'll take you for a little walk outside.
-		 For now, however, get out of my sight.)]
+		[amber.speech(Good bitch,)] Amber says once you're all done, before standing up and stepping over to the other side of the room. [amber.speech(Come back when the weather's nice, and I'll take you for a little walk outside. For now, however, get out of my sight.)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)]
-		 you say, quickly standing up and moving towards the door.
-		 Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning.
-		 Having pleased your Mistress, you wonder what you should do next.
+		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)] you say, quickly standing up and moving towards the door. Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning. Having pleased your Mistress, you wonder what you should do next.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_FOOT_MASSAGE_MOUTH_FREE"><![CDATA[
 	<p>
-		[amber.speech(What a good bitch,)]
-		 Amber says, grinning down at you.
-		 [amber.speech(I think you've earned a reward.
-		 You may remove my stockings and continue with your mouth.)]
+		[amber.speech(What a good bitch,)] Amber says, grinning down at you. [amber.speech(I think you've earned a reward. You may remove my stockings and continue with your mouth.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_FOOT_MASSAGE_ORAL"><![CDATA[
 	<p>
-		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)]
-		 you happily reply.
+		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)] you happily reply.
 	</p>
 	<p>
-		Moving your [pc.hands] down to your Mistress's right foot once more, you slowly slide your fingers up the length of her slender leg, until you reach the top of her stocking at her mid-thigh.
-		 Tucking the tips of your thumbs into the elastic rim, you start to pull the white cotton stocking down, revealing the flawless ebony skin of Mistress Amber's perfect, long legs.
-		 Reaching down to take hold of the fabric between her toes, you start to pull, and quickly manage to free your Mistress's right foot from the confines of the white cotton. 
+		Moving your [pc.hands] down to your Mistress's right foot once more, you slowly slide your fingers up the length of her slender leg, until you reach the top of her stocking at her mid-thigh. Tucking the tips of your thumbs into the elastic rim, you start to pull the white cotton stocking down, revealing the flawless ebony skin of Mistress Amber's perfect, long legs. Reaching down to take hold of the fabric between her toes, you start to pull, and quickly manage to free your Mistress's right foot from the confines of the white cotton. 
 	</p>
 	<p>
-		Suddenly, Mistress Amber darts her foot up to your hand, and, in one swift movement, uses her toes to pinch the stocking from your grasp.
-		 Before you can react, she then pushes her foot into your face, smothering your mouth and nose with the soft cotton.
-		 [amber.speech(You like that, bitch?
-		 Go on, sniff it! I want you to enjoy your reward!)]
+		Suddenly, Mistress Amber darts her foot up to your hand, and, in one swift movement, uses her toes to pinch the stocking from your grasp. Before you can react, she then pushes her foot into your face, smothering your mouth and nose with the soft cotton. [amber.speech(You like that, bitch? Go on, sniff it! I want you to enjoy your reward!)]
 	</p>
 	<p>
-		As Mistress Amber laughs, you do as she commands, and breathe in.
-		 The slightly sweaty, still-warm fabric of your Mistress's stocking presses against your face as you take in a deep breath.
-		 Your sense of smell is instantly overwhelmed with the scent of the succubi's mild foot odour, and you let out a happy little whine as Mistress Amber pushes her foot into your face, before pulling back and letting the stocking fall to the floor.
+		As Mistress Amber laughs, you do as she commands, and breathe in. The slightly sweaty, still-warm fabric of your Mistress's stocking presses against your face as you take in a deep breath. Your sense of smell is instantly overwhelmed with the scent of the succubi's mild foot odour, and you let out a happy little whine as Mistress Amber pushes her foot into your face, before pulling back and letting the stocking fall to the floor.
 	</p>
 	<p>
-		[amber.speech(Now get started,)]
-		 Mistress Amber snaps.
+		[amber.speech(Now get started,)] Mistress Amber snaps.
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber!)]
-		 you reply, quickly moving your [pc.hands] down yet again to take hold of the succubus's right foot.
-		 Her soft, ebony skin has the slightest touch of damp to it, and as you lift her slender foot to your mouth, the accompanying scent of sweat rises up to overwhelm your sense of smell.
-		 Deciding to start with her heel, just as you did with the massage, you slowly press your lips to the side of Mistress Amber's foot, planting a wet kiss on her soft skin, before moving down to focus your attention on her sole.
-		 Running your tongue over the slightly thicker skin on the underside of her heel, your mouth is instantly filled with the salty, sweaty taste of a foot that's been imprisoned in shoes and stockings all day.
+		[pc.speech(Yes, Mistress Amber!)] you reply, quickly moving your [pc.hands] down yet again to take hold of the succubus's right foot. Her soft, ebony skin has the slightest touch of damp to it, and as you lift her slender foot to your mouth, the accompanying scent of sweat rises up to overwhelm your sense of smell. Deciding to start with her heel, just as you did with the massage, you slowly press your lips to the side of Mistress Amber's foot, planting a wet kiss on her soft skin, before moving down to focus your attention on her sole. Running your tongue over the slightly thicker skin on the underside of her heel, your mouth is instantly filled with the salty, sweaty taste of a foot that's been imprisoned in shoes and stockings all day.
 	</p>
 	<p>
-		[amber.speech(That's right, bitch.
-		 Keep it up,)]
-		 Amber snaps, the tone of amusement in her voice completely lost on you as you focus all of your attention on worshipping the foot in front of your face.
-		 Working your way up, you run your tongue along the inside of her arches, making sure to savour every [unit.size] of her soft ebony skin.
+		[amber.speech(That's right, bitch. Keep it up,)] Amber snaps, the tone of amusement in her voice completely lost on you as you focus all of your attention on worshipping the foot in front of your face. Working your way up, you run your tongue along the inside of her arches, making sure to savour every [unit.size] of her soft ebony skin.
 	</p>
 	<p>
-		Despite taking your time to apply the same level of attention to every part of her foot, it doesn't take you long to reach the finale.
-		 Mistress Amber's little ebony toes, painted in the same amber colour as her striking hair and eyes, stretch a little in anticipation as you press your lips against them.
-		 Starting with her pinky, you take the little toe into your mouth, gently sucking on it for a moment, before sliding your tongue between the gap to the next toe, and then moving your oral attention on to that one.
-		 In this manner, you work your way along Mistress Amber's foot, until you finally take her big toe into your mouth.
-		 Sucking and kissing her rounded digit, you savour the taste of your Mistress, before finally pulling back and planting one last kiss on the ridge of her slender, elegant foot.
+		Despite taking your time to apply the same level of attention to every part of her foot, it doesn't take you long to reach the finale. Mistress Amber's little ebony toes, painted in the same amber colour as her striking hair and eyes, stretch a little in anticipation as you press your lips against them. Starting with her pinky, you take the little toe into your mouth, gently sucking on it for a moment, before sliding your tongue between the gap to the next toe, and then moving your oral attention on to that one. In this manner, you work your way along Mistress Amber's foot, until you finally take her big toe into your mouth. Sucking and kissing her rounded digit, you savour the taste of your Mistress, before finally pulling back and planting one last kiss on the ridge of her slender, elegant foot.
 	</p>
 	<p>
-		[amber.speech(Very good, bitch.
-		 Now get started on my left,)]
-		 Amber snaps, shifting about on the sofa a little as she thrusts her left foot towards you.
+		[amber.speech(Very good, bitch. Now get started on my left,)] Amber snaps, shifting about on the sofa a little as she thrusts her left foot towards you.
 	</p>
 	<p>
-		Repeating the motions all over again, you quickly strip the white cotton stocking from Mistress Amber's left foot, and, following her instructions, you once again breathe in the warm, sweaty scent of her garment, before getting started on the main course.
-		 Running your tongue over her perfect ebony skin, you kiss, lick, and nuzzle against every part of her foot, finishing off by sucking each one of her little amber-painted toes.
+		Repeating the motions all over again, you quickly strip the white cotton stocking from Mistress Amber's left foot, and, following her instructions, you once again breathe in the warm, sweaty scent of her garment, before getting started on the main course. Running your tongue over her perfect ebony skin, you kiss, lick, and nuzzle against every part of her foot, finishing off by sucking each one of her little amber-painted toes.
 	</p>
 	<p>
-		Before too long, you've finished your work, and Mistress Amber lifts her feet as she instructs you to put her stockings and shoes back on.
-		 Taking care to be extra gentle, you push your Mistress's right foot into her stocking, before pulling the fabric up to her mid-thigh.
-		 Picking up her high-heel, you guide her foot back into it, before repeating the process with her left.
+		Before too long, you've finished your work, and Mistress Amber lifts her feet as she instructs you to put her stockings and shoes back on. Taking care to be extra gentle, you push your Mistress's right foot into her stocking, before pulling the fabric up to her mid-thigh. Picking up her high-heel, you guide her foot back into it, before repeating the process with her left.
 	</p>
 	<p>
-		[amber.speech(Good bitch,)]
-		 Amber finally says once you're all done, before standing up and stepping over to the other side of the room.
-		 [amber.speech(Come back when the weather's nice, and I'll take you for a little walk outside.
-		 For now, however, get out of my sight.)]
+		[amber.speech(Good bitch,)] Amber finally says once you're all done, before standing up and stepping over to the other side of the room. [amber.speech(Come back when the weather's nice, and I'll take you for a little walk outside. For now, however, get out of my sight.)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)]
-		 you say, quickly standing up and moving towards the door.
-		 Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning.
-		 Having pleased your Mistress, you wonder what you should do next.
+		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)] you say, quickly standing up and moving towards the door. Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning. Having pleased your Mistress, you wonder what you should do next.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_FOOT_MASSAGE_ORAL_REFUSED"><![CDATA[
 	<p>
-		[pc.speech(Sorry, Mistress Amber, but that's a little too much for me...)]
-		 you say, averting your eyes from the succubus's furious glare as you refuse to obey her command.
+		[pc.speech(Sorry, Mistress Amber, but that's a little too much for me...)] you say, averting your eyes from the succubus's furious glare as you refuse to obey her command.
 	</p>
 	<p>
-		[amber.speech(Worthless bitch!)]
-		 Amber growls, before kicking you in the side.
-		 [amber.speech(Put my shoes back on! I'm done with you now.)]
+		[amber.speech(Worthless bitch!)] Amber growls, before kicking you in the side. [amber.speech(Put my shoes back on! I'm done with you now.)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber!)]
-		 you reply, quickly doing as your Mistress says and slipping her shoes back on to her feet.
+		[pc.speech(Yes, Mistress Amber!)] you reply, quickly doing as your Mistress says and slipping her shoes back on to her feet.
 	</p>
 	<p>
-		[amber.speech(Now get out of my sight, and don't bother disturbing me again until you've decided to act like the worthless bitch you are!)]
-		 Mistress Amber snaps, before standing up and moving off to continue with her work.
-		 You wait until she's stepped away before standing up yourself and moving towards the door.
-		 Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning.
-		 Having failed your Mistress, you wonder what you should do next.
+		[amber.speech(Now get out of my sight, and don't bother disturbing me again until you've decided to act like the worthless bitch you are!)] Mistress Amber snaps, before standing up and moving off to continue with her work. You wait until she's stepped away before standing up yourself and moving towards the door. Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning. Having failed your Mistress, you wonder what you should do next.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_BEG_FOR_SEX"><![CDATA[
 	<p>
-		[pc.speech(Mistress Amber, um, I was thinking of something else...)]
-		 you say, casting your eyes to the floor as you shuffle your feet on the spot.
+		[pc.speech(Mistress Amber, um, I was thinking of something else...)] you say, casting your eyes to the floor as you shuffle your feet on the spot.
 	</p>
 	<p>
-		[amber.speech(Oh, were you now?!)]
-		 Amber snarls, stepping forwards and grabbing your [pc.arm].
-		 [amber.speech(And what would that be? This had better be worth my time, bitch!)]
+		[amber.speech(Oh, were you now?!)] Amber snarls, stepping forwards and grabbing your [pc.arm]. [amber.speech(And what would that be? This had better be worth my time, bitch!)]
 	</p>
 	<p>
-		[pc.speech(Mistress Amber, I was thinking that perhaps... Well, seeing as I've been a good bitch recently, perhaps you could... Umm...)]
-		 you say, trying to work up the courage to ask your Mistress the question that's on your mind.
-		 Taking a deep breath, you look up at the fiery-haired succubus and blurt out,
-		 [pc.speech(Mistress Amber! Please, can you fuck me?)]
+		[pc.speech(Mistress Amber, I was thinking that perhaps... Well, seeing as I've been a good bitch recently, perhaps you could... Umm...)] you say, trying to work up the courage to ask your Mistress the question that's on your mind. Taking a deep breath, you look up at the fiery-haired succubus and blurt out, [pc.speech(Mistress Amber! Please, can you fuck me?)]
 	</p>
 	<p>
-		A huge, sadistic grin breaks out across your Mistress's face, and, tightening her grip on your [pc.arm], she violently pulls you forwards into her chest.
-		 Before you can react, Mistress Amber reaches up to grab the back of your head with her free hand, before dominantly pressing lips against yours.
-		 Instantly, she forces her tongue into your mouth, thrusting it down your throat as she starts roughly making out with you.
+		A huge, sadistic grin breaks out across your Mistress's face, and, tightening her grip on your [pc.arm], she violently pulls you forwards into her chest. Before you can react, Mistress Amber reaches up to grab the back of your head with her free hand, before dominantly pressing lips against yours. Instantly, she forces her tongue into your mouth, thrusting it down your throat as she starts roughly making out with you.
 	</p>
 	<p>
-		Almost as quickly as she began, Mistress Amber suddenly pulls back, before gazing into your eyes.
-		 [amber.speech(You have been a good bitch recently, I'll admit.
-		 Perhaps you do deserve a good rough fucking as a reward.
-		 I'll need to hear you beg for it first, though.
-		 On your knees, bitch!)]
+		Almost as quickly as she began, Mistress Amber suddenly pulls back, before gazing into your eyes. [amber.speech(You have been a good bitch recently, I'll admit. Perhaps you do deserve a good rough fucking as a reward. I'll need to hear you beg for it first, though. On your knees, bitch!)]
 	</p>
 	<p>
-		You instantly do as you're told, and, dropping down onto your knees before your Mistress, you gaze up at her.
-		 [pc.speech(Please, Mistress Amber! I'm your good bitch, please fuck me!)]
+		You instantly do as you're told, and, dropping down onto your knees before your Mistress, you gaze up at her. [pc.speech(Please, Mistress Amber! I'm your good bitch, please fuck me!)]
 	</p>
 	<p>
-		Letting out a sadistic laugh, Mistress Amber raises her right foot, before placing it on your shoulder and roughly pressing down.
-		 Your face is quickly forced down against the floor, and you let out a little whine as your Mistress growls down at you,
-		 [amber.speech(That's right, bitch; face down, ass up!
-		 You're lucky to have a Mistress as kind as I am, aren't you bitch?
-		 Not every owner would give their bitch a reward like this.)]
+		Letting out a sadistic laugh, Mistress Amber raises her right foot, before placing it on your shoulder and roughly pressing down. Your face is quickly forced down against the floor, and you let out a little whine as your Mistress growls down at you, [amber.speech(That's right, bitch; face down, ass up! You're lucky to have a Mistress as kind as I am, aren't you bitch? Not every owner would give their bitch a reward like this.)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber!)]
-		 you cry out, lifting your ass up into the air as your Mistress moves around to your rear end.
-		 As she drops down onto her knees behind you, she roughly grabs hold of your [pc.hips+], before violently pulling you back into her groin.
-		 You feel the [amber.cockSize] bulge of her thick cock pressing against your [pc.ass+], and you can't help but let out a desperate, pleading moan.
+		[pc.speech(Yes, Mistress Amber!)] you cry out, lifting your ass up into the air as your Mistress moves around to your rear end. As she drops down onto her knees behind you, she roughly grabs hold of your [pc.hips+], before violently pulling you back into her groin. You feel the [amber.cockSize] bulge of her thick cock pressing against your [pc.ass+], and you can't help but let out a desperate, pleading moan.
 	</p>
 	<p>
-		[amber.speech(Good bitch.
-		 I'll get you <i>really</i> moaning soon enough!)]
-		 Mistress Amber snarls, delivering a sharp, stinging slap to your [pc.ass+] as she prepares to fuck you.
+		[amber.speech(Good bitch. I'll get you <i>really</i> moaning soon enough!)] Mistress Amber snarls, delivering a sharp, stinging slap to your [pc.ass+] as she prepares to fuck you.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AMBER_LOUNGE_POST_CONSENSUAL_SEX"><![CDATA[
 	<p>
-		Mistress Amber roughly pushes you to the floor, laughing down at you as she stands up.
-		 [amber.speech(Good bitch. You enjoyed your reward, didn't you?)]
+		Mistress Amber roughly pushes you to the floor, laughing down at you as she stands up. [amber.speech(Good bitch. You enjoyed your reward, didn't you?)]
 	</p>
 	<p>
-		You look up at the fiery maid to see a sadistic smirk on her face.
-		 Smiling up at your Mistress, you push yourself up onto your knees as you quickly respond,
-		 [pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)]
+		You look up at the fiery maid to see a sadistic smirk on her face. Smiling up at your Mistress, you push yourself up onto your knees as you quickly respond, [pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)]
 	</p>
 	<p>
-		[amber.speech(Good bitch,)]
-		 Mistress Amber says, before getting her things in order and stepping over to the other side of the room.
-		 [amber.speech(Come back when the weather's nice, and I'll take you for a little walk outside.
-		 For now, however, get out of my sight.)]
+		[amber.speech(Good bitch,)] Mistress Amber says, before getting her things in order and stepping over to the other side of the room. [amber.speech(Come back when the weather's nice, and I'll take you for a little walk outside. For now, however, get out of my sight.)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber! Thank you so much, Mistress Amber!)]
-		 you say, quickly standing up, grabbing your things, and moving towards the door.
-		 Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning.
-		 Having been given your Mistress's reward, you wonder what you should do next.
+		[pc.speech(Yes, Mistress Amber! Thank you so much, Mistress Amber!)] you say, quickly standing up, grabbing your things, and moving towards the door. Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning. Having been given your Mistress's reward, you wonder what you should do next.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_FURIOUS"><![CDATA[
 	<p>
-		[pc.speech(Oh, fuck off already, Amber.)]
-		 you say, not in the mood for the sadistic Succubus's outrageous demands.
+		[pc.speech(Oh, fuck off already, Amber.)] you say, not in the mood for the sadistic Succubus's outrageous demands.
 	</p>
 	<p>
-		[amber.speech(You fucking <i>bitch</i>!)]
-		 Amber screams, her hair and eyes glowing with a furious intensity as she steps towards you.
-		 [amber.speech(How <i>dare</i> you speak to me like that?!
-		 Drop down on your knees, <i>right this instant</i>, and beg for my forgiveness!
-		 You're lucky I'm in such a good mood today; I think I'll just let you off with a rough fucking to put you in your place!)]
+		[amber.speech(You fucking <i>bitch</i>!)] Amber screams, her hair and eyes glowing with a furious intensity as she steps towards you. [amber.speech(How <i>dare</i> you speak to me like that?! Drop down on your knees, <i>right this instant</i>, and beg for my forgiveness! You're lucky I'm in such a good mood today; I think I'll just let you off with a rough fucking to put you in your place!)]
 	</p>
 	<p>
 		Amber looks absolutely livid - far angrier than you've seen her before - and you wonder if you should do as she says in order to calm her down...
@@ -1054,90 +745,61 @@
 	
 	<htmlContent tag="LOUNGE_AMBER_FURIOUS_NO_APOLOGY"><![CDATA[
 	<p>
-		[pc.speech(Well, that's definitely not happening,)]
-		 you say, crossing your [pc.arms] and frowning at Amber.
+		[pc.speech(Well, that's definitely not happening,)] you say, crossing your [pc.arms] and frowning at Amber.
 	</p>
 	<p>
-		[amber.speech(You worthless, pathetic bitch! You're <i>so</i> fucking lucky you're Lilaya's little bitch,)]
-		 Amber snaps, before turning her back to you.
-		 [amber.speech(Don't you <i>dare</i> disturb me again, unless you've decided to act like the worthless worm you are.)]
+		[amber.speech(You worthless, pathetic bitch! You're <i>so</i> fucking lucky you're Lilaya's little bitch,)] Amber snaps, before turning her back to you. [amber.speech(Don't you <i>dare</i> disturb me again, unless you've decided to act like the worthless worm you are.)]
 	</p>
 	<p>
-		Letting out a sigh, you step back from the fiery-haired succubus, looking on as she grabs her feather duster and angrily resumes cleaning.
-		 Turning towards the door, you wonder what to do next.
+		Letting out a sigh, you step back from the fiery-haired succubus, looking on as she grabs her feather duster and angrily resumes cleaning. Turning towards the door, you wonder what to do next.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_FURIOUS_APOLOGY"><![CDATA[
 	<p>
-		You weren't expecting Amber to react in such a furious manner to your words.
-		 Not wanting to push her any further, you drop to your knees.
-		 [pc.speech(I'm so sorry, Mistress Amber! I don't know what came over me!)]
+		You weren't expecting Amber to react in such a furious manner to your words. Not wanting to push her any further, you drop to your knees. [pc.speech(I'm so sorry, Mistress Amber! I don't know what came over me!)]
 	</p>
 	<p>
-		[amber.speech(Get down on all fours, you worthless worm!)]
-		 Amber snaps as she steps around behind you.
-		 Letting out a little whimper, you do as you're told, pushing your [pc.ass+] up into the air as you fall forwards onto your [pc.hands] and knees.
+		[amber.speech(Get down on all fours, you worthless worm!)] Amber snaps as she steps around behind you. Letting out a little whimper, you do as you're told, pushing your [pc.ass+] up into the air as you fall forwards onto your [pc.hands] and knees.
 	</p>
 	<p>
-		[pc.speech(I really am sorry, Mistress Amber! I di- ~Aaah!~)]
-		 Your apology is cut short as the furious succubus delivers a stinging slap to your [pc.ass+].
-		 Turning your head, you see Mistress Amber raising her hand once more, and you scrunch your eyes shut as you prepare for the incoming blow.
+		[pc.speech(I really am sorry, Mistress Amber! I di- ~Aaah!~)] Your apology is cut short as the furious succubus delivers a stinging slap to your [pc.ass+]. Turning your head, you see Mistress Amber raising her hand once more, and you scrunch your eyes shut as you prepare for the incoming blow.
 	</p>
 	<p>
-		[pc.speech(~Aaah!~)]
-		 you cry as Mistress Amber ruthlessly slaps your [pc.ass] with full force.
-		 [pc.speech(I-I'm sorry, Mistress Amber!)]
+		[pc.speech(~Aaah!~)] you cry as Mistress Amber ruthlessly slaps your [pc.ass] with full force. [pc.speech(I-I'm sorry, Mistress Amber!)]
 	</p>
 	<p>
-		[amber.speech(You fucking <i>bitch</i>!
-		 I'll teach you to insult me!)]
-		 Amber snarls, before dropping to her knees behind you and grabbing hold of your [pc.hips+].
-		 Shuffling forwards, she grinds her groin against your [pc.ass+], and you feel the [amber.penisSize] bulge of her thick cock rubbing up against you as she starts to grow hard.
-		 [amber.speech(I'm going to give you such a rough fucking, you'll be sore for weeks!)]
+		[amber.speech(You fucking <i>bitch</i>! I'll teach you to insult me!)] Amber snarls, before dropping to her knees behind you and grabbing hold of your [pc.hips+]. Shuffling forwards, she grinds her groin against your [pc.ass+], and you feel the [amber.penisSize] bulge of her thick cock rubbing up against you as she starts to grow hard. [amber.speech(I'm going to give you such a rough fucking, you'll be sore for weeks!)]
 	</p>
 	<p>
-		You start to let out another whimper, but your pathetic mewling is cut short as Mistress Amber delivers another sharp slap to your [pc.ass+].
-		 [amber.speech(Fucking <i>bitch</i>!)]
+		You start to let out another whimper, but your pathetic mewling is cut short as Mistress Amber delivers another sharp slap to your [pc.ass+]. [amber.speech(Fucking <i>bitch</i>!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AMBER_LOUNGE_POST_SEX"><![CDATA[
 	<p>
-		Mistress Amber roughly pushes you to the floor, laughing down at you as she stands up.
-		 [amber.speech(Fucking bitch. That'll teach you to insult me.
-		 Now apologise again, you worthless worm.)]
+		Mistress Amber roughly pushes you to the floor, laughing down at you as she stands up. [amber.speech(Fucking bitch. That'll teach you to insult me. Now apologise again, you worthless worm.)]
 	</p>
 	<p>
-		You look up at the fiery maid to see a sadistic smirk on her face.
-		 Averting your eyes from her evil gaze, you push yourself up onto your knees and so as you're told.
-		 [pc.speech(Sorry, Mistress Amber...)]
+		You look up at the fiery maid to see a sadistic smirk on her face. Averting your eyes from her evil gaze, you push yourself up onto your knees and so as you're told. [pc.speech(Sorry, Mistress Amber...)]
 	</p>
 	<p>
-		[amber.speech(Good bitch,)]
-		 Amber says, before getting her things in order and stepping over to the other side of the room.
-		 [amber.speech(Come back when the weather's nice, and I'll take you for a little walk outside.
-		 For now, however, get out of my sight.)]
+		[amber.speech(Good bitch,)] Amber says, before getting her things in order and stepping over to the other side of the room. [amber.speech(Come back when the weather's nice, and I'll take you for a little walk outside. For now, however, get out of my sight.)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)]
-		 you say, quickly standing up, grabbing your things, and moving towards the door.
-		 Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning.
-		 Having earned your Mistress's forgiveness, you wonder what you should do next.
+		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)] you say, quickly standing up, grabbing your things, and moving towards the door. Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning. Having earned your Mistress's forgiveness, you wonder what you should do next.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_LOSES_IT"><![CDATA[
 	<p>
-		You <i>really</i> aren't in the mood for this right now, and shake your head at the succubus before you.
-		 [pc.speech(Knock it off, Amber. Just because Zaranix doesn't give you the good fucking you need, doesn't mean you get to take it out on me.)]
+		You <i>really</i> aren't in the mood for this right now, and shake your head at the succubus before you. [pc.speech(Knock it off, Amber. Just because Zaranix doesn't give you the good fucking you need, doesn't mean you get to take it out on me.)]
 	</p>
 	<p>
-		Amber's extraordinary hair grows visibly brighter as her eyes burn with an incandescent rage.
-		 [amber.speech(You fucking <i>bitch</i>!)]
+		Amber's extraordinary hair grows visibly brighter as her eyes burn with an incandescent rage. [amber.speech(You fucking <i>bitch</i>!)]
 	</p>
 	<p>
 		Barely giving you a moment to react, Amber launches herself at you in a blind fury, determined to beat you into submission.
@@ -1147,61 +809,45 @@
 	
 	<htmlContent tag="COMBAT_LOSS"><![CDATA[
 	<p>
-		You can't carry on fighting any longer, and with a defeated sigh, you collapse back onto one of the lounge's sofas.
-		 Amber instantly steps forwards, reaching down to grab your [pc.arm] before roughly pulling you forwards.
+		You can't carry on fighting any longer, and with a defeated sigh, you collapse back onto one of the lounge's sofas. Amber instantly steps forwards, reaching down to grab your [pc.arm] before roughly pulling you forwards.
 	</p>
 	<p>
-		As you fall down onto the floor on your [pc.hands] and knees, the furious succubus snarls,
-		 [amber.speech(Stupid bitch! How <i>dare</i> you sit on my master's sofa!)]
+		As you fall down onto the floor on your [pc.hands] and knees, the furious succubus snarls, [amber.speech(Stupid bitch! How <i>dare</i> you sit on my master's sofa!)]
 	</p>
 	<p>
-		[pc.speech(Just sto- ~Aah!~)]
-		 your response is cut short as Amber stoops down and delivers a stinging slap to your [pc.ass+].
+		[pc.speech(Just sto- ~Aah!~)] your response is cut short as Amber stoops down and delivers a stinging slap to your [pc.ass+].
 	</p>
 	<p>
-		[amber.speech(Silence, bitch!)]
-		 Amber screams, dropping to her knees behind you.
-		 [amber.speech(It's time for a good, rough fuck to put you in your place!)]
+		[amber.speech(Silence, bitch!)] Amber screams, dropping to her knees behind you. [amber.speech(It's time for a good, rough fuck to put you in your place!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="COMBAT_LOSS_SEX"><![CDATA[
 	<p>
-		[amber.speech(You fucking <i>bitch</i>! I'll teach you to insult me!)]
-		 Amber snarls, sharply swatting your [pc.ass+] once more, before roughly grabbing hold of your [pc.hips+].
-		 Shuffling forwards, she grinds her groin against your [pc.ass+], and you feel the [amber.penisSize] bulge of her thick cock rubbing up against you as she starts to grow hard.
-		 [amber.speech(I'm going to give you such a rough fucking, you'll be sore for weeks!)]
+		[amber.speech(You fucking <i>bitch</i>! I'll teach you to insult me!)] Amber snarls, sharply swatting your [pc.ass+] once more, before roughly grabbing hold of your [pc.hips+]. Shuffling forwards, she grinds her groin against your [pc.ass+], and you feel the [amber.penisSize] bulge of her thick cock rubbing up against you as she starts to grow hard. [amber.speech(I'm going to give you such a rough fucking, you'll be sore for weeks!)]
 	</p>
 	<p>
-		You start to let out a whimper, but the protest you were about to make is cut short as Amber delivers another sharp slap to your [pc.ass+].
-		 [amber.speech(Fucking <i>bitch</i>!)]
+		You start to let out a whimper, but the protest you were about to make is cut short as Amber delivers another sharp slap to your [pc.ass+]. [amber.speech(Fucking <i>bitch</i>!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_AMBER_SEX_LOSS"><![CDATA[
 	<p>
-		Panting from exertion, you collapse to the floor in front of Amber.
-		 Looking up at the fiery-haired maid, you see her glaring down at you as she snarls,
-		 [amber.speech(Now apologise!)]
+		Panting from exertion, you collapse to the floor in front of Amber. Looking up at the fiery-haired maid, you see her glaring down at you as she snarls, [amber.speech(Now apologise!)]
 	</p>
 	<p>
-		Left with little choice in the matter, you do as you're told.
-		 [pc.speech(Sorry, Amber...)]
+		Left with little choice in the matter, you do as you're told. [pc.speech(Sorry, Amber...)]
 	</p>
 	<p>
-		[amber.speech(Stupid bitch!)]
-		 Amber growls, before swiping her hand down sharply on your [pc.ass+].
-		 [amber.speech(You will refer to me as 'Mistress Amber', or else I'll <i>really</i> make you sorry!)]
+		[amber.speech(Stupid bitch!)] Amber growls, before swiping her hand down sharply on your [pc.ass+]. [amber.speech(You will refer to me as 'Mistress Amber', or else I'll <i>really</i> make you sorry!)]
 	</p>
 	<p>
-		Swallowing your pride, you look down at the floor at you do as you're told.
-		 [pc.speech(Sorry, Mistress Amber.)]
+		Swallowing your pride, you look down at the floor at you do as you're told. [pc.speech(Sorry, Mistress Amber.)]
 	</p>
 	<p>
-		[amber.speech(Good bitch,)]
-		 Mistress Amber says, before standing up and moving off to continue with her cleaning.
+		[amber.speech(Good bitch,)] Mistress Amber says, before standing up and moving off to continue with her cleaning.
 	</p>
 	<p>
 		Quickly gathering your things, you move towards the door, wondering what to do now...
@@ -1211,54 +857,42 @@
 	
 	<htmlContent tag="COMBAT_VICTORY"><![CDATA[
 	<p>
-		Amber collapses back on one of the lounge's sofas, completely unable to continue fighting.
-		 Stepping towards her, you see her hands suddenly slip down between her legs, and, with no regard to your presence, she reaches under her maids's dress and starts touching herself.
+		Amber collapses back on one of the lounge's sofas, completely unable to continue fighting. Stepping towards her, you see her hands suddenly slip down between her legs, and, with no regard to your presence, she reaches under her maids's dress and starts touching herself.
 	</p>
 	<p>
-		[amber.speech(You... Fucking bitch...)]
-		 She starts to moan.
-		 [amber.speech(Fuck! Just... So horny... F-Fuck me already!)]
+		[amber.speech(You... Fucking bitch...)] She starts to moan. [amber.speech(Fuck! Just... So horny... F-Fuck me already!)]
 	</p>
 	<p>
-		The arousing effect of being in the presence of your potent arcane aura is obviously the cause of the sadistic maid's sudden desire for you to have sex with her.
-		 You wonder if you should indulge her wishes, or turn around and leave her to think about how wrong she was to attack one of her master's guests.
+		The arousing effect of being in the presence of your potent arcane aura is obviously the cause of the sadistic maid's sudden desire for you to have sex with her. You wonder if you should indulge her wishes, or turn around and leave her to think about how wrong she was to attack one of her master's guests.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="COMBAT_VICTORY_LEAVE"><![CDATA[
 	<p>
-		You don't really want to have sex with Amber, and, simply satisfied with having beaten her, you look down on her pitiful form as she shamelessly masturbates in front of you.
-		 [pc.speech(You really shouldn't attack Zaranix's guests like that, should you Amber?)]
+		You don't really want to have sex with Amber, and, simply satisfied with having beaten her, you look down on her pitiful form as she shamelessly masturbates in front of you. [pc.speech(You really shouldn't attack Zaranix's guests like that, should you Amber?)]
 	</p>
 	<p>
-		[amber.speech(N-No... ~Aaah!~ I-I was told to treat... ~Mmm!~ Treat you as a guest...)]
-		 Amber admits, blushing from both her overwhelming arousal and shame at having disobeyed her master's wishes.
+		[amber.speech(N-No... ~Aaah!~ I-I was told to treat... ~Mmm!~ Treat you as a guest...)] Amber admits, blushing from both her overwhelming arousal and shame at having disobeyed her master's wishes.
 	</p>
 	<p>
-		[pc.speech(Well, you need to think about how bad you've been, so I'll take my leave now.)]
-		 you state, turning towards the door.
-		 Amber makes an affirmative moan in response, and, leaving her to satisfy herself, you wonder what you should now...
+		[pc.speech(Well, you need to think about how bad you've been, so I'll take my leave now.)] you state, turning towards the door. Amber makes an affirmative moan in response, and, leaving her to satisfy herself, you wonder what you should now...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="COMBAT_VICTORY_SEX"><![CDATA[
 	<p>
-		Reaching down, you take hold of Amber's arm, before pulling her to her feet before you.
-		 [pc.speech(Well, I wouldn't want to leave you after you've made such a passionate request...)]
+		Reaching down, you take hold of Amber's arm, before pulling her to her feet before you. [pc.speech(Well, I wouldn't want to leave you after you've made such a passionate request...)]
 	</p>
 	<p>
-		Amber lets out a deep moan as she locks her glowing amber eyes to yours, and, stepping forwards, she desperately presses her [amber.lips+] against yours.
-		 All too eager to have some fun with the temporarily pacified succubus, your reciprocate the gesture, slipping your [pc.tongue] into her mouth as you start passionately kissing one another.
+		Amber lets out a deep moan as she locks her glowing amber eyes to yours, and, stepping forwards, she desperately presses her [amber.lips+] against yours. All too eager to have some fun with the temporarily pacified succubus, your reciprocate the gesture, slipping your [pc.tongue] into her mouth as you start passionately kissing one another.
 	</p>
 	<p>
-		After a moment, you break off the kiss, before taking a stern tone,
-		 [pc.speech(<i>I'm</i> the one in charge here, understood?)]
+		After a moment, you break off the kiss, before taking a stern tone, [pc.speech(<i>I'm</i> the one in charge here, understood?)]
 	</p>
 	<p>
-		[amber.speech(Yes! Yes, just please! Fuck me!)]
-		 Amber moans, biting her lip and whining in desperation.
+		[amber.speech(Yes! Yes, just please! Fuck me!)] Amber moans, biting her lip and whining in desperation.
 	</p>
 	<p>
 		Grinning at your defeated foe, you wrap your [pc.arms] around her back, before pulling her into your embrace...
@@ -1268,187 +902,118 @@
 	
 	<htmlContent tag="COMBAT_VICTORY_SEX_SEB"><![CDATA[
 	<p>
-		Although you've come out on top after your fight with Amber, you're suddenly left feeling extremely awkward at having reduced the normally sadistic maid to a lust-filled wreck.
-		 Leaning down towards her, you reach out and shake her arm.
-		 [pc.speech(A-Amber? Are you ok? I think I went too far...)]
+		Although you've come out on top after your fight with Amber, you're suddenly left feeling extremely awkward at having reduced the normally sadistic maid to a lust-filled wreck. Leaning down towards her, you reach out and shake her arm. [pc.speech(A-Amber? Are you ok? I think I went too far...)]
 	</p>
 	<p>
-		Amber's eyes lock on to yours, and beneath her lustful glare, you detect a glimmer of her usual sadistic self.
-		 Moving her hand out from beneath her dress, she sighs.
-		 [amber.speech(Y-Yes... I was just t-testing you... bitch...)]
+		Amber's eyes lock on to yours, and beneath her lustful glare, you detect a glimmer of her usual sadistic self. Moving her hand out from beneath her dress, she sighs. [amber.speech(Y-Yes... I was just t-testing you... bitch...)]
 	</p>
 	<p>
-		You breathe a sigh of relief, happy that Amber isn't completely overwhelmed with her arousal.
-		 You moment of solace is quickly brought to an end, however, as Amber quickly stands up and shakes her head.
-		 [amber.speech(That's right... bitch... Eugh! What came over me?! Stupid bitch!)]
+		You breathe a sigh of relief, happy that Amber isn't completely overwhelmed with her arousal. You moment of solace is quickly brought to an end, however, as Amber quickly stands up and shakes her head. [amber.speech(That's right... bitch... Eugh! What came over me?! Stupid bitch!)]
 	</p>
 	<p>
-		Alarmed at the speed in which Amber has recovered, you're unable to make a move as she quickly steps forwards and grabs you by the [pc.arms].
-		 [amber.speech(You're going to make this up to me, aren't you bitch? You <i>knew</i> I'd get horny after all this, didn't you?! Now you're going to have to take responsibility!)]
+		Alarmed at the speed in which Amber has recovered, you're unable to make a move as she quickly steps forwards and grabs you by the [pc.arms]. [amber.speech(You're going to make this up to me, aren't you bitch? You <i>knew</i> I'd get horny after all this, didn't you?! Now you're going to have to take responsibility!)]
 	</p>
 	<p>
-		As Amber grinds herself up against you, you feel the [amber.cockSize] bulge of thick [amber.cock] pressing against your [pc.leg].
-		 Not wanting to make her angry, you relent.
-		 [pc.speech(Yes, Mistress Amber! Y-You can use me for your relief if you'd like.)]
+		As Amber grinds herself up against you, you feel the [amber.cockSize] bulge of thick [amber.cock] pressing against your [pc.leg]. Not wanting to make her angry, you relent. [pc.speech(Yes, Mistress Amber! Y-You can use me for your relief if you'd like.)]
 	</p>
 	<p>
-		[amber.speech(That's right, <i>bitch</i>! INow you're going to pay for all that you've done!)]
-		 Mistress Amber snarls, before throwing you down onto all fours and dropping to her knees behind you.
-		 Grabbing hold of your [pc.hips+], she shuffles forwards, grinding her [amber.penisSize] bulge up against your [pc.ass+] as she snarls,
-		 [amber.speech(I'm going to give you such a rough fucking, you'll be sore for weeks!)]
+		[amber.speech(That's right, <i>bitch</i>! INow you're going to pay for all that you've done!)] Mistress Amber snarls, before throwing you down onto all fours and dropping to her knees behind you. Grabbing hold of your [pc.hips+], she shuffles forwards, grinding her [amber.penisSize] bulge up against your [pc.ass+] as she snarls, [amber.speech(I'm going to give you such a rough fucking, you'll be sore for weeks!)]
 	</p>
 	<p>
-		You start to let out a whimper, but your pathetic mewling is cut short as Mistress Amber delivers a stinging sharp slap to your [pc.ass+].
-		 [amber.speech(Fucking <i>bitch</i>!)]
+		You start to let out a whimper, but your pathetic mewling is cut short as Mistress Amber delivers a stinging sharp slap to your [pc.ass+]. [amber.speech(Fucking <i>bitch</i>!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_AMBER_SEX_VICTORY"><![CDATA[
 	<p>
-		Amber steps back, letting out a heavy sigh as she catches her breath.
-		 [amber.speech(Fuck... T-That was... Eugh! Y-You're going to forget this ever happened, ok?!)]
-		 Shaking her head, she quickly gathers her things and gets her maid's uniform back in order.
+		Amber steps back, letting out a heavy sigh as she catches her breath. [amber.speech(Fuck... T-That was... Eugh! Y-You're going to forget this ever happened, ok?!)] Shaking her head, she quickly gathers her things and gets her maid's uniform back in order.
 	</p>
 	<p>
-		Smirking at Amber's attempt to pretend as though she didn't have a good time, you similarly get your own things together, before heading to the door.
-		 Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning.
+		Smirking at Amber's attempt to pretend as though she didn't have a good time, you similarly get your own things together, before heading to the door. Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning.
 	</p>
-	<p>
-		 It doesn't look as though there's going to be any long-lasting effects from your fight.
-		 After all, Amber had been instructed by Zaranix to treat you as a guest, so, having started the fight, she was the one who was mostly in the wrong.
-		 Letting out a satisfied sigh, you wonder what you should do now...
+	<p> It doesn't look as though there's going to be any long-lasting effects from your fight. After all, Amber had been instructed by Zaranix to treat you as a guest, so, having started the fight, she was the one who was mostly in the wrong. Letting out a satisfied sigh, you wonder what you should do now...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_AMBER_SEX_SUB_VICTORY"><![CDATA[
 	<p>
-		Mistress Amber roughly pushes you to the floor, laughing down at you as she stands up.
-		 [amber.speech(Fucking bitch. That'll teach you to insult me.
-		 Now apologise, you worthless worm.)]
+		Mistress Amber roughly pushes you to the floor, laughing down at you as she stands up. [amber.speech(Fucking bitch. That'll teach you to insult me. Now apologise, you worthless worm.)]
 	</p>
 	<p>
-		You look up at the fiery maid to see a sadistic smirk on her face.
-		 Averting your eyes from her evil gaze, you push yourself up onto your knees and so as you're told.
-		 [pc.speech(Sorry, Mistress Amber...)]
+		You look up at the fiery maid to see a sadistic smirk on her face. Averting your eyes from her evil gaze, you push yourself up onto your knees and so as you're told. [pc.speech(Sorry, Mistress Amber...)]
 	</p>
 	<p>
-		[amber.speech(Good bitch,)]
-		 Amber says, before getting her things in order and stepping over to the other side of the room.
-		 [amber.speech(Come back when the weather's nice, and I'll take you for a little walk outside.
-		 For now, however, get out of my sight.)]
+		[amber.speech(Good bitch,)] Amber says, before getting her things in order and stepping over to the other side of the room. [amber.speech(Come back when the weather's nice, and I'll take you for a little walk outside. For now, however, get out of my sight.)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)]
-		 you say, quickly standing up, grabbing your things, and moving towards the door.
-		 Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning.
+		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)] you say, quickly standing up, grabbing your things, and moving towards the door. Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning.
 	</p>
 	<p>
-		It doesn't look as though there's going to be any long-lasting effects from your fight.
-		 After all, Amber had been instructed by Zaranix to treat you as a guest, so, having started the fight, she was the one who was mostly in the wrong.
-		 Letting out a satisfied sigh, you wonder what you should do now...
+		It doesn't look as though there's going to be any long-lasting effects from your fight. After all, Amber had been instructed by Zaranix to treat you as a guest, so, having started the fight, she was the one who was mostly in the wrong. Letting out a satisfied sigh, you wonder what you should do now...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_WALKIES"><![CDATA[
 	<p>
-		[pc.speech(Yes, Mistress Amber!)]
-		 you quickly reply, moving towards your Mistress before dutifully dropping down onto all fours in front of her.
+		[pc.speech(Yes, Mistress Amber!)] you quickly reply, moving towards your Mistress before dutifully dropping down onto all fours in front of her.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_DECLINED_WALK"><![CDATA[
 	<p>
-		[pc.speech(I'm not really in the mood for a walk right now...)]
-		 you say, stepping away from Amber.
+		[pc.speech(I'm not really in the mood for a walk right now...)] you say, stepping away from Amber.
 	</p>
 	<p>
-		[amber.speech(Then why are you wasting my time, bitch?! Get out of my sight, and don't bother disturbing me again until you've decided to act like the worthless bitch you are!)]
-		 Amber snaps, before turning her back on you and moving off to continue with her work.
-		 You wait until she's stepped away before moving towards the door.
-		 Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning.
-		 Having decided against going for a walk with Amber, you wonder what you should do next.
+		[amber.speech(Then why are you wasting my time, bitch?! Get out of my sight, and don't bother disturbing me again until you've decided to act like the worthless bitch you are!)] Amber snaps, before turning her back on you and moving off to continue with her work. You wait until she's stepped away before moving towards the door. Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning. Having decided against going for a walk with Amber, you wonder what you should do next.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_WALKIES_ATTACHES_COLLAR"><![CDATA[
 	<p>
-		[amber.speech(Good bitch.
-		 Now hold still,)]
-		 Mistress Amber snaps, before turning around and opening the top drawer of a nearby cabinet.
-		 From within, she produces a light pink collar and matching leather leash, before turning back to face you with an evil grin on her face.
+		[amber.speech(Good bitch. Now hold still,)] Mistress Amber snaps, before turning around and opening the top drawer of a nearby cabinet. From within, she produces a light pink collar and matching leather leash, before turning back to face you with an evil grin on her face.
 	</p>
 	<p>
-		[amber.speech(We can't have you going outside without being marked as my property, now, can we bitch?)]
-		 Amber sneers, before bending down to fasten the collar around your neck.
-		 Instantly, you feel [style.colourArcane(a powerful enchantment)] within the collar start to take effect, and you let out a whimpering little moan as you realise that it's making you both hornier and more submissive.
-		 A the same time, you feel the collar jinx's [style.colourBad(sealing)] the collar onto you.
+		[amber.speech(We can't have you going outside without being marked as my property, now, can we bitch?)] Amber sneers, before bending down to fasten the collar around your neck. Instantly, you feel [style.colourArcane(a powerful enchantment)] within the collar start to take effect, and you let out a whimpering little moan as you realise that it's making you both hornier and more submissive. A the same time, you feel the collar jinx's [style.colourBad(sealing)] the collar onto you.
 	</p>
 	<p>
-		[amber.speech(Good bitch,)]
-		 Mistress Amber says, clipping the leash to the metal ring at the front of your new collar.
-		 With a sudden, sharp yank of the leash, Mistress Amber pulls you towards a free-standing mirror in one corner of the lounge.
-		 [amber.speech(Look, bitch, don't you just look completely pathetic?)]
+		[amber.speech(Good bitch,)] Mistress Amber says, clipping the leash to the metal ring at the front of your new collar. With a sudden, sharp yank of the leash, Mistress Amber pulls you towards a free-standing mirror in one corner of the lounge. [amber.speech(Look, bitch, don't you just look completely pathetic?)]
 	</p>
 	<p>
-		You look up to see that your Mistress is right.
-		 Down on all fours, wearing a pink collar and leash, you look every bit Mistress Amber's property.
-		 Peering closer into the mirror, you see that there's a little name tag on your collar, which reads 'Amber's Bitch'.
-		 [pc.speech(Yes, Mistress Amber. I look pathetic.)]
+		You look up to see that your Mistress is right. Down on all fours, wearing a pink collar and leash, you look every bit Mistress Amber's property. Peering closer into the mirror, you see that there's a little name tag on your collar, which reads 'Amber's Bitch'. [pc.speech(Yes, Mistress Amber. I look pathetic.)]
 	</p>
 	<p>
-		[amber.speech(Good bitch. Now, heel,)]
-		 your Mistress says, yanking the lead once more as she leads you towards the lounge door.
-		 You obediently do as she says, crawling along beside the sadistic succubus as she leads you out of the lounge, down the corridor, and out of the front door into the street beyond.
+		[amber.speech(Good bitch. Now, heel,)] your Mistress says, yanking the lead once more as she leads you towards the lounge door. You obediently do as she says, crawling along beside the sadistic succubus as she leads you out of the lounge, down the corridor, and out of the front door into the street beyond.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_WALKIES_WITH_COLLAR"><![CDATA[
 	<p>
-		[amber.speech(Good bitch. I see you're still wearing your collar. <i>Very</i> good bitch,)]
-		 Mistress Amber says.
-		 Turning towards a nearby cabinet, she quickly retrieves a light pink leash from the top drawer, before stepping towards you and clipping it to the metal ring at the front of your collar.
-		 With a sudden, sharp yank of the leash, Mistress Amber pulls you towards a free-standing mirror in one corner of the lounge.
-		 [amber.speech(You look as completely pathetic as the last time we did this, don't you bitch?)]
+		[amber.speech(Good bitch. I see you're still wearing your collar. <i>Very</i> good bitch,)] Mistress Amber says. Turning towards a nearby cabinet, she quickly retrieves a light pink leash from the top drawer, before stepping towards you and clipping it to the metal ring at the front of your collar. With a sudden, sharp yank of the leash, Mistress Amber pulls you towards a free-standing mirror in one corner of the lounge. [amber.speech(You look as completely pathetic as the last time we did this, don't you bitch?)]
 	</p>
 	<p>
-		You look up to see that your Mistress is right.
-		 Down on all fours, wearing your special collar and leash, you look every bit Mistress Amber's property.
-		 Peering closer into the mirror, you read the familiar words 'Amber's Bitch' on little name tag attached to the front of your collar.
-		 [pc.speech(Yes, Mistress Amber. I look pathetic.)]
+		You look up to see that your Mistress is right. Down on all fours, wearing your special collar and leash, you look every bit Mistress Amber's property. Peering closer into the mirror, you read the familiar words 'Amber's Bitch' on little name tag attached to the front of your collar. [pc.speech(Yes, Mistress Amber. I look pathetic.)]
 	</p>
 	<p>
-		[amber.speech(Good bitch. Now, heel,)]
-		 your Mistress says, yanking the lead once more as she leads you towards the lounge door.
-		 You obediently do as she says, crawling along beside the sadistic succubus as she leads you out of the lounge, down the corridor, and out of the front door into the street beyond.
+		[amber.speech(Good bitch. Now, heel,)] your Mistress says, yanking the lead once more as she leads you towards the lounge door. You obediently do as she says, crawling along beside the sadistic succubus as she leads you out of the lounge, down the corridor, and out of the front door into the street beyond.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LOUNGE_AMBER_WALKIES_WITHOUT_COLLAR"><![CDATA[
 	<p>
-		[amber.speech(Good bitch. However, it looks like I can't give you one of my special collars... <i>Bad bitch,</i>)]
-		 Mistress Amber says.
-		 Turning towards a nearby cabinet, she quickly retrieves a special light pink leash from the top drawer.
-		 One end is fashioned into a small loop, which Mistress Amber holds in one hand, and the other is formed into a large noose.
-		 Stepping towards you, Mistress Amber places the noose around your neck, and with a rough tug, tightens it around your neck.
-		 With a sudden, sharp yank, Mistress Amber then pulls you towards a free-standing mirror in one corner of the lounge.
-		 [amber.speech(You look so pathetic, don't you bitch?)]
+		[amber.speech(Good bitch. However, it looks like I can't give you one of my special collars... <i>Bad bitch,</i>)] Mistress Amber says. Turning towards a nearby cabinet, she quickly retrieves a special light pink leash from the top drawer. One end is fashioned into a small loop, which Mistress Amber holds in one hand, and the other is formed into a large noose. Stepping towards you, Mistress Amber places the noose around your neck, and with a rough tug, tightens it around your neck. With a sudden, sharp yank, Mistress Amber then pulls you towards a free-standing mirror in one corner of the lounge. [amber.speech(You look so pathetic, don't you bitch?)]
 	</p>
 	<p>
-		You look up to see that your Mistress is right.
-		 Down on all fours, wearing your special leash, you look every bit Mistress Amber's property.
-		 [pc.speech(Yes, Mistress Amber. I look pathetic.)]
+		You look up to see that your Mistress is right. Down on all fours, wearing your special leash, you look every bit Mistress Amber's property. [pc.speech(Yes, Mistress Amber. I look pathetic.)]
 	</p>
 	<p>
-		[amber.speech(Good bitch. Now, heel,)]
-		 your Mistress says, yanking the lead once more as she leads you towards the lounge door.
-		 You obediently do as she says, crawling along beside the sadistic succubus as she leads you out of the lounge, down the corridor, and out of the front door into the street beyond.
+		[amber.speech(Good bitch. Now, heel,)] your Mistress says, yanking the lead once more as she leads you towards the lounge door. You obediently do as she says, crawling along beside the sadistic succubus as she leads you out of the lounge, down the corridor, and out of the front door into the street beyond.
 	</p>
 	]]>
 	</htmlContent>
@@ -1468,138 +1033,92 @@
 	
 	<htmlContent tag="LOUNGE_AMBER_WALKIES_BEGIN"><![CDATA[
 	<p>
-		With a tight grip on your leash, Mistress Amber sets off into the streets of Demon Home.
-		 Crawling along by her side, you're forced to endure the humiliating comments, giggles, and stares of the many people you pass along the way.
-		 Some of them even follow you for a little while, watching you place one [pc.hand] in front of the other as you obey your Mistress's command to heel.
+		With a tight grip on your leash, Mistress Amber sets off into the streets of Demon Home. Crawling along by her side, you're forced to endure the humiliating comments, giggles, and stares of the many people you pass along the way. Some of them even follow you for a little while, watching you place one [pc.hand] in front of the other as you obey your Mistress's command to heel.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_HUMILIATION"><![CDATA[
 	<p>
-		After a little while, you hear your Mistress let out a happy little laugh, before yanking your leash as she starts to hurry forwards.
-		 Snapping at you to hurry up, she then looks straight ahead and calls out,
-		 [amber.speech(Hey girls! Fancy seeing all of you here!)]
+		After a little while, you hear your Mistress let out a happy little laugh, before yanking your leash as she starts to hurry forwards. Snapping at you to hurry up, she then looks straight ahead and calls out, [amber.speech(Hey girls! Fancy seeing all of you here!)]
 	</p>
 	<p>
-		Looking up, you see a group of four or five succubi lounging about on a wooden bench to one side of the street.
-		 As you approach, the nearest one of the group turns towards Mistress Amber and waves.
-		 [genericFemale.speech(Heya Amber! How're you doing? We were just thinkin' about going down to the Shopping Arcade, did y'wanna come?)]
-		 Looking down at you with an amused smirk on her face, the succubus continues,
-		 [genericFemale.speech(Nice pet. You gonna bring [pc.herHim] along too?)]
+		Looking up, you see a group of four or five succubi lounging about on a wooden bench to one side of the street. As you approach, the nearest one of the group turns towards Mistress Amber and waves. [genericFemale.speech(Heya Amber! How're you doing? We were just thinkin' about going down to the Shopping Arcade, did y'wanna come?)] Looking down at you with an amused smirk on her face, the succubus continues, [genericFemale.speech(Nice pet. You gonna bring [pc.herHim] along too?)]
 	</p>
 	<p>
-		[amber.speech(Sorry girls, but I'm only out for a quick walk.
-		 I need to return and get back to work within the hour,)]
-		 Mistress Amber says, before looking down at you.
-		 [amber.speech(I could give you all a show before I leave though.
-		 This bitch is still in training, but [pc.she]'s obedient enough for most of the time.
-		 Want to see [pc.herHim] demonstrate what a good bitch [pc.she] is?)]
+		[amber.speech(Sorry girls, but I'm only out for a quick walk. I need to return and get back to work within the hour,)] Mistress Amber says, before looking down at you. [amber.speech(I could give you all a show before I leave though. This bitch is still in training, but [pc.she]'s obedient enough for most of the time. Want to see [pc.herHim] demonstrate what a good bitch [pc.she] is?)]
 	</p>
 	<p>
-		The succubi all start giggling, and the leader grins down at you with a smile almost as sadistic as your Mistress's.
-		 [genericFemale.speech(Hell yes! You always get all the fun, Amber... I wish I had a pet bitch...)]
+		The succubi all start giggling, and the leader grins down at you with a smile almost as sadistic as your Mistress's. [genericFemale.speech(Hell yes! You always get all the fun, Amber... I wish I had a pet bitch...)]
 	</p>
 	<p>
-		[amber.speech(Very well. Bitch, lick my shoes clean for me!)]
-		 Mistress Amber snaps, pulling on your lead to guide your face down to her feet.
+		[amber.speech(Very well. Bitch, lick my shoes clean for me!)] Mistress Amber snaps, pulling on your lead to guide your face down to her feet.
 	</p>
 	<p>
-		You could do as you're told, and obediently lick Mistress Amber's shoes in front of her friends.
-		 Then again, you could always refuse...
+		You could do as you're told, and obediently lick Mistress Amber's shoes in front of her friends. Then again, you could always refuse...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_HUMILIATION_REFUSE"><![CDATA[
 	<p>
-		[pc.speech(Mistress Amber... I don't want to do that...)]
-		 you say, looking down at the floor to avoid her furious gaze.
+		[pc.speech(Mistress Amber... I don't want to do that...)] you say, looking down at the floor to avoid her furious gaze.
 	</p>
 	<p>
-		[amber.speech(Stupid bitch!)]
-		 Amber snarls, roughly yanking on your lead, before turning to her friends.
-		 [amber.speech(As I said, [pc.she]'s still in training. Perhaps I'll have broken [pc.herHim] in properly by the next time we see you.)]
+		[amber.speech(Stupid bitch!)] Amber snarls, roughly yanking on your lead, before turning to her friends. [amber.speech(As I said, [pc.she]'s still in training. Perhaps I'll have broken [pc.herHim] in properly by the next time we see you.)]
 	</p>
 	<p>
-		[genericFemale.speech(Yeah, no worries, Amber!)]
-		 the leader of the succubi says, before glaring down at you with a look of utter disgust on her face.
-		 [genericFemale.speech(You should be thankful that Amber's spending her time trying to train you. Worthless bitch.)]
+		[genericFemale.speech(Yeah, no worries, Amber!)] the leader of the succubi says, before glaring down at you with a look of utter disgust on her face. [genericFemale.speech(You should be thankful that Amber's spending her time trying to train you. Worthless bitch.)]
 	</p>
 	<p>
-		[amber.speech(Well, see you later girls. Have a good time shopping!)]
-		 Mistress Amber says, before roughly yanking your lead and snapping down at you.
-		 [amber.speech(Heel.)]
+		[amber.speech(Well, see you later girls. Have a good time shopping!)] Mistress Amber says, before roughly yanking your lead and snapping down at you. [amber.speech(Heel.)]
 	</p>
 	<p>
-		You do as Mistress Amber says, and crawl alongside her as she leads you away from the group of succubi.
-		 [amber.speech(Stupid bitch! Trying to humiliate me in front of my friends like that! We're going straight home!)]
+		You do as Mistress Amber says, and crawl alongside her as she leads you away from the group of succubi. [amber.speech(Stupid bitch! Trying to humiliate me in front of my friends like that! We're going straight home!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_HUMILIATION_RELUCTANT"><![CDATA[
 	<p>
-		[pc.speech(Yes, Mistress Amber,)]
-		 you say, leaning down and kissing the tip of her right shoe.
+		[pc.speech(Yes, Mistress Amber,)] you say, leaning down and kissing the tip of her right shoe.
 	</p>
 	<p>
-		The group of succubi all instantly start giggling and chattering amongst themselves as they watch you humiliate yourself.
-		 Despite your desire to obey your Mistress, you're still a little reluctant to really commit to licking her shoes, and simply make do with kissing them instead.
+		The group of succubi all instantly start giggling and chattering amongst themselves as they watch you humiliate yourself. Despite your desire to obey your Mistress, you're still a little reluctant to really commit to licking her shoes, and simply make do with kissing them instead.
 	</p>
 	<p>
-		[amber.speech(Come on bitch, put that tongue of yours to use!)]
-		 Amber snaps, sensing your hesitation.
+		[amber.speech(Come on bitch, put that tongue of yours to use!)] Amber snaps, sensing your hesitation.
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber,)]
-		 you reply, dutifully starting to lick her shoes.
-		 You still aren't really comfortable doing this, however, and after passing your tongue over the tart, salty surface a couple of times, you revert back to your kissing.
+		[pc.speech(Yes, Mistress Amber,)] you reply, dutifully starting to lick her shoes. You still aren't really comfortable doing this, however, and after passing your tongue over the tart, salty surface a couple of times, you revert back to your kissing.
 	</p>
 	<p>
-		[amber.speech(Well, that will do I suppose. Put some more effort into it next time, bitch,)]
-		 Mistress Amber snarls, before yanking your lead and ordering you to stop.
-		 Turning towards her friends, her voice takes on a friendly tone as she says goodbye,
-		 [amber.speech(Well, see you later girls. Have a good time shopping!)]
+		[amber.speech(Well, that will do I suppose. Put some more effort into it next time, bitch,)] Mistress Amber snarls, before yanking your lead and ordering you to stop. Turning towards her friends, her voice takes on a friendly tone as she says goodbye, [amber.speech(Well, see you later girls. Have a good time shopping!)]
 	</p>
 	<p>
-		The succubi say their farewells to Mistress Amber, and you soon find yourself crawling alongside the fiery maid once more as she leads you down the streets of Demon Home.
-		 [amber.speech(Bad bitch! I want you to put some more effort into it the next time I order you to do something!)]
-		 she snaps, before continuing,
-		 [amber.speech(Now, heel. We're going straight home!)]
+		The succubi say their farewells to Mistress Amber, and you soon find yourself crawling alongside the fiery maid once more as she leads you down the streets of Demon Home. [amber.speech(Bad bitch! I want you to put some more effort into it the next time I order you to do something!)] she snaps, before continuing, [amber.speech(Now, heel. We're going straight home!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_HUMILIATION_EAGER"><![CDATA[
 	<p>
-		[pc.speech(Yes, Mistress Amber,)]
-		 you happily exclaim, before leaning down and planting a loving kiss on the tip of her right shoe.
+		[pc.speech(Yes, Mistress Amber,)] you happily exclaim, before leaning down and planting a loving kiss on the tip of her right shoe.
 	</p>
 	<p>
-		The group of succubi all instantly start giggling and chattering amongst themselves as they watch you humiliate yourself.
-		 Their behaviour does nothing to diminish your desire to obey your Mistress, and quickly move on from kissing to greedily licking her shoes.
-		 Running your [pc.tongue+] over her high heels, you savour the salty, grimy taste of Mistress Amber's footwear as you show her what an obedient bitch you are.
+		The group of succubi all instantly start giggling and chattering amongst themselves as they watch you humiliate yourself. Their behaviour does nothing to diminish your desire to obey your Mistress, and quickly move on from kissing to greedily licking her shoes. Running your [pc.tongue+] over her high heels, you savour the salty, grimy taste of Mistress Amber's footwear as you show her what an obedient bitch you are.
 	</p>
 	<p>
-		[amber.speech(Good bitch! Don't forget the other one, now!)]
-		 Amber laughs, moving her right foot back before thrusting her left towards you.
+		[amber.speech(Good bitch! Don't forget the other one, now!)] Amber laughs, moving her right foot back before thrusting her left towards you.
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber!)]
-		 you reply, before dutifully switching over to the as-yet untouched shoe.
-		 Quickly darting out your tongue to deliver a slow, wet lick over the tart, salty surface, you start kissing and nuzzling into Mistress Amber's shoe.
+		[pc.speech(Yes, Mistress Amber!)] you reply, before dutifully switching over to the as-yet untouched shoe. Quickly darting out your tongue to deliver a slow, wet lick over the tart, salty surface, you start kissing and nuzzling into Mistress Amber's shoe.
 	</p>
 	<p>
-		[amber.speech(Very good, bitch. That's enough,)]
-		 Mistress Amber snaps, before yanking your lead and turning towards her friends.
-		 [amber.speech(Well, I hope you enjoyed the show, girls. Have a good time shopping, I'll see you later!)]
+		[amber.speech(Very good, bitch. That's enough,)] Mistress Amber snaps, before yanking your lead and turning towards her friends. [amber.speech(Well, I hope you enjoyed the show, girls. Have a good time shopping, I'll see you later!)]
 	</p>
 	<p>
-		The succubi say their farewells to Mistress Amber, and you soon find yourself crawling alongside the fiery maid once more as she leads you down the streets of Demon Home.
-		 [amber.speech(Good bitch! My friends seemed very impressed with your performance!)]
-		 she says, before continuing,
-		 [amber.speech(Now, heel. It's time to go home.)]
+		The succubi say their farewells to Mistress Amber, and you soon find yourself crawling alongside the fiery maid once more as she leads you down the streets of Demon Home. [amber.speech(Good bitch! My friends seemed very impressed with your performance!)] she says, before continuing, [amber.speech(Now, heel. It's time to go home.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1609,88 +1128,65 @@
 		Nothing of any real note occurs during your walk, and, other than the occasional yank of your lead and command to heel, Mistress Amber remains quiet as she enjoys her time outside.
 	</p>
 	<p>
-		After a little while, you realise that she's leading you in a meandering circuit of Demon Home, and that the last turn you took has put you on course for a speedy return to Zaranix's house.
-		 To confirm your suspicions, Amber breaks the pleasant silence, and sighs.
-		 [amber.speech(Good bitch. It's time to go home.)]
+		After a little while, you realise that she's leading you in a meandering circuit of Demon Home, and that the last turn you took has put you on course for a speedy return to Zaranix's house. To confirm your suspicions, Amber breaks the pleasant silence, and sighs. [amber.speech(Good bitch. It's time to go home.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_PUNISHMENT"><![CDATA[
 	<p>
-		Through no real fault of your own, you can sense that Mistress Amber is in a particularly bad mood today.
-		 She keeps on making tutting sounds under her breath, and every now and then she snaps at a passerby to move out of her way - a command that the unfortunate citizen invariably hurries to obey.
+		Through no real fault of your own, you can sense that Mistress Amber is in a particularly bad mood today. She keeps on making tutting sounds under her breath, and every now and then she snaps at a passerby to move out of her way - a command that the unfortunate citizen invariably hurries to obey.
 	</p>
 	<p>
-		After a short while, Mistress Amber's temper suddenly boils over, and she turns on you with a furious tone in her voice,
-		 [amber.speech(Stupid bitch! I thought I told you to heel! I'll teach you for lagging behind!)]
+		After a short while, Mistress Amber's temper suddenly boils over, and she turns on you with a furious tone in her voice, [amber.speech(Stupid bitch! I thought I told you to heel! I'll teach you for lagging behind!)]
 	</p>
 	<p>
-		You let out a little cry as your Mistress roughly yanks you forwards on your lead, and, stumbling over your [pc.hands] and feet, you fall to the floor in front of her.
-		 [pc.speech(Sorry, Mistress Amber! I didn't mean t- ~Aaah!~)]
+		You let out a little cry as your Mistress roughly yanks you forwards on your lead, and, stumbling over your [pc.hands] and feet, you fall to the floor in front of her. [pc.speech(Sorry, Mistress Amber! I didn't mean t- ~Aaah!~)]
 	</p>
 	<p>
-		Your apology is cut short as you feel a stinging slap land on your [pc.ass+].
-		 Turning your head, you see Mistress Amber kneeling over you, and, in full sight of the street, she start swatting your [pc.ass] with full force.
-		 You squirm and cry out as your Mistress vents her frustration on your poor behind, and it doesn't take long before a small crowd has gathered to witness the unfortunate situation that you find yourself in.
+		Your apology is cut short as you feel a stinging slap land on your [pc.ass+]. Turning your head, you see Mistress Amber kneeling over you, and, in full sight of the street, she start swatting your [pc.ass] with full force. You squirm and cry out as your Mistress vents her frustration on your poor behind, and it doesn't take long before a small crowd has gathered to witness the unfortunate situation that you find yourself in.
 	</p>
 	<p>
-		After several minutes of administering the humiliating and painful punishment, Mistress Amber finally rises to her feet, and, looking down at you, she snarls,
-		 [amber.speech(Stupid bitch! Maybe now you'll do as you're told!)]
+		After several minutes of administering the humiliating and painful punishment, Mistress Amber finally rises to her feet, and, looking down at you, she snarls, [amber.speech(Stupid bitch! Maybe now you'll do as you're told!)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber! Sorry, Mistress Amber!)]
-		 you cry, pushing yourself up onto all fours before hurrying forwards to your Mistress's side.
-		 The crowd around you starts to disperse, and with a short pull of your leash, Mistress Amber continues down the street.
+		[pc.speech(Yes, Mistress Amber! Sorry, Mistress Amber!)] you cry, pushing yourself up onto all fours before hurrying forwards to your Mistress's side. The crowd around you starts to disperse, and with a short pull of your leash, Mistress Amber continues down the street.
 	</p>
 	<p>
-		[amber.speech(Good bitch,)]
-		 Mistress Amber says, breaking the silence between you.
-		 The tone in her voice is considerably softer than it was before, and you can't help but feel relieved that your Mistress appears to be feeling better.
-		 [amber.speech(Let's go home.)]
+		[amber.speech(Good bitch,)] Mistress Amber says, breaking the silence between you. The tone in her voice is considerably softer than it was before, and you can't help but feel relieved that your Mistress appears to be feeling better. [amber.speech(Let's go home.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_AMBER_FUCKS"><![CDATA[
 	<p>
-		As you walk, you notice that Mistress Amber keeps on glancing down at you out of the corer of her eye.
-		 She starts breathing a little heavier, and as you hear her let out an almost-inaudible moan, you realise that she's getting immensely turned on by parading you about in public like this.
+		As you walk, you notice that Mistress Amber keeps on glancing down at you out of the corer of her eye. She starts breathing a little heavier, and as you hear her let out an almost-inaudible moan, you realise that she's getting immensely turned on by parading you about in public like this.
 	</p>
 	<p>
-		Just as you're wondering what she's going to do about her building lust, Mistress Amber suddenly pulls you to one side of the street, and, still in full view of all the people around you, half-moans, half-growls,
-		 [amber.speech(You bitch... Purposefully swaying your ass like that to tempt me... Well, I'll show you! Raise your ass and present yourself! I'm going to fuck you right here in the street!)]
+		Just as you're wondering what she's going to do about her building lust, Mistress Amber suddenly pulls you to one side of the street, and, still in full view of all the people around you, half-moans, half-growls, [amber.speech(You bitch... Purposefully swaying your ass like that to tempt me... Well, I'll show you! Raise your ass and present yourself! I'm going to fuck you right here in the street!)]
 	</p>
 	<p>
-		You look up at Mistress Amber to see her glowing amber-coloured eyes burning with passion.
-		 She's obviously serious about her demand, and you wonder if you should as she says, and present yourself to be fucked right here in full view of the street, or say no to her.
+		You look up at Mistress Amber to see her glowing amber-coloured eyes burning with passion. She's obviously serious about her demand, and you wonder if you should as she says, and present yourself to be fucked right here in full view of the street, or say no to her.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_AMBER_FUCKS_START"><![CDATA[
 	<p>
-		You obediently shuffle around to present your rear-end to Mistress Amber.
-		 Lifting your [pc.hips+] up into the air, you wiggle your [pc.ass+] from side-to-side a little.
-		 [pc.speech(Is this to your liking, Mistress Amber?)]
+		You obediently shuffle around to present your rear-end to Mistress Amber. Lifting your [pc.hips+] up into the air, you wiggle your [pc.ass+] from side-to-side a little. [pc.speech(Is this to your liking, Mistress Amber?)]
 	</p>
 	<p>
-		Unable to control her urges any longer, your Mistress drops down onto her knees behind you.
-		 Reaching down to roughly squeeze your [pc.ass+], she then delivers a quick slap to one of your cheeks, moaning as she does so.
-		 [amber.speech(Yes, good bitch! Oh, I'm going to fuck you so hard!)]
+		Unable to control her urges any longer, your Mistress drops down onto her knees behind you. Reaching down to roughly squeeze your [pc.ass+], she then delivers a quick slap to one of your cheeks, moaning as she does so. [amber.speech(Yes, good bitch! Oh, I'm going to fuck you so hard!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_AMBER_FUCKS_REFUSED"><![CDATA[
 	<p>
-		You don't really want to have sex with Mistress Amber out in public like this, and, filled with unease, you back away from her a little.
-		 [pc.speech(Sorry Mistress Amber... I don't think that's a good idea...)]
+		You don't really want to have sex with Mistress Amber out in public like this, and, filled with unease, you back away from her a little. [pc.speech(Sorry Mistress Amber... I don't think that's a good idea...)]
 	</p>
 	<p>
-		[amber.speech(Stupid bitch!)]
-		 Mistress Amber snaps.
-		 [amber.speech(Fine! We're heading home then!)]
+		[amber.speech(Stupid bitch!)] Mistress Amber snaps. [amber.speech(Fine! We're heading home then!)]
 	</p>
 	<p>
 		With that, your Mistress roughly yanks on your lead, leaving you to scramble forwards on all fours as you rush to catch up with her.
@@ -1700,88 +1196,64 @@
 	
 	<htmlContent tag="WALKIES_AMBER_FUCKS_POST_SEX"><![CDATA[
 	<p>
-		With one last rough squeeze of your [pc.ass+], Mistress Amber stands up.
-		 As she gathers her things, the crowd that gathered to watch her impressive performance starts to dissipate.
-		 [amber.speech(Good bitch. Fuck... I needed that...)]
+		With one last rough squeeze of your [pc.ass+], Mistress Amber stands up. As she gathers her things, the crowd that gathered to watch her impressive performance starts to dissipate. [amber.speech(Good bitch. Fuck... I needed that...)]
 	</p>
 	<p>
-		You can't help but smile at your Mistress's praise, and, making sure that you've got your own things in order, you crawl forwards to her side.
-		 [pc.speech(Yes, Mistress Amber. I'm happy to have helped, Mistress Amber.)]
+		You can't help but smile at your Mistress's praise, and, making sure that you've got your own things in order, you crawl forwards to her side. [pc.speech(Yes, Mistress Amber. I'm happy to have helped, Mistress Amber.)]
 	</p>
 	<p>
-		Smirking down at you, your Mistress sighs.
-		 [amber.speech(Good bitch. It's time to go home.)]
+		Smirking down at you, your Mistress sighs. [amber.speech(Good bitch. It's time to go home.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_PET_FUCKS"><![CDATA[
 	<p>
-		The first half of your walk passes without incident, but as you turn a corner to start on your journey back to Zaranix's house, Mistress Amber suddenly lets out a happy little cry.
-		 With a quick tug of your lead, she starts leading you across the street, but due to the crowds of people all around you, you aren't quite sure what it is that she's seen.
+		The first half of your walk passes without incident, but as you turn a corner to start on your journey back to Zaranix's house, Mistress Amber suddenly lets out a happy little cry. With a quick tug of your lead, she starts leading you across the street, but due to the crowds of people all around you, you aren't quite sure what it is that she's seen.
 	</p>
 	<p>
-		[amber.speech(Hurry up, bitch,)]
-		 Mistress Amber snaps, yanking on your lead yet again.
-		 [amber.speech(I don't want to miss her.)]
+		[amber.speech(Hurry up, bitch,)] Mistress Amber snaps, yanking on your lead yet again. [amber.speech(I don't want to miss her.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_PET_FUCKS_SNIFFING"><![CDATA[
 	<p>
-		Looking up, you notice that you're being led towards a couple who look very similar to you and your Mistress.
-		 [npc1.A_fullRace(true)], holding the leash of [npc2.a_fullRace(true)], is looking at the goods on display in a shop window.
+		Looking up, you notice that you're being led towards a couple who look very similar to you and your Mistress. [npc1.A_fullRace(true)], holding the leash of [npc2.a_fullRace(true)], is looking at the goods on display in a shop window.
 	</p>
 	<p>
-		As you draw near, Mistress Amber calls out to the [npc1.race],
-		 [amber.speech([npc1.Name]! Fancy seeing you here!)]
+		As you draw near, Mistress Amber calls out to the [npc1.race], [amber.speech([npc1.Name]! Fancy seeing you here!)]
 	</p>
 	<p>
-		The [npc1.race], who must be [npc1.name], spins around, looking this way and that for the origin of the voice that just called out to [npc1.herHim].
-		 Catching sight of Mistress Amber, a big smile breaks out on [npc1.her] face, and [npc1.she] skips over towards you.
-		 [npc1.speech(Amber! Oh, you're taking your pet out for a walk too, I see.)]
+		The [npc1.race], who must be [npc1.name], spins around, looking this way and that for the origin of the voice that just called out to [npc1.herHim]. Catching sight of Mistress Amber, a big smile breaks out on [npc1.her] face, and [npc1.she] skips over towards you. [npc1.speech(Amber! Oh, you're taking your pet out for a walk too, I see.)]
 	</p>
 	<p>
-		Mistress Amber comes to a halt in front of [npc1.name], and the two share a quick hug before stepping back from one another.
-		 [amber.speech(That's right, I wanted to get some fresh air, and I thought I'd take my bitch out with me.
-		 I don't remember you owning [npc2.a_race]. Is that a new pet of yours?)]
+		Mistress Amber comes to a halt in front of [npc1.name], and the two share a quick hug before stepping back from one another. [amber.speech(That's right, I wanted to get some fresh air, and I thought I'd take my bitch out with me. I don't remember you owning [npc2.a_race]. Is that a new pet of yours?)]
 	</p>
 	<p>
-		[npc1.speech(Yeah, I thought I'd treat myself, so I went and bought [npc2.name] here from Slaver Alley just the other day!
-		 [npc2.She]'s a little more excitable than my other slaves, and can't seem to stop humping them.
-		 It's getting to be a bit of a problem...)]
+		[npc1.speech(Yeah, I thought I'd treat myself, so I went and bought [npc2.name] here from Slaver Alley just the other day! [npc2.She]'s a little more excitable than my other slaves, and can't seem to stop humping them. It's getting to be a bit of a problem...)]
 	</p>
 	<p>
-		[amber.speech(You always were far too soft, [npc1.name]. You have to be hard on those beneath you, or else they'll never respect you.
-		 Anyway, how are things with you? I haven't seen you around here for ages...)]
+		[amber.speech(You always were far too soft, [npc1.name]. You have to be hard on those beneath you, or else they'll never respect you. Anyway, how are things with you? I haven't seen you around here for ages...)]
 	</p>
 	<p>
-		As Mistress Amber talks with [npc1.name], your counterpart, [npc2.name], starts trying to crawl around behind you and sniff your crotch.
-		 You back away from [npc2.herHim] in an attempt to show that you're not interested, but [npc2.she] doesn't take the hint, and suddenly pulls forwards, causing [npc1.name] to stumble a little as [npc1.she] tries to keep [npc1.her] pet under control.
+		As Mistress Amber talks with [npc1.name], your counterpart, [npc2.name], starts trying to crawl around behind you and sniff your crotch. You back away from [npc2.herHim] in an attempt to show that you're not interested, but [npc2.she] doesn't take the hint, and suddenly pulls forwards, causing [npc1.name] to stumble a little as [npc1.she] tries to keep [npc1.her] pet under control.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_PET_FUCKS_SNIFFING_MOUNTING"><![CDATA[
 	<p>
-		[npc1.speech([npc2.Name]! Bad! Bad [npc2.girl]!)]
-		 [npc1.Name] cries, leaning down to gently smack [npc1.her] pet on the nose.
-		 [npc1.speech(See what I mean, Amber? [npc2.She]'s so horny all the time! Sorry about [npc2.herHim] bothering your pet...)]
+		[npc1.speech([npc2.Name]! Bad! Bad [npc2.girl]!)] [npc1.Name] cries, leaning down to gently smack [npc1.her] pet on the nose. [npc1.speech(See what I mean, Amber? [npc2.She]'s so horny all the time! Sorry about [npc2.herHim] bothering your pet...)]
 	</p>
 	<p>
-		You look up at Mistress Amber to see an evil smile break out across her face.
-		 [amber.speech(Not at all, [npc1.name]! In fact, perhaps my bitch here could help you out a little.
-		 I'll let your pet have a go at humping [pc.herHim], if you'd like.
-		 That should calm '[npc2.name]' down enough until you get [npc2.herHim] home.)]
+		You look up at Mistress Amber to see an evil smile break out across her face. [amber.speech(Not at all, [npc1.name]! In fact, perhaps my bitch here could help you out a little. I'll let your pet have a go at humping [pc.herHim], if you'd like. That should calm '[npc2.name]' down enough until you get [npc2.herHim] home.)]
 	</p>
 	<p>
-		[npc1.speech(Oh, thanks, Amber! Yeah, that'd be great! [npc2.She] gets a lot more docile after [npc2.she]'s emptied [npc2.her] balls into something!)]
-		 [npc1.Name] happily replies, starting to loosen [npc1.her] grip on the leash.
+		[npc1.speech(Oh, thanks, Amber! Yeah, that'd be great! [npc2.She] gets a lot more docile after [npc2.she]'s emptied [npc2.her] balls into something!)] [npc1.Name] happily replies, starting to loosen [npc1.her] grip on the leash.
 	</p>
 	<p>
-		Mistress Amber smiles at her friend, before turning to glare down at you.
-		 [amber.speech(Present yourself, bitch!)]
+		Mistress Amber smiles at her friend, before turning to glare down at you. [amber.speech(Present yourself, bitch!)]
 	</p>
 	<p>
 		If you don't want to be mounted by [npc2.name], you'd better say something to Mistress Amber, and quickly!
@@ -1791,23 +1263,16 @@
 	
 	<htmlContent tag="WALKIES_PET_FUCKS_SNIFFING_ORAL"><![CDATA[
 	<p>
-		[npc1.speech([npc2.Name]! Bad! Bad [npc2.girl]!)]
-		 [npc1.Name] cries, leaning down to gently smack [npc1.her] pet on the nose.
-		 [npc1.speech(See what I mean, Amber? [npc2.She]'s so horny all the time! Sorry about [npc2.herHim] bothering your pet...)]
+		[npc1.speech([npc2.Name]! Bad! Bad [npc2.girl]!)] [npc1.Name] cries, leaning down to gently smack [npc1.her] pet on the nose. [npc1.speech(See what I mean, Amber? [npc2.She]'s so horny all the time! Sorry about [npc2.herHim] bothering your pet...)]
 	</p>
 	<p>
-		You look up at Mistress Amber to see an evil smile break out across her face.
-		 [amber.speech(Not at all, [npc1.name]! In fact, perhaps my bitch here could help you out a little.
-		 My bitch's ass is off-limits, but I'll let your pet use [pc.her] mouth if you'd like?
-		 That should calm '[npc2.name]' down enough until you get [npc2.herHim] home.)]
+		You look up at Mistress Amber to see an evil smile break out across her face. [amber.speech(Not at all, [npc1.name]! In fact, perhaps my bitch here could help you out a little. My bitch's ass is off-limits, but I'll let your pet use [pc.her] mouth if you'd like? That should calm '[npc2.name]' down enough until you get [npc2.herHim] home.)]
 	</p>
 	<p>
-		[npc1.speech(Oh, thanks, Amber! Yeah, that'd be great! [npc2.She] gets a lot more docile after [npc2.she]'s emptied [npc2.her] balls into something!)]
-		 [npc1.Name] happily replies, starting to loosen [npc1.her] grip on the leash.
+		[npc1.speech(Oh, thanks, Amber! Yeah, that'd be great! [npc2.She] gets a lot more docile after [npc2.she]'s emptied [npc2.her] balls into something!)] [npc1.Name] happily replies, starting to loosen [npc1.her] grip on the leash.
 	</p>
 	<p>
-		Mistress Amber smiles at her friend, before turning to glare down at you.
-		 [amber.speech(Open wide, bitch!)]
+		Mistress Amber smiles at her friend, before turning to glare down at you. [amber.speech(Open wide, bitch!)]
 	</p>
 	<p>
 		If you don't want to suck [npc2.name]'s cock, you'd better say something to Mistress Amber, and quickly!
@@ -1817,52 +1282,38 @@
 	
 	<htmlContent tag="WALKIES_PET_FUCKS_SNIFFING_NO_SEX"><![CDATA[
 	<p>
-		[npc1.speech([npc2.Name]! Bad! Bad [npc2.girl]!)]
-		 [npc1.Name] cries, leaning down to gently smack [npc1.her] pet on the nose.
-		 [npc1.speech(See what I mean, Amber? [npc2.She]'s so horny all the time! Sorry about [npc2.herHim] bothering your pet...)]
+		[npc1.speech([npc2.Name]! Bad! Bad [npc2.girl]!)] [npc1.Name] cries, leaning down to gently smack [npc1.her] pet on the nose. [npc1.speech(See what I mean, Amber? [npc2.She]'s so horny all the time! Sorry about [npc2.herHim] bothering your pet...)]
 	</p>
 	<p>
-		You look up at Mistress Amber as she lets out a little sigh.
-		 [amber.speech(Don't worry about it, [npc1.name]! I'd love to have helped you out, but my bitch is all locked up.
-		 You'll just have to let '[npc2.name]' here have a go at one of your slaves when you get back home.)]
+		You look up at Mistress Amber as she lets out a little sigh. [amber.speech(Don't worry about it, [npc1.name]! I'd love to have helped you out, but my bitch is all locked up. You'll just have to let '[npc2.name]' here have a go at one of your slaves when you get back home.)]
 	</p>
 	<p>
-		[npc1.speech(Yeah... I'd better get [npc2.herHim] back there now... It was fun talking to you again, Amber. See you soon!)]
-		 [npc1.Name] says, sharply tugging on [npc1.her] leash as [npc1.she] pulls [npc2.name] away from you.
+		[npc1.speech(Yeah... I'd better get [npc2.herHim] back there now... It was fun talking to you again, Amber. See you soon!)] [npc1.Name] says, sharply tugging on [npc1.her] leash as [npc1.she] pulls [npc2.name] away from you.
 	</p>
 	<p>
-		[amber.speech(Bye, [npc1.name]!)]
-		 Mistress Amber calls after her friend, before turning to you.
-		 [amber.speech(Bitch, heel. We're going home.)]
+		[amber.speech(Bye, [npc1.name]!)] Mistress Amber calls after her friend, before turning to you. [amber.speech(Bitch, heel. We're going home.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_PET_FUCKS_REFUSE"><![CDATA[
 	<p>
-		Unwilling to let [npc2.name] have [npc2.her] way with you, you back off, before looking up at Mistress Amber and letting out a whine.
-		 [pc.speech(Mistress Amber, please, I don't want to do this...)]
+		Unwilling to let [npc2.name] have [npc2.her] way with you, you back off, before looking up at Mistress Amber and letting out a whine. [pc.speech(Mistress Amber, please, I don't want to do this...)]
 	</p>
 	<p>
-		Mistress Amber glares down at you, her glowing amber eyes burning with fury.
-		 [amber.speech(Bad bitch! <i>Very</i> bad bitch!)]
+		Mistress Amber glares down at you, her glowing amber eyes burning with fury. [amber.speech(Bad bitch! <i>Very</i> bad bitch!)]
 	</p>
 	<p>
-		Sharply yanking your leash, Mistress Amber then turns to her friend.
-		 [amber.speech(I'm so sorry, [npc1.name]. Bitch here is still being trained.)]
+		Sharply yanking your leash, Mistress Amber then turns to her friend. [amber.speech(I'm so sorry, [npc1.name]. Bitch here is still being trained.)]
 	</p>
 	<p>
-		[npc1.speech(No worries, Amber!)]
-		 [npc1.name] laughs, before tugging on [npc1.her] pet's leash.
-		 [npc1.speech(Come on [npc2.name]! You can have some fun with your toys back home!)]
+		[npc1.speech(No worries, Amber!)] [npc1.name] laughs, before tugging on [npc1.her] pet's leash. [npc1.speech(Come on [npc2.name]! You can have some fun with your toys back home!)]
 	</p>
 	<p>
-		Mistress Amber says her farewells to her friend, before turning back towards you.
-		 [amber.speech(Bad bitch! You're to do <i>exactly</i> what I say next time, understood?!)]
+		Mistress Amber says her farewells to her friend, before turning back towards you. [amber.speech(Bad bitch! You're to do <i>exactly</i> what I say next time, understood?!)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber,)]
-		 you reply, casting your eyes down to the ground before you.
+		[pc.speech(Yes, Mistress Amber,)] you reply, casting your eyes down to the ground before you.
 	</p>
 	<p>
 		[amber.speech(Stupid bitch! I can't believe you humiliated me in front of my friend like that! We're going straight home!)]
@@ -1872,55 +1323,43 @@
 	
 	<htmlContent tag="WALKIES_PET_FUCKS_START"><![CDATA[
 	<p>
-		[pc.speech(Yes, Mistress Amber,)]
-		 you say, turning to present your [pc.ass+] to [npc2.name].
+		[pc.speech(Yes, Mistress Amber,)] you say, turning to present your [pc.ass+] to [npc2.name].
 	</p>
 	<p>
-		[npc1.speech(Go on then, [npc2.boy]!)]
-		 [npc1.name] says cheerily.
-		 [npc1.speech(You can fuck Amber's bitch! Go on!)]
+		[npc1.speech(Go on then, [npc2.boy]!)] [npc1.name] says cheerily. [npc1.speech(You can fuck Amber's bitch! Go on!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_PET_FUCKS_START_CLOTHING"><![CDATA[
 	<p>
-		[npc2.Name] lets out a happy [npc2.moan], and, with little concern for your comfort, roughly pulls your clothing aside to reveal your [pc.ass+].
-		 Not wasting a single moment, [npc2.she] instantly bounds forwards, climbing on top of you as [npc2.she] mounts you right there in full view of the busy street.
+		[npc2.Name] lets out a happy [npc2.moan], and, with little concern for your comfort, roughly pulls your clothing aside to reveal your [pc.ass+]. Not wasting a single moment, [npc2.she] instantly bounds forwards, climbing on top of you as [npc2.she] mounts you right there in full view of the busy street.
 	</p>
 	<p>
-		Down on all fours, you're left to hold up both your and your partner's weight as you prepare to be fucked.
-		 You feel the [npc2.race]'s [npc2.cock+] poking against your [pc.ass+], and realise that it's only going to be a matter of seconds before [npc2.she]'s humping you in front of your Mistress, [npc1.name], and anyone else who happens to stop and watch...
+		Down on all fours, you're left to hold up both your and your partner's weight as you prepare to be fucked. You feel the [npc2.race]'s [npc2.cock+] poking against your [pc.ass+], and realise that it's only going to be a matter of seconds before [npc2.she]'s humping you in front of your Mistress, [npc1.name], and anyone else who happens to stop and watch...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_PET_FUCKS_START_EXPOSED"><![CDATA[
 	<p>
-		[npc2.Name] lets out a happy [npc2.moan], and, nuzzling [npc2.her] face up against your [pc.ass+], [npc2.she] delivers a quick, wet lick to your exposed [pc.ass+].
-		 Not wasting a single moment, [npc2.she] then instantly bounds forwards, climbing on top of you as [npc2.she] mounts you right there in full view of the busy street.
+		[npc2.Name] lets out a happy [npc2.moan], and, nuzzling [npc2.her] face up against your [pc.ass+], [npc2.she] delivers a quick, wet lick to your exposed [pc.ass+]. Not wasting a single moment, [npc2.she] then instantly bounds forwards, climbing on top of you as [npc2.she] mounts you right there in full view of the busy street.
 	</p>
 	<p>
-		Down on all fours, you're left to hold up both your and your partner's weight as you prepare to be fucked.
-		 You feel the [npc2.race]'s [npc2.cock+] poking against your [pc.ass+], and realise that it's only going to be a matter of seconds before [npc2.she]'s humping you in front of your Mistress, [npc1.name], and anyone else who happens to stop and watch...
+		Down on all fours, you're left to hold up both your and your partner's weight as you prepare to be fucked. You feel the [npc2.race]'s [npc2.cock+] poking against your [pc.ass+], and realise that it's only going to be a matter of seconds before [npc2.she]'s humping you in front of your Mistress, [npc1.name], and anyone else who happens to stop and watch...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WALKIES_PET_FUCKS_START_ORAL"><![CDATA[
 	<p>
-		[pc.speech(Yes, Mistress Amber,)]
-		 you say, turning to move your face towards [npc2.name]'s [npc2.ass].
+		[pc.speech(Yes, Mistress Amber,)] you say, turning to move your face towards [npc2.name]'s [npc2.ass].
 	</p>
 	<p>
-		[npc1.speech(Go on then, [npc2.boy]!)]
-		 [npc1.name] says cheerily.
-		 [npc1.speech(You can use Amber's bitch! Go on, fuck [pc.her] face!)]
+		[npc1.speech(Go on then, [npc2.boy]!)] [npc1.name] says cheerily. [npc1.speech(You can use Amber's bitch! Go on, fuck [pc.her] face!)]
 	</p>
 	<p>
-		Not needing to be told twice, [npc2.name] crawls around into such a position so that [npc2.her] right hip is bumping against your face.
-		 Suddenly, [npc2.she] then lifts [npc2.her] right [npc2.leg] up, before hooking it over your neck to rest on your shoulders.
-		 The weight of [npc2.her] [npc2.leg] causes you to dip your head down a little, bringing your mouth to within just [unit.sizes] of [npc2.her] [npc2.cock+].
+		Not needing to be told twice, [npc2.name] crawls around into such a position so that [npc2.her] right hip is bumping against your face. Suddenly, [npc2.she] then lifts [npc2.her] right [npc2.leg] up, before hooking it over your neck to rest on your shoulders. The weight of [npc2.her] [npc2.leg] causes you to dip your head down a little, bringing your mouth to within just [unit.sizes] of [npc2.her] [npc2.cock+].
 	</p>
 	<p>
 		[npc2.She]'s already rock-hard, and you know that it's only going to be a matter of seconds before [npc2.she] thrusts [npc2.her] [npc2.cock+] into your mouth, right here in front of your Mistress, [npc1.name], and anyone else who happens to stop and watch...
@@ -1930,29 +1369,22 @@
 	
 	<htmlContent tag="WALKIES_PET_FUCKS_POST_SEX"><![CDATA[
 	<p>
-		Dropping down off your back, [npc2.name] lets out a very satisfied sigh as [npc2.she] turns and admires the mess that [npc2.she]'s made of you.
-		 With a slow, wet lick to your [pc.ass+], [npc2.she] then quickly moves off and returns to [npc1.name]'s side.
+		Dropping down off your back, [npc2.name] lets out a very satisfied sigh as [npc2.she] turns and admires the mess that [npc2.she]'s made of you. With a slow, wet lick to your [pc.ass+], [npc2.she] then quickly moves off and returns to [npc1.name]'s side.
 	</p>
 	<p>
-		[npc1.speech(Good [npc2.boy]! You sure showed that bitch who's boss, didn't you?)]
-		 [npc1.Name] happily says, leaning down to pat [npc2.name] on the head.
+		[npc1.speech(Good [npc2.boy]! You sure showed that bitch who's boss, didn't you?)] [npc1.Name] happily says, leaning down to pat [npc2.name] on the head.
 	</p>
 	<p>
-		[amber.speech(Now that these two are done, I'd better be heading back,)]
-		 Mistress Amber says to her friend.
-		 [amber.speech(I'll see you another time, [npc1.name]! Oh, and do as told you with [npc2.name]. You need to show [npc2.herHim] who's in charge before [npc2.she] starts getting too rebellious.)]
+		[amber.speech(Now that these two are done, I'd better be heading back,)] Mistress Amber says to her friend. [amber.speech(I'll see you another time, [npc1.name]! Oh, and do as told you with [npc2.name]. You need to show [npc2.herHim] who's in charge before [npc2.she] starts getting too rebellious.)]
 	</p>
 	<p>
-		[npc1.speech(I will, Amber! Thanks for all the advice, I'll see you soon!)]
-		 [npc1.Name] says, tugging on [npc2.name]'s lead as [npc1.she] starts walking off down the street.
+		[npc1.speech(I will, Amber! Thanks for all the advice, I'll see you soon!)] [npc1.Name] says, tugging on [npc2.name]'s lead as [npc1.she] starts walking off down the street.
 	</p>
 	<p>
-		Smirking down at you, your Mistress sighs.
-		 [amber.speech(Good bitch. You liked getting fucked by my friend's pet, didn't you?)]
+		Smirking down at you, your Mistress sighs. [amber.speech(Good bitch. You liked getting fucked by my friend's pet, didn't you?)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)]
-		 you quickly reply, smiling up at the sadistic succubus.
+		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)] you quickly reply, smiling up at the sadistic succubus.
 	</p>
 	<p>
 		[amber.speech(Good bitch. It's time to go home.)]
@@ -1962,29 +1394,22 @@
 	
 	<htmlContent tag="WALKIES_PET_FUCKS_POST_SEX_ORAL"><![CDATA[
 	<p>
-		Unhooking [npc2.her] [npc2.leg] from behind your neck, [npc2.name] lets out a very satisfied sigh as [npc2.she] turns and admires the mess that [npc2.she]'s made of you.
-		 With a slow, wet lick to your cheek, [npc2.she] then quickly moves off and returns to [npc1.name]'s side.
+		Unhooking [npc2.her] [npc2.leg] from behind your neck, [npc2.name] lets out a very satisfied sigh as [npc2.she] turns and admires the mess that [npc2.she]'s made of you. With a slow, wet lick to your cheek, [npc2.she] then quickly moves off and returns to [npc1.name]'s side.
 	</p>
 	<p>
-		[npc1.speech(Good [npc2.boy]! You sure showed that bitch who's boss, didn't you?)]
-		 [npc1.Name] happily says, leaning down to pat [npc2.name] on the head.
+		[npc1.speech(Good [npc2.boy]! You sure showed that bitch who's boss, didn't you?)] [npc1.Name] happily says, leaning down to pat [npc2.name] on the head.
 	</p>
 	<p>
-		[amber.speech(Now that these two are done, I'd better be heading back,)]
-		 Mistress Amber says to her friend.
-		 [amber.speech(I'll see you another time, [npc1.name]! Oh, and do as told you with [npc2.name]. You need to show [npc2.herHim] who's in charge before [npc2.she] starts getting too rebellious.)]
+		[amber.speech(Now that these two are done, I'd better be heading back,)] Mistress Amber says to her friend. [amber.speech(I'll see you another time, [npc1.name]! Oh, and do as told you with [npc2.name]. You need to show [npc2.herHim] who's in charge before [npc2.she] starts getting too rebellious.)]
 	</p>
 	<p>
-		[npc1.speech(I will, Amber! Thanks for all the advice, I'll see you soon!)]
-		 [npc1.Name] says, tugging on [npc2.name]'s lead as [npc1.she] starts walking off down the street.
+		[npc1.speech(I will, Amber! Thanks for all the advice, I'll see you soon!)] [npc1.Name] says, tugging on [npc2.name]'s lead as [npc1.she] starts walking off down the street.
 	</p>
 	<p>
-		Smirking down at you, your Mistress sighs.
-		 [amber.speech(Good bitch. You liked getting fucked by my friend's pet, didn't you?)]
+		Smirking down at you, your Mistress sighs. [amber.speech(Good bitch. You liked getting fucked by my friend's pet, didn't you?)]
 	</p>
 	<p>
-		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)]
-		 you quickly reply, smiling up at the sadistic succubus.
+		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)] you quickly reply, smiling up at the sadistic succubus.
 	</p>
 	<p>
 		[amber.speech(Good bitch. It's time to go home.)]

@@ -761,8 +761,7 @@ public class CharacterUtils {
 				}
 			}
 			// Internal testicles:
-			if(body.getVagina().getType()!=VaginaType.NONE
-					&& !Main.getProperties().hasValue(PropertyValue.futanariTesticles)) {
+			if(body.getVagina().getType()!=VaginaType.NONE && !Main.game.isFutanariTesticlesEnabled()) {
 				body.getPenis().getTesticle().setInternal(blankNPC, true);
 				
 			} else if(Math.random()>=0.75) {
@@ -928,12 +927,15 @@ public class CharacterUtils {
 
 	public static Body generateHalfDemonBody(GameCharacter linkedCharacter, Gender startingGender, Subspecies halfSubspecies, boolean applyHalfDemonAttributeChanges) {
 //		Gender startingGender;
-		RaceStage stage;
+		if(startingGender==null) {
+			startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
+		}
+		RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(halfSubspecies), startingGender, halfSubspecies);
 		AbstractRacialBody demonBody = RacialBody.DEMON;
 		
 		if(linkedCharacter!=null) {
-			startingGender = linkedCharacter.getGender();
-			stage = linkedCharacter.getRaceStage();
+//			startingGender = linkedCharacter.getGender();
+//			stage = linkedCharacter.getRaceStage();
 			
 			if(applyHalfDemonAttributeChanges) {
 				if(linkedCharacter.getAttributeValue(Attribute.MAJOR_CORRUPTION)<75) {
@@ -944,9 +946,6 @@ public class CharacterUtils {
 				}
 			}
 			
-		} else {
-			startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
-			stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(halfSubspecies), startingGender, halfSubspecies);
 		}
 		
 		switch(stage) {
@@ -1046,7 +1045,7 @@ public class CharacterUtils {
 		if(body.getPenis().getType()!=PenisType.NONE
 				&& body.getPenis().getType()!=PenisType.DILDO
 				&& body.getVagina().getType()!=VaginaType.NONE
-				&& !Main.getProperties().hasValue(PropertyValue.futanariTesticles)) {
+				&& !Main.game.isFutanariTesticlesEnabled()) {
 			body.getPenis().getTesticle().setInternal(null, true);
 		}
 		
@@ -1269,7 +1268,7 @@ public class CharacterUtils {
 		if(body.getPenis().getType()!=PenisType.NONE
 				&& body.getPenis().getType()!=PenisType.DILDO
 				&& body.getVagina().getType()!=VaginaType.NONE
-				&& !Main.getProperties().hasValue(PropertyValue.futanariTesticles)) {
+				&& !Main.game.isFutanariTesticlesEnabled()) {
 			body.getPenis().getTesticle().setInternal(null, true);
 		}
 		
@@ -1414,7 +1413,7 @@ public class CharacterUtils {
 		if(body.getPenis().getType()!=PenisType.NONE
 				&& body.getPenis().getType()!=PenisType.DILDO
 				&& body.getVagina().getType()!=VaginaType.NONE
-				&& !Main.getProperties().hasValue(PropertyValue.futanariTesticles)) {
+				&& !Main.game.isFutanariTesticlesEnabled()) {
 			body.getPenis().getTesticle().setInternal(null, true);
 		}
 		
@@ -1768,7 +1767,7 @@ public class CharacterUtils {
 				character.setVaginaCapacity(capacity, true);
 				
 			} else {
-				if(Math.random()>0.25f || character.getHistory()==Occupation.NPC_PROSTITUTE) {
+				if(Math.random()>0.99f || character.getHistory()==Occupation.NPC_PROSTITUTE) {
 					character.setVaginaVirgin(false);
 					character.setVaginaCapacity(character.getVaginaRawCapacityValue()*1.2f, true);
 					character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());

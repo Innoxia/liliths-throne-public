@@ -19,15 +19,21 @@ public class SexSlotStanding {
 			true,
 			SexSlotTag.STANDING) {
 		@Override
-		public String getOrgasmDescription() {
-			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(getCharacterInSlot(this)));
-			if(targetedSlot==SexSlotStanding.PERFORMING_ORAL || targetedSlot==SexSlotStanding.PERFORMING_ORAL_TWO || targetedSlot==SexSlotStanding.PERFORMING_ORAL_THREE || targetedSlot==SexSlotStanding.PERFORMING_ORAL_FOUR) {
+		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+			SexSlot targetedSlot = Sex.getSexPositionSlot(targetedCharacter);
+			if(targetedSlot.hasTag(SexSlotTag.PERFORMING_ORAL)) {
 				return "With a small thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
 			}
-			if(targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND || targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO || targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND_THREE || targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND_FOUR) {
+			if(targetedSlot.hasTag(SexSlotTag.PERFORMING_ORAL_BEHIND)) {
 				return "With a small backwards thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] rear end back into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
 			}
-			return "[npc.Name] [npc.verb(reach)] around and [npc.verb(wrap)] [npc.her] [npc.arms] around [npc2.namePos] back, pulling [npc2.herHim] close and letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
+			if(targetedSlot.hasTag(SexSlotTag.STANDING_BEHIND)) {
+				return "Leaning back into [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
+			}
+			if(targetedCharacter.isTaur()) {
+				return "[npc.Name] [npc.verb(reach)] around and [npc.verb(wrap)] [npc.her] [npc.arms] around [npc2.namePos] back, pulling [npc2.herHim] close and letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
+			}
+			return "[npc.Name] [npc.verb(reach)] around and [npc.verb(grab)] [npc2.namePos] [npc2.ass+], pulling [npc2.herHim] close and letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
 		}
 	};
 	
@@ -37,15 +43,8 @@ public class SexSlotStanding {
 			return "standing (2nd)";
 		}
 		@Override
-		public String getOrgasmDescription() {
-			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(getCharacterInSlot(this)));
-			if(targetedSlot==SexSlotStanding.PERFORMING_ORAL || targetedSlot==SexSlotStanding.PERFORMING_ORAL_TWO || targetedSlot==SexSlotStanding.PERFORMING_ORAL_THREE || targetedSlot==SexSlotStanding.PERFORMING_ORAL_FOUR) {
-				return "With a small thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
-			}
-			if(targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND || targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO || targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND_THREE || targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND_FOUR) {
-				return "With a small backwards thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] rear end back into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
-			}
-			return "[npc.Name] [npc.verb(reach)] around and [npc.verb(wrap)] [npc.her] [npc.arms] around [npc2.namePos] back, pulling [npc2.herHim] close and letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
+		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+			return STANDING_DOMINANT.getGenericOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 	};
 	public static final SexSlot STANDING_DOMINANT_THREE = new SexSlot(STANDING_DOMINANT) {
@@ -54,15 +53,8 @@ public class SexSlotStanding {
 			return "standing (3rd)";
 		}
 		@Override
-		public String getOrgasmDescription() {
-			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(getCharacterInSlot(this)));
-			if(targetedSlot==SexSlotStanding.PERFORMING_ORAL || targetedSlot==SexSlotStanding.PERFORMING_ORAL_TWO || targetedSlot==SexSlotStanding.PERFORMING_ORAL_THREE || targetedSlot==SexSlotStanding.PERFORMING_ORAL_FOUR) {
-				return "With a small thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
-			}
-			if(targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND || targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO || targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND_THREE || targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND_FOUR) {
-				return "With a small backwards thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] rear end back into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
-			}
-			return "[npc.Name] [npc.verb(reach)] around and [npc.verb(wrap)] [npc.her] [npc.arms] around [npc2.namePos] back, pulling [npc2.herHim] close and letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
+		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+			return STANDING_DOMINANT.getGenericOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 	};
 	public static final SexSlot STANDING_DOMINANT_FOUR = new SexSlot(STANDING_DOMINANT) {
@@ -71,15 +63,8 @@ public class SexSlotStanding {
 			return "standing (4th)";
 		}
 		@Override
-		public String getOrgasmDescription() {
-			SexSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(getCharacterInSlot(this)));
-			if(targetedSlot==SexSlotStanding.PERFORMING_ORAL || targetedSlot==SexSlotStanding.PERFORMING_ORAL_TWO || targetedSlot==SexSlotStanding.PERFORMING_ORAL_THREE || targetedSlot==SexSlotStanding.PERFORMING_ORAL_FOUR) {
-				return "With a small thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
-			}
-			if(targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND || targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO || targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND_THREE || targetedSlot==SexSlotStanding.PERFORMING_ORAL_BEHIND_FOUR) {
-				return "With a small backwards thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] rear end back into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
-			}
-			return "[npc.Name] [npc.verb(reach)] around and [npc.verb(wrap)] [npc.her] [npc.arms] around [npc2.namePos] back, pulling [npc2.herHim] close and letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
+		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+			return STANDING_DOMINANT.getGenericOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 	};
 
@@ -111,8 +96,9 @@ public class SexSlotStanding {
 	public static final SexSlot STANDING_SUBMISSIVE_BEHIND = new SexSlot(
 			"Standing",
 			"standing (behind)",
-			"[npc.Name] [npc.verb(lean)] heavily into [npc2.namePos] [npc2.breasts] and [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			true);
+			"[npc.Name] [npc.verb(pull)] [npc2.name] back in against [npc.her] [npc.breasts] and [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
+			true,
+			SexSlotTag.STANDING_BEHIND);
 
 	public static final SexSlot STANDING_SUBMISSIVE_BEHIND_TWO = new SexSlot(STANDING_SUBMISSIVE) {
 		@Override

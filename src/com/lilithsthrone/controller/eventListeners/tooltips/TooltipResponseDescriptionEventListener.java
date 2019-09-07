@@ -6,6 +6,7 @@ import org.w3c.dom.events.MouseEvent;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
+import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -15,12 +16,13 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.69
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public class TooltipResponseDescriptionEventListener implements EventListener {
 	private int index;
-	private boolean nextPage = false, previousPage = false;
+	private boolean nextPage = false;
+	private boolean previousPage = false;
 	
 	private static StringBuilder tooltipSB;
 	static {
@@ -76,7 +78,6 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 			}
 			
 		} else {
-
 			Response response = null;
 			if(Main.game.getCurrentDialogueNode()!=null) {
 				if (Main.game.getResponsePage() == 0) {
@@ -96,7 +97,6 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				int boxHeight = 130;
 				
 				if(!response.hasRequirements()) {
-					
 					if(response instanceof ResponseSex) {
 						if(((ResponseSex)response).isPlayerDom()) {
 							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span></div>");
@@ -104,15 +104,53 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 							tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Submissive Sex</span></div>");
 						}
 						boxHeight+=44;
+						tooltipSB.append("<div class='description'>" + response.getTooltipText() + "</div>");
+						
 					} else if(response.isCombatHighlight()) {
 						tooltipSB.append("<div class='title'><span style='color:" + Colour.GENERIC_COMBAT.toWebHexString() + ";'>Combat</span></div>");
 						boxHeight+=44;
+						tooltipSB.append("<div class='description'>" + response.getTooltipText() + "</div>");
+						
+					} else if(response.getAssociatedCombatMove()!=null) {
+						CombatMove move = response.getAssociatedCombatMove();
+						boolean coreMove = Main.game.getPlayer().getEquippedMoves().contains(move);
+						
+						tooltipSB.append("<div class='title'><span style='color:" + (coreMove?Colour.GENERIC_MINOR_GOOD:Colour.GENERIC_MINOR_BAD).toWebHexString() + ";'>"+Util.capitaliseSentence(move.getName(0, Main.game.getPlayer()))+"</span></div>");
+						boxHeight+=44;
+						
+						int cost = move.getAPcost(Main.game.getPlayer());
+						int cooldown = move.getCooldown(Main.game.getPlayer());
+						
+						tooltipSB.append(
+								"<div class='subTitle' style='width:46%; margin:2% 2% 0% 2%;'>"
+									+"<span style='color:"+(Colour.ACTION_POINT_COLOURS[cost]).toWebHexString()+";'>"
+									+(coreMove?cost:(cost-1)+"[style.colourBad(+1)]")
+									+"</span> AP"
+								+ "</div>"
+								+ "<div class='subTitle' style='width:46%; margin:2% 2% 0% 2%;'>"
+									+ "<span style='color:"+(cooldown-(coreMove?0:1)<=0?Colour.GENERIC_MINOR_GOOD:Colour.GENERIC_MINOR_BAD).toWebHexString()+";'>"
+									+(coreMove?cooldown:(cooldown-1)+"[style.colourBad(+1)]")
+									+"</span> turn"+(cooldown==1?"":"s")+" cooldown"
+								+ "</div>");
+						
+						boxHeight+=36;
+						
+						tooltipSB.append("<div class='description'>" + response.getTooltipText() + "</div>");
+
+						tooltipSB.append(
+								"<div class='description-small'>"
+										+ (coreMove
+											?"<i>This is one of your [style.colourMinorGood(core moves)], so there is no extra AP cost or cooldown time for using it!</i>"
+											:"<i>This is [style.colourMinorBad(not one of your core moves)], so there is an extra cost of [style.colourBad(+1 AP)] and [style.colourBad(+1 turn cooldown)] for using it!</i>")
+								+"</div>");
+						boxHeight+=54;
+						
+					} else {
+						tooltipSB.append("<div class='description'>" + response.getTooltipText() + "</div>");
 					}
 					
-					tooltipSB.append("<div class='description'>" + response.getTooltipText() + "</div>");
 				
 				} else {
-					
 					if(response.isAvailable()) {
 						if(response instanceof ResponseSex) {
 							if(((ResponseSex)response).isPlayerDom()) {
@@ -194,6 +232,16 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 							"<div class='description-small'>"
 									+response.getTooltipCorruptionBypassText()
 							+"</div>");
+					
+					String extraSexInfo = response.getAdditionalSexActionInformationText();
+					if(!extraSexInfo.isEmpty()) {
+						tooltipSB.append(
+								"<div class='description-small'>"
+										+extraSexInfo
+								+"</div>");
+						boxHeight+=54;
+					}
+					
 					boxHeight+=54;
 					
 					boxHeight+= 28 + ((response.lineHeight()+1)*18);

@@ -1177,6 +1177,15 @@ public class OptionsDialogue {
 			 if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
 				
+			} else if (index == 1) {
+				return new Response("Defaults", "Restore all gender preferences to their default values.", GENDER_PREFERENCE) {
+					@Override
+					public void effects() {
+						Main.getProperties().resetGenderPreferences();
+						Main.getProperties().savePropertiesAsXML();
+					}
+				};
+				
 			} else {
 				return null;
 			}
@@ -1421,6 +1430,7 @@ public class OptionsDialogue {
 					@Override
 					public void effects() {
 						Main.getProperties().resetAgePreferences();
+						Main.getProperties().savePropertiesAsXML();
 					}
 				};
 				

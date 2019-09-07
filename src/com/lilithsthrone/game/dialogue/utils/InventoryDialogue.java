@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.combat.Combat;
+import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -51,7 +52,7 @@ import com.lilithsthrone.utils.comparators.ClothingZLayerComparator;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public class InventoryDialogue {
@@ -64,6 +65,7 @@ public class InventoryDialogue {
 	private static AbstractItem item;
 	private static AbstractClothing clothing;
 	private static AbstractWeapon weapon;
+	private static InventorySlot weaponSlot;
 	private static GameCharacter owner;
 	
 	private static NPC inventoryNPC;
@@ -178,115 +180,16 @@ public class InventoryDialogue {
 						return new Response("Take all", "You can't do this during combat!", null);
 
 					} else if (index == 2) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Displace all", "You aren't wearing any clothing, so there's nothing to displace!", null);
-
-						} else {
-							return new Response("Displace all", "Displace as much of your clothing as possible.", Combat.ENEMY_ATTACK){
-								@Override
-								public void effects(){
-									responseSB.setLength(0);
-
-									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-										for(BlockedParts bp : c.getClothingType().getBlockedPartsMap(Main.game.getPlayer(), c.getSlotEquippedTo())) {
-											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
-												Main.game.getPlayer().isAbleToBeDisplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getDisplaceDescription()+"</p>");
-											}
-										}
-									}
-									Combat.setCharacterTurnContent(Main.game.getPlayer(), Util.newArrayListOfValues("<b>Displace all clothing</b>: "+responseSB.toString()));
-									Combat.endCombatTurn();
-									Main.mainController.openInventory();
-								}
-							};
-						}
+						return new Response("Displace all", "You cannot do this while fighting someone!", null);
 
 					} else if (index == 3) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Replace all", "You aren't wearing any clothing, so there's nothing to replace!", null);
-
-						} else {
-							return new Response("Replace all", "Replace as much of your clothing as possible.", Combat.ENEMY_ATTACK){
-								@Override
-								public void effects(){
-									responseSB.setLength(0);
-
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
-
-									for(AbstractClothing c : zlayerClothing) {
-										for(BlockedParts bp : c.getClothingType().getBlockedPartsMap(Main.game.getPlayer(), c.getSlotEquippedTo())) {
-											if(bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
-												Main.game.getPlayer().isAbleToBeReplaced(c, bp.displacementType, true, true, Main.game.getPlayer());
-												responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getReplaceDescription()+"</p>");
-											}
-										}
-									}
-
-									Combat.setCharacterTurnContent(Main.game.getPlayer(), Util.newArrayListOfValues("<b>Replace all clothing</b>: "+responseSB.toString()));
-									Combat.endCombatTurn();
-									Main.mainController.openInventory();
-								}
-							};
-						}
-
+						return new Response("Replace all", "You cannot do this while fighting someone!", null);
+						
 					} else if (index == 4) {
-						if(Main.game.getPlayer().getClothingCurrentlyEquipped().isEmpty()) {
-							return new Response("Unequip all", "You aren't wearing any clothing, so there's nothing to remove!", null);
-
-						} else {
-							return new Response("Unequip all", "Remove as much of your clothing as possible.", Combat.ENEMY_ATTACK){
-								@Override
-								public void effects(){
-									responseSB.setLength(0);
-
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator());
-
-									for(AbstractClothing c : zlayerClothing) { 
-										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-										responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
-									}
-
-									Combat.setCharacterTurnContent(Main.game.getPlayer(), Util.newArrayListOfValues("<b>Unequip all clothing</b>: "+responseSB.toString()));
-									Combat.endCombatTurn();
-									Main.mainController.openInventory();
-								}
-							};
-						}
+						return new Response("Unequip all", "You cannot do this while fighting someone!", null);
 
 					} else if (index == 5) {
-						if(Main.game.getPlayer().getAllClothingInInventory().isEmpty()) {
-							return new Response("Equip all", "You don't have any clothing, so there's nothing to equip!", null);
-
-						} else {
-							return new Response("Equip all", "Equip as much of the clothing in your inventory as possible.", Combat.ENEMY_ATTACK){
-								@Override
-								public void effects(){
-									responseSB.setLength(0);
-
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory().keySet());
-									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
-									Set<InventorySlot> slotsTaken = new HashSet<>();
-
-									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-										slotsTaken.add(c.getSlotEquippedTo());
-									}
-
-									for(AbstractClothing c : zlayerClothing) {
-										if(!slotsTaken.contains(c.getClothingType().getEquipSlots().get(0))) {
-											responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer())+"</p>");
-											slotsTaken.add(c.getClothingType().getEquipSlots().get(0));
-										}
-									}
-
-									Combat.setCharacterTurnContent(Main.game.getPlayer(), Util.newArrayListOfValues("<b>Equip all clothing</b>: "+responseSB.toString()));
-									Combat.endCombatTurn();
-									Main.mainController.openInventory();
-								}
-							};
-						}
+						return new Response("Equip all", "You cannot do this while fighting someone!", null);
 
 					} else {
 						return null;
@@ -1100,7 +1003,16 @@ public class InventoryDialogue {
 								return new Response("Enchant", "You can't enchant items while fighting someone!", null);
 								
 							} else if(index == 6) {
-								if (!item.isAbleToBeUsedInCombat()) {
+								if(Main.game.getPlayer().isStunned()) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (self)", "You cannot use any items while you're stunned!", null);
+									
+								} else if(Combat.isCombatantDefeated(Main.game.getPlayer())) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (self)", "You cannot use any items while you're defeated!", null);
+									
+								} else if(Main.game.getPlayer().getRemainingAP()<CombatMove.ITEM_USAGE.getAPcost(Main.game.getPlayer())) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (self)", "You need at least "+CombatMove.ITEM_USAGE.getAPcost(Main.game.getPlayer())+" AP to use this actions!", null);
+									
+								} else if (!item.isAbleToBeUsedInCombat()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (self)", "You cannot use this during combat!", null);
 									
 								} else if (!item.isAbleToBeUsedFromInventory()) {
@@ -1116,10 +1028,8 @@ public class InventoryDialogue {
 											Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
-											Combat.setCharacterTurnContent(Main.game.getPlayer(),
-													Util.newArrayListOfValues("<b>"+Util.capitaliseSentence(item.getItemType().getUseName())+" "+item.getName()+"</b>: "+Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false)));
+											Combat.addItemToBeUsed(owner, owner, item);
 											resetPostAction();
-											Combat.endCombatTurn();
 											Main.mainController.openInventory();
 										}
 									};
@@ -1132,7 +1042,16 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								if (!item.isAbleToBeUsedInCombat()) {
+								if(Main.game.getPlayer().isStunned()) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (self)", "You cannot use any items while you're stunned!", null);
+									
+								} else if(Combat.isCombatantDefeated(Main.game.getPlayer())) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (self)", "You cannot use any items while you're defeated!", null);
+									
+								} else if(Main.game.getPlayer().getRemainingAP()<CombatMove.ITEM_USAGE.getAPcost(Main.game.getPlayer())) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (self)", "You need at least "+CombatMove.ITEM_USAGE.getAPcost(Main.game.getPlayer())+" AP to use this actions!", null);
+									
+								} else if (!item.isAbleToBeUsedInCombat()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (opponent)", "You cannot use this during combat!", null);
 									
 								} else if (!item.isAbleToBeUsedFromInventory()) {
@@ -1152,10 +1071,8 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Combat.setCharacterTurnContent(Main.game.getPlayer(),
-													Util.newArrayListOfValues("<b>"+Util.capitaliseSentence(item.getItemType().getUseName())+" "+item.getName()+"</b>: "+Main.game.getPlayer().useItem(item, inventoryNPC, false)));
+											Combat.addItemToBeUsed(owner, inventoryNPC, item);
 											resetPostAction();
-											Combat.endCombatTurn();
 											Main.mainController.openInventory();
 										}
 									};
@@ -1171,10 +1088,8 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Combat.setCharacterTurnContent(Main.game.getPlayer(),
-													Util.newArrayListOfValues("<b>"+Util.capitaliseSentence(item.getItemType().getUseName())+" "+item.getName()+"</b>: "+Main.game.getPlayer().useItem(item, inventoryNPC, false)));
+											Combat.addItemToBeUsed(owner, inventoryNPC, item);
 											resetPostAction();
-											Combat.endCombatTurn();
 											Main.mainController.openInventory();
 										}
 									};
@@ -1186,10 +1101,8 @@ public class InventoryDialogue {
 											Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
-											Combat.setCharacterTurnContent(Main.game.getPlayer(),
-													Util.newArrayListOfValues("<b>"+Util.capitaliseSentence(item.getItemType().getUseName())+" "+item.getName()+"</b>: "+Main.game.getPlayer().useItem(item, inventoryNPC, false)));
+											Combat.addItemToBeUsed(owner, inventoryNPC, item);
 											resetPostAction();
-											Combat.endCombatTurn();
 											Main.mainController.openInventory();
 										}
 									};
@@ -2302,10 +2215,8 @@ public class InventoryDialogue {
 								
 							} else if(index == 2) {
 								int sellPrice = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getPrice():item.getPrice(inventoryNPC.getSellModifier());
-								if(buyback) {
-									return new Response("Buy (5) ("+UtilText.formatAsMoneyUncoloured(sellPrice*5, "span")+")", "Cannot use this option in the buyback menu.", null);
-								}
-								if(inventoryNPC.getItemCount(item) < 5) {
+								if((buyback && Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getCount()<5)
+										|| (!buyback && inventoryNPC.getItemCount(item) < 5)) {
 									return new Response("Buy (5) ("+UtilText.formatAsMoneyUncoloured(sellPrice*5, "span")+")", UtilText.parse(inventoryNPC, "[npc.Name] doesn't have five "+item.getNamePlural()+"."), null);
 								}
 								if(inventoryFull) {
@@ -2323,20 +2234,18 @@ public class InventoryDialogue {
 								
 							} else if(index == 3) {
 								int sellPrice = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getPrice():item.getPrice(inventoryNPC.getSellModifier());
-								if(buyback) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*inventoryNPC.getItemCount(item), "span")+")", "Cannot use this option in the buyback menu.", null);
-								}
+								int count = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getCount():inventoryNPC.getItemCount(item);
 								if(inventoryFull) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*inventoryNPC.getItemCount(item), "span")+")", "Your inventory is already full!", null);
+									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "Your inventory is already full!", null);
 								}
-								if(Main.game.getPlayer().getMoney() < sellPrice*inventoryNPC.getItemCount(item)) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*inventoryNPC.getItemCount(item), "span")+")", "You can't afford to buy this!", null);
+								if(Main.game.getPlayer().getMoney() < sellPrice*count) {
+									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
 								}
-								return new Response("Buy (All) (" + UtilText.formatAsMoney(sellPrice*inventoryNPC.getItemCount(item), "span") + ")",
-										"Buy the " + item.getName() + " for " + UtilText.formatAsMoney(sellPrice*inventoryNPC.getItemCount(item)) + ".", INVENTORY_MENU){
+								return new Response("Buy (All) (" + UtilText.formatAsMoney(sellPrice*count, "span") + ")",
+										"Buy the " + item.getName() + " for " + UtilText.formatAsMoney(sellPrice*count) + ".", INVENTORY_MENU){
 									@Override
 									public void effects(){
-										sellItems(inventoryNPC, Main.game.getPlayer(), item, inventoryNPC.getItemCount(item), sellPrice);
+										sellItems(inventoryNPC, Main.game.getPlayer(), item, count, sellPrice);
 									}
 								};
 								
@@ -2600,9 +2509,18 @@ public class InventoryDialogue {
 							
 					} else if(index == 7) {
 						if(weapon.getWeaponType().isTwoHanded()) {
-							return new Response("Equip Offhand (self)", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+							return new Response("Equip Offhand (self)",
+									(weapon.getWeaponType().isPlural()
+										?"As the " + weapon.getName() + " require two hands to wield, they can only be equipped in the main slot!"
+										:"As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!"),
+									null);
 						}
-						return new Response("Equip Offhand (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
+						return new Response("Equip Offhand (self)",
+								"Equip the " + weapon.getName() + "."
+									+(weapon.getWeaponType().isTwoHanded()
+											?"<br/>[style.italicsGood(Although "+(weapon.getWeaponType().isPlural()?"":"")+")]"
+											:""),
+								INVENTORY_MENU){
 							@Override
 							public void effects(){
 								Main.game.getTextEndStringBuilder().append(
@@ -2646,31 +2564,10 @@ public class InventoryDialogue {
 								return new Response("Enchant", "You can't enchant weapons while fighting someone!", null);
 								
 							} else if(index == 6) {
-								return new Response("Equip Main (self)", "Equip the " + weapon.getName() + " as your main weapon.", Combat.ENEMY_ATTACK){
-									@Override
-									public void effects(){
-										Combat.setCharacterTurnContent(Main.game.getPlayer(),
-												Util.newArrayListOfValues("<b>Equip Weapon</b>: "+Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())));
-										resetPostAction();
-										Combat.endCombatTurn();
-										Main.mainController.openInventory();
-									}
-								};
+								return new Response("Equip Main (self)", "You can't change weapons while fighting someone!", null);
 									
 							} else if(index == 7) {
-								if(weapon.getWeaponType().isTwoHanded()) {
-									return new Response("Equip Offhand (self)", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
-								}
-								return new Response("Equip Offhand (self)", "Equip the " + weapon.getName() + " as your offhand weapon.", Combat.ENEMY_ATTACK){
-									@Override
-									public void effects(){
-										Combat.setCharacterTurnContent(Main.game.getPlayer(),
-												Util.newArrayListOfValues("<b>Equip Weapon</b>: "+Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer())));
-										resetPostAction();
-										Combat.endCombatTurn();
-										Main.mainController.openInventory();
-									}
-								};
+								return new Response("Equip Offhand (self)", "You can't change weapons while fighting someone!", null);
 									
 							} else if (index == 10) {
 								return getQuickTradeResponse();
@@ -2794,7 +2691,11 @@ public class InventoryDialogue {
 									
 							} else if(index == 7) {
 								if(weapon.getWeaponType().isTwoHanded()) {
-									return new Response("Equip Offhand (self)", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+									return new Response("Equip Offhand (self)",
+											(weapon.getWeaponType().isPlural()
+												?"As the " + weapon.getName() + " require two hands to wield, they can only be equipped in the main slot!"
+												:"As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!"),
+											null);
 								}
 								return new Response("Equip Offhand (self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
 									@Override
@@ -2829,7 +2730,11 @@ public class InventoryDialogue {
 									return new Response(UtilText.parse(inventoryNPC, "Equip Main ([npc.Name])"), "You cannot give away the " + weapon.getName() + "!", null);
 								}
 								if(weapon.getWeaponType().isTwoHanded()) {
-									return new Response(UtilText.parse("Equip Offhand ([npc.Name])"), "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+									return new Response("Equip Offhand (self)",
+											(weapon.getWeaponType().isPlural()
+												?"As the " + weapon.getName() + " require two hands to wield, they can only be equipped in the main slot!"
+												:"As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!"),
+											null);
 								}
 								return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+weapon.getName()+" as [npc.her] offhand weapon."), INVENTORY_MENU){
 									@Override
@@ -2993,7 +2898,11 @@ public class InventoryDialogue {
 									
 							} else if(index == 7) {
 								if(weapon.getWeaponType().isTwoHanded()) {
-									return new Response("Equip Offhand (self)", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+									return new Response("Equip Offhand (self)",
+											(weapon.getWeaponType().isPlural()
+												?"As the " + weapon.getName() + " require two hands to wield, they can only be equipped in the main slot!"
+												:"As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!"),
+											null);
 								}
 								return new Response("Equip Offhand (self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
 									@Override
@@ -3109,7 +3018,11 @@ public class InventoryDialogue {
 							
 					} else if(index == 7) {
 						if(weapon.getWeaponType().isTwoHanded()) {
-							return new Response("Equip Offhand (self)", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+							return new Response("Equip Offhand (self)",
+									(weapon.getWeaponType().isPlural()
+										?"As the " + weapon.getName() + " require two hands to wield, they can only be equipped in the main slot!"
+										:"As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!"),
+									null);
 						}
 						return new Response("Equip Offhand (self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
 							@Override
@@ -3247,7 +3160,11 @@ public class InventoryDialogue {
 								
 							} else if(index == 7) {
 								if(weapon.getWeaponType().isTwoHanded()) {
-									return new Response("Equip Offhand (self)", "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+									return new Response("Equip Offhand (self)",
+											(weapon.getWeaponType().isPlural()
+												?"As the " + weapon.getName() + " require two hands to wield, they can only be equipped in the main slot!"
+												:"As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!"),
+											null);
 								}
 								return new Response("Equip Offhand (self)", "Equip the " + weapon.getName() + " as your offhand weapon.", INVENTORY_MENU){
 									@Override
@@ -3275,7 +3192,11 @@ public class InventoryDialogue {
 								
 							} else if(index == 12) {
 								if(weapon.getWeaponType().isTwoHanded()) {
-									return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.Name])"), "As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!", null); 
+									return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.Name])"),
+											(weapon.getWeaponType().isPlural()
+												?"As the " + weapon.getName() + " require two hands to wield, they can only be equipped in the main slot!"
+												:"As the " + weapon.getName() + " is a two-handed weapon, it can only be equipped in the main slot!"),
+											null);
 								}
 								return new Response(UtilText.parse(inventoryNPC, "Equip Offhand ([npc.Name])"), UtilText.parse(inventoryNPC, "Get [npc.name] to equip the " + weapon.getName() + " as [npc.her] offhand weapon."), INVENTORY_MENU){
 									@Override
@@ -3340,10 +3261,8 @@ public class InventoryDialogue {
 								
 							} else if(index == 2) {
 								int sellPrice = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getPrice():weapon.getPrice(inventoryNPC.getSellModifier());
-								if(buyback) {
-									return new Response("Buy (5) ("+UtilText.formatAsMoneyUncoloured(sellPrice*5, "span")+")", "Cannot use this option in the buyback menu.", null);
-								}
-								if(inventoryNPC.getWeaponCount(weapon) < 5) {
+								if((buyback && Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getCount()<5)
+										|| (!buyback && inventoryNPC.getWeaponCount(weapon) < 5)) {
 									return new Response("Buy (5) ("+UtilText.formatAsMoneyUncoloured(sellPrice*5, "span")+")", UtilText.parse(inventoryNPC, "[npc.Name] doesn't have five "+weapon.getNamePlural()+"."), null);
 								}
 								if(inventoryFull) {
@@ -3361,20 +3280,18 @@ public class InventoryDialogue {
 								
 							} else if(index == 3) {
 								int sellPrice = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getPrice():weapon.getPrice(inventoryNPC.getSellModifier());
-								if(buyback) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*inventoryNPC.getWeaponCount(weapon), "span")+")", "Cannot use this option in the buyback menu.", null);
-								}
+								int count = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getCount():inventoryNPC.getWeaponCount(weapon);
 								if(inventoryFull) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*inventoryNPC.getWeaponCount(weapon), "span")+")", "Your inventory is already full!", null);
+									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "Your inventory is already full!", null);
 								}
-								if(Main.game.getPlayer().getMoney() < sellPrice*inventoryNPC.getWeaponCount(weapon)) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*inventoryNPC.getWeaponCount(weapon), "span")+")", "You can't afford to buy this!", null);
+								if(Main.game.getPlayer().getMoney() < sellPrice*count) {
+									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
 								}
-								return new Response("Buy (All) (" + UtilText.formatAsMoney(sellPrice*inventoryNPC.getWeaponCount(weapon), "span") + ")",
-										"Buy the " + weapon.getName() + " for " + UtilText.formatAsMoney(sellPrice*inventoryNPC.getWeaponCount(weapon)) + ".", INVENTORY_MENU){
+								return new Response("Buy (All) (" + UtilText.formatAsMoney(sellPrice*count, "span") + ")",
+										"Buy the " + weapon.getName() + " for " + UtilText.formatAsMoney(sellPrice*count) + ".", INVENTORY_MENU){
 									@Override
 									public void effects(){
-										sellWeapons(inventoryNPC, Main.game.getPlayer(), weapon, inventoryNPC.getWeaponCount(weapon), sellPrice);
+										sellWeapons(inventoryNPC, Main.game.getPlayer(), weapon, count, sellPrice);
 									}
 								};
 								
@@ -3697,20 +3614,7 @@ public class InventoryDialogue {
 								
 							} else if(index >= 6 && index <= 9 && index-6<clothing.getClothingType().getEquipSlots().size()) {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
-								if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
-									return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "Equip the " + clothing.getName() + ".", Combat.ENEMY_ATTACK) {
-										@Override
-										public void effects(){
-											Combat.setCharacterTurnContent(Main.game.getPlayer(),
-													Util.newArrayListOfValues("<b>Equip "+clothing.getName()+"</b>: "+equipClothingFromInventory(Main.game.getPlayer(), slot, Main.game.getPlayer(), clothing)));
-											resetPostAction();
-											Combat.endCombatTurn();
-											Main.mainController.openInventory();
-										}
-									};
-								} else {
-									return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), clothing.getCannotBeEquippedText(Main.game.getPlayer(), slot), null);
-								}
+								return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "You cannot change your clothes while fighting someone!", null);
 								
 							} else if (index == 10) {
 								return getQuickTradeResponse();
@@ -4176,14 +4080,16 @@ public class InventoryDialogue {
 							} else if (index == 9) {
 								return getBuybackResponse();
 								
-							} else if (index == 10) {
-								return getQuickTradeResponse();
-
-							} else if(index >= 11 && index <= 14 && index-11<clothing.getClothingType().getEquipSlots().size()) {
+							}
+//							else if (index == 10) {
+//								return getQuickTradeResponse();
+//
+//							}
+							else if(index >= 11 && index <= 14 && index-11<clothing.getClothingType().getEquipSlots().size()) {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-11);
 								return new Response(UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.Name])"), UtilText.parse(inventoryNPC, "[npc.Name] doesn't want to wear your clothing."), null);
 								
-							} else if (index == 14 && !clothing.isEnchantmentKnown()) {
+							} else if (index == 10 && !clothing.isEnchantmentKnown()) {
 								if(!inventoryNPC.willBuy(clothing)) {
 									return new Response("Identify", inventoryNPC.getName("The") + " can't identify clothing!", null);
 									
@@ -4695,10 +4601,8 @@ public class InventoryDialogue {
 								
 							} else if(index == 2) {
 								int sellPrice = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getPrice():clothing.getPrice(inventoryNPC.getSellModifier());
-								if(buyback) {
-									return new Response("Buy (5) ("+UtilText.formatAsMoneyUncoloured(sellPrice*5, "span")+")", "Cannot use this option in the buyback menu.", null);
-								}
-								if(inventoryNPC.getClothingCount(clothing) < 5) {
+								if((buyback && Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getCount()<5)
+										|| (!buyback && inventoryNPC.getClothingCount(clothing) < 5)) {
 									return new Response("Buy (5) ("+UtilText.formatAsMoneyUncoloured(sellPrice*5, "span")+")", UtilText.parse(inventoryNPC, "[npc.Name] doesn't have five "+clothing.getNamePlural()+"."), null);
 								}
 								if(inventoryFull) {
@@ -4716,20 +4620,18 @@ public class InventoryDialogue {
 								
 							} else if(index == 3) {
 								int sellPrice = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getPrice():clothing.getPrice(inventoryNPC.getSellModifier());
-								if(buyback) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*inventoryNPC.getClothingCount(clothing), "span")+")", "Cannot use this option in the buyback menu.", null);
-								}
+								int count = buyback?Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getCount():inventoryNPC.getClothingCount(clothing);
 								if(inventoryFull) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*inventoryNPC.getClothingCount(clothing), "span")+")", "Your inventory is already full!", null);
+									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "Your inventory is already full!", null);
 								}
-								if(Main.game.getPlayer().getMoney() < sellPrice*inventoryNPC.getClothingCount(clothing)) {
-									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*inventoryNPC.getClothingCount(clothing), "span")+")", "You can't afford to buy this!", null);
+								if(Main.game.getPlayer().getMoney() < sellPrice*count) {
+									return new Response("Buy (All) ("+UtilText.formatAsMoneyUncoloured(sellPrice*count, "span")+")", "You can't afford to buy this!", null);
 								}
-								return new Response("Buy (All) (" + UtilText.formatAsMoney(sellPrice*inventoryNPC.getClothingCount(clothing), "span") + ")",
-										"Buy the " + clothing.getName() + " for " + UtilText.formatAsMoney(sellPrice*inventoryNPC.getClothingCount(clothing)) + ".", INVENTORY_MENU){
+								return new Response("Buy (All) (" + UtilText.formatAsMoney(sellPrice*count, "span") + ")",
+										"Buy the " + clothing.getName() + " for " + UtilText.formatAsMoney(sellPrice*count) + ".", INVENTORY_MENU){
 									@Override
 									public void effects(){
-										sellClothing(inventoryNPC, Main.game.getPlayer(), clothing, inventoryNPC.getClothingCount(clothing), sellPrice);
+										sellClothing(inventoryNPC, Main.game.getPlayer(), clothing, count, sellPrice);
 									}
 								};
 								
@@ -4815,65 +4717,14 @@ public class InventoryDialogue {
 				switch(interactionType) {
 					case COMBAT:
 						if(index == 1) {
-							return new Response("Unequip", "Unequip the " + weapon.getName() + ".", Combat.ENEMY_ATTACK){
-								@Override
-								public void effects(){
-									Combat.setCharacterTurnContent(Main.game.getPlayer(),
-											Util.newArrayListOfValues("<b>Unequip "+weapon.getName()+"</b>: "+
-													Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-														?Main.game.getPlayer().unequipMainWeapon(false, true)
-														:Main.game.getPlayer().unequipOffhandWeapon(false, true)));
-									resetPostAction();
-									Combat.endCombatTurn();
-									Main.mainController.openInventory();
-								}
-							};
+							return new Response("Unequip", "You can't change weapons while fighting someone!", null);
 							
 						} else if (index == 2) {
-							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasWeapon(weapon);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(!weapon.getWeaponType().isAbleToBeDropped()) {
-									return new Response("Drop", "You cannot drop the " + weapon.getName() + "!", null);
-									
-								} else if(areaFull) {
-									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
-								} else {
-									return new Response("Drop", "Drop your " + weapon.getName() + ".", Combat.ENEMY_ATTACK){
-										@Override
-										public void effects(){
-											Combat.setCharacterTurnContent(Main.game.getPlayer(),
-													Util.newArrayListOfValues("<b>Drop "+weapon.getName()+"</b>: "+
-															Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-																?Main.game.getPlayer().unequipMainWeapon(true, true)
-																:Main.game.getPlayer().unequipOffhandWeapon(true, true)));
-											resetPostAction();
-											Combat.endCombatTurn();
-											Main.mainController.openInventory();
-										}
-									};
-								}
+								return new Response("Drop", "You can't change weapons while fighting someone!", null);
 								
 							} else {
-								if(!weapon.getWeaponType().isAbleToBeDropped()) {
-									return new Response("Store", "You cannot drop the " + weapon.getName() + "!", null);
-									
-								} else if(areaFull) {
-									return new Response("Store", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
-								} else {
-									return new Response("Store", "Store your " + weapon.getName() + " in this area.", Combat.ENEMY_ATTACK){
-										@Override
-										public void effects(){
-											Combat.setCharacterTurnContent(Main.game.getPlayer(),
-													Util.newArrayListOfValues("<b>Store "+weapon.getName()+"</b>: "+
-															Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-																?Main.game.getPlayer().unequipMainWeapon(true, true)
-																:Main.game.getPlayer().unequipOffhandWeapon(true, true)));
-											resetPostAction();
-											Combat.endCombatTurn();
-											Main.mainController.openInventory();
-										}
-									};
-								}
+								return new Response("Store", "You can't change weapons while fighting someone!", null);
 							}
 							
 						} else if (index==4) {
@@ -4896,9 +4747,7 @@ public class InventoryDialogue {
 								public void effects(){
 									Main.game.getTextEndStringBuilder().append(
 											"<p style='text-align:center;'>"
-												+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-													?Main.game.getPlayer().unequipMainWeapon(false, true)
-													:Main.game.getPlayer().unequipOffhandWeapon(false, true))
+												+ (Main.game.getPlayer().unequipWeapon(weaponSlot, weapon, false, true))
 											+ "</p>");
 									resetPostAction();
 								}
@@ -4918,9 +4767,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
-														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-															?Main.game.getPlayer().unequipMainWeapon(true, true)
-															:Main.game.getPlayer().unequipOffhandWeapon(true, true))
+														+ (Main.game.getPlayer().unequipWeapon(weaponSlot, weapon, true, true))
 													+ "</p>");
 											resetPostAction();
 										}
@@ -4939,9 +4786,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
-														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-															?Main.game.getPlayer().unequipMainWeapon(true, true)
-															:Main.game.getPlayer().unequipOffhandWeapon(true, true))
+														+ (Main.game.getPlayer().unequipWeapon(weaponSlot, weapon, true, true))
 													+ "</p>");
 											resetPostAction();
 										}
@@ -4984,9 +4829,7 @@ public class InventoryDialogue {
 								public void effects(){
 									Sex.setUnequipWeaponText(weapon,
 											"<p style='text-align:center;'>"
-												+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-													?Main.game.getPlayer().unequipMainWeapon(false, true)
-													:Main.game.getPlayer().unequipOffhandWeapon(false, true))
+												+ (Main.game.getPlayer().unequipWeapon(weaponSlot, weapon, false, true))
 											+ "</p>");
 									resetPostAction();
 									Main.mainController.openInventory();
@@ -5009,9 +4852,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Sex.setUnequipWeaponText(weapon,
 													"<p style='text-align:center;'>"
-														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-															?Main.game.getPlayer().unequipMainWeapon(true, true)
-															:Main.game.getPlayer().unequipOffhandWeapon(true, true))
+														+ (Main.game.getPlayer().unequipWeapon(weaponSlot, weapon, true, true))
 													+ "</p>");
 											resetPostAction();
 											Main.mainController.openInventory();
@@ -5033,9 +4874,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Sex.setUnequipWeaponText(weapon,
 													"<p style='text-align:center;'>"
-														+ (Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon)
-															?Main.game.getPlayer().unequipMainWeapon(true, true)
-															:Main.game.getPlayer().unequipOffhandWeapon(true, true))
+														+ (Main.game.getPlayer().unequipWeapon(weaponSlot, weapon, true, true))
 													+ "</p>");
 											resetPostAction();
 											Main.mainController.openInventory();
@@ -5091,9 +4930,7 @@ public class InventoryDialogue {
 								public void effects(){
 									Main.game.getTextEndStringBuilder().append(
 											"<p style='text-align:center;'>"
-												+ (inventoryNPC.getMainWeapon()!=null && inventoryNPC.getMainWeapon().equals(weapon)
-													?inventoryNPC.unequipMainWeapon(false, false)
-													:inventoryNPC.unequipOffhandWeapon(false, false))
+												+ (inventoryNPC.unequipWeapon(weaponSlot, weapon, false, false))
 											+ "</p>");
 									resetPostAction();
 								}
@@ -5113,9 +4950,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
-														+ (inventoryNPC.getMainWeapon()!=null && inventoryNPC.getMainWeapon().equals(weapon)
-															?inventoryNPC.unequipMainWeapon(true, false)
-															:inventoryNPC.unequipOffhandWeapon(true, false))
+														+ (inventoryNPC.unequipWeapon(weaponSlot, weapon, true, false))
 													+ "</p>");
 											resetPostAction();
 										}
@@ -5134,9 +4969,7 @@ public class InventoryDialogue {
 										public void effects(){
 											Main.game.getTextEndStringBuilder().append(
 													"<p style='text-align:center;'>"
-														+ (inventoryNPC.getMainWeapon()!=null && inventoryNPC.getMainWeapon().equals(weapon)
-															?inventoryNPC.unequipMainWeapon(true, false)
-															:inventoryNPC.unequipOffhandWeapon(true, false))
+														+ (inventoryNPC.unequipWeapon(weaponSlot, weapon, true, false))
 													+ "</p>");
 											resetPostAction();
 										}
@@ -5272,54 +5105,11 @@ public class InventoryDialogue {
 				switch(interactionType) {
 					case COMBAT:
 						if (index == 1) {
-							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(!clothing.getClothingType().isAbleToBeDropped()) {
-									return new Response("Drop", "You cannot drop the " + clothing.getName() + "!", null);
-									
-								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)) {
-									return new Response("Drop", "This area is full, so you can't drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
-								} else {
-									return new Response((clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)?"Discard":"Drop"),
-											(clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)
-													?"Take off "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " and throw it away."
-													:"Drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + "."),
-											Combat.ENEMY_ATTACK){
-										@Override
-										public void effects(){
-											unequipClothingToFloor(Main.game.getPlayer(), clothing);
-											Combat.setCharacterTurnContent(Main.game.getPlayer(),
-													Util.newArrayListOfValues("<b>Drop "+clothing.getName()+"</b>: "+owner.getUnequipDescription()));
-											resetPostAction();
-											Combat.endCombatTurn();
-											Main.mainController.openInventory();
-										}
-									};
-								}
+								return new Response("Drop", "You cannot drop the " + clothing.getName() + " while fighting someone!", null);
 								
 							} else {
-								if(!clothing.getClothingType().isAbleToBeDropped()) {
-									return new Response("Store", "You cannot drop the " + clothing.getName() + "!", null);
-									
-								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)) {
-									return new Response("Store", "This area is full, so you can't store "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
-								} else {
-									return new Response((clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)?"Discard":"Store"),
-											(clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)
-													?"Take off "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " and throw it away."
-													:"Store "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " in this area."),
-											Combat.ENEMY_ATTACK){
-										@Override
-										public void effects(){
-											unequipClothingToFloor(Main.game.getPlayer(), clothing);
-											Combat.setCharacterTurnContent(Main.game.getPlayer(),
-													Util.newArrayListOfValues("<b>Store "+clothing.getName()+"</b>: "+owner.getUnequipDescription()));
-											resetPostAction();
-											Combat.endCombatTurn();
-											Main.mainController.openInventory();
-										}
-									};
-								}
+								return new Response("Store", "You cannot drop the " + clothing.getName() + " while fighting someone!", null);
 							}
 							
 						} else if (index==4) {
@@ -5343,84 +5133,16 @@ public class InventoryDialogue {
 							}
 							
 						} else if(index == 6 && !clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)) {
-							if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
-								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Combat.ENEMY_ATTACK){
-									@Override
-									public void effects(){
-										unequipClothingToInventory(Main.game.getPlayer(), clothing);
-										Combat.setCharacterTurnContent(Main.game.getPlayer(),
-												Util.newArrayListOfValues("<b>Unequip "+clothing.getName()+"</b>: "+owner.getUnequipDescription()));
-										resetPostAction();
-										Combat.endCombatTurn();
-										Main.mainController.openInventory();
-									}
-								};
-							} else {
-								return new Response("Unequip", "You can't unequip the " + clothing.getName() + ", as other clothing is blocking you from doing so!", null);
-							}
+							return new Response("Unequip", "You can't unequip the " + clothing.getName() + " during combat!", null);
 							
 						} else if (index == 10) {
 							return getQuickTradeResponse();
 							
 						} else if (index > 10 && index - 11 < clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).size()){
-							
-							if (clothing.getDisplacedList().contains(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11))) {
-								if(owner.isAbleToBeReplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11), false, false, Main.game.getPlayer())){
-									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11).getOppositeDescription()),
-											Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11).getOppositeDescription()) + " the " + clothing.getName() + ". "
-													+ clothing.getClothingBlockingDescription(
-															clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11),
-															Main.game.getPlayer(),
-															clothing.getSlotEquippedTo(),
-															" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>This will cover "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
-															".</span>"),
-													Combat.ENEMY_ATTACK){
-										@Override
-										public void effects(){
-											Main.game.getPlayer().isAbleToBeReplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11), true, true, Main.game.getPlayer());
-											Combat.setCharacterTurnContent(Main.game.getPlayer(),
-													Util.newArrayListOfValues("<b>Replace "+clothing.getName()+"</b>: "+owner.getReplaceDescription()));
-											resetPostAction();
-											Combat.endCombatTurn();
-											Main.mainController.openInventory();
-										}
-									};
+								return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription()),
+										"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription()
+										+ " the " + clothing.getName() + " during combat!", null);
 								
-								} else {
-									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription()),
-											"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription()
-											+ " the " + clothing.getName() + ", as other clothing is in the way!", null);
-								}
-								
-							} else {
-								if(owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11), false, false, Main.game.getPlayer())){
-								
-									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11).getDescription()),
-											Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11).getDescription()) + " the " + clothing.getName() + ". "
-													+ clothing.getClothingBlockingDescription(
-															clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11),
-															Main.game.getPlayer(),
-															clothing.getSlotEquippedTo(),
-															" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
-															".</span>"),
-													Combat.ENEMY_ATTACK){
-										@Override
-										public void effects(){
-											Main.game.getPlayer().isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11), true, true, Main.game.getPlayer());
-											Combat.setCharacterTurnContent(Main.game.getPlayer(),
-													Util.newArrayListOfValues("<b>Displace "+clothing.getName()+"</b>: "+owner.getDisplaceDescription()));
-											resetPostAction();
-											Combat.endCombatTurn();
-											Main.mainController.openInventory();
-										}
-									};
-									
-								} else {
-									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription()),
-											"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription()
-											+ " the " + clothing.getName() + ", as other clothing is in the way!", null);
-								}
-							}
 							
 						} else {
 							
@@ -7921,8 +7643,12 @@ public class InventoryDialogue {
 										+ "</p>");
 						}
 						
-						if(owner.getMainWeapon()!= null && owner.getMainWeapon().equals(weapon)) {
-							owner.unequipMainWeaponIntoVoid();
+						
+						
+						if(weaponSlot==InventorySlot.WEAPON_MAIN_1
+								|| weaponSlot==InventorySlot.WEAPON_MAIN_2
+								|| weaponSlot==InventorySlot.WEAPON_MAIN_3) {
+							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
 							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
 							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
@@ -7930,7 +7656,7 @@ public class InventoryDialogue {
 							owner.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 							
 						} else {
-							owner.unequipOffhandWeaponIntoVoid();
+							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
 							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
 							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
@@ -7989,15 +7715,17 @@ public class InventoryDialogue {
 										+ "</p>");
 						}
 						
-						if(owner.getMainWeapon()!= null && owner.getMainWeapon().equals(weapon)) {
-							owner.unequipMainWeaponIntoVoid();
+						if(weaponSlot==InventorySlot.WEAPON_MAIN_1
+								|| weaponSlot==InventorySlot.WEAPON_MAIN_2
+								|| weaponSlot==InventorySlot.WEAPON_MAIN_3) {
+							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
 							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 							
 						} else {
-							owner.unequipOffhandWeaponIntoVoid();
+							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
 							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
@@ -8068,8 +7796,10 @@ public class InventoryDialogue {
 										+ "</p>");
 						}
 						
-						if(owner.getMainWeapon()!= null && owner.getMainWeapon().equals(weapon)) {
-							owner.unequipMainWeaponIntoVoid();
+						if(weaponSlot==InventorySlot.WEAPON_MAIN_1
+								|| weaponSlot==InventorySlot.WEAPON_MAIN_2
+								|| weaponSlot==InventorySlot.WEAPON_MAIN_3) {
+							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
 							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
 							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
@@ -8078,7 +7808,7 @@ public class InventoryDialogue {
 							owner.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 							
 						} else {
-							owner.unequipOffhandWeaponIntoVoid();
+							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
 							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
 							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
@@ -8177,7 +7907,7 @@ public class InventoryDialogue {
 		}
 	}
 	
-	private static Response getQuickTradeResponse() {
+	private static Response getQuickTradeResponse() { //TODO move this into options
 		
 		return null;
 		
@@ -8247,19 +7977,18 @@ public class InventoryDialogue {
 	
 	private static void sellItems(GameCharacter from, GameCharacter to, AbstractItem item, int count, int itemPrice) {
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasItem(item) || item.getRarity()==Rarity.QUEST) {
+			from.incrementMoney(itemPrice*count);
+			to.incrementMoney(-itemPrice*count);
+			
 			if(buyback && to.isPlayer()) {
-				Main.game.getPlayer().incrementMoney(-itemPrice);
-				from.incrementMoney(itemPrice);
-				Main.game.getPlayer().addItem(item, false, false);
-				Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
+				Main.game.getPlayer().addItem(new AbstractItem(item.getItemType()) {}, count, false, true);
+				Main.game.getPlayer().getBuybackStack().get(buyBackIndex).incrementCount(-count);
+				if(Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getCount()<=0) {	
+					Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
+				}
 				
 			} else {
-				//TODO
-				Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(item, itemPrice));
-				
-				to.addItem(item, count, false, false);
-				from.incrementMoney(itemPrice*count);
-				to.incrementMoney(-itemPrice*count);
+				Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(item, itemPrice, count));
 				from.removeItem(item, count);
 			}
 			
@@ -8312,20 +8041,19 @@ public class InventoryDialogue {
 	
 	private static void sellWeapons(GameCharacter from, GameCharacter to, AbstractWeapon weapon, int count, int itemPrice) {
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasWeapon(weapon) || weapon.getRarity()==Rarity.QUEST) {
+
+			from.incrementMoney(itemPrice*count);
+			to.incrementMoney(-itemPrice*count);
 			
 			if(buyback && to.isPlayer()) {
-				Main.game.getPlayer().incrementMoney(-itemPrice);
-				from.incrementMoney(itemPrice);
-				Main.game.getPlayer().addWeapon(weapon, false);
-				Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
+				Main.game.getPlayer().addWeapon(AbstractWeaponType.generateWeapon(weapon), count, false, true);
+				Main.game.getPlayer().getBuybackStack().get(buyBackIndex).incrementCount(-count);
+				if(Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getCount()<=0) {	
+					Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
+				}
 				
 			} else {
-				//TODO
-				Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(weapon, itemPrice));
-
-				to.addWeapon(weapon, count, false, to.isPlayer());
-				from.incrementMoney(itemPrice*count);
-				to.incrementMoney(-itemPrice*count);
+				Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(weapon, itemPrice, count));
 				from.removeWeapon(weapon, count);
 			}
 			
@@ -8386,20 +8114,19 @@ public class InventoryDialogue {
 	
 	private static void sellClothing(GameCharacter from, GameCharacter to, AbstractClothing clothing, int count, int itemPrice) {
 		if (!to.isPlayer() || !to.isInventoryFull() || to.hasClothing(clothing) || clothing.getRarity()==Rarity.QUEST) {
+
+			from.incrementMoney(itemPrice*count);
+			to.incrementMoney(-itemPrice*count);
 			
 			if(buyback && to.isPlayer()) {
-				Main.game.getPlayer().incrementMoney(-itemPrice);
-				from.incrementMoney(itemPrice);
-				Main.game.getPlayer().addClothing(clothing, false);
-				Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
+				Main.game.getPlayer().addClothing(new AbstractClothing(clothing) {}, count, false, true);
+				Main.game.getPlayer().getBuybackStack().get(buyBackIndex).incrementCount(-count);
+				if(Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getCount()<=0) {	
+					Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
+				}
 				
 			} else {
-				//TODO
-				Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(clothing, itemPrice));
-
-				to.addClothing(clothing, count, false, to.isPlayer());
-				from.incrementMoney(itemPrice*count);
-				to.incrementMoney(-itemPrice*count);
+				Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(clothing, itemPrice, count));
 				from.removeClothing(clothing, count);
 			}
 			
@@ -8552,8 +8279,9 @@ public class InventoryDialogue {
 		return weapon;
 	}
 
-	public static void setWeapon(AbstractWeapon weapon) {
+	public static void setWeapon(InventorySlot slot, AbstractWeapon weapon) {
 		resetItems();
+		InventoryDialogue.weaponSlot = slot;
 		InventoryDialogue.weapon = weapon;
 	}
 

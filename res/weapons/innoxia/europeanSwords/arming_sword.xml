@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+	
+		<value>2500</value> 
+		
+		<melee>true</melee>
+		
+		<twoHanded>false</twoHanded>
+		
+		<determiner><![CDATA[]]></determiner>
+		
+		<name><![CDATA[arming sword]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[arming swords]]></namePlural>
+		
+		<description><![CDATA[This straight-edged sword has a single-handed cruciform hilt. The 75cm-long blade is made out of ethereal arcane energy, which, instead of cutting someone, drains their energy as it passes through them.]]></description> 
+		
+		<attackDescriptor>slash</attackDescriptor>
+		
+		<attackTooltipDescription><![CDATA[Slash at [npc2.name] with your arming sword.]]></attackTooltipDescription>
+		
+		<rarity>EPIC</rarity> 
+		
+		<weaponSet/> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(position)] [npc.her] arming sword at [npc.her] hip, so that [npc.she] may draw it at a moment's notice.]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(sheath)] [npc.her] arming sword, before putting it away.]]></unequipText>
+		
+		<imageName>arming_sword_sheathed.svg</imageName> 
+		
+		<imageEquippedName>arming_sword.svg</imageEquippedName> 
+		
+		<damage>18</damage> 
+		
+		<arcaneCost>0</arcaneCost> 
+		
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>ICE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects> 
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_DAMAGE" timer="0"/>
+		</effects>
+		
+		<primaryColours>
+			<colour>CLOTHING_BROWN_DARK</colour>
+			<colour>CLOTHING_BROWN_VERY_DARK</colour>
+			<colour>CLOTHING_BLACK</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_STEEL"/> 
+		<secondaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_VICKY</tag>
+			<tag>WEAPON_BLADE</tag>
+		</itemTags>
+		
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(slash)] [npc.her] arming sword at [npc2.name], grinning as the ethereal arcane blade travels through [npc2.her] body!
+		]]></hitText>
+		<hitText><![CDATA[
+		Slashing out at [npc2.name] with [npc.her] arming sword, [npc.name] [npc.verb(grin)] as [npc.she] [npc.verb(see)] the ethereal blade travel straight through [npc2.her] body!
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(slash)] at [npc2.name] with [npc.her] arming sword, causing [npc2.herHim] to stagger back as the ethereal blade passes right through [npc2.her] chest!
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(slash)] [npc.her] arming sword at [npc2.name], but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Slashing out at [npc2.name] with [npc.her] arming sword, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(slash)] at [npc2.name] with [npc.her] arming sword, but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

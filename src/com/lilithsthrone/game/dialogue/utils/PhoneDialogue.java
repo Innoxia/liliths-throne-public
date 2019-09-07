@@ -193,14 +193,14 @@ public class PhoneDialogue {
 				
 			} else if (index == 11) {
 				if(Main.game.isSavedDialogueNeutral()) {
-					return new Response("Combat Moves", "Adjust the moves you perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+					return new Response("Combat Moves", "Adjust the core combat moves you are prepared to perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
 						@Override
 						public void effects() {
 							CombatMovesSetup.setTarget(Main.game.getPlayer(), PhoneDialogue.MENU);
 						}
 					};
 				} else {
-					return new Response("Combat Moves", "You are too busy to change your combat moves.", null);
+					return new Response("Combat Moves", "You are too busy to change your core combat moves.", null);
 				}
 				
 			} else if (index == 12) {

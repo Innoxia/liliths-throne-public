@@ -52,7 +52,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -368,7 +368,7 @@ public class Ralph extends NPC {
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexManager().getPosition() == SexPositionOther.OVER_DESK) {
+		if(Sex.getSexManager().getPosition() == SexPosition.OVER_DESK) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 		}
 		return super.getForeplayPreference(target);
@@ -376,7 +376,7 @@ public class Ralph extends NPC {
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(Sex.getSexManager().getPosition() == SexPositionOther.OVER_DESK) {
+		if(Sex.getSexManager().getPosition() == SexPosition.OVER_DESK) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 		}
 		return super.getMainSexPreference(target);
@@ -385,7 +385,7 @@ public class Ralph extends NPC {
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
 
-		if(Sex.getSexManager().getPosition() == SexPositionOther.OVER_DESK) {
+		if(Sex.getSexManager().getPosition() == SexPosition.OVER_DESK) {
 			AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
 			if(clothing!=null && clothing.getClothingType().isCondom(InventorySlot.PENIS)) {
 				target.unequipClothingIntoVoid(clothing, true, equipper);

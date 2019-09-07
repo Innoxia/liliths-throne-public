@@ -180,6 +180,11 @@ public class Arm implements BodyPartInterface {
 		
 		this.armRows = armRows;
 		
+		UtilText.transformationContentSB.append(UtilText.parse(owner,
+				"<p>"
+					+ owner.postTransformationCalculation()
+				+ "</p>"));
+		
 		return UtilText.transformationContentSB.toString();
 	}
 

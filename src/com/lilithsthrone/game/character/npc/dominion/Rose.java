@@ -274,7 +274,11 @@ public class Rose extends NPC {
 			return super.calculateSexTypeWeighting(type, target, request, lustOrArousalCalculation);
 		}
 		
-		if(type.getPerformingSexArea()!=null && type.getPerformingSexArea().isOrifice()) {
+		if(type.getPerformingSexArea()!=null && type.getPerformingSexArea().isOrifice()) { // Do not get penetrated:
+			return -1000;
+		}
+		
+		if(type.getAsParticipant()==SexParticipantType.SELF && type.isTakesVirginity()) { // DO not lose virginity:
 			return -1000;
 		}
 

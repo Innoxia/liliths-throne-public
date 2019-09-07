@@ -173,10 +173,7 @@ public class Properties {
 			genderPronounMale.put(gp, gp.getMasculine());
 		}
 		
-		genderPreferencesMap = new EnumMap<>(Gender.class);
-		for(Gender g : Gender.values()) {
-			genderPreferencesMap.put(g, g.getGenderPreferenceDefault().getValue());
-		}
+		resetGenderPreferences();
 
 		orientationPreferencesMap = new EnumMap<>(SexualOrientation.class);
 		for(SexualOrientation o : SexualOrientation.values()) {
@@ -1086,6 +1083,13 @@ public class Properties {
 
 	public Map<Subspecies, SubspeciesPreference> getSubspeciesMasculinePreferencesMap() {
 		return subspeciesMasculinePreferencesMap;
+	}
+
+	public void resetGenderPreferences() {
+		genderPreferencesMap = new EnumMap<>(Gender.class);
+		for(Gender g : Gender.values()) {
+			genderPreferencesMap.put(g, g.getGenderPreferenceDefault().getValue());
+		}
 	}
 	
 	public void resetAgePreferences() {

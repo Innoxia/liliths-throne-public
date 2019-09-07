@@ -29,14 +29,11 @@ public class PartnerSelfFingerAnus {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.ANUS)),
 			SexParticipantType.SELF) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
-		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
+			return !Sex.getCharacterPerformingAction().isPlayer()
+					&& Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -53,18 +50,18 @@ public class PartnerSelfFingerAnus {
 		public String getDescription() {
 			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.ALL_FOURS)) {
 				return (UtilText.returnStringAtRandom(
-						"Reaching back with one [npc.hand], [npc.name] grabs [npc.her] [npc.ass+] and pulls to one side, letting out [npc.a_moan+] as [npc.she] presents [npc.her] [npc.asshole+] to you.",
-						"[npc.Name] reaches back with one [npc.hand], moaning softly as [npc.she] grabs hold of [npc.her] [npc.ass+], before invitingly pulling to one side and presenting [npc.her] [npc.asshole+] to you.",
+						"Reaching back with one [npc.hand], [npc.name] grabs [npc.her] [npc.ass+] and pulls to one side, letting out [npc.a_moan+] as [npc.she] presents [npc.her] [npc.asshole+] to [npc2.name].",
+						"[npc.Name] reaches back with one [npc.hand], moaning softly as [npc.she] grabs hold of [npc.her] [npc.ass+], before invitingly pulling to one side and presenting [npc.her] [npc.asshole+] to [npc2.name].",
 						"Sliding [npc.her] fingertips over [npc.her] [npc.asshole+],"
-								+ " [npc.name] lets out [npc.a_moan+] as [npc.she] grabs one of [npc.her] [npc.assSize] ass cheeks and pulls to one one side in order to present [npc.her] [npc.asshole+] to you.",
+								+ " [npc.name] lets out [npc.a_moan+] as [npc.she] grabs one of [npc.her] [npc.assSize] ass cheeks and pulls to one one side in order to present [npc.her] [npc.asshole+] to [npc2.name].",
 						"[npc.Name] eagerly slides [npc.her] [npc.fingers] over [npc.her] needy [npc.asshole],"
 								+ " [npc.moaning+] as [npc.she] uses [npc.her] [npc.hand] to pull [npc.her] ass cheek to one side and present [npc.herself] for anal penetration."));
 			} else {
 				return (UtilText.returnStringAtRandom(
-						"Reaching back with both [npc.hands], [npc.name] grabs [npc.her] [npc.assSize] ass cheeks and pulls them apart, letting out [npc.a_moan+] as [npc.she] presents [npc.her] [npc.asshole+] to you.",
-						"[npc.Name] reaches back with both [npc.hands], moaning softly as [npc.she] invitingly pulls [npc.her] [npc.assSize] ass cheeks apart and presents [npc.her] [npc.asshole+] to you.",
+						"Reaching back with both [npc.hands], [npc.name] grabs [npc.her] [npc.assSize] ass cheeks and pulls them apart, letting out [npc.a_moan+] as [npc.she] presents [npc.her] [npc.asshole+] to [npc2.name].",
+						"[npc.Name] reaches back with both [npc.hands], moaning softly as [npc.she] invitingly pulls [npc.her] [npc.assSize] ass cheeks apart and presents [npc.her] [npc.asshole+] to [npc2.name].",
 						"Sliding [npc.her] fingertips over [npc.her] [npc.asshole+],"
-								+ " [npc.name] lets out [npc.a_moan+] as [npc.she] grabs [npc.her] [npc.assSize] ass cheeks and pulls them apart in order to present [npc.her] [npc.asshole+] to you.",
+								+ " [npc.name] lets out [npc.a_moan+] as [npc.she] grabs [npc.her] [npc.assSize] ass cheeks and pulls them apart in order to present [npc.her] [npc.asshole+] to [npc2.name].",
 						"[npc.Name] eagerly slides [npc.her] [npc.fingers] over [npc.her] needy [npc.asshole], [npc.moaning+] as [npc.she] uses [npc.her] [npc.hands] to pull [npc.her] ass cheeks aside and present [npc.herself] for anal penetration."));
 			}
 		}

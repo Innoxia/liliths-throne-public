@@ -79,7 +79,7 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
@@ -332,7 +332,7 @@ public class Amber extends NPC {
 	// Combat:
 	
 	@Override
-	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
+	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
 		return "<p>"
 					+ UtilText.parse(target,
 							UtilText.returnStringAtRandom(
@@ -608,7 +608,7 @@ public class Amber extends NPC {
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexManager().getPosition() == SexPositionOther.ALL_FOURS) {
+		if(Sex.getSexManager().getPosition() == SexPosition.ALL_FOURS) {
 			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && target.hasVagina()) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA);
 			} else {
@@ -621,7 +621,7 @@ public class Amber extends NPC {
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(Sex.getSexManager().getPosition() == SexPositionOther.ALL_FOURS) {
+		if(Sex.getSexManager().getPosition() == SexPosition.ALL_FOURS) {
 			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && target.hasVagina()) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			} else {

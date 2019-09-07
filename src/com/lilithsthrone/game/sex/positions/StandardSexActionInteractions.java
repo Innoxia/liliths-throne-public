@@ -119,23 +119,26 @@ public class StandardSexActionInteractions {
 					Util.mergeMaps(
 							!performer.isTaur()
 								?(!target.isTaur()
-										?Util.mergeMaps(
-												SexActionPresets.groinToAss,
-												SexActionPresets.appendagesToAllAreas,
-												SexActionPresets.allAreasToAppendages)
-										:SexActionPresets.groinToGroin)
-								:(performer.getLegConfiguration().isBipedalPositionedCrotchBoobs()
-										?SexActionPresets.crotchBoobsToAppendages
-										:null),
-							!target.isTaur()
-								?Util.mergeMaps(
-										SexActionPresets.appendagesToAllAreas,
-										SexActionPresets.allAreasToAppendages)
-								:null,
-							SexActionPresets.appendagesToCrotchBoobs,
-							SexActionPresets.appendagesToUpperHalf,
-							SexActionPresets.upperHalfToAppendages,
-							SexActionPresets.kissing),
+									?Util.mergeMaps(
+											SexActionPresets.kissing,
+											SexActionPresets.groinToAss,
+											SexActionPresets.penisToVagina,
+											SexActionPresets.appendagesToAllAreas,
+											SexActionPresets.allAreasToTailAndTentacle,
+											SexActionPresets.lowerHalfToFinger)
+									:Util.mergeMaps(
+											SexActionPresets.allAreasToTailAndTentacle,
+											SexActionPresets.appendagesToLowerHalf,
+											SexActionPresets.groinToGroin))
+								:!target.isTaur()
+									?Util.mergeMaps(
+											SexActionPresets.kissing,
+											SexActionPresets.fingerToUpperTorso,
+											SexActionPresets.fingerToLowerHalf,
+											SexActionPresets.upperHalfToAppendages)
+									:Util.mergeMaps(
+											SexActionPresets.appendagesToLowerHalf,
+											SexActionPresets.allAreasToTailAndTentacle)),
 					Util.newArrayListOfValues(
 							OrgasmCumTarget.BACK,
 							target.isTaur() && !performer.isTaur()
@@ -180,7 +183,6 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.FACE,
 								OrgasmCumTarget.HAIR,
 								OrgasmCumTarget.BREASTS,
-								OrgasmCumTarget.STOMACH,
 								OrgasmCumTarget.FLOOR)))));
 			}
 	};
@@ -246,8 +248,7 @@ public class StandardSexActionInteractions {
 											SexActionPresets.penisToThighs)
 									:(performer.getLegConfiguration().isBipedalPositionedCrotchBoobs() && !target.isTaur()
 											?Util.mergeMaps(
-												SexActionPresets.crotchBoobsToAppendages,
-												SexActionPresets.upperHalfToAppendages)
+												SexActionPresets.crotchBoobsToAppendages)
 											:null)),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.ASS,
@@ -756,7 +757,7 @@ public class StandardSexActionInteractions {
 									SexActionPresets.appendagesToAllAreas,
 									SexActionPresets.allAreasToAppendages,
 									SexActionPresets.kissing,
-									SexActionPresets.mouthToBreasts,
+									SexActionPresets.breastsToMouth,
 									SexActionPresets.vaginaToPenis,
 									SexActionPresets.assToGroin),
 							Util.newArrayListOfValues(
@@ -802,6 +803,7 @@ public class StandardSexActionInteractions {
 				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 						new SexActionInteractions(
 						Util.mergeMaps(
+								SexActionPresets.kissing,
 								SexActionPresets.appendagesToAllAreas,
 								SexActionPresets.allAreasToAppendages,
 								SexActionPresets.vaginaToPenis),
@@ -836,6 +838,7 @@ public class StandardSexActionInteractions {
 				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 						new SexActionInteractions(
 						Util.mergeMaps(
+								SexActionPresets.kissing,
 								SexActionPresets.appendagesToAllAreas,
 								SexActionPresets.allAreasToAppendages,
 								SexActionPresets.vaginaToPenis,
@@ -1010,7 +1013,34 @@ public class StandardSexActionInteractions {
 			}
 	};
 
-	public static VariableInteractions missionaryAndMatingPress = new VariableInteractions() {
+	public static VariableInteractions sixtyNine = new VariableInteractions() {
+			@Override
+			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+						new SexActionInteractions(
+						Util.mergeMaps(
+								SexActionPresets.mouthToVagina,
+								SexActionPresets.mouthToPenis,
+								SexActionPresets.breastsToPenis,
+								SexActionPresets.mouthToCrotchBoobs,
+								SexActionPresets.tailToUpperTorso,
+								SexActionPresets.tentacleToUpperTorso,
+								SexActionPresets.fingerToLowerHalf),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.FACE,
+								OrgasmCumTarget.HAIR,
+								OrgasmCumTarget.BREASTS,
+								OrgasmCumTarget.STOMACH,
+								OrgasmCumTarget.FLOOR),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.FACE,
+								OrgasmCumTarget.HAIR,
+								OrgasmCumTarget.BREASTS,
+								OrgasmCumTarget.FLOOR)))));
+			}
+	};
+	
+	public static VariableInteractions missionary = new VariableInteractions() {
 			@Override
 			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
 				GameCharacter target = getCharacter(targetSlot);
@@ -1020,6 +1050,60 @@ public class StandardSexActionInteractions {
 							new SexActionInteractions(
 							Util.mergeMaps(
 									SexActionPresets.kissing,
+									SexActionPresets.breastsToMouth,
+									SexActionPresets.mouthToBreasts,
+									SexActionPresets.groinToAss,
+									SexActionPresets.groinToGroin,
+									SexActionPresets.tailToLowerHalf,
+									SexActionPresets.tentacleToLowerHalf,
+									SexActionPresets.appendagesToAllAreas),
+							Util.newArrayListOfValues(
+									OrgasmCumTarget.ASS,
+									OrgasmCumTarget.GROIN,
+									OrgasmCumTarget.STOMACH,
+									OrgasmCumTarget.BREASTS,
+									OrgasmCumTarget.LEGS,
+									OrgasmCumTarget.FLOOR),
+							Util.newArrayListOfValues(
+									OrgasmCumTarget.GROIN,
+									OrgasmCumTarget.SELF_FACE,
+									OrgasmCumTarget.SELF_BREASTS,
+									OrgasmCumTarget.SELF_STOMACH,
+									OrgasmCumTarget.FLOOR)))));
+				} else {
+					return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+							new SexActionInteractions(
+							Util.mergeMaps(
+									SexActionPresets.groinToAss,
+									SexActionPresets.groinToGroin,
+									SexActionPresets.tailToLowerHalf,
+									SexActionPresets.tentacleToLowerHalf,
+									SexActionPresets.appendagesToLowerHalf),
+							Util.newArrayListOfValues(
+									OrgasmCumTarget.ASS,
+									OrgasmCumTarget.GROIN,
+									OrgasmCumTarget.STOMACH,
+									OrgasmCumTarget.LEGS,
+									OrgasmCumTarget.FLOOR),
+							Util.newArrayListOfValues(
+									OrgasmCumTarget.GROIN,
+									OrgasmCumTarget.SELF_FACE,
+									OrgasmCumTarget.SELF_BREASTS,
+									OrgasmCumTarget.SELF_STOMACH,
+									OrgasmCumTarget.FLOOR)))));
+				}
+			}
+	};
+
+	public static VariableInteractions matingPress = new VariableInteractions() {
+			@Override
+			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+				GameCharacter target = getCharacter(targetSlot);
+				
+				if(!target.isTaur()) {
+					return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+							new SexActionInteractions(
+							Util.mergeMaps(
 									SexActionPresets.groinToAss,
 									SexActionPresets.groinToGroin,
 									SexActionPresets.tailToLowerHalf,
@@ -1102,6 +1186,54 @@ public class StandardSexActionInteractions {
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.SELF_STOMACH,
 								OrgasmCumTarget.FLOOR)))));
+			}
+	};
+	
+	public static VariableInteractions performingOralToLyingDown = new VariableInteractions() {
+			@Override
+			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+				GameCharacter target = getCharacter(targetSlot);
+				
+				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+						new SexActionInteractions(
+						Util.mergeMaps(
+								SexActionPresets.mouthToPenis,
+								SexActionPresets.breastsToPenis,
+								SexActionPresets.mouthToVagina,
+								target.getLegConfiguration().isBipedalPositionedCrotchBoobs()!=target.isTaur()
+									?SexActionPresets.mouthToCrotchBoobs
+									:null,
+								SexActionPresets.fingerToLowerHalf,
+								!target.isTaur()
+									?SexActionPresets.mouthToAppendages
+									:SexActionPresets.mouthToTailAndTentacle,
+								SexActionPresets.groinToFeet),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.LEGS,
+								OrgasmCumTarget.FEET,
+								OrgasmCumTarget.SELF_LEGS,
+								OrgasmCumTarget.SELF_GROIN,
+								OrgasmCumTarget.SELF_FEET,
+								OrgasmCumTarget.FLOOR),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.SELF_GROIN,
+								OrgasmCumTarget.SELF_STOMACH,
+								OrgasmCumTarget.FLOOR)))));
+			}
+	};
+	
+	public static VariableInteractions performingOralToSixtyNine = new VariableInteractions() {
+			@Override
+			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+						new SexActionInteractions(
+						Util.mergeMaps(
+								SexActionPresets.kissing,
+								SexActionPresets.upperHalfToAppendages,
+								SexActionPresets.appendagesToUpperHalf),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.FLOOR),
+						null))));
 			}
 	};
 	

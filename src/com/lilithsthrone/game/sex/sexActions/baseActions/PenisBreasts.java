@@ -1770,7 +1770,7 @@ public class PenisBreasts {
 					
 				} else {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching up to wrap [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] gently [npc.verb(raise)] and [npc.verb(lower)] [npc.namePos] torso,"
+							"Reaching up to wrap [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] gently [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso,"
 									+ " softly [npc.moaning] as [npc.she] [npc.verb(thrust)] out [npc.her] flat chest and [npc.verb(grind)] against [npc2.herHim].",
 
 							"Gently wrapping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(lift)] [npc.her] torso up and down,"
@@ -1844,7 +1844,7 @@ public class PenisBreasts {
 					
 				} else {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching up to happily wrap [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] enthusiastically [npc.verb(raise)] and [npc.verb(lower)] [npc.namePos] torso,"
+							"Reaching up to happily wrap [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] enthusiastically [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso,"
 									+ " [npc.moaning+] as [npc.she] [npc.verb(thrust)] out [npc.her] flat chest to desperately grind against [npc2.herHim].",
 
 							"Eagerly wrapping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] energetically [npc.verb(lift)] [npc.her] torso up and down,"
@@ -1918,7 +1918,7 @@ public class PenisBreasts {
 					
 				} else {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching up to roughly wrap [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] violently [npc.verb(raise)] and [npc.verb(lower)] [npc.namePos] torso,"
+							"Reaching up to roughly wrap [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] violently [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso,"
 									+ " [npc.moaning+] as [npc.she] [npc.verb(thrust)] out [npc.her] flat chest to dominantly grind against [npc2.herHim].",
 
 							"Dominantly wrapping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] roughly [npc.verb(lift)] [npc.her] torso up and down,"
@@ -1992,7 +1992,7 @@ public class PenisBreasts {
 					
 				} else {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching up to happily wrap [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(raise)] and [npc.verb(lower)] [npc.namePos] torso,"
+							"Reaching up to happily wrap [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso,"
 									+ " [npc.moaning+] as [npc.she] [npc.verb(thrust)] out [npc.her] flat chest to grind against [npc2.herHim].",
 
 							"Wrapping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(lift)] [npc.her] torso up and down,"
@@ -2066,7 +2066,7 @@ public class PenisBreasts {
 					
 				} else {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Reaching up to happily wrap [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] enthusiastically [npc.verb(raise)] and [npc.verb(lower)] [npc.namePos] torso,"
+							"Reaching up to happily wrap [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] enthusiastically [npc.verb(raise)] and [npc.verb(lower)] [npc.her] torso,"
 									+ " [npc.moaning+] as [npc.she] [npc.verb(thrust)] out [npc.her] flat chest to desperately grind against [npc2.herHim].",
 
 							"Eagerly wrapping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] energetically [npc.verb(lift)] [npc.her] torso up and down,"

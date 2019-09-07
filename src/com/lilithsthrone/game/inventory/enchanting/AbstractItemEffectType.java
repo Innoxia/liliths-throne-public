@@ -3254,27 +3254,27 @@ public abstract class AbstractItemEffectType {
 
 					case TF_MOD_LEG_CONFIG_BIPEDAL:
 						return new RacialEffectUtil(" Transforms legs to bipedal "+race.getName(false)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType().applyLegConfigurationTransformation(target, LegConfiguration.BIPEDAL, true); } };
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType().applyLegConfigurationTransformation(target, LegConfiguration.BIPEDAL, true, false); } };
 
 					case TF_MOD_LEG_CONFIG_TAUR:
 						return new RacialEffectUtil(" Transforms lower body to a quadrupedal, feral "+race.getName(true)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType().applyLegConfigurationTransformation(target, LegConfiguration.TAUR, true); } };
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType().applyLegConfigurationTransformation(target, LegConfiguration.TAUR, true, false); } };
 
 					case TF_MOD_LEG_CONFIG_TAIL_LONG:
 						return new RacialEffectUtil(" Transforms lower body to a long-tailed, feral "+race.getName(true)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType().applyLegConfigurationTransformation(target, LegConfiguration.TAIL_LONG, true); } };
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType().applyLegConfigurationTransformation(target, LegConfiguration.TAIL_LONG, true, false); } };
 
 					case TF_MOD_LEG_CONFIG_TAIL:
 						return new RacialEffectUtil(" Transforms lower body to a tailed, feral "+race.getName(true)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType().applyLegConfigurationTransformation(target, LegConfiguration.TAIL, true); } };
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType().applyLegConfigurationTransformation(target, LegConfiguration.TAIL, true, false); } };
 
 					case TF_MOD_LEG_CONFIG_ARACHNID:
 						return new RacialEffectUtil(" Transforms lower body to an eight-legged, feral "+race.getName(true)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType().applyLegConfigurationTransformation(target, LegConfiguration.ARACHNID, true); } };
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType().applyLegConfigurationTransformation(target, LegConfiguration.ARACHNID, true, false); } };
 
 					case TF_MOD_LEG_CONFIG_CEPHALOPOD:
 						return new RacialEffectUtil(" Transforms lower body to an eight-tentacled, feral "+race.getName(true)+"'s.") {
-							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType().applyLegConfigurationTransformation(target, LegConfiguration.CEPHALOPOD, true); } };
+							@Override public String applyEffect() { return RacialBody.valueOfRace(race).getLegType().applyLegConfigurationTransformation(target, LegConfiguration.CEPHALOPOD, true, false); } };
 							
 
 					case TF_MOD_FOOT_STRUCTURE_PLANTIGRADE:

@@ -24,7 +24,7 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.managers.dominion.SexManagerRalphDiscount;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
@@ -412,7 +412,7 @@ public class RalphsSnacks {
 						true,
 						true,
 						new SexManagerDefault(
-								SexPositionOther.OVER_DESK,
+								SexPosition.OVER_DESK,
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Ralph.class), SexSlotDesk.BETWEEN_LEGS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_FRONT))) {
 							@Override

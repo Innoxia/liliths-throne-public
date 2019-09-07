@@ -12,7 +12,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.BreastType;
@@ -159,7 +158,7 @@ public class DominionAlleywayAttacker extends NPC {
 				}
 				switch(taurLevel) {
 					case 1:
-						this.setLegConfiguration(LegConfiguration.TAUR);
+						this.setLegConfiguration(LegConfiguration.TAUR, true);
 						this.setAntennaType(AntennaType.NONE);
 						this.setArmType(ArmType.HUMAN);
 						this.setBreastType(BreastType.HUMAN);
@@ -171,7 +170,7 @@ public class DominionAlleywayAttacker extends NPC {
 						this.setSkinType(SkinType.HUMAN);
 						break;
 					case 2:
-						this.setLegConfiguration(LegConfiguration.TAUR);
+						this.setLegConfiguration(LegConfiguration.TAUR, true);
 						this.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(this.getLegRace())));
 						this.setArmType(ArmType.HUMAN);
 						this.setBreastType(BreastType.HUMAN);
@@ -183,10 +182,10 @@ public class DominionAlleywayAttacker extends NPC {
 						this.setSkinType(SkinType.HUMAN);
 						break;
 					case 3:
-						this.setLegConfiguration(LegConfiguration.TAUR);
+						this.setLegConfiguration(LegConfiguration.TAUR, true);
 						break;
 					case 4:
-						this.setLegConfiguration(LegConfiguration.TAUR);
+						this.setLegConfiguration(LegConfiguration.TAUR, true);
 						this.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(this.getLegRace())));
 						this.setArmType(Util.randomItemFrom(ArmType.getArmTypes(this.getLegRace())));
 						this.setBreastType(Util.randomItemFrom(BreastType.getBreastTypes(this.getLegRace())));
@@ -238,9 +237,8 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			// Set starting perks based on the character's race
 			initPerkTreeAndBackgroundPerks();
-			
-			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+
+			initHealthAndManaToMax();
 		}
 
 		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);

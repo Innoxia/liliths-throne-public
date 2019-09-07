@@ -139,8 +139,8 @@ public class Brax extends NPC {
 		}
 		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.3.0.6")) {
 			if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxBeaten)) {
-				this.unequipMainWeaponIntoVoid();
-				this.unequipOffhandWeaponIntoVoid();
+				this.unequipMainWeaponIntoVoid(0);
+				this.unequipOffhandWeaponIntoVoid(0);
 				this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
 				this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_EPIC, DamageType.FIRE));
 			}
@@ -338,6 +338,18 @@ public class Brax extends NPC {
 	
 	@Override
 	public String getDescription() {
+		if(this.isSlave() && this.getOwner().isPlayer()) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
+				return "At one time being the 'Chief of Dominion Operations', [brax.name] is now no more than your slave.";
+			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
+				return "At one time being the 'Chief of Dominion Operations', [brax.name] ended up becoming Candi's slave, and under her ownership, [brax.she] was transformed into a wolf-girl."
+						+ " Eventually, after performing several tasks for the bimbo cat-girl Enforcer, you became [brax.namePos] new owner.";
+			} else {
+				return "At one time being the 'Chief of Dominion Operations', [brax.name] ended up becoming Candi's slave, and under her ownership, [brax.she] was transformed into a sex-obsessed bimbo wolf-girl."
+						+ " Eventually, after performing several tasks for the bimbo cat-girl Enforcer, you became [brax.namePos] new owner.";
+			}
+		}
+		
 		if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
 			return "The one-time 'Chief of Dominion Operations', [brax.name] is now completely unrecognisable from [brax.her] former self."
 					+ " With some help from Candi, she's been transformed into a brain-dead bimbo, who can only think about where the next cock is coming from.";
@@ -355,6 +367,9 @@ public class Brax extends NPC {
 	
 	@Override
 	public void endSex() {
+		if(this.isSlave() && this.getOwner().isPlayer()) {
+			return;
+		}
 		setPendingClothingDressing(true);
 	}
 	
@@ -365,11 +380,17 @@ public class Brax extends NPC {
 
 	@Override
 	public SexPace getSexPaceDomPreference(){
+		if(this.isSlave() && this.getOwner().isPlayer()) {
+			return super.getSexPaceDomPreference();
+		}
 		return SexPace.DOM_ROUGH;
 	}
 	
 	@Override
 	public SexPace getSexPaceSubPreference(GameCharacter character){
+		if(this.isSlave() && this.getOwner().isPlayer()) {
+			return super.getSexPaceSubPreference(character);
+		}
 		if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
 			return SexPace.SUB_EAGER;
 			
@@ -384,22 +405,24 @@ public class Brax extends NPC {
 	@Override
 	public String getSpeechColour() {
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
-			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
-				return "#FF0AA5";
-			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
-				return "#C60AFF";
-			} else {
-				return "#1F35FF";
+			if(this.isFeminine()) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
+					return "#FF0AA5";
+				} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
+					return "#C60AFF";
+				}
 			}
+			return "#1F35FF";
 			
 		} else {
-			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
-				return "#E36DE1";
-			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
-				return "#D79EFF";
-			} else {
-				return "#ADB4FF";
+			if(this.isFeminine()) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
+					return "#E36DE1";
+				} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
+					return "#D79EFF";
+				}
 			}
+			return "#ADB4FF";
 		}
 	}
 
@@ -415,7 +438,10 @@ public class Brax extends NPC {
 	// Combat:
 	
 	@Override
-	public String getMainAttackDescription(GameCharacter target, boolean isHit) {
+	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
+		if(this.isSlave()) {
+			return super.getMainAttackDescription(armRow, target, isHit);
+		}
 		return "<p>"
 					+ UtilText.parse(target,
 						UtilText.returnStringAtRandom(
@@ -439,6 +465,9 @@ public class Brax extends NPC {
 			
 	@Override
 	public String getSpellDescription() {
+		if(this.isSlave()) {
+			return super.getSpellDescription();
+		}
 		return "<p>"
 				+ UtilText.returnStringAtRandom(
 						"With a grin, Brax focuses on the arcane fire swirling around his arm, and with a sudden thrust forwards, he casts a spell!",
@@ -1192,6 +1221,9 @@ public class Brax extends NPC {
 	// Penetrations
 	@Override
 	public String getPenetrationDescription(boolean initialPenetration, GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaInterface orifice) {
+		if(this.isSlave()) {
+			return super.getPenetrationDescription(initialPenetration, characterPenetrating, penetrationType, characterPenetrated, orifice);
+		}
 		if(Math.random()>0.3) {
 			if(Sex.getSexPositionSlot(characterPenetrated)==SexSlotLyingDown.COWGIRL){
 				if(orifice == SexAreaOrifice.VAGINA) {

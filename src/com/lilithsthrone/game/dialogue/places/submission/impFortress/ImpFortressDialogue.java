@@ -48,6 +48,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
@@ -1882,6 +1883,33 @@ public class ImpFortressDialogue {
 		}
 	};
 
+	private static AbstractWeapon getSuitableWeaponForCutting() {
+		AbstractWeapon suitableWeapon = null;
+		
+		for(AbstractWeapon weapon : Main.game.getPlayer().getMainWeaponArray()) {
+			if(weapon!=null
+					&& weapon.getWeaponType().getItemTags().contains(ItemTag.WEAPON_BLADE)
+					&& Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, weapon)
+						>Attack.getMaximumDamage(Main.game.getNpc(FortressMalesLeader.class), null, Attack.MAIN, Main.game.getNpc(FortressMalesLeader.class).getMainWeapon(0))) {
+				suitableWeapon = weapon;
+				break;
+			}
+		}
+		if(suitableWeapon==null) {
+			for(AbstractWeapon weapon : Main.game.getPlayer().getOffhandWeaponArray()) {
+				if(weapon!=null
+						&& weapon.getWeaponType().getItemTags().contains(ItemTag.WEAPON_BLADE)
+						&& Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, weapon)
+							>Attack.getMaximumDamage(Main.game.getNpc(FortressMalesLeader.class), null, Attack.MAIN, Main.game.getNpc(FortressMalesLeader.class).getMainWeapon(0))) {
+					suitableWeapon = weapon;
+					break;
+				}
+			}
+		}
+		
+		return suitableWeapon;
+	}
+	
 	public static final DialogueNode KEEP_ENTRY = new DialogueNode("Keep", ".", true) {
 
 		@Override
@@ -2192,10 +2220,7 @@ public class ImpFortressDialogue {
 						}
 						
 					} else {
-						if(Main.game.getPlayer().getMainWeapon()!=null
-								&& Main.game.getPlayer().getMainWeapon().getWeaponType().getItemTags().contains(ItemTag.WEAPON_BLADE)
-								&& Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, Main.game.getPlayer().getMainWeapon())
-									>Attack.getMaximumDamage(Main.game.getNpc(FortressMalesLeader.class), null, Attack.MAIN, Main.game.getNpc(FortressMalesLeader.class).getMainWeapon())) {
+						if(getSuitableWeaponForCutting()!=null) {
 							return new Response("Tameshigiri",
 									UtilText.parse(getBoss(),
 											"Seize this fleeting opportunity to 'test cut' the largest bamboo trunk behind [npc.name], thereby demonstrating your superiority in front of [npc.her] imp followers."),
@@ -2214,33 +2239,11 @@ public class ImpFortressDialogue {
 								}
 							};
 							
-						} else if(Main.game.getPlayer().getOffhandWeapon()!=null
-								&& Main.game.getPlayer().getOffhandWeapon().getWeaponType().getItemTags().contains(ItemTag.WEAPON_BLADE)
-								&& Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, Main.game.getPlayer().getOffhandWeapon())
-									>Attack.getMaximumDamage(Main.game.getNpc(FortressMalesLeader.class), null, Attack.MAIN, Main.game.getNpc(FortressMalesLeader.class).getMainWeapon())) {
-							return new Response("Tameshigiri",
-									UtilText.parse(getBoss(),
-											"Seize this fleeting opportunity to 'test cut' the largest bamboo trunk behind [npc.name], thereby demonstrating your superiority in front of [npc.her] imp followers."),
-									KEEP_MALES_TAMESHIGIRI_OFFHAND) {
-								@Override
-								public void effects() {
-									setBossEncountered();
-									if(!Main.game.getPlayer().hasItemType(ItemType.IMP_FORTRESS_ARCANE_KEY_2) && !Main.game.getPlayer().hasClothingType(ClothingType.getClothingTypeFromId("innoxia_neck_key_chain"), true)) {
-										Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_MALES_TAMESHIGIRI_KEY", getAllCharacters()));
-										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.IMP_FORTRESS_ARCANE_KEY_2), false));
-									} else if(!isDarkSirenDefeated()) {
-										Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_MALES_TAMESHIGIRI_DEFEATED", getAllCharacters()));
-									} else {
-										Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_MALES_TAMESHIGIRI_DEFEATED_DS_DEALT_WITH", getAllCharacters()));
-									}
-								}
-							};
-							
 						} else {
 							return new Response("Tameshigiri",
 									UtilText.parse(getBoss(), "You don't think you can match [npc.namePos] demonstration with your weapons...</br>"
 											+ "(Requires you to have an equipped bladed weapon with a maximum damage greater than <b>"
-												+Attack.getMaximumDamage(Main.game.getNpc(FortressMalesLeader.class), null, Attack.MAIN, Main.game.getNpc(FortressMalesLeader.class).getMainWeapon())+"</b>.)"),
+												+Attack.getMaximumDamage(Main.game.getNpc(FortressMalesLeader.class), null, Attack.MAIN, Main.game.getNpc(FortressMalesLeader.class).getMainWeapon(0))+"</b>.)"),
 									null);
 						}
 					}
@@ -2764,41 +2767,8 @@ public class ImpFortressDialogue {
 
 		@Override
 		public String getContent() {
+			UtilText.addSpecialParsingString(getSuitableWeaponForCutting().getName(), true);
 			return UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_MALES_TAMESHIGIRI_MAIN", getAllCharacters());
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Stand aside",
-						UtilText.parse(getBoss(), "Stand aside to allow [npc.name] and [npc.her] imps to leave without a fight."),
-						KEEP_MALES_TAMESHIGIRI_ALLOW_TO_LEAVE) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_MALES_TAMESHIGIRI_ALLOW_TO_LEAVE", getAllCharacters()));
-						clearFortress();
-					}
-				};
-				
-			} else if(index==2) {
-				return new ResponseCombat("Fight", UtilText.parse(getBoss(), "Don't let [npc.name] and [npc.her] imps escape so easily!"),
-						(NPC) getBoss(),
-						getImpBossGroup(true), null);
-			}
-			return null;
-		}
-	};
-	
-	public static final DialogueNode KEEP_MALES_TAMESHIGIRI_OFFHAND = new DialogueNode("Keep", ".", true, true) {
-
-		@Override
-		public int getSecondsPassed() {
-			return 5*60;
-		}
-
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_MALES_TAMESHIGIRI_OFFHAND", getAllCharacters());
 		}
 
 		@Override

@@ -8,16 +8,6 @@
 	
 	Goals:
 	
-	Clothing todo:
-		Ribbons
-		Horn rings
-		Horn chains
-		Tail rings
-		Wing chains
-		Wing bindings
-		
-		
-	
 	- Alexa's romance quest. (Regal, arrogant attitude)
 		Talk about shop - She says business is tough - all the other shops are well established. Only has 3 slaves for sale. She reluctantly asks for help (mentioning she usually has servants do this thing for her)
 		Need to:
@@ -73,7 +63,41 @@
 		Add a variation of Roxy's encounter for if you cure yourself.
 		I'll also add some unique actions for her in her sex scene, where she humiliates you in front of a customer, shouts angrily at a customer, or taunts you while sitting on your face
 		
+	- Add in modding framework for sex actions. 
 	
+	- Improve sex action descriptions to factor in body parts. (Comparing penis size/girth to orifice capacity, using horns as handles during sex, adding size difference content, etc.)
+	
+	- Add Enforcer alleyway encounter
+		If human, forcibly search
+			Check for demon looking like human.
+		Else, question, can lead into search
+		Fights end with locked in stocks
+	
+	- Repeat alleyway
+		after 3 subs in a row, can agree to be their bitch (reveals their name, new options when meeting them again)
+			for demons in dark alleyways, they use telepathic suggestion to increase your corruption 
+		after 3 doms in a row, can force them to accept being your bitch (reveals their name - you can rename them, new options)
+	
+	- Add in day/night cycle effects
+		
+	- Test: Using the #IF format in sex actions also breaks when using npc2
+	
+	- Pregnancy mechanics update
+	
+	
+	
+	
+	
+	
+	- Adding mod support for items.
+	
+	Clothing todo:
+		Horn rings
+		Horn chains
+		Tail rings
+		Wing chains
+		Wing bindings
+		
 	- Claire's quest (will include a way to have sex with her).
 		Need map tab, and able to TP between maps.
 		Can ask her about teleportation.
@@ -93,123 +117,175 @@
 			Fight without Claire
 				If win, escape
 				If lose, locked in stocks
-				
-				
-	- Add in modding framework for sex actions. 
-	
-	- Improve sex action descriptions to factor in body parts. (Comparing penis size/girth to orifice capacity, using horns as handles during sex, adding size difference content, etc.)
-	
-	- Add a way to buy Brax from Candi.
-		Simply offer to buy, and she sells him/her to you
-	
-	- Adding mod support for items.
-	
-	- Add Enforcer alleyway encounter
-		If human, forcibly search
-			Check for demon looking like human.
-		Else, question, can lead into search
-		Fights end with locked in stocks
-	
-	- Repeat alleyway
-		after 3 subs in a row, can agree to be their bitch (reveals their name, new options when meeting them again)
-			for demons in dark alleyways, they use telepathic suggestion to increase your corruption 
-		after 3 doms in a row, can force them to accept being your bitch (reveals their name - you can rename them, new options)
 		
 	
-	- Test: Using the #IF format in sex actions also breaks when using npc2
-	
-	
-		
 	
 	Patch notes:
 	
-	Gameplay:
-		Added a 'loiter' action to the phone menu, allowing you to advance time by four hours in safe, suitable areas.
 	
 	Contributors:
-		Fixed bug where characters would only have 5 health when affected by the 'arcane impotence' status effect. (PR#1193 by AlacoGit)
-		Added support for OccupationTags to be read by the parsing engine, and added 'ENFORCER' occupation tags to relevant occupations. (by Stadler)
-		Added support for multiple-slot equipping on: Realistic dildo (vagina, mouth, anus); Leather Bracelets (wrists, ankles); Siren's Cloak (over-torso, neck); Key Chain Necklace (neck, wrist); Clover Clamps (nipples, vagina). (by Norin)
+		Fixed bug in lying down position where when using reverse face-sitting, the sex scene would sometimes break. (PR#1200 by Sphilia)
+		Fixed bug where quadruple slave room upgrades would instead be showing upgrades for the double slave room. (PR#1196 by EPSIL0N)
+		Added support for clover clamps and realistic dildo to be equipped in sex, and to not conceal the vagina. Also added support for slaves to gain experience from working at their job. (PR#1201 by Norin)
+		Fixed issues with slave/occupant selection when choosing who to have sex with in rooms in Lilaya's house. (PR#1205 by EPSIL0N)
 	
-	Sex:
-		Reduced intercrural sex's default corruption from 'horny' level to 'vanilla'.
-		Prostate massage is no longer achieved via anal fingering for futa characters, with their prostate instead being stimulated through vaginal fingering.
+	Items:
+		Renamed 'knightly sword' to 'arming sword', and added a sheathed icon for when it's not equipped.
+	
+	Combat:
+		All characters involved in combat now perform their moves simultaneously (so even if you defeat an enemy, they still get to perform their selected moves). If combat results every participant being defeated, it counts as your victory.
+		Instead of having only 8 combat moves being available at once, you can now select 8 'core' combat moves (which can be selected/deselected just like before), while moves which are not designated as 'core' are still available during combat, but suffer a +1 AP cost, and also have a +1 turn cooldown.
+		Added 'commands' tab in combat, which contains actions that allow you to give your companions attack-type orders. (The possible commands are: balanced, attack, defend, seduction, spells, and support.)
+		Fixed numerous issues with item usage during combat. Using an item now costs 1 AP, and items can no longer be used while defeated or stunned.
+		Removed ability to manipulate clothing and weapons in combat, as it was causing several issues with the underlying mechanics. (I'll try to enable this again at some point when I have time to add proper support and actions for it all.)
+		Added ability to equip a weapon in each one of your hands, based on how many arm rows you have, up to a total of 6 weapons at once. (The inventory UI changes layout to show a character's extra weapon slots only if they have more than one arm row.)
+		Renamed the combat move 'twin strike' to 'all-out strike'.
+		'Strike', 'Offhand strike', and 'All-out strike' now have their AP cost equal to how many arm rows you have, with a maximum AP of 3.
+		'All-out strike' no longer has any damage reductions on the weapons involved, but has a cooldown of two turns (including the turn in which it's used).
+		'Arcane strike' no longer uses your primary weapon to calculate damage, and instead deals lust damage to your target equal to 10% of the aura you recover. Aura recovery is calculated by: 2*level
+		NPCs will no longer use the 'bite' special attack if their mouth is blocked, nor any special tease attacks if they are completely ineffective (either due to missing aprts or the enemy not liking the associated fetish).
+		Buffed fetish tease attack critical damage, making it a lot more effective than regular critical tease attacks. (The non-crit damage is still slightly weaker than regular tease attacks.)
 	
 	Other:
-	 	Candi can now be impregnated.
-		Slightly improved dialogue flow in Brax's feminisation scenes.
-		Added options to keep Brax as a futa when feminising him into Bree or Brandi.
-		Slightly improved display of capacity-related random descriptors for orifices, and added colour to random descriptors for lips, nipples, labia, and penis.
-		NPCs with a neutral fetish desire towards feet-related actions will now use those actions if your corresponding foot-fetish desire is positive. (i.e. An NPC with a neutral 'dominant foot' fetish will not use their feet in sex, unless your character has a positive desire towards the 'submissive foot' fetish.)
-		Improved visibility of character-swapping positioning actions.
-		Added finger to lower-half actions to the sex position slot where you're kneeling behind someone who's down on all fours.
-	
+		Added 'German-shepherd-morphs' as a subspecies of dog-morph. A character needs upright dog ears, as well as fluffy black fur with tan markings to be identified as a German-shepherd-morph.
+		Characters no longer respond to spectating characters' encouragements to pullout or creampie, and you, the player, also no longer responds to these encouragements from anybody (as the game doesn't know if you're going to pull out or not...).
+		Added kissing actions to cowgirl position, and breasts-to-mouth interactions for missionary.
+		The heavy muffling in sex (where all words are replaced with '~Mrph~' noises) is now only caused if the character is wearing clothing which impedes speech, or if the character is performing oral on a penis, tail, or tentacle. (So kissing no longer causes speech to be totally muffled.)
+		Dirty talk and other similar speech-type sex actions are now available even if the character is performing oral, so long as it's not on a penis, tail, or tentacle.
+		Added a 'face between legs' slot to the lying down position, so characters can now perform oral on characters who are lying down.
+		Imps now have a significant lust damage debuff (to represent both their uncouth mannerisms and their reputation as being on the very bottom rung of Dominion society).
+		Obedient slaves now have appropriate descriptions when you give them an item to consume/use.
+		Increased the chance of finding 'Glowing Mushrooms' when exploring the 'Bioluminescent Cavern' tiles.
+		Added icons to responses in sex to indicate if they're going to swap ongoing actions or have you join in as an additional ongoing character.
+		Slightly improved ordering of sex actions, based on their associated pace.
+		Improved buyback menu to correctly handle stacks of sold items/clothing/weapons.
+		Slightly improved flow of dialogue in Candi's scenes.
+		Added in variations of orgasm requests and denials for characters who have muffled speech.
+		Converted breeding stall position into new positioning format.
+		Increased value of slaves who still have their virginity.
+		Slightly rebalanced NPCs' sex action preference weighting, so it's now a little more likely that NPCs will prefer to use non-vaginal or anal actions in sex (although those two remain weighted heavier than other actions).
+		Pregnancy status effects now apply a small reduction in maximum health.
+		
 	Bugs:
-		Fixed major issue where you wouldn't be able to request access to the harpy nests, nor ask about the side quest up there.
-		Fixed issue where the game would freeze when selecting masturbation while having a positive desire towards exhibitionism, and also having a companion in your party.
-		Fixed semi-major bug where the actions available in sex would not update correctly after switching position using the new positioning menu actions.
-		Fixed numerous minor parsing errors, as well as incorrect description in anal actions, and incorrect parsing in prostate orgasm descriptions.
-		Fixed taurs spawning in with crotch-boobs even if you'd turned them off in the content options.
-		Fixed taurs having a 95% chance of appearing instead of 5%.
-		Fixed incorrect sex title for masturbation.
-		Fixed horse-morphs as being described as being present on the streets of Dominion during an arcane storm.
-		Candi no longer behaves as though she was satisfied from sex immediately after a sex scene in which you didn't let her orgasm.
-		The positioning menu actions now correctly work in the prologue's sex scene.
-		Fixed issue where the game would freeze after Rose's hand-holding scene (and any other sex scene in which no 'real' sex interactions were performed).
-		Fixed being able to interact with characters on the other end of a taur when you were spitroasting said taur, and improved action availability between these slots for when the in-between character is a non-taur.
-		Fixed positioning menu actions not being available when targeting characters who were on the same dom/sub 'side' as you.
-		Clothing now shows up in every category into which it can be equipped when using the debug menu's spawn menu. (Type 'buggy' when standing on a neutral tile to open the debug menu.)
-		Fixed issue where the sex slot descriptions being displayed beneath each character's name would sometimes be incorrect on the first turn of sex.
-		Fixed expanded positioning actions not being available when in the sitting position.
-		Fixed Ms. Cunningham's 'Perform cunnilingus' action causing a softlock if you were a taur.
-		If she's unable to access your ass, Vicky should now prefer to use your vagina, if you have one, instead of penetrating herself on your cock.
-		Fixed new positioning menu actions not causing sex to calculate a turn correctly when selected.
-		Debug menu's 'Reveal maps' action now correctly unlocks all maps to be viewed in the maps screen.
-		Fixed cause of a bug where duplicate 'Arthur's home' tiles could be created in Demon Home. (Also the game will delete any duplicates in your save file when loading into this version.)
-		The cultists which spawn during October can now appear on tiles which have friendly occupants living on them. (So that they can now spawn even if you've filled Dominion with friendly characters.)
-		Fixed bug where setting your birthday in the character creation would allow the year to go past the boundaries.
-		Lyssieth now correctly always creampies Lilaya/Meraxis during their demon TF scenes.
-		Fixed bug where Lyssieth would transform her penis away between the scenes in which she corrupts Lilaya and Meraxis.
-		Fixed issue where the 'degrading talk' sex action was never available.
-		The new taur spawn preference setting is now correctly saved in your properties file, so you don't have to set it every time the game is restarted.
-		When being transformed into a demon, your anus, nipples, vagina, and penis now correctly transform to have the same colour as your new demonic skin.
+		Fixed several parsing errors and typos.
+		Fixed formatting and description errors in ongoing double-penetration action text (for both vaginal and anal).
+		Fixed bug where the 'Characters Present' screen would sometimes throw an error if you had no companion in your party.
+		Fixed issue with the 'Dominate' action in the Father's day content's threesome scene not working, and a related issue with the reverse cowgirl position causing sex to sometimes break.
+		The 'Encourage Pullout' action is no longer available if the orgasming character is currently unable to pull out. (i.e. If they're leg-locked, tail-locked, etc.)
+		Fixed combat bug where the offhand attack was calculating damage based on the weapon you had in your main hand.
+		Fixed issues with Brax being your slave, where his/her clothing would re-equip itself after sex, and several descriptions related to him/her acting as though he was still at the Enforcer Headquarters. Also fixed issues with his/her sex paces and perk tree not working correctly.
+		Fixed bug in sex where a character could end up using their tongue and mouth on different areas at the same time (such as performing cunnilingus while also sucking on a tail).
+		Fixed positioning bug where a character could access a slot that would normally be banned once they'd moved out of their currently-assigned slot.
+		Fixed some issues with the positioning menu which were resulting in broken parsing and sometimes causing the game to freeze.
+		Fixed bug where entering the positioning menu would sometimes put characters in slots that shouldn't have been available to them.
+		Fixed bug where post-combat sex actions were sometimes disabled, even if the dialogue indicated that the NPC wanted to have sex with you.
+		Rough sex action that target yourself (such as rough self-fingering) now correctly have the masochist fetish associated with them.
+		NPCs will no longer use self-targeting sex actions which take their own virginity (they will still use actions that take their virginity if they are interacting with another partner).
+		Rose should no longer self-penetrate with her tail in her sex scene.
+		Leg transformations into taurs (via TF potions or the self-TF demon/slime menu) will no longer change the attributes of lower body parts (such as penis size, vagina capacity, etc.). It *will* still change all lower body parts into the corresponding race of the leg type, however.
+		Lyssieth's speech can no longer be affected by any drunk status effect she might have obtained while in her vision scene.
+		Dominion attackers which spawn during a storm on non-alleyway tiles will no longer have the 'talk' action available after defeating them, which was causing them to get permanently stuck as non-interactive NPCs on that tile. NPCs stuck in this manner will be automatically cleaned up when loading into this version.
+		Fixed Ms. Cunningham's sex preferences when in the scene in which she's in the 'over-desk' position.
+		Enchantment capacity cost is no longer displayed for unidentified clothing.
+		Fixed error with dates displaying 11th, 12th, and 13th as 11st, 12nd, and 13rd.
+		Fixed telepathic seduction always being described as affecting you, even if it was an NPC targeting another NPC.
+		Repositioning when in a 'stocks' or 'milking stall' sex position no longer moves the characters locked into the stocks into a spectator slot.
+		Fixed bug where equipped/unequipped weapon icons would sometimes have gradients incorrectly coloured.
+		Fixed issue with the demon dagger's icon. 
+		Fixed bug in combat where NPCs would have their cooldowns reduced by 2 turns each turn instead of by 1.
+		Jhortrax and Fyrsia (the imp fortress leaders) now correctly prefer to use melee attacks rather than trying to seduce you in combat.
+		Fixed issue in sex where two characters couldn't be simultaneously giving one another blowjobs (only noticeable in the 69 position).
+		Fixed issues with incorrectly configured sex area interactions when in the sixty nine position.
+		Fixed some old position-related actions no longer being available for use (such as slap ass & position changing actions in stocks scenes, and some other minor ones in others).
+		Restored some old position-related orgasm climax descriptions which were accidentally removed as part of the sex positioning refactor work.
+		Spells which critically hit now correctly have the duration of any applied status effects doubled. Status effect duration is also now correctly doubled if the caster has the 'Arcane Composition' perk (from the musician background).
+		Fixed fire spells performing critical hits when they were the only spell selected, instead of the intended condition of the caster being under 25% health.
+		Fixed numerous damage calculation errors in all special attacks derived from anthropomorphic body parts.
+		Fixed a few parsing and description errors related to the combat move display screen.
+		Fixed incoming tease damage not being correctly converted to health/mana damage when under the effect of the 'desperate for sex' status effect.
+		Applied temporary fix to status effect tooltip descriptions not wrapping around onto the next line (which was causing them to trail off outside of the tooltip). This might cause other slight formatting issues with status effect tooltips until I can get the time to come back and fix it properly.
+		Fixed 'futanari testicles' content option incorrectly being applied to just feminine characters instead of just characters with a vagina.
+		Characters who dislike the pregnancy fetish will no longer force their partners to cum inside their vagina.
+		The offspring map can now be used on tiles which already have one character on them.
+		If multiple characters are on the same tile (such as a random alleyway attacker and one of your offspring spawned via the offspring map), encounters on that tile will now be randomly chosen from all characters present, instead of being the same character every time.
+		Fixed issue where randomly generated hostile characters (such as those on alleyway tiles, submission's tunnels, harpy nests, etc.) who were spawned in an older version would not have their location correctly set as their home location.
+		Fixed bug where some items were displaying incorrect equip/displace/unequip text. (This was also causing the effects of some modded clothing to not work.)
+		Spectators in sex can no longer manage the clothing of the actual participants.
+		Fixed incorrect descriptions in taur transformation text, as well as in some orgasm scenes.
+		Fixed issue in several sex positions (mainly in the 'sitting' position) where only self-interacting sex actions would be available.
+		Fixed deflowering fetish experience not incrementing from taking others' virginities unless you had the fetish.
+		Fixed performing handjobs not being available while performing intercrural on the same person.
+		Fixed bug where characters were spawning in with just 5 aura, even if their maximum aura was far higher.
+		Fixed bug where all half-demons would always be female, no matter what your preferences were set to.
+		Fixed corruptive sex actions not being added to the repeat actions tab.
+		Brax's feminisation/bimboification transformations no longer give him/her hair (as she has a wolf's furred head instead).
+		Fixed characters in the 'face-to-wall' position being able to grope the breasts of the person behind them.
+		Fixed incorrect actions being available in the 'standing' position when in the 'standing behind' slot.
+		Resetting age or gender preferences to default now correctly saves the restored default preferences in your properties.xml file.
+		Fixed bug in sex where starting a finger-related action would stop all other ongoing finger-related actions. (i.e. Starting to give someone a handjob would make you stop fingering them, even if you had a hand free.)
+		Selling items no longer puts those items into the shopkeeper's inventory, and only puts them into the buyback menu.
+		Fixed the buyback menu's broken UI, and fixed the 'buy (5)' and 'buy (all)' actions to work properly.
+		Fixed numerous actions not being available in the 'all fours', 'milking stall', and 'stocks' positions.
+		Fixed the 'Important status effects' screen popping up in mid-dialogue scenes (it now displays when you get to a scene in which travel is no longer disabled).
+		Fixed being able to switch ongoing actions with Lyssieth in the Lilaya/Meraxis transformation scene, which would cause them to not be transformed, breaking the scene.
+		Fixed issue where asking someone (who is listening to your requests) to pullout would cause them to always choose to cum on the floor, instead of sometimes choosing to cum on a body part.
+		Fixed NPCs not prioritising character they are penetrating with their penis when choosing an orgasm action.
+		Fixed incorrect orgasm descriptions in the standing position.
+		Characters will no longer end sex while there is another character who's about to orgasm.
+		Lilaya and Meraxis no longer lose affection towards you or Lyssieth if their transformation sex scenes end without orgasming enough times to be satisfied.
+		You are no longer blocked from masturbating if you have a summoned elemental in your party.
+		Fixed raven harpies not being recognised if the harpy had 'pitch black' feathers instead of just 'black'.
+		Fixed issue with the character creation age selection acting as though you were three years older than you actually set yourself to be.
+		'Pussy-to-mouth' and 'Ass-to-mouth' orgasm actions are now correctly only available in the 'all fours' position, and NPCs who are listening to your requests to pull out will no longer use these actions.
+		Ongoing sex actions that you've already started no longer have their associated 'start' action show up as a greyed-out action in the action list.
+		Fixed bug where characters in the breeding stall could finger themselves.
+		You can now request position changes in Amber's sex scenes again.
+		Fixed numerous descriptions when interacting with Amber that didn't take into account whether you had a taur lower body or not.
+		Fixed cultists not using correct sex actions, and their post-sealed-sex scene displaying the incorrect scene description.
+		Fixed bug where partners in sex would almost never want to reveal your breasts.
+		Fixed issue with conditional parsing statements inside of speech breaking if the speech was affected by a lisp or other speech-altering method.
+		Bat tails now correctly require the 'furry tail penetration' setting to be on in order for characters to use them for penetration during sex.
+		Fixed offspring's initial pregnancy reaction dialogue sometimes not working.
+		Fixed issue where Lilaya would react as if you got her pregnant, even if it was Lyssieth who got her pregnant.
+		Noxinia's sex scenes are no longer treated as public sex.
+		Fixed issue with sex AI where they would only want to perform paizuri if their partner's nipples were able to be penetrated.
+		Fixed clothing with 4 available equip slots blocking out the 'pay to identify' action when interacting with shopkeepers.
+		Fixed bug in sex where NPCs would use opposite actions to the ones they wanted. (i.e. A character whose preference was to receive a blowjob would be equally as happy to start performing a blowjob, even if their fetish desires should normally have prohibited it.)
 	
 	
+		
+		
+		
+		
+	Add action to tell pill handouters to get lost (for the year)
 	
+	How can I get the rental mommy off a tile
+		Report to Angel
+			She can get rid of her
+			She can also leave her
+			Or get her to work at brothel
 	
+	Threesome and 'offer companion' actions missing for alleyway demons and in Submission and in bat caverns
+	Need to make all random encounters take into account companions. Prostitutes definitely don't at the moment.
 	
+	Swallowing TF potions after defeat or submit changes your body-parts even if you are a demon
+	TF potions post-sex can tf you when you're a demon...
 	
-	
-	
-	
-	Make 'Help Candi' a locked scene and add action to move away
-	
-	In Lilaya transformation, if chosen give her blowjob, and then get covered in her fluid (paizuri request cum, or nipple fuck creampie) after scene end, but before Meraxis scene, will be message about clothes being dirtied.
-		(Make these notifications only trigger in non-locked scenes)
-	
-	And I also notice that Lilaya was able to perform handjob on Lyssieth while receiving anal. 
-	
-	meraxis loses affection post-sex
-	
-	need lying down oral
+	"Before Bramble's corset dress is able to be removed, women's leather jacket needs to be removed."​
 	
 	proof-read all new Brax buying scenes
 	
 	sort out cloaca actions
-	
-	Add action to tell pill handouters to get lost (for the year)
 	
 	Make choking ongoing and add hand-holding (need to support misc. ongoing actions)
 	make suckle an ongoing action
 	need eating out eating cum
 	Move actions out of DoggyStlye and into generic actions
 	
-	bug: flash was nerfed a lot and only lasts one turn against your target sooo yeah why bother criting with it?
-			
-	
-	fix item usage in combat
+	Add more clothing TF options
 	
 	no grope own breasts action?
+	add self-breast-feeding
 	
 	the 1/2 reduction in potion making cost seems a bit too powerful for a fetish bonus. Therefore I suggest it be given to a perk
 	
@@ -221,36 +297,21 @@
 	
 	change personality system
 	
-	make it so you can ask Lilaiya to revert back to her original skin colour even after she becomes a full demon
+	add hypnotic cum toggle
 	
-	there's is a button to leave the appearance screen and it used to work in old versions, but it doesn't work for me now
+	make it so you can ask Lilaya to revert back to her original skin colour after she becomes a full demon
 	
 	skin colour settings
 	
 	Need day/night behaviour
 	
-	Need to make all random encounters take into account companions. Prostitutes definitely don't at the moment.
-	
 	Fully implement the code for outfits for you and slaves/companions.
 	
 	Change primary/secondary/tertiary colours for clothing/weapons to a list of colours
 	
-	Half demon is listed twice in buggy menu?
-	
 	add enchantment for insertables and prevents erections, and tag for vibration_enabled
 	
-	Add 'forage' action in caverns to get mushrooms
-	
-			
-	How can I get the rental mommy off a tile
-		Report to Angel
-			She can get rid of her
-			She can also leave her
-			Or get her to work at brothel
-	
-	slave virgin price needs boosting
-	
-	Add German Shepherds
+	Add taur variations to Amber walkies scenes
 	
 	need to add interaction with offspring on mother's and father's days
 	
@@ -290,25 +351,15 @@
 	
 	Need to make enchantment essence cost input and make angel's purity more expensive
 	
-	Ver 3.3 NPC took her own virginity with a tail (I think in one update NPCs no longer allowed to take their own)
-	
-	Bug 2: my pants and underwear both say displaced even if i just started sex
-	
 	Make stronger versions:
 		Vixen's Virility also increases the maximum number of children a person can be impregnated with while it's effects are active.
 		Same with Promiscuity Pills, if a pregnancy occurs while they are active, the number of children produced is minimized.
 	
-	The continue button's tooltip is incorrect for the incubi slime at the tower: says "Let Maximillian fuck you."
-	
 	Offer occupants job as companion
-	
-	add scissoring
 	
 	the slave event log lags my game, so i don't have slaves anymore
 	
 	BTW it would be great to drop a line in the error.log whenever a modded item is loaded with an outdated xml.
-	
-	TF potions post-sex can tf you when you're a demon...
 	
 	Need to add unique encounter for alleyway attacks during storm - at the moment you can't submit and they act normal...
 	
@@ -327,18 +378,12 @@
 	
 	Make ice shard/freezing fog upgrade increase mana cost
 	
-	rename energy to health?
-	
 	Cleanse spell applying enemy effect to last person targeted
 	
 	Need perk for:
 		Office worker
 		
 	Check the corruption based on seduction perks for randoms (maybe boost?)
-	
-	Add skin tone options
-	
-	Been having some issues with Centaurs not having any other options then orla or breast, not sure if it's a height issue or just things borking
 	
 	Add external map and place support
 		Add gym map
@@ -358,15 +403,6 @@
 	
 	- still can't have your guests use your slaves
 	
-	
-	credits
-	
-	-
-	
-	Noticed this last night, seems equipping items in shop menus adds the item to the buyback screen as well. Managed to buy copies of legendary items.
-	
-	when you attack a prostitute and they win they remain on the square despite the text saying it'll be the last time you see them
-	
 	i tried to have sex with my compaion - and i got situation at which i can only masturbate and companion was watching, and since she didnt have voyer trait...it was imposible to make some progress at her.  yes, i got some desciption that she orgasmed..but after she orgamed 8x..and me manytimes and still no option to end sex apppeared
 	
 	my comanion did have cloak equped and under it normal cloth...and on text i allways got text that she tried to dicard thier cloth..and warning that cloak must be discarded first...and got again and again..without she discarding cloak first
@@ -378,10 +414,6 @@
 	Choke is using detection of player's cock, not the NPC using the action?
 	
 	Player sometimes has no actions when dominant in imp group sex
-	
-	the cult of lilith won't spawn anymore. This is on 3.2.6. It doesn't matter whether you save edit it to october, or actually change your system's date, They still won't spawn
-	
-	lisp is affecting parsing commands
 	
 	sometimes trying to manage my own clothing during a sex encounter while im dominant causes buttons not to respond
 	ok maybe it wasnt that, but there was an NPC that was causing my buttons to become unresponsive 3-5 turns into sex. I skipped the NPC sex scene after having to quit a few times and came back after fighting another NPC and it was fine so i have no idea

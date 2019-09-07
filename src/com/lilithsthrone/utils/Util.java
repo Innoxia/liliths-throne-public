@@ -463,12 +463,15 @@ public class Util {
 	}
 
 	public static String intToDate(int integer) {
-		if(integer%10==1) {
-			return integer+"st";
-		} else if(integer%10==2) {
-			return integer+"nd";
-		} else if(integer%10==3) {
-			return integer+"rd";
+		int remainderHundred = integer%100;
+		if(remainderHundred<=10 || remainderHundred>20) {
+			if(integer%10==1) {
+				return integer+"st";
+			} else if(integer%10==2) {
+				return integer+"nd";
+			} else if(integer%10==3) {
+				return integer+"rd";
+			}
 		}
 		return integer+"th";
 	}
@@ -665,12 +668,25 @@ public class Util {
 	 *            modified sentence
 	 */
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts, boolean middle) {
-		splitSentence = sentence.split(" ");
 		utilitiesStringBuilder.setLength(0);
-
+		
+		String [] splitConditional = sentence.split("#IF\\((.*?)\\)|#ELSEIF\\((.*?)\\)"); // Do not replace text inside conditional parsing statements
+		String modifiedSentence = sentence;
+		if(splitConditional.length>1) {
+			for(String s : splitConditional) {
+				modifiedSentence = sentence.replace(s, insertIntoSentences(s, frequency, inserts, middle));
+			}
+		}
+		if(!modifiedSentence.contains(" ")) {
+			return modifiedSentence;
+		}
+		
+		splitSentence = modifiedSentence.split(" ");
+		
 		// 1 in "frequency" words have an insert, with a minimum of 1.
-		int wordsToInsert = splitSentence.length / frequency + 1,
-				offset = 0;
+		int wordsToInsert = splitSentence.length / frequency + 1;
+		int offset = 0;
+		
 		for (int i = 0; i < wordsToInsert; i++) {
 			offset = Math.min(i * frequency + random.nextInt(frequency), splitSentence.length - 1);
 			String insert = inserts[random.nextInt(inserts.length)];
@@ -694,10 +710,10 @@ public class Util {
 
 			// Append the insert to this word:
 			splitSentence[offset] = splitSentence[offset] + insert;
-
 		}
-		for (String word : splitSentence)
+		for (String word : splitSentence) {
 			utilitiesStringBuilder.append(word + " ");
+		}
 		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
 
 		return utilitiesStringBuilder.toString();
@@ -705,26 +721,6 @@ public class Util {
 
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts) {
 		return insertIntoSentences(sentence, frequency, inserts, true);
-	}
-	
-	private static String insertIntoSentencesAtPunctuation(String sentence, String[] inserts) {
-		splitSentence = sentence.split(" ");
-		utilitiesStringBuilder.setLength(0);
-		
-		utilitiesStringBuilder.append(inserts[random.nextInt(inserts.length)]+" ");
-		
-		char cOld = 'X';
-		for(char c : sentence.toCharArray()) {
-			utilitiesStringBuilder.append(c);
-			
-			if((cOld=='.'||cOld=='!'||cOld=='?'||cOld==',')
-					&& c==' ') {
-				utilitiesStringBuilder.append(inserts[random.nextInt(inserts.length)]+" ");
-			}
-			cOld = c;
-		}//^\.\. |! |\? 
-
-		return utilitiesStringBuilder.toString();
 	}
 
 	private static String[] bimboWords = new String[] { ", like,", ", like,", ", like,", ", um,", ", uh,", ", ah," };
@@ -815,11 +811,7 @@ public class Util {
 	 *            modified sentence
 	 */
 	public static String addSexSounds(String sentence, int frequency) {
-		if(Math.random()<0.75f) { // 75% chance of the sex sounds to be more readable:
-			return insertIntoSentencesAtPunctuation(sentence, sexSounds);
-		} else {
-			return insertIntoSentences(sentence, frequency, sexSounds);
-		}
+		return insertIntoSentences(sentence, frequency, sexSounds);
 	}
 
 	private static String[] drunkSounds = new String[] { " ~Hic!~" };
@@ -838,17 +830,20 @@ public class Util {
 		
 		String [] split = sentence.split("\\[(.*?)\\]");
 		for(String s : split) {
-			String sReplace = s
-					.replaceAll("Hi ", "Heeey ")
-					.replaceAll("yes", "yesh")
-					.replaceAll("Is", "Ish")
-					.replaceAll("is", "ish")
-					.replaceAll("It's", "It'sh")
-					.replaceAll("it's", "it'sh")
-					.replaceAll("So", "Sho")
-					.replaceAll("so", "sho");
-			
-			sentence = sentence.replace(s, sReplace);
+			String [] splitConditional = s.split("#IF\\((.*?)\\)|#ELSEIF\\((.*?)\\)"); // Do not replace text inside conditional parsing statements
+			for(String s2 : splitConditional) {
+				String sReplace = s2
+						.replaceAll("Hi ", "Heeey ")
+						.replaceAll("yes", "yesh")
+						.replaceAll("Is", "Ish")
+						.replaceAll("is", "ish")
+						.replaceAll("It's", "It'sh")
+						.replaceAll("it's", "it'sh")
+						.replaceAll("So", "Sho")
+						.replaceAll("so", "sho");
+					
+					sentence = sentence.replace(s2, sReplace);
+			}
 		}
 		
 		return sentence;
@@ -873,21 +868,19 @@ public class Util {
 	public static String applyLisp(String sentence) {
 		String [] split = sentence.split("\\[(.*?)\\]");
 		for(String s : split) {
-			String sReplace = s
-				.replaceAll("s", "<i>th</i>")
-				.replaceAll("z", "<i>th</i>")
-				.replaceAll("S", "<i>Th</i>")
-				.replaceAll("Z", "<i>Th</i>");
-			
-			sentence = sentence.replace(s, sReplace);
+			String [] splitConditional = s.split("#IF\\((.*?)\\)|#ELSEIF\\((.*?)\\)"); // Do not replace text inside conditional parsing statements
+			for(String s2 : splitConditional) {
+				String sReplace = s2
+						.replaceAll("s", "<i>th</i>")
+						.replaceAll("z", "<i>th</i>")
+						.replaceAll("S", "<i>Th</i>")
+						.replaceAll("Z", "<i>Th</i>");
+					
+					sentence = sentence.replace(s2, sReplace);
+			}
 		}
 		
 		return sentence;
-//		return sentence
-//			.replaceAll("s", "<i>th</i>")
-//			.replaceAll("z", "<i>th</i>")
-//			.replaceAll("S", "<i>Th</i>")
-//			.replaceAll("Z", "<i>Th</i>");
 	}
 	
 	

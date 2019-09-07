@@ -8,7 +8,6 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
@@ -16,21 +15,20 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
- * @version 0.3.3.10
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public class PartnerTalk {
 	
 	public static final SexAction PARTNER_DIRTY_TALK = new SexAction(
-			SexActionType.REQUIRES_NO_PENETRATION,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, null)),
+			null,
 			SexParticipantType.NORMAL) {
 
 		@Override
