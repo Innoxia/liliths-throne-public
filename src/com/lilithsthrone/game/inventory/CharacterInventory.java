@@ -1497,7 +1497,7 @@ public class CharacterInventory implements XMLSaving {
 									+ (blockingClothingSet.size() > 1 ? "" : "s") + " to be removed."));
 			
 			blockingClothing = blockingClothingSet.stream().findAny().orElse(blockingClothing);
-
+			
 			return false;
 		}
 
@@ -1961,10 +1961,17 @@ public class CharacterInventory implements XMLSaving {
 					for (AbstractClothing clothing : zLayerSortedList) {
 						if (clothing != clothingToRemove) {
 							for (BlockedParts bpIterated : clothing.getClothingType().getBlockedPartsMap(character, clothing.getSlotEquippedTo())) {
-								if (bpIterated.clothingAccessBlocked.contains(ca) 
+//								if(bpIterated.clothingAccessBlocked.contains(ca)) {
+//									System.out.println(clothing.getName()+" | "+clothingToRemove.getName()+" | "+ca
+//											+"\n\t"+!clothing.getDisplacedList().contains(bpIterated.displacementType)
+//											+"\n\t"+!isCoverableAreaExposedFromElsewhere(character, clothing, coverableArea));
+//								}
+								if (bpIterated.clothingAccessBlocked.contains(ca)
 										&& !clothing.getDisplacedList().contains(bpIterated.displacementType)
-										&& !isCoverableAreaExposedFromElsewhere(character, clothing, coverableArea) // This fixes issues with NPCs performing redundant displacements (unzipping + pulling down).
+										// This fixes issues with NPCs performing redundant displacements (unzipping + pulling down):
+										&& (bp.displacementType==DisplacementType.REMOVE_OR_EQUIP || !isCoverableAreaExposedFromElsewhere(character, clothing, coverableArea))
 										) {
+//									System.out.println(":3 "+clothing.getName()+" | "+clothingToRemove.getName()+" | "+ca);
 									if(previousDisplacements.containsKey(clothing) && previousDisplacements.get(clothing).equals(bpIterated.displacementType)) {
 										System.err.println("findNextClothingDisplacement() error: "+clothing.getName()+" is interfering with "+clothingToRemove.getName());
 										return new SimpleEntry<>(clothing, bpIterated.displacementType);

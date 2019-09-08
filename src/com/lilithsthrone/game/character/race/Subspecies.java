@@ -462,7 +462,7 @@ public enum Subspecies {
 			"imps",
 			"imps",
 			"imp",
-			"[npc.NamePos] impish body has a deep, insatiable craving for sex...",
+			"[npc.NamePos] impish body has a deep, insatiable craving for sex. Due to imps' uncouth mannerisms and reputation as being on the very bottom rung of society, [npc.she] [npc.verb(find)] it difficult to seduce others...",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
@@ -515,7 +515,7 @@ public enum Subspecies {
 			"alpha-imps",
 			"alpha-imps",
 			"alpha-imp",
-			"[npc.NamePos] impish body has a deep, insatiable craving for sex...",
+			"[npc.NamePos] impish body has a deep, insatiable craving for sex. Due to imps' uncouth mannerisms and reputation as being on the very bottom rung of society, [npc.she] [npc.verb(find)] it difficult to seduce others...",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 0f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -1030,24 +1031,28 @@ public class SlaverAlleyDialogue {
 				return new Response("Complain", "You don't like the idea of slaves being publicly used. There appears to be an enforcer watching over the area, so perhaps you should go and complain to him... (Not yet implemented!)", null);
 				
 			} else if(index <= charactersPresent.size()) {
+				GameCharacter slave = charactersPresent.get(index-1);
+				boolean ownedByPlayer = slave.isSlave() && slave.getOwner().isPlayer();
 				return new ResponseSex(
-						"Use "+charactersPresent.get(index-1).getName(true),
-						UtilText.parse(charactersPresent.get(index-1), "Walk up to [npc.name] and have some fun..."),
+						"Use "+slave.getName(true),
+						UtilText.parse(slave, "Walk up to [npc.name] and have some fun..."),
 						false, false,
 						new SMStocks(
-								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL),
-								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL),
-								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL),
+								ownedByPlayer || slave.hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL),
+								ownedByPlayer || slave.hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL),
+								ownedByPlayer || slave.hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.BEHIND_STOCKS)),
-								Util.newHashMapOfValues(new Value<>(charactersPresent.get(index-1), SexSlotStocks.LOCKED_IN_STOCKS))),
+								Util.newHashMapOfValues(new Value<>(slave, SexSlotStocks.LOCKED_IN_STOCKS))),
 						null,
-						null, AFTER_STOCKS_SEX, "<p>"
+						null,
+						AFTER_STOCKS_SEX,
+						"<p>"
 							+ "Deciding that you'd like to have some fun with the [npc.race] in the stocks nearest to you, you walk up behind [npc.herHim]."
 							+ " [npc.She] lets out a little [npc.moan] as [npc.she] hears you, and shifts [npc.her] [npc.hips+] in anticipation of what's about to happen..."
 						+ "</p>") {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(charactersPresent.get(index-1));
+						Main.game.setActiveNPC((NPC) slave);
 					}
 				};
 			} else {

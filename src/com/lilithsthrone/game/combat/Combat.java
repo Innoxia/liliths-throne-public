@@ -96,6 +96,20 @@ public enum Combat {
 		Combat.enemyLeader = enemyLeader;
 		Combat.enemies = new ArrayList<>();
 		activeCombatants = new ArrayList<>();
+
+		predictionContent = new HashMap<>();
+		combatContent = new HashMap<>();
+		itemsToBeUsed = new HashMap<>();
+		manaBurnStack = new HashMap<>();
+		statusEffectsToApply = new HashMap<>();
+		
+
+		predictionContent.put(Main.game.getPlayer(), new ArrayList<>());
+		itemsToBeUsed.put(Main.game.getPlayer(), new ArrayList<>());
+		manaBurnStack.put(Main.game.getPlayer(), new Stack<>());
+		statusEffectsToApply.put(Main.game.getPlayer(), new HashMap<>());
+		combatContent.put(Main.game.getPlayer(), new ArrayList<>());
+		activeCombatants.add(Main.game.getPlayer());
 		
 		if(allies!=null){
 			for(NPC ally : allies) {
@@ -121,23 +135,6 @@ public enum Combat {
 		postCombatStringBuilder.setLength(0);
 		combatTurnResolutionStringBuilder.setLength(0);
 		
-		combatContent = new HashMap<>();
-		predictionContent = new HashMap<>();
-		
-		combatContent.put(Main.game.getPlayer(), new ArrayList<>());
-		predictionContent.put(Main.game.getPlayer(), new ArrayList<>());
-		
-		itemsToBeUsed = new HashMap<>();
-		statusEffectsToApply = new HashMap<>();
-		manaBurnStack = new HashMap<>();
-		for(GameCharacter character : Combat.getAllCombatants(true)) {
-			itemsToBeUsed.put(character, new ArrayList<>());
-			manaBurnStack.put(character, new Stack<>());
-			statusEffectsToApply.put(character, new HashMap<>());
-			combatContent.put(character, new ArrayList<>());
-			predictionContent.put(character, new ArrayList<>());
-			activeCombatants.add(character);
-		}
 		
 
 		escapeChance = ((NPC) enemies.get(0)).getEscapeChance();
@@ -1614,6 +1611,28 @@ public enum Combat {
 		allies.add(ally);
 		allCombatants.add(ally);
 		ally.resetMoveCooldowns();
+		
+		predictionContent.put(ally, new ArrayList<>());
+		itemsToBeUsed.put(ally, new ArrayList<>());
+		manaBurnStack.put(ally, new Stack<>());
+		statusEffectsToApply.put(ally, new HashMap<>());
+		combatContent.put(ally, new ArrayList<>());
+		activeCombatants.add(ally);
+		
+		if(Main.game.isInCombat()) {
+			List<GameCharacter> npcAllies = getAllies(ally);
+			List<GameCharacter> npcEnemies = getEnemies(ally);
+			
+			applyNewTurnShielding(ally);
+			ally.setRemainingAP(ally.getMaxAP(), npcEnemies, npcAllies);
+			
+			npcAllies.removeIf((c)->Combat.isCombatantDefeated(c));
+			npcEnemies.removeIf((c)->Combat.isCombatantDefeated(c));
+			
+			// Figures out new moves for NPCs:
+			ally.selectMoves(npcEnemies, npcAllies);
+			predictionContent.put(ally, ally.getMovesPredictionString(npcEnemies, npcAllies));
+		}
 	}
 	
 	public static void addEnemy(NPC enemy) {
@@ -1621,6 +1640,28 @@ public enum Combat {
 		allCombatants.add(enemy);
 		enemy.resetMoveCooldowns();
 		enemy.setFoughtPlayerCount(enemy.getFoughtPlayerCount()+1);
+		
+		predictionContent.put(enemy, new ArrayList<>());
+		itemsToBeUsed.put(enemy, new ArrayList<>());
+		manaBurnStack.put(enemy, new Stack<>());
+		statusEffectsToApply.put(enemy, new HashMap<>());
+		combatContent.put(enemy, new ArrayList<>());
+		activeCombatants.add(enemy);
+
+		if(Main.game.isInCombat()) {
+			List<GameCharacter> npcAllies = getAllies(enemy);
+			List<GameCharacter> npcEnemies = getEnemies(enemy);
+			
+			applyNewTurnShielding(enemy);
+			enemy.setRemainingAP(enemy.getMaxAP(), npcEnemies, npcAllies);
+			
+			npcAllies.removeIf((c)->Combat.isCombatantDefeated(c));
+			npcEnemies.removeIf((c)->Combat.isCombatantDefeated(c));
+			
+			// Figures out new moves for NPCs:
+			enemy.selectMoves(npcEnemies, npcAllies);
+			predictionContent.put(enemy, enemy.getMovesPredictionString(npcEnemies, npcAllies));
+		}
 	}
 	
 	public static List<GameCharacter> getAllies(GameCharacter combatant) {

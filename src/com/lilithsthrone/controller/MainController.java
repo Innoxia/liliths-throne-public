@@ -308,7 +308,11 @@ public class MainController implements Initializable {
 			if(isInventoryDisabled()) {
 				return;
 			}
-			openInventory((NPC) Sex.getActivePartner(), InventoryInteraction.SEX);
+			openInventory(
+					Sex.isMasturbation()
+						?null
+						:(NPC) Sex.getTargetedPartner(Main.game.getPlayer()),
+					InventoryInteraction.SEX);
 			
 		} else if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() != null) {
 			openInventory(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), InventoryInteraction.FULL_MANAGEMENT);
@@ -385,7 +389,7 @@ public class MainController implements Initializable {
 			}
 		}
 	}
-
+	
 	/**
 	 * Sets up buttons and hotkeys.
 	 */
@@ -459,10 +463,6 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-							for(GameCharacter c : Main.game.getCharactersPresent()) {
-								System.out.println(c.getHomeCell().getPlaceName()+" "+c.getHomeCell().getLocation()+" "+Main.game.getPlayer().getLocation());
-							}
-							System.out.println(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size());
 						}
 						 
 
@@ -1569,10 +1569,10 @@ public class MainController implements Initializable {
 								Main.game.updateResponses();
 								
 							} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE) {
-								if(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP) {
+								if(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_PERK_TREE) {
 									openPhone();
 								} else {
-									Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_LEVEL_UP));
+									Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_PERK_TREE));
 								}
 								
 							} else {
@@ -1580,13 +1580,13 @@ public class MainController implements Initializable {
 									Main.game.saveDialogueNode();
 								}
 								
-								Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_LEVEL_UP));
+								Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_PERK_TREE));
 							}
 						}
 						
 					} else { //TODO display NPC perk tree
 						if(Main.game.isInSex()) {
-							Sex.setActivePartner((NPC) character);
+							Sex.setTargetedPartner(Main.game.getPlayer(), character);
 							Sex.recalculateSexActions();
 							updateUI();
 							Main.game.updateResponses();
@@ -1723,7 +1723,7 @@ public class MainController implements Initializable {
 					?null
 					:Sex.getCharactersHavingOngoingActionWith(character, si).get(0);
 			if(target!=null && target instanceof NPC) {
-				Sex.setActivePartner((NPC) target);
+				Sex.setTargetedPartner(Main.game.getPlayer(), target);
 				Sex.recalculateSexActions();
 				updateUI();
 				Main.game.updateResponses();
@@ -1908,13 +1908,15 @@ public class MainController implements Initializable {
 					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
 						openCharactersPresent(character);
 					}, false);
+					
 				} else if(Main.game.isInSex()) {
 					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
-						Sex.setActivePartner((NPC) character);
+						Sex.setTargetedPartner(Main.game.getPlayer(), character);
 						Sex.recalculateSexActions();
 						updateUI();
 						Main.game.updateResponses();
 					}, false);
+					
 				} else if(Main.game.isInCombat()) {
 					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
 						Combat.setTargetedCombatant((NPC) character);

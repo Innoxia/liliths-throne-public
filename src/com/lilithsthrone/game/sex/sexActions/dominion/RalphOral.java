@@ -1224,7 +1224,7 @@ public class RalphOral {
 					+ " Suddenly, you feel a strong pair of hands grab your hips, and before you can react, Ralph pushes you down, face first, onto the counter-top."
 					+ " You let out a little moan at his dominant treatment of you, and as he roughly gropes and squeezes your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass, he leans down and growls in your ear, "
 					+ UtilText.parseSpeech(
-						(Sex.getActivePartner().isWearingCondom()
+						(Sex.getCharacterPerformingAction().isWearingCondom()
 							?"So you want a bigger discount, huh?! You know, it's a shame you insisted on the condom, but I'll still give you another twenty percent if you let me fuck you."
 							:(Main.game.getPlayer().isVisiblyPregnant()
 									?"So you want a bigger discount, huh?! You know, it's a shame you're already pregnant, but I'll still give you another twenty percent if you let me fuck you."
@@ -1243,7 +1243,7 @@ public class RalphOral {
 					+ " With a quick step forwards, Ralph suddenly rams his impatient member deep into your hungry snatch, and you gasp and moan as he starts fucking you on the shop's counter-top."
 					+ "<br/><br/>"
 					+ "<b>You will now earn a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
-							+(SexFlags.ralphDiscount+(Sex.getActivePartner().isWearingCondom()||Main.game.getPlayer().isVisiblyPregnant()?20:25)-(SexFlags.alertedCustomer?5:0))
+							+(SexFlags.ralphDiscount+(Sex.getCharacterPerformingAction().isWearingCondom()||Main.game.getPlayer().isVisiblyPregnant()?20:25)-(SexFlags.alertedCustomer?5:0))
 					+"%</b> <b>discount.</b>");
 			
 			return UtilText.nodeContentSB.toString();
@@ -1257,7 +1257,7 @@ public class RalphOral {
 					SexFlags.ralphDiscount-=5;
 			
 			SexFlags.alertedCustomer=false;
-			if(Sex.getActivePartner().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE) {
+			if(Sex.getCharacterPerformingAction().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE) {
 				SexFlags.ralphDiscount+=20;
 			} else {
 				SexFlags.ralphDiscount+=25;
@@ -1349,7 +1349,7 @@ public class RalphOral {
 					SexFlags.ralphDiscount-=5;
 			
 			SexFlags.alertedCustomer=false;
-			if(Sex.getActivePartner().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE)
+			if(Sex.getCharacterPerformingAction().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE)
 				SexFlags.ralphDiscount+=20;
 			else
 				SexFlags.ralphDiscount+=25;
@@ -1388,7 +1388,7 @@ public class RalphOral {
 								+ " With his legs in position on either side of yours, he focuses his movements solely in his hips, and your screams of ecstasy come out in little bursts as he jackhammers his huge horse-cock into your slit."
 						:"Grabbing your "+Main.game.getPlayer().getHipSize().getDescriptor()+" hips, Ralph pushes you hard into the counter, leaning down heavily on top of you as he starts relentlessly pounding away at your slutty cunt."
 							+ " Using your body as a cushion, he focuses his movements solely in his hips, and your screams of ecstasy come out in little bursts as he jackhammers his huge horse-cock between your legs.")
-					+ (Sex.getActivePartner().isWearingCondom()
+					+ (Sex.getCharacterPerformingAction().isWearingCondom()
 						?" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, oblivious to the fact that their contents are going to be caught in the condom you made their owner wear."
 						:" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, giving you a little reminder as to the origin of your impending creampie's filling.");
 		}
@@ -1420,7 +1420,7 @@ public class RalphOral {
 		public String getDescription() {
 			return "Grabbing your "+Main.game.getPlayer().getHipSize().getDescriptor()+" hips, Ralph pushes you hard into the counter, leaning down heavily on top of you as he starts relentlessly pounding away at your slutty ass."
 				+ " Using your body as a cushion, he focuses his movements solely in his hips, and your screams of ecstasy come out in little bursts as he jackhammers his huge horse-cock into your back door."
-				+ (Sex.getActivePartner().isWearingCondom()
+				+ (Sex.getCharacterPerformingAction().isWearingCondom()
 					?" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, oblivious to the fact that their contents are going to be caught in the condom you made their owner wear."
 					:" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, giving you a little reminder as to the origin of your impending creampie's filling.");
 		}
@@ -1454,7 +1454,7 @@ public class RalphOral {
 						?"Ralph continues holding your hips tightly, rocking you forwards and back as he fills you with his huge, black horse-cock."
 						:"Ralph continues holding your hips tightly, rocking you into the counter as he fills you with his huge, black horse-cock.")
 					+ " His heavy balls swing to and fro, impatient to deposit their potent load "
-					+ (Sex.getActivePartner().isWearingCondom()
+					+ (Sex.getCharacterPerformingAction().isWearingCondom()
 						?"into the condom that you've provided."
 						:(Main.game.getPlayer().isVisiblyPregnant()?"deep into your hungry cunt.":"deep in your waiting womb."));
 		}
@@ -1486,7 +1486,7 @@ public class RalphOral {
 		public String getDescription() {
 				return "Ralph continues holding your hips tightly, rocking you into the counter as he fills you with his huge, black horse-cock."
 					+ " His heavy balls swing to and fro, impatient to deposit their potent load "
-					+ (Sex.getActivePartner().isWearingCondom()
+					+ (Sex.getCharacterPerformingAction().isWearingCondom()
 						?"into the condom that you've provided."
 						:"deep in your waiting ass.");
 		}
@@ -1717,7 +1717,7 @@ public class RalphOral {
 						+ ", and you let out a defeated sigh as you realise that you forgot they were there.");
 			}
 			
-			return UtilText.parse(Sex.getActivePartner(), UtilText.nodeContentSB.toString());
+			return UtilText.parse(Sex.getCharacterTargetedForSexAction(this), UtilText.nodeContentSB.toString());
 		}
 
 		@Override
@@ -1821,7 +1821,7 @@ public class RalphOral {
 						+ "<br/>"
 						+ " Grinding the base of his cock against your outer folds, his massive balls tense up as Ralph starts to cum.");
 				
-				if(Sex.getActivePartner().isWearingCondom()) {
+				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into the condom, and as you feel the hot seed ballooning out the rubber inside of you, you let out a satisfied sigh."
 							+ " His cock continues to pump a few more times, the huge, black equine shaft quickly depositing its seed harmlessly into the protection you've provided."
 							+ "<br/><br/>"
@@ -1853,7 +1853,7 @@ public class RalphOral {
 						+ "<br/>"
 						+ " Grinding the base of his cock against your asshole, his massive balls tense up as Ralph starts to cum.");
 				 
-				if(Sex.getActivePartner().isWearingCondom()) {
+				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into the condom, and as you feel the hot seed ballooning out the rubber inside of you, you let out a satisfied sigh."
 							+ " His cock continues to pump a few more times, the huge, black equine shaft quickly depositing its seed harmlessly into the protection you've provided."
 							+ "<br/><br/>"
@@ -1895,7 +1895,7 @@ public class RalphOral {
 						+ "<br/><br/>"
 						+ "Grinding the base of his cock against your lips, his massive balls tense up as Ralph starts to cum.");
 				
-				if(Sex.getActivePartner().isWearingCondom()) {
+				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into the condom, and as you feel the hot seed ballooning out the tip of the protection you've provided,"
 								+ " you let out a very muffled moan."
 							+ " The huge, black equine shaft continues to pump and twitch a few more times as it deposits its seed harmlessly into the protection you've provided."

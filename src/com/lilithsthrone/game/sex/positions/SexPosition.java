@@ -35,6 +35,7 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotStocks;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
+import com.lilithsthrone.game.sex.sexActions.dominion.MasturbationPanties;
 import com.lilithsthrone.game.sex.sexActions.universal.ChairSex;
 import com.lilithsthrone.game.sex.sexActions.universal.Cowgirl;
 import com.lilithsthrone.game.sex.sexActions.universal.DoggyStyle;
@@ -63,7 +64,10 @@ public class SexPosition {
 	public static final AbstractSexPosition MASTURBATION = new AbstractSexPosition("",
 			8,
 			true,
-			SexActionPresets.positioningActionsNew, Util.newArrayListOfValues(Masturbation.class)) {
+			SexActionPresets.positioningActionsNew,
+			Util.newArrayListOfValues(
+					MasturbationPanties.class,
+					Masturbation.class)) {
 		@Override
 		public Set<SexSlot> getAllAvailableSexPositions() {
 			return Util.newHashSetOfValues(SexSlotMasturbation.KNEELING, SexSlotMasturbation.KNEELING_PANTIES, SexSlotMasturbation.SITTING, SexSlotMasturbation.STANDING);

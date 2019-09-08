@@ -132,7 +132,7 @@ public class LilayasRoom {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMasturbation.KNEELING_PANTIES))) {
 							@Override
 							public String applyEndSexEffects() {
-								return Main.game.getPlayer().addClothing(LilayasRoom.lilayasPanties, false);
+								return Main.game.getPlayer().addClothing(LilayasRoom.lilayasPanties, 1, false, true);
 							}
 						},
 						null,

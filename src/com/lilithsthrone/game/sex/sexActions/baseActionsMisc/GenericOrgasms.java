@@ -93,11 +93,12 @@ public class GenericOrgasms {
 	}
 	
 	private static String getPositionPreparation(GameCharacter characterOrgasming, GameCharacter characterTargeted) {
-		String orgasmText = Sex.getSexPositionSlot(characterOrgasming).getOrgasmDescription(characterOrgasming, characterTargeted);
-
 		if(characterTargeted!=null) {
+			String orgasmText = Sex.getSexPositionSlot(characterOrgasming).getOrgasmDescription(characterOrgasming, characterTargeted);
 			return UtilText.parse(characterOrgasming, characterTargeted, orgasmText);
+			
 		} else {
+			String orgasmText = Sex.getSexPositionSlot(characterOrgasming).getOrgasmDescription(characterOrgasming, Sex.getTargetedPartner(characterOrgasming));
 			return UtilText.parse(characterOrgasming, Sex.getTargetedPartner(characterOrgasming), orgasmText);
 		}
 	}
@@ -3872,8 +3873,15 @@ public class GenericOrgasms {
 	}
 	
 	private static boolean isSpecialCreampieLockConditionMet(SexAction sexAction, GameCharacter characterProvidingCreampie, GameCharacter characterReceivingCreampie, SexAreaInterface areaFucked) {
-		return areaFucked!=SexAreaOrifice.MOUTH
-				|| (PenisMouth.getPrimaryBlowjobPerformer(characterProvidingCreampie).equals(characterReceivingCreampie));
+		if(areaFucked==SexAreaOrifice.MOUTH) {
+			return (PenisMouth.getPrimaryBlowjobPerformer(characterProvidingCreampie).equals(characterReceivingCreampie));
+		}
+		if(areaFucked==SexAreaOrifice.VAGINA) {
+			if(!characterReceivingCreampie.isPlayer() && characterReceivingCreampie.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public static final SexAction GENERIC_PREPARATION_ASK_FOR_CREAMPIE = new SexAction(
@@ -5298,9 +5306,11 @@ public class GenericOrgasms {
 				} else {
 					if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA)) {
 						return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out to [npc2.name], "
-								+(Sex.getCharacterPerformingAction().isVisiblyPregnant() || Sex.getCharacterPerformingAction().hasStatusEffect(StatusEffect.MENOPAUSE)
-										?"[npc.speech(Pull out! I don't want you to cum in me!)]"
-										:"[npc.speech(Pull out! I don't want to get pregnant!)]");
+								+(Sex.getCharacterPerformingAction().isVisiblyPregnant()
+										|| Sex.getCharacterPerformingAction().hasStatusEffect(StatusEffect.MENOPAUSE)
+										|| !Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
+									?"[npc.speech(Pull out! I don't want you to cum in me!)]"
+									:"[npc.speech(Pull out! I don't want to get pregnant!)]");
 	
 					} else if(isAreaFuckedByTarget(this, Sex.getCharacterPerformingAction(), SexAreaOrifice.URETHRA_VAGINA)) {
 						return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out to [npc2.name], "

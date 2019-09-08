@@ -303,6 +303,12 @@ public class Nyan extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
 
 	}
+	
+	@Override
+	public String getArtworkFolderName() {
+		return "Nyan";
+		//TODO NyanSpecials
+	}
 
 	@Override
 	public boolean isUnique() {

@@ -2,7 +2,6 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
 import java.util.List;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -15,7 +14,6 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -33,12 +31,14 @@ public class GenericTalk {
 			null,
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
+		
+		@Override
+		public boolean isSadisticAction() {
+			return true;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			if(!Main.getProperties().hasValue(PropertyValue.sadisticSexContent)) {
-				return false;
-			}
 			return (Sex.getCharacterPerformingAction().isPlayer() || Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_DOMINANT) || Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST))
 					&& !Sex.isDom(Sex.getCharacterTargetedForSexAction(this));
 		}

@@ -139,7 +139,7 @@ public class CityPlaces {
 						OccupantDialogue.OCCUPANT_APARTMENT) {
 					@Override
 					public void effects() {
-						OccupantDialogue.initDialogue(npc, true);
+						OccupantDialogue.initDialogue(npc, true, false);
 					}
 				});
 			}

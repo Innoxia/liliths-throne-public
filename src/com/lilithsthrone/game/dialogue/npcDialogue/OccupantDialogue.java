@@ -18,6 +18,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
+import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -31,37 +32,47 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.10
- * @version 0.3.4
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public class OccupantDialogue {
-	
+
+	private static NPC occupant;
 	private static GameCharacter characterForSex;
 	private static NPC characterForSexSecondary;
 	private static List<NPC> charactersPresent;
 	private static boolean isApartment;
 	private static boolean confirmKickOut;
+	private static boolean initFromCharactersPresent;
 	
-	public static void initDialogue(NPC targetedOccupant, boolean isApartment) {
-		Main.game.setActiveNPC(targetedOccupant);
+	public static void initDialogue(NPC targetedOccupant, boolean isApartment, boolean initFromCharactersPresent) {
+//		Main.game.setActiveNPC(targetedOccupant);
+		occupant = targetedOccupant;
 		characterForSex = targetedOccupant;
 
-		if(Main.game.getPlayer().hasCompanions()) {
-			characterForSexSecondary = (NPC) Main.game.getPlayer().getMainCompanion();
-		} else if(Main.game.getCharactersPresent().size()>1) {
-			characterForSexSecondary = Main.game.getCharactersPresent().stream().filter((npc) -> !npc.equals(occupant())).findFirst().get();
-		} else {
-			characterForSexSecondary = null;
-		}
-
+		characterForSexSecondary = null;
 		charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
+		charactersPresent.removeIf((npc) -> !Main.game.getPlayer().getCompanions().contains(npc) && (!npc.isSlave() || !npc.getOwner().isPlayer()) && !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId()));
+		if(charactersPresent.size()>1) {
+			if(charactersPresent.contains(Main.game.getPlayer().getMainCompanion()) && !occupant().equals(Main.game.getPlayer().getMainCompanion())) {
+				characterForSexSecondary = (NPC) Main.game.getPlayer().getMainCompanion();
+				
+			} else {
+				characterForSexSecondary = charactersPresent.stream().filter((npc) -> !npc.equals(occupant())).findFirst().get();
+			}
+		}
 		
 		OccupantDialogue.isApartment = isApartment;
+		
 		confirmKickOut = false;
+		
+		OccupantDialogue.initFromCharactersPresent = initFromCharactersPresent;
 	}
 	
 	private static DialogueNode getAfterSexDialogue() {
-		if(isApartment) {
+		if(initFromCharactersPresent) {
+			return CharactersPresentDialogue.AFTER_SEX;
+		} else if(isApartment) {
 			return APARTMENT_AFTER_SEX;
 		} else {
 			return AFTER_SEX;
@@ -69,12 +80,9 @@ public class OccupantDialogue {
 	}
 	
 	private static NPC occupant() {
-		return Main.game.getActiveNPC();
+//		return Main.game.getActiveNPC();
+		return occupant;
 	}
-	
-//	private static NPC companion() {
-//		return (NPC) Main.game.getPlayer().getMainCompanion();
-//	}
 	
 	private static boolean hasJob() {
 		return occupant().hasJob();
@@ -91,7 +99,7 @@ public class OccupantDialogue {
 		confirmKickOut = false;
 	}
 
-	private static String getTextFilePath() {
+	public static String getTextFilePath() {
 		if(occupant().isRelatedTo(Main.game.getPlayer())) {
 			return "characters/offspring/occupant";
 		} else {
@@ -105,6 +113,13 @@ public class OccupantDialogue {
 		} else {
 			return "misc/friendlyOccupantDialogue";
 		}
+	}
+	
+	private static boolean isCompanionSexPublic() {
+		return !isApartment
+				&& Main.game.getPlayer().getLocationPlace().isPopulated()
+				&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_SEATING_AREA)
+				&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_TOILETS);
 	}
 	
 	public static final DialogueNode OCCUPANT_START = new DialogueNode("", "", true) {
@@ -336,7 +351,7 @@ public class OccupantDialogue {
 										null) {
 									@Override
 									public boolean isPublicSex() {
-										return false;
+										return isCompanionSexPublic();
 									}
 								},
 								getAfterSexDialogue(),
@@ -390,7 +405,7 @@ public class OccupantDialogue {
 										ResponseTag.PREFER_DOGGY) {
 									@Override
 									public boolean isPublicSex() {
-										return false;
+										return isCompanionSexPublic();
 									}
 								},
 								getAfterSexDialogue(),
@@ -443,7 +458,7 @@ public class OccupantDialogue {
 										ResponseTag.PREFER_DOGGY) {
 									@Override
 									public boolean isPublicSex() {
-										return false;
+										return isCompanionSexPublic();
 									}
 								},
 								getAfterSexDialogue(),
@@ -485,7 +500,7 @@ public class OccupantDialogue {
 										ResponseTag.PREFER_DOGGY) {
 									@Override
 									public boolean isPublicSex() {
-										return false;
+										return isCompanionSexPublic();
 									}
 								},
 								getAfterSexDialogue(),
@@ -512,7 +527,7 @@ public class OccupantDialogue {
 										Main.game.getPlayer().getCompanions()) {
 									@Override
 									public boolean isPublicSex() {
-										return false;
+										return isCompanionSexPublic();
 									}
 								},
 								getAfterSexDialogue(), UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", occupant())) {
@@ -556,7 +571,7 @@ public class OccupantDialogue {
 										ResponseTag.PREFER_DOGGY) {
 									@Override
 									public boolean isPublicSex() {
-										return false;
+										return isCompanionSexPublic();
 									}
 								},
 								getAfterSexDialogue(),
@@ -599,7 +614,7 @@ public class OccupantDialogue {
 										ResponseTag.PREFER_DOGGY) {
 									@Override
 									public boolean isPublicSex() {
-										return false;
+										return isCompanionSexPublic();
 									}
 								},
 								getAfterSexDialogue(),
@@ -651,7 +666,7 @@ public class OccupantDialogue {
 										ResponseTag.PREFER_DOGGY) {
 									@Override
 									public boolean isPublicSex() {
-										return false;
+										return isCompanionSexPublic();
 									}
 								},
 								getAfterSexDialogue(),

@@ -190,7 +190,7 @@ public class Library {
 					return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 						@Override
 						public void effects() {
-							SlaveDialogue.initDialogue(character);
+							SlaveDialogue.initDialogue(character, false);
 						}
 					};
 				}

@@ -43,7 +43,7 @@ public class SMPetMounting extends SexManagerDefault {
 
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
+		return Sex.getNumberOfOrgasms(partner)>=1;
 	}
 	
 }

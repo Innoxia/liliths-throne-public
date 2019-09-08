@@ -35,8 +35,8 @@ public class AmberSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1
-					&& Sex.isDom(Sex.getActivePartner())
+			return Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())>=1
+					&& Sex.isDom(Sex.getCharacterPerformingAction())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		

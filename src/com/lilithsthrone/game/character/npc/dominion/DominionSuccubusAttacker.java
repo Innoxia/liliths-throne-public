@@ -385,8 +385,7 @@ public class DominionSuccubusAttacker extends NPC {
 					+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
 				+ "</p>");
 		
-		return UtilText.parse(Sex.getActivePartner(),
-				StringBuilderSB.toString());
+		return UtilText.parse(this, StringBuilderSB.toString());
 	}
 	
 	// Dirty talk:

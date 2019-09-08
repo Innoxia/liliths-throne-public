@@ -19,6 +19,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
+import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -40,35 +41,51 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.85
- * @version 0.3.4
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public class SlaveDialogue {
 
+	private static NPC slave;
 	private static NPC characterForSex;
 	private static NPC characterForSexSecondary;
 	private static List<NPC> charactersPresent;
+	private static boolean initFromCharactersPresent;
 	
-	public static void initDialogue(NPC targetedSlave) {
-		Main.game.setActiveNPC(targetedSlave);
+	public static void initDialogue(NPC targetedSlave, boolean initFromCharactersPresent) {
+//		Main.game.setActiveNPC(targetedSlave);
+		slave = targetedSlave;
 		characterForSex = targetedSlave;
 
-		if(Main.game.getPlayer().hasCompanions()) {
-			characterForSexSecondary = (NPC) Main.game.getPlayer().getMainCompanion();
-		} else if(Main.game.getCharactersPresent().size()>1) {
-			characterForSexSecondary = Main.game.getCharactersPresent().stream().filter((npc) -> !npc.equals(getSlave())).findFirst().get();
-		} else {
-			characterForSexSecondary = null;
+		characterForSexSecondary = null;
+		charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
+		charactersPresent.removeIf((npc) -> !Main.game.getPlayer().getCompanions().contains(npc) && (!npc.isSlave() || !npc.getOwner().isPlayer()) && !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId()));
+		if(charactersPresent.size()>1) {
+			if(charactersPresent.contains(Main.game.getPlayer().getMainCompanion()) && !getSlave().equals(Main.game.getPlayer().getMainCompanion())) {
+				characterForSexSecondary = (NPC) Main.game.getPlayer().getMainCompanion();
+				
+			} else {
+				characterForSexSecondary = charactersPresent.stream().filter((npc) -> !npc.equals(getSlave())).findFirst().get();
+			}
 		}
 		
-		charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
+		SlaveDialogue.initFromCharactersPresent = initFromCharactersPresent;
+	}
+	
+	private static DialogueNode getAfterSexDialogue() {
+		if(initFromCharactersPresent) {
+			return CharactersPresentDialogue.AFTER_SEX;
+		} else {
+			return AFTER_SEX;
+		}
 	}
 	
 	private static NPC getSlave() {
-		return Main.game.getActiveNPC();
+		return slave;
+//		return Main.game.getActiveNPC();
 	}
 
-	private static String getTextFilePath() {
+	public static String getTextFilePath() {
 		if(getSlave().isRelatedTo(Main.game.getPlayer())) {
 			return "characters/offspring/slave";
 		} else {
@@ -91,6 +108,12 @@ public class SlaveDialogue {
 		if(Main.game.getPlayer().isVisiblyPregnant()) {
 			Main.game.getPlayer().setCharacterReactedToPregnancy(getSlave(), true);
 		}
+	}
+
+	private static boolean isCompanionSexPublic() {
+		return Main.game.getPlayer().getLocationPlace().isPopulated()
+				&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_SEATING_AREA)
+				&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_TOILETS);
 	}
 	
 	private static GameCharacter enslavementTarget;
@@ -755,7 +778,7 @@ public class SlaveDialogue {
 											Util.newHashMapOfValues(new Value<>(getSlave(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
 									getDominantSpectators(),
 									getSubmissiveSpectators(),
-									AFTER_SEX,
+									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getTextFilePath(), "RAPE_START_MILKING_ROOM", getSlave())) {
 								@Override
 								public void effects() {
@@ -776,7 +799,7 @@ public class SlaveDialogue {
 											Util.newHashMapOfValues(new Value<>(getSlave(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
 									getDominantSpectators(),
 									getSubmissiveSpectators(),
-									AFTER_SEX,
+									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getTextFilePath(), "SEX_START_MILKING_ROOM", getSlave())) {
 								@Override
 								public void effects() {
@@ -802,7 +825,7 @@ public class SlaveDialogue {
 									(getSlave().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
 										?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
 										:new ArrayList<>())),
-									AFTER_SEX,
+									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getTextFilePath(), "RAPE_START", getSlave())) {
 								@Override
 								public void effects() {
@@ -826,7 +849,7 @@ public class SlaveDialogue {
 									(getSlave().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
 											?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
 											:new ArrayList<>())),
-									AFTER_SEX,
+									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getTextFilePath(), "SEX_START", getSlave())) {
 								@Override
 								public void effects() {
@@ -862,7 +885,7 @@ public class SlaveDialogue {
 									null);
 							
 						} else {
-							boolean isRape = !characterForSex.isAttractedTo(Main.game.getPlayer()) || !characterForSex.isAttractedTo(characterForSexSecondary);
+							boolean isRape = !characterForSex.isAttractedTo(Main.game.getPlayer()) && !characterForSex.isAttractedTo(characterForSexSecondary);
 							return new ResponseSex(
 									isRape
 										?"Spitroast rape (front)"
@@ -878,10 +901,10 @@ public class SlaveDialogue {
 											ResponseTag.PREFER_DOGGY) {
 										@Override
 										public boolean isPublicSex() {
-											return false;
+											return isCompanionSexPublic();
 										}
 									},
-									AFTER_SEX,
+									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_FRONT_START", characterForSex, characterForSexSecondary)) {
 								@Override
 								public void effects() {
@@ -918,7 +941,7 @@ public class SlaveDialogue {
 										null);
 								
 							} else {
-								boolean isRape = !characterForSex.isAttractedTo(Main.game.getPlayer()) || !characterForSex.isAttractedTo(characterForSexSecondary);
+								boolean isRape = !characterForSex.isAttractedTo(Main.game.getPlayer()) && !characterForSex.isAttractedTo(characterForSexSecondary);
 								return new ResponseSex(
 										isRape
 											?"Spitroast rape (behind)"
@@ -934,10 +957,10 @@ public class SlaveDialogue {
 												ResponseTag.PREFER_DOGGY) {
 											@Override
 											public boolean isPublicSex() {
-												return false;
+												return isCompanionSexPublic();
 											}
 										},
-										AFTER_SEX,
+										getAfterSexDialogue(),
 										UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROAST_BEHIND_START", characterForSex, characterForSexSecondary)) {
 									@Override
 									public void effects() {
@@ -983,10 +1006,10 @@ public class SlaveDialogue {
 											ResponseTag.PREFER_DOGGY) {
 										@Override
 										public boolean isPublicSex() {
-											return false;
+											return isCompanionSexPublic();
 										}
 									},
-									AFTER_SEX,
+									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_START", characterForSex, characterForSexSecondary)) {
 								@Override
 								public void effects() {
@@ -1017,7 +1040,7 @@ public class SlaveDialogue {
 									(getSlave().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
 											?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
 											:new ArrayList<>())),
-										AFTER_SEX,
+										getAfterSexDialogue(),
 										UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", getSlave())) {
 								@Override
 								public void effects() {
@@ -1076,10 +1099,10 @@ public class SlaveDialogue {
 											ResponseTag.PREFER_DOGGY) {
 										@Override
 										public boolean isPublicSex() {
-											return false;
+											return isCompanionSexPublic();
 										}
 									},
-									AFTER_SEX,
+									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", characterForSex, characterForSexSecondary)) {
 								@Override
 								public void effects() {
@@ -1138,10 +1161,10 @@ public class SlaveDialogue {
 											ResponseTag.PREFER_DOGGY) {
 										@Override
 										public boolean isPublicSex() {
-											return false;
+											return isCompanionSexPublic();
 										}
 									},
-									AFTER_SEX,
+									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SPITROASTED_START", characterForSexSecondary, characterForSex)) {
 								@Override
 								public void effects() {
@@ -1190,10 +1213,10 @@ public class SlaveDialogue {
 											ResponseTag.PREFER_DOGGY) {
 										@Override
 										public boolean isPublicSex() {
-											return false;
+											return isCompanionSexPublic();
 										}
 									},
-									AFTER_SEX,
+									getAfterSexDialogue(),
 									UtilText.parseFromXMLFile(getThreesomeTextFilePath(), "SEX_SIDE_BY_SIDE_AS_SUB_START", characterForSex, characterForSexSecondary)) {
 								@Override
 								public void effects() {
@@ -3109,7 +3132,7 @@ public class SlaveDialogue {
 				if(Sex.getNumberOfOrgasms(getSlave()) >= getSlave().getOrgasmsBeforeSatisfied()) {
 					return UtilText.parse(getSlave(),
 							"<p>"
-								+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
+								+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(getSlave()) > 1?"s":"")+"."
 								+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
 							+ "</p>");
 				} else {

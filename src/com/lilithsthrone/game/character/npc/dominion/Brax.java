@@ -83,15 +83,10 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaInterface;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -1218,58 +1213,58 @@ public class Brax extends NPC {
 	}
 	
 
-	// Penetrations
-	@Override
-	public String getPenetrationDescription(boolean initialPenetration, GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaInterface orifice) {
-		if(this.isSlave()) {
-			return super.getPenetrationDescription(initialPenetration, characterPenetrating, penetrationType, characterPenetrated, orifice);
-		}
-		if(Math.random()>0.3) {
-			if(Sex.getSexPositionSlot(characterPenetrated)==SexSlotLyingDown.COWGIRL){
-				if(orifice == SexAreaOrifice.VAGINA) {
-					if(penetrationType == SexAreaPenetration.PENIS && characterPenetrated.equals(this)) {
-						return UtilText.returnStringAtRandom(
-								"You keep bouncing up and down, slamming [brax.namePos] [npc.penis+] in and out of your [pc.pussy+].",
-								"With lewd little moans, you continue bouncing up and down on [brax.namePos] [npc.penis+].",
-								"You feel [brax.namePos] [npc.penis+] lewdly spreading out your [pc.pussy+] as you ride him.",
-								"You let out a gasp as you carry on spearing your [pc.pussy+] on [brax.namePos] [npc.penis+].");
-					} else if(penetrationType == SexAreaPenetration.TONGUE && characterPenetrated.isPlayer()) {
-						return UtilText.returnStringAtRandom(
-								"You hold the top of [brax.namePos] head, moaning softly as he carries on eating you out.",
-								"With a little giggle, you grind your [pc.pussy+] down on [brax.namePos] wolf-like muzzle.",
-								"You feel [brax.namePos] tongue eagerly lapping away at your [pc.pussy+].",
-								"You sink down a little further onto [brax.namePos] face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.pussy+].");
-					}
-				}
-				
-				if(orifice == SexAreaOrifice.ANUS) {
-					if(penetrationType == SexAreaPenetration.PENIS && characterPenetrated.equals(this)) {
-						return UtilText.returnStringAtRandom(
-								"You keep bouncing up and down, slamming [brax.namePos] [npc.penis+] in and out of your [pc.asshole+].",
-								"With lewd little moans, you continue bouncing up and down on [brax.namePos] [npc.penis+].",
-								"You feel [brax.namePos] [npc.penis+] lewdly spreading out your [pc.asshole+] as you ride him.",
-								"You let out a gasp as you carry on spearing your [pc.asshole+] on [brax.namePos] [npc.penis+].");
-						
-					} else if(characterPenetrated.isPlayer()) {
-						return UtilText.returnStringAtRandom(
-								"You hold the top of [brax.namePos] head, moaning softly as he carries on licking your [pc.asshole+].",
-								"With a little giggle, you grind your [pc.asshole+] down on [brax.namePos] wolf-like muzzle.",
-								"You feel [brax.namePos] tongue eagerly lapping away at your [pc.asshole+].",
-								"You sink down a little further onto [brax.namePos] face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.asshole+].");
-					}
-				}
-			}
-			
-			if(penetrationType == SexAreaPenetration.PENIS && orifice == SexAreaOrifice.ANUS && characterPenetrated.equals(this)) {
-				return UtilText.returnStringAtRandom(
-						"You carry on slamming your [pc.penis+] into [brax.namePos] [npc.asshole+].",
-						"Holding his hips, you carry on fucking [brax.namePos] [npc.asshole+].",
-						"You feel [brax.namePos] [npc.asshole+] lewdly spreading out around your [pc.penis+] as you thrust into him.",
-						"[brax.name] gasps and groans as you carry on spearing your [pc.penis+] into his [npc.asshole+].");
-			}
-		}
-		
-		return super.getPenetrationDescription(initialPenetration, characterPenetrating, penetrationType, characterPenetrated, orifice);
-	}
+//	// Penetrations
+//	@Override
+//	public String getPenetrationDescription(boolean initialPenetration, GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaInterface orifice) {
+//		if(this.isSlave()) {
+//			return super.getPenetrationDescription(initialPenetration, characterPenetrating, penetrationType, characterPenetrated, orifice);
+//		}
+//		if(Math.random()>0.3) {
+//			if(Sex.getSexPositionSlot(characterPenetrated)==SexSlotLyingDown.COWGIRL){
+//				if(orifice == SexAreaOrifice.VAGINA) {
+//					if(penetrationType == SexAreaPenetration.PENIS && characterPenetrated.equals(this)) {
+//						return UtilText.returnStringAtRandom(
+//								"You keep bouncing up and down, slamming [brax.namePos] [npc.penis+] in and out of your [pc.pussy+].",
+//								"With lewd little moans, you continue bouncing up and down on [brax.namePos] [npc.penis+].",
+//								"You feel [brax.namePos] [npc.penis+] lewdly spreading out your [pc.pussy+] as you ride him.",
+//								"You let out a gasp as you carry on spearing your [pc.pussy+] on [brax.namePos] [npc.penis+].");
+//					} else if(penetrationType == SexAreaPenetration.TONGUE && characterPenetrated.isPlayer()) {
+//						return UtilText.returnStringAtRandom(
+//								"You hold the top of [brax.namePos] head, moaning softly as he carries on eating you out.",
+//								"With a little giggle, you grind your [pc.pussy+] down on [brax.namePos] wolf-like muzzle.",
+//								"You feel [brax.namePos] tongue eagerly lapping away at your [pc.pussy+].",
+//								"You sink down a little further onto [brax.namePos] face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.pussy+].");
+//					}
+//				}
+//				
+//				if(orifice == SexAreaOrifice.ANUS) {
+//					if(penetrationType == SexAreaPenetration.PENIS && characterPenetrated.equals(this)) {
+//						return UtilText.returnStringAtRandom(
+//								"You keep bouncing up and down, slamming [brax.namePos] [npc.penis+] in and out of your [pc.asshole+].",
+//								"With lewd little moans, you continue bouncing up and down on [brax.namePos] [npc.penis+].",
+//								"You feel [brax.namePos] [npc.penis+] lewdly spreading out your [pc.asshole+] as you ride him.",
+//								"You let out a gasp as you carry on spearing your [pc.asshole+] on [brax.namePos] [npc.penis+].");
+//						
+//					} else if(characterPenetrated.isPlayer()) {
+//						return UtilText.returnStringAtRandom(
+//								"You hold the top of [brax.namePos] head, moaning softly as he carries on licking your [pc.asshole+].",
+//								"With a little giggle, you grind your [pc.asshole+] down on [brax.namePos] wolf-like muzzle.",
+//								"You feel [brax.namePos] tongue eagerly lapping away at your [pc.asshole+].",
+//								"You sink down a little further onto [brax.namePos] face, letting out a delighted sigh as you feel his tongue spearing deep into your [pc.asshole+].");
+//					}
+//				}
+//			}
+//			
+//			if(penetrationType == SexAreaPenetration.PENIS && orifice == SexAreaOrifice.ANUS && characterPenetrated.equals(this)) {
+//				return UtilText.returnStringAtRandom(
+//						"You carry on slamming your [pc.penis+] into [brax.namePos] [npc.asshole+].",
+//						"Holding his hips, you carry on fucking [brax.namePos] [npc.asshole+].",
+//						"You feel [brax.namePos] [npc.asshole+] lewdly spreading out around your [pc.penis+] as you thrust into him.",
+//						"[brax.name] gasps and groans as you carry on spearing your [pc.penis+] into his [npc.asshole+].");
+//			}
+//		}
+//		
+//		return super.getPenetrationDescription(initialPenetration, characterPenetrating, penetrationType, characterPenetrated, orifice);
+//	}
 	
 }

@@ -23,7 +23,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.82
- * @version 0.3.4
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public class PenisVagina {
@@ -36,7 +36,11 @@ public class PenisVagina {
 
 	private static List<GameCharacter> getCharactersForParsing(GameCharacter characterReceivingDP) {
 		List<GameCharacter> characters = Util.newArrayListOfValues(Sex.getCharacterPerformingAction(), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()));
-		characters.addAll(getOngoingCharacters(characterReceivingDP));
+		for(GameCharacter c : getOngoingCharacters(characterReceivingDP)) {
+			if(!characters.contains(c)) {
+				characters.add(c);
+			}
+		}
 		return characters;
 	}
 	
@@ -578,7 +582,8 @@ public class PenisVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return getOngoingCharacters(Sex.getCharacterTargetedForSexAction(this)).size()==1;
+			return getOngoingCharacters(Sex.getCharacterTargetedForSexAction(this)).size()==1
+					&& !getOngoingCharacters(Sex.getCharacterTargetedForSexAction(this)).contains(Sex.getCharacterPerformingAction());
 		}
 		
 		@Override
@@ -1332,7 +1337,8 @@ public class PenisVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return getOngoingCharacters(Sex.getCharacterPerformingAction()).size()==1;
+			return getOngoingCharacters(Sex.getCharacterPerformingAction()).size()==1
+					&& !getOngoingCharacters(Sex.getCharacterPerformingAction()).contains(Sex.getCharacterTargetedForSexAction(this));
 		}
 		
 		@Override

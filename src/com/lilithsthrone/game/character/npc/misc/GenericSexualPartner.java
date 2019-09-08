@@ -194,7 +194,7 @@ public class GenericSexualPartner extends NPC {
 			return super.isHappyToBeInSlot(position, slot, target);
 			
 		} else {
-			if(Sex.isInForeplay() || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
+			if(Sex.isInForeplay(this) || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
 				return slot==SexSlotUnique.GLORY_HOLE_KNEELING;
 			} else {
 				return slot==SexSlotUnique.GLORY_HOLE_FUCKED;

@@ -505,9 +505,12 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	 */
 	private SexAction performForeplayAction(SexActionInterface sexActionPlayer) {
 		boolean debug = false;
+
+		NPC performingCharacter = (NPC)Sex.getCharacterPerformingAction();
+		GameCharacter targetedCharacter = Sex.getTargetedPartner(Sex.getCharacterPerformingAction());
 		
 		List<SexActionInterface> availableActions = new ArrayList<>(Sex.getAvailableSexActionsPartner());
-		availableActions.removeIf(si -> !si.isAddedToAvailableSexActions() && !si.isAbleToAccessParts(Sex.getActivePartner()));
+		availableActions.removeIf(si -> !si.isAddedToAvailableSexActions() && !si.isAbleToAccessParts(performingCharacter));
 		
 		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
 		
@@ -524,17 +527,14 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		List<SexActionInterface> highPriorityList = new ArrayList<>();
 		List<SexActionInterface> mediumPriorityList = new ArrayList<>();
-
-		NPC character = Sex.getActivePartner();
-		GameCharacter targetedCharacter = Sex.getTargetedPartner(Sex.getActivePartner());
 		
 		// If the NPC has a preference, they are more likely to choose actions related to that:
-		SexType foreplayPreference = Sex.getForeplayPreference(character, targetedCharacter);
-		if(!Sex.isInForeplay(character)) { // Use main sex preference if in main sex (as this method can be called as a fallthrough from performSexAction())
-			foreplayPreference = Sex.getMainSexPreference(character, targetedCharacter);
+		SexType foreplayPreference = Sex.getForeplayPreference(performingCharacter, targetedCharacter);
+		if(!Sex.isInForeplay(performingCharacter)) { // Use main sex preference if in main sex (as this method can be called as a fallthrough from performSexAction())
+			foreplayPreference = Sex.getMainSexPreference(performingCharacter, targetedCharacter);
 		}
 		if(debug) {
-			System.out.println(Sex.getActivePartner().getName(true)+" wants to use: "+foreplayPreference.toString());
+			System.out.println(performingCharacter.getName(true)+" wants to use: "+foreplayPreference.toString());
 		}
 		if(foreplayPreference!=null) {
 			for(SexActionInterface action : availableActions) {
@@ -549,7 +549,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					if(action.getActionType() == SexActionType.START_ONGOING
 							|| action.getActionType()==SexActionType.START_ADDITIONAL_ONGOING) { // If a penetrative action is in the list, always return that first.
 						if(debug) {
-							System.out.println(Sex.getActivePartner().getName(true)+" performs "+action.getActionTitle()+" on "+targetedCharacter.getName(true));
+							System.out.println(performingCharacter.getName(true)+" performs "+action.getActionTitle()+" on "+targetedCharacter.getName(true));
 						}
 						return (SexAction) action;
 					}
@@ -563,7 +563,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		highPriorityList.clear();
 		for (SexActionInterface action : availableActions) {
-			if((action.getActionType() == SexActionType.START_ONGOING || action.getActionType()==SexActionType.START_ADDITIONAL_ONGOING || Sex.isCharacterEngagedInOngoingAction(Sex.getActivePartner(), targetedCharacter))
+			if((action.getActionType() == SexActionType.START_ONGOING || action.getActionType()==SexActionType.START_ADDITIONAL_ONGOING || Sex.isCharacterEngagedInOngoingAction(performingCharacter, targetedCharacter))
 					&& action.getActionType() != SexActionType.STOP_ONGOING
 					&& action.getParticipantType()!=SexParticipantType.SELF) {
 				if(!action.isTakesVirginity(false)) { // Do not want to take any virginity in foreplay TODO?

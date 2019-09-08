@@ -841,30 +841,30 @@ public class GenericActions {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.VAGINA)!=null) {
-				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(Sex.getCharacterTargetedForSexAction(this))) {
 					UtilText.nodeContentSB.append("[npc2.Name] lets out a disappointed [npc.moan] as you force [npc2.herHim] to stop stimulating [npc2.her] [npc2.pussy+].");
 				}
 			}
 			
-			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=null) {
-				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS).contains(Sex.getCharacterTargetedForSexAction(this))) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("As you put an end to [npc2.namePos] self-stimulation of [npc2.her] [npc2.asshole], [npc2.she] lets out a pathetic whine.");
 				}
 			}
 			
-			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.NIPPLE)!=null) {
-				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).contains(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.NIPPLE)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.NIPPLE).contains(Sex.getCharacterTargetedForSexAction(this))) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("[npc2.Name] pouts at you as you force [npc2.herHim] to stop stimulating [npc2.her] [npc2.nipples+].");
 				}
 			}
 			
-			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.MOUTH)!=null) {
-				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.MOUTH).contains(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH).contains(Sex.getCharacterTargetedForSexAction(this))) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("[npc2.Name] lets out a disappointed [npc.moan] as you force [npc2.herHim] to stop using [npc2.her] mouth.");
@@ -1144,7 +1144,7 @@ public class GenericActions {
 			return Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& (Sex.getSexControl(Sex.getCharacterTargetedForSexAction(this))!=SexControl.FULL || !Sex.isDom(Sex.getCharacterTargetedForSexAction(this)))
 					&& !Sex.isMasturbation()
-					&& Sex.isCanRemoveOthersClothing(Sex.getActivePartner(), null)
+					&& Sex.isCanRemoveOthersClothing(Sex.getCharacterTargetedForSexAction(this), null)
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
@@ -1156,7 +1156,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.setCanRemoveOthersClothing(Sex.getActivePartner(), false);
+			Sex.setCanRemoveOthersClothing(Sex.getCharacterTargetedForSexAction(this), false);
 		}
 	};
 	
@@ -1183,7 +1183,7 @@ public class GenericActions {
 			return Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& (Sex.getSexControl(Sex.getCharacterTargetedForSexAction(this))!=SexControl.FULL || !Sex.isDom(Sex.getCharacterTargetedForSexAction(this)))
 					&& !Sex.isMasturbation()
-					&& !Sex.isCanRemoveOthersClothing(Sex.getActivePartner(), null)
+					&& !Sex.isCanRemoveOthersClothing(Sex.getCharacterTargetedForSexAction(this), null)
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
@@ -1195,7 +1195,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.setCanRemoveOthersClothing(Sex.getActivePartner(), true);
+			Sex.setCanRemoveOthersClothing(Sex.getCharacterTargetedForSexAction(this), true);
 		}
 	};
 	
@@ -1222,7 +1222,7 @@ public class GenericActions {
 			return Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& (Sex.getSexControl(Sex.getCharacterTargetedForSexAction(this))!=SexControl.FULL || !Sex.isDom(Sex.getCharacterTargetedForSexAction(this)))
 					&& !Sex.isMasturbation()
-					&& Sex.isCanRemoveSelfClothing(Sex.getActivePartner())
+					&& Sex.isCanRemoveSelfClothing(Sex.getCharacterTargetedForSexAction(this))
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
@@ -1234,7 +1234,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.setCanRemoveSelfClothing(Sex.getActivePartner(), false);
+			Sex.setCanRemoveSelfClothing(Sex.getCharacterTargetedForSexAction(this), false);
 		}
 	};
 	
@@ -1261,7 +1261,7 @@ public class GenericActions {
 			return Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& (Sex.getSexControl(Sex.getCharacterTargetedForSexAction(this))!=SexControl.FULL || !Sex.isDom(Sex.getCharacterTargetedForSexAction(this)))
 					&& !Sex.isMasturbation()
-					&& !Sex.isCanRemoveSelfClothing(Sex.getActivePartner())
+					&& !Sex.isCanRemoveSelfClothing(Sex.getCharacterTargetedForSexAction(this))
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
@@ -1273,7 +1273,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.setCanRemoveSelfClothing(Sex.getActivePartner(), true);
+			Sex.setCanRemoveSelfClothing(Sex.getCharacterTargetedForSexAction(this), true);
 		}
 	};
 	
@@ -1299,7 +1299,7 @@ public class GenericActions {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isMasturbation()
-					&& Sex.isCharacterSelfOngoingActionHappening(Sex.getActivePartner())
+					&& Sex.isCharacterSelfOngoingActionHappening(Sex.getCharacterTargetedForSexAction(this))
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -1308,30 +1308,30 @@ public class GenericActions {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.VAGINA)!=null) {
-				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(Sex.getCharacterTargetedForSexAction(this))) {
 					UtilText.nodeContentSB.append("[npc2.Name] lets out a disappointed [npc.moan] as you force [npc2.herHim] to stop stimulating [npc2.her] [npc2.pussy+].");
 				}
 			}
 			
-			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=null) {
-				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS).contains(Sex.getCharacterTargetedForSexAction(this))) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("As you put an end to [npc2.namePos] self-stimulation of [npc2.her] [npc2.asshole], [npc2.she] lets out a pathetic whine.");
 				}
 			}
 			
-			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.NIPPLE)!=null) {
-				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).contains(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.NIPPLE)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.NIPPLE).contains(Sex.getCharacterTargetedForSexAction(this))) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("[npc2.Name] pouts at you as you force [npc2.herHim] to stop stimulating [npc2.her] [npc2.nipples+].");
 				}
 			}
 			
-			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.MOUTH)!=null) {
-				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.MOUTH).contains(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH).contains(Sex.getCharacterTargetedForSexAction(this))) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("[npc2.Name] lets out a disappointed [npc.moan] as you force [npc2.herHim] to stop using [npc2.her] mouth.");
@@ -1443,7 +1443,7 @@ public class GenericActions {
 					&& (!Sex.getCharacterPerformingAction().isSlave() || !Sex.getAllParticipants().contains(Sex.getCharacterPerformingAction().getOwner()))
 					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Sex.getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
-					&& !Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB);
+					&& !Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB);
 			
 		}
 		

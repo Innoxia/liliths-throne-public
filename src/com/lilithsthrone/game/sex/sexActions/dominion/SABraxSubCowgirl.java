@@ -220,7 +220,7 @@ public class SABraxSubCowgirl {
 			} else {
 				switch(Util.random.nextInt(5)){
 					case 0:
-						return "You lean down, grabbing Brax's head in both hands and pulling him up into a passionate kiss. You let out a muffled giggle into the wolf-boy's mouth as you feel his "+Sex.getActivePartner().getPenisName(true)
+						return "You lean down, grabbing Brax's head in both hands and pulling him up into a passionate kiss. You let out a muffled giggle into the wolf-boy's mouth as you feel his "+Sex.getCharacterTargetedForSexAction(this).getPenisName(true)
 								+" bump up against your lower back.";
 					case 1:
 						return "With a grin, you lean down onto Brax's powerful chest, breathing in his masculine scent before pressing your lips against his.";
@@ -228,7 +228,7 @@ public class SABraxSubCowgirl {
 						return "You feel Brax's [npc.penis+] bumping uselessly against your lower back as you pull him into a desperate kiss."
 						+ " After a few moments of tongue-fucking one another's mouths, you sit back up, noticing a strand of saliva briefly linking your lips before breaking and falling onto his furry chest.";
 					case 3:
-						return "As you lean forwards, Brax props himself on on his elbows, eagerly meeting your lips with his. Your moans are muffled in each other's mouths as Brax's "+Sex.getActivePartner().getPenisName(true)
+						return "As you lean forwards, Brax props himself on on his elbows, eagerly meeting your lips with his. Your moans are muffled in each other's mouths as Brax's "+Sex.getCharacterTargetedForSexAction(this).getPenisName(true)
 								+" bumps fruitlessly against your lower back.";
 					default:
 						return "Leaning down, you take a moment to admire Brax's masculine form, letting out a little moan before pressing your lips against his and starting to eagerly kiss him.";
@@ -978,10 +978,10 @@ public class SABraxSubCowgirl {
 					"Leaning forwards, you use Brax's furry, masculine chest to support most of your weight before starting to rapidly buck your hips up and down on his [npc.penis+]."
 							+ " As your face comes closer to his body, you get a waft of his masculine musk, and you bite your lip as you eagerly breathe in the intoxicating scent.",
 					
-					"Placing your hands down on the floor behind you for support, you start rapidly bouncing yourself up and down on Brax's "+Sex.getActivePartner().getPenisName(true)
+					"Placing your hands down on the floor behind you for support, you start rapidly bouncing yourself up and down on Brax's "+Sex.getCharacterTargetedForSexAction(this).getPenisName(true)
 						+", letting out shuddering high-pitched moans as you repeatedly impale yourself on the grinning wolf-boy.",
 						
-					"Grinning down at Brax, you start enthusiastically sliding up and down, repeatedly spearing your "+Main.game.getPlayer().getVaginaName(true)+" on Brax's "+Sex.getActivePartner().getPenisName(true)
+					"Grinning down at Brax, you start enthusiastically sliding up and down, repeatedly spearing your "+Main.game.getPlayer().getVaginaName(true)+" on Brax's "+Sex.getCharacterTargetedForSexAction(this).getPenisName(true)
 						+" as you let out a series of high-pitched moans.");
 		}
 	};
@@ -1015,10 +1015,10 @@ public class SABraxSubCowgirl {
 					"Leaning forwards, you use Brax's furry, masculine chest to support most of your weight before starting to rapidly buck your hips up and down on his [npc.penis+]."
 							+ " As your face comes closer to his body, you get a waft of his masculine musk, and you bite your lip as you eagerly breathe in the intoxicating scent.",
 					
-					"Placing your hands down on the floor behind you for support, you start rapidly bouncing yourself up and down on Brax's "+Sex.getActivePartner().getPenisName(true)
+					"Placing your hands down on the floor behind you for support, you start rapidly bouncing yourself up and down on Brax's "+Sex.getCharacterTargetedForSexAction(this).getPenisName(true)
 						+", letting out shuddering high-pitched moans as you repeatedly impale yourself on the grinning wolf-boy.",
 						
-					"Grinning down at Brax, you start enthusiastically sliding up and down, repeatedly spearing your [pc.asshole+] on Brax's "+Sex.getActivePartner().getPenisName(true)
+					"Grinning down at Brax, you start enthusiastically sliding up and down, repeatedly spearing your [pc.asshole+] on Brax's "+Sex.getCharacterTargetedForSexAction(this).getPenisName(true)
 						+" as you let out a series of desperate groans.");
 		}
 	};
@@ -1186,7 +1186,7 @@ public class SABraxSubCowgirl {
 
 							"~Aah!~ I'm your little toy!",
 
-							"I'm your good little beta! ~Aah!~ Use me!"), Sex.getActivePartner()));
+							"I'm your good little beta! ~Aah!~ Use me!"), Sex.getCharacterPerformingAction()));
 				
 			} else if (Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1202,7 +1202,7 @@ public class SABraxSubCowgirl {
 
 							"~Aah!~ I'm your little toy!",
 
-							"I'm your good little beta! ~Aah!~ Use me!"), Sex.getActivePartner()));
+							"I'm your good little beta! ~Aah!~ Use me!"), Sex.getCharacterPerformingAction()));
 				
 			} else if(Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1218,7 +1218,7 @@ public class SABraxSubCowgirl {
 
 							"~Mrph!~ You're... ~Mrph!~ Alpha!",
 
-							"~Mrph!~ Taste... ~Mmm!~ Good!"), Sex.getActivePartner()));
+							"~Mrph!~ Taste... ~Mmm!~ Good!"), Sex.getCharacterPerformingAction()));
 				
 			} else if(Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1234,7 +1234,7 @@ public class SABraxSubCowgirl {
 
 							"~Mrph!~ You're... ~Mrph!~ Alpha!",
 
-							"~Mrph!~ Hope... ~Mmm!~ Happy!"), Sex.getActivePartner()));
+							"~Mrph!~ Hope... ~Mmm!~ Happy!"), Sex.getCharacterPerformingAction()));
 				
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1250,7 +1250,7 @@ public class SABraxSubCowgirl {
 
 							"I-I'd like you to ride me... please...",
 
-							"You're my alpha..."), Sex.getActivePartner()));
+							"You're my alpha..."), Sex.getCharacterPerformingAction()));
 			}
 			
 			return UtilText.nodeContentSB.toString();

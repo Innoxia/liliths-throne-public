@@ -140,7 +140,7 @@ public class PlayerTalk {
 								+ Main.game.getPlayer().getDirtyTalk();
 				}
 				
-			} else if(Sex.getSexPositionSlot(Sex.getActivePartner()).hasTag(SexSlotTag.PERFORMING_ORAL)) {
+			} else if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.PERFORMING_ORAL)) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
@@ -953,8 +953,8 @@ public class PlayerTalk {
 			return Main.game.getPlayer().isBreastFuckablePaizuri()
 					&& !Sex.getRequestsBlocked(Main.game.getPlayer()).contains(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST))
 					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.BREASTS, true)
-					&& Sex.getActivePartner().hasPenis()
-					&& Sex.getActivePartner().isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer())
+					&& Sex.getCharacterTargetedForSexAction(this).hasPenis()
+					&& Sex.getCharacterTargetedForSexAction(this).isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 
@@ -1031,8 +1031,8 @@ public class PlayerTalk {
 			return !Main.game.getPlayer().isBreastFuckablePaizuri()
 					&& !Sex.getRequestsBlocked(Main.game.getPlayer()).contains(new SexType(SexParticipantType.NORMAL, null, SexAreaOrifice.BREAST))
 					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.BREASTS, true)
-					&& Sex.getActivePartner().hasPenis()
-					&& Sex.getActivePartner().isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer())
+					&& Sex.getCharacterTargetedForSexAction(this).hasPenis()
+					&& Sex.getCharacterTargetedForSexAction(this).isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer())
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
 

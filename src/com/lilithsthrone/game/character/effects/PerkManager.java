@@ -515,16 +515,13 @@ public enum PerkManager {
 	}
 	
 	public static void initialisePerks(GameCharacter character, boolean autoSelectPerks, List<AbstractPerk> requiredPerks, Map<PerkCategory, Integer> perkWeightingOverride) {
+		for(TreeEntry<PerkCategory, AbstractPerk> perk : getStartingPerks(character)) {
+			character.addPerk(perk.getRow(), perk.getEntry());
+		}
+		
 		if(character instanceof Elemental) {
-			for(TreeEntry<PerkCategory, AbstractPerk> perk : getStartingPerks(character)) {
-				character.addPerk(perk.getRow(), perk.getEntry());
-			}
 			
 		} else {
-			for(TreeEntry<PerkCategory, AbstractPerk> perk : getStartingPerks(character)) {
-				character.addPerk(perk.getRow(), perk.getEntry());
-			}
-			
 			if(!character.isPlayer() && autoSelectPerks) {
 				// For each required perk, add it (along with all the perks on the path):
 				if(requiredPerks!=null) {

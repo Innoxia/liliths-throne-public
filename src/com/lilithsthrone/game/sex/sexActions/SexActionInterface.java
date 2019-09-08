@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.PropertyValue;
@@ -41,7 +41,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.3.10
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public interface SexActionInterface {
@@ -57,6 +57,10 @@ public interface SexActionInterface {
 	public abstract SexActionType getActionType();
 
 	public default boolean isPositionSwap() {
+		return false;
+	}
+
+	public default boolean isSadisticAction() {
 		return false;
 	}
 	
@@ -316,7 +320,19 @@ public interface SexActionInterface {
 		
 		applyEffects();
 		
-		return applyEffectsString();
+		StringBuilder sb = new StringBuilder();
+		if(this.isSadisticAction()) {
+			if(!Sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive()) {
+			sb.append("<p style='text-align:center'>"
+						+ "[style.colourBad([npc2.Name] [npc2.verb(find)] this sadistic action to be a huge turn-off!)]"
+						+ Sex.getCharacterTargetedForSexAction(this).incrementLust(-15, false)
+					+"</p>");
+			}
+		}
+		
+		sb.append(applyEffectsString());
+		
+		return sb.toString();
 	}
 
 	public default void applyEffects(){
@@ -337,6 +353,9 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isBasicCoreRequirementsMet() {
+		if(!Main.getProperties().hasValue(PropertyValue.sadisticSexContent) && this.isSadisticAction()) {
+			return false;
+		}
 		
 		boolean analAllowed = true;
 		try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
@@ -460,9 +479,10 @@ public interface SexActionInterface {
 	public default boolean isSwitchOngoingActionAvailable() {
 		if(Sex.getCharacterPerformingAction().isPlayer()
 				&& Sex.getSexControl(Sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
-			// If targeted area is having multiple ongoing actions, or actions that do not involve the player do not allow switch:
+			// If targeted area is having multiple ongoing actions, or non-self actions that do not involve the player do not allow switch:
 			if(Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0)).size()>1
-					|| !Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0)).contains(Main.game.getPlayer())) {
+					|| (!Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0)).contains(Sex.getCharacterTargetedForSexAction(this))
+							&& !Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0)).contains(Main.game.getPlayer()))) {
 				return false;
 			}
 			
@@ -546,7 +566,7 @@ public interface SexActionInterface {
 			// You can't prepare for orgasms if your partner won't orgasm on the next turn:
 			if(Sex.getCharacterPerformingAction().isPlayer()
 					&& getActionType() == SexActionType.PREPARE_FOR_PARTNER_ORGASM) {
-				if(!Sex.isReadyToOrgasm(Sex.getActivePartner())) {
+				if(!Sex.isReadyToOrgasm(Sex.getTargetedPartner(Main.game.getPlayer()))) {
 					return null;
 				} else {
 					return convertToResponse();
@@ -938,6 +958,17 @@ public interface SexActionInterface {
 			}
 		}
 	}
+
+	default String getArousalHitWarning() {
+		if(this.isSadisticAction()) {
+			if(!Sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive()) {
+				return "<br/>[style.colourBad(As [npc2.name] doesn't have a positive desire towards the '"+Fetish.FETISH_MASOCHIST.getName(Sex.getCharacterTargetedForSexAction(this))+"' fetish, [npc2.she] will find this action to be a huge turn-off!)]";
+			} else {
+				return "<br/>[style.colourSex(As [npc2.name] has a positive desire towards the '"+Fetish.FETISH_MASOCHIST.getName(Sex.getCharacterTargetedForSexAction(this))+"' fetish, [npc2.she] finds such sadistic actions to be a turn-on!)]";
+			}
+		}
+		return "";
+	}
 	
 	public default Response convertToResponse() {
 		if(getCategory()!=SexActionCategory.CHARACTER_SWITCH && getActionType()!=SexActionType.POSITIONING_MENU) {
@@ -951,8 +982,8 @@ public interface SexActionInterface {
 						?getActionTitle()
 						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionTitle()),
 					this.endsSex()
-						?getActionDescription()
-						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionDescription()),
+						?getActionDescription()+getArousalHitWarning()
+						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionDescription()+getArousalHitWarning()),
 					Sex.SEX_DIALOGUE,
 					getFetishes(Main.game.getPlayer()),
 					getCorruptionNeeded(),
@@ -984,8 +1015,11 @@ public interface SexActionInterface {
 					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
 						return Colour.BASE_LILAC;
 					}
-					if(SexActionInterface.this.isPositionSwap()) {
+					if(SexActionInterface.this.isPositionSwap() || getCategory()==SexActionCategory.CHARACTER_SWITCH) {
 						return Colour.BASE_PURPLE_LIGHT;
+					}
+					if(isSadisticAction()) {
+						return Colour.BASE_CRIMSON;
 					}
 					if(isSexPenetrationHighlight()) {
 						if(SexActionInterface.this.getPerformingCharacterAreas().stream().anyMatch((area) -> area.isPenetration())) {
@@ -1039,8 +1073,8 @@ public interface SexActionInterface {
 						?getActionTitle()
 						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionTitle()),
 					this.endsSex()
-						?getActionDescription()
-						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionDescription())){
+						?getActionDescription()+getArousalHitWarning()
+						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionDescription()+getArousalHitWarning())){
 				@Override
 				public void effects() {
 					SexActionInterface.this.applyEffects();
@@ -1056,11 +1090,11 @@ public interface SexActionInterface {
 					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
 						return Colour.BASE_LILAC;
 					}
-					if(SexActionInterface.this.isPositionSwap()) {
+					if(SexActionInterface.this.isPositionSwap() || getCategory()==SexActionCategory.CHARACTER_SWITCH) {
 						return Colour.BASE_PURPLE_LIGHT;
 					}
-					if(getCategory()==SexActionCategory.CHARACTER_SWITCH) {
-						return Colour.BASE_PURPLE_LIGHT;
+					if(isSadisticAction()) {
+						return Colour.BASE_CRIMSON;
 					}
 					return super.getHighlightColour();
 				}
@@ -1107,8 +1141,8 @@ public interface SexActionInterface {
 						?getActionTitle()
 						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionTitle()),
 					this.endsSex()
-						?getActionDescription()
-						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionDescription()),
+						?getActionDescription()+getArousalHitWarning()
+						:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionDescription()+getArousalHitWarning()),
 					null,
 					getFetishes(Main.game.getPlayer()),
 					getCorruptionNeeded(),
@@ -1228,8 +1262,8 @@ public interface SexActionInterface {
 					?getActionTitle()
 					:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionTitle()),
 				this.endsSex()
-					?getActionDescription()
-					:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionDescription()),
+					?getActionDescription()+getArousalHitWarning()
+					:UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), getActionDescription()+getArousalHitWarning()),
 				null,
 				getFetishes(Main.game.getPlayer()),
 				getCorruptionNeeded(),

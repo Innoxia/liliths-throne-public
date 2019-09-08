@@ -60,7 +60,7 @@ public class PlayerSelfFingerNipple {
 					Sex.isMasturbation()
 						?"Your nipples are just begging for some attention, and you whine in delight as you reach up to start pinching them."
 						:UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
-								"Your nipples are just begging for some attention, and you reach up and start to pinch at them, whining in delight as [npc.name] smirks at you.")));
+								"Your nipples are just begging for some attention, and you reach up and start to pinch at them, whining in delight as [npc2.name] smirks at you.")));
 			
 			switch (Main.game.getPlayer().getBreastStoredMilk()) {
 				case ONE_TRICKLE:

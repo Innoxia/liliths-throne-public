@@ -97,21 +97,20 @@ public class SMGloryHole extends SexManagerDefault {
 			Subspecies subspecies = Util.randomItemFrom(new ArrayList<>(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies().keySet()));
 			
 			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
-					+UtilText.parse(Sex.getActivePartner(),
-						UtilText.returnStringAtRandom(
-						"The people who've gathered to watch your lewd display laugh and cheer as they look on.",
-						"You hear someone in the crowd wolf-whistling as they watch you servicing the glory holes.",
-						"A pair of zebra-boy bouncers shove their way through the crowd, but instead of putting a stop to your fun, they join in with the crowd in laughing and commenting on your performance.",
-						"You hear the crowd that's gathered to watch you commenting on your performance.",
-						"Cheering and laughing, the crowd of onlookers watch as you continue servicing the cocks before you.",
-						"You glance across to see several members of the crowd touching themselves as they watch you service the glory holes.",
-						"The crowd cheers you on as you carry on servicing the glory holes.",
-						"The crowd laughs and cheers as you carry on acting like a desperate slut in front of them.",
-						"Several members of the crowd shout and cheer as you carry on servicing the glory holes.",
-						Util.capitaliseSentence(UtilText.generateSingularDeterminer(subspecies.getSingularFemaleName(null)))+" "+subspecies.getSingularFemaleName(null)+" steps forwards,"
-								+ " stroking her exposed cock as she suddenly cums all over the floor in front of you.",
-						Util.capitaliseSentence(UtilText.generateSingularDeterminer(subspecies.getSingularMaleName(null)))+" "+subspecies.getSingularMaleName(null)+" steps forwards,"
-								+ " stroking his exposed cock as he suddenly cums all over the floor in front of you."))
+						+ UtilText.returnStringAtRandom(
+							"The people who've gathered to watch your lewd display laugh and cheer as they look on.",
+							"You hear someone in the crowd wolf-whistling as they watch you servicing the glory holes.",
+							"A pair of zebra-boy bouncers shove their way through the crowd, but instead of putting a stop to your fun, they join in with the crowd in laughing and commenting on your performance.",
+							"You hear the crowd that's gathered to watch you commenting on your performance.",
+							"Cheering and laughing, the crowd of onlookers watch as you continue servicing the cocks before you.",
+							"You glance across to see several members of the crowd touching themselves as they watch you service the glory holes.",
+							"The crowd cheers you on as you carry on servicing the glory holes.",
+							"The crowd laughs and cheers as you carry on acting like a desperate slut in front of them.",
+							"Several members of the crowd shout and cheer as you carry on servicing the glory holes.",
+							Util.capitaliseSentence(UtilText.generateSingularDeterminer(subspecies.getSingularFemaleName(null)))+" "+subspecies.getSingularFemaleName(null)+" steps forwards,"
+									+ " stroking her exposed cock as she suddenly cums all over the floor in front of you.",
+							Util.capitaliseSentence(UtilText.generateSingularDeterminer(subspecies.getSingularMaleName(null)))+" "+subspecies.getSingularMaleName(null)+" steps forwards,"
+									+ " stroking his exposed cock as he suddenly cums all over the floor in front of you.")
 					+"</p>";
 		}
 		

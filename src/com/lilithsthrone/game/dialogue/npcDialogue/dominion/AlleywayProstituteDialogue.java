@@ -744,7 +744,7 @@ public class AlleywayProstituteDialogue {
 			if(Sex.getNumberOfOrgasms(getProstitute()) >= getProstitute().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parse(getProstitute(),
 						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks back onto [npc.her] bed, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
+							+ "As you step back from [npc.name], [npc.she] sinks back onto [npc.her] bed, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(getProstitute()) > 1?"s":"")+"."
 							+ " Looking up at you, a satisfied smile settles across [npc.her] face, and [npc.she] sighs,"
 							+ " [npc.speech(Damn, you're good! It looks like I've got a new favourite customer! Please come back again soon!)]"
 						+ "</p>");
@@ -912,7 +912,7 @@ public class AlleywayProstituteDialogue {
 			if(Sex.getNumberOfOrgasms(getProstitute()) >= getProstitute().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parse(getProstitute(),
 						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
+							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(getProstitute()) > 1?"s":"")+"."
 							+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
 						+ "</p>"
 						+ "<p>"

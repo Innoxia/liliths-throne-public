@@ -280,7 +280,7 @@ public class LilayaHomeGeneric {
 				return new Response(UtilText.parse(charactersPresent.get(index-1), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						SlaveDialogue.initDialogue(charactersPresent.get(index-1));
+						SlaveDialogue.initDialogue(charactersPresent.get(index-1), false);
 					}
 				};
 					
@@ -748,7 +748,7 @@ public class LilayaHomeGeneric {
 				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						SlaveDialogue.initDialogue((NPC) character);
+						SlaveDialogue.initDialogue((NPC) character, false);
 					}
 				};
 				
@@ -766,9 +766,9 @@ public class LilayaHomeGeneric {
 					@Override
 					public void effects() {
 						if(character.isSlave()) {
-							SlaveDialogue.initDialogue(character);
+							SlaveDialogue.initDialogue(character, false);
 						} else {
-							OccupantDialogue.initDialogue(character, false);
+							OccupantDialogue.initDialogue(character, false, false);
 						}
 					}
 				};
@@ -1784,7 +1784,7 @@ public class LilayaHomeGeneric {
 				return new Response(UtilText.parse(charactersPresent.get(index-1), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						SlaveDialogue.initDialogue(charactersPresent.get(index-1));
+						SlaveDialogue.initDialogue(charactersPresent.get(index-1), false);
 					}
 				};
 					

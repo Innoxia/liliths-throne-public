@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.4.5";
+	public static final String VERSION_NUMBER = "0.3.4.6";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -111,6 +111,52 @@ public class Main extends Application {
 			+ " If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"
 			
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.3.4.6</h6>"
+			+"<li>Other:</li>"
+			+"<ul>Slightly tweaked sex action preference weighting, so that an action which has both a 'liked' and 'disliked' fetish associated with it will now have a total slightly negative weighting, so it won't be chosen.</ul>"
+			+"<ul>Slightly changed the underwear worn by Alexandria (the prologue character in the museum).</ul>"
+			+"<ul>The 'sadistic' sex actions ('degrading talk', 'choke', 'slap face', and 'spit in face') now apply a significant hit to the targeted character's lust if that targeted character doesn't have a positive desire for the 'masochist' fetish.</ul>"
+			+"<ul>Provided you have enough control in the sex scene, you can now start ongoing actions with a partner's sex area even if they are using that sex area. (i.e. If your partner is fingering themselves, you can now start cunnilingus on them, which will automatically get them to stop fingering themselves.)</ul>"
+			+"<ul>After selecting an orgasming action in sex, the game now restores your targeted character to the person you were targeting before orgasm, and puts you back into the tab you were on before (instead of putting you back into the default 'Misc. actions' tab after every orgasm).</ul>"
+			+"<ul>Reformatted the stats screen to make it more readable.</ul>"
+			+"<ul>Added 'Grope breasts (self)' sex action, allowing characters to grope their own breasts during sex.</ul>"
+			+"<ul>Removed the stopwatch icon overlay on combat move cooldown status effects, to make it clearer which effects are on cooldown.</ul>"
+			+"<ul>Added indication to clothing TF tooltips to make it clearer if the TF is applied to breasts or crotch boobs.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Parsing fixes, including fixes to incorrect characters being referenced in all multiple-ongoing sex actions (such as vaginal/anal double-penetration).</ul>"
+			+"<ul>Fixed clover clamps and realistic dildo being able to be equipped onto/into a character's non-existent vagina.</ul>"
+			+"<ul>Fixed issue where sex would softlock when a character was orgasming in the 'dominant standing' position.</ul>"
+			+"<ul>Characters facing a wall can no longer grope the breasts of the person standing behind them.</ul>"
+			+"<ul>Fixed issues with buying items, weapons, and clothing from vendors, where instead of the purchased item being placed into your inventory, it was being put into the buyback menu.</ul>"
+			+"<ul>Fixed bug where trying to equip a condom while in Ralph's trade dialogue would cause an error to be thrown.</ul>"
+			+"<ul>Fixed Lilaya's panties masturbation scene missing its unique panty-related actions.</ul>"
+			+"<ul>Fixed Nyan's images displaying her 'gift' ones (which were intended for a later scene, and have been moved into a new 'NyanSpecials' folder).</ul>"
+			+"<ul>You are no longer affected by the restricted areas you've set for any of your slaves in the public stocks. (So while members of the public will be unable to use their restricted areas, you can always do whatever you like with them.)</ul>"
+			+"<ul>Fixed issue where exporting characters would set their exported birth year as 3 years later than it actually is.</ul>"
+			+"<ul>Fixed issue where NPCs would generate new special perks every time you loaded a game.</ul>"
+			+"<ul>Fixed issue where resetting perk trees would remove the 'core' perks at the top of each column, making it impossible to select any new perks.</ul>"
+			+"<ul>Fixed some issues which would rarely cause NPCs to use incorrect actions when in group sex.</ul>"
+			+"<ul>Fixed start double penetration actions being displayed when targeting the character who's already fucking you.</ul>"
+			+"<ul>Fixed several issues with item, clothing, and weapon usage in masturbation scenes.</ul>"
+			+"<ul>Fixed weapons in inventory not being displayed as disabled during sex.</ul>"
+			+"<ul>Fixed issue with NPCs getting stuck trying to remove clothing in sex. (An example of this was NPCs not being able to figure out how to remove a corset dress while wearing a women's leather jacket.)</ul>"
+			+"<ul>Fixed bug where removing a character (via the 'Kick out' action for friendly occupants, for example) who was your companion would block you from adding any new companions to your party.</ul>"
+			+"<ul>Fixed characters face-down over a desk being able to grope the breasts of the person behind them.</ul>"
+			+"<ul>Fixed issues with Brax's sex scenes sometimes using incorrect penetration descriptions.</ul>"
+			+"<ul>Fixed your name being displayed as 'You' in your character UI box during sex.</ul>"
+			+"<ul>Fixed sex with slaves/companions sometimes being erroneously described as 'rape' in the action title.</ul>"
+			+"<ul>Fixed issues with companion sex always acting as though they were your slave.</ul>"
+			+"<ul>Fixed issue where ongoing double penetration could sometimes result in the receiving orifice being described as continuously stretching, even if it was already stretched out to the maximum size.</ul>"
+			+"<ul>Fixed the rough and normal variations of clothing displacements being switched, so the game would display non-rough displacement descriptions when you were in the rough pace and vice-versa.</ul>"
+			+"<ul>Characters who have a negative desire towards the pregnancy fetish will no longer force others to creampie them.</ul>"
+			+"<ul>Fixed elemental spawning during combat causing combat to break.</ul>"
+			+"<ul>Fixed default reindeer penises being flared instead of tapered.</ul>"
+		+ "</list>"
+
 		+ "<br/>"
 
 		+ "<list>"

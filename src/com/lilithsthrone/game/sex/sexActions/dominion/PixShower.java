@@ -55,7 +55,7 @@ public class PixShower {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), SexAreaOrifice.MOUTH) && Sex.isOrificeFree(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
+			return Sex.isOrificeFree(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH) && Sex.isOrificeFree(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
 		}
 
 		@Override
@@ -509,12 +509,12 @@ public class PixShower {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.FINGER);
+			return Sex.isPenetrationTypeFree(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER);
 		}
 
 		@Override
 		public String getDescription() {
-			return UtilText.parse(Sex.getActivePartner(),
+			return UtilText.parse(Sex.getCharacterPerformingAction(),
 					UtilText.returnStringAtRandom(
 					"Reaching around between your legs, Pix suddenly grabs your [pc.cock+], and as she starts stroking up and down its length, you find yourself letting out [pc.a_moan+] and leaning back into her.",
 					
@@ -540,7 +540,7 @@ public class PixShower {
 		}
 		@Override
 		public String getActionTitle() {
-			return "Start fingering the player";
+			return "Start fingering";
 		}
 
 		@Override
@@ -555,7 +555,7 @@ public class PixShower {
 
 		@Override
 		public String getDescription() {
-			return UtilText.parse(Sex.getActivePartner(),
+			return UtilText.parse(Sex.getCharacterPerformingAction(),
 					"You feel Pix press heavily into your back, and as she growls menacingly into your ear, she reaches around with [pix.a_hand+] to start stroking and probing at your outer labia."
 						+ " With [pc.a_moan+], you lean back into her, and as the sound of falling water echoes off the walls all around you, she suddenly thrusts her [pix.fingers+] up, penetrating your [pc.pussy+] in one swift strike.");
 		}

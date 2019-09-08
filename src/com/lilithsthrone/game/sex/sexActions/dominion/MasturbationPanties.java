@@ -15,8 +15,8 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotMasturbation;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
-import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.main.Main;
@@ -37,9 +37,10 @@ public class MasturbationPanties {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF) {
+
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotMasturbation.KNEELING_PANTIES;
 		}
 		
 		@Override
@@ -92,9 +93,10 @@ public class MasturbationPanties {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
 			SexParticipantType.SELF) {
+
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotMasturbation.KNEELING_PANTIES;
 		}
 		
 		@Override
@@ -146,14 +148,11 @@ public class MasturbationPanties {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.SELF) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.game.getPlayer().hasPenis()
+			return Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotMasturbation.KNEELING_PANTIES
+					&& !Main.game.getPlayer().hasPenis()
 					&& !Main.game.getPlayer().hasVagina();
 		}
 		
@@ -193,9 +192,10 @@ public class MasturbationPanties {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.SELF) {
+
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotMasturbation.KNEELING_PANTIES;
 		}
 
 		@Override
@@ -236,10 +236,7 @@ public class MasturbationPanties {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.SELF) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
+
 		@Override
 		public String getActionTitle() {
 			return "Cum in panties";
@@ -252,13 +249,14 @@ public class MasturbationPanties {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.game.getPlayer().hasPenisIgnoreDildo()
+			return Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotMasturbation.KNEELING_PANTIES
+					&& ((Main.game.getPlayer().hasPenisIgnoreDildo()
 						&& Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
 						&& SexAreaPenetration.PENIS.isFree(Main.game.getPlayer())
 						&& !Main.game.getPlayer().isWearingCondom())
 					|| (Main.game.getPlayer().hasVagina()
 						&& SexAreaOrifice.VAGINA.isFree(Main.game.getPlayer())
-						&& Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA));
+						&& Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)));
 		}
 
 		@Override

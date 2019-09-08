@@ -410,7 +410,7 @@ public abstract class AbstractItemEffectType {
 		} else if(primaryModifier==TFModifier.TF_BREASTS) {
 			orificeName = "nipple";
 		} else if(primaryModifier==TFModifier.TF_BREASTS_CROTCH) {
-			orificeName = "teat";
+			orificeName = "teat (crotch)";
 		} else if(primaryModifier==TFModifier.TF_ASS) {
 			orificeName = "anus";
 		}
@@ -470,7 +470,7 @@ public abstract class AbstractItemEffectType {
 						break;
 				}
 				break;
-			case TF_BREASTS: case TF_BREASTS_CROTCH:
+			case TF_BREASTS:
 				switch(secondaryModifier) {
 					case TF_MOD_SIZE:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cup size", CupSize.getCupSizeFromInt(limit).getCupSizeName()+"-cup"));
@@ -498,6 +498,39 @@ public abstract class AbstractItemEffectType {
 						break;
 					case TF_MOD_ORIFICE_TENTACLED:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples internally tentacled", "nipple tentacles"));
+						break;
+					default:
+						break;
+				}
+				break;
+			case TF_BREASTS_CROTCH:
+				switch(secondaryModifier) {
+					case TF_MOD_SIZE:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cup size (crotch)", CupSize.getCupSizeFromInt(limit).getCupSizeName()+"-cup"));
+						break;
+					case TF_MOD_SIZE_SECONDARY:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "nipple size (crotch)", NippleSize.getNippleSizeFromInt(limit).getName()));
+						break;
+					case TF_MOD_SIZE_TERTIARY:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "areolae size (crotch)", AreolaeSize.getAreolaeSizeFromInt(limit).getName()));
+						break;
+					case TF_MOD_WETNESS:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "lactation (crotch)", Units.fluid(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)));
+						break;
+					case TF_MOD_REGENERATION:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "milk regeneration (crotch)", String.valueOf(limit)));
+						break;
+					case TF_MOD_ORIFICE_PUFFY:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples puffy (crotch)", "nipple puffyness"));
+						break;
+					case TF_MOD_ORIFICE_RIBBED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples internally ribbed (crotch)",  "nipple ribbing"));
+						break;
+					case TF_MOD_ORIFICE_MUSCLED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples internally muscled (crotch)", "internal nipple muscles"));
+						break;
+					case TF_MOD_ORIFICE_TENTACLED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples internally tentacled (crotch)", "nipple tentacles"));
 						break;
 					default:
 						break;

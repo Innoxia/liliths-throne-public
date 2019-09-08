@@ -212,14 +212,8 @@ public class Game implements XMLSaving {
 			
 			Element characterNode = doc.createElement("exportedCharacter");
 			doc.appendChild(characterNode);
-			// If player, modify birth date so that imported characters are the same age:
-			if(character.isPlayer()) {
-				character.setBirthday(character.getBirthday().plusYears(Game.TIME_SKIP_YEARS));
-				character.saveAsXML(characterNode, doc);
-				character.setBirthday(character.getBirthday().minusYears(Game.TIME_SKIP_YEARS));
-			} else {
-				character.saveAsXML(characterNode, doc);
-			}
+			
+			character.saveAsXML(characterNode, doc);
 			
 			// Ending stuff:
 			
@@ -3380,6 +3374,7 @@ public class Game implements XMLSaving {
 	 * @return true if NPC was deleted, false if they were moved to the empty world.
 	 */
 	public boolean banishNPC(NPC npc) {
+		Main.game.getPlayer().removeCompanion(npc);
 		// check fluids in rooms and condoms
 		if(Main.game.getPlayer().getSexPartners().containsKey(npc.getId())
 				|| npc.getPregnantLitter()!=null
@@ -3420,6 +3415,8 @@ public class Game implements XMLSaving {
 	}
 	
 	public void removeNPC(NPC npc) {
+		Main.game.getPlayer().removeCompanion(npc);
+		
 		if(npc.isPregnant()) {
 			npc.endPregnancy(false);
 			

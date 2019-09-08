@@ -1235,7 +1235,7 @@ public class GamblingDenDialogue {
 							}
 							@Override
 							public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-								return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
+								return Sex.getNumberOfOrgasms(partner)>=1;
 							}
 							@Override
 							public void initStartingLustAndArousal(GameCharacter character) {
@@ -1278,7 +1278,7 @@ public class GamblingDenDialogue {
 							}
 							@Override
 							public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-								return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
+								return Sex.getNumberOfOrgasms(partner)>=1;
 							}
 							@Override
 							public void initStartingLustAndArousal(GameCharacter character) {
@@ -1337,7 +1337,7 @@ public class GamblingDenDialogue {
 								}
 								@Override
 								public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-									return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
+									return Sex.getNumberOfOrgasms(partner)>=1;
 								}
 								@Override
 								public void initStartingLustAndArousal(GameCharacter character) {
@@ -1380,7 +1380,7 @@ public class GamblingDenDialogue {
 								}
 								@Override
 								public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-									return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
+									return Sex.getNumberOfOrgasms(partner)>=1;
 								}
 								@Override
 								public void initStartingLustAndArousal(GameCharacter character) {

@@ -884,7 +884,7 @@ public enum RenderingEngine {
 					overlay += " disabled";
 				}
 				
-			} else if (item instanceof AbstractWeapon && Main.game.isInCombat()) {
+			} else if (item instanceof AbstractWeapon && (Main.game.isInCombat() || Main.game.isInSex())) {
 				overlay += " disabled";
 			}
 		}
@@ -916,7 +916,7 @@ public enum RenderingEngine {
 				overlay += " disabled";
 			}
 			
-		} else if (item instanceof AbstractWeapon && Main.game.isInCombat()) {
+		} else if (item instanceof AbstractWeapon && (Main.game.isInCombat() || Main.game.isInSex())) {
 			overlay += " disabled";
 		}
 			
@@ -1155,13 +1155,15 @@ public enum RenderingEngine {
 	}
 	
 	public static GameCharacter getCharacterToRender() {
-		
 		if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
 			return (NPC) CharactersPresentDialogue.characterViewed;
 		}
 		
 		if(Main.game.isInSex()) {
-			return Sex.getActivePartner();
+			if(Sex.isMasturbation()) {
+				return null;
+			}
+			return Sex.getTargetedPartner(Main.game.getPlayer());
 		}
 		
 		if(Main.game.isInCombat()) {
@@ -2392,12 +2394,12 @@ public enum RenderingEngine {
 					}
 					
 					panelSB.append(
-							"<div class='icon effect' style='border:1px solid "+Colour.SPECIAL_ATTACK.toWebHexString()+"'>"
+							"<div class='icon effect' style='border:2px solid "+Colour.GENERIC_TERRIBLE.toWebHexString()+"'>"
 									+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
 									+ "<div class='icon-content'>"
 										+ combatMove.getSVGString()
 									+ "</div>"
-									+ "<div style='width:100%;height:100%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getStopwatch()+"</div>"
+//									+ "<div style='width:100%;height:100%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getStopwatch()+"</div>"
 									+ "<div class='overlay' id='CM_" + idPrefix + combatMove.getIdentifier() + "'></div>"
 							+ "</div>");
 					
@@ -2420,7 +2422,7 @@ public enum RenderingEngine {
 		
 		panelSB.append(
 				"<div class='attribute-container' style='"
-						+ (Sex.getActivePartner()!=null && Sex.getActivePartner().equals(character)
+						+ (Sex.getTargetedPartner(Main.game.getPlayer())!=null && Sex.getTargetedPartner(Main.game.getPlayer()).equals(character)
 							?"border:2px solid "+Colour.GENERIC_ARCANE.toWebHexString()+";"
 							:"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";")
 						+ "'>"
@@ -2436,7 +2438,9 @@ public enum RenderingEngine {
 								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
 									+ (character.getName(true).length() == 0
 											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName(character):character.getSubspecies().getSingularMaleName(character))
-											: UtilText.parse(character, "[npc.Name]"))
+											: (character.isPlayer()
+													?character.getName(true)
+													:UtilText.parse(character, "[npc.Name]")))
 								+"</b>"
 									+ (isLimitedSpectatorPanel(character)
 										?""

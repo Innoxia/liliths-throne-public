@@ -525,7 +525,7 @@ public class TestNPC extends NPC {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Main.game.getNpc(TestNPC.class).isSatisfiedFromLastSex()) {
 				return "<p>"
 							+ "The [test.race] collapses to the floor, sobbing."
 							+ " Grinning down at [test.her] despoiled body, you turn to the door and prepare to make your exit."
@@ -565,9 +565,9 @@ public class TestNPC extends NPC {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
+			if(Main.game.getNpc(TestNPC.class).isSatisfiedFromLastSex()) {
 				return "<p>"
-							+ "The [test.race] collapses to the floor, totally worn out and satisfied from the orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+" you gave to [test.herHim]."
+							+ "The [test.race] collapses to the floor, totally worn out and satisfied from the orgasm"+(Sex.getNumberOfOrgasms(Main.game.getNpc(TestNPC.class)) > 1?"s":"")+" you gave to [test.herHim]."
 							+ " Grinning down at [test.her] delicate body, you turn to the door and prepare to make your exit."
 							+ " As you reach for the handle, you turn around and chuckle,"
 							+ " [pc.speech(That was fun! Maybe I'll pay you another visit some time!)]"

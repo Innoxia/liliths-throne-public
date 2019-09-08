@@ -674,7 +674,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element properties = doc.createElement("character");
 		parentElement.appendChild(properties);
-		
+
 		// ************** Core information **************//
 		
 		Element characterCoreInfo = doc.createElement("core");
@@ -1955,6 +1955,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		// Perks:
+		character.resetPerksMap(false);
 		nodes = parentElement.getElementsByTagName("traits");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
@@ -1969,7 +1970,8 @@ public abstract class GameCharacter implements XMLSaving {
 				CharacterUtils.appendToImportLog(log, "<br/>Added Equipped Perk: "+Perk.getPerkFromId(e.getAttribute("type")).getName(character));
 			}
 		}
-		
+
+		character.resetSpecialPerksMap();
 		nodes = parentElement.getElementsByTagName("specialPerks");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
@@ -4440,7 +4442,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public List<GameCharacter> getCompanions() {
 		List<GameCharacter> listToReturn = new ArrayList<>();
 		if(this.companions != null) {
-			for(String companionID : this.companions) {
+			for(String companionID : new ArrayList<>(this.companions)) {
 				try {
 					GameCharacter npc = Main.game.getNPCById(companionID);
 					listToReturn.add(npc);
@@ -4449,6 +4451,7 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 				} catch(Exception e) {
 					if(Main.game.isStarted()) {
+						this.companions.remove(companionID);
 						Util.logGetNpcByIdError("getCompanions()", companionID);
 					}
 				}
@@ -5292,9 +5295,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		updateAttributeListeners();
 		
-		if(autoSelectPerks) {
-			setupPerks(autoSelectPerks);
-		}
+		setupPerks(autoSelectPerks);
 		
 		recalculateCombatMoves();
 		
@@ -5406,6 +5407,12 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		return true;
+	}
+	
+	public void resetSpecialPerksMap() {
+		for(AbstractPerk perk : new HashSet<>(specialPerks)) {
+			this.removeSpecialPerk(perk);
+		}
 	}
 	
 	public Set<AbstractPerk> getSpecialPerks() {
@@ -5948,7 +5955,7 @@ public abstract class GameCharacter implements XMLSaving {
 				|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH)) {
 			if(target.isPlayer()) {
 				if(this.isFeminine()) {
-					return UtilText.parse(this,
+					return UtilText.parse(this, target,
 							UtilText.returnStringAtRandom(
 									"[npc.Name] puts on a smouldering look, and as her eyes meet yours, you hear an extremely lewd moan echoing around in your head, [npc.thought(~Aaah!~ "
 											+(this.hasVagina()
@@ -5967,7 +5974,7 @@ public abstract class GameCharacter implements XMLSaving {
 											?"[npc.Name] pouts innocently at you, before blowing you a wet kiss. As she straightens back up, you feel a ghostly pair of wet lips press against your cheek."
 											:"")));
 				} else {
-					return UtilText.parse(this,
+					return UtilText.parse(this, target,
 							UtilText.returnStringAtRandom(
 									"[npc.Name] puts on a confident look, and as his eyes meet yours, you hear an extremely lewd groan echoing around in your head, [npc.thought(~Mmm!~ "
 											+(this.hasVagina()
@@ -5998,7 +6005,7 @@ public abstract class GameCharacter implements XMLSaving {
 													+ " As she straightens back up, [npc2.name] feels a ghostly pair of wet lips press against [npc2.her] cheek."
 											:"")));
 				} else {
-					return UtilText.parse(this,
+					return UtilText.parse(this, target,
 							UtilText.returnStringAtRandom(
 									"[npc.Name] puts on a confident look, before projecting a series of lewd groans and dirty suggestions directly into [npc2.namePos] mind!",
 									"[npc.Name] locks his eyes onto [npc2.nameHers], and as he puts on a charming smile, [npc.she] projects a series of lewd suggestions directly into [npc2.her] mind!",
@@ -6013,7 +6020,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(this.isFeminine()) {
 			if(target.isPlayer()) {
-				description = UtilText.parse(this,
+				description = UtilText.parse(this, target,
 						UtilText.returnStringAtRandom(
 						"[npc.Name] erotically runs [npc.her] hands down [npc.her] legs and bends forwards as [npc.she] teases you, "
 								+ "[npc.speech(Come on baby, I can show you a good time!)]",
@@ -6039,7 +6046,7 @@ public abstract class GameCharacter implements XMLSaving {
 			
 		} else {
 			if(target.isPlayer()) {
-				description = UtilText.parse(this,
+				description = UtilText.parse(this, target,
 						UtilText.returnStringAtRandom(
 						"[npc.Name] winks at you and flexes [npc.his] muscles, "
 								+ "[npc.speech(My body's aching for your touch!)]",
@@ -6268,10 +6275,10 @@ public abstract class GameCharacter implements XMLSaving {
 						weight+=1;
 						break;
 					case ONE_DISLIKE:
-						weight-=3;
+						weight-=4;
 						break;
 					case ZERO_HATE:
-						weight-=5;
+						weight-=6;
 						break;
 				}
 			}
@@ -14465,7 +14472,7 @@ public abstract class GameCharacter implements XMLSaving {
 		pregnancyReactions.clear();
 	}
 	
-	public static final String PREGNANCY_CALCULATION = "((Virility% * Cum Production Modifier) + Fertility%) / 3";
+	public static final String PREGNANCY_CALCULATION = "((Virility Factor * Cum Production Modifier) + Fertility Factor) / 3";
 
 	public void performHourlyFluidsCheck() {
 		for(SexAreaOrifice ot : SexAreaOrifice.values()) {

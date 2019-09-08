@@ -36,7 +36,7 @@ public class PartnerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING;
+			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -51,7 +51,7 @@ public class PartnerSelfFingerVagina {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getSexPositionSlot(Sex.getActivePartner()).hasTag(SexSlotTag.ALL_FOURS)) {
+			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.ALL_FOURS)) {
 				return (UtilText.returnStringAtRandom(
 						"Reaching back between [npc.her] [npc.legs], [npc.name] teases [npc.her] [npc.fingers] over the entrance to [npc.her] [npc.pussy+],"
 								+ " before letting out [npc.a_moan+] as [npc.she] uses [npc.her] digits to spread out [npc.her] labia for you.",
@@ -70,7 +70,7 @@ public class PartnerSelfFingerVagina {
 
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), SexAreaPenetration.FINGER, Sex.getActivePartner(), SexAreaOrifice.VAGINA);
+			Sex.transferLubrication(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER, Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA);
 		}
 		
 	};
