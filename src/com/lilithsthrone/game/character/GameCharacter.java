@@ -13071,7 +13071,6 @@ public abstract class GameCharacter implements XMLSaving {
 					case VAGINA:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
-<<<<<<< HEAD
 								returnedLine = this.getCustomDialoguePenetrate(target, "toes", "vagina", "[npc1.toes]", "[npc2.vagina]", 
 										"pening_ft_vagina_dom_gentle", "dirtytalk_dom_all", "pening_all", "pening_dom_all", "pening_dom_gentle", "pening_toes_all", "pening_toes_dom_all", "pening_toes_dom_gentle",
 										"pening_to_vagina_all", "pening_to_vagina_dom_all", "pening_to_vagina_dom_gentle");
@@ -13149,51 +13148,6 @@ public abstract class GameCharacter implements XMLSaving {
 									break;
 							}
 							break;
-=======
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Good [npc2.girl], you love feeling my [npc1.toes] deep in your pussy, don't you?",
-										"I love foot-fucking cute little things like you!",
-										"What a good [npc2.girl]! Your pussy loves the feeling of my [npc1.toes], doesn't it?"));
-								break;
-							case DOM_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"You love the feeling of my [npc1.toes] deep in your pussy, don't you?!",
-										"I love foot-fucking cute [npc2.girls] like you!",
-										"You like it when I curl my [npc1.toes] up inside you, like <i>this</i>?!"));
-								break;
-							case DOM_ROUGH:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"What a dirty slut! I can feel your horny pussy clenching down on my [npc1.toes]!",
-										"You love this, don't you bitch?! Feeling my [npc1.toes] pushing deep into your slutty cunt!",
-										"That's right slut! You love having my [npc1.toes] stuffed deep in your slutty pussy!"));
-								break;
-							case SUB_EAGER:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Let me get my toes deep inside your little pussy!",
-										"I love giving your pussy the attention it deserves!",
-										"I love foot-fucking you!"));
-								break;
-							case SUB_NORMAL:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I love foot-fucking your pussy!",
-										"I love giving your pussy the attention it deserves!",
-										"I love foot-fucking you!"));
-								break;
-							case SUB_RESISTING:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"I don't want to do this! Please let me stop!",
-										"Let me go! I don't want to do this!",
-										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Fuck!",
-										"Yeah!",
-										"Oh yeah!"));
-								break;
-						}
-						break;
->>>>>>> upstream/dev
 				}
 			}
 		}
