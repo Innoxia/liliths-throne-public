@@ -49,6 +49,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.settings.DifficultyLevel;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -2186,7 +2187,10 @@ public enum RenderingEngine {
 													?character.getName(true)
 													:UtilText.parse(character, "[npc.Name]")))
 								+"</b>"
-								+ " - Level "+ character.getLevel()
+								+ " - Level "
+								+ (Main.getProperties().difficultyLevel != DifficultyLevel.NORMAL && character.getLevel() > character.getTrueLevel()
+									? character.getTrueLevel() + " <span style='font-size: 0.75em'>(+" + (character.getLevel() - character.getTrueLevel()) + ")</span>"
+									: character.getLevel() )
 							+"</div>"
 							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;background:#333; border-radius: 2px;'>"
 								+ (character.getLevel() != GameCharacter.LEVEL_CAP

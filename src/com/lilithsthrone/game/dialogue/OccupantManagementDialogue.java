@@ -1805,11 +1805,11 @@ public class OccupantManagementDialogue {
 							+ "<div style='float:left; width:30%; margin:0; padding:0;'>"
 								+ UtilText.formatAsMoney(job.getIncome())
 								+ " + ("
-								+ (job.getObedienceIncomeModifier()>0
-										?"[style.colourObedience("+job.getObedienceIncomeModifier()+")]"
-										:"[style.colourDisabled("+job.getObedienceIncomeModifier()+")]")
+								+ (job.getObedienceIncomeModifier(character)>0
+										?"[style.colourObedience("+job.getObedienceIncomeModifier(character)+")]"
+										:"[style.colourDisabled("+job.getObedienceIncomeModifier(character)+")]")
 										+ "*<span style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedienceValue()+"</span>)"
-								+ " = "+UtilText.formatAsMoney(income, "b", (income>0?null:Colour.GENERIC_BAD))+"/hour"
+								+ " = "+UtilText.formatAsMoney(income, "b", (income>=0?null:Colour.GENERIC_BAD))+"/hour"
 							+"</div>"
 							+ "<div style='float:left; width:10%; margin:0; padding:0;'>"
 								+ (!job.isAvailable(character) || isCurrentJob

@@ -876,11 +876,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	// Post-combat:
 
 	public int getExperienceFromVictory() {
-		return getLevel() * 2;
+		return (int) Math.ceil(getTrueLevel() * 2 * Main.getProperties().difficultyLevel.getXpModifier());
 	}
 
 	public int getLootMoney() {
-		return (int) ((getLevel() * 25) * (1 + Math.random() - 0.5f));
+		return (int) Math.ceil((getTrueLevel() * 25) * (1 + Math.random() - 0.5f) * Main.getProperties().difficultyLevel.getMoneyModifier());
 	}
 	
 	public List<AbstractCoreItem> getLootItems() {
@@ -1067,7 +1067,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	public Map<TFEssence, Integer> getLootEssenceDrops() {
-		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, Util.random.nextInt(this.getLevel())+1));
+		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, Util.random.nextInt(this.getTrueLevel())+1));
 	}
 	
 	

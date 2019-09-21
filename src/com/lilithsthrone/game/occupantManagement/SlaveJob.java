@@ -358,11 +358,11 @@ public enum SlaveJob {
 	}
 
 	public int getIncome() {
-		return income;
+		return (int) Math.ceil(income * Main.getProperties().difficultyLevel.getMoneyModifier());
 	}
 	
 	public int getFinalHourlyIncomeAfterModifiers(GameCharacter character) {
-		int value = (int)(Math.max(0, (income + ((getAffectionIncomeModifier()*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier()*character.getObedienceValue())))));
+		int value = (int)(Math.max(0, (getIncome() + ((getAffectionIncomeModifier(character)*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier(character)*character.getObedienceValue())))));
 		
 		if(this==SlaveJob.MILKING) {
 			value = 0;
@@ -396,7 +396,7 @@ public enum SlaveJob {
 	}
 	
 	public int getFinalDailyIncomeAfterModifiers(GameCharacter character) {
-		int value = (int)(Math.max(0, (income + ((getAffectionIncomeModifier()*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier()*character.getObedienceValue()))))*character.getTotalHoursWorked());
+		int value = (int)(Math.max(0, (getIncome() + ((getAffectionIncomeModifier(character)*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier(character)*character.getObedienceValue()))))*character.getTotalHoursWorked());
 		
 		if(this==SlaveJob.MILKING) {
 			value = 0;
@@ -431,11 +431,25 @@ public enum SlaveJob {
 	}
 
 	public float getObedienceIncomeModifier() {
-		return obedienceIncomeModifier;
+		return (float) (Math.ceil(obedienceIncomeModifier * Main.getProperties().difficultyLevel.getMoneyModifier() * 100) / 100);
+	}
+	
+	public float getObedienceIncomeModifier(GameCharacter character) {
+		if (character.getObedienceValue() >= 0)
+			return (float) Math.ceil(obedienceIncomeModifier * Main.getProperties().difficultyLevel.getMoneyModifier() * 100) / 100;
+		else
+			return obedienceIncomeModifier;
 	}
 
 	public float getAffectionIncomeModifier() {
-		return affectionIncomeModifier;
+		return (float) Math.ceil(affectionIncomeModifier * Main.getProperties().difficultyLevel.getMoneyModifier() * 100) / 100;
+	}
+
+	public float getAffectionIncomeModifier(GameCharacter character) {
+		if (character.getAffection(Main.game.getPlayer()) >= 0)
+			return (float) Math.ceil(affectionIncomeModifier * Main.getProperties().difficultyLevel.getMoneyModifier() * 100) / 100;
+		else
+			return affectionIncomeModifier;
 	}
 
 	public List<SlaveJobSetting> getMutualSettings() {
