@@ -794,7 +794,7 @@ public class ItemEffectType {
 	public static AbstractItemEffectType COR_LILITHS_GIFT = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
 			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
-			"[style.boldGood(+1)] [style.boldCorruption(corruption)] to 'potion effects'"),
+			"[style.boldGood(+25)] [style.boldCorruption(corruption)] to 'potion effects'"),
 			Colour.ATTRIBUTE_CORRUPTION) {
 		
 		@Override
@@ -803,17 +803,15 @@ public class ItemEffectType {
 			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
 
 			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A sickly wave of corruptive arcane energy washes over you..."
-						:UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]..."))
+						+UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]...")
 					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 25);
 		}
 	};
 
 	public static AbstractItemEffectType COR_IMPISH_BREW = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 10% [style.boldAura(aura)]",
-			"[style.boldGood(+5)] [style.boldCorruption(corruption)] to 'potion effects'"),
+			"[style.boldGood(+50)] [style.boldCorruption(corruption)] to 'potion effects'"),
 			Colour.ATTRIBUTE_CORRUPTION) {
 		
 		@Override
@@ -821,11 +819,9 @@ public class ItemEffectType {
 			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/10);
 
 			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A sickly wave of corruptive arcane energy washes over you..."
-						:UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]..."))
+						+UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]...")
 					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 5);
+					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 50);
 		}
 	};
 	

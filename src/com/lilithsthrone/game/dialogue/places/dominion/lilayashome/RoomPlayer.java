@@ -4,6 +4,7 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Locale;
+
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
@@ -13,10 +14,8 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
@@ -25,19 +24,21 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.3.3.10
+ * @version 0.3.5
  * @author Innoxia
  */
 public class RoomPlayer {
 	
 	private static int sleepTimer = 240;
 
-	private static Response getResponseRoom(int index) {
+	private static Response getResponseRoom(int responseTab, int index) {
+		if(responseTab==1) {
+			return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+		}
+		
 		int minutesPassed = (int) (Main.game.getMinutesPassed() % (24 * 60));
 		
 		sleepTimer = (Main.game.isDayTime()
@@ -126,35 +127,7 @@ public class RoomPlayer {
 				}
 			};
 
-		} else if(index == 5) {
-			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Slavery Overview", "Open the slave management screen.",  ROOM) {
-					@Override
-					public DialogueNode getNextDialogue() {
-						return OccupantManagementDialogue.getSlaveryOverviewDialogue();
-					}
-				};
-			} else {
-				return new Response("Slavery Overview", "You'll need a slaver license before you can access this menu!",  null);
-			}
-			
-		} else if (index == 6) {
-			return new ResponseEffectsOnly("Entrance hall", "Fast travel down to the entrance hall."){
-				@Override
-				public void effects() {
-					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
-				}
-			};
-
-		} else if (index == 7) {
-			return new ResponseEffectsOnly("Lilaya's Lab", "Fast travel down to Lilaya's laboratory."){
-				@Override
-				public void effects() {
-					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_LAB, true);
-				}
-			};
-
-		} else if (index == 10) {
+		} else if (index == 5) {
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
 				return new Response("Calendar", "Take another look at the enchanted calendar that's pinned up on one wall.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
 			} else {
@@ -184,8 +157,13 @@ public class RoomPlayer {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getResponseRoom(index);
+			return getResponseRoom(responseTab, index);
 		}
 	};
 	
@@ -215,10 +193,14 @@ public class RoomPlayer {
 					+ "</p>";
 		}
 
-
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getResponseRoom(index);
+			return getResponseRoom(responseTab, index);
 		}
 
 		@Override
@@ -252,10 +234,14 @@ public class RoomPlayer {
 					+ "</p>";
 		}
 
-
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getResponseRoom(index);
+			return getResponseRoom(responseTab, index);
 		}
 
 		@Override
@@ -276,10 +262,14 @@ public class RoomPlayer {
 			return UtilText.nodeContentSB.toString();
 		}
 
-
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getResponseRoom(index);
+			return getResponseRoom(responseTab, index);
 		}
 
 		@Override
@@ -342,9 +332,16 @@ public class RoomPlayer {
 			return UtilText.nodeContentSB.toString();
 		}
 
-
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
 			if (index == 0) {
 				return new Response("Back", "Step away from the calendar.", ROOM);
 			} else if(index==1) {
@@ -788,6 +785,11 @@ public class RoomPlayer {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
 			return ROOM.getResponse(responseTab, index);
 		}
@@ -805,6 +807,11 @@ public class RoomPlayer {
 			return "";
 		}
 
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return ROOM.getResponse(responseTab, index);

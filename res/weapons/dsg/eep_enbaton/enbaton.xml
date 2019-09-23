@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<authorTag><![CDATA[At the base of the grip, there is a small engraving that reads "Official Enforcer Issue, MFD by DSG Forgeworks."]]></authorTag>
+		
+		<value>3000</value> 
+		
+		<melee>true</melee>
+		
+		<twoHanded>false</twoHanded>
+		
+		<determiner><![CDATA[an]]></determiner>
+		
+		<name><![CDATA[Enforcer's baton]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[Enforcer's Batons]]></namePlural> 
+		
+		<description><![CDATA[A standard issue baton for Enforcers. It is favored for its ability to collapse into a more discrete form factor but offers little in the way of defensive techniques.]]></description> 
+		
+		<attackDescriptor>Bludgeon</attackDescriptor>
+		
+		<attackTooltipDescription>Hit [npc2.name] with your baton.</attackTooltipDescription>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(swing)] the baton out, letting the weight of the tip extend the shaft to full length.]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(push)] the end of the baton into the handle and [npc.verb(put)] it away.]]></unequipText>
+		
+		<imageName>enbaton_inv.svg</imageName> 
+		
+		<imageEquippedName>enbaton.svg</imageEquippedName>
+		
+		<damage>15</damage> 
+		
+		<arcaneCost>0</arcaneCost> 
+		
+		<damageVariance>MEDIUM</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects/>
+		
+		<primaryColours values="JUST_STEEL"/> 
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours values="JUST_BLACK"/> 
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Swinging out with [npc.her] Enforcer Baton, [npc.name] [npc.verb(manage)] to hit [npc2.name] in the chest. There is a loud cracking sound as the shaft connects with the aura above [npc2.her] torso to drain [npc.her] energy!
+		]]></hitText>
+		<hitText><![CDATA[
+		Striking out at [npc2.name] with [npc.her] Enforcer Baton, [npc.name] [npc.verb(manage)] to hit the aura around [npc2.her] [npc2.arm] and drain [npc2.her] energy!
+		]]></hitText>
+		<hitText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] Enforcer Baton, bashing into the aura around [npc2.her] shoulder with the shaft and causing [npc2.herHim] to lose some energy!
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		Thrusting out with [npc.her] Enforcer Baton, [npc.name] [npc.verb(attempt)] to hit [npc2.name] in the chest, but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Striking out at [npc2.name] with [npc.her] Enforcer Baton, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] Enforcer Baton, but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

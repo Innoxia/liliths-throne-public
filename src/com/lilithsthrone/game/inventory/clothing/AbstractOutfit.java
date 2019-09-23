@@ -127,7 +127,9 @@ public abstract class AbstractOutfit {
 				break;
 		}
 		
-		if(this.getWorldTypes()!=null && !this.getWorldTypes().contains(character.getWorldLocation())) {
+		if(this.getWorldTypes()!=null
+				&& !this.getWorldTypes().isEmpty()
+				&& !this.getWorldTypes().contains(character.getWorldLocation())) {
 			return false;
 		}
 		
@@ -530,10 +532,10 @@ public abstract class AbstractOutfit {
 							character.equipClothingOverride(
 									clothing,
 									ct.getEquipSlots().get(0),
-									false,
+									true, // Need to replace clothing as otherwise you get things like bras and overbust corsets being equipped together, with each of them blocking the other's removal.
 									false);
 							
-							// Patterns are set when the clothing is created, so this was only used for testing. I've commented it out instead of deleting it as I may need it fo further testing use.
+							// Patterns are set when the clothing is created, so this was only used for testing. I've commented it out instead of deleting it as I may need it for further testing use.
 //							if(clothing.getClothingType().isPatternAvailable()) {
 //								clothing.setPattern(Util.randomItemFrom(new ArrayList<>(Pattern.getAllDefaultPatterns().values())).getName());
 //								clothing.setPatternColour(clothing.getColour());

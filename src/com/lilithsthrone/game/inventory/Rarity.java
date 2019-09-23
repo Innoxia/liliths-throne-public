@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum Rarity {

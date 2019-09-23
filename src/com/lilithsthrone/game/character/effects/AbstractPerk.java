@@ -38,6 +38,7 @@ public abstract class AbstractPerk {
 
 	private PerkCategory perkCategory;
 
+	protected String pathName;
 	private String SVGString;
 
 	private List<String> extraEffects;
@@ -118,21 +119,9 @@ public abstract class AbstractPerk {
 			this.extraEffects = new ArrayList<>();
 		}
 		
+		this.pathName = pathName;
 		if(pathName!=null) {
-			try {
-				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + pathName + ".svg");
-				if(is==null) {
-					System.err.println("Error! Perk icon file does not exist (Trying to read from '"+pathName+"')!");
-				}
-				SVGString = Util.inputStreamToString(is);
-				
-				SVGString = SvgUtil.colourReplacement(name.replaceAll(" ", ""), colours.get(0), colours.size()>=2?colours.get(1):null, colours.size()>=3?colours.get(2):null, SVGString);
-	
-				is.close();
-	
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			generateSVGImage(pathName, colours);
 		}
 		
 		modifiersList = new ArrayList<>();
@@ -161,6 +150,23 @@ public abstract class AbstractPerk {
 			result = 31 * result + this.getAttributeModifiers(null).hashCode();
 		}
 		return result;
+	}
+	
+	protected void generateSVGImage(String pathName, List<Colour> colours) {
+		try {
+			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + pathName + ".svg");
+			if(is==null) {
+				System.err.println("Error! Perk icon file does not exist (Trying to read from '"+pathName+"')!");
+			}
+			SVGString = Util.inputStreamToString(is);
+			
+			SVGString = SvgUtil.colourReplacement(name.replaceAll(" ", ""), colours.get(0), colours.size()>=2?colours.get(1):null, colours.size()>=3?colours.get(2):null, SVGString);
+
+			is.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public boolean isAlwaysAvailable() {
@@ -233,7 +239,7 @@ public abstract class AbstractPerk {
 		return extraEffects;
 	}
 
-	public String getSVGString() {
+	public String getSVGString(GameCharacter owner) {
 		return SVGString;
 	}
 

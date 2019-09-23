@@ -10,6 +10,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
@@ -17,7 +18,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.5
  * @author Innoxia
  */
 public class DialogueFlags implements XMLSaving {
@@ -48,17 +49,24 @@ public class DialogueFlags implements XMLSaving {
 	private Set<String> reindeerWorkedForIDs = new HashSet<>();
 	private Set<String> reindeerFuckedIDs = new HashSet<>();
 	
-	// Supplier storage rooms checked:
+	// Enforcer warehouse guards defeated:
+	public Set<String> warehouseDefeatedIDs = new HashSet<>();
+	
+	// Storage tiles checked:
 	public Set<Vector2i> supplierStorageRoomsChecked = new HashSet<>();
 	
 	private String slaveTrader;
+	
 	private String slaveryManagerSlaveSelected;
+	private SlaveJob slaveryManagerJobSelected;
 	
 	public DialogueFlags() {
 		values = new HashSet<>();
+
+		slaveTrader = null;
 		
 		slaveryManagerSlaveSelected = null;
-		slaveTrader = null;
+		slaveryManagerJobSelected = SlaveJob.IDLE;
 		
 		ralphDiscountStartTime = -1;
 		kalahariBreakStartTime = -1;
@@ -72,7 +80,11 @@ public class DialogueFlags implements XMLSaving {
 		
 		scarlettPrice = 15000;
 		
-		impFortressAlphaDefeatedTime = impFortressDemonDefeatedTime = impFortressFemalesDefeatedTime = impFortressMalesDefeatedTime = -50000;
+		impFortressAlphaDefeatedTime
+			= impFortressDemonDefeatedTime 
+			= impFortressFemalesDefeatedTime
+			= impFortressMalesDefeatedTime
+			= -50000;
 		
 		impCitadelImpWave = 0;
 	}
@@ -108,6 +120,8 @@ public class DialogueFlags implements XMLSaving {
 		saveSet(element, doc, reindeerEncounteredIDs, "reindeerEncounteredIDs");
 		saveSet(element, doc, reindeerWorkedForIDs, "reindeerWorkedForIDs");
 		saveSet(element, doc, reindeerFuckedIDs, "reindeerFuckedIDs");
+
+		saveSet(element, doc, warehouseDefeatedIDs, "warehouseDefeatedIDs");
 		
 		Element supplierStorageRoomsCheckedElement = doc.createElement("supplierStorageRoomsChecked");
 		element.appendChild(supplierStorageRoomsCheckedElement);
@@ -190,6 +204,8 @@ public class DialogueFlags implements XMLSaving {
 		loadSet(parentElement, doc, newFlags.reindeerWorkedForIDs, "reindeerWorkedForIDs");
 		loadSet(parentElement, doc, newFlags.reindeerFuckedIDs, "reindeerFuckedIDs");
 		
+		loadSet(parentElement, doc, newFlags.warehouseDefeatedIDs, "warehouseDefeatedIDs");
+		
 		if(parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)!=null) {
 			for(int i=0; i<((Element) parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)).getElementsByTagName("location").getLength(); i++){
 				Element e = (Element) ((Element) parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)).getElementsByTagName("location").item(i);
@@ -200,6 +216,7 @@ public class DialogueFlags implements XMLSaving {
 								Integer.valueOf(e.getAttribute("y"))));
 			}
 		}
+
 		return newFlags;
 	}
 	
@@ -221,8 +238,6 @@ public class DialogueFlags implements XMLSaving {
 				}
 			}
 		} catch(Exception ex) {
-			// What is this...
-			System.err.println("Whoopsie :^)"); // Prints out "Whoopsie :^) to the error output stream."
 		}
 	}
 
@@ -297,6 +312,14 @@ public class DialogueFlags implements XMLSaving {
 
 	// Reindeer event:
 	
+	public SlaveJob getSlaveryManagerJobSelected() {
+		return slaveryManagerJobSelected;
+	}
+
+	public void setSlaveryManagerJobSelected(SlaveJob slaveryManagerJobSelected) {
+		this.slaveryManagerJobSelected = slaveryManagerJobSelected;
+	}
+
 	public void addReindeerEncountered(String reindeerID) {
 		reindeerEncounteredIDs.add(reindeerID);
 	}

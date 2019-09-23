@@ -7,7 +7,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.1.69.1
- * @version 0.3.3.4
+ * @version 0.3.5
  * @author Innoxia
  */
 public class SexFlags {
@@ -26,12 +26,16 @@ public class SexFlags {
 	public static boolean customerAtCounter;
 	public static boolean alertedCustomer;
 	public static boolean askedForBigDiscount;
+	public static int ralphDiscount;
 	
 	//Pix
 	public static boolean pixDemandedPromise;
 	public static boolean pixPlayerPromised;
 	
-	public static int ralphDiscount;
+	// Claire:
+	public static boolean claireSexInterrupted;
+	public static int claireSexInterruptedTurn;
+	
 
 	public SexFlags() {
 		reset();
@@ -56,6 +60,10 @@ public class SexFlags {
 		// Pix:
 		pixDemandedPromise=false;
 		pixPlayerPromised = false;
+		
+		// Claire:
+		claireSexInterrupted = false;
+		claireSexInterruptedTurn = -1;
 	}
 	
 }

@@ -200,6 +200,17 @@ public class GenericActions {
 			if(Main.game.getPlayer().getPenisRawSizeValue() < 20) {
 				sb.append(Main.game.getPlayer().setPenisSize(20));
 			}
+			
+			for(GameCharacter character : Sex.getAllParticipants()) {
+				if(character instanceof NPC) {
+					for(GameCharacter target : Sex.getAllParticipants()) {
+						if(!target.equals(character) && Sex.getSexPositionSlot(target)!=SexSlotGeneric.MISC_WATCHING) {
+							((NPC)character).generateSexChoices(false, target, null);
+						}
+					}
+				}
+			}
+			
 			return sb.toString();
 		}
 	};
@@ -258,25 +269,44 @@ public class GenericActions {
 									+ " Before you have any time to change your mind, [npc2.she] lets out [npc2.a_moan+], and you realise that [npc2.sheHas] now got a huge slimy cock hiding beneath [npc2.her] clothing.");
 			}
 		}
-
+		
 		@Override
-		public void applyEffects() {
+		public String applyEffectsString() {
 			Sex.getCharactersGrewCock().add(Sex.getCharacterTargetedForSexAction(this));
 			
+			StringBuilder sb = new StringBuilder();
 			if(Sex.getCharacterTargetedForSexAction(this).getRace()==Race.DEMON) {
-				Sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.DEMON_COMMON);
+				sb.append(Sex.getCharacterTargetedForSexAction(this).setPenisType(PenisType.DEMON_COMMON));
 			} else {
-				Sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(Subspecies.getFleshSubspecies(Sex.getCharacterTargetedForSexAction(this)).getRace()).getPenisType());
+				sb.append(Sex.getCharacterTargetedForSexAction(this).setPenisType(RacialBody.valueOfRace(Subspecies.getFleshSubspecies(Sex.getCharacterTargetedForSexAction(this)).getRace()).getPenisType()));
 			}
-			Sex.getCharacterTargetedForSexAction(this).setPenisCumStorage(150);
+			if(Sex.getCharacterTargetedForSexAction(this).getPenisRawCumStorageValue() < 150) {
+				Sex.getCharacterTargetedForSexAction(this).setPenisCumStorage(150);
+			}
 			Sex.getCharacterTargetedForSexAction(this).fillCumToMaxStorage();
 			if(Sex.getCharacterTargetedForSexAction(this).hasVagina()) {
 				Sex.getCharacterTargetedForSexAction(this).setTesticleSize(TesticleSize.ZERO_VESTIGIAL);
 			} else {
 				Sex.getCharacterTargetedForSexAction(this).setTesticleSize(TesticleSize.THREE_LARGE);
 			}
-			Sex.getCharacterTargetedForSexAction(this).setPenisGirth(PenisGirth.THREE_THICK);
-			Sex.getCharacterTargetedForSexAction(this).setPenisSize(20);
+			if(Sex.getCharacterTargetedForSexAction(this).getPenisGirth().getValue() < PenisGirth.THREE_THICK.getValue()) {
+				sb.append(Sex.getCharacterTargetedForSexAction(this).setPenisGirth(PenisGirth.THREE_THICK));
+			}
+			if(Sex.getCharacterTargetedForSexAction(this).getPenisRawSizeValue() < 20) {
+				sb.append(Sex.getCharacterTargetedForSexAction(this).setPenisSize(20));
+			}
+			
+			for(GameCharacter character : Sex.getAllParticipants()) {
+				if(character instanceof NPC) {
+					for(GameCharacter target : Sex.getAllParticipants()) {
+						if(!target.equals(character) && Sex.getSexPositionSlot(target)!=SexSlotGeneric.MISC_WATCHING) {
+							((NPC)character).generateSexChoices(false, target, null);
+						}
+					}
+				}
+			}
+			
+			return sb.toString();
 		}
 	};
 

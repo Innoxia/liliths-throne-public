@@ -36,7 +36,9 @@
 		
 		<primaryColours values="ALL"/> 
 		<primaryColoursDye/>
-		<secondaryColours values="JUST_BLACK"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</secondaryColours>
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours values="JUST_TAN"/>
 		<tertiaryColoursDye values="ALL"/>

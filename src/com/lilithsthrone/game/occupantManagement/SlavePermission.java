@@ -7,7 +7,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.87
- * @version 0.2.5
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum SlavePermission {
@@ -21,6 +21,16 @@ public enum SlavePermission {
 					SlavePermissionSetting.GENERAL_OUTSIDE_FREEDOM),
 			false),
 
+	BEHAVIOUR(Colour.BASE_TEAL,
+			"Behaviour",
+			Util.newArrayListOfValues(
+					SlavePermissionSetting.BEHAVIOUR_SLUTTY,
+					SlavePermissionSetting.BEHAVIOUR_SEDUCTIVE,
+					SlavePermissionSetting.BEHAVIOUR_STANDARD,
+					SlavePermissionSetting.BEHAVIOUR_PROFESSIONAL,
+					SlavePermissionSetting.BEHAVIOUR_WHOLESOME),
+			true),
+	
 	SEX(Colour.GENERIC_SEX,
 			"Sex",
 			Util.newArrayListOfValues(

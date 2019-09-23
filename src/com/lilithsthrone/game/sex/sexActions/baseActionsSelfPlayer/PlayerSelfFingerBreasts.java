@@ -21,13 +21,14 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class PlayerSelfFingerBreasts {
+	
 	public static final SexAction FEEL_BREASTS = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.BREAST)),
-			SexParticipantType.NORMAL) {
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {

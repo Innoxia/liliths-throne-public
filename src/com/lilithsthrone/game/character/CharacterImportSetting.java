@@ -7,6 +7,8 @@ package com.lilithsthrone.game.character;
  */
 public enum CharacterImportSetting {
 
+	NEW_GAME_IMPORT,
+	
 	NO_LOCATION_SETUP,
 	
 	CLEAR_SLAVERY,

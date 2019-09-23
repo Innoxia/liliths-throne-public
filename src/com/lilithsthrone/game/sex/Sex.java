@@ -72,6 +72,7 @@ import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.comparators.ClothingZLayerComparator;
 
 /**
  * Singleton enforced by Enum Call initialiseCombat() before using.
@@ -655,6 +656,12 @@ public class Sex {
 		populatePlayerSexLists();
 
 		sexInitFinished = true;
+
+		if(Sex.isMasturbation()) {
+			Main.game.setResponseTab(1);
+		} else {
+			Main.game.setResponseTab(2);
+		}
 		
 		return SEX_DIALOGUE;
 	}
@@ -1173,17 +1180,30 @@ public class Sex {
 							
 						} else {
 							if(!Sex.isRemoveEndSexAffection(participant)) {
-								if(!participant.getFetishDesire(Fetish.FETISH_DENIAL_SELF).isPositive() && !Sex.isDom(participant)) {
-									int orgasms = Sex.getNumberOfOrgasms(participant);
-									if(Sex.getNumberOfOrgasms(participant)==0) {
-										for(GameCharacter domParticipant : Sex.getDominantParticipants(false).keySet()) {
-											endSexSB.append(participant.incrementAffection(domParticipant, -10f, "[npc.Name] is angry at [npc2.name] for finishing without bringing [npc.herHim] to orgasm."));
+								if(!Sex.isDom(participant)) {
+									boolean denialAffectionChange = false;
+									if(participant.getFetishDesire(Fetish.FETISH_DENIAL_SELF).isPositive()) {
+										if(Sex.getNumberOfDeniedOrgasms(participant)==0 && Sex.getNumberOfOrgasms(participant)==0) {
+											for(GameCharacter domParticipant : Sex.getDominantParticipants(false).keySet()) {
+												endSexSB.append(
+														participant.incrementAffection(domParticipant, -10f, "[npc.Name] is angry at [npc2.name] for failing to give or deny [npc.herHim] a single orgasm."));
+											}
+											denialAffectionChange = true;
 										}
-									} else if(orgasms < participant.getOrgasmsBeforeSatisfied()){
-										for(GameCharacter domParticipant : Sex.getDominantParticipants(false).keySet()) {
-											endSexSB.append(participant.incrementAffection(domParticipant, -5f,
-													"[npc.Name] is annoyed at [npc2.name] for only giving [npc.herHim] "+Util.intToString(orgasms)+" orgasm"+(orgasms==1?"":"s")
-														+", when [npc.she] really wanted at least "+Util.intToString(participant.getOrgasmsBeforeSatisfied())+"."));
+									
+									}
+									if(!denialAffectionChange) {
+										int orgasms = Sex.getNumberOfOrgasms(participant);
+										if(Sex.getNumberOfOrgasms(participant)==0) {
+											for(GameCharacter domParticipant : Sex.getDominantParticipants(false).keySet()) {
+												endSexSB.append(participant.incrementAffection(domParticipant, -10f, "[npc.Name] is angry at [npc2.name] for failing to give [npc.herHim] a single orgasm."));
+											}
+										} else if(orgasms < participant.getOrgasmsBeforeSatisfied()){
+											for(GameCharacter domParticipant : Sex.getDominantParticipants(false).keySet()) {
+												endSexSB.append(participant.incrementAffection(domParticipant, -5f,
+														"[npc.Name] is annoyed at [npc2.name] for only giving [npc.herHim] "+Util.intToString(orgasms)+" orgasm"+(orgasms==1?"":"s")
+															+", when [npc.she] really wanted at least "+Util.intToString(participant.getOrgasmsBeforeSatisfied())+"."));
+											}
 										}
 									}
 								}
@@ -1784,7 +1804,6 @@ public class Sex {
 			if(SexFlags.playerPreparedForCharactersOrgasm.contains(Sex.getCharacterPerformingAction())) {
 				for (SexActionInterface sexAction : Sex.getOrgasmActionsPartner(Sex.getCharacterPerformingAction(), targetedCharacter)) {
 					if (sexAction.isAddedToAvailableSexActions()) {
-						
 						int weight = ((NPC)Sex.getCharacterPerformingAction()).calculateSexTypeWeighting(sexAction.getAsSexType(), targetedCharacter, null);
 						
 						if(weight>=0 || sexAction.getCategory()==SexActionCategory.POSITIONING) { // Positioning actions should always be available
@@ -2742,6 +2761,11 @@ public class Sex {
 			characterPerformingAction.addSexPartner(characterTargeted, relatedSexTypePerformer);
 			characterTargeted.addSexPartner(characterPerformingAction, relatedSexTypeTargeted);
 			
+			if(performerArea==SexAreaPenetration.TONGUE && targetedArea==SexAreaOrifice.MOUTH
+					&& !Sex.getOngoingCharactersUsingAreas(characterTargeted, performerArea, targetedArea).contains(characterPerformingAction)) {
+				applyOngoingAction(characterTargeted, performerArea, characterPerformingAction, targetedArea, false);
+			}
+			
 		} else {
 			System.err.println("Warning! Sex.applyPenetration() is finding 'characterPenetrated' or 'characterPenetrating' to be null!!!");
 		}
@@ -2813,7 +2837,7 @@ public class Sex {
 				if(ongoingActionsMap.get(characterPerformingAction).get(performerArea).get(characterTargeted).remove(targetedArea)) {
 					ongoingActionsMap.get(characterTargeted).get(targetedArea).get(characterPerformingAction).remove(performerArea);
 					if(appendRemovalText && characterTargeted!=null) {
-						sexSB.append(formatStopPenetration(characterTargeted.getStopPenetrationDescription(characterPerformingAction, (SexAreaPenetration)performerArea, characterTargeted, (SexAreaOrifice)targetedArea)));
+						sexSB.append(formatStopPenetration(characterTargeted.getStopPenetrationDescription(characterPerformingAction, performerArea, characterTargeted, targetedArea)));
 					}
 				}
 				
@@ -2860,6 +2884,10 @@ public class Sex {
 					&& ongoingActionsMap.get(characterTargeted).get(targetedArea).get(characterPerformingAction).isEmpty()) {
 				ongoingActionsMap.get(characterTargeted).get(targetedArea).remove(characterPerformingAction);
 			}
+		}
+		if(performerArea==SexAreaPenetration.TONGUE && targetedArea==SexAreaOrifice.MOUTH
+				&& Sex.getOngoingCharactersUsingAreas(characterTargeted, performerArea, targetedArea).contains(characterPerformingAction)) {
+			stopOngoingAction(characterTargeted, performerArea, characterPerformingAction, targetedArea, false);
 		}
 		return removalText;
 	}
@@ -3247,7 +3275,18 @@ public class Sex {
 	 */
 	public static SexActionInterface manageClothingToAccessCoverableArea(GameCharacter characterManagingClothing, GameCharacter targetForManagement, CoverableArea coverableArea) {
 		
-		SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval = targetForManagement.getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
+		SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval;
+		if((coverableArea==CoverableArea.NIPPLES || coverableArea==CoverableArea.BREASTS)
+				&& targetForManagement.getClothingInSlot(InventorySlot.CHEST)!=null) {
+			List<AbstractClothing> zLayerSortedList = new ArrayList<>(targetForManagement.getClothingCurrentlyEquipped());
+			zLayerSortedList.sort(new ClothingZLayerComparator());
+			clothingRemoval = targetForManagement.getInventory().findNextClothingDisplacement(
+					targetForManagement, coverableArea, targetForManagement.getClothingInSlot(InventorySlot.CHEST), DisplacementType.REMOVE_OR_EQUIP, zLayerSortedList, true);
+			
+		} else {
+			clothingRemoval = targetForManagement.getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
+		}
+		
 		if (clothingRemoval == null || clothingRemoval.getKey() == null) {
 			Sex.setUnequipClothingText(null,
 					UtilText.parse(characterManagingClothing, targetForManagement, "[npc.Name] can't find a piece of [npc2.namePos] clothing to remove in order to access the slot '"+coverableArea+"'. (This is a bug...)"));

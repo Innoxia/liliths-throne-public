@@ -250,10 +250,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			List<CoverableArea> targetAreasToBeExposed = new ArrayList<>();
 			List<CoverableArea> partnerAreasToBeExposed = new ArrayList<>();
 
-			targetAreasToBeExposed.add(CoverableArea.NIPPLES);
-			if(Sex.isConsensual() || partner.hasBreasts()) {
-				partnerAreasToBeExposed.add(CoverableArea.NIPPLES);
-			}
+			partnerAreasToBeExposed.addAll(Sex.getInitialSexManager().getAdditionalAreasToExposeDuringSex(partner, partner));
+			targetAreasToBeExposed.addAll(Sex.getInitialSexManager().getAdditionalAreasToExposeDuringSex(partner, targetedCharacter));
 			
 			if(Sex.isInForeplay(partner)) {
 				if(Sex.getForeplayPreference(partner, targetedCharacter)!=null) {

@@ -181,7 +181,7 @@ public class OccupantDialogue {
 			if(responseTab == 0) {
 				if (index == 1) {
 					if(!occupant().NPCFlagValues.contains(NPCFlagValue.occupantTalkLife)) {
-						return new Response("Life", "Ask [npc.name] about [npc.her] past life.", OCCUPANT_TALK_LIFE) {
+						return new Response("Life", UtilText.parse(occupant(), "Ask [npc.name] about [npc.her] past life."), OCCUPANT_TALK_LIFE) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -191,7 +191,7 @@ public class OccupantDialogue {
 						};
 						
 					} else {
-						return new Response("Life", "You've already talked with [npc.name] about [npc.her] past life today.", null);
+						return new Response("Life", UtilText.parse(occupant(), "You've already talked with [npc.name] about [npc.her] past life today."), null);
 					}
 					
 				} else if (index == 2) {
@@ -215,7 +215,7 @@ public class OccupantDialogue {
 					
 				} else if (index == 3) {
 					if(!occupant().NPCFlagValues.contains(NPCFlagValue.occupantTalkLilaya)) {
-						return new Response("Lilaya", "Ask [npc.name] about [npc.her] interactions with Lilaya and Rose.", OCCUPANT_TALK_LILAYA) {
+						return new Response("Lilaya", UtilText.parse(occupant(), "Ask [npc.name] about [npc.her] interactions with Lilaya and Rose."), OCCUPANT_TALK_LILAYA) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -225,7 +225,7 @@ public class OccupantDialogue {
 						};
 						
 					} else {
-						return new Response("Lilaya", "You've already talked with [npc.name] about [npc.her] interactions with Lilaya and Rose today.", null);
+						return new Response("Lilaya", UtilText.parse(occupant(), "You've already talked with [npc.name] about [npc.her] interactions with Lilaya and Rose today."), null);
 					}
 					
 				} else if (index == 4) {
@@ -233,7 +233,7 @@ public class OccupantDialogue {
 						return new Response("Slaves", "You don't own any slaves, so there's nothing to discuss about this with [npc.name].", null);
 						
 					} else if(!occupant().NPCFlagValues.contains(NPCFlagValue.occupantTalkSlaves)) {
-						return new Response("Slaves", "Ask [npc.name] about [npc.her] interactions with your slaves.", OCCUPANT_TALK_SLAVES) {
+						return new Response("Slaves", UtilText.parse(occupant(), "Ask [npc.name] about [npc.her] interactions with your slaves."), OCCUPANT_TALK_SLAVES) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -243,7 +243,7 @@ public class OccupantDialogue {
 						};
 						
 					} else {
-						return new Response("Slaves", "You've already talked with [npc.name] about [npc.her] interactions with your slaves today.", null);
+						return new Response("Slaves", UtilText.parse(occupant(), "You've already talked with [npc.name] about [npc.her] interactions with your slaves today."), null);
 					}
 					
 				} else if (index == 5) {
@@ -271,7 +271,7 @@ public class OccupantDialogue {
 						
 					} else {
 						return new Response("Remove from party",
-								"Command [npc.name] to leave your party.",
+								UtilText.parse(occupant(), "Command [npc.name] to leave your party."),
 								OCCUPANT_START){
 							@Override
 							public void effects() {
@@ -283,8 +283,10 @@ public class OccupantDialogue {
 					
 				} else if (index == 10) {
 					if(hasJob()) {
-						return new Response("Move out", "Tell [npc.name] that you think that [npc.her] idea of moving out would be good for [npc.herHim].<br/>"
-								+ "[style.italics(You get the option of saving or removing this character in the next scene.)]",
+						return new Response("Move out",
+								UtilText.parse(occupant(),
+										"Tell [npc.name] that you think that [npc.her] idea of moving out would be good for [npc.herHim].<br/>"
+										+ "[style.italics(You will have the option to save or remove this character in the next scene.)]"),
 								OCCUPANT_MOVE_OUT) {
 							@Override
 							public void effects() {
@@ -295,8 +297,10 @@ public class OccupantDialogue {
 						
 					} else {
 						if(confirmKickOut) {
-							return new Response("Confirm removal", "Tell [npc.name] that you want [npc.herHim] to leave.<br/>"
-									+ "[style.italicsBad(Permanently removes this character from the game.)]",
+							return new Response("Confirm removal",
+									UtilText.parse(occupant(),
+											"Tell [npc.name] that you want [npc.herHim] to leave.<br/>"
+											+ "[style.italicsBad(Permanently removes this character from the game.)]"),
 									OCCUPANT_KICK_OUT) {
 								@Override
 								public Colour getHighlightColour() {
@@ -313,8 +317,10 @@ public class OccupantDialogue {
 							};
 							
 						} else {
-							return new ResponseEffectsOnly("Kick out", "Tell [npc.name] that you want [npc.herHim] to leave.<br/>"
-									+ "[style.italicsMinorBad(After choosing this action, you'll need to click again to confirm that you want this character removed from the game forever.)]") {
+							return new ResponseEffectsOnly("Kick out",
+									UtilText.parse(occupant(),
+											"Tell [npc.name] that you want [npc.herHim] to leave.<br/>"
+												+ "[style.italicsMinorBad(After choosing this action, you'll need to click again to confirm that you want this character removed from the game forever.)]")) {
 								@Override
 								public void effects() {
 									confirmKickOut = true;
@@ -324,7 +330,7 @@ public class OccupantDialogue {
 					}
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							applyReactionReset();
@@ -530,7 +536,8 @@ public class OccupantDialogue {
 										return isCompanionSexPublic();
 									}
 								},
-								getAfterSexDialogue(), UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", occupant())) {
+								getAfterSexDialogue(),
+								UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", occupant())) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -769,7 +776,7 @@ public class OccupantDialogue {
 				switch(index) {
 					case 1:
 						return new Response("Inspect",
-								"Inspect [npc.name].",
+								UtilText.parse(occupant(), "Take a closer look at [npc.name]."),
 								OccupantManagementDialogue.getSlaveryManagementInspectSlaveDialogue(occupant())) {
 							@Override
 							public void effects() {
@@ -796,7 +803,7 @@ public class OccupantDialogue {
 					case 5:
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
 							return new Response("Send to Kate",
-									"[npc.Name] trusts you enough to have you decide upon any appearance changes at Kate's beauty salon, 'Succubi's secrets'.",
+									UtilText.parse(occupant(), "[npc.Name] trusts you enough to have you decide upon any appearance changes at Kate's beauty salon, 'Succubi's secrets'."),
 									OccupantManagementDialogue.SLAVE_MANAGEMENT_COSMETICS_HAIR) {
 										@Override
 										public void effects() {
@@ -810,7 +817,7 @@ public class OccupantDialogue {
 						}
 						
 					case 6:
-						return new Response("Perk Tree", "Assign [npc.namePos] perk points.", OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS){
+						return new Response("Perk Tree", UtilText.parse(occupant(), "Assign [npc.namePos] perk points."), OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS){
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -836,10 +843,10 @@ public class OccupantDialogue {
 						}
 						
 					case 8:
-						return new Response("Pet name", "Ask [npc.name] to call you by a different name.", OCCUPANT_CHOOSE_NAME);
+						return new Response("Pet name", UtilText.parse(occupant(), "Ask [npc.name] to call you by a different name."), OCCUPANT_CHOOSE_NAME);
 						
 					case 11:
-						return new Response("Combat Moves", "Adjust the moves [npc.name] can perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
+						return new Response("Combat Moves", UtilText.parse(occupant(), "Adjust the moves [npc.name] can perform in combat."), CombatMovesSetup.COMBAT_MOVES_CORE) {
 							@Override
 							public void effects() {
 								CombatMovesSetup.setTarget(occupant(), OCCUPANT_START);
@@ -847,7 +854,7 @@ public class OccupantDialogue {
 						};
 						
 					case 0:
-						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
+						return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogueNoEncounter()) {
 							@Override
 							public void effects() {
 								applyReactionReset();

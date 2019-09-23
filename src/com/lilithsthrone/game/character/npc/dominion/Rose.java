@@ -278,7 +278,7 @@ public class Rose extends NPC {
 			return -1000;
 		}
 		
-		if(type.getAsParticipant()==SexParticipantType.SELF && type.isTakesVirginity()) { // DO not lose virginity:
+		if(type.getAsParticipant()==SexParticipantType.SELF && type.isTakesVirginity()) { // Do not lose virginity:
 			return -1000;
 		}
 

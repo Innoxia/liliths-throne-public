@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -2939,7 +2940,8 @@ public class PhoneDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			int i=2;
-			for(WorldType world : WorldType.values()) {
+			List<WorldType> worldTypes = Main.getProperties().hasValue(PropertyValue.mapReveal)?Arrays.asList(WorldType.values()):new ArrayList<>(Main.game.getPlayer().getWorldsVisited());
+			for(WorldType world : worldTypes) {//WorldType.values()) {
 				if(world != WorldType.WORLD_MAP
 						&& world != WorldType.EMPTY
 						&& world != WorldType.MUSEUM

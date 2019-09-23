@@ -5,7 +5,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.2.2
- * @version 0.2.2
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum SlaveEventTag {
@@ -80,14 +80,16 @@ public enum SlaveEventTag {
 	
 	// Jobs:
 
-	JOB_CUM_SOLD("[npc.NamePos] [npc.cum] was sold!"),
-	JOB_MILK_SOLD("[npc.NamePos] [npc.milk] was sold!"),
-	JOB_GIRLCUM_SOLD("[npc.NamePos] [npc.girlcum] was sold!"),
+	JOB_MILK_SOLD(""),
+//	JOB_CUM_SOLD("[npc.NamePos] [npc.cum] was sold!"),
+//	JOB_MILK_SOLD("[npc.NamePos] [npc.milk] was sold!"),
+//	JOB_GIRLCUM_SOLD("[npc.NamePos] [npc.girlcum] was sold!"),
 
-	JOB_CUM_MILKED("[npc.NamePos] [npc.cum] was milked!"),
-	JOB_MILK_MILKED("[npc.NamePos] [npc.milk] was milked!"),
-	JOB_MILK_CROTCH_MILKED("[npc.NamePos] udder-[npc.crotchMilk] was milked!"),
-	JOB_GIRLCUM_MILKED("[npc.NamePos] [npc.girlcum] was milked!"),
+	JOB_MILK_STORED(""),
+//	JOB_CUM_MILKED("[npc.NamePos] [npc.cum] was milked!"),
+//	JOB_MILK_MILKED("[npc.NamePos] [npc.milk] was milked!"),
+//	JOB_MILK_CROTCH_MILKED("[npc.NamePos] udder-[npc.crotchMilk] was milked!"),
+//	JOB_GIRLCUM_MILKED("[npc.NamePos] [npc.girlcum] was milked!"),
 
 	
 	JOB_LILAYA_INTRUSIVE_TESTING("Lilaya ran some rather intrusive tests on [npc.name]."),

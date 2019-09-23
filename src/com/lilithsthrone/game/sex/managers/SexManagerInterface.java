@@ -130,6 +130,7 @@ public interface SexManagerInterface {
 			case CITY_HALL:
 			case DADDYS_APARTMENT:
 			case ENFORCER_HQ:
+			case ENFORCER_WAREHOUSE:
 			case GAMBLING_DEN:
 			case LILAYAS_HOUSE_FIRST_FLOOR:
 			case LILAYAS_HOUSE_GROUND_FLOOR:
@@ -158,7 +159,6 @@ public interface SexManagerInterface {
 			case SUBMISSION:
 			case WORLD_MAP:
 				break;
-			
 		}
 		return positions;
 	}
@@ -331,6 +331,17 @@ public interface SexManagerInterface {
 	
 	public default Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 		return new HashMap<>();
+	}
+	
+	public default List<CoverableArea> getAdditionalAreasToExposeDuringSex(GameCharacter performer, GameCharacter target) {
+		if(performer.equals(target)) {
+			return Util.newArrayListOfValues(CoverableArea.NIPPLES);
+		} else {
+			if(Sex.isConsensual() || target.hasBreasts()) {
+				return Util.newArrayListOfValues(CoverableArea.NIPPLES);
+			}
+		}
+		return new ArrayList<>();
 	}
 	
 	public default List<InventorySlot> getSlotsConcealed(GameCharacter character) {

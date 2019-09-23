@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character.persona;
 
 /**
  * @since 0.2.10
- * @version 0.3.4
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum OccupationTag {
@@ -15,8 +15,8 @@ public enum OccupationTag {
 
 	/**Enforcer jobs.**/
 	ENFORCER_PATROL,
-	ENFORCER_SWAAG,
-	ENFORCER_DICC,
+	ENFORCER_SWORD,
+	ENFORCER_ORICL,
 	
 	/**Work hours are from 18:00-02:00.*/
 	EVENING_SHIFT,

@@ -160,7 +160,7 @@ public enum TailType implements BodyPartTypeInterface {
 			case FOX_MORPH:
 				return UtilText.returnStringAtRandom("fox-like", "fluffy");
 			case FOX_MORPH_MAGIC:
-				return UtilText.returnStringAtRandom("magical", "fox-like", "fluffy");
+				return UtilText.returnStringAtRandom("arcane", "fox-like", "fluffy");
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("squirrel-like", "fluffy");
 			case NONE:

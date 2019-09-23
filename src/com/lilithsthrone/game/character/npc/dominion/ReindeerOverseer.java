@@ -138,7 +138,7 @@ public class ReindeerOverseer extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MANUAL_LABOUR, settings);
+		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.JOB_LABOUR, settings);
 //		super.equipClothing(settings);
 	}
 	

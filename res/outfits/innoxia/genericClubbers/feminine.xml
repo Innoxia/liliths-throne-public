@@ -25,8 +25,8 @@
 	
 	<generationAttributes>
 		<clothingConditional1 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></clothingConditional1> <!-- is bipedal -->
-		<clothingConditional2 constant="true"><![CDATA[RND.​nextInt(100)<=75]]></clothingConditional2> <!-- dress -->
-		<clothingConditional3 constant="true"><![CDATA[RND.​nextInt(100)<=75]]></clothingConditional3> <!-- skirts -->
+		<clothingConditional2 constant="true"><![CDATA[RND.nextInt(100)<=75]]></clothingConditional2> <!-- dress -->
+		<clothingConditional3 constant="true"><![CDATA[RND.nextInt(100)<=75]]></clothingConditional3> <!-- skirts -->
 		<clothingConditional4 constant="true"><![CDATA[npc.isArmWings()]]></clothingConditional4> <!-- arm-wings -->
 		
 		<presetColourGroup1 singleColour="true"> <!-- Torso -->
@@ -207,7 +207,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[!clothingConditional2 && RND.​nextInt(100)<=25]]></conditional>
+			<conditional><![CDATA[!clothingConditional2 && RND.nextInt(100)<=25]]></conditional>
 			<types>
 				<type>TORSO_OVER_WOMENS_LEATHER_JACKET</type>
 				<type>TORSO_OVER_OPEN_CARDIGAN</type>
@@ -248,7 +248,7 @@
 		<!--Accessories:-->
 		
 		<clothingType> <!-- Glasses. -->
-			<conditional><![CDATA[RND.​nextInt(100)<=5]]></conditional>
+			<conditional><![CDATA[RND.nextInt(100)<=5]]></conditional>
 			<types>
 				<type>innoxia_eye_half_moon_glasses</type>
 				<type>innoxia_eye_half_rim_glasses</type>
@@ -284,7 +284,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[RND.​nextInt(100)<=25]]></conditional>
+			<conditional><![CDATA[RND.nextInt(100)<=25]]></conditional>
 			<types>
 				<type>innoxia_ankle_anklet</type>
 			</types>
@@ -296,7 +296,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[npc.hasTail() && RND.​nextInt(100)<=15]]></conditional>
+			<conditional><![CDATA[npc.hasTail() && RND.nextInt(100)<=15]]></conditional>
 			<types>
 				<type>norin_tail_ribbon_tail_ribbon</type>
 			</types>
@@ -308,7 +308,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[RND.​nextInt(100)<=80]]></conditional>
+			<conditional><![CDATA[RND.nextInt(100)<=80]]></conditional>
 			<types>
 				<type>FINGER_RING</type>
 			</types>
@@ -320,7 +320,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[RND.​nextInt(100)<=50]]></conditional>
+			<conditional><![CDATA[RND.nextInt(100)<=50]]></conditional>
 			<types>
 				<type>WRIST_WOMENS_WATCH</type>
 				<type>WRIST_BANGLE</type>
@@ -331,7 +331,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[RND.​nextInt(100)<=75]]></conditional>
+			<conditional><![CDATA[RND.nextInt(100)<=75]]></conditional>
 			<types>
 				<type>NECK_HEART_NECKLACE</type>
 				<type>NECK_ANKH_NECKLACE</type>

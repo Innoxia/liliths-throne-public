@@ -38,7 +38,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.2.5
- * @version 0.2.11
+ * @version 0.3.5
  * @author Innoxia
  */
 public class MilkingRoom implements XMLSaving {
@@ -153,17 +153,17 @@ public class MilkingRoom implements XMLSaving {
 			
 			int charactersPresent = Main.game.getCharactersPresent(c).size();
 			
-			if(character.hasSlaveJobSetting(SlaveJobSetting.MILKING_INDUSTRIAL)
+			if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_INDUSTRIAL)
 					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)
 					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
 				return c;
 				
-			} else if(character.hasSlaveJobSetting(SlaveJobSetting.MILKING_ARTISAN)
+			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_ARTISAN)
 					&& c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
 					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {
 				return c;
 				
-			} else if(character.hasSlaveJobSetting(SlaveJobSetting.MILKING_REGULAR)
+			} else if(character.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_REGULAR)
 					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
 					&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)
 					&& (needFreeCell?charactersPresent<8:charactersPresent<=8)) {

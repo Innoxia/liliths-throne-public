@@ -116,9 +116,12 @@ public class Library {
 				return "Library";
 				
 			} else if(index==1) {
-				return "Spells";
+				return "Fast Travel";
 				
 			} else if(index==2) {
+				return "Spells";
+				
+			} else if(index==3) {
 				return "Races";
 			}
 			
@@ -196,6 +199,9 @@ public class Library {
 				}
 				
 			} else if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			
+			} else if(responseTab==2) {
 				List<Spell> spells = Main.game.getPlayer().getSpells();
 				Spell spell = null;
 				
@@ -217,7 +223,7 @@ public class Library {
 					return getSpellResponse(spell);
 				}
 				
-			} else if(responseTab==2) {
+			} else if(responseTab==3) {
 				if (index == 1) {
 					return new Response("Ancient Ones", "A section of the library dedicated to books concerning the elder races.", ELDER_RACES);
 

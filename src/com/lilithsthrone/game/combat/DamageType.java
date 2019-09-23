@@ -3,8 +3,10 @@ package com.lilithsthrone.game.combat;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
@@ -61,7 +63,7 @@ public enum DamageType {
 			SpellSchool.EARTH,
 			DamageType.HEALTH) {
 		@Override
-		public int damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
+		public Value<String, Integer> damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
 			// Flame cloak gives fire melee damage at a cost of arcane.
 			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1)
 					|| source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2)
@@ -118,7 +120,7 @@ public enum DamageType {
 			SpellSchool.ARCANE,
 			null) {
 		@Override
-		public int damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
+		public Value<String, Integer> damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
 			damageAmount = shieldCheck(source, target, damageAmount);
 			if(damageAmount > 0) {
 				if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
@@ -128,7 +130,7 @@ public enum DamageType {
 					target.setLust(target.getLust()+damageAmount);
 				}
 			}
-			return damageAmount;
+			return new Value<>("", damageAmount);
 		}
 	},
 	
@@ -186,14 +188,18 @@ public enum DamageType {
 	 * Deals damage to the target, checking against their shielding against the attack type. Override this if the attack
 	 * @param target
 	 * @param damageAmount
-	 * @return
+	 * @return A Value pair with the key being the description of health loss, and the value being the numerical value of the health lost.
 	 */
-	public int damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
+	public Value<String, Integer> damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
 		damageAmount = shieldCheck(source, target, damageAmount);
+		String description = "";
 		if(damageAmount > 0) {
-			target.setHealth(target.getHealth()-damageAmount);
+			description = target.incrementHealth(source, -damageAmount);
 		}
-		return damageAmount;
+		if(target.hasFetish(Fetish.FETISH_MASOCHIST)) {
+			damageAmount*=0.75f;
+		}
+		return new Value<>(description, damageAmount);
 	}
 
 	/**

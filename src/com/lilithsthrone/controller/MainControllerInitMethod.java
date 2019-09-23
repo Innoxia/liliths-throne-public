@@ -106,7 +106,6 @@ import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.Arthur;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -122,7 +121,6 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
@@ -1122,24 +1120,18 @@ public class MainControllerInitMethod {
 					id = placeUpgrade+"_BUY";
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(placeUpgrade!=PlaceUpgrade.LILAYA_ARTHUR_ROOM) {
-								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
-									@Override
-									public void effects() {
-										OccupantManagementDialogue.cellToInspect.addPlaceUpgrade(placeUpgrade);
-										Main.game.getPlayer().incrementMoney(-placeUpgrade.getInstallCost());
-									}
-								});
-							} else {
-								Main.game.setContent(new Response("", "", LilayaHomeGeneric.ROOM_ARTHUR_INSTALLATION){
-									@Override
-									public void effects() {
-										Main.game.getNpc(Arthur.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
-										OccupantManagementDialogue.cellToInspect.addPlaceUpgrade(placeUpgrade);
-										Main.game.getDialogueFlags().setFlag(DialogueFlagValue.arthursRoomInstalled, true);
-									}
-								});
-							}
+							Main.game.setContent(
+									new Response("",
+											"",
+											placeUpgrade==PlaceUpgrade.LILAYA_ARTHUR_ROOM
+												?LilayaHomeGeneric.ROOM_ARTHUR_INSTALLATION
+												:Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									OccupantManagementDialogue.cellToInspect.addPlaceUpgrade(placeUpgrade);
+									Main.game.getPlayer().incrementMoney(-placeUpgrade.getInstallCost());
+								}
+							});
 						}, false);
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
@@ -1229,25 +1221,19 @@ public class MainControllerInitMethod {
 				for(FluidStored fluid : room.getFluidsStored()) {
 					fluidHandler(room, fluid);
 				}
-
 			}
 			
 			
 			if(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.OCCUPANT_OVERVIEW) {
-				id ="PREVIOUS_DAY";
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						OccupantManagementDialogue.incrementDayNumber(-1);
-						Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-				}
-				
-				id ="NEXT_DAY";
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						OccupantManagementDialogue.incrementDayNumber(1);
-						Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
-					}, false);
+				for(int i=6; i>=0; i--) {
+					id ="SLAVE_DAY_"+i;
+					int iMustBeFinalOrEffectivelyFinal = i;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							OccupantManagementDialogue.setDayNumber(Main.game.getDayNumber()-iMustBeFinalOrEffectivelyFinal);
+							Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
 				}
 			}
 			
@@ -1384,16 +1370,24 @@ public class MainControllerInitMethod {
 					MainController.allocateWorkTime(i);
 				}
 				for(SlaveJobHours preset : SlaveJobHours.values()) {
-
 					id = preset+"_TIME";
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().resetWorkHours();
-							for(int hour = preset.getStartHour(); hour<preset.getStartHour()+preset.getLength(); hour++) {
-								if(hour>=24) {
-									Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setWorkHour(hour-24, true);
-								} else {
-									Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setWorkHour(hour, true);
+							if(preset==SlaveJobHours.NONE) {
+								for(int hour = 0; hour<24; hour++) {
+									SlaveJob job = Main.game.getDialogueFlags().getSlaveryManagerJobSelected();
+									if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getSlaveJob(hour)==job) {
+										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setSlaveJob(hour, SlaveJob.IDLE);
+									}
+								}
+								
+							} else {
+								for(int hour = preset.getStartHour(); hour<preset.getStartHour()+preset.getLength(); hour++) {
+									int appliedHour = hour%24;
+									SlaveJob job = Main.game.getDialogueFlags().getSlaveryManagerJobSelected();
+									if(job.isAvailable(appliedHour, Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())) {
+										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setSlaveJob(appliedHour, job);
+									}
 								}
 							}
 							
@@ -1431,58 +1425,49 @@ public class MainControllerInitMethod {
 					id = job+"_ASSIGN";
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setSlaveJob(job);
+							Main.game.getDialogueFlags().setSlaveryManagerJobSelected(job);
 							Main.game.setContent(new Response("", "", OccupantManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
 						}, false);
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Assign Job", job.getDescription());
-						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-					}
-					
-					id = job+"_ASSIGN_DISABLED";
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Assign Job",
-								UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), job.getAvailabilityText(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+								job.getName(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()),
+								job.getDescription()
+								+"<br/>[style.boldOrange(Hourly Fatigue:)] "+(job.getHourlyFatigue()>0?"[style.boldBad(":"[style.boldGood(")+job.getHourlyFatigue()+")]");
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 					
 					for(SlaveJobSetting setting : job.getMutualSettings()) {
-						id = setting+"_ADD";
+						id = job.toString()+setting.toString()+"_ADD";
 						if (((EventTarget) MainController.document.getElementById(id)) != null) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().addSlaveJobSettings(setting);
+								Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().addSlaveJobSettings(job, setting);
 								Main.game.setContent(new Response("", "", OccupantManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
 							}, false);
 							
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Apply Setting", setting.getDescription());
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+									"<b style='color:"+setting.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(job.getName(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()))+":</b> "+setting.getName(),
+									setting.getDescription()
+										+" [style.italicsMinorGood(Click to apply this permission.)]");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 						
-						id = setting+"_REMOVE";
+						id = job.toString()+setting.toString()+"_REMOVE";
 						if (((EventTarget) MainController.document.getElementById(id)) != null) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().removeSlaveJobSettings(setting);
+								Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().removeSlaveJobSettings(job, setting);
 								Main.game.setContent(new Response("", "", OccupantManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
 							}, false);
 							
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Remove Setting", setting.getDescription());
-							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-						}
-						
-						id = setting+"_DISABLED";
-						if (((EventTarget) MainController.document.getElementById(id)) != null) {
-							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Apply Setting",
-									UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "You'll need to assign this job to [npc.name] before you can apply any settings."));
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+									"<b style='color:"+setting.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(job.getName(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()))+":</b> "+setting.getName(),
+									setting.getDescription()
+										+" [style.italicsMinorBad(Click to revoke this permission.)]");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -1494,15 +1479,18 @@ public class MainControllerInitMethod {
 							if (((EventTarget) MainController.document.getElementById(id)) != null) {
 								((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 									for(SlaveJobSetting settingRem : entry.getValue()) {
-										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().removeSlaveJobSettings(settingRem);
+										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().removeSlaveJobSettings(job, settingRem);
 									}
-									Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().addSlaveJobSettings(setting);
+									Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().addSlaveJobSettings(job, setting);
 									Main.game.setContent(new Response("", "", OccupantManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
 								}, false);
 								
 								MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 								MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-								TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Apply Setting", setting.getDescription());
+								TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+										"<b style='color:"+setting.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(job.getName(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()))+":</b> "+setting.getName(),
+										setting.getDescription()
+											+" [style.italicsMinorGood(Click to apply this permission.)]");
 								MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 							}
 							
@@ -1510,7 +1498,10 @@ public class MainControllerInitMethod {
 							if (((EventTarget) MainController.document.getElementById(id)) != null) {
 								MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 								MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-								TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Setting Applied", setting.getDescription());
+								TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+										"<b style='color:"+setting.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(job.getName(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()))+":</b> "+setting.getName(),
+										setting.getDescription()
+											+" [style.italicsMinorBad(You cannot revoke permissions in this category. Select a different one instead.)]");
 								MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 							}
 						}
@@ -1529,7 +1520,13 @@ public class MainControllerInitMethod {
 							
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Apply Setting", setting.getDescription());
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+									"<b style='color:"+permission.getColour().toWebHexString()+";'>"+permission.getName()+":</b> "+setting.getName(),
+									setting.getDescription()
+										+" [style.italicsMinorGood(Click to apply this permission.)]"
+										+(permission.isMutuallyExclusiveSettings()
+											?" [style.italicsMinorBad(Only one permission in this category can be active at once.)]"
+											:""));
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 						
@@ -1542,7 +1539,10 @@ public class MainControllerInitMethod {
 							
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Remove Setting", setting.getDescription());
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+									"<b style='color:"+permission.getColour().toWebHexString()+";'>"+permission.getName()+":</b> "+setting.getName(),
+									setting.getDescription()
+										+" [style.italicsMinorBad(Click to revoke this permission.)]");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 						
@@ -1550,7 +1550,10 @@ public class MainControllerInitMethod {
 						if (((EventTarget) MainController.document.getElementById(id)) != null) {
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Remove Setting", "You cannot remove mutually exclusive settings! Choose a different option instead.");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+									"<b style='color:"+permission.getColour().toWebHexString()+";'>"+permission.getName()+":</b> "+setting.getName(),
+									setting.getDescription()
+										+" [style.italicsMinorBad(You cannot revoke permissions in this category. Select a different one instead.)]");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -3399,42 +3402,42 @@ public class MainControllerInitMethod {
 				id = "MILK_CROTCH_REGENERATION_INCREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_SMALL);
+						BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_SMALL);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_CROTCH_REGENERATION_INCREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_AVERAGE);
+						BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_AVERAGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_CROTCH_REGENERATION_INCREASE_HUGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_LARGE);
+						BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(CharacterModificationUtils.FLUID_REGEN_INCREMENT_LARGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_CROTCH_REGENERATION_DECREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_SMALL);
+						BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_SMALL);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_CROTCH_REGENERATION_DECREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_AVERAGE);
+						BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_AVERAGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "MILK_CROTCH_REGENERATION_DECREASE_HUGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						BodyChanging.getTarget().incrementBreastLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_LARGE);
+						BodyChanging.getTarget().incrementBreastCrotchLactationRegeneration(-CharacterModificationUtils.FLUID_REGEN_INCREMENT_LARGE);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -4951,7 +4954,7 @@ public class MainControllerInitMethod {
 				for(MapTravelType type : MapTravelType.values()) {
 					id = type.toString();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						if(type.isAvailable(Main.game.getPlayer())) {
+						if(type.isAvailable(null, Main.game.getPlayer())) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 								Pathing.initPathingVariables();
 								Pathing.setMapTravelType(type);
@@ -4965,9 +4968,9 @@ public class MainControllerInitMethod {
 								new TooltipInformationEventListener().setInformation(
 										type.getName(),
 										type.getDescription()
-											+(type.isAvailable(Main.game.getPlayer())
+											+(type.isAvailable(null, Main.game.getPlayer())
 													?" ("+type.getUseInstructions()+")"
-													:"<br/>[style.italicsBad("+type.getUnavailablilityDescription(Main.game.getPlayer())+")]")),
+													:"<br/>[style.italicsBad("+type.getUnavailablilityDescription(null, Main.game.getPlayer())+")]")),
 								false);
 					}
 				}

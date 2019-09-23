@@ -76,6 +76,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
@@ -463,6 +464,7 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
+							Main.game.getPlayer().setArousal(99);
 						}
 						 
 
@@ -1104,7 +1106,8 @@ public class MainController implements Initializable {
 					if(Main.game.getWorlds().get(worldType).getCell(clickLocation).getPlace().getPlaceType().getDialogue(false)!=null // Make sure the destination actually has an associated DialogueNode
 							&& (c.isTravelledTo() || Main.game.isDebugMode()) // The player needs to have travelled here before (or have debug active)
 							&& (Main.game.getSavedDialogueNode()!=null && !Main.game.getSavedDialogueNode().isTravelDisabled()) // You can't fast travel out of a special dialogue
-							&& Pathing.getMapTravelType().isAvailable(Main.game.getPlayer())) { // Make sure the travel type is actually available
+							&& Pathing.getMapTravelType().isAvailable(c, Main.game.getPlayer()) // Make sure the travel type is actually available
+							) { 
 						if(!clickLocation.equals(Main.game.getPlayer().getLocation()) || !worldType.equals(Main.game.getPlayer().getWorldLocation())) {
 							switch(Pathing.getMapTravelType()) {
 								case TELEPORT:
@@ -1133,18 +1136,22 @@ public class MainController implements Initializable {
 								case FLYING:
 									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
 										if(clickLocation.equals(Pathing.getEndPoint())) {
-											Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, new Vector2i(j, i), false);
-											DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-											Main.game.getTextStartStringBuilder().append(
-													"<p style='text-align:center'>"
-														+ "[style.italicsAir(With a flap of your wings, you launch yourself into the air, before swiftly flying to your destination!)]"
-													+ "</p>");
-											Main.game.setContent(new Response("", "", dn) {
-												@Override
-												public int getSecondsPassed() {
-													return Pathing.getTravelTime();
-												}
-											});
+											if(Pathing.isImpossibleDestination()) {
+												Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+											} else {
+												Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, new Vector2i(j, i), false);
+												DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+												Main.game.getTextStartStringBuilder().append(
+														"<p style='text-align:center'>"
+															+ "[style.italicsAir(With a flap of your wings, you launch yourself into the air, before swiftly flying to your destination!)]"
+														+ "</p>");
+												Main.game.setContent(new Response("", "", dn) {
+													@Override
+													public int getSecondsPassed() {
+														return Pathing.getTravelTime();
+													}
+												});
+											}
 											
 										} else {
 											Pathing.setEndPoint(clickLocation, Main.game.getWorlds().get(PhoneDialogue.worldTypeMap).getCell(clickLocation), worldType);
@@ -1155,7 +1162,11 @@ public class MainController implements Initializable {
 								case WALK_DANGEROUS:
 									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
 										if(clickLocation.equals(Pathing.getEndPoint())) {
-											Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
+											if(Pathing.isImpossibleDestination()) {
+												Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+											} else {
+												Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
+											}
 											
 										} else {
 											if(Main.mainController.buttonsPressed.contains(KeyCode.SHIFT)) {
@@ -1170,7 +1181,11 @@ public class MainController implements Initializable {
 								case WALK_SAFE:
 									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
 										if(clickLocation.equals(Pathing.getEndPoint())) {
-											Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
+											if(Pathing.isImpossibleDestination()) {
+												Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+											} else {
+												Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
+											}
 											
 										} else {
 											if(Main.mainController.buttonsPressed.contains(KeyCode.SHIFT)) {
@@ -1206,9 +1221,25 @@ public class MainController implements Initializable {
 		String id = i+"_WORK";
 		if (((EventTarget) document.getElementById(id)) != null) {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setWorkHour(i, !Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getWorkHours()[i]);
+				SlaveJob job = Main.game.getDialogueFlags().getSlaveryManagerJobSelected();
+				if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getSlaveJob(i)==job) {
+					Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setSlaveJob(i, SlaveJob.IDLE);
+				} else {
+					Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setSlaveJob(i, job);
+				}
 				Main.game.setContent(new Response("", "", OccupantManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
 			}, false);
+			
+		} else {
+			id = i+"_WORK_DISABLED";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
+						"[style.colourBad(Unavailable Time Slot)]",
+						Main.game.getDialogueFlags().getSlaveryManagerJobSelected().getAvailabilityText(i, Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()));
+				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+			}
 		}
 	}
 	

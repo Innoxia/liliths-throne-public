@@ -22,7 +22,7 @@
 		<namePlural pluralByDefault="false"><![CDATA[imp arcanist's staffs]]></namePlural> 
 		
 		<!-- The description/lore of this weapon. -->
-		<description><![CDATA[A wooden staff, the crude design of which leads you to believe that it has been re-purposed from a different magical weapon. Although lacking in refinement, it seems powerful enough...]]></description> 
+		<description><![CDATA[A wooden staff, the crude design of which leads you to believe that it has been re-purposed from a different arcane weapon. Although lacking in refinement, it seems powerful enough...]]></description> 
 		
 		<!-- How the weapon is used. This should be a single verb, and is used as the title of attacking actions in combat. -->
 		<attackDescriptor>whack</attackDescriptor>

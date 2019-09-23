@@ -2383,7 +2383,6 @@ public class InventoryDialogue {
 	
 	public static final DialogueNode WEAPON_INVENTORY = new DialogueNode("Weapon", "", true) {
 		
-
 		@Override
 		public String getLabel() {
 			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
@@ -8269,7 +8268,7 @@ public class InventoryDialogue {
 			to.incrementMoney(-itemPrice*count);
 			
 			if(buyback && to.isPlayer()) {
-				Main.game.getPlayer().addItem(new AbstractItem(item.getItemType()) {}, count, false, true);
+				Main.game.getPlayer().addItem(item, count, false, true);
 				Main.game.getPlayer().getBuybackStack().get(buyBackIndex).incrementCount(-count);
 				if(Main.game.getPlayer().getBuybackStack().get(buyBackIndex).getCount()<=0) {	
 					Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
@@ -8279,7 +8278,7 @@ public class InventoryDialogue {
 				if(from.isPlayer()) {
 					Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(item, itemPrice, count));
 				} else {
-					to.addItem(new AbstractItem(item.getItemType()) {}, count, false, true);
+					to.addItem(item, count, false, true);
 				}
 				from.removeItem(item, count);
 			}

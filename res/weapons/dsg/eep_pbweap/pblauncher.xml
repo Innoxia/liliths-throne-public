@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		
+		<authorTag><![CDATA[Underneath the scope rails, there is a small engraving that reads "Official Enforcer Issue, MFD by DSG Forgeworks."]]></authorTag>
+	
+		<value>9000</value> 
+		
+		<melee>false</melee>
+		
+		<twoHanded>true</twoHanded>
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[pepper grenade launcher]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[pepper grenade launchers]]></namePlural> 
+		
+		<description><![CDATA[Originally designed to disperse pepper oil more efficiently via airburst, it was soon found that the residual heat from the bursting charge turned the oil into a small explosive cloud. Despite being a serious design flaw, the Enforcers asked that it not be fixed.]]></description> 
+		
+		<attackDescriptor>shoot</attackDescriptor>
+		
+		<attackTooltipDescription>Shoot [npc2.name] with your pepper grenade launcher.</attackTooltipDescription>
+		
+		<rarity>EPIC</rarity> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(bring)] out the grenade launcher, [npc.verb(slap)] in a fresh magazine, and [npc.verb(turn)] the safety off.]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(take)] out the magazine, and [npc.verb(turn)] the safety on, and [npc.verb(put)] the grenade launcher away.]]></unequipText>
+		
+		<imageName>pblauncher_nomag.svg</imageName> 
+		
+		<imageEquippedName>pblauncher.svg</imageEquippedName>
+		
+		<damage>60</damage> 
+		
+		<arcaneCost>6</arcaneCost> 
+		
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>FIRE</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects/> 
+		
+		<primaryColours values="JUST_BLACK"/> 
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_GUNMETAL</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The grenade disperses a fine orange mist near [npc2.name] before engulfing [npc2.her] aura in a fiery cloud.
+		#IF game.isSillyModeEnabled()
+			#THEN [npc.speech(That's a spicy meatball!)] [npc.name] [npc.verb(shout)].  
+			#ENDIF
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The shot goes wide! The grenade explodes well away from [npc2.name].
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

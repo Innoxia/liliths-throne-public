@@ -77,12 +77,15 @@ public class Perk {
 		}
 	};
 
+	
+	// Enforcers:
+	
 	public static AbstractPerk JOB_NPC_ENFORCER_PATROL_INSPECTOR = new AbstractPerk(20,
 			true,
 			"Enforcer: Patrol Inspector",
 			PerkCategory.JOB,
 			"perks/jobs/npc_enforcer_inspector",
-			Colour.CLOTHING_BLUE, //TODO base this off character's femininity
+			Colour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
 					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5),
@@ -92,17 +95,25 @@ public class Perk {
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Inspector' in the Enforcer's Frontline Patrol division. As a Territorial Police officer, [npc.she] has undergone combat training.");
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Inspector' in the enforcer's Frontline Patrol division, and has received a moderate amount of combat training.");
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			if(owner.isFeminine()) {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+			} else {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+			}
+			return super.getSVGString(owner);
 		}
 	};
-
 	
 	public static AbstractPerk JOB_NPC_ENFORCER_PATROL_SERGEANT = new AbstractPerk(20,
 			true,
 			"Enforcer: Patrol Sergeant",
 			PerkCategory.JOB,
 			"perks/jobs/npc_enforcer_sergeant",
-			Colour.CLOTHING_PINK, //TODO base this off character's femininity
+			Colour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
@@ -111,7 +122,16 @@ public class Perk {
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Sergeant' in the Enforcer's Frontline Patrol division. As a Territorial Police officer, [npc.she] has undergone limited combat training.");
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Sergeant' in the enforcer's Frontline Patrol division, and has received a limited amount of combat training.");
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			if(owner.isFeminine()) {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+			} else {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+			}
+			return super.getSVGString(owner);
 		}
 	};
 	
@@ -120,7 +140,7 @@ public class Perk {
 			"Enforcer: Patrol Constable",
 			PerkCategory.JOB,
 			"perks/jobs/npc_enforcer_constable",
-			Colour.CLOTHING_PINK, //TODO base this off character's femininity
+			Colour.CLOTHING_BLUE,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
@@ -129,10 +149,193 @@ public class Perk {
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Constable' in the Enforcer's Frontline Patrol division. As a Territorial Police officer, [npc.she] has undergone very limited combat training.");
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Constable' in the enforcer's Frontline Patrol division, and has received a very limited amount of combat training.");
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			if(owner.isFeminine()) {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+			} else {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+			}
+			return super.getSVGString(owner);
 		}
 	};
-
+	
+	public static AbstractPerk JOB_NPC_ENFORCER_SWORD_INSPECTOR = new AbstractPerk(20,
+			true,
+			"Enforcer: SWORD Inspector",
+			PerkCategory.JOB,
+			"perks/jobs/npc_enforcer_inspector",
+			Colour.CLOTHING_BLUE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 15),
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 15),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 25),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 25),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 25)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Inspector' in the enforcer's 'Special Weapons and Operations Response Department', and has received an extensive amount of combat training.");
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			if(owner.isFeminine()) {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+			} else {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+			}
+			return super.getSVGString(owner);
+		}
+	};
+	
+	public static AbstractPerk JOB_NPC_ENFORCER_SWORD_SERGEANT = new AbstractPerk(20,
+			true,
+			"Enforcer: SWORD Sergeant",
+			PerkCategory.JOB,
+			"perks/jobs/npc_enforcer_sergeant",
+			Colour.CLOTHING_BLUE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 10),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 20),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 20),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 20)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Sergeant' in the enforcer's 'Special Weapons and Operations Response Department', and has received a significant amount of combat training.");
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			if(owner.isFeminine()) {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+			} else {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+			}
+			return super.getSVGString(owner);
+		}
+	};
+	
+	public static AbstractPerk JOB_NPC_ENFORCER_SWORD_CONSTABLE = new AbstractPerk(20,
+			true,
+			"Enforcer: SWORD Constable",
+			PerkCategory.JOB,
+			"perks/jobs/npc_enforcer_constable",
+			Colour.CLOTHING_BLUE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 15),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 15),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 15)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Constable' in the enforcer's 'Special Weapons and Operations Response Department', and has received a good amount of combat training.");
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			if(owner.isFeminine()) {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+			} else {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+			}
+			return super.getSVGString(owner);
+		}
+	};
+	
+	public static AbstractPerk JOB_NPC_ENFORCER_ORICL_INSPECTOR = new AbstractPerk(20,
+			true,
+			"Enforcer: ORICL Inspector",
+			PerkCategory.JOB,
+			"perks/jobs/npc_enforcer_inspector",
+			Colour.CLOTHING_BLUE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 15),
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 25),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 25),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 10),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 10),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 10)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Inspector' in the enforcer's 'Office of Realm Intelligence, Counter-Espionage, and Logistics', and knows many ways in which to get someone to talk...");
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			if(owner.isFeminine()) {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+			} else {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+			}
+			return super.getSVGString(owner);
+		}
+	};
+	
+	public static AbstractPerk JOB_NPC_ENFORCER_ORICL_SERGEANT = new AbstractPerk(20,
+			true,
+			"Enforcer: ORICL Sergeant",
+			PerkCategory.JOB,
+			"perks/jobs/npc_enforcer_sergeant",
+			Colour.CLOTHING_BLUE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 20),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 20),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 20),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Sergeant' in the enforcer's 'Office of Realm Intelligence, Counter-Espionage, and Logistics', and knows many ways in which to get someone to talk...");
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			if(owner.isFeminine()) {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+			} else {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+			}
+			return super.getSVGString(owner);
+		}
+	};
+	
+	public static AbstractPerk JOB_NPC_ENFORCER_ORICL_CONSTABLE = new AbstractPerk(20,
+			true,
+			"Enforcer: ORICL Constable",
+			PerkCategory.JOB,
+			"perks/jobs/npc_enforcer_constable",
+			Colour.CLOTHING_BLUE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 15),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 15),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_UNARMED, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_MELEE_WEAPON, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_RANGED_WEAPON, 5)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] holds the rank of 'Constable' in the enforcer's 'Office of Realm Intelligence, Counter-Espionage, and Logistics', and knows many ways in which to get someone to talk...");
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			if(owner.isFeminine()) {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_PINK));
+			} else {
+				generateSVGImage(this.pathName, Util.newArrayListOfValues(Colour.CLOTHING_BLUE));
+			}
+			return super.getSVGString(owner);
+		}
+	};
+	
 	public static AbstractPerk JOB_NPC_CULTIST = new AbstractPerk(20,
 			true,
 			"Worshipper of Lilith",
@@ -1998,6 +2201,30 @@ public class Perk {
 	
 	// HIDDEN PERKS:
 
+	public static AbstractPerk SPECIAL_DIRTY_MINDED = new AbstractPerk(20,
+			false,
+			"dirty-minded",
+			PerkCategory.ARCANE,
+			"statusEffects/attCorruption5",
+			Colour.ATTRIBUTE_CORRUPTION,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 25)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.NameIsFull] very dirty-minded, and often [npc.verb(find)] [npc.her] thoughts dwelling on sex.");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
+			return true;
+		}
+	};
+	
 	public static AbstractPerk SPECIAL_SLUT = new AbstractPerk(20,
 			false,
 			"slut",
@@ -2488,7 +2715,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -2522,7 +2749,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -2556,7 +2783,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -2590,7 +2817,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -2624,7 +2851,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -2658,7 +2885,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -2692,7 +2919,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -2726,7 +2953,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -2760,7 +2987,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -2794,7 +3021,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -2828,7 +3055,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -2862,7 +3089,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -2968,7 +3195,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -3002,7 +3229,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3036,7 +3263,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3070,7 +3297,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3104,7 +3331,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -3138,7 +3365,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3172,7 +3399,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3206,7 +3433,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3240,7 +3467,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -3274,7 +3501,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3308,7 +3535,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3342,7 +3569,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3448,7 +3675,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -3482,7 +3709,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3516,7 +3743,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3550,7 +3777,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3584,7 +3811,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -3618,7 +3845,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3652,7 +3879,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3686,7 +3913,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3720,7 +3947,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -3754,7 +3981,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3788,7 +4015,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3822,7 +4049,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3928,7 +4155,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -3962,7 +4189,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -3996,7 +4223,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4030,7 +4257,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4064,7 +4291,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -4098,7 +4325,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4132,7 +4359,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4166,7 +4393,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4200,7 +4427,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -4234,7 +4461,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4268,7 +4495,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4302,7 +4529,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4409,7 +4636,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -4443,7 +4670,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4477,7 +4704,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4511,7 +4738,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4545,7 +4772,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -4579,7 +4806,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4613,7 +4840,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4647,7 +4874,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4681,7 +4908,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpell().getSVGString();
 		}
 	};
@@ -4715,7 +4942,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4749,7 +4976,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4783,7 +5010,7 @@ public class Perk {
 		}
 
 		@Override
-		public String getSVGString() {
+		public String getSVGString(GameCharacter owner) {
 			return getSpellUpgrade().getSVGString();
 		}
 	};
@@ -4937,7 +5164,7 @@ public class Perk {
 						return UtilText.parse(owner, "[npc.NameHasFull] advanced knowledge of "+subToUse.getNamePlural(null)+", and can therefore do increased damage when fighting them.");
 					}
 					@Override
-					public String getSVGString() {
+					public String getSVGString(GameCharacter owner) {
 						return subToUse.getSVGString(null);
 					}
 					@Override

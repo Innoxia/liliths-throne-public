@@ -239,12 +239,18 @@ public class MasturbationPanties {
 
 		@Override
 		public String getActionTitle() {
-			return "Cum in panties";
+			if(Main.game.getPlayer().hasPenisIgnoreDildo()) {
+				return "Cum in panties";
+			}
+			return "Panties focus";
 		}
 
 		@Override
 		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer. Cum straight into Lilaya's panties.";
+			if(Main.game.getPlayer().hasPenisIgnoreDildo()) {
+				return "You've reached your climax, and can't hold back your orgasm any longer. Cum straight into Lilaya's panties.";
+			}
+			return "You've reached your climax, and can't hold back your orgasm any longer. Focus on Lilaya's panties and sniff them as you climax.";
 		}
 
 		@Override

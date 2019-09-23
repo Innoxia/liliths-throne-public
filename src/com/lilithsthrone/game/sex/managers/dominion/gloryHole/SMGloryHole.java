@@ -44,6 +44,11 @@ public class SMGloryHole extends SexManagerDefault {
 	}
 
 	@Override
+	public boolean isAbleToRemoveSelfClothing(GameCharacter character){
+		return character.isPlayer();
+	}
+	
+	@Override
 	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
 		return false;
 	}

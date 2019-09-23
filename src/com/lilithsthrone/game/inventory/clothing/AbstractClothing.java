@@ -1378,15 +1378,18 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	public Attribute getCoreEnchantment() {
-		Attribute att = Attribute.MAJOR_PHYSIQUE;
+		Attribute att = null;
 		int max = 0;
 		for(Entry<Attribute, Integer> entry : getAttributeModifiers().entrySet()) {
-			if(entry.getValue() > max) {
+			att = entry.getKey();
+			if(Math.abs(entry.getValue()) > max) {
 				att = entry.getKey();
-				max = entry.getValue();
+				max = Math.abs(entry.getValue());
 			}
 		}
-		
+		if(att==null) {
+			return Attribute.MAJOR_PHYSIQUE;
+		}
 		return att;
 	}
 	
@@ -1415,7 +1418,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	public boolean isBadEnchantment() {
-		return this.getEffects().stream().anyMatch(e -> (e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || e.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) && e.getPotency().isNegative());
+		return this.getEffects().stream().mapToInt(e -> (e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || e.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE)?e.getPotency().getClothingBonusValue():0).sum()<0;
 	}
 
 	public boolean isEnslavementClothing() {

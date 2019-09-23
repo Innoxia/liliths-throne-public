@@ -10,7 +10,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
 
 /**
  * @since 0.1.95
- * @version 0.2.9
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public class AmberSpecials {
@@ -25,7 +25,7 @@ public class AmberSpecials {
 		
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Finished";
 		}
 
 		@Override
@@ -35,7 +35,7 @@ public class AmberSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())>=1
+			return Sex.getInitialSexManager().isPartnerWantingToStopSex(Sex.getCharacterPerformingAction())
 					&& Sex.isDom(Sex.getCharacterPerformingAction())
 					&& !Sex.getCharacterPerformingAction().isPlayer();
 		}

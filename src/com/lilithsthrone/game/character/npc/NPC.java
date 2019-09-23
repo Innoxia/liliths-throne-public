@@ -848,6 +848,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 				// Spells that should not be used:
 				case DARK_SIREN_SIRENS_CALL:
+				case LIGHTNING_SPHERE_DISCHARGE:
+				case LIGHTNING_SPHERE_OVERCHARGE:
 					break;
 			}
 		}
@@ -1074,33 +1076,29 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	// Relationships:
 	
 	public float getHourlyAffectionChange(int hour) {
-		if(this.workHours[hour]) {
-			if(this.getSlaveJob()==SlaveJob.IDLE) {
-				return this.getHomeLocationPlace().getHourlyAffectionChange();
-			}
-			// To get rid of e.g. 2.3999999999999999999999:
-			return Math.round(this.getSlaveJob().getAffectionGain(this)*100)/100f;
-		}
+		SlaveJob job = this.getSlaveJob(hour);
 		
-		// To get rid of e.g. 2.3999999999999999999999:
-		return Math.round(this.getHomeLocationPlace().getHourlyAffectionChange()*100)/100f;
+		// Rounding is to get rid of floating point ridiculousness (e.g. 2.3999999999999999999999):
+		if(!isAtWork(hour)) {
+			return Math.round(this.getHomeLocationPlace().getHourlyAffectionChange()*100)/100f;
+		} else {
+			return Math.round(job.getAffectionGain(this)*100)/100f;
+		}
 	}
 	
 	public float getDailyAffectionChange() {
 		float totalAffectionChange = 0;
 		
-		for (int workHour = 0; workHour < this.getTotalHoursWorked(); workHour++) {
-			if(this.getSlaveJob()==SlaveJob.IDLE) {
+		for (int hour = 0; hour < 24; hour++) {
+			SlaveJob job = this.getSlaveJob(hour);
+			if(!isAtWork(hour)) {
 				totalAffectionChange+=this.getHomeLocationPlace().getHourlyAffectionChange();
+			} else {
+				totalAffectionChange += job.getAffectionGain(this);
 			}
-			totalAffectionChange += this.getSlaveJob().getAffectionGain(this);
 		}
-		
-		for (int homeHour = 0; homeHour < 24-this.getTotalHoursWorked(); homeHour++) {
-			totalAffectionChange += this.getHomeLocationPlace().getHourlyAffectionChange();
-		}
-		
-		// To get rid of e.g. 2.3999999999999999999999:
+
+		// Rounding is to get rid of floating point ridiculousness (e.g. 2.3999999999999999999999):
 		return Math.round(totalAffectionChange*100)/100f;
 	}
 	

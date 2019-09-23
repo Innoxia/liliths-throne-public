@@ -4,12 +4,13 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.world.Cell;
 
 /**
  * Used in Pathing.
  * 
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum MapTravelType {
@@ -19,12 +20,12 @@ public enum MapTravelType {
 			"Click once on the map to mark your desired end point, then click that end point again to travel there. You can queue up waypoints by holding shift while clicking.",
 			Colour.GENERIC_MINOR_GOOD) {
 				@Override
-				public boolean isAvailable(GameCharacter character) {
+				public boolean isAvailable(Cell c, GameCharacter character) {
 					return true;
 				}
 
 				@Override
-				public String getUnavailablilityDescription(GameCharacter character) {
+				public String getUnavailablilityDescription(Cell c, GameCharacter character) {
 					return "";
 				}
 			},
@@ -34,12 +35,12 @@ public enum MapTravelType {
 			"Click once on the map to mark your desired end point, then click that end point again to travel there. You can queue up waypoints by holding shift while clicking.",
 			Colour.GENERIC_MINOR_BAD) {
 				@Override
-				public boolean isAvailable(GameCharacter character) {
+				public boolean isAvailable(Cell c, GameCharacter character) {
 					return true;
 				}
 
 				@Override
-				public String getUnavailablilityDescription(GameCharacter character) {
+				public String getUnavailablilityDescription(Cell c, GameCharacter character) {
 					return "";
 				}
 			},
@@ -49,12 +50,12 @@ public enum MapTravelType {
 			"Click once on the map to mark your desired end point, then click that end point again to travel there.",
 			Colour.SPELL_SCHOOL_AIR) {
 				@Override
-				public boolean isAvailable(GameCharacter character) {
+				public boolean isAvailable(Cell c, GameCharacter character) {
 					return character.isPartyAbleToFly();
 				}
 
 				@Override
-				public String getUnavailablilityDescription(GameCharacter character) {
+				public String getUnavailablilityDescription(Cell c, GameCharacter character) {
 					if(!character.isAbleToFly()) {
 						return "You are not able to fly!";
 					}
@@ -67,12 +68,29 @@ public enum MapTravelType {
 			"Click once on the map to mark your desired end point, then click that end point again to travel there.",
 			Colour.SPELL_SCHOOL_ARCANE) {
 				@Override
-				public boolean isAvailable(GameCharacter character) {
-					return (character.isAbleToTeleport() && character.getMana()>=Spell.TELEPORT.getModifiedCost(character)) || Main.game.isDebugMode();
+				public boolean isAvailable(Cell c, GameCharacter character) {
+					if(Main.game.isDebugMode()) {
+						return true;
+					}
+					if(!character.getWorldLocation().getTeleportPermissions().isOutgoing()
+							|| (c!=null && !c.getType().getTeleportPermissions().isIncoming())
+							|| (c!=null && !c.getPlace().getPlaceType().getTeleportPermissions().isIncoming())) {
+						return false;
+					}
+					return (character.isAbleToTeleport() && character.getMana()>=Spell.TELEPORT.getModifiedCost(character));
 				}
 
 				@Override
-				public String getUnavailablilityDescription(GameCharacter character) {
+				public String getUnavailablilityDescription(Cell c, GameCharacter character) {
+					if(!character.getWorldLocation().getTeleportPermissions().isOutgoing()) {
+						return "You cannot teleport out of the area '"+character.getWorldLocation().getName()+"'!";
+					}
+					if(c!=null && !c.getType().getTeleportPermissions().isIncoming()) {
+						return "You cannot teleport into the area '"+c.getType().getName()+"'!";
+					}
+					if(c!=null && !c.getPlace().getPlaceType().getTeleportPermissions().isIncoming()) {
+						return "You cannot teleport into the tile '"+c.getPlace().getName()+"'!";
+					}
 					if(!character.isAbleToTeleport()) {
 						return character.getUnableToTeleportDescription();
 					}
@@ -108,7 +126,7 @@ public enum MapTravelType {
 		return colour;
 	}
 	
-	public abstract boolean isAvailable(GameCharacter character);
+	public abstract boolean isAvailable(Cell c, GameCharacter character);
 
-	public abstract String getUnavailablilityDescription(GameCharacter character);
+	public abstract String getUnavailablilityDescription(Cell c, GameCharacter character);
 }

@@ -148,7 +148,7 @@ public class CombatMove {
         	
         	@Override
         	public DamageType getDamageType(GameCharacter source) {
-                DamageType damageType = DamageType.UNARMED.getParentDamageType(Main.game.getPlayer(), null);
+                DamageType damageType = DamageType.UNARMED.getParentDamageType(source, null);
         		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
             		AbstractWeapon weapon = source.getMainWeaponArray()[i];
         			if(weapon!=null) {
@@ -183,8 +183,7 @@ public class CombatMove {
             }
 
             @Override
-            public String getDescription() {
-            	GameCharacter source = Main.game.getPlayer();
+            public String getDescription(GameCharacter source) {
             	String costText="";
             	int essenceCost = getArcaneCost(source);
             	List<String> weaponNames = new ArrayList<>();
@@ -226,14 +225,16 @@ public class CombatMove {
         			AbstractWeapon weapon = source.getMainWeaponArray()[i];
         			if(weapon!=null) {
         				int damage = Attack.calculateDamage(source, target, Attack.MAIN, weapon, isCrit);
-        				int inflictedDamage = weapon.getDamageType().damageTarget(source, target, damage);
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true));
+        				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
         				weaponDamages.add(getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true));
         				
         			} else {
         				int damage = Attack.calculateDamage(source, target, Attack.MAIN, null, isCrit);
-        				int inflictedDamage = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true));
+        				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
         				weaponDamages.add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true));
         			}
         		}
@@ -385,7 +386,7 @@ public class CombatMove {
         	
         	@Override
         	public DamageType getDamageType(GameCharacter source) {
-                DamageType damageType = DamageType.UNARMED.getParentDamageType(Main.game.getPlayer(), null);
+                DamageType damageType = DamageType.UNARMED.getParentDamageType(source, null);
         		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
             		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
         			if(weapon!=null) {
@@ -420,8 +421,7 @@ public class CombatMove {
             }
 
             @Override
-            public String getDescription() {
-            	GameCharacter source = Main.game.getPlayer();
+            public String getDescription(GameCharacter source) {
             	String costText="";
             	int essenceCost = getArcaneCost(source);
             	List<String> weaponNames = new ArrayList<>();
@@ -463,14 +463,16 @@ public class CombatMove {
         			AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
         			if(weapon!=null) {
         				int damage = Attack.calculateDamage(source, target, Attack.OFFHAND, weapon, isCrit);
-        				int inflictedDamage = weapon.getDamageType().damageTarget(source, target, damage);
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true));
+        				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
         				weaponDamages.add(getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true));
         				
         			} else {
         				int damage = Attack.calculateDamage(source, target, Attack.OFFHAND, null, isCrit);
-        				int inflictedDamage = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true));
+        				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
         				weaponDamages.add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true));
         			}
         		}
@@ -567,7 +569,7 @@ public class CombatMove {
 
         	@Override
         	public DamageType getDamageType(GameCharacter source) {
-                DamageType damageType = DamageType.UNARMED.getParentDamageType(Main.game.getPlayer(), null);
+                DamageType damageType = DamageType.UNARMED.getParentDamageType(source, null);
         		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
             		AbstractWeapon weapon = source.getMainWeaponArray()[i];
         			if(weapon!=null) {
@@ -661,8 +663,7 @@ public class CombatMove {
             }
 
             @Override
-            public String getDescription() {
-            	GameCharacter source = Main.game.getPlayer();
+            public String getDescription(GameCharacter source) {
             	String costText="";
             	int essenceCost = getArcaneCost(source);
             	if(essenceCost>0) {
@@ -687,14 +688,16 @@ public class CombatMove {
         			AbstractWeapon weapon = source.getMainWeaponArray()[i];
         			if(weapon!=null) {
         				int damage = Attack.calculateDamage(source, target, Attack.MAIN, weapon, isCrit);
-        				int inflictedDamage = weapon.getDamageType().damageTarget(source, target, damage);
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true));
+        				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
         				weaponDamageStringBuilder.append((i>0?"<br/>":"")+"[npc2.Name] took " + getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true) + " damage!");
         				
         			} else {
         				int damage = Attack.calculateDamage(source, target, Attack.MAIN, null, isCrit);
-        				int inflictedDamage = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true));
+        				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
         				weaponDamageStringBuilder.append((i>0?"<br/>":"")+"[npc2.Name] took " + getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true) + " damage!");
         			}
         		}
@@ -703,14 +706,16 @@ public class CombatMove {
         			AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
         			if(weapon!=null) {
         				int damage = Attack.calculateDamage(source, target, Attack.OFFHAND, weapon, isCrit);
-        				int inflictedDamage = weapon.getDamageType().damageTarget(source, target, damage);
-        				weaponAttacksStringBuilder.append("<br/>"+source.getOffhandAttackDescription(i, target, true));
+        				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append("<br/>"+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
         				weaponDamageStringBuilder.append("<br/>[npc2.Name] took " + getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true) + " damage!");
         				
         			} else {
         				int damage = Attack.calculateDamage(source, target, Attack.OFFHAND, null, isCrit);
-        				int inflictedDamage = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
-        				weaponAttacksStringBuilder.append("<br/>"+source.getOffhandAttackDescription(i, target, true));
+        				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append("<br/>"+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
         				weaponDamageStringBuilder.append("<br/>[npc2.Name] took " + getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true) + " damage!");
         			}
         		}
@@ -763,6 +768,14 @@ public class CombatMove {
             
             @Override
             public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            	if(source.getArmRows()==1) {
+	            	if(source.getMainWeapon(0)!=null && source.getMainWeapon(0).getWeaponType().isTwoHanded()) {
+	            		return "You are using a two-handed weapon, so have no free hand with which to use an all-out strike!";
+	            	}
+	            	if(source.getOffhandWeapon(0)!=null && source.getOffhandWeapon(0).getWeaponType().isTwoHanded()) {
+	            		return "You are using a two-handed weapon, so have no free hand with which to use an all-out strike!";
+	            	}
+            	}
         		int cost = getArcaneCost(source);
             	if(source.getEssenceCount(TFEssence.ARCANE)<cost) {
             		return "You don't have enough arcane essences to use your weapon! ("+Util.capitaliseSentence(Util.intToString(cost))+" "+(cost==1?"is":"are")+" required.)";
@@ -822,8 +835,8 @@ public class CombatMove {
             }
 
             @Override
-            public String getDescription() {
-                DamageType damageType = getDamageType(Main.game.getPlayer());
+            public String getDescription(GameCharacter source) {
+                DamageType damageType = getDamageType(source);
                 return "Focus on defending yourself, gaining protection against "
                         + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(getBlock(false)) + "</span>"
                         + " damage.";
@@ -899,9 +912,9 @@ public class CombatMove {
             }
 
             @Override
-            public String getDescription() {
+            public String getDescription(GameCharacter source) {
                 return "Tease your enemy, dealing base "
-                        + getFormattedDamage(getDamageType(Main.game.getPlayer()), getBaseDamage(Main.game.getPlayer()), null, false)
+                        + getFormattedDamage(getDamageType(source), getBaseDamage(source), null, false)
                         + " damage to them.";
             }
 
@@ -915,10 +928,11 @@ public class CombatMove {
 //				}
             	
         		boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-        		int lustDamage = getDamageType(source).damageTarget(source, target, getDamage(source, target, isCrit));
+				Value<String, Integer> damageValue = getDamageType(source).damageTarget(source, target, getDamage(source, target, isCrit));
+				int lustDamage = damageValue.getValue();
 				
                 sb.append(formatAttackOutcome(source, target,
-                		source.getSeductionDescription(target),
+                		source.getSeductionDescription(target)+damageValue.getKey(),
         				"[npc2.Name] took " + getFormattedDamage(finalDt, lustDamage, target, true) + " damage!",
         				isCrit?"":null,
         				isCrit?"[npc2.Name] [npc2.verb(feel)] incredibly turned-on!":""));
@@ -974,8 +988,8 @@ public class CombatMove {
             }
 
             @Override
-            public String getDescription() {
-                DamageType damageType = getDamageType(Main.game.getPlayer());
+            public String getDescription(GameCharacter source) {
+                DamageType damageType = getDamageType(source);
                 return "Resist temptation, gaining protection against "
                 		+ "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(getBlock(false)) + "</span>"
                 		+ " damage.";
@@ -1142,8 +1156,8 @@ public class CombatMove {
                 }
 
                 @Override
-                public String getDescription() {
-                    return getAssociatedSpell().getDescription();
+                public String getDescription(GameCharacter source) {
+                    return getAssociatedSpell().getDescription(source);
                 }
 
                 @Override
@@ -1242,8 +1256,7 @@ public class CombatMove {
             }
 
             @Override
-            public String getDescription() {
-            	GameCharacter source = Main.game.getPlayer();
+            public String getDescription(GameCharacter source) {
                 return UtilText.parse(source,
                 		"Strike [npc.her] target with a bolt of pure arcane energy, dealing base "
                 				+ getFormattedDamage(getDamageType(source), getBaseDamage(source), null, false) + " damage"
@@ -1253,7 +1266,10 @@ public class CombatMove {
             @Override
             public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         		boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-				int dealtDamage = getDamageType(source).damageTarget(source, target, getDamage(source, target));
+        		
+				Value<String, Integer> damageValue = getDamageType(source).damageTarget(source, target, getDamage(source, target));
+				int dealtDamage = damageValue.getValue();
+				
 				int manaGain = getManaGain(source);
 				if (isCrit) {
 					manaGain *= 2;
@@ -1268,7 +1284,7 @@ public class CombatMove {
         		}
         		
         		attackStringBuilder.append(formatAttackOutcome(source, target,
-        				"Harnessing [npc.her] knowledge of the arcane, [npc.name] [npc.verb(focus)] on replenishing [npc.her] aura as [npc.she] [npc.verb(launch)] a bolt of pure arcane energy at [npc2.name]!",
+        				"Harnessing [npc.her] knowledge of the arcane, [npc.name] [npc.verb(focus)] on replenishing [npc.her] aura as [npc.she] [npc.verb(launch)] a bolt of pure arcane energy at [npc2.name]!"+damageValue.getKey(),
         				"[npc2.Name] took " + getFormattedDamage(getDamageType(source), dealtDamage, target, true) + " damage, while [npc.name] recovered"
         						+ " <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+manaGain+" "+Attribute.MANA_MAXIMUM.getName()+"</span>!",
         				isCrit?"":null,
@@ -1358,7 +1374,7 @@ public class CombatMove {
         }
 
         @Override
-        public String getDescription() {
+        public String getDescription(GameCharacter source) {
             return "Use an item from your inventory.";
         }
 
@@ -1504,17 +1520,13 @@ public class CombatMove {
 	protected static String formatAttackOutcome(GameCharacter source, GameCharacter target, String attackText, String attackEffectText, String criticalText, String criticalEffectText) {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("<i>"+attackText+"</i>");
-		sb.append("<br/>");
+		sb.append("<p><i>"+attackText+"</i></p>");
 		sb.append(attackEffectText);
 		
 		if(criticalText!=null) {
-			sb.append("<br/><span style='color:"+Colour.CRIT.toWebHexString()+";'>Critical</span>: ");
-			sb.append("<i>"+criticalEffectText/*criticalText*/+"</i>");
-//			if(criticalEffectText!=null && !criticalEffectText.isEmpty()) {
-//				sb.append("<br/>");
-//				sb.append(criticalEffectText);
-//			}
+			sb.append("<p>"
+							+ "<span style='color:"+Colour.CRIT.toWebHexString()+";'>Critical</span>: <i>"+criticalEffectText+"</i>"
+						+ "</p>");
 		}
 		
 		return UtilText.parse(source, target, sb.toString());
@@ -1573,6 +1585,9 @@ public class CombatMove {
                 if(source.getCorruptionLevel() == CorruptionLevel.FOUR_LUSTFUL || source.getCorruptionLevel() == CorruptionLevel.FIVE_CORRUPT) {
                     weight += 0.4f;
                 }
+            	if(!source.isAttractedTo(this.getPreferredTarget(source, enemies, allies))) {
+            		weight*=0.5f; // 50% lower chance to use tease attacks if not attracted to the enemy.
+            	}
                 return weight; // Attacks aren't sophisticated
         }
     }
@@ -1816,7 +1831,7 @@ public class CombatMove {
         return APcost + (!source.getEquippedMoves().contains(this)?1:0);
     }
 
-    public String getDescription() {
+    public String getDescription(GameCharacter source) {
         return "This action does nothing.";
     }
 

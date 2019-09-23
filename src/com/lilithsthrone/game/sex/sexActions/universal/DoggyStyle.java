@@ -621,6 +621,12 @@ public class DoggyStyle {
 					&& Sex.getCharacterPerformingAction().hasPenisIgnoreDildo()
 					&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BEHIND_ALL_FOURS))
 					&& (Sex.getCharacterPerformingAction().isPlayer() || Sex.getRequestedPulloutWeighting(Sex.getCharacterPerformingAction())<=0);
+//					&& (Sex.getCharacterPerformingAction().isPlayer() || !Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_SADIST).isNegative());
+		}
+		
+		@Override
+		public boolean isSadisticAction() {
+			return true;
 		}
 		
 		@Override
@@ -758,6 +764,13 @@ public class DoggyStyle {
 					&& Sex.getCharacterPerformingAction().hasPenisIgnoreDildo()
 					&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BEHIND_ALL_FOURS))
 					&& (Sex.getCharacterPerformingAction().isPlayer() || Sex.getRequestedPulloutWeighting(Sex.getCharacterPerformingAction())<=0);
+//					&& (Sex.getCharacterPerformingAction().isPlayer() || !Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_SADIST).isNegative());
+		}
+
+		
+		@Override
+		public boolean isSadisticAction() {
+			return true;
 		}
 		
 		@Override

@@ -28,7 +28,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * It was useful later on.
  * 
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.5
  * @author Innoxia
  */
 public class Pathing {
@@ -39,6 +39,8 @@ public class Pathing {
 	
 	private static int travelTime = 0;
 	private static int dangerousTiles = 0;
+
+	private static boolean impossibleDestination = true;
 	
 	private static MapTravelType mapTravelType = MapTravelType.WALK_SAFE;
 
@@ -92,7 +94,8 @@ public class Pathing {
 		 * That is your path.
 		 */
 		List<Cell> path = new ArrayList<>();
-
+		impossibleDestination = true;
+		
 		Node[][] nodeArray = new Node[grid.length][grid[0].length];
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
@@ -123,24 +126,31 @@ public class Pathing {
 			
 			// 2) d) i)
 			if (n.getX() == endX && n.getY() == endY) {
+				impossibleDestination = false;
 				break;
 			}
 
 			// 2) c)
 			for (int i = -1; i <= 1; i++) {
 				for (int j = -1; j <= 1; j++) {
-					if (!(i == 0 && j == 0) && n.getX() + i >= 0 && n.getX() + i < grid.length && n.getY() + j >= 0 && n.getY() + j < grid[0].length) { // Make sure we don't go out of bounds
+					if (!(i == 0 && j == 0) // Do not calculate the current tile
+							// Make sure we don't go out of bounds:
+							&& n.getX() + i >= 0
+							&& n.getX() + i < grid.length
+							&& n.getY() + j >= 0
+							&& n.getY() + j < grid[0].length) { 
 						if (!closedList.contains(nodeArray[n.getX() + i][n.getY() + j])) { // c) i)
 							// Deny diagonals unless in main world map
 							Cell c = grid[n.getX() + i][n.getY() + j];
-							
+
 							int time = Main.game.getModifierTravelTime(c.getPlace().getPlaceType().isLand(), (c.getPlace().getPlaceType().getDialogue(false)!=null? c.getPlace().getPlaceType().getDialogue(false).getSecondsPassed() : 10000));
 							
 							int g = ((i == 0 || j == 0) ? 10 : c.getType().equals(WorldType.WORLD_MAP)?12:1_000_000)
 									+ time
 									+ (c.getPlace().getPlaceType().equals(PlaceType.GENERIC_IMPASSABLE)?100_000_000:0)
 									+ (preferSafe && c.getPlace().getPlaceType()!=null && c.getPlace().getPlaceType().isDangerous()?100_000:0);
-
+							
+							
 							if (!openList.contains(nodeArray[n.getX() + i][n.getY() + j])) { // c) ii)
 								nodeArray[n.getX() + i][n.getY() + j].setParent(n);
 								nodeArray[n.getX() + i][n.getY() + j].setG(n.getG() + g);
@@ -222,17 +232,13 @@ public class Pathing {
 		Cell destination = getPathingCells().get(getPathingCells().size()-1);
 		Main.game.getPlayer().setLocation(destination.getType(), destination.getLocation(), false);
 
-		int time = totalTimePassed;
-		return new Response("", "", destination.getPlace().getDialogue(false)) {
-			@Override
-			public int getSecondsPassed() {
-				return time;
-			}
-		};
+		Main.game.endTurn(totalTimePassed);
+		
+		return new Response("", "", destination.getPlace().getDialogue(false));
 	}
 	
 	public static void initPathingVariables() {
-		if(!getMapTravelType().isAvailable(Main.game.getPlayer())) {
+		if(!getMapTravelType().isAvailable(null, Main.game.getPlayer())) {
 			setMapTravelType(MapTravelType.WALK_SAFE);
 		}
 		setPathingCells(new ArrayList<>(), new Vector2i(-1, -1));//new Vector2i(Main.game.getPlayer().getLocation()));
@@ -326,6 +332,13 @@ public class Pathing {
 
 	public static WorldType getDestinationWorld() {
 		return destinationWorld;
+	}
+
+	/**
+	 * @return true if the last calculated aStarPathing did not reach its destination.
+	 */
+	public static boolean isImpossibleDestination() {
+		return impossibleDestination;
 	}
 
 	public static List<TreeEntry<PerkCategory, AbstractPerk>> aStarPathingPerkTree(GameCharacter character, TreeEntry<PerkCategory, AbstractPerk> destination) {

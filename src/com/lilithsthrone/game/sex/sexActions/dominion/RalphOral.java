@@ -165,7 +165,6 @@ public class RalphOral {
 					+ " You grin mischievously as you hear Ralph struggling to maintain his composure in front of the customer, and as you hear him tactfully directing the customer to look at the other side of the shop,"
 					+ " he slams his cock forwards down your throat, letting you know that he's clearly not amused by your little game...";
 		}
-		
 	};
 	
 	public static final SexAction PLAYER_SUCK_COCK = new SexAction(

@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -103,7 +104,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	private List<String> charactersEncountered;
 
-	private List<WorldType> worldsVisited;
+	private Set<WorldType> worldsVisited;
 	
 	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, WorldType startingWorld, AbstractPlaceType startingPlace) {
 		super(nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
@@ -134,7 +135,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 		friendlyOccupants = new ArrayList<>();
 		
-		worldsVisited = new ArrayList<>();
+		worldsVisited = new HashSet<>();
 		
 		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 0f, false);
 		this.setAttribute(Attribute.MAJOR_ARCANE, 0f, false);
@@ -223,6 +224,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		character.sortInventory();
 		
+		boolean newGameImport = Arrays.asList(settings).contains(CharacterImportSetting.NEW_GAME_IMPORT);
+		
 		NodeList nodes = parentElement.getElementsByTagName("core");
 		Element element = (Element) nodes.item(0);
 		String version = "";
@@ -232,125 +235,131 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		Element playerSpecificElement = (Element) parentElement.getElementsByTagName("playerSpecific").item(0);
 		
-		if(playerSpecificElement!=null) {
-			if(playerSpecificElement.getElementsByTagName("title").getLength()!=0) {
-				character.setTitle(((Element)playerSpecificElement.getElementsByTagName("title").item(0)).getAttribute("value"));
-			}
-			
-			if(playerSpecificElement.getElementsByTagName("karma").getLength()!=0) {
-				character.setKarma(Integer.valueOf(((Element)playerSpecificElement.getElementsByTagName("karma").item(0)).getAttribute("value")));
-			}
-			
-			if(playerSpecificElement.getElementsByTagName("mainQuestUpdated").getLength()!=0) {
-				character.setMainQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("mainQuestUpdated").item(0)).getAttribute("value")));
-			}
-			if(playerSpecificElement.getElementsByTagName("sideQuestUpdated").getLength()!=0) {
-				character.setSideQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("sideQuestUpdated").item(0)).getAttribute("value")));
-			}
-			if(playerSpecificElement.getElementsByTagName("relationshipQuestUpdated").getLength()!=0) {
-				character.setRelationshipQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("relationshipQuestUpdated").item(0)).getAttribute("value")));
-			}
-	
-			try {
-				Element racesDiscoveredElement = (Element) playerSpecificElement.getElementsByTagName("racesDiscovered").item(0);
-				if(racesDiscoveredElement != null) {
-					
-					NodeList races = racesDiscoveredElement.getElementsByTagName("race");
-					for(int i=0; i < races.getLength(); i++){
-						Element e = (Element) races.item(i);
-						try {
-							character.addRaceDiscoveredFromBook(Subspecies.valueOf(e.getAttribute("value")));
-						} catch(Exception ex) {
-						}
-					}
+		if(newGameImport) {
+			character.setLocation(WorldType.MUSEUM_LOST, PlaceType.MUSEUM_MIRROR);
+		}
+		
+		if(!newGameImport) {
+			if(playerSpecificElement!=null) {
+				if(playerSpecificElement.getElementsByTagName("title").getLength()!=0) {
+					character.setTitle(((Element)playerSpecificElement.getElementsByTagName("title").item(0)).getAttribute("value"));
 				}
-			} catch(Exception ex) {
-			}
-			
-			Element charactersEncounteredElement = (Element) playerSpecificElement.getElementsByTagName("charactersEncountered").item(0);
-			if(charactersEncounteredElement != null) {
-				NodeList charactersEncounteredIds = charactersEncounteredElement.getElementsByTagName("id");
-				for(int i=0; i<charactersEncounteredIds.getLength(); i++){
-					Element e = (Element) charactersEncounteredIds.item(i);
-					character.addCharacterEncountered(e.getAttribute("value"));
-				}
-			}
-			
-			Element questMapElement = (Element) playerSpecificElement.getElementsByTagName("questMap").item(0);
-			if(questMapElement!=null) {
-				NodeList questMapEntries = questMapElement.getElementsByTagName("entry");
-				if(Main.isVersionOlderThan(version, "0.1.99.5")) {
 				
-					for(int i=0; i< questMapEntries.getLength(); i++){
-						Element e = (Element) questMapEntries.item(i);
+				if(playerSpecificElement.getElementsByTagName("karma").getLength()!=0) {
+					character.setKarma(Integer.valueOf(((Element)playerSpecificElement.getElementsByTagName("karma").item(0)).getAttribute("value")));
+				}
+				
+				if(playerSpecificElement.getElementsByTagName("mainQuestUpdated").getLength()!=0) {
+					character.setMainQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("mainQuestUpdated").item(0)).getAttribute("value")));
+				}
+				if(playerSpecificElement.getElementsByTagName("sideQuestUpdated").getLength()!=0) {
+					character.setSideQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("sideQuestUpdated").item(0)).getAttribute("value")));
+				}
+				if(playerSpecificElement.getElementsByTagName("relationshipQuestUpdated").getLength()!=0) {
+					character.setRelationshipQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("relationshipQuestUpdated").item(0)).getAttribute("value")));
+				}
+		
+				try {
+					Element racesDiscoveredElement = (Element) playerSpecificElement.getElementsByTagName("racesDiscovered").item(0);
+					if(racesDiscoveredElement != null) {
 						
-						try {
-							int progress = Integer.valueOf(e.getAttribute("progress"));
-							QuestLine questLine = QuestLine.valueOf(e.getAttribute("questLine"));
-							TreeNode<Quest> q = questLine.getQuestTree();
+						NodeList races = racesDiscoveredElement.getElementsByTagName("race");
+						for(int i=0; i < races.getLength(); i++){
+							Element e = (Element) races.item(i);
+							try {
+								character.addRaceDiscoveredFromBook(Subspecies.valueOf(e.getAttribute("value")));
+							} catch(Exception ex) {
+							}
+						}
+					}
+				} catch(Exception ex) {
+				}
+				
+				Element charactersEncounteredElement = (Element) playerSpecificElement.getElementsByTagName("charactersEncountered").item(0);
+				if(charactersEncounteredElement != null) {
+					NodeList charactersEncounteredIds = charactersEncounteredElement.getElementsByTagName("id");
+					for(int i=0; i<charactersEncounteredIds.getLength(); i++){
+						Element e = (Element) charactersEncounteredIds.item(i);
+						character.addCharacterEncountered(e.getAttribute("value"));
+					}
+				}
+				
+				Element questMapElement = (Element) playerSpecificElement.getElementsByTagName("questMap").item(0);
+				if(questMapElement!=null) {
+					NodeList questMapEntries = questMapElement.getElementsByTagName("entry");
+					if(Main.isVersionOlderThan(version, "0.1.99.5")) {
+					
+						for(int i=0; i< questMapEntries.getLength(); i++){
+							Element e = (Element) questMapEntries.item(i);
 							
-							for(int it=0;it<progress;it++) {
-								if(!q.getChildren().isEmpty()) {
-									q = q.getChildren().get(0);
+							try {
+								int progress = Integer.valueOf(e.getAttribute("progress"));
+								QuestLine questLine = QuestLine.valueOf(e.getAttribute("questLine"));
+								TreeNode<Quest> q = questLine.getQuestTree();
+								
+								for(int it=0;it<progress;it++) {
+									if(!q.getChildren().isEmpty()) {
+										q = q.getChildren().get(0);
+									}
 								}
+								
+	//							// Add one if quest is complete: (This is due to adding a 'complete quest' at the end of each quest line.)
+	//							if(questLine!=QuestLine.MAIN && !q.getChildren().isEmpty() && q.getChildren().get(0).getChildren().isEmpty()) {
+	//								q = q.getChildren().get(0);
+	//							}
+								
+								character.quests.put(
+										questLine,
+										q.getData());
+								
+							} catch(Exception ex) {
+								System.err.println("ERR Quest!");
 							}
-							
-//							// Add one if quest is complete: (This is due to adding a 'complete quest' at the end of each quest line.)
-//							if(questLine!=QuestLine.MAIN && !q.getChildren().isEmpty() && q.getChildren().get(0).getChildren().isEmpty()) {
-//								q = q.getChildren().get(0);
-//							}
-							
-							character.quests.put(
-									questLine,
-									q.getData());
-							
-						} catch(Exception ex) {
-							System.err.println("ERR Quest!");
 						}
-					}
-				} else {
-					for(int i=0; i<questMapEntries.getLength(); i++){
-						Element e = (Element) questMapEntries.item(i);
-						try {
-							String questLine = e.getAttribute("questLine");
-							if(questLine.contains("SIDE_NYAN")) {
-								questLine = questLine.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
+					} else {
+						for(int i=0; i<questMapEntries.getLength(); i++){
+							Element e = (Element) questMapEntries.item(i);
+							try {
+								String questLine = e.getAttribute("questLine");
+								if(questLine.contains("SIDE_NYAN")) {
+									questLine = questLine.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
+								}
+								
+								String quest = e.getAttribute("quest");
+								if(quest.contains("SIDE_NYAN")) {
+									quest = quest.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
+								}
+								character.quests.put(
+										QuestLine.valueOf(questLine),
+										Quest.valueOf(quest));
+							} catch(Exception ex) {
 							}
-							
-							String quest = e.getAttribute("quest");
-							if(quest.contains("SIDE_NYAN")) {
-								quest = quest.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
-							}
-							character.quests.put(
-									QuestLine.valueOf(questLine),
-									Quest.valueOf(quest));
-						} catch(Exception ex) {
 						}
 					}
 				}
 			}
-		}
-		
-		try {
-			for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("friendlyOccupants").item(0)).getElementsByTagName("occupant").getLength(); i++){
-				Element e = ((Element)playerSpecificElement.getElementsByTagName("occupant").item(i));
-				
-				if(!e.getAttribute("id").equals("NOT_SET")) {
-					character.getFriendlyOccupants().add(e.getAttribute("id"));
-					CharacterUtils.appendToImportLog(log, "<br/>Added occupant: "+e.getAttribute("id"));
+			
+			try {
+				for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("friendlyOccupants").item(0)).getElementsByTagName("occupant").getLength(); i++){
+					Element e = ((Element)playerSpecificElement.getElementsByTagName("occupant").item(i));
+					
+					if(!e.getAttribute("id").equals("NOT_SET")) {
+						character.getFriendlyOccupants().add(e.getAttribute("id"));
+						CharacterUtils.appendToImportLog(log, "<br/>Added occupant: "+e.getAttribute("id"));
+					}
 				}
+			} catch(Exception ex) {	
 			}
-		} catch(Exception ex) {	
-		}
-		
-		try {
-			for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("worldsVisited").item(0)).getElementsByTagName("world").getLength(); i++){
-				Element e = ((Element)playerSpecificElement.getElementsByTagName("world").item(i));
-				
-				character.getWorldsVisited().add(WorldType.valueOf(e.getAttribute("id")));
-				CharacterUtils.appendToImportLog(log, "<br/>Added world visited: "+e.getAttribute("id"));
+			
+			try {
+				for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("worldsVisited").item(0)).getElementsByTagName("world").getLength(); i++){
+					Element e = ((Element)playerSpecificElement.getElementsByTagName("world").item(i));
+					
+					character.getWorldsVisited().add(WorldType.valueOf(e.getAttribute("id")));
+					CharacterUtils.appendToImportLog(log, "<br/>Added world visited: "+e.getAttribute("id"));
+				}
+			} catch(Exception ex) {	
 			}
-		} catch(Exception ex) {	
 		}
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5")) {
@@ -626,12 +635,15 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			quests.put(questLine, quest);
 			
 			if (questLine.getQuestTree().getFirstNodeWithData(quest).getChildren().isEmpty()) { // QuestLine complete (No more children in the tree)
+				Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Quest Complete)]", questLine.getName()));
 				return "<p style='text-align:center;'>"
 						+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b><br/>"
 						+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Task Completed</b><b> - "+currentQuest.getName()+"</b><br/>"
 						+ "<b>All Tasks Completed!</b></p>"
 						+ experienceUpdate;
+				
 			} else {
+				Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourMinorGood(New Task)]", quest.getName()));
 				return "<p style='text-align:center;'>"
 						+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b><br/>"
 						+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Task Completed</b><br/>"
@@ -641,6 +653,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			
 		} else {
 			quests.put(questLine, quest);
+
+			Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Quest Started)]", questLine.getName()));
 			
 			return "<p style='text-align:center;'>"
 					+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>New Quest - " + questLine.getName() + "</b><br/>"
@@ -1104,7 +1118,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return friendlyOccupants.remove(occupant.getId());
 	}
 
-	public List<WorldType> getWorldsVisited() {
+	public Set<WorldType> getWorldsVisited() {
 		return worldsVisited;
 	}
 	
