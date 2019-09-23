@@ -879,8 +879,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return (int) Math.ceil(getTrueLevel() * 2 * Main.getProperties().difficultyLevel.getXpModifier());
 	}
 
-	public int getLootMoney() {
-		return (int) Math.ceil((getTrueLevel() * 25) * (1 + Math.random() - 0.5f) * Main.getProperties().difficultyLevel.getMoneyModifier());
+	public int getLootMoney(Boolean playerVictory) {
+		double loot = (playerVictory ? getTrueLevel() : getLevel() * 25) * (1 + Math.random() - 0.5f);
+		if (playerVictory) {
+			return (int) Math.ceil(loot * Main.getProperties().difficultyLevel.getMoneyModifier());
+		} else {
+			return (int) Math.ceil(loot / Main.getProperties().difficultyLevel.getMoneyModifier());
+		}
 	}
 	
 	public List<AbstractCoreItem> getLootItems() {

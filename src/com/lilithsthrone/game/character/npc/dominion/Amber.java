@@ -595,8 +595,8 @@ public class Amber extends NPC {
 		return 0;
 	}
 	
-	public int getLootMoney() {
-		return 5000;
+	public int getLootMoney(Boolean playerVictory) {
+		return (int) Math.ceil(5000 * Main.getProperties().difficultyLevel.getMoneyModifier());
 	}
 	
 	// Sex:

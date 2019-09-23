@@ -1199,8 +1199,8 @@ public class Brax extends NPC {
 		return 0;
 	}
 	
-	public int getLootMoney() {
-		return 2500;
+	public int getLootMoney(Boolean playerVictory) {
+		return (int) Math.ceil(2500 * Main.getProperties().difficultyLevel.getMoneyModifier());
 	}
 	
 	public List<AbstractCoreItem> getLootItems() {

@@ -313,7 +313,7 @@ public enum Combat {
 			int money = 0;
 			for(NPC enemy : enemies) {
 				xp+=enemy.getExperienceFromVictory();
-				money+=enemy.getLootMoney();
+				money+=enemy.getLootMoney(playerVictory);
 				enemy.setLostCombatCount(enemy.getLostCombatCount()+1);
 			}
 			
@@ -445,7 +445,7 @@ public enum Combat {
 			}
 			
 			int money = Main.game.getPlayer().getMoney();
-			int moneyLoss = (-enemyLeader.getLootMoney()/2)*enemies.size();
+			int moneyLoss = (-enemyLeader.getLootMoney(playerVictory)/2)*enemies.size();
 			Main.game.getPlayer().incrementMoney(moneyLoss);
 			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldBad(lost)] " + UtilText.formatAsMoney(Math.abs(Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</div>");
 			

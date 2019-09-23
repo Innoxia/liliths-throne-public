@@ -277,7 +277,7 @@ public class Lumi extends NPC {
 	}
 	
 	@Override
-	public int getLootMoney() {
+	public int getLootMoney(Boolean playerVictory) {
 		return 0;
 	}
 	
