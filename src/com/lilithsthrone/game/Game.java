@@ -751,7 +751,7 @@ public class Game implements XMLSaving {
 					if(Main.isVersionOlderThan(loadingVersion, "0.3.2.2")) {
 						gen.worldGeneration(WorldType.CITY_HALL);
 					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.5")) {
+					if(Main.isVersionOlderThan(loadingVersion, "0.3.4.9")) {
 						gen.worldGeneration(WorldType.ENFORCER_WAREHOUSE);
 						gen.worldGeneration(WorldType.ENFORCER_HQ);
 					}
@@ -1119,7 +1119,7 @@ public class Game implements XMLSaving {
 					}
 				}
 
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.5")) {
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.4.9")) {
 					if(!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)) {
 						Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(PlaceType.ENFORCER_HQ_BRAXS_OFFICE).getInventory().clearNonEquippedInventory();
 						PlaceType.ENFORCER_HQ_BRAXS_OFFICE.applyInventoryInit(Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(PlaceType.ENFORCER_HQ_BRAXS_OFFICE).getInventory());

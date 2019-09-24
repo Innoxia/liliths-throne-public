@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
+import java.util.List;
 import java.util.Locale;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -10,10 +11,14 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.OccupantDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -45,7 +50,10 @@ public class RoomPlayer {
 				? (int) ((60 * 21) - minutesPassed)
 				: (int) ((60 * (minutesPassed<(60*7)?7:31)) - minutesPassed));
 
-		if (index == 1) {
+		if(index==0) {
+			return null;
+			
+		} else if (index == 1) {
 			return new Response("Rest",
 					"Rest for four hours. As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
 					AUNT_HOME_PLAYERS_ROOM_SLEEP){
@@ -134,9 +142,54 @@ public class RoomPlayer {
 				return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
 			}
 			
-		} else {
-			return null;
+		} else if (index == 6) {
+			if(Main.game.getPlayer().isAbleToAccessRoomManagement()) {
+				return new Response("Manage room", "Enter the management screen for this particular room.", OccupantManagementDialogue.ROOM_UPGRADES) {
+					@Override
+					public void effects() {
+						OccupantManagementDialogue.cellToInspect = Main.game.getPlayerCell();
+					}
+				};
+			} else {
+				return new Response("Manage room", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
+			}
+			
+		}  else if (index == 7) {
+			if(Main.game.getPlayer().isAbleToAccessRoomManagement()) {
+				return new Response("Manage people", "Enter the management screen for your slaves and friendly occupants.", ROOM) {
+					@Override
+					public DialogueNode getNextDialogue() {
+						return OccupantManagementDialogue.getSlaveryRoomListDialogue(null);
+					}
+				};
+			} else {
+				return new Response("Manage people", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
+			}
+			
 		}
+		
+		List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
+		
+		int indexPresentStart = 8;
+		if(index-indexPresentStart<charactersPresent.size()) {
+			NPC character = charactersPresent.get(index-indexPresentStart);
+			return new Response(
+					UtilText.parse(character, "[npc.Name]"),
+					UtilText.parse(character, "Interact with [npc.name]."),
+					character.isSlave()
+						?SlaveDialogue.SLAVE_START
+						:OccupantDialogue.OCCUPANT_START) {
+				@Override
+				public void effects() {
+					if(character.isSlave()) {
+						SlaveDialogue.initDialogue(character, false);
+					} else {
+						OccupantDialogue.initDialogue(character, false, false);
+					}
+				}
+			};
+		}
+		return null;
 	}
 
 	public static final DialogueNode ROOM = new DialogueNode("Your Room", "", false) {

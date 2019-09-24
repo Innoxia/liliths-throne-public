@@ -42,8 +42,6 @@ import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.persona.NameTriplet;
-import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -82,7 +80,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.5
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
@@ -114,10 +112,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		title = "The Human";
 		
 		karma = 0;
-		
-		for(PersonalityTrait trait : PersonalityTrait.values()) {
-			this.setPersonalityTrait(trait, PersonalityWeight.AVERAGE);
-		}
 		
 		this.setMaxCompanions(1);
 		

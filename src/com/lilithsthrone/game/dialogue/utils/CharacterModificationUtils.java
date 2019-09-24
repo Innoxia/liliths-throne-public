@@ -94,7 +94,6 @@ import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -115,7 +114,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7?
- * @version 0.3.4
+ * @version 0.3.5
  * @author Innoxia
  */
 public class CharacterModificationUtils {
@@ -299,6 +298,7 @@ public class CharacterModificationUtils {
 		
 		contentSB.append(
 				"<div class='container-full-width'>"
+				+ "<div class='cosmetics-inner-container full'>"
 						+ "<h5 style='text-align:center;'>"
 							+"Personality"
 						+"</h5>"
@@ -307,35 +307,22 @@ public class CharacterModificationUtils {
 							+ " It will not lock out any options during the game, and is more for roleplaying purposes."
 						+ "</p>");
 		
-		int i=0;
 		for(PersonalityTrait trait : PersonalityTrait.values()) {
-			contentSB.append("<div class='container-full-width' style='"+(i==4?"width:50%; margin:0 25%;":"width:calc(50% - 16px);")+" text-align:center; padding:0;'>"
-					+ getInformationDiv("PERSONALITY_INFO_"+trait, new TooltipInformationEventListener().setInformation(trait.getName(), trait.getDescription()))
-					+ "<p style='text-align:center; margin-bottom:0; padding-bottom:0;'>"
-						+ "<span style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getName())+"</span><br/>"
-						+ "<i>"+trait.getNameFromWeight(BodyChanging.getTarget(), BodyChanging.getTarget().getPersonality().get(trait))+"</i>"
-					+ "</p>");
-
-			for(PersonalityWeight weight : PersonalityWeight.values()) {
-				if(BodyChanging.getTarget().getPersonality().get(trait) == weight) {
-					contentSB.append(
-							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+trait.getColour().getShades()[2]+";'>"+Util.capitaliseSentence(weight.getName())+"</span>"
-							+ "</div>");
-					
-				} else {
-					contentSB.append(
-							"<div id='PERSONALITY_"+trait+"_"+weight+"' class='cosmetics-button'>"
-									+ "[style.colourDisabled("+Util.capitaliseSentence(weight.getName())+")]"
-							+ "</div>");
-				}
+			if(BodyChanging.getTarget().hasPersonalityTrait(trait)) {
+				contentSB.append(
+						"<div id='PERSONALITY_TRAIT_"+trait+"' class='cosmetics-button active'>"
+							+ "<span style='color:"+trait.getColour().getShades()[2]+";'>"+Util.capitaliseSentence(trait.getName())+"</span>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='PERSONALITY_TRAIT_"+trait+"' class='cosmetics-button'>"
+								+ "[style.colourDisabled("+Util.capitaliseSentence(trait.getName())+")]"
+						+ "</div>");
 			}
-			
-			contentSB.append("</div>");
-			i++;
 		}
 		
-		contentSB.append("</div>");
+		contentSB.append("</div></div>");
 		
 		return contentSB.toString();
 	}
@@ -416,13 +403,13 @@ public class CharacterModificationUtils {
 		contentSB.append(
 				"<div class='container-full-width'>"
 						+"<div class='cosmetics-inner-container full'>"
-						+ "<h5 style='text-align:center;'>"
-							+"Sexual Orientation"
-						+"</h5>"
-						+ "<p style='text-align:center;'>"
-							+ "Sexual orientation in Lilith's Throne is determined by your attraction towards femininity or masculinity."
-							+ " Each orientation has a related status effect (hover over the icon in the left-hand panel to see the effects)."
-						+ "</p>");
+							+ "<h5 style='text-align:center;'>"
+								+"Sexual Orientation"
+							+"</h5>"
+							+ "<p style='text-align:center;'>"
+								+ "Sexual orientation in Lilith's Throne is determined by your attraction towards femininity or masculinity."
+								+ " Each orientation has a related status effect (hover over the icon in the left-hand panel to see the effects)."
+							+ "</p>");
 		
 		for(SexualOrientation orientation : SexualOrientation.values()) {
 			if(BodyChanging.getTarget().getSexualOrientation() == orientation) {

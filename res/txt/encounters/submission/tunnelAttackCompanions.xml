@@ -903,7 +903,7 @@
 	
 	<htmlContent tag="TUNNEL_ATTACK_PAY_OFF"><![CDATA[
 	<p>
-		#IF pc.isNeurotic()
+		#IF pc.isCowardly()
 		#THEN
 			Wanting to avoid a fight if at all possible, you take a step backwards, fumbling about to grab a handful of flames to offer to [npc.name]. [pc.speech(I don't want to fight! Please, just take my money and leave me alone!)]
 		#ELSE
@@ -919,16 +919,12 @@
 		[npc.speech(Give that to me!)] [npc.name] snaps, [npc.her] desire to rob you of your money obviously the motivating factor behind [npc.her] assault. Before you can reply, [npc.she] quickly steps forwards, before snatching the flames out of your [pc.hand]. With a mocking laugh, [npc.she] stands aside and sneers, [npc.speech(Now get out of my sight!)]
 	</p>
 	<p>
-		#IF pc.isVigilant()
-		#THEN
-			With the conflict now resolved, you continue on your way, making sure to keep an eye on [npc.name] in case [npc.she] tries following you. Thankfully, it looks like [npc.sheIs] more concerned with counting out [npc.her] ill-gotten gains than attempting to make any sort of threatening move, and after just a moment, you turn a corner and leave the [npc.race] behind.
+		#IF(pc.isBrave())
+			With the conflict now resolved, you continue on your way, making sure to keep an eye on [npc.name] in case [npc.she] tries following you. Thankfully for [npc.herHim], it looks like [npc.sheIs] more concerned with counting out [npc.her] ill-gotten gains than attempting to make any sort of threatening move, and you soon turn a corner and leave the [npc.race] behind.
+		#ELSEIF(pc.isCowardly())
+			With the conflict now resolved, you hurry on your way, hoping that [npc.name] doesn't pursue you and demand more money. Quickly retreating around a corner, you thankfully leave the [npc.race] behind, breathing a sigh of relief as you reflect on the fact that you just came close to having a violent confrontation.
 		#ELSE
-			#IF pc.isCareless()
-			#THEN
-				With the conflict now resolved, you continue on your way, not even bothering to give [npc.name] a backwards glance. After just a moment, you turn a corner and leave the [npc.race] behind, thankful that you were able to avoid a violent confrontation.
-			#ELSE
-				With the conflict now resolved, you continue on your way, giving [npc.name] one last backwards glance to make sure [npc.she] isn't going to follow you. Thankfully, it looks like [npc.sheIs] more concerned with counting out [npc.her] ill-gotten gains than attempting to make any sort of threatening move, and after just a moment, you turn a corner and leave the [npc.race] behind.
-			#ENDIF
+			With the conflict now resolved, you continue on your way, giving [npc.name] one last backwards glance to make sure [npc.she] isn't going to follow you. Thankfully, it looks like [npc.sheIs] more concerned with counting out [npc.her] ill-gotten gains than attempting to make any sort of threatening move, and after just a moment, you turn a corner and leave the [npc.race] behind.
 		#ENDIF
 	</p>
 	]]>

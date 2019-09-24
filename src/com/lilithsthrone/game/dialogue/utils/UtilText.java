@@ -66,6 +66,7 @@ import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.OccupationTag;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -268,8 +269,12 @@ public class UtilText {
 				
 			}
 			
-			if(target.getLipSize().isImpedesSpeech()) {
+			if(target.getLipSize().isImpedesSpeech() || target.hasPersonalityTrait(PersonalityTrait.LISP)) {
 				modifiedSentence = Util.applyLisp(modifiedSentence);
+			}
+
+			if(target.hasPersonalityTrait(PersonalityTrait.STUTTER)) {
+				modifiedSentence = Util.addStutter(modifiedSentence, 6);
 			}
 			
 			if(splitOnConditional.length>1) {

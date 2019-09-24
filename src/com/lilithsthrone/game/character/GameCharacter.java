@@ -165,8 +165,8 @@ import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.OccupationTag;
+import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
@@ -289,7 +289,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected int ageAppearanceDifference;
 	
 	protected Occupation history;
-	protected Map<PersonalityTrait, PersonalityWeight> personality;
+	protected Set<PersonalityTrait> personalityTraits;
 	protected SexualOrientation sexualOrientation;
 	private float obedience;
 
@@ -479,23 +479,12 @@ public abstract class GameCharacter implements XMLSaving {
 		globalLocation = Main.game.getWorlds().get(WorldType.WORLD_MAP).getCell(worldLocation.getGlobalMapLocation()).getLocation();
 		
 		// Set up personality:
-		personality = new HashMap<>();
-		for(Entry<PersonalityTrait, PersonalityWeight> entry : startingRace.getPersonality().entrySet()) {
-			double rnd = Math.random();
-			if(rnd<0.7) {
-				personality.put(entry.getKey(), entry.getValue());
-			} else if(rnd<0.95) {
-				if((Math.random()<0.5f && entry.getValue().getValue()>PersonalityWeight.LOW.getValue()) || entry.getValue().getValue()==PersonalityWeight.HIGH.getValue()) {
-					personality.put(entry.getKey(), PersonalityWeight.getPersonalityWeightFromInt(entry.getValue().getValue()-1));
-				} else {
-					personality.put(entry.getKey(), PersonalityWeight.getPersonalityWeightFromInt(entry.getValue().getValue()+1));
-				}
-				
-			} else {
-				if((Math.random()<0.5f && entry.getValue().getValue()>PersonalityWeight.LOW.getValue()) || entry.getValue().getValue()==PersonalityWeight.HIGH.getValue()) {
-					personality.put(entry.getKey(), PersonalityWeight.getPersonalityWeightFromInt(entry.getValue().getValue()-2));
-				} else {
-					personality.put(entry.getKey(), PersonalityWeight.getPersonalityWeightFromInt(entry.getValue().getValue()+2));
+		personalityTraits = new HashSet<>();
+		if(!this.isUnique()) {
+			for(Entry<PersonalityTrait, Float> entry : startingRace.getPersonalityTraitChances().entrySet()) {
+				double rnd = Math.random();
+				if(rnd<=entry.getValue()) {
+					this.addPersonalityTrait(entry.getKey());
 				}
 			}
 		}
@@ -726,16 +715,12 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "petName", entry.getValue().toString());
 		}
 		
-		
-//		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());
 		Element personalityElement = doc.createElement("personality");
 		characterCoreInfo.appendChild(personalityElement);
-		for(Entry<PersonalityTrait, PersonalityWeight> entry: getPersonality().entrySet()){
-			Element element = doc.createElement("personalityEntry");
+		for(PersonalityTrait trait : getPersonalityTraits()){
+			Element element = doc.createElement("trait");
 			personalityElement.appendChild(element);
-			
-			CharacterUtils.addAttribute(doc, element, "trait", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, element, "weight", entry.getValue().toString());
+			element.setTextContent(trait.toString());
 		}
 		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());
@@ -1092,14 +1077,18 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "owner", this.getOwner()==null?"":this.getOwner().getId());
 		
-		Element slaveJobSettings = doc.createElement("slaveJobSettings"); //TODO
+		Element slaveJobSettings = doc.createElement("slaveJobSettings");
 		slaveryElement.appendChild(slaveJobSettings);
 		for(SlaveJob job : SlaveJob.values()) {
-			Element element = doc.createElement("jobSetting");
-			CharacterUtils.addAttribute(doc, element, "job", job.toString());
-			slaveJobSettings.appendChild(element);
-			for(SlaveJobSetting setting : this.getSlaveJobSettings(job)) {
-				CharacterUtils.createXMLElementWithValue(doc, element, "setting", setting.toString());
+			if(!this.getSlaveJobSettings(job).isEmpty()) {
+				Element element = doc.createElement("jobSetting");
+				CharacterUtils.addAttribute(doc, element, "job", job.toString());
+				slaveJobSettings.appendChild(element);
+				for(SlaveJobSetting setting : this.getSlaveJobSettings(job)) {
+					Element settingElement = doc.createElement("setting");
+					element.appendChild(settingElement);
+					settingElement.setTextContent(setting.toString());
+				}
 			}
 		}
 		
@@ -1519,17 +1508,61 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		
-		if(element.getElementsByTagName("personality").getLength()!=0 && !Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.3.5")) {
+		if(element.getElementsByTagName("personality").getLength()!=0) {
 			nodes = parentElement.getElementsByTagName("personality");
 			Element personalityElement = (Element) nodes.item(0);
 			if(personalityElement!=null) {
-				NodeList personalityEntries = personalityElement.getElementsByTagName("personalityEntry");
-				for(int i=0; i<personalityEntries.getLength(); i++){
-					Element e = ((Element)personalityEntries.item(i));
-					try {
-						character.setPersonalityTrait(PersonalityTrait.valueOf(e.getAttribute("trait")), PersonalityWeight.valueOf(e.getAttribute("weight")));
-						CharacterUtils.appendToImportLog(log, "<br/>Added personality: "+e.getAttribute("trait")+" "+e.getAttribute("weight"));
-					}catch(IllegalArgumentException ex){
+				if(!Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.3.4.9")) {
+					NodeList personalityEntries = personalityElement.getElementsByTagName("trait");
+					for(int i=0; i<personalityEntries.getLength(); i++) {
+						Element e = ((Element)personalityEntries.item(i));
+						try {
+							PersonalityTrait t = PersonalityTrait.valueOf(e.getTextContent());
+							character.addPersonalityTrait(t);
+							CharacterUtils.appendToImportLog(log, "<br/>Added personality trait: "+t);
+						}catch(IllegalArgumentException ex){
+						}
+					}
+					
+				} else { // Old version conversion:
+					NodeList personalityEntries = personalityElement.getElementsByTagName("personalityEntry");
+					for(int i=0; i<personalityEntries.getLength(); i++){
+						Element e = ((Element)personalityEntries.item(i));
+						try {
+							String trait = e.getAttribute("trait");
+							String weight = e.getAttribute("weight");
+							
+							if(trait.equalsIgnoreCase("ADVENTUROUSNESS")) {
+								if(weight.equalsIgnoreCase("LOW")) {
+									character.addPersonalityTrait(PersonalityTrait.COWARDLY);
+								} else if(weight.equalsIgnoreCase("HIGH")) {
+									character.addPersonalityTrait(PersonalityTrait.BRAVE);
+								}
+							}
+							if(trait.equalsIgnoreCase("AGREEABLENESS")) {
+								if(weight.equalsIgnoreCase("LOW")) {
+									character.addPersonalityTrait(PersonalityTrait.SELFISH);
+								} else if(weight.equalsIgnoreCase("HIGH")) {
+									character.addPersonalityTrait(PersonalityTrait.KIND);
+								}
+							}
+							if(trait.equalsIgnoreCase("CONSCIENTIOUSNESS")) {
+							}
+							if(trait.equalsIgnoreCase("EXTROVERSION")) {
+								if(weight.equalsIgnoreCase("LOW")) {
+									character.addPersonalityTrait(PersonalityTrait.SHY);
+								} else if(weight.equalsIgnoreCase("HIGH")) {
+									character.addPersonalityTrait(PersonalityTrait.CONFIDENT);
+								}
+							}
+							if(trait.equalsIgnoreCase("NEUROTICISM")) {
+								if(weight.equalsIgnoreCase("LOW")) {
+									character.addPersonalityTrait(PersonalityTrait.SHY);
+								}
+							}
+							
+						}catch(IllegalArgumentException ex){
+						}
 					}
 				}
 			}
@@ -3048,14 +3081,20 @@ public abstract class GameCharacter implements XMLSaving {
 			infoScreenSB.append("<br/>"
 					+ "<h6>Personality</h6>"
 					+ "<p>");
-			for(PersonalityTrait trait : PersonalityTrait.values()) {
-				infoScreenSB.append("<b>"+trait.getName()+":</b> <i style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getNameFromWeight(this, this.getPersonality().get(trait)))+"</i><br/>"
-						+trait.getDescriptionFromWeight(this, this.getPersonality().get(trait))+"<br/>");
+			int i=0;
+			for(PersonalityTrait trait : this.getPersonalityTraits()) {
+				if(i!=0) {
+					infoScreenSB.append("<br/>");
+				}
+				i++;
+				infoScreenSB.append("<b style='color:"+trait.getColour().toWebHexString()+"'>"+Util.capitaliseSentence(trait.getName())+"</b>: "+trait.getDescription(this, false, false));
+			}
+			if(i==0) {
+				infoScreenSB.append(UtilText.parse(this, "[npc.NameHasFull] a well-rounded personality, with no exceptionally good nor bad traits."));
 			}
 			infoScreenSB.append("</p>");
 			
-			infoScreenSB.append("</p>"
-					+ "<br/>"
+			infoScreenSB.append("<p>"
 						+ "<h6>Appearance</h6>"
 					+ "<p>"
 						+ this.getBodyDescription()
@@ -3716,58 +3755,69 @@ public abstract class GameCharacter implements XMLSaving {
 		updateAttributeListeners();
 	}
 	
-	public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-		return personality;
+	public Set<PersonalityTrait> getPersonalityTraits() {
+		return personalityTraits;
 	}
 	
-	public void setPersonalityTrait(PersonalityTrait trait, PersonalityWeight weight) {
-		getPersonality().put(trait, weight);
+	public boolean hasPersonalityTrait(PersonalityTrait trait) {
+		return personalityTraits.contains(trait);
+	}
+
+	public void setPersonalityTraits(PersonalityTrait... traits) {
+		this.clearPersonalityTraits();
+		for(PersonalityTrait t : traits) {
+			this.addPersonalityTrait(t);
+		}
 	}
 	
-	public void setPersonality(Map<PersonalityTrait, PersonalityWeight> personality) {
-		this.personality = personality;
+	public void addPersonalityTrait(PersonalityTrait trait) {
+		for(PersonalityTrait pt : new ArrayList<>(this.getPersonalityTraits())) {
+			if(trait.getMutuallyExclusiveSettings().contains(pt) || pt.getMutuallyExclusiveSettings().contains(trait)) {
+				this.removePersonalityTrait(pt);
+			}
+		}
+		personalityTraits.add(trait);
+	}
+
+	public void removePersonalityTrait(PersonalityTrait trait) {
+		personalityTraits.remove(trait);
+	}
+
+	public void removePersonalityTraits(PersonalityCategory category) {
+		personalityTraits.removeIf(trait -> trait.getPersonalityCategory()==category);
+	}
+
+	public void clearPersonalityTraits() {
+		personalityTraits.clear();
 	}
 	
-	public boolean isCurious() {
-		return personality.get(PersonalityTrait.ADVENTUROUSNESS)==PersonalityWeight.HIGH;
-	}
-	
-	public boolean isCautious() {
-		return personality.get(PersonalityTrait.ADVENTUROUSNESS)==PersonalityWeight.LOW;
-	}
-	
-	public boolean isTrusting() {
-		return personality.get(PersonalityTrait.AGREEABLENESS)==PersonalityWeight.HIGH;
+	public boolean isKind() {
+		return this.hasPersonalityTrait(PersonalityTrait.KIND);
 	}
 	
 	public boolean isSelfish() {
-		return personality.get(PersonalityTrait.AGREEABLENESS)==PersonalityWeight.LOW;
+		return this.hasPersonalityTrait(PersonalityTrait.SELFISH);
 	}
 	
-	public boolean isVigilant() {
-		return personality.get(PersonalityTrait.CONSCIENTIOUSNESS)==PersonalityWeight.HIGH;
+	public boolean isBrave() {
+		return this.hasPersonalityTrait(PersonalityTrait.BRAVE);
 	}
 	
-	public boolean isCareless() {
-		return personality.get(PersonalityTrait.CONSCIENTIOUSNESS)==PersonalityWeight.LOW;
-	}
-	
-	public boolean isExtroverted() {
-		return personality.get(PersonalityTrait.EXTROVERSION)==PersonalityWeight.HIGH;
-	}
-	
-	public boolean isIntroverted() {
-		return personality.get(PersonalityTrait.EXTROVERSION)==PersonalityWeight.LOW;
-	}
-	
-	public boolean isNeurotic() {
-		return personality.get(PersonalityTrait.NEUROTICISM)==PersonalityWeight.HIGH;
+	public boolean isCowardly() {
+		return this.hasPersonalityTrait(PersonalityTrait.COWARDLY);
 	}
 	
 	public boolean isConfident() {
-		return personality.get(PersonalityTrait.NEUROTICISM)==PersonalityWeight.LOW;
+		return this.hasPersonalityTrait(PersonalityTrait.CONFIDENT);
 	}
-
+	
+	public boolean isShy() {
+		return this.hasPersonalityTrait(PersonalityTrait.SHY);
+	}
+	
+	
+	// Sexual orientation:
+	
 	public SexualOrientation getSexualOrientation() {
 		return sexualOrientation;
 	}

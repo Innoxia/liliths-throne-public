@@ -221,7 +221,8 @@ public enum SlaveJob {
 							SlaveJobSetting.MILKING_NO_PREFERENCE))),
 			Util.newArrayListOfValues(
 					SlaveJobSetting.MILKING_NO_PREFERENCE),
-			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
+			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
+			PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
 
 		@Override
 		public int getSlaveLimit() {
@@ -366,15 +367,26 @@ public enum SlaveJob {
 		}
 	},
 
-	BEDROOM(Colour.BASE_PERIWINKLE, 4, 0, "bedroom", "bedroom",
+	BEDROOM(Colour.BASE_PERIWINKLE, 4, -0.5f, "bedroom", "bedroom",
 			"Assign this slave to wait upon you in your bedroom.",
 			0, 0.25f,
 			0,
 			0, 0,
-			null,
-			null,
-			null,
-			WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER),
+			Util.newArrayListOfValues(
+					SlaveJobSetting.BEDROOM_GREETING,
+					SlaveJobSetting.BEDROOM_CLEAN,
+					SlaveJobSetting.BEDROOM_WAKE_UP,
+					SlaveJobSetting.BEDROOM_HELP_WASH),
+			Util.newHashMapOfValues(
+					new Value<>("Sleeping Arrangements",
+						Util.newArrayListOfValues(
+							SlaveJobSetting.BEDROOM_SLEEP_FLOOR,
+							SlaveJobSetting.BEDROOM_SLEEP_ON_BED,
+							SlaveJobSetting.BEDROOM_SLEEP_IN_BED))),
+			Util.newArrayListOfValues(
+					SlaveJobSetting.BEDROOM_SLEEP_ON_BED),
+			WorldType.LILAYAS_HOUSE_FIRST_FLOOR,
+			PlaceType.LILAYA_HOME_ROOM_PLAYER),
 	;
 	
 	private Colour colour;

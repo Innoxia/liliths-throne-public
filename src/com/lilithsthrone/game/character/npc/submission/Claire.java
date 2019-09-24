@@ -39,7 +39,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -95,7 +94,7 @@ public class Claire extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.resetPerksMap(true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
 			this.setStartingBody(false);
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.setHistory(Occupation.NPC_ENFORCER_PATROL_SERGEANT);
@@ -103,6 +102,8 @@ public class Claire extends NPC {
 				"Claire is the messenger who's responsible for keeping all of Submission's enforcer posts up-to-date with one another."
 					+ " Having been recognised by her superiors as a particularly hard-working and reliable individual, she's been granted permission to use the teleportation pads which link all of these posts together."
 					+ " As a result of this, she seems to be in multiple places at once, and whenever you enter one of these enforcer posts, Claire is sure to already be there.");
+			this.setPersonalityTraits(
+					PersonalityTrait.CONFIDENT);
 		}
 	}
 
@@ -122,12 +123,8 @@ public class Claire extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setPersonality(Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+			this.setPersonalityTraits(
+					PersonalityTrait.CONFIDENT);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			

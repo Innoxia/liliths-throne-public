@@ -23,8 +23,8 @@ import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
@@ -93,7 +93,11 @@ public class SlaverAlleyDialogue {
 			slave.addFetish(Fetish.FETISH_SUBMISSIVE);
 			slave.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 			slave.addFetish(Fetish.FETISH_ORAL_GIVING);
-			slave.setPersonalityTrait(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH);
+			slave.removePersonalityTraits(PersonalityCategory.SPEECH);
+			slave.removePersonalityTrait(PersonalityTrait.SHY);
+			if(Math.random()<0.5f) {
+				slave.addPersonalityTrait(PersonalityTrait.LEWD);
+			}
 			slave.setObedience(100);
 		}
 
@@ -116,7 +120,10 @@ public class SlaverAlleyDialogue {
 			
 			slave.addFetish(Fetish.FETISH_DOMINANT);
 			slave.addFetish(Fetish.FETISH_CUM_STUD);
-			slave.setPersonalityTrait(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW);
+			slave.removePersonalityTrait(PersonalityTrait.COWARDLY);
+			if(Math.random()<0.5f) {
+				slave.addPersonalityTrait(PersonalityTrait.BRAVE);
+			}
 			slave.setObedience(75);
 		}
 

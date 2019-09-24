@@ -45,7 +45,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -178,6 +177,14 @@ public class Nyan extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.10")) {
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
+			this.setPersonalityTraits(
+					PersonalityTrait.KIND,
+					PersonalityTrait.COWARDLY,
+					PersonalityTrait.INNOCENT,
+					PersonalityTrait.SHY,
+					PersonalityTrait.STUTTER);
+		}
 	}
 
 	@Override
@@ -196,12 +203,12 @@ public class Nyan extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setPersonality(Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.LOW),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.LOW)));
+			this.setPersonalityTraits(
+					PersonalityTrait.KIND,
+					PersonalityTrait.COWARDLY,
+					PersonalityTrait.INNOCENT,
+					PersonalityTrait.SHY,
+					PersonalityTrait.STUTTER);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -458,7 +465,7 @@ public class Nyan extends NPC {
 	public String getTraderDescription() {
 		return "<p>"
 					+ "Nyan nervously leafs through her little notebook, before guiding you over to some shelves that stock what you're looking for, "
-					+ "[nyan.speech(E-erm, j-just remember, I get new stock in every day! S-so if you don't like what I've got today, y-you can come back again tomorrow! I-if you want to, that is...)]"
+					+ "[nyan.speechNoEffects(E-erm, j-just remember, I get new stock in every day! S-so if you don't like what I've got today, y-you can come back again tomorrow! I-if you want to, that is...)]"
 				+ "</p>";
 	}
 

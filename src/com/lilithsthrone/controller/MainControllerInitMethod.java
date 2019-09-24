@@ -109,7 +109,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
@@ -197,7 +196,7 @@ import javafx.stage.FileChooser;
  * This method was causing MainController to lag out Eclipse, so I moved it to a separate file.
  * 
  * @since 0.2.5
- * @version 0.2.11
+ * @version 0.3.5
  * @author Innoxia
  */
 public class MainControllerInitMethod {
@@ -1432,7 +1431,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
-								job.getName(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()),
+								Util.capitaliseSentence(job.getName(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())),
 								job.getDescription()
 								+"<br/>[style.boldOrange(Hourly Fatigue:)] "+(job.getHourlyFatigue()>0?"[style.boldBad(":"[style.boldGood(")+job.getHourlyFatigue()+")]");
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
@@ -2331,14 +2330,22 @@ public class MainControllerInitMethod {
 				
 				// Personality:
 				for(PersonalityTrait trait : PersonalityTrait.values()) {
-					for(PersonalityWeight weight : PersonalityWeight.values()) {
-						id = "PERSONALITY_"+trait+"_"+weight;
-						if (((EventTarget) MainController.document.getElementById(id)) != null) {
-							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								BodyChanging.getTarget().setPersonalityTrait(trait, weight);
-								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-							}, false);
-						}
+					id = "PERSONALITY_TRAIT_"+trait;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(!BodyChanging.getTarget().hasPersonalityTrait(trait)) {
+								BodyChanging.getTarget().addPersonalityTrait(trait);
+							} else {
+								BodyChanging.getTarget().removePersonalityTrait(trait);
+							}
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+								Util.capitaliseSentence("<b style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getName())+"</b>"),
+								trait.getDescription(BodyChanging.getTarget(), true, true)),
+								false);
 					}
 				}
 				

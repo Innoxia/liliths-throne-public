@@ -53,7 +53,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
@@ -138,7 +137,7 @@ public class Lilaya extends NPC {
 				setupCoverings(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour());
 			}
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
 			if(this.getSubspecies()==Subspecies.DEMON) {
 				this.setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK, Colour.SKIN_RED_DARK), false);
 				this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_RED_DARK, Colour.SKIN_RED_DARK), false);
@@ -147,6 +146,9 @@ public class Lilaya extends NPC {
 				this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED, Colour.SKIN_RED_DARK), false);
 				this.setSkinCovering(new Covering(BodyCoveringType.MOUTH, Colour.SKIN_RED, Colour.SKIN_RED_DARK), false);
 			}
+			this.setPersonalityTraits(
+					PersonalityTrait.KIND,
+					PersonalityTrait.SHY);
 		}
 	}
 
@@ -194,12 +196,9 @@ public class Lilaya extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setPersonality(Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.LOW),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+			this.setPersonalityTraits(
+					PersonalityTrait.KIND,
+					PersonalityTrait.SHY);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			

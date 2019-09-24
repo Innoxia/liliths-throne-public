@@ -24,7 +24,17 @@ public enum SlaveJobSetting {
 	MILKING_GIRLCUM_DISABLE(Colour.BASE_PINK_LIGHT, "Forbid Girlcum", "DG", "Do not allow this slave's girlcum to be collected."),
 	
 	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE(Colour.FEMININE, "Feminine TF", "TF (F)", "Allow this slave to receive feminine transformations."),
-	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE(Colour.MASCULINE, "Masculine TF", "TF (M)", "Allow this slave to receive masculine transformations.")
+	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE(Colour.MASCULINE, "Masculine TF", "TF (M)", "Allow this slave to receive masculine transformations."),
+	
+	BEDROOM_GREETING(Colour.GENERIC_MINOR_GOOD, "Greeting", "BG", "Instruct this slave to greet you whenever you enter your room."),
+	BEDROOM_CLEAN(Colour.BASE_BLUE_LIGHT, "Cleaning", "BC", "Tell this slave to keep your room clean."),
+	BEDROOM_WAKE_UP(Colour.BASE_YELLOW_LIGHT, "Waking", "BK", "Allow this slave to serve as your alarm clock, allowing them to rouse you from your slumber at the instructed time."),
+	BEDROOM_HELP_WASH(Colour.BASE_AQUA, "Washing", "BW", "Have this slave assist you in the bathroom when you wash yourself."),
+	
+	BEDROOM_SLEEP_FLOOR(Colour.GENERIC_MINOR_BAD, "Sleep on floor", "BSF", "Tell this slave that they must sleep on the floor of your room."),
+	BEDROOM_SLEEP_ON_BED(Colour.BASE_PURPLE_LIGHT, "Sleep on bed", "BSO", "Permit this slave to sleep on your bed, but not under the covers."),
+	BEDROOM_SLEEP_IN_BED(Colour.BASE_PINK, "Sleep in bed", "BSI", "Permit this slave to sleep in your bed beside you, under the covers."),
+	
 	
 	;
 	

@@ -101,86 +101,13 @@
 	Gameplay:
 		Added a teleportation-related quest to Claire's content, which is available to start at any time via talking to her about teleportation.
 		Added a repeatable sex scene with Claire that can be accessed after completing her teleportation quest.
+		Overhauled the old, rather vague, personality system into one based on well-defined personality traits (which will make it a lot easier for me to factor them into dialogue variations in the future).
+		Old personalities are converted into the new system upon loading into this version, but if you want to save-edit it to something more suitable for your character, then you can add the traits in <trait> tags within a cahracter's <personality> tag. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/persona/PersonalityTrait.java
 	
-	DSG's Enforcer Clothing Contributions:
-		Added a huge amount of enforcer-related clothing (48 unique items of clothing), created by 'DSG'. The clothing (categorised by inventory slot) is as follows:
-		Head slot:
-			Enforcer's bowler hat (Feminine).
-			Enforcer's cap (Masculine).
-			Enforcer's riot helmet (Unisex).
-			Enforcer's beret (Unisex).
-			ORICL beret (Unisex).
-			SWORD beret (Unisex).
-			Enforcer's combat helmet (Unisex).
-		Eyes slot:
-			Ballistic glasses (Unisex).
-			Enforcer's ballistic goggles (Unisex).
-			Enforcer's night vision goggles (Unisex).
-		Mouth slot:
-			Enforcer's gas mask (Unisex).
-		Beck slot:
-			Enforcer's riot neck protector (Unisex).
-		Over-torso slot:
-			Enforcer's stabproof vest (Unisex).
-			Enforcer's riot armour (Unisex).
-			Enforcer's Chief Superintendent's coat (Unisex).
-			Enforcer's Superintendent's coat (Unisex).
-			Enforcer's Inspector's coat (Unisex).
-			Enforcer's Constable's coat (Unisex).
-			Enforcer's greatcoat (Unisex).
-			Commando sweater (Unisex).
-			Enforcer's commando sweater (Unisex).
-			V-necked commando sweater (Unisex).
-			Heavy Enforcer's plate carrier (Unisex).
-			Enforcer's plate carrier (Unisex).
-			Brax's Enforcer Inspector coat (Unisex).
-			Enforcer's Constable's coat (Unisex).
-			Candi's Enforcer Constable coat (Unisex).
-			Claire's Enforcer Sergeant coat (Unisex).
-			Claire's stabproof vest (Unisex).
-		Torso slot:
-			Enforcer's long-sleeved blouse (Feminine).
-			Enforcer's short-sleeved blouse (Feminine).
-			Enforcer's long-sleeved shirt (Masculine).
-			Enforcer's short-sleeved shirt (Masculine).
-			Combat shirt (Unisex).
-			Enforcer's combat shirt (Unisex).
-		Wrists slot:
-			Enforcer's riot arm guards (Unisex).
-			Enforcer's tactical elbow pads (Unisex).
-		Hips slot:
-			Enforcer's utility belt (Unisex).
-			Enforcer's riot belt (Unisex).
-			Enforcer's heavy battle belt (Unisex).
-			Enforcer's battle belt (Unisex).
-			Enforcer's dress belt (Unisex).
-			Enforcer's stable belt (Unisex).
-		Legs slot:
-			Enforcer's tactical trousers (Unisex).
-			Enforcer's uniform skirt (Feminine).
-			Enforcer's slacks (Unisex).
-			Enforcer's dress slacks (Unisex).
-		Feet slot:
-			Enforcer's jackboots (Unisex).
-			Enforcer's pumps (Feminine).
-			Tactical combat boots (Unisex).
-		Ankles slot:
-			Enforcer's riot shin guards (Unisex).
-			Enforcer's tactical kneepads (Unisex).
-	
-	DSG's Enforcer Weapon Contributions:
-		Added 9 new enforcer-related weapons (2 melee and 7 ranged). The weapons (categorised by melee/ranged) are as follows:
-		Melee slot:
-			Enforcer's baton.
-			Enforcer's riot shield.
-		Ranged slot:
-			Cryoprism gun.
-			LSG-9000 stun gun.
-			Pepper grenade launcher.
-			Pepperball pistol.
-			Pepperball rifle.
-			Arcane taser.
-			Revolving tranquiliser rifle.
+	DSG's Enforcer Clothing & Weapon Contributions:
+		Added a huge amount of enforcer-related clothing (48 unique items of clothing), created by 'DSG'.
+		Added 9 new enforcer-related weapons (2 melee and 7 ranged), also all created by 'DSG'.
+		The full list of new clothing and weapons is at the end of these patch notes.
 	
 	Slavery:
 		Added 'office' room upgrade, along with 'office worker' jobs for slaves, and moved the 'Slave List' action from your room into the office (and renamed it to 'Occupancy ledger').
@@ -192,6 +119,7 @@
 		Exercise and diet permissions now have a targeted size that you want your slave to be at, instead of perpetually increasing/decreasing their muscle and body size each day until switched back to the 'average' setting.
 		Added 'fatigue' value to jobs, and changed the 'overworked' status effect into three effects of increasing severity, which are gained at 1->9, 10->19, and 20+ daily fatigue.
 		Added a 'behaviour' permissions category, allowing you to set how slaves should act towards you.
+		Added 'bedroom' job for slaves, allowing you to assign them to wait on you and sleep with you in your bedroom.
 	
 	Other:
 		Characters with the denial fetish now lose affection if you end sex with them without giving them or denying them at least one orgasm.
@@ -280,34 +208,104 @@
 		Fixed bug where slaves would only be milked once each time you rested, instead of once per hour for the amount of hours spent resting.
 		The 'Ass-to-mouth' and 'Pussy-to-mouth' orgasm actions are not correctly marked as being sadistic.
 	
+	DSG's Enforcer Clothing Contributions:
+		The full list of DSG's Enforcer clothing (categorised by inventory slot) is as follows:
+		Head slot:
+			Enforcer's bowler hat (Feminine).
+			Enforcer's cap (Masculine).
+			Enforcer's riot helmet (Unisex).
+			Enforcer's beret (Unisex).
+			ORICL beret (Unisex).
+			SWORD beret (Unisex).
+			Enforcer's combat helmet (Unisex).
+		Eyes slot:
+			Ballistic glasses (Unisex).
+			Enforcer's ballistic goggles (Unisex).
+			Enforcer's night vision goggles (Unisex).
+		Mouth slot:
+			Enforcer's gas mask (Unisex).
+		Neck slot:
+			Enforcer's riot neck protector (Unisex).
+		Over-torso slot:
+			Enforcer's stabproof vest (Unisex).
+			Enforcer's riot armour (Unisex).
+			Enforcer's Chief Superintendent's coat (Unisex).
+			Enforcer's Superintendent's coat (Unisex).
+			Enforcer's Inspector's coat (Unisex).
+			Enforcer's Constable's coat (Unisex).
+			Enforcer's greatcoat (Unisex).
+			Commando sweater (Unisex).
+			Enforcer's commando sweater (Unisex).
+			V-necked commando sweater (Unisex).
+			Heavy Enforcer's plate carrier (Unisex).
+			Enforcer's plate carrier (Unisex).
+			Brax's Enforcer Inspector coat (Unisex).
+			Enforcer's Constable's coat (Unisex).
+			Candi's Enforcer Constable coat (Unisex).
+			Claire's Enforcer Sergeant coat (Unisex).
+			Claire's stabproof vest (Unisex).
+		Torso slot:
+			Enforcer's long-sleeved blouse (Feminine).
+			Enforcer's short-sleeved blouse (Feminine).
+			Enforcer's long-sleeved shirt (Masculine).
+			Enforcer's short-sleeved shirt (Masculine).
+			Combat shirt (Unisex).
+			Enforcer's combat shirt (Unisex).
+		Wrists slot:
+			Enforcer's riot arm guards (Unisex).
+			Enforcer's tactical elbow pads (Unisex).
+		Hips slot:
+			Enforcer's utility belt (Unisex).
+			Enforcer's riot belt (Unisex).
+			Enforcer's heavy battle belt (Unisex).
+			Enforcer's battle belt (Unisex).
+			Enforcer's dress belt (Unisex).
+			Enforcer's stable belt (Unisex).
+		Legs slot:
+			Enforcer's tactical trousers (Unisex).
+			Enforcer's uniform skirt (Feminine).
+			Enforcer's slacks (Unisex).
+			Enforcer's dress slacks (Unisex).
+		Feet slot:
+			Enforcer's jackboots (Unisex).
+			Enforcer's pumps (Feminine).
+			Tactical combat boots (Unisex).
+		Ankles slot:
+			Enforcer's riot shin guards (Unisex).
+			Enforcer's tactical kneepads (Unisex).
+	
+	DSG's Enforcer Weapon Contributions:
+		The full list of DSG's Enforcer weapons (categorised by melee/ranged) are as follows:
+		Melee slot:
+			Enforcer's baton.
+			Enforcer's riot shield.
+		Ranged slot:
+			Cryoprism gun.
+			LSG-9000 stun gun.
+			Pepper grenade launcher.
+			Pepperball pistol.
+			Pepperball rifle.
+			Arcane taser.
+			Revolving tranquiliser rifle.
+	
+	
+	
+	
+	Add slave in bedroom content
+		factor in personality and new behaviour settings
 			
-	
-	Add slave in bedroom
-		Sleep:
-			In bed
-			On floor
-		Duties (need to implement new personality system for this):
-			Clean
-			Wake up
-			Greeting
-			Help wash
-	
-	change personality system
-		Mannerisms:
-			Main dialogue-influencer: Shy/Excitable
-			Combat: Brave/Cowardly
-			Sexual: Lewd/Prude
-		Speech:
-			Bimbo/Bro
-			Lisp
-			Stutter
-	
-	On new game: Player does not have Quest: MAIN, MAIN_1_C_WOLFS_DEN	
-	
-	slave dialogues factor in personality and behaviour
-	
+	Room:
+		6 Manage room
+			Upgrade bed (affection+, boosted rest bonus)
+			Upgrade ensuite (huge bath)
+		7 Manage people
+		8+ people present
 	
 	Check bug reports
+	
+	speech traits
+	bimbo
+	
 	
 	Make fluid values based on weekly market fluctuations
 	

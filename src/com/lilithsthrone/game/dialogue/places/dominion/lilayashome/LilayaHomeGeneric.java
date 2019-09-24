@@ -53,12 +53,12 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.75
- * @version 0.3.4
+ * @version 0.3.5
  * @author Innoxia
  */
 public class LilayaHomeGeneric {
 	
-	private static List<NPC> getSlavesAndOccupantsPresent() {
+	public static List<NPC> getSlavesAndOccupantsPresent() {
 		List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 		charactersPresent.removeIf((character) -> character instanceof Elemental);
 		return charactersPresent;
