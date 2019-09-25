@@ -110,7 +110,7 @@ public class PositioningMenu {
 		if(position==SexPosition.STANDING) {
 			int sizeSlots = (doms.size()+subs.size())-1;
 			switch(sizeSlots) {
-				case 4:
+				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotStanding.STANDING_DOMINANT_FOUR);
 					slotsTwo.add(SexSlotStanding.STANDING_SUBMISSIVE_FOUR);
 					slotsThree.add(SexSlotStanding.STANDING_SUBMISSIVE_BEHIND_FOUR);
@@ -140,7 +140,7 @@ public class PositioningMenu {
 		if(position==SexPosition.AGAINST_WALL) {
 			int sizeSlots = (doms.size()+subs.size())-1;
 			switch(sizeSlots) {
-				case 4:
+				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotAgainstWall.STANDING_WALL_FOUR);
 					slotsTwo.add(SexSlotAgainstWall.FACE_TO_WALL_FOUR);
 					slotsThree.add(SexSlotAgainstWall.BACK_TO_WALL_FOUR);
@@ -166,7 +166,7 @@ public class PositioningMenu {
 		if(position==SexPosition.OVER_DESK) {
 			int sizeSlots = (doms.size()+subs.size())-1;
 			switch(sizeSlots) {
-				case 4:
+				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotDesk.BETWEEN_LEGS_FOUR);
 					slotsTwo.add(SexSlotDesk.PERFORMING_ORAL_FOUR);
 					slotsThree.add(SexSlotDesk.RECEIVING_ORAL_FOUR);
@@ -196,7 +196,7 @@ public class PositioningMenu {
 		if(position==SexPosition.STOCKS) {
 			int sizeSlots = (doms.size()+subs.size())-1;
 			switch(sizeSlots) {
-				case 4:
+				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotStocks.BEHIND_STOCKS_FOUR);
 					slotsTwo.add(SexSlotStocks.RECEIVING_ORAL_FOUR);
 					slotsThree.add(SexSlotStocks.PERFORMING_ORAL_FOUR);
@@ -222,7 +222,7 @@ public class PositioningMenu {
 		if(position==SexPosition.MILKING_STALL) {
 			int sizeSlots = (doms.size()+subs.size())-1;
 			switch(sizeSlots) {
-				case 4:
+				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotMilkingStall.BEHIND_MILKING_STALL_FOUR);
 					slotsTwo.add(SexSlotMilkingStall.RECEIVING_ORAL_FOUR);
 					slotsThree.add(SexSlotMilkingStall.PERFORMING_ORAL_FOUR);
@@ -248,7 +248,7 @@ public class PositioningMenu {
 		if(position==SexPosition.SITTING) {
 			int sizeSlots = (doms.size()+subs.size())-1;
 			switch(sizeSlots) {
-				case 4:
+				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotSitting.SITTING_FOUR);
 					slotsTwo.add(SexSlotSitting.SITTING_BETWEEN_LEGS_FOUR);
 					slotsThree.add(SexSlotSitting.SITTING_IN_LAP_FOUR);
@@ -278,7 +278,7 @@ public class PositioningMenu {
 		if(position==SexPosition.ALL_FOURS) {
 			int sizeSlots = (doms.size()+subs.size())-1;
 			switch(sizeSlots) {
-				case 4:
+				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotAllFours.ALL_FOURS_FOUR);
 					slotsTwo.add(SexSlotAllFours.BEHIND_FOUR);
 					slotsThree.add(SexSlotAllFours.BEHIND_ORAL_FOUR);
@@ -316,7 +316,7 @@ public class PositioningMenu {
 		if(position==SexPosition.LYING_DOWN) {
 			int sizeSlots = (doms.size()+subs.size())-1;
 			switch(sizeSlots) {
-				case 4:
+				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotLyingDown.LYING_DOWN_FOUR);
 					slotsTwo.add(SexSlotLyingDown.COWGIRL_FOUR);
 					slotsThree.add(SexSlotLyingDown.COWGIRL_REVERSE_FOUR);

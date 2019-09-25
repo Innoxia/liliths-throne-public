@@ -28,7 +28,8 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "Your evening at the museum turned out to be far more eventful than you'd have liked." + " A mysterious demon named Lilith tricked you into being pulled through a magical portal and into a parallel universe."
+			return "Your evening at the museum turned out to be far more eventful than you'd have liked."
+					+ " A mysterious demon named Lilith tricked you into being pulled through a magical portal and into a parallel universe."
 					+ " After waking up in the middle of an unfamiliar street, you were saved from a dire situation by the half-demon 'Lilaya'."
 					+ " She seems to be this universe's version of your aunt Lily, and, in return for agreeing to help her with her experiments, she's allowed you to stay at her home.";
 		}
@@ -354,7 +355,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "There are a lot of magical items in this new world. You wonder if you can find them all...";
+			return "There are a lot of curious items in this new world. You wonder if you can find them all...";
 		}
 
 		@Override
@@ -831,6 +832,51 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward.";
+		}
+	},
+	
+	
+	// Teleporting:
+	
+	TELEPORTING_START(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Escape from the warehouse";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Having accidentally teleported into the 'SWORD' enforcer division's storage warehouse, both you and Claire now need to avoid detection and make good your escape.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You and Claire managed to escape from SWORD's warehouse.";
+		}
+	},
+
+	TELEPORTING_CAUGHT(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Endure the stocks";
+		}
+
+		@Override
+		public String getDescription() {
+			if(Main.game.isNonConEnabled()) {
+				return "Having been defeated by the enforcers inside SWORD's warehouse, you've been sentenced to be locked into the public use stocks at slaver alley. Endure this ordeal until Claire comes to rescue you...";
+			} else {
+				return "Having been defeated by the enforcers inside SWORD's warehouse, you've been locked into the cells at Enforcer Headquarters. You'll have to wait until Claire comes to rescue you...";
+			}
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			if(Main.game.isNonConEnabled()) {
+				return "Having been defeated by the enforcers inside SWORD's warehouse, you had to endure being locked into the public use stocks at slaver alley for several hours before Claire turned up to release you.";
+			} else {
+				return "Having been defeated by the enforcers inside SWORD's warehouse, you had to endure being locked into the cells at Enforcer Headquarters for a couple of hours before Claire turned up to release you.";
+			}
 		}
 	},
 	

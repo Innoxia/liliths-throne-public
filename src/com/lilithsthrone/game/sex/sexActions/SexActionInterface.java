@@ -479,10 +479,16 @@ public interface SexActionInterface {
 	public default boolean isSwitchOngoingActionAvailable() {
 		if(Sex.getCharacterPerformingAction().isPlayer()
 				&& Sex.getSexControl(Sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
+			List<GameCharacter> ongoingTargetedAreaCharacters = Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0));
+			List<GameCharacter> ongoingPerformingAreaCharacters = Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterPerformingAction(), this.getPerformingCharacterAreas().get(0));
+			
 			// If targeted area is having multiple ongoing actions, or non-self actions that do not involve the player do not allow switch:
-			if(Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0)).size()>1
-					|| (!Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0)).contains(Sex.getCharacterTargetedForSexAction(this))
-							&& !Sex.getCharactersHavingOngoingActionWith(Sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0)).contains(Main.game.getPlayer()))) {
+			if(ongoingTargetedAreaCharacters.size()>1 || ongoingPerformingAreaCharacters.size()>1) {
+				return false;
+			}
+			if(!ongoingTargetedAreaCharacters.isEmpty()
+					&& !ongoingTargetedAreaCharacters.contains(Sex.getCharacterTargetedForSexAction(this))
+					&& !ongoingTargetedAreaCharacters.contains(Main.game.getPlayer())) {
 				return false;
 			}
 			
@@ -503,7 +509,9 @@ public interface SexActionInterface {
 				&& !isBannedFromSexManager()
 				&& !Sex.getPosition().isActionBlocked(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), this)) {
 			
-			if(this.getParticipantType()==SexParticipantType.SELF && Sex.getSexControl(Sex.getCharacterPerformingAction()).getValue()<SexControl.SELF.getValue()) {
+			if(this.getParticipantType()==SexParticipantType.SELF
+					&& !this.getActionType().isOrgasmOption()
+					&& Sex.getSexControl(Sex.getCharacterPerformingAction()).getValue()<SexControl.SELF.getValue()) {
 				return null;
 			}
 			

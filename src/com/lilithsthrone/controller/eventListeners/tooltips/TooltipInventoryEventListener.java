@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.markings.Scar;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
@@ -956,7 +957,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		// Attribute modifiers:
 		tooltipSB.append("<div class='container-full-width'>"
 				+ "<div class='container-half-width titular' style='width:calc(66.6% - 16px);'>"
-				+ "<span style='color:" + absWep.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absWep.getDisplayRarity())+"</span></br>"
+				+ "<span style='color:" + absWep.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absWep.getDisplayRarity())+"</span>"+ " | "+(absWep.getWeaponType().isMelee()?"Melee":"Ranged")+"</br>"
 				+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")+"</br>"
 				);
 
@@ -977,6 +978,7 @@ public class TooltipInventoryEventListener implements EventListener {
 								+ Attack.getMinimumDamage(equippedToCharacter, null, Attack.MAIN, absWep) + " - " + Attack.getMaximumDamage(equippedToCharacter, null, Attack.MAIN, absWep)
 							+ "</b>"
 							+ " <b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>");
+			
 		} else {
 			if(owner!=null && !owner.isPlayer()) {
 				listIncrease++;
@@ -1031,6 +1033,12 @@ public class TooltipInventoryEventListener implements EventListener {
 						+ absWep.getWeaponType().getDescription()
 					+ "</div>");
 
+		if(owner!=null && owner.getEssenceCount(TFEssence.ARCANE)<absWep.getWeaponType().getArcaneCost()) {
+			yIncrease+=2;
+			tooltipSB.append("<div class='container-full-width titular'>"
+								+ "[style.colourBad(Not enough essences to fire!)]"
+							+ "</div>");
+		}
 		
 		// Value:
 
@@ -1149,8 +1157,17 @@ public class TooltipInventoryEventListener implements EventListener {
 		tooltipSB.append("<div class='container-full-width'>"
 				+ "<div class='container-half-width titular' style='width:calc(66.6% - 16px);'>");
 		
-
-		tooltipSB.append("<span style='color:" + absClothing.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absClothing.getDisplayRarity())+"</span>");
+		Femininity femininityRestriction = absClothing.getClothingType().getFemininityRestriction();
+		tooltipSB.append(
+				"<span style='color:" + (absClothing.isEnchantmentKnown()?absClothing.getRarity().getColour():Colour.TEXT_GREY).toWebHexString() + ";'>"
+						+Util.capitaliseSentence(absClothing.getDisplayRarity())
+				+"</span>"
+				+ " | "
+				+ (femininityRestriction==null || femininityRestriction==Femininity.ANDROGYNOUS
+					?"[style.boldAndrogynous(Unisex)]"
+					:(femininityRestriction.isFeminine()
+						?"[style.boldFeminine(Feminine)]"
+						:"[style.boldMasculine(Masculine)]")));
 		
 		float res = absClothing.getClothingType().getPhysicalResistance();
 		if(res>0) {
@@ -1203,6 +1220,7 @@ public class TooltipInventoryEventListener implements EventListener {
 			for(int i=0; i<absClothing.getClothingType().getEquipSlots().size();i++) {
 				if(i>0) {
 					tooltipSB.append("<br/>");
+					yIncrease++;
 				}
 				InventorySlot slot = absClothing.getClothingType().getEquipSlots().get(i);
 				

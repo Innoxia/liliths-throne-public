@@ -116,9 +116,12 @@ public class Library {
 				return "Library";
 				
 			} else if(index==1) {
-				return "Spells";
+				return "Fast Travel";
 				
 			} else if(index==2) {
+				return "Spells";
+				
+			} else if(index==3) {
 				return "Races";
 			}
 			
@@ -196,6 +199,9 @@ public class Library {
 				}
 				
 			} else if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			
+			} else if(responseTab==2) {
 				List<Spell> spells = Main.game.getPlayer().getSpells();
 				Spell spell = null;
 				
@@ -217,9 +223,9 @@ public class Library {
 					return getSpellResponse(spell);
 				}
 				
-			} else if(responseTab==2) {
+			} else if(responseTab==3) {
 				if (index == 1) {
-					return new Response("Ancient Ones", "A section of the library dedicated to books concerning the elder races.", ELDER_RACES);
+					return new Response("Ancient Ones", "A section of the library dedicated to books concerning demonic and angelic races.", ELDER_RACES);
 
 				} else if (index == 2) {
 					return new Response("Races of Dominion", "A section of the library dedicated to books concerning the predominate races within the city.", DOMINION_RACES);
@@ -568,7 +574,7 @@ public class Library {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(responseTab==2) {
+			if(responseTab==3) {
 				if (index == 1) {
 					return bookResponse(Subspecies.ANGEL);
 	
@@ -629,7 +635,7 @@ public class Library {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(responseTab==2) {
+			if(responseTab==3) {
 				if (index == 1) {
 					return bookResponse(Subspecies.HARPY);
 	
@@ -704,7 +710,7 @@ public class Library {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(responseTab==2) {
+			if(responseTab==3) {
 				if (index == 1) {
 					return bookResponse(Subspecies.SQUIRREL_MORPH);
 	

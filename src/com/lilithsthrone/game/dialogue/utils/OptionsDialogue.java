@@ -615,7 +615,7 @@ public class OptionsDialogue {
 
 			} else if (index == 3) {
 				return new Response("Font-size -",
-						"Increase the size of the game's font. Default value is 18. Current value is "+Main.getProperties().fontSize+".",
+						"Decrease the size of the game's font. Default value is 18. Current value is "+Main.getProperties().fontSize+".",
 								OPTIONS){
 					@Override
 					public void effects() {

@@ -12,7 +12,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum OutfitType {
@@ -26,11 +26,11 @@ public enum OutfitType {
 	/** To be used for characters in a casual setting. Either at home, going out, or non-uniformed casual work. */
 	CASUAL,
 
-	/** To be used for formal business. Suits and such. */
-	BUSINESS,
+	/** To be used for the character's smart clothing at their job. */
+	JOB_SMART,
 
-	/** To be used when performing manual labour. */
-	MANUAL_LABOUR,
+	/** To be used when performing manual labour or other such work. */
+	JOB_LABOUR,
 
 	/** To be used when going clubbing. */
 	CLUBBING,

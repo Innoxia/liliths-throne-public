@@ -235,11 +235,11 @@ public class Response {
 	private boolean isAvailableFromAdditionalOngoingAvailableMap() {
 		return getAdditionalOngoingAvailableMap()!=null && !getAdditionalOngoingAvailableMap().values().contains(false);
 	}
-	
+
 	public final void applyEffects() {
 		effects();
 	}
-	
+
 	public void effects() {
 	}
 	
@@ -262,13 +262,26 @@ public class Response {
 	 * @return true if this action has no requirements, or if all requirements are met.
 	 */
 	public boolean isAvailable(){
-		return !hasRequirements()
-				|| ((isCorruptionWithinRange() || isAvailableFromFetishes() || (corruptionBypass==null && fetishesRequired==null))
+		if(!hasRequirements()) {
+			return true;
+		}
+		boolean corruptionOrFetishReqs = false;
+		if(sexActionType!=null) {
+			corruptionOrFetishReqs = isCorruptionWithinRange() || isAvailableFromFetishes() || (corruptionBypass==null && fetishesRequired==null);
+		} else {
+			if(corruptionBypass==null) {
+				corruptionOrFetishReqs = isAvailableFromFetishes() || fetishesRequired==null;
+			} else {
+				corruptionOrFetishReqs = isCorruptionWithinRange() || isAvailableFromFetishes();
+			}
+		}
+		
+		return corruptionOrFetishReqs
 					&& !isBlockedFromPerks()
 					&& isFemininityInRange()
 					&& isRequiredRace()
 					&& (sexActionType!=SexActionType.SPEECH || !Sex.isOngoingActionsBlockingSpeech(Main.game.getPlayer()))
-					&& (isAvailableFromAdditionalOngoingAvailableMap() || (isPenetrationTypeAvailable() && isOrificeTypeAvailable())));
+					&& (isAvailableFromAdditionalOngoingAvailableMap() || (isPenetrationTypeAvailable() && isOrificeTypeAvailable()));
 	}
 	
 	/**
@@ -277,11 +290,15 @@ public class Response {
 	public boolean isAbleToBypass(){
 		if(!isAvailable()
 				&& (!Main.game.isInSex() || Main.getProperties().hasValue(PropertyValue.bypassSexActions))
-				&& (!isBlockedFromPerks()
-						&& isFemininityInRange()
-						&& isRequiredRace()
-						&& (isAvailableFromAdditionalOngoingAvailableMap() || (isPenetrationTypeAvailable() && isOrificeTypeAvailable())))) {
-			return !isCorruptionWithinRange() && !isAvailableFromFetishes();
+				&& !isBlockedFromPerks()
+				&& isFemininityInRange()
+				&& isRequiredRace()
+				&& !isAvailableFromFetishes()
+				&& (isAvailableFromAdditionalOngoingAvailableMap() || (isPenetrationTypeAvailable() && isOrificeTypeAvailable()))) {
+			if(!Main.game.isInSex() && corruptionBypass==null) { // DO not allow bypass out of sex if there is no corruption bypassing
+				return false;
+			}
+			return !isCorruptionWithinRange();
 		}
 		
 		return false;
@@ -327,13 +344,26 @@ public class Response {
 		if(this.sexActionType ==SexActionType.START_ONGOING
 				&& Sex.getCharacterPerformingAction().isPlayer()
 				&& Sex.getSexControl(characterPerformingSexAction).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
-			if(Sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).size()>1
-					|| (!Sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).contains(characterTargetedForSexAction)
-							&& !Sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).contains(Main.game.getPlayer()))) {
+//			if(Sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).size()>1
+//					|| (!Sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).contains(characterTargetedForSexAction)
+//							&& !Sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).contains(Main.game.getPlayer()))) {
+//				return false;
+//			}
+			List<GameCharacter> ongoingTargetedAreaCharacters = Sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0));
+			List<GameCharacter> ongoingPerformingAreaCharacters = Sex.getCharactersHavingOngoingActionWith(characterPerformingSexAction, this.sexAreaAccessRequiredForPerformer.get(0));
+			
+			// If targeted area is having multiple ongoing actions, or non-self actions that do not involve the player do not allow switch:
+			if(ongoingTargetedAreaCharacters.size()>1 || ongoingPerformingAreaCharacters.size()>1) {
 				return false;
 			}
+			if(!ongoingTargetedAreaCharacters.isEmpty()
+					&& !ongoingTargetedAreaCharacters.contains(characterTargetedForSexAction)
+					&& !ongoingTargetedAreaCharacters.contains(Main.game.getPlayer())) {
+				return false;
+			}
+			
 			try {
-				return !Sex.getOngoingActionsMap(Sex.getCharacterPerformingAction()).get(this.sexAreaAccessRequiredForPerformer.get(0)).get(characterTargetedForSexAction).contains(this.sexAreaAccessRequiredForTargeted.get(0));
+				return !Sex.getOngoingActionsMap(characterPerformingSexAction).get(this.sexAreaAccessRequiredForPerformer.get(0)).get(characterTargetedForSexAction).contains(this.sexAreaAccessRequiredForTargeted.get(0));
 			} catch(Exception ex) {
 				return true;
 			}

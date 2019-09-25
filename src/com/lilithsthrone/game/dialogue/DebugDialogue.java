@@ -185,6 +185,9 @@ public class DebugDialogue {
 						}
 					};
 					
+				}else if (index == 13) {
+					return new Response("Very long action text for testing", "Very long action text for testing.", null);
+					
 				}
 				
 			} else if(responseTab==1) {
@@ -598,7 +601,7 @@ public class DebugDialogue {
 								+ "<div class='inventory-icon-content'>"
 									+c.getSVGImage(
 											c.getEquipSlots().get(0),
-											c.getAllAvailablePrimaryColours().get(0),
+											c.getAvailablePrimaryColours().get(0),
 											c.getAvailableSecondaryColours().isEmpty()?null:c.getAvailableSecondaryColours().get(0),
 											c.getAvailableTertiaryColours().isEmpty()?null:c.getAvailableTertiaryColours().get(0),
 											null, null, null, null)
@@ -669,7 +672,7 @@ public class DebugDialogue {
 												+ "<div class='inventory-icon-content'>"
 													+clothingType.getSVGImage(
 															clothingType.getEquipSlots().get(0),
-															clothingType.getAllAvailablePrimaryColours().get(0),
+															clothingType.getAvailablePrimaryColours().get(0),
 															clothingType.getAvailableSecondaryColours().isEmpty()?null:clothingType.getAvailableSecondaryColours().get(0),
 															clothingType.getAvailableTertiaryColours().isEmpty()?null:clothingType.getAvailableTertiaryColours().get(0),
 															null, null, null, null)
@@ -776,7 +779,7 @@ public class DebugDialogue {
 				inventorySB.append("</div>");
 			}
 
-			if(viewAll || itemViewSlot.isWeapon()) {
+			if(viewAll || (itemViewSlot!=null && itemViewSlot.isWeapon())) {
 				inventorySB.append("<div class='inventory-not-equipped' style='-webkit-user-select:auto;'>"
 						+ "<h5>Total weapons: "+weaponsTotal.size()+"</h5>");
 				for(AbstractWeaponType weaponType : weaponsTotal) {
@@ -804,7 +807,7 @@ public class DebugDialogue {
 											+ "<div class='inventory-icon-content'>"
 												+clothingType.getSVGImage(
 														clothingType.getEquipSlots().get(0),
-														Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
+														clothingType.getAvailablePrimaryColours().get(0),
 														clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
 														clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
 														null, null, null, null)
@@ -826,7 +829,7 @@ public class DebugDialogue {
 								+ "<div class='inventory-icon-content'>"
 									+clothingType.getSVGImage(
 											clothingType.getEquipSlots().get(0),
-											Util.randomItemFrom(clothingType.getAvailablePrimaryColours()),
+											clothingType.getAvailablePrimaryColours().get(0),
 											clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
 											clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
 											null, null, null, null)

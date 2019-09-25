@@ -7,10 +7,21 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.87
- * @version 0.2.5
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum SlavePermission {
+
+
+	BEHAVIOUR(Colour.BASE_TEAL,
+			"Behaviour",
+			Util.newArrayListOfValues(
+					SlavePermissionSetting.BEHAVIOUR_SLUTTY,
+					SlavePermissionSetting.BEHAVIOUR_SEDUCTIVE,
+					SlavePermissionSetting.BEHAVIOUR_STANDARD,
+					SlavePermissionSetting.BEHAVIOUR_PROFESSIONAL,
+					SlavePermissionSetting.BEHAVIOUR_WHOLESOME),
+			true),
 	
 	GENERAL(Colour.TRANSFORMATION_GENERIC,
 			"General",
@@ -20,7 +31,7 @@ public enum SlavePermission {
 					SlavePermissionSetting.GENERAL_HOUSE_FREEDOM,
 					SlavePermissionSetting.GENERAL_OUTSIDE_FREEDOM),
 			false),
-
+	
 	SEX(Colour.GENERIC_SEX,
 			"Sex",
 			Util.newArrayListOfValues(
@@ -32,7 +43,7 @@ public enum SlavePermission {
 					SlavePermissionSetting.SEX_IMPREGNATE),
 			false),
 
-	PREGNANCY(Colour.ATTRIBUTE_LUST,
+	PREGNANCY(Colour.BASE_PURPLE_LIGHT,
 			"Pregnancy",
 			Util.newArrayListOfValues(
 					SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS,
@@ -60,7 +71,7 @@ public enum SlavePermission {
 					SlavePermissionSetting.EXERCISE_BODY_BUILDING),
 			true),
 	
-	CLEANLINESS(Colour.BASE_AQUA,
+	CLEANLINESS(Colour.BASE_BLUE_LIGHT,
 			"Cleanliness",
 			Util.newArrayListOfValues(
 					SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES,

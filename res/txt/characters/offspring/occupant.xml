@@ -749,7 +749,7 @@
 	</p>
 	<p>
 		Moving on to talk about [npc.namePos] opinion of slavery in general, [npc.she] tells you that
-		#IF (npc.isTrusting())
+		#IF (npc.isKind())
 			 [npc.she] feels sorry for those bound into a life of servitude, and that [npc.she] hopes one day slavery will be abolished.
 		#ELSE
 			#IF (npc.isSelfish())
@@ -771,7 +771,7 @@
 	</p>
 	<p>
 		Moving on to talk about [npc.namePos] opinion of slavery in general, [npc.she] tells you that
-		#IF (npc.isTrusting())
+		#IF (npc.isKind())
 			 [npc.she] feels sorry for those bound into a life of servitude, and that [npc.she] hopes one day slavery will be abolished.
 		#ELSE
 			#IF (npc.isSelfish())

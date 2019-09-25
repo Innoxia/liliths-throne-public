@@ -143,9 +143,9 @@ public enum Colour {
 	RACE_BAT_MORPH(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("batMorph", "bat")),
 	RACE_ALLIGATOR_MORPH(false, BaseColour.GREEN_DARK, "dark green", Util.newArrayListOfValues("alligatorMorph", "alligator", "gatorMorph", "gator")),
 	
-	QUEST_MAIN(false, BaseColour.PINK, "pink"),
-	QUEST_SIDE(false, BaseColour.BLUE, "blue"),
-	QUEST_RELATIONSHIP(false, BaseColour.PINK_LIGHT, "pink"),
+	QUEST_MAIN(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("questMain", "mainQuest")),
+	QUEST_SIDE(false, BaseColour.BLUE, "blue", Util.newArrayListOfValues("questSide", "sideQuest")),
+	QUEST_RELATIONSHIP(false, BaseColour.PINK_LIGHT, "pink", Util.newArrayListOfValues("questRelationship", "relationshipQuest")),
 
 	MAP_MARKER(false, Util.newColour(0x6163DB), Util.newColour(0x6163DB), "blue"),
 

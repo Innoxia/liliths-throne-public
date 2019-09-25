@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -20,7 +21,6 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -65,13 +65,6 @@ public class TestNPC extends NPC {
 				28, Month.JUNE, 1,
 				1, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.PARTIAL_FULL,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
-
-		this.setPersonality(Util.newHashMapOfValues(
-				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
-				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
-				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.LOW),
-				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.HIGH),
-				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
 		
 		if(!isImported) {
 			String s = "";
@@ -80,47 +73,6 @@ public class TestNPC extends NPC {
 				s+=(char)c;
 			}
 			this.setName(new NameTriplet(s));
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_GREEN));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BROWN), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BROWN), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
-	
-			this.setFemininity(75);
-			
-			this.setHeight(170);
-			
-			this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-			
-			this.setAssSize(AssSize.THREE_NORMAL.getValue());
-			
-			this.setBreastSize(CupSize.B.getMeasurement());
-			
-			this.setHipSize(HipSize.FOUR_WOMANLY.getValue());
-			
-			this.setPiercedEar(true);
-			
-			this.setAssVirgin(true);
-			this.setNippleVirgin(true);
-			this.setVaginaVirgin(true);
-			this.setFaceVirgin(true);
-			
-			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
-			this.addFetish(Fetish.FETISH_BREASTS_SELF);
-			this.addFetish(Fetish.FETISH_CUM_ADDICT);
-			this.addFetish(Fetish.FETISH_DOMINANT);
-			this.addFetish(Fetish.FETISH_INCEST);
-			this.addFetish(Fetish.FETISH_MASOCHIST);
-			this.addFetish(Fetish.FETISH_MASTURBATION);
-			this.addFetish(Fetish.FETISH_NON_CON_SUB);
-			this.addFetish(Fetish.FETISH_ORAL_GIVING);
-			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-			this.addFetish(Fetish.FETISH_PREGNANCY);
-			this.addFetish(Fetish.FETISH_PURE_VIRGIN);
-			this.addFetish(Fetish.FETISH_SUBMISSIVE);
-			this.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING);
 			
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
@@ -137,16 +89,68 @@ public class TestNPC extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
+			this.setPersonalityTraits(
+					PersonalityTrait.KIND,
+					PersonalityTrait.SHY,
+					PersonalityTrait.INNOCENT);
+		}
 	}
 
 	@Override
 	public void setStartingBody(boolean setPersona) {
-		// TODO
+		if(setPersona) {
+			this.setPersonalityTraits(
+					PersonalityTrait.KIND,
+					PersonalityTrait.SHY,
+					PersonalityTrait.INNOCENT);
+
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_BREASTS_SELF);
+			this.addFetish(Fetish.FETISH_CUM_ADDICT);
+			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_INCEST);
+			this.addFetish(Fetish.FETISH_MASOCHIST);
+			this.addFetish(Fetish.FETISH_MASTURBATION);
+			this.addFetish(Fetish.FETISH_NON_CON_SUB);
+			this.addFetish(Fetish.FETISH_ORAL_GIVING);
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_PREGNANCY);
+			this.addFetish(Fetish.FETISH_PURE_VIRGIN);
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING);
+		}
+		
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_GREEN));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BROWN), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BROWN), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+
+		this.setFemininity(75);
+		
+		this.setHeight(170);
+		
+		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+		
+		this.setAssSize(AssSize.THREE_NORMAL.getValue());
+		
+		this.setBreastSize(CupSize.B.getMeasurement());
+		
+		this.setHipSize(HipSize.FOUR_WOMANLY.getValue());
+
+		this.setAssVirgin(true);
+		this.setNippleVirgin(true);
+		this.setVaginaVirgin(true);
+		this.setFaceVirgin(true);
 	}
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.resetInventory(true);
+
+		this.setPiercedEar(true);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);

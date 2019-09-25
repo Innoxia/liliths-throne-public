@@ -40,11 +40,11 @@ public class CharactersPresentDialogue {
 		menuTitle = "Characters Present ("+Util.capitaliseSentence(CharactersPresentDialogue.characterViewed.getName(true))+")";
 		menuContent = ((NPC) CharactersPresentDialogue.characterViewed).getCharacterInformationScreen(true);
 
-		if(Main.game.getPlayer().hasCompanion(characterViewed)) {
-			if(characterViewed.isSlave() && characterViewed.getOwner().isPlayer()) {
-				SlaveDialogue.initDialogue((NPC) characterViewed, true);
+		if(Main.game.getPlayer().hasCompanion(CharactersPresentDialogue.characterViewed)) {
+			if(CharactersPresentDialogue.characterViewed.isSlave() && CharactersPresentDialogue.characterViewed.getOwner().isPlayer()) {
+				SlaveDialogue.initDialogue((NPC) CharactersPresentDialogue.characterViewed, true);
 			} else {
-				OccupantDialogue.initDialogue((NPC) characterViewed, false, true);
+				OccupantDialogue.initDialogue((NPC) CharactersPresentDialogue.characterViewed, false, true);
 			}
 		}
 		

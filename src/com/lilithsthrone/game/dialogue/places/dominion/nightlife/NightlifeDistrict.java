@@ -19,12 +19,11 @@ import com.lilithsthrone.game.character.npc.dominion.Kalahari;
 import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.places.dominion.SMJulesCockSucking;
+import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -36,11 +35,12 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.managers.dominion.SMJulesCockSucking;
 import com.lilithsthrone.game.sex.managers.dominion.SMKrugerChair;
 import com.lilithsthrone.game.sex.managers.dominion.gloryHole.SMGloryHole;
 import com.lilithsthrone.game.sex.managers.dominion.toiletStall.SMStallSex;
-import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
+import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
@@ -58,7 +58,7 @@ import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.5
  * @author Innoxia
  */
 public class NightlifeDistrict {
@@ -90,8 +90,8 @@ public class NightlifeDistrict {
 		
 		clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC)
 				|| (submissiveClubbers
-					?npc.getPersonality().get(PersonalityTrait.EXTROVERSION)==PersonalityWeight.HIGH
-					:npc.getPersonality().get(PersonalityTrait.EXTROVERSION)!=PersonalityWeight.HIGH));
+					?getPartner().hasPersonalityTrait(PersonalityTrait.CONFIDENT)
+					:!getPartner().hasPersonalityTrait(PersonalityTrait.CONFIDENT)));
 		
 		return clubbers;
 	}
@@ -105,11 +105,7 @@ public class NightlifeDistrict {
 	}
 	
 	public static boolean isPartnerSub() {
-		return getPartner().getPersonality().get(PersonalityTrait.EXTROVERSION)!=PersonalityWeight.HIGH;
-	}
-	
-	public static PersonalityWeight getPartnerAgreeableness() {
-		return getPartner().getPersonality().get(PersonalityTrait.AGREEABLENESS);
+		return getPartner().hasPersonalityTrait(PersonalityTrait.CONFIDENT);
 	}
 	
 	public static void saveClubbers() {
@@ -379,7 +375,7 @@ public class NightlifeDistrict {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override
@@ -1019,18 +1015,18 @@ public class NightlifeDistrict {
 						+getClubberStatus(this.getSecondsPassed());
 				
 			} else {
-				switch(getPartnerAgreeableness()) {
-					case AVERAGE:
-						return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEARCH_GENERATE_DOM_AVERAGE", getClubbersPresent())
-								+getClubberStatus(this.getSecondsPassed());
-					case HIGH:
-						return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEARCH_GENERATE_DOM_NICE", getClubbersPresent())
-								+getClubberStatus(this.getSecondsPassed());
-					case LOW:
-						return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEARCH_GENERATE_DOM_SLEAZY", getClubbersPresent())
-								+getClubberStatus(this.getSecondsPassed());
+				if(getPartner().hasPersonalityTrait(PersonalityTrait.SELFISH)) {
+					return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEARCH_GENERATE_DOM_SLEAZY", getClubbersPresent())
+							+getClubberStatus(this.getSecondsPassed());
+					
+				} else if(getPartner().hasPersonalityTrait(PersonalityTrait.KIND)) {
+					return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEARCH_GENERATE_DOM_NICE", getClubbersPresent())
+							+getClubberStatus(this.getSecondsPassed());
+					
+				} else {
+					return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEARCH_GENERATE_DOM_AVERAGE", getClubbersPresent())
+							+getClubberStatus(this.getSecondsPassed());
 				}
-				return "";
 			}
 		}
 
@@ -1143,24 +1139,24 @@ public class NightlifeDistrict {
 		}
 		
 		if(submissiveClubbers) {
+			clubber.removePersonalityTrait(PersonalityTrait.SELFISH);
+			clubber.removePersonalityTrait(PersonalityTrait.BRAVE);
+			clubber.removePersonalityTrait(PersonalityTrait.CONFIDENT);
 			if(Math.random()<0.5) {
-				clubber.setPersonalityTrait(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE);
-			} else {
-				clubber.setPersonalityTrait(PersonalityTrait.EXTROVERSION, PersonalityWeight.LOW);
+				clubber.addPersonalityTrait(PersonalityTrait.SHY);
 			}
 			if(clubber.getFetishDesire(Fetish.FETISH_SUBMISSIVE).isNegative()) {
 				clubber.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.TWO_NEUTRAL);
 			}
 			
 		} else {
-			clubber.setPersonalityTrait(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH);
 			double rnd = Math.random();
+			clubber.removePersonalityTrait(PersonalityTrait.SHY);
+			clubber.addPersonalityTrait(PersonalityTrait.CONFIDENT);
 			if(rnd<0.33f) {
-				clubber.setPersonalityTrait(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW);
+				clubber.addPersonalityTrait(PersonalityTrait.KIND);
 			} else if(rnd<0.66f) {
-				clubber.setPersonalityTrait(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE);
-			} else {
-				clubber.setPersonalityTrait(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH);
+				clubber.addPersonalityTrait(PersonalityTrait.SELFISH);
 			}
 			if(clubber.getFetishDesire(Fetish.FETISH_DOMINANT).isNegative()) {
 				clubber.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.TWO_NEUTRAL);
@@ -4040,13 +4036,14 @@ public class NightlifeDistrict {
 	
 	private static boolean isPartnerOfferingDrinks() {
 		if(buyingDrinks) {
-			switch(getPartnerAgreeableness()) {
-				case AVERAGE:
-					return Main.game.getPlayer().getAlcoholLevelValue() < AlcoholLevel.THREE_DRUNK.getMinimumValue();
-				case HIGH:
-					return Main.game.getPlayer().getAlcoholLevelValue() < AlcoholLevel.ONE_TIPSY.getMinimumValue();
-				case LOW:
-					return Main.game.getPlayer().getAlcoholLevelValue() < AlcoholLevel.FOUR_HAMMERED.getMinimumValue();
+			if(getPartner().hasPersonalityTrait(PersonalityTrait.SELFISH)) {
+				return Main.game.getPlayer().getAlcoholLevelValue() < AlcoholLevel.FOUR_HAMMERED.getMinimumValue();
+				
+			} else if(getPartner().hasPersonalityTrait(PersonalityTrait.KIND)) {
+				return Main.game.getPlayer().getAlcoholLevelValue() < AlcoholLevel.ONE_TIPSY.getMinimumValue();
+				
+			} else {
+				return Main.game.getPlayer().getAlcoholLevelValue() < AlcoholLevel.THREE_DRUNK.getMinimumValue();
 			}
 		}
 		return false;
@@ -4069,196 +4066,193 @@ public class NightlifeDistrict {
 	 */
 	
 	private static ClubberBehaviour getClubberBehaviour() {
-		
-		switch(getPartnerAgreeableness()) {
-			case AVERAGE: // Only goes to: Bar, dance floor, and seating area.
-				if(currentBehaviour!=ClubberBehaviour.BAR_DRINK
-					&& isPartnerOfferingDrinks()
-					&& (getCurrentPlaceType()==ClubberBehaviour.BAR_DRINK.getPlaceType() || isWillingToMoveLocation())) {
-					return ClubberBehaviour.BAR_DRINK;
-				}
+
+		if(getPartner().hasPersonalityTrait(PersonalityTrait.SELFISH)) { // Only goes to: Bar, dance floor, and toilets.
+			if(currentBehaviour!=ClubberBehaviour.BAR_DRINK
+				&& isPartnerOfferingDrinks()
+				&& (getCurrentPlaceType()==ClubberBehaviour.BAR_DRINK.getPlaceType() || isWillingToMoveLocation())) {
+				return ClubberBehaviour.BAR_DRINK;
+			}
+			
+			if(isWillingToMoveLocation() && likesSex(getPartner())) {
+				return ClubberBehaviour.TOILETS;
 				
-				if((isWillingToMoveLocation() || getCurrentPlaceType()==ClubberBehaviour.SIT_DOWN_SEX.getPlaceType()) && likesSex(getPartner())) {
-					return ClubberBehaviour.SIT_DOWN_SEX;
-				}
-				if(likesGroping(getPartner())) {
-					if((isWillingToMoveLocation() || getCurrentPlaceType()==ClubberBehaviour.SIT_DOWN_FOOTSIE.getPlaceType())) {
-						if(currentBehaviour!=ClubberBehaviour.SIT_DOWN_FOOTSIE) {
-							return ClubberBehaviour.SIT_DOWN_FOOTSIE;
-						} else {
-							return ClubberBehaviour.SIT_DOWN_KISS;
-						}
-						
-					} else if(getCurrentPlaceType()==ClubberBehaviour.DANCE_GROPE.getPlaceType()) {
-						if(currentBehaviour!=ClubberBehaviour.DANCE_GROPE) {
-							return ClubberBehaviour.DANCE_GROPE;
-						} else {
-							return ClubberBehaviour.DANCE_KISS;
-						}
-						
+			}
+			if(!isWillingToMoveLocation()) {
+				if(getCurrentPlaceType()==ClubberBehaviour.DANCE_GROPE.getPlaceType()) {
+					if(currentBehaviour!=ClubberBehaviour.DANCE_GROPE) {
+						return ClubberBehaviour.DANCE_GROPE;
 					} else {
+						return ClubberBehaviour.DANCE_KISS;
+					}
+				} else {
+					if(likesKiss(getPartner())) {
 						if(currentBehaviour!=ClubberBehaviour.BAR_GROPE) {
 							return ClubberBehaviour.BAR_GROPE;
 						} else {
 							return ClubberBehaviour.BAR_KISS;
 						}
-					}
-				}
-				if(likesKiss(getPartner())) {
-					if((isWillingToMoveLocation() || getCurrentPlaceType()==ClubberBehaviour.SIT_DOWN_KISS.getPlaceType())) {
-						if(currentBehaviour!=ClubberBehaviour.SIT_DOWN_KISS) {
-							return ClubberBehaviour.SIT_DOWN_KISS;
-						} else {
-							return ClubberBehaviour.SIT_DOWN_FLIRT;
-						}
-						
-					} else if(getCurrentPlaceType()==ClubberBehaviour.DANCE_GROPE.getPlaceType()) {
-						if(currentBehaviour!=ClubberBehaviour.DANCE_KISS) {
-							return ClubberBehaviour.DANCE_KISS;
-						} else {
-							return ClubberBehaviour.DANCE;
-						}
-						
 					} else {
-						if(currentBehaviour!=ClubberBehaviour.BAR_KISS) {
-							return ClubberBehaviour.BAR_KISS;
-						} else {
+						if(currentBehaviour!=ClubberBehaviour.BAR_FLIRT) {
 							return ClubberBehaviour.BAR_FLIRT;
-						}
-					}
-				}
-				if(getCurrentPlaceType()==ClubberBehaviour.DANCE.getPlaceType() || !isWillingToMoveLocation()) { // If dancing, just move back to bar
-					if(currentBehaviour!=ClubberBehaviour.BAR_FLIRT) {
-						return ClubberBehaviour.BAR_FLIRT;
-					} else {
-						return ClubberBehaviour.BAR_TALK;
-					}
-					
-				} else {
-					return ClubberBehaviour.DANCE;
-				}
-				
-			case HIGH: // Only goes to: Bar, seating area.
-				if(currentBehaviour!=ClubberBehaviour.BAR_DRINK
-					&& isPartnerOfferingDrinks()
-					&& (getCurrentPlaceType()==ClubberBehaviour.BAR_DRINK.getPlaceType() || isWillingToMoveLocation())) {
-					return ClubberBehaviour.BAR_DRINK;
-				}
-				
-				if(likesSex(getPartner())) {
-					if(getCurrentPlaceType()==ClubberBehaviour.SIT_DOWN_INVITE_HOME.getPlaceType()) {
-						return ClubberBehaviour.SIT_DOWN_INVITE_HOME;
-					} else {
-						return ClubberBehaviour.BAR_INVITE_HOME;
-					}
-				}
-				if(likesGroping(getPartner())) {
-					if((isWillingToMoveLocation() || getCurrentPlaceType()==ClubberBehaviour.SIT_DOWN_FOOTSIE.getPlaceType())) {
-						if(currentBehaviour!=ClubberBehaviour.SIT_DOWN_FOOTSIE) {
-							return ClubberBehaviour.SIT_DOWN_FOOTSIE;
 						} else {
-							return ClubberBehaviour.SIT_DOWN_KISS;
+							return ClubberBehaviour.BAR_KISS;
 						}
-						
+					}
+				}
+				
+			} else {
+				if(getCurrentPlaceType()!=ClubberBehaviour.DANCE_GROPE.getPlaceType()) {
+					if(currentBehaviour!=ClubberBehaviour.DANCE_GROPE) {
+						return ClubberBehaviour.DANCE_GROPE;
 					} else {
+						return ClubberBehaviour.DANCE_KISS;
+					}
+				} else {
+					if(likesKiss(getPartner())) {
 						if(currentBehaviour!=ClubberBehaviour.BAR_GROPE) {
 							return ClubberBehaviour.BAR_GROPE;
 						} else {
 							return ClubberBehaviour.BAR_KISS;
 						}
-					}
-				}
-				if(likesKiss(getPartner())) {
-					if((isWillingToMoveLocation() || getCurrentPlaceType()==ClubberBehaviour.SIT_DOWN_KISS.getPlaceType())) {
-						if(currentBehaviour!=ClubberBehaviour.SIT_DOWN_KISS) {
-							return ClubberBehaviour.SIT_DOWN_KISS;
-						} else {
-							return ClubberBehaviour.SIT_DOWN_FLIRT;
-						}
-						
 					} else {
-						if(currentBehaviour!=ClubberBehaviour.BAR_KISS) {
-							return ClubberBehaviour.BAR_KISS;
-						} else {
+						if(currentBehaviour!=ClubberBehaviour.BAR_FLIRT) {
 							return ClubberBehaviour.BAR_FLIRT;
+						} else {
+							return ClubberBehaviour.BAR_KISS;
 						}
 					}
 				}
-				if((getCurrentPlaceType()==ClubberBehaviour.BAR_FLIRT.getPlaceType() || isWillingToMoveLocation()) && isPartnerOfferingDrinks()) {
-					if(currentBehaviour!=ClubberBehaviour.BAR_FLIRT) {
-						return ClubberBehaviour.BAR_FLIRT;
+			}
+			
+		} else if(getPartner().hasPersonalityTrait(PersonalityTrait.KIND)) { // Only goes to: Bar, seating area.
+			if(currentBehaviour!=ClubberBehaviour.BAR_DRINK
+					&& isPartnerOfferingDrinks()
+					&& (getCurrentPlaceType()==ClubberBehaviour.BAR_DRINK.getPlaceType() || isWillingToMoveLocation())) {
+				return ClubberBehaviour.BAR_DRINK;
+			}
+			
+			if(likesSex(getPartner())) {
+				if(getCurrentPlaceType()==ClubberBehaviour.SIT_DOWN_INVITE_HOME.getPlaceType()) {
+					return ClubberBehaviour.SIT_DOWN_INVITE_HOME;
+				} else {
+					return ClubberBehaviour.BAR_INVITE_HOME;
+				}
+			}
+			if(likesGroping(getPartner())) {
+				if((isWillingToMoveLocation() || getCurrentPlaceType()==ClubberBehaviour.SIT_DOWN_FOOTSIE.getPlaceType())) {
+					if(currentBehaviour!=ClubberBehaviour.SIT_DOWN_FOOTSIE) {
+						return ClubberBehaviour.SIT_DOWN_FOOTSIE;
 					} else {
-						return ClubberBehaviour.BAR_TALK;
+						return ClubberBehaviour.SIT_DOWN_KISS;
 					}
 					
 				} else {
-					if(currentBehaviour!=ClubberBehaviour.SIT_DOWN_FLIRT) {
+					if(currentBehaviour!=ClubberBehaviour.BAR_GROPE) {
+						return ClubberBehaviour.BAR_GROPE;
+					} else {
+						return ClubberBehaviour.BAR_KISS;
+					}
+				}
+			}
+			if(likesKiss(getPartner())) {
+				if((isWillingToMoveLocation() || getCurrentPlaceType()==ClubberBehaviour.SIT_DOWN_KISS.getPlaceType())) {
+					if(currentBehaviour!=ClubberBehaviour.SIT_DOWN_KISS) {
+						return ClubberBehaviour.SIT_DOWN_KISS;
+					} else {
 						return ClubberBehaviour.SIT_DOWN_FLIRT;
-					} else {
-						return ClubberBehaviour.SIT_DOWN_TALK;
-					}
-				}
-				
-			case LOW: // Only goes to: Bar, dance floor, and toilets.
-				if(currentBehaviour!=ClubberBehaviour.BAR_DRINK
-					&& isPartnerOfferingDrinks()
-					&& (getCurrentPlaceType()==ClubberBehaviour.BAR_DRINK.getPlaceType() || isWillingToMoveLocation())) {
-					return ClubberBehaviour.BAR_DRINK;
-				}
-				
-				if(isWillingToMoveLocation() && likesSex(getPartner())) {
-					return ClubberBehaviour.TOILETS;
-					
-				}
-				if(!isWillingToMoveLocation()) {
-					if(getCurrentPlaceType()==ClubberBehaviour.DANCE_GROPE.getPlaceType()) {
-						if(currentBehaviour!=ClubberBehaviour.DANCE_GROPE) {
-							return ClubberBehaviour.DANCE_GROPE;
-						} else {
-							return ClubberBehaviour.DANCE_KISS;
-						}
-					} else {
-						if(likesKiss(getPartner())) {
-							if(currentBehaviour!=ClubberBehaviour.BAR_GROPE) {
-								return ClubberBehaviour.BAR_GROPE;
-							} else {
-								return ClubberBehaviour.BAR_KISS;
-							}
-						} else {
-							if(currentBehaviour!=ClubberBehaviour.BAR_FLIRT) {
-								return ClubberBehaviour.BAR_FLIRT;
-							} else {
-								return ClubberBehaviour.BAR_KISS;
-							}
-						}
 					}
 					
 				} else {
-					if(getCurrentPlaceType()!=ClubberBehaviour.DANCE_GROPE.getPlaceType()) {
-						if(currentBehaviour!=ClubberBehaviour.DANCE_GROPE) {
-							return ClubberBehaviour.DANCE_GROPE;
-						} else {
-							return ClubberBehaviour.DANCE_KISS;
-						}
+					if(currentBehaviour!=ClubberBehaviour.BAR_KISS) {
+						return ClubberBehaviour.BAR_KISS;
 					} else {
-						if(likesKiss(getPartner())) {
-							if(currentBehaviour!=ClubberBehaviour.BAR_GROPE) {
-								return ClubberBehaviour.BAR_GROPE;
-							} else {
-								return ClubberBehaviour.BAR_KISS;
-							}
-						} else {
-							if(currentBehaviour!=ClubberBehaviour.BAR_FLIRT) {
-								return ClubberBehaviour.BAR_FLIRT;
-							} else {
-								return ClubberBehaviour.BAR_KISS;
-							}
-						}
+						return ClubberBehaviour.BAR_FLIRT;
 					}
 				}
+			}
+			if((getCurrentPlaceType()==ClubberBehaviour.BAR_FLIRT.getPlaceType() || isWillingToMoveLocation()) && isPartnerOfferingDrinks()) {
+				if(currentBehaviour!=ClubberBehaviour.BAR_FLIRT) {
+					return ClubberBehaviour.BAR_FLIRT;
+				} else {
+					return ClubberBehaviour.BAR_TALK;
+				}
+				
+			} else {
+				if(currentBehaviour!=ClubberBehaviour.SIT_DOWN_FLIRT) {
+					return ClubberBehaviour.SIT_DOWN_FLIRT;
+				} else {
+					return ClubberBehaviour.SIT_DOWN_TALK;
+				}
+			}
+				
+		} else { // Only goes to: Bar, dance floor, and seating area.
+			if(currentBehaviour!=ClubberBehaviour.BAR_DRINK
+					&& isPartnerOfferingDrinks()
+					&& (getCurrentPlaceType()==ClubberBehaviour.BAR_DRINK.getPlaceType() || isWillingToMoveLocation())) {
+				return ClubberBehaviour.BAR_DRINK;
+			}
+			
+			if((isWillingToMoveLocation() || getCurrentPlaceType()==ClubberBehaviour.SIT_DOWN_SEX.getPlaceType()) && likesSex(getPartner())) {
+				return ClubberBehaviour.SIT_DOWN_SEX;
+			}
+			if(likesGroping(getPartner())) {
+				if((isWillingToMoveLocation() || getCurrentPlaceType()==ClubberBehaviour.SIT_DOWN_FOOTSIE.getPlaceType())) {
+					if(currentBehaviour!=ClubberBehaviour.SIT_DOWN_FOOTSIE) {
+						return ClubberBehaviour.SIT_DOWN_FOOTSIE;
+					} else {
+						return ClubberBehaviour.SIT_DOWN_KISS;
+					}
+					
+				} else if(getCurrentPlaceType()==ClubberBehaviour.DANCE_GROPE.getPlaceType()) {
+					if(currentBehaviour!=ClubberBehaviour.DANCE_GROPE) {
+						return ClubberBehaviour.DANCE_GROPE;
+					} else {
+						return ClubberBehaviour.DANCE_KISS;
+					}
+					
+				} else {
+					if(currentBehaviour!=ClubberBehaviour.BAR_GROPE) {
+						return ClubberBehaviour.BAR_GROPE;
+					} else {
+						return ClubberBehaviour.BAR_KISS;
+					}
+				}
+			}
+			if(likesKiss(getPartner())) {
+				if((isWillingToMoveLocation() || getCurrentPlaceType()==ClubberBehaviour.SIT_DOWN_KISS.getPlaceType())) {
+					if(currentBehaviour!=ClubberBehaviour.SIT_DOWN_KISS) {
+						return ClubberBehaviour.SIT_DOWN_KISS;
+					} else {
+						return ClubberBehaviour.SIT_DOWN_FLIRT;
+					}
+					
+				} else if(getCurrentPlaceType()==ClubberBehaviour.DANCE_GROPE.getPlaceType()) {
+					if(currentBehaviour!=ClubberBehaviour.DANCE_KISS) {
+						return ClubberBehaviour.DANCE_KISS;
+					} else {
+						return ClubberBehaviour.DANCE;
+					}
+					
+				} else {
+					if(currentBehaviour!=ClubberBehaviour.BAR_KISS) {
+						return ClubberBehaviour.BAR_KISS;
+					} else {
+						return ClubberBehaviour.BAR_FLIRT;
+					}
+				}
+			}
+			if(getCurrentPlaceType()==ClubberBehaviour.DANCE.getPlaceType() || !isWillingToMoveLocation()) { // If dancing, just move back to bar
+				if(currentBehaviour!=ClubberBehaviour.BAR_FLIRT) {
+					return ClubberBehaviour.BAR_FLIRT;
+				} else {
+					return ClubberBehaviour.BAR_TALK;
+				}
+				
+			} else {
+				return ClubberBehaviour.DANCE;
+			}
 		}
-		
-		return ClubberBehaviour.BAR_FLIRT;
 	}
 	
 	private static void applyBehaviourEffects() {
@@ -4319,118 +4313,116 @@ public class NightlifeDistrict {
 			
 			switch(behaviour) {
 				case BAR_DRINK:
-					switch(getPartnerAgreeableness()) {
-						case AVERAGE:
-							if(index==1) {
-								// Accept whiskey
-								return new Response("Accept whiskey",
-										UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the glass of Wolf Whiskey that [npc.name] has offered you.<br/>"+getDrinkEffects(ItemType.STR_INGREDIENT_WOLF_WHISKEY)),
-										WATERING_HOLE_DOM_PARTNER_REACT) {
-									@Override
-									public void effects() {
-										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_WOLF_WHISKEY", getClubbersPresent()));
-										Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_WOLF_WHISKEY.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
-										Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_WOLF_WHISKEY.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
-										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 15));
+					if(getPartner().hasPersonalityTrait(PersonalityTrait.SELFISH)) {
+						if(index==1) {
+							// Accept rum
+							return new Response("Accept rum",
+									UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the glass of Black Rat's Rum that [npc.name] has offered you.<br/>"+getDrinkEffects(ItemType.STR_INGREDIENT_BLACK_RATS_RUM)),
+									WATERING_HOLE_DOM_PARTNER_REACT) {
+								@Override
+								public void effects() {
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_RUM", getClubbersPresent()));
+									Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
+									Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+									Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 15));
+								}
+							};
+							
+						} else if(index==2) {
+							// Refuse rum
+							return new Response("Refuse rum",
+									UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Refuse the glass of Black Rat's Rum that [npc.name] has offered you."),
+									WATERING_HOLE_DOM_PARTNER_REACT) {
+								@Override
+								public void effects() {
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_REFUSE_RUM", getClubbersPresent()));
+									Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), -15));
+									buyingDrinks = false;
+								}
+							};
+						}
+						
+					} else if(getPartner().hasPersonalityTrait(PersonalityTrait.KIND)) {
+						if(index==1) {
+							// Accept Feline's fancy/beer
+							return new Response((Main.game.getPlayer().isFeminine()
+										?"Accept Feline's Fancy"
+										:"Accept Canine Crush"),
+									(Main.game.getPlayer().isFeminine()
+										?UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the glass of Feline's Fancy that [npc.name] has offered you.<br/>"+getDrinkEffects(ItemType.INT_INGREDIENT_FELINE_FANCY))
+										:UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the bottle of Canine Crush that [npc.name] has offered you.<br/>"+getDrinkEffects(ItemType.FIT_INGREDIENT_CANINE_CRUSH))),
+									WATERING_HOLE_DOM_PARTNER_REACT) {
+								@Override
+								public void effects() {
+									if(Main.game.getPlayer().isFeminine()) {
+										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_FELINES_FANCY", getClubbersPresent()));
+										Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_FELINE_FANCY.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
+									} else {
+										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_BEER", getClubbersPresent()));
+										Main.game.getTextStartStringBuilder().append(ItemType.FIT_INGREDIENT_CANINE_CRUSH.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
 									}
-								};
-								
-							} else if(index==2) {
-								// Refuse whiskey
-								return new Response("Refuse whiskey",
-										UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Refuse the glass of Wolf Whiskey that [npc.name] has offered you."),
-										WATERING_HOLE_DOM_PARTNER_REACT) {
-									@Override
-									public void effects() {
-										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_REFUSE_WOLF_WHISKEY", getClubbersPresent()));
-										Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
-										Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
-										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), -10));
-										buyingDrinks = false;
+									if(getPartner().isFeminine()) {
+										Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_FELINE_FANCY.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+									} else {
+										Main.game.getTextStartStringBuilder().append(ItemType.FIT_INGREDIENT_CANINE_CRUSH.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
 									}
-								};
-							}
-							break;
-						case HIGH:
-							if(index==1) {
-								// Accept Feline's fancy/beer
-								return new Response((Main.game.getPlayer().isFeminine()
-											?"Accept Feline's Fancy"
-											:"Accept Canine Crush"),
-										(Main.game.getPlayer().isFeminine()
-											?UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the glass of Feline's Fancy that [npc.name] has offered you.<br/>"+getDrinkEffects(ItemType.INT_INGREDIENT_FELINE_FANCY))
-											:UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the bottle of Canine Crush that [npc.name] has offered you.<br/>"+getDrinkEffects(ItemType.FIT_INGREDIENT_CANINE_CRUSH))),
-										WATERING_HOLE_DOM_PARTNER_REACT) {
-									@Override
-									public void effects() {
-										if(Main.game.getPlayer().isFeminine()) {
-											Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_FELINES_FANCY", getClubbersPresent()));
-											Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_FELINE_FANCY.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
-										} else {
-											Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_BEER", getClubbersPresent()));
-											Main.game.getTextStartStringBuilder().append(ItemType.FIT_INGREDIENT_CANINE_CRUSH.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
-										}
-										if(getPartner().isFeminine()) {
-											Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_FELINE_FANCY.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
-										} else {
-											Main.game.getTextStartStringBuilder().append(ItemType.FIT_INGREDIENT_CANINE_CRUSH.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
-										}
-										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 15));
+									Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 15));
+								}
+							};
+						} else if(index==2) {
+							// Refuse Feline's fancy/beer
+							return new Response((Main.game.getPlayer().isFeminine()
+										?"Refuse Feline's Fancy"
+										:"Refuse Canine Crush"),
+									(Main.game.getPlayer().isFeminine()
+											?UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Refuse the glass of Feline's Fancy that [npc.name] has offered you.")
+											:UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Refuse the bottle of Canine Crush that [npc.name] has offered you.")),
+									WATERING_HOLE_DOM_PARTNER_REACT) {
+								@Override
+								public void effects() {
+									if(Main.game.getPlayer().isFeminine()) {
+										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_REFUSE_FELINES_FANCY", getClubbersPresent()));
+									} else {
+										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_REFUSE_BEER", getClubbersPresent()));
 									}
-								};
-							} else if(index==2) {
-								// Refuse Feline's fancy/beer
-								return new Response((Main.game.getPlayer().isFeminine()
-											?"Refuse Feline's Fancy"
-											:"Refuse Canine Crush"),
-										(Main.game.getPlayer().isFeminine()
-												?UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Refuse the glass of Feline's Fancy that [npc.name] has offered you.")
-												:UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Refuse the bottle of Canine Crush that [npc.name] has offered you.")),
-										WATERING_HOLE_DOM_PARTNER_REACT) {
-									@Override
-									public void effects() {
-										if(Main.game.getPlayer().isFeminine()) {
-											Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_REFUSE_FELINES_FANCY", getClubbersPresent()));
-										} else {
-											Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_REFUSE_BEER", getClubbersPresent()));
-										}
-										Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
-										Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
-										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), -5));
-										buyingDrinks = false;
-									}
-								};
-							}
-							break;
-						case LOW:
-							if(index==1) {
-								// Accept rum
-								return new Response("Accept rum",
-										UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the glass of Black Rat's Rum that [npc.name] has offered you.<br/>"+getDrinkEffects(ItemType.STR_INGREDIENT_BLACK_RATS_RUM)),
-										WATERING_HOLE_DOM_PARTNER_REACT) {
-									@Override
-									public void effects() {
-										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_RUM", getClubbersPresent()));
-										Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
-										Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
-										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 15));
-									}
-								};
-								
-							} else if(index==2) {
-								// Refuse rum
-								return new Response("Refuse rum",
-										UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Refuse the glass of Black Rat's Rum that [npc.name] has offered you."),
-										WATERING_HOLE_DOM_PARTNER_REACT) {
-									@Override
-									public void effects() {
-										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_REFUSE_RUM", getClubbersPresent()));
-										Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), -15));
-										buyingDrinks = false;
-									}
-								};
-							}
-							break;
+									Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
+									Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+									Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), -5));
+									buyingDrinks = false;
+								}
+							};
+						}
+						
+					} else {
+						if(index==1) {
+							// Accept whiskey
+							return new Response("Accept whiskey",
+									UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Accept the glass of Wolf Whiskey that [npc.name] has offered you.<br/>"+getDrinkEffects(ItemType.STR_INGREDIENT_WOLF_WHISKEY)),
+									WATERING_HOLE_DOM_PARTNER_REACT) {
+								@Override
+								public void effects() {
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_WOLF_WHISKEY", getClubbersPresent()));
+									Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_WOLF_WHISKEY.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
+									Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_WOLF_WHISKEY.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+									Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), 15));
+								}
+							};
+							
+						} else if(index==2) {
+							// Refuse whiskey
+							return new Response("Refuse whiskey",
+									UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Refuse the glass of Wolf Whiskey that [npc.name] has offered you."),
+									WATERING_HOLE_DOM_PARTNER_REACT) {
+								@Override
+								public void effects() {
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_REFUSE_WOLF_WHISKEY", getClubbersPresent()));
+									Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
+									Main.game.getTextStartStringBuilder().append(ItemType.INT_INGREDIENT_VANILLA_WATER.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
+									Main.game.getTextEndStringBuilder().append(getPartner().incrementAffection(Main.game.getPlayer(), -10));
+									buyingDrinks = false;
+								}
+							};
+						}
 					}
 					break;
 				case BAR_FLIRT:

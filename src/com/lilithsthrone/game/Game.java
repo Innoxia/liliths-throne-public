@@ -1,5 +1,38 @@
 package com.lilithsthrone.game;
 
+import java.io.File;
+import java.io.StringWriter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.EnumMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.game.character.CharacterImportSetting;
@@ -18,9 +51,71 @@ import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.*;
-import com.lilithsthrone.game.character.npc.misc.*;
-import com.lilithsthrone.game.character.npc.submission.*;
+import com.lilithsthrone.game.character.npc.dominion.Alexa;
+import com.lilithsthrone.game.character.npc.dominion.Amber;
+import com.lilithsthrone.game.character.npc.dominion.Angel;
+import com.lilithsthrone.game.character.npc.dominion.Arthur;
+import com.lilithsthrone.game.character.npc.dominion.Ashley;
+import com.lilithsthrone.game.character.npc.dominion.Brax;
+import com.lilithsthrone.game.character.npc.dominion.Bunny;
+import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
+import com.lilithsthrone.game.character.npc.dominion.Cultist;
+import com.lilithsthrone.game.character.npc.dominion.Daddy;
+import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
+import com.lilithsthrone.game.character.npc.dominion.Finch;
+import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
+import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
+import com.lilithsthrone.game.character.npc.dominion.HarpyDominant;
+import com.lilithsthrone.game.character.npc.dominion.HarpyDominantCompanion;
+import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
+import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
+import com.lilithsthrone.game.character.npc.dominion.Jules;
+import com.lilithsthrone.game.character.npc.dominion.Kalahari;
+import com.lilithsthrone.game.character.npc.dominion.Kate;
+import com.lilithsthrone.game.character.npc.dominion.Kruger;
+import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.dominion.Loppy;
+import com.lilithsthrone.game.character.npc.dominion.Lumi;
+import com.lilithsthrone.game.character.npc.dominion.Nyan;
+import com.lilithsthrone.game.character.npc.dominion.Pazu;
+import com.lilithsthrone.game.character.npc.dominion.Pix;
+import com.lilithsthrone.game.character.npc.dominion.Ralph;
+import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
+import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
+import com.lilithsthrone.game.character.npc.dominion.Rose;
+import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.npc.dominion.SupplierLeader;
+import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
+import com.lilithsthrone.game.character.npc.dominion.TestNPC;
+import com.lilithsthrone.game.character.npc.dominion.Vanessa;
+import com.lilithsthrone.game.character.npc.dominion.Vicky;
+import com.lilithsthrone.game.character.npc.dominion.Zaranix;
+import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
+import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
+import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
+import com.lilithsthrone.game.character.npc.misc.PrologueMale;
+import com.lilithsthrone.game.character.npc.misc.SlaveImport;
+import com.lilithsthrone.game.character.npc.submission.Axel;
+import com.lilithsthrone.game.character.npc.submission.Claire;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
+import com.lilithsthrone.game.character.npc.submission.Elizabeth;
+import com.lilithsthrone.game.character.npc.submission.Epona;
+import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
+import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
+import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
+import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.character.npc.submission.Roxy;
+import com.lilithsthrone.game.character.npc.submission.SlimeGuardFire;
+import com.lilithsthrone.game.character.npc.submission.SlimeGuardIce;
+import com.lilithsthrone.game.character.npc.submission.SlimeQueen;
+import com.lilithsthrone.game.character.npc.submission.SlimeRoyalGuard;
+import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -28,7 +123,11 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.dialogue.*;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueFlags;
+import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
@@ -36,8 +135,18 @@ import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDi
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
-import com.lilithsthrone.game.dialogue.responses.*;
-import com.lilithsthrone.game.dialogue.utils.*;
+import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
+import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
+import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
+import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -53,7 +162,13 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.*;
+import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.SizedStack;
+import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.Season;
@@ -63,31 +178,6 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.StringWriter;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * @since 0.1.0
@@ -159,7 +249,7 @@ public class Game implements XMLSaving {
 	
 	// Logs:
 	private List<EventLogEntry> eventLog = new ArrayList<>();
-	private Map<Integer, List<SlaveryEventLogEntry>> slaveryEventLog = new HashMap<>();
+	private SizedStack<Value<Integer, List<SlaveryEventLogEntry>>> slaveryEventLog = new SizedStack<>(7);
 	
 	// Slavery:
 	private OccupancyUtil occupancyUtil = new OccupancyUtil();
@@ -390,14 +480,12 @@ public class Game implements XMLSaving {
 			try {
 				Element slaveryEventLogNode = doc.createElement("slaveryEventLog");
 				game.appendChild(slaveryEventLogNode);
-				for(int day = Main.game.getDayNumber() ; day>Main.game.getDayNumber()-28 ; day--) {
-					if(Main.game.getSlaveryEventLog().containsKey(day)) {
-						Element element = doc.createElement("day");
-						slaveryEventLogNode.appendChild(element);
-						CharacterUtils.addAttribute(doc, element, "value", String.valueOf(day));
-						for(SlaveryEventLogEntry event : Main.game.getSlaveryEventLog().get(day)) {
-							event.saveAsXML(element, doc);
-						}
+				for(Value<Integer, List<SlaveryEventLogEntry>> entry : Main.game.getSlaveryEventLog()) {
+					Element element = doc.createElement("day");
+					slaveryEventLogNode.appendChild(element);
+					CharacterUtils.addAttribute(doc, element, "value", String.valueOf(entry.getKey()));
+					for(SlaveryEventLogEntry event : entry.getValue()) {
+						event.saveAsXML(element, doc);
 					}
 				}
 			} catch(Exception ex) {
@@ -573,15 +661,20 @@ public class Game implements XMLSaving {
 				Element extraEffectNode = (Element) nodes.item(0);
 				if(extraEffectNode != null) {
 					NodeList slaveryDayLogElements = extraEffectNode.getElementsByTagName("day");
-					for(int i = 0; i < slaveryDayLogElements.getLength(); i++){
+					for(int i = 0; i < slaveryDayLogElements.getLength() && i < 7; i++){
 						Element e = (Element) gameElement.getElementsByTagName("day").item(i);
 						int day = Integer.valueOf(e.getAttribute("value"));
-						Main.game.slaveryEventLog.put(day, new ArrayList<>());
+						Main.game.slaveryEventLog.push(new Value<>(day, new ArrayList<>()));
+//						System.out.println(day+": added");
 						
 						NodeList dayEventLogElements = e.getElementsByTagName("eventLogEntry");
 						for(int j = 0; j < dayEventLogElements.getLength(); j++){
 							Element entry = (Element) dayEventLogElements.item(j);
-							Main.game.slaveryEventLog.get(day).add(SlaveryEventLogEntry.loadFromXML(entry, doc));
+							try {
+								Main.game.addSlaveryEvent(day, SlaveryEventLogEntry.loadFromXML(entry, doc));
+							} catch(Exception ex) {
+							}
+//							System.out.println(j);
 						}
 					}
 				}
@@ -657,6 +750,10 @@ public class Game implements XMLSaving {
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.3.2.2")) {
 						gen.worldGeneration(WorldType.CITY_HALL);
+					}
+					if(Main.isVersionOlderThan(loadingVersion, "0.3.4.9")) {
+						gen.worldGeneration(WorldType.ENFORCER_WAREHOUSE);
+						gen.worldGeneration(WorldType.ENFORCER_HQ);
 					}
 					if(Main.game.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
@@ -1019,6 +1116,27 @@ public class Game implements XMLSaving {
 							}
 						}
 						
+					}
+				}
+
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.4.9")) {
+					if(!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)) {
+						Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(PlaceType.ENFORCER_HQ_BRAXS_OFFICE).getInventory().clearNonEquippedInventory();
+						PlaceType.ENFORCER_HQ_BRAXS_OFFICE.applyInventoryInit(Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(PlaceType.ENFORCER_HQ_BRAXS_OFFICE).getInventory());
+					}
+					if(Main.game.getNpc(Brax.class).isSlave() && Main.game.getNpc(Brax.class).getOwner().isPlayer()) {
+						if(Main.game.getNpc(Brax.class).isFeminine()) {
+							Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfskirt", Colour.CLOTHING_BLACK, false), false);
+							Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_flsldshirt", Colour.CLOTHING_PINK, false), false);
+							Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_TIE, Colour.CLOTHING_BLACK, false), false);
+						} else {
+							Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdslacks", Colour.CLOTHING_BLACK, false), false);
+							Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_ssldshirt", Colour.CLOTHING_BLUE, false), false);
+							Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_TIE, Colour.CLOTHING_BLACK, false), false);
+						}
+						Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_uniques_enfdjacket_brax", Colour.CLOTHING_BLACK, false), false);
+						Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", Colour.CLOTHING_DESATURATED_BROWN, false), false);
+						Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_pcap", Colour.CLOTHING_BLACK, false), false);
 					}
 				}
 				
@@ -1437,8 +1555,20 @@ public class Game implements XMLSaving {
 		// Occupancy:
 		int hoursPassed = (int) (getHour() - startHour);
 		int hourStartTo24 = (int) (startHour%24);
-		for(int i=1; i <= hoursPassed; i++) {
+		for(int i=1; i <= hoursPassed; i++) { 
 			occupancyUtil.performHourlyUpdate(this.getDayNumber((startHour*60*60) + (i*60)), (hourStartTo24+i)%24);
+			for(String slaveId : Main.game.getPlayer().getSlavesOwned()) { // Update slaves' status effects per hour to give them a chance to refill fluids and such.
+				try {
+					Main.game.getNPCById(slaveId).calculateStatusEffects(3600);
+				} catch (Exception e) {
+				}
+			}
+		}
+		for(String slaveId : Main.game.getPlayer().getSlavesOwned()) {// Update slaves' status effects by whatever time is remaining.
+			try {
+				Main.game.getNPCById(slaveId).calculateStatusEffects(secondsPassedThisTurn%3600);
+			} catch (Exception e) {
+			}
 		}
 		if(!Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
 			MilkingRoom.setTargetedCharacter(Main.game.getPlayer());
@@ -1520,7 +1650,9 @@ public class Game implements XMLSaving {
 						npc.alignLustToRestingLust(secondsPassedThisTurn);
 					}
 				}
-				npc.calculateStatusEffects(secondsPassedThisTurn);
+				if(!npc.isSlave() || !npc.getOwner().isPlayer()) { // Player-owned slaves already had their status effects updated in the slavery events update loop
+					npc.calculateStatusEffects(secondsPassedThisTurn);
+				}
 			}
 			
 			// Replace clothing if not in player's tile:
@@ -1845,6 +1977,9 @@ public class Game implements XMLSaving {
 			String chosenResponse = response.getTitle();
 			DialogueNode node = response.getNextDialogue();
 			response.applyEffects();
+			if(node!=null) {
+				node.applyPreParsingEffects();
+			}
 			
 			if(response instanceof ResponseCombat) {
 				setContent(new Response("", "", ((ResponseCombat)response).initCombat()));
@@ -2052,6 +2187,9 @@ public class Game implements XMLSaving {
 		
 		DialogueNode node = response.getNextDialogue();
 		response.applyEffects();
+		if(node!=null) {
+			node.applyPreParsingEffects();
+		}
 		
 		if(response instanceof ResponseCombat) {
 			setContent(new Response("", "", ((ResponseCombat)response).initCombat()));
@@ -2615,7 +2753,8 @@ public class Game implements XMLSaving {
 		float fontSize = 1;
 		String strippedTitle = UtilText.parse(response.getTitle()).replaceAll("<.*?>", "").replaceAll(UtilText.getCurrencySymbol(), "1");
 		if(strippedTitle.length()>14) {
-			fontSize-=(strippedTitle.length()-14)*0.03f;
+			fontSize-=(strippedTitle.length()-14)*0.025f;
+//			style = "style='font-size:"+fontSize+"em; line-height:10px; white-space:normal;'";
 		}
 		style = "style='font-size:"+fontSize+"em;'";
 		
@@ -3670,14 +3809,27 @@ public class Game implements XMLSaving {
 		this.eventLog = eventLog;
 	}
 	
-	public Map<Integer, List<SlaveryEventLogEntry>> getSlaveryEventLog() {
+	public SizedStack<Value<Integer, List<SlaveryEventLogEntry>>> getSlaveryEventLog() {
 		return slaveryEventLog;
 	}
 	
-	public void addSlaveryEvent(int day, NPC slave, SlaveryEventLogEntry event) {
-		slaveryEventLog.putIfAbsent(day, new ArrayList<>());
-		
-		slaveryEventLog.get(day).add(event);
+	public List<SlaveryEventLogEntry> getSlaveryEvents(int day) {
+		for(Value<Integer, List<SlaveryEventLogEntry>> value : slaveryEventLog) {
+			if(value.getKey()==day) {
+				return value.getValue();
+			}
+		}
+		return null;
+	}
+	
+	public void addSlaveryEvent(int day, SlaveryEventLogEntry event) {
+		for(Value<Integer, List<SlaveryEventLogEntry>> value : slaveryEventLog) {
+			if(value.getKey()==day) {
+				value.getValue().add(event);
+				return;
+			}
+		}
+		slaveryEventLog.push(new Value<>(day, Util.newArrayListOfValues(event)));
 	}
 	
 

@@ -109,7 +109,21 @@ public class SMGeneric extends SexManagerDefault {
 				} else {
 					slotsDominant = new SexSlot[] {SexSlotLyingDown.COWGIRL, SexSlotLyingDown.COWGIRL_TWO, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.FACE_SITTING_REVERSE_TWO};
 				}
-				slotsSubmissive = new SexSlot[] {SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.LYING_DOWN_TWO};
+				slotsSubmissive = new SexSlot[] {SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.LYING_DOWN_TWO, SexSlotLyingDown.LYING_DOWN_THREE, SexSlotLyingDown.LYING_DOWN_FOUR};
+				
+			} else if(tags.contains(ResponseTag.PREFER_MISSIONARY)) {
+				this.position = SexPosition.LYING_DOWN;
+				if(submissives.size()==1) {
+					if(dominants.size()>=2 &&!dominants.get(0).hasPenis()) {
+						slotsDominant = new SexSlot[] {SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.BESIDE, SexSlotLyingDown.BESIDE_TWO};
+							
+					} else {
+						slotsDominant = new SexSlot[] {SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.BESIDE, SexSlotLyingDown.BESIDE_TWO};
+					}
+				} else {
+					slotsDominant = new SexSlot[] {SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.MISSIONARY_TWO, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.FACE_SITTING_REVERSE_TWO};
+				}
+				slotsSubmissive = new SexSlot[] {SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.LYING_DOWN_TWO, SexSlotLyingDown.LYING_DOWN_THREE, SexSlotLyingDown.LYING_DOWN_FOUR};
 				
 			} else {
 				this.position = SexPosition.STANDING;
@@ -153,6 +167,20 @@ public class SMGeneric extends SexManagerDefault {
 					slotsDominant = new SexSlot[] {SexSlotLyingDown.COWGIRL, SexSlotLyingDown.FACE_SITTING_REVERSE};
 				} else {
 					slotsDominant = new SexSlot[] {SexSlotLyingDown.COWGIRL, SexSlotLyingDown.COWGIRL_TWO, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.FACE_SITTING_REVERSE_TWO};
+				}
+				slotsSubmissive = new SexSlot[] {SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.LYING_DOWN_TWO, SexSlotLyingDown.LYING_DOWN_THREE, SexSlotLyingDown.LYING_DOWN_FOUR};
+				
+			} else if(tags.contains(ResponseTag.PREFER_MISSIONARY)) {
+				this.position = SexPosition.LYING_DOWN;
+				if(submissives.size()==1) {
+					if(dominants.size()>=2 &&!dominants.get(0).hasPenis()) {
+						slotsDominant = new SexSlot[] {SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.BESIDE, SexSlotLyingDown.BESIDE_TWO};
+							
+					} else {
+						slotsDominant = new SexSlot[] {SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.BESIDE, SexSlotLyingDown.BESIDE_TWO};
+					}
+				} else {
+					slotsDominant = new SexSlot[] {SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.MISSIONARY_TWO, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.FACE_SITTING_REVERSE_TWO};
 				}
 				slotsSubmissive = new SexSlot[] {SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.LYING_DOWN_TWO, SexSlotLyingDown.LYING_DOWN_THREE, SexSlotLyingDown.LYING_DOWN_FOUR};
 				

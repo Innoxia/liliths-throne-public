@@ -50,6 +50,7 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.LoadedEnchantment;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.CachedImage;
 import com.lilithsthrone.rendering.ImageCache;
@@ -238,7 +239,7 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("</div>");
 
 			// Picture:
-			tooltipSB.append("<div class='picture'>" + perk.getSVGString() + "</div>");
+			tooltipSB.append("<div class='picture'>" + perk.getSVGString(owner) + "</div>");
 
 			// Description:
 			tooltipSB.append("<div class='description'>" + UtilText.parse(owner, perk.getDescription(owner)) + "</div>");
@@ -286,7 +287,7 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("</div>");
 
 			// Picture:
-			tooltipSB.append("<div class='picture'>" + levelUpPerk.getSVGString() + "</div>");
+			tooltipSB.append("<div class='picture'>" + levelUpPerk.getSVGString(owner) + "</div>");
 
 			// Description:
 			tooltipSB.append("<div class='description'>" + UtilText.parse(owner, levelUpPerk.getDescription(owner)) + "</div>");
@@ -392,7 +393,7 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append(
 					"<div class='description'>"
 						+"<span style='color:"+(availableValue.getKey()?Colour.GENERIC_MINOR_GOOD:Colour.GENERIC_MINOR_BAD).toWebHexString()+";'>"+availableValue.getValue()+"</span> "
-						+ move.getDescription()
+						+ move.getDescription(owner)
 					+ "</div>");
 			
 
@@ -560,7 +561,7 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append(
 					"<div class='description'>"
 							+ (spell.isForbiddenSpell() && !owner.hasSpell(spell)?"[style.italicsArcane(This is a forbidden spell, and can only be discovered through a special quest!)]<br/>":"")
-							+ spell.getDescription()
+							+ spell.getDescription(owner)
 					+ "</div>"
 					+ "<div class='subTitle'>"
 						+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Costs</b> <b>" + (spell.getModifiedCost(owner)) + "</b> <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura</b>"
@@ -916,7 +917,7 @@ public class TooltipInformationEventListener implements EventListener {
 //						+ "</div>");
 //				
 //			} else {
-				Main.mainController.setTooltipSize(400, 516+(Main.game.isEnchantmentCapacityEnabled()?42:0));
+				Main.mainController.setTooltipSize(400, 516+(Main.game.isEnchantmentCapacityEnabled()?46:32));
 	
 				int enchantmentPointsUsed = owner.getEnchantmentPointsUsedTotal();
 				tooltipSB.setLength(0);
@@ -936,8 +937,8 @@ public class TooltipInformationEventListener implements EventListener {
 						+ "</div>"
 				
 						+ (Main.game.isEnchantmentCapacityEnabled()
-								?"<div class='subTitle' style='margin-bottom:4px;'>"
-										+ "[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+")]: "
+								?"<div class='subTitle-half' style='padding:2px; margin:2px 1%; width:48%;'>"
+										+ "[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+")]<br/>"
 										+ (enchantmentPointsUsed>owner.getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
 												?"[style.colourBad("
 												:(enchantmentPointsUsed==owner.getAttributeValue(Attribute.ENCHANTMENT_LIMIT)
@@ -945,7 +946,11 @@ public class TooltipInformationEventListener implements EventListener {
 														:"[style.colourMinorGood("))
 										+ enchantmentPointsUsed + ")]" + "/" + Math.round(owner.getAttributeValue(Attribute.ENCHANTMENT_LIMIT))
 									+ "</div>"
-								:"")
+									+"<div class='subTitle-half' style='padding:2px; margin:2px 1%; width:48%;'>"
+								:"<div class='subTitle' style='margin:2px 1%; width:98%'>")
+							+ "[style.colourArcane(Essences)]"+(Main.game.isEnchantmentCapacityEnabled()?"<br/>":": ")
+							+ owner.getEssenceCount(TFEssence.ARCANE)
+						+ "</div>"
 						
 						+ extraAttributeBonus(owner, Attribute.MAJOR_PHYSIQUE)
 						+ extraAttributeBonus(owner, Attribute.MAJOR_ARCANE)

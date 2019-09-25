@@ -5,7 +5,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum BodySize {

@@ -418,16 +418,22 @@ public class Body implements XMLSaving {
 			}
 			
 			CoveringPattern pattern = availablePatterns.get(Util.random.nextInt(availablePatterns.size()));
-			
+			if(pattern==CoveringPattern.EYE_IRISES) {
+				pattern = CoveringPattern.EYE_IRISES_HETEROCHROMATIC;
+			}
 			if(pattern == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
 				if(Math.random()>0.02f) { // As it's already selected heterochromatic eyes (0.5 chance), this 0.02 chance corresponds to an overall heterochromatic chance of 0.01, or 1%
 					pattern = CoveringPattern.EYE_IRISES;
 				} else {
 					if(primary==secondary) {
-						List<Colour> secondaryIrisColours = new ArrayList<>();
-						secondaryIrisColours.addAll(colourApplicationList);
+						List<Colour> secondaryIrisColours = new ArrayList<>(colourApplicationList);
 						secondaryIrisColours.remove(primary);
-						secondary = colourApplicationList.get(Util.random.nextInt(colourApplicationList.size()));
+						if(secondaryIrisColours.isEmpty()) {
+							pattern = CoveringPattern.EYE_IRISES;
+							secondary = primary;
+						} else {
+							secondary = Util.randomItemFrom(secondaryIrisColours);
+						}
 					}
 				}
 			}

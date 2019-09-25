@@ -95,8 +95,8 @@ public enum Subspecies {
 			"angels",
 			"angel",
 			"angel",
-			"angel",
-			"angel",
+			"angels",
+			"angels",
 			"angel",
 			"As an angel, [npc.nameIsFull] highly resistant to the arousing effects of the arcane, and [npc.is] particularly adept at fighting demons."
 					+ " [npc.Her] natural instinct to protect humans, however, leaves [npc.her] quite vulnerable to them...",
@@ -1061,9 +1061,9 @@ public enum Subspecies {
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character.getTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] magical tail"+(character.getTailCount()==1?"":"s")+".");
+				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
 			} else {
-				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] vast number of tails a sign of [npc.her] unending devotion to a particular Lilin.");
+				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
 		}
 
@@ -1100,6 +1100,15 @@ public enum Subspecies {
 				return youkoDesaturatedIconMap.get(9);
 			}
 			return getBipedBackground(youkoDesaturatedIconMap.get(character.getTailCount()), character, Colour.BASE_GREY);
+		}
+		
+		@Override
+		public String getHalfDemonSVGString(GameCharacter character) {
+			if(character!=null && character.getSubspeciesOverride()!=null && character.getSubspeciesOverride().equals(Subspecies.DEMON)) {
+				return super.getHalfDemonSVGString(character);
+			} else {
+				return getBipedBackground(youkoHalfDemonIconMap.get(character.getTailCount()), character, Colour.RACE_HALF_DEMON);
+			}
 		}
 	},
 	
@@ -1156,9 +1165,9 @@ public enum Subspecies {
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character.getTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] magical tail"+(character.getTailCount()==1?"":"s")+".");
+				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
 			} else {
-				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] vast number of tails a sign of [npc.her] unending devotion to a particular Lilin.");
+				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
 		}
 
@@ -3089,6 +3098,7 @@ public enum Subspecies {
 
 	private static Map<Integer, String> youkoIconMap;
 	private static Map<Integer, String> youkoDesaturatedIconMap;
+	private static Map<Integer, String> youkoHalfDemonIconMap;
 	
 	private static Map<WorldType, Map<Subspecies, SubspeciesSpawnRarity>> worldSpecies;
 	private static Map<Subspecies, SubspeciesSpawnRarity> dominionStormImmuneSpecies;
@@ -3096,6 +3106,7 @@ public enum Subspecies {
 	
 	static {
 		youkoIconMap = new HashMap<>();
+		youkoHalfDemonIconMap = new HashMap<>();
 		for(int i=1; i<=9; i++) {
 			try {
 				String SVGStringBackground = "";
@@ -3109,6 +3120,14 @@ public enum Subspecies {
 				
 				String baseSVGString = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getFoxTail(i)+"</div>";
 				youkoIconMap.put(i, baseSVGString);
+
+				baseSVGString = SvgUtil.colourReplacement("youkohalfDemon"+i,
+							Colour.RACE_HALF_DEMON,
+							Colour.RACE_HALF_DEMON,
+							Colour.RACE_HALF_DEMON,
+							"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
+								+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDemon(i)+"</div>");
+				youkoHalfDemonIconMap.put(i, baseSVGString);
 				
 			} catch (IOException e) {
 				e.printStackTrace();

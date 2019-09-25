@@ -400,21 +400,24 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			tileSB.append(
 					UtilText.parse(this,
 							"<p style='text-align:center;'>"
-							+ "<b style='color:"+Femininity.valueOf(this.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
-							+ " <b style='color:"+this.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-							+ " <b style='color:"+this.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!</b></p>"
-						
-							+ "<p style='text-align:center;'>"));
+								+ "<i>"
+									+ (this.isPlayerKnowsName()
+											?"[npc.Name], [npc.a_femininity(true)] [npc.raceStage(true)] [npc.race(true)],"
+											:"[npc.A_femininity(true)] [npc.raceStage(true)] [npc.race(true)]")
+									+ " is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!"
+								+ "</i>"
+							+ "</p>"));
 		} else {
 			tileSB.append(
 					UtilText.parse(this,
 							"<p style='text-align:center;'>"
-							+"<b>Someone, or something, is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!</b></p>"
-				
-							+ "<p style='text-align:center;'>"));
+									+"<i>Someone, or something, is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!</i>"
+							+ "</p>"
+				));
 		}
-				
+		
 		// Combat:
+		tileSB.append("<p style='text-align:center;'>");
 		if(this.getFoughtPlayerCount()>0) {
 			tileSB.append(
 					UtilText.parse(this,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
@@ -848,6 +851,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 				// Spells that should not be used:
 				case DARK_SIREN_SIRENS_CALL:
+				case LIGHTNING_SPHERE_DISCHARGE:
+				case LIGHTNING_SPHERE_OVERCHARGE:
 					break;
 			}
 		}
@@ -1079,33 +1084,29 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	// Relationships:
 	
 	public float getHourlyAffectionChange(int hour) {
-		if(this.workHours[hour]) {
-			if(this.getSlaveJob()==SlaveJob.IDLE) {
-				return this.getHomeLocationPlace().getHourlyAffectionChange();
-			}
-			// To get rid of e.g. 2.3999999999999999999999:
-			return Math.round(this.getSlaveJob().getAffectionGain(this)*100)/100f;
-		}
+		SlaveJob job = this.getSlaveJob(hour);
 		
-		// To get rid of e.g. 2.3999999999999999999999:
-		return Math.round(this.getHomeLocationPlace().getHourlyAffectionChange()*100)/100f;
+		// Rounding is to get rid of floating point ridiculousness (e.g. 2.3999999999999999999999):
+		if(!isAtWork(hour)) {
+			return Math.round(this.getHomeLocationPlace().getHourlyAffectionChange()*100)/100f;
+		} else {
+			return Math.round(job.getAffectionGain(this)*100)/100f;
+		}
 	}
 	
 	public float getDailyAffectionChange() {
 		float totalAffectionChange = 0;
 		
-		for (int workHour = 0; workHour < this.getTotalHoursWorked(); workHour++) {
-			if(this.getSlaveJob()==SlaveJob.IDLE) {
+		for (int hour = 0; hour < 24; hour++) {
+			SlaveJob job = this.getSlaveJob(hour);
+			if(!isAtWork(hour)) {
 				totalAffectionChange+=this.getHomeLocationPlace().getHourlyAffectionChange();
+			} else {
+				totalAffectionChange += job.getAffectionGain(this);
 			}
-			totalAffectionChange += this.getSlaveJob().getAffectionGain(this);
 		}
-		
-		for (int homeHour = 0; homeHour < 24-this.getTotalHoursWorked(); homeHour++) {
-			totalAffectionChange += this.getHomeLocationPlace().getHourlyAffectionChange();
-		}
-		
-		// To get rid of e.g. 2.3999999999999999999999:
+
+		// Rounding is to get rid of floating point ridiculousness (e.g. 2.3999999999999999999999):
 		return Math.round(totalAffectionChange*100)/100f;
 	}
 	

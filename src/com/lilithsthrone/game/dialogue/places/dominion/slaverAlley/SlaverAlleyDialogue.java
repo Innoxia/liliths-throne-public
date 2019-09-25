@@ -23,17 +23,19 @@ import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
 import com.lilithsthrone.game.occupantManagement.SlavePermission;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
@@ -91,7 +93,11 @@ public class SlaverAlleyDialogue {
 			slave.addFetish(Fetish.FETISH_SUBMISSIVE);
 			slave.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 			slave.addFetish(Fetish.FETISH_ORAL_GIVING);
-			slave.setPersonalityTrait(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH);
+			slave.removePersonalityTraits(PersonalityCategory.SPEECH);
+			slave.removePersonalityTrait(PersonalityTrait.SHY);
+			if(Math.random()<0.5f) {
+				slave.addPersonalityTrait(PersonalityTrait.LEWD);
+			}
 			slave.setObedience(100);
 		}
 
@@ -114,7 +120,10 @@ public class SlaverAlleyDialogue {
 			
 			slave.addFetish(Fetish.FETISH_DOMINANT);
 			slave.addFetish(Fetish.FETISH_CUM_STUD);
-			slave.setPersonalityTrait(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW);
+			slave.removePersonalityTrait(PersonalityTrait.COWARDLY);
+			if(Math.random()<0.5f) {
+				slave.addPersonalityTrait(PersonalityTrait.BRAVE);
+			}
 			slave.setObedience(75);
 		}
 
@@ -241,7 +250,7 @@ public class SlaverAlleyDialogue {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 
 		@Override
@@ -1000,13 +1009,13 @@ public class SlaverAlleyDialogue {
 									+ " <span style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</span>, has been marked as available for"));
 				
 				sexAvailability.clear();
-				if(npc.hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL)) {
+				if(npc.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL)) {
 					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>oral</b>");
 				}
-				if(npc.hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL)) {
+				if(npc.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL)) {
 					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK.toWebHexString()+";'>vaginal</b>");
 				}
-				if(npc.hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL)) {
+				if(npc.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL)) {
 					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK_DEEP.toWebHexString()+";'>anal</b>");
 				}
 				
@@ -1038,9 +1047,9 @@ public class SlaverAlleyDialogue {
 						UtilText.parse(slave, "Walk up to [npc.name] and have some fun..."),
 						false, false,
 						new SMStocks(
-								ownedByPlayer || slave.hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL),
-								ownedByPlayer || slave.hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL),
-								ownedByPlayer || slave.hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL),
+								ownedByPlayer || slave.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL),
+								ownedByPlayer || slave.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL),
+								ownedByPlayer || slave.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.BEHIND_STOCKS)),
 								Util.newHashMapOfValues(new Value<>(slave, SexSlotStocks.LOCKED_IN_STOCKS))),
 						null,

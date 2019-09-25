@@ -331,9 +331,6 @@ input:focus {
 	-webkit-box-sizing: border-box;
 	cursor:pointer;
 }
-.normal-button.hour{
-	background-color: #ddd;
-}
 .normal-button:hover{
 	background-color: #bbb;
 }
@@ -341,14 +338,8 @@ input:focus {
 	background-color: #bbb;
 	border:solid 1px #aaa;
 }
-.normal-button.hour.selected{
-	background-color: #186737;
-}
 .normal-button.selected:hover{
 	background-color: #777;
-}
-.normal-button.hour.selected:hover{
-	background-color: #239550;
 }
 .normal-button.disabled{
 	color: #bbb;
@@ -357,11 +348,24 @@ input:focus {
 .normal-button.disabled:hover{
 	background-color: #ccc;
 }
-.normal-button.hour.disabled{
-	background-color: #ddd;
+
+.normal-button.hour{
+	opacity: 0.8;
 }
-.normal-button.hour.disabled.selected{
-	background-color: #ddd;
+.normal-button.hour:hover{
+	opacity: 1;
+}
+.normal-button.hour.selected{
+	opacity: 0.8;
+}
+.normal-button.hour.selected:hover{
+	opacity: 1;
+}
+.normal-button.hour.disabled{
+	opacity: 0.3;
+}
+.normal-button.hour.disabled:hover{
+	opacity: 0.4;
 }
 
 /***********************************************************/

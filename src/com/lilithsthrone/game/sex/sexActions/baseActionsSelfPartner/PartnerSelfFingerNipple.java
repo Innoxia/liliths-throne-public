@@ -49,11 +49,8 @@ public class PartnerSelfFingerNipple {
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"[npc.Name] reaches up and starts playing with [npc.her] hard [npc.nipples], pinching and rubbing them as [npc.she] moans with arousal.",
-					
 					"[npc.NamePos] fingertips tease over [npc.her] [npc.breasts+], stopping to pinch and tug at [npc.her] [npc.nipples+] as [npc.she] moans and sighs in delight.",
-					
 					"[npc.Name] reaches up to [npc.her] [npc.breasts+], and, with eager fingers, starts to pinch and rub at [npc.her] exposed [npc.nipples].",
-					
 					"With [npc.a_moan+], [npc.name] reaches up to [npc.her] [npc.nipples+], pinching and flicking them as [npc.she] continues to cry out in delight."));
 			
 			switch (Sex.getCharacterPerformingAction().getBreastStoredMilk()) {

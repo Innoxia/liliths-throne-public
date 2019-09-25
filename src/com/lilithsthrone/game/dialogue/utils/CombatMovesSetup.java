@@ -39,8 +39,11 @@ public class CombatMovesSetup {
                             + "While there is no limit on the number of moves which a character can know and use in combat,"
                             	+ " it's only possible for "+String.valueOf(GameCharacter.MAX_COMBAT_MOVES)+" [style.colourMinorGood(core combat moves)] to be selected at a time."
                             + " Any [style.colourMinorBad(non-core moves)] cost [style.colourBad(+1 action point)] to use in combat, and will suffer a [style.colourBad(+1 turn cooldown)].<br/>"
-                            + UtilText.parse(getTarget(), "<i>(You can click on the icons below to add and remove them from [npc.namePos] core combat moves.)</i>")
-                            +(getTarget().isPlayer()?"":"<i>([npc.Name] will only choose to use [npc.her] core moves when in combat, unless [npc.she] has none available, in which case [npc.she] will choose from [npc.her] non-core moves.)</i>")
+                            + UtilText.parse(getTarget(),
+                            		"<i>(You can click on the icons below to add and remove them from [npc.namePos] core combat moves.)</i>"
+                            		+(getTarget().isPlayer()
+                            				?""
+                            				:"<i>([npc.Name] will only choose to use [npc.her] core moves when in combat, unless [npc.she] has none available, in which case [npc.she] will choose from [npc.her] non-core moves.)</i>"))
                             + "</div>"
                             + "<div class='container-full-width' style='padding:8px; text-align:center;'>"
                             + "<h6 style='text-align:center;'>[style.colourMinorGood(Core Combat Moves)]</h6>");

@@ -2,10 +2,12 @@ package com.lilithsthrone.game.dialogue;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -109,15 +111,13 @@ public class OccupantManagementDialogue {
 		return dayNumber;
 	}
 
-	public static void incrementDayNumber(int increment) {
-		dayNumber += increment;
-		dayNumber = Math.max(1,
-				dayNumber);
+	public static void setDayNumber(int dayNumber) {
+		OccupantManagementDialogue.dayNumber = Math.max(1, dayNumber);
 	}
 	
 	private static Response getSlaveryResponse(int index) {
 		if (index == 1) {
-			return new Response("Room List", "View the room management screen.", ROOM_MANAGEMENT) {
+			return new Response("Room List", "View the management screen for all rooms.", ROOM_MANAGEMENT) {
 				@Override
 				public void effects() {
 					Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
@@ -125,7 +125,7 @@ public class OccupantManagementDialogue {
 			};
 			
 		} else if (index == 2) {
-			return new Response("Slave List", "Enter the slave management screen.", SLAVE_LIST_MANAGEMENT) {
+			return new Response("Occupant List", "Enter the management screen for all slaves and friendly occupants.", SLAVE_LIST_MANAGEMENT) {
 				@Override
 				public DialogueNode getNextDialogue() {
 					return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getDialogueFlags().getSlaveTrader());
@@ -259,13 +259,20 @@ public class OccupantManagementDialogue {
 			// Logs:
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width' style='text-align:center;'>"
-						+ "<h6 style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Activity Log</h6>"
-									+ "<div id='PREVIOUS_DAY' class='normal-button' style='width:15%; margin-right:8px;'>Previous</div>"
-									+ "<b>Day: "+dayNumber+(dayNumber==Main.game.getDayNumber()?" (Today)":"")+(dayNumber==Main.game.getDayNumber()-1?" (Yesterday)":"")+"</b>"
-									+ "<div id='NEXT_DAY' class='normal-button' style='width:15%; margin-left:8px;'>Next</div>"
-
-						
-						+ "<div class='container-full-width' style='text-align:center; margin-bottom:0;'>"
+						+ "<h6 style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Activity Log</h6>");
+			// Buttons:
+			for(int i=6; i>=0; i--) {
+				UtilText.nodeContentSB.append("<div id='SLAVE_DAY_"+i+"' class='normal-button' style='width:12%; margin:1%;"+(Main.game.getDayNumber()-i==dayNumber?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":"")+"'>"
+						+ (i==0
+							?"Today"
+							:(i==1
+								?"Yesterday"
+								:Main.game.getDateNow().minusDays(i).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH)))
+						+ "</div>");
+			}
+			
+			// Headers:
+			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center; margin-bottom:0;'>"
 							+ "<div style='width:10%; float:left; font-weight:bold; margin:0; padding:0;'>"
 								+ "Time"
 							+ "</div>"
@@ -275,18 +282,15 @@ public class OccupantManagementDialogue {
 							+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
 								+ "Event"
 							+"</div>"
-							+ "<div style='float:left; width:40%; font-weight:bold; margin:0; padding:0;'>"
+							+ "<div style='float:left; width:60%; font-weight:bold; margin:0; padding:0;'>"
 								+ "Description"
-							+"</div>"
-							+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
-								+ "Effects"
 							+"</div>"
 						+ "</div>"
 						+ "<div class='container-full-width' style='text-align:center; margin-bottom:0;'>");
 			
 			int count=0;
-			if(Main.game.getSlaveryEventLog().get(dayNumber)!=null) {
-				for(SlaveryEventLogEntry entry : Main.game.getSlaveryEventLog().get(dayNumber)) {
+			if(Main.game.getSlaveryEvents(dayNumber)!=null) {
+				for(SlaveryEventLogEntry entry : Main.game.getSlaveryEvents(dayNumber)) {
 					if(count%2==0) {
 						UtilText.nodeContentSB.append("<div class='container-full-width inner' style='background:"+Colour.BACKGROUND.toWebHexString()+";'>");
 					} else {
@@ -307,23 +311,6 @@ public class OccupantManagementDialogue {
 									+ entry.getDescription()
 								+ "</div>"
 								+ "</div>");
-//								+ "<div style='width:20%; float:left;  margin:0; padding:0;'>");
-//					
-//					boolean effectsAdded = false;
-//					if(entry.getEffects()!=null) {
-//						for(String s : entry.getEffects()) {
-//							if(!s.isEmpty()) {
-//								UtilText.nodeContentSB.append(s+"<br/>");
-//								effectsAdded = true;
-//							}
-//						}
-//					}
-//					if(!effectsAdded) {
-//						UtilText.nodeContentSB.append("[style.colourDisabled(-)]");
-//					}
-//					
-//					UtilText.nodeContentSB.append("</div>"
-//							+"</div>");
 					count++;
 				}
 			}
@@ -626,11 +613,13 @@ public class OccupantManagementDialogue {
 			
 			List<PlaceUpgrade> coreUpgrades = new ArrayList<>();
 			for(PlaceUpgrade upgrade : place.getPlaceType().getAvailablePlaceUpgrades(place.getPlaceUpgrades())) {
-				if(upgrade.isCoreRoomUpgrade()) {
-					coreUpgrades.add(upgrade);
-				} else {
-					UtilText.nodeContentSB.append(getUpgradeEntry(cellToInspect, upgrade));
-					i++;
+				if(upgrade.getAvailability(cellToInspect).getKey() || (!upgrade.getAvailability(cellToInspect).getValue().isEmpty())) { // Do not display upgrades that have no explanation as to why they're banned.
+					if(upgrade.isCoreRoomUpgrade()) {
+						coreUpgrades.add(upgrade);
+					} else {
+						UtilText.nodeContentSB.append(getUpgradeEntry(cellToInspect, upgrade));
+						i++;
+					}
 				}
 			}
 			if(i==0) {
@@ -822,7 +811,7 @@ public class OccupantManagementDialogue {
 		float affectionChange = upgrade.getHourlyAffectionGain();
 		float obedienceChange = upgrade.getHourlyObedienceGain();
 		boolean owned = place.getPlaceUpgrades().contains(upgrade);
-		boolean availableForPurchase = upgrade.isPrerequisitesMet(place) && upgrade.isAvailable(cell) && (owned?Main.game.getPlayer().getMoney()>=upgrade.getRemovalCost():Main.game.getPlayer().getMoney()>=upgrade.getInstallCost());
+		boolean availableForPurchase = upgrade.isPrerequisitesMet(place) && upgrade.getAvailability(cell).getKey() && (owned?Main.game.getPlayer().getMoney()>=upgrade.getRemovalCost():Main.game.getPlayer().getMoney()>=upgrade.getInstallCost());
 		boolean canBuy = availableForPurchase;
 		
 		miscDialogueSB.append(
@@ -969,7 +958,7 @@ public class OccupantManagementDialogue {
 			}
 		}
 		
-		String availabilityDescription = upgrade.getAvailabilityDescription(OccupantManagementDialogue.cellToInspect);
+		String availabilityDescription = upgrade.getAvailability(OccupantManagementDialogue.cellToInspect).getValue();
 		if(availabilityDescription!=null && availabilityDescription.length()>0) {
 			purchaseAvailability.append("<br/><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+availabilityDescription+"</span>");
 		}
@@ -1394,8 +1383,8 @@ public class OccupantManagementDialogue {
 										?UtilText.formatAsMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)
 										:UtilText.formatAsMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()), "b", Colour.GENERIC_ARCANE))
 								:UtilText.formatAsMoney(slave.getValueAsSlave(true)))+"<br/>"
-							+ "<b>"+Util.capitaliseSentence(slave.getSlaveJob().getName(slave))+"</b><br/>"
-							+ UtilText.formatAsMoney(slave.getSlaveJob().getFinalDailyIncomeAfterModifiers(slave))+"/day"
+							+ "<b>"+Util.capitaliseSentence(slave.getSlaveJob(Main.game.getHourOfDay()).getName(slave))+" (now)</b><br/>"
+							+ UtilText.formatAsMoney(SlaveJob.getFinalDailyIncomeAfterModifiers(slave))+"/day"
 						+"</div>");
 		
 		if(slaveOwned) {
@@ -1487,8 +1476,8 @@ public class OccupantManagementDialogue {
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-							+ "<b>"+Util.capitaliseSentence(occupant.getSlaveJob().getName(occupant))+"</b><br/>"
-							+ UtilText.formatAsMoney(occupant.getSlaveJob().getFinalDailyIncomeAfterModifiers(occupant))+"/day"
+							+ "<b>"+Util.capitaliseSentence(occupant.getHistory().getName())+"</b><br/>"
+							+ "[style.boldDisabled(N/A)]"
 						+"</div>"
 							
 				+ "<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"
@@ -1528,18 +1517,16 @@ public class OccupantManagementDialogue {
 		float obedienceChange = character.getDailyObedienceChange();
 		
 		headerSB.append(
-				"<div class='container-full-width' style='text-align:center;'>"
+				"<div class='container-full-width' style='margin-top:0; text-align:center;'>"
 				
 					// Core naming information:
-					+"<div class='container-full-width' style='margin-bottom:0;'>"
+					+"<div class='container-full-width inner' style='padding:8px;'>"
 						+ "<div style='width:50%; float:left; font-weight:bold; margin:0; padding:0;'>"
-							+ "Slave's Name and Surname"
+							+ "Name and Surname"
 						+ "</div>"
 						+ "<div style='width:50%; float:left; font-weight:bold; margin:0; padding:0;'>"
 							+ UtilText.parse(character, "What [npc.she] calls you")
 						+ "</div>"
-					+ "</div>"
-					+"<div class='container-full-width inner' style='padding:8px;'>"
 						+ "<div style='width:49%; float:left; font-weight:bold; margin:0 1% 0 0; padding:0;'>"
 							+ "<form style='float:left; width:39%; margin:0; padding:0;'><input type='text' id='slaveNameInput' value='"+ UtilText.parseForHTMLDisplay(character.getName(false))+ "' style='width:100%; margin:0; padding:0;'></form>"
 							+ "<div class='SM-button' id='"+character.getId()+"_RENAME' style='float:left; width:9%; height:28px; line-height:28px; margin:0 1% 0 1%; padding:0;'>"
@@ -1579,7 +1566,7 @@ public class OccupantManagementDialogue {
 							+ "Value"
 						+ "</div>"
 					+ "</div>"
-					+"<div class='container-full-width'>"
+					+"<div class='container-full-width' style='margin-top:0;'>"
 						+"<div style='width:30%; float:left; margin:0; padding:0;'>"
 							+ "<b style='color:"+character.getLocationPlace().getColourString()+";'>"+character.getLocationPlace().getName()+"</b>"
 							+",<br/>"
@@ -1600,7 +1587,7 @@ public class OccupantManagementDialogue {
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-							+ UtilText.formatAsMoney(character.getSlaveJob().getFinalDailyIncomeAfterModifiers(character))+"/day"
+							+ UtilText.formatAsMoney(SlaveJob.getFinalDailyIncomeAfterModifiers(character))+"/day"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ UtilText.formatAsMoney(character.getValueAsSlave(true))
@@ -1609,22 +1596,30 @@ public class OccupantManagementDialogue {
 
 		
 		// Job:
-		headerSB.append("<div class='container-half-width inner' style='width:50%; margin:0;'>"
-				+ "<b>Job:</b> <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Util.capitaliseSentence(character.getSlaveJob().getName(character))+"</b><br/>");
-		int count=0;
-		for(SlaveJobSetting setting : character.getSlaveJobSettings()) {
-			headerSB.append((count==0?"":", ")+"<span style='color:"+setting.getColour().toWebHexString()+";'>"+setting.getName()+"</span>");
-			count++;
+		headerSB.append("<div class='container-half-width inner' style='width:50%; margin:0;'>[style.boldExcellent(Job Settings:)]");
+		List<String> noPermissions = new ArrayList<>();
+		for(SlaveJob job : SlaveJob.values()) {
+			if(character.hasSlaveJobAssigned(job)) {
+				List<String> permissions = new ArrayList<>();
+				if(!character.getSlaveJobSettings(job).isEmpty()) {
+					headerSB.append("<br/><b>"+Util.capitaliseSentence(job.getName(character))+":</b> ");
+					for(SlaveJobSetting setting : character.getSlaveJobSettings(job)) {
+						permissions.add("<span style='color:"+setting.getColour().toWebHexString()+";'>"+setting.getName()+"</span>");
+					}
+					headerSB.append(Util.stringsToStringList(permissions, false)+".");
+				} else {
+					noPermissions.add(job.getName(character));
+				}
+			}
 		}
-		if(count>0) {
-			headerSB.append(".");
+		if(!noPermissions.isEmpty()) {
+			headerSB.append("<br/><b>"+Util.stringsToStringList(noPermissions, true)+":</b> [style.colourDisabled(n/a)]");
 		}
 		headerSB.append("</div>");
 		
 		
 		// Permissions:
-		headerSB.append("<div class='container-half-width inner' style='width:50%; margin:0;'>"
-				+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Permissions:</b><br/>");
+		headerSB.append("<div class='container-half-width inner' style='width:50%; margin:0;'>[style.boldArcane(General Permissions:)]<br/>");
 		int permissionCount=0;
 		for(SlavePermission permission : SlavePermission.values()) {
 			for(SlavePermissionSetting setting : permission.getSettings()) {
@@ -1721,30 +1716,51 @@ public class OccupantManagementDialogue {
 			
 			// Job hours
 			UtilText.nodeContentSB.append(
-					"<div class='container-full-width' style='text-align:center;'>"
-						+ "<h6 style='text-align:center;'><span style='color:"+Colour.BASE_YELLOW.toWebHexString()+";'>Work Hours</span></h6>"
-						+ "<div class='container-full-width inner'>");
-							for(int i=0 ; i< 24; i++) {
-								UtilText.nodeContentSB.append("<div class='normal-button hour "+(character.getWorkHours()[i]?" selected":"")+"' id='"+i+"_WORK'>"+String.format("%02d", i)+":00</div>");
-							}
+					"<div class='container-full-width' style='text-align:center;'>");
 			
 			UtilText.nodeContentSB.append(
-							"<div style='width:100%;margin-top:8px;'><b>Presets</b></div>"
-							+ "<div class='container-full-width inner' style='text-align:center;'>");
+							"<div class='container-full-width inner' style='text-align:center;'>"
+							+ "<div style='width:100%;margin-top:8px;'><b>Available Jobs</b></div>");
+								for(SlaveJob job : SlaveJob.values()) {
+									UtilText.nodeContentSB.append(
+											"<div class='normal-button' id='"+job+"_ASSIGN' style='width:16%; margin:2px;color:"
+														+job.getColour().toWebHexString()+";"+(Main.game.getDialogueFlags().getSlaveryManagerJobSelected()==job?"border-color:"+job.getColour().toWebHexString()+";":"")+"'>"
+													+Util.capitaliseSentence(job.getName(character))
+											+"</div>");
+								}
+								
+			UtilText.nodeContentSB.append("<div style='width:100%;margin-top:8px;'><b>Time Slots</b></div>");
+			for(int i=0 ; i< 24; i++) {
+				Colour c = character.getSlaveJob(i).getColour();
+				boolean jobAvailable = Main.game.getDialogueFlags().getSlaveryManagerJobSelected().isAvailable(i, character);
+				if(!jobAvailable) {
+					UtilText.nodeContentSB.append(
+							"<div class='normal-button hour disabled' style='background:"+c.getShades()[0]+";border-color:"+c.toWebHexString()+";color:"+c.getShades()[4]+";' id='"+i+"_WORK_DISABLED'>");
+				} else {
+					UtilText.nodeContentSB.append(
+							"<div class='normal-button hour' style='background:"+c.getShades()[0]+";border-color:"+c.toWebHexString()+";color:"+c.getShades()[4]+";' id='"+i+"_WORK'>");
+				}
+				UtilText.nodeContentSB.append(String.format("%02d", i)+":00</div>");
+			}
+			float fatigue = character.getSlaveJobTotalFatigue();
+			UtilText.nodeContentSB.append(
+								"<div style='width:100%;margin-top:8px;'>"
+//										+ "<b>Presets</b>"
+									+"<i>Current daily fatigue: "+(fatigue<=0?"[style.colourGood(":"[style.colourBad(")+fatigue+")]</i>"
+								+ "</div>");
 								for(SlaveJobHours preset : SlaveJobHours.values()) {
 									UtilText.nodeContentSB.append("<div class='normal-button' id='"+preset+"_TIME' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
 								}
 			UtilText.nodeContentSB.append(
 							"</div>"
-						+ "</div>"
+//						+ "</div>"
 					+ "</div>");
 			
 			
 			// Jobs:
-			// TODO description box explaining that setting just influence random events
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width' style='text-align:center;'>"
-						+ "<h6 style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+"; text-align:center;'>Jobs</h6>"
+						+ "<h6 style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+"; text-align:center;'>Job Settings & Related Information</h6>"
 						+"<div class='container-full-width' style='margin-bottom:0;'>"
 							+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
 								+ "Job"
@@ -1758,12 +1774,9 @@ public class OccupantManagementDialogue {
 							+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
 								+ "<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience</b>"
 							+"</div>"
-							+ "<div style='float:left; width:30%; font-weight:bold; margin:0; padding:0;'>"
+							+ "<div style='float:left; width:40%; font-weight:bold; margin:0; padding:0;'>"
 								+ "<b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>Income</b>"
 										+ " (+<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience Bonus</b>)"
-							+"</div>"
-							+ "<div style='float:left; width:10%; font-weight:bold; margin:0; padding:0;'>"
-								+ "Actions"
 							+"</div>"
 						+ "</div>");
 			
@@ -1771,7 +1784,7 @@ public class OccupantManagementDialogue {
 				affectionChange = job.getAffectionGain(character);
 				obedienceChange = job.getObedienceGain(character);
 				int income = job.getFinalHourlyIncomeAfterModifiers(character);
-				boolean isCurrentJob = character.getSlaveJob() == job;
+				boolean isCurrentJob = character.hasSlaveJobAssigned(job);
 				
 				UtilText.nodeContentSB.append(
 						"<div class='container-full-width inner' "+(isCurrentJob?"style='background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"")+">"
@@ -1780,13 +1793,11 @@ public class OccupantManagementDialogue {
 							+ "</div>"
 							+"<div style='width:15%; float:left; margin:0; padding:0;'>"
 								+ (isCurrentJob
-									? "[style.boldGood("+Util.capitaliseSentence(job.getName(character))+")]"
-									: (job.isAvailable(character)
-										? Util.capitaliseSentence(job.getName(character))
-										: "[style.colourBad("+Util.capitaliseSentence(job.getName(character))+")]"))
+									? "<b style='color:"+job.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(job.getName(character))+"</b>"
+									: "[style.colourDisabled("+Util.capitaliseSentence(job.getName(character))+")]")
 							+ "</div>"
 							+ "<div style='float:left; width:10%; font-weight:bold; margin:0; padding:0;'>"
-								+ Main.game.getPlayer().getSlavesWorkingJob(job)+"/"+(job.getSlaveLimit()<0?"&#8734;":job.getSlaveLimit())
+								+ Main.game.getPlayer().getTotalSlavesWorkingJob(job)+"/"+(job.getSlaveLimit()<0?"&#8734;":job.getSlaveLimit()) //TODO
 							+"</div>"
 							+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 								+ (affectionChange>0
@@ -1802,7 +1813,7 @@ public class OccupantManagementDialogue {
 												?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(obedienceChange)+ "</b>"
 												:"[style.colourDisabled(0)]"))+"/hour"
 							+"</div>"
-							+ "<div style='float:left; width:30%; margin:0; padding:0;'>"
+							+ "<div style='float:left; width:40%; margin:0; padding:0;'>"
 								+ UtilText.formatAsMoney(job.getIncome())
 								+ " + ("
 								+ (job.getObedienceIncomeModifier(character)>0
@@ -1811,67 +1822,48 @@ public class OccupantManagementDialogue {
 										+ "*<span style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedienceValue()+"</span>)"
 								+ " = "+UtilText.formatAsMoney(income, "b", (income>=0?null:Colour.GENERIC_BAD))+"/hour"
 							+"</div>"
-							+ "<div style='float:left; width:10%; margin:0; padding:0;'>"
-								+ (!job.isAvailable(character) || isCurrentJob
-										?"<div id='"+job+"_ASSIGN_DISABLED' class='square-button solo"+(!isCurrentJob?" disabled":"")+"'><div class='square-button-content'>"
-											+(isCurrentJob?SVGImages.SVG_IMAGE_PROVIDER.getResponseOption():SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled())+"</div></div>"
-										:"<div id='"+job+"_ASSIGN' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>")
-							+"</div>"
-							+ (!isCurrentJob && !job.isAvailable(character)
-								?"<div class='container-full-width' style='background:transparent; margin:0;'>"
-										+ "<i>"
-											+ "[style.colourBad("+job.getAvailabilityText(character)+")]"
-										+"</i>"
-									+ "</div>"
-								:""));
+							);
 				
 				// Job Settings:
-				if(isCurrentJob) {
-					for(SlaveJobSetting setting : job.getMutualSettings()) {
-						boolean settingActive = character.hasSlaveJobSetting(setting);
-						
-						UtilText.nodeContentSB.append("<div class='container-full-width inner' style='"+(!isCurrentJob?"background:#1B1B1B;":"")+"'>"
-														+"<div style='width:20%; float:left; margin:0; padding:0;"+(!isCurrentJob?"color:#777;":(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":""))+"'>"
-															+ setting.getName()
-														+ "</div>"
-														+"<div style='width:70%; float:left; margin:0; padding:0;"+(!settingActive?"color:#777;":"")+"'>"
-															+ "<i>"+setting.getDescription()+"</i>"
-														+ "</div>"
-														+ "<div style='float:left; width:10%; margin:0; padding:0;'>"
-															+ (!isCurrentJob
-																	?"<div id='"+setting+"_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseUnlockedDisabled()+"</div></div>"
-																	: (settingActive
-																			?"<div id='"+setting+"_REMOVE' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseUnlocked()+"</div></div>"
-																			:"<div id='"+setting+"_ADD' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseUnlockedDisabled()+"</div></div>"))
-														+"</div>"
-													+ "</div>");
-					}
+				for(SlaveJobSetting setting : job.getMutualSettings()) {
+					boolean settingActive = character.hasSlaveJobSetting(job, setting);
 					
-					for(Entry<String, List<SlaveJobSetting>> entry : job.getMutuallyExclusiveSettings().entrySet()) {
-						UtilText.nodeContentSB.append("<div class='container-full-width inner' style='"+(!isCurrentJob?"background:#1B1B1B;":"")+"'>"
-														+ "<div style='width:100%; float:left; margin:0; padding:0;"+(isCurrentJob?"":"color:#777;")+"'><b>"
-															+ Util.capitaliseSentence(entry.getKey())
-														+"</b></div>");
+					String id = settingActive
+							?job.toString()+setting.toString()+"_REMOVE"
+							:job.toString()+setting.toString()+"_ADD";
+			
+					UtilText.nodeContentSB.append(
+							"<div id='"+id+"' class='normal-button"+(settingActive?" selected":"")+"' style='width:23%; margin:1%; text-align:center;"
+										+(settingActive?"border-color:"+job.getColour().toWebHexString()+";":"border-color:"+job.getColour().getShades()[0]+";")+"'>"
+								+ (settingActive
+										?"<span style='color:"+job.getColour().toWebHexString()+";margin:8px;'>"+setting.getName()+"</span>"
+										:"[style.colourDisabled("+setting.getName()+")]")
+							+ "</div>");
+				}
+				
+				for(Entry<String, List<SlaveJobSetting>> entry : job.getMutuallyExclusiveSettings().entrySet()) {
+					UtilText.nodeContentSB.append("<div class='container-full-width inner' style='"+(!isCurrentJob?"background:#1B1B1B;":"")+"'>"
+													+ "<div style='width:100%; float:left; margin:0; padding:0;"+(isCurrentJob?"":"color:#777;")+"'>"
+													+ "<b>"+Util.capitaliseSentence(entry.getKey())+"</b>"
+													+ "</div>");
+					
+					for(SlaveJobSetting setting : entry.getValue()) {
+						boolean settingActive = character.hasSlaveJobSetting(job, setting);
 						
-						for(SlaveJobSetting setting : entry.getValue()) {
-							boolean settingActive = character.hasSlaveJobSetting(setting);
-							
-							UtilText.nodeContentSB.append("<div style='width:20%; float:left; margin:0; padding:0;"+(!isCurrentJob?"color:#777;":(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":""))+"'>"
-																+ setting.getName()
-															+ "</div>"
-															+"<div style='width:70%; float:left; margin:0; padding:0;"+(!settingActive?"color:#777;":"")+"'>"
-																+ "<i>"+setting.getDescription()+"</i>"
-															+ "</div>"
-															+ "<div style='float:left; width:10%; margin:0; padding:0;'>"
-																+ (!isCurrentJob
-																		?"<div id='"+setting+"_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>"
-																		: (settingActive
-																				?"<div class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOption()+"</div></div>"
-																				:"<div id='"+setting+"_TOGGLE_ADD' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>"))
-															+"</div>");
-						}
-						UtilText.nodeContentSB.append("</div>");
+
+						String id = settingActive
+								?setting.toString()+"_DISABLED"
+								:setting.toString()+"_TOGGLE_ADD";
+				
+						UtilText.nodeContentSB.append(
+								"<div id='"+id+"' class='normal-button"+(settingActive?" selected":"")+"' style='width:23%; margin:1%; text-align:center;"
+											+(settingActive?"border-color:"+job.getColour().toWebHexString()+";":"")+"'>"
+									+ (settingActive
+											?"<span style='color:"+job.getColour().toWebHexString()+";margin:8px;'>"+setting.getName()+"</span>"
+											:"[style.colourDisabled("+setting.getName()+")]")
+								+ "</div>");
 					}
+					UtilText.nodeContentSB.append("</div>");
 				}
 				
 				UtilText.nodeContentSB.append("</div>");
@@ -1924,33 +1916,33 @@ public class OccupantManagementDialogue {
 						+ "<h6 style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Permissions</h6>");
 			
 			for(SlavePermission permission : SlavePermission.values()) {
-				UtilText.nodeContentSB.append(
-						"<div class='container-full-width inner' style='background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>"
-								+ "<h6 style='color:"+permission.getColour().toWebHexString()+"; text-align:center;'>"+permission.getName()+"</h6>");
+				UtilText.nodeContentSB.append("<div class='container-full-width inner' style='box-sizing:border-box; position:relative; width:98%; margin:4px 1%; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>");
 				
 				// Job Settings:
 				for(SlavePermissionSetting setting : permission.getSettings()) {
 					boolean settingActive = character.getSlavePermissionSettings().get(permission).contains(setting);
 					
-					UtilText.nodeContentSB.append("<div class='container-full-width inner'>"
-													+"<div style='width:20%; float:left; margin:0; padding:0;"+(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":"")+"'>"
-														+ setting.getName()
-													+ "</div>"
-													+"<div style='width:70%; float:left; margin:0; padding:0;"+(!settingActive?"color:#777;":"")+"'>"
-														+ "<i>"+setting.getDescription()+"</i>"
-													+ "</div>"
-													+ "<div style='float:left; width:10%; margin:0; padding:0;'>"
-														+ (permission.isMutuallyExclusiveSettings()
-																? (settingActive
-																	?"<div id='"+setting+"_REMOVE_ME' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOption()+"</div></div>"
-																	:"<div id='"+setting+"_ADD' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>")
-																:(settingActive
-																		?"<div id='"+setting+"_REMOVE' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseUnlocked()+"</div></div>"
-																		:"<div id='"+setting+"_ADD' class='square-button huge'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseUnlockedDisabled()+"</div></div>"))
-													+"</div>"
-												+ "</div>");
+					String id = (permission.isMutuallyExclusiveSettings()
+									?(settingActive?setting+"_REMOVE_ME":setting+"_ADD")
+									:(settingActive?setting+"_REMOVE":setting+"_ADD"));
+					
+					String style = "width:23%; margin:1%;";
+					if(permission.getSettings().size()==5) {
+						style = "width:18%; margin:1%;"; // These settings can fit 5 on a line
+					}
+					
+					UtilText.nodeContentSB.append(
+							"<div id='"+id+"' class='normal-button"+(settingActive?" selected":"")+"' style='"+style+"text-align:center;"
+										+(settingActive
+											?"border-color:"+permission.getColour().toWebHexString()+";"
+											:(permission.isMutuallyExclusiveSettings()
+													?""
+													:"border-color:"+permission.getColour().getShades()[0]+";"))+"'>"
+								+ (settingActive
+										?"<span style='color:"+permission.getColour().toWebHexString()+";margin:8px;'>"+setting.getName()+"</span>"
+										:"[style.colourDisabled("+setting.getName()+")]")
+							+ "</div>");
 				}
-				
 				UtilText.nodeContentSB.append("</div>");
 			}
 			UtilText.nodeContentSB.append("</div>"
@@ -1963,7 +1955,6 @@ public class OccupantManagementDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 3) {
 				return new Response("Permissions", "You are already viewing the permissions screen.", null);
-				
 			}
 
 			return SLAVE_LIST.getResponse(responseTab, index);
