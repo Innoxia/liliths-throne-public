@@ -2512,11 +2512,16 @@ public class UtilText {
 						"mas"),
 				true,
 				true,
-				"(coloured)",//TODO
-				"Description of method"){//TODO
+				"(coloured)",
+				"Returns the name of this character's femininity. Pass in 'true' as an argument to make the returned text coloured in the femininity's colour."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return Femininity.valueOf(character.getFemininityValue()).getName(false);
+				Femininity fem =  Femininity.valueOf(character.getFemininityValue());
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					return "<span style='color:"+fem.getColour().toWebHexString()+";'>"+fem.getName(false)+"</span>";
+							
+				}
+				return fem.getName(false);
 			}
 		});
 		

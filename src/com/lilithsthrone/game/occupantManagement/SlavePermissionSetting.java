@@ -19,11 +19,11 @@ public enum SlavePermissionSetting {
 	GENERAL_OUTSIDE_FREEDOM("Outside Freedom", "Grant this slave the freedom to leave Lilaya's house in their free time.", false),
 	
 	// Behaviour:
-	BEHAVIOUR_WHOLESOME("Wholesome", "Get this slave to act in a loving and wholesome manner around you. [style.italics(This will only take effect if they like you or are are obedient.)]", false),
-	BEHAVIOUR_PROFESSIONAL("Professional", "Get this slave to act in a professional manner when interacting with you. [style.italics(This will only take effect if they like you or are are obedient.)]", false),
+	BEHAVIOUR_WHOLESOME("Wholesome", "Get this slave to act in a loving and wholesome manner around you. [style.italics(This will only take effect if they like you or are obedient.)]", false),
+	BEHAVIOUR_PROFESSIONAL("Professional", "Get this slave to act in a professional manner when interacting with you. [style.italics(This will only take effect if they like you or are obedient.)]", false),
 	BEHAVIOUR_STANDARD("Standard", "Do not give this slave any instructions as to how they should act around you.", true),
-	BEHAVIOUR_SEDUCTIVE("Seductive", "Get this slave to act in a refined, seductive manner when interacting with you. [style.italics(This will only take effect if they like you or are are obedient.)]", false),
-	BEHAVIOUR_SLUTTY("Slutty", "Get this slave to act in a trashy, slutty manner when interacting with you. [style.italics(This will only take effect if they like you or are are obedient.)]", false),
+	BEHAVIOUR_SEDUCTIVE("Seductive", "Get this slave to act in a refined, seductive manner when interacting with you. [style.italics(This will only take effect if they like you or are obedient.)]", false),
+	BEHAVIOUR_SLUTTY("Slutty", "Get this slave to act in a trashy, slutty manner when interacting with you. [style.italics(This will only take effect if they like you or are obedient.)]", false),
 
 	// Sex:
 	

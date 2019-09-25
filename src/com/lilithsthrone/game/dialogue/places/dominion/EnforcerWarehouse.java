@@ -1037,7 +1037,7 @@ public class EnforcerWarehouse {
 			if(index==0) {
 				return new Response("Back off",
 						"Step back into the warehouse and re-think how you're going to get out of here.",
-						Main.game.getNpc(Claire.class).getCell().getPlace().getPlaceType().getDialogue(false)) {
+						CORRIDOR) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/enforcerWarehouse/generic", "ENTRANCE_BACK_OFF"));

@@ -122,6 +122,7 @@
 		Added 'bedroom' job for slaves, allowing you to assign them to wait on you and sleep with you in your bedroom.
 	
 	Other:
+		Slightly improved the description of your room and added a couple of room upgrades for it.
 		Characters with the denial fetish now lose affection if you end sex with them without giving them or denying them at least one orgasm.
 		Increased potion effect corruption gain from drinking Lilith's Gift (+1 corruption) and Impish Brew (+5 corruption) to +25 and +50 corruption, respectively.
 		Put all fast travel actions inside of Lilaya's Home into a separate tab, which can now be accessed anywhere inside her house.
@@ -207,6 +208,7 @@
 		Fixed some very minor appearance issues with Lyssieth.
 		Fixed bug where slaves would only be milked once each time you rested, instead of once per hour for the amount of hours spent resting.
 		The 'Ass-to-mouth' and 'Pussy-to-mouth' orgasm actions are not correctly marked as being sadistic.
+		Fixed bug with the race books in the library not showing their contents correctly.
 	
 	DSG's Enforcer Clothing Contributions:
 		The full list of DSG's Enforcer clothing (categorised by inventory slot) is as follows:
@@ -291,20 +293,35 @@
 	
 	
 	
-	Add slave in bedroom content
-		factor in personality and new behaviour settings
-			
-	Room:
-		6 Manage room
-			Upgrade bed (affection+, boosted rest bonus)
-			Upgrade ensuite (huge bath)
-		7 Manage people
-		8+ people present
 	
+	
+	Meraxis tease attacks...
+	Spectators never orgasm?
+	
+	Add slave in bedroom content
+		[x] Greeting
+		Rest
+			[x] Sleep with you, description of them in/on bed
+			[x] Use you: wake up to one of them fucking you
+		[] Add bath
+		[] New tab 'Bathroom'
+			[] Quick Wash
+			[] Thorough Wash
+			[] Bath time (1 hour)
+			[] Spa time (4 hours)
+			
 	Check bug reports
 	
-	speech traits
+	"At this moment, Loppy curls her soft fingers up inside Loppy's hot twat, before rapidly stroking and massaging her prostate"
+	
+	speech personality traits
 	bimbo
+	
+	A pair of gothic boots, that reach only below the knee, can fully conceal a pair of stockings that reach past mid-thigh.
+
+	You can't make the pair of bunny-morph prostitutes at Angel Kiss bordello pregnant at all, even if you feed them with fertility raising medicine.
+	
+	Lilaya is recognized by the game as your half-sister and not an aunt, because your kids with her recognize her as their parent and aunt, not a great-aunt as it should be.
 	
 	
 	Make fluid values based on weekly market fluctuations

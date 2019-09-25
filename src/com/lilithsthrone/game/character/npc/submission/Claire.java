@@ -270,6 +270,11 @@ public class Claire extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
 	
 	@Override
 	public void changeFurryLevel(){

@@ -2424,46 +2424,62 @@ public enum StatusEffect {
 			Colour.ATTRIBUTE_MANA,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 20f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 20f)),
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 10f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 10f)),
 			null) {
-
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
-				if(target.isPlayer()) {
-					return "After having a good rest, you feel full of energy.";
-				} else {
-					return UtilText.parse(target, "After having a good rest, [npc.name] feels full of energy.");
-				}
+				return UtilText.parse(target, "After having a good rest, [npc.name] [npc.verb(feel)] full of energy.");
 			} else {
 				return "";
 			}
 		}
-
-		
 	},
 	
 	WELL_RESTED_BOOSTED(
 			80,
-			"very well rested",
+			"well rested (boosted)",
 			"wellRestedBoosted",
 			Colour.ATTRIBUTE_HEALTH,
 			Colour.ATTRIBUTE_MANA,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 50f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 50f)),
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 30f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 30f)),
 			null) {
-
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
-				if(target.isPlayer()) {
-					return "Thanks to your ability of knowing how to get the most out of a good rest, you now feel extremely full of energy.";
+				if(target.hasTrait(Perk.JOB_UNEMPLOYED, true)) {
+					return UtilText.parse(target, "Thanks to using [npc.her] ability of knowing how to get the most out of a good rest, [npc.name] currently [npc.verb(feel)] full of energy and vigour.");
 				} else {
-					return UtilText.parse(target, "After having a good rest, [npc.name] feels full of energy.");
+					return UtilText.parse(target, "Thanks to the upgraded emperor-size bed in [npc.her] room, [npc.name] [npc.has] managed to get a very comfortable rest, and now [npc.verb(feel)] full of energy and vigour.");
 				}
+			} else {
+				return "";
+			}
+		}
+	},
+	
+	WELL_RESTED_BOOSTED_EXTRA(
+			80,
+			"well rested (extra boosted)",
+			"wellRestedBoostedExtra",
+			Colour.ATTRIBUTE_HEALTH,
+			Colour.ATTRIBUTE_MANA,
+			Colour.GENERIC_EXCELLENT,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 60f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 60f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target,
+						"Thanks to the upgraded emperor-size bed in [npc.her] room, combined with [npc.her] ability of knowing how best to get a good rest, [npc.name] now [npc.verb(feel)] as though [npc.sheIs] overflowing of energy and vigour.");
+				
 			} else {
 				return "";
 			}
@@ -5388,7 +5404,10 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return !target.isPlayer() && target.isSlave() && (target.getOwner()!=null && target.getOwner().isPlayer()) && ((NPC)target).getLastTimeOrgasmed()+60*24<Main.game.getMinutesPassed();
+			return !target.isPlayer()
+					&& target.isSlave()
+					&& (target.getOwner()!=null && target.getOwner().isPlayer())
+					&& ((NPC)target).getLastTimeOrgasmed()+60*24<Main.game.getMinutesPassed();
 		}
 	},
 	
@@ -6088,7 +6107,7 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
-				return UtilText.parse(target, "[npc.NameIsFul] wearing a slutty fancy-dress version of an enforcer's uniform, making [npc.herHim] feel extremely sexy.");
+				return UtilText.parse(target, "[npc.NameIsFull] wearing a slutty fancy-dress version of an enforcer's uniform, making [npc.herHim] feel extremely sexy.");
 					
 			} else {
 				return "";

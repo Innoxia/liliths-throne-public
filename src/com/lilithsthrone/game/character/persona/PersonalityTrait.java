@@ -115,7 +115,7 @@ public enum PersonalityTrait {
 	LISP(PersonalityCategory.SPEECH,
 			"lisp",
 			"[npc.Name] [npc.verb(speak)] with a lisp, pronouncing 's' and 'z' as 'th'.",
-			"[style.italicsMinorBad(All of [npc.namePos] in-game speech will be affected by this lisp!)]",
+			"[style.italicsBad(All of [npc.namePos] in-game speech will be affected by this lisp!)]",
 			Colour.BASE_PURPLE_LIGHT) {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {

@@ -1509,7 +1509,17 @@ public class PlaceType {
 			RoomPlayer.ROOM,
 			null,
 			"in your room"
-			).initItemsPersistInTile()
+			) {
+				@Override
+				public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+					return Util.newArrayListOfValues(
+							PlaceUpgrade.LILAYA_PLAYER_ROOM_BED);//TODO add BATH
+				}
+				@Override
+				public boolean isAbleToBeUpgraded() {
+					return true;
+				}
+			}.initItemsPersistInTile()
 			.initWeatherImmune();
 	
 	public static final AbstractPlaceType LILAYA_HOME_STAIR_DOWN = new AbstractPlaceType(

@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.4.9";
+	public static final String VERSION_NUMBER = "0.3.5";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -90,7 +90,46 @@ public class Main extends Application {
 		+ "</p>"
 		
 		+ "<p>"
-			+ "TODO"//TODO
+			+ "Once again I'm sorry about the delays leading up to this release; adding Claire's content, making the changes to slavery, and some of the other work took longer than I thought."
+			+ " I won't be making release date estimates in the future, and will instead simply say what it is I'm planning on getting added for the next version."
+			+ " I'll then make blog/SubscribeStar posts every Monday and Friday to let you know how I'm progressing."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "Anyway, as to what I've added in this version, it's mainly Claire's quest, along with some minor slavery improvements and additions."
+			+ " I've also changed the personality system (again) to replace the rather vague personality values with some well-defined traits."
+			+ " This will allow me to factor in personality-related dialogue variations a lot easier in the future, and I will also be able to use it to influence combat and sex behaviour."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "Another huge addition to this version is the inclusion of DSG's enforcer uniforms, which total 57 new items of clothing and weaponry."
+			+ " Along with these items, DSG has also created a lot of enforcer-related lore, which will be referenced and delivered to the player across the course of the game."
+			+ " I really think that this will help to give a lot more depth to content related to the enforcers, and speaking of which, there will be some new content on that front added in an upcoming version."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "For the next release (v0.3.5.5), I'm aiming to get a few things done."
+			+ " Firstly, I'm going to add a (very basic) day/night cycle system, along with some (very basic) routines for unique NPCs."
+			+ " This will just be things like Lilaya & Rose going to their rooms at night, some shops only being open during the day, a higher chance of alleyway attacks at night, etc."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "Along with that addition, I'll also be adding in Axel's quest, which will see you (finally) being able to interact with the 'Rat Warrens' tile in Submission."
+			+ " As usual, I'll also be fixing bugs and making other improvements at the same time."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "After that, I'll be working on the full public release of v0.3.6, which will (also finally) be focused on getting all the last parts of Dominion and Submission content finished off, so that I can start adding content for the Fields."
+			+ " Sorry that it's taking me so long to get around to adding that content, but it won't be long now!"
+		+ "</p>"
+			
+		+ "<p>"
+			+ "I know that a lot of you say to stop apologising, but I am very sorry once again for the delays leading up to this version."
+			+ " Thank you all for your patience, and for your kind and supportive comments!"
+		+ "</p>"
+			
+		+ "<p>"
+			+ "P.S. If there are any major bugs, I will aim to get a hotfix out for the weekend. I ahve tested all of the new content, and didn't run into any, but you never know..."
 		+ "</p>"
 			
 		+ "<br/>"
@@ -109,12 +148,12 @@ public class Main extends Application {
 			+"<ul>Added a repeatable sex scene with Claire that can be accessed after completing her teleportation quest.</ul>"
 			+"<ul>Overhauled the old, rather vague, personality system into one based on well-defined personality traits (which will make it a lot easier for me to factor them into dialogue variations in the future).</ul>"
 			+"<ul>Old personalities are converted into the new system upon loading into this version, but if you want to save-edit it to something more suitable for your character, then you can add the traits in <trait> tags within a cahracter's <personality> tag. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/persona/PersonalityTrait.java</ul>"
-			
+
 			+"<li>DSG's Enforcer Clothing & Weapon Contributions:</li>"
 			+"<ul>Added a huge amount of enforcer-related clothing (48 unique items of clothing), created by 'DSG'.</ul>"
 			+"<ul>Added 9 new enforcer-related weapons (2 melee and 7 ranged), also all created by 'DSG'.</ul>"
 			+"<ul>The full list of new clothing and weapons is at the end of these patch notes.</ul>"
-			
+
 			+"<li>Slavery:</li>"
 			+"<ul>Added 'office' room upgrade, along with 'office worker' jobs for slaves, and moved the 'Slave List' action from your room into the office (and renamed it to 'Occupancy ledger').</ul>"
 			+"<ul>The occupancy ledger now only tracks the last 7 days (to avoid save file bloat), and no longer gets spammed full of 'placeholder event' entries.</ul>"
@@ -126,8 +165,9 @@ public class Main extends Application {
 			+"<ul>Added 'fatigue' value to jobs, and changed the 'overworked' status effect into three effects of increasing severity, which are gained at 1->9, 10->19, and 20+ daily fatigue.</ul>"
 			+"<ul>Added a 'behaviour' permissions category, allowing you to set how slaves should act towards you.</ul>"
 			+"<ul>Added 'bedroom' job for slaves, allowing you to assign them to wait on you and sleep with you in your bedroom.</ul>"
-			
+
 			+"<li>Other:</li>"
+			+"<ul>Slightly improved the description of your room and added a couple of room upgrades for it.</ul>"
 			+"<ul>Characters with the denial fetish now lose affection if you end sex with them without giving them or denying them at least one orgasm.</ul>"
 			+"<ul>Increased potion effect corruption gain from drinking Lilith's Gift (+1 corruption) and Impish Brew (+5 corruption) to +25 and +50 corruption, respectively.</ul>"
 			+"<ul>Put all fast travel actions inside of Lilaya's Home into a separate tab, which can now be accessed anywhere inside her house.</ul>"
@@ -147,7 +187,7 @@ public class Main extends Application {
 			+"<ul>Expanded Enforcer Headquarters map to include some cells for Claire's (and future) content. (You only see it as an alternative defeat scene if non-con is off.)</ul>"
 			+"<ul>Improved flow of dialogue when interacting with Claire.</ul>"
 			+"<ul>NPCs are now only half as likely to use tease attacks against enemies they are not attracted to.</ul>"
-			
+
 			+"<li>Bugs:</li>"
 			+"<ul>Parsing/grammar/typo fixes.</ul>"
 			+"<ul>Fixed Dominion street tiles which have a special location on them taking 5 minutes to traverse instead of the usual 2.</ul>"
@@ -213,7 +253,8 @@ public class Main extends Application {
 			+"<ul>Fixed some very minor appearance issues with Lyssieth.</ul>"
 			+"<ul>Fixed bug where slaves would only be milked once each time you rested, instead of once per hour for the amount of hours spent resting.</ul>"
 			+"<ul>The 'Ass-to-mouth' and 'Pussy-to-mouth' orgasm actions are not correctly marked as being sadistic.</ul>"
-			
+			+"<ul>Fixed bug with the race books in the library not showing their contents correctly.</ul>"
+
 			+"<li>DSG's Enforcer Clothing Contributions:</li>"
 			+"<ul>The full list of DSG's Enforcer clothing (categorised by inventory slot) is as follows:</ul>"
 			+"<li>Head slot:</li>"
@@ -279,7 +320,7 @@ public class Main extends Application {
 			+"<li>Ankles slot:</li>"
 			+"<ul>Enforcer's riot shin guards (Unisex).</ul>"
 			+"<ul>Enforcer's tactical kneepads (Unisex).</ul>"
-			
+
 			+"<li>DSG's Enforcer Weapon Contributions:</li>"
 			+"<ul>The full list of DSG's Enforcer weapons (categorised by melee/ranged) are as follows:</ul>"
 			+"<li>Melee slot:</li>"

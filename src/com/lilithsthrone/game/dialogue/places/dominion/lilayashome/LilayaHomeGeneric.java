@@ -892,7 +892,7 @@ public class LilayaHomeGeneric {
 	}
 	
 	private static StringBuilder roomSB = new StringBuilder();
-	private static String getRoomModificationsDescription() {
+	public static String getRoomModificationsDescription() {
 		GenericPlace place = Main.game.getPlayer().getLocationPlace();
 		roomSB.setLength(0);
 		

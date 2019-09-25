@@ -762,6 +762,49 @@ public enum PlaceUpgrade {
 			0.05f,
 			0,
 			null),
+	
+	// Player's room:
+
+	LILAYA_PLAYER_ROOM_BED(false,
+			Colour.BASE_GOLD,
+			"Emperor-Size Bed",
+			"Have your current, king-size bed replaced by a huge, 'emperor-size' one. [style.italicsGood(This will improve the 'well rested' bonus gained from resting in your room.)]",
+			"Your old, king-size bed has been replaced by a huge, 'emperor-size' one. [style.italicsGood(The 'well rested' bonus gained from resting in your room has been improved!)]",
+			"Your old, king-size bed has been replaced by a huge, 'emperor-size' one, which sits in a dominant position against one wall of your room."
+					+ " Its comfortable mattress, fluffy pillows, and warm duvet ensure that you always feel extremely well rested after sleeping in it.",
+			10000,
+			-5000,
+			0,
+			0,
+			0.2f,
+			-0.1f,
+			null) {
+		public Value<Boolean, String> getAvailability(Cell cell) {
+			return new Value<>(true, "");
+		}
+	},
+
+	//TODO
+//	LILAYA_PLAYER_ROOM_BATH(false,
+//			Colour.BASE_BLUE_LIGHT,
+//			"Bathroom Extension",
+//			"By knocking through into an adjacent storage room, it would be possible to greatly extend the size of your bathroom."
+//					+ " With this extra space, you could turn it into a private spa, installing not only a huge new bathtub, but also a sauna and self-contained steam room.",
+//			"By knocking through into an adjacent storage room, you have greatly extended the size of your bathroom."
+//					+ " With this extra space, you've turned it into a private spa, having installed not only a huge new bathtub, but also a sauna and self-contained steam room.",
+//			"By knocking through into an adjacent storage room, your old bathroom has been greatly extended and converted into a private spa."
+//					+ " A massive bathtub, able to hold at least ten people at once, has been installed on the far right-hand side of the room, while to the left, both an enclosed sauna and a self-contained steam room have been constructed.",
+//			300000,
+//			100000,
+//			0,
+//			0,
+//			0.5f,
+//			-0.25f,
+//			null) {
+//		public Value<Boolean, String> getAvailability(Cell cell) {
+//			return new Value<>(true, "");
+//		}
+//	},
 	;
 	
 	

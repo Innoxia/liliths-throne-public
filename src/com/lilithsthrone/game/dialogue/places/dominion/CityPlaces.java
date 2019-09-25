@@ -958,7 +958,6 @@ public class CityPlaces {
 					@Override
 					public void effects() {
 						if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLIME_QUEEN)) {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "ENTER_SUBMISSION_FIRST_TIME"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.visitedSubmission, false);
 							Main.mainController.moveGameWorld(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
 							

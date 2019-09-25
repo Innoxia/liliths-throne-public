@@ -227,8 +227,6 @@ public class CandiReceptionist extends NPC {
 		}
 		
 		if(settings.contains(EquipClothingSetting.ADD_ACCESSORIES)) {
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER, false), true, this);
-
 			this.setPiercedEar(true);
 			this.setPiercedNose(true);
 			this.setPiercedNavel(true);

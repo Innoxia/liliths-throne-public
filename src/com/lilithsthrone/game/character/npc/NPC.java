@@ -400,21 +400,24 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			tileSB.append(
 					UtilText.parse(this,
 							"<p style='text-align:center;'>"
-							+ "<b style='color:"+Femininity.valueOf(this.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
-							+ " <b style='color:"+this.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-							+ " <b style='color:"+this.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!</b></p>"
-						
-							+ "<p style='text-align:center;'>"));
+								+ "<i>"
+									+ (this.isPlayerKnowsName()
+											?"[npc.Name], [npc.a_femininity(true)] [npc.raceStage(true)] [npc.race(true)],"
+											:"[npc.A_femininity(true)] [npc.raceStage(true)] [npc.race(true)]")
+									+ " is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!"
+								+ "</i>"
+							+ "</p>"));
 		} else {
 			tileSB.append(
 					UtilText.parse(this,
 							"<p style='text-align:center;'>"
-							+"<b>Someone, or something, is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!</b></p>"
-				
-							+ "<p style='text-align:center;'>"));
+									+"<i>Someone, or something, is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!</i>"
+							+ "</p>"
+				));
 		}
-				
+		
 		// Combat:
+		tileSB.append("<p style='text-align:center;'>");
 		if(this.getFoughtPlayerCount()>0) {
 			tileSB.append(
 					UtilText.parse(this,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
