@@ -43,7 +43,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -90,6 +89,11 @@ public class Angel extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.resetPerksMap(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
+			this.setPersonalityTraits(
+					PersonalityTrait.KIND,
+					PersonalityTrait.LEWD);
+		}
 	}
 
 	@Override
@@ -112,12 +116,9 @@ public class Angel extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setPersonality(Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+			this.setPersonalityTraits(
+					PersonalityTrait.KIND,
+					PersonalityTrait.LEWD);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			

@@ -40,7 +40,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -101,6 +100,10 @@ public class Rose extends NPC {
 			this.setStartingBody(false);
 			this.resetPerksMap(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
+			this.setPersonalityTraits(
+					PersonalityTrait.PRUDE);
+		}
 	}
 
 	@Override
@@ -119,13 +122,8 @@ public class Rose extends NPC {
 		// Persona:
 
 		if(setPersona) {
-	
-			this.setPersonality(Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.LOW),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.LOW)));
+			this.setPersonalityTraits(
+					PersonalityTrait.PRUDE);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -278,7 +276,7 @@ public class Rose extends NPC {
 			return -1000;
 		}
 		
-		if(type.getAsParticipant()==SexParticipantType.SELF && type.isTakesVirginity()) { // DO not lose virginity:
+		if(type.getAsParticipant()==SexParticipantType.SELF && type.isTakesVirginity()) { // Do not lose virginity:
 			return -1000;
 		}
 

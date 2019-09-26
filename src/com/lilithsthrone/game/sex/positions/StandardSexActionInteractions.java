@@ -241,7 +241,9 @@ public class StandardSexActionInteractions {
 								!performer.isTaur()
 									?Util.mergeMaps(
 											!target.isTaur()
-												?SexActionPresets.allAreasToAppendages
+												?Util.mergeMaps(
+														SexActionPresets.allAreasToTailAndTentacle,
+														SexActionPresets.lowerHalfToFinger)
 												:null,
 											SexActionPresets.groinToAss,
 											SexActionPresets.penisToVagina,
@@ -362,7 +364,7 @@ public class StandardSexActionInteractions {
 								!performer.isTaur()
 									?Util.mergeMaps(
 											SexActionPresets.appendagesToAllAreas,
-											SexActionPresets.upperHalfToAppendages)
+											SexActionPresets.allAreasToTailAndTentacle)
 									:null,
 								SexActionPresets.groinToAss,
 								SexActionPresets.vaginaToVagina,

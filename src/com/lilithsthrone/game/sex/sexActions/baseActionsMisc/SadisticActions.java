@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -13,7 +12,6 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.3.4
@@ -21,6 +19,7 @@ import com.lilithsthrone.main.Main;
  * @author Innoxia
  */
 public class SadisticActions {
+	
 	
 	public static final SexAction SLAP_FACE = new SexAction(
 			SexActionType.ONGOING,
@@ -32,10 +31,12 @@ public class SadisticActions {
 			SexPace.DOM_ROUGH) {
 		
 		@Override
+		public boolean isSadisticAction() {
+			return true;
+		}
+		
+		@Override
 		public boolean isBaseRequirementsMet() {
-			if(!Main.getProperties().hasValue(PropertyValue.sadisticSexContent)) {
-				return false;
-			}
 			boolean mouthFinger = false;
 			boolean mouthFingerReversed = false;
 			try {
@@ -127,10 +128,12 @@ public class SadisticActions {
 			SexPace.DOM_ROUGH) {
 		
 		@Override
+		public boolean isSadisticAction() {
+			return true;
+		}
+		
+		@Override
 		public boolean isBaseRequirementsMet() {
-			if(!Main.getProperties().hasValue(PropertyValue.sadisticSexContent)) {
-				return false;
-			}
 			boolean mouthTongue = false;
 			boolean mouthTongueReversed = false;
 			try {
@@ -222,10 +225,12 @@ public class SadisticActions {
 			SexPace.DOM_ROUGH) {
 		
 		@Override
+		public boolean isSadisticAction() {
+			return true;
+		}
+		
+		@Override
 		public boolean isBaseRequirementsMet() {
-			if(!Main.getProperties().hasValue(PropertyValue.sadisticSexContent)) {
-				return false;
-			}
 			boolean mouthFinger = false;
 			boolean mouthFingerReversed = false;
 			try {

@@ -24,7 +24,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.82
- * @version 0.3.4
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public class PenisAnus {
@@ -37,7 +37,11 @@ public class PenisAnus {
 
 	private static List<GameCharacter> getCharactersForParsing(GameCharacter characterReceivingDP) {
 		List<GameCharacter> characters = Util.newArrayListOfValues(Sex.getCharacterPerformingAction(), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()));
-		characters.addAll(getOngoingCharacters(characterReceivingDP));
+		for(GameCharacter c : getOngoingCharacters(characterReceivingDP)) {
+			if(!characters.contains(c)) {
+				characters.add(c);
+			}
+		}
 		return characters;
 	}
 	
@@ -584,7 +588,8 @@ public class PenisAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return getOngoingCharacters(Sex.getCharacterTargetedForSexAction(this)).size()==1;
+			return getOngoingCharacters(Sex.getCharacterTargetedForSexAction(this)).size()==1
+					&& !getOngoingCharacters(Sex.getCharacterTargetedForSexAction(this)).contains(Sex.getCharacterPerformingAction());
 		}
 		
 		@Override
@@ -1343,7 +1348,8 @@ public class PenisAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return getOngoingCharacters(Sex.getCharacterPerformingAction()).size()==1;
+			return getOngoingCharacters(Sex.getCharacterPerformingAction()).size()==1
+					&& !getOngoingCharacters(Sex.getCharacterPerformingAction()).contains(Sex.getCharacterTargetedForSexAction(this));
 		}
 		
 		@Override
@@ -1820,7 +1826,7 @@ public class PenisAnus {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"[npc.Name] [npc.verb(feel)] tears [npc.verb(start)] to well up in [npc.her] [npc.eyes], and, not being able to hold back any longer, [npc.she] suddenly [npc.verb(let)] out [npc.a_sob+],"
 										+ " before weakly trying to pull [npc2.namePos] [npc2.cock] out of [npc.her] [npc.asshole+].",
-								"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.asshole] away from [npc2.namePos] unwanted penetration,"
+								"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.ass+] away from [npc2.namePos] unwanted penetration,"
 										+ " struggling in desperation as [npc2.her] [npc2.cock+] [npc2.verb(continue)] slowly sliding in and out of [npc.her] [npc.asshole+].",
 								"Trying desperately to pull [npc.her] [npc.hips] away,"
 										+ " [npc.name] [npc.sobVerb] in distress as [npc2.namePos] [npc2.cock+] [npc2.verb(continue)] gently sliding deep into [npc.her] [npc.asshole+]."));
@@ -1829,7 +1835,7 @@ public class PenisAnus {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"[npc.Name] [npc.verb(feel)] tears [npc.verb(start)] to well up in [npc.her] [npc.eyes], and, not being able to hold back any longer, [npc.she] suddenly [npc.verb(let)] out [npc.a_sob+],"
 										+ " before weakly trying to pull [npc2.namePos] [npc2.cock] out of [npc.her] [npc.asshole+].",
-								"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.asshole] away from [npc2.namePos] unwanted penetration,"
+								"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.ass+] away from [npc2.namePos] unwanted penetration,"
 										+ " struggling in desperation as [npc2.her] [npc2.cock+] [npc2.verb(continue)] roughly slamming in and out of [npc.her] [npc.asshole+].",
 								"Trying desperately to pull [npc.her] [npc.hips] away,"
 										+ " [npc.name] [npc.sobVerb] in distress as [npc2.namePos] [npc2.cock+] [npc2.verb(continue)] violently thrusting deep into [npc.her] [npc.asshole+]."));
@@ -1838,7 +1844,7 @@ public class PenisAnus {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"[npc.Name] [npc.verb(feel)] tears [npc.verb(start)] to well up in [npc.her] [npc.eyes], and, not being able to hold back any longer, [npc.she] suddenly [npc.verb(let)] out [npc.a_sob+],"
 										+ " before weakly trying to pull [npc2.namePos] [npc2.cock] out of [npc.her] [npc.asshole+].",
-								"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.asshole] away from [npc2.namePos] unwanted penetration,"
+								"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.ass+] away from [npc2.namePos] unwanted penetration,"
 										+ " struggling in desperation as [npc2.her] [npc2.cock+] [npc2.verb(continue)] frantically pumping in and out of [npc.her] [npc.asshole+].",
 								"Trying desperately to pull [npc.her] [npc.hips] away,"
 										+ " [npc.name] [npc.sobVerb] in distress as [npc2.namePos] [npc2.cock+] [npc2.verb(continue)] greedily thrusting deep into [npc.her] [npc.asshole+]."));

@@ -42,6 +42,8 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class CityPlaces {
 
+	public static final int TRAVEL_TIME_STREET = 2*60;
+	
 	private static String getExtraStreetFeatures() {
 		StringBuilder mommySB = new StringBuilder();
 		StringBuilder occupantSB = new StringBuilder();
@@ -139,7 +141,7 @@ public class CityPlaces {
 						OccupantDialogue.OCCUPANT_APARTMENT) {
 					@Override
 					public void effects() {
-						OccupantDialogue.initDialogue(npc, true);
+						OccupantDialogue.initDialogue(npc, true, false);
 					}
 				});
 			}
@@ -181,7 +183,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return TRAVEL_TIME_STREET;
 		}
 
 		@Override
@@ -716,7 +718,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return TRAVEL_TIME_STREET;
 		}
 
 		@Override
@@ -826,7 +828,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return TRAVEL_TIME_STREET;
 		}
 
 		@Override
@@ -904,7 +906,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return TRAVEL_TIME_STREET;
 		}
 
 		@Override
@@ -941,7 +943,7 @@ public class CityPlaces {
 
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return TRAVEL_TIME_STREET;
 		}
 
 		@Override
@@ -956,11 +958,13 @@ public class CityPlaces {
 					@Override
 					public void effects() {
 						if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLIME_QUEEN)) {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "ENTER_SUBMISSION_FIRST_TIME"));
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_SLIME_QUEEN));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.visitedSubmission, false);
+							Main.mainController.moveGameWorld(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
+							
+						} else {
+							Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
 						}
-						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
+						
 						Main.game.getNpc(Claire.class).setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
 					}
 				};
@@ -985,24 +989,28 @@ public class CityPlaces {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "ENTER_SUBMISSION");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "ENTER_SUBMISSION"));
+			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLIME_QUEEN)) {
+				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "ENTER_SUBMISSION_FIRST_TIME"));
+			} else {
+				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "ENTER_SUBMISSION_REPEAT"));
+			}
+			return sb.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.visitedSubmission)) {
 				if (index == 1) {
-					return new Response("Continue", "Continue on your way through the Enforcer Post.", CITY_EXIT_SEWERS_ENTERING_SUBMISSION){
+					return new Response("Confirm", "Confirm to the cat-girl that this is indeed your first time visiting Submission.", CITY_EXIT_SEWERS_ENTERING_SUBMISSION_FIRST_TIME) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.visitedSubmission, true);
-						}
-						@Override
-						public DialogueNode getNextDialogue(){
-							return Main.game.getDefaultDialogueNoEncounter();
+							Main.game.getNpc(Claire.class).setPlayerKnowsName(true);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_SLIME_QUEEN));
 						}
 					};
-	
+					
 				} else {
 					return null;
 				}
@@ -1012,11 +1020,39 @@ public class CityPlaces {
 		}
 	};
 	
+	public static final DialogueNode CITY_EXIT_SEWERS_ENTERING_SUBMISSION_FIRST_TIME = new DialogueNode("", "", true, true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 3*60;
+		}
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "ENTER_SUBMISSION_FIRST_TIME_CONFIRMATION");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Continue on your way through the Enforcer Post.", Main.game.getDefaultDialogueNoEncounter()){
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.visitedSubmission, true);
+					}
+				};
+
+			} else {
+				return null;
+			}
+		}
+	};
+	
 	public static final DialogueNode CITY_EXIT = new DialogueNode("Dominion Exit", "", false) {
 
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return TRAVEL_TIME_STREET;
 		}
 
 		@Override

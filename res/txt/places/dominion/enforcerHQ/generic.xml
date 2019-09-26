@@ -62,6 +62,36 @@
 	</htmlContent>
 
 	
+	<!-- OFFICE -->
+
+	<htmlContent tag="OFFICE"><![CDATA[
+	<p>
+		The door to the office before you displays a name which you haven't heard of before, and judging from the fact that the lights inside seem to be turned off, it doesn't look like there's going to be anyone inside who can help you to find Brax's office. Trying the handle just to be sure, you find that the door is currently locked. It looks like you'll have to keep on searching for Brax elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- CELLS_OFFICE -->
+
+	<htmlContent tag="CELLS_OFFICE"><![CDATA[
+	<p>
+		This small office is where all prisoners are checked in and out of the cells. Although typically manned by at least two enforcers, it's currently deserted...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- CELL -->
+
+	<htmlContent tag="CELL"><![CDATA[
+	<p>
+		With a metal, barred door and only a raised concrete platform to serve as a bed, this cell is very basic indeed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- GUARDED_DOOR -->
 
 	<htmlContent tag="GUARDED_DOOR"><![CDATA[
@@ -93,6 +123,23 @@
 	<htmlContent tag="GUARDED_DOOR_STEP_BACK"><![CDATA[
 	<p>
 		Realising that you'd stand no chance in a fight against all of the enforcers that would soon arrive as backup, you decide not to try and force your way through into the interior of the building. Agreeing to do as the horse-boy says, you step back into the waiting room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LOCKED_DOOR -->
+
+	<htmlContent tag="LOCKED_DOOR"><![CDATA[
+	<p>
+		The door before you is firmly shut, and, giving it an experimental push, you discover that it's locked. Doubting that the pass which Candi gave to you grants you access to the area beyond, you decide against asking a nearby enforcer to open it for you, and instead prepare to turn around and head back the way you came...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOCKED_DOOR_STEP_BACK"><![CDATA[
+	<p>
+		With no apparent way to get past this locked door, you take a step back and turn around, before heading off back down the main corridor...
 	</p>
 	]]>
 	</htmlContent>
@@ -435,7 +482,7 @@
 		[candi.speechNoEffects(Eugh... Like, [brax.name] is, like, super hot and stuff, but he has a sorta thing for wolf-girls. He got, like, some demon to make him this super expensive potion that'd, like, turn me completely into a wolf-girl! I dunno what he was thinkin', I put, like, so much effort into how I look, I'm not, like, gonna let him transform me like that, even <i>if</i> he's super good at fuckin' and stuff,)] Candi explains, [candi.speechNoEffects(Ah yeah, that reminds me, like, he said he'd just use it on the next person that pisses him off, so, like, don't do anything to anger him, or else you're gonna', like, get turned into his little wolf-bitch!)]
 	</p>
 	<p>
-		Thanking Candi for the warning, you say goodbye, and no sooner than you take one step away from her desk, she starts busily applying her makeup once again.
+		Thanking Candi for the warning, you say goodbye and head back into the waiting area. No sooner than you take one step away from her desk, she starts busily applying her makeup once again.
 	</p>
 	]]>
 	</htmlContent>
@@ -486,7 +533,7 @@
 		[candi.speechNoEffects(Eugh... Like, [brax.name] is, like, super hot and stuff, but he has a sorta thing for wolf-girls. He got, like, some demon to make him this super expensive potion that'd, like, turn me completely into a wolf-girl! I dunno what he was thinkin', I put, like, so much effort into how I look, I'm not, like, gonna let him transform me like that, even <i>if</i> he's super good at fuckin' and stuff,)] Candi explains. [candi.speechNoEffects(Ah yeah, that reminds me, like, he said he'd just use it on the next person that pisses him off, so, like, don't do anything to anger him, or else you're gonna', like, get turned into his little wolf-bitch!)]
 	</p>
 	<p>
-		Thanking Candi for the warning, you say goodbye, and no sooner than you take one step away from her desk, she starts busily applying her makeup once again.
+		Thanking Candi for the warning, you say goodbye and head back into the waiting area. No sooner than you take one step away from her desk, she starts busily applying her makeup once again.
 	</p>
 	]]>
 	</htmlContent>
@@ -713,7 +760,7 @@
 	
 	<htmlContent tag="INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED_SEX"><![CDATA[
 	<p>
-		After waiting for five minutes, you follow Candi into her office. There, waiting for you, is the one-time 'Chief of Dominion Operations'. Having being transformed into a brain-dead bimbo, and being dressed up to look like a cheap whore, she's completely unrecognisable from the first time you met her.
+		After waiting for five minutes, you follow Candi into her office. There, waiting for you, is the person who you first met as 'Inspector Brax'. Having being transformed into a brain-dead bimbo, and being dressed up to look like a cheap whore, she's completely unrecognisable from the first time you met her.
 	</p>
 	<p>
 		A fishnet top does nothing to conceal her massive KK-cup breasts, and you see that a tiny miniskirt isn't doing much better of a job downstairs. Candi must have a thing for fishnets, as she's given Brandi a pair of fishnet stocking, as well as gloves, finishing off her slutty appearance.
@@ -926,7 +973,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Responding in the affirmative, you sign the papers laid out in front of you, before asking Candi to do the same. Despite all that you've done for her, she seems very reluctant to go through with it, and it takes some pointed reminders of her promises to finally get her to sign off on the transfer. Being infused with a special arcane enchantment, the documents immediately react to both party's signatures, and with a bright purple flash, the enslavement collar around [brax.namePos] next activates, teleporting [brax.herHim] to the slaver administration building's holding cells.
+		Responding in the affirmative, and telling [brax.name] to collect whatever personal possessions [brax.she] has, you then sign the papers laid out in front of you, before asking Candi to do the same. Despite all that you've done for her, she seems very reluctant to go through with it, and it takes some pointed reminders of her promises to finally get her to sign off on the transfer. Being infused with a special arcane enchantment, the documents immediately react to both party's signatures, and with a bright purple flash, the enslavement collar around [brax.namePos] neck activates, teleporting [brax.herHim] to the slaver administration building's holding cells.
 	</p>
 	<p>
 		[candi.speechNoEffects(Well, like, there ya go,)] candi pouts, clearly upset at having lost her slave, [candi.speechNoEffects(I guess these lipsticks are, like, pretty good, but I feel like you cheated me outta something!)]

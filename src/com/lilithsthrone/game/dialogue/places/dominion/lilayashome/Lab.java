@@ -29,7 +29,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -38,8 +37,8 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
+import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -50,7 +49,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.3.2
+ * @version 0.3.5
  * @author Innoxia
  */
 public class Lab {
@@ -80,7 +79,15 @@ public class Lab {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
 			if(index==1) {
 				if(Main.game.getNpc(Lilaya.class).getBaseFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
 					if(Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)) {
@@ -103,22 +110,6 @@ public class Lab {
 					}
 				};
 				
-			} else if (index == 6) {
-				return new ResponseEffectsOnly("Entrance hall", "Fast travel to the entrance hall."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
-					}
-				};
-	
-			} else if (index == 7) {
-				return new ResponseEffectsOnly("Your Room", "Fast travel up to your room."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
-					}
-				};
-
 			} else {
 				return null;
 			}

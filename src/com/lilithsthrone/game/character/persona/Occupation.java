@@ -29,9 +29,17 @@ public enum Occupation {
 	NPC_HARPY_MATRIARCH(Perk.JOB_NPC_HARPY_MATRIARCH, "harpy matriarch", "[npc.NameIsFull] a matriarch of a harpy flock.", OccupationTag.HAS_PREREQUISITES),
 	NPC_HARPY_FLOCK_MEMBER(Perk.JOB_NPC_HARPY_FLOCK_MEMBER, "harpy flock member", "[npc.NameIsFull] a member of a harpy flock", OccupationTag.HAS_PREREQUISITES),
 
-	NPC_ENFORCER_PATROL_INSPECTOR(Perk.JOB_NPC_ENFORCER_PATROL_INSPECTOR, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
-	NPC_ENFORCER_PATROL_SERGEANT(Perk.JOB_NPC_ENFORCER_PATROL_SERGEANT, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
-	NPC_ENFORCER_PATROL_CONSTABLE(Perk.JOB_NPC_ENFORCER_PATROL_CONSTABLE, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
+	NPC_ENFORCER_PATROL_INSPECTOR(Perk.JOB_NPC_ENFORCER_PATROL_INSPECTOR, "Enforcer", "[npc.NameIs] a member of the enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
+	NPC_ENFORCER_PATROL_SERGEANT(Perk.JOB_NPC_ENFORCER_PATROL_SERGEANT, "Enforcer", "[npc.NameIs] a member of the enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
+	NPC_ENFORCER_PATROL_CONSTABLE(Perk.JOB_NPC_ENFORCER_PATROL_CONSTABLE, "Enforcer", "[npc.NameIs] a member of the enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
+
+	NPC_ENFORCER_SWORD_INSPECTOR(Perk.JOB_NPC_ENFORCER_SWORD_INSPECTOR, "SWORD enforcer", "[npc.NameIs] an enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
+	NPC_ENFORCER_SWORD_SERGEANT(Perk.JOB_NPC_ENFORCER_SWORD_SERGEANT, "SWORD enforcer", "[npc.NameIs] an enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
+	NPC_ENFORCER_SWORD_CONSTABLE(Perk.JOB_NPC_ENFORCER_SWORD_CONSTABLE, "SWORD enforcer", "[npc.NameIs] an enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
+
+	NPC_ENFORCER_ORICL_INSPECTOR(Perk.JOB_NPC_ENFORCER_ORICL_INSPECTOR, "ORICL enforcer", "[npc.NameIs] an enforcer, and is a member of ORICL.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_ORICL),
+	NPC_ENFORCER_ORICL_SERGEANT(Perk.JOB_NPC_ENFORCER_ORICL_SERGEANT, "ORICL enforcer", "[npc.NameIs] an enforcer, and is a member of ORICL.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_ORICL),
+	NPC_ENFORCER_ORICL_CONSTABLE(Perk.JOB_NPC_ENFORCER_ORICL_CONSTABLE, "ORICL enforcer", "[npc.NameIs] an enforcer, and is a member of ORICL.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_ORICL),
 	
 	NPC_CULTIST(Perk.JOB_NPC_CULTIST, "Cultist", "[npc.NameIs] a full-time member of the 'Cult of Lilith'.", OccupationTag.HAS_PREREQUISITES),
 

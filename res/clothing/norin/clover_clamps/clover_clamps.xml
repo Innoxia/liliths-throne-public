@@ -77,14 +77,17 @@
     <tertiaryColoursDye/>
     
     <itemTags>
-      <tag>SOLD_BY_FINCH</tag>
-      <tag>ENABLE_SEX_EQUIP</tag>
-      <tag>TRANSPARENT</tag>
+		<tag>SOLD_BY_FINCH</tag>
+		<tag>ENABLE_SEX_EQUIP</tag>
+		<tag>TRANSPARENT</tag>
+    </itemTags>
+    <itemTags slot="VAGINA">
+		<tag>REQUIRES_VAGINA</tag>
     </itemTags>
     <itemTags slot="NIPPLE">
-      <tag>SEALS_NIPPLES</tag>
-      <tag>ENABLE_SEX_EQUIP</tag>
-      <tag>TRANSPARENT</tag>
+		<tag>SEALS_NIPPLES</tag>
+		<tag>ENABLE_SEX_EQUIP</tag>
+		<tag>TRANSPARENT</tag>
     </itemTags>
     
   </coreAttributes>

@@ -31,7 +31,7 @@ public class DemonHome {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override
@@ -88,7 +88,7 @@ public class DemonHome {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override
@@ -157,7 +157,7 @@ public class DemonHome {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override
@@ -188,7 +188,7 @@ public class DemonHome {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override
@@ -217,7 +217,7 @@ public class DemonHome {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override
@@ -264,7 +264,7 @@ public class DemonHome {
 
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override

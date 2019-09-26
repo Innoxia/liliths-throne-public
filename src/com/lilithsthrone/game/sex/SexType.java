@@ -127,14 +127,14 @@ public class SexType implements XMLSaving {
 	}
 	
 	/**
-	 * @return true if this SexType has the potential to take virginity of an itnernal orifice.
+	 * @return true if this SexType has the potential to take virginity of an internal orifice.
 	 */
 	public boolean isTakesVirginity() {
-		if(performingSexArea.isPenetration() && ((SexAreaPenetration)performingSexArea).isTakesVirginity()) {
-			return targetedSexArea.isOrifice() && ((SexAreaOrifice)targetedSexArea).isInternalOrifice();
+		if(performingSexArea!=null && performingSexArea.isPenetration() && ((SexAreaPenetration)performingSexArea).isTakesVirginity()) {
+			return targetedSexArea!=null && targetedSexArea.isOrifice() && ((SexAreaOrifice)targetedSexArea).isInternalOrifice();
 		}
-		if(targetedSexArea.isPenetration() && ((SexAreaPenetration)targetedSexArea).isTakesVirginity()) {
-			return performingSexArea.isOrifice() && ((SexAreaOrifice)performingSexArea).isInternalOrifice();
+		if(targetedSexArea!=null && targetedSexArea.isPenetration() && ((SexAreaPenetration)targetedSexArea).isTakesVirginity()) {
+			return performingSexArea!=null && performingSexArea.isOrifice() && ((SexAreaOrifice)performingSexArea).isInternalOrifice();
 		}
 		return false;
 	}

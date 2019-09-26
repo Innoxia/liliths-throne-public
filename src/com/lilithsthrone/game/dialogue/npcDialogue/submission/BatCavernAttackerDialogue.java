@@ -807,7 +807,7 @@ public class BatCavernAttackerDialogue {
 				if(Sex.getNumberOfOrgasms(getAttacker()) >= getAttacker().getOrgasmsBeforeSatisfied()) {
 					return UtilText.parse(getAttacker(),
 							"<p>"
-								+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
+								+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(getAttacker()) > 1?"s":"")+"."
 								+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
 							+ "</p>");
 				} else {

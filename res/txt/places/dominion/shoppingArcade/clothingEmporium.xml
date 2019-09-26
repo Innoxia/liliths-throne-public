@@ -17,12 +17,12 @@
 	<p>
 		Deciding that it might be best to try and find a smaller, quieter clothing store, you turn around and start to head for the exit.
 		 As you do so, you hear a nervous voice calling out from behind you,
-		 [nyan.speech(E-Erm, excuse me? C-Can I help you?)]
+		 [nyan.speechNoEffects(E-Erm, excuse me? C-Can I help you?)]
 	</p>
 	<p>
 		Turning once more, this time in the direction that the timid voice came from, you find yourself face-to-face with a lesser cat-girl.
 		 As you look into her bright blue eyes, her cheeks instantly turn a deep shade of red, and she glances down at the floor and starts shuffling her feet. 
-		[nyan.speech(H-Hello... T-There's nobody else available, you see, s-so I thought maybe I could help. Oh, erm, I-I'm Nyan... I probably should have said that first... W-Welcome to my store...)]
+		[nyan.speechNoEffects(H-Hello... T-There's nobody else available, you see, s-so I thought maybe I could help. Oh, erm, I-I'm Nyan... I probably should have said that first... W-Welcome to my store...)]
 	</p>
 	<p>
 		If it wasn't for the fact that she's wearing a staff uniform, and has a little name tag pinned to her blouse reading 'Nyan; Store Manager', you're not sure if you would have believed that she's the store's owner.
@@ -30,7 +30,7 @@
 		 [pc.speech(Pleased to meet you, Nyan, it's an impressive place you've got here! I was having a little difficulty finding anything in amongst all these crowds, however...)]
 	</p>
 	<p>
-		[nyan.speech(O-Oh, sorry! E-Everything we have on display can also b-be found back in our stockroom. F-Follow me and I'll show you!)]
+		[nyan.speechNoEffects(O-Oh, sorry! E-Everything we have on display can also b-be found back in our stockroom. F-Follow me and I'll show you!)]
 	</p>
 	<p>
 		In what appears to be an almost desperate attempt to escape further conversation, Nyan hurries past you and rushes off towards a door bearing the sign 'Staff Only'.
@@ -46,15 +46,15 @@
 	</p>
 	<p>
 		Scanning around for any sign of the store's nervous owner, you suddenly hear a familiar squeak coming from behind you,
-		 [nyan.speech(A-Ah! H-Hello again!)]
+		 [nyan.speechNoEffects(A-Ah! H-Hello again!)]
 	</p>
 	<p>
 		You turn around to see Nyan looking down at her feet as she shuffles them about on the shop's laminate flooring.
 		 [pc.speech(Hi, Nyan, how are y-)]
 	</p>
 	<p>
-		[nyan.speech(I-I'm fine! T-Thanks for asking,)] Nyan bursts out, interrupting you in her haste to answer.
-		 [nyan.speech(I-I can show you the stockroom again if y-you'd like! F-Follow me!)]
+		[nyan.speechNoEffects(I-I'm fine! T-Thanks for asking,)] Nyan bursts out, interrupting you in her haste to answer.
+		 [nyan.speechNoEffects(I-I can show you the stockroom again if y-you'd like! F-Follow me!)]
 	</p>
 	<p>
 		Following Nyan into her store's stockroom once again, you wonder what to take a look at this time...
@@ -76,20 +76,20 @@
 		 you ask.
 	</p>
 	<p>
-		[nyan.speech(O-Oh... well um...)] she says haltingly. [nyan.speech(Do y-you remember when w-we...you know...)] She blushes fiercely and says in a very quiet voice, [nyan.speech(Had s-sex...?)]
+		[nyan.speechNoEffects(O-Oh... well um...)] she says haltingly. [nyan.speechNoEffects(Do y-you remember when w-we...you know...)] She blushes fiercely and says in a very quiet voice, [nyan.speechNoEffects(Had s-sex...?)]
 	</p>
 	<p>
 		You smile at the memory and nod.
 		 Nyan smiles nervously back, before continuing,
-		 [nyan.speech(W-Well my tummy felt a little funny a-after so I took a t-test and...a-and...)]
+		 [nyan.speechNoEffects(W-Well my tummy felt a little funny a-after so I took a t-test and...a-and...)]
 		 She closes her eyes and takes a deep breath, bunching up the bottom of her skirt as if gathering her courage before blurting out,
-		 [nyan.speech(I'm pregnant with your baby!)]
+		 [nyan.speechNoEffects(I'm pregnant with your baby!)]
 	</p>
 	<p>
 		After her outburst, she just stands there; eyes scrunched closed, trembling hands clenching her skirt, she seems to be waiting for an admonishment.
 		 Stepping forwards, you sweep her into your arms, wishing that you'd been able to record the surprised squeak that bursts out of her mouth.
 		 She blinks in surprise as you hold her close, before pulling back a little and staring at you with open-mouthed shock.
-		 [nyan.speech(W-W-What? You're not a-angry?)]
+		 [nyan.speechNoEffects(W-W-What? You're not a-angry?)]
 	</p>
 	<p>
 		You hold her at arm's length for a moment, smiling as you shake your head.
@@ -97,12 +97,12 @@
 	</p>
 	<p>
 		A visible tension seems to melt from her entire being as the nervous cat-girl cutely smiles back and snuggles into your [pc.arms].
-		 [nyan.speech(W-Will you come b-by and visit from time to t-time?)]
+		 [nyan.speechNoEffects(W-Will you come b-by and visit from time to t-time?)]
 	</p>
 	<p>
 		You instantly agree, and can't help but grin as you notice that she's looking happier than you've ever seen her before.
 		 Still nestled against your chest, Nyan mumbles,
-		 [nyan.speech(D-Did you need something w-while we're in the s-stockroom?)]
+		 [nyan.speechNoEffects(D-Did you need something w-while we're in the s-stockroom?)]
 	</p>
 	<p>
 	]]>
@@ -116,11 +116,11 @@
 	<p>
 		Nyan's heels clatter across the laminate flooring as she hurries to retrieve a notepad that she uses to track what's currently in stock.
 		 Rushing back over to you, she fumbles with the little pad and almost drops it on the floor.
-		 [nyan.speech(A-Ah! S-Sorry, I don't usually interact with customers, s-so sorry if I'm a little unprofessional... A-Anyway, let me know what you'd like t-to see, and I'll show y-you what I've got in stock!)]
+		 [nyan.speechNoEffects(A-Ah! S-Sorry, I don't usually interact with customers, s-so sorry if I'm a little unprofessional... A-Anyway, let me know what you'd like t-to see, and I'll show y-you what I've got in stock!)]
 	</p>
 	<p>
 		You start to thank the nervous cat-girl, but she suddenly squeaks out and cuts you off,
-		 [nyan.speech(O-Oh! A-and I forgot! I-I was going to do a t-trial of offering to buy old clothes from customers, s-so if you wanted to, I-I could buy some old clothing from you...
+		 [nyan.speechNoEffects(O-Oh! A-and I forgot! I-I was going to do a t-trial of offering to buy old clothes from customers, s-so if you wanted to, I-I could buy some old clothing from you...
 			 O-Oh, I interrupted you... S-Sorry...)]
 	</p>
 	]]>
@@ -130,7 +130,7 @@
 	<p>
 		Thanking Nyan for her time, you explain to her that you need to get going now.
 		 Hurrying to put her little notepad away, she stutters,
-		 [nyan.speech(W-well, thanks for choosing to s-shop here! If you ever want t-to come back, just find me and I-I'll show you what's in stock back here!)]
+		 [nyan.speechNoEffects(W-well, thanks for choosing to s-shop here! If you ever want t-to come back, just find me and I-I'll show you what's in stock back here!)]
 	</p>
 	<p>
 		Before you can respond, Nyan turns around and runs off deeper into the stockroom.
@@ -150,9 +150,9 @@
 		 [pc.speech(You don't happen to have any enchanted clothing hidden away somewhere, do you, Nyan? You've got a good selection stored back here, but I was looking for something a little special.)]
 	</p>
 	<p>
-		[nyan.speech(Ah! W-Well, erm, you see, ah, I-I used to, but then they said they wouldn't be offering any, a-and they'd already driven the others away, s-so I can't really get anything like that anymore,)]
+		[nyan.speechNoEffects(Ah! W-Well, erm, you see, ah, I-I used to, but then they said they wouldn't be offering any, a-and they'd already driven the others away, s-so I can't really get anything like that anymore,)]
 		 Nyan blurts out, tripping over her own words in her haste to offer an explanation.
-		  [nyan.speech(S-So I'm really sorry, b-but no...)]
+		  [nyan.speechNoEffects(S-So I'm really sorry, b-but no...)]
 	</p>
 	<p>
 		[pc.speech(Slow down, Nyan,)]
@@ -167,21 +167,21 @@
 	</p>
 	<p>
 		After a minute or two, the cat-girl's breathing has slowed to a regular rate, and she opens her eyes and smiles.
-		 [nyan.speech(Sorry about that... I can get a little overwhelmed sometimes, and I have to perform those breathing exercises to avoid having a panic attack... I should be alright now...)]
+		 [nyan.speechNoEffects(Sorry about that... I can get a little overwhelmed sometimes, and I have to perform those breathing exercises to avoid having a panic attack... I should be alright now...)]
 	</p>
 	<p>
 		[pc.speech(I'm sorry, I didn't mean to get you worked up, will you be ok?)]
 		 you ask, although the fact that she didn't stutter once in her last reply has already given you your answer.
 	</p>
 	<p>
-		[nyan.speech(Don't worry, I'll be fine,)]
+		[nyan.speechNoEffects(Don't worry, I'll be fine,)]
 		 she smiles as she responds,
-		 [nyan.speech(but to answer your question, 'they' are a pair of clothing suppliers, who I have no choice but to use.
+		 [nyan.speechNoEffects(but to answer your question, 'they' are a pair of clothing suppliers, who I have no choice but to use.
 		 I used to stock enchanted clothing, you see, but all of the good suppliers were driven out of business by this new pair...)]
 	</p>
 	<p>
 		Nyan lets out a distressed sigh, and you can tell that the composure she gained from performing her breathing exercises is quickly starting to waver.
-		 [nyan.speech(I-It wasn't due to fair c-competition either; they i-intimidated and threatened everyone into l-leaving, and now, ah, I-I have no choice b-but to use them!
+		 [nyan.speechNoEffects(I-It wasn't due to fair c-competition either; they i-intimidated and threatened everyone into l-leaving, and now, ah, I-I have no choice b-but to use them!
 		 I-I tried complaining to the enforcers, b-but t-they said the other s-suppliers were refusing t-to cooperate!
 		 I know they were threatened into s-silence! I-It's not fair!)]
 	</p>
@@ -207,9 +207,9 @@
 		  I'm sure that I could convince them to let the others return.)]
 	</p>
 	<p>
-		[nyan.speech(Really? Y-You'd do that for me?)]
+		[nyan.speechNoEffects(Really? Y-You'd do that for me?)]
 		 Nyan replies, the steady tone that she'd been speaking in while talking about clothing instantly starting to give way to her nervousness again.
-		 [nyan.speech(I-I could o-offer a reward if you could convince them t-to let the others back. I-I could give you f-five thousand flames, a-and a discount on s-shopping here!)]
+		 [nyan.speechNoEffects(I-I could o-offer a reward if you could convince them t-to let the others back. I-I could give you f-five thousand flames, a-and a discount on s-shopping here!)]
 	</p>
 	<p>
 		[pc.speech(That's generous of you,)]
@@ -217,9 +217,9 @@
 		 [pc.speech(so could you tell me where they are? You said that there were two of them before, but what are their names, and what do they look like?)]
 	</p>
 	<p>
-		[nyan.speech(W-Wolfgang and K-Karl are their names,)]
+		[nyan.speechNoEffects(W-Wolfgang and K-Karl are their names,)]
 		 Nyan stammers,
-		 [nyan.speech(a-and they're b-both dobermanns. T-They still operate out of the public s-supplier depot, over in the c-corner of the Shopping Arcade.
+		 [nyan.speechNoEffects(a-and they're b-both dobermanns. T-They still operate out of the public s-supplier depot, over in the c-corner of the Shopping Arcade.
 		 It used to h-house all of the clothing suppliers t-that provided goods to t-this area of D-Dominion, not just the S-Shopping Arcade, but n-now it's just t-those t-two in there... 
 		 I-It looks like it's all c-closed up, as it f-fell into disrepair after everyone w-was forced out.
 		 E-Even the Arcade owners are scared to m-make them tidy it up...)]
@@ -228,9 +228,9 @@
 		[pc.speech(Thanks, Nyan. I'll get all of this sorted out soon, don't you worry!)]
 	</p>
 	<p>
-		[nyan.speech(Mhmm,)]
+		[nyan.speechNoEffects(Mhmm,)]
 		 Nyan mumbles, blushing a little as she looks to the floor.
-		 [nyan.speech(T-Thank you, [pc.name]... Y-You're so... k-kind...)]
+		 [nyan.speechNoEffects(T-Thank you, [pc.name]... Y-You're so... k-kind...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -243,12 +243,12 @@
 	</p>
 	<p>
 		An excited little squeak bursts out from between Nyan's lips, causing her to instinctively clasp her paw-like hands over her mouth.
-		 [nyan.speech(Eep! T-Thank you s-so much, [pc.name]!)]
+		 [nyan.speechNoEffects(Eep! T-Thank you s-so much, [pc.name]!)]
 	</p>
 	<p>
 		You smile at Nyan's genuine reaction to the news, which unintentionally makes matters worse for the nervous cat-girl.
 		 As she sees your happy expression, Nyan's cheek turn a deep shade of scarlet, and she averts her eyes as she stutters,
-		 [nyan.speech(I-I said, t-that is, I mean, I-I, erm, well, t-there w-was the reward I-I p-promised, h-hold on please! Eep!)]
+		 [nyan.speechNoEffects(I-I said, t-that is, I mean, I-I, erm, well, t-there w-was the reward I-I p-promised, h-hold on please! Eep!)]
 	</p>
 	<p>
 		Without any further warning, Nyan suddenly runs off, leaving you all alone in the stockroom.
@@ -258,9 +258,9 @@
 	</p>
 	<p>
 		Any further thoughts on the matter are interrupted, as Nyan suddenly returns, rushing up to you and thrusting a little wad of cash into your [pc.hands].
-		 [nyan.speech(P-Please take this!)]
+		 [nyan.speechNoEffects(P-Please take this!)]
 		 she squeaks, before stepping back.
-		 [nyan.speech(A-And I c-can give y-you a t-twenty-five percent d-discount too!)]
+		 [nyan.speechNoEffects(A-And I c-can give y-you a t-twenty-five percent d-discount too!)]
 	</p>
 	<p>
 		[pc.speech(Thank you, Nyan,)]
@@ -268,13 +268,13 @@
 		 [pc.speech(I'm just happy to have helped!)]
 	</p>
 	<p>
-		[nyan.speech(I-I really a-appreciate it, [pc.name],)]
+		[nyan.speechNoEffects(I-I really a-appreciate it, [pc.name],)]
 		 Nyan stammers, looking at the ground.
-		 [nyan.speech(I-I d-don't have a-a [pc.girlfriend] o-or anything...)]
+		 [nyan.speechNoEffects(I-I d-don't have a-a [pc.girlfriend] o-or anything...)]
 	</p>
 	<p>
 		This revelation comes out of nowhere, and as you prepare to respond, Nyan suddenly realises what she just said.
-		 [nyan.speech(Eep! I-I mean, n-no, I-I meant that I-I don't have a-anyone I could have a-asked to help! I-I didn't mean, that is, I-I wasn't asking y-you, n-not that I w-wouldn't, b-but, aaaaaah!)]
+		 [nyan.speechNoEffects(Eep! I-I mean, n-no, I-I meant that I-I don't have a-anyone I could have a-asked to help! I-I didn't mean, that is, I-I wasn't asking y-you, n-not that I w-wouldn't, b-but, aaaaaah!)]
 	</p>
 	<p>
 		Unable to deal with the situation, Nyan turns and sprints off.

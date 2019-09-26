@@ -974,7 +974,7 @@ public class HarpyNestBimbo {
 		public String getContent() {
 			if(Sex.getNumberOfOrgasms(Main.game.getNpc(HarpyBimbo.class)) >= Main.game.getNpc(HarpyBimbo.class).getOrgasmsBeforeSatisfied()) {
 				return "<p>"
-							+ "As you step back from [bimboHarpy.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
+							+ "As you step back from [bimboHarpy.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfOrgasms(Main.game.getNpc(HarpyBimbo.class)) > 1?"s":"")+"."
 							+ " The surrounding harpies, having watched the whole thing, kneel in submission as you finish with their matriarch."
 						+ "</p>";
 			} else {

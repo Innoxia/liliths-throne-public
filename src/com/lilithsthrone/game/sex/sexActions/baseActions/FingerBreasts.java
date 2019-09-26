@@ -166,13 +166,13 @@ public class FingerBreasts {
 				
 				switch (Sex.getCharacterTargetedForSexAction(this).getBreastStoredMilk()) {
 					case ONE_TRICKLE:
-						UtilText.nodeContentSB.append(" A small trickle of [npc2.milk] leaks out into [npc2.namePos] [npc2.lowClothing(NIPPLES)] as [npc.name] squeezes down on [npc2.her] [npc2.nipples+].");
+						UtilText.nodeContentSB.append(" A small trickle of [npc2.milk] leaks out into [npc2.namePos] [npc2.lowClothing(NIPPLES)] as [npc.name] [npc.verb(squeeze)] down on [npc2.her] [npc2.nipples+].");
 						break;
 					case TWO_SMALL_AMOUNT:
-						UtilText.nodeContentSB.append(" A small squirt of [npc2.milk] leaks out into [npc2.namePos] [npc2.lowClothing(NIPPLES)] as [npc.name] squeezes down on [npc2.her] [npc2.nipples+].");
+						UtilText.nodeContentSB.append(" A small squirt of [npc2.milk] leaks out into [npc2.namePos] [npc2.lowClothing(NIPPLES)] as [npc.name] [npc.verb(squeeze)] down on [npc2.her] [npc2.nipples+].");
 						break;
 					case THREE_DECENT_AMOUNT:
-						UtilText.nodeContentSB.append(" A trickle of [npc2.milk] runs out into [npc2.namePos] [npc2.lowClothing(NIPPLES)] as [npc.name] squeezes down on [npc2.her] [npc2.nipples+].");
+						UtilText.nodeContentSB.append(" A trickle of [npc2.milk] runs out into [npc2.namePos] [npc2.lowClothing(NIPPLES)] as [npc.name] [npc.verb(squeeze)] down on [npc2.her] [npc2.nipples+].");
 						break;
 					case FOUR_LARGE_AMOUNT:
 						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.milk] [npc.verb(start)] to flow out into [npc2.her] [npc2.lowClothing(NIPPLES)],"
@@ -310,20 +310,20 @@ public class FingerBreasts {
 				
 				switch (Sex.getCharacterTargetedForSexAction(this).getBreastStoredMilk()) {
 					case ONE_TRICKLE:
-						UtilText.nodeContentSB.append(" A small trickle of [npc2.milk] leaks out onto [npc.namePos] fingertips as [npc.she] squeezes down on [npc2.namePos] [npc2.nipples+].");
+						UtilText.nodeContentSB.append(" A small trickle of [npc2.milk] leaks out onto [npc.namePos] [npc.fingers] as [npc.she] [npc.verb(squeeze)] down on [npc2.namePos] [npc2.nipples+].");
 						break;
 					case TWO_SMALL_AMOUNT:
-						UtilText.nodeContentSB.append(" A small squirt of [npc2.milk] leaks out onto [npc.namePos] fingertips as [npc.she] squeezes down on [npc2.namePos] [npc2.nipples+].");
+						UtilText.nodeContentSB.append(" A small squirt of [npc2.milk] leaks out onto [npc.namePos] [npc.fingers] as [npc.she] [npc.verb(squeeze)] down on [npc2.namePos] [npc2.nipples+].");
 						break;
 					case THREE_DECENT_AMOUNT:
-						UtilText.nodeContentSB.append(" A trickle of [npc2.milk] runs out over [npc.namePos] fingertips as [npc.she] squeezes down on [npc2.namePos] [npc2.nipples+].");
+						UtilText.nodeContentSB.append(" A trickle of [npc2.milk] runs out over [npc.namePos] [npc.fingers] as [npc.she] [npc.verb(squeeze)] down on [npc2.namePos] [npc2.nipples+].");
 						break;
 					case FOUR_LARGE_AMOUNT:
-						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.milk] starts to flow out over [npc.namePos] fingers,"
+						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.milk] starts to flow out over [npc.namePos] [npc.fingers],"
 								+ " and [npc2.name] [npc2.moanVerb] as [npc2.she] [npc2.verb(feel)] it running down over [npc2.her] [npc2.breasts+].");
 						break;
 					case FIVE_VERY_LARGE_DROOLING:
-						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.milk] [npc.verb(start)] drooling out in a little stream over [npc.namePos] fingers as [npc.she] squeezes down on [npc2.her] [npc2.nipples+].");
+						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.milk] [npc.verb(start)] drooling out in a little stream over [npc.namePos] [npc.fingers] as [npc.she] squeezes down on [npc2.her] [npc2.nipples+].");
 						break;
 					case SIX_EXTREME_AMOUNT_DRIPPING:
 						UtilText.nodeContentSB.append(" [npc2.NamePos] [npc2.milk] [npc.verb(start)] pouring out in a constant stream, quickly soaking [npc2.her] [npc2.breasts+] and dripping down onto the floor beneath [npc2.herHim].");

@@ -334,15 +334,16 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	public String getDescription() {
 		descriptionSB = new StringBuilder();
 		
+		int essenceCost = this.getWeaponType().getArcaneCost();
 		descriptionSB.append(
 					"<p>"
-						+ "<b>"
-							+ Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN, this) + "-" + Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, this)
-						+ "</b>"
-						+ " <b style='color:"+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
-							+ damageType.getName()
-						+ "</b>"
-						+ " damage"
+						+ "<b>"+Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN, this) + "-" + Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, this)+"</b>"
+						+ " <b style='color:"+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"+ damageType.getName()+ "</b> damage"
+						+ "</br>"
+						+ "<b>"+(this.getWeaponType().isMelee()?"Melee":"Ranged")+" | "+(this.getWeaponType().isTwoHanded()?"Two-handed":"One-handed")+"</b>"
+						+ (essenceCost==0
+							?""
+							:"<br/><b>Costs [style.colourArcane("+essenceCost+" arcane essence"+(essenceCost==1?"":"s")+")] "+(this.getWeaponType().isMelee()?"per attack":"to fire")+"</b>")
 					+ "</p>"
 					+ "<p>"
 						+ weaponType.getDescription()

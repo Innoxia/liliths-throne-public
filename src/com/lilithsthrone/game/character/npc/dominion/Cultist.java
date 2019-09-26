@@ -407,8 +407,8 @@ public class Cultist extends NPC {
 			}
 			
 		// NPC is using an item:
-		}else{
-			return Sex.getActivePartner().useItem(item, target, false);
+		} else {
+			return this.useItem(item, target, false);
 		}
 	}
 	
@@ -451,7 +451,7 @@ public class Cultist extends NPC {
 
 	@Override
 	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
-		if(Sex.isInForeplay()) {
+		if(Sex.isInForeplay(this)) {
 			return slot==SexSlotUnique.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS || slot==SexSlotUnique.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS;
 		} else {
 			return slot==SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS || slot==SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS;

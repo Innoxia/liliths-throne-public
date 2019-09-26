@@ -348,9 +348,6 @@ input:focus {
 		1px 1px 2px rgba(000,000,000,0.7),
 		0px 1px 0px rgba(000,000,000,0.4);
 }
-.normal-button.hour{
-	background: #222;
-}
 .normal-button:hover{
 	background: #666;
 }
@@ -358,14 +355,8 @@ input:focus {
 	background: #444;
 	border:solid 2px #666;
 }
-.normal-button.hour.selected{
-	background: #186737;
-}
 .normal-button.selected:hover{
 	background: #777;
-}
-.normal-button.hour.selected:hover{
-	background: #239550;
 }
 .normal-button.disabled{
 	background: #333;
@@ -375,12 +366,26 @@ input:focus {
 .normal-button.disabled:hover{
 	background: #333;
 }
+
+.normal-button.hour{
+	opacity: 0.8;
+}
+.normal-button.hour:hover{
+	opacity: 1;
+}
+.normal-button.hour.selected{
+	opacity: 0.8;
+}
+.normal-button.hour.selected:hover{
+	opacity: 1;
+}
 .normal-button.hour.disabled{
-	background: #222;
+	opacity: 0.3;
 }
-.normal-button.hour.disabled.selected{
-	background: #333;
+.normal-button.hour.disabled:hover{
+	opacity: 0.4;
 }
+
 
 /***********************************************************/
 /*PHONE*/

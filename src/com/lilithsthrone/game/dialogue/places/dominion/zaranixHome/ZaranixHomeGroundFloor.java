@@ -695,7 +695,8 @@ public class ZaranixHomeGroundFloor {
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Amber.class), SexSlotAllFours.BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))),
 						null,
-						null, AFTER_SEX_THANKING_AMBER,
+						null,
+						AFTER_SEX_THANKING_AMBER,
 						"<p>"
 							+ "You obediently lift your ass towards Amber, letting out a little cry as you suddenly feel the sharp slap of her hand across your right cheek, before she growls out,"
 							+ " [amber.speech(Squeal all you want, bitch, <i>you're mine now!</i>)]"

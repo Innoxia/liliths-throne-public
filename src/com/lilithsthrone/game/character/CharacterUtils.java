@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.StringWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
-import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Antenna;
@@ -126,7 +126,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.67
- * @version 0.3.2
+ * @version 0.3.4.5
  * @author Innoxia, tukaima
  */
 public class CharacterUtils {
@@ -145,9 +145,7 @@ public class CharacterUtils {
 			doc.appendChild(properties);
 
 			// Modify birth date so that imported characters are the same age:
-			character.setBirthday(character.getBirthday().plusYears(Game.TIME_SKIP_YEARS));
 			character.saveAsXML(properties, doc);
-			character.setBirthday(character.getBirthday().minusYears(Game.TIME_SKIP_YEARS));
 			
 //			System.out.println("Difference2: "+(System.nanoTime()-timeStart)/1000000000f);
 			
@@ -1526,56 +1524,51 @@ public class CharacterUtils {
 	public static String setGenericName(GameCharacter character, String baseName, List<String> exclusiveAdjectives) {
 
 		List<String> characterAdjectives = new ArrayList<>();
-
-		switch(character.getPersonality().get(PersonalityTrait.ADVENTUROUSNESS)) {
-			case HIGH:
-				characterAdjectives.add("daring");
-				characterAdjectives.add("fearless");
-				break;
-			case LOW:
-				characterAdjectives.add("suspicious");
-				characterAdjectives.add("cowardly");
-				break;
-			default:
-				break;
+		for(PersonalityTrait trait : character.getPersonalityTraits()) {
+			switch(trait) {
+				case BRAVE:
+					characterAdjectives.add("daring");
+					characterAdjectives.add("fearless");
+					characterAdjectives.add("brash");
+					characterAdjectives.add("cocky");
+					break;
+				case COWARDLY:
+					characterAdjectives.add("suspicious");
+					characterAdjectives.add("cowardly");
+					break;
+				case CONFIDENT:
+					characterAdjectives.add("excitable");
+					characterAdjectives.add("energetic");
+					characterAdjectives.add("playful");
+					break;
+				case KIND:
+					break;
+				case LEWD:
+					characterAdjectives.add("lewd");
+					characterAdjectives.add("crass");
+					characterAdjectives.add("vulgar");
+					characterAdjectives.add("licentious");
+					break;
+				case PRUDE:
+					characterAdjectives.add("prude");
+					break;
+				case SELFISH:
+					characterAdjectives.add("rude");
+					break;
+				case SHY:
+					characterAdjectives.add("nervous");
+					characterAdjectives.add("shy");
+					break;
+//				case BIMBO:
+//				case BRO:
+				case LISP:
+				case STUTTER:
+					break;
+				case INNOCENT:
+					break;
+			}
 		}
-		switch(character.getPersonality().get(PersonalityTrait.AGREEABLENESS)) {
-			case HIGH:
-				characterAdjectives.add("playful");
-				break;
-			case LOW:
-				characterAdjectives.add("rude");
-				break;
-			default:
-				break;
-		}
-		switch(character.getPersonality().get(PersonalityTrait.CONSCIENTIOUSNESS)) {
-			case LOW:
-				characterAdjectives.add("arrogant");
-				characterAdjectives.add("smug");
-				break;
-			default:
-				break;
-		}
-		switch(character.getPersonality().get(PersonalityTrait.EXTROVERSION)) {
-			case HIGH:
-				characterAdjectives.add("excitable");
-				characterAdjectives.add("energetic");
-				break;
-			default:
-				break;
-		}
-		switch(character.getPersonality().get(PersonalityTrait.NEUROTICISM)) {
-			case HIGH:
-				characterAdjectives.add("nervous");
-				break;
-			case LOW:
-				characterAdjectives.add("brash");
-				characterAdjectives.add("cocky");
-				break;
-			default:
-				break;
-		}
+		
 		characterAdjectives.removeAll(exclusiveAdjectives);
 		
 		if(characterAdjectives.isEmpty()) {
@@ -1763,6 +1756,9 @@ public class CharacterUtils {
 		if(character.hasVagina()) {
 			if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN) && character.getHistory()!=Occupation.NPC_PROSTITUTE) {
 				character.setVaginaVirgin(true);
+				if(Math.random()<0.33f) {
+					character.addPersonalityTrait(PersonalityTrait.INNOCENT);
+				}
 				int capacity = Capacity.ZERO_IMPENETRABLE.getMinimumValue() + Util.random.nextInt(Capacity.TWO_TIGHT.getMaximumValue()-Capacity.ZERO_IMPENETRABLE.getMinimumValue());
 				character.setVaginaCapacity(capacity, true);
 				
@@ -1858,6 +1854,8 @@ public class CharacterUtils {
 
 			if (Math.random() < prostituteChance) {
 				character.setHistory(Occupation.NPC_PROSTITUTE);
+				character.removePersonalityTrait(PersonalityTrait.PRUDE);
+				character.removePersonalityTrait(PersonalityTrait.INNOCENT);
 
 				character.setAssVirgin(false);
 				character.setAssCapacity(character.getAssRawCapacityValue()
@@ -1943,12 +1941,17 @@ public class CharacterUtils {
 		return allowedFetishes;
 	}
 	
-	public static void addFetishes(GameCharacter character) {
+	/**
+	 * @param character The character to add fetishes to.
+	 * @param exclusions Any fetishes that should not be modified.
+	 */
+	public static void addFetishes(GameCharacter character, Fetish... exclusions) {
 		
 		List<Fetish> availableFetishes = getAllowedFetishes(character);
 		
-		// Remove existing fetishes:
+		// Remove existing fetishes and exclusions:
 		availableFetishes.removeAll(character.getFetishes(false));
+		availableFetishes.removeAll(Arrays.asList(exclusions));
 		
 		int[] numberProb = new int[] {1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5};
 		int numberOfFetishes = Util.randomItemFrom(numberProb) - character.getFetishes(false).size();

@@ -66,6 +66,7 @@ import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.OccupationTag;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -268,8 +269,12 @@ public class UtilText {
 				
 			}
 			
-			if(target.getLipSize().isImpedesSpeech()) {
+			if(target.getLipSize().isImpedesSpeech() || target.hasPersonalityTrait(PersonalityTrait.LISP)) {
 				modifiedSentence = Util.applyLisp(modifiedSentence);
+			}
+
+			if(target.hasPersonalityTrait(PersonalityTrait.STUTTER)) {
+				modifiedSentence = Util.addStutter(modifiedSentence, 6);
 			}
 			
 			if(splitOnConditional.length>1) {
@@ -1494,7 +1499,7 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(character.isSlave()) {
-					return character.getSlaveJob().getName(character);
+					return character.getSlaveJob(Main.game.getHourOfDay()).getName(character);
 				}
 				return character.getHistory().getName();
 			}
@@ -2551,11 +2556,16 @@ public class UtilText {
 						"mas"),
 				true,
 				true,
-				"(coloured)",//TODO
-				"Description of method"){//TODO
+				"(coloured)",
+				"Returns the name of this character's femininity. Pass in 'true' as an argument to make the returned text coloured in the femininity's colour."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return Femininity.valueOf(character.getFemininityValue()).getName(false);
+				Femininity fem =  Femininity.valueOf(character.getFemininityValue());
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					return "<span style='color:"+fem.getColour().toWebHexString()+";'>"+fem.getName(false)+"</span>";
+							
+				}
+				return fem.getName(false);
 			}
 		});
 		
@@ -6659,9 +6669,6 @@ public class UtilText {
 		}
 		for(NPCFlagValue flag : NPCFlagValue.values()) {
 			engine.put("NPC_FLAG_"+flag.toString(), flag);
-		}
-		for(Occupation occupation : Occupation.values()) {
-			engine.put("OCCUPATION_"+occupation.toString(), occupation);
 		}
 		for(SlavePermissionSetting permission : SlavePermissionSetting.values()) {
 			engine.put("SLAVE_PERMISSION_SETTING_"+permission.toString(), permission);

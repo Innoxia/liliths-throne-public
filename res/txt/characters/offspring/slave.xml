@@ -130,7 +130,7 @@
 	
 	<htmlContent tag="SEX_SPITROAST_FRONT_START"><![CDATA[
 	#VAR
-		var isRape = !npc.isAttractedTo(pc) || !npc.isAttractedTo(npc2);
+		var isRape = !npc.isAttractedTo(pc) && !npc.isAttractedTo(npc2);
 	
 		var positioning = "";
 		if(npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL) {
@@ -217,7 +217,7 @@
 	
 	<htmlContent tag="SEX_SPITROAST_BEHIND_START"><![CDATA[
 	#VAR
-		var isRape = !npc.isAttractedTo(pc) || !npc.isAttractedTo(npc2);
+		var isRape = !npc.isAttractedTo(pc) && !npc.isAttractedTo(npc2);
 		
 		var positioning = "";
 		if(npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL) {

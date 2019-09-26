@@ -198,17 +198,22 @@ public enum RenderingEngine {
 		equippedPanelSB.append("<div class='inventory-equipped accessories'>");
 		
 		String weaponStyle = "width:46%; margin:2%;";
+		String weaponStyleNoEssences = "width:46%; margin:2%; border:2px solid "+Colour.GENERIC_BAD.toWebHexString()+";";
 		String piercingStyle = "width:40%; margin:5%;";
 		if(charactersInventoryToRender.getArmRows()>1) {
 			weaponStyle = "width:31%; margin:1%;";
+			weaponStyleNoEssences = "width:31%; margin:1%; border:1% solid "+Colour.GENERIC_BAD.toWebHexString()+";";
 			piercingStyle = "width:35%; margin:5.5% 7.5%;";
 		}
 		
+		int essenceCount = charactersInventoryToRender.getEssenceCount(TFEssence.ARCANE);
+		
 		// Main weapon:
-		if (charactersInventoryToRender.getMainWeapon(0) != null) {
+		AbstractWeapon weaponInSlot = charactersInventoryToRender.getMainWeapon(0);
+		if (weaponInSlot != null) {
 			equippedPanelSB.append(
-					"<div class='inventory-item-slot" + getClassRarityIdentifier(charactersInventoryToRender.getMainWeapon(0).getRarity()) + "' style='"+weaponStyle+"'>"
-						+ "<div class='inventory-icon-content'>"+charactersInventoryToRender.getMainWeapon(0).getSVGEquippedString(charactersInventoryToRender)+"</div>"
+					"<div class='inventory-item-slot" + getClassRarityIdentifier(weaponInSlot.getRarity()) + "' style='"+(essenceCount<weaponInSlot.getWeaponType().getArcaneCost()?weaponStyleNoEssences:weaponStyle)+"'>"
+						+ "<div class='inventory-icon-content'>"+weaponInSlot.getSVGEquippedString(charactersInventoryToRender)+"</div>"
 						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_1.toString() + "Slot'></div>"
 					+ "</div>");
 		} else {
@@ -216,19 +221,21 @@ public enum RenderingEngine {
 		}
 		// Multiple arms:
 		if(charactersInventoryToRender.getArmRows()>1) {
-			if (charactersInventoryToRender.getMainWeapon(1) != null) {
+			weaponInSlot = charactersInventoryToRender.getMainWeapon(1);
+			if (weaponInSlot != null) {
 				equippedPanelSB.append(
-						"<div class='inventory-item-slot" + getClassRarityIdentifier(charactersInventoryToRender.getMainWeapon(1).getRarity()) + "' style='"+weaponStyle+"'>"
-							+ "<div class='inventory-icon-content'>"+charactersInventoryToRender.getMainWeapon(1).getSVGEquippedString(charactersInventoryToRender)+"</div>"
+						"<div class='inventory-item-slot" + getClassRarityIdentifier(weaponInSlot.getRarity()) + "' style='"+(essenceCount<weaponInSlot.getWeaponType().getArcaneCost()?weaponStyleNoEssences:weaponStyle)+"'>"
+							+ "<div class='inventory-icon-content'>"+weaponInSlot.getSVGEquippedString(charactersInventoryToRender)+"</div>"
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_2.toString() + "Slot'></div>"
 						+ "</div>");
 			} else {
 				equippedPanelSB.append("<div class='inventory-item-slot' style='"+weaponStyle+"' id='" + InventorySlot.WEAPON_MAIN_2.toString() + "Slot'></div>");
 			}
-			if (charactersInventoryToRender.getMainWeapon(2) != null) {
+			weaponInSlot = charactersInventoryToRender.getMainWeapon(2);
+			if (weaponInSlot != null) {
 				equippedPanelSB.append(
-						"<div class='inventory-item-slot" + getClassRarityIdentifier(charactersInventoryToRender.getMainWeapon(2).getRarity()) + "' style='"+weaponStyle+"'>"
-							+ "<div class='inventory-icon-content'>"+charactersInventoryToRender.getMainWeapon(2).getSVGEquippedString(charactersInventoryToRender)+"</div>"
+						"<div class='inventory-item-slot" + getClassRarityIdentifier(weaponInSlot.getRarity()) + "' style='"+(essenceCount<weaponInSlot.getWeaponType().getArcaneCost()?weaponStyleNoEssences:weaponStyle)+"'>"
+							+ "<div class='inventory-icon-content'>"+weaponInSlot.getSVGEquippedString(charactersInventoryToRender)+"</div>"
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_3.toString() + "Slot'></div>"
 						+ "</div>");
 				
@@ -241,9 +248,10 @@ public enum RenderingEngine {
 		}
 		
 		// Offhand weapon:
-		if (charactersInventoryToRender.getOffhandWeapon(0) != null) {
-			equippedPanelSB.append("<div class='inventory-item-slot" + getClassRarityIdentifier(charactersInventoryToRender.getOffhandWeapon(0).getRarity()) + "' style='"+weaponStyle+"'>"
-						+ "<div class='inventory-icon-content'>"+charactersInventoryToRender.getOffhandWeapon(0).getSVGEquippedString(charactersInventoryToRender)+"</div>"
+		weaponInSlot = charactersInventoryToRender.getOffhandWeapon(0);
+		if (weaponInSlot != null) {
+			equippedPanelSB.append("<div class='inventory-item-slot" + getClassRarityIdentifier(weaponInSlot.getRarity()) + "' style='"+(essenceCount<weaponInSlot.getWeaponType().getArcaneCost()?weaponStyleNoEssences:weaponStyle)+"'>"
+						+ "<div class='inventory-icon-content'>"+weaponInSlot.getSVGEquippedString(charactersInventoryToRender)+"</div>"
 						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_1.toString() + "Slot'></div>"
 					+ "</div>");
 		} else if (charactersInventoryToRender.getMainWeapon(0) != null && charactersInventoryToRender.getMainWeapon(0).getWeaponType().isTwoHanded()) {
@@ -254,9 +262,10 @@ public enum RenderingEngine {
 		}
 		// Multiple arms:
 		if(charactersInventoryToRender.getArmRows()>1) {
-			if (charactersInventoryToRender.getOffhandWeapon(1) != null) {
-				equippedPanelSB.append("<div class='inventory-item-slot" + getClassRarityIdentifier(charactersInventoryToRender.getOffhandWeapon(1).getRarity()) + "' style='"+weaponStyle+"'>"
-							+ "<div class='inventory-icon-content'>"+charactersInventoryToRender.getOffhandWeapon(1).getSVGEquippedString(charactersInventoryToRender)+"</div>"
+			weaponInSlot = charactersInventoryToRender.getOffhandWeapon(1);
+			if (weaponInSlot != null) {
+				equippedPanelSB.append("<div class='inventory-item-slot" + getClassRarityIdentifier(weaponInSlot.getRarity()) + "' style='"+(essenceCount<weaponInSlot.getWeaponType().getArcaneCost()?weaponStyleNoEssences:weaponStyle)+"'>"
+							+ "<div class='inventory-icon-content'>"+weaponInSlot.getSVGEquippedString(charactersInventoryToRender)+"</div>"
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_2.toString() + "Slot'></div>"
 						+ "</div>");
 			} else if (charactersInventoryToRender.getMainWeapon(1) != null && charactersInventoryToRender.getMainWeapon(1).getWeaponType().isTwoHanded()) {
@@ -265,9 +274,10 @@ public enum RenderingEngine {
 			} else {
 				equippedPanelSB.append("<div class='inventory-item-slot' style='"+weaponStyle+"' id='" + InventorySlot.WEAPON_OFFHAND_2.toString() + "Slot'></div>");
 			}
-			if (charactersInventoryToRender.getOffhandWeapon(2) != null) {
-				equippedPanelSB.append("<div class='inventory-item-slot" + getClassRarityIdentifier(charactersInventoryToRender.getOffhandWeapon(2).getRarity()) + "' style='"+weaponStyle+"'>"
-							+ "<div class='inventory-icon-content'>"+charactersInventoryToRender.getOffhandWeapon(2).getSVGEquippedString(charactersInventoryToRender)+"</div>"
+			weaponInSlot = charactersInventoryToRender.getOffhandWeapon(2);
+			if (weaponInSlot != null) {
+				equippedPanelSB.append("<div class='inventory-item-slot" + getClassRarityIdentifier(weaponInSlot.getRarity()) + "' style='"+(essenceCount<weaponInSlot.getWeaponType().getArcaneCost()?weaponStyleNoEssences:weaponStyle)+"'>"
+							+ "<div class='inventory-icon-content'>"+weaponInSlot.getSVGEquippedString(charactersInventoryToRender)+"</div>"
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_3.toString() + "Slot'></div>"
 						+ "</div>");
 			} else if (charactersInventoryToRender.getArmRows()==2 || (charactersInventoryToRender.getMainWeapon(2) != null && charactersInventoryToRender.getMainWeapon(2).getWeaponType().isTwoHanded())) {
@@ -856,8 +866,20 @@ public enum RenderingEngine {
 
 			NPC npc = InventoryDialogue.getInventoryNPC();
 			if(charactersInventoryToRender.isPlayer()) {
-
-				if (npc.willBuy(item)) {
+				boolean isAbleToBeSold = true;
+				
+				if(item instanceof AbstractItem) {
+					AbstractItem abItem = (AbstractItem)item;
+					isAbleToBeSold = abItem.getItemType().isAbleToBeSold();
+				} else if(item instanceof AbstractWeapon) {
+					AbstractWeapon abItem = (AbstractWeapon)item;
+					isAbleToBeSold = abItem.getWeaponType().isAbleToBeSold();
+				} else if(item instanceof AbstractClothing) {
+					AbstractClothing abItem = (AbstractClothing)item;
+					isAbleToBeSold = abItem.getClothingType().isAbleToBeSold();
+				}
+				
+				if (npc.willBuy(item) && isAbleToBeSold) {
 					last_layer = getItemPriceDiv(item.getPrice(npc.getBuyModifier()));
 				} else {
 					overlay += " dark";
@@ -884,7 +906,7 @@ public enum RenderingEngine {
 					overlay += " disabled";
 				}
 				
-			} else if (item instanceof AbstractWeapon && Main.game.isInCombat()) {
+			} else if (item instanceof AbstractWeapon && (Main.game.isInCombat() || Main.game.isInSex())) {
 				overlay += " disabled";
 			}
 		}
@@ -916,7 +938,7 @@ public enum RenderingEngine {
 				overlay += " disabled";
 			}
 			
-		} else if (item instanceof AbstractWeapon && Main.game.isInCombat()) {
+		} else if (item instanceof AbstractWeapon && (Main.game.isInCombat() || Main.game.isInSex())) {
 			overlay += " disabled";
 		}
 			
@@ -1155,13 +1177,15 @@ public enum RenderingEngine {
 	}
 	
 	public static GameCharacter getCharacterToRender() {
-		
 		if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
 			return (NPC) CharactersPresentDialogue.characterViewed;
 		}
 		
 		if(Main.game.isInSex()) {
-			return Sex.getActivePartner();
+			if(Sex.isMasturbation()) {
+				return null;
+			}
+			return Sex.getTargetedPartner(Main.game.getPlayer());
 		}
 		
 		if(Main.game.isInCombat()) {
@@ -1617,7 +1641,7 @@ public enum RenderingEngine {
 							+ "<p style='text-align:center;'>[style.bold(Fast Travel)]</p>");
 			
 			for(MapTravelType type : MapTravelType.values()) {
-				if(!type.isAvailable(Main.game.getPlayer())) {
+				if(!type.isAvailable(null, Main.game.getPlayer())) {
 					mapSB.append("<div id='"+type.toString()+"' class='cosmetics-button disabled' style='"+buttonStyle+"'>"
 							+Util.capitaliseSentence(type.getName())
 						+ "</div>");
@@ -1648,8 +1672,8 @@ public enum RenderingEngine {
 				} else if(Main.game.getSavedDialogueNode()!=null && Main.game.getSavedDialogueNode().isTravelDisabled()) {
 					mapSB.append("[style.italicsBad(You cannot fast travel while in the middle of a scene!)]");
 					
-				} else if(!Pathing.getMapTravelType().isAvailable(Main.game.getPlayer())){
-					mapSB.append("[style.italicsBad("+Pathing.getMapTravelType().getUnavailablilityDescription(Main.game.getPlayer())+")]");
+				} else if(!Pathing.getMapTravelType().isAvailable(null, Main.game.getPlayer())){
+					mapSB.append("[style.italicsBad("+Pathing.getMapTravelType().getUnavailablilityDescription(null, Main.game.getPlayer())+")]");
 					
 				} else {
 					mapSB.append(Pathing.getMapTravelType().getUseInstructions());
@@ -2392,12 +2416,12 @@ public enum RenderingEngine {
 					}
 					
 					panelSB.append(
-							"<div class='icon effect' style='border:1px solid "+Colour.SPECIAL_ATTACK.toWebHexString()+"'>"
+							"<div class='icon effect' style='border:2px solid "+Colour.GENERIC_TERRIBLE.toWebHexString()+"'>"
 									+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
 									+ "<div class='icon-content'>"
 										+ combatMove.getSVGString()
 									+ "</div>"
-									+ "<div style='width:100%;height:100%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getStopwatch()+"</div>"
+//									+ "<div style='width:100%;height:100%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getStopwatch()+"</div>"
 									+ "<div class='overlay' id='CM_" + idPrefix + combatMove.getIdentifier() + "'></div>"
 							+ "</div>");
 					
@@ -2420,7 +2444,7 @@ public enum RenderingEngine {
 		
 		panelSB.append(
 				"<div class='attribute-container' style='"
-						+ (Sex.getActivePartner()!=null && Sex.getActivePartner().equals(character)
+						+ (Sex.getTargetedPartner(Main.game.getPlayer())!=null && Sex.getTargetedPartner(Main.game.getPlayer()).equals(character)
 							?"border:2px solid "+Colour.GENERIC_ARCANE.toWebHexString()+";"
 							:"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";")
 						+ "'>"
@@ -2436,7 +2460,9 @@ public enum RenderingEngine {
 								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
 									+ (character.getName(true).length() == 0
 											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName(character):character.getSubspecies().getSingularMaleName(character))
-											: UtilText.parse(character, "[npc.Name]"))
+											: (character.isPlayer()
+													?character.getName(true)
+													:UtilText.parse(character, "[npc.Name]")))
 								+"</b>"
 									+ (isLimitedSpectatorPanel(character)
 										?""

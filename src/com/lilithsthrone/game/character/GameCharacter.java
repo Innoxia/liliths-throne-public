@@ -165,8 +165,8 @@ import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.OccupationTag;
+import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
@@ -290,7 +290,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected int ageAppearanceDifference;
 	
 	protected Occupation history;
-	protected Map<PersonalityTrait, PersonalityWeight> personality;
+	protected Set<PersonalityTrait> personalityTraits;
 	protected SexualOrientation sexualOrientation;
 	private float obedience;
 
@@ -369,11 +369,10 @@ public abstract class GameCharacter implements XMLSaving {
 	protected DialogueNode enslavementDialogue;
 	protected AbstractClothing enslavementClothing;
 	
-	protected SlaveJob slaveJob;
-	protected List<SlaveJobSetting> slaveJobSettings;
 	protected Map<SlavePermission, Set<SlavePermissionSetting>> slavePermissionSettings;
 	
-	protected boolean[] workHours;
+	protected SlaveJob[] workHours;
+	protected Map<SlaveJob, Set<SlaveJobSetting>> slaveJobSettings;
 	
 	
 	//Companion
@@ -487,23 +486,12 @@ public abstract class GameCharacter implements XMLSaving {
 		globalLocation = Main.game.getWorlds().get(WorldType.WORLD_MAP).getCell(worldLocation.getGlobalMapLocation()).getLocation();
 		
 		// Set up personality:
-		personality = new HashMap<>();
-		for(Entry<PersonalityTrait, PersonalityWeight> entry : startingRace.getPersonality().entrySet()) {
-			double rnd = Math.random();
-			if(rnd<0.7) {
-				personality.put(entry.getKey(), entry.getValue());
-			} else if(rnd<0.95) {
-				if((Math.random()<0.5f && entry.getValue().getValue()>PersonalityWeight.LOW.getValue()) || entry.getValue().getValue()==PersonalityWeight.HIGH.getValue()) {
-					personality.put(entry.getKey(), PersonalityWeight.getPersonalityWeightFromInt(entry.getValue().getValue()-1));
-				} else {
-					personality.put(entry.getKey(), PersonalityWeight.getPersonalityWeightFromInt(entry.getValue().getValue()+1));
-				}
-				
-			} else {
-				if((Math.random()<0.5f && entry.getValue().getValue()>PersonalityWeight.LOW.getValue()) || entry.getValue().getValue()==PersonalityWeight.HIGH.getValue()) {
-					personality.put(entry.getKey(), PersonalityWeight.getPersonalityWeightFromInt(entry.getValue().getValue()-2));
-				} else {
-					personality.put(entry.getKey(), PersonalityWeight.getPersonalityWeightFromInt(entry.getValue().getValue()+2));
+		personalityTraits = new HashSet<>();
+		if(!this.isUnique()) {
+			for(Entry<PersonalityTrait, Float> entry : startingRace.getPersonalityTraitChances().entrySet()) {
+				double rnd = Math.random();
+				if(rnd<=entry.getValue()) {
+					this.addPersonalityTrait(entry.getKey());
 				}
 			}
 		}
@@ -518,9 +506,20 @@ public abstract class GameCharacter implements XMLSaving {
 		slavesOwned = new ArrayList<>();
 		owner = "";
 		enslavementDialogue = null;
+
+		workHours = new SlaveJob[24];
+		for(int i=0; i<workHours.length; i++) {
+			workHours[i] = SlaveJob.IDLE;
+		}
 		
-		slaveJob = SlaveJob.IDLE;
-		slaveJobSettings = new ArrayList<>();
+		slaveJobSettings = new HashMap<>();
+		for(SlaveJob job : SlaveJob.values()) {
+			slaveJobSettings.putIfAbsent(job, new HashSet<>());
+			for(SlaveJobSetting jobSetting : job.getDefaultMutuallyExclusiveSettings()) {
+				addSlaveJobSettings(job, jobSetting);
+			}
+		}
+		
 		slavePermissionSettings = new HashMap<>();
 		for(SlavePermission permission : SlavePermission.values()) {
 			slavePermissionSettings.put(permission, new HashSet<>());
@@ -531,7 +530,6 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		workHours = new boolean[24];
 		
 		motherId = "";
 		fatherId = "";
@@ -685,7 +683,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element properties = doc.createElement("character");
 		parentElement.appendChild(properties);
-		
+
 		// ************** Core information **************//
 		
 		Element characterCoreInfo = doc.createElement("core");
@@ -729,16 +727,12 @@ public abstract class GameCharacter implements XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "petName", entry.getValue().toString());
 		}
 		
-		
-//		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());
 		Element personalityElement = doc.createElement("personality");
 		characterCoreInfo.appendChild(personalityElement);
-		for(Entry<PersonalityTrait, PersonalityWeight> entry: getPersonality().entrySet()){
-			Element element = doc.createElement("personalityEntry");
+		for(PersonalityTrait trait : getPersonalityTraits()){
+			Element element = doc.createElement("trait");
 			personalityElement.appendChild(element);
-			
-			CharacterUtils.addAttribute(doc, element, "trait", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, element, "weight", entry.getValue().toString());
+			element.setTextContent(trait.toString());
 		}
 		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());
@@ -1096,15 +1090,20 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "owner", this.getOwner()==null?"":this.getOwner().getId());
-		CharacterUtils.createXMLElementWithValue(doc, slaveryElement, "slaveJob", this.getSlaveJob().toString());
 		
 		Element slaveJobSettings = doc.createElement("slaveJobSettings");
 		slaveryElement.appendChild(slaveJobSettings);
-		for(SlaveJobSetting setting : this.getSlaveJobSettings()) {
-			Element element = doc.createElement("setting");
-			slaveJobSettings.appendChild(element);
-			
-			CharacterUtils.addAttribute(doc, element, "value", setting.toString());
+		for(SlaveJob job : SlaveJob.values()) {
+			if(!this.getSlaveJobSettings(job).isEmpty()) {
+				Element element = doc.createElement("jobSetting");
+				CharacterUtils.addAttribute(doc, element, "job", job.toString());
+				slaveJobSettings.appendChild(element);
+				for(SlaveJobSetting setting : this.getSlaveJobSettings(job)) {
+					Element settingElement = doc.createElement("setting");
+					element.appendChild(settingElement);
+					settingElement.setTextContent(setting.toString());
+				}
+			}
 		}
 		
 		Element slavePermissionSettings = doc.createElement("slavePermissionSettings");
@@ -1122,10 +1121,10 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 
-		Element slaveWorkHours = doc.createElement("slaveWorkHours");
-		slaveryElement.appendChild(slaveWorkHours);
+		Element slaveAssignedJobs = doc.createElement("slaveAssignedJobs");
+		slaveryElement.appendChild(slaveAssignedJobs);
 		for(int i=0; i<workHours.length; i++) {
-			CharacterUtils.addAttribute(doc, slaveWorkHours, "hour"+String.valueOf(i), String.valueOf(workHours[i]));
+			CharacterUtils.addAttribute(doc, slaveAssignedJobs, "hour"+String.valueOf(i), workHours[i].toString());
 		}
 		
 		
@@ -1561,17 +1560,61 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		
-		if(element.getElementsByTagName("personality").getLength()!=0 && !Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.3.5")) {
+		if(element.getElementsByTagName("personality").getLength()!=0) {
 			nodes = parentElement.getElementsByTagName("personality");
 			Element personalityElement = (Element) nodes.item(0);
 			if(personalityElement!=null) {
-				NodeList personalityEntries = personalityElement.getElementsByTagName("personalityEntry");
-				for(int i=0; i<personalityEntries.getLength(); i++){
-					Element e = ((Element)personalityEntries.item(i));
-					try {
-						character.setPersonalityTrait(PersonalityTrait.valueOf(e.getAttribute("trait")), PersonalityWeight.valueOf(e.getAttribute("weight")));
-						CharacterUtils.appendToImportLog(log, "<br/>Added personality: "+e.getAttribute("trait")+" "+e.getAttribute("weight"));
-					}catch(IllegalArgumentException ex){
+				if(!Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.3.4.9")) {
+					NodeList personalityEntries = personalityElement.getElementsByTagName("trait");
+					for(int i=0; i<personalityEntries.getLength(); i++) {
+						Element e = ((Element)personalityEntries.item(i));
+						try {
+							PersonalityTrait t = PersonalityTrait.valueOf(e.getTextContent());
+							character.addPersonalityTrait(t);
+							CharacterUtils.appendToImportLog(log, "<br/>Added personality trait: "+t);
+						}catch(IllegalArgumentException ex){
+						}
+					}
+					
+				} else { // Old version conversion:
+					NodeList personalityEntries = personalityElement.getElementsByTagName("personalityEntry");
+					for(int i=0; i<personalityEntries.getLength(); i++){
+						Element e = ((Element)personalityEntries.item(i));
+						try {
+							String trait = e.getAttribute("trait");
+							String weight = e.getAttribute("weight");
+							
+							if(trait.equalsIgnoreCase("ADVENTUROUSNESS")) {
+								if(weight.equalsIgnoreCase("LOW")) {
+									character.addPersonalityTrait(PersonalityTrait.COWARDLY);
+								} else if(weight.equalsIgnoreCase("HIGH")) {
+									character.addPersonalityTrait(PersonalityTrait.BRAVE);
+								}
+							}
+							if(trait.equalsIgnoreCase("AGREEABLENESS")) {
+								if(weight.equalsIgnoreCase("LOW")) {
+									character.addPersonalityTrait(PersonalityTrait.SELFISH);
+								} else if(weight.equalsIgnoreCase("HIGH")) {
+									character.addPersonalityTrait(PersonalityTrait.KIND);
+								}
+							}
+							if(trait.equalsIgnoreCase("CONSCIENTIOUSNESS")) {
+							}
+							if(trait.equalsIgnoreCase("EXTROVERSION")) {
+								if(weight.equalsIgnoreCase("LOW")) {
+									character.addPersonalityTrait(PersonalityTrait.SHY);
+								} else if(weight.equalsIgnoreCase("HIGH")) {
+									character.addPersonalityTrait(PersonalityTrait.CONFIDENT);
+								}
+							}
+							if(trait.equalsIgnoreCase("NEUROTICISM")) {
+								if(weight.equalsIgnoreCase("LOW")) {
+									character.addPersonalityTrait(PersonalityTrait.SHY);
+								}
+							}
+							
+						}catch(IllegalArgumentException ex){
+						}
 					}
 				}
 			}
@@ -2007,6 +2050,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		// Perks:
+		character.resetPerksMap(false);
 		nodes = parentElement.getElementsByTagName("traits");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
@@ -2021,7 +2065,8 @@ public abstract class GameCharacter implements XMLSaving {
 				CharacterUtils.appendToImportLog(log, "<br/>Added Equipped Perk: "+Perk.getPerkFromId(e.getAttribute("type")).getName(character));
 			}
 		}
-		
+
+		character.resetSpecialPerksMap();
 		nodes = parentElement.getElementsByTagName("specialPerks");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
@@ -2359,7 +2404,6 @@ public abstract class GameCharacter implements XMLSaving {
 			nodes = parentElement.getElementsByTagName("slavery");
 			Element slaveryElement = (Element) nodes.item(0);
 			if(slaveryElement!=null) {
-				
 				try {
 					character.setAbleToBeEnslaved(Boolean.parseBoolean(((Element)slaveryElement.getElementsByTagName("ableToBeEnslaved").item(0)).getAttribute("value")));
 				} catch(Exception ex) {
@@ -2374,24 +2418,59 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 				}
 				
-				
 				character.setOwner(((Element)slaveryElement.getElementsByTagName("owner").item(0)).getAttribute("value"));
 				CharacterUtils.appendToImportLog(log, "<br/>Set owner: "+character.getOwnerId());
 				
-				character.setSlaveJob(SlaveJob.valueOf(((Element)slaveryElement.getElementsByTagName("slaveJob").item(0)).getAttribute("value")));
-				CharacterUtils.appendToImportLog(log, "<br/>Set slave job: "+character.getSlaveJob());
-				
-				NodeList slaveJobSettingElements = ((Element) slaveryElement.getElementsByTagName("slaveJobSettings").item(0)).getElementsByTagName("setting");
-				for(int i=0; i<slaveJobSettingElements.getLength(); i++){
-					Element e = ((Element)slaveryElement.getElementsByTagName("setting").item(i));
+				//TODO
+				if(slaveryElement.getElementsByTagName("slaveJob").item(0)!=null) { // Old slave job versions:
+					SlaveJob sJob = SlaveJob.valueOf(((Element)slaveryElement.getElementsByTagName("slaveJob").item(0)).getAttribute("value"));
 					
-					try {
-						SlaveJobSetting setting = SlaveJobSetting.valueOf(e.getAttribute("value"));
-						character.addSlaveJobSettings(setting);
-						CharacterUtils.appendToImportLog(log, "<br/>Added slave job setting: "+setting);
-					} catch(Exception ex) {
+					Element workHourElement = ((Element)slaveryElement.getElementsByTagName("slaveWorkHours").item(0));
+					for(int i=0; i<character.workHours.length; i++) {
+						if(Boolean.valueOf(workHourElement.getAttribute("hour"+String.valueOf(i)))) {
+							character.workHours[i] = sJob;
+						}
+						CharacterUtils.appendToImportLog(log, "<br/>Set legacy work hour: "+i+", "+character.workHours[i]);
+					}
+					
+					NodeList slaveJobSettingElements = ((Element) slaveryElement.getElementsByTagName("slaveJobSettings").item(0)).getElementsByTagName("setting");
+					for(int i=0; i<slaveJobSettingElements.getLength(); i++){
+						Element e = ((Element)slaveryElement.getElementsByTagName("setting").item(i));
+						
+						try {
+							SlaveJobSetting setting = SlaveJobSetting.valueOf(e.getAttribute("value"));
+							character.addSlaveJobSettings(sJob, setting);
+							CharacterUtils.appendToImportLog(log, "<br/>Added slave job setting: "+setting);
+						} catch(Exception ex) {
+						}
+					}
+					
+				} else { // New versions:
+					Element workHourElement = ((Element)slaveryElement.getElementsByTagName("slaveAssignedJobs").item(0));
+					for(int i=0; i<character.workHours.length; i++) {
+						character.workHours[i] = SlaveJob.valueOf(workHourElement.getAttribute("hour"+String.valueOf(i)));
+						CharacterUtils.appendToImportLog(log, "<br/>Set work hour: "+i+", "+character.workHours[i]);
+					}
+					
+					NodeList slaveJobSettingElements = ((Element) slaveryElement.getElementsByTagName("slaveJobSettings").item(0)).getElementsByTagName("jobSetting");
+					for(int i=0; i<slaveJobSettingElements.getLength(); i++){
+						Element e = ((Element)slaveryElement.getElementsByTagName("jobSetting").item(i));
+						
+						try {
+							SlaveJob job = SlaveJob.valueOf(e.getAttribute("job"));
+							for(int j=0; j<e.getElementsByTagName("setting").getLength(); j++){
+								SlaveJobSetting setting = SlaveJobSetting.valueOf(e.getElementsByTagName("setting").item(j).getTextContent());
+								character.addSlaveJobSettings(job, setting);
+								CharacterUtils.appendToImportLog(log, "<br/>Added slave job ("+job+") setting: "+setting);
+							}
+							
+						} catch(Exception ex) {
+						}
 					}
 				}
+				
+				
+				
 				
 				// Clear settings first:
 				for(SlavePermission key : character.getSlavePermissionSettings().keySet()) {
@@ -2414,11 +2493,6 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 				}
 	
-				Element workHourElement = ((Element)slaveryElement.getElementsByTagName("slaveWorkHours").item(0));
-				for(int i=0; i<character.workHours.length; i++) {
-					character.workHours[i] = Boolean.valueOf(workHourElement.getAttribute("hour"+String.valueOf(i)));
-					CharacterUtils.appendToImportLog(log, "<br/>Set work hour: "+i+", "+character.workHours[i]);
-				}
 			}
 		}
 		
@@ -3119,14 +3193,20 @@ public abstract class GameCharacter implements XMLSaving {
 			infoScreenSB.append("<br/>"
 					+ "<h6>Personality</h6>"
 					+ "<p>");
-			for(PersonalityTrait trait : PersonalityTrait.values()) {
-				infoScreenSB.append("<b>"+trait.getName()+":</b> <i style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getNameFromWeight(this, this.getPersonality().get(trait)))+"</i><br/>"
-						+trait.getDescriptionFromWeight(this, this.getPersonality().get(trait))+"<br/>");
+			int i=0;
+			for(PersonalityTrait trait : this.getPersonalityTraits()) {
+				if(i!=0) {
+					infoScreenSB.append("<br/>");
+				}
+				i++;
+				infoScreenSB.append("<b style='color:"+trait.getColour().toWebHexString()+"'>"+Util.capitaliseSentence(trait.getName())+"</b>: "+trait.getDescription(this, false, false));
+			}
+			if(i==0) {
+				infoScreenSB.append(UtilText.parse(this, "[npc.NameHasFull] a well-rounded personality, with no exceptionally good nor bad traits."));
 			}
 			infoScreenSB.append("</p>");
 			
-			infoScreenSB.append("</p>"
-					+ "<br/>"
+			infoScreenSB.append("<p>"
 						+ "<h6>Appearance</h6>"
 					+ "<p>"
 						+ this.getBodyDescription()
@@ -3476,7 +3556,6 @@ public abstract class GameCharacter implements XMLSaving {
 				RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), gender, species);
 				setBody(gender, species, stage);
 			}
-
 		}
 	}
 	
@@ -3826,58 +3905,69 @@ public abstract class GameCharacter implements XMLSaving {
 		updateAttributeListeners();
 	}
 	
-	public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-		return personality;
+	public Set<PersonalityTrait> getPersonalityTraits() {
+		return personalityTraits;
 	}
 	
-	public void setPersonalityTrait(PersonalityTrait trait, PersonalityWeight weight) {
-		getPersonality().put(trait, weight);
+	public boolean hasPersonalityTrait(PersonalityTrait trait) {
+		return personalityTraits.contains(trait);
+	}
+
+	public void setPersonalityTraits(PersonalityTrait... traits) {
+		this.clearPersonalityTraits();
+		for(PersonalityTrait t : traits) {
+			this.addPersonalityTrait(t);
+		}
 	}
 	
-	public void setPersonality(Map<PersonalityTrait, PersonalityWeight> personality) {
-		this.personality = personality;
+	public void addPersonalityTrait(PersonalityTrait trait) {
+		for(PersonalityTrait pt : new ArrayList<>(this.getPersonalityTraits())) {
+			if(trait.getMutuallyExclusiveSettings().contains(pt) || pt.getMutuallyExclusiveSettings().contains(trait)) {
+				this.removePersonalityTrait(pt);
+			}
+		}
+		personalityTraits.add(trait);
+	}
+
+	public void removePersonalityTrait(PersonalityTrait trait) {
+		personalityTraits.remove(trait);
+	}
+
+	public void removePersonalityTraits(PersonalityCategory category) {
+		personalityTraits.removeIf(trait -> trait.getPersonalityCategory()==category);
+	}
+
+	public void clearPersonalityTraits() {
+		personalityTraits.clear();
 	}
 	
-	public boolean isCurious() {
-		return personality.get(PersonalityTrait.ADVENTUROUSNESS)==PersonalityWeight.HIGH;
-	}
-	
-	public boolean isCautious() {
-		return personality.get(PersonalityTrait.ADVENTUROUSNESS)==PersonalityWeight.LOW;
-	}
-	
-	public boolean isTrusting() {
-		return personality.get(PersonalityTrait.AGREEABLENESS)==PersonalityWeight.HIGH;
+	public boolean isKind() {
+		return this.hasPersonalityTrait(PersonalityTrait.KIND);
 	}
 	
 	public boolean isSelfish() {
-		return personality.get(PersonalityTrait.AGREEABLENESS)==PersonalityWeight.LOW;
+		return this.hasPersonalityTrait(PersonalityTrait.SELFISH);
 	}
 	
-	public boolean isVigilant() {
-		return personality.get(PersonalityTrait.CONSCIENTIOUSNESS)==PersonalityWeight.HIGH;
+	public boolean isBrave() {
+		return this.hasPersonalityTrait(PersonalityTrait.BRAVE);
 	}
 	
-	public boolean isCareless() {
-		return personality.get(PersonalityTrait.CONSCIENTIOUSNESS)==PersonalityWeight.LOW;
-	}
-	
-	public boolean isExtroverted() {
-		return personality.get(PersonalityTrait.EXTROVERSION)==PersonalityWeight.HIGH;
-	}
-	
-	public boolean isIntroverted() {
-		return personality.get(PersonalityTrait.EXTROVERSION)==PersonalityWeight.LOW;
-	}
-	
-	public boolean isNeurotic() {
-		return personality.get(PersonalityTrait.NEUROTICISM)==PersonalityWeight.HIGH;
+	public boolean isCowardly() {
+		return this.hasPersonalityTrait(PersonalityTrait.COWARDLY);
 	}
 	
 	public boolean isConfident() {
-		return personality.get(PersonalityTrait.NEUROTICISM)==PersonalityWeight.LOW;
+		return this.hasPersonalityTrait(PersonalityTrait.CONFIDENT);
 	}
-
+	
+	public boolean isShy() {
+		return this.hasPersonalityTrait(PersonalityTrait.SHY);
+	}
+	
+	
+	// Sexual orientation:
+	
 	public SexualOrientation getSexualOrientation() {
 		return sexualOrientation;
 	}
@@ -3969,47 +4059,59 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public float getHourlyObedienceChange(int hour) {
-		if(this.workHours[hour]) {
-			if(this.getSlaveJob()==SlaveJob.IDLE) {
-				return this.getHomeLocationPlace().getHourlyObedienceChange() * (this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)?3:1);
-			}
-			// To get rid of e.g. 2.3999999999999999999999:
-			return (Math.round(this.getSlaveJob().getObedienceGain(this)*100)/100f) * (this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)?3:1);
+		SlaveJob job = this.getSlaveJob(hour);
+
+		// Rounding is to get rid of floating point ridiculousness (e.g. 2.3999999999999999999999):
+		if(!isAtWork(hour)) {
+			return (Math.round(this.getHomeLocationPlace().getHourlyObedienceChange()*100)/100f) * (this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)?3:1);
 		}
-		
-		// To get rid of e.g. 2.3999999999999999999999:
-		return (Math.round(this.getHomeLocationPlace().getHourlyObedienceChange()*100)/100f) * (this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)?3:1);
+		return (Math.round(job.getObedienceGain(this)*100)/100f) * (this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)?3:1);
 	}
 	
 	public float getDailyObedienceChange() {
 		float totalObedienceChange = 0;
 		
-		for (int workHour = 0; workHour < this.getTotalHoursWorked(); workHour++) {
-			if(this.getSlaveJob()==SlaveJob.IDLE) {
-				totalObedienceChange+=this.getHomeLocationPlace().getHourlyObedienceChange();
+		for (int hour = 0; hour < 24; hour++) {
+			SlaveJob job = this.getSlaveJob(hour);
+			if(!isAtWork(hour)) {
+				totalObedienceChange += this.getHomeLocationPlace().getHourlyObedienceChange();
+			} else {
+				totalObedienceChange += job.getObedienceGain(this);
 			}
-			totalObedienceChange+=this.getSlaveJob().getObedienceGain(this);
-			
 		}
 		
-		for (int homeHour = 0; homeHour < 24-this.getTotalHoursWorked(); homeHour++) {
-			totalObedienceChange+=this.getHomeLocationPlace().getHourlyObedienceChange();
-		}
-		// To get rid of e.g. 2.3999999999999999999999:
+		// Rounding is to get rid of floating point ridiculousness (e.g. 2.3999999999999999999999):
 		return (Math.round(totalObedienceChange*100)/100f) * (this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)?3:1);
 	}
-	
-	public int getSlavesWorkingJob(SlaveJob job) {
+
+	public int getTotalSlavesWorkingJob(SlaveJob job) {
 		int i=0;
-			for(String id : this.getSlavesOwned()) {
-				try {
-					if(Main.game.getNPCById(id).getSlaveJob()==job) {
+		for(String id : this.getSlavesOwned()) {
+			try {
+				for(int hour=0; hour<24; hour++) {
+					if(Main.game.getNPCById(id).getSlaveJob(hour)==job) {
 						i++;
+						break;
 					}
-				} catch (Exception e) {
-					Util.logGetNpcByIdError("getSlavesWorkingJob()", id);
 				}
+			} catch (Exception e) {
+				Util.logGetNpcByIdError("getTotalSlavesWorkingJob()", id);
 			}
+		}
+		return i;
+	}
+	
+	public int getSlavesWorkingJob(int hour, SlaveJob job) {
+		int i=0;
+		for(String id : this.getSlavesOwned()) {
+			try {
+				if(Main.game.getNPCById(id).getSlaveJob(hour)==job) {
+					i++;
+				}
+			} catch (Exception e) {
+				Util.logGetNpcByIdError("getSlavesWorkingJob()", id);
+			}
+		}
 		return i;
 	}
 	
@@ -4048,43 +4150,57 @@ public abstract class GameCharacter implements XMLSaving {
 		return Math.max(0, value);
 	}
 	
-	public SlaveJob getSlaveJob() {
-		return slaveJob;
-	}
-
-	public void setSlaveJob(SlaveJob slaveJob) {
-		slaveJobSettings.clear();
-		this.slaveJob = slaveJob;
-		for(SlaveJobSetting jobSetting : slaveJob.getDefaultMutuallyExclusiveSettings()) {
-			addSlaveJobSettings(jobSetting);
-		}
+	public boolean hasSlaveJobAssigned(SlaveJob job) {
+		return Arrays.asList(workHours).contains(job);
 	}
 	
-	public boolean addSlaveJobSettings(SlaveJobSetting setting) {
-		if(slaveJobSettings.contains(setting)) {
-			return false;
+	public SlaveJob getSlaveJob(int hour) {
+		return workHours[hour];
+	}
+	
+	/**
+	 * @param hour The hour of the day which is being checked (0-23 inclusive).
+	 * @return true if this character is at their job's location, and that job is not SlaveJob.IDLE. 
+	 */
+	public boolean isAtWork(int hour) {
+		SlaveJob job = getSlaveJob(hour);
+		return job!=SlaveJob.IDLE && this.getLocationPlace().getPlaceType()==job.getPlaceLocation(this);
+	}
+	
+	public float getSlaveJobTotalFatigue() {
+		float fatigue = 0;
+		for(SlaveJob job : workHours) {
+			fatigue += job.getHourlyFatigue();
 		}
-		for(List<SlaveJobSetting> exSettingList : getSlaveJob().getMutuallyExclusiveSettings().values()) {
+		return fatigue;
+	}
+	
+	public void setSlaveJob(int hour, SlaveJob slaveJob) {
+		workHours[hour] = slaveJob;
+	}
+	
+	public boolean addSlaveJobSettings(SlaveJob slaveJob, SlaveJobSetting setting) {
+		for(List<SlaveJobSetting> exSettingList : slaveJob.getMutuallyExclusiveSettings().values()) {
 			if(exSettingList.contains(setting)) {
 				for(SlaveJobSetting exSetting : exSettingList) {
-					removeSlaveJobSettings(exSetting);
+					removeSlaveJobSettings(slaveJob, exSetting);
 				}
 			}
 		}
 		
-		return slaveJobSettings.add(setting);
+		return slaveJobSettings.get(slaveJob).add(setting);
 	}
 	
-	public boolean removeSlaveJobSettings(SlaveJobSetting setting) {
-		return slaveJobSettings.remove(setting);
+	public boolean removeSlaveJobSettings(SlaveJob slaveJob, SlaveJobSetting setting) {
+		return slaveJobSettings.get(slaveJob).remove(setting);
 	}
 	
-	public List<SlaveJobSetting> getSlaveJobSettings() {
-		return slaveJobSettings;
+	public Set<SlaveJobSetting> getSlaveJobSettings(SlaveJob slaveJob) {
+		return slaveJobSettings.get(slaveJob);
 	}
 	
-	public boolean hasSlaveJobSetting(SlaveJobSetting setting) {
-		return slaveJobSettings.contains(setting);
+	public boolean hasSlaveJobSetting(SlaveJob slaveJob, SlaveJobSetting setting) {
+		return slaveJobSettings.get(slaveJob).contains(setting);
 	}
 	
 	public boolean addSlavePermissionSetting(SlavePermission permission, SlavePermissionSetting setting) {
@@ -4117,25 +4233,24 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void resetWorkHours() {
 		for(int i = 0 ; i<workHours.length ; i++) {
-			workHours[i] = false;
+			workHours[i] = SlaveJob.IDLE;
 		}
 	}
-	
-	public boolean[] getWorkHours() {
-		return workHours;
-	}
-	
-	public void setWorkHour(int i, boolean isWorking) {
-		workHours[i] = isWorking;
-	}
-	
-	public int getTotalHoursWorked() {
-		if(this.getSlaveJob()==SlaveJob.IDLE) {
-			return 24;
-		}
+
+	public int getTotalHoursNotIdle() {
 		int count = 0;
 		for(int i = 0 ; i<workHours.length ; i++) {
-			if(workHours[i]) {
+			if(workHours[i]!=SlaveJob.IDLE) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	public int getTotalHoursWorked(SlaveJob job) {
+		int count = 0;
+		for(int i = 0 ; i<workHours.length ; i++) {
+			if(workHours[i]==job) {
 				count++;
 			}
 		}
@@ -4203,7 +4318,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		return UtilText.parse(this, character,
 				"<p style='text-align:center'>"
-					+ (affectionLossDescription!=null && affectionLossDescription.isEmpty()?affectionLossDescription+"<br/>":"")
+					+ (affectionLossDescription!=null && !affectionLossDescription.isEmpty()?"<i>"+affectionLossDescription+"</i><br/>":"")
 					+ "[npc.Name] "+(affectionIncrement>0?"[style.boldGood(gains)]":"[style.boldBad(loses)]")+" <b>"+Math.abs(affectionIncrement)+"</b> [style.boldAffection(affection)] towards [npc2.name]!<br/>"
 					+ AffectionLevel.getDescription(this, character, getAffectionLevel(character), true)
 				+ "</p>");
@@ -4257,11 +4372,11 @@ public abstract class GameCharacter implements XMLSaving {
 		return slavesOwned;
 	}
 	
-	public int getNumberOfSlavesIdle() {
+	public int getNumberOfSlavesIdle(int hour) {
 		int i=0;
 		for(String id : slavesOwned) {
 			try {
-				if(Main.game.getNPCById(id).getSlaveJob()==SlaveJob.IDLE) {
+				if(Main.game.getNPCById(id).getSlaveJob(hour)==SlaveJob.IDLE) {
 					i++;
 				}
 			} catch (Exception e) {
@@ -4289,7 +4404,7 @@ public abstract class GameCharacter implements XMLSaving {
 		int i=0;
 		for(String id : slavesOwned) {
 			try {
-				i += Main.game.getNPCById(id).getSlaveJob().getFinalDailyIncomeAfterModifiers(Main.game.getNPCById(id));
+				i += SlaveJob.getFinalDailyIncomeAfterModifiers(Main.game.getNPCById(id));
 			} catch (Exception e) {
 				Util.logGetNpcByIdError("getSlaveryTotalDailyIncome()", id);
 			}
@@ -4590,7 +4705,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public List<GameCharacter> getCompanions() {
 		List<GameCharacter> listToReturn = new ArrayList<>();
 		if(this.companions != null) {
-			for(String companionID : this.companions) {
+			for(String companionID : new ArrayList<>(this.companions)) {
 				try {
 					GameCharacter npc = Main.game.getNPCById(companionID);
 					listToReturn.add(npc);
@@ -4599,6 +4714,7 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 				} catch(Exception e) {
 					if(Main.game.isStarted()) {
+						this.companions.remove(companionID);
 						Util.logGetNpcByIdError("getCompanions()", companionID);
 					}
 				}
@@ -4712,6 +4828,8 @@ public abstract class GameCharacter implements XMLSaving {
 				
 			case ENFORCER_HQ:
 				return new Value<>(false, "You can't have sex in the Enforcer HQ!");
+			case ENFORCER_WAREHOUSE:
+				return new Value<>(false, "You can't have sex in such a dangerous place!");
 				
 			case SHOPPING_ARCADE:
 				if(!this.getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_PATH)) {
@@ -5442,9 +5560,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		updateAttributeListeners();
 		
-		if(autoSelectPerks) {
-			setupPerks(autoSelectPerks);
-		}
+		setupPerks(autoSelectPerks);
 		
 		recalculateCombatMoves();
 		
@@ -5556,6 +5672,12 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		return true;
+	}
+	
+	public void resetSpecialPerksMap() {
+		for(AbstractPerk perk : new HashSet<>(specialPerks)) {
+			this.removeSpecialPerk(perk);
+		}
 	}
 	
 	public Set<AbstractPerk> getSpecialPerks() {
@@ -6351,7 +6473,7 @@ public abstract class GameCharacter implements XMLSaving {
 				|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH)) {
 			if(target.isPlayer()) {
 				if(this.isFeminine()) {
-					return UtilText.parse(this,
+					return UtilText.parse(this, target,
 							UtilText.returnStringAtRandom(
 									"[npc.Name] puts on a smouldering look, and as her eyes meet yours, you hear an extremely lewd moan echoing around in your head, [npc.thought(~Aaah!~ "
 											+(this.hasVagina()
@@ -6370,7 +6492,7 @@ public abstract class GameCharacter implements XMLSaving {
 											?"[npc.Name] pouts innocently at you, before blowing you a wet kiss. As she straightens back up, you feel a ghostly pair of wet lips press against your cheek."
 											:"")));
 				} else {
-					return UtilText.parse(this,
+					return UtilText.parse(this, target,
 							UtilText.returnStringAtRandom(
 									"[npc.Name] puts on a confident look, and as his eyes meet yours, you hear an extremely lewd groan echoing around in your head, [npc.thought(~Mmm!~ "
 											+(this.hasVagina()
@@ -6401,7 +6523,7 @@ public abstract class GameCharacter implements XMLSaving {
 													+ " As she straightens back up, [npc2.name] feels a ghostly pair of wet lips press against [npc2.her] cheek."
 											:"")));
 				} else {
-					return UtilText.parse(this,
+					return UtilText.parse(this, target,
 							UtilText.returnStringAtRandom(
 									"[npc.Name] puts on a confident look, before projecting a series of lewd groans and dirty suggestions directly into [npc2.namePos] mind!",
 									"[npc.Name] locks his eyes onto [npc2.nameHers], and as he puts on a charming smile, [npc.she] projects a series of lewd suggestions directly into [npc2.her] mind!",
@@ -6416,7 +6538,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(this.isFeminine()) {
 			if(target.isPlayer()) {
-				description = UtilText.parse(this,
+				description = UtilText.parse(this, target,
 						UtilText.returnStringAtRandom(
 						"[npc.Name] erotically runs [npc.her] hands down [npc.her] legs and bends forwards as [npc.she] teases you, "
 								+ "[npc.speech(Come on baby, I can show you a good time!)]",
@@ -6442,7 +6564,7 @@ public abstract class GameCharacter implements XMLSaving {
 			
 		} else {
 			if(target.isPlayer()) {
-				description = UtilText.parse(this,
+				description = UtilText.parse(this, target,
 						UtilText.returnStringAtRandom(
 						"[npc.Name] winks at you and flexes [npc.his] muscles, "
 								+ "[npc.speech(My body's aching for your touch!)]",
@@ -6474,22 +6596,24 @@ public abstract class GameCharacter implements XMLSaving {
 	// Sex stats:
 	
 	public int getOrgasmsBeforeSatisfied() {
-		if(!this.isPlayer()) {
-			if(this.getSubspeciesOverride()!=null && this.getSubspeciesOverride().equals(Subspecies.HALF_DEMON)) {
-				return 2;
-			} else if(this.getRace().equals(Race.DEMON)) {
-				if(this.getSubspecies().equals(Subspecies.IMP) || this.getSubspecies().equals(Subspecies.IMP_ALPHA)) {
-					return 1;
-				}
-				return 3;
-			}
-		}
+
 		int increment = 0;
 		if(Main.game.isInSex()) {
 			for(GameCharacter character : Sex.getAllParticipants()) {
 				if(!character.equals(this) && character.hasPerkAnywhereInTree(Perk.OBJECT_OF_DESIRE)) {
 					increment++;
 				}
+			}
+		}
+		
+		if(!this.isPlayer()) {
+			if(this.getSubspeciesOverride()!=null && this.getSubspeciesOverride().equals(Subspecies.HALF_DEMON)) {
+				return 2+increment;
+			} else if(this.getRace().equals(Race.DEMON)) {
+				if(this.getSubspecies().equals(Subspecies.IMP) || this.getSubspecies().equals(Subspecies.IMP_ALPHA)) {
+					return 1+increment;
+				}
+				return 3+increment;
 			}
 		}
 		
@@ -6671,10 +6795,10 @@ public abstract class GameCharacter implements XMLSaving {
 						weight+=1;
 						break;
 					case ONE_DISLIKE:
-						weight-=3;
+						weight-=4;
 						break;
 					case ZERO_HATE:
-						weight-=5;
+						weight-=6;
 						break;
 				}
 			}
@@ -13988,7 +14112,7 @@ public abstract class GameCharacter implements XMLSaving {
 								
 							} else {
 								sb.append("[npc2.NamePos] jaw drops as [npc.namePos] [npc.breastSize] breasts are revealed, "
-											+ "[npc2.speech(How did you manage to get [npc.namePos] tits to be that huge?! What a fucking tit-cow!)]");
+											+ "[npc2.speech(How did you manage to get your tits to be that huge?! What a fucking tit-cow!)]");
 							}
 							
 						} else {
@@ -17263,13 +17387,14 @@ public abstract class GameCharacter implements XMLSaving {
 
 				float manaLoss = (Math.round((-increment*0.25f)*10))/10f;
 				manaLoss = Attack.getModifiedDamage(null, this, Attack.SEDUCTION, null, DamageType.LUST, manaLoss);
+
+				incrementLust(manaLoss, false);
 				
 				return (UtilText.parse(this,
 						"<p>"
 							+ "Due to [npc.namePos] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>masochist fetish</b>, incoming damage is reduced by 25%, but in turn, [npc.she] [npc.verb(take)]"
 							+ " <b>"+Units.adaptiveRound(manaLoss)+"</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] [npc.verb(struggle)] to control [npc.her] arousal!"
-						+ "</p>"))
-						+incrementLust(manaLoss, false);
+						+ "</p>"));
 				
 			// Sadist:
 			} else if (attacker!=null && attacker.hasFetish(Fetish.FETISH_SADIST) && increment < 0) {
@@ -17284,12 +17409,13 @@ public abstract class GameCharacter implements XMLSaving {
 					Combat.incrementTotalDamageTaken(this, -increment*1.05f);
 				}
 				
+				attacker.incrementLust(manaLoss, false);
+				
 				return (UtilText.parse(attacker,
 						"<p>"
 							+ "Due to [npc.her] [style.boldFetish(sadist fetish)], [npc.name] [npc.verb(take)]"
 							+ " <b>"+Units.adaptiveRound(manaLoss)+"</b>"+ " <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] [npc.verb(get)] aroused by inflicting damage!"
-						+ "</p>"))
-						+attacker.incrementLust(manaLoss, false);
+						+ "</p>"));
 				
 			} else {
 				setHealth(getHealth() + increment);
@@ -17536,7 +17662,7 @@ public abstract class GameCharacter implements XMLSaving {
 		pregnancyReactions.clear();
 	}
 	
-	public static final String PREGNANCY_CALCULATION = "((Virility% * Cum Production Modifier) + Fertility%) / 3";
+	public static final String PREGNANCY_CALCULATION = "((Virility Factor * Cum Production Modifier) + Fertility Factor) / 3";
 
 	public void performHourlyFluidsCheck() {
 		for(SexAreaOrifice ot : SexAreaOrifice.values()) {
@@ -18080,6 +18206,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this.worldLocation != worldLocation && this.isPlayer()) {
 			Main.game.setRequestAutosave(true);
 		}
+		
 		this.worldLocation = worldLocation;
 		
 		this.location = location;
@@ -18245,6 +18372,14 @@ public abstract class GameCharacter implements XMLSaving {
 
 	// -------------------- Inventory -------------------- //
 
+	/**
+	 * <b>DO NOT MODIFY!</b>
+	 * @return This character's CharacterInventory.
+	 */
+	public CharacterInventory getInventory() {
+		return inventory;
+	}
+	
 	public String droppedItemText(AbstractCoreItem item) {
 		return droppedItemText(item, 1);
 	}
@@ -18911,6 +19046,34 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean hasWeapon(AbstractWeapon weapon) {
 		return inventory.hasWeapon(weapon);
+	}
+
+	/**
+	 * @param weaponType The type to test for ownership of.
+	 * @param includeEquipped true if you want to check equipped weapons as well as those in the character's inventory.
+	 * @return true if this character has a weapon of the type specified.
+	 */
+	public boolean hasWeaponType(AbstractWeaponType weaponType, boolean includeEquipped) {
+		for(AbstractWeapon weapon : inventory.getAllWeaponsInInventory().keySet()) {
+			if(weapon.getWeaponType().equals(weaponType)) {
+				return true;
+			}
+		}
+		
+		if(includeEquipped) {
+			for(AbstractWeapon weapon : inventory.getMainWeaponArray()) {
+				if(weapon!=null && weapon.getWeaponType().equals(weaponType)) {
+					return true;
+				}
+			}
+			for(AbstractWeapon weapon : inventory.getOffhandWeaponArray()) {
+				if(weapon!=null && weapon.getWeaponType().equals(weaponType)) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	public boolean hasWeaponEquipped(AbstractWeapon weapon) {
@@ -20228,7 +20391,6 @@ public abstract class GameCharacter implements XMLSaving {
 	public SimpleEntry<AbstractClothing, DisplacementType> getNextClothingToRemoveForCoverableAreaAccess(CoverableArea coverableArea) {
 		return inventory.getNextClothingToRemoveForCoverableAreaAccess(this, coverableArea);
 	}
-	
 
 	public Map<AbstractClothing, DisplacementType> displaceClothingForAccess(CoverableArea coverableArea, List<InventorySlot> slotsToInterruptAt) {
 		return displaceClothingForAccess(coverableArea, slotsToInterruptAt, false);
@@ -22329,6 +22491,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String removeAssOrificeModifier(OrificeModifier modifier) {
 		return body.getAss().getAnus().getOrificeAnus().removeOrificeModifier(this, modifier);
+	}
+	public void clearAssOrificeModifier() {
+		body.getAss().getAnus().getOrificeAnus().clearOrificeModifiers();
 	}
 	
 	
@@ -25444,6 +25609,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String removeVaginaOrificeModifier(OrificeModifier modifier) {
 		return body.getVagina().getOrificeVagina().removeOrificeModifier(this, modifier);
+	}
+	public void clearVaginaOrificeModifiers() {
+		body.getVagina().getOrificeVagina().clearOrificeModifiers();
 	}
 	
 	//Clitoris:

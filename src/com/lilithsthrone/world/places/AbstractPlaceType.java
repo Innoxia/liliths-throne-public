@@ -18,6 +18,7 @@ import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.Bearing;
 import com.lilithsthrone.world.EntranceType;
+import com.lilithsthrone.world.TeleportPermissions;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 
@@ -41,6 +42,8 @@ public class AbstractPlaceType {
 	protected boolean globalMapTile;
 	protected boolean dangerous;
 	protected boolean itemsDisappear;
+	
+	protected TeleportPermissions teleportPermissions;
 	
 	protected List<Weather> weatherImmunities;
 	protected static List<Weather> allWeatherImmunities = new ArrayList<>(Arrays.asList(Weather.values()));
@@ -70,12 +73,13 @@ public class AbstractPlaceType {
 		
 		this.dialogue = dialogue;
 		this.encounterType = encounterType;
-		this.dangerous = false;
 		this.weatherImmunities = new ArrayList<>();
-		this.itemsDisappear = true;
 		this.virginityLossDescription = virginityLossDescription;
-		
+
+		this.dangerous = false;
+		this.itemsDisappear = true;
 		this.globalMapTile = false;
+		this.teleportPermissions = TeleportPermissions.BOTH;
 		
 		if(SVGPath!=null) {
 			try {
@@ -135,6 +139,15 @@ public class AbstractPlaceType {
 	 */
 	public AbstractPlaceType initWeatherImmune(Weather... weatherImmunities) {
 		this.weatherImmunities = new ArrayList<>(Arrays.asList(weatherImmunities));
+		return this;
+	}
+
+	/**
+	 * Define teleport permissions for this tile.
+	 * TeleportPermissions are also defined in WorldType, so this will only work in special cases where a world allows teleporting, but not on some tiles (such as Lyssieth's palace in Submission).
+	 */
+	public AbstractPlaceType initTeleportPermissions(TeleportPermissions teleportPermissions) {
+		this.teleportPermissions = teleportPermissions;
 		return this;
 	}
 	
@@ -301,6 +314,9 @@ public class AbstractPlaceType {
 			
 		} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
 			return PlaceUpgrade.getMilkingUpgrades();
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_OFFICE)) {
+			return PlaceUpgrade.getOfficeUpgrades();
 		}
 		
 		return PlaceUpgrade.getCoreRoomUpgrades();
@@ -314,7 +330,10 @@ public class AbstractPlaceType {
 			return getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
 			
 		} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-			return getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
+			return getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_YELLOW_LIGHT);
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_OFFICE)) {
+			return getSVGOverride("dominion/lilayasHome/roomOffice", Colour.BASE_LILAC);
 			
 		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
 			return getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
@@ -333,5 +352,12 @@ public class AbstractPlaceType {
 
 	public boolean isGlobalMapTile() {
 		return globalMapTile;
+	}
+
+	/**
+	 * TeleportPermissions are also defined in WorldType, so this will only work in special cases where a world allows teleporting, but not on some tiles (such as Lyssieth's palace in Submission).
+	 */
+	public TeleportPermissions getTeleportPermissions() {
+		return teleportPermissions;
 	}
 }

@@ -50,6 +50,18 @@ public class Covering  {
 	}
 	
 	/**
+	 * Constructor.<br/>
+	 * Initialises CoveringPattern pattern to the first value, boolean glowing to false, and secondaryColour to same as primaryColour (where available).
+	 * @param type
+	 * @param primaryColour
+	 */
+	public Covering(BodyCoveringType type, Colour primaryColour, Colour secondaryColour) {
+		this(type, type.getNaturalPatterns().get(0),
+				primaryColour, false,
+				secondaryColour, false);
+	}
+	
+	/**
 	 * Constructor.
 	 * @param type The BodyCoveringType to set this skin to.
 	 * @param pattern The CoveringPattern to set this skin to.

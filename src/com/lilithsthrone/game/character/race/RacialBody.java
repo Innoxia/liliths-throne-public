@@ -1,8 +1,8 @@
 package com.lilithsthrone.game.character.race;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -44,12 +44,11 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
@@ -115,13 +114,24 @@ public class RacialBody {
 			WingSize.THREE_LARGE, WingSize.THREE_LARGE, GenitalArrangement.NORMAL) {
 
 		@Override
-		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-			return Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
+		public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
+			Map<PersonalityTrait, Float> map = new HashMap<>();
+			
+			for(PersonalityTrait trait : PersonalityTrait.values()) {
+				if(trait.getPersonalityCategory()!=PersonalityCategory.SPEECH) { // Angels don't have speech-related traits
+					if(trait==PersonalityTrait.BRAVE) {
+						map.put(trait, 0.2f);
+						
+					} else if(trait==PersonalityTrait.PRUDE) {
+						map.put(trait, 0.75f);
+						
+					} else if(trait!=PersonalityTrait.LEWD) { // Angels are a proud and noble race
+						map.put(trait, 0.05f);
+					}
+				}
+			}
+			
+			return map;
 		}
 		
 		@Override
@@ -161,13 +171,10 @@ public class RacialBody {
 			WingSize.THREE_LARGE, WingSize.THREE_LARGE, GenitalArrangement.NORMAL) {
 
 		@Override
-		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-			return Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH));
+		public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
+			Map<PersonalityTrait, Float> map = super.getPersonalityTraitChances();
+			map.put(PersonalityTrait.LEWD, 0.75f);// Demons are lewd
+			return map;
 		}
 		
 		@Override
@@ -234,13 +241,10 @@ public class RacialBody {
 			WingSize.ZERO_TINY, WingSize.ZERO_TINY, GenitalArrangement.NORMAL) {
 
 		@Override
-		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-			return Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
+		public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
+			Map<PersonalityTrait, Float> map = super.getPersonalityTraitChances();
+			map.put(PersonalityTrait.CONFIDENT, 0.5f);// Good doggos
+			return map;
 		}
 	};
 	
@@ -478,13 +482,10 @@ public class RacialBody {
 			WingSize.ZERO_TINY, WingSize.ZERO_TINY, GenitalArrangement.NORMAL) {
 
 		@Override
-		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-			return Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
+		public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
+			Map<PersonalityTrait, Float> map = super.getPersonalityTraitChances();
+			map.put(PersonalityTrait.COWARDLY, 0.1f);// Slightly higher chance than normal to be cowardly
+			return map;
 		}
 	};
 
@@ -544,13 +545,10 @@ public class RacialBody {
 			WingSize.ZERO_TINY, WingSize.ZERO_TINY, GenitalArrangement.NORMAL) {
 
 		@Override
-		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-			return Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
+		public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
+			Map<PersonalityTrait, Float> map = super.getPersonalityTraitChances();
+			map.put(PersonalityTrait.CONFIDENT, 0.15f);// Higher chance than normal to be excitable
+			return map;
 		}
 	};
 	
@@ -582,13 +580,12 @@ public class RacialBody {
 			WingSize.ZERO_TINY, WingSize.ZERO_TINY, GenitalArrangement.CLOACA) {
 
 		@Override
-		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-			return Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
+		public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
+			Map<PersonalityTrait, Float> map = super.getPersonalityTraitChances();
+			map.put(PersonalityTrait.LEWD, 0.25f);
+			map.put(PersonalityTrait.COWARDLY, 0.1f);
+//			map.put(PersonalityTrait.BIMBO, 0.1f);
+			return map;
 		}
 		
 		@Override

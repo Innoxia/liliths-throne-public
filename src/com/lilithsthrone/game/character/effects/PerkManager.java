@@ -481,6 +481,8 @@ public enum PerkManager {
 							&& (!character.hasPenisIgnoreDildo() || !character.isPenisVirgin())
 							&& (!character.hasVagina() || !character.isVaginaVirgin())) {
 						character.addSpecialPerk(Perk.SPECIAL_SLUT);
+					} else {
+						character.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
 					}
 					break;
 				case PHYSICAL:
@@ -515,16 +517,13 @@ public enum PerkManager {
 	}
 	
 	public static void initialisePerks(GameCharacter character, boolean autoSelectPerks, List<AbstractPerk> requiredPerks, Map<PerkCategory, Integer> perkWeightingOverride) {
+		for(TreeEntry<PerkCategory, AbstractPerk> perk : getStartingPerks(character)) {
+			character.addPerk(perk.getRow(), perk.getEntry());
+		}
+		
 		if(character instanceof Elemental) {
-			for(TreeEntry<PerkCategory, AbstractPerk> perk : getStartingPerks(character)) {
-				character.addPerk(perk.getRow(), perk.getEntry());
-			}
 			
 		} else {
-			for(TreeEntry<PerkCategory, AbstractPerk> perk : getStartingPerks(character)) {
-				character.addPerk(perk.getRow(), perk.getEntry());
-			}
-			
 			if(!character.isPlayer() && autoSelectPerks) {
 				// For each required perk, add it (along with all the perks on the path):
 				if(requiredPerks!=null) {
@@ -618,7 +617,7 @@ public enum PerkManager {
 		treeSB.append(
 				"<div id='OCCUPATION_" + Perk.getIdFromPerk(character.getHistory().getAssociatedPerk())
 						+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>"
-					+ "<div class='square-button-content'>"+character.getHistory().getAssociatedPerk().getSVGString()+"</div>"
+					+ "<div class='square-button-content'>"+character.getHistory().getAssociatedPerk().getSVGString(character)+"</div>"
 				+ "</div>");
 		
 		for(int i=0;i<GameCharacter.MAX_TRAITS;i++) {
@@ -628,7 +627,7 @@ public enum PerkManager {
 			}
 			if(p!=null) {
 				treeSB.append("<div id='TRAIT_" + Perk.getIdFromPerk(p) + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
-						+ "<div class='square-button-content'>"+p.getSVGString()+"</div>"
+						+ "<div class='square-button-content'>"+p.getSVGString(character)+"</div>"
 						+ "</div>");
 				
 			} else {
@@ -648,7 +647,7 @@ public enum PerkManager {
 					if(character.hasPerkAnywhereInTree(hiddenPerk)) {
 						treeSB.append(
 								"<div id='HIDDEN_PERK_" + Perk.getIdFromPerk(hiddenPerk) + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border-color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"
-								+ "<div class='square-button-content'>"+hiddenPerk.getSVGString()+"</div>"
+								+ "<div class='square-button-content'>"+hiddenPerk.getSVGString(character)+"</div>"
 								+ "</div>");
 					}
 				}
@@ -785,7 +784,7 @@ public enum PerkManager {
 										?"border-color:"+Colour.TRAIT.toWebHexString()+";"
 										:"border-color:"+perkEntry.getCategory().getColour().toWebHexString()+";"
 									:"")+"' id='"+perkEntry.getRow()+"_"+perkEntry.getCategory()+"_"+Perk.getIdFromPerk(perkEntry.getEntry())+"'>"
-				+ "<div class='square-button-content'>"+perkEntry.getEntry().getSVGString()+"</div>"
+				+ "<div class='square-button-content'>"+perkEntry.getEntry().getSVGString(character)+"</div>"
 				+ (disabled
 					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; "+(perkEntry.getEntry().isEquippableTrait()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
 					:!isPerkOwned(character, perkEntry)

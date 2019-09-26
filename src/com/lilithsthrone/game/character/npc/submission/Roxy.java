@@ -43,7 +43,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -59,7 +58,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.sexActions.submission.roxy.SARoxySpecials;
+import com.lilithsthrone.game.sex.sexActions.submission.SARoxySpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -125,6 +124,12 @@ public class Roxy extends NPC {
 			this.setLevel(15);
 			this.resetPerksMap(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
+			this.setPersonalityTraits(
+					PersonalityTrait.SELFISH,
+					PersonalityTrait.COWARDLY,
+					PersonalityTrait.LEWD);
+		}
 	}
 
 	@Override
@@ -143,12 +148,10 @@ public class Roxy extends NPC {
 		// Persona:
 
 		if(setPersona) {
-			this.setPersonality(Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+			this.setPersonalityTraits(
+					PersonalityTrait.SELFISH,
+					PersonalityTrait.COWARDLY,
+					PersonalityTrait.LEWD);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			

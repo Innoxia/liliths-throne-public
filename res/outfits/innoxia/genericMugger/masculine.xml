@@ -25,10 +25,10 @@
 	</coreAttributes>
 	
 	<generationAttributes>
-		<clothingConditional1 constant="true"><![CDATA[RND.​nextInt(100)<=75]]></clothingConditional1>
-		<clothingConditional2 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional2> <!-- knuckle dusters or pipe -->
-		<clothingConditional3 constant="true"><![CDATA[RND.​nextInt(100)<=25]]></clothingConditional3>
-		<clothingConditional4 constant="true"><![CDATA[RND.​nextInt(100)<=90]]></clothingConditional4> <!-- weapons -->
+		<clothingConditional1 constant="true"><![CDATA[RND.nextInt(100)<=75]]></clothingConditional1>
+		<clothingConditional2 constant="true"><![CDATA[RND.nextInt(100)<=50]]></clothingConditional2> <!-- knuckle dusters or pipe -->
+		<clothingConditional3 constant="true"><![CDATA[RND.nextInt(100)<=25]]></clothingConditional3>
+		<clothingConditional4 constant="true"><![CDATA[RND.nextInt(100)<=90]]></clothingConditional4> <!-- weapons -->
 		<clothingConditional5 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></clothingConditional5> <!-- is bipedal -->
 		
 		
@@ -68,7 +68,7 @@
 		
         <offhandWeapons>
 			<weapon>
-				<conditional><![CDATA[clothingConditional4 && clothingConditional2 && RND.​nextInt(100)<=50]]></conditional>
+				<conditional><![CDATA[clothingConditional4 && clothingConditional2 && RND.nextInt(100)<=50]]></conditional>
 				<type>innoxia_knuckleDusters_knuckle_dusters</type>
 				<damageTypes/>
 				<primaryColours/>
@@ -125,7 +125,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[RND.​nextInt(100)<=60]]></conditional>
+			<conditional><![CDATA[RND.nextInt(100)<=60]]></conditional>
 			<types>
 				<type>TORSO_OVER_HOODIE</type>
 				<type>dsg_ljacket_ljacket</type>
@@ -151,7 +151,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[RND.​nextInt(100)<=50]]></conditional>
+			<conditional><![CDATA[RND.nextInt(100)<=50]]></conditional>
 			<types>
 				<type>MOUTH_BANDANA</type>
 			</types>

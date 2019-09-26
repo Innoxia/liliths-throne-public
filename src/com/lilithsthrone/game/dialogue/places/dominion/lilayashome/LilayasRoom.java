@@ -34,7 +34,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.5
- * @version 0.2.5
+ * @version 0.3.5
  * @author Innoxia
  */
 public class LilayasRoom {
@@ -54,7 +54,15 @@ public class LilayasRoom {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
 			if (index == 1) {
 				return new Response("Lilaya's Room", "Have a look around Lilaya's room.", ROOM_LILAYA_INSIDE);
 
@@ -132,7 +140,7 @@ public class LilayasRoom {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMasturbation.KNEELING_PANTIES))) {
 							@Override
 							public String applyEndSexEffects() {
-								return Main.game.getPlayer().addClothing(LilayasRoom.lilayasPanties, false);
+								return Main.game.getPlayer().addClothing(LilayasRoom.lilayasPanties, 1, false, true);
 							}
 						},
 						null,
@@ -339,6 +347,14 @@ public class LilayasRoom {
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
 								return false;
+							}
+							@Override
+							public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
+								return !character.isPlayer();
+							}
+							@Override
+							public  boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
+								return !character.isPlayer();
 							}
 						},
 						null,

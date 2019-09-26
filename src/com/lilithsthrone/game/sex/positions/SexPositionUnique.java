@@ -183,7 +183,7 @@ public class SexPositionUnique {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {//TODO
 			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotUnique.MISSIONARY_ALTAR_LYING_ON_ALTAR) {
-				if(Sex.getSexPositionSlot(Sex.getActivePartner())==SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS) {
+				if(Sex.getSexPositionSlot(Sex.getTargetedPartner(Main.game.getPlayer()))==SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS) {
 					return "You're lying back on top of the chapel's altar, and [npc.namePos] standing between your [pc.legs], ready to have some fun with you in the missionary position.";
 				} else {
 					return "You're lying back on top of the chapel's altar, and [npc.namePos] kneeling down between your [pc.legs], ready to have some oral fun with you in the missionary position.";

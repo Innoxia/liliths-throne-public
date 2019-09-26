@@ -13,7 +13,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum ClothingSet {
@@ -27,6 +27,15 @@ public enum ClothingSet {
 			null,
 			null),
 
+	SLUTTY_ENFORCER("Slutty Enforcer",
+			StatusEffect.SET_SLUTTY_ENFORCER,
+			2,
+			Util.newArrayListOfValues(
+					InventorySlot.TORSO_UNDER,
+					InventorySlot.LEG),
+			null,
+			null),
+	
 	MAID("Hard-working Maid",
 			StatusEffect.SET_MAID,
 			5,
@@ -218,20 +227,21 @@ public enum ClothingSet {
 			}
 		}
 		
+		int weaponSetCount = 0;
 		for(AbstractWeapon weapon : target.getMainWeaponArray()) {
 			if(weapon!=null && weapon.getWeaponType().getClothingSet() == this) {
-				setCount++;
+				weaponSetCount++;
 				atLeastOneClothingFound = true;
-				break; // Only one main weapon should be counted.
 			}
 		}
 		for(AbstractWeapon weapon : target.getOffhandWeaponArray()) {
 			if(weapon!=null && weapon.getWeaponType().getClothingSet() == this) {
-				setCount++;
+				weaponSetCount++;
 				atLeastOneClothingFound = true;
-				break; // Only one offhand weapon should be counted.
 			}
 		}
+		
+		setCount += Math.min(2, weaponSetCount);
 		
 		return atLeastOneClothingFound && setCount >= this.getNumberRequiredForCompleteSet();
 	}

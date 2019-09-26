@@ -29,11 +29,11 @@ public class SMAltarMissionary extends SexManagerDefault {
 	@Override
 	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
 		// If orgasming, use an orgasm action:
-		if (ArousalLevel.getArousalLevelFromValue(Sex.getActivePartner().getArousal()) == ArousalLevel.FIVE_ORGASM_IMMINENT) {
+		if (ArousalLevel.getArousalLevelFromValue(Sex.getCharacterPerformingAction().getArousal()) == ArousalLevel.FIVE_ORGASM_IMMINENT) {
 			return super.getPartnerSexAction(sexActionPlayer);
 		}
 		
-		if(Sex.isCharacterSealed(Sex.getActivePartner())) {
+		if(Sex.isCharacterSealed(Sex.getCharacterPerformingAction())) {
 			return CultistSexActions.SEALED;
 			
 		} else {

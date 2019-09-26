@@ -41,7 +41,6 @@ import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -61,7 +60,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.2.11
+ * @version 0.3.5
  * @author Innoxia
  */
 public class Alexa extends NPC {
@@ -97,6 +96,11 @@ public class Alexa extends NPC {
 			this.addSpell(Spell.SLAM);
 			this.addSpell(Spell.ARCANE_AROUSAL);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
+			this.setPersonalityTraits(
+					PersonalityTrait.SELFISH,
+					PersonalityTrait.INNOCENT);
+		}
 	}
 
 	@Override
@@ -118,12 +122,9 @@ public class Alexa extends NPC {
 		// Persona:
 		
 		if(setPersona) {
-			this.setPersonality(Util.newHashMapOfValues(
-					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
-					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
-					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE)));
+			this.setPersonalityTraits(
+					PersonalityTrait.SELFISH,
+					PersonalityTrait.INNOCENT);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			

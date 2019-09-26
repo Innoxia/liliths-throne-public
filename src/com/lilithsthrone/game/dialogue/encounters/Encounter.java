@@ -40,12 +40,14 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -74,7 +76,7 @@ public enum Encounter {
 					try {
 						NPC slave = (NPC) Main.game.getNPCById(id);
 						if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
-								&& !slave.getWorkHours()[(int) (Main.game.getHour()%24)]
+								&& slave.getSlaveJob(Main.game.getHourOfDay())!=SlaveJob.IDLE
 								&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)
 								&& slave.isAttractedTo(Main.game.getPlayer())) {
 							if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
@@ -93,15 +95,11 @@ public enum Encounter {
 				
 				if(!hornySlaves.isEmpty()) {
 					Collections.shuffle(hornySlaves);
-					Main.game.setActiveNPC(hornySlaves.get(0));
-					Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-					return SlaveDialogue.SLAVE_USES_YOU;
+					return SlaveDialogue.getSlaveUsesYou(hornySlaves.get(0));
 					
 				} else if(!slaves.isEmpty()) {
 					Collections.shuffle(slaves);
-					Main.game.setActiveNPC(slaves.get(0));
-					Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-					return SlaveDialogue.SLAVE_USES_YOU;
+					return SlaveDialogue.getSlaveUsesYou(slaves.get(0));
 				}
 				
 				return null;
@@ -192,10 +190,7 @@ public enum Encounter {
 				if(slave==null) {
 					return null;
 				}
-				Main.game.setActiveNPC(getSlaveWantingToUseYouInDominion());
-				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-				return SlaveDialogue.SLAVE_USES_YOU_STREETS;
-				
+				return SlaveDialogue.getSlaveUsesYouStreet(slave);
 			}
 			
 			return null;
@@ -259,10 +254,7 @@ public enum Encounter {
 				if(slave==null) {
 					return null;
 				}
-				Main.game.setActiveNPC(getSlaveWantingToUseYouInDominion());
-				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-				return SlaveDialogue.SLAVE_USES_YOU_STREETS;
-				
+				return SlaveDialogue.getSlaveUsesYouStreet(slave);
 			}
 			
 			return null;
@@ -364,9 +356,7 @@ public enum Encounter {
 				if(slave==null) {
 					return null;
 				}
-				Main.game.setActiveNPC(getSlaveWantingToUseYouInDominion());
-				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-				return SlaveDialogue.SLAVE_USES_YOU_ALLEYWAY;
+				return SlaveDialogue.getSlaveUsesYouAlleyway(slave);
 				
 			} else {
 				return null;
@@ -450,9 +440,7 @@ public enum Encounter {
 				if(slave==null) {
 					return null;
 				}
-				Main.game.setActiveNPC(getSlaveWantingToUseYouInDominion());
-				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-				return SlaveDialogue.SLAVE_USES_YOU_ALLEYWAY;
+				return SlaveDialogue.getSlaveUsesYouAlleyway(slave);
 			}
 			return null;
 		}
@@ -668,7 +656,8 @@ public enum Encounter {
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BOW_AND_ARROW, Util.randomItemFrom(new DamageType[] {DamageType.POISON, DamageType.FIRE})));
-
+						imp.setEssenceCount(TFEssence.ARCANE, 25);
+						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
@@ -961,7 +950,7 @@ public enum Encounter {
 			try {
 				NPC slave = (NPC) Main.game.getNPCById(id);
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
-						&& !slave.getWorkHours()[(int) (Main.game.getHour()%24)]
+						&& slave.getSlaveJob(Main.game.getHourOfDay())!=SlaveJob.IDLE
 						&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_OUTSIDE_FREEDOM)
 						&& slave.isAttractedTo(Main.game.getPlayer())) {
 					if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {

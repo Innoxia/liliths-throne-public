@@ -7,7 +7,7 @@ import com.lilithsthrone.utils.Colour;
  * Measured in cm of penis size that could fit comfortably within this capacity.
  * 
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public enum Capacity {
@@ -29,7 +29,9 @@ public enum Capacity {
 
 	
 	private String descriptor;
-	private PenisSize sizeTooSmall, maximumSizeComfortable, maximumSizeComfortableWithLube;
+	private PenisSize sizeTooSmall;
+	private PenisSize maximumSizeComfortable;
+	private PenisSize maximumSizeComfortableWithLube;
 	private Colour colour;
 
 	private Capacity(String descriptor, PenisSize sizeTooSmall, PenisSize maximumSizeComfortable, PenisSize maximumSizeComfortableWithLube, Colour colour) {
@@ -72,7 +74,11 @@ public enum Capacity {
 	}
 	
 	private static float calculatePenisSizeUsed(int penisSize, boolean twoPenisesInVagina) {
-		return twoPenisesInVagina ? penisSize * Penis.TWO_PENIS_SIZE_MULTIPLIER : penisSize;
+		return Math.min(
+				PenisSize.SEVEN_STALLION.getMaximumValue(),
+				twoPenisesInVagina
+					? penisSize * Penis.TWO_PENIS_SIZE_MULTIPLIER
+					: penisSize);
 	}
 
 	public static boolean isPenisSizeTooSmall(int capacity, int penisSize, boolean twoPenisesInVagina) {

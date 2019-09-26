@@ -66,7 +66,7 @@ public class WeaponType {
 		@Override
 		public String equipText(GameCharacter character) {
 			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the crystal."
-					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform magical attacks.");
+					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform arcane-imbued attacks.");
 		}
 
 		@Override
@@ -143,7 +143,7 @@ public class WeaponType {
 		@Override
 		public String equipText(GameCharacter character) {
 			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the crystal."
-					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform magical attacks.");
+					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform arcane-imbued attacks.");
 		}
 
 		@Override
@@ -221,7 +221,7 @@ public class WeaponType {
 		@Override
 		public String equipText(GameCharacter character) {
 			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the crystal."
-					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform magical attacks.");
+					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform arcane-imbued attacks.");
 		}
 
 		@Override
@@ -354,7 +354,7 @@ public class WeaponType {
 			"chaos feather",
 			"chaos feathers",
 			"Feather Bolt",
-			"A magical feather, the power of which can be harnessed as a weapon."
+			"An arcane feather, the power of which can be harnessed as a weapon."
 					+ " Feathers like this are rumoured to have been plucked from a Lilin's wings.",
 			"rangedFeather1",
 			"rangedFeather1",
@@ -378,7 +378,7 @@ public class WeaponType {
 		@Override
 		public String equipText(GameCharacter character) {
 			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the feather."
-					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform magical attacks at range.");
+					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform arcane-imbued attacks at range.");
 		}
 
 		@Override
@@ -426,7 +426,7 @@ public class WeaponType {
 			"chaos feather",
 			"chaos feathers",
 			"Feather Bolt",
-			"A well-preserved magical feather, the power of which can be harnessed as a weapon."
+			"A well-preserved arcane feather, the power of which can be harnessed as a weapon."
 					+ " Feathers like this are rumoured to have been plucked from a Lilin's wings.",
 			"rangedFeather2",
 			"rangedFeather2",
@@ -451,7 +451,7 @@ public class WeaponType {
 		@Override
 		public String equipText(GameCharacter character) {
 			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the feather."
-					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform magical attacks at range.");
+					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform arcane-imbued attacks at range.");
 		}
 
 		@Override

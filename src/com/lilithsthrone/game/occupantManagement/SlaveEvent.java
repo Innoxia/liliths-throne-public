@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.2.2
- * @version 0.3.1
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum SlaveEvent {
@@ -31,26 +31,29 @@ public enum SlaveEvent {
 	
 	// Jobs:
 
-	JOB_CUM_MILKED("Cum Milked", "[npc.NamePos] [npc.cum+] was milked."),
-	JOB_MILK_MILKED("Milked", "[npc.Name] was milked of [npc.her] [npc.milk+]."),
-	JOB_MILK_CROTCH_MILKED("Udders Milked", "[npc.Name] was milked of [npc.her] [npc.crotchMilk+]."),
-	JOB_GIRLCUM_MILKED("Girlcum Milked", "[npc.NamePos] [npc.girlcum+] was milked."),
+//	JOB_CUM_MILKED("Cum Milked", "[npc.NamePos] [npc.cum+] was milked."),
+	JOB_MILK_MILKED("Milked", ""),
+//	JOB_MILK_CROTCH_MILKED("Udders Milked", "[npc.Name] was milked of [npc.her] [npc.crotchMilk+]."),
+//	JOB_GIRLCUM_MILKED("Girlcum Milked", "[npc.NamePos] [npc.girlcum+] was milked."),
 	
-	JOB_CLEANING("Cleaning Fun", "<i>Placeholder event.</i>"),
+	//TODO
+//	JOB_CLEANING("Cleaning Fun", "<i>Placeholder event.</i>"),
+//	
+//	JOB_COOKING("Cooking Fun", "<i>Placeholder event.</i>"),
+//	
+//	JOB_LAB_ASSISTANT("Lilaya Fun", "<i>Placeholder event.</i>"),
+//	
+//	JOB_LIBRARIAN("Librarian Fun", "<i>Placeholder event.</i>"),
+//
+//	JOB_OFFICE("Office Fun", "<i>Placeholder event.</i>"),
 	
-	JOB_COOKING("Cooking Fun", "<i>Placeholder event.</i>"),
-	
-	JOB_LAB_ASSISTANT("Lilaya Fun", "<i>Placeholder event.</i>"),
-	
-	JOB_LIBRARIAN("Librarian Fun", "<i>Placeholder event.</i>"),
-
 	JOB_TEST_SUBJECT("Test Subject", "[npc.Name] was subjected to Lilaya's transformative experiments..."),
 	
 	JOB_PUBLIC_STOCKS("Locked in Stocks", "[npc.Name] was locked into the public stocks in Slaver Alley..."),
 	
 	JOB_PROSTITUTE("Prostitute", "[npc.Name] worked as a prostitute in Angel's Kiss."),
 
-	JOB_IDLE("Resting", "<i>Placeholder event.</i>"),
+//	JOB_IDLE("Resting", "<i>Placeholder event.</i>"),
 	;
 	
 	private String name;
