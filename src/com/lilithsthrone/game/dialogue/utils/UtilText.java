@@ -897,7 +897,6 @@ public class UtilText {
 							
 						} else {
 							if(c == 'N' && substringMatchesInReverseAtIndex(input, "#THEN", i)) {
-//								#IF(pc.isFeminine())#THEN#IF!pc.isFeminine()#THEN:3#ELSE>:(#ENDIF#ELSE:(#ENDIF
 								// If last conditional was brackets, remove the THEN
 								if(lastConditionalUsedBrackets) {
 									sb.replace(sb.length()-4, sb.length(), ""); // Reset StringBuilder to exclude #THEN
