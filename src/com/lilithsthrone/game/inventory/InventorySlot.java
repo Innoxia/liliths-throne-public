@@ -350,16 +350,65 @@ public enum InventorySlot {
 	},
 
 	// EQUIPPABLE:
-	WEAPON_MAIN(0, "primary weapon", false, false, false, null) {
+	WEAPON_MAIN_1(0, "primary weapon", false, false, false, null) {
 		@Override
 		protected String getNameForParsing() {
 			return null;
 		}
+		@Override
+		public boolean isWeapon() {
+			return true;
+		}
 	},
-	WEAPON_OFFHAND(0, "secondary weapon", false, false, false, null) {
+	WEAPON_MAIN_2(0, "primary weapon (2nd)", false, false, false, null) {
 		@Override
 		protected String getNameForParsing() {
 			return null;
+		}
+		@Override
+		public boolean isWeapon() {
+			return true;
+		}
+	},
+	WEAPON_MAIN_3(0, "primary weapon (3rd)", false, false, false, null) {
+		@Override
+		protected String getNameForParsing() {
+			return null;
+		}
+		@Override
+		public boolean isWeapon() {
+			return true;
+		}
+	},
+	
+	WEAPON_OFFHAND_1(0, "secondary weapon", false, false, false, null) {
+		@Override
+		protected String getNameForParsing() {
+			return null;
+		}
+		@Override
+		public boolean isWeapon() {
+			return true;
+		}
+	},
+	WEAPON_OFFHAND_2(0, "secondary weapon (2nd)", false, false, false, null) {
+		@Override
+		protected String getNameForParsing() {
+			return null;
+		}
+		@Override
+		public boolean isWeapon() {
+			return true;
+		}
+	},
+	WEAPON_OFFHAND_3(0, "secondary weapon (3rd)", false, false, false, null) {
+		@Override
+		protected String getNameForParsing() {
+			return null;
+		}
+		@Override
+		public boolean isWeapon() {
+			return true;
 		}
 	};
 
@@ -508,6 +557,10 @@ public enum InventorySlot {
 
 	public boolean isJewellery() {
 		return jewellery;
+	}
+
+	public boolean isWeapon() {
+		return false;
 	}
 
 	public boolean isPhysicallyAvailable(GameCharacter character) {

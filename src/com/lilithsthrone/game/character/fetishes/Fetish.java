@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
@@ -602,7 +603,7 @@ public enum Fetish {
 			"deflowering",
 			"deflowering",
 			"fetish_deflowering",
-			FetishExperience.BASE_VERY_RARE_EXPERIENCE_GAIN,
+			FetishExperience.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues("Gain <span style='color:"+ Colour.GENERIC_EXPERIENCE.toWebHexString()+ ";'>xp</span> from <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>taking virginities</span>"),
@@ -1278,31 +1279,89 @@ public enum Fetish {
 	FETISH_BIMBO(60,
 			"bimbo",
 			"being a bimbo",
-			"fetish_bimbo",
+			null,
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 10)),
-			Util.newArrayListOfValues("<span style='color:"
-					+ Colour.GENERIC_SEX.toWebHexString()
-					+ ";'>Talk like a bimbo</span>"),
+			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Talk like a bimbo</span>"),
 			null) {
-
+		
+		@Override
+		public String getName(GameCharacter owner) {
+			if(owner==null ||owner.isFeminine()) {
+				return "bimbo";
+			} else {
+				return "bro";
+			}
+		}
+		
+		@Override
+		public String getShortDescriptor(GameCharacter target) {
+			if (target==null ||target.isFeminine()) {
+				return "being a bimbo";
+			} else {
+				return "being a bro";
+			}
+		}
+		
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You're obsessed with the idea of acting like a complete bimbo. It's gotten to the point where no matter how intelligent you might actually be, you can't imagine yourself as anything other than a braindead slut.";
-			else
-				return UtilText.parse(owner, "[npc.Name] loves acting like a complete bimbo.");
+			if (owner==null || owner.isFeminine()) {
+				return UtilText.parse(owner,
+						"[npc.NameIs] obsessed with the idea of acting like a complete bimbo."
+						+ " It's gotten to the point where no matter how intelligent [npc.she] might actually be, [npc.she] can't imagine [npc.herself] as anything other than a ditzy airhead.");
+			} else {
+				return UtilText.parse(owner,
+						"[npc.NameIs] obsessed with the idea of acting like a dopey surfer bro."
+						+ " It's gotten to the point where no matter how intelligent [npc.she] might actually be, [npc.she] can't imagine [npc.herself] as anything other than an airheaded meathead.");
+			}
 		}
 
 		@Override
 		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
-			return getGenericFetishDesireDescription(target, desire, "acting like a bimbo");
+			if(target==null || target.isFeminine()) {
+				return getGenericFetishDesireDescription(target, desire, "acting like a bimbo");
+			} else {
+				return getGenericFetishDesireDescription(target, desire, "acting like a bro");
+			}
+		}
+
+		@Override
+		public List<String> getExtraEffects(GameCharacter owner) {
+			if(owner==null || owner.isFeminine()) {
+				return Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Talk like a bimbo</span>");
+			} else {
+				return Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Talk like a bro</span>");
+			}
 		}
 		
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.ONE_VANILLA;
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+//			String bimboString = "";
+//			if(Main.game!=null && Main.game.isStarted()) {
+//				try {
+//					InputStream is = Fetish.class.getClassLoader().getResourceAsStream("/com/lilithsthrone/res/fetishes/fetish_bimbo.svg");
+//					if(is==null) {
+//						System.err.println("Error! Fetish icon file does not exist (Trying to read from 'com/lilithsthrone/res/fetishes/fetish_bimbo')!");
+//					}
+//					bimboString = Util.inputStreamToString(is);
+//					bimboString = SvgUtil.colourReplacement("FETISH_BIMBO", Colour.BASE_PINK, bimboString);
+//					is.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			return bimboString;
+			if(owner==null || owner.isFeminine()) {
+				return bimboString;
+			} else {
+				return broString;
+			}
 		}
 	},
 	
@@ -1488,6 +1547,31 @@ public enum Fetish {
 	
 	private List<Fetish> fetishesForAutomaticUnlock;
 
+	
+	private static String bimboString = "";
+	private static String broString = "";
+	static {
+		try {
+			InputStream is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/fetishes/fetish_bimbo.svg");
+			if(is==null) {
+				System.err.println("Error! Fetish icon file does not exist (Trying to read from 'com/lilithsthrone/res/fetishes/fetish_bimbo')!");
+			}
+			bimboString = Util.inputStreamToString(is);
+			bimboString = SvgUtil.colourReplacement("FETISH_BIMBO", Colour.BASE_PINK, bimboString);
+			is.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			InputStream is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/fetishes/fetish_bro.svg");
+			broString = Util.inputStreamToString(is);
+			broString = SvgUtil.colourReplacement("FETISH_BRO", Colour.BASE_BLUE, broString);
+			is.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private Fetish(
 			int renderingPriority,
 			String name,
@@ -1514,33 +1598,29 @@ public enum Fetish {
 			this.fetishesForAutomaticUnlock = fetishesForAutomaticUnlock;
 		}
 		
-		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/" + pathName + ".svg");
-			if(is==null) {
-				System.err.println("Error! Fetish icon file does not exist (Trying to read from '"+pathName+"')!");
+		if(pathName!=null) {
+			try {
+				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/" + pathName + ".svg");
+				if(is==null) {
+					System.err.println("Error! Fetish icon file does not exist (Trying to read from '"+pathName+"')!");
+				}
+				SVGString = Util.inputStreamToString(is);
+				SVGString = SvgUtil.colourReplacement(this.toString(), colourShade, SVGString);
+				is.close();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			SVGString = Util.inputStreamToString(is);
-			
-			SVGString = SvgUtil.colourReplacement(this.toString(), colourShade, SVGString);
-
-			is.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
+		} else {
+			SVGString = "";
 		}
-
+		
 		modifiersList = new ArrayList<>();
 
-		if (attributeModifiers != null) {
+		if(attributeModifiers != null) {
 			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet()) {
 				modifiersList.add("<b>"+(e.getValue() > 0 ? "+" : "") + e.getValue() + "</b> <b style='color: "+ e.getKey().getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(e.getKey().getAbbreviatedName())+ "</b>");
 			}
 		}
-		
-		if (extraEffects != null) {
-			modifiersList.addAll(extraEffects);
-		}
-//		modifiersList.add("[style.boldBad(Locks)] desire to <b style='color:"+FetishDesire.FOUR_LOVE.getColour().toWebHexString()+";'>"+FetishDesire.FOUR_LOVE.getName()+"</b>");
 	}
 	
 	public List<Fetish> getFetishesForAutomaticUnlock() {
@@ -1562,7 +1642,7 @@ public enum Fetish {
 		return name;
 	}
 	
-	public String getShortDescriptor() {
+	public String getShortDescriptor(GameCharacter target) {
 		return shortDescriptor;
 	}
 
@@ -1595,14 +1675,11 @@ public enum Fetish {
 	}
 
 	public List<String> getModifiersAsStringList(GameCharacter owner) {
-//		List<String> modListWithArousal = new ArrayList<>(modifiersList);
-//		float arousalIncreaseOwner = owner.getFetishLevel(this).getBonusArousalIncrease();
-//		float arousalIncreasePartner = owner.getFetishLevel(this).getBonusArousalIncreasePartner();
-//		
-//		modListWithArousal.add("<b>"+(arousalIncreaseOwner >= 0 ? "+" : "") + arousalIncreaseOwner + "</b> <b style='color: "+ Attribute.AROUSAL.getColour().toWebHexString()+ ";'> Self-"+ Attribute.AROUSAL.getAbbreviatedName()+ "</b>");
-//		modListWithArousal.add("<b>"+(arousalIncreasePartner >= 0 ? "+" : "") + arousalIncreasePartner + "</b> <b style='color: "+ Attribute.AROUSAL.getColour().toWebHexString()+ ";'> Partner "+ Attribute.AROUSAL.getAbbreviatedName()+ "</b>");
-		
-		return modifiersList;
+		List<String> modList = new ArrayList<>(modifiersList);
+		if(getExtraEffects(owner) != null) {
+			modList.addAll(getExtraEffects(owner));
+		}
+		return modList;
 	}
 
 	public HashMap<Attribute, Integer> getAttributeModifiers() {
@@ -1633,11 +1710,11 @@ public enum Fetish {
 		return renderingPriority;
 	}
 
-	public List<String> getExtraEffects() {
+	public List<String> getExtraEffects(GameCharacter owner) {
 		return extraEffects;
 	}
 
-	public String getSVGString() {
+	public String getSVGString(GameCharacter owner) {
 		return SVGString;
 	}
 	

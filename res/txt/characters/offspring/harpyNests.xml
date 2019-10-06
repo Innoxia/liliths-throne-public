@@ -16,7 +16,7 @@
 		</p>
 		#IF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE)
 			<p>
-				#IF(npc.isExtroverted())
+				#IF(npc.isConfident())
 					From [npc.her] slutty attire, the amount of makeup plastered on [npc.her] face, and [npc.her] general posturing, there's almost no doubt in your mind that [npc.sheIs] a prostitute. As [npc.she] notices your approach, [npc.she] steps out to block your path, and in a sultry tone, confirms your suspicions, [npc.speech(Hey babe! You lookin' for a good time? Fifty flames for an hour's ride with [npc.name]!)]
 				#ELSE
 					From [npc.her] slutty attire, the amount of makeup plastered on [npc.her] face, and [npc.her] general posturing, there's almost no doubt in your mind that [npc.sheIs] a prostitute. As [npc.she] notices your approach, [npc.she] looks over at you, and in a sultry tone, confirms your suspicions, [npc.speech(You lookin' for a good time? Only fifty flames and [npc.namePos] all yours for an hour!)]
@@ -26,7 +26,7 @@
 				Your gaze is drawn to [npc.her] [npc.hands] as [npc.she] sensually runs [npc.her] [npc.fingers+] up the length of [npc.her] body, before stopping at [npc.her] chest to push [npc.her] [npc.breasts+] together. Looking up to [npc.her] face as you prepare to give [npc.herHim] your answer, your planned response leaves your mouth as a surprised gasp, as you find yourself instantly recognising the person before you.
 			</p>
 			<p>
-				#IF(npc.isExtroverted())
+				#IF(npc.isConfident())
 					[npc.speech(Yeah, I know, right?! It's such a bargain that you don't know what to say! So, just hand those fifty flames over and we can get right to the fuckin-)] [npc.Her] words are abruptly cut off as [npc.her] [npc.eyeColour] [npc.eyes] finally come to rest on your [pc.face]. [npc.speech(No way... [npc.PcName]?!)]
 				#ELSE
 					[npc.speech(Don't act so surprised! Just hand over the fifty flames and we can start alre-)] [npc.Her] words are abruptly cut off as [npc.her] [npc.eyeColour] [npc.eyes] finally come to rest on your [pc.face]. [npc.speech(N-No way... [npc.PcName]?!)]
@@ -34,7 +34,7 @@
 			</p>
 		#ELSE
 			<p>
-				#IF(npc.isExtroverted())
+				#IF(npc.isConfident())
 					From the devilish grin on [npc.her] face, combined with the evidence of a couple of empty wallets discarded on the floor beside [npc.herHim], there's almost no doubt in your mind that [npc.sheIs] a mugger, and is intent on making you [npc.her] next victim. As [npc.she] notices your approach, [npc.she] steps out to block your path, and in a low growl, confirms your suspicions, [npc.speech(Didn't you know, the toll for using [npc.namePos] walkway here is two hundred flames!)]
 				#ELSE
 					From the devilish grin on [npc.her] face, combined with the evidence of a couple of empty wallets discarded on the floor beside [npc.herHim], there's almost no doubt in your mind that [npc.sheIs] a mugger, and is intent on making you [npc.her] next victim. As [npc.she] notices your approach, [npc.she] glances over at you, and in a low growl, confirms your suspicions, [npc.speech(You're gonna have to pay the toll for walking through [npc.namePos] territory!)]
@@ -44,7 +44,7 @@
 				You let out an irritated sigh as you realise that this amateur is referring to [npc.herself] in the third person, as if that's meant to make [npc.herHim] sound more important. Looking up to [npc.her] face as you prepare to give [npc.herHim] a piece of your mind, your planned response leaves your mouth as a surprised gasp, as you find yourself instantly recognising the person before you.
 			</p>
 			<p>
-				#IF(npc.isExtroverted())
+				#IF(npc.isConfident())
 					[npc.speech(Yeah, that's the reaction I'm lookin' for! Poor, scared little thing, gasping at the thought of what I'm gonna do to you! Perhaps after I've got your flames, I'll give you a good fuckin-)] [npc.Her] words are abruptly cut off as [npc.her] [npc.eyeColour] [npc.eyes] finally come to rest on your [pc.face]. [npc.speech(No way... [npc.PcName]?!)]
 				#ELSE
 					[npc.speech(Gasping and acting all innocent isn't gonna make me let you go! Just hand over your flames, and maybe I'll decide not to fuck yo-)] [npc.Her] words are abruptly cut off as [npc.her] [npc.eyeColour] [npc.eyes] finally come to rest on your [pc.face]. [npc.speech(N-No way... [npc.PcName]?!)]
@@ -70,31 +70,31 @@
 					Noticing your approach, [npc.name] turns towards you, and with an angry scowl, [npc.she] cries out, [npc.speech(What the hell do you want?! Unless you're here to apologise, I'm not interested in anything you have to say!)]
 				#ENDIF
 			#ELSEIF (affection<AFFECTION_NEGATIVE_TWO_DISLIKE.getMaximumValue())
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					Noticing your approach, [npc.name] turns towards you, and in an angry tone, [npc.she] scowls at you, [npc.speech(I'm not talking to you! If you're not here to apologise, you may as well turn right around and get out of here!)]
 				#ELSE
 					Noticing your approach, [npc.name] turns towards you, and with an angry scowl, [npc.she] calls out, [npc.speech(I'm not talking to you! Unless you're here to apologise, just go away and leave me alone!)]
 				#ENDIF
 			#ELSEIF (affection<AFFECTION_NEGATIVE_ONE_ANNOYED.getMaximumValue())
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					Noticing your approach, [npc.name] turns towards you, and in a rather cold manner, [npc.she] calls out, [npc.speech(Oh, it's you. Hi, [npc.pcName].)]
 				#ELSE
 					Noticing your approach, [npc.name] turns towards you, and with a distinct lack of emotion in [npc.her] voice, [npc.she] calls out, [npc.speech(Hi, [npc.pcName].)]
 				#ENDIF
 			#ELSEIF (affection<AFFECTION_POSITIVE_ONE_FRIENDLY.getMaximumValue())
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					Noticing your approach, [npc.name] turns towards you, and with a big smile on [npc.her] [npc.face], [npc.she] calls out, [npc.speech([npc.PcName]! You're back!)]
 				#ELSE
 					Noticing your approach, [npc.name] turns towards you, and with a smile on [npc.her] [npc.face], [npc.she] calls out, [npc.speech(Hi, [npc.pcName]!)]
 				#ENDIF
 			#ELSEIF (affection<AFFECTION_POSITIVE_THREE_CARING.getMaximumValue())
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					Noticing your approach, [npc.name] turns towards you, and you see [npc.her] [npc.face] light up as [npc.she] excitedly calls out, [npc.speech([npc.PcName]! I've missed you so much!)]
 				#ELSE
 					Noticing your approach, [npc.name] turns towards you, and with a voice filled with excitement, [npc.she] calls out, [npc.speech([npc.PcName]! You've come back to see me again!)]
 				#ENDIF
 			#ELSE
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					Noticing your approach, [npc.name] turns towards you, and upon seeing who you are, [npc.she] excitedly jumps up and down on the spot and [npc.she] gleefully calls out, [npc.speech([npc.PcName]! You're back! I've missed you so much! I love you!)]
 				#ELSE
 					Noticing your approach, [npc.name] turns towards you, and you see [npc.her] [npc.eyes] light up with joy as [npc.she] gleefully calls out, [npc.speech([npc.PcName]! You've come back to see me again! I love you!)]
@@ -400,7 +400,7 @@
 			<p>
 				You're the first to recover from the shock of your surprise meeting, and as your initial surprise fades away, you find that you're shaking your head in utter disbelief. Looking into your [npc.daughter]'s [npc.eyes], you frown in disapproval as you start to voice your concerns, [pc.speech([npc.Name]! Please don't tell me that you're working as a... a prostitute!)]
 			</p>
-			#IF(npc.isExtroverted() || npc.isNeurotic())
+			#IF(npc.isConfident())
 				<p>
 					[npc.speech(So what if I am?!)] [npc.name] shouts back, clearly upset by your judgemental remark. [npc.speech(It's my body, I can do what I want with it!)]
 				</p>
@@ -413,7 +413,7 @@
 			<p>
 				You're the first to recover from the shock of your surprise meeting, and as your initial surprise fades away, you find that you're shaking your head in utter disbelief. Looking into your [npc.daughter]'s [npc.eyes], you frown in disapproval as you start to voice your concerns, [pc.speech([npc.Name]! Please don't tell me that you're just another low-life mugger!)]
 			</p>
-			#IF(npc.isExtroverted() || npc.isNeurotic())
+			#IF(npc.isConfident())
 				<p>
 					[npc.speech(So what if I am?!)] [npc.name] shouts back, clearly upset by your judgemental remark. [npc.speech(Do you know how hard it is to make a living around here?!)]
 				</p>
@@ -437,7 +437,7 @@
 			<p>
 				As you look [npc.name] up and down, you find yourself shaking your head in utter disbelief. Looking into your [npc.daughter]'s [npc.eyes], you frown in disapproval as you start to voice your concerns, [pc.speech([npc.Name]! Please don't tell me that you're still out here mugging people!)]
 			</p>
-			#IF(npc.isExtroverted() || npc.isNeurotic())
+			#IF(npc.isConfident())
 				<p>
 					[npc.speech(So what if I am?!)] [npc.name] shouts back, clearly upset by your judgemental remark. [npc.speech(Do you know how hard it is to make a living around here?!)]
 				</p>
@@ -450,7 +450,7 @@
 			<p>
 				As you look [npc.name] up and down, you find yourself shaking your head in utter disbelief. Looking into your [npc.daughter]'s [npc.eyes], you frown in disapproval as you start to voice your concerns, [pc.speech([npc.Name]! Please don't tell me that you're still working as a prostitute!)]
 			</p>
-			#IF(npc.isExtroverted() || npc.isNeurotic())
+			#IF(npc.isConfident())
 				<p>
 					[npc.speech(So what if I am?!)] [npc.name] shouts back, clearly upset by your judgemental remark. [npc.speech(It's my body, I can do what I want with it!)]
 				</p>
@@ -486,21 +486,21 @@
 		<p>
 			#IF(affection<AFFECTION_NEGATIVE_THREE_STRONG_DISLIKE.getMaximumValue())
 				Letting out an angry snort, your [npc.daughter] turns [npc.her] back on you and starts to walk away, shouting over [npc.her] shoulder as [npc.she] makes [npc.her] exit,
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					 [npc.speech(Fine, fuck off then! See if I care! Don't bother coming back unless you're gonna apologise!)]
 				#ELSE
 					 [npc.speech(Eugh, fine! See if I care! Oh, and don't bother coming back unless you're gonna apologise!)]
 				#ENDIF
 			#ELSEIF (affection<AFFECTION_NEGATIVE_ONE_ANNOYED.getMaximumValue())
 				Letting out a dismissive snort, your [npc.daughter] turns [npc.her] back on you and starts to walk away, shouting over [npc.her] shoulder as [npc.she] makes [npc.her] exit,
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					 [npc.speech(Fine, see you later! And you'd better be ready to apologise by then!)]
 				#ELSE
 					 [npc.speech(Fine, see you later! I'm expecting an apology when you return!)])
 				#ENDIF
 			#ELSE
 				Letting out a disappointed whine, your [npc.daughter] reluctantly accepts your excuse to leave.
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					 [npc.speech(Ok then... I'll see you later!)]
 				#ELSE
 					 [npc.speech(Ok then... I'll see you later I guess...)])
@@ -511,42 +511,42 @@
 		<p>
 			#IF(affection<AFFECTION_NEGATIVE_FOUR_HATE.getMaximumValue())
 				Letting out an angry snort, your [npc.daughter] turns [npc.her] back on you and starts to walk away, shouting over [npc.her] shoulder as [npc.she] makes [npc.her] exit,
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					[npc.speech(Fine, fuck off then! See if I care!)]
 				#ELSE
 					[npc.speech(Eugh, fine! See if I care!)]
 				#ENDIF
 			#ELSEIF (affection<AFFECTION_NEGATIVE_TWO_DISLIKE.getMaximumValue())
 				Letting out a derisive snort, your [npc.daughter] turns [npc.her] back on you and starts to walk away, shouting over [npc.her] shoulder as [npc.she] makes [npc.her] exit,
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					[npc.speech(Fine! See if I care!)]
 				#ELSE
 					[npc.speech(Eugh, fine! See if I care!)]
 				#ENDIF
 			#ELSEIF (affection<AFFECTION_NEGATIVE_ONE_ANNOYED.getMaximumValue())
 				Letting out a dismissive snort, your [npc.daughter] turns [npc.her] back on you and starts to walk away, shouting over [npc.her] shoulder as [npc.she] makes [npc.her] exit,
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					[npc.speech(Fine, see you later [npc.pcName]!)]
 				#ELSE
 					[npc.speech(Fine, see you later I guess!)]
 				#ENDIF
 			#ELSEIF (affection<AFFECTION_POSITIVE_ONE_FRIENDLY.getMaximumValue())
 				Letting out a disappointed whine, your [npc.daughter] reluctantly accepts your excuse to leave.
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					[npc.speech(Fine, see you later [npc.pcName]...)]
 				#ELSE
 					[npc.speech(Fine, see you later I guess...)]
 				#ENDIF
 			#ELSEIF (affection<AFFECTION_POSITIVE_THREE_CARING.getMaximumValue())
 					Letting out a miserable whine, your [npc.daughter] reluctantly accepts your excuse to leave.
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					[npc.speech(Aww... Come back soon, ok?! I miss you!)]
 				#ELSE
 					[npc.speech(Aww... I hope you come back soon...)]
 				#ENDIF
 			#ELSE
 				With a look of despair on [npc.her] face, your [npc.daughter] miserably accepts your excuse to leave.
-				#IF(npc.isExtroverted() || npc.isNeurotic())
+				#IF(npc.isConfident())
 					[npc.speech(Aww... Please come back soon! I love you [npc.pcName]!)]
 				#ELSE
 					[npc.speech(Aww... I hope you come back soon... I love you [npc.pcName]!)]
@@ -573,7 +573,7 @@
 		#ENDIF
 	</p>
 		
-	#IF(npc.isExtroverted() || npc.isNeurotic())
+	#IF(npc.isConfident())
 		<p>
 			[npc.Name] turns towards you and puts [npc.her] [npc.hands] on [npc.her] [npc.hips]. [npc.speech(You're damn right you're sorry! And you're going to need to say more than that if you want me to forgive you!)]
 		</p>
@@ -613,7 +613,7 @@
 	<p>
 		Just because [npc.sheIs] your [npc.daughter], that doesn't mean [npc.sheIs] any better than the rest of the cruel harpies inhabiting these nests. Lowering into a combat stance, you grin at [npc.name]. [pc.speech(No [npc.daughter] of mine is going to live like this and expect not to be punished! I'm going to teach you a lesson!)]
 	</p>
-	#IF(npc.isExtroverted())
+	#IF(npc.isConfident())
 		<p>
 			[npc.speech(What the hell?!)] [npc.name] cries out, before jumping back and preparing to defend [npc.herself]. [npc.speech(You'll be sorry!)]
 		</p>
@@ -640,7 +640,7 @@
 			[pc.speech(This is a nice place you've got,)] you say, and even if you don't approve of the methods in which [npc.she] earns [npc.her] rent, you're happy that your [npc.daughter] has a roof over [npc.her] head, [pc.speech(and you seem to be keeping the place clean, good [npc.girl]!)]
 		</p>
 		<p>
-			#IF(npc.isExtroverted())
+			#IF(npc.isConfident())
 				[npc.speech(Thanks, [npc.pcName]!)]
 			#ELSE
 				[npc.speech([pc.Name]... You're embarrassing me...)]
@@ -661,7 +661,7 @@
 			[pc.speech(Good [npc.girl], you're keeping this place nice and clean,)] you say, turning to smile at [npc.name].
 		</p>
 		<p>
-			#IF(npc.isExtroverted())
+			#IF(npc.isConfident())
 				[npc.speech(Thanks, [npc.pcName], I'm doing my best!)]
 			#ELSE
 				[npc.speech([pc.Name]... You're embarrassing me again...)]
@@ -716,7 +716,7 @@
 		Deciding that you'd like to get to know [npc.name] a little better, you ask [npc.herHim] about how [npc.sheIs] doing, [pc.speech(Tell me about your life! How's everything going for you right now?)]
 	</p>
 	#IF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE)
-		#IF(npc.isExtroverted())
+		#IF(npc.isConfident())
 			<p>
 				[npc.She] leans back on the sofa and smiles. [npc.speech(Well, you know, there's always <i>someone</i> in the nests looking for a quick fuck, so I never have any problems with money. I mean, up here is a pretty great place for being a prostitute!)]
 			</p>
@@ -749,7 +749,7 @@
 				[npc.speech(... And so he's pushing me up against the wall, fucking me really hard, and then he suddenly pulls out and cums all over my shoes! And I'm like, 'You're paying the cleaning bill for those!')])]
 		</p>
 	#ELSE
-		#IF(npc.isExtroverted())
+		#IF(npc.isConfident())
 			<p>
 				[npc.She] leans back on the sofa and smiles. [npc.speech(Well, you know, there's always <i>someone</i> dumb enough to try messing with our nest, so I never have any problems with money. I mean, if they didn't want to get mugged, they wouldn't come trying to bother our matriarch!)]
 			</p>
@@ -772,7 +772,7 @@
 				|
 				[npc.speech(... So then as she runs off, she's like 'You're gonna be sorry when I tell my boyfriend!', and then later this horse-boy shows up claiming to be her boyfriend, so I beat him up too!)]
 				|
-				[npc.speech(... And then the enforcers turned up, and I only just managed to get away! That was a close one...)]
+				[npc.speech(... And then the Enforcers turned up, and I only just managed to get away! That was a close one...)]
 				|
 				[npc.speech(... So after I'd robbed her, that slutty cat-girl starts begging for me to 'show her no mercy', and drops down on all fours right there in the alley!)]
 				|
@@ -794,19 +794,19 @@
 		#IF(affection<AFFECTION_ZERO_NEUTRAL.getMaximumValue())
 			After a short while, [npc.she] offers you another drink, and after happily accepting, you sit with your [npc.daughter] on the sofa in [npc.her] apartment, talking away as though you've known each other forever.
 		#ELSEIF (affection<AFFECTION_POSITIVE_ONE_FRIENDLY.getMaximumValue())
-			#IF(npc.isExtroverted())
+			#IF(npc.isConfident())
 				 After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down right beside you on the sofa, smiling in a friendly manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
 			#ELSE
 				 After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down beside you on the sofa, smiling in a friendly manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
 			#ENDIF
 		#ELSEIF (affection<AFFECTION_POSITIVE_THREE_CARING.getMaximumValue())
-			#IF(npc.isExtroverted())
+			#IF(npc.isConfident())
 				 After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down right beside you on the sofa, smiling in a loving manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
 			#ELSE
 				 After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down beside you on the sofa, smiling in a loving manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
 			#ENDIF
 		#ELSE
-			#IF(npc.isExtroverted())
+			#IF(npc.isConfident())
 				 After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down right beside you on the sofa, smiling in a loving manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
 			#ELSE
 				 After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you. When [npc.she] returns, [npc.she] sits down beside you on the sofa, smiling in a loving manner as [npc.she] hands you your glass, before the two of you continue talking away as though you've known each other forever.
@@ -825,7 +825,7 @@
 			 [pc.speech(I know that it must be hard to try and make a living out here, so I just wanted you to know that I'm happy to see that you're taking good care of yourself, [npc.name].)]
 		#ENDIF
 	</p>
-	#IF(npc.isExtroverted() || npc.isNeurotic())
+	#IF(npc.isConfident())
 		<p>
 			[npc.Name] blushes a little, and casts [npc.her] [npc.eyes] to the floor as [npc.she] replies, [npc.speech([npc.PcName], stop! You're embarrassing me!)]
 		</p>
@@ -895,7 +895,7 @@
 			 [pc.speech(I really don't want my [npc.daughter] picking fights and mugging people who come near her nest. You need to start thinking about getting a real job, [npc.name]!)]
 		#ENDIF
 	</p>
-	#IF(npc.isExtroverted() || npc.isNeurotic())
+	#IF(npc.isConfident())
 		<p>
 			[npc.Name] leans back on the sofa, letting out an annoyed snort as [npc.she] hears your words. Rolling [npc.her] [npc.eyes], [npc.she] replies, [npc.speech(Don't come in here and try to tell me how to live my life, [npc.pcName]! I can do what I want!)]
 		</p>
@@ -934,7 +934,7 @@
 		Deciding that [npc.name] needs to be taught a lesson, you get up off the sofa and step towards [npc.herHim]. [pc.speech(No [npc.daughter] of mine is going to live like this and expect not to be punished! It's time that I put you in your place!)]
 	</p>
 	<p>
-		#IF(npc.isExtroverted() || npc.isNeurotic())
+		#IF(npc.isConfident())
 			[npc.speech(What the hell?!)] [npc.name] cries out, before jumping up and preparing to defend [npc.herself]. [npc.speech(You'll be sorry!)]
 		#ELSE
 			[npc.speech(W-What?!)] [npc.name] cries out, before jumping up and preparing to defend [npc.herself]. [npc.speech(I can't believe this!)]
@@ -1367,13 +1367,20 @@
 		#ENDIF
 	</p>
 	<p>
-		[pc.speech(Yeah, it's kind of a long story, but basically Lilaya, who's both my aunt as well as the owner of this place, is the daughter of the elder Lilin, Lyssieth, which is how she has such a huge house. Lilaya has no interest in anything outside the experiments she performs in her lab, so she lets me use all the rooms as I see fit,)] you explain, reaching up to knock on the front door.
+		Briefly explaining how Lilaya is not only your aunt, but also the recognised daughter of Lyssieth, you reach up to knock on the front door.
 	</p>
 	<p>
-		[npc.speech(So we're related to an elder Lilin?!)] [npc.name] gasps once again, [npc.speech(So we're royalty?!)]
-	</p>
-	<p>
-		[pc.speech(Well, not really; we're not exactly recognised as such,)] you reply, but before you can say anything further, the front door swings open, and you're greeted by the familiar sight of the cat-girl maid, Rose.
+		#IF((npc.getMother()!=null && npc.getMother().equals(lyssieth)) || (npc.getFather()!=null && npc.getFather().equals(lyssieth)))
+				[npc.speech(So Lilaya's my half-sister?)] [npc.name] gasps once again, [npc.speech(Is there any chance of convincing her to have mommy recognise me as well?)]
+			</p>
+			<p>
+				[pc.speech(I think that would be pushing your luck,)] you reply, but before you can say anything further, the front door swings open, and you're greeted by the familiar sight of the cat-girl maid, Rose.
+		#ELSE
+				[npc.speech(So we're related to an elder Lilin?!)] [npc.name] gasps once again, [npc.speech(So we're royalty?!)]
+			</p>
+			<p>
+				[pc.speech(Well, not really; we're not exactly recognised as such,)] you reply, but before you can say anything further, the front door swings open, and you're greeted by the familiar sight of the cat-girl maid, Rose.
+		#ENDIF
 	</p>
 	<p>
 		[rose.speech(Good [style.evening], [pc.name],)] Rose greets you, curtsying and stepping aside to let you and [npc.name] enter. [rose.speech(I see you have company, would you like me to prepare a room?)]

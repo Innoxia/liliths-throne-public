@@ -54,7 +54,8 @@ import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
-import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
+import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -76,6 +77,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
@@ -87,7 +89,7 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PositioningMenu;
@@ -123,7 +125,7 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.5.1
  * @author Innoxia
  */
 public class MainController implements Initializable {
@@ -238,7 +240,7 @@ public class MainController implements Initializable {
 		} else {
 			DialogueNodeType currentDialogueNodeType = Main.game.getCurrentDialogueNode().getDialogueNodeType();
 			if (currentDialogueNodeType == DialogueNodeType.NORMAL
-					|| currentDialogueNodeType == DialogueNodeType.OCCUPANT_MANAGEMENT
+//					|| currentDialogueNodeType == DialogueNodeType.OCCUPANT_MANAGEMENT
 					|| (!Main.game.isInNewWorld() && currentDialogueNodeType != DialogueNodeType.CHARACTERS_PRESENT)) {
 				Main.game.saveDialogueNode();
 			}
@@ -264,7 +266,9 @@ public class MainController implements Initializable {
 			Main.game.restoreSavedContent(false);
 			
 		} else {
-			if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL || Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT) {
+			if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL
+//					|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT
+					) {
 				Main.game.saveDialogueNode();
 			}
 			
@@ -308,10 +312,14 @@ public class MainController implements Initializable {
 			if(isInventoryDisabled()) {
 				return;
 			}
-			openInventory((NPC) Sex.getActivePartner(), InventoryInteraction.SEX);
+			openInventory(
+					Sex.isMasturbation()
+						?null
+						:(NPC) Sex.getTargetedPartner(Main.game.getPlayer()),
+					InventoryInteraction.SEX);
 			
-		} else if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() != null) {
-			openInventory(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), InventoryInteraction.FULL_MANAGEMENT);
+		} else if(Main.game.getDialogueFlags().getManagementCompanion() != null) {
+			openInventory(Main.game.getDialogueFlags().getManagementCompanion(), InventoryInteraction.FULL_MANAGEMENT);
 			
 		} else {
 			openInventory(null, InventoryInteraction.FULL_MANAGEMENT);
@@ -331,14 +339,24 @@ public class MainController implements Initializable {
 		InventoryDialogue.setNPCInventoryInteraction(interaction);
 		
 		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY) {
-			Main.game.restoreSavedContent(
-					Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() != null
-					|| Main.game.getSavedDialogueNode().getDialogueNodeType()==DialogueNodeType.OCCUPANT_MANAGEMENT
-					);
+			if(Main.game.getDialogueFlags().getManagementCompanion() != null) {
+				Main.game.setContent(new Response("", "", CompanionManagement.getCoreNode()) {
+					@Override
+					public void effects() {
+						Main.game.setResponseTab(CompanionManagement.getDefaultResponseTab());
+					}
+				});
+				
+			} else {
+				Main.game.restoreSavedContent(Main.game.getDialogueFlags().getManagementCompanion() != null
+//						|| Main.game.getSavedDialogueNode().getDialogueNodeType()==DialogueNodeType.OCCUPANT_MANAGEMENT
+						);
+			}
 
 		} else if (!isInventoryDisabled() || npc != null) {
 			if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL
-					|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT) {
+//					|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT
+					) {
 				Main.game.saveDialogueNode();
 			}
 			
@@ -363,7 +381,8 @@ public class MainController implements Initializable {
 		
 		if(characterViewed!=null && characterViewed != CharactersPresentDialogue.characterViewed) {
 			if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL
-					|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT) {
+//					|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT
+					) {
 				Main.game.saveDialogueNode();
 			}
 			
@@ -376,7 +395,8 @@ public class MainController implements Initializable {
 				
 			} else if (!Main.game.getCharactersPresent().isEmpty()) {
 				if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL
-						|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT) {
+//						|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT
+						) {
 					Main.game.saveDialogueNode();
 				}
 				
@@ -385,7 +405,7 @@ public class MainController implements Initializable {
 			}
 		}
 	}
-
+	
 	/**
 	 * Sets up buttons and hotkeys.
 	 */
@@ -459,9 +479,54 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-//							Pathing.aStarPathingPerkTree(PerkManager.MANAGER.getPerkTree(Main.game.getPlayer()),
-//									new TreeEntry<PerkCategory, AbstractPerk>(PerkCategory.PHYSICAL, 1, Perk.PHYSICAL_BASE),
-//									new TreeEntry<PerkCategory, AbstractPerk>(PerkCategory.ARCANE, 10, Perk.ARCANE_VAMPYRISM));
+//							int mines = 10;
+//							int gridSize = 8;
+//							String[][] grid = new String[gridSize][gridSize];
+//							String mine = "||:boom:||";
+//							String[] counts = new String[] {":zero:", ":one:", ":two:", ":three:", ":four:", ":five:", ":six:", ":seven:", ":eight:"};
+//							for(int i=mines; i>0; i--) {
+//								int rndX = Util.random.nextInt(gridSize);
+//								int rndY = Util.random.nextInt(gridSize);
+//								while(grid[rndX][rndY]==mine) {
+//									rndX = Util.random.nextInt(gridSize);
+//									rndY = Util.random.nextInt(gridSize);
+//								}
+//								grid[rndX][rndY] = mine;
+//							}
+//							for(int i=0;i<gridSize;i++) {
+//								for(int j=0;j<gridSize;j++) {
+//									if(grid[i][j]!=mine) {
+//										int count = 0;
+//										for(int x=-1;x<=1;x++) {
+//											for(int y=-1;y<=1;y++) {
+//												if(i+x>=0 && i+x<gridSize && j+y>=0 && j+y<gridSize) {
+//													if(grid[i+x][j+y]==mine) {
+//														count++;
+//													}
+//												}
+//											}
+//										}
+//										grid[i][j] = "||"+counts[count]+"||";
+//									}
+//								}
+//							}
+//							for(int i=0;i<gridSize;i++) {
+//								for(int j=0;j<gridSize;j++) {
+//									System.out.print(grid[i][j]);
+//								}
+//								System.out.println();
+//							}
+
+//							System.out.println();
+//							for(char c : "hooded cloak".toCharArray()) {
+//								System.out.print("["+c+","+(int)c+"]");
+//							}
+//							System.out.println();
+//							for(char c : "hooded cloak".toCharArray()) {
+//								System.out.print("["+c+","+(int)c+"]");
+//							}
+							
+//							Main.game.getPlayer().setArousal(99);
 						}
 						 
 
@@ -612,7 +677,7 @@ public class MainController implements Initializable {
 							}
 						}
 						if(Main.game.getCurrentDialogueNode() == SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD
-								|| Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_TATTOOS_ADD
+								|| Main.game.getCurrentDialogueNode() == CompanionManagement.SLAVE_MANAGEMENT_TATTOOS_ADD
 								|| Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('tattoo_name') === document.activeElement")) {
 								allowInput = false;
@@ -625,9 +690,7 @@ public class MainController implements Initializable {
 								}
 							}
 						}
-						if(Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_INSPECT
-								|| Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_JOBS
-								|| Main.game.getCurrentDialogueNode() == OccupantManagementDialogue.SLAVE_MANAGEMENT_PERMISSIONS){
+						if(Main.game.getCurrentDialogueNode() == CompanionManagement.OCCUPANT_CHOOSE_NAME){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
@@ -645,7 +708,7 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+													Main.game.getDialogueFlags().getManagementCompanion().setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 												}
 											});
 										} else {
@@ -672,7 +735,7 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
+													Main.game.getDialogueFlags().getManagementCompanion().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 												}
 											});
 										} else {
@@ -698,7 +761,7 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+													Main.game.getDialogueFlags().getManagementCompanion().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 												}
 											});
 										} else {
@@ -1103,7 +1166,8 @@ public class MainController implements Initializable {
 					if(Main.game.getWorlds().get(worldType).getCell(clickLocation).getPlace().getPlaceType().getDialogue(false)!=null // Make sure the destination actually has an associated DialogueNode
 							&& (c.isTravelledTo() || Main.game.isDebugMode()) // The player needs to have travelled here before (or have debug active)
 							&& (Main.game.getSavedDialogueNode()!=null && !Main.game.getSavedDialogueNode().isTravelDisabled()) // You can't fast travel out of a special dialogue
-							&& Pathing.getMapTravelType().isAvailable(Main.game.getPlayer())) { // Make sure the travel type is actually available
+							&& Pathing.getMapTravelType().isAvailable(c, Main.game.getPlayer()) // Make sure the travel type is actually available
+							) {
 						if(!clickLocation.equals(Main.game.getPlayer().getLocation()) || !worldType.equals(Main.game.getPlayer().getWorldLocation())) {
 							switch(Pathing.getMapTravelType()) {
 								case TELEPORT:
@@ -1132,18 +1196,22 @@ public class MainController implements Initializable {
 								case FLYING:
 									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
 										if(clickLocation.equals(Pathing.getEndPoint())) {
-											Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, new Vector2i(j, i), false);
-											DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-											Main.game.getTextStartStringBuilder().append(
-													"<p style='text-align:center'>"
-														+ "[style.italicsAir(With a flap of your wings, you launch yourself into the air, before swiftly flying to your destination!)]"
-													+ "</p>");
-											Main.game.setContent(new Response("", "", dn) {
-												@Override
-												public int getSecondsPassed() {
-													return Pathing.getTravelTime();
-												}
-											});
+											if(Pathing.isImpossibleDestination()) {
+												Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+											} else {
+												Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, new Vector2i(j, i), false);
+												DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+												Main.game.getTextStartStringBuilder().append(
+														"<p style='text-align:center'>"
+															+ "[style.italicsAir(With a flap of your wings, you launch yourself into the air, before swiftly flying to your destination!)]"
+														+ "</p>");
+												Main.game.setContent(new Response("", "", dn) {
+													@Override
+													public int getSecondsPassed() {
+														return Pathing.getTravelTime();
+													}
+												});
+											}
 											
 										} else {
 											Pathing.setEndPoint(clickLocation, Main.game.getWorlds().get(PhoneDialogue.worldTypeMap).getCell(clickLocation), worldType);
@@ -1154,7 +1222,11 @@ public class MainController implements Initializable {
 								case WALK_DANGEROUS:
 									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
 										if(clickLocation.equals(Pathing.getEndPoint())) {
-											Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
+											if(Pathing.isImpossibleDestination()) {
+												Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+											} else {
+												Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
+											}
 											
 										} else {
 											if(Main.mainController.buttonsPressed.contains(KeyCode.SHIFT)) {
@@ -1169,7 +1241,11 @@ public class MainController implements Initializable {
 								case WALK_SAFE:
 									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
 										if(clickLocation.equals(Pathing.getEndPoint())) {
-											Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
+											if(Pathing.isImpossibleDestination()) {
+												Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+											} else {
+												Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
+											}
 											
 										} else {
 											if(Main.mainController.buttonsPressed.contains(KeyCode.SHIFT)) {
@@ -1184,7 +1260,11 @@ public class MainController implements Initializable {
 							}
 						}
 					} else {
-						Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+						if(!c.isTravelledTo()) {
+							Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot fast-travel to unexplored locations!");
+						} else {
+							Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+						}
 					}
 					
 				}, false);
@@ -1205,9 +1285,25 @@ public class MainController implements Initializable {
 		String id = i+"_WORK";
 		if (((EventTarget) document.getElementById(id)) != null) {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setWorkHour(i, !Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getWorkHours()[i]);
-				Main.game.setContent(new Response("", "", OccupantManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
+				SlaveJob job = Main.game.getDialogueFlags().getSlaveryManagerJobSelected();
+				if(Main.game.getDialogueFlags().getManagementCompanion().getSlaveJob(i)==job) {
+					Main.game.getDialogueFlags().getManagementCompanion().setSlaveJob(i, SlaveJob.IDLE);
+				} else {
+					Main.game.getDialogueFlags().getManagementCompanion().setSlaveJob(i, job);
+				}
+				Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getManagementCompanion())));
 			}, false);
+			
+		} else {
+			id = i+"_WORK_DISABLED";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
+						"[style.colourBad(Unavailable Time Slot)]",
+						Main.game.getDialogueFlags().getSlaveryManagerJobSelected().getAvailabilityText(i, Main.game.getDialogueFlags().getManagementCompanion()));
+				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+			}
 		}
 	}
 	
@@ -1223,7 +1319,7 @@ public class MainController implements Initializable {
 			if(i==5) {
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Quest Items", "");
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Unique Items", "");
 				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 			}
 		}
@@ -1379,7 +1475,7 @@ public class MainController implements Initializable {
 		String id;
 		for (InventorySlot invSlot : InventorySlot.values()) {
 			id = invSlot.toString() + "Slot";
-			if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
+			if (!invSlot.isWeapon()) {
 				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 					if(!RenderingEngine.ENGINE.isRenderingTattoosLeft()) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(Main.game.getPlayer(), invSlot);
@@ -1534,7 +1630,9 @@ public class MainController implements Initializable {
 										}
 										
 									} else {
-										if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL || Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT) {
+										if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL
+//												|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT
+												) {
 											Main.game.saveDialogueNode();
 										}
 										
@@ -1568,24 +1666,26 @@ public class MainController implements Initializable {
 								Main.game.updateResponses();
 								
 							} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE) {
-								if(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP) {
+								if(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_PERK_TREE) {
 									openPhone();
 								} else {
-									Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_LEVEL_UP));
+									Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_PERK_TREE));
 								}
 								
 							} else {
-								if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL || Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT) {
+								if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL
+//										|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT
+										) {
 									Main.game.saveDialogueNode();
 								}
 								
-								Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_LEVEL_UP));
+								Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_PERK_TREE));
 							}
 						}
 						
 					} else { //TODO display NPC perk tree
 						if(Main.game.isInSex()) {
-							Sex.setActivePartner((NPC) character);
+							Sex.setTargetedPartner(Main.game.getPlayer(), character);
 							Sex.recalculateSexActions();
 							updateUI();
 							Main.game.updateResponses();
@@ -1686,7 +1786,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, "FETISH_"+idModifier + f, "mouseenter", el, false);
 				}
 			}
-			for (CombatMove combatMove : character.getEquippedMoves()) {
+			for (CombatMove combatMove : character.getAvailableMoves()) {
 				id = "CM_"+idModifier + combatMove.getIdentifier();
 				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
@@ -1722,7 +1822,7 @@ public class MainController implements Initializable {
 					?null
 					:Sex.getCharactersHavingOngoingActionWith(character, si).get(0);
 			if(target!=null && target instanceof NPC) {
-				Sex.setActivePartner((NPC) target);
+				Sex.setTargetedPartner(Main.game.getPlayer(), target);
 				Sex.recalculateSexActions();
 				updateUI();
 				Main.game.updateResponses();
@@ -1744,7 +1844,7 @@ public class MainController implements Initializable {
 		String id;
 		for (InventorySlot invSlot : InventorySlot.values()) {
 			id = invSlot.toString() + "Slot";
-			if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
+			if (!invSlot.isWeapon()) {
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
 					if(concealedSlots.keySet().contains(invSlot)) {
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
@@ -1907,13 +2007,15 @@ public class MainController implements Initializable {
 					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
 						openCharactersPresent(character);
 					}, false);
+					
 				} else if(Main.game.isInSex()) {
 					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
-						Sex.setActivePartner((NPC) character);
+						Sex.setTargetedPartner(Main.game.getPlayer(), character);
 						Sex.recalculateSexActions();
 						updateUI();
 						Main.game.updateResponses();
 					}, false);
+					
 				} else if(Main.game.isInCombat()) {
 					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
 						Combat.setTargetedCombatant((NPC) character);
@@ -2001,7 +2103,7 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + f, "mouseenter", el, false);
 					}
 				}
-				for (CombatMove combatMove : character.getEquippedMoves()) {
+				for (CombatMove combatMove : character.getAvailableMoves()) {
 					id = "CM_NPC_"+idModifier + combatMove.getIdentifier();
 					if (((EventTarget) documentRight.getElementById(id)) != null) {
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
@@ -2042,7 +2144,7 @@ public class MainController implements Initializable {
 				 // For rendering images from file:
 				&& !Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU)
 				&& !Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER)
-				&& !Main.game.getCurrentDialogueNode().equals(OccupantManagementDialogue.SLAVE_MANAGEMENT_INSPECT)) {
+				&& !Main.game.getCurrentDialogueNode().equals(CompanionManagement.SLAVE_MANAGEMENT_INSPECT)) {
 			unbindListeners(document);
 			setWebEngineContent(webEngine, content);
 			manageMainListeners();
@@ -2141,7 +2243,7 @@ public class MainController implements Initializable {
 							false,
 							false,
 							new SexManagerDefault(
-									SexPositionOther.LYING_DOWN,
+									SexPosition.LYING_DOWN,
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MATING_PRESS)),
 									Util.newHashMapOfValues(new Value<>(target, SexSlotLyingDown.LYING_DOWN))) {
 								@Override
@@ -2219,7 +2321,7 @@ public class MainController implements Initializable {
 							false,
 							false,
 							new SexManagerDefault(
-									SexPositionOther.LYING_DOWN,
+									SexPosition.LYING_DOWN,
 									Util.newHashMapOfValues(new Value<>(target, SexSlotLyingDown.MATING_PRESS)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))) {
 								@Override

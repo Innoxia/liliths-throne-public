@@ -200,7 +200,7 @@ public class FingerAnus {
 
 
 							" With a soft [npc2.moan], [npc2.name] [npc2.verb(start)] gently bucking [npc2.her] [npc2.assCloaca] back against [npc.namePos] [npc.hand],"
-									+ " encouraging [npc.herHim] to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
+									+ " encouraging [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -210,7 +210,7 @@ public class FingerAnus {
 
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] eagerly bucking [npc2.her] [npc2.assCloaca] back against [npc.namePos] [npc.hand],"
-									+ " desperately encouraging [npc.name] to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
+									+ " desperately encouraging [npc.name] to sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -219,7 +219,7 @@ public class FingerAnus {
 
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] violently bucking [npc2.her] [npc2.assCloaca] back against [npc.namePos] [npc.hand],"
-									+ " roughly forcing [npc.herHim] to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
+									+ " roughly forcing [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -229,16 +229,16 @@ public class FingerAnus {
 
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] eagerly bucking [npc2.her] [npc2.assCloaca] back against [npc.namePos] [npc.hand],"
-									+ " desperately encouraging [npc.herHim] to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.namePos] [npc2.asshole+]."));
+									+ " desperately encouraging [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into [npc2.namePos] [npc2.asshole+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.namePos] [npc.fingers] enter [npc2.herHim],"
-									+ " before bucking [npc2.her] [npc2.assCloaca] back against [npc.her] [npc.hand] and helping to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+].",
+									+ " before bucking [npc2.her] [npc2.assCloaca] back against [npc.her] [npc.hand] and helping to sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+].",
 
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] bucking [npc2.her] [npc2.assCloaca] back against [npc.namePos] [npc.hand],"
-									+ " encouraging [npc.herHim] to [npc.verb(sink)] [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
+									+ " encouraging [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.asshole+]."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -290,7 +290,7 @@ public class FingerAnus {
 
 
 							"Slowly pushing [npc.her] [npc.fingers+] into [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(draw)] a delighted [npc2.moan] from between [npc2.namePos] [npc2.lips+],"
-									+ " and, eagerly thrusting [npc2.her] [npc2.assCloaca] back against [npc.her] touch, [npc2.name] [npc2.verb(beg)] for [npc.herHim] to [npc.verb(continue)] fingering [npc2.herHim].",
+									+ " and, eagerly thrusting [npc2.her] [npc2.assCloaca] back against [npc.her] touch, [npc2.name] [npc2.verb(beg)] for [npc.herHim] to continue fingering [npc2.herHim].",
 
 
 							"Gently sliding [npc.her] [npc.fingers+] into [npc2.namePos] [npc2.asshole+],"
@@ -361,7 +361,7 @@ public class FingerAnus {
 
 
 							"Firmly pushing [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(draw)] a delighted [npc2.moan] from between [npc2.namePos] [npc2.lips+],"
-									+ " and, eagerly thrusting [npc2.her] [npc2.assCloaca] back against [npc.her] touch, [npc2.name] [npc2.verb(beg)] for [npc.name] to [npc.verb(continue)] fingering [npc2.herHim].",
+									+ " and, eagerly thrusting [npc2.her] [npc2.assCloaca] back against [npc.her] touch, [npc2.name] [npc2.verb(beg)] for [npc.name] to continue fingering [npc2.herHim].",
 
 
 							"Eagerly sliding [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.asshole+], [npc.namePos] touch causes [npc2.name] to [npc2.verb(let)] out [npc2.a_moan+],"
@@ -387,7 +387,7 @@ public class FingerAnus {
 
 
 							"Firmly pushing [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(draw)] a delighted [npc2.moan] from between [npc2.namePos] [npc2.lips+],"
-									+ " and, thrusting [npc2.her] [npc2.assCloaca] back against [npc.her] touch, [npc2.name] [npc2.verb(beg)] for [npc.name] to [npc.verb(continue)] fingering [npc2.herHim].",
+									+ " and, thrusting [npc2.her] [npc2.assCloaca] back against [npc.her] touch, [npc2.name] [npc2.verb(beg)] for [npc.name] to continue fingering [npc2.herHim].",
 
 
 							"Eagerly sliding [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.asshole+], [npc.namePos] touch causes [npc2.name] to [npc2.verb(let)] out [npc2.a_moan],"
@@ -432,7 +432,7 @@ public class FingerAnus {
 
 
 							"Roughly slamming [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(draw)] a delighted [npc2.moan] from between [npc2.namePos] [npc2.lips+],"
-									+ " and, eagerly thrusting [npc2.her] [npc2.assCloaca] back against [npc.her] touch, [npc2.name] [npc2.verb(beg)] for [npc.name] to [npc.verb(continue)] fingering [npc2.herHim].",
+									+ " and, eagerly thrusting [npc2.her] [npc2.assCloaca] back against [npc.her] touch, [npc2.name] [npc2.verb(beg)] for [npc.name] to continue fingering [npc2.herHim].",
 
 
 							"Forcefully slamming [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.asshole+], [npc.namePos] rough touch causes [npc2.name] to [npc2.verb(let)] out [npc2.a_moan+],"
@@ -458,7 +458,7 @@ public class FingerAnus {
 
 
 							"Roughly slamming [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(draw)] [npc2.a_moan] from between [npc2.namePos] [npc2.lips+],"
-									+ " and, thrusting [npc2.her] [npc2.assCloaca] back against [npc.her] touch, [npc2.name] [npc2.verb(beg)] for [npc.name] to [npc.verb(continue)] fingering [npc2.herHim].",
+									+ " and, thrusting [npc2.her] [npc2.assCloaca] back against [npc.her] touch, [npc2.name] [npc2.verb(beg)] for [npc.name] to continue fingering [npc2.herHim].",
 
 
 							"Forcefully slamming [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.asshole+], [npc.namePos] rough touch causes [npc2.name] to [npc2.verb(let)] out [npc2.a_moan],"
@@ -643,7 +643,7 @@ public class FingerAnus {
 							"[npc.Name] [npc.verb(feel)] tears starting to well up in [npc.namePos] [npc.eyes], and, unable to keep it in any longer,"
 									+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.asshole+].",
 
-							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to [npc.verb(pull)] [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.asshole+].",
+							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.asshole+].",
 
 							"Trying desperately to pull [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.asshole+],"
 									+ " [npc.name] [npc.sob] in distress as [npc2.namePos] [npc2.verb(hold)] [npc.her] [npc.hand] in position,"
@@ -654,7 +654,7 @@ public class FingerAnus {
 							"[npc.Name] [npc.verb(feel)] tears starting to well up in [npc.namePos] [npc.eyes], and, unable to keep it in any longer,"
 									+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.asshole+].",
 
-							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to [npc.verb(pull)] [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.asshole+].",
+							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.asshole+].",
 
 							"Trying desperately to pull [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.asshole+],"
 									+ " [npc.name] [npc.sob] in distress as [npc2.namePos] [npc2.verb(hold)] [npc.her] [npc.hand] in position,"
@@ -665,7 +665,7 @@ public class FingerAnus {
 							"[npc.Name] [npc.verb(feel)] tears starting to well up in [npc.namePos] [npc.eyes], and, unable to keep it in any longer,"
 									+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.asshole+].",
 
-							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to [npc.verb(pull)] [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.asshole+].",
+							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.asshole+].",
 
 							"Trying desperately to pull [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.asshole+],"
 									+ " [npc.name] [npc.sob] in distress as [npc2.namePos] [npc2.verb(hold)] [npc.her] [npc.hand] in position,"
@@ -1075,7 +1075,7 @@ public class FingerAnus {
 							"[npc.Name] [npc.verb(feel)] tears starting to well up in [npc.namePos] [npc.eyes], and, unable to keep it in any longer,"
 									+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc2.namePos] gently-pumping [npc2.fingers] out of [npc.her] [npc.asshole+].",
 
-							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to [npc.verb(pull)] [npc.her] [npc.assCloaca] away from [npc2.namePos] unwanted touch,"
+							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.assCloaca] away from [npc2.namePos] unwanted touch,"
 									+ " struggling in desperation as [npc2.namePos] [npc2.fingers+] continue gently sliding in and out of [npc.her] [npc.asshole+].",
 
 							"Trying desperately to pull [npc.her] [npc.assCloaca] away from [npc2.namePos] [npc2.hand],"
@@ -1087,7 +1087,7 @@ public class FingerAnus {
 									+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc2.namePos] greedily-thrusting [npc2.fingers] out of [npc.her] [npc.asshole+].",
 
 
-							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to [npc.verb(pull)] [npc.her] [npc.assCloaca] away from [npc2.namePos] unwanted touch,"
+							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.assCloaca] away from [npc2.namePos] unwanted touch,"
 									+ " struggling in desperation as [npc2.namePos] [npc2.fingers+] continue eagerly sliding in and out of [npc.her] [npc.asshole+].",
 
 
@@ -1100,7 +1100,7 @@ public class FingerAnus {
 									+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc2.namePos] roughly-thrusting [npc2.fingers] out of [npc.her] [npc.asshole+].",
 
 
-							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to [npc.verb(pull)] [npc.her] [npc.assCloaca] away from [npc2.namePos] unwanted touch,"
+							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.assCloaca] away from [npc2.namePos] unwanted touch,"
 									+ " struggling in desperation as [npc2.namePos] [npc2.fingers+] continue roughly slamming in and out of [npc.her] [npc.asshole+].",
 
 

@@ -12,7 +12,8 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
+import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -242,6 +243,7 @@ public class ScarlettsShop {
 					return new Response("Slave Manager", "Enter the slave management screen.", ALEXAS_SHOP) {
 						@Override
 						public DialogueNode getNextDialogue() {
+							CompanionManagement.initManagement(null, 0, null);
 							return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Alexa.class));
 						}
 					};

@@ -23,7 +23,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -619,7 +618,15 @@ public class DoggyStyle {
 			return Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.MOUTH)
 					&& Sex.isDom(Sex.getCharacterPerformingAction())
 					&& Sex.getDominantParticipants(false).size()==1
-					&& Sex.getCharacterPerformingAction().hasPenisIgnoreDildo();
+					&& Sex.getCharacterPerformingAction().hasPenisIgnoreDildo()
+					&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BEHIND_ALL_FOURS))
+					&& (Sex.getCharacterPerformingAction().isPlayer() || Sex.getRequestedPulloutWeighting(Sex.getCharacterPerformingAction())<=0);
+//					&& (Sex.getCharacterPerformingAction().isPlayer() || !Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_SADIST).isNegative());
+		}
+		
+		@Override
+		public boolean isSadisticAction() {
+			return true;
 		}
 		
 		@Override
@@ -735,7 +742,7 @@ public class DoggyStyle {
 
 		@Override
 		public void applyEffects() {
-			Sex.stopOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, Sex.getActivePartner(), SexAreaOrifice.ANUS);
+			Sex.stopOngoingAction(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS);
 		}
 		
 	};
@@ -754,7 +761,16 @@ public class DoggyStyle {
 			return Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.MOUTH)
 					&& Sex.isDom(Sex.getCharacterPerformingAction())
 					&& Sex.getDominantParticipants(false).size()==1
-					&& Sex.getCharacterPerformingAction().hasPenisIgnoreDildo();
+					&& Sex.getCharacterPerformingAction().hasPenisIgnoreDildo()
+					&& (Sex.getSexPositionSlot(Sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BEHIND_ALL_FOURS))
+					&& (Sex.getCharacterPerformingAction().isPlayer() || Sex.getRequestedPulloutWeighting(Sex.getCharacterPerformingAction())<=0);
+//					&& (Sex.getCharacterPerformingAction().isPlayer() || !Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_SADIST).isNegative());
+		}
+
+		
+		@Override
+		public boolean isSadisticAction() {
+			return true;
 		}
 		
 		@Override
@@ -869,7 +885,7 @@ public class DoggyStyle {
 
 		@Override
 		public void applyEffects() {
-			Sex.stopOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, Sex.getActivePartner(), SexAreaOrifice.VAGINA);
+			Sex.stopOngoingAction(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA);
 		}
 		
 	};

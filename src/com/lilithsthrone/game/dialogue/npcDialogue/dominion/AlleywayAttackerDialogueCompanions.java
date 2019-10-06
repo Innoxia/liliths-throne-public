@@ -910,7 +910,7 @@ public class AlleywayAttackerDialogueCompanions {
 				if(!getMugger().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
 					return new Response("Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+				} else if(getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
@@ -940,7 +940,7 @@ public class AlleywayAttackerDialogueCompanions {
 				if(!getMugger().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
 					return new Response("Gentle Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+				} else if(getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 							true, false,
@@ -972,7 +972,7 @@ public class AlleywayAttackerDialogueCompanions {
 				if(!getMugger().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
 					return new Response("Rough Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+				} else if(getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 							true, false,
@@ -1001,9 +1001,23 @@ public class AlleywayAttackerDialogueCompanions {
 				}
 				
 			} else if (index == 5) {
-				return new Response("Submit",
-						"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
-						null);
+				if(!getMugger().isAttractedTo(Main.game.getPlayer())) {
+					return new Response("Submit",
+							"You can't submit to [npc.herHim], as [npc.she] has no interest in having sex with you!",
+							null);
+				} else {
+					return new ResponseSex("Submit",
+							"You're not really sure what to do now... Perhaps it would be best to let [npc.name] choose what to do next?",
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
+							null, CorruptionLevel.THREE_DIRTY, null, null, null,
+							false, false,
+							new SMGeneric(
+									Util.newArrayListOfValues(getMugger()),
+									Util.newArrayListOfValues(Main.game.getPlayer()),
+									null,
+									Util.newArrayListOfValues(getMainCompanion())),
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttackCompanions", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+				}
 				
 			} else if (index == 6) {
 				return new ResponseEffectsOnly("Inventory", "Now that you've defeated [npc.name], there's nothing stopping you from helping yourself to [npc.her] clothing and items..."){
@@ -1013,7 +1027,7 @@ public class AlleywayAttackerDialogueCompanions {
 					}
 				};
 				
-			} else if (index == 7) {
+			} else if (index == 7 && !isStorm()) {
 				if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
 					
@@ -1075,7 +1089,10 @@ public class AlleywayAttackerDialogueCompanions {
 			} else if (index == 12) {
 				GameCharacter companion = getMainCompanion();
 
-				if(!companion.isAttractedTo(getMugger())) {
+				if(!Main.game.isNonConEnabled() && !getMugger().isAttractedTo(companion)) {
+					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getMugger(), "[npc2.Name] isn't attracted to [npc.name], so wouldn't be willing to have sex with [npc2.herHim]!"), null);
+					
+				} else if(!companion.isAttractedTo(getMugger())) {
 					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getMugger(), "[npc.Name] isn't attracted to [npc2.name], so wouldn't be willing to have sex with [npc2.herHim]!"), null);
 					
 				} else {
@@ -1271,7 +1288,7 @@ public class AlleywayAttackerDialogueCompanions {
 					if(!Collections.disjoint(Main.game.getPlayer().getFetishes(true), Util.newArrayListOfValues(applicableFetish))) {
 						return new Response("Spit",
 								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+applicableFetish.getName(Main.game.getPlayer())
-									+"</b> fetish, you love "+applicableFetish.getShortDescriptor()+" so much that you can't bring yourself to spit out the transformative liquid!",
+									+"</b> fetish, you love "+applicableFetish.getShortDescriptor(Main.game.getPlayer())+" so much that you can't bring yourself to spit out the transformative liquid!",
 								null);
 					} else {
 						return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);

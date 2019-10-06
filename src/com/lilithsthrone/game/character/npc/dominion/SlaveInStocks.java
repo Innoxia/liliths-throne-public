@@ -11,7 +11,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
@@ -27,6 +26,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
 import com.lilithsthrone.game.occupantManagement.SlavePermission;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
@@ -137,21 +137,21 @@ public class SlaveInStocks extends NPC {
 			CharacterUtils.applyMakeup(this, true);
 
 			if(Math.random()<0.8f) {
-				this.addSlaveJobSettings(SlaveJobSetting.SEX_ORAL);
+				this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL);
 				this.setFaceVirgin(false);
 			}
 			
 			if(Math.random()<0.6f) {
-				this.addSlaveJobSettings(SlaveJobSetting.SEX_ANAL);
+				this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL);
 				this.setAssVirgin(false);
 			}
 			
 			if(!this.hasVagina()) {
-				this.addSlaveJobSettings(SlaveJobSetting.SEX_ANAL);
+				this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL);
 				this.setAssVirgin(false);
 			} else {
 				if(Math.random()<0.6f) {
-					this.addSlaveJobSettings(SlaveJobSetting.SEX_VAGINAL);
+					this.addSlaveJobSettings(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL);
 					this.setVaginaVirgin(false);
 				}
 			}
@@ -160,9 +160,8 @@ public class SlaveInStocks extends NPC {
 			this.removeSlavePermissionSetting(SlavePermission.CLEANLINESS, SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES);
 			
 			this.setPlayerKnowsName(true);
-			
-			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+
+			initHealthAndManaToMax();
 		}
 	}
 	
@@ -246,13 +245,13 @@ public class SlaveInStocks extends NPC {
 //				}
 				
 				if(!Main.game.getCharactersPresent().contains(this)) {
-					if(this.hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL)) {
+					if(this.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL)) {
 						this.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS));
 					}
-					if(this.hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL)) {
+					if(this.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL)) {
 						this.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS));
 					}
-					if(this.hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL)) {
+					if(this.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL)) {
 						this.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS));
 					}
 				}

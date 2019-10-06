@@ -24,10 +24,11 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.OccupantDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
+import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -52,12 +53,12 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.75
- * @version 0.3.4
+ * @version 0.3.5
  * @author Innoxia
  */
 public class LilayaHomeGeneric {
 	
-	private static List<NPC> getSlavesAndOccupantsPresent() {
+	public static List<NPC> getSlavesAndOccupantsPresent() {
 		List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 		charactersPresent.removeIf((character) -> character instanceof Elemental);
 		return charactersPresent;
@@ -67,11 +68,81 @@ public class LilayaHomeGeneric {
 		return MilkingRoom.getTargetedCharacter();
 	}
 	
+	public static String getLilayasHouseStandardResponseTabs(int i) {
+		switch(i) {
+			case 0:
+				return "Actions";
+			case 1:
+				return "Fast Travel";
+		}
+		return null;
+	}
+	
+	public static Response getLilayasHouseFastTravelResponses(int index) {
+		 if (index == 1) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_ROOM_PLAYER) {
+				return new Response("Your room", "You are already in your room, so there is no need to fast travel there...", null);
+			}
+			return new ResponseEffectsOnly("Your room", "Fast travel up to your room."){
+				@Override
+				public void effects() {
+					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
+				}
+			};
+
+		} else if (index == 2) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_LAB) {
+				return new Response("Lilaya's Lab", "You are already in Lilaya's lab, so there is no need to fast travel there...", null);
+			}
+			return new ResponseEffectsOnly("Lilaya's Lab", "Fast travel to Lilaya's Lab."){
+				@Override
+				public void effects() {
+					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_LAB, true);
+				}
+			};
+			
+		} else if (index == 3) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_KITCHEN) {
+				return new Response("Kitchen", "You are already in the kitchen, so there is no need to fast travel there...", null);
+			}
+			return new ResponseEffectsOnly("Kitchen", "Fast travel to the kitchen."){
+				@Override
+				public void effects() {
+					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_KITCHEN, true);
+				}
+			};
+			
+		} else if (index == 4) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_LIBRARY) {
+				return new Response("Library", "You are already in the library, so there is no need to fast travel there...", null);
+			}
+			return new ResponseEffectsOnly("Library", "Fast travel to the library."){
+				@Override
+				public void effects() {
+					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_LIBRARY, true);
+				}
+			};
+			
+		} else if (index == 5) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_ENTRANCE_HALL) {
+				return new Response("Entrance hall", "You are already in the entrance hall, so there is no need to fast travel there...", null);
+			}
+			return new ResponseEffectsOnly("Entrance hall", "Fast travel to the entrance hall."){
+				@Override
+				public void effects() {
+					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
+				}
+			};
+		}
+		
+		return null;
+	}
+	
 	public static final DialogueNode OUTSIDE = new DialogueNode("", "", false) {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 
 		@Override
@@ -201,7 +272,7 @@ public class LilayaHomeGeneric {
 		public int getSecondsPassed() {
 			return 10;
 		}
-
+		
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -269,8 +340,16 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
-
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
+			
 			List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 			
 			if(index==0) {
@@ -280,7 +359,7 @@ public class LilayaHomeGeneric {
 				return new Response(UtilText.parse(charactersPresent.get(index-1), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						SlaveDialogue.initDialogue(charactersPresent.get(index-1));
+						SlaveDialogue.initDialogue(charactersPresent.get(index-1), false);
 					}
 				};
 					
@@ -290,12 +369,25 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	private static Response getRoomResponse(int index, boolean milkingRoom) {
+	private static Response getRoomResponse(int responseTab, int index) {
+		PlaceUpgrade coreUpgrade = null;
+		for(PlaceUpgrade pu : Main.game.getPlayer().getLocationPlace().getPlaceUpgrades()) {
+			if(pu.isCoreRoomUpgrade()) {
+				coreUpgrade = pu;
+			}
+		}
+		
+		if(responseTab==1) {
+			return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+		}
+		
 		List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 		List<NPC> slavesAssignedToRoom = new ArrayList<>();
 		
-		if(milkingRoom) {
+		if(coreUpgrade==PlaceUpgrade.LILAYA_MILKING_ROOM
+				|| coreUpgrade==PlaceUpgrade.LILAYA_OFFICE) {
 			slavesAssignedToRoom.addAll(charactersPresent);
+			
 		} else {
 			for(String slave : Util.mergeLists(Main.game.getPlayer().getFriendlyOccupants(), Main.game.getPlayer().getSlavesOwned())) {
 				try {
@@ -337,68 +429,72 @@ public class LilayaHomeGeneric {
 				return new Response("Manage people", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
 			}
 			
-		} else if(milkingRoom) {
+		} else if(coreUpgrade==PlaceUpgrade.LILAYA_MILKING_ROOM) {
 			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(Main.game.getPlayerCell().getType(), Main.game.getPlayerCell().getLocation());
 			
-			if(index==3) {
-				if(room.isAutoSellMilk()) {
-					return new ResponseEffectsOnly("Milk: [style.colourGold(Selling)]", "Any milk that's collected in this room is being automatically sold.") {
-						@Override
-						public void effects() {
-							room.setAutoSellMilk(false);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					};
-					
-				} else {
-					return new ResponseEffectsOnly("Milk: [style.colourOrange(Storing)]", "Any milk that's collected in this room is being stored.") {
-						@Override
-						public void effects() {
-							room.setAutoSellMilk(true);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					};
-				}
-				
-			} else if(index==4) {
-				if(room.isAutoSellCum()) {
-					return new ResponseEffectsOnly("Cum: [style.colourGold(Selling)]", "Any cum that's collected in this room is being automatically sold.") {
-						@Override
-						public void effects() {
-							room.setAutoSellCum(false);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					};
-					
-				} else {
-					return new ResponseEffectsOnly("Cum: [style.colourOrange(Storing)]", "Any cum that's collected in this room is being stored.") {
-						@Override
-						public void effects() {
-							room.setAutoSellCum(true);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					};
-				}
-				
-			} else if(index==5) {
-				if(room.isAutoSellGirlcum()) {
-					return new ResponseEffectsOnly("Girlcum: [style.colourGold(Selling)]", "Any girlcum that's collected in this room is being automatically sold.") {
-						@Override
-						public void effects() {
-							room.setAutoSellGirlcum(false);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					};
-					
-				} else {
-					return new ResponseEffectsOnly("Girlcum: [style.colourOrange(Storing)]", "Any girlcum that's collected in this room is being stored.") {
-						@Override
-						public void effects() {
-							room.setAutoSellGirlcum(true);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					};
-				}
+//			if(index==3) {
+//				if(room.isAutoSellMilk()) {
+//					return new ResponseEffectsOnly("Milk: [style.colourGold(Selling)]", "Any milk that's collected in this room is being automatically sold.") {
+//						@Override
+//						public void effects() {
+//							room.setAutoSellMilk(false);
+//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//						}
+//					};
+//					
+//				} else {
+//					return new ResponseEffectsOnly("Milk: [style.colourOrange(Storing)]", "Any milk that's collected in this room is being stored.") {
+//						@Override
+//						public void effects() {
+//							room.setAutoSellMilk(true);
+//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//						}
+//					};
+//				}
+//				
+//			} else if(index==4) {
+//				if(room.isAutoSellCum()) {
+//					return new ResponseEffectsOnly("Cum: [style.colourGold(Selling)]", "Any cum that's collected in this room is being automatically sold.") {
+//						@Override
+//						public void effects() {
+//							room.setAutoSellCum(false);
+//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//						}
+//					};
+//					
+//				} else {
+//					return new ResponseEffectsOnly("Cum: [style.colourOrange(Storing)]", "Any cum that's collected in this room is being stored.") {
+//						@Override
+//						public void effects() {
+//							room.setAutoSellCum(true);
+//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//						}
+//					};
+//				}
+//				
+//			} else if(index==5) {
+//				if(room.isAutoSellGirlcum()) {
+//					return new ResponseEffectsOnly("Girlcum: [style.colourGold(Selling)]", "Any girlcum that's collected in this room is being automatically sold.") {
+//						@Override
+//						public void effects() {
+//							room.setAutoSellGirlcum(false);
+//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//						}
+//					};
+//					
+//				} else {
+//					return new ResponseEffectsOnly("Girlcum: [style.colourOrange(Storing)]", "Any girlcum that's collected in this room is being stored.") {
+//						@Override
+//						public void effects() {
+//							room.setAutoSellGirlcum(true);
+//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//						}
+//					};
+//				}
+//				
+//			} else 
+			if(index>=3 && index<6) {
+				return null;
 				
 			} else if(index==6) {
 				if(getMilkingTarget().getBreastRawStoredMilkValue()==0) {
@@ -748,14 +844,34 @@ public class LilayaHomeGeneric {
 				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						SlaveDialogue.initDialogue((NPC) character);
+						SlaveDialogue.initDialogue((NPC) character, false);
 					}
 				};
 				
 			}
 			
-		} else if(index-3<slavesAssignedToRoom.size()) {
-			NPC character = slavesAssignedToRoom.get(index-3);
+		}
+		
+		int indexPresentStart = 3;
+		
+		if(coreUpgrade==PlaceUpgrade.LILAYA_OFFICE) {
+			indexPresentStart = 4;
+			if(index==3) {
+//				if(Main.game.getPlayer().isHasSlaverLicense()) {
+					return new Response("Occupancy ledger", "Open the occupancy ledger screen, from which you can manage all rooms, slaves, and friendly occupants.", CORRIDOR) {
+						@Override
+						public DialogueNode getNextDialogue() {
+							return OccupantManagementDialogue.getSlaveryOverviewDialogue();
+						}
+					};
+//				} else {
+//					return new Response("Slavery Overview", "You'll need a slaver license before you can access this menu!",  null);
+//				}
+			}
+		}
+		
+		if(index-indexPresentStart<slavesAssignedToRoom.size()) {
+			NPC character = slavesAssignedToRoom.get(index-indexPresentStart);
 			if(charactersPresent.contains(character) || (character.getHomeCell().equals(Main.game.getPlayerCell()) && Main.game.getPlayer().getCompanions().contains(character))) {
 				return new Response(
 						UtilText.parse(character, "[npc.Name]"),
@@ -766,24 +882,23 @@ public class LilayaHomeGeneric {
 					@Override
 					public void effects() {
 						if(character.isSlave()) {
-							SlaveDialogue.initDialogue(character);
+							SlaveDialogue.initDialogue(character, false);
 						} else {
-							OccupantDialogue.initDialogue(character, false);
+							OccupantDialogue.initDialogue(character, false, false);
 						}
 					}
 				};
 				
 			} else {
-				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Although this is [npc.namePos] room, [npc.sheIs] out at work at the moment."), null);
+				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Although this is [npc.namePos] room, [npc.sheIs] out at work at the moment."), null);
 			}
-			
 		}
 		
 		return null;
 	}
 	
 	private static StringBuilder roomSB = new StringBuilder();
-	private static String getRoomModificationsDescription() {
+	public static String getRoomModificationsDescription() {
 		GenericPlace place = Main.game.getPlayer().getLocationPlace();
 		roomSB.setLength(0);
 		
@@ -888,8 +1003,14 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM));
+			return getRoomResponse(responseTab, index);
 		}
 	};
 	
@@ -914,8 +1035,13 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM));
+			return getRoomResponse(responseTab, index);
 		}
 	};
 	
@@ -941,8 +1067,13 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM));
+			return getRoomResponse(responseTab, index);
 		}
 	};
 	
@@ -1128,9 +1259,17 @@ public class LilayaHomeGeneric {
 						+ "Busily performing one of the experiments that Lilaya has assigned to him, Arthur looks to be hard at work, although you don't think he'd mind if you asked him a few questions..."
 					+ "</p>";
 		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
 			if(index == 1) {
 				return new Response("Lyssieth", "Ask Arthur about Lilaya's mother, Lyssieth.", ROOM_ARTHUR_LYSSIETH);
 				
@@ -1691,7 +1830,15 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
 			return null;
 		}
 	};
@@ -1773,8 +1920,15 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
-
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
 			List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 			
 			if(index==0) {
@@ -1784,7 +1938,7 @@ public class LilayaHomeGeneric {
 				return new Response(UtilText.parse(charactersPresent.get(index-1), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						SlaveDialogue.initDialogue(charactersPresent.get(index-1));
+						SlaveDialogue.initDialogue(charactersPresent.get(index-1), false);
 					}
 				};
 					
@@ -1817,7 +1971,15 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
 			if (index == 1) {
 				return new Response("Call for Rose", "Lilaya's slave, Rose, is always close at hand. If you were to ring the little bell beside her bedroom's door, she'd be sure to come running.", AUNT_HOME_ROSE){
 					@Override
@@ -1863,7 +2025,15 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
 			return null;
 		}
 	};
@@ -1884,7 +2054,15 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
 			return null;
 		}
 	};
@@ -1912,28 +2090,20 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
 			if (index == 1) {
 				return new ResponseEffectsOnly("Exit", "Leave Lilaya's house."){
 					@Override
 					public void effects() {
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_AUNTS_HOME, true);
-					}
-				};
-
-			} if (index == 6) {
-				return new ResponseEffectsOnly("Your room", "Fast travel up to your room."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
-					}
-				};
-
-			} if (index == 7) {
-				return new ResponseEffectsOnly("Lilaya's Lab", "Fast travel to Lilaya's Lab."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_LAB, true);
 					}
 				};
 
@@ -1969,7 +2139,15 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
 			if (index == 1) {
 				return new ResponseEffectsOnly("Upstairs", "Go upstairs to the first floor."){
 					@Override
@@ -2005,7 +2183,15 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
 			if (index == 1) {
 				return new ResponseEffectsOnly("Downstairs", "Go back downstairs to the ground floor."){
 					@Override

@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
+import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -360,9 +361,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	/**
-	 * Resets this character to their default state.
+	 * Applies a daily update to this NPC, called at midnight. Usually used for traders resetting their inventories.
 	 */
-	public void dailyReset() {
+	public void dailyUpdate() {
 	}
 	
 	/**
@@ -399,21 +400,24 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			tileSB.append(
 					UtilText.parse(this,
 							"<p style='text-align:center;'>"
-							+ "<b style='color:"+Femininity.valueOf(this.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
-							+ " <b style='color:"+this.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-							+ " <b style='color:"+this.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!</b></p>"
-						
-							+ "<p style='text-align:center;'>"));
+								+ "<i>"
+									+ (this.isPlayerKnowsName()
+											?"[npc.Name], [npc.a_femininity(true)] [npc.raceStage(true)] [npc.race(true)],"
+											:"[npc.A_femininity(true)] [npc.raceStage(true)] [npc.race(true)]")
+									+ " is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!"
+								+ "</i>"
+							+ "</p>"));
 		} else {
 			tileSB.append(
 					UtilText.parse(this,
 							"<p style='text-align:center;'>"
-							+"<b>Someone, or something, is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!</b></p>"
-				
-							+ "<p style='text-align:center;'>"));
+									+"<i>Someone, or something, is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!</i>"
+							+ "</p>"
+				));
 		}
-				
+		
 		// Combat:
+		tileSB.append("<p style='text-align:center;'>");
 		if(this.getFoughtPlayerCount()>0) {
 			tileSB.append(
 					UtilText.parse(this,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
@@ -847,6 +851,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 				// Spells that should not be used:
 				case DARK_SIREN_SIRENS_CALL:
+				case LIGHTNING_SPHERE_DISCHARGE:
+				case LIGHTNING_SPHERE_OVERCHARGE:
 					break;
 			}
 		}
@@ -917,6 +923,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case DOG_MORPH:
 				case DOG_MORPH_BORDER_COLLIE:
 				case DOG_MORPH_DOBERMANN:
+				case DOG_MORPH_GERMAN_SHEPHERD:
 					raceIngredient = ItemType.FIT_INGREDIENT_CANINE_CRUSH;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_DOG_MORPH;
 					break;
@@ -1072,33 +1079,29 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	// Relationships:
 	
 	public float getHourlyAffectionChange(int hour) {
-		if(this.workHours[hour]) {
-			if(this.getSlaveJob()==SlaveJob.IDLE) {
-				return this.getHomeLocationPlace().getHourlyAffectionChange();
-			}
-			// To get rid of e.g. 2.3999999999999999999999:
-			return Math.round(this.getSlaveJob().getAffectionGain(this)*100)/100f;
-		}
+		SlaveJob job = this.getSlaveJob(hour);
 		
-		// To get rid of e.g. 2.3999999999999999999999:
-		return Math.round(this.getHomeLocationPlace().getHourlyAffectionChange()*100)/100f;
+		// Rounding is to get rid of floating point ridiculousness (e.g. 2.3999999999999999999999):
+		if(this.getSlaveJob(hour)==SlaveJob.IDLE) {
+			return Math.round(this.getHomeLocationPlace().getHourlyAffectionChange()*100)/100f;
+		} else {
+			return Math.round(job.getAffectionGain(this)*100)/100f;
+		}
 	}
 	
 	public float getDailyAffectionChange() {
 		float totalAffectionChange = 0;
 		
-		for (int workHour = 0; workHour < this.getTotalHoursWorked(); workHour++) {
-			if(this.getSlaveJob()==SlaveJob.IDLE) {
-				totalAffectionChange+=this.getHomeLocationPlace().getHourlyAffectionChange();
+		for (int hour = 0; hour < 24; hour++) {
+			SlaveJob job = this.getSlaveJob(hour);
+			if(this.getSlaveJob(hour)==SlaveJob.IDLE) {
+				totalAffectionChange += this.getHomeLocationPlace().getHourlyAffectionChange();
+			} else {
+				totalAffectionChange += job.getAffectionGain(this);
 			}
-			totalAffectionChange += this.getSlaveJob().getAffectionGain(this);
 		}
-		
-		for (int homeHour = 0; homeHour < 24-this.getTotalHoursWorked(); homeHour++) {
-			totalAffectionChange += this.getHomeLocationPlace().getHourlyAffectionChange();
-		}
-		
-		// To get rid of e.g. 2.3999999999999999999999:
+
+		// Rounding is to get rid of floating point ridiculousness (e.g. 2.3999999999999999999999):
 		return Math.round(totalAffectionChange*100)/100f;
 	}
 	
@@ -1172,9 +1175,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public boolean isPendingTransformationToGenderIdentity() {
 		return this.getGender()!=this.getGenderIdentity()
+				&& !(this instanceof Elemental)
 				&& !this.isPregnant()
 				&& !this.isUnique()
 				&& !this.isSlave()
+				&& !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
 				&& (this.getSubspeciesOverride()==Subspecies.DEMON || this.getSubspecies()==Subspecies.SLIME);
 //		return NPCFlagValues.contains(NPCFlagValue.pendingTransformationToGenderIdentity);
 	}
@@ -1348,6 +1353,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case DOG_MORPH:
 				case DOG_MORPH_BORDER_COLLIE:
 				case DOG_MORPH_DOBERMANN:
+				case DOG_MORPH_GERMAN_SHEPHERD:
 					itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
 					reaction = "Time to turn you into an excitable little "+raceName+"!";
 					break;
@@ -2704,8 +2710,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					if(performingArea.isOrifice() && ((SexAreaOrifice)performingArea).isInternalOrifice()) {
 						partner.setVirginityLoss(partnerSexType, this, this.getLostVirginityDescriptor());
 						partner.setPenisVirgin(false);
+						partnerCummed = partner.getPenisRawCumStorageValue()>0;
 						if(!flags.contains(NPCGenericSexFlag.PREVENT_CREAMPIE) && partner.getPenisRawCumStorageValue()>0 && performingArea.isOrifice()) {
-							partnerCummed = true;
 							this.ingestFluid(partner, partner.getCum(), (SexAreaOrifice)performingArea, partner.getPenisRawOrgasmCumQuantity());
 							this.incrementCumCount(new SexType(SexParticipantType.NORMAL, performingArea, SexAreaPenetration.PENIS));
 							partner.applyOrgasmCumEffect();
@@ -2861,8 +2867,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					if(targetedArea.isOrifice() && ((SexAreaOrifice)targetedArea).isInternalOrifice()) {
 						this.setVirginityLoss(sexType, partner, partner.getLostVirginityDescriptor());
 						this.setPenisVirgin(false);
+						thisCummed = this.getPenisRawCumStorageValue()>0;
 						if(!flags.contains(NPCGenericSexFlag.PREVENT_CREAMPIE) && this.getPenisRawCumStorageValue()>0 && targetedArea.isOrifice()) {
-							thisCummed = true;
 							partner.ingestFluid(this, this.getCum(), (SexAreaOrifice)targetedArea, this.getPenisRawOrgasmCumQuantity());
 							partner.incrementCumCount(new SexType(SexParticipantType.NORMAL, targetedArea, SexAreaPenetration.PENIS));
 							this.applyOrgasmCumEffect();
@@ -3082,7 +3088,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.BREAST), target, request, foreplaySexTypes, 1);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE), target, request, foreplaySexTypes, 1);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.NIPPLE), target, request, foreplaySexTypes, 1);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.BREAST), target, request, foreplaySexTypes, 2);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.BREAST), target, request, foreplaySexTypes, 3);
 
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.BREAST), target, request, mainSexTypes, 1);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE), target, request, mainSexTypes, 1);
@@ -3105,8 +3111,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.ANUS), target, request, foreplaySexTypes, 1);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS), target, request, foreplaySexTypes, 1);
 		
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS), target, request, mainSexTypes, 4);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TAIL, SexAreaOrifice.ANUS), target, request, mainSexTypes, 1);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS), target, request, mainSexTypes, 3);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TAIL, SexAreaOrifice.ANUS), target, request, mainSexTypes, 0.5f);
 
 		// Self-anal:
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.FINGER), target, request, foreplaySexTypes, 1);
@@ -3116,14 +3122,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TAIL), target, request, mainSexTypes, 1);
 
 		// Vaginal:
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA), target, request, mainSexTypes, 10);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA), target, request, mainSexTypes, 6);
 
 		// Self-vaginal:
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER), target, request, foreplaySexTypes, 2);
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE), target, request, foreplaySexTypes, 2);
 		
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), target, request, mainSexTypes, 10);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TAIL), target, request, mainSexTypes, 1);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), target, request, mainSexTypes, 6);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TAIL), target, request, mainSexTypes, 0.5f);
 		
 		// Receiving Oral:
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE), target, request, foreplaySexTypes, 3);
@@ -3141,10 +3147,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		// Legs (weighted quite low as it's probably not as desired as penetrative sex even with relevant fetishes):
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS), target, request, foreplaySexTypes, 0.5f);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS), target, request, mainSexTypes, 0.5f);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS), target, request, mainSexTypes, 0.25f);
 		
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS), target, request, foreplaySexTypes, 0.5f);
-		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS), target, request, mainSexTypes, 0.5f);
+		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS), target, request, mainSexTypes, 0.25f);
 
 		// Feet:
 		addSexTypeWeighting(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS), target, request, foreplaySexTypes, 3);
@@ -3235,14 +3241,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(!target.isBreastFuckableNipplePenetration()) {
 			foreplaySexTypes.keySet().removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaOrifice.NIPPLE);
 			mainSexTypes.keySet().removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaOrifice.NIPPLE);
-			foreplaySexTypes.keySet().removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaOrifice.BREAST);
-			mainSexTypes.keySet().removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaOrifice.BREAST);
+//			foreplaySexTypes.keySet().removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaOrifice.BREAST);
+//			mainSexTypes.keySet().removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaOrifice.BREAST);
 		}
 		if(!this.isBreastFuckableNipplePenetration()) {
 			foreplaySexTypes.keySet().removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaOrifice.NIPPLE);
 			mainSexTypes.keySet().removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaOrifice.NIPPLE);
-			foreplaySexTypes.keySet().removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaOrifice.BREAST);
-			mainSexTypes.keySet().removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaOrifice.BREAST);
+//			foreplaySexTypes.keySet().removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaOrifice.BREAST);
+//			mainSexTypes.keySet().removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaOrifice.BREAST);
 		}
 		// Tail:
 		if(!target.getTailType().isSuitableForPenetration() || (target.hasPenis() && CoverableArea.PENIS.isPhysicallyAvailable(target))) {
@@ -3396,7 +3402,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, SexSlot targetSlot, GameCharacter target) {
 		SexType targetSexPreference = this.getForeplayPreference(target);
-		if(!Sex.isInForeplay()) {
+		if(!Sex.isInForeplay(this)) {
 			targetSexPreference = this.getMainSexPreference(target);
 		}
 		if(targetSexPreference==null) {
@@ -3590,6 +3596,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	protected String getItemUseEffectsAllowingUse(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
 		StringBuilder sb = new StringBuilder();
 		
+		boolean isObedientSlave = target.isSlave() && target.getObedienceBasic()==ObedienceLevelBasic.OBEDIENT;
+		
 		// Player is using an item:
 		if(user.isPlayer()){
 			// Player uses item on themselves:
@@ -3603,11 +3611,15 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							"<p>"
 								+ "Holding out a 'Promiscuity Pill' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."));
 					
-					if((target.hasFetish(Fetish.FETISH_IMPREGNATION) && target.hasPenis())
+					if(isObedientSlave) {
+						sb.append(UtilText.parse(target, 
+								" Obediently doing what's asked of [npc.herHim], [npc.she] happily takes the pill out of your hand, and quickly pops it out of its wrapping before swallowing it down."));
+						
+					} else if((target.hasFetish(Fetish.FETISH_IMPREGNATION) && target.hasPenis())
 							|| (target.hasFetish(Fetish.FETISH_PREGNANCY) && target.hasVagina())) {
 						sb.append(UtilText.parse(target, 
 								" Letting out an annoyed sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] swallows it and whines,"
-								+ " [npc.speech(What's even the point if nobody's going to get pregnant...)]"));
+								+ " [npc.speech(What's even the point if nobody's going to get pregnant?)]"));
 						
 					} else {
 						sb.append(UtilText.parse(target, 
@@ -3625,7 +3637,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							"<p>"
 								+ "Holding out a 'Vixen's Virility' to [npc.name], you tell [npc.her] to swallow it in order to boost the chance of a successful impregnation."));
 					
-					if((target.hasFetish(Fetish.FETISH_IMPREGNATION) && target.hasPenis())
+					if(isObedientSlave) {
+						sb.append(UtilText.parse(target, 
+								" Obediently doing what's asked of [npc.herHim], [npc.she] happily takes the pill out of your hand, and quickly pops it out of its wrapping before swallowing it down."));
+						
+					} else if((target.hasFetish(Fetish.FETISH_IMPREGNATION) && target.hasPenis())
 							|| (target.hasFetish(Fetish.FETISH_PREGNANCY) && target.hasVagina())) {
 						sb.append(UtilText.parse(target, 
 								" Letting out a delighted cry, [npc.she] enthusiastically snatches the pill out of your hand, and, popping it out of its wrapping, [npc.she] quickly swallows it and grins at you."
@@ -3647,7 +3663,17 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							"<p>"
 								+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."));
 					
-					if(target.getRace()==Race.DEMON) {
+					if(isObedientSlave) {
+						sb.append(UtilText.parse(target, 
+									" Obediently doing what's expected of [npc.herHim], [npc.she] takes the bottle of transformative fluid from you and says, "
+									+ " [npc.speech(Of course I'll do my duty and be transformed into whatever form you desire...)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Eager to please, [npc.she] then removes the bottle's stopper, before lifting it up to [npc.her] waiting [npc.lips] and gulping down all of the liquid."
+									+ " [npc.She] [npc.verb(cough)] and [npc.verb(splutter)] for a moment, before taking a deep gasp as [npc.she] [npc.verb(start)] to feel the liquid's effects taking root deep in [npc.her] body..."
+								+ "</p>"));
+						
+					} else if(target.getRace()==Race.DEMON) {
 						sb.append(UtilText.parse(target,
 							"<p>"
 								+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
@@ -3660,6 +3686,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								+ " [npc.She] coughs and splutters for a moment, before letting out an annoyed cry as [npc.she] wipes the liquid from [npc.her] mouth,"
 								+ " [npc.speech(T-The taste is kinda nice I suppose...)]"
 							+ "</p>"));
+						
 								
 					} else if(target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						sb.append(UtilText.parse(target, 
@@ -3686,12 +3713,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							
 						} else {
 							sb.append(UtilText.parse(target, user,
-									" As [npc.she], [npc.verb(like)] [npc2.name] so much, [npc.she] [npc.verb(put)] aside [npc.her] worries of being transformed, and [npc.verb(say)],"
+									" As [npc.she] [npc.verb(like)] [npc2.name] so much, [npc.she] [npc.verb(put)] aside [npc.her] worries of being transformed, and [npc.verb(say)],"
 									+ " [npc.speech(Of course I'll drink it! I'll do anything for you...)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Hearing [npc.namePos] willing response, [npc2.name] [npc2.verb(remove)] the bottle's stopper, before handing it over to [npc.herHim]."
-									+ " Eager to please, [npc.she] happily [npc.verb(wrap)] [npc.her] [npc.lips] around the bottle's opening, before gullping down all of the liquid in one huge swig."
+									+ " Eager to please, [npc.she] happily [npc.verb(wrap)] [npc.her] [npc.lips] around the bottle's opening, before gulping down all of the liquid in one huge swig."
 								+ " [npc.She] [npc.verb(cough)] and [npc.verb(splutter)] for a moment, before letting out a startled cry as [npc.she] [npc.verb(start)] to feel the liquid's effects taking root deep in [npc.her] body..."
 								+ "</p>"));
 						}
@@ -3706,7 +3733,17 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							"<p>"
 								+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."));
 					
-					if(target.hasFetish(Fetish.FETISH_KINK_RECEIVING)) {
+					if(isObedientSlave) {
+						sb.append(UtilText.parse(target, 
+									" Obediently doing what's expected of [npc.herHim], [npc.she] takes the bottle of fetish-influencing fluid from you and says, "
+									+ " [npc.speech(Of course I'll do my duty in becoming the sort of slave you desire...)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Eager to please, [npc.she] then removes the bottle's stopper, before lifting it up to [npc.her] waiting [npc.lips] and gulping down all of the liquid."
+									+ " [npc.She] [npc.verb(cough)] and [npc.verb(splutter)] for a moment, before taking a deep gasp as [npc.she] [npc.verb(start)] to feel the liquid's effects taking root deep in [npc.her] body..."
+								+ "</p>"));
+						
+					} else if(target.hasFetish(Fetish.FETISH_KINK_RECEIVING)) {
 						sb.append(UtilText.parse(target, 
 								" Seeing what you're offering [npc.herHim], [npc.she] lets out a delighted cry, and asks, "
 								+ " [npc.speech(Is that "+UtilText.generateSingularDeterminer(item.getName())+" "+item.getName()+"?! Please, let me drink it!)]"
@@ -3753,36 +3790,66 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							}
 						}
 					}
-					
 					sb.append(itemOwner.useItem(item, target, false, true));
 					
 					return sb.toString();
 					
-				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.MOTHERS_MILK)) {
-					return UtilText.parse(target,
-							"<p>"
-								+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
-								+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
-								+ " [npc.speech(Do you really expect me to drink tha- ~Mrph!~)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Not liking the start of [npc.her] response, you unceremoniously shove the bottle's teat into [npc.her] mouth."
-								+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.herHim] go."
-								+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] body..."
-							+ "</p>")
-							+itemOwner.useItem(item, target, false, true);
+				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.EGGPLANT_POTION) || item.getItemType().equals(ItemType.MOTHERS_MILK)) {
+					if(isObedientSlave) {
+						sb.append(UtilText.parse(target, 
+								"<p>"
+									+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+									+ " Obediently doing what's expected of [npc.herHim], [npc.she] takes the bottle of fluid from you and says, "
+									+ " [npc.speech(Of course I'll drink whatever it is you give to me...)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Eager to please, [npc.she] then lifts the bottle up to [npc.her] waiting [npc.lips] and gulps down all of the liquid contained within."
+									+ " [npc.She] [npc.verb(cough)] and [npc.verb(splutter)] for a moment, before taking a deep gasp as [npc.she] [npc.verb(start)] to feel the liquid's effects taking root deep in [npc.her] body..."
+								+ "</p>"));
 						
+					} else {
+						sb.append(UtilText.parse(target,
+								"<p>"
+									+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+									+ " [npc.speech(Do you really expect me to drink tha- ~Mrph!~)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Not liking the start of [npc.her] response, you unceremoniously shove the bottle's teat into [npc.her] mouth."
+									+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.herHim] go."
+									+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] body..."
+								+ "</p>"));
+					}
+					sb.append(itemOwner.useItem(item, target, false, true));
+
+					return sb.toString();
+					
 				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
-					return UtilText.parse(target,
-							"<p>"
-								+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
-								+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
-								+ " [npc.speech(W-What are you going to do with th- -~Mrph!~)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Not liking the start of [npc.her] response, you quickly shove the eggplant into [npc.her] mouth, grinning as you force [npc.herHim] to eat the purple fruit..."
-							+ "</p>")
-							+itemOwner.useItem(item, target, false, true);
+					if(isObedientSlave) {
+						sb.append(UtilText.parse(target,
+								"<p>"
+									+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
+									+ " Seeing what you're offering [npc.herHim], [npc.she] obediently takes it and says, "
+									+ " [npc.speech(Of course I'll eat whatever it is you give to me...)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Eager to please, [npc.she] lifts the purple fruit up to [npc.her] waiting [npc.lips] and munches down every last bit of it..."
+								+ "</p>"));
+						
+					} else {
+						sb.append(UtilText.parse(target,
+								"<p>"
+									+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
+									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+									+ " [npc.speech(W-What are you going to do with th- -~Mrph!~)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Not liking the start of [npc.her] response, you quickly shove the eggplant into [npc.her] mouth, grinning as you force [npc.herHim] to eat the purple fruit..."
+								+ "</p>"));
+					}
+					sb.append(itemOwner.useItem(item, target, false, true));
+
+					return sb.toString();
 					
 				} else {
 					return itemOwner.useItem(item, target, false);

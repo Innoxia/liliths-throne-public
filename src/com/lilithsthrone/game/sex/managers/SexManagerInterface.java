@@ -25,7 +25,7 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
@@ -119,10 +119,10 @@ public interface SexManagerInterface {
 
 	public default List<AbstractSexPosition> getAllowedSexPositions() {
 		List<AbstractSexPosition> positions = Util.newArrayListOfValues(
-				SexPositionOther.AGAINST_WALL,
-				SexPositionOther.ALL_FOURS,
-				SexPositionOther.LYING_DOWN,
-				SexPositionOther.STANDING);
+				SexPosition.AGAINST_WALL,
+				SexPosition.ALL_FOURS,
+				SexPosition.LYING_DOWN,
+				SexPosition.STANDING);
 		
 		switch(Main.game.getPlayerCell().getType()) {
 			case ANGELS_KISS_FIRST_FLOOR:
@@ -130,17 +130,19 @@ public interface SexManagerInterface {
 			case CITY_HALL:
 			case DADDYS_APARTMENT:
 			case ENFORCER_HQ:
+			case ENFORCER_WAREHOUSE:
 			case GAMBLING_DEN:
 			case LILAYAS_HOUSE_FIRST_FLOOR:
 			case LILAYAS_HOUSE_GROUND_FLOOR:
 			case LYSSIETH_PALACE:
 			case MUSEUM:
 			case MUSEUM_LOST:
+			case SHOPPING_ARCADE:
 			case SUPPLIER_DEN:
 			case ZARANIX_HOUSE_FIRST_FLOOR:
 			case ZARANIX_HOUSE_GROUND_FLOOR:
-				positions.add(SexPositionOther.OVER_DESK);
-				positions.add(SexPositionOther.SITTING);
+				positions.add(SexPosition.OVER_DESK);
+				positions.add(SexPosition.SITTING);
 				break;
 			case BAT_CAVERNS:
 			case DOMINION:
@@ -151,14 +153,12 @@ public interface SexManagerInterface {
 			case IMP_FORTRESS_FEMALES:
 			case IMP_FORTRESS_MALES:
 			case NIGHTLIFE_CLUB:
-			case SHOPPING_ARCADE:
 			case SLAVER_ALLEY:
 			case SLIME_QUEENS_LAIR_FIRST_FLOOR:
 			case SLIME_QUEENS_LAIR_GROUND_FLOOR:
 			case SUBMISSION:
 			case WORLD_MAP:
 				break;
-			
 		}
 		return positions;
 	}
@@ -176,6 +176,10 @@ public interface SexManagerInterface {
 	
 	public default boolean isPlayerAbleToStopSex() {
 		return Sex.isDom(Main.game.getPlayer()) || (Sex.getSexControl(Main.game.getPlayer())==SexControl.FULL && Sex.isConsensual());
+	}
+	
+	public default boolean isEndSexAffectionChangeEnabled(GameCharacter character) {
+		return true;
 	}
 	
 	public default boolean isPartnerWantingToStopSex(GameCharacter partner) {
@@ -329,6 +333,17 @@ public interface SexManagerInterface {
 		return new HashMap<>();
 	}
 	
+	public default List<CoverableArea> getAdditionalAreasToExposeDuringSex(GameCharacter performer, GameCharacter target) {
+		if(performer.equals(target)) {
+			return Util.newArrayListOfValues(CoverableArea.NIPPLES);
+		} else {
+			if(Sex.isConsensual() || target.hasBreasts()) {
+				return Util.newArrayListOfValues(CoverableArea.NIPPLES);
+			}
+		}
+		return new ArrayList<>();
+	}
+	
 	public default List<InventorySlot> getSlotsConcealed(GameCharacter character) {
 		return new ArrayList<>();
 	}
@@ -399,22 +414,21 @@ public interface SexManagerInterface {
 	public default String getRandomPublicSexDescription() {
 		if(Sex.isMasturbation()) {
 			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
-						+UtilText.parse(Sex.getActivePartner(),
-								UtilText.returnStringAtRandom(
-								"The crowd of onlookers laugh and cheer as they look on.",
-								"You hear someone in the crowd wolf-whistling as they watch you masturbating.",
-								"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance.",
-								"You hear the crowd that's gathered to watch you commenting on your performance.",
-								"Cheering and laughing, the crowd of onlookers watch as you continue masturbating.",
-								"You glance across to see several members of the crowd touching themselves as they watch you go at it.",
-								"The crowd cheers you on as you carry on masturbating in front of them.",
-								"Several members of the crowd shout and cheer as you carry on masturbating in front of them."))
+						+ UtilText.returnStringAtRandom(
+							"The crowd of onlookers laugh and cheer as they look on.",
+							"You hear someone in the crowd wolf-whistling as they watch you masturbating.",
+							"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance.",
+							"You hear the crowd that's gathered to watch you commenting on your performance.",
+							"Cheering and laughing, the crowd of onlookers watch as you continue masturbating.",
+							"You glance across to see several members of the crowd touching themselves as they watch you go at it.",
+							"The crowd cheers you on as you carry on masturbating in front of them.",
+							"Several members of the crowd shout and cheer as you carry on masturbating in front of them.")
 					+"</p>";
 			
 		} else {
 			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
-						+UtilText.parse(Sex.getActivePartner(),
-								UtilText.returnStringAtRandom(
+						+ UtilText.parse(Sex.getTargetedPartner(Main.game.getPlayer()),
+							UtilText.returnStringAtRandom(
 								"The crowd of onlookers laugh and cheer as they look on.",
 								"You hear someone in the crowd wolf-whistling as they watch you having sex.",
 								"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance.",

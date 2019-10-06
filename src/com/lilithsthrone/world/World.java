@@ -14,6 +14,7 @@ import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
+import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
@@ -22,7 +23,8 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class World implements XMLSaving {
 
-	public final int WORLD_WIDTH, WORLD_HEIGHT;
+	public final int WORLD_WIDTH;
+	public final int WORLD_HEIGHT;
 	public static final int CELL_SIZE = 64;
 	
 	private Cell[][] grid;
@@ -136,6 +138,24 @@ public class World implements XMLSaving {
 		
 		return cellsFound;
 	}
+
+	/**
+	 * @param place The PlaceUpgrade to find all Cells of.
+	 * @return A List of Cells which have the specified upgrade.
+	 */
+	public List<Cell> getCells(PlaceUpgrade placeUpgrade) {
+		List<Cell> cellsFound = new ArrayList<>();
+		
+		for(int i=0; i<grid.length; i++) {
+			for(int j=0; j<grid[0].length; j++) {
+				if(grid[i][j].getPlace().getPlaceUpgrades().contains(placeUpgrade)) {
+					cellsFound.add(grid[i][j]);
+				}
+			}
+		}
+		
+		return cellsFound;
+	}
 	
 	public Cell getClosestCell(Vector2i location, AbstractPlaceType place) {
 		float distance = 10000f;
@@ -168,7 +188,9 @@ public class World implements XMLSaving {
 			}
 		}
 		if(cells.isEmpty()) {
-			System.err.println("World.getRandomUnoccupiedCell() - No unoccupied cells found, occupied one returned instead.");
+			if(Main.DEBUG) {
+				System.err.println("World.getRandomUnoccupiedCell() - No unoccupied cells found, occupied one returned instead.");
+			}
 			return getRandomCell(place);
 		}
 		return cells.get(Util.random.nextInt(cells.size()));

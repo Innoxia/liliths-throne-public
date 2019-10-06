@@ -385,7 +385,7 @@ public class HarpyNestDominant {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "[pc.speech(I just want to talk to you about the recent unrest in the Harpy Nests. The enforcers are having a hard time keeping the peace, and it appears as though some of your flock are to blame,)]"
+					+ "[pc.speech(I just want to talk to you about the recent unrest in the Harpy Nests. The Enforcers are having a hard time keeping the peace, and it appears as though some of your flock are to blame,)]"
 					+ " you try to explain, but [dominantHarpy.name] stomps her clawed foot on the ground, before cutting you off with an angry grunt."
 				+ "</p>"
 				+ "<p>"
@@ -1027,7 +1027,7 @@ public class HarpyNestDominant {
 		public String getContent() {
 			if(Sex.getNumberOfOrgasms(Main.game.getNpc(HarpyDominant.class)) >= Main.game.getNpc(HarpyDominant.class).getOrgasmsBeforeSatisfied()) {
 				return "<p>"
-							+ "As you step back from [harpyDominant.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
+							+ "As you step back from [harpyDominant.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfOrgasms(Main.game.getNpc(HarpyDominant.class)) > 1?"s":"")+"."
 							+ " The surrounding harpies, having watched the whole thing, kneel in submission as you finish with their matriarch."
 						+ "</p>";
 			} else {

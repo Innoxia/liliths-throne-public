@@ -137,8 +137,8 @@ public enum SpellUpgrade {
 			"The summoner assumes complete dominance over the school of Fire, and while their elemental is bound to this form, they are forced to share all of their secrets.",
 			null, Util.newArrayListOfValues(
 					"While summoned:",
-					"[style.colourArcane(Caster)]: +25 [style.boldFire("+Attribute.DAMAGE_FIRE+")]",
-					"[style.colourArcane(Caster)]: +10 [style.boldFire("+Attribute.RESISTANCE_FIRE+")]")) {
+					"[style.colourArcane(Caster)]: +25 "+Attribute.DAMAGE_FIRE.getColouredName("b"),
+					"[style.colourArcane(Caster)]: +10 "+Attribute.RESISTANCE_FIRE.getColouredName("b"))) {
 
 		public boolean isAvailable(GameCharacter caster) {
 			return !caster.hasSpellUpgrade(ELEMENTAL_FIRE_3A);
@@ -268,8 +268,8 @@ public enum SpellUpgrade {
 			"The summoner assumes complete dominance over the school of Water, and while their elemental is bound to this form, they are forced to share all of their secrets.",
 			null, Util.newArrayListOfValues(
 					"While summoned:",
-					"[style.colourArcane(Caster)]: +25 [style.boldIce(Ice Damage)]",
-					"[style.colourArcane(Caster)]: +10 [style.boldIce(Ice Resistance)]")) {
+					"[style.colourArcane(Caster)]: +25 "+Attribute.DAMAGE_ICE.getColouredName("b"),
+					"[style.colourArcane(Caster)]: +10 "+Attribute.RESISTANCE_ICE.getColouredName("b"))) {
 
 		public boolean isAvailable(GameCharacter caster) {
 			return !caster.hasSpellUpgrade(ELEMENTAL_WATER_3A);

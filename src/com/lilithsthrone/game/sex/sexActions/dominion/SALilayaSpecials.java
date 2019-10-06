@@ -64,12 +64,18 @@ public class SALilayaSpecials {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getCharacterTargetedForSexAction(this).isWearingCondom()) {
+			if(Sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				return "While letting out desperate moans and lewd cries, [npc.name] [npc.verb(try)] to push [npc2.namePos] [npc2.hips] away from [npc.her] [npc.pussy],"
+						+ " making it clear that [npc.she] doesn't want [npc2.herHim] cumming inside of [npc.herHim].";
+				
+			} else {
+				if(Sex.getCharacterTargetedForSexAction(this).isWearingCondom()) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name],"
+							+" [npc.speech(Your condom's on properly, isn't it? I'm <b>not</b> getting pregnant!)]";
+				}
 				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name],"
-						+" [npc.speech(Your condom's on properly, isn't it? I'm <b>not</b> getting pregnant!)]";
+						+" [npc.speech(Just remember to pull out! I'm <b>not</b> getting pregnant!)]";
 			}
-			return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name],"
-					+" [npc.speech(Just remember to pull out! I'm <b>not</b> getting pregnant!)]";
 				
 		}
 
@@ -153,7 +159,7 @@ public class SALilayaSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getAllContactingSexAreas(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+			return Sex.getOngoingCharactersUsingAreas(Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS).contains(Sex.getCharacterTargetedForSexAction(this))
 					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
 					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 					&& Sex.getCharacterPerformingAction().equals(Main.game.getNpc(Lilaya.class))
@@ -167,12 +173,18 @@ public class SALilayaSpecials {
 		
 		@Override
 		public String getDescription() {
-			if(Sex.getCharacterTargetedForSexAction(this).isWearingCondom()) {
-				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name],"
-						+" [npc.speech(That condom had better not break! I'm <b>not</b> getting pregnant!)]";
+			if(Sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				return "While letting out desperate moans and lewd cries, [npc.name] [npc.verb(try)] to push [npc2.namePos] [npc2.hips] away from [npc.her] [npc.pussy],"
+						+ " making it clear that [npc.she] doesn't want [npc2.herHim] cumming inside of [npc.herHim].";
+				
+			} else {
+				if(Sex.getCharacterTargetedForSexAction(this).isWearingCondom()) {
+					return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name],"
+							+" [npc.speech(That condom had better not break! I'm <b>not</b> getting pregnant!)]";
+				}
+				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name], "
+						+ "[npc.speech(Pull out! I'm <b>not</b> getting pregnant!)]";
 			}
-			return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to [npc2.name], "
-					+ "[npc.speech(Pull out! I'm <b>not</b> getting pregnant!)]";
 		}
 
 		@Override
@@ -220,7 +232,7 @@ public class SALilayaSpecials {
 		public String getDescription() {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaCondomBroke)) {
 				return "[npc.Name] feels [npc2.namePos] [npc2.cum] dripping out of her [lilaya.pussy+], and, frantically shoving [npc2.herHim] away from her, she cries out in distress, "
-						+" [npc.speech(The condom broke! No! Fuck! I could get pregnant from this!)]";
+						+" [npc.speechNoEffects(The condom broke! No! Fuck! I could get pregnant from this!)]";
 			}
 			return "[npc.Name] feels [npc2.namePos] [npc2.cum] dripping out of her [lilaya.pussy+], and, violently shoving [npc2.herHim] away from her, she angrily screams, "
 					+ "[npc.speechNoEffects(What the fuck?! I told you to pull out!)]";

@@ -15,7 +15,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.managers.dominion.SMPixShowerTime;
 import com.lilithsthrone.game.sex.managers.universal.SMAgainstWall;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
@@ -657,7 +657,7 @@ public class PixsPlayground {
 								@Override
 								public List<AbstractSexPosition> getAllowedSexPositions() {
 									return Util.newArrayListOfValues(
-											SexPositionOther.AGAINST_WALL);
+											SexPosition.AGAINST_WALL);
 								}
 							},
 							null,

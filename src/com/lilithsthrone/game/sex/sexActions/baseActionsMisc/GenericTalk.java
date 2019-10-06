@@ -2,7 +2,6 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
 import java.util.List;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -10,37 +9,36 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.3
- * @version 0.3.3.10
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public class GenericTalk {
 
 	public static final SexAction ROUGH_TALK = new SexAction(
-			SexActionType.REQUIRES_NO_PENETRATION,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, null)),
+			null,
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
+		
+		@Override
+		public boolean isSadisticAction() {
+			return true;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			if(!Main.getProperties().hasValue(PropertyValue.sadisticSexContent)) {
-				return false;
-			}
 			return (Sex.getCharacterPerformingAction().isPlayer() || Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_DOMINANT) || Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST))
 					&& !Sex.isDom(Sex.getCharacterTargetedForSexAction(this));
 		}
@@ -93,11 +91,11 @@ public class GenericTalk {
 	};
 	
 	public static final SexAction SUBMISSIVE_TALK = new SexAction(
-			SexActionType.REQUIRES_NO_PENETRATION,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, null)),
+			null,
 			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
 
@@ -166,11 +164,11 @@ public class GenericTalk {
 	};
 	
 	public static final SexAction ASKING_FOR_ROUGH_SEX = new SexAction(
-			SexActionType.REQUIRES_NO_PENETRATION,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, null)),
+			null,
 			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
 		
@@ -283,19 +281,19 @@ public class GenericTalk {
 	};
 	
 	public static final SexAction ASKING_FOR_GENTLE_SEX = new SexAction(
-			SexActionType.REQUIRES_NO_PENETRATION,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, null)),
+			null,
 			SexParticipantType.NORMAL) {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterPerformingAction().isSpeechMuffled()) {
-				return "Look worried";
-			}
-			return "Request gentle sex";
+//			if(Sex.getCharacterPerformingAction().isSpeechMuffled()) {
+//				return "Look worried";
+//			}
+			return "Object to rough";
 		}
 		
 		private boolean isAcceptingRequest() {
@@ -333,7 +331,8 @@ public class GenericTalk {
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& !Sex.isDom(Sex.getCharacterPerformingAction())
 					&& Sex.isDom(Sex.getCharacterTargetedForSexAction(this))
-					&& Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))!=SexPace.DOM_GENTLE
+					&& Sex.isConsensual()
+					&& Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))==SexPace.DOM_ROUGH
 					&& Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_MASOCHIST).isNegative();
 		}
 
@@ -358,10 +357,10 @@ public class GenericTalk {
 						"[npc.Name] [npc.verb(raise)] [npc.her] eyebrows and [npc.verb(put)] on a worried look as [npc.she] [npc.verb(ask)], "));
 				
 				sb.append(UtilText.returnStringAtRandom(
-						"[npc.speech(P-Please, can you not be so rough? I-I'd like this to be a little more loving...)]",
-						"[npc.speech(S-Slow down, please! C-Can't you be a little gentler?)]",
-						"[npc.speech(C-Can you treat me a little gentler? T-This is too much for me...)]",
-						"[npc.speech(P-Please can you slow down? I-I'd like you to be a little gentler...)]"));
+						"[npc.speech(Please, can you not be so rough? I'd like this to be a little more loving...)]",
+						"[npc.speech(Slow down, please! Can't you be a little gentler?)]",
+						"[npc.speech(Can you treat me a little gentler? This is too much for me...)]",
+						"[npc.speech(Please can you slow down? I'd like you to be a little gentler...)]"));
 			}
 
 			if(Sex.getCharacterPerformingAction().isPlayer()) {

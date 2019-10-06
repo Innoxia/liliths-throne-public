@@ -6,7 +6,7 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.game.sex.sexActions.PositioningData;
@@ -68,7 +68,7 @@ public class ToiletStall {
 
 		@Override
 		public void applyEffects() {
-			Sex.swapSexPositionSlots(Main.game.getPlayer(), Sex.getActivePartner());
+			Sex.swapSexPositionSlots(Main.game.getPlayer(), Sex.getCharacterTargetedForSexAction(this));
 		}
 	};
 	
@@ -98,7 +98,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.FACE_TO_WALL));
 		
@@ -135,7 +135,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.FACE_TO_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL));
 		
@@ -171,7 +171,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.BACK_TO_WALL));
 		
@@ -208,7 +208,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.BACK_TO_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL));
 		
@@ -244,7 +244,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				Util.newArrayListOfValues(SexSlotStanding.STANDING_DOMINANT),
 				Util.newArrayListOfValues(SexSlotStanding.PERFORMING_ORAL));
 
@@ -281,7 +281,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				Util.newArrayListOfValues(SexSlotStanding.PERFORMING_ORAL),
 				Util.newArrayListOfValues(SexSlotStanding.STANDING_DOMINANT));
 
@@ -316,7 +316,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				Util.newArrayListOfValues(SexSlotStanding.PERFORMING_ORAL),
 				Util.newArrayListOfValues(SexSlotStanding.STANDING_DOMINANT));
 		
@@ -353,7 +353,7 @@ public class ToiletStall {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				Util.newArrayListOfValues(SexSlotStanding.STANDING_DOMINANT),
 				Util.newArrayListOfValues(SexSlotStanding.PERFORMING_ORAL));
 
@@ -418,7 +418,7 @@ public class ToiletStall {
 			
 			if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAgainstWall.STANDING_WALL) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Much to your delight, you feel [npc.name] reach down and roughly grab your hips, and, grinding [npc.herself] into your back, [npc.she] growls into your ear, "
 									+ "[npc.speech(I love fucking bitches like you from behind! Now <i>stay still</i> like a good slut!)]";
@@ -433,7 +433,7 @@ public class ToiletStall {
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAgainstWall.STANDING_WALL) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "[npc.Name] grins as you try to entice [npc.herHim] to come over and fuck you against the wall."
 									+ " Moving up to roughly grind [npc.her] body against yours, [npc.she] leans in over your shoulder and growls into your ear, "
@@ -451,7 +451,7 @@ public class ToiletStall {
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotStanding.STANDING_DOMINANT) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "[npc.Name] grins down at your submissive, kneeling form."
 									+ " With a little laugh, [npc.she] grabs hold of your head with one [npc.hand], yanking you forwards into [npc.her] crotch as [npc.she] growls down at you, "
@@ -469,7 +469,7 @@ public class ToiletStall {
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Reaching up and throwing your [pc.arms] off of [npc.her], [npc.name] lets out an angry snarl."
 									+ " Surprisingly, [npc.she] then suddenly drops to [npc.her] knees, and you look down to see [npc.herHim] grinning up at you,"

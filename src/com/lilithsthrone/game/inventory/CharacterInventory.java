@@ -18,6 +18,7 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -78,7 +79,8 @@ public class CharacterInventory implements XMLSaving {
 	protected BlockedParts extraBlockedParts;
 	
 	// Weapons
-	private AbstractWeapon mainWeapon, offhandWeapon;
+	private AbstractWeapon[] mainWeapon;
+	private AbstractWeapon[] offhandWeapon;
 
 	private List<AbstractClothing> clothingCurrentlyEquipped;
 
@@ -107,8 +109,8 @@ public class CharacterInventory implements XMLSaving {
 			essenceMap.put(essence, 0);
 		}
 		
-		mainWeapon = null;
-		offhandWeapon = null;
+		mainWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
+		offhandWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
 		
 		clothingCurrentlyEquipped = new ArrayList<>();
 		clothingSetCount = new EnumMap<>(ClothingSet.class);
@@ -141,16 +143,22 @@ public class CharacterInventory implements XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "slot", slot.toString());
 		}
 		
-		if(this.getMainWeapon() != null) {
-			Element mainWeapon = doc.createElement("mainWeapon");
-			characterInventory.appendChild(mainWeapon);
-			this.getMainWeapon().saveAsXML(mainWeapon, doc);
+		for(int i=0;i<this.mainWeapon.length;i++) {
+			AbstractWeapon weapon = this.mainWeapon[i];
+			if(weapon != null) {
+				Element mainWeapon = doc.createElement("mainWeapon"+i);
+				characterInventory.appendChild(mainWeapon);
+				weapon.saveAsXML(mainWeapon, doc);
+			}
 		}
-		
-		if(this.getOffhandWeapon() != null) {
-			Element offhandWeapon = doc.createElement("offhandWeapon");
-			characterInventory.appendChild(offhandWeapon);
-			this.getOffhandWeapon().saveAsXML(offhandWeapon, doc);
+
+		for(int i=0;i<this.offhandWeapon.length;i++) {
+			AbstractWeapon weapon = this.offhandWeapon[i];
+			if(weapon != null) {
+				Element offhandWeapon = doc.createElement("offhandWeapon"+i);
+				characterInventory.appendChild(offhandWeapon);
+				weapon.saveAsXML(offhandWeapon, doc);
+			}
 		}
 		
 		Element clothingEquipped = doc.createElement("clothingEquipped");
@@ -232,18 +240,38 @@ public class CharacterInventory implements XMLSaving {
 		}
 		
 		nodes = parentElement.getElementsByTagName("mainWeapon");
-		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+		if(nodes.getLength()>0 && nodes.item(0)!=null) { // Pre v0.3.4.5 version support:
 			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)nodes.item(0)).getElementsByTagName("weapon").item(0), doc);
 			if(weapon!=null) {
-				inventory.equipMainWeapon(weapon);
+				inventory.equipMainWeapon(0, weapon);
+			}
+		} else {
+			for(int i=0;i<inventory.mainWeapon.length;i++) {
+				nodes = parentElement.getElementsByTagName("mainWeapon"+i);
+				if(nodes.getLength()>0 && nodes.item(0)!=null) {
+					AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)nodes.item(0)).getElementsByTagName("weapon").item(0), doc);
+					if(weapon!=null) {
+						inventory.equipMainWeapon(i, weapon);
+					}
+				}
 			}
 		}
 
 		nodes = parentElement.getElementsByTagName("offhandWeapon");
-		if(nodes.getLength()>0 && nodes.item(0)!=null) {
+		if(nodes.getLength()>0 && nodes.item(0)!=null) { // Pre v0.3.4.5 version support:
 			AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)nodes.item(0)).getElementsByTagName("weapon").item(0), doc);
 			if(weapon!=null) {
-				inventory.equipOffhandWeapon(weapon);
+				inventory.equipOffhandWeapon(0, weapon);
+			}
+		} else {
+			for(int i=0;i<inventory.offhandWeapon.length;i++) {
+				nodes = parentElement.getElementsByTagName("offhandWeapon"+i);
+				if(nodes.getLength()>0 && nodes.item(0)!=null) {
+					AbstractWeapon weapon = AbstractWeapon.loadFromXML((Element) ((Element)nodes.item(0)).getElementsByTagName("weapon").item(0), doc);
+					if(weapon!=null) {
+						inventory.equipOffhandWeapon(i, weapon);
+					}
+				}
 			}
 		}
 		
@@ -371,11 +399,13 @@ public class CharacterInventory implements XMLSaving {
 		return RenderingEngine.INVENTORY_PAGES * RenderingEngine.ITEMS_PER_PAGE;
 	}
 	
-	public void clearNonEquippedInventory(){
+	public void clearNonEquippedInventory(boolean clearMoney) {
 		clothingSubInventory.clear();
 		weaponSubInventory.clear();
 		itemSubInventory.clear();
-		money = 0;
+		if(clearMoney) {
+			money = 0;
+		}
 	}
 	
 	public void setMaximumInventorySpace(int maxInventorySpace) {
@@ -429,6 +459,44 @@ public class CharacterInventory implements XMLSaving {
 		sortItemDuplicates();
 		sortWeaponDuplicates();
 		sortClothingDuplicates();
+	}
+	
+	/**
+	 * @return The value of all non-equipped items, clothing, and weapons in this inventory.
+	 */
+	public int getNonEquippedValue() {
+		int value = 0;
+		for(Entry<AbstractItem, Integer> item : this.getAllItemsInInventory().entrySet()) {
+			value += (item.getKey().getValue() * item.getValue());
+		}
+		for(Entry<AbstractClothing, Integer> clothing : this.getAllClothingInInventory().entrySet()) {
+			value += (clothing.getKey().getValue() * clothing.getValue());
+		}
+		for(Entry<AbstractWeapon, Integer> weapon : this.getAllWeaponsInInventory().entrySet()) {
+			value += (weapon.getKey().getValue() * weapon.getValue());
+		}
+		return value;
+	}
+	
+	/**
+	 * @return The value of all equipped clothing and weapons in this inventory.
+	 */
+	public int getEquippedValue() {
+		int value = 0;
+		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
+			value += clothing.getValue();
+		}
+		for(AbstractWeapon weapon : this.getMainWeaponArray()) {
+			if(weapon!=null) {
+				value += weapon.getValue();
+			}
+		}
+		for(AbstractWeapon weapon : this.getOffhandWeaponArray()) {
+			if(weapon!=null) {
+				value += weapon.getValue();
+			}
+		}
+		return value;
 	}
 	
 	
@@ -544,7 +612,7 @@ public class CharacterInventory implements XMLSaving {
 	
 	
 	public boolean dropItem(AbstractItem item, int count, World world, Vector2i location) {
-		if (hasItem(item)) {
+		if(hasItem(item)) {
 			world.getCell(location).getInventory().addItem(item, count);
 			removeItem(item, count);
 			return true;
@@ -663,24 +731,54 @@ public class CharacterInventory implements XMLSaving {
 		return false;
 	}
 	
-	public AbstractWeapon getMainWeapon() {
-		return mainWeapon;
-	}
-	public void equipMainWeapon(AbstractWeapon weapon) {
-		mainWeapon = weapon;
-	}
-	public void unequipMainWeapon() {
-		mainWeapon = null;
+	public AbstractWeapon getMainWeapon(int armRow) {
+		return mainWeapon[armRow];
 	}
 	
-	public AbstractWeapon getOffhandWeapon() {
+	/**
+	 * <b>DO NOT MODIFY!</b><br/>
+	 * Use the <i>equipMainWeapon(int armRow, AbstractWeapon weapon)<i> and <i>unequipMainWeapon(int armRow)</i> methods to modify the underlying array.
+	 * 
+	 * @return The underlying array which stores weapons equipped in the main hand. The index corresponds to which arm row the weapon is held in.
+	 */
+	public AbstractWeapon[] getMainWeaponArray() {
+		return mainWeapon;
+	}
+	
+	public void equipMainWeapon(int armRow, AbstractWeapon weapon) {
+		if(armRow>=Arm.MAXIMUM_ROWS) {
+			throw new IllegalArgumentException("Equipping main weapon failed! Row was passed in as "+armRow+", but maximum arm rows is "+Arm.MAXIMUM_ROWS+"!");
+		}
+		mainWeapon[armRow] = weapon;
+	}
+	
+	public void unequipMainWeapon(int armRow) {
+		mainWeapon[armRow] = null;
+	}
+	
+	public AbstractWeapon getOffhandWeapon(int armRow) {
+		return offhandWeapon[armRow];
+	}
+
+	/**
+	 * <b>DO NOT MODIFY!</b><br/>
+	 * Use the <i>equipOffhandWeapon(int armRow, AbstractWeapon weapon)<i> and <i>unequipOffhandWeapon(int armRow)</i> methods to modify the underlying array.
+	 * 
+	 * @return The underlying array which stores weapons equipped in the off hand. The index corresponds to which arm row the weapon is held in.
+	 */
+	public AbstractWeapon[] getOffhandWeaponArray() {
 		return offhandWeapon;
 	}
-	public void equipOffhandWeapon(AbstractWeapon weapon) {
-		offhandWeapon = weapon;
+	
+	public void equipOffhandWeapon(int armRow, AbstractWeapon weapon) {
+		if(armRow>=Arm.MAXIMUM_ROWS) {
+			throw new IllegalArgumentException("Equipping main weapon failed! Row was passed in as "+armRow+", but maximum arm rows is "+Arm.MAXIMUM_ROWS+"!");
+		}
+		offhandWeapon[armRow] = weapon;
 	}
-	public void unequipOffhandWeapon() {
-		offhandWeapon = null;
+	
+	public void unequipOffhandWeapon(int armRow) {
+		offhandWeapon[armRow] = null;
 	}
 	
 	
@@ -956,7 +1054,7 @@ public class CharacterInventory implements XMLSaving {
 
 	private StringBuilder tempSB;
 
-	public String calculateClothingPostTransformation(GameCharacter character) {
+	public String calculateClothingAndWeaponsPostTransformation(GameCharacter character) {
 		tempSB = new StringBuilder();
 		List<AbstractClothing> clothingToRemove = new ArrayList<>();
 		for (AbstractClothing c : clothingCurrentlyEquipped){
@@ -971,22 +1069,51 @@ public class CharacterInventory implements XMLSaving {
 			}
 		}
 		clothingCurrentlyEquipped.removeAll(clothingToRemove);
-
+		
+		for(int i=0; i<character.getMainWeaponArray().length; i++) {
+			if(character.getArmRows()-1<i) {
+				AbstractWeapon weapon = character.getMainWeaponArray()[i];
+				if(weapon!=null) {
+					transformationIncompatibleWeapon(character, weapon, character.unequipMainWeapon(i, false, true));
+				}
+			}
+		}
+		for(int i=0; i<character.getOffhandWeaponArray().length; i++) {
+			if(character.getArmRows()-1<i) {
+				AbstractWeapon weapon = character.getOffhandWeaponArray()[i];
+				if(weapon!=null) {
+					transformationIncompatibleWeapon(character, weapon, character.unequipOffhandWeapon(i, false, true));
+				}
+			}
+		}
+		
 		return tempSB.toString();
 	}
 	
 	private void transformationIncompatible(GameCharacter character, AbstractClothing c, List<AbstractClothing> clothingRemovalList, String description){
-		if (tempSB.length() != 0)
+		if (tempSB.length() != 0) {
 			tempSB.append("<br/><br/>");
+		}
 		tempSB.append("<br/><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+UtilText.parse(character, description)+"</span>");
+		
 		if (isInventoryFull() && !hasClothing(c)) {
 			Main.game.getWorlds().get(character.getWorldLocation()).getCell(character.getLocation()).getInventory().addClothing(c);
 			tempSB.append("<br/>" + character.droppedItemText(c));
+			
 		} else {
 			character.addClothing(c, false);
 			tempSB.append("<br/>" + character.addedItemToInventoryText(c));
 		}
 		clothingRemovalList.add(c);	
+	}
+	
+	private void transformationIncompatibleWeapon(GameCharacter character, AbstractWeapon w, String description){
+		if (tempSB.length() != 0) {
+			tempSB.append("<br/><br/>");
+		}
+		tempSB.append("<br/><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+UtilText.parse(character, "Due to the loss of [npc.her] extra pair of arms, [npc.name] can no longer hold the "+w.getName()+"!")+"</span>");
+		
+		tempSB.append("<br/>" + description);
 	}
 	
 	
@@ -1020,8 +1147,8 @@ public class CharacterInventory implements XMLSaving {
 			return false;
 		}
 		
-		if (!newClothing.getClothingType().isCanBeEquipped(characterClothingOwner, slotToEquipInto)) {
-			equipTextSB.append("[style.colourBad(" + newClothing.getClothingType().getCannotBeEquippedText(characterClothingOwner, slotToEquipInto) + ")]");
+		if (!newClothing.getClothingType().isAbleToBeBeEquipped(characterClothingOwner, slotToEquipInto).getKey()) {
+			equipTextSB.append("[style.colourBad(" + newClothing.getClothingType().isAbleToBeBeEquipped(characterClothingOwner, slotToEquipInto).getValue() + ")]");
 			return false;
 		}
 
@@ -1045,7 +1172,7 @@ public class CharacterInventory implements XMLSaving {
 		incompatibleRemovableClothing.clear();
 		for (InventorySlot slot : newClothing.getClothingType().getIncompatibleSlots(characterClothingOwner, slotToEquipInto)) {
 			if (getClothingInSlot(slot) != null) {
-				if (!isAbleToUnequip(getClothingInSlot(slot), false, automaticClothingManagement, characterClothingOwner, characterClothingEquipper, true))
+				if (!isAbleToUnequip(getClothingInSlot(slot), false, automaticClothingManagement, characterClothingOwner, characterClothingEquipper, false))
 					incompatibleUnequippableClothing.add(getClothingInSlot(slot));
 				else {
 					clothingToRemove.put(getClothingInSlot(slot), DisplacementType.REMOVE_OR_EQUIP);
@@ -1057,7 +1184,7 @@ public class CharacterInventory implements XMLSaving {
 		// Check to see if newClothing is incompatible with any equipped clothing:
 		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
 			if (clothing.getClothingType().getIncompatibleSlots(characterClothingOwner, clothing.getSlotEquippedTo()).contains(slotToEquipInto)) {
-				if (!isAbleToUnequip(clothing, false, automaticClothingManagement, characterClothingOwner, characterClothingEquipper, true)) {
+				if (!isAbleToUnequip(clothing, false, automaticClothingManagement, characterClothingOwner, characterClothingEquipper, false)) {
 					incompatibleUnequippableClothing.add(clothing);
 				} else {
 					clothingToRemove.put(clothing, DisplacementType.REMOVE_OR_EQUIP);
@@ -1098,6 +1225,7 @@ public class CharacterInventory implements XMLSaving {
 									if (!clothingToRemove.containsKey(equippedClothing)) { // This clothing has not already been marked for removal:
 										if(automaticClothingManagement && isAbleToBeDisplaced(equippedClothing, bpEquipped.displacementType, false, automaticClothingManagement, characterClothingOwner, characterClothingEquipper, true)) {
 											clothingToRemove.put(equippedClothing, bpEquipped.displacementType);
+											
 										} else {
 											equipTextSB.append(characterClothingOwner.isPlayer()
 													?"Your <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
@@ -1110,7 +1238,7 @@ public class CharacterInventory implements XMLSaving {
 										}
 
 									} else {
-										if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterClothingEquipper, true)) { // Can be removed:
+										if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterClothingEquipper, false)) { // Can be removed:
 											clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
 										} else {
 											if(equippedClothing.isSealed()) {
@@ -1150,7 +1278,7 @@ public class CharacterInventory implements XMLSaving {
 				if (getClothingInSlot(slotToEquipInto) != null) {
 					AbstractClothing equippedClothing = getClothingInSlot(slotToEquipInto);
 					
-					if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterClothingEquipper, true)) { // Can be removed:
+					if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterClothingEquipper, false)) { // Can be removed:
 						clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
 					} else {
 						if(equippedClothing.isSealed()) {
@@ -1199,9 +1327,9 @@ public class CharacterInventory implements XMLSaving {
 					if (!incompatibleRemovableClothing.contains(c) && c != getClothingInSlot(slotToEquipInto)) {
 						clothingToBeReplaced.add(c);
 					}
-
+					
 					equipTextSB.append((equipTextSB.length() == 0 ? "" : "<br/>")
-								+ (clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP
+								+ (!clothingToRemove.containsKey(c) || clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP
 									? c.onUnequipText(characterClothingOwner, characterClothingEquipper, (Main.game.isInSex()?Sex.getSexPace(characterClothingEquipper)==SexPace.DOM_ROUGH:false))
 									: (characterClothingOwner.isPlayer()
 											?"You " + clothingToRemove.get(c).getDescription() + " your " + c.getName() + "."
@@ -1336,14 +1464,13 @@ public class CharacterInventory implements XMLSaving {
 		// Check for access needed: TODO check this works TODO it doesn't TODO I did a temporary fix. please come back and fix this properly some time
 		for (BlockedParts bp : clothing.getClothingType().getBlockedPartsMap(characterClothingOwner, clothing.getSlotEquippedTo())) {
 			// Keep iterating through until until we find the BlockedParts that corresponds to equipping (if not found, carry on, as this clothing doesn't need any access in order to be equipped):
-			if (bp.displacementType == DisplacementType.REMOVE_OR_EQUIP)
-				if (bp.clothingAccessRequired == null) {
-					break; // This clothing doesn't need any access in order to be equipped, so just carry on.
-
-				} else {
-					// This clothing has access requirements in order to be equipped. Check each piece of equipped clothing to see if it's blocking the access required:
+			if (bp.displacementType == DisplacementType.REMOVE_OR_EQUIP) {
+				if (bp.clothingAccessRequired == null) { // This clothing doesn't need any access in order to be equipped, so just carry on.
+					break; 
+					
+				} else { // This clothing has access requirements in order to be unequipped. Check each piece of equipped clothing to see if it's blocking the access required:
 					for (AbstractClothing equippedClothing : clothingCurrentlyEquipped) {
-						if (equippedClothing != clothing)
+						if (equippedClothing != clothing) {
 							for (BlockedParts bpEquipped : equippedClothing.getClothingType().getBlockedPartsMap(characterClothingOwner, equippedClothing.getSlotEquippedTo())) {
 								for (ClothingAccess caBlocked : bpEquipped.clothingAccessBlocked) {
 									if (bp.clothingAccessRequired.contains(caBlocked)
@@ -1371,6 +1498,7 @@ public class CharacterInventory implements XMLSaving {
 										} else {
 											if(equippedClothing.equals(previousClothingCheck)) {
 												System.err.println("Error: "+clothing.getName()+" and "+equippedClothing.getName()+" are blocking one another's removal!!!");
+//												throw new IllegalArgumentException();
 												return true;
 											}
 											previousClothingCheck = clothing;
@@ -1392,8 +1520,10 @@ public class CharacterInventory implements XMLSaving {
 									}
 								}
 							}
+						}
 					}
 				}
+			}
 		}
 
 		if (continuingIsAbleToEquip && !unequipIfAble) {
@@ -1403,14 +1533,14 @@ public class CharacterInventory implements XMLSaving {
 		if (!automaticClothingManagement && clothingToRemove.size() > 1) { // Greater than 1, as it will contain the item of clothing that's trying to be removed.
 			Set<AbstractClothing> blockingClothingSet = clothingToRemove.keySet().stream().filter(c -> c != clothing).collect(Collectors.toSet());
 			equipTextSB.append(characterClothingOwner.isPlayer()
-					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(blockingClothingSet, false) + " need"
+					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, your " + Util.clothesToStringList(blockingClothingSet, false) + " need"
 						+ (blockingClothingSet.size() > 1 ? "" : "s") + " to be removed."
 					:UtilText.parse(characterClothingOwner,
-							"Before [npc.namePos] " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(blockingClothingSet, false) + " need"
+							"Before [npc.namePos] " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, [npc.her] " + Util.clothesToStringList(blockingClothingSet, false) + " need"
 									+ (blockingClothingSet.size() > 1 ? "" : "s") + " to be removed."));
 			
 			blockingClothing = blockingClothingSet.stream().findAny().orElse(blockingClothing);
-
+			
 			return false;
 		}
 
@@ -1861,7 +1991,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	private Map<AbstractClothing, DisplacementType> previousDisplacements;
-	private SimpleEntry<AbstractClothing, DisplacementType> findNextClothingDisplacement(
+	public SimpleEntry<AbstractClothing, DisplacementType> findNextClothingDisplacement(
 			GameCharacter character, CoverableArea coverableArea, AbstractClothing clothingToRemove, DisplacementType displacement, List<AbstractClothing> zLayerSortedList, boolean initialMethodCall) {
 		if(initialMethodCall) {
 			previousDisplacements = new HashMap<>();
@@ -1874,10 +2004,17 @@ public class CharacterInventory implements XMLSaving {
 					for (AbstractClothing clothing : zLayerSortedList) {
 						if (clothing != clothingToRemove) {
 							for (BlockedParts bpIterated : clothing.getClothingType().getBlockedPartsMap(character, clothing.getSlotEquippedTo())) {
-								if (bpIterated.clothingAccessBlocked.contains(ca) 
+//								if(bpIterated.clothingAccessBlocked.contains(ca)) {
+//									System.out.println(clothing.getName()+" | "+clothingToRemove.getName()+" | "+ca
+//											+"\n\t"+!clothing.getDisplacedList().contains(bpIterated.displacementType)
+//											+"\n\t"+!isCoverableAreaExposedFromElsewhere(character, clothing, coverableArea));
+//								}
+								if (bpIterated.clothingAccessBlocked.contains(ca)
 										&& !clothing.getDisplacedList().contains(bpIterated.displacementType)
-										&& !isCoverableAreaExposedFromElsewhere(character, clothing, coverableArea) // This fixes issues with NPCs performing redundant displacements (unzipping + pulling down).
+										// This fixes issues with NPCs performing redundant displacements (unzipping + pulling down):
+										&& (bp.displacementType==DisplacementType.REMOVE_OR_EQUIP || !isCoverableAreaExposedFromElsewhere(character, clothing, coverableArea))
 										) {
+//									System.out.println(":3 "+clothing.getName()+" | "+clothingToRemove.getName()+" | "+ca);
 									if(previousDisplacements.containsKey(clothing) && previousDisplacements.get(clothing).equals(bpIterated.displacementType)) {
 										System.err.println("findNextClothingDisplacement() error: "+clothing.getName()+" is interfering with "+clothingToRemove.getName());
 										return new SimpleEntry<>(clothing, bpIterated.displacementType);

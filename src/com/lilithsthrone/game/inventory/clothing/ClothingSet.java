@@ -8,11 +8,12 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum ClothingSet {
@@ -26,6 +27,15 @@ public enum ClothingSet {
 			null,
 			null),
 
+	SLUTTY_ENFORCER("Slutty Enforcer",
+			StatusEffect.SET_SLUTTY_ENFORCER,
+			2,
+			Util.newArrayListOfValues(
+					InventorySlot.TORSO_UNDER,
+					InventorySlot.LEG),
+			null,
+			null),
+	
 	MAID("Hard-working Maid",
 			StatusEffect.SET_MAID,
 			5,
@@ -157,7 +167,7 @@ public enum ClothingSet {
 
 	DARK_SIREN("Dark Siren",
 			StatusEffect.SET_DARK_SIREN,
-			4,
+			3,
 			Util.newArrayListOfValues(
 					InventorySlot.TORSO_OVER,
 					InventorySlot.NECK,
@@ -217,15 +227,21 @@ public enum ClothingSet {
 			}
 		}
 		
-		if(target.getMainWeapon()!=null && target.getMainWeapon().getWeaponType().getClothingSet() == this) {
-			setCount++;
-			atLeastOneClothingFound = true;
+		int weaponSetCount = 0;
+		for(AbstractWeapon weapon : target.getMainWeaponArray()) {
+			if(weapon!=null && weapon.getWeaponType().getClothingSet() == this) {
+				weaponSetCount++;
+				atLeastOneClothingFound = true;
+			}
+		}
+		for(AbstractWeapon weapon : target.getOffhandWeaponArray()) {
+			if(weapon!=null && weapon.getWeaponType().getClothingSet() == this) {
+				weaponSetCount++;
+				atLeastOneClothingFound = true;
+			}
 		}
 		
-		if(target.getOffhandWeapon()!=null && target.getOffhandWeapon().getWeaponType().getClothingSet() == this) {
-			setCount++;
-			atLeastOneClothingFound = true;
-		}
+		setCount += Math.min(2, weaponSetCount);
 		
 		return atLeastOneClothingFound && setCount >= this.getNumberRequiredForCompleteSet();
 	}

@@ -11,7 +11,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
@@ -60,7 +60,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				Util.newArrayListOfValues(
 						SexSlotStanding.STANDING_DOMINANT,
 						SexSlotStanding.STANDING_DOMINANT_TWO,
@@ -119,7 +119,7 @@ public class ChairSex {
 		}
 
 		Sex.setSexManager(new SexManagerDefault(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				dominants,
 				submissives){
 		});
@@ -134,13 +134,14 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.PERFORMING_ORAL),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return checkBaseRequirements(data, false);
+			return !Sex.getCharacterTargetedForSexAction(this).isTaur()
+					&& checkBaseRequirements(data, false);
 		}
 		@Override
 		public String getActionTitle() {
@@ -176,13 +177,14 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.PERFORMING_ORAL),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return checkBaseRequirements(data, true);
+			return !Sex.getCharacterTargetedForSexAction(this).isTaur()
+					&& checkBaseRequirements(data, true);
 		}
 		@Override
 		public String getActionTitle() {
@@ -202,6 +204,86 @@ public class ChairSex {
 		}
 	};
 	
+	public static final SexAction SWITCH_TO_GIVING_ORAL_TO_TAUR = new SexAction(
+			SexActionType.POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+		
+		private PositioningData data = new PositioningData(
+				SexPosition.SITTING,
+				Util.newArrayListOfValues(SexSlotSitting.SITTING),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL));
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getCharacterTargetedForSexAction(this).isTaur()
+					&& checkBaseRequirements(data, false);
+		}
+		@Override
+		public String getActionTitle() {
+			return "Perform oral";
+		}
+		@Override
+		public String getActionDescription() {
+			return "While sitting down, get [npc2.name] to turn around and back up towards you, presenting [npc.her] animalistic genitals to you so that you can perform oral on [npc2.herHim].";
+		}
+		@Override
+		public String getDescription() {
+			return "Deciding that [npc.she] [npc.verb(want)] to perform oral on [npc2.name], [npc.name] [npc.verb(sit)] down, before getting [npc2.name] to turn around and back up so that [npc2.her] animalistic genitals are in front of [npc.her] [npc.face]."
+					+ " Bringing [npc.her] mouth up to [npc2.namePos] groin, [npc.she] [npc.moansVerb], "
+					+ "[npc.speech(I can't wait to get a taste of you!)]";
+		}
+		@Override
+		public void applyEffects() {
+			applyChangeSlotEffects(
+					Sex.getCharacterPerformingAction(),
+					SexSlotSitting.SITTING,
+					Sex.getCharacterTargetedForSexAction(this),
+					SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL);
+//			GenericPositioningNew.setNewSexManager(data, false);
+		}
+	};
+	
+	public static final SexAction POSITION_GIVING_ORAL_TO_TAUR_REQUEST = new SexAction(
+			SexActionType.POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ONE_VANILLA,
+			null,
+			SexParticipantType.NORMAL) {
+
+		private PositioningData data = new PositioningData(
+				SexPosition.SITTING,
+				Util.newArrayListOfValues(SexSlotSitting.SITTING),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL));
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getCharacterTargetedForSexAction(this).isTaur()
+					&& checkBaseRequirements(data, true);
+		}
+		@Override
+		public String getActionTitle() {
+			return "Perform oral (R)";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Try to sit down and get [npc2.name] to turn around and back up towards you, presenting [npc.her] animalistic genitals to you so that you can perform oral on [npc2.herHim].";
+		}
+		@Override
+		public String getDescription() {
+			return "You try to manoeuvre around in such a way that you'll be able to sit down and get [npc2.name] to present [npc2.her] animalistic genitals to you."
+					+ " As you do this, you [npc.moan], [npc.speech(Please, I want to use my mouth...)]";
+		}
+		@Override
+		public void applyEffects() {
+			Sex.setPositionRequest(data);
+		}
+	};
+	
 	public static final SexAction SWITCH_TO_RECEIVING_ORAL = new SexAction(
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -211,7 +293,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING),
 				Util.newArrayListOfValues(SexSlotSitting.PERFORMING_ORAL));
 		
@@ -254,7 +336,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING),
 				Util.newArrayListOfValues(SexSlotSitting.PERFORMING_ORAL));
 		
@@ -290,7 +372,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
@@ -333,7 +415,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
@@ -370,7 +452,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_IN_LAP));
 
@@ -413,7 +495,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_IN_LAP));
 		
@@ -449,7 +531,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_IN_LAP),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 
@@ -501,7 +583,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_IN_LAP),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
@@ -536,7 +618,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_BETWEEN_LEGS),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 
@@ -581,7 +663,7 @@ public class ChairSex {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(SexSlotSitting.SITTING_BETWEEN_LEGS),
 				Util.newArrayListOfValues(SexSlotSitting.SITTING));
 		
@@ -650,7 +732,7 @@ public class ChairSex {
 			
 			if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotSitting.SITTING_IN_LAP) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Roughly pushing [npc2.name] down, [npc.name] [npc.verb(straddle)] [npc2.her] lap, leaning forwards to glare into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
 									+ " [npc.speech(Alright, slut, I'll take you for a ride!)]";
@@ -667,7 +749,7 @@ public class ChairSex {
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotSitting.SITTING) {
 				if(Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotSitting.SITTING_IN_LAP) {
 					if(isHappy) {
-						switch(Sex.getSexPace(Sex.getActivePartner())) {
+						switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 							case DOM_ROUGH:
 								return "Sitting down, [npc.name] [npc.verb(grab)] hold of [npc2.namePos] [npc2.arm], and with a sharp tug,"
 											+ " [npc.she] [npc.verb(pull)] [npc2.herHim] down so that [npc2.sheIs] straddling [npc.her] lap. Leaning forwards to glare into [npc2.her] eyes, [npc.name] [npc.moansVerb],"
@@ -685,7 +767,7 @@ public class ChairSex {
 					
 				} else if(Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL) {
 					if(isHappy) {
-						switch(Sex.getSexPace(Sex.getActivePartner())) {
+						switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 							case DOM_ROUGH:
 								return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] reaches out to grab [npc2.her] hind-legs, before pulling [npc2.her] animalistic groin up to [npc.her] face."
 										+ " Giving [npc2.her] rump a sharp slap, [npc.name] then [npc.moansVerb],"
@@ -703,7 +785,7 @@ public class ChairSex {
 					
 				} else if(Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotSitting.SITTING_BETWEEN_LEGS) {
 					if(isHappy) {
-						switch(Sex.getSexPace(Sex.getActivePartner())) {
+						switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 							case DOM_ROUGH:
 								return "Letting [npc2.name] finish [npc2.her] manoeuvre, [npc.name] sits down, before lifting [npc.her] [np.legs], wrapping them around [npc2.namePos] lower back, and roughly forcing [npc2.herHim] forwards."
 										+ " Glaring up at [npc2.herHim], [npc.name] then spreads [npc.her] [npc.legs] and [npc.moansVerb],"
@@ -721,7 +803,7 @@ public class ChairSex {
 					
 				} else {
 					if(isHappy) {
-						switch(Sex.getSexPace(Sex.getActivePartner())) {
+						switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 							case DOM_ROUGH:
 								return "Sitting down, [npc.name] [npc.verb(grab)] hold of [npc2.namePos] [npc2.arm], and with a sharp tug, [npc.she] [npc.verb(pull)] [npc2.herHim] down onto [npc2.her] knees before [npc.herHim]."
 										+ " Leaning forwards to glare down into [npc2.her] eyes, [npc.name] [npc.moansVerb],"
@@ -740,7 +822,7 @@ public class ChairSex {
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotSitting.PERFORMING_ORAL) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Roughly pushing [npc2.name] down, [npc.name] kneels before [npc2.herHim], leaning forwards to glare up into [npc2.her] eyes as [npc.she] [npc.moansVerb],"
 									+ " [npc.speech(Alright, slut, you'd better be glad that I like performing oral!)]";

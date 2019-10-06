@@ -1,7 +1,10 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -9,7 +12,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
@@ -17,8 +19,9 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.SubspeciesPreference;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogueCompanions;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -32,7 +35,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.2.11
+ * @version 0.3.5.1
  * @author Innoxia
  */
 public class HarpyNestsAttacker extends NPC {
@@ -61,19 +64,27 @@ public class HarpyNestsAttacker extends NPC {
 			// Set random level from 2 to 5:
 			setLevel(Util.random.nextInt(4) + 2);
 			
+			Map<Subspecies, Integer> subspeciesMap = new HashMap<>();
+			for(Entry<Subspecies, SubspeciesPreference> entry : this.hasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
+				if(entry.getKey().getRace()==Race.HARPY) {
+					subspeciesMap.put(entry.getKey(), entry.getValue().getValue());
+				}
+			}
+			
+			Subspecies subspecies = Util.getRandomObjectFromWeightedMap(subspeciesMap);
 			
 			// RACE & NAME:
 			if(this.hasPenis()) {
 				if(this.hasBreasts()) {
-					setBody(Gender.F_P_B_SHEMALE, Subspecies.HARPY, RaceStage.LESSER);
+					setBody(Gender.F_P_B_SHEMALE, subspecies, RaceStage.LESSER);
 				} else {
-					setBody(Gender.F_P_TRAP, Subspecies.HARPY, RaceStage.LESSER);
+					setBody(Gender.F_P_TRAP, subspecies, RaceStage.LESSER);
 				}
 			} else {
 				if(this.hasBreasts()) {
-					setBody(Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER);
+					setBody(Gender.F_V_B_FEMALE, subspecies, RaceStage.LESSER);
 				} else {
-					setBody(Gender.F_V_FEMALE, Subspecies.HARPY, RaceStage.LESSER);
+					setBody(Gender.F_V_FEMALE, subspecies, RaceStage.LESSER);
 				}
 			}
 
@@ -102,9 +113,8 @@ public class HarpyNestsAttacker extends NPC {
 			
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			CharacterUtils.applyMakeup(this, true);
-	
-			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+
+			initHealthAndManaToMax();
 		}
 
 		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
@@ -123,8 +133,11 @@ public class HarpyNestsAttacker extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
+		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
+		this.clearNonEquippedInventory(false);
+		CharacterUtils.generateItemsInInventory(this);
+		
 		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
-//		super.equipClothing(settings);
 	}
 	
 	@Override

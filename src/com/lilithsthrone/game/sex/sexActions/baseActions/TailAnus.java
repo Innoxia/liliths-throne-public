@@ -351,7 +351,7 @@ public class TailAnus {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before violently slamming forwards, forcing [npc.her] [npc.tail+] deep into [npc2.her] [npc2.asshole+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.tailTip+] of [npc.her] [npc.tail] between [npc2.namePos] ass cheeks,"
-									+ " and with a forceful thrust, [npc.she] roughly slams it deep into [npc2.her] [npc2.asshole+]."));
+									+ " and with a forceful thrust, [npc.she] roughly [npc.verb(slam)] it deep into [npc2.her] [npc2.asshole+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

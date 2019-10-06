@@ -142,7 +142,7 @@
 	<p>
 		Other than their diminutive height (with most individuals standing at around three feet tall), an imp's appearance is identical to that of a demon.
 		 Despite their similar appearances, however, imps are far more mischievous and aggressive than their larger counterparts.
-		 Due to these antisocial personality traits, Dominion's enforcers always drive imps out of the city at first sight, with the vast majority of them ending up down in the undercity of Submission.
+		 Due to these antisocial personality traits, Dominion's Enforcers always drive imps out of the city at first sight, with the vast majority of them ending up down in the undercity of Submission.
 	</p>
 	]]>
 	</htmlContent>
@@ -157,7 +157,7 @@
 		Individually, imps are very weak, and so for their own protection (as well as for the increased opportunity to cause mischief), they will naturally form gangs of up to five or six members.
 		 The leader of these gangs is typically the largest one of the group, and is referred to as the alpha imp.
 		 Although most of the time these gangs are content to fight amongst themselves, they occasionally work up the courage to assault larger races.
-		 There have even been cases of imps sneaking up out of Submission during an arcane storm; making the most of the lack of enforcers to assault anyone in sight.
+		 There have even been cases of imps sneaking up out of Submission during an arcane storm; making the most of the lack of Enforcers to assault anyone in sight.
 	</p>
 	<p>
 		An imp's offspring will always be more imps.
@@ -270,29 +270,28 @@
 
 	<htmlContent tag="FOX_ASCENDANT_BASIC"><![CDATA[
 	<p>
-		Youkos are a subspecies of fox-morphs, characterized by their greater command over magic.
-		 Most of the fox-morph's qualities remain within youko, but they revere a patron Lilin as a goddess.
-		 They have a strong mastery of illusion-based magic, which they use to play pranks on others.
+		Youkos are a subspecies of fox-morph, characterised by possessing one or more arcane-imbued fox-tails.
+		 These special tails grant them a very strong affinity with the arcane, which, depending on the youko in question, is harnessed either for good causes or to play tricks on others.
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="FOX_ASCENDANT_ADVANCED"><![CDATA[
 	<p>
-		Emboldened by their demonic patron and the power that she affords, aggressive youko are notably more dangerous than their mundane cousins.
-		 Of the youko individuals who cause mischief, their mischief also takes a more intricate and cruel bend, aided by their enhanced command over illusory arts.
-		 Due to this, there have been many attempts to force youko out of Dominion, but due to their strong illusion magic, all efforts have so far been in vain.
+		Youkos can acquire extra tails (up to a maximum of nine) by having them granted either by a nine-tailed youko, or directly from the patron lilin herself.
+		 Their tails directly correspond to their ability with harnessing the arcane.
 	</p>
 	<p>
-		Youkos can naturally acquire extra tails, topping out at a maximum of nine tails.
-		 Their tails are almost always an indication of their ability with illusion magic.
+		The youko race is mainly divided between two philosophies; the worship of their patron lilin as being a benevolent goddess, or as one of deceit and sadistic trickery.
+		 While they may differ in philosophies, all youko are particularly adept at casting illusion-based spells.
 	</p>
 	<p>
-		The youko race is mainly divided between two philosophies; the worship of their patron Lilin as a benevolent being, or as a trickster goddess.
-		 They know a large amount amount of magic, which is limited to illusion-based spells.
+		Youko almost never leave their traditional forest home of the Shinrin highlands, and for any traveller choosing to venture in there, meeting a youko can be either a wonderful blessing or a terrible curse.
+		 While benevolent youko will offer food, shelter, and other aid to strangers, the malevolent youko will trick and waylay anyone unfortunate enough to encounter them.
+		 These tricks which the malevolent youko love to play on people can be incredibly sadistic in nature, and thanks to their illusionary spells, they've been known to trap and relentlessly torment travellers in their forest territory for years on end.
 	</p>
 	<p>
-		Malicious youko will only rarely seek to breed with other races, instead inflicting orgasm-denial on their defeated foes.
+		It is incredibly rare for a malicious youko to choose to breed with other races, as they instead prefer to inflict orgasm-denial on their defeated foes.
 		 A youko's offspring will be a mixture of youko and offspring of their partner's race.
 	</p>
 	]]>

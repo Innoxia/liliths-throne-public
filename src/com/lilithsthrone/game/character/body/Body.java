@@ -418,16 +418,22 @@ public class Body implements XMLSaving {
 			}
 			
 			CoveringPattern pattern = availablePatterns.get(Util.random.nextInt(availablePatterns.size()));
-			
+			if(pattern==CoveringPattern.EYE_IRISES) {
+				pattern = CoveringPattern.EYE_IRISES_HETEROCHROMATIC;
+			}
 			if(pattern == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
 				if(Math.random()>0.02f) { // As it's already selected heterochromatic eyes (0.5 chance), this 0.02 chance corresponds to an overall heterochromatic chance of 0.01, or 1%
 					pattern = CoveringPattern.EYE_IRISES;
 				} else {
 					if(primary==secondary) {
-						List<Colour> secondaryIrisColours = new ArrayList<>();
-						secondaryIrisColours.addAll(colourApplicationList);
+						List<Colour> secondaryIrisColours = new ArrayList<>(colourApplicationList);
 						secondaryIrisColours.remove(primary);
-						secondary = colourApplicationList.get(Util.random.nextInt(colourApplicationList.size()));
+						if(secondaryIrisColours.isEmpty()) {
+							pattern = CoveringPattern.EYE_IRISES;
+							secondary = primary;
+						} else {
+							secondary = Util.randomItemFrom(secondaryIrisColours);
+						}
 					}
 				}
 			}
@@ -3180,7 +3186,7 @@ public class Body implements XMLSaving {
 	}
 
 	private void addRaceWeight(Map<Race, Integer> raceWeightMap, Race race, int weight) {
-		if(race!=null) {
+		if(race!=null && race!=Race.NONE) {
 			raceWeightMap.putIfAbsent(race, 0);
 			raceWeightMap.put(race, raceWeightMap.get(race)+weight);
 		}
@@ -3213,16 +3219,7 @@ public class Body implements XMLSaving {
 				break;
 			case FLESH:
 				race = getRaceFromPartWeighting();
-				
-				if(raceWeightMap.size()==1) {
-					if(raceWeightMap.containsKey(Race.HUMAN)) {
-						this.raceStage = RaceStage.HUMAN;
-					} else {
-						this.raceStage = RaceStage.GREATER;
-					}
-				} else {
-					this.raceStage = RaceStage.LESSER;
-				}
+				this.raceStage = getRaceStageFromPartWeighting();
 				break;
 			case ICE:
 			case WATER:
@@ -3299,6 +3296,18 @@ public class Body implements XMLSaving {
 		}
 		
 		return race;
+	}
+	
+	public RaceStage getRaceStageFromPartWeighting() {
+		if(raceWeightMap.size()==1) {
+			if(raceWeightMap.containsKey(Race.HUMAN)) {
+				return RaceStage.HUMAN;
+			} else {
+				return RaceStage.GREATER;
+			}
+		} else {
+			return RaceStage.LESSER;
+		}
 	}
 
 	public Map<Race, Integer> getRaceWeightMap() {
@@ -5961,7 +5970,7 @@ public class Body implements XMLSaving {
 	}
 	
 	public void updateVaginaColouring() {
-		if(vagina.getType().getRace()!=null) {
+		if(vagina.getType()!=VaginaType.NONE) {
 			switch(vagina.getType().getRace()) {
 				case ANGEL:
 					coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
@@ -5989,7 +5998,7 @@ public class Body implements XMLSaving {
 	}
 	
 	public void updatePenisColouring() {
-		if(penis.getType().getRace()!=null) {
+		if(penis.getType()!=PenisType.NONE) {
 			switch(penis.getType().getRace()) {
 				case ANGEL:
 					coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.ANGEL).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));

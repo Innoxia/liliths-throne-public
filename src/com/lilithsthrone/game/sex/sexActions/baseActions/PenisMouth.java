@@ -29,7 +29,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
- * @version 0.3.3.10
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public class PenisMouth {
@@ -42,7 +42,11 @@ public class PenisMouth {
 
 	private static List<GameCharacter> getCharactersForParsing(GameCharacter characterReceivingBlowjob) {
 		List<GameCharacter> characters = Util.newArrayListOfValues(Sex.getCharacterPerformingAction(), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()));
-		characters.addAll(getOngoingCharacters(characterReceivingBlowjob));
+		for(GameCharacter c : getOngoingCharacters(characterReceivingBlowjob)) {
+			if(!characters.contains(c)) {
+				characters.add(c);
+			}
+		}
 		return characters;
 	}
 	

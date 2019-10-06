@@ -22,7 +22,7 @@ import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
@@ -444,7 +444,7 @@ public class ResponseSex extends Response {
 			domMap.put(sortedDominants.get(i), domSlots.get(i));
 		}
 		
-		this.sexManager = new SexManagerDefault(SexPositionOther.STANDING, domMap, subMap) {
+		this.sexManager = new SexManagerDefault(SexPosition.STANDING, domMap, subMap) {
 			@Override
 			public SexPace getStartingSexPaceModifier(GameCharacter character) {
 				if(character.isPlayer()) {

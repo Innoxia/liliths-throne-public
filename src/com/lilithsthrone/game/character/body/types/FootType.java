@@ -66,9 +66,7 @@ public class FootType {
 			"clawjob",
 			"[npc.SheHasFull] bird-like talons in place of feet.",
 			Util.newArrayListOfValues(
-					FootStructure.PLANTIGRADE,
-					FootStructure.DIGITIGRADE,
-					FootStructure.UNGULIGRADE)) {
+					FootStructure.DIGITIGRADE)) {
 	};
 	
 }

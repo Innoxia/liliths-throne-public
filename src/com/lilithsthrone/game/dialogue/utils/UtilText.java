@@ -66,6 +66,7 @@ import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.OccupationTag;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -132,9 +133,10 @@ public class UtilText {
 		
 		for (char c : input.toCharArray()) {
 			switch (c) {
-				case ' ':
-					builder.append("&nbsp;");
-					break;
+				// I'm not sure why this was being changed to a non-breaking space... It was interfering with clothing name equality and such, so I removed it in v0.3.5.1
+//				case ' ':
+//					builder.append("&nbsp;");
+//					break;
 				case '<':
 					builder.append("&lt;");
 					break;
@@ -161,73 +163,10 @@ public class UtilText {
 	
 	public static String parsePlayerThought(String text) {
 		return parseThought(text, Main.game.getPlayer());
-//		if(Main.game.getPlayer()==null) {
-//			return "";
-//		}
-//		
-//		modifiedSentence = text;
-//		if (Main.game.getPlayer().hasFetish(Fetish.FETISH_BIMBO))
-//			modifiedSentence = Util.addBimbo(text, 6);
-//
-//		if (Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE_STRONG)
-//			return "<span class='thoughts masculine'>" + modifiedSentence + "</span>";
-//		else if (Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.ANDROGYNOUS)
-//			return "<span class='thoughts androgynous'>" + modifiedSentence + "</span>";
-//		else
-//			return "<span class='thoughts feminine'>" + modifiedSentence + "</span>";
 	}
 
 	public static String parsePlayerSpeech(String text) {
 		return parseSpeech(text, Main.game.getPlayer());
-//		modifiedSentence = text;
-//		if (Main.game.getPlayer().hasFetish(Fetish.FETISH_BIMBO)) {
-//			modifiedSentence = Util.addBimbo(modifiedSentence, 6);
-//		}
-//		
-//		if(Main.game.getPlayer().getAlcoholLevel().getSlurredSpeechFrequency()>0) {
-//			modifiedSentence = Util.addDrunkSlur(modifiedSentence, Main.game.getPlayer().getAlcoholLevel().getSlurredSpeechFrequency());
-//		}
-//		
-//		// Apply speech effects:
-//		if(Main.game.isInSex()) {
-//			if(Sex.isCharacterEngagedInOngoingAction(Main.game.getPlayer())) {
-//				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
-//			}
-//			
-//			if(!Sex.getContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH).isEmpty()) {
-//				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-//			} else {
-//				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
-//					for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-//						if(c.getClothingType().isMufflesSpeech()) {
-//							modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-//							break;
-//						}
-//					}
-//				}
-//			}
-//			
-//		} else {
-//			if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
-//				for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-//					if(c.getClothingType().isMufflesSpeech()) {
-//						modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-//						break;
-//					}
-//				}
-//			}
-//		}
-//		
-//		if(Main.game.getPlayer().getLipSize().isImpedesSpeech()) {
-//			modifiedSentence = Util.applyLisp(modifiedSentence);
-//		}
-//
-//		if (Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE_STRONG)
-//			return "<span class='speech' style='color:" + Colour.MASCULINE.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-//		else if (Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.ANDROGYNOUS)
-//			return "<span class='speech' style='color:" + Colour.ANDROGYNOUS.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-//		else
-//			return "<span class='speech' style='color:" + Colour.FEMININE.toWebHexString() + ";'>" + modifiedSentence + "</span>";
 	}
 
 	private static String getGlowStyle(Colour colour) {
@@ -241,14 +180,21 @@ public class UtilText {
 		
 		modifiedSentence = splitOnConditional[splitOnConditional.length-1];
 		
-		if(!parserTags.contains(ParserTag.SEX_ALLOW_MUFFLED_SPEECH) && Main.game.isInSex()
+		if(!parserTags.contains(ParserTag.SEX_ALLOW_MUFFLED_SPEECH)
+				&& Main.game.isInSex()
 				&& Sex.getAllParticipants().contains(target)
-				&& (!SexAreaOrifice.MOUTH.isFree(target) || target.isSpeechMuffled())) {
-			modifiedSentence = Util.replaceWithMuffle(modifiedSentence, 2);// + " <i style='font-size:66%;'>("+modifiedSentence+")</i>";
+				&& target.isSpeechMuffled()) {
+			if(Sex.isOngoingActionsBlockingSpeech(target)) {
+				modifiedSentence = Util.replaceWithMuffle(modifiedSentence, 2);// + " <i style='font-size:66%;'>("+modifiedSentence+")</i>";
+			}
 			
 		} else {
 			if (target.hasFetish(Fetish.FETISH_BIMBO)) {
-				modifiedSentence = Util.addBimbo(modifiedSentence, 6);
+				if(target.isFeminine()) {
+					modifiedSentence = Util.addBimbo(modifiedSentence, 6);
+				} else {
+					modifiedSentence = Util.addBro(modifiedSentence, 6);
+				}
 			}
 			
 			if(target.getAlcoholLevel().getSlurredSpeechFrequency()>0) {
@@ -256,29 +202,22 @@ public class UtilText {
 			}
 			
 			// Apply speech effects:
-	//		if(Main.game.isInSex() && target.isPlayer()) {
-	//			if(Sex.isCharacterEngagedInOngoingAction(Main.game.getPlayer())) {
-	//				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
-	//			}
-	//			if(!Sex.getContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH).isEmpty()) {
-	//				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-	//				
-	//			} else if(target.isSpeechMuffled()) {
-	//				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
-	//			}
-	//			
-	//		} else 
-			if(Main.game.isInSex() && Sex.getAllParticipants().contains(target)) {
+			if(target.isSpeechMuffled()) {
+				modifiedSentence = Util.addMuffle(modifiedSentence, 5);
+				
+			} else if(Main.game.isInSex() && Sex.getAllParticipants().contains(target)) {
 				if(Sex.isCharacterEngagedInOngoingAction(target)) {
 					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 				}
 				
-			} else if(target.isSpeechMuffled()) {
-				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 			}
 			
-			if(target.getLipSize().isImpedesSpeech()) {
+			if(target.getLipSize().isImpedesSpeech() || target.hasPersonalityTrait(PersonalityTrait.LISP)) {
 				modifiedSentence = Util.applyLisp(modifiedSentence);
+			}
+
+			if(target.hasPersonalityTrait(PersonalityTrait.STUTTER)) {
+				modifiedSentence = Util.addStutter(modifiedSentence, 4);
 			}
 			
 			if(splitOnConditional.length>1) {
@@ -356,7 +295,7 @@ public class UtilText {
 			modifiedSentence = Util.addBimbo(modifiedSentence, 6);
 		}
 		if (stutter) {
-			modifiedSentence = Util.addStutter(modifiedSentence, 6);
+			modifiedSentence = Util.addStutter(modifiedSentence, 4);
 		}
 		return "<span class='speech' style='color:" + femininity.getColour().toWebHexString() + ";'>" + modifiedSentence + "</span>";
 	}
@@ -862,7 +801,6 @@ public class UtilText {
 							
 						} else {
 							if(c == 'N' && substringMatchesInReverseAtIndex(input, "#THEN", i)) {
-//								#IF(pc.​​​​​​isFeminine())#THEN#IF!pc.​​​​​​isFeminine()#THEN:3#ELSE>:(#ENDIF#ELSE:(#ENDIF
 								// If last conditional was brackets, remove the THEN
 								if(lastConditionalUsedBrackets) {
 									sb.replace(sb.length()-4, sb.length(), ""); // Reset StringBuilder to exclude #THEN
@@ -1460,7 +1398,7 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(character.isSlave()) {
-					return character.getSlaveJob().getName(character);
+					return character.getSlaveJob(Main.game.getHourOfDay()).getName(character);
 				}
 				return character.getHistory().getName();
 			}
@@ -2517,11 +2455,16 @@ public class UtilText {
 						"mas"),
 				true,
 				true,
-				"(coloured)",//TODO
-				"Description of method"){//TODO
+				"(coloured)",
+				"Returns the name of this character's femininity. Pass in 'true' as an argument to make the returned text coloured in the femininity's colour."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return Femininity.valueOf(character.getFemininityValue()).getName(false);
+				Femininity fem =  Femininity.valueOf(character.getFemininityValue());
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					return "<span style='color:"+fem.getColour().toWebHexString()+";'>"+fem.getName(false)+"</span>";
+							
+				}
+				return fem.getName(false);
 			}
 		});
 		
@@ -3806,7 +3749,6 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				int hour = Main.game.getHourOfDay();
-				
 				if(hour<4) {
 					return "evening";
 				} else if(hour<12) {
@@ -3814,7 +3756,6 @@ public class UtilText {
 				}else if(hour<17) {
 					return "afternoon";
 				}
-				
 				return "evening";
 			}
 		});
@@ -4042,17 +3983,55 @@ public class UtilText {
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"mainWeapon",
-						"primaryWeapon"),
+						"primaryWeapon",
+						"mainWeapon1",
+						"primaryWeapon1"),
 				true,
 				true,
 				"",
-				"Returns the name of the main weapon equipped by the character. Returns 'fists' if no weapon is equipped."){//TODO
+				"Returns the name of the main weapon equipped by the character in their primary arm row. Returns 'fists' if no weapon is equipped."){//TODO
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(character.getMainWeapon()==null) {
+				if(character.getMainWeapon(0)==null) {
 					return "fists";
 				} else {
-					return character.getMainWeapon().getName();
+					return character.getMainWeapon(0).getName();
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"mainWeapon2",
+						"primaryWeapon2"),
+				true,
+				true,
+				"",
+				"Returns the name of the main weapon equipped by the character in their secondary arm row (for characters who have more than one pair of arms). Returns 'fists' if no weapon is equipped."){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getMainWeapon(1)==null) {
+					return "fists";
+				} else {
+					return character.getMainWeapon(1).getName();
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"mainWeapon3",
+						"primaryWeapon3"),
+				true,
+				true,
+				"",
+				"Returns the name of the main weapon equipped by the character in their tertiary arm row (for characters who have more than one pair of arms). Returns 'fists' if no weapon is equipped."){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getMainWeapon(2)==null) {
+					return "fists";
+				} else {
+					return character.getMainWeapon(2).getName();
 				}
 			}
 		});
@@ -4061,21 +4040,58 @@ public class UtilText {
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"offhandWeapon",
-						"secondaryWeapon"),
+						"secondaryWeapon",
+						"offhandWeapon0",
+						"secondaryWeapon0"),
 				true,
 				true,
 				"",
-				"Returns the name of the offhand weapon equipped by the character. Returns 'fists' if no weapon is equipped."){//TODO
+				"Returns the name of the offhand weapon equipped by the character in their primary arm row. Returns 'fists' if no weapon is equipped."){//TODO
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(character.getOffhandWeapon()==null) {
+				if(character.getOffhandWeapon(0)==null) {
 					return "fists";
 				} else {
-					return character.getOffhandWeapon().getName();
+					return character.getOffhandWeapon(0).getName();
 				}
 			}
 		});
-		
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"offhandWeapon2",
+						"secondaryWeapon2"),
+				true,
+				true,
+				"",
+				"Returns the name of the offhand weapon equipped by the character in their primary arm row (for characters who have more than one pair of arms). Returns 'fists' if no weapon is equipped."){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getOffhandWeapon(1)==null) {
+					return "fists";
+				} else {
+					return character.getOffhandWeapon(1).getName();
+				}
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"offhandWeapon3",
+						"secondaryWeapon3"),
+				true,
+				true,
+				"",
+				"Returns the name of the offhand weapon equipped by the character in their tertiary arm row (for characters who have more than one pair of arms). Returns 'fists' if no weapon is equipped."){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(character.getOffhandWeapon(2)==null) {
+					return "fists";
+				} else {
+					return character.getOffhandWeapon(2).getName();
+				}
+			}
+		});
 		
 		
 		
@@ -6327,7 +6343,7 @@ public class UtilText {
 				try { // Getting the target NPC can throw a NullPointerException, so if it does (i.e., there's no NPC suitable for parsing), just catch it and carry on.
 					engine.put("npc", ParserTarget.NPC.getCharacter("npc", specialNPCs));
 				} catch(Exception ex) {
-					System.err.println("Parsing error: Could not initialise npc");
+//					System.err.println("Parsing error: Could not initialise npc");
 				}
 			}
 			
@@ -6509,6 +6525,9 @@ public class UtilText {
 		for(FetishDesire fetishDesire : FetishDesire.values()) {
 			engine.put("FETISH_DESIRE_"+fetishDesire.toString(), fetishDesire);
 		}
+		for(PersonalityTrait personalityTrait : PersonalityTrait.values()) {
+			engine.put("PERSONALITY_TRAIT_"+personalityTrait.toString(), personalityTrait);
+		}
 		for(Occupation occ : Occupation.values()) {
 			engine.put("OCCUPATION_"+occ.toString(), occ);
 		}
@@ -6550,9 +6569,6 @@ public class UtilText {
 		}
 		for(NPCFlagValue flag : NPCFlagValue.values()) {
 			engine.put("NPC_FLAG_"+flag.toString(), flag);
-		}
-		for(Occupation occupation : Occupation.values()) {
-			engine.put("OCCUPATION_"+occupation.toString(), occupation);
 		}
 		for(SlavePermissionSetting permission : SlavePermissionSetting.values()) {
 			engine.put("SLAVE_PERMISSION_SETTING_"+permission.toString(), permission);

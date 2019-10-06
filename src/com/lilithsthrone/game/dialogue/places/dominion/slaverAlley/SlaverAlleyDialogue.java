@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -22,17 +23,20 @@ import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
+import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
 import com.lilithsthrone.game.occupantManagement.SlavePermission;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
@@ -90,7 +94,11 @@ public class SlaverAlleyDialogue {
 			slave.addFetish(Fetish.FETISH_SUBMISSIVE);
 			slave.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 			slave.addFetish(Fetish.FETISH_ORAL_GIVING);
-			slave.setPersonalityTrait(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH);
+			slave.removePersonalityTraits(PersonalityCategory.SPEECH);
+			slave.removePersonalityTrait(PersonalityTrait.SHY);
+			if(Math.random()<0.5f) {
+				slave.addPersonalityTrait(PersonalityTrait.LEWD);
+			}
 			slave.setObedience(100);
 		}
 
@@ -113,7 +121,10 @@ public class SlaverAlleyDialogue {
 			
 			slave.addFetish(Fetish.FETISH_DOMINANT);
 			slave.addFetish(Fetish.FETISH_CUM_STUD);
-			slave.setPersonalityTrait(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW);
+			slave.removePersonalityTrait(PersonalityTrait.COWARDLY);
+			if(Math.random()<0.5f) {
+				slave.addPersonalityTrait(PersonalityTrait.BRAVE);
+			}
 			slave.setObedience(75);
 		}
 
@@ -240,7 +251,7 @@ public class SlaverAlleyDialogue {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 
 		@Override
@@ -391,6 +402,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNode getNextDialogue() {
+						CompanionManagement.initManagement(null, 0, null);
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -420,6 +432,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNode getNextDialogue() {
+						CompanionManagement.initManagement(null, 0, null);
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -449,6 +462,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNode getNextDialogue() {
+						CompanionManagement.initManagement(null, 0, null);
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -478,6 +492,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNode getNextDialogue() {
+						CompanionManagement.initManagement(null, 0, null);
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -507,6 +522,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNode getNextDialogue() {
+						CompanionManagement.initManagement(null, 0, null);
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -999,13 +1015,13 @@ public class SlaverAlleyDialogue {
 									+ " <span style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</span>, has been marked as available for"));
 				
 				sexAvailability.clear();
-				if(npc.hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL)) {
+				if(npc.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL)) {
 					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>oral</b>");
 				}
-				if(npc.hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL)) {
+				if(npc.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL)) {
 					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK.toWebHexString()+";'>vaginal</b>");
 				}
-				if(npc.hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL)) {
+				if(npc.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL)) {
 					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK_DEEP.toWebHexString()+";'>anal</b>");
 				}
 				
@@ -1027,27 +1043,31 @@ public class SlaverAlleyDialogue {
 			List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 			
 			if(index==0) {
-				return new Response("Complain", "You don't like the idea of slaves being publicly used. There appears to be an enforcer watching over the area, so perhaps you should go and complain to him... (Not yet implemented!)", null);
+				return new Response("Complain", "You don't like the idea of slaves being publicly used. There appears to be an Enforcer watching over the area, so perhaps you should go and complain to him... (Not yet implemented!)", null);
 				
 			} else if(index <= charactersPresent.size()) {
+				GameCharacter slave = charactersPresent.get(index-1);
+				boolean ownedByPlayer = slave.isSlave() && slave.getOwner().isPlayer();
 				return new ResponseSex(
-						"Use "+charactersPresent.get(index-1).getName(true),
-						UtilText.parse(charactersPresent.get(index-1), "Walk up to [npc.name] and have some fun..."),
+						"Use "+slave.getName(true),
+						UtilText.parse(slave, "Walk up to [npc.name] and have some fun..."),
 						false, false,
 						new SMStocks(
-								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_VAGINAL),
-								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_ANAL),
-								charactersPresent.get(index-1).hasSlaveJobSetting(SlaveJobSetting.SEX_ORAL),
+								ownedByPlayer || slave.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_VAGINAL),
+								ownedByPlayer || slave.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL),
+								ownedByPlayer || slave.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.BEHIND_STOCKS)),
-								Util.newHashMapOfValues(new Value<>(charactersPresent.get(index-1), SexSlotStocks.LOCKED_IN_STOCKS))),
+								Util.newHashMapOfValues(new Value<>(slave, SexSlotStocks.LOCKED_IN_STOCKS))),
 						null,
-						null, AFTER_STOCKS_SEX, "<p>"
+						null,
+						AFTER_STOCKS_SEX,
+						"<p>"
 							+ "Deciding that you'd like to have some fun with the [npc.race] in the stocks nearest to you, you walk up behind [npc.herHim]."
 							+ " [npc.She] lets out a little [npc.moan] as [npc.she] hears you, and shifts [npc.her] [npc.hips+] in anticipation of what's about to happen..."
 						+ "</p>") {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(charactersPresent.get(index-1));
+						Main.game.setActiveNPC((NPC) slave);
 					}
 				};
 			} else {

@@ -31,7 +31,7 @@ public class DemonHome {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override
@@ -88,7 +88,7 @@ public class DemonHome {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override
@@ -104,7 +104,7 @@ public class DemonHome {
 					+ "</p>"
 					+ "<p>"
 						+ "As you walk down the street, you pass several fenced-off private gardens; their lush splash of greenery helping to break up the monotony of the surrounding building's creamy-white stone facades."
-						+ " Despite the fact that Demon Home is a little quieter than most of the other areas of Dominion, you notice that there are slightly more enforcers patrolling the streets;"
+						+ " Despite the fact that Demon Home is a little quieter than most of the other areas of Dominion, you notice that there are slightly more Enforcers patrolling the streets;"
 									+ " evidence that the wealthy and influential residents of the city are afforded extra protection."
 					+ "</p>");
 			
@@ -157,7 +157,7 @@ public class DemonHome {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override
@@ -188,7 +188,7 @@ public class DemonHome {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override
@@ -217,7 +217,7 @@ public class DemonHome {
 		
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override
@@ -264,7 +264,7 @@ public class DemonHome {
 
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override
@@ -351,7 +351,7 @@ public class DemonHome {
 					+ "<p style='text-align:center;'>The occupant of this residence, namely the person of <i>Arthur Fairbanks</i>, has been issued with an arrest warrant.<br/>"
 					+ "These premises are therefore under investigation by Dominion's Enforcer Department, and any unauthorised entry beyond this point is in violation of the law."
 					+ "<br/><br/>"
-					+ "Officer in charge of issuing the warrant: <i>Brax</i>"
+					+ "Officer in charge of issuing warrant: <i>[brax.fullName]</i>"
 					+ "<br/><br/>"
 					+ "Any complaints or inquiries should be made in person at Dominion's Enforcer HQ. Thank you for your understanding.</p>"
 					+ "<br/>"
@@ -373,7 +373,7 @@ public class DemonHome {
 					+ "<p>"
 					+ "Sensing a source of information, you step over to the dog-girl and offer her a hand up."
 					+ " She glances up at you with a worried look in her eyes. "
-					+ UtilText.parseNPCSpeech("Y-you're not an enforcer... are you?", Femininity.FEMININE)
+					+ UtilText.parseNPCSpeech("Y-You're not an Enforcer... are you?", Femininity.FEMININE)
 					+ " she asks."
 					+ "</p>"
 					+ "<p>"
@@ -386,7 +386,7 @@ public class DemonHome {
 					+ " she says, reaching up to take your offered hand. You quickly help her"
 					+ " to her feet as you introduce yourself, and she smiles and thanks you for your help before continuing, "
 					+ UtilText.parseNPCSpeech("If you're looking to find out what happened, I'm afraid I don't really know much."
-							+ " Late last night, the enforcers showed up, banging on Arthur's door."
+							+ " Late last night, the Enforcers showed up, banging on Arthur's door."
 							+ " When he answered, I heard them say something about plotting against Lilith, then they arrested him and dragged him away."
 							+ " I don't know what he did wrong... He's such a nice guy...", Femininity.FEMININE)
 					+ "</p>"

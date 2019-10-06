@@ -480,7 +480,7 @@ public class AlleywayProstituteDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "You laugh at the obvious lie."
-							+ " [pc.speech(I don't think so! You're wanted by the enforcers, aren't you? I wonder what punishment they've got in store for you?)]"
+							+ " [pc.speech(I don't think so! You're wanted by the Enforcers, aren't you? I wonder what punishment they've got in store for you?)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Realising that [npc.sheIs] been caught, [npc.namePos] expression quickly turns into one of anger, and [npc.she] launches [npc.herself] at you in a blind fury."
@@ -513,7 +513,7 @@ public class AlleywayProstituteDialogue {
 						+ "[npc.Name] collapses to the floor, completely defeated."
 						+ " [npc.She] looks up at you, and you see that there's a desperate, wild look in [npc.her] [npc.eyes]."
 						+ " Making a pitiful little whining noise, [npc.she] begs,"
-						+ " [npc.speech(Do what you want with me! Just, please, I don't want to be a slave! Don't hand me over to the enforcers!)]"
+						+ " [npc.speech(Do what you want with me! Just, please, I don't want to be a slave! Don't hand me over to the Enforcers!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Despite the awful situation that [npc.she] finds [npc.herself] in, it appears as though your powerful arcane aura is having a strong effect on [npc.name]."
@@ -635,7 +635,7 @@ public class AlleywayProstituteDialogue {
 						+ "<p>"
 							+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
 							+ " Pulling you to your feet, [npc.name] pushes you against a nearby wall, before growling,"
-							+ " [npc.speech(Looks like I'll be having to move on again now. I'm not sticking around for your little enforcer friends to show up and arrest me!"
+							+ " [npc.speech(Looks like I'll be having to move on again now. I'm not sticking around for your little Enforcer friends to show up and arrest me!"
 							+ " But before I go, I think I'll teach you a lesson not to fuck around with strangers!)]"
 						+ "</p>"
 						+ "<p>"
@@ -655,7 +655,7 @@ public class AlleywayProstituteDialogue {
 							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(Looks like I'll be having to move on again now. I'm not sticking around for your little enforcer friends to show up and arrest me!)] [npc.she] growls down at you, before turning around and running off."
+							+ "[npc.speech(Looks like I'll be having to move on again now. I'm not sticking around for your little Enforcer friends to show up and arrest me!)] [npc.she] growls down at you, before turning around and running off."
 						+ "</p>"
 						+ "<p>"
 							+ "<i>Now that you've revealed [npc.namePos] status as a fugitive from the law, you realise that this was the last time you'll ever see [npc.herHim].</i>"
@@ -744,7 +744,7 @@ public class AlleywayProstituteDialogue {
 			if(Sex.getNumberOfOrgasms(getProstitute()) >= getProstitute().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parse(getProstitute(),
 						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks back onto [npc.her] bed, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
+							+ "As you step back from [npc.name], [npc.she] sinks back onto [npc.her] bed, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(getProstitute()) > 1?"s":"")+"."
 							+ " Looking up at you, a satisfied smile settles across [npc.her] face, and [npc.she] sighs,"
 							+ " [npc.speech(Damn, you're good! It looks like I've got a new favourite customer! Please come back again soon!)]"
 						+ "</p>");
@@ -786,7 +786,7 @@ public class AlleywayProstituteDialogue {
 				} else {
 					return new Response(
 							"Remove character ("+UtilText.formatAsMoney(5000, "span")+")",
-							"Give [npc.name] enough money to pay off the enforcers who are after [npc.herHim], which would allow [npc.her] to stop having to work in these dangerous alleyways."
+							"Give [npc.name] enough money to pay off the Enforcers who are after [npc.herHim], which would allow [npc.her] to stop having to work in these dangerous alleyways."
 									+ " <b>This will permanently remove [npc.herHim] from the game.</b>",
 							AFTER_SEX_PAID_PAY_THEM_TO_LEAVE) {
 						@Override
@@ -816,7 +816,7 @@ public class AlleywayProstituteDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "You laugh at the obvious lie."
-							+ " [pc.speech(I don't think so! You're wanted by the enforcers, aren't you? I wonder what punishment they've got in store for you?)]"
+							+ " [pc.speech(I don't think so! You're wanted by the Enforcers, aren't you? I wonder what punishment they've got in store for you?)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Realising that [npc.sheIs] been caught, [npc.namePos] expression quickly turns into one of anger, and [npc.she] launches [npc.herself] at you in a blind fury."
@@ -849,7 +849,7 @@ public class AlleywayProstituteDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "You let out a sigh at the obvious lie."
-							+ " [pc.speech(You're wanted by the enforcers, aren't you?)]"
+							+ " [pc.speech(You're wanted by the Enforcers, aren't you?)]"
 						+ "</p>"
 						+ "<p>"
 							+ "[npc.Name] lets out a panicked gasp, proving your assumption correct."
@@ -859,7 +859,7 @@ public class AlleywayProstituteDialogue {
 						+ "<p>"
 							+ "[npc.speech(I must be crazy to be telling you this...)]"
 							+ " [npc.name] starts, but despite the hesitation in [npc.her] voice, [npc.she] lets out a sigh and continues,"
-							+ " [npc.speech(I owe someone very powerful almost five-thousand flames, and they've got the enforcers to brand me as a criminal until I can pay up...)]"
+							+ " [npc.speech(I owe someone very powerful almost five-thousand flames, and they've got the Enforcers to brand me as a criminal until I can pay up...)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Not wanting to leave [npc.herHim] trapped in such a horrible situation, you step forwards and hand the [npc.race] a bag of money."
@@ -912,7 +912,7 @@ public class AlleywayProstituteDialogue {
 			if(Sex.getNumberOfOrgasms(getProstitute()) >= getProstitute().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parse(getProstitute(),
 						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
+							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(getProstitute()) > 1?"s":"")+"."
 							+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
 						+ "</p>"
 						+ "<p>"
@@ -974,10 +974,10 @@ public class AlleywayProstituteDialogue {
 						+ "As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you."
 						+ " [npc.She] looks down at you, and you glance up to see a very satisfied smile cross [npc.her] face."
 						+ " [npc.She] leans down and pats you on the head,"
-						+ " [npc.speech(Farewell forever! You and your enforcer cronies will have to try harder than that to catch me!)]"
+						+ " [npc.speech(Farewell forever! You and your Enforcer cronies will have to try harder than that to catch me!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "With that, [npc.she] walks off, leaving you panting on the floor."
+						+ "With that, [npc.she] walks off, leaving you panting on the ground."
 						+ " It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way."
 					+ "</p>"
 					+ "<p>"

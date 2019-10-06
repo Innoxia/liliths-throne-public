@@ -127,7 +127,9 @@ public abstract class AbstractOutfit {
 				break;
 		}
 		
-		if(this.getWorldTypes()!=null && !this.getWorldTypes().contains(character.getWorldLocation())) {
+		if(this.getWorldTypes()!=null
+				&& !this.getWorldTypes().isEmpty()
+				&& !this.getWorldTypes().contains(character.getWorldLocation())) {
 			return false;
 		}
 		
@@ -331,7 +333,9 @@ public abstract class AbstractOutfit {
 					for(AbstractClothing c : guaranteedClothingEquips) {
 						if(c.getClothingType().getEquipSlots().get(0).isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES)) {
 							c.setName(UtilText.parse(character, c.getName()));
-							character.equipClothingOverride(c, c.getClothingType().getEquipSlots().get(0), false, false);
+							if(!character.isSlotIncompatible(c.getClothingType().getEquipSlots().get(0))) {
+								character.equipClothingOverride(c, c.getClothingType().getEquipSlots().get(0), false, false);
+							}
 						}
 					}
 				}
@@ -462,7 +466,7 @@ public abstract class AbstractOutfit {
 						if(!anyConditionalsFound) {
 							break;
 						}
-						if(ct.isCanBeEquipped(character, ct.getEquipSlots().get(0))) {
+						if(ct.isAbleToBeBeEquipped(character, ct.getEquipSlots().get(0)).getKey()) {
 							ctList.add(ct);
 						}
 					}
@@ -484,7 +488,7 @@ public abstract class AbstractOutfit {
 							.stream()
 							.map( e -> {
 								AbstractClothingType ct = ClothingType.getClothingTypeFromId(e.getTextContent());
-								if(!ct.isCanBeEquipped(character, ct.getEquipSlots().get(0))) {
+								if(!ct.isAbleToBeBeEquipped(character, ct.getEquipSlots().get(0)).getKey()) {
 									return null;
 								}
 								return ct;
@@ -521,19 +525,20 @@ public abstract class AbstractOutfit {
 					for(AbstractClothingType ct : ot.getTypes()) {
 						if(character.getClothingInSlot(ct.getEquipSlots().get(0))==null
 								&& (ct.getEquipSlots().get(0).isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES))) {
-							AbstractClothing clothing = AbstractClothingType.generateClothing(
-									ct,
-									ot.getPrimaryColours().isEmpty()?null:Util.randomItemFrom(ot.getPrimaryColours()),
-									ot.getSecondaryColours().isEmpty()?null:Util.randomItemFrom(ot.getSecondaryColours()),
-									ot.getTertiaryColours().isEmpty()?null:Util.randomItemFrom(ot.getTertiaryColours()), false);
-							
-							character.equipClothingOverride(
-									clothing,
-									ct.getEquipSlots().get(0),
-									false,
-									false);
-							
-							// Patterns are set when the clothing is created, so this was only used for testing. I've commented it out instead of deleting it as I may need it fo further testing use.
+							if(!character.isSlotIncompatible(ct.getEquipSlots().get(0))) {
+								AbstractClothing clothing = AbstractClothingType.generateClothing(
+										ct,
+										ot.getPrimaryColours().isEmpty()?null:Util.randomItemFrom(ot.getPrimaryColours()),
+										ot.getSecondaryColours().isEmpty()?null:Util.randomItemFrom(ot.getSecondaryColours()),
+										ot.getTertiaryColours().isEmpty()?null:Util.randomItemFrom(ot.getTertiaryColours()), false);
+								
+								character.equipClothingOverride(
+										clothing,
+										ct.getEquipSlots().get(0),
+										true, // Need to replace clothing as otherwise you get things like bras and overbust corsets being equipped together, with each of them blocking the other's removal.
+										false);
+							}
+							// Patterns are set when the clothing is created, so this was only used for testing. I've commented it out instead of deleting it as I may need it for further testing use.
 //							if(clothing.getClothingType().isPatternAvailable()) {
 //								clothing.setPattern(Util.randomItemFrom(new ArrayList<>(Pattern.getAllDefaultPatterns().values())).getName());
 //								clothing.setPatternColour(clothing.getColour());

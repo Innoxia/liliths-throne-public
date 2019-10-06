@@ -54,7 +54,7 @@
 		As you mention the name 'Arthur', Scarlett stands up from behind her desk, and her cheeks flush red as she starts to shout and curse, [scarlett.speech(If I hear that fucking name one more time, I swear I'm going to kill someone! Are you working with them?! Huh?! Those fucking cunts who fucked me over?! You've got five fucking seconds to start explaining!)]
 	</p>
 	<p>
-		Despite her foul language and aggressive posturing, you find Scarlett's little outburst to be more embarrassing rather than anything else. She clearly lacks the physical strength required in order to follow through on any of her threats, so it's more out of a desire to calm her down rather than due to feeling intimidated that you start to answer her, [pc.speech(Calm down, I'm not working with 'them', whoever they might be. I'm just a friend of Arthur's who's been trying to track him down. I found out from a helpful enforcer that he was meant to have been given to you. If you're still in possession of him, I'd like to see if I can buy his freedom, and if not, then could you [style.italics(please)] just tell me who you sold him to?)]
+		Despite her foul language and aggressive posturing, you find Scarlett's little outburst to be more embarrassing rather than anything else. She clearly lacks the physical strength required in order to follow through on any of her threats, so it's more out of a desire to calm her down rather than due to feeling intimidated that you start to answer her, [pc.speech(Calm down, I'm not working with 'them', whoever they might be. I'm just a friend of Arthur's who's been trying to track him down. I found out from a helpful Enforcer that he was meant to have been given to you. If you're still in possession of him, I'd like to see if I can buy his freedom, and if not, then could you [style.italics(please)] just tell me who you sold him to?)]
 	</p>
 	<p>
 		[scarlett.speech(Huh,)] Scarlett huffs as she sits back down, [scarlett.speech(so I guess you really are as stupid as you look. Can't you see that I've got no slaves for sale? I'm fucking finished. And it's all thanks to that business with Arthur...)]
@@ -165,7 +165,7 @@
 		#THEN[
 			alexa.speech(Now, taking into consideration that you took that little punishment of mine on her behalf, I'm willing to give you a discount. Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about fifteen thousand flames, but for you, I'll sell her for ten thousand.)]
 		#ELSE
-			[alexa.speech(Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about fifteen thousand flames. I'm not one for bargaining over price, so you can either pay up the fifteen thousand, or I'll sell her to someone else.)])
+			[alexa.speech(Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about fifteen thousand flames. I'm not one for bargaining over price, so you can either pay up the fifteen thousand, or I'll sell her to someone else.)]
 		#ENDIF
 	</p>
 	<p>

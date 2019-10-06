@@ -6,7 +6,7 @@
 		You find yourself walking through the area of Dominion known as 'Nightlife', which is currently fully living up to its name. The bright colours of neon signs join with the soft glow of lampposts to illuminate the street before you, which is packed with crowds of revellers. Many of these people are quite clearly drunk, and noisily shout and make lewd comments at those around them as they stagger between the many clubs and bars that fill this area.
 	</p>
 	<p>
-		Every now and then, you pass couples, and sometimes even groups, who have given in to their alcohol-fuelled lust and are publicly having sex with one another. The enforcers who patrol this area don't seem to care one bit about these lewd displays, and sometimes even to stop to watch the exhibitionists going at it.
+		Every now and then, you pass couples, and sometimes even groups, who have given in to their alcohol-fuelled lust and are publicly having sex with one another. The Enforcers who patrol this area don't seem to care one bit about these lewd displays, and sometimes even to stop to watch the exhibitionists going at it.
 	</p>
 	<p>
 		Looking past these crowds to the establishments which have attracted them, you see all sorts of different bars and clubs open for business. The vast majority of them, however, seem to either be completely full, or to have huge queues trailing out into the streets.
@@ -177,7 +177,7 @@
 	<htmlContent tag="WATERING_HOLE_SEARCH_GENERATE"><![CDATA[
 	<p>
 		Having decided upon the sort of person you'd like to find, you set about searching through the bustling crowds of clubbers. Before long, you catch sight of [npc.a_raceFull(true)] standing all alone; just the sort of person you were looking for! Walking up to [npc.herHim], you introduce yourself, and [npc.she] smiles at you as [npc.she] replies,
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.speech(O-Oh, h-hello. I'm [npc.name]. I came here with a friend, but they left to go dancing...)]
 		#ELSE
 			#IF npc.isConfident()
@@ -202,7 +202,7 @@
 	<htmlContent tag="WATERING_HOLE_FIND_CONTACT"><![CDATA[
 	<p>
 		Before long, you catch sight of [npc.a_raceFull(true)] standing all alone, and as you approach, you see that it's [npc.name]; just the person you were looking for! Walking up to [npc.herHim], you say hello, and [npc.she] happily smiles at you as [npc.she] recognises you from before.
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.speech(O-Oh, [pc.name]! Hi! H-How are you doing? I came here with a friend, but they left me standing alone again...)]
 		#ELSE
 			#IF npc.isConfident()
@@ -220,7 +220,7 @@
 	<htmlContent tag="WATERING_HOLE_PARTNER_LEAVES"><![CDATA[
 	<p>
 		Completely fed up with your rude behaviour, [npc.name]
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN lets out a sigh, before casting [npc.her] [npc.eyes] to the floor and stuttering, [npc.speech(Y-You're not very nice. I-I'm going to go and find my friend. B-Bye...)]
 		#ELSE
 			#IF npc.isConfident()
@@ -257,7 +257,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_TALK_CONTENT"><![CDATA[
 	<p>
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN[npc.She] seems to be a little shy, resulting in you doing most of the talking.
 		#ELSE
 			#IF npc.isConfident()
@@ -286,7 +286,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_FLIRT_CONTENT"><![CDATA[
 	<p>
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN[npc.She] instantly blushes as [npc.she] hears what you've just said, and, shuffling [npc.her] [npc.feet], [npc.she] smiles back at you in an awkward attempt to get you to continue.
 		#ELSE
 			#IF npc.isConfident()
@@ -353,7 +353,7 @@
 			#ELSE other one some attention.
 			#ENDIF
 		#ENDIF
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.Name] lets out a quiet little [npc.moan] in response to your touch, before gently leaning in against you and panting heavily into your [pc.ear], [npc.speech(~Aah!~ Y-Yes... D-Don't stop...)]
 		#ELSE
 			#IF npc.isConfident()
@@ -371,7 +371,7 @@
 	<htmlContent tag="WATERING_HOLE_MAIN_GROPE_REJECTED"><![CDATA[
 	<p>
 		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down between [npc.her] [npc.legs]. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the club's background noise,
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.speech(S-Stop it! That's too much!)]
 		#ELSE
 			#IF npc.isConfident()
@@ -451,7 +451,7 @@
 	#IF(!pc.isTaur() && !npc.isTaur())
 		<p>
 			Moving your [pc.foot] under the table, you slowly run it up the length of one of [npc.namePos] [npc.legs].
-			#IF npc.isNeurotic()
+			#IF npc.isShy()
 			#THEN [npc.She] starts to blush in response to your sudden touch, and, shuffling around on [npc.her] seat, [npc.she] shyly smiles at you and bites [npc.her] [npc.lip].
 			#ELSE
 				#IF npc.isConfident()
@@ -496,7 +496,7 @@
 				#ENDIF
 			</p>
 			<p>
-				#IF(npc.isNeurotic())
+				#IF(npc.isShy())
 					[npc.Name] lets out a quiet little [npc.moan] in response to your touch, before gently leaning in against you and panting heavily into your [pc.ear], [npc.speech(~Aah!~ Y-Yes... D-Don't stop...)]
 				#ELSE
 					#IF(npc.isConfident())
@@ -523,7 +523,7 @@
 				#ENDIF
 			</p>
 			<p>
-				#IF(npc.isNeurotic())
+				#IF(npc.isShy())
 					[npc.Name] lets out a quiet little [npc.moan] in response to your touch, before gently bucking [npc.her] animalistic body back against you and panting heavily, [npc.speech(~Aah!~ Y-Yes... D-Don't stop...)]
 				#ELSE
 					#IF(npc.isConfident())
@@ -545,7 +545,7 @@
 	#IF(!pc.isTaur() && !npc.isTaur())
 		<p>
 			Moving your [pc.foot] under the table, you slowly run it up the length of one of [npc.namePos] [npc.legs].
-			#IF(npc.isNeurotic())
+			#IF(npc.isShy())
 				 [npc.She] instantly blushes, and, desperately shuffling away on [npc.her] seat, [npc.she] shyly stutters, [npc.speech(D-Don't do that please!)]
 			#ELSE
 				#IF(npc.isConfident())
@@ -562,7 +562,7 @@
 		#IF(!npc.isTaur())
 			<p>
 				Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down between [npc.her] [npc.legs].
-				#IF npc.isNeurotic()
+				#IF npc.isShy()
 					 [npc.She] instantly blushes, and, desperately shuffling away on [npc.her] seat, [npc.she] shyly stutters, [npc.speech(D-Don't do that please!)]
 				#ELSE
 					#IF(npc.isConfident())
@@ -583,7 +583,7 @@
 				Telling your partner to remain seated, you stand up and quickly step forwards, before kneeling down and patting the sofa's cushion. Instead of then standing up again, you slide your [pc.hand] up and over [npc.namePos] animalistic rump, before starting to move your touch over between [npc.her] hind legs.
 			</p>
 			<p>
-				#IF(npc.isNeurotic())
+				#IF(npc.isShy())
 					 [npc.She] instantly blushes as [npc.she] feels this, and, desperately shuffling away on [npc.her] seat, [npc.she] shyly stutters, [npc.speech(D-Don't do that please!)]
 				#ELSE
 					#IF(npc.isConfident())
@@ -644,7 +644,7 @@
 	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_SUB_REJECTED"><![CDATA[
 	<p>
 		DEsperate to have sex with [npc.name], you start to make your move, but, sensing what it is you want, [npc.she] quickly lets out a frustrated sigh and pushes you away.
-		#IF(npc.isNeurotic())
+		#IF(npc.isShy())
 			 Stuttering in embarrassment, [npc.she] exclaims, [npc.speech(P-Please stay on your side!)]
 		#ELSE
 			#IF(npc.isConfident())
@@ -668,7 +668,7 @@
 			</p>
 			<p>
 				[npc.Name] responds to your move by leaning heavily down against you, letting out muffled [npc.moans] as [npc.she] returns your passionate kiss. After a moment of making out with one another, [npc.name] pulls back, before [pc.moaning] down at you,
-				#IF(npc.isNeurotic())
+				#IF(npc.isShy())
 					 [npc.speech(P-Please... Fuck me...)]
 				#ELSE
 					#IF(npc.isConfident())
@@ -687,7 +687,7 @@
 			</p>
 			<p>
 				Upon receiving your further instructions for [npc.herHim] to lower [npc.her] hind-quarters into your lap, [npc.name] does as you command, before looking back over [npc.her] shoulder and [npc.moaning],
-				#IF(npc.isNeurotic())
+				#IF(npc.isShy())
 					 [npc.speech(P-Please... Fuck me...)]
 				#ELSE
 					#IF(npc.isConfident())
@@ -704,7 +704,7 @@
 		</p>
 		<p>
 			Grinning as [npc.name] impatiently steps forwards to press [npc.herself] against you, you reassure [npc.herHim] that this specially-designed booth is more than large enough for some mounting to take place. Upon hearing this,
-			#IF(npc.isNeurotic())
+			#IF(npc.isShy())
 				 [npc.name] blushes profusely and eagerly stammers, [npc.speech(O-Oh yes... P-Please... Fuck me...)]
 			#ELSE
 				#IF(npc.isConfident())
@@ -721,7 +721,7 @@
 	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_DOM_REJECTED"><![CDATA[
 	<p>
 		Sliding around on the semi-circular sofa, you lean in against [npc.name], which causes [npc.herHim] to let out a frustrated sigh. Pushing you away,
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.she] stutters, [npc.speech(P-Please stay on your side!)]
 		#ELSE
 			#IF npc.isConfident()
@@ -742,7 +742,7 @@
 	</p>
 	<p>
 		After spending a few minutes to get [npc.her] things in order, [npc.name] turns to you and smiles.
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.speech(I-I need to get going now. I'll meet you here again another time, right?)]
 		#ELSE
 			#IF npc.isConfident()
@@ -760,7 +760,7 @@
 	</p>
 	<p>
 		After spending a few minutes to get [npc.her] things in order, [npc.name] turns to you and smiles.
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.speech(I-I need to get going now. That wasn't the best sex, but I still had fun... I'll meet you here again another time, right?)]
 		#ELSE
 			#IF npc.isConfident()
@@ -803,7 +803,7 @@
 		[pc.speech(Not likely,)] you reply, leaning back on the sofa and smirking at [npc.name]. [pc.speech(I just wanted an easy fuck. Now go on, get out of here.)]
 	</p>
 	<p>
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN[npc.speech(Y-You asshole! Y-You could at least pretend to care!)] [npc.name] stammers, tears welling up in [npc.her] [npc.eyes] as [npc.she] turns and taking [npc.her] leave.
 		#ELSE
 			#IF npc.isConfident()
@@ -922,7 +922,7 @@
 	<htmlContent tag="WATERING_HOLE_BAR_KISS_REJECTED"><![CDATA[
 	<p>
 		Stepping up to  [npc.name], you lean forwards and try to kiss [npc.herHim]. Before your [pc.lips] can reach [npc.hers], however, [npc.she] quickly pulls away and shouts out,
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.speech(H-Hey! C-Calm down!)]
 		#ELSE
 			#IF npc.isConfident()
@@ -946,7 +946,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_BAR_GROPE_REJECTED"><![CDATA[
 	<p>
-		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down between [npc.her] [npc.legs]. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the club's background noise,#IF npc.isNeurotic()
+		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down between [npc.her] [npc.legs]. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the club's background noise,#IF npc.isShy()
 		#THEN [npc.speech(S-Stop it! That's too much!)]
 		#ELSE
 			#IF npc.isConfident()
@@ -1579,7 +1579,7 @@
 	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_GROPE_REJECTED"><![CDATA[
 	<p>
 		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down between [npc.her] [npc.legs]. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the noise of the dance floor,
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.speech(S-Stop it! That's too much!)]
 		#ELSE
 			#IF npc.isConfident()
@@ -1755,7 +1755,7 @@
 	</p>
 	<p>
 		You agree with [npc.namePos] assessment, and after the two of you have got your things in order, you unlock the stall's door and step over to the sinks. [npc.Name] splashes some water on [npc.her] face, before turning to smile at you.
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.speech(I-I need to get going now. I'll meet you here again another time, right?)]
 		#ELSE
 			#IF npc.isConfident()
@@ -1773,7 +1773,7 @@
 	</p>
 	<p>
 		After the two of you have got your things in order, you unlock the stall's door and step over to the sinks. [npc.Name] splashes some water on [npc.her] face, before turning to smile at you.
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.speech(I-I need to get going now. That wasn't the best sex, but I still had fun... I'll meet you here again another time, right?)]
 		#ELSE
 			#IF npc.isConfident()
@@ -1816,7 +1816,7 @@
 		[pc.speech(Not likely,)] you reply, crossing your [pc.arms] and smirking at [npc.name]. [pc.speech(I don't think it's a good idea to get into a relationship with some slut who likes to get fucked in a club's toilet.)]
 	</p>
 	<p>
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN[npc.speech(Y-You asshole! Y-You could at least pretend to care!)] [npc.name] stammers, tears welling up in [npc.her] [npc.eyes] as [npc.she] turns and rushes out of the room.
 		#ELSE
 			#IF npc.isConfident()
@@ -1874,7 +1874,7 @@
 	</p>
 	<p>
 		Before long, you find yourself walking up the steps to the front door of the mansion, and [npc.name] stops in [npc.her] tracks as [npc.she] exclaims,
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.speech(N-No way! You live here?! I-It's huge!)]
 		#ELSE
 			#IF npc.isConfident()
@@ -1968,7 +1968,7 @@
 	</p>
 	<p>
 		You agree with [npc.namePos] assessment, and after spending a moment catching your breath, the two of you stand up and get your things in order. Stepping over to you, [npc.name] plants a quick kiss on your cheek, before smiling and saying,
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.speech(I-I need to get going now. I'll meet you at the club again another time, right?)]
 		#ELSE
 			#IF npc.isConfident()
@@ -1986,7 +1986,7 @@
 	</p>
 	<p>
 		After spending a moment catching your breath, the two of you stand up and get your things in order. Stepping over to you, [npc.name] plants a quick kiss on your cheek, before smiling and saying,
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN [npc.speech(I-I need to get going now. That wasn't the best sex, but I still had fun... I'll meet you at the club again another time, right?)]
 		#ELSE
 			#IF npc.isConfident()
@@ -2032,7 +2032,7 @@
 		[pc.speech(Not likely,)] you reply, crossing your [pc.arms] and smirking at [npc.name]. [pc.speech(I just wanted to give you a good fuck. I'm not interested in seeing you again.)]
 	</p>
 	<p>
-		#IF npc.isNeurotic()
+		#IF npc.isShy()
 		#THEN[npc.speech(Y-You asshole! Y-You could at least pretend to care!)] [npc.name] stammers, tears welling up in [npc.her] [npc.eyes] as [npc.she] turns and runs over to the door.
 		#ELSE
 			#IF npc.isConfident()
@@ -2055,7 +2055,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_BAR"><![CDATA[
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN [npc.speech(It's pretty hot in here. Come on, let's go and get something to drink,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off in the direction of the bar. [npc.speech(I'll get you something nice!)]
 		#ELSE
 			#IF npc.isSelfish()
@@ -2072,7 +2072,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_DANCE_FLOOR"><![CDATA[
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN [npc.speech(Let's head over to the dance floor,)] [npc.name] suggests, before taking your [pc.hand] in [npc.hers] and setting off towards the middle of club's main floor. [npc.speech(I love dancing!)]
 		#ELSE
 			#IF npc.isSelfish()
@@ -2089,7 +2089,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_SEATING_AREA"><![CDATA[
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN [npc.speech(I think we'd be able to talk with one another a little easier if we went and sat down,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the nearest seating area. [npc.speech(We can also give our legs a rest for a while!)]
 		#ELSE
 			#IF npc.isSelfish()
@@ -2119,7 +2119,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_TOILETS"><![CDATA[
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN [npc.speech(Sorry, [pc.name], I need to use the toilet,)] [npc.name] apologises. [npc.speech(I'll only be a moment, so you're ok waiting for me over there, right?)]
 		#ELSE
 			#IF npc.isSelfish()
@@ -2139,7 +2139,7 @@
 		Having decided upon the sort of person you'd like to find, you set about searching through the bustling crowd of clubbers. Before long, you catch sight of [npc.a_raceFull(true)] standing all alone; just the sort of person you were looking for! Loitering around nearby, you try to catch [npc.her] [npc.eye], and are delighted when, after just a moment, [npc.she] notices you and starts to approach.
 	</p>
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN As [npc.she] steps up before you, the [npc.race] throws you a charming smile and introduces [npc.herself], [npc.speech(I couldn't help but notice that you're all alone over here. I'm [npc.name], are you looking for some company for this evening?)]
 		#ELSE
 			#IF npc.isSelfish()
@@ -2166,7 +2166,7 @@
 		Before long, you catch sight of [npc.a_raceFull(true)] standing all alone, and as you approach, you see that it's [npc.name]; just the person you were looking for! Loitering around nearby, you try to catch [npc.her] [npc.eye], and are delighted when, after just a moment, [npc.she] notices you and starts to approach.
 	</p>
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN As [npc.she] steps up before you, [npc.name] throws you a warm smile and greets you, [npc.speech(Hello again, [pc.name], how are you? Are you looking for some company this evening?)]
 		#ELSE
 			#IF npc.isSelfish()
@@ -2183,7 +2183,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_DRINK"><![CDATA[
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN
 			#IF pc.isFeminine()
 			#THEN [npc.speech(Let me buy you a drink, [pc.name]. Most of the stuff they sell here is pretty potent, but they also offer Feline's Fancy. You like that, right?)] [npc.name] asks, smiling at you as [npc.she] awaits your response.
@@ -2343,7 +2343,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_FLIRT"><![CDATA[
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN Leaning against the bar's counter, [npc.name] starts flirting with you, offering you compliments on your appearance and mannerisms. [npc.Her] charming words are carefully chosen, and [npc.she] makes no move to initiate physical contact, preferring to wait and judge your response before taking things any further...
 		#ELSE
 			#IF npc.isSelfish()
@@ -2356,7 +2356,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_FLIRT_ACCEPT"><![CDATA[
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN
 		<p>
 			Smiling coyly at your partner, you offer [npc.herHim] some compliments of your own, which soon leads to an escalation in the sexual nature of your flirtatious conversation. Before long, you're both laughing and playfully touching one another, and while [npc.name] does [npc.her] best to keep things from going too far, several racy and highly suggestive comments have been made by both parties before the flirting comes to an end.
@@ -2386,7 +2386,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_FLIRT_DECLINE"><![CDATA[
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN
 		<p>
 			You're not really feeling the vibe that [npc.nameIs] giving off, and, pulling away from [npc.herHim] slightly, you tell [npc.herHim] that you'd like to keep the conversation a little less heated. Regretfully accepting your request, [npc.name] leans back against the bar, allowing a heavy silence to fall between the two of you for a moment, before continuing the conversation in a cooler manner than before.
@@ -2423,7 +2423,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_GROPE"><![CDATA[
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN Feeling an increase in sexual tension between the two of you, [npc.name] steps up beside you, and, with a playful, flirtatious remark, places [npc.her] [npc.hand] on your [pc.hips+]. As [npc.she] starts to slide [npc.her] touch down and around to your [pc.ass+], you wonder if you should play along, and let [npc.herHim] feel you up, or quickly put a stop to this unsolicited contact.
 		#ELSE
 			#IF npc.isSelfish()
@@ -2440,7 +2440,7 @@
 		Turned on by [npc.namePos] dominant move, you happily lean in against [npc.herHim], letting out [pc.a_moan+] as [npc.she] starts feeling you up.
 		#IF pc.hasBreasts()
 		#THEN
-				#IF npc.isTrusting()
+				#IF npc.isKind()
 				#THEN As one of [npc.her] [npc.hands] slip around to gently grope your [pc.ass+], [npc.name] lifts [npc.her] other one up to give your [pc.breasts+] a firm squeeze, drawing yet another [pc.moan] out of your mouth. Encouraged by your eager response, [npc.name] presses [npc.her] [npc.lips+] against yours, passionately kissing you while continuing to run [npc.her] [npc.hands] over your body.
 				#ELSE
 					#IF npc.isSelfish()
@@ -2449,7 +2449,7 @@
 					#ENDIF
 				#ENDIF
 		#ELSE
-				#IF npc.isTrusting()
+				#IF npc.isKind()
 				#THEN Encouraged by your lewd cry, [npc.she] slips both of [npc.her] [npc.hands] around your waist, before moving down to give your [pc.ass+] a firm squeeze. As you start to let out another [pc.moan], [npc.name] presses [npc.her] [npc.lips+] against yours, passionately kissing you while continuing to grope and squeeze your [pc.ass].
 				#ELSE
 					#IF npc.isSelfish()
@@ -2462,7 +2462,7 @@
 	#IF pc.hasPenis()
 	#THEN
 		<p>
-			#IF npc.isTrusting()
+			#IF npc.isKind()
 			#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around to start rubbing up against your inner thigh. [pc.Moaning] lewdly into [npc.her] mouth, you press yourself ever closer against [npc.name] as [npc.her] [npc.fingers] roam up to stroke and squeeze your groin. Rubbing [npc.her] [npc.hand] against your [pc.cock+], [npc.she] pulls back from the kiss, grinning at you as [npc.she] teases, [npc.speech(Mmm, getting hard already, are we?)]
 			#ELSE
 				#IF npc.isSelfish()
@@ -2474,7 +2474,7 @@
 		#IF pc.hasVagina()
 		#THEN
 			<p>
-				#IF npc.isTrusting()
+				#IF npc.isKind()
 				#THEN Moving [npc.her] touch down beneath your [pc.cock+], [npc.name] curls [npc.her] [npc.fingers] up and starts gently rubbing at your [pc.pussy+]. Letting out an amused chuckle, [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You getting wet down there too? Perhaps we could go back to my place soon. I'll make sure to take care of all your needs...)]
 				#ELSE
 					#IF npc.isSelfish()
@@ -2488,7 +2488,7 @@
 		#IF pc.hasVagina()
 		#THEN
 			<p>
-				#IF npc.isTrusting()
+				#IF npc.isKind()
 				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to gently rub at your [pc.pussy+]. Letting out an amused chuckle, [npc.she] bites [npc.her] [npc.lip] and sighs, [npc.speech(You getting wet down there? Perhaps we could go back to my place soon. I'll make sure to take care of you...)]
 				#ELSE
 					#IF npc.isSelfish()
@@ -2499,7 +2499,7 @@
 			</p>
 		#ELSE
 			<p>
-				#IF npc.isTrusting()
+				#IF npc.isKind()
 				#THEN As the two of you continue making out with one another, [npc.name] moves one of [npc.her] [npc.hands] around between your [pc.legs], before curling [npc.her] [npc.fingers] up and starting to gently rub at your genderless mound. Pulling back a little and biting [npc.her] [npc.lip], [npc.she] sighs, [npc.speech(Mmm, nothing down there, huh? Well, I'm sure we can have some fun, regardless. Perhaps we could go back to my place soon...)]
 				#ELSE
 					#IF npc.isSelfish()
@@ -2519,7 +2519,7 @@
 		Shocked at [npc.namePos] brazen attempt to start feeling you up right here in front of everyone at the bar, you push [npc.herHim] away from you, before shouting out over the noise of the club, [pc.speech(What do you thin you're doing?! Stop that!)]
 	</p>
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN [npc.speech(Sorry! I got a little carried away,)] [npc.name] sheepishly apologises, releasing [npc.her] grip on your [pc.hips] and stepping back to give you some space.
 		#ELSE
 			#IF npc.isSelfish()
@@ -2572,7 +2572,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_KISS"><![CDATA[
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN Stepping forwards, [npc.name] tilts [npc.her] head to one side, leaning in against you as [npc.she] tries to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
 		#ELSE
 			#IF npc.isSelfish()
@@ -2608,7 +2608,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_KISS_DECLINE"><![CDATA[
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN Not wanting to be kissed by [npc.name], you pull back from [npc.herHim] and tell [npc.herHim] to keep [npc.her] distance. Immediately doing as you ask, [npc.she] apologises, [npc.speech(Sorry, [pc.name]! I got a little carried away, and misjudged the mood.)]
 		#ELSE
 			#IF npc.isSelfish()
@@ -2625,7 +2625,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_TALK"><![CDATA[
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN Leaning against the bar, [npc.name] throws you a charming smile, before attempting to strike up a conversation with you. Spending a couple of minutes talking about
 		#ELSE Leaning against the bar, [npc.name] smiles at you, before attempting to strike up a conversation. Spending a couple of minutes talking about
 		#ENDIF
@@ -2819,13 +2819,13 @@
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FLIRT"><![CDATA[
 	<p>
 		#IF(!pc.isTaur() && !npc.isTaur())
-			#IF(npc.isTrusting())
+			#IF(npc.isKind())
 				Leaning forwards over the small table, [npc.name] starts flirting with you, offering you compliments on your appearance and mannerisms. [npc.Her] charming words are carefully chosen, and [npc.she] makes no move to initiate physical contact, preferring to wait and judge your response before taking things any further...
 			#ELSE
 				Leaning forwards over the small table, [npc.name] starts flirting with you, offering you compliments on your appearance and mannerisms. [npc.Her] words are a little crude at times, but [npc.her] flattery does seem to be completely genuine, and, as further proof of [npc.her] good intentions, [npc.she] chooses to wait and judge your response before taking things any further...
 			#ENDIF
 		#ELSE
-			#IF(npc.isTrusting())
+			#IF(npc.isKind())
 				Leaning in towards you a little, [npc.name] starts flirting with you, offering you compliments on your appearance and mannerisms. [npc.Her] charming words are carefully chosen, and [npc.she] makes no move to initiate physical contact, preferring to wait and judge your response before taking things any further...
 			#ELSE
 				Leaning in towards you a little, [npc.name] starts flirting with you, offering you compliments on your appearance and mannerisms. [npc.Her] words are a little crude at times, but [npc.her] flattery does seem to be completely genuine, and, as further proof of [npc.her] good intentions, [npc.she] chooses to wait and judge your response before taking things any further...
@@ -2837,7 +2837,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FLIRT_ACCEPT"><![CDATA[
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN
 		<p>
 			Smiling coyly at your partner, you offer [npc.herHim] some compliments of your own, which soon leads to an escalation in the sexual nature of your flirtatious conversation. Before long, you're both laughing and playfully touching one another, and while [npc.name] does [npc.her] best to keep things from going too far, several racy and highly suggestive comments have been made by both parties before the flirting comes to an end.
@@ -2857,7 +2857,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FLIRT_DECLINE"><![CDATA[
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN
 			<p>
 				You're not really feeling the vibe that [npc.nameIs] giving off, and, leaning back on your seat, you tell [npc.herHim] that you'd like to keep the conversation a little less heated. Regretfully accepting your request, [npc.name] backs off, allowing a heavy silence to fall between the two of you for a moment, before continuing the conversation in a cooler manner than before.
@@ -2882,7 +2882,7 @@
 			[npc.Name] throws you a playful smile, but before you can ask [npc.herHim] what's on [npc.her] mind, you suddenly feel [npc.her] [npc.foot] rubbing against your [pc.leg]. Your partner playfully laughs as [npc.she] starts to lift [npc.her] [npc.foot] up towards your groin, and you realise that unless you say something, [npc.sheIs] going to press it right into your crotch!
 		#ELSE
 			#IF(!pc.isTaur())
-				#IF(npc.isTrusting())
+				#IF(npc.isKind())
 					Feeling an increase in sexual tension between the two of you, [npc.name] shuffles up to press [npc.herself] against you, and, with a playful, flirtatious remark, places [npc.her] [npc.hand] on your [pc.hips+]. As [npc.she] starts to slide [npc.her] touch down and around to your [pc.ass+], you wonder if you should play along, and let [npc.herHim] feel you up, or quickly put a stop to this unsolicited contact.
 				#ELSE
 					#IF(npc.isSelfish())
@@ -2895,7 +2895,7 @@
 				<p>
 					Due to the fact that you have a rather unusual lower body, your rear end is quite outside of [npc.namePos] reach. This proves to be an issue for your partner, as, after making a feeble excuse about the cushion you're sitting on about to fall off the sofa, [npc.she] stands up and quickly moves over to kneel down beside your hind-quarters.
 				<p>
-				#IF(npc.isTrusting())
+				#IF(npc.isKind())
 					After giving the sofa's cushion a quick pat, [npc.name] makes playful, flirtatious remark, before placing [npc.her] [npc.hand] on your [pc.hips+]. As [npc.she] starts to slide [npc.her] touch down between your [pc.legs], you wonder if you should play along, and let [npc.herHim] get a good feel of your lower half, or quickly put a stop to this unsolicited contact.
 				#ELSE
 					#IF(npc.isSelfish())
@@ -3143,7 +3143,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_KISS_DECLINE"><![CDATA[
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN Not wanting to be kissed by [npc.name], you pull back from [npc.herHim] and tell [npc.herHim] to keep [npc.her] distance. Immediately doing as you ask, [npc.she] apologises, [npc.speech(Sorry, [pc.name]! I got a little carried away, and misjudged the mood.)]
 		#ELSE Not wanting to be kissed by [npc.name], you pull back from [npc.herHim] and tell [npc.herHim] to keep [npc.her] distance. Reluctantly doing as you ask, [npc.she] sighs, [npc.speech(Sure thing, [pc.name]. Perhaps you'll be up for some real fun later on tonight...)]
 		#ENDIF
@@ -3228,7 +3228,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_TALK"><![CDATA[
 	<p>
-		#IF(npc.isTrusting())
+		#IF(npc.isKind())
 			Leaning forwards over the table, [npc.name] throws you a charming smile, before attempting to strike up a conversation with you. Spending a couple of minutes talking about
 		#ELSE
 			Leaning forwards over the table, [npc.name] smiles at you, before attempting to strike up a conversation. Spending a couple of minutes talking about
@@ -3322,7 +3322,7 @@
 		Feeling as though you've had enough of [npc.name] for one evening, but not wanting to break all contact with [npc.herHim], you clear your throat and explain, [pc.speech(Hey, [npc.name], sorry, but I'm feeling a little tired. I'm going to have to head off now, but I'll see you here again, right?)]
 	</p>
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN [npc.speech(Oh, ok. Yeah, I'll catch you around some other time. See you later then, [pc.name],)] [npc.name] responds, smiling at you before turning and taking [npc.her] leave.
 		#ELSE
 			#IF npc.isSelfish()
@@ -3342,7 +3342,7 @@
 		Feeling as though you've had enough of [npc.namePos] company to last a lifetime, you let out an annoyed sigh, [pc.speech(I've had just about enough of you. I'm leaving. Don't bother to come say hello if you ever see me again, ok?)]
 	</p>
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN [npc.speech(Well, that was unexpected, but sure, if that's what you want. Bye, [pc.name],)] [npc.name] unhappily responds, before turning and taking [npc.her] leave.
 		#ELSE
 			#IF npc.isSelfish()
@@ -3502,7 +3502,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_PARTNER_DOM_LEAVES"><![CDATA[
 	<p>
-		#IF npc.isTrusting()
+		#IF npc.isKind()
 		#THEN [npc.speech(Sorry, [pc.name], I'm not really having a good time. I'm leaving, have a good evening,)] [npc.name] says, half-heartedly smiling at you before turning and heading off into the crowd.
 		#ELSE
 			#IF npc.isSelfish()

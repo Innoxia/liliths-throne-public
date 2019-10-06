@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.SubspeciesPreference;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
@@ -615,7 +616,7 @@ public class OptionsDialogue {
 
 			} else if (index == 3) {
 				return new Response("Font-size -",
-						"Increase the size of the game's font. Default value is 18. Current value is "+Main.getProperties().fontSize+".",
+						"Decrease the size of the game's font. Default value is 18. Current value is "+Main.getProperties().fontSize+".",
 								OPTIONS){
 					@Override
 					public void effects() {
@@ -1177,6 +1178,15 @@ public class OptionsDialogue {
 			 if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
 				
+			} else if (index == 1) {
+				return new Response("Defaults", "Restore all gender preferences to their default values.", GENDER_PREFERENCE) {
+					@Override
+					public void effects() {
+						Main.getProperties().resetGenderPreferences();
+						Main.getProperties().savePropertiesAsXML();
+					}
+				};
+				
 			} else {
 				return null;
 			}
@@ -1421,6 +1431,7 @@ public class OptionsDialogue {
 					@Override
 					public void effects() {
 						Main.getProperties().resetAgePreferences();
+						Main.getProperties().savePropertiesAsXML();
 					}
 				};
 				
@@ -1602,23 +1613,29 @@ public class OptionsDialogue {
 			
 			
 			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align: center;'>"
-												+ "<div style='display:inline-block; margin:0 auto;'>"
+												+ "<div style='display:inline-block; margin:4px auto;'>"
 													+"<div style='float:left; text-align:right; margin-right:16px;'>"
-														+ "<b>Set all:</b>"
-													+ "</div>"
-													+ "<div id='furry_preference_human_all' class='preference-button'>"+FurryPreference.HUMAN.getName()+"</div>"
-													+ "<div id='furry_preference_minimum_all' class='preference-button'>"+FurryPreference.MINIMUM.getName()+"</div>"
-													+ "<div id='furry_preference_reduced_all' class='preference-button'>"+FurryPreference.REDUCED.getName()+"</div>"
-													+ "<div id='furry_preference_normal_all' class='preference-button'>"+FurryPreference.NORMAL.getName()+"</div>"
-													+ "<div id='furry_preference_maximum_all' class='preference-button'>"+FurryPreference.MAXIMUM.getName()+"</div>"
-												+"</div>"
-											+"</div>"
+														+ "<b>Set all furry preferences:</b>"
+													+ "</div>");
+			for(FurryPreference fp : FurryPreference.values()) {
+				UtilText.nodeContentSB.append("<div id='ALL_FURRY_"+fp+"' class='normal-button' style='width:80px; margin:0 2px;'>"+fp.getName()+"</div>");
+			}
+			UtilText.nodeContentSB.append("</div>"
+												+ "<div style='display:inline-block; margin:4px auto;'>"
+													+"<div style='float:left; text-align:right; margin-right:16px;'>"
+														+ "<b>Set all spawn frequencies:</b>"
+													+ "</div>");
+			for(SubspeciesPreference sp : SubspeciesPreference.values()) {
+				UtilText.nodeContentSB.append("<div id='ALL_SPAWN_"+sp+"' class='normal-button' style='width:80px; margin:0 2px;'>"+Util.capitaliseSentence(sp.getName())+"</div>");
+			}
+			UtilText.nodeContentSB.append("</div>"
+											+"</div>");
 												
-											+ "<div class='container-full-width' style='text-align: center;'>"
+			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align: center;'>"
 											+"<div class='container-full-width' style='text-align:center; background:"+getEntryBackgroundColour(false)+";'>"
 												+"<div class='container-full-width' style='text-align:center; width:calc(60% - 16px);background:transparent; margin:0 0 0 40%; padding:0;'>"
-													+ "<b style='color:"+Colour.FEMININE.toWebHexString()+"; float:left; width:50%; text-align:center;'>Feminine:</b>"
-													+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+"; float:left; width:50%; text-align:center;'>Masculine:</b>"
+													+ "<b style='color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+"; float:left; width:50%; text-align:center;'>Furry Preference</b>"
+													+ "<b style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+"; float:left; width:50%; text-align:center;'>Spawn frequency</b>"
 												+ "</div>"
 											+ "</div>");
 
@@ -1644,9 +1661,23 @@ public class OptionsDialogue {
 			 if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
 				
-			} else {
-				return null;
+			} else if(index==1) {
+				return new Response("Defaults", "Reset all furry and spawn preferences to their default settings.", FURRY_PREFERENCE) {
+					@Override
+					public void effects() {
+						for(Subspecies subspecies : Subspecies.values()) {
+							Main.getProperties().setFeminineFurryPreference(subspecies, FurryPreference.NORMAL);
+							Main.getProperties().setMasculineFurryPreference(subspecies, FurryPreference.NORMAL);
+
+							Main.getProperties().setFeminineSubspeciesPreference(subspecies, subspecies.getSubspeciesPreferenceDefault());
+							Main.getProperties().setMasculineSubspeciesPreference(subspecies, subspecies.getSubspeciesPreferenceDefault());
+						}
+						Main.saveProperties();
+					}
+				};
 			}
+			 
+			return null;
 		}
 
 		@Override
@@ -1668,33 +1699,62 @@ public class OptionsDialogue {
 			return "#1f1f1f";  
 		}
 	}
-	
+
 	private static String getSubspeciesPreferencesPanel(Subspecies s, boolean altColour) {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<div class='container-full-width' style='text-align:center; background:"+getEntryBackgroundColour(altColour)+";'>");
+
+			sb.append("<div class='container-full-width' style='text-align:left;background:transparent; margin:auto 0; padding:auto 0;'>"
+							+ "<div style='color:"+s.getColour(null).toWebHexString()+"; width:40%; text-align:center; margin:0; padding:0; float:left;'><b>"+Util.capitaliseSentence(s.getNamePlural(null))+"</b></div>"
+							+ "<div class='title-button no-select' id='SUBSPECIES_PREFERNCE_INFO_"+s+"' style='position:absolute; left:1%; right:auto; top:auto; bottom:auto;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+						+ "</div>");
+			
+			// Feminine:
+			sb.append("<div class='container-full-width' style='text-align:center; width:40%;background:transparent; margin:auto 0; padding:auto 0;'>"
+						+"<b style='color:"+Colour.FEMININE.toWebHexString()+"; float:left; width:100%; text-align:center;'>" +Util.capitaliseSentence(s.getSingularFemaleName(null))+"</b>"
+					+"</div>");
+			
+			sb.append("<div class='container-full-width' style='text-align:center; width:60%;background:transparent; margin:0; padding:0;'>");
+
+				for(FurryPreference preference : FurryPreference.values()) {
+					sb.append("<div id='FEMININE_"+preference+"_"+s+"' class='square-button small"+(!s.isFurryPreferencesEnabled()?" disabled":"")
+								+(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(s)==preference && s.isFurryPreferencesEnabled()
+									?" selected' style='max-width:30px; width:7%; border-color:"+preference.getColour().toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
+									:"' style='max-width:30px; width:7%;'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
+				}
+				sb.append("<div style='width:10%; display:inline-block; position:relative; padding:0; margin:0;'>&nbsp;</div>");
+				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
+					sb.append("<div id='FEMININE_SPAWN_"+preference+"_"+s+"' class='square-button small"
+								+(Main.getProperties().getSubspeciesFemininePreferencesMap().get(s)==preference
+									?" selected' style='max-width:30px; width:7%; border-color:"+Colour.FEMININE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
+									:"' style='max-width:30px; width:7%;'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
+				}
+				
+			sb.append("</div>");
+			
+			// Masculine:
+			sb.append("<div class='container-full-width' style='text-align:center; width:40%;background:transparent; margin:auto 0; padding:auto 0;'>"
+					+"<b style='color:"+Colour.MASCULINE.toWebHexString()+"; float:left; width:100%; text-align:center;'>" +Util.capitaliseSentence(s.getSingularMaleName(null))+"</b>"
+				+"</div>");
 		
-		sb.append("<div class='container-full-width' style='text-align:center; width:40%;background:transparent; margin:auto 0; padding:auto 0;'>"
-					+"<b style='color:"+s.getColour(null).toWebHexString()+"; float:left; width:100%; text-align:center;'>" +Util.capitaliseSentence(s.getName(null))+"</b>"
-					+ "<div class='title-button no-select' id='SUBSPECIES_PREFERNCE_INFO_"+s+"' style='position:absolute; left:5%; right:auto; top:auto; bottom:auto;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
-				+"</div>"
-				+"<div class='container-full-width' style='text-align:center; width:60%;background:transparent; margin:0; padding:0;'>");
-		
-		for(FurryPreference preference : FurryPreference.values()) {
-			sb.append("<div id='FEMININE_"+preference+"_"+s+"' class='square-button small"
-						+(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(s)==preference
-							?" selected' style='width:7%; border-color:"+Colour.FEMININE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
-							:"' style='width:7%;'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
-		}
-		sb.append("<div style='width:10%; display:inline-block; position:relative; padding:0; margin:0;'>&nbsp;</div>");
-		for(FurryPreference preference : FurryPreference.values()) {
-			sb.append("<div id='MASCULINE_"+preference+"_"+s+"' class='square-button small"
-						+(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(s)==preference
-							?" selected' style='width:7%; border-color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
-							:"' style='width:7%;'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
-		}
-		
-		sb.append("</div>");
+			sb.append("<div class='container-full-width' style='text-align:center; width:60%;background:transparent; margin:0; padding:0;'>");
+			
+				for(FurryPreference preference : FurryPreference.values()) {
+					sb.append("<div id='MASCULINE_"+preference+"_"+s+"' class='square-button small"+(!s.isFurryPreferencesEnabled()?" disabled":"")
+								+(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(s)==preference && s.isFurryPreferencesEnabled()
+									?" selected' style='max-width:30px; width:7%; border-color:"+preference.getColour().toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
+									:"' style='max-width:30px; width:7%;'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
+				}
+				sb.append("<div style='width:10%; display:inline-block; position:relative; padding:0; margin:0;'>&nbsp;</div>");
+				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
+					sb.append("<div id='MASCULINE_SPAWN_"+preference+"_"+s+"' class='square-button small"
+								+(Main.getProperties().getSubspeciesMasculinePreferencesMap().get(s)==preference
+									?" selected' style='max-width:30px; width:7%; border-color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
+									:"' style='max-width:30px; width:7%;'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
+				}
+				
+			sb.append("</div>");
 			
 		sb.append("</div>");
 		
@@ -2137,29 +2197,31 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.inflationContent)));
 				
 
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv( //TODO
 							"PREGNANCY_BREAST_GROWTH",
 							Colour.BASE_PINK,
 							"Average Pregnancy Breast Growth",
-							"Set the <b>average</b> cup size growth that characters' will gain from each pregnancy. Actual breast growth will be within "+Util.intToString(Main.getProperties().pregnancyBreastGrowthVariance)+" sizes of this value.",
+							"Set the <b>average</b> cup size growth that characters will gain from each pregnancy. Actual breast growth will be within "+Util.intToString(Main.getProperties().pregnancyBreastGrowthVariance)+" sizes of this value.",
 							Main.getProperties().pregnancyBreastGrowth==0
 								?"[style.boldDisabled(Disabled)]"
 								:Main.getProperties().pregnancyBreastGrowth+" cup"+(Main.getProperties().pregnancyBreastGrowth!=1?"s":""),
-							Main.getProperties().pregnancyBreastGrowth,
-							0,
-							10));
+							Main.getProperties().pregnancyBreastGrowth, 0, 10,
+							Main.getProperties().pregnancyUdderGrowth==0
+								?"[style.boldDisabled(Disabled)]"
+								:Main.getProperties().pregnancyUdderGrowth+" cup"+(Main.getProperties().pregnancyUdderGrowth!=1?"s":""),
+							Main.getProperties().pregnancyUdderGrowth, 0, 10));
 					
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
 							"PREGNANCY_BREAST_GROWTH_LIMIT",
 							Colour.BASE_PINK_LIGHT,
 							"Pregnancy Breast Growth Limit",
 							"Set the maximum limit of cup size that characters' breasts will grow to from pregnancies.",
 							CupSize.getCupSizeFromInt(Main.getProperties().pregnancyBreastGrowthLimit).getCupSizeName()+"-cup",
-							Main.getProperties().pregnancyBreastGrowthLimit,
-							0,
-							100));
+							Main.getProperties().pregnancyBreastGrowthLimit, 0, 100,
+							CupSize.getCupSizeFromInt(Main.getProperties().pregnancyUdderGrowthLimit).getCupSizeName()+"-cup",
+							Main.getProperties().pregnancyUdderGrowthLimit, 0, 100));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
 							"PREGNANCY_LACTATION",
 							Colour.BASE_YELLOW,
 							"Average Pregnancy Lactation",
@@ -2168,29 +2230,31 @@ public class OptionsDialogue {
 							Main.getProperties().pregnancyLactationIncrease==0
 								?"[style.boldDisabled(Disabled)]"
 								:Units.fluid(Main.getProperties().pregnancyLactationIncrease),
-							Main.getProperties().pregnancyLactationIncrease,
-							0,
-							1000));
+							Main.getProperties().pregnancyLactationIncrease, 0, 1000,
+							Main.getProperties().pregnancyUdderLactationIncrease==0
+								?"[style.boldDisabled(Disabled)]"
+								:Units.fluid(Main.getProperties().pregnancyUdderLactationIncrease),
+							Main.getProperties().pregnancyUdderLactationIncrease, 0, 1000));
 					
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
 							"PREGNANCY_LACTATION_LIMIT",
 							Colour.BASE_YELLOW_LIGHT,
 							"Pregnancy Lactation Limit",
 							"Set the maximum limit of lactation that characters will gain from pregnancies.",
 							Units.fluid(Main.getProperties().pregnancyLactationLimit, Units.ValueType.PRECISE, Units.UnitType.SHORT),
-							Main.getProperties().pregnancyLactationLimit,
-							0,
-							Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()));
+							Main.getProperties().pregnancyLactationLimit, 0, Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue(),
+							Units.fluid(Main.getProperties().pregnancyUdderLactationLimit, Units.ValueType.PRECISE, Units.UnitType.SHORT),
+							Main.getProperties().pregnancyUdderLactationLimit, 0, Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()));
 
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
 							"BREAST_SIZE_PREFERENCE",
 							Colour.NIPPLES,
 							"Cup Size Preference",
 							"Affects randomly-generated NPCs' cup sizes (will not be reduced to below AA-cup).",
 							(Main.getProperties().breastSizePreference>=0?"+":"") + Main.getProperties().breastSizePreference,
-							Main.getProperties().breastSizePreference,
-							-20,
-							20));
+							Main.getProperties().breastSizePreference, -20, 20,
+							(Main.getProperties().udderSizePreference>=0?"+":"") + Main.getProperties().udderSizePreference,
+							Main.getProperties().udderSizePreference, -20, 20));
 
 			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 							"PENIS_SIZE_PREFERENCE",
@@ -2275,6 +2339,60 @@ public class OptionsDialogue {
 
 		contentSB.append("</div>"
 				+ "</div>");
+		
+		return contentSB.toString();
+	}
+	
+	private static String getBreastsContentPreferenceVariableDiv(
+			String id,
+			Colour colour,
+			String title,
+			String description,
+			String valueDisplay,
+			int value, int minimum, int maximum,
+			String valueDisplayUdders,
+			int valueUdders, int minimumUdders, int maximumUdders) {
+		
+		StringBuilder contentSB = new StringBuilder();
+
+		contentSB.append(
+				"<div class='container-full-width' style='padding:0; margin:2px 0;'>"
+					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b> "
+						+ description
+					+ "</div>"
+					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
+		
+		contentSB.append(
+				"<div class='container-full-width' style='width:100%; margin:0; padding:0; text-align:right;'>"
+					+ "Breasts: "
+					+ "<div id='"+id+"_ON' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
+							+ (value==maximum?"[style.boldDisabled(+)]":"[style.boldGood(+)]")
+					+ "</div>"
+					+ "<div class='container-full-width' style='text-align:center; width:calc(30%); float:right; margin:0;'>"
+						+ "<b>"+valueDisplay+"</b>"
+					+ "</div>"
+					+ "<div id='"+id+"_OFF' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
+						+ (value==minimum?"[style.boldDisabled(-)]":"[style.boldBad(-)]")
+					+ "</div>"
+				+ "</div>");
+		
+		contentSB.append(
+				"<div class='container-full-width' style='width:100%; margin:0; padding:0; text-align:right;'>"
+					+ "Udders: "
+					+ "<div id='"+id+"_UDDERS_ON' class='normal-button"+(valueUdders==maximumUdders?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
+							+ (valueUdders==maximumUdders?"[style.boldDisabled(+)]":"[style.boldGood(+)]")
+					+ "</div>"
+					+ "<div class='container-full-width' style='text-align:center; width:calc(30%); float:right; margin:0;'>"
+						+ "<b>"+valueDisplayUdders+"</b>"
+					+ "</div>"
+					+ "<div id='"+id+"_UDDERS_OFF' class='normal-button"+(valueUdders==minimumUdders?" disabled":"")+"' style='width:10%; margin:0 2.5%; text-align:center; float:right;'>"
+						+ (valueUdders==minimumUdders?"[style.boldDisabled(-)]":"[style.boldBad(-)]")
+					+ "</div>"
+				+ "</div>");
+		
+		contentSB.append("</div>"
+				+"</div>");
 		
 		return contentSB.toString();
 	}

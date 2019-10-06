@@ -548,7 +548,9 @@ public class CultistDialogue {
 							}
 						},
 						null,
-						null, ENCOUNTER_CHAPEL_POST_ORAL_SEX, (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
+						null,
+						ENCOUNTER_CHAPEL_POST_SUB_SEALED_SEX,
+						(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 							?"<p>"
 								+ "You look up to see [npc.namePos] grin turn into a puzzled frown as she realises that she's not able to get access to your groin."
 								+ " Reaching down to your sealed clothing, she focuses her arcane energy into removing the seal."

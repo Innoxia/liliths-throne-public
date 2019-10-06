@@ -20,7 +20,7 @@ import com.lilithsthrone.utils.Util;
  * @author Innoxia
  */
 public enum PenisType implements BodyPartTypeInterface {
-	NONE(null, TesticleType.NONE, null),
+	NONE(null, TesticleType.NONE, Race.NONE),
 
 	DILDO(BodyCoveringType.DILDO, TesticleType.DILDO, Race.NONE),
 	
@@ -44,7 +44,7 @@ public enum PenisType implements BodyPartTypeInterface {
 
 	EQUINE(BodyCoveringType.PENIS, TesticleType.EQUINE, Race.HORSE_MORPH, PenetrationModifier.FLARED, PenetrationModifier.VEINY, PenetrationModifier.SHEATHED),
 
-	REINDEER_MORPH(BodyCoveringType.PENIS, TesticleType.REINDEER_MORPH, Race.REINDEER_MORPH, PenetrationModifier.FLARED, PenetrationModifier.SHEATHED),
+	REINDEER_MORPH(BodyCoveringType.PENIS, TesticleType.REINDEER_MORPH, Race.REINDEER_MORPH, PenetrationModifier.TAPERED, PenetrationModifier.SHEATHED),
 
 	AVIAN(BodyCoveringType.PENIS, TesticleType.AVIAN, Race.HARPY, PenetrationModifier.SHEATHED),
 	
@@ -229,7 +229,7 @@ public enum PenisType implements BodyPartTypeInterface {
 	
 	public String getPenisHeadDescriptor(GameCharacter gc) {
 		for(PenetrationModifier mod : PenetrationModifier.values()) {
-			if(gc.getPenisModifiers().contains(PenetrationModifier.BLUNT)) {
+			if(gc.getPenisModifiers().contains(mod)) {
 				switch(mod) {
 					case BLUNT:
 						return UtilText.returnStringAtRandom("blunt");

@@ -16,7 +16,7 @@ public class SexSlotAllFours {
 	public static final SexSlot ALL_FOURS = new SexSlot(
 			"Down on all fours",
 			"all fours",
-			"With trembling [npc.legs], [npc.name] [npc.do] [npc.her] best to [npc.verb(steady)] [npc2.herself], and with [npc.a_moan+], [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
+			"With trembling [npc.legs], [npc.name] [npc.do] [npc.her] best to steady [npc.herself], and with [npc.a_moan+], [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
 			false,
 			SexSlotTag.ALL_FOURS);
 	public static final SexSlot ALL_FOURS_TWO = new SexSlot(ALL_FOURS){

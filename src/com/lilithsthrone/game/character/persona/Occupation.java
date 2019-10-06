@@ -29,9 +29,17 @@ public enum Occupation {
 	NPC_HARPY_MATRIARCH(Perk.JOB_NPC_HARPY_MATRIARCH, "harpy matriarch", "[npc.NameIsFull] a matriarch of a harpy flock.", OccupationTag.HAS_PREREQUISITES),
 	NPC_HARPY_FLOCK_MEMBER(Perk.JOB_NPC_HARPY_FLOCK_MEMBER, "harpy flock member", "[npc.NameIsFull] a member of a harpy flock", OccupationTag.HAS_PREREQUISITES),
 
-	NPC_ENFORCER_PATROL_INSPECTOR(Perk.JOB_NPC_ENFORCER_PATROL_INSPECTOR, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
-	NPC_ENFORCER_PATROL_SERGEANT(Perk.JOB_NPC_ENFORCER_PATROL_SERGEANT, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
-	NPC_ENFORCER_PATROL_CONSTABLE(Perk.JOB_NPC_ENFORCER_PATROL_CONSTABLE, "Enforcer", "[npc.NameIs] in the employ of the Enforcers; Dominion's police force.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
+	NPC_ENFORCER_PATROL_INSPECTOR(Perk.JOB_NPC_ENFORCER_PATROL_INSPECTOR, "Enforcer", "[npc.NameIs] a member of the Enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
+	NPC_ENFORCER_PATROL_SERGEANT(Perk.JOB_NPC_ENFORCER_PATROL_SERGEANT, "Enforcer", "[npc.NameIs] a member of the Enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
+	NPC_ENFORCER_PATROL_CONSTABLE(Perk.JOB_NPC_ENFORCER_PATROL_CONSTABLE, "Enforcer", "[npc.NameIs] a member of the Enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
+
+	NPC_ENFORCER_SWORD_INSPECTOR(Perk.JOB_NPC_ENFORCER_SWORD_INSPECTOR, "SWORD Enforcer", "[npc.NameIs] an Enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
+	NPC_ENFORCER_SWORD_SERGEANT(Perk.JOB_NPC_ENFORCER_SWORD_SERGEANT, "SWORD Enforcer", "[npc.NameIs] an Enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
+	NPC_ENFORCER_SWORD_CONSTABLE(Perk.JOB_NPC_ENFORCER_SWORD_CONSTABLE, "SWORD Enforcer", "[npc.NameIs] an Enforcer, and is a member of SWORD.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_SWORD),
+
+	NPC_ENFORCER_ORICL_INSPECTOR(Perk.JOB_NPC_ENFORCER_ORICL_INSPECTOR, "ORICL Enforcer", "[npc.NameIs] an Enforcer, and is a member of ORICL.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_ORICL),
+	NPC_ENFORCER_ORICL_SERGEANT(Perk.JOB_NPC_ENFORCER_ORICL_SERGEANT, "ORICL Enforcer", "[npc.NameIs] an Enforcer, and is a member of ORICL.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_ORICL),
+	NPC_ENFORCER_ORICL_CONSTABLE(Perk.JOB_NPC_ENFORCER_ORICL_CONSTABLE, "ORICL Enforcer", "[npc.NameIs] an Enforcer, and is a member of ORICL.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_ORICL),
 	
 	NPC_CULTIST(Perk.JOB_NPC_CULTIST, "Cultist", "[npc.NameIs] a full-time member of the 'Cult of Lilith'.", OccupationTag.HAS_PREREQUISITES),
 
@@ -43,21 +51,23 @@ public enum Occupation {
 
 	NPC_BEAUTICIAN(Perk.JOB_NPC_BEAUTICIAN, "beautician", "[npc.Name] [npc.verb(work)] as a beautician."),
 	
-	NPC_ARCANE_RESEARCHER(Perk.JOB_NPC_ARCANE_RESEARCHER, "arcane researcher", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_ARCANE_RESEARCHER(Perk.JOB_NPC_ARCANE_RESEARCHER, "arcane researcher", "[npc.Name] spends all of [npc.her] time researching the arcane.", OccupationTag.HAS_PREREQUISITES),
 
-	NPC_CLOTHING_STORE_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "clothing store owner", "-", OccupationTag.HAS_PREREQUISITES),
-	NPC_GYM_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "gym owner", "-", OccupationTag.HAS_PREREQUISITES),
-	NPC_STORE_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "store owner", "-", OccupationTag.HAS_PREREQUISITES),
-	NPC_CASINO_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "casino owner", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_CLOTHING_STORE_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "clothing store owner", "[npc.NameIs] the owner of a clothing store.", OccupationTag.HAS_PREREQUISITES),
+	NPC_GYM_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "gym owner", "[npc.NameIs] the owner of a gym.", OccupationTag.HAS_PREREQUISITES),
+	NPC_STORE_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "store owner", "[npc.NameIs] the owner of a shop.", OccupationTag.HAS_PREREQUISITES),
+	NPC_CASINO_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "casino owner", "[npc.NameIs] the owner of a casino.", OccupationTag.HAS_PREREQUISITES),
 	
-	REINDEER_OVERSEER(Perk.JOB_NPC_REINDEER_OVERSEER, "overseer", "-", OccupationTag.HAS_PREREQUISITES),
+	REINDEER_OVERSEER(Perk.JOB_NPC_REINDEER_OVERSEER, "overseer", "[npc.NameIs] an overseer of one of the reindeer workgangs which migrate to Dominion during the winter.", OccupationTag.HAS_PREREQUISITES),
 
-	NPC_SLIME_QUEEN(Perk.JOB_NPC_SLIME_QUEEN, "slime queen", "-", OccupationTag.HAS_PREREQUISITES),
-	NPC_SLIME_QUEEN_GUARD(Perk.JOB_NPC_SLIME_QUEEN_GUARD, "slime queen's guard", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_SLIME_QUEEN(Perk.JOB_NPC_SLIME_QUEEN, "slime queen", "[npc.NameHas] titled herself as the 'slime queen', and is responsible for transforming a significant number of Submission's citizens into slimes.", OccupationTag.HAS_PREREQUISITES),
+	NPC_SLIME_QUEEN_GUARD(Perk.JOB_NPC_SLIME_QUEEN_GUARD, "slime queen's guard", "[npc.NameIs] one of the three slimes who guard [slimeQueen.namePos] tower.", OccupationTag.HAS_PREREQUISITES),
 	
-	NPC_EPONA(Perk.JOB_MISC, "pregnancy roulette manager", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_EPONA(Perk.JOB_EPONA, "pregnancy roulette manager", "[npc.NameIs] in charge of the game 'pregnancy roulette' in Submission's gambling den.", OccupationTag.HAS_PREREQUISITES),
+
+	NPC_LYSSIETH_GUARD(Perk.JOB_LYSSIETH_GUARD, "Lyssieth's guard", "[npc.NameIsFull] one of Lyssieth's unrecognised daughters, and has been assigned to guard her mother's palace.", OccupationTag.HAS_PREREQUISITES),
 	
-	NPC_ELDER_LILIN(Perk.JOB_ELDER_LILIN, "elder lilin", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_ELDER_LILIN(Perk.JOB_ELDER_LILIN, "elder lilin", "[npc.NameIs] one of the seven elder lilin; the recognised daughters of Lilith herself.", OccupationTag.HAS_PREREQUISITES),
 	
 	
 	// NPC histories:
@@ -101,8 +111,6 @@ public enum Occupation {
 	NPC_MECHANIC(Perk.JOB_MISC, "mechanic", "-", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_TEACHER(Perk.JOB_MISC, "teacher", "-", OccupationTag.HAS_PREREQUISITES),
-	
-	NPC_ENFORCER(Perk.JOB_MISC, "enforcer", "-"),
 	
 	NPC_LIBRARIAN(Perk.JOB_MISC, "librarian", "-"),
 	
@@ -327,7 +335,7 @@ public enum Occupation {
 	}
 	
 	public boolean[] getWorkHours() {
-		if(this.getOccupationTags().contains(OccupationTag.LOWLIFE)) {
+		if(this.getOccupationTags().contains(OccupationTag.LOWLIFE) || this==NPC_UNEMPLOYED || this==UNEMPLOYED) {
 			return noWorkHours;
 		}
 		if(this.getOccupationTags().contains(OccupationTag.EVENING_SHIFT)) {

@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
- * @version 0.2.8
+ * @version 0.3.5
  * @author Innoxia
  */
 public class TongueMouth {
@@ -388,7 +388,7 @@ public class TongueMouth {
 			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Still leaning into [npc2.namePos] back, [npc.name] gently [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of soft kisses on [npc2.her] mouth.",
+					"Still leaning into [npc2.namePos] back, [npc.name] gently [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.nameHers], before planting a series of soft kisses on [npc2.her] mouth.",
 					
 					"[npc.Name] gently [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
@@ -397,7 +397,7 @@ public class TongueMouth {
 			} else {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of soft kisses on [npc2.her] mouth.",
+					"Gently pressing [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] [npc.verb(plant)] a series of soft kisses on [npc2.her] mouth.",
 					
 					"[npc.Name] gently [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
@@ -438,7 +438,7 @@ public class TongueMouth {
 			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Still leaning into [npc2.namePos] back, [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of passionate kisses on [npc2.her] mouth.",
+					"Still leaning into [npc2.namePos] back, [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.nameHers], before planting a series of passionate kisses on [npc2.her] mouth.",
 					
 					"[npc.Name] eagerly [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
 					
@@ -447,7 +447,7 @@ public class TongueMouth {
 			} else {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
+					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
 					
 					"[npc.Name] eagerly [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
@@ -488,17 +488,17 @@ public class TongueMouth {
 			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Violently grinding into [npc2.namePos] back, [npc.name] forcefully [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before greedily thrusting [npc.her] [npc.tongue] deep down [npc2.her] throat.",
+					"Violently grinding into [npc2.namePos] back, [npc.name] forcefully [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.nameHers], before greedily thrusting [npc.her] [npc.tongue] deep down [npc2.her] throat.",
 					
 					"[npc.Name] roughly [npc.verb(press)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
 					
 					"[npc.Name] roughly [npc.verb(press)] into [npc2.namePos] back,"
-							+ " forcefully pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to [npc.verb(thrust)] [npc.her] [npc.tongue+] deep down [npc2.her] throat."));
+							+ " forcefully pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to thrust [npc.her] [npc.tongue+] deep down [npc2.her] throat."));
 				
 			} else {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Forcefully pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] greedily [npc.verb(thrust)] [npc.her] [npc.tongue] deep down [npc2.her] throat.",
+					"Forcefully pressing [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] greedily [npc.verb(thrust)] [npc.her] [npc.tongue] deep down [npc2.her] throat.",
 					
 					"[npc.Name] roughly [npc.verb(grind)] against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] greedily tongue-[npc.verb(fuck)] [npc2.her] mouth.",
 					
@@ -539,7 +539,7 @@ public class TongueMouth {
 			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Still leaning into [npc2.namePos] back, [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of passionate kisses on [npc2.her] mouth.",
+					"Still leaning into [npc2.namePos] back, [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.nameHers], before planting a series of passionate kisses on [npc2.her] mouth.",
 					
 					"[npc.Name] [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
 					
@@ -548,7 +548,7 @@ public class TongueMouth {
 			} else {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
+					"Pressing [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
 					
 					"[npc.Name] [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
@@ -588,7 +588,7 @@ public class TongueMouth {
 			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Still leaning into [npc2.namePos] back, [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of passionate kisses on [npc2.her] mouth.",
+					"Still leaning into [npc2.namePos] back, [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.nameHers], before planting a series of passionate kisses on [npc2.her] mouth.",
 					
 					"[npc.Name] eagerly [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
 					
@@ -597,7 +597,7 @@ public class TongueMouth {
 			} else {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
+					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.nameHers], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
 					
 					"[npc.Name] eagerly [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
 					
@@ -635,12 +635,12 @@ public class TongueMouth {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Feeling tears welling up in [npc.her] eyes, [npc.name] [npc.verb(let)] out [npc.a_sob+], trying to [npc.verb(push)] back against [npc2.name] in response to [npc2.her] unwanted kisses.",
+					"Feeling tears welling up in [npc.her] eyes, [npc.name] [npc.verb(let)] out [npc.a_sob+], trying to push back against [npc2.name] in response to [npc2.her] unwanted kisses.",
 					
 					"With [npc2.namePos] [npc2.scent+] overwhelming [npc.her] senses, [npc.name] [npc.verb(let)] out a muffled [npc.sob],"
-							+ " before desperately trying to [npc.verb(push)] [npc2.herHim] off of [npc.herHim] in a futile attempt to stop [npc2.her] continued assault on [npc.her] mouth.",
+							+ " before desperately trying to push [npc2.herHim] off of [npc.herHim] in a futile attempt to stop [npc2.her] continued assault on [npc.her] mouth.",
 					
-					"[npc.Name] desperately [npc.verb(try)] to [npc.verb(push)] [npc2.name] away, [npc.sobbing] in distress as [npc2.she] [npc2.verb(continue)] kissing and grinding up against [npc.herHim]."));
+					"[npc.Name] desperately [npc.verb(try)] to push [npc2.name] away, [npc.sobbing] in distress as [npc2.she] [npc2.verb(continue)] kissing and grinding up against [npc.herHim]."));
 			
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
@@ -704,382 +704,6 @@ public class TongueMouth {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Pulling back, [npc.name] roughly pushes [npc2.name] away from [npc.herHim] as [npc.she] puts an end to [npc.her] kiss.",
-						
-						"[npc.Name] suddenly, and roughly, [npc.verb(push)] [npc2.name] away from [npc.herHim], bringing an end to [npc.her] kiss.",
-						
-						"[npc.Name] [npc.verb(pull)] back from [npc2.name], before roughly pushing [npc2.herHim] away from [npc.herHim] and breaking off [npc.her] kiss."));
-					break;
-				default:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						"Gazing into [npc2.namePos] [npc2.eyes], [npc.name] [npc.verb(grin)] as [npc.she] [npc.verb(pull)] back, putting an end to [npc.her] kiss.",
-						
-						"[npc.Name] suddenly [npc.verb(pull)] back, bringing an end to [npc.her] kiss.",
-						
-						"[npc.Name] [npc.verb(pull)] back from [npc2.name], taking [npc.her] [npc.lips+] away from [npc2.hers] as [npc.she] breaks off [npc.her] kiss."));
-					break;
-			}
-			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
-				case SUB_RESISTING:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						" [npc2.Name] [npc2.verb(breathe)] a small sigh of relief, before quickly continuing to [npc2.sob] and struggle against [npc.name] as [npc2.she] [npc2.verb(try)] to break free from [npc.her] grasp.",
-						
-						" With [npc2.a_sob+], [npc2.name] [npc2.verb(try)], in vain, to [npc2.verb(push)] [npc.name] even further away, protesting and squirming in discomfort as [npc.she] [npc.verb(hold)] [npc2.herHim] firmly in place."));
-					break;
-				default:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						" [npc2.Name] [npc2.verb(let)] out a little whine as [npc.name] [npc.verb(pull)] back, signalling [npc2.her] desperate need for more attention.",
-						
-						" A desperate whine escapes from between [npc2.namePos] [npc2.lips], betraying [npc2.her] desire for more of [npc.namePos] attention."));
-					break;
-			}
-			
-			return UtilText.nodeContentSB.toString();
-		}
-	};
-	
-	public static final SexAction KISS_DOM_GENTLE_REVERSE = new SexAction(
-			SexActionType.ONGOING,
-			ArousalIncrease.TWO_LOW,
-			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE)),
-			SexParticipantType.NORMAL,
-			SexPace.DOM_GENTLE) {
-		
-		@Override
-		public String getActionTitle() {
-			return "Gentle kiss";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "Gently kiss [npc2.name].";
-		}
-		
-		@Override
-		public String getDescription() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
-				
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Still leaning into [npc2.namePos] back, [npc.name] gently [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of soft kisses on [npc2.her] mouth.",
-					
-					"[npc.Name] gently [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
-					
-					"[npc.Name] slowly [npc.verb(press)] into [npc2.namePos] back, gently pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to gently kiss [npc2.her] [npc2.lips+]."));
-				
-			} else {
-			
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of soft kisses on [npc2.her] mouth.",
-					
-					"[npc.Name] gently [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
-					
-					"[npc.Name] gently [npc.verb(press)] against [npc2.namePos] [npc2.breasts+], before tilting [npc.her] head slightly to one side as [npc.she] softly [npc.verb(kiss)] [npc2.her] [npc2.lips+]."));
-			
-			}
-			
-			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
-			return UtilText.nodeContentSB.toString();
-		}
-	};
-	
-	public static final SexAction KISS_DOM_NORMAL_REVERSE = new SexAction(
-			SexActionType.ONGOING,
-			ArousalIncrease.TWO_LOW,
-			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE)),
-			SexParticipantType.NORMAL,
-			SexPace.DOM_NORMAL) {
-		
-		@Override
-		public String getActionTitle() {
-			return "Kiss [npc2.herHim]";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "Continue kissing [npc2.name].";
-		}
-		
-		@Override
-		public String getDescription() {
-
-			UtilText.nodeContentSB.setLength(0);
-			
-			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
-				
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Still leaning into [npc2.namePos] back, [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of passionate kisses on [npc2.her] mouth.",
-					
-					"[npc.Name] eagerly [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
-					
-					"[npc.Name] eagerly [npc.verb(press)] into [npc2.namePos] back, pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to passionately kiss [npc2.her] [npc2.lips+]."));
-				
-			} else {
-			
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
-					
-					"[npc.Name] eagerly [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
-					
-					"[npc.Name] eagerly [npc.verb(press)] against [npc2.namePos] [npc2.breasts+], before tilting [npc.her] head slightly to one side as [npc.she] passionately [npc.verb(kiss)] [npc2.her] [npc2.lips+]."));
-			
-			}
-
-			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
-			return UtilText.nodeContentSB.toString();
-		}
-	};
-	
-	public static final SexAction KISS_DOM_ROUGH_REVERSE = new SexAction(
-			SexActionType.ONGOING,
-			ArousalIncrease.TWO_LOW,
-			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.TWO_HORNY,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE)),
-			SexParticipantType.NORMAL,
-			SexPace.DOM_ROUGH) {
-		
-		@Override
-		public String getActionTitle() {
-			return "Rough kiss";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "Roughly kiss [npc2.name].";
-		}
-
-		@Override
-		public String getDescription() {
-
-			UtilText.nodeContentSB.setLength(0);
-			
-			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
-				
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Violently grinding into [npc2.namePos] back, [npc.name] forcefully [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before greedily thrusting [npc.her] [npc.tongue] deep down [npc2.her] throat.",
-					
-					"[npc.Name] roughly [npc.verb(press)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
-					
-					"[npc.Name] roughly [npc.verb(press)] into [npc2.namePos] back,"
-							+ " forcefully pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to [npc.verb(thrust)] [npc.her] [npc.tongue+] deep down [npc2.her] throat."));
-				
-			} else {
-			
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Forcefully pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] greedily [npc.verb(thrust)] [npc.her] [npc.tongue] deep down [npc2.her] throat.",
-					
-					"[npc.Name] roughly [npc.verb(grind)] against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] greedily tongue-[npc.verb(fuck)] [npc2.her] mouth.",
-					
-					"[npc.Name] roughly [npc.verb(press)] against [npc2.namePos] [npc2.breasts+], before thrusting [npc.her] [npc.tongue] deep down [npc2.her] throat."));
-			
-			}
-
-			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
-			return UtilText.nodeContentSB.toString();
-		}
-		
-	};
-	
-	public static final SexAction KISS_SUB_NORMAL_REVERSE = new SexAction(
-			SexActionType.ONGOING,
-			ArousalIncrease.TWO_LOW,
-			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE)),
-			SexParticipantType.NORMAL,
-			SexPace.SUB_NORMAL) {
-		
-		@Override
-		public String getActionTitle() {
-			return "Kiss [npc2.herHim]";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "Continue kissing [npc2.name].";
-		}
-		
-		@Override
-		public String getDescription() {
-			UtilText.nodeContentSB.setLength(0);
-
-			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
-				
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Still leaning into [npc2.namePos] back, [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of passionate kisses on [npc2.her] mouth.",
-					
-					"[npc.Name] [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
-					
-					"[npc.Name] [npc.verb(press)] into [npc2.namePos] back, pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to passionately kiss [npc2.her] [npc2.lips+]."));
-				
-			} else {
-			
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
-					
-					"[npc.Name] [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
-					
-					"[npc.Name] [npc.verb(press)] against [npc2.namePos] [npc2.breasts+], before tilting [npc.her] head slightly to one side as [npc.she] passionately [npc.verb(kiss)] [npc2.her] [npc2.lips+]."));
-			
-			}
-
-			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
-			return UtilText.nodeContentSB.toString();
-		}
-	};
-	
-	public static final SexAction KISS_SUB_EAGER_REVERSE = new SexAction(
-			SexActionType.ONGOING,
-			ArousalIncrease.TWO_LOW,
-			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE)),
-			SexParticipantType.NORMAL,
-			SexPace.SUB_EAGER) {
-		
-		@Override
-		public String getActionTitle() {
-			return "Eager kiss";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "Eagerly kiss [npc2.name].";
-		}
-		
-		@Override
-		public String getDescription() {
-			UtilText.nodeContentSB.setLength(0);
-
-			if(Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
-				
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Still leaning into [npc2.namePos] back, [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.hers], before planting a series of passionate kisses on [npc2.her] mouth.",
-					
-					"[npc.Name] eagerly [npc.verb(lean)] into [npc2.namePos] back, breathing in [npc2.her] [npc2.scent] as [npc.she] [npc.verb(plant)] a series of passionate kisses on [npc2.her] [npc2.lips+].",
-					
-					"[npc.Name] eagerly [npc.verb(press)] into [npc2.namePos] back, pinning [npc2.herHim] against the wall as [npc.she] [npc.verb(lean)] in over [npc2.her] shoulder to passionately kiss [npc2.her] [npc2.lips+]."));
-				
-			} else {
-			
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos], [npc.name] [npc.verb(plant)] a series of passionate kisses on [npc2.her] mouth.",
-					
-					"[npc.Name] eagerly [npc.verb(lean)] in against [npc2.name], breathing in [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(plant)] a series of soft kisses on [npc2.her] [npc2.lips+].",
-					
-					"[npc.Name] eagerly [npc.verb(press)] against [npc2.namePos] [npc2.breasts+], before tilting [npc.her] head slightly to one side as [npc.she] passionately [npc.verb(kiss)] [npc2.her] [npc2.lips+]."));
-			
-			}
-
-			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
-			return UtilText.nodeContentSB.toString();
-		}
-	};
-	
-	public static final SexAction KISS_SUB_RESIST_REVERSE = new SexAction(
-			SexActionType.ONGOING,
-			ArousalIncrease.TWO_LOW,
-			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE)),
-			SexParticipantType.NORMAL,
-			SexPace.SUB_RESISTING) {
-		
-		@Override
-		public String getActionTitle() {
-			return "Resist kiss";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "Resist [npc2.namePos] kiss.";
-		}
-		
-		@Override
-		public String getDescription() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Feeling tears welling up in [npc.her] eyes, [npc.name] [npc.verb(let)] out [npc.a_sob+], trying to [npc.verb(push)] back against [npc2.name] in response to [npc2.her] unwanted kisses.",
-					
-					"With [npc2.namePos] [npc2.scent+] overwhelming [npc.her] senses, [npc.name] [npc.verb(let)] out a muffled [npc.sob],"
-							+ " before desperately trying to [npc.verb(push)] [npc2.herHim] off of [npc.herHim] in a futile attempt to stop [npc2.her] continued assault on [npc.her] mouth.",
-					
-					"[npc.Name] desperately [npc.verb(try)] to [npc.verb(push)] [npc2.name] away, [npc.sobbing] in distress as [npc2.she] [npc2.verb(continue)] kissing and grinding up against [npc.herHim]."));
-			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
-				case DOM_GENTLE:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						" [npc2.Name] [npc2.verb(let)] out a soothing [npc2.moan] in response, ignoring [npc.namePos] protests as [npc2.she] tries to calm [npc.herHim] down by continuing to gently kiss [npc.her] [npc.lips+].",
-						
-						" With a soft [npc2.moan], [npc2.name] [npc2.verb(lean)] into [npc.name],"
-								+ " ignoring [npc.her] [npc.sobs] as [npc2.she] gently, but firmly, pushes [npc2.her] [npc2.tongue] past [npc.her] unwilling [npc.lips] and into [npc.her] mouth.",
-						
-						" Letting out a soothing [npc2.moan], [npc2.name] [npc2.verb(press)] [npc2.herself] against [npc.name],"
-								+ " muffling [npc.her] [npc.sobs] against [npc2.her] [npc2.lips+] as [npc2.she] [npc2.verb(continue)] to kiss [npc.herHim]."));
-					break;
-				case DOM_ROUGH:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						" [npc2.Name] [npc2.verb(let)] out an angry growl in response to [npc.her] protests,"
-								+ " roughly grinding [npc2.her] [npc2.lips] against [npc.her] mouth before violently thrusting [npc2.her] tongue deep down [npc.her] throat.",
-						
-						" With a furious growl, [npc2.name] violently grinds [npc2.herself] up against [npc.name], ignoring [npc.her] [npc.sobs] as [npc2.she] [npc2.verb(thrust)] [npc2.her] [npc2.tongue] deep down [npc.her] throat.",
-						
-						" [npc2.Name] ignores [npc.her] protests, and with a rough growl, [npc2.she] [npc2.verb(continue)] violently tongue-fucking [npc.her] reluctant throat."));
-					break;
-				default:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan] in response, ignoring [npc.namePos] protests as [npc2.she] [npc2.verb(continue)] to plant passionate kisses on [npc.her] [npc.lips+].",
-						
-						" With [npc2.a_moan+], [npc2.name] [npc2.verb(lean)] into [npc.name],"
-								+ " ignoring [npc.her] [npc.sobs] as [npc2.she] firmly pushes [npc2.her] [npc2.tongue] past [npc.her] unwilling [npc.lips] and into [npc.her] mouth.",
-						
-						" Letting out [npc2.a_moan+], [npc2.name] [npc2.verb(press)] [npc2.herself] against [npc.name], continuing to passionately kiss [npc.herHim]."));
-					break;
-			}
-			
-			return UtilText.nodeContentSB.toString();
-		}
-	};
-	
-	public static final SexAction KISS_STOP_REVERSE = new SexAction(
-			SexActionType.STOP_ONGOING,
-			ArousalIncrease.TWO_LOW,
-			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE)),
-			SexParticipantType.NORMAL) {
-		
-		@Override
-		public String getActionTitle() {
-			return "Stop kissing";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "Pull away from [npc2.namePos] and stop kissing [npc2.herHim].";
-		}
-
-		@Override
-		public String getDescription() {
-			
-			UtilText.nodeContentSB.setLength(0);
-			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
-				case DOM_ROUGH:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						"Pulling back, [npc.name] roughly [npc.verb(push)] [npc2.name] away from [npc.herHim] as [npc.she] puts an end to [npc.her] kiss.",
 						
 						"[npc.Name] suddenly, and roughly, [npc.verb(push)] [npc2.name] away from [npc.herHim], bringing an end to [npc.her] kiss.",
 						

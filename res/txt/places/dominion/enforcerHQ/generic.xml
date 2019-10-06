@@ -22,7 +22,7 @@
 	
 	<htmlContent tag="CORRIDOR"><![CDATA[
 	<p>
-		A series of doors line either side of this rather ordinary-looking corridor, each one marked with a different name and title. You scan each one for the name '[brax.name]' as you walk along, smiling in your most disarming manner at any enforcers that you pass along the way.
+		A series of doors line either side of this rather ordinary-looking corridor, each one marked with a different name and title. You scan each one for the name '[brax.name]' as you walk along, smiling in your most disarming manner at any Enforcers that you pass along the way.
 	</p>
 	]]>
 	</htmlContent>
@@ -47,7 +47,7 @@
 		</p>
 	#ELSE
 		<p>
-			Several rough-looking members of the local community are lounging about on the many low sofas littered around this waiting area. A reception desk sits off to one side of the room, and you see a lesser cat-girl, wearing an enforcer's uniform, sitting behind it. She has long, bleach-blonde hair, a beautiful face that's been completely plastered in makeup, and a massive pair of G-cup breasts that threaten to spill out of her half-buttoned-up shirt at any moment. Her cute cat-like ears twitch this way and that as she stares into a little mirror on her desk, and you notice that she's busy applying a layer of bright pink lipstick to her plump, bimbo-like lips.
+			Several rough-looking members of the local community are lounging about on the many low sofas littered around this waiting area. A reception desk sits off to one side of the room, and you see a lesser cat-girl, wearing an Enforcer's uniform, sitting behind it. She has long, bleach-blonde hair, a beautiful face that's been completely plastered in makeup, and a massive pair of G-cup breasts that threaten to spill out of her half-buttoned-up shirt at any moment. Her cute cat-like ears twitch this way and that as she stares into a little mirror on her desk, and you notice that she's busy applying a layer of bright pink lipstick to her plump, bimbo-like lips.
 		</p>
 	#ENDIF
 	<p>
@@ -61,6 +61,36 @@
 	]]>
 	</htmlContent>
 
+	
+	<!-- OFFICE -->
+
+	<htmlContent tag="OFFICE"><![CDATA[
+	<p>
+		The door to the office before you displays a name which you haven't heard of before, and judging from the fact that the lights inside seem to be turned off, it doesn't look like there's going to be anyone inside who can help you to find Brax's office. Trying the handle just to be sure, you find that the door is currently locked. It looks like you'll have to keep on searching for Brax elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- CELLS_OFFICE -->
+
+	<htmlContent tag="CELLS_OFFICE"><![CDATA[
+	<p>
+		This small office is where all prisoners are checked in and out of the cells. Although typically manned by at least two Enforcers, it's currently deserted...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- CELL -->
+
+	<htmlContent tag="CELL"><![CDATA[
+	<p>
+		With a metal, barred door and only a raised concrete platform to serve as a bed, this cell is very basic indeed.
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<!-- GUARDED_DOOR -->
 
@@ -84,7 +114,7 @@
 			As you walk up to the horse-boy guard, he crosses his arms and frowns at you. [style.speechMasculine(I don't know what you're thinking, but there's no way you're getting through here, understood? Unless you want to be thrown out, you'd better back off. Now.)]
 		</p>
 		<p>
-			It looks like he means business, and it probably wouldn't be the smartest idea to start a fight in the middle of the Enforcer HQ. If you had any business with one of the enforcers here, you might be able to get a pass from the cat-girl receptionist, which would allow you to get past these guarded doors...
+			It looks like he means business, and it probably wouldn't be the smartest idea to start a fight in the middle of the Enforcer HQ. If you had any business with one of the Enforcers here, you might be able to get a pass from the cat-girl receptionist, which would allow you to get past these guarded doors...
 		</p>
 	#ENDIF
 	]]>
@@ -92,7 +122,24 @@
 	
 	<htmlContent tag="GUARDED_DOOR_STEP_BACK"><![CDATA[
 	<p>
-		Realising that you'd stand no chance in a fight against all of the enforcers that would soon arrive as backup, you decide not to try and force your way through into the interior of the building. Agreeing to do as the horse-boy says, you step back into the waiting room...
+		Realising that you'd stand no chance in a fight against all of the Enforcers that would soon arrive as backup, you decide not to try and force your way through into the interior of the building. Agreeing to do as the horse-boy says, you step back into the waiting room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LOCKED_DOOR -->
+
+	<htmlContent tag="LOCKED_DOOR"><![CDATA[
+	<p>
+		The door before you is firmly shut, and, giving it an experimental push, you discover that it's locked. Doubting that the pass which Candi gave to you grants you access to the area beyond, you decide against asking a nearby Enforcer to open it for you, and instead prepare to turn around and head back the way you came...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOCKED_DOOR_STEP_BACK"><![CDATA[
+	<p>
+		With no apparent way to get past this locked door, you take a step back and turn around, before heading off back down the main corridor...
 	</p>
 	]]>
 	</htmlContent>
@@ -382,6 +429,13 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="HELP_CANDI_DENIED"><![CDATA[
+	<p>
+		Not being particularly interested in helping Candi to get some relief from her overwhelming horniness, you remind her that you did warn her not to eat the lollipops, before telling her to seek help from someone else. Ignoring the desperate, disappointed whines that the bimbo cat-girl starts making, you step back into the waiting room and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<!-- INTERIOR_SECRETARY -->
 	
@@ -393,7 +447,7 @@
 		[candi.speechNoEffects(Oh! Like, heya! Soz about, like, not seein' ya and stuff!)] she exclaims, breaking off from applying her makeup to happily smile up at you. Leaning forwards over her desk, she bites her lip and pushes out her chest. Due to the fact that the top few buttons of her shirt are undone, you end up looking straight down at her impressive cleavage, noting to yourself that she isn't wearing a bra.
 	</p>
 	<p>
-		[candi.speechNoEffects(Haha! What'cha lookin' at?!)] she giggles, pressing her breasts forwards in an enticing manner. [candi.speechNoEffects(Y'need any help with, like, enforcer things and stuff?)]
+		[candi.speechNoEffects(Haha! What'cha lookin' at?!)] she giggles, pressing her breasts forwards in an enticing manner. [candi.speechNoEffects(Y'need any help with, like, Enforcer things and stuff?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -428,7 +482,7 @@
 		[candi.speechNoEffects(Eugh... Like, [brax.name] is, like, super hot and stuff, but he has a sorta thing for wolf-girls. He got, like, some demon to make him this super expensive potion that'd, like, turn me completely into a wolf-girl! I dunno what he was thinkin', I put, like, so much effort into how I look, I'm not, like, gonna let him transform me like that, even <i>if</i> he's super good at fuckin' and stuff,)] Candi explains, [candi.speechNoEffects(Ah yeah, that reminds me, like, he said he'd just use it on the next person that pisses him off, so, like, don't do anything to anger him, or else you're gonna', like, get turned into his little wolf-bitch!)]
 	</p>
 	<p>
-		Thanking Candi for the warning, you say goodbye, and no sooner than you take one step away from her desk, she starts busily applying her makeup once again.
+		Thanking Candi for the warning, you say goodbye and head back into the waiting area. No sooner than you take one step away from her desk, she starts busily applying her makeup once again.
 	</p>
 	]]>
 	</htmlContent>
@@ -444,7 +498,7 @@
 		[candi.speechNoEffects(Like, thank you so much! Soz about, like, not seein' ya and stuff! I was, y'know, like puttin' my makeup on!)] she exclaims, breaking off from applying her makeup to happily smile up at you. Leaning forwards over her desk, she bites her lip and pushes out her chest. Due to the fact that the top few buttons of her shirt are undone, you end up looking straight down at her impressive cleavage, noting to yourself that she isn't wearing a bra.
 	</p>
 	<p>
-		[candi.speechNoEffects(Haha! What'cha lookin' at?!)] she giggles, pressing her breasts forwards in an enticing manner. [candi.speechNoEffects(Y'need any help with, like, enforcer things and stuff?)]
+		[candi.speechNoEffects(Haha! What'cha lookin' at?!)] she giggles, pressing her breasts forwards in an enticing manner. [candi.speechNoEffects(Y'need any help with, like, Enforcer things and stuff?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -479,7 +533,7 @@
 		[candi.speechNoEffects(Eugh... Like, [brax.name] is, like, super hot and stuff, but he has a sorta thing for wolf-girls. He got, like, some demon to make him this super expensive potion that'd, like, turn me completely into a wolf-girl! I dunno what he was thinkin', I put, like, so much effort into how I look, I'm not, like, gonna let him transform me like that, even <i>if</i> he's super good at fuckin' and stuff,)] Candi explains. [candi.speechNoEffects(Ah yeah, that reminds me, like, he said he'd just use it on the next person that pisses him off, so, like, don't do anything to anger him, or else you're gonna', like, get turned into his little wolf-bitch!)]
 	</p>
 	<p>
-		Thanking Candi for the warning, you say goodbye, and no sooner than you take one step away from her desk, she starts busily applying her makeup once again.
+		Thanking Candi for the warning, you say goodbye and head back into the waiting area. No sooner than you take one step away from her desk, she starts busily applying her makeup once again.
 	</p>
 	]]>
 	</htmlContent>
@@ -674,10 +728,10 @@
 		Bree allows Candi to push her down onto her chair, before obediently opening her mouth. Candi pulls out the bottle's stopper, and, tilting it into Bree's mouth, she empties the pink liquid down her throat. Gulping it down, Bree licks her lips as Candi pulls away from her, before letting out a little sigh.
 	</p>
 	<p>
-		Bree starts shifting around uncomfortably in her seat, and, looking down, you see the cause of her discomfort. Her ass and hips are rapidly expanding, and with an audible tear, her enforcer shorts split at the seams. Letting out a little cry, Bree clutches the fabric against her groin, trying to conceal herself as the next transformation starts to take place.
+		Bree starts shifting around uncomfortably in her seat, and, looking down, you see the cause of her discomfort. Her ass and hips are rapidly expanding, and with an audible tear, her Enforcer shorts split at the seams. Letting out a little cry, Bree clutches the fabric against her groin, trying to conceal herself as the next transformation starts to take place.
 	</p>
 	<p>
-		Just like her lower body, Bree's upper body starts to expand, and you watch, wide-eyed, as her breasts swell up. Her enforcer uniform can't take the stress, and you watch as the buttons of her shirt ping off to reveal her massive breasts.
+		Just like her lower body, Bree's upper body starts to expand, and you watch, wide-eyed, as her breasts swell up. Her Enforcer uniform can't take the stress, and you watch as the buttons of her shirt ping off to reveal her massive breasts.
 	</p>
 	<p>
 		#IF(brax.hasPenis())
@@ -706,7 +760,7 @@
 	
 	<htmlContent tag="INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED_SEX"><![CDATA[
 	<p>
-		After waiting for five minutes, you follow Candi into her office. There, waiting for you, is the one-time 'Chief of Dominion Operations'. Having being transformed into a brain-dead bimbo, and being dressed up to look like a cheap whore, she's completely unrecognisable from the first time you met her.
+		After waiting for five minutes, you follow Candi into her office. There, waiting for you, is the person who you first met as 'Inspector Brax'. Having being transformed into a brain-dead bimbo, and being dressed up to look like a cheap whore, she's completely unrecognisable from the first time you met her.
 	</p>
 	<p>
 		A fishnet top does nothing to conceal her massive KK-cup breasts, and you see that a tiny miniskirt isn't doing much better of a job downstairs. Candi must have a thing for fishnets, as she's given Brandi a pair of fishnet stocking, as well as gloves, finishing off her slutty appearance.
@@ -866,7 +920,7 @@
 		Realising that you have little choice but to do as she asks, you agree to help Candi once again, and ask her what it is she needs you to do. Glancing around to make sure that nobody else is nearby, the bimbo cat-girl leans forwards over her desk, and in an overly-dramatic manner, places a finger over her lips and makes a shushing noise, before whispering, [candi.speechNoEffects(You, like, can't tell anyone about this, ok, but, like, I overheard some talk about these extra special lollipops being confiscated up in the Harpy Nests. I, um, really love sucking on things like that, so you're gonna, like, go and fetch them for me, ok?)]
 	</p>
 	<p>
-		You almost put a quick end to Candi's entire plan as you point out that the Enforcers are unlikely to simply hand over contraband lollipops to a member of the public, but after letting out a particularly long 'umming' noise, she exclaims, [candi.speechNoEffects(Oh, you can just use the super secret password that, like, only enforcers are allowed to know! Just tell them it's a 'priority thunder', and then they'll know you must be a friend! Lucky I'm so smart I could think of that for you, huh? So anyway, go up to those Harpy Nests, and, like, tell them that the 'contraband lollipops' are needed here at the enforcer headquarters for, um, testing or something, I dunno, you'll think of something.)]
+		You almost put a quick end to Candi's entire plan as you point out that the Enforcers are unlikely to simply hand over contraband lollipops to a member of the public, but after letting out a particularly long 'umming' noise, she exclaims, [candi.speechNoEffects(Oh, you can just use the super secret password that, like, only Enforcers are allowed to know! Just tell them it's a 'priority thunder', and then they'll know you must be a friend! Lucky I'm so smart I could think of that for you, huh? So anyway, go up to those Harpy Nests, and, like, tell them that the 'contraband lollipops' are needed here at the Enforcer headquarters for, um, testing or something, I dunno, you'll think of something.)]
 	</p>
 	<p>
 		After getting Candi's assurance that she'll have put a price on [brax.name] by the time you return with these lollipops, you wonder if you should head on up to the Harpy Nests right away, or do something else here first...
@@ -919,13 +973,13 @@
 		#ENDIF
 	</p>
 	<p>
-		Responding in the affirmative, you sign the papers laid out in front of you, before asking Candi to do the same. Despite all that you've done for her, she seems very reluctant to go through with it, and it takes some pointed reminders of her promises to finally get her to sign off on the transfer. Being infused with a special arcane enchantment, the documents immediately react to both party's signatures, and with a bright purple flash, the enslavement collar around [brax.namePos] next activates, teleporting [brax.herHim] to the slaver administration building's holding cells.
+		Responding in the affirmative, and telling [brax.name] to collect whatever personal possessions [brax.she] has, you then sign the papers laid out in front of you, before asking Candi to do the same. Despite all that you've done for her, she seems very reluctant to go through with it, and it takes some pointed reminders of her promises to finally get her to sign off on the transfer. Being infused with a special arcane enchantment, the documents immediately react to both party's signatures, and with a bright purple flash, the enslavement collar around [brax.namePos] neck activates, teleporting [brax.herHim] to the slaver administration building's holding cells.
 	</p>
 	<p>
 		[candi.speechNoEffects(Well, like, there ya go,)] candi pouts, clearly upset at having lost her slave, [candi.speechNoEffects(I guess these lipsticks are, like, pretty good, but I feel like you cheated me outta something!)]
 	</p>
 	<p>
-		Not wanting an enforcer with a grudge on your back, you remind Candi that you also retrieved her perfume, as well as the box of contraband lollipops, and that by all accounts it was a fair deal. As you mention this, her eyes suddenly light up, and she happily exclaims, [candi.speechNoEffects(Oh, that's right! I, like, forgot about those! I was saving them for when this happened to make me feel better!)]
+		Not wanting an Enforcer with a grudge on your back, you remind Candi that you also retrieved her perfume, as well as the box of contraband lollipops, and that by all accounts it was a fair deal. As you mention this, her eyes suddenly light up, and she happily exclaims, [candi.speechNoEffects(Oh, that's right! I, like, forgot about those! I was saving them for when this happened to make me feel better!)]
 	</p>
 	<p>
 		Before you can even think about stopping her, the bimbo cat-girl reaches down beneath her desk, and, producing a glowing-pink lollipop, she wraps her plump lips around it and starts sucking. Immediately, you see her cheeks flush red, and with complete indifference to your presence before her, she drops her hands down between her legs, before pulling her skirt up and reaching down into her thong to start masturbating. 
@@ -938,7 +992,6 @@
 	</p>
 	]]>
 	</htmlContent>
-
 	
 	
 </dialogue>

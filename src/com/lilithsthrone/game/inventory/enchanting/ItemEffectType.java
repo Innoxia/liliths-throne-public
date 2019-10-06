@@ -794,7 +794,7 @@ public class ItemEffectType {
 	public static AbstractItemEffectType COR_LILITHS_GIFT = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
 			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
-			"[style.boldGood(+1)] [style.boldCorruption(corruption)] to 'potion effects'"),
+			"[style.boldGood(+25)] [style.boldCorruption(corruption)] to 'potion effects'"),
 			Colour.ATTRIBUTE_CORRUPTION) {
 		
 		@Override
@@ -803,17 +803,15 @@ public class ItemEffectType {
 			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
 
 			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A sickly wave of corruptive arcane energy washes over you..."
-						:UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]..."))
+						+UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]...")
 					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 25);
 		}
 	};
 
 	public static AbstractItemEffectType COR_IMPISH_BREW = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 10% [style.boldAura(aura)]",
-			"[style.boldGood(+5)] [style.boldCorruption(corruption)] to 'potion effects'"),
+			"[style.boldGood(+50)] [style.boldCorruption(corruption)] to 'potion effects'"),
 			Colour.ATTRIBUTE_CORRUPTION) {
 		
 		@Override
@@ -821,11 +819,9 @@ public class ItemEffectType {
 			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/10);
 
 			return "<p style='text-align:center;'>"
-					+(target.isPlayer()
-						?"A sickly wave of corruptive arcane energy washes over you..."
-						:UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]..."))
+						+UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]...")
 					+ "</p>"
-					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 5);
+					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 50);
 		}
 	};
 	
@@ -2946,13 +2942,7 @@ public class ItemEffectType {
 
 		@Override
 		public List<TFModifier> getPrimaryModifiers() {
-			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return TFModifier.getClothingPrimaryList();
-			} else {
-				ArrayList<TFModifier> noEnslavement = new ArrayList<>(TFModifier.getClothingPrimaryList());
-				noEnslavement.remove(TFModifier.CLOTHING_ENSLAVEMENT);
-				return noEnslavement;
-			}
+			return TFModifier.getClothingPrimaryList();
 		}
 
 		@Override
@@ -2969,9 +2959,14 @@ public class ItemEffectType {
 			} else if(primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART) {
 				return TFModifier.getTFBodyPartFetishList();
 				
-			} else if(primaryModifier == TFModifier.CLOTHING_ENSLAVEMENT
-					|| primaryModifier == TFModifier.CLOTHING_SEALING
-					|| primaryModifier == TFModifier.CLOTHING_CONDOM) {
+			} else if(primaryModifier == TFModifier.CLOTHING_SPECIAL) {
+				if(Main.game.getPlayer().isHasSlaverLicense()) {
+					return Util.newArrayListOfValues(TFModifier.CLOTHING_SEALING, TFModifier.CLOTHING_ENSLAVEMENT);
+				} else {
+					return Util.newArrayListOfValues(TFModifier.CLOTHING_SEALING);
+				}
+				
+			} else if(primaryModifier == TFModifier.CLOTHING_CONDOM) {
 				return Util.newArrayListOfValues(TFModifier.ARCANE_BOOST);
 				
 			} else {
@@ -2989,7 +2984,7 @@ public class ItemEffectType {
 					|| !getClothingTFSecondaryModifiers(primaryModifier).isEmpty()) {
 				return TFPotency.getAllPotencies();
 				
-			} else if(primaryModifier == TFModifier.CLOTHING_SEALING) {
+			} else if(secondaryModifier == TFModifier.CLOTHING_SEALING) {
 				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST, TFPotency.MINOR_DRAIN, TFPotency.DRAIN, TFPotency.MAJOR_DRAIN);
 				
 			} else {
@@ -3009,7 +3004,7 @@ public class ItemEffectType {
 								:"[style.boldGood(+"+potency.getClothingBonusValue()+")] ")
 						+ "<b style='color:"+secondaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(secondaryModifier.getAssociatedAttribute().getName())+"</b>");
 				
-			} else if(primaryModifier == TFModifier.CLOTHING_SEALING) {
+			} else if(secondaryModifier == TFModifier.CLOTHING_SEALING) {
 				if(potency==TFPotency.MINOR_DRAIN) {
 					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(25)])</b>");
 					
@@ -3023,7 +3018,7 @@ public class ItemEffectType {
 					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(5)])</b>");
 				}
 				
-			} else if(primaryModifier == TFModifier.CLOTHING_ENSLAVEMENT) {
+			} else if(secondaryModifier == TFModifier.CLOTHING_ENSLAVEMENT) {
 					effectsList.add("[style.boldCrimson(Enslaves the wearer)]");
 				
 			} else if(primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
@@ -3079,8 +3074,8 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
 					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
-					|| primaryModifier == TFModifier.CLOTHING_ENSLAVEMENT
-					|| primaryModifier == TFModifier.CLOTHING_SEALING
+					|| secondaryModifier == TFModifier.CLOTHING_ENSLAVEMENT
+					|| secondaryModifier == TFModifier.CLOTHING_SEALING
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART
 					|| primaryModifier == TFModifier.CLOTHING_CONDOM) {

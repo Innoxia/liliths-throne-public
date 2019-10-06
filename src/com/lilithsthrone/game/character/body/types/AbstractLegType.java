@@ -226,10 +226,11 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	 * @param configuration The leg configuration to be applied.
 	 * @param character The character which is being transformed.
 	 * @param applyEffects Whether the transformative effects should be applied. Pass in false to get the transformation description without applying any of the actual effects.
+	 * @param applyFullEffects Pass in true if you want the additional transformations to include attribute changes (such as penis resizing, vagina capacity resetting, etc.).
 	 * 
 	 * @return A description of the transformation.
 	 */
-	public String applyLegConfigurationTransformation(GameCharacter character, LegConfiguration legConfiguration, boolean applyEffects) {
+	public String applyLegConfigurationTransformation(GameCharacter character, LegConfiguration legConfiguration, boolean applyEffects, boolean applyFullEffects) {
 		StringBuilder bestialStringBuilder = new StringBuilder();
 		
 		if(character.getLegConfiguration()==legConfiguration && character.getLegType().equals(this)) {
@@ -238,7 +239,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 					+ "</p>";
 		}
 		
-		bestialStringBuilder.append(handleLegConfigurationChanges(character.getBody(), legConfiguration, applyEffects));
+		bestialStringBuilder.append(handleLegConfigurationChanges(character.getBody(), legConfiguration, applyEffects, applyFullEffects));
 
 		bestialStringBuilder.append("<p>");
 		if(character.hasWings()) {
@@ -272,13 +273,17 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	 * 
 	 * @param body The body to be modified.
 	 * @param legConfiguration The LegConfiguration to be applied.
+	 * @param applyFullEffects Pass in true if you want the additional transformations to include attribute changes (such as penis resizing, vagina capacity resetting, etc.).
 	 */
-	public void applyLegConfigurationTransformation(Body body, LegConfiguration legConfiguration) {
-		handleLegConfigurationChanges(body, legConfiguration, true);
+	public void applyLegConfigurationTransformation(Body body, LegConfiguration legConfiguration, boolean applyFullEffects) {
+		handleLegConfigurationChanges(body, legConfiguration, true, applyFullEffects);
 		body.getLeg().setLegConfigurationForced(this, legConfiguration);
 	}
-	
-	private String handleLegConfigurationChanges(Body body, LegConfiguration legConfiguration, boolean applyEffects) {
+
+	/**
+	 * @param applyFullEffects Pass in true if you want the additional transformations to include attribute changes (such as penis resizing, vagina capacity resetting, etc.).
+	 */
+	private String handleLegConfigurationChanges(Body body, LegConfiguration legConfiguration, boolean applyEffects, boolean applyFullEffects) {
 		
 		String bestialRaceName = this.getRace().getName(true);
 		String bestialRaceNameDeterminer = UtilText.generateSingularDeterminer(bestialRaceName);
@@ -291,7 +296,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			case BIPEDAL:
 				feral = false;
 				if(applyEffects) {
-					applyExtraLegConfigurationTransformations(body, body.getLeg().getLegConfiguration(), false); // revert feral parts based on current configuration
+					applyExtraLegConfigurationTransformations(body, body.getLeg().getLegConfiguration(), false, applyFullEffects); // revert feral parts based on current configuration
 					// Changing back to bipedal reverts crotch-boobs based on preferences:
 					AbstractRacialBody startingBodyType = RacialBody.valueOfRace(this.getRace());
 					if(body.getRaceStage()!=RaceStage.GREATER || Main.getProperties().udders<2 || !body.getGender().isFeminine()) {
@@ -321,7 +326,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				break;
 			case ARACHNID:
 				if(applyEffects) {
-					applyExtraLegConfigurationTransformations(body, legConfiguration, true);
+					applyExtraLegConfigurationTransformations(body, legConfiguration, true, applyFullEffects);
 					body.setGenitalArrangement(GenitalArrangement.CLOACA);
 				}
 				bestialStringBuilder.append(
@@ -333,7 +338,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				break;
 			case CEPHALOPOD:
 				if(applyEffects) {
-					applyExtraLegConfigurationTransformations(body, legConfiguration, false);
+					applyExtraLegConfigurationTransformations(body, legConfiguration, false, applyFullEffects);
 					body.setGenitalArrangement(GenitalArrangement.CLOACA);
 				}
 				bestialStringBuilder.append(
@@ -345,7 +350,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				break;
 			case TAIL:
 				if(applyEffects) {
-					applyExtraLegConfigurationTransformations(body, legConfiguration, false);
+					applyExtraLegConfigurationTransformations(body, legConfiguration, false, applyFullEffects);
 					body.setGenitalArrangement(GenitalArrangement.CLOACA);
 				}
 				bestialStringBuilder.append(
@@ -357,7 +362,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				break;
 			case TAIL_LONG:
 				if(applyEffects) {
-					applyExtraLegConfigurationTransformations(body, legConfiguration, false);
+					applyExtraLegConfigurationTransformations(body, legConfiguration, false, applyFullEffects);
 					body.setGenitalArrangement(GenitalArrangement.CLOACA);
 				}
 				bestialStringBuilder.append(
@@ -368,14 +373,17 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 						+ "</p>");
 				break;
 			case TAUR:
-				if(applyEffects) {
-					applyExtraLegConfigurationTransformations(body, legConfiguration, true);
-					body.setGenitalArrangement(GenitalArrangement.NORMAL);
-				}
 				bestialStringBuilder.append(
 						"<p>"
-							+ "An extremely unsettling, tingling feeling starts to spread down into [npc.namePos] [npc.legs+],"
-								+ " and [npc.she] [npc.verb(let)] out an alarmed cry as [npc.she] [npc.verb(lose)] [npc.her] balance and [npc.verb(tumble)] to the floor."
+							+ "An extremely unsettling, tingling feeling starts to spread down into [npc.namePos] [npc.legs+],");
+				
+				if(applyEffects) {
+					applyExtraLegConfigurationTransformations(body, legConfiguration, true, applyFullEffects);
+					body.setGenitalArrangement(GenitalArrangement.NORMAL);
+				}
+				
+				bestialStringBuilder.append(
+						" and [npc.she] [npc.verb(let)] out an alarmed cry as [npc.she] [npc.verb(lose)] [npc.her] balance and [npc.verb(tumble)] to the floor."
 							+ " Right before [npc.her] [npc.eyes], [npc.her] lower body shifts and transforms, with [npc.her] limbs pulling back into an intermediary mass of [npc.bodyMaterial],"
 								+ " before almost immediately pushing back out in a quadrupedal configuration."
 						+ "</p>"
@@ -488,46 +496,65 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	}
 	
 	// Setting parts is applied directly through body to circumvent transformation blocks
-	private void applyExtraLegConfigurationTransformations(Body body, LegConfiguration legConfiguration, boolean largeGenitals) {
+	/**
+	 * @param applyFullEffects Pass in true if you want the additional transformations to include attribute changes (such as penis resizing, vagina capacity resetting, etc.).
+	 **/
+	private void applyExtraLegConfigurationTransformations(Body body, LegConfiguration legConfiguration, boolean largeGenitals, boolean applyFullEffects) {
 		AbstractRacialBody startingBodyType = RacialBody.valueOfRace(this.getRace());
 		
 		boolean demon = body.getRace()==Race.DEMON;
 		
 		if(legConfiguration.getBestialParts().contains(Ass.class)) { // Ass (includes Anus):
-			body.setAss(
-					new Ass(
-						(demon
-							?AssType.DEMON_COMMON
-							:startingBodyType.getAssType()),
-						(body.isFeminine()
-							? startingBodyType.getFemaleAssSize()
-							: startingBodyType.getMaleAssSize()),
-						startingBodyType.getAnusWetness(),
-						startingBodyType.getAnusCapacity(),
-						startingBodyType.getAnusElasticity(),
-						startingBodyType.getAnusPlasticity(),
-						true));
+			if(!applyFullEffects) {
+				body.getAss().setType(null, (demon
+						?AssType.DEMON_COMMON
+						:startingBodyType.getAssType()));
+			} else {
+				body.setAss(
+						new Ass(
+							(demon
+								?AssType.DEMON_COMMON
+								:startingBodyType.getAssType()),
+							(body.isFeminine()
+								? startingBodyType.getFemaleAssSize()
+								: startingBodyType.getMaleAssSize()),
+							startingBodyType.getAnusWetness(),
+							startingBodyType.getAnusCapacity(),
+							startingBodyType.getAnusElasticity(),
+							startingBodyType.getAnusPlasticity(),
+							true));
+			}
 		}
 		if(legConfiguration.getBestialParts().contains(BreastCrotch.class)) { // Crotch-boobs:
-			body.setBreastCrotch(
-					new BreastCrotch(
-					(body.isFeminine()
-						?(demon
-							?BreastType.DEMON_COMMON
-							:startingBodyType.getBreastType())
-						:BreastType.NONE),
-					Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
-					startingBodyType.getBreastCrotchSize(),
-					startingBodyType.getBreastCrotchLactationRate(),
-					startingBodyType.getBreastCrotchCount(),
-					startingBodyType.getBreastCrotchNippleSize(),
-					startingBodyType.getBreastCrotchNippleShape(),
-					startingBodyType.getBreastCrotchAreolaeSize(),
-					startingBodyType.getNippleCountPerBreastCrotch(),
-					startingBodyType.getBreastCrotchCapacity(),
-					startingBodyType.getBreastCrotchElasticity(),
-					startingBodyType.getBreastCrotchPlasticity(), 
-					true));
+			if(!applyFullEffects) {
+				body.getBreastCrotch().setType(null,
+						(body.isFeminine()
+							?(demon
+								?BreastType.DEMON_COMMON
+								:startingBodyType.getBreastType())
+							:BreastType.NONE));
+				
+			} else {
+				body.setBreastCrotch(
+						new BreastCrotch(
+						(body.isFeminine()
+							?(demon
+								?BreastType.DEMON_COMMON
+								:startingBodyType.getBreastType())
+							:BreastType.NONE),
+						Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
+						startingBodyType.getBreastCrotchSize(),
+						startingBodyType.getBreastCrotchLactationRate(),
+						startingBodyType.getBreastCrotchCount(),
+						startingBodyType.getBreastCrotchNippleSize(),
+						startingBodyType.getBreastCrotchNippleShape(),
+						startingBodyType.getBreastCrotchAreolaeSize(),
+						startingBodyType.getNippleCountPerBreastCrotch(),
+						startingBodyType.getBreastCrotchCapacity(),
+						startingBodyType.getBreastCrotchElasticity(),
+						startingBodyType.getBreastCrotchPlasticity(), 
+						true));
+			}
 		}
 		if(legConfiguration.getBestialParts().contains(Tail.class)) { // Tail:
 			if(body.getLeg().getType().getRace()==Race.DEMON) {
@@ -542,40 +569,60 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			body.setTentacle(new Tentacle(startingBodyType.getTentacleType()));
 		}
 		if(legConfiguration.getBestialParts().contains(Penis.class)) { // Penis (includes Testicle):
-			boolean virgin = body.getPenis().isVirgin();
-			body.setPenis(body.getPenis().getType()!=PenisType.NONE && body.getPenis().getType()!=PenisType.DILDO
-					? new Penis(
-						(demon
-							?PenisType.DEMON_COMMON
-							:startingBodyType.getPenisType()),
-						(int) (startingBodyType.getPenisSize()*(largeGenitals?2.5:1)),
-						true,
-						startingBodyType.getPenisGirth()+(largeGenitals?1:0),
-						startingBodyType.getTesticleSize()+(largeGenitals?1:0),
-						startingBodyType.getCumProduction()*(largeGenitals?4:1),
-						startingBodyType.getTesticleQuantity())
-					: new Penis(PenisType.NONE, 0, false, 0, 0, 0, 2));
-			body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
-			body.getPenis().setVirgin(virgin);
+			if(!applyFullEffects) {
+				if(body.getPenis().getType()!=PenisType.NONE && body.getPenis().getType()!=PenisType.DILDO) {
+					body.getPenis().setType(null,
+								(demon
+									?PenisType.DEMON_COMMON
+									:startingBodyType.getPenisType()));
+				}
+				
+			} else {
+				boolean virgin = body.getPenis().isVirgin();
+				body.setPenis(body.getPenis().getType()!=PenisType.NONE && body.getPenis().getType()!=PenisType.DILDO
+						? new Penis(
+							(demon
+								?PenisType.DEMON_COMMON
+								:startingBodyType.getPenisType()),
+							(int) (startingBodyType.getPenisSize()*(largeGenitals?2.5:1)),
+							true,
+							startingBodyType.getPenisGirth()+(largeGenitals?1:0),
+							startingBodyType.getTesticleSize()+(largeGenitals?1:0),
+							startingBodyType.getCumProduction()*(largeGenitals?4:1),
+							startingBodyType.getTesticleQuantity())
+						: new Penis(PenisType.NONE, 0, false, 0, 0, 0, 2));
+				body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
+				body.getPenis().setVirgin(virgin);
+			}
 		}
 		if(legConfiguration.getBestialParts().contains(Vagina.class)) { // Vagina (includes Clitoris):
-			boolean virgin = body.getVagina().getType()!=VaginaType.NONE?body.getVagina().getOrificeVagina().isVirgin():true;
-			body.setVagina(
-					body.getVagina().getType()!=VaginaType.NONE
-						? new Vagina(
+			if(!applyFullEffects) {
+				if(body.getVagina().getType()!=VaginaType.NONE) {
+					body.getVagina().setType(null,
 								(demon
 									?VaginaType.DEMON_COMMON
-									:startingBodyType.getVaginaType()),
-								LabiaSize.getRandomLabiaSize().getValue(),
-								startingBodyType.getClitSize(),
-								startingBodyType.getVaginaWetness(),
-								(float) (startingBodyType.getVaginaCapacity()*(largeGenitals?2.5:1)),
-								startingBodyType.getVaginaElasticity(),
-								startingBodyType.getVaginaPlasticity(),
-								true)
-						: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true));
-			body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
-			body.getVagina().getOrificeVagina().setVirgin(virgin);
+									:startingBodyType.getVaginaType()));
+				}
+				
+			} else {
+				boolean virgin = body.getVagina().getType()!=VaginaType.NONE?body.getVagina().getOrificeVagina().isVirgin():true;
+				body.setVagina(
+						body.getVagina().getType()!=VaginaType.NONE
+							? new Vagina(
+									(demon
+										?VaginaType.DEMON_COMMON
+										:startingBodyType.getVaginaType()),
+									LabiaSize.getRandomLabiaSize().getValue(),
+									startingBodyType.getClitSize(),
+									startingBodyType.getVaginaWetness(),
+									(float) (startingBodyType.getVaginaCapacity()*(largeGenitals?2.5:1)),
+									startingBodyType.getVaginaElasticity(),
+									startingBodyType.getVaginaPlasticity(),
+									true)
+							: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true));
+				body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
+				body.getVagina().getOrificeVagina().setVirgin(virgin);
+			}
 		}
  	}
 	

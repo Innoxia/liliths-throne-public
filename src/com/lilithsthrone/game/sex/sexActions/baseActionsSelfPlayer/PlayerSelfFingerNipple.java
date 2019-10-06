@@ -52,15 +52,9 @@ public class PlayerSelfFingerNipple {
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"You reach up and start playing with your hard nipples, pinching and rubbing them as you moan with arousal.",
-					
 					"Your fingertips tease over your breasts, stopping to pinch and tug at your nipples as you moan and sigh in delight.",
-					
 					"You reach up to your breasts, and, with eager fingers, start to pinch and rub at your exposed nipples.",
-					
-					Sex.isMasturbation()
-						?"Your nipples are just begging for some attention, and you whine in delight as you reach up to start pinching them."
-						:UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
-								"Your nipples are just begging for some attention, and you reach up and start to pinch at them, whining in delight as [npc.name] smirks at you.")));
+					"Your nipples are just begging for some attention, and you whine in delight as you reach up to start pinching them."));
 			
 			switch (Main.game.getPlayer().getBreastStoredMilk()) {
 				case ONE_TRICKLE:

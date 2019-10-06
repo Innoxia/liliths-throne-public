@@ -437,4 +437,8 @@ public class OrificeAnus implements OrificeInterface {
 		return orificeModifiers;
 	}
 
+	public void clearOrificeModifiers() {
+		orificeModifiers.clear();
+	}
+
 }

@@ -95,8 +95,8 @@ public enum Subspecies {
 			"angels",
 			"angel",
 			"angel",
-			"angel",
-			"angel",
+			"angels",
+			"angels",
 			"angel",
 			"As an angel, [npc.nameIsFull] highly resistant to the arousing effects of the arcane, and [npc.is] particularly adept at fighting demons."
 					+ " [npc.Her] natural instinct to protect humans, however, leaves [npc.her] quite vulnerable to them...",
@@ -462,12 +462,13 @@ public enum Subspecies {
 			"imps",
 			"imps",
 			"imp",
-			"[npc.NamePos] impish body has a deep, insatiable craving for sex...",
+			"[npc.NamePos] impish body has a deep, insatiable craving for sex. Due to imps' uncouth mannerisms and reputation as being on the very bottom rung of society, [npc.she] [npc.verb(find)] it difficult to seduce others...",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 200f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -75f)),
 			Util.newArrayListOfValues(
 					"[style.boldDemon(Demonic)] <b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>",
 					"<b style='color: "+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to potion transformations</b>"),
@@ -514,12 +515,13 @@ public enum Subspecies {
 			"alpha-imps",
 			"alpha-imps",
 			"alpha-imp",
-			"[npc.NamePos] impish body has a deep, insatiable craving for sex...",
+			"[npc.NamePos] impish body has a deep, insatiable craving for sex. Due to imps' uncouth mannerisms and reputation as being on the very bottom rung of society, [npc.she] [npc.verb(find)] it difficult to seduce others...",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 0f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 200f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -50f)),
 			Util.newArrayListOfValues(
 					"[style.boldDemon(Demonic)] <b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>",
 					"<b style='color: "+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to potion transformations</b>"),
@@ -695,7 +697,7 @@ public enum Subspecies {
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 1)),
 			Colour.RACE_DOG_MORPH,
-			SubspeciesPreference.FOUR_ABUNDANT,
+			SubspeciesPreference.TWO_AVERAGE,
 			"A particularly energetic and intelligent dog-morph, which resembles an anthropomorphised border-collie."
 				+ " They are known as 'border-collie-morphs' when bipedal, and 'border-collie-taurs' when the lower body is that of an oversized feral border-collie."
 				+ " To be identified as a border-collie-morph, a character must be a dog-morph that has either upright or folded ears, and fluffy, black fur with white markings.",
@@ -801,6 +803,66 @@ public enum Subspecies {
 					"hellhounds"};
 		}
 	},
+	
+	DOG_MORPH_GERMAN_SHEPHERD("statusEffects/race/raceDogMorph",
+			"statusEffects/race/raceBackground",
+			"German-shepherd-morph",
+			"German-shepherd-morphs",
+			"German-shepherd-boy",
+			"German-shepherd-girl",
+			"German-shepherd-boys",
+			"German-shepherd-girls",
+			"German-shepherd",
+			"[npc.NameHasFull] a primitive, wolf-like appearance, and possesses levels of strength and intelligence above that of most other dog-morphs.",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 5f)),
+			null,
+			"Canine Culture",
+			"Canine Cultures",
+			"DOG_MORPH_BASIC",
+			"DOG_MORPH_ADVANCED",
+			Race.DOG_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 6),
+					new Value<>(PerkCategory.LUST, 3),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 6),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Colour.RACE_DOG_MORPH,
+			SubspeciesPreference.TWO_AVERAGE,
+			"A strong, intelligent, and loyal subspecies of dog-morph, which resembles an anthropomorphised German-shepherd."
+				+ " They are known as 'German-shepherd-morphs' when bipedal, and 'German-shepherd-taurs' when the lower body is that of an oversized feral German-shepherd."
+				+ " To be identified as a German-shepherd-morph, a character must be a dog-morph that has upright ears, and fluffy, black fur with tan markings.",
+			Util.newHashMapOfValues(
+				new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON))) {
+				@Override
+				public void applySpeciesChanges(Body body) {
+					if(body.getPenis().getType()==PenisType.CANINE) {
+						body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
+					}
+					body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, Colour.COVERING_BLACK, false, Colour.COVERING_TAN, false));
+					body.getCoverings().put(BodyCoveringType.HAIR_CANINE_FUR, new Covering(BodyCoveringType.HAIR_CANINE_FUR, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_TAN, false));
+					
+					body.getEar().setType(null, EarType.DOG_MORPH_POINTED);
+				}
+				@Override
+				protected String[] getHalfDemonName(GameCharacter character) {
+					return new String[] {
+							"hellhound",
+							"hellhounds",
+							"hellhound",
+							"hellhound",
+							"hellhounds",
+							"hellhounds"};
+				}
+			},
 	
 	WOLF_MORPH("statusEffects/race/raceWolfMorph",
 			"statusEffects/race/raceBackground",
@@ -999,9 +1061,9 @@ public enum Subspecies {
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character.getTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] magical tail"+(character.getTailCount()==1?"":"s")+".");
+				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
 			} else {
-				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] vast number of tails a sign of [npc.her] unending devotion to a particular Lilin.");
+				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
 		}
 
@@ -1038,6 +1100,15 @@ public enum Subspecies {
 				return youkoDesaturatedIconMap.get(9);
 			}
 			return getBipedBackground(youkoDesaturatedIconMap.get(character.getTailCount()), character, Colour.BASE_GREY);
+		}
+		
+		@Override
+		public String getHalfDemonSVGString(GameCharacter character) {
+			if(character!=null && character.getSubspeciesOverride()!=null && character.getSubspeciesOverride().equals(Subspecies.DEMON)) {
+				return super.getHalfDemonSVGString(character);
+			} else {
+				return getBipedBackground(youkoHalfDemonIconMap.get(character.getTailCount()), character, Colour.RACE_HALF_DEMON);
+			}
 		}
 	},
 	
@@ -1094,9 +1165,9 @@ public enum Subspecies {
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character.getTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] magical tail"+(character.getTailCount()==1?"":"s")+".");
+				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
 			} else {
-				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] vast number of tails a sign of [npc.her] unending devotion to a particular Lilin.");
+				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
 		}
 
@@ -1896,7 +1967,7 @@ public enum Subspecies {
 			body.getHorn().setType(null, HornType.NONE);
 			body.getWing().setType(null, WingType.NONE);
 			body.getLeg().setType(null, LegType.HORSE_MORPH);
-			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR);
+			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR, true);
 		}
 		@Override
 		protected String[] getHalfDemonName(GameCharacter character) {
@@ -1953,7 +2024,7 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.NONE);
 			body.getLeg().setType(null, LegType.HORSE_MORPH);
-			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR);
+			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR, true);
 			body.setWing(new Wing(WingType.PEGASUS, WingSize.FOUR_HUGE.getValue()));
 			
 		}
@@ -2015,7 +2086,7 @@ public enum Subspecies {
 			body.getHorn().setHornRows(null, 1);
 			body.getHorn().setHornsPerRow(null, 1);
 			body.getLeg().setType(null, LegType.HORSE_MORPH);
-			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR);
+			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR, true);
 			body.getWing().setType(null, WingType.NONE);
 		}
 		@Override
@@ -2076,7 +2147,7 @@ public enum Subspecies {
 			body.getHorn().setHornRows(null, 1);
 			body.getHorn().setHornsPerRow(null, 1);
 			body.getLeg().setType(null, LegType.HORSE_MORPH);
-			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR);
+			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR, true);
 			body.setWing(new Wing(WingType.PEGASUS, WingSize.FOUR_HUGE.getValue()));
 		}
 		@Override
@@ -2730,8 +2801,13 @@ public enum Subspecies {
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false));
+			if(Math.random()<0.5f) {
+				body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false));
+				body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_BLACK, false));
+			} else {
+				body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.COVERING_JET_BLACK, false, Colour.COVERING_JET_BLACK, false));
+				body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.COVERING_JET_BLACK, false, Colour.COVERING_JET_BLACK, false));
+			}
 		}
 		@Override
 		protected String[] getHalfDemonName(GameCharacter character) {
@@ -3022,6 +3098,7 @@ public enum Subspecies {
 
 	private static Map<Integer, String> youkoIconMap;
 	private static Map<Integer, String> youkoDesaturatedIconMap;
+	private static Map<Integer, String> youkoHalfDemonIconMap;
 	
 	private static Map<WorldType, Map<Subspecies, SubspeciesSpawnRarity>> worldSpecies;
 	private static Map<Subspecies, SubspeciesSpawnRarity> dominionStormImmuneSpecies;
@@ -3029,6 +3106,7 @@ public enum Subspecies {
 	
 	static {
 		youkoIconMap = new HashMap<>();
+		youkoHalfDemonIconMap = new HashMap<>();
 		for(int i=1; i<=9; i++) {
 			try {
 				String SVGStringBackground = "";
@@ -3042,6 +3120,14 @@ public enum Subspecies {
 				
 				String baseSVGString = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getFoxTail(i)+"</div>";
 				youkoIconMap.put(i, baseSVGString);
+
+				baseSVGString = SvgUtil.colourReplacement("youkohalfDemon"+i,
+							Colour.RACE_HALF_DEMON,
+							Colour.RACE_HALF_DEMON,
+							Colour.RACE_HALF_DEMON,
+							"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
+								+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getFoxTailDemon(i)+"</div>");
+				youkoHalfDemonIconMap.put(i, baseSVGString);
 				
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -3501,10 +3587,21 @@ public enum Subspecies {
 						) {
 						subspecies = Subspecies.DOG_MORPH_BORDER_COLLIE;
 				}
+			
+				if(body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPrimaryColour()==Colour.COVERING_BLACK
+						&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_TAN
+						&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPattern() == CoveringPattern.MARKED
+						&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getModifier() == CoveringModifier.FLUFFY
+						&& body.getEar().getType()==EarType.DOG_MORPH_POINTED
+						) {
+						subspecies = Subspecies.DOG_MORPH_GERMAN_SHEPHERD;
+				}
+				
 				break;
 			case HARPY:
 				subspecies = Subspecies.HARPY;
-				if(body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.COVERING_BLACK) {
+				if(body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.COVERING_BLACK
+						|| body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.COVERING_JET_BLACK) {
 					subspecies = Subspecies.HARPY_RAVEN;
 				}
 				if(body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.COVERING_BROWN_DARK
@@ -4141,11 +4238,12 @@ public enum Subspecies {
 			case ANGEL:
 			case DEMON:
 			case ELEMENTAL:
-			case HARPY:
 			case HUMAN:
 			case NONE:
 			case SLIME:
 				return false;
+			case HARPY:
+				return this!=Subspecies.HARPY;
 			case FOX_MORPH:
 				return this!=Subspecies.FOX_ASCENDANT && this!=Subspecies.FOX_ASCENDANT_FENNEC;
 			case ALLIGATOR_MORPH:
@@ -4164,6 +4262,13 @@ public enum Subspecies {
 		return false;
 	}
 	
+	/**
+	 * @return true if this subspecies can have its FurryPreference modified in the furry preferences options screen.
+	 */
+	public boolean isFurryPreferencesEnabled() {
+		return this.getRace()!=Race.HARPY;
+	}
+	
 	public int getBaseSlaveValue(GameCharacter character) {
 		switch(this) {
 			case ANGEL:
@@ -4180,6 +4285,7 @@ public enum Subspecies {
 			case DOG_MORPH:
 			case DOG_MORPH_BORDER_COLLIE:
 			case DOG_MORPH_DOBERMANN:
+			case DOG_MORPH_GERMAN_SHEPHERD:
 				return 8000;
 			case COW_MORPH:
 				return 15000;

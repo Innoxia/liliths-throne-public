@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.race;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -45,17 +46,16 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.1
- * @version 0.3.4
+ * @version 0.3.5
  * @author Innoxia
  */
 public abstract class AbstractRacialBody {
@@ -358,17 +358,24 @@ public abstract class AbstractRacialBody {
 	}
 	
 	/**
-	 * @return A map of personality traits and their normal associated values for this race.<br/>
-	 *  When generating an individual's personality, there is a 25% chance of the weight of each of these traits being moved up or down by 1 (e.g. from AVERAGE to HIGH), and a 5% chance of them being moved up or down 2 (e.g. from LOW to HIGH).<br/>
-	 *  As a result, a race with all weights set to AVERAGE should end up with a mostly-balanced personality, with one or two traits being skewed up or down.
+	 * @return A map of personality traits and the percentage chance that a member of this race will spawn with them.
 	 */
-	public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-		return Util.newHashMapOfValues(
-				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
+	public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
+		Map<PersonalityTrait, Float> map = new HashMap<>();
+		
+		for(PersonalityTrait trait : PersonalityTrait.values()) {
+			if(trait.getPersonalityCategory()==PersonalityCategory.SPEECH) {
+				map.put(trait, 0.01f); // Speech-related traits should be rare for a normal race.
+				
+			} else if(trait.getPersonalityCategory()==PersonalityCategory.SEX && trait!=PersonalityTrait.LEWD) {
+				map.put(trait, 0.02f); // Smaller chance for people to be prude or innocent.
+					
+			} else {
+				map.put(trait, 0.05f); // With each category having two values, it's a ~10% chance to have a special trait in each category.
+			}
+		}
+		
+		return map;
 	}
 	
 	public SexualOrientation getSexualOrientation(Gender gender) {

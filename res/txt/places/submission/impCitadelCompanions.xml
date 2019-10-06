@@ -1542,7 +1542,7 @@
 	
 	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_IMPS"><![CDATA[
 	<p>
-		[genericFemale.speech(Well, in that case, you have our sincere thanks,)] the officer says to you. [genericFemale.speech(I've lost count of how many days we've been camped out, watching the gates of that citadel. Lyssieth has been wanting to have her daughter reigned in for quite some time, but [siren.name] obviously knew this, and didn't dare leave her fortress. Anyway, thanks to you, this whole ordeal is now over. These imps are responsible for countless muggings and assaults, so we'll get them handed over to the enforcers, who I'm sure will take great pleasure in having them all enslaved.)]
+		[genericFemale.speech(Well, in that case, you have our sincere thanks,)] the officer says to you. [genericFemale.speech(I've lost count of how many days we've been camped out, watching the gates of that citadel. Lyssieth has been wanting to have her daughter reigned in for quite some time, but [siren.name] obviously knew this, and didn't dare leave her fortress. Anyway, thanks to you, this whole ordeal is now over. These imps are responsible for countless muggings and assaults, so we'll get them handed over to the Enforcers, who I'm sure will take great pleasure in having them all enslaved.)]
 	</p>
 	<p>
 		With that, the officer turns around and orders her subordinates to round up the imps. As they're about to march off to the nearest Enforcer post, she turns around and calls out, [genericFemale.speech(Thank you again for your assistance!)]

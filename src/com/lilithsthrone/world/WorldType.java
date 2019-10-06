@@ -13,7 +13,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum WorldType {
@@ -24,9 +24,9 @@ public enum WorldType {
 			Colour.BASE_TAN,
 			1,
 			true,
+			TeleportPermissions.BOTH,
 			"/com/lilithsthrone/res/map/global/world_map.png",
-			null,
-			null, Util.newHashMapOfValues(
+			null, null, Util.newHashMapOfValues(
 					new Value<>(new Color(0x61997e), PlaceType.WORLD_MAP_THICK_JUNGLE), // thick jungle
 					new Value<>(new Color(0x81cca8), PlaceType.WORLD_MAP_JUNGLE), // jungle
 					new Value<>(new Color(0xb377b0), PlaceType.WORLD_MAP_JUNGLE_CITY), // jungle city
@@ -75,9 +75,9 @@ public enum WorldType {
 			Colour.BASE_PURPLE,
 			1,
 			true,
+			TeleportPermissions.BOTH,
 			"/com/lilithsthrone/res/map/dominion/dominion.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.DOMINION_PLAZA, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.DOMINION_PLAZA, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					
 					new Value<>(new Color(0x808080), PlaceType.DOMINION_STREET),
@@ -122,9 +122,9 @@ public enum WorldType {
 			Colour.BASE_BROWN,
 			1,
 			false,
+			TeleportPermissions.NONE,
 			"/com/lilithsthrone/res/map/empty.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.GENERIC_EMPTY_TILE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.GENERIC_EMPTY_TILE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0xff0000), PlaceType.GENERIC_EMPTY_TILE),
 					new Value<>(new Color(0xffff00), PlaceType.GENERIC_HOLDING_CELL),
@@ -134,9 +134,9 @@ public enum WorldType {
 			Colour.BASE_BROWN,
 			1,
 			false,
+			TeleportPermissions.NONE,
 			"/com/lilithsthrone/res/map/prologue/museum.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.MUSEUM_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.MUSEUM_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0xff0000), PlaceType.MUSEUM_ENTRANCE),
 					new Value<>(new Color(0x8000ff), PlaceType.MUSEUM_CROWDS),
@@ -155,9 +155,9 @@ public enum WorldType {
 			Colour.BASE_BROWN,
 			1,
 			false,
+			TeleportPermissions.NONE,
 			"/com/lilithsthrone/res/map/prologue/museum_lost.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.MUSEUM_MIRROR, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.MUSEUM_MIRROR, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0xff8000), PlaceType.MUSEUM_ROOM),
 					new Value<>(new Color(0x00ff00), PlaceType.MUSEUM_MIRROR),
@@ -172,9 +172,9 @@ public enum WorldType {
 			Colour.BASE_BLUE_LIGHT,
 			1,
 			true,
+			TeleportPermissions.BOTH,
 			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_ground_floor.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.LILAYA_HOME_ENTRANCE_HALL, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.LILAYA_HOME_ENTRANCE_HALL, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.LILAYA_HOME_CORRIDOR),
 					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_ENTRANCE_HALL),
@@ -197,9 +197,9 @@ public enum WorldType {
 			Colour.BASE_BLUE_LIGHT,
 			1,
 			true,
+			TeleportPermissions.BOTH,
 			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_first_floor.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.LILAYA_HOME_STAIR_DOWN, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.LILAYA_HOME_STAIR_DOWN, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.LILAYA_HOME_CORRIDOR),
 					new Value<>(new Color(0xff00ff), PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR),
@@ -218,9 +218,9 @@ public enum WorldType {
 			Colour.BASE_CRIMSON,
 			1,
 			false,
+			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/dominion/zaranixHome/first_floor.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.ZARANIX_FF_STAIRS, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.ZARANIX_FF_STAIRS, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ZARANIX_FF_CORRIDOR),
 					new Value<>(new Color(0x00ff00), PlaceType.ZARANIX_FF_STAIRS),
@@ -232,9 +232,9 @@ public enum WorldType {
 			Colour.BASE_CRIMSON,
 			1,
 			false,
+			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/dominion/zaranixHome/ground_floor.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.ZARANIX_GF_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.ZARANIX_GF_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ZARANIX_GF_CORRIDOR),
 					new Value<>(new Color(0x00ff00), PlaceType.ZARANIX_GF_STAIRS),
@@ -250,9 +250,9 @@ public enum WorldType {
 			Colour.BASE_CRIMSON,
 			1,
 			true,
+			TeleportPermissions.BOTH,
 			"/com/lilithsthrone/res/map/dominion/harpyNests/harpyNests.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					
 					new Value<>(new Color(0x808080), PlaceType.HARPY_NESTS_WALKWAYS),
@@ -268,9 +268,9 @@ public enum WorldType {
 			Colour.BASE_RED,
 			1,
 			true,
+			TeleportPermissions.BOTH,
 			"/com/lilithsthrone/res/map/dominion/slaverAlley/slaverAlley.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.SLAVER_ALLEY_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.SLAVER_ALLEY_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SLAVER_ALLEY_PATH),
 					new Value<>(new Color(0xff0000), PlaceType.SLAVER_ALLEY_ENTRANCE),
@@ -297,9 +297,9 @@ public enum WorldType {
 			Colour.BASE_YELLOW,
 			1,
 			true,
+			TeleportPermissions.BOTH,
 			"/com/lilithsthrone/res/map/dominion/shoppingArcade/shoppingArcade.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.SHOPPING_ARCADE_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.SHOPPING_ARCADE_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SHOPPING_ARCADE_PATH),
 					new Value<>(new Color(0xff0000), PlaceType.SHOPPING_ARCADE_ENTRANCE),
@@ -322,6 +322,7 @@ public enum WorldType {
 			Colour.BASE_CRIMSON,
 			1,
 			false,
+			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/dominion/shoppingArcade/supplierDen.png",
 			PlaceType.WORLD_MAP_DOMINION,
 			PlaceType.SUPPLIER_DEPOT_ENTRANCE, Util.newHashMapOfValues(
@@ -335,24 +336,63 @@ public enum WorldType {
 			Colour.BASE_BLUE,
 			1,
 			false,
+			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/dominion/enforcerHQ/enforcerHQ.png",
 			PlaceType.WORLD_MAP_DOMINION,
 			PlaceType.ENFORCER_HQ_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ENFORCER_HQ_CORRIDOR),
+					new Value<>(new Color(0xb9b9b9), PlaceType.ENFORCER_HQ_CELLS_CORRIDOR),
+					
 					new Value<>(new Color(0xff0000), PlaceType.ENFORCER_HQ_ENTRANCE),
-					new Value<>(new Color(0xffff00), PlaceType.ENFORCER_HQ_GUARDED_DOOR),
 					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_HQ_WAITING_AREA),
 					new Value<>(new Color(0x0080ff), PlaceType.ENFORCER_HQ_RECEPTION_DESK),
-					new Value<>(new Color(0xff8000), PlaceType.ENFORCER_HQ_BRAXS_OFFICE))),
+					
+					new Value<>(new Color(0xffff00), PlaceType.ENFORCER_HQ_GUARDED_DOOR),
+					new Value<>(new Color(0xff0080), PlaceType.ENFORCER_HQ_LOCKED_DOOR),
+					
 
+					new Value<>(new Color(0xff8000), PlaceType.ENFORCER_HQ_BRAXS_OFFICE),
+					new Value<>(new Color(0x00ffff), PlaceType.ENFORCER_HQ_OFFICE),
+					new Value<>(new Color(0xff8080), PlaceType.ENFORCER_HQ_CELLS_OFFICE),
+					new Value<>(new Color(0x3b3b3b), PlaceType.ENFORCER_HQ_CELL)
+					)),
+
+	ENFORCER_WAREHOUSE("SWORD Warehouse",
+			Colour.BASE_BLUE,
+			1,
+			false,
+			TeleportPermissions.NONE,
+			"/com/lilithsthrone/res/map/dominion/enforcerWarehouse/enforcerWarehouse.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			PlaceType.ENFORCER_WAREHOUSE_ENTRANCE, Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0xff0000), PlaceType.ENFORCER_WAREHOUSE_ENTRANCE),
+					new Value<>(new Color(0x808080), PlaceType.ENFORCER_WAREHOUSE_CORRIDOR),
+					new Value<>(new Color(0xff8080), PlaceType.ENFORCER_WAREHOUSE_CLAIRE_WARNING),
+
+					new Value<>(new Color(0x404040), PlaceType.ENFORCER_WAREHOUSE_ENCLOSURE),
+					new Value<>(new Color(0x00ff00), PlaceType.ENFORCER_WAREHOUSE_ENCLOSURE_TELEPORT_PADS),
+					new Value<>(new Color(0x00ffff), PlaceType.ENFORCER_WAREHOUSE_ENCLOSURE_TELEPORT_SHELVING),
+					
+					new Value<>(new Color(0xff0080), PlaceType.ENFORCER_WAREHOUSE_ENFORCER_GUARD_POST),
+					
+					new Value<>(new Color(0xff8000), PlaceType.ENFORCER_WAREHOUSE_CRATES),
+					new Value<>(new Color(0xffff00), PlaceType.ENFORCER_WAREHOUSE_CRATES_ARK),
+					new Value<>(new Color(0xff00ff), PlaceType.ENFORCER_WAREHOUSE_CRATES_LUST_WEAPON),
+					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_WAREHOUSE_CRATES_SPELL_BOOK)
+
+					
+					
+					)),
+	
 	CITY_HALL("City Hall",
 			Colour.BASE_PURPLE,
 			1,
 			false,
+			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/dominion/cityHall/city_hall.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.CITY_HALL_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.CITY_HALL_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.CITY_HALL_CORRIDOR),
 					new Value<>(new Color(0xff0000), PlaceType.CITY_HALL_ENTRANCE),
@@ -368,9 +408,9 @@ public enum WorldType {
 			Colour.BASE_MAGENTA,
 			1,
 			false,
+			TeleportPermissions.BOTH,
 			"/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissGroundFloor.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.ANGELS_KISS_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.ANGELS_KISS_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ANGELS_KISS_CORRIDOR),
 					new Value<>(new Color(0x00ff00), PlaceType.ANGELS_KISS_ENTRANCE),
@@ -382,9 +422,9 @@ public enum WorldType {
 			Colour.BASE_MAGENTA,
 			1,
 			false,
+			TeleportPermissions.BOTH,
 			"/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissFirstFloor.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.ANGELS_KISS_STAIRCASE_DOWN, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.ANGELS_KISS_STAIRCASE_DOWN, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ANGELS_KISS_CORRIDOR),
 					new Value<>(new Color(0xff0000), PlaceType.ANGELS_KISS_STAIRCASE_DOWN),
@@ -396,9 +436,9 @@ public enum WorldType {
 			Colour.BASE_BLUE,
 			1,
 			false,
+			TeleportPermissions.NONE,
 			"/com/lilithsthrone/res/map/dominion/nightLife/wateringHole.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.WATERING_HOLE_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.WATERING_HOLE_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					
 					new Value<>(new Color(0x00ff00), PlaceType.WATERING_HOLE_ENTRANCE),
@@ -421,9 +461,9 @@ public enum WorldType {
 			Colour.RACE_DEMON,
 			1,
 			false,
+			TeleportPermissions.NONE,
 			"/com/lilithsthrone/res/map/dominion/daddy/apartment.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.DOMINION_DEMON_HOME_DADDY, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					
 					new Value<>(new Color(0x00ff00), PlaceType.DADDY_APARTMENT_ENTRANCE),
@@ -447,9 +487,9 @@ public enum WorldType {
 			Colour.BASE_GREEN,
 			1,
 			true,
+			TeleportPermissions.BOTH,
 			"/com/lilithsthrone/res/map/submission/submission.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.SUBMISSION_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.SUBMISSION_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 
 					new Value<>(new Color(0x808000), PlaceType.SUBMISSION_ENTRANCE),
@@ -483,9 +523,9 @@ public enum WorldType {
 			Colour.BASE_PURPLE,
 			1,
 			false,
+			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/lyssiethsPalace/groundFloor.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.LYSSIETH_PALACE_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.LYSSIETH_PALACE_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.LYSSIETH_PALACE_CORRIDOR),
 					new Value<>(new Color(0x404040), PlaceType.LYSSIETH_PALACE_WINDOWS),
@@ -505,9 +545,9 @@ public enum WorldType {
 			Colour.BASE_CRIMSON,
 			1,
 			false,
+			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress1Map.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.FORTRESS_ALPHA_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_ALPHA_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_ALPHA_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_ALPHA_ENTRANCE),
@@ -522,9 +562,9 @@ public enum WorldType {
 			Colour.BASE_PURPLE,
 			1,
 			false,
+			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress2Map.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.FORTRESS_DEMON_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_DEMON_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_DEMON_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_DEMON_ENTRANCE),
@@ -545,9 +585,9 @@ public enum WorldType {
 			Colour.BASE_PINK,
 			1,
 			false,
+			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress3Map.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.FORTRESS_FEMALES_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_FEMALES_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_FEMALES_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_FEMALES_ENTRANCE),
@@ -562,9 +602,9 @@ public enum WorldType {
 			Colour.BASE_BLUE,
 			1,
 			false,
+			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/impFortress/fortress4Map.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.FORTRESS_MALES_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.FORTRESS_MALES_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.FORTRESS_MALES_COURTYARD),
 					new Value<>(new Color(0x00ff00), PlaceType.FORTRESS_MALES_ENTRANCE),
@@ -579,9 +619,9 @@ public enum WorldType {
 			Colour.BASE_BLACK,
 			1,
 			true,
+			TeleportPermissions.BOTH,
 			"/com/lilithsthrone/res/map/submission/batCaverns/batCaverns.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.BAT_CAVERN_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.BAT_CAVERN_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 
 					new Value<>(new Color(0x00ff00), PlaceType.BAT_CAVERN_ENTRANCE),
@@ -599,9 +639,9 @@ public enum WorldType {
 			Colour.BASE_PINK,
 			1,
 			false,
+			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairGroundFloor.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.SLIME_QUEENS_LAIR_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.SLIME_QUEENS_LAIR_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 
 					new Value<>(new Color(0x808080), PlaceType.SLIME_QUEENS_LAIR_CORRIDOR),
@@ -620,9 +660,9 @@ public enum WorldType {
 			Colour.BASE_PINK,
 			1,
 			false,
+			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairFirstFloor.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.SLIME_QUEENS_LAIR_STAIRS_DOWN, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.SLIME_QUEENS_LAIR_STAIRS_DOWN, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 
 					new Value<>(new Color(0x808080), PlaceType.SLIME_QUEENS_LAIR_CORRIDOR),
@@ -638,9 +678,9 @@ public enum WorldType {
 			Colour.BASE_GOLD,
 			1,
 			false,
+			TeleportPermissions.OUTGOING_ONLY,
 			"/com/lilithsthrone/res/map/submission/gamblingDen/gamblingDen.png",
-			PlaceType.WORLD_MAP_DOMINION,
-			PlaceType.GAMBLING_DEN_ENTRANCE, Util.newHashMapOfValues(
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.GAMBLING_DEN_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.GAMBLING_DEN_CORRIDOR),
 					
@@ -658,7 +698,8 @@ public enum WorldType {
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	};
+	}
+	;
 	
 //	JUNGLE(6,
 //			"jungle",
@@ -686,15 +727,19 @@ public enum WorldType {
 	
 	private int tileSetRowNumber;
 	private int moveCost;
-	private AbstractPlaceType standardPlace, cutOffZone;
-	private List<AbstractPlaceType> places, dangerousPlaces;
+	private AbstractPlaceType standardPlace;
+	private AbstractPlaceType cutOffZone;
+	private List<AbstractPlaceType> places;
+	private List<AbstractPlaceType> dangerousPlaces;
+	
+	private TeleportPermissions teleportPermissions;
 	
 	private boolean usesFile;
 	private AbstractPlaceType globalMapLocation;
 	private AbstractPlaceType entryFromGlobalMapLocation;
 	private Map<Color, AbstractPlaceType> placesMap;
 	
-
+	// For randomly generating maps:
 	WorldType(int worldSize,
 			String name,
 			Colour colour,
@@ -727,12 +772,14 @@ public enum WorldType {
 		fileLocation = null;
 		usesFile = false;
 		
+		this.teleportPermissions = TeleportPermissions.NONE;
 	}
 	
 	WorldType(String name,
 			Colour colour,
 			int timeToTransition,
 			boolean loiteringEnabled,
+			TeleportPermissions teleportPermissions,
 			String fileLocation,
 			AbstractPlaceType globalMapLocation,
 			AbstractPlaceType entryFromGlobalMapLocation,
@@ -752,6 +799,8 @@ public enum WorldType {
 		dangerousPlaces = null;
 		
 		this.loiteringEnabled = loiteringEnabled;
+		
+		this.teleportPermissions = teleportPermissions;
 		
 		this.fileLocation = fileLocation;
 		usesFile = true;
@@ -834,6 +883,10 @@ public enum WorldType {
 
 	public int getWorldSize() {
 		return worldSize;
+	}
+
+	public TeleportPermissions getTeleportPermissions() {
+		return teleportPermissions;
 	}
 
 }

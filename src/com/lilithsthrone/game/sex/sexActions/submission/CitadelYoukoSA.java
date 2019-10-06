@@ -24,7 +24,7 @@ import com.lilithsthrone.utils.Util;
 public class CitadelYoukoSA {
 	
 	public static final SexAction ORGASM_DENIED = new SexAction(
-			SexActionType.ORGASM_NO_AROUSAL_RESET,
+			SexActionType.ORGASM_DENIAL,
 			ArousalIncrease.NEGATIVE_MAJOR,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,

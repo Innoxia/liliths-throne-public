@@ -114,19 +114,19 @@ public class HarpyNestsDialogue {
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+"You find yourself standing in yet another large, unpartitioned lobby, but this one has quite a different atmosphere than the one on the ground floor."
-						+ " Everywhere you look, uniformed enforcers are standing guard, carefully tracking each passerby with a suspicious gaze."
-						+ " A large desk, manned by yet more enforcers, sits between you and the door marked <i>'Harpy Nests Entrance'</i>."
+						+ " Everywhere you look, uniformed Enforcers are standing guard, carefully tracking each passerby with a suspicious gaze."
+						+ " A large desk, manned by yet more Enforcers, sits between you and the door marked <i>'Harpy Nests Entrance'</i>."
 					+ "</p>");
 			
 			if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess)) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "Although none of them are really paying you any attention at the moment, it looks like you're going to have to talk to one of these enforcers if you want to get past that desk and out into the Harpy Nests."
+							+ "Although none of them are really paying you any attention at the moment, it looks like you're going to have to talk to one of these Enforcers if you want to get past that desk and out into the Harpy Nests."
 						+ "</p>");
 			} else {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "After having spoken to one of the enforcers and secured a pass, you're free to come and go from the Harpy Nests as you please."
+							+ "After having spoken to one of the Enforcers and secured a pass, you're free to come and go from the Harpy Nests as you please."
 						+ "</p>"
 						+(Main.game.getPlayer().getLevel()<5
 								? "<p>"
@@ -155,13 +155,13 @@ public class HarpyNestsDialogue {
 						if(Main.game.getPlayer().isAbleToFly()) {
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
-										+ "Stepping back out through the same door you used to enter the enforcer post, you spread your wings and swoop back down to street level."
+										+ "Stepping back out through the same door you used to enter the Enforcer post, you spread your wings and swoop back down to street level."
 									+ "</p>");
 							
 						} else {
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
-										+ "Stepping into the same elevator you used to ride up to the enforcer post, you soon find yourself travelling back down to street level."
+										+ "Stepping into the same elevator you used to ride up to the Enforcer post, you soon find yourself travelling back down to street level."
 									+ "</p>");
 						}
 						
@@ -247,7 +247,7 @@ public class HarpyNestsDialogue {
 
 			if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_ALEXA) {
 				return "<p>"
-						+"As you approach the desk, one of the enforcers, a minor wolf-girl, catches your eye and calls out to you, "
+						+"As you approach the desk, one of the Enforcers, a minor wolf-girl, catches your eye and calls out to you, "
 						+ "[style.speechFeminine(Hey you, yeah <i>you</i>, come here!)]"
 					+ "</p>"
 					+ "<p>"
@@ -271,7 +271,7 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "The wolf-girl leans back in her chair, before gesturing to the room for emphasis as she continues,"
-						+ " [style.speechFeminine(It took far more enforcers than you see here to get things back under control."
+						+ " [style.speechFeminine(It took far more Enforcers than you see here to get things back under control."
 						+ " Tensions are still running high in the Nests, so make sure you don't do anything to offend any of the matriarchs, ok?"
 						+ " These harpies may look weak, but they're no joke if you piss them off, so remember to mind your manners out there!)]"
 					+ "</p>"
@@ -281,7 +281,7 @@ public class HarpyNestsDialogue {
 						+ " [style.speechFeminine(Here you go, make sure you've read through and understood all this before going out into the nests. Oh, and please try to be careful out there!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[pc.speech(Alright, I'll be careful...)] you respond, and, after the wolf-girl gives you a pass to show to any other enforcers that try to stop you, you're allowed to proceed out into the Harpy Nests."
+						+ "[pc.speech(Alright, I'll be careful...)] you respond, and, after the wolf-girl gives you a pass to show to any other Enforcers that try to stop you, you're allowed to proceed out into the Harpy Nests."
 					+ "</p>"
 					+ (Main.game.getPlayer().getLevel()<5
 							?"<p>"
@@ -295,7 +295,7 @@ public class HarpyNestsDialogue {
 				
 			} else {
 				return "<p>"
-						+"As you approach the desk, one of the enforcers, a lesser cat-boy, catches your eye and calls out to you, "
+						+"As you approach the desk, one of the Enforcers, a lesser cat-boy, catches your eye and calls out to you, "
 						+ "[style.speechMasculine(Hey you, come over here!)]"
 					+ "</p>"
 					+ "<p>"
@@ -318,7 +318,7 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "The cat-boy leans back in his chair, before gesturing to the room for emphasis as he continues,"
-						+ " [style.speechMasculine(It took almost triple the amount of enforcers you see here to get things back under control."
+						+ " [style.speechMasculine(It took almost triple the amount of Enforcers you see here to get things back under control."
 						+ " Tensions are still running high in the Nests, so make sure you don't do anything to offend any of the matriarchs, ok?"
 						+ " These harpies may look weak, but they're no joke if you piss them off, so remember to mind your manners out there!)]"
 					+ "</p>"
@@ -328,7 +328,7 @@ public class HarpyNestsDialogue {
 						+ " [style.speechMasculine(Here you go, make sure you've read through and understood all this before going out into the nests. Oh, and be careful out there!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[pc.speech(Alright, I'll be careful...)] you respond, and, after the cat-boy gives you a pass to show to any other enforcers that try to stop you, you're allowed to proceed out into the Harpy Nests."
+						+ "[pc.speech(Alright, I'll be careful...)] you respond, and, after the cat-boy gives you a pass to show to any other Enforcers that try to stop you, you're allowed to proceed out into the Harpy Nests."
 					+ "</p>"
 					+ (Main.game.getPlayer().getLevel()<5
 							?"<p>"
@@ -363,7 +363,7 @@ public class HarpyNestsDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Curious to find out more about the recent unrest in the harpy nests, you quickly scan the room for the most senior-looking enforcer."
+						+ "Curious to find out more about the recent unrest in the harpy nests, you quickly scan the room for the most senior-looking Enforcer."
 						+ " A tall, muscular horse-boy, with chevrons on his uniform marking him as a sergeant, fits the bill, and you start to walk over towards him."
 						+ " He's currently giving orders to a pair of cat-girls, and you hang around for a moment, waiting for him to finish his business."
 					+ "</p>"
@@ -385,7 +385,7 @@ public class HarpyNestsDialogue {
 						+ " [pc.speech(I couldn't help but overhear how much trouble you're having with these harpies. Perhaps I could sort them out for you?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[style.speechMasculineStrong(Hah!)] the horse-boy laughs, [style.speechMasculineStrong(you think you could do what half the enforcers in Dominion couldn't?!)]"
+						+ "[style.speechMasculineStrong(Hah!)] the horse-boy laughs, [style.speechMasculineStrong(you think you could do what half the Enforcers in Dominion couldn't?!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "You give the horse-boy a very unamused frown, and after a moment of trying to stare you down, he lets out a deep sigh,"
@@ -395,7 +395,7 @@ public class HarpyNestsDialogue {
 						+ "Pushing open a door behind him, he beckons you to follow, and you walk into a small office."
 						+ " The horse-boy strides over to a solid wooden desk, before collapsing down into his chair."
 						+ " Leafing through a pile of papers, he pulls out three separate sheets, before handing them over to you."
-						+ " There's a portrait of an exceptionally beautiful harpy on each one, and as you take a closer look, the enforcer starts speaking."
+						+ " There's a portrait of an exceptionally beautiful harpy on each one, and as you take a closer look, the Enforcer starts speaking."
 					+ "</p>"
 					+ "<p>"
 						+ "[style.speechMasculineStrong(So, as everyone's aware, the Harpy Nests are exceptionally dangerous right now."
@@ -407,14 +407,14 @@ public class HarpyNestsDialogue {
 						+ "You flick between the papers as he continues,"
 						+ " [style.speechMasculineStrong(That one with the blonde feathers is [bimboHarpy.name], the mean-looking one is [dominantHarpy.name], and the other one is called [nymphoHarpy.name]."
 						+ " They outright refuse to get along with one another, and their little ongoing feud is causing the Nests to descend into anarchy."
-						+ " We've even started to get reports of harpies attacking travellers in broad daylight! No matter how many enforcer patrols we send out, nothing changes."
+						+ " We've even started to get reports of harpies attacking travellers in broad daylight! No matter how many Enforcer patrols we send out, nothing changes."
 						+ " As much as I hate to admit it, it's the matriarchs who are the ones responsible for keeping law and order up here.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(So you need someone to get these matriarchs under control?)] you ask."
 					+ "</p>"
 					+ "<p>"
-						+ "[style.speechMasculineStrong(If we tried sending enforcers in to do that, it'd be an insult to all the harpy flocks."
+						+ "[style.speechMasculineStrong(If we tried sending Enforcers in to do that, it'd be an insult to all the harpy flocks."
 						+ " Alexa would probably even get involved, which is the last thing we need."
 						+ " I hate asking for help like this, but if by some miracle you're able to subdue those three,)]"
 						+ " he points to the papers in your hand again,"
@@ -449,7 +449,7 @@ public class HarpyNestsDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "You walk over towards the office where you first accepted the horse-boy enforcer's request to pacify the Harpy Nests."
+						+ "You walk over towards the office where you first accepted the horse-boy Enforcer's request to pacify the Harpy Nests."
 						+ " As you approach, the door opens, and an exhausted-looking, and vaguely familiar, cat-girl steps out."
 						+ " She shuffles off in the direction of the elevators, and before the door swings shut, you step forwards into the office."
 					+ "</p>"
@@ -471,7 +471,7 @@ public class HarpyNestsDialogue {
 						+ " [style.speechMasculineStrong(I still can't believe that you actually managed to do it! Well, I'll keep my end of the bargain; here's five thousand flames!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Stepping forwards, you take the offered bag of money, before thanking the enforcer sergeant."
+						+ "Stepping forwards, you take the offered bag of money, before thanking the Enforcer sergeant."
 						+ " He seems to be in very high spirits, and lets out another happy exclamation as he leans back in his chair,"
 						+ " [style.speechMasculineStrong(Hah! We're going to start regular patrols of the walkways to make sure another incident like this doesn't happen again."
 						+ " Thanks to your efforts, and these patrols, we should be able to put a stop to all these harpy attacks!)]"
@@ -574,7 +574,7 @@ public class HarpyNestsDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
-									?"You sometimes see an enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
+									?"You sometimes see an Enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
 										+ " Although there's no risk of being attacked, harpies are still quite touchy by nature, and you imagine that it wouldn't be too hard to cause a confrontation if you were to go looking for trouble..."
 									:"As you continue travelling down the walkways, you can't help but shake the feeling that you're being watched."
 										+ " An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly fly off back to their nest."
@@ -602,7 +602,7 @@ public class HarpyNestsDialogue {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
-									?"You sometimes see an enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
+									?"You sometimes see an Enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
 										+ " Although there's no risk of being attacked, harpies are still quite touchy by nature, and you imagine that it wouldn't be too hard to cause a confrontation if you were to go looking for trouble..."
 									:"As you continue travelling down the walkways, you can't help but shake the feeling that you're being watched."
 										+ " An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly fly off back to their nest."
@@ -699,7 +699,7 @@ public class HarpyNestsDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
-									?"You sometimes see an enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
+									?"You sometimes see an Enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
 										+ " Although there's no risk of being attacked, harpies are still quite touchy by nature, and you imagine that it wouldn't be too hard to cause a confrontation if you were to go looking for trouble..."
 									:"As you continue travelling down the walkways, you can't help but shake the feeling that you're being watched."
 										+ " An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly fly off back to their nest."
@@ -727,7 +727,7 @@ public class HarpyNestsDialogue {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
-									?"You sometimes see an enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
+									?"You sometimes see an Enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
 										+ " Although there's no risk of being attacked, harpies are still quite touchy by nature, and you imagine that it wouldn't be too hard to cause a confrontation if you were to go looking for trouble..."
 									:"As you continue travelling down the walkways, you can't help but shake the feeling that you're being watched."
 										+ " An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly fly off back to their nest."

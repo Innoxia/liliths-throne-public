@@ -196,7 +196,6 @@ public class GloryHole {
 		}
 	};
 
-	
 	public static final SexAction POSITION_VAGINAL = new SexAction(
 			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,

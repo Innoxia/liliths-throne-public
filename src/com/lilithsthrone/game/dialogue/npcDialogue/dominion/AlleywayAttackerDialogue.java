@@ -51,6 +51,7 @@ public class AlleywayAttackerDialogue {
 	private static boolean isStorm() {
 		AbstractPlaceType pt = getMugger().getLocationPlace().getPlaceType();
 		return !pt.equals(PlaceType.DOMINION_BACK_ALLEYS) && !isCanal();
+//		return getMugger().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_STREET;
 	}
 	
 	private static NPC getMugger() {
@@ -632,7 +633,7 @@ public class AlleywayAttackerDialogue {
 
 		@Override
 		public String getContent() {
-			if((getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
+			if(getMugger().isAttractedTo(Main.game.getPlayer())
 					&& !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_ATTRACTION", getMugger());
 				
@@ -647,7 +648,6 @@ public class AlleywayAttackerDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-		
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogueNoEncounter()) {
 					@Override
@@ -662,7 +662,7 @@ public class AlleywayAttackerDialogue {
 				if(!getMugger().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
 					return new Response("Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getMugger().isAttractedTo(Main.game.getPlayer())) {
+				} else if(getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
@@ -693,7 +693,7 @@ public class AlleywayAttackerDialogue {
 				if(!getMugger().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
 					return new Response("Gentle Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getMugger().isAttractedTo(Main.game.getPlayer())){
+				} else if(getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 							true, false,
@@ -724,7 +724,7 @@ public class AlleywayAttackerDialogue {
 				if(!getMugger().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
 					return new Response("Rough Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getMugger().isAttractedTo(Main.game.getPlayer())){
+				} else if(getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 							true, false,
@@ -911,7 +911,7 @@ public class AlleywayAttackerDialogue {
 					if(!Collections.disjoint(Main.game.getPlayer().getFetishes(true), Util.newArrayListOfValues(applicableFetish))) {
 						return new Response("Spit",
 								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+applicableFetish.getName(Main.game.getPlayer())
-									+"</b> fetish, you love "+applicableFetish.getShortDescriptor()+" so much that you can't bring yourself to spit out the transformative liquid!",
+									+"</b> fetish, you love "+applicableFetish.getShortDescriptor(Main.game.getPlayer())+" so much that you can't bring yourself to spit out the transformative liquid!",
 								null);
 					} else {
 						return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);

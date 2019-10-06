@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.69
- * @version 0.2.7
+ * @version 0.3.5.1
  * @author Innoxia
  */
 public enum BaseColour {
@@ -16,11 +16,11 @@ public enum BaseColour {
 	ROSE(Util.newColour(0xEBC2FF), Util.newColour(0xB800E6)),
 	LILAC(Util.newColour(0x978AFF), Util.newColour(0x8170FF)),
 	LILAC_LIGHT(Util.newColour(0xC2BDFF), Util.newColour(0x8E3DFF)),
-	PURPLE_DARK(Util.newColour(0x740AFF), Util.newColour(0x6000D6)),
+	PURPLE_DARK(Util.newColour(0x8425ff/*740AFF*/), Util.newColour(0x6000D6)),
 	PURPLE(Util.newColour(0xB980FF), Util.newColour(0x943DFF)),
 	PURPLE_LIGHT(Util.newColour(0xDA8FFF), Util.newColour(0xC552FF)),
-	
-	VIOLET(Util.newColour(0xFF99C9), Util.newColour(0xFF57A5)),
+
+	PINK_SALMON(Util.newColour(0xFF99C9), Util.newColour(0xFF57A5)),
 	PINK(Util.newColour(0xFF6BDA), Util.newColour(0xFF0FC3)),
 	PINK_LIGHT(Util.newColour(0xF5A8FF), Util.newColour(0xCF26BE)),
 	PINK_DEEP(Util.newColour(0xFF33CC), Util.newColour(0xFF33CC)),

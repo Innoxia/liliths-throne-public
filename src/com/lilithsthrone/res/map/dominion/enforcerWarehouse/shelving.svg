@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="libraryGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#libraryGradient"/>
+    </defs>
+    <g transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
+        <path fill="none" stroke="#fff" stroke-width="8" d="M16.746 1038.175v-2.645M16.689 1034.008v-25.48M16.689 1006.901v-2.644"/>
+        <path fill="none" stroke="#fff" stroke-width="7" d="M26.674 1038.214v-2.278M26.68 1034.624v-18.112M26.648 1011.861v-2.279M26.662 1015.386v-2.278"/>
+        <path fill="none" stroke="#fff" stroke-width="8.927" d="M36.704 1038.224v-2.276M36.712 1034.638l.002-18.09M36.662 1015.09v-2.277"/>
+        <path fill="none" stroke="#fff" stroke-width="8" d="M53.155 1037.284l-.76-2.533M51.902 1033.31l-7.329-24.404M44.105 1007.348l-.76-2.533"/>
+    </g>
+</svg>

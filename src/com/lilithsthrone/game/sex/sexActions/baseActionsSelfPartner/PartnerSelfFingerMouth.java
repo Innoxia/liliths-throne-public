@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -33,10 +34,10 @@ public class PartnerSelfFingerMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.hasLubricationTypeFromAnyone(Sex.getActivePartner(), SexAreaPenetration.FINGER)
-					&& Sex.isInForeplay()
-					&& (Sex.getForeplayPreference(Sex.getActivePartner(), Sex.getCharacterTargetedForSexAction(this))!=null
-						&& Sex.getForeplayPreference(Sex.getActivePartner(), Sex.getCharacterTargetedForSexAction(this)).getPerformingSexArea()==SexAreaPenetration.FINGER);
+			return !Sex.hasLubricationTypeFromAnyone(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)
+					&& Sex.isInForeplay(Sex.getCharacterPerformingAction())
+					&& (Sex.getForeplayPreference((NPC) Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this))!=null
+						&& Sex.getForeplayPreference((NPC) Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this)).getPerformingSexArea()==SexAreaPenetration.FINGER);
 		}
 		
 		@Override
@@ -57,7 +58,7 @@ public class PartnerSelfFingerMouth {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), SexAreaPenetration.FINGER, Sex.getActivePartner(), SexAreaOrifice.MOUTH);
+			Sex.transferLubrication(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER, Sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH);
 		}
 	};
 	

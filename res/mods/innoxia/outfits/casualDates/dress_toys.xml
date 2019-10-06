@@ -12,7 +12,7 @@
 		<!-- The femininity needed for someone to generate this outfit. MASCULINE, ANDROGYNOUS, and FEMININE are the three acceptable values. ANDROGYNOUS means anyone can use this outfit, while the other two are self-explanatory.-->
 		<femininity>FEMININE</femininity>
 		
-		<!-- The worlds in which this outfit may be used for randomly generated characters. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/world/WorldType.java -->
+		<!-- The worlds in which this outfit may be used for randomly generated characters. You can leave this empty, or delete the element entirely, if you do not want this outfit to be restricted based on WorldType (so it can be used anywhere). Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/world/WorldType.java -->
 		<worldTypes>
 			<world>DOMINION</world>
 			<world>SUBMISSION</world>
@@ -41,8 +41,8 @@
 	
 	<generationAttributes>
 		<!-- You can define up to 20 conditional statements to use elsewhere in this file. They must be enclosed in CDATA tags, and must use a consecutively-numbered format of "clothingConditionalX". If they have the attribute: 'constant="true"', then they are evaluated once at the start of clothing generation. If not, they are re-evaluated every time. -->
-		<clothingConditional1 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional1>
-		<clothingConditional2 constant="true"><![CDATA[RND.​nextInt(100)<=75]]></clothingConditional2>
+		<clothingConditional1 constant="true"><![CDATA[RND.nextInt(100)<=50]]></clothingConditional1>
+		<clothingConditional2 constant="true"><![CDATA[RND.nextInt(100)<=75]]></clothingConditional2>
 		
 		<!-- "presetColourGroupX" groups have one of their defined "randomColour"s randomly chosen for further use in this XML file. You can have up to 20 "presetColourGroupX"s, but the numbers must be consecutive. (i.e. You can have "presetColourGroup1", "presetColourGroup2", and "presetColourGroup3", but NOT "presetColourGroup1", "presetColourGroup2", and "presetColourGroup4", as that skips out a "3".)
 		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->

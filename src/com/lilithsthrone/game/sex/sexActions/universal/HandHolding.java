@@ -472,7 +472,8 @@ public class HandHolding {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1 && Sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
+			return Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())>=Sex.getCharacterPerformingAction().getOrgasmsBeforeSatisfied()
+					&& Sex.getNumberOfOrgasms(Main.game.getPlayer())>=Main.game.getPlayer().getOrgasmsBeforeSatisfied();
 		}
 
 		@Override

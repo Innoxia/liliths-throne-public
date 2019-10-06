@@ -18,7 +18,7 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
@@ -87,7 +87,7 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
-			Sex.swapSexPositionSlots(Main.game.getPlayer(), Sex.getActivePartner());
+			Sex.swapSexPositionSlots(Main.game.getPlayer(), Sex.getCharacterTargetedForSexAction(this));
 		}
 	};
 	
@@ -236,7 +236,7 @@ public class GenericPositioning {
 	
 	private static PositioningData generateReceivingOralData(GameCharacter performer, GameCharacter receiver) {
 		return new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				Util.newArrayListOfValues(
 						SexSlotStanding.STANDING_DOMINANT,
 						SexSlotStanding.STANDING_DOMINANT_TWO),
@@ -245,7 +245,7 @@ public class GenericPositioning {
 
 	private static PositioningData generatePerformingOralData(GameCharacter performer, GameCharacter receiver) {
 		return new PositioningData(
-				SexPositionOther.STANDING,
+				SexPosition.STANDING,
 				generatePerformerOralData(performer, receiver),
 				Util.newArrayListOfValues(
 						SexSlotStanding.STANDING_DOMINANT,
@@ -266,7 +266,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionTitle() {
-			return "Receive oral";
+			return "Standing receive oral";
 		}
 		@Override
 		public String getActionDescription() {
@@ -357,7 +357,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionTitle() {
-			return "Receive oral (R)";
+			return "Standing receive oral (R)";
 		}
 		@Override
 		public String getActionDescription() {
@@ -414,7 +414,7 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPosition()==SexPositionOther.STANDING
+			return Sex.getPosition()==SexPosition.STANDING
 					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT
 					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT_TWO
 					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.PERFORMING_ORAL_BEHIND
@@ -479,7 +479,7 @@ public class GenericPositioning {
 			}
 
 			Sex.setSexManager(new SexManagerDefault(
-					SexPositionOther.STANDING,
+					SexPosition.STANDING,
 					dominants,
 					submissives){
 			});
@@ -508,7 +508,7 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPosition()==SexPositionOther.STANDING
+			return Sex.getPosition()==SexPosition.STANDING
 					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.PERFORMING_ORAL
 					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT
 					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT_TWO
@@ -581,7 +581,7 @@ public class GenericPositioning {
 			}
 
 			Sex.setSexManager(new SexManagerDefault(
-					SexPositionOther.STANDING,
+					SexPosition.STANDING,
 					dominants,
 					submissives){
 			});
@@ -875,7 +875,7 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPosition()==SexPositionOther.STANDING
+			return Sex.getPosition()==SexPosition.STANDING
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT_TWO
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_BEHIND
@@ -944,7 +944,7 @@ public class GenericPositioning {
 			}
 
 			Sex.setSexManager(new SexManagerDefault(
-					SexPositionOther.STANDING,
+					SexPosition.STANDING,
 					dominants,
 					submissives){
 			});
@@ -973,7 +973,7 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPosition()==SexPositionOther.STANDING
+			return Sex.getPosition()==SexPosition.STANDING
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT_TWO
 					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL
@@ -1046,7 +1046,7 @@ public class GenericPositioning {
 			}
 
 			Sex.setSexManager(new SexManagerDefault(
-					SexPositionOther.STANDING,
+					SexPosition.STANDING,
 					dominants,
 					submissives){
 			});
@@ -1077,7 +1077,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.FACE_TO_WALL));
 		
@@ -1123,7 +1123,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.FACE_TO_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL));
 		
@@ -1160,7 +1160,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.BACK_TO_WALL));
 		
@@ -1206,7 +1206,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.AGAINST_WALL,
+				SexPosition.AGAINST_WALL,
 				Util.newArrayListOfValues(SexSlotAgainstWall.BACK_TO_WALL),
 				Util.newArrayListOfValues(SexSlotAgainstWall.STANDING_WALL));
 		
@@ -1249,7 +1249,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.MISSIONARY),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 		
@@ -1295,7 +1295,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.MISSIONARY),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 		
@@ -1331,7 +1331,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.MISSIONARY));
 
@@ -1377,7 +1377,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.MISSIONARY));
 		
@@ -1413,7 +1413,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.SIXTY_NINE),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 
@@ -1452,7 +1452,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.SIXTY_NINE),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 		
@@ -1489,7 +1489,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.SIXTY_NINE));
 
@@ -1529,7 +1529,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.SIXTY_NINE));
 		
@@ -1566,7 +1566,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.COWGIRL),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 
@@ -1613,7 +1613,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.COWGIRL),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 		
@@ -1650,7 +1650,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.COWGIRL));
 
@@ -1697,7 +1697,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.COWGIRL));
 		
@@ -1734,7 +1734,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.FACE_SITTING),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 
@@ -1771,7 +1771,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.FACE_SITTING),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 
@@ -1808,7 +1808,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.FACE_SITTING));
 		
@@ -1845,7 +1845,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.FACE_SITTING));
 		
@@ -1883,7 +1883,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.MATING_PRESS),
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN));
 		
@@ -1935,7 +1935,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.LYING_DOWN,
+				SexPosition.LYING_DOWN,
 				Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN),
 				Util.newArrayListOfValues(SexSlotLyingDown.MATING_PRESS));
 		
@@ -2002,7 +2002,7 @@ public class GenericPositioning {
 	
 	private static PositioningData generateReceivingAllFoursData(GameCharacter receiver) {
 		return new PositioningData(
-				SexPositionOther.ALL_FOURS,
+				SexPosition.ALL_FOURS,
 				Util.newArrayListOfValues(
 						SexSlotAllFours.ALL_FOURS,
 						SexSlotAllFours.ALL_FOURS_TWO),
@@ -2011,7 +2011,7 @@ public class GenericPositioning {
 
 	private static PositioningData generatePerformingAllFoursData(GameCharacter receiver) {
 		return new PositioningData(
-				SexPositionOther.ALL_FOURS,
+				SexPosition.ALL_FOURS,
 				generatePerformerAllFoursData(receiver),
 				Util.newArrayListOfValues(
 						SexSlotAllFours.ALL_FOURS,
@@ -2399,7 +2399,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(
 						SexSlotSitting.SITTING),
 				Util.newArrayListOfValues(
@@ -2441,7 +2441,7 @@ public class GenericPositioning {
 			SexParticipantType.NORMAL) {
 		
 		private PositioningData data = new PositioningData(
-				SexPositionOther.SITTING,
+				SexPosition.SITTING,
 				Util.newArrayListOfValues(
 						SexSlotSitting.SITTING_BETWEEN_LEGS),
 				Util.newArrayListOfValues(
@@ -2516,7 +2516,7 @@ public class GenericPositioning {
 			if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL) {
 				if(isHappy) {
 					boolean standing = SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction());
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "[npc.speech(Don't think that this means you're the one in charge!)]"
 									+ " [npc.name] growls, before "+(standing?"stepping forwards":"kneeling down")+" and bringing [npc.her] [npc.face] to your groin."
@@ -2537,7 +2537,7 @@ public class GenericPositioning {
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL_BEHIND) {
 				if(isHappy) {
 					boolean standing = SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction());
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "[npc.speech(Don't think that this means you're the one in charge!)]"
 									+ " [npc.name] growls, before "+(standing?"stepping forwards":"kneeling down")+" and bringing [npc.her] [npc.face] to your [pc.ass+]."
@@ -2559,7 +2559,7 @@ public class GenericPositioning {
 					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL) {
 				if(isHappy) {
 					boolean biped = !Sex.getCharacterPerformingAction().isTaur();
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "[npc.speech(Don't think that this means you're the one in charge!)]"
 									+ " [npc.name] growls, before roughly pressing "+(!biped?"[npc.her] feral [npc.legRace] body":"[npc.herself]")+" against your [pc.face]."
@@ -2583,7 +2583,7 @@ public class GenericPositioning {
 					boolean bipedPlayer = !Main.game.getPlayer().isTaur();
 					boolean standingPlayer = SexSlotAllFours.BEHIND.isStanding(Main.game.getPlayer());
 					StringBuilder sb = new StringBuilder();
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							sb.append("[npc.speech(Don't think that this means you're the one in charge!)]"
 									+ " [npc.name] growls, before "+(!biped?"roughly pushing [npc.her] feral [npc.legRace] body":"dropping down onto all fours and pushing [npc.herself]")+" back against you."
@@ -2622,7 +2622,7 @@ public class GenericPositioning {
 					boolean bipedPlayer = !Main.game.getPlayer().isTaur();
 					boolean standing = SexSlotAllFours.BEHIND.isStanding(Sex.getCharacterPerformingAction());
 					StringBuilder sb = new StringBuilder();
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							sb.append("[npc.speech(Don't think that this means you're the one in charge!)]"
 									+ " [npc.name] growls, before "
@@ -2659,7 +2659,7 @@ public class GenericPositioning {
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.SIXTY_NINE) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Jumping down onto all fours, [npc.name] lowers [npc.herself] down over the top of you, bringing [npc.her] crotch down to your face as [npc.she] drops [npc.her] head down between your [pc.legs]."
 									+ " Turning [npc.her] head back to look at you, [npc.she] growls, "
@@ -2678,7 +2678,7 @@ public class GenericPositioning {
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.LYING_DOWN
 					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotLyingDown.SIXTY_NINE) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Allowing you to push [npc.herHim] down, [npc.name] reaches up and takes a firm grip on your [pc.hips], before roughly tugging you down so that you're over the top of [npc.herHim] in a reversed all-fours position."
 									+ " Pulling your groin down to [npc.her] face, [npc.she] growls, "
@@ -2696,7 +2696,7 @@ public class GenericPositioning {
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.COWGIRL) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Jumping down over the top of you, [npc.name] lowers [npc.herself] down over your groin, bringing [npc.her] crotch down to yours as [npc.she] straddles you in the cowgirl position."
 									+ " Leaning forwards a little, [npc.she] growls down at you, "
@@ -2715,7 +2715,7 @@ public class GenericPositioning {
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.LYING_DOWN
 					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotLyingDown.COWGIRL) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Allowing you to push [npc.herHim] down, [npc.name] reaches up and takes a firm grip on your [pc.hips], before roughly pulling you down so that you're straddling [npc.herHim] in the cowgirl position."
 									+ " Looking up into your [pc.eyes], [npc.she] growls, "
@@ -2734,7 +2734,7 @@ public class GenericPositioning {
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.LYING_DOWN
 					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotLyingDown.FACE_SITTING) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Slapping your [pc.hands] away from [npc.herHim], [npc.name] grabs you by the wrists and yanks you forwards, growling, "
 									+ "[npc.speech(Don't you <i>dare</i> try to take control here! I'll let you sit on my face, but only because <i>I</i> want it, understood?!)]"
@@ -2756,7 +2756,7 @@ public class GenericPositioning {
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.FACE_SITTING) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Jumping down over the top of you, [npc.name] lowers [npc.herself] down over you, bringing [npc.her] crotch down over your face before planting [npc.her] groin down onto your mouth."
 									+ " Grinding roughly down against your face, [npc.she] growls, "
@@ -2774,7 +2774,7 @@ public class GenericPositioning {
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.MATING_PRESS) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "With an eager, lustful grin on [npc.her] face, [npc.name] does just as you say, and drops [npc.her] full weight down on top of you."
 									+ " Roughly grinding [npc.her] crotch against yours, [npc.she] pins your wrists to the floor on either side of your head and growls, "
@@ -2797,7 +2797,7 @@ public class GenericPositioning {
 			} if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.LYING_DOWN
 					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotLyingDown.MISSIONARY) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, but as [npc.she] spreads [npc.her] [npc.legs] for you, [npc.she] growls in a menacing tone, "
 									+ "[npc.speech(Don't get carried away, bitch! I'm still the one in charge here!)]";
@@ -2812,7 +2812,7 @@ public class GenericPositioning {
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.MISSIONARY) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Much to your delight, [npc.name] kneels down between your [pc.legs], and as [npc.she] grabs your [npc.legs] to push them apart, [npc.she] growls, "
 									+ "[npc.speech(That's right, bitch! Spread your legs like the slut you are!)]";
@@ -2828,7 +2828,7 @@ public class GenericPositioning {
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAgainstWall.STANDING_WALL
 					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotAgainstWall.FACE_TO_WALL) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Much to your delight, you feel [npc.name] reach down and roughly grab your hips, and, grinding [npc.herself] into your back, [npc.she] growls into your ear, "
 									+ "[npc.speech(I love fucking bitches like you from behind! Now <i>stay still</i> like a good slut!)]";
@@ -2844,7 +2844,7 @@ public class GenericPositioning {
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAgainstWall.STANDING_WALL
 					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotAgainstWall.BACK_TO_WALL) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getActivePartner())) {
+					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "[npc.Name] grins as you try to entice [npc.herHim] to come over and fuck you against the wall."
 									+ " Moving up to roughly grind [npc.her] body against yours, [npc.she] leans in over your shoulder and growls into your ear, "
