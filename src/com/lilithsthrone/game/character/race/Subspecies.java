@@ -697,7 +697,7 @@ public enum Subspecies {
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 1)),
 			Colour.RACE_DOG_MORPH,
-			SubspeciesPreference.FOUR_ABUNDANT,
+			SubspeciesPreference.TWO_AVERAGE,
 			"A particularly energetic and intelligent dog-morph, which resembles an anthropomorphised border-collie."
 				+ " They are known as 'border-collie-morphs' when bipedal, and 'border-collie-taurs' when the lower body is that of an oversized feral border-collie."
 				+ " To be identified as a border-collie-morph, a character must be a dog-morph that has either upright or folded ears, and fluffy, black fur with white markings.",
@@ -835,7 +835,7 @@ public enum Subspecies {
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 1)),
 			Colour.RACE_DOG_MORPH,
-			SubspeciesPreference.FOUR_ABUNDANT,
+			SubspeciesPreference.TWO_AVERAGE,
 			"A strong, intelligent, and loyal subspecies of dog-morph, which resembles an anthropomorphised German-shepherd."
 				+ " They are known as 'German-shepherd-morphs' when bipedal, and 'German-shepherd-taurs' when the lower body is that of an oversized feral German-shepherd."
 				+ " To be identified as a German-shepherd-morph, a character must be a dog-morph that has upright ears, and fluffy, black fur with tan markings.",
@@ -4238,11 +4238,12 @@ public enum Subspecies {
 			case ANGEL:
 			case DEMON:
 			case ELEMENTAL:
-			case HARPY:
 			case HUMAN:
 			case NONE:
 			case SLIME:
 				return false;
+			case HARPY:
+				return this!=Subspecies.HARPY;
 			case FOX_MORPH:
 				return this!=Subspecies.FOX_ASCENDANT && this!=Subspecies.FOX_ASCENDANT_FENNEC;
 			case ALLIGATOR_MORPH:
@@ -4259,6 +4260,13 @@ public enum Subspecies {
 				return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * @return true if this subspecies can have its FurryPreference modified in the furry preferences options screen.
+	 */
+	public boolean isFurryPreferencesEnabled() {
+		return this.getRace()!=Race.HARPY;
 	}
 	
 	public int getBaseSlaveValue(GameCharacter character) {

@@ -57,7 +57,7 @@ public class DialogueFlags implements XMLSaving {
 	
 	private String slaveTrader;
 	
-	private String slaveryManagerSlaveSelected;
+	private String managementCompanion;
 	private SlaveJob slaveryManagerJobSelected;
 	
 	public DialogueFlags() {
@@ -65,7 +65,7 @@ public class DialogueFlags implements XMLSaving {
 
 		slaveTrader = null;
 		
-		slaveryManagerSlaveSelected = null;
+		managementCompanion = null;
 		slaveryManagerJobSelected = SlaveJob.IDLE;
 		
 		ralphDiscountStartTime = -1;
@@ -109,7 +109,7 @@ public class DialogueFlags implements XMLSaving {
 		
 		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
-		CharacterUtils.createXMLElementWithValue(doc, element, "slaveryManagerSlaveSelected", slaveryManagerSlaveSelected);
+		CharacterUtils.createXMLElementWithValue(doc, element, "slaveryManagerSlaveSelected", managementCompanion);
 		
 		Element valuesElement = doc.createElement("dialogueValues");
 		element.appendChild(valuesElement);
@@ -145,7 +145,7 @@ public class DialogueFlags implements XMLSaving {
 		
 		newFlags.offspringDialogueTokens = Integer.valueOf(((Element)parentElement.getElementsByTagName("offspringDialogueTokens").item(0)).getAttribute("value"));
 		newFlags.slaveTrader = ((Element)parentElement.getElementsByTagName("slaveTrader").item(0)).getAttribute("value");
-		newFlags.slaveryManagerSlaveSelected = ((Element)parentElement.getElementsByTagName("slaveryManagerSlaveSelected").item(0)).getAttribute("value");
+		newFlags.managementCompanion = ((Element)parentElement.getElementsByTagName("slaveryManagerSlaveSelected").item(0)).getAttribute("value");
 		
 		try {
 			newFlags.eponaStamps = Integer.valueOf(((Element)parentElement.getElementsByTagName("eponaStamps").item(0)).getAttribute("value"));
@@ -281,33 +281,33 @@ public class DialogueFlags implements XMLSaving {
 		this.slaveTrader = slaveTrader;
 	}
 
-	public NPC getSlaveryManagerSlaveSelected() {
-		if(slaveryManagerSlaveSelected==null
-				|| slaveryManagerSlaveSelected.isEmpty()) {
+	public NPC getManagementCompanion() {
+		if(managementCompanion==null
+				|| managementCompanion.isEmpty()) {
 			return null;
 		}
 		try {
-			return (NPC) Main.game.getNPCById(slaveryManagerSlaveSelected);
+			return (NPC) Main.game.getNPCById(managementCompanion);
 		} catch (Exception e) {
-			Util.logGetNpcByIdError("getSlaveryManagerSlaveSelected()", slaveryManagerSlaveSelected);
+			Util.logGetNpcByIdError("getSlaveryManagerSlaveSelected()", managementCompanion);
 			return null;
 		}
 	}
 
-	public void setSlaveryManagerSlaveSelected(GameCharacter slaveryManagerSlaveSelected) {
-		if(slaveryManagerSlaveSelected==null) {
-			this.slaveryManagerSlaveSelected = null;
+	public void setManagementCompanion(GameCharacter managementCompanion) {
+		if(managementCompanion==null) {
+			this.managementCompanion = null;
 		} else {
-			this.slaveryManagerSlaveSelected = slaveryManagerSlaveSelected.getId();
+			this.managementCompanion = managementCompanion.getId();
 		}
 	}
 	
-	public String getSlaveryManagerSlaveSelectedId() {
-		return slaveryManagerSlaveSelected;
+	public String getManagementCompanionId() {
+		return managementCompanion;
 	}
 
-	public void setSlaveryManagerSlaveSelectedId(String slaveryManagerSlaveSelected) {
-		this.slaveryManagerSlaveSelected = slaveryManagerSlaveSelected;
+	public void setManagementCompanionId(String managementCompanion) {
+		this.managementCompanion = managementCompanion;
 	}
 
 	// Reindeer event:

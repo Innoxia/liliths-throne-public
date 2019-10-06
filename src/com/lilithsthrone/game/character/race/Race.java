@@ -613,7 +613,7 @@ public enum Race {
 	 * +
 	 * " Once she has found a victim, she will attempt to smother and seduce her prey and then feed off of them."
 	 * +
-	 * " Slime queens represent a threat to all races, and as a result Lilith's enforcers have driven them out of Dominion.</p>"
+	 * " Slime queens represent a threat to all races, and as a result Lilith's Enforcers have driven them out of Dominion.</p>"
 	 * 
 	 * +
 	 * "<p>A slime queen looks like a group of slimes all huddling together, with a particularly attractive individual at the centre."

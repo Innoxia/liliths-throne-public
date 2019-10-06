@@ -86,14 +86,20 @@ public class CombatMovesSetup {
         public String getContent(){
             return "";
         }
-
+		
+		@Override
+		public String getResponseTabTitle(int index) {
+			return dialogueReturn.getResponseTabTitle(index);
+		}
+        
         @Override
         public Response getResponse(int responseTab, int index) {
-            if (index == 0) {
-                return new Response("Back", "Return to the previous menu.", dialogueReturn);
-            } else {
-                return null;
-            }
+        	return dialogueReturn.getResponse(responseTab, index);
+//            if (index == 0) {
+//                return new Response("Back", "Return to the previous menu.", dialogueReturn);
+//            } else {
+//                return null;
+//            }
         }
 
         @Override

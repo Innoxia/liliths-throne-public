@@ -140,7 +140,8 @@ public class ChairSex {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return checkBaseRequirements(data, false);
+			return !Sex.getCharacterTargetedForSexAction(this).isTaur()
+					&& checkBaseRequirements(data, false);
 		}
 		@Override
 		public String getActionTitle() {
@@ -182,7 +183,8 @@ public class ChairSex {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return checkBaseRequirements(data, true);
+			return !Sex.getCharacterTargetedForSexAction(this).isTaur()
+					&& checkBaseRequirements(data, true);
 		}
 		@Override
 		public String getActionTitle() {
@@ -195,6 +197,86 @@ public class ChairSex {
 		@Override
 		public String getDescription() {
 			return "You try to manoeuvre around in such a way that you'll be able to kneel in front of [npc2.name]. As you do this, you [npc.moan], [npc.speech(Please, I want to use my mouth...)]";
+		}
+		@Override
+		public void applyEffects() {
+			Sex.setPositionRequest(data);
+		}
+	};
+	
+	public static final SexAction SWITCH_TO_GIVING_ORAL_TO_TAUR = new SexAction(
+			SexActionType.POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+		
+		private PositioningData data = new PositioningData(
+				SexPosition.SITTING,
+				Util.newArrayListOfValues(SexSlotSitting.SITTING),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL));
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getCharacterTargetedForSexAction(this).isTaur()
+					&& checkBaseRequirements(data, false);
+		}
+		@Override
+		public String getActionTitle() {
+			return "Perform oral";
+		}
+		@Override
+		public String getActionDescription() {
+			return "While sitting down, get [npc2.name] to turn around and back up towards you, presenting [npc.her] animalistic genitals to you so that you can perform oral on [npc2.herHim].";
+		}
+		@Override
+		public String getDescription() {
+			return "Deciding that [npc.she] [npc.verb(want)] to perform oral on [npc2.name], [npc.name] [npc.verb(sit)] down, before getting [npc2.name] to turn around and back up so that [npc2.her] animalistic genitals are in front of [npc.her] [npc.face]."
+					+ " Bringing [npc.her] mouth up to [npc2.namePos] groin, [npc.she] [npc.moansVerb], "
+					+ "[npc.speech(I can't wait to get a taste of you!)]";
+		}
+		@Override
+		public void applyEffects() {
+			applyChangeSlotEffects(
+					Sex.getCharacterPerformingAction(),
+					SexSlotSitting.SITTING,
+					Sex.getCharacterTargetedForSexAction(this),
+					SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL);
+//			GenericPositioningNew.setNewSexManager(data, false);
+		}
+	};
+	
+	public static final SexAction POSITION_GIVING_ORAL_TO_TAUR_REQUEST = new SexAction(
+			SexActionType.POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ONE_VANILLA,
+			null,
+			SexParticipantType.NORMAL) {
+
+		private PositioningData data = new PositioningData(
+				SexPosition.SITTING,
+				Util.newArrayListOfValues(SexSlotSitting.SITTING),
+				Util.newArrayListOfValues(SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL));
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getCharacterTargetedForSexAction(this).isTaur()
+					&& checkBaseRequirements(data, true);
+		}
+		@Override
+		public String getActionTitle() {
+			return "Perform oral (R)";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Try to sit down and get [npc2.name] to turn around and back up towards you, presenting [npc.her] animalistic genitals to you so that you can perform oral on [npc2.herHim].";
+		}
+		@Override
+		public String getDescription() {
+			return "You try to manoeuvre around in such a way that you'll be able to sit down and get [npc2.name] to present [npc2.her] animalistic genitals to you."
+					+ " As you do this, you [npc.moan], [npc.speech(Please, I want to use my mouth...)]";
 		}
 		@Override
 		public void applyEffects() {

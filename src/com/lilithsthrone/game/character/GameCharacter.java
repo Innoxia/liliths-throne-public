@@ -185,11 +185,11 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryAttributeChange;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
-import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.ParserTag;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
@@ -627,8 +627,11 @@ public abstract class GameCharacter implements XMLSaving {
 			attributes.put(a, (float) a.getBaseValue());
 			bonusAttributes.put(a, 0f);
 		}
-		
-		setHistory(Occupation.UNEMPLOYED);
+		if(this.isPlayer()) {
+			setHistory(Occupation.UNEMPLOYED);
+		} else {
+			setHistory(Occupation.NPC_UNEMPLOYED);	
+		}
 		
 		// Set the character's starting body based on their gender and race:
 		setBody(startingGender, startingSubspecies, stage);
@@ -1559,20 +1562,22 @@ public abstract class GameCharacter implements XMLSaving {
 			character.setCombatBehaviour(CombatBehaviour.valueOf(((Element)element.getElementsByTagName("combatBehaviour").item(0)).getAttribute("value")));
 		}
 		
-		
 		if(element.getElementsByTagName("personality").getLength()!=0) {
 			nodes = parentElement.getElementsByTagName("personality");
 			Element personalityElement = (Element) nodes.item(0);
 			if(personalityElement!=null) {
-				if(!Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.3.4.9")) {
-					NodeList personalityEntries = personalityElement.getElementsByTagName("trait");
-					for(int i=0; i<personalityEntries.getLength(); i++) {
-						Element e = ((Element)personalityEntries.item(i));
-						try {
-							PersonalityTrait t = PersonalityTrait.valueOf(e.getTextContent());
-							character.addPersonalityTrait(t);
-							CharacterUtils.appendToImportLog(log, "<br/>Added personality trait: "+t);
-						}catch(IllegalArgumentException ex){
+				if(!Main.isVersionOlderThan(version, "0.3.4.9")) {
+					if(!Main.isVersionOlderThan(version, "0.3.5.1")) { // Do not load traits if prior to v0.3.5.1, as that version had a bug where too many traits were being assigned.
+						character.clearPersonalityTraits();
+						NodeList personalityEntries = personalityElement.getElementsByTagName("trait");
+						for(int i=0; i<personalityEntries.getLength(); i++) {
+							Element e = ((Element)personalityEntries.item(i));
+							try {
+								PersonalityTrait t = PersonalityTrait.valueOf(e.getTextContent());
+								character.addPersonalityTrait(t);
+								CharacterUtils.appendToImportLog(log, "<br/>Added personality trait: "+t);
+							}catch(IllegalArgumentException ex){
+							}
 						}
 					}
 					
@@ -3693,6 +3698,12 @@ public abstract class GameCharacter implements XMLSaving {
 				
 			} else if (petName.equalsIgnoreCase("Mommy") || petName.equalsIgnoreCase("Daddy")) {
 				return target.isFeminine()?"mommy":"daddy";
+				
+			} else if (petName.equalsIgnoreCase("Mistress") || petName.equalsIgnoreCase("Master")) {
+				return target.isFeminine()?"Mistress":"Master";
+				
+			} else if (petName.equalsIgnoreCase("Ma'am") || petName.equalsIgnoreCase("Sir")) {
+				return target.isFeminine()?"Ma'am":"Sir";
 			}
 			return petName;
 		}
@@ -4062,7 +4073,7 @@ public abstract class GameCharacter implements XMLSaving {
 		SlaveJob job = this.getSlaveJob(hour);
 
 		// Rounding is to get rid of floating point ridiculousness (e.g. 2.3999999999999999999999):
-		if(!isAtWork(hour)) {
+		if(this.getSlaveJob(hour)==SlaveJob.IDLE) {
 			return (Math.round(this.getHomeLocationPlace().getHourlyObedienceChange()*100)/100f) * (this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)?3:1);
 		}
 		return (Math.round(job.getObedienceGain(this)*100)/100f) * (this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)?3:1);
@@ -4073,7 +4084,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		for (int hour = 0; hour < 24; hour++) {
 			SlaveJob job = this.getSlaveJob(hour);
-			if(!isAtWork(hour)) {
+			if(this.getSlaveJob(hour)==SlaveJob.IDLE) {
 				totalObedienceChange += this.getHomeLocationPlace().getHourlyObedienceChange();
 			} else {
 				totalObedienceChange += job.getObedienceGain(this);
@@ -5888,11 +5899,11 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			return "<p style='text-align:center;'>"
 					+ (shortDescription
-							?UtilText.parse(this, "[npc.Name] now <b style='color:"+desire.getColour().toWebHexString()+";'>"+desire.getNameAsVerb()+"</b> [style.boldLust("+fetish.getShortDescriptor()+")]!")
+							?UtilText.parse(this, "[npc.Name] now <b style='color:"+desire.getColour().toWebHexString()+";'>"+desire.getNameAsVerb()+"</b> [style.boldLust("+fetish.getShortDescriptor(this)+")]!")
 							:UtilText.parse(this, "A warm wave of arcane energy rises up within [npc.name], and as [npc.she] [npc.verb(feel)] its influential power seeping into [npc.her] mind,"
 								+ " [npc.she] [npc.verb(realise)] that [npc.she] now <b style='color:"+desire.getColour().toWebHexString()+";'>"+
 									(this.isPlayer()?desire.getNameAsPlayerVerb():desire.getNameAsVerb())
-								+"</b> [style.boldLust("+fetish.getShortDescriptor()+")]!"))
+								+"</b> [style.boldLust("+fetish.getShortDescriptor(this)+")]!"))
 				+"</p>";
 			
 		} else {
@@ -5900,7 +5911,7 @@ public abstract class GameCharacter implements XMLSaving {
 				return "";
 			}
 			return "<p style='text-align:center;'>"
-						+UtilText.parse(this, "[style.colourDisabled(Nothing happens, as [npc.she] already "+desire.getNameAsPlayerVerb()+" "+fetish.getShortDescriptor()+"...)]")
+						+UtilText.parse(this, "[style.colourDisabled(Nothing happens, as [npc.she] already "+desire.getNameAsPlayerVerb()+" "+fetish.getShortDescriptor(this)+"...)]")
 					+"</p>";
 		}
 	}
@@ -5956,6 +5967,8 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public void calculateStatusEffects(int secondsPassed) {
 		// Count down status effects:
+		float healthPercentage = this.getHealthPercentage();
+		float manaPercentage = this.getManaPercentage();
 		String s;
 		List<StatusEffect> tempListStatusEffects = new ArrayList<>();
 		for (StatusEffect se : getStatusEffects()) {
@@ -6012,6 +6025,9 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
+
+		this.setHealthPercentage(healthPercentage);
+		this.setManaPercentage(manaPercentage);
 		
 		updateAttributeListeners();
 	}
@@ -17180,6 +17196,12 @@ public abstract class GameCharacter implements XMLSaving {
 
 		totalDamage += totalDamage * (Util.getModifiedDropoffValue(this.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f);
 
+		if(this.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1)
+				|| this.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2)
+				|| this.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3)) {
+			totalDamage += this.getLevel();
+		}
+		
 		return Math.round(totalDamage);
 	}
 
@@ -17546,7 +17568,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void alignLustToRestingLust(int secondsPassed) {
-		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
+		if(this.getLust()<75 && hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
 			setLustNoText(75);
 		} else {
 			if(getLust()>getRestingLust()) {
@@ -17665,19 +17687,17 @@ public abstract class GameCharacter implements XMLSaving {
 	public static final String PREGNANCY_CALCULATION = "((Virility Factor * Cum Production Modifier) + Fertility Factor) / 3";
 
 	public void performHourlyFluidsCheck() {
-		for(SexAreaOrifice ot : SexAreaOrifice.values()) {
-			if(this.fluidsStoredMap.get(ot)!=null) {
-				for(FluidStored fs : this.fluidsStoredMap.get(ot)) {
-					if(fs.getFluid().getFluidModifiers().contains(FluidModifier.ADDICTIVE)) {
-						addAddiction(new Addiction(fs.getFluid().getType(), Main.game.getMinutesPassed(), fs.getCharactersFluidID()));
-					}
-					if(fs.getFluid().getFluidModifiers().contains(FluidModifier.HALLUCINOGENIC)) {
-						this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60*60);
-					}
+		for(Entry<SexAreaOrifice, List<FluidStored>> entry : this.fluidsStoredMap.entrySet()) {
+			for(FluidStored fs : entry.getValue()) {
+				if(fs.getFluid().getFluidModifiers().contains(FluidModifier.ADDICTIVE)) {
+					addAddiction(new Addiction(fs.getFluid().getType(), Main.game.getMinutesPassed(), fs.getCharactersFluidID()));
+				}
+				if(fs.getFluid().getFluidModifiers().contains(FluidModifier.HALLUCINOGENIC)) {
+					this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60*60);
 				}
 			}
 		}
-			
+		
 		// Impregnation:
 		performImpregnationCheck(false);
 	}
@@ -17834,7 +17854,7 @@ public abstract class GameCharacter implements XMLSaving {
 			while(c!=null) {
 				ItemEffect effect = null;
 				for(ItemEffect e : c.getEffects()) {
-					if(e.getPrimaryModifier()==TFModifier.CLOTHING_SEALING) {
+					if(e.getSecondaryModifier()==TFModifier.CLOTHING_SEALING) {
 						effect = e;
 					}
 				}
@@ -18775,8 +18795,8 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	
-	public void clearNonEquippedInventory(){
-		inventory.clearNonEquippedInventory();
+	public void clearNonEquippedInventory(boolean clearMoney) {
+		inventory.clearNonEquippedInventory(clearMoney);
 	}
 
 	public boolean isInventoryFull() {
@@ -18948,7 +18968,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return Description of what happened.
 	 */
 	public String dropItem(AbstractItem item, int count, boolean appendTextToEventLog) {
-		if (inventory.dropItem(item, count, Main.game.getWorlds().get(this.worldLocation), location)) {
+		if(inventory.dropItem(item, count, Main.game.getWorlds().get(this.worldLocation), location)) {
 			if(appendTextToEventLog) {
 				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dropped", count+"x <span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+item.getName()+"</span>"), false);
 			}
@@ -19312,6 +19332,9 @@ public abstract class GameCharacter implements XMLSaving {
 				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Unequipped", "<span style='color:"+getMainWeapon(armRow).getRarity().getColour().toWebHexString()+";'>"+getMainWeapon(armRow).getName()+"</span>"), false);
 			}
 			inventory.unequipMainWeapon(armRow);
+			
+			this.recalculateCombatMoves();
+			
 			updateInventoryListeners();
 			
 			return s;
@@ -19331,6 +19354,9 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 			inventory.unequipMainWeapon(armRow);
+
+			this.recalculateCombatMoves();
+			
 			updateInventoryListeners();
 		}
 	}
@@ -19404,6 +19430,7 @@ public abstract class GameCharacter implements XMLSaving {
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Equipped", "<span style='color:"+weapon.getRarity().getColour().toWebHexString()+";'>"+weapon.getName()+"</span>"), false);
 		}
 		inventory.equipOffhandWeapon(armRowToEquipTo, weapon);
+		
 		updateInventoryListeners();
 		
 		return s.toString();
@@ -19430,6 +19457,9 @@ public abstract class GameCharacter implements XMLSaving {
 				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Unequipped", "<span style='color:"+getOffhandWeapon(armRow).getRarity().getColour().toWebHexString()+";'>"+getOffhandWeapon(armRow).getName()+"</span>"), false);
 			}
 			inventory.unequipOffhandWeapon(armRow);
+			
+			this.recalculateCombatMoves();
+			
 			updateInventoryListeners();
 			
 			return s;
@@ -19447,6 +19477,9 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 			inventory.unequipOffhandWeapon(armRow);
+			
+			this.recalculateCombatMoves();
+			
 			updateInventoryListeners();
 		}
 	}
@@ -22550,7 +22583,7 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			String colourBasic = this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName();
 			try {
-				if(this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().isRainbow()) {
+				if(this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getRainbowColours()!=null) {
 					colourBasic = "rainbow-coloured";
 				} else {
 					colourBasic = this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName().split(" ")[1];
@@ -22562,7 +22595,7 @@ public abstract class GameCharacter implements XMLSaving {
 				tfDescription = "<p>"
 							+ "Despite the fact that there's no sudden change in the weather, you feel as though the air around you is rapidly getting warmer and warmer,"
 								+ " and within the space of just a few seconds, it's as though you're standing in the middle of a sauna."
-							+ " Droplets of sweat quickly begin to bead on your [pc.skin], forming little little rivulets of cool, "
+							+ " Droplets of sweat quickly begin to bead on your [pc.skin], forming little rivulets of cool, "
 								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" liquid, which quickly run down over your burning body to drip onto the floor beneath you."
 						+ "</p>"
 						+ "<p>"
@@ -22608,7 +22641,7 @@ public abstract class GameCharacter implements XMLSaving {
 				tfDescription = UtilText.parse(this,
 						"<p>"
 							+ "[npc.NamePos] cheeks instantly flush, and [npc.she] starts panting and sighing as though [npc.sheIs] suffering from an intense heat stroke."
-							+ " Droplets of sweat quickly begin to bead on [npc.her] [npc.skin], forming little little rivulets of cool, "
+							+ " Droplets of sweat quickly begin to bead on [npc.her] [npc.skin], forming little rivulets of cool, "
 								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" liquid, which quickly run down over [npc.her] burning body to drip onto the floor beneath [npc.herHim]."
 						+ "</p>"
 						+ "<p>"
@@ -22651,11 +22684,11 @@ public abstract class GameCharacter implements XMLSaving {
 		if(type==BodyMaterial.FLESH) {
 			tfDescription = UtilText.parse(this,
 					"<p>"
-						+ "[npc.NamePos] slimy body starts to tingle all over, and as [npc.she] looks down at [npc.her] [npc.arms], [npc.she] sees the slime that they're made up of starting to get more and more opaque."
-						+ " As her slime starts to solidify, the little glowing core in the place where [npc.her] heart should be starts to break up and disperse throughout [npc.her] torso."
+						+ "[npc.NamePos] slimy body [npc.verb(start)] to tingle all over, and as [npc.she] [npc.verb(look)] down at [npc.her] [npc.arms], [npc.she] [npc.verb(see)] the slime that they're made up of starting to get more and more opaque."
+						+ " As [npc.her] slime starts to solidify, the little glowing core in the place where [npc.her] heart should be starts to break up and disperse throughout [npc.her] torso."
 					+ "</p>"
 					+ "<p>"
-						+ "With a sharp gasp, [npc.she] feels the transformation speed up, and within just a few moments, [npc.her] entire body has reverted to being made out of flesh and blood."
+						+ "With a sharp gasp, [npc.she] [npc.verb(feel)] the transformation speed up, and within just a few moments, [npc.her] entire body has reverted to being made out of flesh and blood."
 					+ "</p>"
 					+ "<p>"
 						+ "[npc.NamePos] body is now made out of [style.boldTfGeneric(flesh)]!"

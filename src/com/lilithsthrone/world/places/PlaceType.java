@@ -857,12 +857,12 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_ENTRANCE = new AbstractPlaceType(
 			"Entrance",
-			"The only entrance to the warhouse is guarded by a small, enforcer-manned booth.",
+			"The only entrance to the warhouse is guarded by a small, Enforcer-manned booth.",
 			"dominion/enforcerWarehouse/exit",
 			BaseColour.RED,
 			EnforcerWarehouse.ENTRANCE,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initDangerous()
 			.initWeatherImmune();
 
@@ -873,7 +873,7 @@ public class PlaceType {
 			BaseColour.BLACK,
 			EnforcerWarehouse.CORRIDOR,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initWeatherImmune();
 
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_CLAIRE_WARNING = new AbstractPlaceType(
@@ -883,7 +883,7 @@ public class PlaceType {
 			BaseColour.BLACK,
 			EnforcerWarehouse.CLAIRE_WARNING,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initWeatherImmune();
 
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_ENCLOSURE = new AbstractPlaceType(
@@ -893,7 +893,7 @@ public class PlaceType {
 			BaseColour.BLACK,
 			EnforcerWarehouse.ENCLOSURE,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initWeatherImmune();
 
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_ENCLOSURE_TELEPORT_PADS = new AbstractPlaceType(
@@ -903,7 +903,7 @@ public class PlaceType {
 			BaseColour.MAGENTA,
 			EnforcerWarehouse.ENCLOSURE_TELEPORT_PADS,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initWeatherImmune();
 
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_ENCLOSURE_TELEPORT_SHELVING = new AbstractPlaceType(
@@ -913,17 +913,17 @@ public class PlaceType {
 			BaseColour.PURPLE_LIGHT,
 			EnforcerWarehouse.ENCLOSURE_SHELVING,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initWeatherImmune();
 
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_ENFORCER_GUARD_POST = new AbstractPlaceType(
 			"Enforcer guard post",
-			"Scattered throughout the warehouse are several enforcer guard posts, which consist of little more than a chair and table.",
+			"Scattered throughout the warehouse are several Enforcer guard posts, which consist of little more than a chair and table.",
 			"dominion/enforcerWarehouse/enforcerGuardPost",
 			BaseColour.BLUE_STEEL,
 			EnforcerWarehouse.ENFORCER_GUARD_POST,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initDangerous()
 			.initWeatherImmune();
 
@@ -934,7 +934,7 @@ public class PlaceType {
 			BaseColour.ORANGE,
 			EnforcerWarehouse.CRATES,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initWeatherImmune();
 
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_CRATES_SEARCHED = new AbstractPlaceType(
@@ -944,7 +944,7 @@ public class PlaceType {
 			BaseColour.GREY,
 			EnforcerWarehouse.CRATES,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initWeatherImmune();
 
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_CRATES_ARK = new AbstractPlaceType(
@@ -954,7 +954,7 @@ public class PlaceType {
 			BaseColour.ORANGE,
 			EnforcerWarehouse.CRATES_ARK,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initWeatherImmune();
 
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_CRATES_ARK_SEARCHED = new AbstractPlaceType(
@@ -964,7 +964,7 @@ public class PlaceType {
 			BaseColour.GREY,
 			EnforcerWarehouse.CRATES_ARK,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initWeatherImmune();
 
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_CRATES_LUST_WEAPON = new AbstractPlaceType(
@@ -974,7 +974,7 @@ public class PlaceType {
 			BaseColour.PINK_DEEP,
 			EnforcerWarehouse.CRATES_LUST_WEAPON,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initWeatherImmune();
 
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_CRATES_SPELL_BOOK = new AbstractPlaceType(
@@ -984,7 +984,7 @@ public class PlaceType {
 			BaseColour.MAGENTA,
 			EnforcerWarehouse.SHELVES_SPELL_BOOK,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initWeatherImmune();
 
 	public static final AbstractPlaceType ENFORCER_WAREHOUSE_CRATES_SPELL_BOOK_SEARCHED = new AbstractPlaceType(
@@ -994,7 +994,7 @@ public class PlaceType {
 			BaseColour.GREY,
 			EnforcerWarehouse.SHELVES_SPELL_BOOK,
 			null,
-			"in the enforcer warehouse")
+			"in the Enforcer warehouse")
 			.initWeatherImmune();
 	
 	
@@ -1163,7 +1163,7 @@ public class PlaceType {
 
 	public static final AbstractPlaceType HARPY_NESTS_ENTRANCE_ENFORCER_POST = new AbstractPlaceType(
 			"Enforcer post",
-			"A well-staffed enforcer outpost is required in order to keep the peace between countless quarrelsome harpies.",
+			"A well-staffed Enforcer outpost is required in order to keep the peace between countless quarrelsome harpies.",
 			"dominion/harpyNests/exit",
 			BaseColour.RED,
 			HarpyNestsDialogue.ENTRANCE_ENFORCER_POST,
@@ -3691,7 +3691,7 @@ public class PlaceType {
 	public static final AbstractGlobalPlaceType WORLD_MAP_VOLCANO = new AbstractGlobalPlaceType(
 			"dragon's breath volcano",
 			null,
-			"A huge volcano, which perpetually oozes red-hot lava. Despite its name, dragons are no more common here than they are elsewhere in Dominion.", Colour.BASE_ORANGE.getShades()[1], null, null, "") {
+			"A huge volcano, perpetually oozing red-hot lava. Despite its name, dragons are no more common here than they are elsewhere in Lilith's realm.", Colour.BASE_ORANGE.getShades()[1], null, null, "") {
 				@Override
 				public WorldType getGlobalLinkedWorldType() {
 					return null;

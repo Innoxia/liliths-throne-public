@@ -854,14 +854,11 @@ public class TooltipInventoryEventListener implements EventListener {
 						? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Consumed on use</span>"
 						: "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Infinite uses</span>")
 				+ "</div>"
-//				+ "<div class='container-half-width titular'>"
-//					+ "<span style='color:" + absItem.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absItem.getDisplayRarity())+"</span>"
-//				+ "</div>"
 					);
 
 		tooltipSB.append("<div class='container-full-width'>"
 				+ "<div class='container-half-width titular' style='width:calc(66.6% - 16px);'>"
-				+ "<span style='color:" + absItem.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absItem.getDisplayRarity())+"</span>"
+				+ "<span style='color:" + absItem.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absItem.getRarity().getName())+"</span>"
 				);
 		
 		for(ItemEffect ie : absItem.getEffects()) {
@@ -957,7 +954,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		// Attribute modifiers:
 		tooltipSB.append("<div class='container-full-width'>"
 				+ "<div class='container-half-width titular' style='width:calc(66.6% - 16px);'>"
-				+ "<span style='color:" + absWep.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absWep.getDisplayRarity())+"</span>"+ " | "+(absWep.getWeaponType().isMelee()?"Melee":"Ranged")+"</br>"
+				+ "<span style='color:" + absWep.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absWep.getRarity().getName())+"</span>"+ " | "+(absWep.getWeaponType().isMelee()?"Melee":"Ranged")+"</br>"
 				+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")+"</br>"
 				);
 
@@ -1112,9 +1109,10 @@ public class TooltipInventoryEventListener implements EventListener {
 		yIncrease += absClothing.getExtraDescriptions(equippedToCharacter, slotEquippedTo).size();
 		
 		for(ItemEffect ie : absClothing.getEffects()) {
-			if(ie.getPrimaryModifier()==TFModifier.CLOTHING_ENSLAVEMENT
-					|| ie.getPrimaryModifier()==TFModifier.CLOTHING_SEALING) {
+			if(ie.getSecondaryModifier()==TFModifier.CLOTHING_ENSLAVEMENT
+					|| ie.getSecondaryModifier()==TFModifier.CLOTHING_SEALING) {
 				listIncrease+=1;
+				
 			} else if(ie.getPrimaryModifier()!=TFModifier.CLOTHING_ATTRIBUTE && ie.getPrimaryModifier()!=TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
 				listIncrease+=2;
 			}
@@ -1160,7 +1158,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		Femininity femininityRestriction = absClothing.getClothingType().getFemininityRestriction();
 		tooltipSB.append(
 				"<span style='color:" + (absClothing.isEnchantmentKnown()?absClothing.getRarity().getColour():Colour.TEXT_GREY).toWebHexString() + ";'>"
-						+Util.capitaliseSentence(absClothing.getDisplayRarity())
+						+Util.capitaliseSentence(absClothing.getRarity().getName())
 				+"</span>"
 				+ " | "
 				+ (femininityRestriction==null || femininityRestriction==Femininity.ANDROGYNOUS
@@ -1227,9 +1225,11 @@ public class TooltipInventoryEventListener implements EventListener {
 				tooltipSB.append("When equipped into '"+slot.getName()+"' slot:");
 				if (absClothing.getExtraDescriptions(equippedToCharacter, slot).isEmpty()) {
 					tooltipSB.append("<br/><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No Status</span>");
+					yIncrease++;
 				} else {
 					for (String s : absClothing.getExtraDescriptions(equippedToCharacter, slot)) {
 						tooltipSB.append("<br/>" + s);
+						yIncrease++;
 					}
 				}
 			}

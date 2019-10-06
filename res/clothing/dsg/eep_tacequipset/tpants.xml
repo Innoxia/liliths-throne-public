@@ -82,7 +82,7 @@
 				<!-- The slots that this 'displacementType' conceals. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
 				<!-- You can also use a preset list by adding an attribute named "values" to this element (an example - "CS Example" - is in the blockedParts section below this one). The preset lists that you can use are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/PresetConcealmentLists.java -->
 				<concealedSlots> <!-- Use the tag 'slot' for values inserted here. -->
-					<bodyPart>SOCK</bodyPart>
+					<slot>SOCK</slot>
 				</concealedSlots>
 			</blockedParts>
 			

@@ -101,7 +101,7 @@ public class Kate extends NPC {
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_KATES_SHOP, true);
 		
 		if(!isImported) {
-			dailyReset();
+			dailyUpdate();
 		}
 	}
 	
@@ -119,7 +119,7 @@ public class Kate extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.resetPerksMap(true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.LEWD);
@@ -318,8 +318,8 @@ public class Kate extends NPC {
 	}
 	
 	@Override
-	public void dailyReset() {
-		clearNonEquippedInventory();
+	public void dailyUpdate() {
+		clearNonEquippedInventory(false);
 		
 		List<AbstractClothing> clothingToSell = new ArrayList<>();
 		

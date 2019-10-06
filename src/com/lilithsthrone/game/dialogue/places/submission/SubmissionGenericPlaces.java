@@ -949,9 +949,9 @@ public class SubmissionGenericPlaces {
 			} else if (index == 3) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.claireAskedTeleportation)) {
 					if(Main.game.getCurrentDialogueNode()==CLAIRE_INFO_SWORD_ORICL) {
-						return new Response("SWORD & ORICL", "You are already asking Claire about the enforcer departments of 'SWORD' and 'ORICL'.", null);
+						return new Response("SWORD & ORICL", "You are already asking Claire about the Enforcer branches of 'SWORD' and 'ORICL'.", null);
 					}
-					return new Response("SWORD & ORICL", "Ask Claire about the enforcer departments of 'SWORD' and 'ORICL'.", CLAIRE_INFO_SWORD_ORICL);
+					return new Response("SWORD & ORICL", "Ask Claire about the Enforcer branches of 'SWORD' and 'ORICL'.", CLAIRE_INFO_SWORD_ORICL);
 					
 				} else {
 					return new Response("Teleportation", "Ask Claire about teleportation.", CLAIRE_INFO_TELEPORTATION) {

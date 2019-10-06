@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.dialogue.utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,8 +11,9 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
-import com.lilithsthrone.game.dialogue.npcDialogue.OccupantDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
+import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
+import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.sex.Sex;
@@ -19,7 +22,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.3
- * @version 0.3.3
+ * @version 0.3.5.1
  * @author Innoxia
  */
 public class CharactersPresentDialogue {
@@ -46,6 +49,7 @@ public class CharactersPresentDialogue {
 			} else {
 				OccupantDialogue.initDialogue((NPC) CharactersPresentDialogue.characterViewed, false, true);
 			}
+			CompanionManagement.initManagement(MENU, 2, CharactersPresentDialogue.characterViewed);
 		}
 		
 //		Main.game.setActiveNPC(characterViewed);
@@ -81,7 +85,7 @@ public class CharactersPresentDialogue {
 		if(!Main.game.getCharactersPresent().contains(companionCharacter)) {
 			if(Main.game.getPlayer().getCompanions().size()>1) {
 				companionCharacter = (NPC) Main.game.getPlayer().getMainCompanion();
-				if(Objects.equals(getCompanionCharacter(), targetedCharacterForSex)) {
+				if(Objects.equals(companionCharacter, targetedCharacterForSex)) {
 					companionCharacter = (NPC) Main.game.getPlayer().getCompanions().stream().filter((npc) -> !npc.equals(getCharacterViewed())).findFirst().get();
 				}
 			} else {
@@ -92,7 +96,11 @@ public class CharactersPresentDialogue {
 	}
 
 	private static String getTextFilePath() {
-		return SlaveDialogue.getTextFilePath();
+		if(targetedCharacterForSex.isRelatedTo(Main.game.getPlayer())) {
+			return "characters/offspring/slave";
+		} else {
+			return "misc/slaveDialogue";
+		}
 	}
 	
 	public static final DialogueNode MENU = new DialogueNode("", "", true) {
@@ -139,14 +147,14 @@ public class CharactersPresentDialogue {
 		public Response getResponse(int responseTab, int index) {
 
 			List<NPC> charactersPresent = Main.game.getCharactersPresent();
-			java.util.Collections.sort(charactersPresent, (c1, c2) -> Main.game.getPlayer().hasCompanion(c1)?1:0);
+			Collections.sort(charactersPresent, (c1, c2) -> Main.game.getPlayer().hasCompanion(c1)?1:0);
 			
 			if(responseTab==0) {
-				
 				if (index == 0) {
 					return new ResponseEffectsOnly("Back", "Stop viewing the characters present and return to the main game."){
 						@Override
 						public void effects() {
+							Main.game.getDialogueFlags().setManagementCompanion(null);
 							Main.mainController.openCharactersPresent();
 						}
 					};
@@ -191,6 +199,7 @@ public class CharactersPresentDialogue {
 					return new ResponseEffectsOnly("Back", "Stop viewing the characters present and return to the main game."){
 						@Override
 						public void effects() {
+							Main.game.getDialogueFlags().setManagementCompanion(null);
 							Main.mainController.openCharactersPresent();
 						}
 					};
@@ -213,125 +222,8 @@ public class CharactersPresentDialogue {
 					return OccupantDialogue.OCCUPANT_START.getResponse(responseTab, index);
 				}
 				
-				
-			} else if (responseTab==2 && Main.game.getPlayer().hasCompanion(characterViewed)){
-				if (index == 0) {
-					return new ResponseEffectsOnly("Back", "Stop viewing the characters present and return to the main game."){
-						@Override
-						public void effects() {
-							Main.mainController.openCharactersPresent();
-						}
-					};
-					
-				} else if(index==1) {
-					if(!Main.game.isSavedDialogueNeutral()) {
-						return new Response("Inventory", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
-						
-					} else {
-						return new ResponseEffectsOnly("Inventory", "Manage [npc.namePos] inventory.") {
-									@Override
-									public void effects() {
-										Main.mainController.openInventory((NPC) characterViewed, InventoryInteraction.FULL_MANAGEMENT);
-									}
-								};
-					}
-							
-				} else if (index == 2) {
-					
-					if(!characterViewed.isAbleToSelfTransform()) {
-						return new Response("Transformations", characterViewed.getUnableToTransformDescription(), null);
-						
-					} else if(!Main.game.isSavedDialogueNeutral()) {
-						return new Response("Transformations", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
-						
-					} else {
-						return new Response("Transformations",
-								"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
-								BodyChanging.BODY_CHANGING_CORE){
-							@Override
-							public void effects() {
-								BodyChanging.setTarget(characterViewed);
-							}
-						};
-					}
-					
-				} else if(index==5) {
-					if(!Main.game.isSavedDialogueNeutral()) {
-						return new Response(characterViewed instanceof Elemental?"Dispel":"Go Home", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
-						
-					} else {
-						if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterViewed.isElementalSummoned())) {
-							return new ResponseEffectsOnly(characterViewed instanceof Elemental?"Dispel":"Go Home",
-									characterViewed instanceof Elemental?"Dispel [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home."){
-								@Override
-								public void effects() {
-									if(characterViewed.isElementalSummoned()) {
-										characterViewed.removeCompanion(characterViewed.getElemental());
-										characterViewed.getElemental().returnToHome();
-									}
-									Main.game.getPlayer().removeCompanion(characterViewed);
-									characterViewed.returnToHome();
-									Main.mainController.openCharactersPresent();
-								}
-							};
-						} else {
-							return new Response(characterViewed instanceof Elemental?"Dispel":"Go Home",
-									characterViewed instanceof Elemental?"Dispel [npc.namePos] physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home.",
-									MENU){
-								@Override
-								public void effects() {
-									if(characterViewed.isElementalSummoned()) {
-										characterViewed.removeCompanion(characterViewed.getElemental());
-										characterViewed.getElemental().returnToHome();
-									}
-									Main.game.getPlayer().removeCompanion(characterViewed);
-									characterViewed.returnToHome();
-									
-									Main.game.setResponseTab(0);
-									characterViewed = charactersPresent.get(0);
-									//no need for character conceal check since its for follower
-									menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(0).getName(true))+")";
-									menuContent = ((NPC) charactersPresent.get(0)).getCharacterInformationScreen(true);
-								}
-							};
-						}
-					}
-					
-				} else if (index == 6) {
-					return new Response("Perk Tree", "Assign [npc.namePos] perk points.", PERKS);
-					
-				} else if(index==10) {
-					if(!characterViewed.isElementalSummoned()) {
-						return new Response("Dispel Elemental", "[npc.Name] doesn't have an elemental summoned...", null);
-						
-					} else {
-						if(!Main.game.isSavedDialogueNeutral()) {
-							return new Response("Dispel Elemental", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
-							
-						} else {
-							return new Response("Dispel Elemental", "Tell [npc.name] to dispel [npc.her] elemental.", MENU){
-								@Override
-								public void effects() {
-									characterViewed.removeCompanion(characterViewed.getElemental());
-									characterViewed.getElemental().returnToHome();
-								}
-							};
-						}
-					}
-					
-				} else if(index==11) {
-					if(Main.game.isSavedDialogueNeutral()) {
-						return new Response("Combat Moves", "Adjust the moves [npc.name] can perform in combat.", CombatMovesSetup.COMBAT_MOVES_CORE) {
-							@Override
-							public void effects() {
-								CombatMovesSetup.setTarget(characterViewed, MENU);
-							}
-						};
-					} else {
-						return new Response("Combat Moves", "You are too busy to change [npc.namePos] combat moves.", null);
-					}
-				}
-				
+			} else if(responseTab==2 && Main.game.getPlayer().hasCompanion(characterViewed)) {
+				return CompanionManagement.getManagementResponses(index);
 			}
 			
 			return null;
@@ -348,7 +240,9 @@ public class CharactersPresentDialogue {
 		@Override
 		public String getContent() {
 			if(Sex.getAllParticipants().size()>2) {
-				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_THREESOME", getTargetedCharacterForSex(), getCompanionCharacter());
+				List<GameCharacter> parsingCharacters = new ArrayList<>(Sex.getAllParticipants());
+				parsingCharacters.remove(Main.game.getPlayer());
+				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_THREESOME", parsingCharacters);
 				
 			} else if(Sex.getNumberOfOrgasms(getCharacterViewed()) >= getCharacterViewed().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX", getTargetedCharacterForSex());

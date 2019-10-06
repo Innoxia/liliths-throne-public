@@ -39,6 +39,9 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.submission.SMBreedingStall;
 import com.lilithsthrone.game.sex.managers.submission.SMRoxyPussyLicker;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
@@ -1248,6 +1251,14 @@ public class GamblingDenDialogue {
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 								return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 							}
+							@Override
+							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+							}
+							@Override
+							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								return getForeplayPreference(character, targetedCharacter);
+							}
 						},
 						null,
 						null, AFTER_ROULETTE_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
@@ -1290,6 +1301,14 @@ public class GamblingDenDialogue {
 							@Override
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 								return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+							}
+							@Override
+							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+							}
+							@Override
+							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								return getForeplayPreference(character, targetedCharacter);
 							}
 						},
 						null,
@@ -1350,6 +1369,14 @@ public class GamblingDenDialogue {
 								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 									return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 								}
+								@Override
+								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+								}
+								@Override
+								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+									return getForeplayPreference(character, targetedCharacter);
+								}
 							},
 							null,
 							null, AFTER_ROULETTE_SEX, UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
@@ -1392,6 +1419,14 @@ public class GamblingDenDialogue {
 								@Override
 								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 									return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+								}
+								@Override
+								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+								}
+								@Override
+								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+									return getForeplayPreference(character, targetedCharacter);
 								}
 							},
 							null,
@@ -1577,6 +1612,14 @@ public class GamblingDenDialogue {
 							public void initStartingLustAndArousal(GameCharacter character) {
 								character.setArousal(50);
 								character.setLustNoText(80);
+							}
+							@Override
+							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
+							}
+							@Override
+							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								return getForeplayPreference(character, targetedCharacter);
 							}
 						},
 						null,

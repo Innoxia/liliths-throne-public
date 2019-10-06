@@ -139,6 +139,21 @@ public class ItemEffect implements XMLSaving {
 			case "DAMAGE_ATTACK":
 			case "RESISTANCE_ATTACK":
 				return null;
+			case "CLOTHING_SEALING":
+				primaryMod = "CLOTHING_SPECIAL";
+				secondaryMod = "CLOTHING_SEALING";
+				break;
+			case "CLOTHING_ENSLAVEMENT":
+				primaryMod = "CLOTHING_SPECIAL";
+				secondaryMod = "CLOTHING_ENSLAVEMENT";
+				break;
+			case "TF_PENIS":
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
+					if(secondaryMod=="TF_MOD_SIZE_SECONDARY") {
+						secondaryMod = "TF_MOD_SIZE_TERTIARY";
+					}
+				}
+				break;
 		}
 		switch(secondaryMod) {
 			case "TF_MOD_FETISH_SEEDER":

@@ -38,14 +38,10 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.2.5
- * @version 0.3.5
+ * @version 0.3.5.1
  * @author Innoxia
  */
 public class MilkingRoom implements XMLSaving {
-	
-	private boolean autoSellMilk;
-	private boolean autoSellCum;
-	private boolean autoSellGirlcum;
 	
 	private WorldType worldType;
 	private Vector2i location;
@@ -69,9 +65,6 @@ public class MilkingRoom implements XMLSaving {
 	public static final int INDUSTRIAL_GIRLCUM_MILKING_AMOUNT = 100;
 	
 	public MilkingRoom(WorldType worldType, Vector2i location) {
-		autoSellMilk = false;
-		autoSellCum = false;
-		
 		this.worldType = worldType;
 		this.location = new Vector2i(location.getX(), location.getY());
 		
@@ -85,10 +78,6 @@ public class MilkingRoom implements XMLSaving {
 		CharacterUtils.addAttribute(doc, element, "worldType", this.getWorldType().toString());
 		CharacterUtils.addAttribute(doc, element, "x", String.valueOf(this.getLocation().getX()));
 		CharacterUtils.addAttribute(doc, element, "y", String.valueOf(this.getLocation().getY()));
-		
-		CharacterUtils.addAttribute(doc, element, "autoSellMilk", String.valueOf(this.isAutoSellMilk()));
-		CharacterUtils.addAttribute(doc, element, "autoSellCum", String.valueOf(this.isAutoSellCum()));
-		CharacterUtils.addAttribute(doc, element, "autoSellGirlcum", String.valueOf(this.isAutoSellGirlcum()));
 
 		for(FluidStored fluid : fluidsStored) {
 			fluid.saveAsXML(element, doc);
@@ -104,13 +93,6 @@ public class MilkingRoom implements XMLSaving {
 					new Vector2i(
 							Integer.valueOf(parentElement.getAttribute("x")),
 							Integer.valueOf(parentElement.getAttribute("y"))));
-
-			try {
-				room.setAutoSellMilk(Boolean.valueOf(parentElement.getAttribute("autoSellMilk")));
-				room.setAutoSellCum(Boolean.valueOf(parentElement.getAttribute("autoSellCum")));
-				room.setAutoSellGirlcum(Boolean.valueOf(parentElement.getAttribute("autoSellGirlcum")));
-			} catch(Exception ex) {
-			}
 
 			try {
 				NodeList fluidStoredElements = parentElement.getElementsByTagName("fluidStored");
@@ -266,30 +248,6 @@ public class MilkingRoom implements XMLSaving {
 			return 0;
 		}
 		return Math.min(getMaximumGirlcumPerHour(character), character.getVaginaWetness().getValue()*(character.isVaginaSquirter()?2:1));
-	}
-	
-	public boolean isAutoSellMilk() {
-		return autoSellMilk;
-	}
-
-	public void setAutoSellMilk(boolean autoSellMilk) {
-		this.autoSellMilk = autoSellMilk;
-	}
-
-	public boolean isAutoSellCum() {
-		return autoSellCum;
-	}
-
-	public void setAutoSellCum(boolean autoSellCum) {
-		this.autoSellCum = autoSellCum;
-	}
-
-	public boolean isAutoSellGirlcum() {
-		return autoSellGirlcum;
-	}
-
-	public void setAutoSellGirlcum(boolean autoSellGirlcum) {
-		this.autoSellGirlcum = autoSellGirlcum;
 	}
 
 	public WorldType getWorldType() {

@@ -103,7 +103,7 @@ public class Vanessa extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.resetPerksMap(true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND);
 		}
@@ -264,7 +264,7 @@ public class Vanessa extends NPC {
 	}
 	
 	@Override
-	public void dailyReset() {
+	public void dailyUpdate() {
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaDailyHelped, false);
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaDailyMassage, false);
 	}

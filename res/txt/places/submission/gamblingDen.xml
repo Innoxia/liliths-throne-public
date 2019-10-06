@@ -357,7 +357,7 @@
 		If both players have the same ranking, the total value of the dice that make up their rank are compared. For example:<br/>
 		Player A: 33661<br/>
 		Player B: 22115<br/>
-		Although both players have 'Two pair', player A wins, as the total of their ranking dice is 20 (3+3+6+6), compared to player B's 6 (2+2+1+1).<br/><br/>
+		Although both players have 'Two pair', player A wins, as the total of their ranking dice is 18 (3+3+6+6), compared to player B's 6 (2+2+1+1).<br/><br/>
 		
 		If both players have the same ranking, and the same value, the game is a draw, and the money in the pot is returned to each player's hand.
 	</p>
@@ -794,7 +794,7 @@
 		After a moment, the horse-girl releases you and steps back, before telling you what's going to happen next. [epona.speech(Right, I need to go let the breeders know who won. You stay here for a moment, and after they've gone, we'll go back to the main counter to get your winnings.)]
 	</p>
 	<p>
-		You do as Epona asks, and wait in the little room until the horse-girl has shown all the breeders to the exit. After that, she comes to collect you, and the two of you head back over to the main counter. Unlocking a safe, Epona retrieves fifty thousand flames, before handing them over to you with a big grin on her face. [epona.speech(Congratulations again, [pc.name]!)] 
+		You do as Epona asks, and wait in the little room until the horse-girl has shown all the breeders to the exit. After that, she comes to collect you, and the two of you head back over to the main counter. Unlocking a safe, Epona retrieves fifty thousand flames, before handing them over to you with a big grin on her face. [epona.speech(Congratulations once again, [pc.name]!)] 
 	</p>
 	<p>
 		Taking your winnings, you thank Epona once again, before stepping back and wondering what to do next. As you move off to continue on your travels, you wonder if you'll ever have to tell your kids how they were conceived...
@@ -942,7 +942,7 @@
 		After a moment, the horse-girl releases you and steps back, before addressing the room, [epona.speech(Right, sorry everyone else. Better luck next time! Now, [pc.name], follow me to the counter so I can give you your winnings.)]
 	</p>
 	<p>
-		You do as Epona asks, and the two of you head back over to the main counter. Unlocking a safe, Epona retrieves twenty thousand flames, before handing them over to you with a big grin on her face. [epona.speech(Congratulations again, [pc.name]!)] 
+		You do as Epona asks, and the two of you head back over to the main counter. Unlocking a safe, Epona retrieves twenty thousand flames, before handing them over to you with a big grin on her face. [epona.speech(Congratulations once again, [pc.name]!)] 
 	</p>
 	<p>
 		Taking your winnings, you thank Epona once again, before stepping back and wondering what to do next. As you move off to continue on your travels, you wonder if you'll ever have to tell your kids how they were conceived...

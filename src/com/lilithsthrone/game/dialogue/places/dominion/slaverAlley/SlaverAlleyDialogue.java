@@ -27,7 +27,8 @@ import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
+import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -401,6 +402,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNode getNextDialogue() {
+						CompanionManagement.initManagement(null, 0, null);
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -430,6 +432,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNode getNextDialogue() {
+						CompanionManagement.initManagement(null, 0, null);
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -459,6 +462,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNode getNextDialogue() {
+						CompanionManagement.initManagement(null, 0, null);
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -488,6 +492,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNode getNextDialogue() {
+						CompanionManagement.initManagement(null, 0, null);
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -517,6 +522,7 @@ public class SlaverAlleyDialogue {
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
 					public DialogueNode getNextDialogue() {
+						CompanionManagement.initManagement(null, 0, null);
 						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
 					}
 				};
@@ -1037,7 +1043,7 @@ public class SlaverAlleyDialogue {
 			List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 			
 			if(index==0) {
-				return new Response("Complain", "You don't like the idea of slaves being publicly used. There appears to be an enforcer watching over the area, so perhaps you should go and complain to him... (Not yet implemented!)", null);
+				return new Response("Complain", "You don't like the idea of slaves being publicly used. There appears to be an Enforcer watching over the area, so perhaps you should go and complain to him... (Not yet implemented!)", null);
 				
 			} else if(index <= charactersPresent.size()) {
 				GameCharacter slave = charactersPresent.get(index-1);

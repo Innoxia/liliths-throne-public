@@ -73,6 +73,11 @@ public class EnchantingUtils {
 		craftedClothing.setName(EnchantmentDialogue.getOutputName());
 		
 		craftedClothing.setEnchantmentKnown(null, true);
+
+//		System.out.println("Has clothing: "+Main.game.getPlayer().hasClothing(craftedClothing));
+//		for(char c : EnchantmentDialogue.getOutputName().toCharArray()) {
+//			System.out.print("["+c+","+(int)c+"]");
+//		}
 		
 		return craftedClothing;
 	}
@@ -108,7 +113,7 @@ public class EnchantingUtils {
 		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractClothingType
 				|| ingredient.getEnchantmentItemType(effects) instanceof AbstractTattooType
 				|| ingredient.getEnchantmentItemType(effects) instanceof AbstractWeaponType) {
-			return Util.capitaliseSentence(ingredient.getName());
+			return ingredient.getName();
 		}
 		
 		if(((AbstractItem)ingredient).getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId())) {
@@ -144,7 +149,11 @@ public class EnchantingUtils {
 				potionSuffix = ie.getPrimaryModifier().getDescriptor();
 				
 				if(ie.getSecondaryModifier() != TFModifier.NONE) {
-					potionPreSuffix = ie.getSecondaryModifier().getDescriptor();
+					if(ie.getSecondaryModifier()==TFModifier.ARCANE_BOOST && ie.getPotency().isNegative()) {
+						potionPreSuffix = "drained";
+					} else {
+						potionPreSuffix = ie.getSecondaryModifier().getDescriptor();
+					}
 				}
 				
 				if(potionSuffix!="") {
@@ -234,7 +243,7 @@ public class EnchantingUtils {
 		for(Entry<ItemEffect, Integer> entry : effectCount.entrySet()) {
 			int costIncrement = entry.getKey().getCost() * Math.abs(entry.getValue());
 			
-			if(entry.getKey().getPrimaryModifier()==TFModifier.CLOTHING_SEALING) {
+			if(entry.getKey().getSecondaryModifier()==TFModifier.CLOTHING_SEALING) {
 				switch(entry.getKey().getPotency()) {
 					case MAJOR_BOOST:
 						costIncrement*=4;

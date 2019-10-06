@@ -290,10 +290,10 @@ public class GenericTalk {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterPerformingAction().isSpeechMuffled()) {
-				return "Look worried";
-			}
-			return "Request gentle sex";
+//			if(Sex.getCharacterPerformingAction().isSpeechMuffled()) {
+//				return "Look worried";
+//			}
+			return "Object to rough";
 		}
 		
 		private boolean isAcceptingRequest() {
@@ -332,7 +332,7 @@ public class GenericTalk {
 					&& !Sex.isDom(Sex.getCharacterPerformingAction())
 					&& Sex.isDom(Sex.getCharacterTargetedForSexAction(this))
 					&& Sex.isConsensual()
-					&& Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))!=SexPace.DOM_GENTLE
+					&& Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))==SexPace.DOM_ROUGH
 					&& Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_MASOCHIST).isNegative();
 		}
 
@@ -357,10 +357,10 @@ public class GenericTalk {
 						"[npc.Name] [npc.verb(raise)] [npc.her] eyebrows and [npc.verb(put)] on a worried look as [npc.she] [npc.verb(ask)], "));
 				
 				sb.append(UtilText.returnStringAtRandom(
-						"[npc.speech(P-Please, can you not be so rough? I-I'd like this to be a little more loving...)]",
-						"[npc.speech(S-Slow down, please! C-Can't you be a little gentler?)]",
-						"[npc.speech(C-Can you treat me a little gentler? T-This is too much for me...)]",
-						"[npc.speech(P-Please can you slow down? I-I'd like you to be a little gentler...)]"));
+						"[npc.speech(Please, can you not be so rough? I'd like this to be a little more loving...)]",
+						"[npc.speech(Slow down, please! Can't you be a little gentler?)]",
+						"[npc.speech(Can you treat me a little gentler? This is too much for me...)]",
+						"[npc.speech(Please can you slow down? I'd like you to be a little gentler...)]"));
 			}
 
 			if(Sex.getCharacterPerformingAction().isPlayer()) {

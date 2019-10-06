@@ -1324,7 +1324,7 @@ public enum Combat {
 					boolean playerVampyre = false;
 					float manaAbsorbed = character.getMana()/2;
 					for(GameCharacter c2 : combatants) {
-						if(!isCombatantDefeated(c2) && c2.hasPerkAnywhereInTree(Perk.ARCANE_VAMPYRISM)) {
+						if(!isCombatantDefeated(c2) && c2.hasTraitActivated(Perk.ARCANE_VAMPYRISM)) {
 							if(c2.isPlayer()) {
 								vampyres.add(0, UtilText.parse(c2,"[npc.name]"));
 								playerVampyre = true;

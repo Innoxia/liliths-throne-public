@@ -115,7 +115,7 @@ public enum TFModifier {
 	
 	SPELL_COST_MODIFIER(AttributeCategory.INTELLIGENCE,
 			Attribute.SPELL_COST_MODIFIER,
-			"Applies an effect related to the secondary attribute 'Spell cost reduction'.",
+			"Applies an effect related to the secondary attribute '"+Attribute.SPELL_COST_MODIFIER.getName()+"'.",
 			"modifier_circle_spell_efficiency",
 			Rarity.RARE),
 	
@@ -247,11 +247,18 @@ public enum TFModifier {
 			Colour.GENERIC_ATTRIBUTE,
 			Rarity.UNCOMMON),
 
+	CLOTHING_SPECIAL("special effects",
+			"Applies a special effect.",
+			"special",
+			"modifier_circle_special",
+			Colour.BASE_TEAL,
+			Rarity.LEGENDARY),
+
 	CLOTHING_ENSLAVEMENT("enslavement",
 			"Makes this piece of clothing enslave the wearer.",
 			"enslavement",
 			"modifier_circle_enslavement",
-			Colour.BASE_PURPLE_DARK,
+			Colour.BASE_PURPLE,
 			Rarity.LEGENDARY),
 	
 	CLOTHING_SEALING("sealing",
@@ -880,7 +887,7 @@ public enum TFModifier {
 			"Applies an effect related to adding tentacles to a tongue.",
 			"tentacled",
 			"modifier_circle_orifice_tentacled",
-			Colour.BASE_VIOLET,
+			Colour.BASE_PINK_SALMON,
 			Rarity.COMMON),
 	
 	TF_MOD_TONGUE_BIFURCATED("bifurcated",
@@ -910,7 +917,7 @@ public enum TFModifier {
 			"Applies an effect related to making a body part tentacled.",
 			"tentacled",
 			"modifier_circle_orifice_tentacled",
-			Colour.BASE_VIOLET,
+			Colour.BASE_PINK_SALMON,
 			Rarity.COMMON),
 	
 	TF_MOD_PENIS_KNOTTED("knotting",
@@ -952,7 +959,7 @@ public enum TFModifier {
 			"Applies an effect related to making a body part veiny.",
 			"veiny",
 			"modifier_circle_penis_veiny",
-			Colour.BASE_VIOLET,
+			Colour.BASE_PINK_SALMON,
 			Rarity.COMMON),
 	
 	TF_MOD_PENIS_PREHENSILE("prehensile",
@@ -1316,12 +1323,12 @@ public enum TFModifier {
 
 		clothingPrimaryList.add(TFModifier.CLOTHING_MAJOR_ATTRIBUTE);
 		clothingPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
-		clothingPrimaryList.add(TFModifier.CLOTHING_SEALING);
-		clothingPrimaryList.add(TFModifier.CLOTHING_ENSLAVEMENT);
+		clothingPrimaryList.add(TFModifier.CLOTHING_SPECIAL);
 		clothingPrimaryList.add(TFModifier.TF_MOD_FETISH_BODY_PART);
 		clothingPrimaryList.add(TFModifier.TF_MOD_FETISH_BEHAVIOUR);
 		clothingPrimaryList.add(TF_FACE);
 		clothingPrimaryList.add(TF_CORE);
+		clothingPrimaryList.add(TF_ARMS);
 		clothingPrimaryList.add(TF_HAIR);
 		clothingPrimaryList.add(TF_ASS);
 		clothingPrimaryList.add(TF_BREASTS);
@@ -1508,13 +1515,12 @@ public enum TFModifier {
 	
 	private TFModifier(Fetish f) {
 		this.name = f.getName(null);
-		this.description = "Applies an effect related to the "+name+" fetish. ("+f.getShortDescriptor()+")";
+		this.description = "Applies an effect related to the "+name+" fetish. ("+f.getShortDescriptor(null)+")";
 		this.descriptor = name;
 		this.rarity = Rarity.EPIC;
 		this.colour = Colour.FETISH;
 		this.fetish = f;
-		this.SVGString = f.getSVGString();
-		
+		this.SVGString = f.getSVGString(null);
 	}
 	
 	public int getValue() {
@@ -1621,6 +1627,11 @@ public enum TFModifier {
 	}
 
 	public static List<TFModifier> getClothingPrimaryList() {
+		if(!Main.game.isBodyHairEnabled()) {
+			List<TFModifier> noArms = new ArrayList<>(clothingPrimaryList);
+			noArms.remove(TF_ARMS);
+			return noArms;
+		}
 		return clothingPrimaryList;
 	}
 

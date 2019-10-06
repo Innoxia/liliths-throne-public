@@ -99,7 +99,7 @@ public class Daddy extends NPC {
 			this.setFetishDesire(Fetish.FETISH_IMPREGNATION, FetishDesire.THREE_LIKE);
 			this.addSpecialPerk(Perk.SPECIAL_CLOTHING_MASCULINITY_INDIFFERENCE);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND,
 					PersonalityTrait.BRAVE);

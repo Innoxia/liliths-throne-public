@@ -109,7 +109,7 @@ public class Roxy extends NPC {
 		sellModifier=2.5f;
 		
 		if(!isImported) {
-			this.dailyReset();
+			this.dailyUpdate();
 		}
 	}
 
@@ -124,7 +124,7 @@ public class Roxy extends NPC {
 			this.setLevel(15);
 			this.resetPerksMap(true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.COWARDLY,
@@ -295,8 +295,8 @@ public class Roxy extends NPC {
 	}
 	
 	@Override
-	public void dailyReset() {
-		clearNonEquippedInventory();
+	public void dailyUpdate() {
+		clearNonEquippedInventory(false);
 		
 		this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), 25, false, false);
 		this.addItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), 10, false, false);

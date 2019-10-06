@@ -42,12 +42,14 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.90
- * @version 0.3.1
+ * @version 0.3.5.1
  * @author Innoxia
  */
 public class BodyChanging {
 	
 	private static GameCharacter target;
+	private static DialogueNode coreNode;
+	private static int defaultResponseTab;
 	private static boolean debugMenu;
 	
 	public static boolean isDebugMenu() {
@@ -63,6 +65,14 @@ public class BodyChanging {
 
 	public static void setTarget(GameCharacter target) {
 		BodyChanging.target = target;
+		BodyChanging.coreNode = null;
+		BodyChanging.debugMenu = false;
+	}
+
+	public static void setTarget(GameCharacter target, DialogueNode coreNode, int defaultResponseTab) {
+		BodyChanging.target = target;
+		BodyChanging.coreNode = coreNode;
+		BodyChanging.defaultResponseTab = defaultResponseTab;
 		BodyChanging.debugMenu = false;
 	}
 	
@@ -72,6 +82,7 @@ public class BodyChanging {
 	 */
 	public static void setTarget(GameCharacter target, boolean debugMenu) {
 		BodyChanging.target = target;
+		BodyChanging.coreNode = null;
 		BodyChanging.debugMenu = debugMenu;
 	}
 	
@@ -158,6 +169,14 @@ public class BodyChanging {
 		} else if(index==0) {
 			if(debugMenu) {
 				return new Response("Back", "Return to the previous screen.", DebugDialogue.DEBUG_MENU);
+				
+			} else if(coreNode!=null) {
+				return new Response("Back", "Return to the previous screen.", coreNode) {
+					@Override
+					public void effects() {
+						Main.game.setResponseTab(defaultResponseTab);
+					}
+				};
 				
 			} else {
 				return new ResponseEffectsOnly("Back", "Return to the previous screen."){
@@ -615,9 +634,11 @@ public class BodyChanging {
 							
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyCoveringType.MOUTH).getType(), "Lip & Throat colour",
 								UtilText.parse(BodyChanging.getTarget(),
-										"The natural colour of [npc.namePos] slimy "+(getTarget().getFaceType() == FaceType.HARPY?"beak":"lips")+" (top options) and [npc.her] throat (bottom options)."
+										"The natural colour of [npc.namePos] "+(getTarget().getFaceType() == FaceType.HARPY?"beak":"lips")+" (top options) and [npc.her] throat (bottom options)."
 										+ "Lipstick can be used to conceal [npc.her] natural lip colour."),
 								true, true)
+
+						+ CharacterModificationUtils.getSelfDivHairStyles("Hair Style", "You can change the style of your hair here.")
 						
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyCoveringType.TONGUE).getType(), "Tongue colour",
 								(BodyChanging.getTarget().isPlayer()

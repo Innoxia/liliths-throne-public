@@ -57,7 +57,7 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.slimeQueenTree),
 
-	SIDE_TELEPORTATION("The Trouble with Teleporting", "After learning how to teleport, you managed to escape from the enforcer warehouse.",
+	SIDE_TELEPORTATION("The Trouble with Teleporting", "After learning how to teleport, you managed to escape from the Enforcer warehouse.",
 			QuestType.SIDE,
 			QuestTree.teleportingTree),
 

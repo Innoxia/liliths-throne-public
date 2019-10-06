@@ -3219,16 +3219,7 @@ public class Body implements XMLSaving {
 				break;
 			case FLESH:
 				race = getRaceFromPartWeighting();
-				
-				if(raceWeightMap.size()==1) {
-					if(raceWeightMap.containsKey(Race.HUMAN)) {
-						this.raceStage = RaceStage.HUMAN;
-					} else {
-						this.raceStage = RaceStage.GREATER;
-					}
-				} else {
-					this.raceStage = RaceStage.LESSER;
-				}
+				this.raceStage = getRaceStageFromPartWeighting();
 				break;
 			case ICE:
 			case WATER:
@@ -3305,6 +3296,18 @@ public class Body implements XMLSaving {
 		}
 		
 		return race;
+	}
+	
+	public RaceStage getRaceStageFromPartWeighting() {
+		if(raceWeightMap.size()==1) {
+			if(raceWeightMap.containsKey(Race.HUMAN)) {
+				return RaceStage.HUMAN;
+			} else {
+				return RaceStage.GREATER;
+			}
+		} else {
+			return RaceStage.LESSER;
+		}
 	}
 
 	public Map<Race, Integer> getRaceWeightMap() {

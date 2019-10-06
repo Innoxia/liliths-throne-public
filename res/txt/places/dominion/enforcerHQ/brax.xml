@@ -11,10 +11,10 @@
 		Pushing open the door, you step forwards into [brax.namePos] office. As you take a quick glance around, you notice that there are numerous posters of scantily-clad girls plastered all over the walls, which gives this room a rather unexpectedly-unprofessional feel to it. Apart from this oddity, the only other features of any interest are the normal collection of filing cabinets and bookshelves standing against the walls, a large mahogany desk on the other side of the room, and the imposing figure who's sitting behind it.
 	</p>
 	<p>
-		As the door starts to swing shut behind you, the person behind the desk, who you assume to be [brax.name], stands up. He's a greater wolf-morph, and is covered from head to toe in [brax.skinColour] fur. His face is formed into an anthropomorphic wolf-like muzzle, and his pair of eyes are a wild, vivid shade of [brax.eyeColour]. As would be expected, he's wearing an enforcer's uniform, consisting of a blue shirt, black slacks, and a black tie. Behind him, hanging up on the wall, is his jacket, cap and dress belt.
+		As the door starts to swing shut behind you, the person behind the desk, who you assume to be [brax.name], stands up. He's a greater wolf-morph, and is covered from head to toe in [brax.skinColour] fur. His face is formed into an anthropomorphic wolf-like muzzle, and his pair of eyes are a wild, vivid shade of [brax.eyeColour]. As would be expected, he's wearing an Enforcer's uniform, consisting of a blue shirt, black slacks, and a black tie. Behind him, hanging up on the wall, is his jacket, cap and dress belt.
 	</p>
 	<p>
-		Staring right at you, [brax.name] angrily slams his fist on the desk. You see his huge muscles bulge underneath his enforcer's shirt as he growls at you, [brax.speech(I told that stupid slut to stop handing out passes! Who the hell are you?!)]
+		Staring right at you, [brax.name] angrily slams his fist on the desk. You see his huge muscles bulge underneath his Enforcer's shirt as he growls at you, [brax.speech(I told that stupid slut to stop handing out passes! Who the hell are you?!)]
 	</p>
 	#IF(pc.getRace()==RACE_WOLF_MORPH && pc.isFeminine())
 		<p>
@@ -144,7 +144,7 @@
 		Contact address: <i>Scarlett's shop, Slaver Alley</i>
 	</p>
 	<p>
-		After reading it over a second time, you realise that you're going to have to make your way to Slaver Alley and see if you can find some way to buy Arthur. Taking one last look around [brax.namePos] office, you notice that there's a neatly-folded spare enforcer's uniform lying on top of a cabinet. Deciding to punish [brax.name] a little more for falling for such an obvious trick, <b>you take the spare uniform, and add it to your inventory</b>.
+		After reading it over a second time, you realise that you're going to have to make your way to Slaver Alley and see if you can find some way to buy Arthur. Taking one last look around [brax.namePos] office, you notice that there's a neatly-folded spare Enforcer's uniform lying on top of a cabinet. Deciding to punish [brax.name] a little more for falling for such an obvious trick, <b>you take the spare uniform, and add it to your inventory</b>.
 	</p>
 	]]>
 	</htmlContent>
@@ -534,15 +534,15 @@
 		</p>
 	#ELSEIF(properties.getForcedTFPreference() == FURRY_PREF_MINIMUM)
 		<p>
-			As you see your new reflection, you let out a little gasp. Brax has transformed you into his perfect vision of a partial wolf-girl, and your yellow, predatory eyes open wide in shock as you feel the weight of your huge, E-cup tits that are now sitting on your chest. Wolf-like fur covers your pair of fluffy ears and long, shaggy tail, and as Brax steps up behind you, you see that it's the exact same bright white colour as his is.
+			As you see your new reflection, you let out a little gasp. Brax has transformed you into his perfect vision of a partial wolf-girl, and your yellow, predatory eyes open wide in shock as you feel the weight of your huge, E-cup tits that are now sitting on your chest. Up on top of your head, white, wolf-like fur is covering your new pair of upright ears, while just above your [pc.ass+], a long, shaggy wolf's tail drops down to almost brush the floor.
 		</p>
 	#ELSEIF(properties.getForcedTFPreference() == FURRY_PREF_REDUCED)
 		<p>
-			As you see your new reflection, you let out a little gasp. Brax has transformed you into his perfect vision of a lesser wolf-girl, and your yellow, predatory eyes open wide in shock as you feel the weight of your [pc.breastRows] [pc.breastSize], [pc.cupSize]-cup tits. Fur covers your wolf-like arms and legs, and as Brax steps up behind you, you see that it's the exact same bright white colour as his is. Your face and the skin covering your torso are the only parts of your that haven't transformed into anthropomorphic wolf-like counterparts, and you experimentally twitch your pair of fluffy wolf-like ears, while swishing your long, shaggy tail back and forth against Brax's leg.
+			As you see your new reflection, you let out a little gasp. Brax has transformed you into his perfect vision of a lesser wolf-girl, and your yellow, predatory eyes open wide in shock as you feel the weight of your [pc.breastRows] [pc.breastSize], [pc.cupSize]-cup tits. White fur covers your wolf-like arms and legs, and you notice that your face and the skin covering your torso are the only parts of your that haven't transformed into anthropomorphic wolf-like counterparts. Up on top of your head, the same white, wolf-like fur is covering your new pair of upright ears, while just above your [pc.ass+], a long, shaggy wolf's tail drops down to almost brush the floor.
 		</p>
 	#ELSE
 		<p>
-			As you see your new reflection, you let out a little gasp. Brax has transformed you into his perfect vision of a greater wolf-girl, and your yellow, predatory eyes open wide in shock as you feel the weight of your [pc.breastRows] [pc.breastSize], [pc.cupSize]-cup tits. Fur covers your entire body, and as Brax steps up behind you, you see that it's the exact same bright white colour as his is. Your hands, feet and face have all transformed into anthropomorphic wolf-like counterparts, and a pair of fluffy wolf-like ears and a long, shaggy tail finish off your new look.
+			As you see your new reflection, you let out a little gasp. Brax has transformed you into his perfect vision of a greater wolf-girl, and your yellow, predatory eyes open wide in shock as you feel the weight of your [pc.breastRows] [pc.breastSize], [pc.cupSize]-cup tits. Your hands, feet and face have all transformed into anthropomorphic wolf-like counterparts, and are covered in the same bright white fur as your new upright, wolf-like ears and long, shaggy tail.
 		</p>
 	#ENDIF
 	<p>

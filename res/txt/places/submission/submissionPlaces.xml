@@ -13,10 +13,10 @@
 	
 	<htmlContent tag="SEWER_ENTRANCE"><![CDATA[
 	<p>
-		A large stone building, spanning the entire width of the tunnel, has been erected here. A sign reading 'Official Enforcer Post' is clearly displayed beside the main entrance, and within, a dozen or so enforcers are manning desks or standing guard beside internal doorways. None of them seem to pay you much attention, allowing you to come and go as you please.
+		A large stone building, spanning the entire width of the tunnel, has been erected here. A sign reading 'Official Enforcer Post' is clearly displayed beside the main entrance, and within, a dozen or so Enforcers are manning desks or standing guard beside internal doorways. None of them seem to pay you much attention, allowing you to come and go as you please.
 	</p>
 	<p>
-		As usual, you see the short, busty form of the cat-girl enforcer, Claire, hurrying around as she fetches and delivers all sorts of miscellaneous paperwork. If you wanted to, you could approach her and ask for some more information about Submission.
+		As usual, you see the short, busty form of the cat-girl Enforcer, Claire, hurrying around as she fetches and delivers all sorts of miscellaneous paperwork. If you wanted to, you could approach her and ask for some more information about Submission.
 	</p>
 	]]>
 	</htmlContent>
@@ -65,7 +65,7 @@
 		You can't help but smile as the small cat-girl proudly pushes her huge breasts out and places her hands on her absurdly wide hips, before starting, [claire.speech(There are five main types of residents down here; rat-morphs, alligator-morphs, slimes, imps, and bat-morphs. That's not to say those are the only races down here, however. You can find all the same races as you would up in Dominion, but it's those five who make up the vast majority of the population. Out of all of those, it's only the imps who are invariably troublesome. You get good and bad in all the other groups of Submission society, but I've yet to hear of an imp who cares about something other than causing mischief or having sex.)]
 	</p>
 	<p>
-		You can tell from the shift in tone of her voice that even the mention of imps is getting Claire annoyed, and you can only imagine how much trouble they must cause for the enforcers down here. Before you can say anything to steer the conversation in a different direction, however, she quickly moves on, [claire.speech(Anyway, the imps stick to the tunnels, which are also filled with muggers, aggressive slimes, and all sorts of other unsavoury folk. You should always stick to the main walkways, where the majority of rat and alligator-morphs make their home. The alligators prefer to use the water ways to travel throughout Submission, while the rat-morphs, just like all the other races, stick to the walkways.)]
+		You can tell from the shift in tone of her voice that even the mention of imps is getting Claire annoyed, and you can only imagine how much trouble they must cause for the Enforcers down here. Before you can say anything to steer the conversation in a different direction, however, she quickly moves on, [claire.speech(Anyway, the imps stick to the tunnels, which are also filled with muggers, aggressive slimes, and all sorts of other unsavoury folk. You should always stick to the main walkways, where the majority of rat and alligator-morphs make their home. The alligators prefer to use the water ways to travel throughout Submission, while the rat-morphs, just like all the other races, stick to the walkways.)]
 	</p>
 	<p>
 		[pc.speech(What about bat-morphs?)] you ask.
@@ -90,7 +90,7 @@
 		[pc.speech(I wanted to ask you what you know about Lyssieth,)] you reply, noting how Claire's cheerful expression shifts into one of concern as she hears that name.
 	</p>
 	<p>
-		[claire.speech(Well, as you might already know, Lyssieth is the Elder Lilin who's in charge of all of Submission. We enforcers work to uphold the general laws of Lilith's domain, but it's Lyssieth who's in charge of giving us any special rules to enforce,)] Claire explains, uncomfortably shifting about a little as she finishes talking. Her small movements cause her huge breasts to start swaying from side to side in a pendulous manner, and you can;t help but glance at them as she continues, [claire.speech(You should keep away from her palace. Her guards operate outside of our authority, and won't hesitate to attack if they suspect you of anything.)]
+		[claire.speech(Well, as you might already know, Lyssieth is the Elder Lilin who's in charge of all of Submission. We Enforcers work to uphold the general laws of Lilith's domain, but it's Lyssieth who's in charge of giving us any special rules to enforce,)] Claire explains, uncomfortably shifting about a little as she finishes talking. Her small movements cause her huge breasts to start swaying from side to side in a pendulous manner, and you can;t help but glance at them as she continues, [claire.speech(You should keep away from her palace. Her guards operate outside of our authority, and won't hesitate to attack if they suspect you of anything.)]
 	</p>
 	<p>
 		[pc.speech(I'll be careful of them,)] you reply, before continuing, [pc.speech(but you mentioned Lyssieth setting special rules; what are those?)]
@@ -115,7 +115,7 @@
 		[pc.speech(I was wondering if you could tell me any more about those 'teleportation pads' you mentioned before? I've never seen anything like that up in Dominion.)]
 	</p>
 	<p>
-		Claire grins in delight as you mention the thing that she's most proud of, and immediately thrusts her disproportionately-large breasts out towards you as she proudly puffs up her chest and says, [claire.speech(I can tell you a little more, I suppose. I'm not really meant to talk too much about them, but it'd do some good to show a member of the public that we enforcers aren't all bad! Basically, these teleportation pads allow me to instantly travel between the enforcer posts down here in Submission in order to quickly relay messages. Being under-staffed down here, we don't have many demons who can use telepathy, so the higher-ups managed to get SWORD to give us some of their unused teleportation pads for long-range communications instead. You know, it's super rare for us Frontline Patrol units to get access to these kind of arcane devices; it's normally just SWORD or ORICL who get to use this kind of stuff.)]
+		Claire grins in delight as you mention the thing that she's most proud of, and immediately thrusts her disproportionately-large breasts out towards you as she proudly puffs up her chest and says, [claire.speech(I can tell you a little more, I suppose. I'm not really meant to talk too much about them, but it'd do some good to show a member of the public that we Enforcers aren't all bad! Basically, these teleportation pads allow me to instantly travel between the Enforcer posts down here in Submission in order to quickly relay messages. Being under-staffed down here, we don't have many demons who can use telepathy, so the higher-ups managed to get SWORD to give us some of their unused teleportation pads for long-range communications instead. You know, it's super rare for us Frontline Patrol units to get access to these kind of arcane devices; it's normally just SWORD or ORICL who get to use this kind of stuff.)]
 	</p>
 	<p>
 		[pc.speech(You must have worked hard in order to be chosen as the one to be using them then,)] you reply, hoping to encourage the proud cat-girl to reveal some more information about teleportation.
@@ -147,7 +147,7 @@
 		[pc.speech(And ORICL?)] you ask.
 	</p>
 	<p>
-		[claire.speech(Hmm, yeah, the 'Office of Realm Intelligence, Counter-Espionage, and Logistics'... Best not to ask too many questions about them,)] Claire replies, putting her hands on her hips and letting out a little huff, [claire.speech(An all-demon branch of the enforcers, they're the guys who pay you a visit in the middle of the night, and then you're never seen again. As long as you don't start going around questioning Lilith's rule, or doing anything subversive against her rule, then you don't really need to worry about them.)]
+		[claire.speech(Hmm, yeah, the 'Office of Realm Intelligence, Counter-Espionage, and Logistics'... Best not to ask too many questions about them,)] Claire replies, putting her hands on her hips and letting out a little huff, [claire.speech(An all-demon branch of the Enforcers, they're the guys who pay you a visit in the middle of the night, and then you're never seen again. As long as you don't start going around questioning Lilith's rule, or doing anything subversive against her rule, then you don't really need to worry about them.)]
 	</p>
 	<p>
 		Thanking Claire for the information, you wonder what to ask her next...
@@ -169,7 +169,7 @@
 		[pc.speech(Well, when I encountered one of those slimes, they mentioned that they were transforming people due to following orders from a 'Slime Queen'. They even mentioned something about a quota of having to transform five people a day,)] you explain, recollecting what the slime said when you first encountered them.
 	</p>
 	<p>
-		[claire.speech(Hmm... A Slime Queen...)] Claire mutters, before starting to pace back and forth. You can't help but notice the way her massive hips and huge breasts rhythmically sway from side to side as she struts back and forth, and look on in amusement as you notice that the other enforcers are all giving her a wide berth. [claire.speech(You know, we'd heard rumours of a slime calling herself a Queen before, but we've scoured every last [unit.size] of the tunnels, and haven't found any trace of her.)]
+		[claire.speech(Hmm... A Slime Queen...)] Claire mutters, before starting to pace back and forth. You can't help but notice the way her massive hips and huge breasts rhythmically sway from side to side as she struts back and forth, and look on in amusement as you notice that the other Enforcers are all giving her a wide berth. [claire.speech(You know, we'd heard rumours of a slime calling herself a Queen before, but we've scoured every last [unit.size] of the tunnels, and haven't found any trace of her.)]
 	</p>
 	<p>
 		[pc.speech(Perhaps she isn't in the tunnels?)] you offer.
@@ -243,7 +243,7 @@
 		[claire.speech(Really? She actually existed? And you managed to stop her?)] Claire asks, returning her hands to her hips once more. [claire.speech(That's amazing... Where did you find her?)]
 	</p>
 	<p>
-		[pc.speech(She was hiding in one of those bioluminescent mushroom caverns,)] you lie, not wanting the enforcers to find Catherine. [pc.speech(She said that she doesn't have any way to contact the people who claim to be her subjects, so she can't ask them to stop. She did, however, promise to stop producing those transformative 'Biojuice Canisters'.)]
+		[pc.speech(She was hiding in one of those bioluminescent mushroom caverns,)] you lie, not wanting the Enforcers to find Catherine. [pc.speech(She said that she doesn't have any way to contact the people who claim to be her subjects, so she can't ask them to stop. She did, however, promise to stop producing those transformative 'Biojuice Canisters'.)]
 	</p>
 	<p>
 		[claire.speech(You've been such a huge help,)] Claire sighs, [claire.speech(With the sheer number of new cases of forced slime transformations, we were close to breaking point. You've no idea how much this is going to help us out. Let me get that reward I promised!)]
@@ -268,16 +268,16 @@
 		Wanting to take a look at the teleportation pads, you say, [pc.speech(I was hoping to take you up on your offer of showing me those teleportation pads,)] you explain.
 	</p>
 	<p>
-		[claire.speech(Oh, of course!)] the happy enforcer replies, proudly puffing up her chest and placing her hands on her absurdly-wide hips as she continues, [claire.speech(I've got permission from the higher-ups to show you them, but on one condition!)]
+		[claire.speech(Oh, of course!)] the happy Enforcer replies, proudly puffing up her chest and placing her hands on her absurdly-wide hips as she continues, [claire.speech(I've got permission from the higher-ups to show you them, but on one condition!)]
 	</p>
 	<p>
 		[pc.speech(What's that?)] you ask.
 	</p>
 	<p>
-		[claire.speech(That you let your friends know that we enforcers aren't all bad,)] Claire reveals, letting out a playful giggle. Even her armoured vest isn't enough to contain the heaving of her huge, [claire.cupSize]-cup breasts as she lets out this burst of mirthful laughter, and more than a couple of heads turn your way to witness the show that the busty cat-girl is inadvertently putting on. Seemingly oblivious to the people staring at her chest, she turns on the spot and starts walking towards a nearby door, calling over her shoulder as she goes, [claire.speech(Come on, [pc.name]. They're through here!)]
+		[claire.speech(That you let your friends know that we Enforcers aren't all bad,)] Claire reveals, letting out a playful giggle. Even her armoured vest isn't enough to contain the heaving of her huge, [claire.cupSize]-cup breasts as she lets out this burst of mirthful laughter, and more than a couple of heads turn your way to witness the show that the busty cat-girl is inadvertently putting on. Seemingly oblivious to the people staring at her chest, she turns on the spot and starts walking towards a nearby door, calling over her shoulder as she goes, [claire.speech(Come on, [pc.name]. They're through here!)]
 	</p>
 	<p>
-		Doing as she asks, you follow in Claire's footsteps and head through the nearby door, which you notice is marked as 'Enforcers Only'. Instead of housing the teleportation pads, as you'd expected, the room beyond turns out to be a normal old office. A very bored-looking wolf-girl enforcer is sitting behind a desk on the right-hand side of the room, and as the two of you enter, she sighs, [genericFemale.speech(Hey, Claire. Is that the visitor here to see the pads?)]
+		Doing as she asks, you follow in Claire's footsteps and head through the nearby door, which you notice is marked as 'Enforcers Only'. Instead of housing the teleportation pads, as you'd expected, the room beyond turns out to be a normal old office. A very bored-looking wolf-girl Enforcer is sitting behind a desk on the right-hand side of the room, and as the two of you enter, she sighs, [genericFemale.speech(Hey, Claire. Is that the visitor here to see the pads?)]
 	</p>
 	<p>
 		[claire.speech(Hey Karen! That's right, I got permission from Inspector Powell and everything,)] Claire replies, leading you over to yet another wooden door just past Karen's desk.
@@ -292,7 +292,7 @@
 		Yet another tired yawn follows the two of you through into the high-ceilinged room beyond, where you finally get your first look at these 'teleportation pads'. Devoid of any other furnishings, this room houses two of them, with each one taking the form of a bulky, circular metal pad, around [unit.lSize(300)] in diameter. Fixed to each one is a simple control panel, which sits atop a waist-high metal tube that connects to the pad below.
 	</p>
 	<p>
-		[claire.speech(So, here they are!)] Claire excitedly exclaims, [claire.speech(I wish I could demonstrate them to you, but teleportation is some seriously restricted stuff; even getting to see these pads is kind of a big deal. It's just fortunate for you that the chief is as concerned with public relations as I am!)]
+		[claire.speech(So, here they are!)] Claire excitedly exclaims, [claire.speech(I wish I could demonstrate them to you, but teleportation is some seriously restricted stuff; even getting to see these pads is kind of a big deal. It's just fortunate for you that the Deputy Commissioner is as concerned with public relations as I am!)]
 	</p>
 	<p>
 		Before you can give Claire your thoughts on the devices before you, she continues, [claire.speech(The one on the right is our backup pad, and is totally deactivated right now, so you can even stand on it if you want! Go on!)]
@@ -405,10 +405,10 @@
 	</p>
 	<p>
 		#IF(pc.getSexualOrientation().isAttractedToFeminine())
-				Before you offer a response to this revelation, Claire suddenly leans in against you, crushing her huge, [claire.cupSize]-cup breasts into your torso. Craning her neck forwards, she presses her [claire.lips+] firmly against yours, and right in the middle of the busy enforcer post, she passionately kisses you.
+				Before you offer a response to this revelation, Claire suddenly leans in against you, crushing her huge, [claire.cupSize]-cup breasts into your torso. Craning her neck forwards, she presses her [claire.lips+] firmly against yours, and right in the middle of the busy Enforcer post, she passionately kisses you.
 			</p>
 			<p>
-				Almost immediately as she's started, the horny cat-girl breaks off the kiss. Quickly straightening back up, she glances around to make sure that nobody noticed what she just did. Sure enough, by some sort of miracle, none of the the dozen-or-so enforcers around you noticed your brief kiss. Biting her lip and giggling in delight, Claire moans, [claire.speech(Fun, isn't it? You know, this room behind me is only used for storage. We could always sneak into there if you wanted to get another taste of me... We <i>probably</i> won't be discovered...)] 
+				Almost immediately as she's started, the horny cat-girl breaks off the kiss. Quickly straightening back up, she glances around to make sure that nobody noticed what she just did. Sure enough, by some sort of miracle, none of the the dozen-or-so Enforcers around you noticed your brief kiss. Biting her lip and giggling in delight, Claire moans, [claire.speech(Fun, isn't it? You know, this room behind me is only used for storage. We could always sneak into there if you wanted to get another taste of me... We <i>probably</i> won't be discovered...)] 
 		#ELSE
 			Before you offer a response to this revelation, Claire continues, [claire.speech(You know, this room behind me is only used for storage... We could always sneak into there and have some fun if you wanted to re-enact that sense of danger... We <i>probably</i> won't be discovered...)]
 		#ENDIF
@@ -417,7 +417,7 @@
 		[pc.speech('Probably'?)] you ask.
 	</p>
 	<p>
-		[claire.speech(Yes, well, the door doesn't have a lock, and people do sometimes use it... But that ll adds to the thrill, doesn't it?)] Claire giggles, before continuing, [claire.speech(We don't have to do it right now; just let me know if you're ever feeling... naughty...)]
+		[claire.speech(Yes, well, the door doesn't have a lock, and people do sometimes use it... But that all adds to the thrill, doesn't it?)] Claire giggles, before continuing, [claire.speech(We don't have to do it right now; just let me know if you're ever feeling... naughty...)]
 	</p>
 	<p>
 		Claire's experience in the SWORD warehouse has obviously awoken some kind of fetish for risky sex, and you wonder whether you should play along with it or not...
@@ -430,7 +430,7 @@
 	
 	<htmlContent tag="START_CLAIRE_SEX"><![CDATA[
 	<p>
-		Liking the idea of having some risky sex with your cat-girl friend, you suggest to her that two of you could step inside the enforcer storage room and get intimate with one another. As soon as you say this, Claire's eyes light up, and, stepping forwards to press her huge boobs against you, she responds, [claire.speech(~Ooh!~ Yes, let's just wait until nobody is watching, then we can sneak inside... Come on!)]
+		Liking the idea of having some risky sex with your cat-girl friend, you suggest to her that two of you could step inside the Enforcer storage room and get intimate with one another. As soon as you say this, Claire's eyes light up, and, stepping forwards to press her huge boobs against you, she responds, [claire.speech(~Ooh!~ Yes, let's just wait until nobody is watching, then we can sneak inside... Come on!)]
 	</p>
 	<p>
 		Letting her lead the way, you follow Claire over to a nearby door, beside which the two of you wait and pretend to talk to one another. When it looks like nobody's watching, the little cat-girl pulls opens the door, and after the two of you have rushed inside, she quickly shuts it. Remaining motionless as the two of you wait to see if anyone follows you inside, the only sound in the dimly-lit stockroom is yours and Claire's excited, heavy breathing.
@@ -459,7 +459,7 @@
 		Slowly opening the door to the storeroom, Claire peeks out to make sure that the coast is clear. Whispering under her breath, she counts, [claire.speech(Get ready... Three... Two... One... Go!)]
 	</p>
 	<p>
-		On her mark, the two of you hastily exit the storeroom, and, quickly shutting the door behind you, you both glance around to make sure that nobody's looking your way. Thankfully, the enforcers all seem to busy with their work, and it appears as though your intimate storeroom antics have gone completely unnoticed.
+		On her mark, the two of you hastily exit the storeroom, and, quickly shutting the door behind you, you both glance around to make sure that nobody's looking your way. Thankfully, the Enforcers all seem to busy with their work, and it appears as though your intimate storeroom antics have gone completely unnoticed.
 	</p>
 	<p>
 		[claire.speech(Fuck... That was such a thrill!)] Claire excitedly squeals, before biting her lip at you and asking, [claire.speech(We're going to have to do that again some time, but until then, do you need anything else from me?)]

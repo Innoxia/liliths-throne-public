@@ -639,16 +639,20 @@ public class CharacterModificationUtils {
 					+ "</div>";
 			
 		} else {
-			return "<div class='container-full-width'>"
+			return "<div class='cosmetics-inner-container' style='margin:1% 1%; width:98%; padding:1%; box-sizing:border-box; position:relative;'>"
 						+ getInformationDiv(id, new TooltipInformationEventListener().setInformation(title, description))
-						+"<div class='cosmetics-inner-container left'>"
-							+ "<p style='text-align:center; margin:0; padding:0;'>"
-								+ "<b>" +title+"</b>"
-							+"</p>"
-						+ "</div>"
-						+ "<div class='cosmetics-inner-container right'>"
-							+ input
-						+ "</div>"
+//						+"<div class='cosmetics-inner-container left'>"
+//							+ "<p style='text-align:center; margin:0; padding:0;'>"
+//								+ "<b>" +title+"</b>"
+//							+"</p>"
+//						+ "</div>"
+//						+ "<div class='cosmetics-inner-container right'>"
+//							+ input
+//						+ "</div>"
+						+ "<p style='text-align:center; margin:0; padding:0;'>"
+							+ "<b>"+title+"</b>"
+						+"</p>"
+						+ input
 					+ "</div>";
 		}
 	}
@@ -777,7 +781,12 @@ public class CharacterModificationUtils {
 		for(TailType tail : TailType.values()) {
 			if((tail.getRace() !=null && availableRaces.contains(tail.getRace()))
 					|| (!removeNone && tail==TailType.NONE)) {
-
+				if(BodyChanging.getTarget().getTailType()==TailType.FOX_MORPH_MAGIC && tail!=TailType.FOX_MORPH_MAGIC) {
+					continue;
+				}
+				if(BodyChanging.getTarget().getTailType()!=TailType.FOX_MORPH_MAGIC && tail==TailType.FOX_MORPH_MAGIC) {
+					continue;
+				}
 				Colour c = Colour.TEXT_GREY;
 				
 				if(tail.getRace() != null) {
@@ -1138,7 +1147,7 @@ public class CharacterModificationUtils {
 					+ "<br/><i>'"+Util.capitaliseSentence(HairStyle.TWIN_TAILS.getName())+"' and '"+Util.capitaliseSentence(HairStyle.TWIN_BRAIDS.getName())+"' can be used as handles in some sex actions.</i>",
 				"HAIR_STYLE",
 				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformAssChoiceDiv(List<Race> availableRaces) {
@@ -4262,24 +4271,32 @@ public class CharacterModificationUtils {
 			List<Colour> availablePrimaryColours = new ArrayList<>(withDyeAndExtraPatterns
 															?coveringType.getAllPrimaryColours()
 															:coveringType.getNaturalColoursPrimary());
-			int rainbowIncrement=3;
+			int rainbowIncrement=5;
+			String rainbow = "";
 			Collections.sort(availablePrimaryColours, (c1, c2)->c2.isMetallic()?(c1.isMetallic()?0:-1):(c1.isMetallic()?1:0));
+			
 			for (Colour c : availablePrimaryColours) {
+				int i=0;
+				if(c.getRainbowColours()!=null) {
+					StringBuilder sb = new StringBuilder();
+					sb.append("repeating-linear-gradient(135deg,");
+					for(String s : c.getRainbowColours()) {
+						sb.append(" "+s+" "+(i*rainbowIncrement)+"px, "+s+" "+((i+1)*rainbowIncrement)+"px,");
+						i++;
+					}
+					sb.deleteCharAt(sb.length()-1);
+					sb.append(");");
+					rainbow = sb.toString();
+				} else {
+					rainbow = "";
+				}
 				contentSB.append("<div class='normal-button"+(activeCovering.getPrimaryColour()==c?" selected":"")+"' id='"+coveringType+"_PRIMARY_"+c+"'"
 										+ " style='width:auto; margin-right:4px;"+(activeCovering.getPrimaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ (c.isMetallic()
 											?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-												:(c.isRainbow()
-													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg,"
-															+ " #c4e17f 0px, #c4e17f "+rainbowIncrement+"px,"
-															+ "#f7fdca "+rainbowIncrement+"px, #f7fdca "+2*rainbowIncrement+"px,"
-															+ "#fad071 "+2*rainbowIncrement+"px, #fad071 "+3*rainbowIncrement+"px,"
-															+ "#f0766b "+3*rainbowIncrement+"px, #f0766b "+4*rainbowIncrement+"px,"
-															+ "#db9dbe "+4*rainbowIncrement+"px, #db9dbe "+5*rainbowIncrement+"px,"
-															+ "#c49cdf "+5*rainbowIncrement+"px, #c49cdf "+6*rainbowIncrement+"px,"
-															+ "#6599e2 "+6*rainbowIncrement+"px, #6599e2 "+7*rainbowIncrement+"px,"
-															+ "#61c2e4 "+7*rainbowIncrement+"px, #61c2e4 "+8*rainbowIncrement+"px);"
-											:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
+											:(c.getRainbowColours()!=null
+												?"<div class='phone-item-colour' style='background: "+rainbow
+												:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
 										+(c==Colour.COVERING_NONE
 											?" color:"+Colour.BASE_RED.toWebHexString()+";'>X"
 											:"'>")
@@ -4330,21 +4347,27 @@ public class CharacterModificationUtils {
 					+ "</div>");
 					
 				} else {
+					int i=0;
+					if(c.getRainbowColours()!=null) {
+						StringBuilder sb = new StringBuilder();
+						sb.append("repeating-linear-gradient(135deg,");
+						for(String s : c.getRainbowColours()) {
+							sb.append(" "+s+" "+(i*rainbowIncrement)+"px, "+s+" "+((i+1)*rainbowIncrement)+"px,");
+							i++;
+						}
+						sb.deleteCharAt(sb.length()-1);
+						sb.append(");");
+						rainbow = sb.toString();
+					} else {
+						rainbow = "";
+					}
 					contentSB.append("<div class='normal-button"+(activeCovering.getSecondaryColour()==c?" selected":"")+"' id='"+coveringType+"_SECONDARY_"+c+"'"
 											+ " style='width:auto; margin-right:4px;"+(activeCovering.getSecondaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 											+ (c.isMetallic()
 													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-													:(c.isRainbow()
-														?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg,"
-																+ " #c4e17f 0px, #c4e17f "+rainbowIncrement+"px,"
-																+ "#f7fdca "+rainbowIncrement+"px, #f7fdca "+2*rainbowIncrement+"px,"
-																+ "#fad071 "+2*rainbowIncrement+"px, #fad071 "+3*rainbowIncrement+"px,"
-																+ "#f0766b "+3*rainbowIncrement+"px, #f0766b "+4*rainbowIncrement+"px,"
-																+ "#db9dbe "+4*rainbowIncrement+"px, #db9dbe "+5*rainbowIncrement+"px,"
-																+ "#c49cdf "+5*rainbowIncrement+"px, #c49cdf "+6*rainbowIncrement+"px,"
-																+ "#6599e2 "+6*rainbowIncrement+"px, #6599e2 "+7*rainbowIncrement+"px,"
-																+ "#61c2e4 "+7*rainbowIncrement+"px, #61c2e4 "+8*rainbowIncrement+"px);"
-														:"<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"))
+													:(c.getRainbowColours()!=null
+														?"<div class='phone-item-colour' style='background: "+rainbow
+														:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
 												+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")
 											+"</div>"
 									+ "</div>");
@@ -4587,7 +4610,7 @@ public class CharacterModificationUtils {
 					:"<div class='modifier-icon' style='width:48%;margin:0 1%'>"
 						+ (tattooInSlot==null
 							?"<div class='modifier-icon-content'></div>"
-							:"<div class='modifier-icon-content "+tattooInSlot.getRarity().getName()+"'>"+tattooInSlot.getSVGImage(BodyChanging.getTarget())+"</div>")
+							:"<div class='modifier-icon-content' style='background-color:"+tattooInSlot.getRarity().getBackgroundColour().toWebHexString()+";'>"+tattooInSlot.getSVGImage(BodyChanging.getTarget())+"</div>")
 						+ "<div class='overlay no-pointer' id='TATTOO_INFO_"+invSlot.toString()+"'></div>"
 					+ "</div>")
 				

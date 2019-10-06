@@ -91,6 +91,8 @@ public class CandiReceptionist extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH);
 		}

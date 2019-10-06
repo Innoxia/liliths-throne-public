@@ -444,7 +444,7 @@ public class BatCavernSlimeAttackerDialogue {
 							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(Don't even <i>think</i> about reporting this to the enforcers!)] [npc.she] growls down at you, before turning around and running off."
+							+ "[npc.speech(Don't even <i>think</i> about reporting this to the Enforcers!)] [npc.she] growls down at you, before turning around and running off."
 						+ "</p>");
 			}
 		}
@@ -466,7 +466,7 @@ public class BatCavernSlimeAttackerDialogue {
 					if(!Collections.disjoint(Main.game.getPlayer().getFetishes(true), Util.newArrayListOfValues(applicableFetish))) {
 						return new Response("Spit",
 								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+applicableFetish.getName(Main.game.getPlayer())
-									+"</b> fetish, you love "+applicableFetish.getShortDescriptor()+" so much that you can't bring yourself to spit out the transformative liquid!",
+									+"</b> fetish, you love "+applicableFetish.getShortDescriptor(Main.game.getPlayer())+" so much that you can't bring yourself to spit out the transformative liquid!",
 								null);
 					} else {
 						return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
@@ -854,7 +854,7 @@ public class BatCavernSlimeAttackerDialogue {
 						+ " [npc.speech(We should do this again some time!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "With that, [npc.she] walks off, leaving you panting on the floor."
+						+ "With that, [npc.she] walks off, leaving you panting on the ground."
 						+ " It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way."
 					+ "</p>");
 		}

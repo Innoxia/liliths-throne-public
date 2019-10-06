@@ -64,16 +64,6 @@ public enum DamageType {
 			DamageType.HEALTH) {
 		@Override
 		public Value<String, Integer> damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
-			// Flame cloak gives fire melee damage at a cost of arcane.
-			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1)
-					|| source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2)
-					|| source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3)) {
-				// (Temporarily?) removed
-//				// Burning mana for each melee strike proportional to it's unchanged damage.
-//				source.burnMana(source.getMana()*0.05f);
-//				// Increasing damage amount by 50%
-				damageAmount += source.getLevel();//(int)(damageAmount * 0.5f);
-			}
 			return getParentDamageType(source, target).damageTarget(source, target, damageAmount);
 		}
 
@@ -193,9 +183,9 @@ public enum DamageType {
 	public Value<String, Integer> damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
 		damageAmount = shieldCheck(source, target, damageAmount);
 		String description = "";
-		if(damageAmount > 0) {
+//		if(damageAmount > 0) {
 			description = target.incrementHealth(source, -damageAmount);
-		}
+//		}
 		if(target.hasFetish(Fetish.FETISH_MASOCHIST)) {
 			damageAmount*=0.75f;
 		}
@@ -224,15 +214,17 @@ public enum DamageType {
 	 * <b>Does</b> deplete the target's shields.
 	 */
 	public int shieldCheck(GameCharacter source, GameCharacter target, int damageAmount) {
-		if(this.getParentDamageType(source, target) != null) {
-			damageAmount = this.getParentDamageType(source, target).shieldCheck(source, target, damageAmount);
-		}
-		if(target.getShields(this) > 0) {
-			int oldShields = target.getShields(this);
-			target.setShields(this, target.getShields(this) - damageAmount);
-			damageAmount -= oldShields;
-			if(damageAmount < 0) {
-				damageAmount = 0;
+		if(damageAmount>0) {
+			if(this.getParentDamageType(source, target) != null) {
+				damageAmount = this.getParentDamageType(source, target).shieldCheck(source, target, damageAmount);
+			}
+			if(target.getShields(this) > 0) {
+				int oldShields = target.getShields(this);
+				target.setShields(this, target.getShields(this) - damageAmount);
+				damageAmount -= oldShields;
+				if(damageAmount < 0) {
+					damageAmount = 0;
+				}
 			}
 		}
 		return damageAmount;

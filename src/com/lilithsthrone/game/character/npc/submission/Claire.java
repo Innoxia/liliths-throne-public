@@ -44,6 +44,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -72,9 +73,9 @@ public class Claire extends NPC {
 	
 	public Claire(boolean isImported) {
 		super(isImported, new NameTriplet("Claire"), "Kasun",
-				"Claire is the messenger who's responsible for keeping all of Submission's enforcer posts up-to-date with one another."
+				"Claire is the messenger who's responsible for keeping all of Submission's Enforcer posts up-to-date with one another."
 					+ " Having been recognised by her superiors as a particularly hard-working and reliable individual, she's been granted permission to use the teleportation pads which link all of these posts together."
-					+ " As a result of this, she seems to be in multiple places at once, and whenever you enter one of these enforcer posts, Claire is sure to already be there.",
+					+ " As a result of this, she seems to be in multiple places at once, and whenever you enter one of these Enforcer posts, Claire is sure to already be there.",
 				31, Month.DECEMBER, 14,
 				10, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.GREATER,
 				new CharacterInventory(30), WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, true);
@@ -99,9 +100,11 @@ public class Claire extends NPC {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.setHistory(Occupation.NPC_ENFORCER_PATROL_SERGEANT);
 			this.setDescription(
-				"Claire is the messenger who's responsible for keeping all of Submission's enforcer posts up-to-date with one another."
+				"Claire is the messenger who's responsible for keeping all of Submission's Enforcer posts up-to-date with one another."
 					+ " Having been recognised by her superiors as a particularly hard-working and reliable individual, she's been granted permission to use the teleportation pads which link all of these posts together."
-					+ " As a result of this, she seems to be in multiple places at once, and whenever you enter one of these enforcer posts, Claire is sure to already be there.");
+					+ " As a result of this, she seems to be in multiple places at once, and whenever you enter one of these Enforcer posts, Claire is sure to already be there.");
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT);
 		}
@@ -258,8 +261,11 @@ public class Claire extends NPC {
 					&& !pt.equals(PlaceType.ENFORCER_WAREHOUSE_ENFORCER_GUARD_POST)) {
 				this.setLocation(Main.game.getPlayer(), false);
 			}
+			if(pt.equals(PlaceType.ENFORCER_WAREHOUSE_ENFORCER_GUARD_POST) && Main.game.getDialogueFlags().warehouseDefeatedIDs.contains(EnforcerWarehouse.getEnforcersPresent().get(0).getId())) {
+				this.setLocation(Main.game.getPlayer(), false);
+			}
 
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.claireObtainedLightningGlobe)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.claireObtainedLightningGlobe) && Main.game.getNpc(Claire.class).getSexCount(Main.game.getPlayer()).getTotalTimesHadSex()==0) {
 				this.setLust(80);
 			}
 		}

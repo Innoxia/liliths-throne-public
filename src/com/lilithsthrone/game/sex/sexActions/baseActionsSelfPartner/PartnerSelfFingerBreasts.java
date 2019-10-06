@@ -44,7 +44,7 @@ public class PartnerSelfFingerBreasts {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getCharacterPerformingAction().hasBreasts()
 					&& Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					 && Sex.getCharacterPerformingAction().isPlayer();
+					 && !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override

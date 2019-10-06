@@ -931,6 +931,7 @@ public class SexPosition {
 			GameCharacter mainDeskFrontTaur = null;
 			GameCharacter mainDeskBack = null;
 			GameCharacter mainStanding = null;
+			GameCharacter mainStandingTaur = null;
 			GameCharacter mainPerformingOral = null;
 			GameCharacter mainReceivingOral = null;
 			
@@ -983,9 +984,13 @@ public class SexPosition {
 							|| e.getValue()==SexSlotDesk.BETWEEN_LEGS_TWO
 							|| e.getValue()==SexSlotDesk.BETWEEN_LEGS_THREE
 							|| e.getValue()==SexSlotDesk.BETWEEN_LEGS_FOUR) {
-						if(mainStanding==null) {
+						if(mainStanding==null && !e.getKey().isTaur()) {
 							mainStanding=e.getKey();
 						}
+						if(mainStandingTaur==null && e.getKey().isTaur()) {
+							mainStandingTaur=e.getKey();
+						}
+						
 						if(e.getKey().isPlayer()) {
 							if(!e.getKey().isTaur()) {
 								standingNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
@@ -1100,7 +1105,7 @@ public class SexPosition {
 				
 			} else if(standingCountTaurs==1) {
 				sb.append(Util.capitaliseSentence(Util.stringsToStringList(standingNamesTaur, false))
-							+UtilText.parse(mainStanding," [npc.has] stepped up onto the desk with [npc.her] front legs, and [npc.is] ready to use [npc.her] feral lower body"));
+							+UtilText.parse(mainStandingTaur," [npc.has] stepped up onto the desk with [npc.her] front legs, and [npc.is] ready to use [npc.her] feral lower body"));
 			}
 			if(standingCountTaurs>0) {
 				if(totalDeskCount>1) {
@@ -1575,6 +1580,15 @@ public class SexPosition {
 			return generateSlotTargetsMap(interactions);
 		}
 		@Override
+		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+			if((Sex.getSexPositionSlot(performer).hasTag(SexSlotTag.LOCKED_IN_STOCKS)
+					&& action.getSexAreaInteractions().keySet().contains(SexAreaPenetration.FINGER)
+					&& action.getParticipantType()==SexParticipantType.SELF)) {
+				return true;
+			}
+			return super.isActionBlocked(performer, target, action);
+		}
+		@Override
 		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character in the stocks can use their tails or tentacles to force a creampie on characters fucking them:
 			if((Sex.getSexPositionSlot(cumProvider)==SexSlotStocks.BEHIND_STOCKS
@@ -1894,6 +1908,15 @@ public class SexPosition {
 			}
 			
 			return generateSlotTargetsMap(interactions);
+		}
+		@Override
+		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+			if((Sex.getSexPositionSlot(performer).hasTag(SexSlotTag.LOCKED_IN_STOCKS)
+					&& action.getSexAreaInteractions().keySet().contains(SexAreaPenetration.FINGER)
+					&& action.getParticipantType()==SexParticipantType.SELF)) {
+				return true;
+			}
+			return super.isActionBlocked(performer, target, action);
 		}
 		@Override
 		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
@@ -2703,15 +2726,15 @@ public class SexPosition {
 					if(!faceSitting.isTaur()) {
 						sb.append(UtilText.parse(faceSitting, lyingDown,
 								continuation
-								?" Meanwhile, eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name], before lowering [npc.herself] down and plating [npc.her] groin firmly over [npc2.her] [npc2.face]."
-								:" Eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name], before lowering [npc.herself] down and plating [npc.her] groin firmly over [npc2.her] [npc2.face]."));
+								?" Meanwhile, eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name], before lowering [npc.herself] down and planting [npc.her] groin firmly over [npc2.her] [npc2.face]."
+								:" Eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name], before lowering [npc.herself] down and planting [npc.her] groin firmly over [npc2.her] [npc2.face]."));
 					} else {
 						sb.append(UtilText.parse(faceSitting, lyingDown,
 								continuation
 								?" Meanwhile, eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name],"
-										+ " before lowering [npc.her] feral [npc.legRace]'s body down and plating [npc.her] animalistic groin firmly over [npc2.her] [npc2.face]."
+										+ " before lowering [npc.her] feral [npc.legRace]'s body down and planting [npc.her] animalistic groin firmly over [npc2.her] [npc2.face]."
 								:" Eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name],"
-										+ " before lowering [npc.her] feral [npc.legRace]'s body down and plating [npc.her] animalistic groin firmly over [npc2.her] [npc2.face]."));
+										+ " before lowering [npc.her] feral [npc.legRace]'s body down and planting [npc.her] animalistic groin firmly over [npc2.her] [npc2.face]."));
 					}
 				}
 				if(faceSittingReverse!=null) {
@@ -3508,20 +3531,11 @@ public class SexPosition {
 		}
 		@Override
 		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
-			// The character being fucked can use their tails or tentacles to force a creampie:
-			if(Sex.getSexPositionSlot(cumTarget)==SexSlotBreedingStall.BREEDING_STALL_FRONT
-				&& Sex.getSexPositionSlot(cumProvider)==SexSlotBreedingStall.BREEDING_STALL_FUCKING) {
-				return Util.newHashMapOfValues(
-						new Value<>(Tail.class, genericGroinForceCreampieAreas),
-						new Value<>(Tentacle.class, genericGroinForceCreampieAreas));
-			}
 			if(Sex.getSexPositionSlot(cumTarget)==SexSlotBreedingStall.BREEDING_STALL_BACK
 					&& Sex.getSexPositionSlot(cumProvider)==SexSlotBreedingStall.BREEDING_STALL_FUCKING) {
-					return Util.newHashMapOfValues(
-							new Value<>(Leg.class, genericGroinForceCreampieAreas),
-							new Value<>(Tail.class, genericGroinForceCreampieAreas),
-							new Value<>(Tentacle.class, genericGroinForceCreampieAreas));
-				}
+				return Util.newHashMapOfValues(
+						new Value<>(Leg.class, genericGroinForceCreampieAreas));
+			}
 			return null;
 		}
 	};

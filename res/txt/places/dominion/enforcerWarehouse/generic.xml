@@ -5,7 +5,7 @@
 	
 	<htmlContent tag="ENCLOSURE_TELEPORT_PADS"><![CDATA[
 	<p>
-		Lying flat on the floor in this area of the enclosure is the teleportation pad which you and Claire arrived on. Lacking the specially-shaped essence cells which the pad requires in order to function, you and Claire are unable to use it to return to the enforcer post in Submission.
+		Lying flat on the floor in this area of the enclosure is the teleportation pad which you and Claire arrived on. Lacking the specially-shaped essence cells which the pad requires in order to function, you and Claire are unable to use it to return to the Enforcer post in Submission.
 	</p>
 	<p>
 		#IF(game.getDialogueFlags().hasFlag(FLAG_claireEnclosureEscaped))
@@ -28,7 +28,7 @@
 		Rushing over to kneel down beside you, the short cat-girl lets out a deep sigh of relief, [claire.speech(Thank goodness! I always carry a couple of spare essence cells with me, so once I've inserted one, this pad should activate again and we can get out of here!)]
 	</p>
 	<p>
-		Opening the round hatch, your enforcer companion then reaches into a pocket on her armoured vest. Obviously finding it empty, she lets out a little huff, before checking the pocket beside it. Finding that one empty too, she starts frantically patting down and searching every pocket and pouch on her uniform. Finding each one as empty as the last, her breathing starts getting heavier and heavier, until finally she lets out a wail of despair. Allowing her hands to drop down onto her thick thighs, she sinks down onto her large, rounded ass and cries, [claire.speech(This can't be happening! We're going to be in so much trouble! I-I might even lose my job... Or even get arrested! What if they enslave us?! Or just shoot us and bury us in this warehouse?! These SWORD guys aren't like regular enforcers; they're trigger-happy maniacs! This is a disaster!)]
+		Opening the round hatch, your Enforcer companion then reaches into a pocket on her armoured vest. Obviously finding it empty, she lets out a little huff, before checking the pocket beside it. Finding that one empty too, she starts frantically patting down and searching every pocket and pouch on her uniform. Finding each one as empty as the last, her breathing starts getting heavier and heavier, until finally she lets out a wail of despair. Allowing her hands to drop down onto her thick thighs, she sinks down onto her large, rounded ass and cries, [claire.speech(This can't be happening! We're going to be in so much trouble! I-I might even lose my job... Or even get arrested! What if they enslave us?! I don't want to be a sex slave! These SWORD guys aren't like regular Enforcers; they're trigger-happy maniacs! This is a disaster! What'll we do?!)]
 	</p>
 	<p>
 		Sensing that she's going to start hyper-ventilating if you don't take immediate action, you wonder what you should do to get Claire to calm down...
@@ -160,13 +160,13 @@
 		Along with the other two still sitting in the gap, this shelving unit looks to be full of nothing more than dusty old accounting books. As you and Claire start to move through the opening you've just created, however, you see a book lying on the floor which is very unlike all these others. Instantly recognising it as a spell book, you bend down to pick it up, and feel your eyes widening in surprise as you see that it contains detailed instructions on how to cast the very spell which got you into this whole mess; 'teleport'.
 	</p>
 	<p>
-		[claire.speech(Hey, what's that you've found? It must have fallen out of the shelf as it was moving,)] Claire says, stepping up beside you. As she sees what it is, the tone of her voice instantly changes from one of curiosity to one of alarm, and she hisses, [claire.speech(A teleport spell book?! Y-You can't take that! What are you doing?! That's a forbidden spell; only lilin or the highest-ranking enforcers are allowed those!)]
+		[claire.speech(Hey, what's that you've found? It must have fallen out of the shelf as it was moving,)] Claire says, stepping up beside you. As she sees what it is, the tone of her voice instantly changes from one of curiosity to one of alarm, and she hisses, [claire.speech(A teleport spell book?! Y-You can't take that! What are you doing?! That's a forbidden spell; only lilin or the highest-ranking Enforcers are allowed those!)]
 	</p>
 	<p>
-		[pc.speech(But if I can quickly learn it, maybe I'd be able to teleport back to your enforcer post and pick up one of those essence cells, and then come back to save you,)] you suggest.
+		[pc.speech(But if I can quickly learn it, maybe I'd be able to teleport back to your Enforcer post and pick up one of those essence cells, and then come back to save you,)] you suggest.
 	</p>
 	<p>
-		Torn between her duty as an enforcer and the prospect of escaping this whole mess the two of you are in, the little cat-girl paces back and forth for a moment before turning towards you and letting out a defeated sigh. Placing her hands on her wide hips, she pouts at you as she says, [claire.speech(Fine... Just don't you <i>ever</i> tell <i>anyone</i> that I allowed you to do this... A-And anyway, you haven't broken the law until you attempt to learn that spell, so if I don't see you doing it, then I'm not responsible for having to arrest you!)]
+		Torn between her duty as an Enforcer and the prospect of escaping this whole mess the two of you are in, the little cat-girl paces back and forth for a moment before turning towards you and letting out a defeated sigh. Placing her hands on her wide hips, she pouts at you as she says, [claire.speech(Fine... Just don't you <i>ever</i> tell <i>anyone</i> that I allowed you to do this... A-And anyway, you haven't broken the law until you attempt to learn that spell, so if I don't see you doing it, then I'm not responsible for having to arrest you!)]
 	</p>
 	<p>
 		Having found a solution to her moral dilemma, Claire turns her back on you, before hissing over her shoulder for you to hurry up. Not wanting to point out the flaws in Claire's logic, you turn your attention back to the book still in your hands...
@@ -189,7 +189,7 @@
 		[claire.speech(Ok, so just teleport back to the room we came from, and then go back into the adjoining office,)] Claire instructs, [claire.speech(Lucy should be on duty now, and she owes me a huge favour, so just ask her for a couple of essence cells, and say that this is in return for when I helped her with the 'alligator incident'.)]
 	</p>
 	<p>
-		[pc.speech(Ok, here I go,)] you say. Following the book's instructions, you visualise the room back in Submission's enforcer post, before casting the teleport spell. A flash of purple light instantly surrounds you, but instead of being instantaneously transported to your destination, you feel yourself being pulled back by some strange, powerful force. As the light fades, you discover that you're still standing in exactly the same place as you were a moment ago.
+		[pc.speech(Ok, here I go,)] you say. Following the book's instructions, you visualise the room back in Submission's Enforcer post, before casting the teleport spell. A flash of purple light instantly surrounds you, but instead of being instantaneously transported to your destination, you feel yourself being pulled back by some strange, powerful force. As the light fades, you discover that you're still standing in exactly the same place as you were a moment ago.
 	</p>
 	<p>
 		[claire.speech(I should have known there'd be a teleport inhibition device in here...)] Claire sighs as she sees that your spell failed. Bringing her palm up to her forehead, she whines in frustration, [claire.speech(Now not only are we in serious trouble for the unauthorised teleport and trespassing in a SWORD installation, but I've also gone and let you learn a forbidden spell for no reason!)]
@@ -229,7 +229,7 @@
 	<htmlContent tag="CORRIDOR_ENTRANCE_WARNING"><![CDATA[
 	<p>
 		<i>
-		The area to your north looks like this warehouse's only exit. Although you can see that it's being guarded by no less than [style.colourBad(four SWORD enforcers)], [style.colourMinorGood(you're confident that you can move closer without alerting them)].
+		The area to your north looks like this warehouse's only exit. Although you can see that it's being guarded by no less than [style.colourBad(four SWORD Enforcers)], [style.colourMinorGood(you're confident that you can move closer without alerting them)].
 		</i>
 	</p>
 	]]>
@@ -243,13 +243,13 @@
 		Almost immediately as you start moving into the warehouse, you see that the path before you forks off to the left. Wanting to make sure that the way is clear, you slowly move up to the junction and carefully peek around the corner.
 	</p>
 	<p>
-		Just like the rest of the warehouse that you've seen so far, the path which you find yourself looking down is flanked on both sides by towering stacks of wooden crates. What's different about the scene before you, however, is that there's [npc.a_race] enforcer standing guard about [unit.lSize(2000)] away from you. Thankfully, [npc.sheIs] currently preoccupied with throwing darts into the side of a nearby crate, and hasn't noticed either you or Claire, who has snuck up behind you and joined you in peeking around the corner.
+		Just like the rest of the warehouse that you've seen so far, the path which you find yourself looking down is flanked on both sides by towering stacks of wooden crates. What's different about the scene before you, however, is that there's [npc.a_race] Enforcer standing guard about [unit.lSize(2000)] away from you. Thankfully, [npc.sheIs] currently preoccupied with throwing darts into the side of a nearby crate, and hasn't noticed either you or Claire, who has snuck up behind you and joined you in peeking around the corner.
 	</p>
 	<p>
 		[claire.speech(That's a member of SWORD, all right,)] the cat-girl whispers in your ear, [claire.speech(just look at all that gear [npc.sheIs] wearing...)]
 	</p>
 	<p>
-		Sure enough, as you take another look at the [npc.race] enforcer, you take note of the fact that [npc.sheIs] not only wearing a very militarised uniform, complete with armoured vest and helmet, but [npc.she] also has what looks to be a rifle of some sort slung over [npc.her] shoulder. Although [npc.sheIs] no threat at the moment, due to being concerned only with trying to score a bullseye on her makeshift dartboard, you imagine that [npc.she]'d be a very dangerous opponent if you were to drawn into a fight with [npc.herHim].
+		Sure enough, as you take another look at the [npc.race] Enforcer, you take note of the fact that [npc.sheIs] not only wearing a very militarised uniform, complete with armoured vest and helmet, but [npc.she] also has what looks to be a rifle of some sort slung over [npc.her] shoulder. Although [npc.sheIs] no threat at the moment, due to being concerned only with trying to score a bullseye on her makeshift dartboard, you imagine that [npc.she]'d be a very dangerous opponent if you were to drawn into a fight with [npc.herHim].
 	</p>
 	<p>
 		[claire.speech(SWORD are known for being trigger-happy maniacs at the best of times,)] Claire whispers with a sense of urgency in her voice, [claire.speech(There's no way we can sneak past [npc.herHim], and [npc.she]'ll probably just shoot us if [npc.she] sees us. Come on, let's find another way around...)]
@@ -281,13 +281,13 @@
 	
 	<htmlContent tag="AFTER_CLAIRE_SEX"><![CDATA[
 	<p>
-		Claire leans heavily back against the crates, happily panting, [claire.speech(Fuck... I've never had sex quite like <i>like</i> before...)]
+		Claire leans heavily back against the crates, happily panting, [claire.speech(Fuck... I've never had sex quite like <i>that</i> before...)]
 	</p>
 	<p>
 		Telling your partner that you enjoyed it as well, the two of you then set about getting your clothing back in order. Despite the fact that she should have got her lust back under control by now, Claire seems to be rather excited by the situation you're in, and she cheekily leans in to plant a kiss on your cheek, before saying, [claire.speech(Once we've escaped, we've got to do something like this again, ok? Perhaps when you visit me down in Submission, we could do it in an office, knowing that someone could walk in on us at any moment...)]
 	</p>
 	<p>
-		Realising that you've definitely awoken some kind of risky sex fetish in this cat-girl enforcer, you tell her that there will be plenty of opportunities to play out her fantasies in the future, but for now, you need to focus on escaping from this place. Agreeing with your assessment, Claire falls in behind you once again as the two of you set off into the warehouse once more...
+		Realising that you've definitely awoken some kind of risky sex fetish in this cat-girl Enforcer, you tell her that there will be plenty of opportunities to play out her fantasies in the future, but for now, you need to focus on escaping from this place. Agreeing with your assessment, Claire falls in behind you once again as the two of you set off into the warehouse once more...
 	</p>
 	]]>
 	</htmlContent>
@@ -340,7 +340,7 @@
 		#IF(RND.nextInt(100)<50)
 			Unfortunately, most of the boxes turn out to contain nothing but stacks of mundane paperwork. In one of the last crates you check, however, you do find something worth taking, but you're not sure if it's going to be of any use in escaping from the warehouse...
 		#ELSE
-			Unfortunately, most of the boxes turn out to contain nothing but stacks of mundane paperwork. In one of the last crates which your cat-girl enforcer companion checks, however, she does find something worth taking, but as she hands it over to you, you're not sure if it's going to be of any use in escaping from the warehouse...
+			Unfortunately, most of the boxes turn out to contain nothing but stacks of mundane paperwork. In one of the last crates which your cat-girl Enforcer companion checks, however, she does find something worth taking, but as she hands it over to you, you're not sure if it's going to be of any use in escaping from the warehouse...
 		#ENDIF
 	</p>
 	]]>
@@ -510,14 +510,14 @@
 		#IF(claire.getLust()>75)
 			[claire.speech(~Mmm!~ I-I'll just wait here,)] Claire says, too preoccupied with trying to control her lust to object to your plans. 
 		#ELSE
-			[claire.speech(This isn't a bookshop!)] Claire hisses at you, [claire.speech(You can't just go helping yourself to official enforcer documents!)]
+			[claire.speech(This isn't a bookshop!)] Claire hisses at you, [claire.speech(You can't just go helping yourself to official Enforcer documents!)]
 			</p>
 			<p>
 				By explaining to the cat-girl that you might find something which could help the two of you to escape, you manage to convince her to let you go ahead with your planned search of the shelves. Putting her hands on her hips, she pouts at you as she concedes, [claire.speech(I suppose if there's something here which would help us to escape, you can take that... But nothing else!)]
 		#ENDIF
 	</p>
 	<p>
-		While Claire keeps watch, you sweep down each row formed by the bookcases, checking each shelf for anything of value. After finding nothing but mundane documents of some form of another, you're just about to give up when you suddenly spot a rather unusual book nestled away between two stacks of papers. Pulling it out, you discover that it's a spell book containing details on how to cast 'Telepathic Communication'. Taking it with you, you head back to where your cat-girl enforcer companion is waiting for you, and, showing it to her, you get her approval for keeping it.
+		While Claire keeps watch, you sweep down each row formed by the bookcases, checking each shelf for anything of value. After finding nothing but mundane documents of some form of another, you're just about to give up when you suddenly spot a rather unusual book nestled away between two stacks of papers. Pulling it out, you discover that it's a spell book containing details on how to cast 'Telepathic Communication'. Taking it with you, you head back to where your cat-girl Enforcer companion is waiting for you, and, showing it to her, you get her approval for keeping it.
 	</p>
 	<p>
 		#IF(claire.getLust()>75)
@@ -537,7 +537,7 @@
 	
 	<htmlContent tag="ENFORCER_GUARD_POST"><![CDATA[
 	<p>
-		Deciding that the best way to escape is by taking a direct route straight through this enforcer post, you step forwards and start to approach [npc.name].
+		Deciding that the best way to escape is by taking a direct route straight through this Enforcer post, you step forwards and start to approach [npc.name].
 		#IF(claire.getLust()>75)
 			 Seeing what it is you're doing, Claire hides behind a nearby crate, and with her voice still dripping with lust, she hisses, [claire.speech(~Aah!~ D-Don't try to fight them! Stop!)]
 		#ELSE
@@ -545,7 +545,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Knowing that this SWORD enforcer is no match for you, you ignore Claire's words of warning and continue to stride forwards. Obviously not expecting to see an intruder, the SWORD guard only notices you out of the corner of [npc.her] eye when you're less than [unit.lSize(1000)] away. As soon as [npc.she] detects your presence, however, [npc.she] springs into action; rapidly unslinging [npc.her] [npc.mainWeapon], [npc.she] points it at you and orders, [npc.speech(Stop right there!)]
+		Knowing that this SWORD Enforcer is no match for you, you ignore Claire's words of warning and continue to stride forwards. Obviously not expecting to see an intruder, the SWORD guard only notices you out of the corner of [npc.her] eye when you're less than [unit.lSize(1000)] away. As soon as [npc.she] detects your presence, however, [npc.she] springs into action; rapidly unslinging [npc.her] [npc.mainWeapon], [npc.she] points it at you and orders, [npc.speech(Stop right there!)]
 	</p>
 	<p>
 		Without even giving you time in which to obey [npc.her] command, the trigger-happy [npc.race] starts shooting at you!
@@ -555,7 +555,7 @@
 	
 	<htmlContent tag="ENFORCER_GUARD_POST_CLEARED"><![CDATA[
 	<p>
-		Having been defeated by you in combat, and then tazed into complete submission by Claire, the [npc.race] enforcer is slumped down, unconscious, against a nearby crate in this area.
+		Having been defeated by you in combat, and then tazed into complete submission by Claire, the [npc.race] Enforcer is slumped down, unconscious, against a nearby crate in this area.
 		#IF(claire.getLust()>75)
 			 Having warned you against touching [npc.name] or any of [npc.her] gear, Claire moans, [claire.speech(Come on, let's go! ~Mmm!~ I need to get out of here and masturbate or something!)]
 		#ELSE
@@ -569,7 +569,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="ENFORCER_GUARD_POST_PLAYER_FIGHT_START"><![CDATA[
-	You prepare to fight the trigger-happy SWORD enforcer.
+	You prepare to fight the trigger-happy SWORD Enforcer.
 	]]>
 	</htmlContent>
 	
@@ -590,14 +590,14 @@
 	</p>
 	#IF(claire.getLust()>75)
 		<p>
-			Looking across to where this unexpected attack came from, you see Claire still pointing her discharged taser at the SWORD guard. Glaring at you with a mixture of aroused anger in her eyes, she quickly moves forwards and deftly uses the [npc.race]'s own handcuffs to shackle [npc.herHim] to a nearby crate. Still struggling to control her lust, she whines, [claire.speech(~Mmm!~ Look what you made me do! [npc.She] almost saw me! Y-You know, you can't just assault enforcers like that! If this were any other situation, I'd have arrested you for what you've just done!)]
+			Looking across to where this unexpected attack came from, you see Claire still pointing her discharged taser at the SWORD guard. Glaring at you with a mixture of aroused anger in her eyes, she quickly moves forwards and deftly uses the [npc.race]'s own handcuffs to shackle [npc.herHim] to a nearby crate. Still struggling to control her lust, she whines, [claire.speech(~Mmm!~ Look what you made me do! [npc.She] almost saw me! Y-You know, you can't just assault Enforcers like that! If this were any other situation, I'd have arrested you for what you've just done!)]
 		</p>
 		<p>
 			Pointing out that the [npc.race] was the one who shot at you first, you tell Claire that you were simply defending yourself, and, furthermore, that the [npc.race] was blocking your escape route. Subconsciously groping her breasts with one hand, Claire tuts, [claire.speech(W-Well, I don't know about that. ~Mmm!~ Let's just never speak of this again, ok? Oh, and don't even think about trying to take any of [npc.her] gear or anything. As it stands, [npc.she] probably won't even report this to [npc.her] superiors, as that'd mean [npc.herHim] losing a lot of face for being defeated like this. ~Aah!~ I-If you were to take [npc.her] gear, then it's be a different matter entirely. You don't want SWORD after you for the rest of your life, do you?)]
 		</p>
 	#ELSE
 		<p>
-			Looking across to where this unexpected attack came from, you see Claire still pointing her discharged taser at the SWORD guard. Glaring angrily at you, she then quickly moves forwards and deftly uses the [npc.race]'s own handcuffs to shackle [npc.herHim] to a nearby crate. Letting out a little huff, she asks, [claire.speech(Look what you made me do! [npc.She] almost saw me! You know, you can't just assault enforcers like that! If this were any other situation, I'd have arrested you for what you've just done!)]
+			Looking across to where this unexpected attack came from, you see Claire still pointing her discharged taser at the SWORD guard. Glaring angrily at you, she then quickly moves forwards and deftly uses the [npc.race]'s own handcuffs to shackle [npc.herHim] to a nearby crate. Letting out a little huff, she asks, [claire.speech(Look what you made me do! [npc.She] almost saw me! You know, you can't just assault Enforcers like that! If this were any other situation, I'd have arrested you for what you've just done!)]
 		</p>
 		<p>
 			Pointing out that the [npc.race] was the one who shot at you first, you tell Claire that you were simply defending yourself, and, furthermore, that the [npc.race] was blocking your escape route. Placing her hands on her hips, Claire tuts, [claire.speech(Well, I don't know about that. Let's just never speak of this again, ok? Oh, and don't even think about trying to take any of [npc.her] gear or anything. As it stands, [npc.she] probably won't even report this to [npc.her] superiors, as that'd mean [npc.herHim] losing a lot of face for being defeated like this. If you were to take [npc.her] gear, then it's be a different matter entirely. You don't want SWORD after you for the rest of your life, do you?)]
@@ -633,7 +633,7 @@
 		Soon enough, you and the [npc.race] reach the entrance to the warehouse, where you're confronted by four more SWORD guards. The Inspector in charge steps forwards as [npc2.she] sees the two of you approach, and asks, [npc2.speech(What's all this then? Who's that?)]
 	</p>
 	<p>
-		After quickly explaining to [npc.her] superior how [npc.she] was 'assaulted' by you, [npc.name] suggests, [npc.speech(We should charge [pc.herHim] with trespass and assault on an enforcer at least, right?)]
+		After quickly explaining to [npc.her] superior how [npc.she] was 'assaulted' by you, [npc.name] suggests, [npc.speech(We should charge [pc.herHim] with trespass and assault on an Enforcer at least, right?)]
 	</p>
 	<p>
 		[npc2.speech(At the very least. I can think of some more stuff to throw at [pc.herHim], but I can't be bothered to fill out the paperwork right now, so just go and get [pc.herHim] locked up, and I'll deal with [npc.herHim] tomorrow,)] [npc2.name] says, [npc2.speech(We'll go and sweep the warehouse to see if the other units are ok.)]
@@ -661,7 +661,7 @@
 	
 	<htmlContent tag="ENTRANCE"><![CDATA[
 	<p>
-		After spending quite some time making your way through the labyrinthine passages of the SWORD warehouse, you and Claire finally arrive at the solitary exit. Your torubles aren't yet over, however, as before you stand four guards. From your hiding place behind a stack of wooden crates, you're able to tell that the leader of this group is [npc.race(a)], while the other three look to be [npc2.race(a)], [npc3.race(a)], and [npc4.race(a)].
+		After spending quite some time making your way through the labyrinthine passages of the SWORD warehouse, you and Claire finally arrive at the solitary exit. Your troubles aren't yet over, however, as before you stand four guards. From your hiding place behind a stack of wooden crates, you're able to tell that the leader of this group is [npc.race(a)], while the other three look to be [npc2.race(a)], [npc3.race(a)], and [npc4.race(a)].
 	</p>
 	<p>
 		#IF(claire.getLust()>75)
@@ -684,7 +684,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="ENTRANCE_PLAYER_CHALLENGE"><![CDATA[
-	Deciding that the easiest way to get out of here is by fighting your way past these four SWORD enforcers, you step forwards and tell them to get out of your way.
+	Deciding that the easiest way to get out of here is by fighting your way past these four SWORD Enforcers, you step forwards and tell them to get out of your way.
 	]]>
 	</htmlContent>
 	
@@ -725,13 +725,13 @@
 	</p>
 	<p>
 		#IF(claire.getLust()>75)
-			After moving between each of the dazed enforcers to make sure that they'll be alright, Claire turns towards you. Still struggling to control her overwhelming lust, she starts subconsciously groping her breasts with one hand as she tuts, [claire.speech(W-Well, I don't know why you had to attack them like that; if this were in any other situation I'd have to arrest you for what you just did! ~Mmm!~ A-Anyway, let's just never speak of this again, ok? Oh, and don't even think about trying to take any of [npc.her] gear or anything; that'd be a sure-fire way to get SWORD chasing after you for the rest of your life! ~Aah!~ As it is right now, they might not even report this out of embarrassment at being defeated by just one person.)]
+			After moving between each of the dazed Enforcers to make sure that they'll be alright, Claire turns towards you. Still struggling to control her overwhelming lust, she starts subconsciously groping her breasts with one hand as she tuts, [claire.speech(W-Well, I don't know why you had to attack them like that; if this were in any other situation I'd have to arrest you for what you just did! ~Mmm!~ A-Anyway, let's just never speak of this again, ok? Oh, and don't even think about trying to take any of [npc.her] gear or anything; that'd be a sure-fire way to get SWORD chasing after you for the rest of your life! ~Aah!~ As it is right now, they might not even report this out of embarrassment at being defeated by just one person.)]
 		#ELSE
-			After moving between each of the dazed enforcers to make sure that they'll be alright, Claire turns towards you and puts her hands on her hips, before tutting, [claire.speech(Well, I don't know why you had to attack them like that; if this were in any other situation I'd have to arrest you for what you just did! Anyway, let's just never speak of this again, ok? Oh, and don't even think about trying to take any of [npc.her] gear or anything; that'd be a sure-fire way to get SWORD chasing after you for the rest of your life! As it is right now, they might not even report this out of embarrassment at being defeated by just one person.)]
+			After moving between each of the dazed Enforcers to make sure that they'll be alright, Claire turns towards you and puts her hands on her hips, before tutting, [claire.speech(Well, I don't know why you had to attack them like that; if this were in any other situation I'd have to arrest you for what you just did! Anyway, let's just never speak of this again, ok? Oh, and don't even think about trying to take any of [npc.her] gear or anything; that'd be a sure-fire way to get SWORD chasing after you for the rest of your life! As it is right now, they might not even report this out of embarrassment at being defeated by just one person.)]
 		#ENDIF
 	</p>
 	<p>
-		Reluctantly agreeing with Claire, you decide against taking any of [npc.namePos] equipment. Knowing that you'll probably have an opportunity to get your [pc.hands] on some of this SWORD gear another time in the future, and with Claire hot on your heels, you make your way over towards the huge warehouse doors that the SWORD enforcers were guarding. Just beside this large industrial entranceway, there's a smaller, regular-sized door, and it's this exit which you and your cat-girl companion quickly approach. Eager to finally get out of this place, you hurriedly unlock the door, before pushing it open and making good your escape...
+		Reluctantly agreeing with Claire, you decide against taking any of [npc.namePos] equipment. Knowing that you'll probably have an opportunity to get your [pc.hands] on some of this SWORD gear another time in the future, and with Claire hot on your heels, you make your way over towards the huge warehouse doors that the SWORD Enforcers were guarding. Just beside this large industrial entranceway, there's a smaller, regular-sized door, and it's this exit which you and your cat-girl companion quickly approach. Eager to finally get out of this place, you hurriedly unlock the door, before pushing it open and making good your escape...
 	</p>
 	]]>
 	</htmlContent>
@@ -749,7 +749,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Trusting in Claire's sense of direction, you follow her as she jogs off down the road, and, sure enough, after turning the corner, you find yourself stepping out onto the main street in front of Dominion's Enforcer Headquarters. Turning to face you, the little cat-girl enforcer lets out a relieved sigh and says, [claire.speech(That was a close one... Let's never mention what we just went through to anyone else, ok? If the enforcers discover that I allowed you to learn teleport, we'd both be in big trouble...)]
+		Trusting in Claire's sense of direction, you follow her as she jogs off down the road, and, sure enough, after turning the corner, you find yourself stepping out onto the main street in front of Dominion's Enforcer Headquarters. Turning to face you, the little cat-girl Enforcer lets out a relieved sigh and says, [claire.speech(That was a close one... Let's never mention what we just went through to anyone else, ok? If the Enforcers discover that I allowed you to learn teleport, we'd both be in big trouble...)]
 	</p>
 	<p>
 		Agreeing to keep your warehouse experience a secret, you ask Claire if she knows the way back to her post from here.
@@ -776,7 +776,7 @@
 	
 	<htmlContent tag="AFTER_ENTRANCE_DEFEAT"><![CDATA[
 	<p>
-		Unable to withstand the combined attacks of the four SWORD guards, you collapse back against a nearby crate, before slumping to the floor, defeated. With a sadistic smile on [npc.her] face, [npc.name] steps up in front of and says, [npc.speech(I think at the very least I can have you charged with trespass, resisting arrest, and assault on an enforcer. You know what that means?)]
+		Unable to withstand the combined attacks of the four SWORD guards, you collapse back against a nearby crate, before slumping to the floor, defeated. With a sadistic smile on [npc.her] face, [npc.name] steps up in front of and says, [npc.speech(I think at the very least I can have you charged with trespass, resisting arrest, and assault on an Enforcer. You know what that means?)]
 	</p>
 	#IF(game.isNonConEnabled())
 		<p>
@@ -813,7 +813,7 @@
 	
 	<htmlContent tag="ENTRANCE_LIGHTNING_GLOBE"><![CDATA[
 	<p>
-		Realising that trying to fight your way past four heavily-armed and armoured SWORD enforcers is not a very good idea, you try to think of another way to get past them and escape from the warehouse. After a moment of all sorts of ideas running through your head, you suddenly remember the curious weapon you found earlier. Holding the small arcane lightning globe up in front of you, you wonder if you could somehow channel your aura into it in order to trigger a lightning discharge of the same sort that hit you and Claire. Perhaps if you were able to do that, and get it to hit all of the guards, they'd be so turned on that they wouldn't notice you and Claire sneaking past them... 
+		Realising that trying to fight your way past four heavily-armed and armoured SWORD Enforcers is not a very good idea, you try to think of another way to get past them and escape from the warehouse. After a moment of all sorts of ideas running through your head, you suddenly remember the curious weapon you found earlier. Holding the small arcane lightning globe up in front of you, you wonder if you could somehow channel your aura into it in order to trigger a lightning discharge of the same sort that hit you and Claire. Perhaps if you were able to do that, and get it to hit all of the guards, they'd be so turned on that they wouldn't notice you and Claire sneaking past them... 
 	</p>
 	<p>
 		#IF(claire.getLust()>75)
@@ -823,13 +823,13 @@
 		#ENDIF
 	</p>
 	<p>
-		Confident that your plan is sure to succeed, you turn your attention back towards the little crystal globe in your [pc.hand]. Just like before, as it's come into contact with someone, the interior of the glass sphere is now filled with jumping arcs of arcane lightning. Concentrating on channelling all of your aura into this strange weapon, you instinctively feel as though the energy contained with is getting more and more unstable. Just as you sense that it can't take any more, you peek around the corner and roll the globe towards the group of enforcers.
+		Confident that your plan is sure to succeed, you turn your attention back towards the little crystal globe in your [pc.hand]. Just like before, as it's come into contact with someone, the interior of the glass sphere is now filled with jumping arcs of arcane lightning. Concentrating on channelling all of your aura into this strange weapon, you instinctively feel as though the energy contained with is getting more and more unstable. Just as you sense that it can't take any more, you peek around the corner and roll the globe towards the group of Enforcers.
 	</p>
 	<p>
 		[claire.speech(Take cover!)] Claire hisses at you, pulling you back behind the boxes. As the worried cat-girl pulls you in tight against her massive breasts, a bright purple flash of arcane lightning temporarily illuminates your surroundings, letting you know that the arcane discharge was successful.
 	</p>
 	<p>
-		[npc.speech(Fuck... W-What was that?!)] you hear one of the enforcers shout, [npc.her] voice already taking on a sensual tone.
+		[npc.speech(Fuck... W-What was that?!)] you hear one of the Enforcers shout, [npc.her] voice already taking on a sensual tone.
 	</p>
 	<p>
 		[npc2.speech(An arcane storm?)] another replies, [npc2.speech(How did it get in here? Fuck... I-I think it's getting to me...)]
@@ -841,10 +841,10 @@
 		[npc.speech(P-Pull yourself together,)] the first voice calls out again.
 	</p>
 	<p>
-		[npc4.speech(Come on, boss, you're so uptight all the time,)] the fourth enforcer replies, [npc4.speech(You can afford to relax every now and again...)]
+		[npc4.speech(Come on, boss, you're so uptight all the time,)] the fourth Enforcer replies, [npc4.speech(You can afford to relax every now and again...)]
 	</p>
 	<p>
-		Peeking around the corner once again, you see that all four of the SWORD guards have started to passionately make out with one another. Abandoning their posts, they've split off into two pairs, and are far too busy kissing and groping one other to be paying attention to their surroundings. Taking this opportunity to make your move, you tell Claire to stay close, before starting to sneak over towards the warehouse doors. Thankfully, the enforcers are so preoccupied with starting to fuck one another that they don't even glance your way, and not only are you able to approach the exit without issue, but you're also able to sneak across and pick up the lightning globe.
+		Peeking around the corner once again, you see that all four of the SWORD guards have started to passionately make out with one another. Abandoning their posts, they've split off into two pairs, and are far too busy kissing and groping one other to be paying attention to their surroundings. Taking this opportunity to make your move, you tell Claire to stay close, before starting to sneak over towards the warehouse doors. Thankfully, the Enforcers are so preoccupied with starting to fuck one another that they don't even glance your way, and not only are you able to approach the exit without issue, but you're also able to sneak across and pick up the lightning globe.
 	</p>
 	<p>
 		Eager to finally get out of this place, you quietly unlock the door, before pushing it open and making good your escape...
@@ -857,7 +857,7 @@
 	
 	<htmlContent tag="ENTRANCE_TELEPATHIC_TRICKERY"><![CDATA[
 	<p>
-		Realising that trying to fight your way past four heavily-armed and armoured SWORD enforcers is not a very good idea, you try to think of another way to get past them and escape from the warehouse. After a moment of all sorts of ideas running through your head, you suddenly realise that you might be able to use your telepathic abilities in order to distract them. If you were to relay a message into the mind of the leader of these enforcers, you might be able to trick them into abandoning their posts...
+		Realising that trying to fight your way past four heavily-armed and armoured SWORD Enforcers is not a very good idea, you try to think of another way to get past them and escape from the warehouse. After a moment of all sorts of ideas running through your head, you suddenly realise that you might be able to use your telepathic abilities in order to distract them. If you were to relay a message into the mind of the leader of these Enforcers, you might be able to trick them into abandoning their posts...
 	</p>
 	<p>
 		#IF(claire.getLust()>75)
@@ -879,7 +879,7 @@
 		[npc.speech(I just heard a voice in my head; it sounded as though someone was gloating over having defeated one of our other guards!)] [npc.name] explains, before ordering, [npc.speech(Come on, we need to go and help! Lock that door and then let's go!)]
 	</p>
 	<p>
-		Obeying [npc.namePos] command, [npc3.name] rushes forwards to lock the main door of the warehouse, before joining [npc3.her] three comrades in rushing off into the warehouse. You and Claire press tightly against one another in your hiding place as the enforcers rush past you, before letting out a joint sigh of relief as they disappear off into the interior of the warehouse. Knowing that it'll only be a few minutes before the enforcers realise that they've been tricked, you tell Claire that now's the time to make your move, before rushing over towards the exit.
+		Obeying [npc.namePos] command, [npc3.name] rushes forwards to lock the main door of the warehouse, before joining [npc3.her] three comrades in rushing off into the warehouse. You and Claire press tightly against one another in your hiding place as the Enforcers rush past you, before letting out a joint sigh of relief as they disappear off into the interior of the warehouse. Knowing that it'll only be a few minutes before the Enforcers realise that they've been tricked, you tell Claire that now's the time to make your move, before rushing over towards the exit.
 	</p>
 	<p>
 		Eager to finally get out of this place, you quickly unlock the door, before pushing it open and making good your escape...
@@ -892,10 +892,10 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SENT_TO_STOCKS"><![CDATA[
 	<p>
-		After about a twenty-minute walk, during which time you've received all sorts of strange looks and comments from members of the public, you and the [npc.race] enforcer finally reach your destination, which turns out to be none other than slaver alley. Leading you up to the public stocks which are prominently positioned just a short way in from the entrance, your captor calls out to the enforcer assigned to guard duty here, [npc.speech(Hey, constable, I've a soon-to-be slave here. You got room for [pc.herHim] for the next twenty-four hours or so?)]
+		After about a twenty-minute walk, during which time you've received all sorts of strange looks and comments from members of the public, you and the [npc.race] Enforcer finally reach your destination, which turns out to be none other than slaver alley. Leading you up to the public stocks which are prominently positioned just a short way in from the entrance, your captor calls out to the Enforcer assigned to guard duty here, [npc.speech(Hey, constable, I've a soon-to-be slave here. You got room for [pc.herHim] for the next twenty-four hours or so?)]
 	</p>
 	<p>
-		[genericMale.speech(Sure, let me help you lock [pc.herHim] into this one,)] the enforcer replies, before stepping forwards and leading you over to a nearby set of stocks. Pushing your head and [pc.arms] through its open holes, he then closes the wooden device, before locking it shut with a big iron padlock, trapping you in place. Walking off back to his station, he calls out, [genericMale.speech(There you go, [npc.sheIs] all yours. Have fun.)]
+		[genericMale.speech(Sure, let me help you lock [pc.herHim] into this one,)] the Enforcer replies, before stepping forwards and leading you over to a nearby set of stocks, where both he and [npc.name] set about stripping you naked. Pushing your head and [pc.arms] through its open holes, the Enforcer then closes the wooden device, before locking it shut with a big iron padlock, trapping you in place. Walking off back to his station, he calls out, [genericMale.speech(There you go, [npc.sheIs] all yours. Have fun.)]
 	</p>
 	<p>
 		[npc.speech(Oh, I intend to,)] [npc.name] replies, before leaning down to growl in your ear, [npc.speech(Time for me to get some payback!)]
@@ -926,13 +926,13 @@
 		Letting out a deeply-satisfied growl, the [npc.race] steps back, before getting [npc.her] uniform in order again. As [npc.she] does so, you hear several members of the crowd speculating on whether you're going to be marked for public use or not.
 	</p>
 	<p>
-		After [npc.sheHas] sorted [npc.her] uniform out, the [npc.race] lets an evil grin settle on [npc.her] face, and in a voice loud enough for the crowd to hear, [npc.she] says, [npc.speech(That was a good fuck, bitch. I'll be back tomorrow to get you registered as a slave. Until then, I'll leave you marked as being fully available for public use, jsut like I promised.)]
+		After [npc.sheHas] sorted [npc.her] uniform out, the [npc.race] lets an evil grin settle on [npc.her] face, and in a voice loud enough for the crowd to hear, [npc.she] says, [npc.speech(That was a good fuck, bitch. I'll be back tomorrow to get you registered as a slave. Until then, I'll leave you marked as being fully available for public use, just like I promised.)]
 	</p>
 	<p>
-		With one last evil laugh, [npc.she] heads off to exchange words with the enforcer who locked you into the stocks, before heading off back to her post at the SWORD warehouse. As [npc.she] departs, the enforcer on duty walks up to you, before making some marks on your set of stocks with a white chalk. Turning towards the crowd, he says, [genericMale.speech(Right, [pc.sheIs] all yours.)]
+		With one last evil laugh, [npc.she] heads off to exchange words with the Enforcer who locked you into the stocks, before heading off back to her post at the SWORD warehouse. As [npc.she] departs, the Enforcer on duty walks up to you, before making some marks on your set of stocks with a white chalk. Turning towards the crowd, he says, [genericMale.speech(Right, [pc.sheIs] all yours.)]
 	</p>
 	<p>
-		As the enforcer heads off back to his post, the first members of the public wanting to use you step forwards...
+		As the Enforcer heads off back to his post, the first members of the public wanting to use you step forwards...
 	</p>
 	]]>
 	</htmlContent>
@@ -980,7 +980,7 @@
 		Having had their fun with you, [npc.name] and [npc2.name] put their clothes back on, and without even a backwards glance, they walk off together, speculating on the sorts of slaves that'll be available for them to fuck tomorrow.
 	</p>
 	<p>
-		Just as you're wondering what will happen next, another pair step up before you, and, to your amazement, you look up to see that it's none other than Claire and the enforcer overseer. With a deep sigh, your busty cat-girl friend places her hands on her hips and states, [claire.speech(Yes, that's [pc.herHim]. Please release [pc.herHim] at once.)]
+		Just as you're wondering what will happen next, another pair step up before you, and, to your amazement, you look up to see that it's none other than Claire and the Enforcer overseer. With a deep sigh, your busty cat-girl friend places her hands on her hips and states, [claire.speech(Yes, that's [pc.herHim]. Please release [pc.herHim] at once.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -990,10 +990,10 @@
 	
 	<htmlContent tag="STOCKS_SET_FREE"><![CDATA[
 	<p>
-		Doing as he's told, the enforcer wipes the chalk markings off your stocks, before unlocking and removing the heavy padlock. Pulling up the wooden device, he frees your head and [pc.hands], before turning to Claire and saying, [genericMale.speech(Right, there you go. As I said, it was SWORD who told me to do it. I'm not exactly going to say no to them.)]
+		Doing as he's told, the Enforcer wipes the chalk markings off your stocks, before unlocking and removing the heavy padlock. Pulling up the wooden device, he frees your head and [pc.hands], before turning to Claire and saying, [genericMale.speech(Right, there you go. As I said, it was SWORD who told me to do it. I'm not exactly going to say no to them.)]
 	</p>
 	<p>
-		[claire.speech(Yes, yes, I know,)] the cat-girl impatiently says, before moving forwards and helping you to your [pc.feet]. As the enforcer overseer walks off, Claire asks, [claire.speech(Are you ok? I'm sorry about how long it took for me to get here; I had to get your release papers signed by my boss.)] 
+		[claire.speech(Yes, yes, I know,)] the cat-girl impatiently says, before moving forwards and helping you to your [pc.feet]. As the Enforcer overseer walks off, Claire asks, [claire.speech(Are you ok? I'm sorry about how long it took for me to get here; I had to get your release papers signed by my boss.)] 
 	</p>
 	<p>
 		#IF(pc.getFetishDesire(FETISH_NON_CON_SUB).isPositive())
@@ -1019,10 +1019,10 @@
 	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SENT_TO_CELLS"><![CDATA[
 	<p>
-		After just five minutes since leaving the warehouse, you and the [npc.race] enforcer finally reach your destination, which, as you suspected, turns out to be the cells in the Enforcer Headquarters. Leading you into a small office situated at the end of the cells' corridor, your captor calls out to the enforcer assigned to guard duty here, [npc.speech(Hey, constable, I've got a prisoner here. You got room for [pc.herHim] for the next twenty-four hours or so?)]
+		After just five minutes since leaving the warehouse, you and the [npc.race] Enforcer finally reach your destination, which, as you suspected, turns out to be the cells in the Enforcer Headquarters. Leading you into a small office situated at the end of the cells' corridor, your captor calls out to the Enforcer assigned to guard duty here, [npc.speech(Hey, constable, I've got a prisoner here. You got room for [pc.herHim] for the next twenty-four hours or so?)]
 	</p>
 	<p>
-		[genericMale.speech(Sure, let me help you lock [pc.herHim] up,)] the enforcer replies, before leading you over to an unoccupied cell. Pushing you inside, he then shuts and locks the iron-barred door behind you, before turning to the [npc.race] and saying, [genericMale.speech(There you go, [npc.she]'ll be safe and sound in there until you come back to process [pc.herHim].)]
+		[genericMale.speech(Sure, let me help you lock [pc.herHim] up,)] the Enforcer replies, before leading you over to an unoccupied cell. Pushing you inside, he then shuts and locks the iron-barred door behind you, before turning to the [npc.race] and saying, [genericMale.speech(There you go, [npc.she]'ll be safe and sound in there until you come back to process [pc.herHim].)]
 	</p>
 	<p>
 		[npc.speech(Right, my Inspector should call in tomorrow to sort [pc.herHim] out,)] [npc.name] replies, before turning and exiting via the way the two of you arrived, leaving you alone in your cell.
@@ -1048,7 +1048,7 @@
 	
 	<htmlContent tag="CELLS_SET_FREE"><![CDATA[
 	<p>
-		After just a moment more, Claire and the enforcer guard appear outside your cell door, and after getting him to unlock it, Claire beckons you to follow her out, asking, [claire.speech(Are you ok? I'm sorry about how long it took for me to get here; I had to get your release papers signed by my boss.)] 
+		After just a moment more, Claire and the Enforcer guard appear outside your cell door, and after getting him to unlock it, Claire beckons you to follow her out, asking, [claire.speech(Are you ok? I'm sorry about how long it took for me to get here; I had to get your release papers signed by my boss.)] 
 	</p>
 	<p>
 		After telling your saviour that you're ok, you ask her how she managed to escape from the warehouse.

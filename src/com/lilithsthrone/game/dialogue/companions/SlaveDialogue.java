@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.dialogue.npcDialogue;
+package com.lilithsthrone.game.dialogue.companions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,17 +11,12 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
-import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
-import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
-import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -41,7 +36,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.85
- * @version 0.3.4.5
+ * @version 0.3.5.1
  * @author Innoxia
  */
 public class SlaveDialogue {
@@ -53,6 +48,7 @@ public class SlaveDialogue {
 	private static boolean initFromCharactersPresent;
 	
 	public static void initDialogue(NPC targetedSlave, boolean initFromCharactersPresent) {
+		CompanionManagement.initManagement(SLAVE_START, 2, targetedSlave);
 		slave = targetedSlave;
 		characterForSex = targetedSlave;
 
@@ -898,8 +894,9 @@ public class SlaveDialogue {
 						}
 						@Override
 						public void effects() {
+							Main.game.setResponseTab(0);
 							applyReactionReset();
-							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+							Main.game.getDialogueFlags().setManagementCompanion(null);
 						}
 					};
 					
@@ -954,47 +951,47 @@ public class SlaveDialogue {
 					
 				} else {
 					if (index == 1) { //TODO improve descriptions and affection hit from rape
-						if(Main.game.isNonConEnabled() && !getSlave().isAttractedTo(Main.game.getPlayer())) {
-							return new ResponseSex("Rape", UtilText.parse(getSlave(), "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter..."), 
+						if(Main.game.isNonConEnabled() && !characterForSex.isAttractedTo(Main.game.getPlayer())) {
+							return new ResponseSex("Rape", UtilText.parse(characterForSex, "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter..."), 
 									false, false,
 									new SMGeneric(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
-											Util.newArrayListOfValues(getSlave()),
+											Util.newArrayListOfValues(characterForSex),
 									getDominantSpectators(),
 									getSubmissiveSpectators(),
-									(getSlave().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
+									(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
 										?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
 										:new ArrayList<>())),
 									getAfterSexDialogue(),
-									UtilText.parseFromXMLFile(getTextFilePath(), "RAPE_START", getSlave())) {
+									UtilText.parseFromXMLFile(getTextFilePath(), "RAPE_START", characterForSex)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
-									if(getSlave().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
-										Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), 5));
+									if(characterForSex.getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
+										Main.game.getTextEndStringBuilder().append(characterForSex.incrementAffection(Main.game.getPlayer(), 5));
 									} else {
-										Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), -25));
+										Main.game.getTextEndStringBuilder().append(characterForSex.incrementAffection(Main.game.getPlayer(), -25));
 									}
 								}
 							};
 						
 						} else {
-							return new ResponseSex("Sex", UtilText.parse(getSlave(), "Have sex with [npc.name]."), 
+							return new ResponseSex("Sex", UtilText.parse(characterForSex, "Have sex with [npc.name]."), 
 									true, false,
 									new SMGeneric(
 											Util.newArrayListOfValues(Main.game.getPlayer()),
-											Util.newArrayListOfValues(getSlave()),
+											Util.newArrayListOfValues(characterForSex),
 									getDominantSpectators(),
 									getSubmissiveSpectators(),
-									(getSlave().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
+									(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
 											?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
 											:new ArrayList<>())),
 									getAfterSexDialogue(),
-									UtilText.parseFromXMLFile(getTextFilePath(), "SEX_START", getSlave())) {
+									UtilText.parseFromXMLFile(getTextFilePath(), "SEX_START", characterForSex)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
-									Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), 5));
+									Main.game.getTextEndStringBuilder().append(characterForSex.incrementAffection(Main.game.getPlayer(), 5));
 								}
 							};
 						}
@@ -1169,23 +1166,24 @@ public class SlaveDialogue {
 									null);
 							
 						} else {
-							return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
+							return new ResponseSex("Submissive sex",
+									UtilText.parse(characterForSex, "Have submissive sex with [npc.name]."), 
 									Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 									true, true,
 									new SMGeneric(
-											Util.newArrayListOfValues(getSlave()),
+											Util.newArrayListOfValues(characterForSex),
 											Util.newArrayListOfValues(Main.game.getPlayer()),
 											getDominantSpectators(),
 											getSubmissiveSpectators(),
-									(getSlave().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
+									(characterForSex.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)
 											?Util.newArrayListOfValues(ResponseTag.PREFER_DOGGY)
 											:new ArrayList<>())),
 										getAfterSexDialogue(),
-										UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", getSlave())) {
+										UtilText.parseFromXMLFile(getTextFilePath(), "SEX_AS_SUB_START", characterForSex)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
-									Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), 5));
+									Main.game.getTextEndStringBuilder().append(characterForSex.incrementAffection(Main.game.getPlayer(), 5));
 								}
 							};
 						}
@@ -1445,8 +1443,9 @@ public class SlaveDialogue {
 							}
 							@Override
 							public void effects() {
+								Main.game.setResponseTab(0);
 								applyReactionReset();
-								Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+								Main.game.getDialogueFlags().setManagementCompanion(null);
 							}
 						};
 						
@@ -1456,115 +1455,9 @@ public class SlaveDialogue {
 				}
 				
 			} else if(responseTab == 2) {
-				switch(index) {
-				case 1:
-					return new Response("Inspect",
-							UtilText.parse(getSlave(), "Inspect [npc.name]."),
-							OccupantManagementDialogue.getSlaveryManagementInspectSlaveDialogue(getSlave())) {
-						@Override
-						public void effects() {
-							applyReactionReset();
-							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(getSlave());
-						}
-					};
-				case 2:
-					return new Response("Job",
-							UtilText.parse(getSlave(), "Set [npc.namePos] job and work hours."),
-							OccupantManagementDialogue.getSlaveryManagementSlaveJobsDialogue(getSlave())) {
-						@Override
-						public void effects() {
-							applyReactionReset();
-							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(getSlave());
-						}
-					};
-				case 3:
-					return new Response("Permissions",
-							UtilText.parse(getSlave(), "Manage [npc.namePos] permissions."),
-							OccupantManagementDialogue.getSlaveryManagementSlavePermissionsDialogue(getSlave())) {
-						@Override
-						public void effects() {
-							applyReactionReset();
-							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(getSlave());
-						}
-					};
-				case 4:
-					return new ResponseEffectsOnly("Inventory",
-							UtilText.parse(getSlave(), "Manage [npc.namePos] inventory.")) {
-								@Override
-								public void effects() {
-									applyReactionReset();
-									Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(getSlave());
-									Main.mainController.openInventory(getSlave(), InventoryInteraction.FULL_MANAGEMENT);
-								}
-							};
-				case 5:
-					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
-						return new Response("Send to Kate",
-								UtilText.parse(getSlave(), "Send [npc.name] to Kate's beauty salon, 'Succubi's secrets', to get [npc.her] appearance changed."),
-								OccupantManagementDialogue.SLAVE_MANAGEMENT_COSMETICS_HAIR) {
-									@Override
-									public void effects() {
-										applyReactionReset();
-										Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(getSlave());
-										BodyChanging.setTarget(getSlave());
-									}
-								};
-					} else {
-						return new Response("Send to Kate", "You haven't met Kate yet!", null);
-					}
-					
-				case 6:
-					return new Response("Perk Tree", "Spend your slave's perk points.", OccupantManagementDialogue.SLAVE_MANAGEMENT_PERKS){
-						@Override
-						public void effects() {
-							applyReactionReset();
-							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(getSlave());
-						}
-					};
-					
-				case 7:
-					if(!getSlave().isAbleToSelfTransform()) {
-						return new Response("Transformations", getSlave().getUnableToTransformDescription(), null);
-						
-					} else {
-						return new Response("Transformations",
-								UtilText.parse(getSlave(), "Take a very detailed look at what [npc.name] can transform [npc.herself] into..."),
-								BodyChanging.BODY_CHANGING_CORE){
-							@Override
-							public void effects() {
-								applyReactionReset();
-								Main.game.saveDialogueNode();
-								BodyChanging.setTarget(getSlave());
-							}
-						};
-					}
-					
-				case 11:
-					return new Response("Combat Moves", UtilText.parse(getSlave(), "Adjust the moves [npc.name] can perform in combat."), CombatMovesSetup.COMBAT_MOVES_CORE) {
-						@Override
-						public void effects() {
-							CombatMovesSetup.setTarget(getSlave(), SLAVE_START);
-						}
-					};
-					
-				case 0:
-					return new Response("Leave", UtilText.parse(getSlave(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), SLAVE_START) {
-						@Override
-						public DialogueNode getNextDialogue() {
-							return Main.game.getDefaultDialogueNoEncounter();
-						}
-						@Override
-						public void effects() {
-							applyReactionReset();
-							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
-						}
-					};
-							
-				default:
-					return null;
-			}
+				return CompanionManagement.getManagementResponses(index);
 			
-		} else {
+			} else {
 				return null;
 			}
 		}
@@ -1578,7 +1471,7 @@ public class SlaveDialogue {
 					+ "</i></p>";
 	}
 	
-	public static final DialogueNode SLAVE_PROGRESSION = new DialogueNode("", "", true, true) {
+	public static final DialogueNode SLAVE_PROGRESSION = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel(){
@@ -1703,7 +1596,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNode SLAVE_MINOR = new DialogueNode("", "", true, true) {
+	public static final DialogueNode SLAVE_MINOR = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel(){
@@ -1882,7 +1775,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNode SLAVE_ENCOURAGE = new DialogueNode("", "", true, true) {
+	public static final DialogueNode SLAVE_ENCOURAGE = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel(){
@@ -2105,7 +1998,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNode SLAVE_HUG = new DialogueNode("", "", true, true) {
+	public static final DialogueNode SLAVE_HUG = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel(){
@@ -2312,7 +2205,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNode SLAVE_PETTINGS = new DialogueNode("", "", true, true) {
+	public static final DialogueNode SLAVE_PETTINGS = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel(){
@@ -2494,7 +2387,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNode SLAVE_PRESENT = new DialogueNode("", "", true, true) {
+	public static final DialogueNode SLAVE_PRESENT = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel(){
@@ -2616,7 +2509,7 @@ public class SlaveDialogue {
 				&& getSlave().isCoverableAreaExposed(CoverableArea.VAGINA);
 	}
 	
-	public static final DialogueNode SLAVE_INSPECT = new DialogueNode("", "", true, true) {
+	public static final DialogueNode SLAVE_INSPECT = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel(){
@@ -3051,7 +2944,7 @@ public class SlaveDialogue {
 	}
 	
 	
-	public static final DialogueNode SLAVE_SPANKING = new DialogueNode("", "", true, true) { //TODO
+	public static final DialogueNode SLAVE_SPANKING = new DialogueNode("", "", true) { //TODO
 		
 		@Override
 		public String getLabel(){
@@ -3295,7 +3188,7 @@ public class SlaveDialogue {
 		}
 	};
 	
-	public static final DialogueNode SLAVE_MOLEST = new DialogueNode("", "", true, true) {
+	public static final DialogueNode SLAVE_MOLEST = new DialogueNode("", "", true) {
 		
 		@Override
 		public String getLabel(){

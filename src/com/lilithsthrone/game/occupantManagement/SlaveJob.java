@@ -212,7 +212,11 @@ public enum SlaveJob {
 					SlaveJobSetting.MILKING_MILK_DISABLE,
 					SlaveJobSetting.MILKING_MILK_CROTCH_DISABLE,
 					SlaveJobSetting.MILKING_CUM_DISABLE,
-					SlaveJobSetting.MILKING_GIRLCUM_DISABLE),
+					SlaveJobSetting.MILKING_GIRLCUM_DISABLE,
+					SlaveJobSetting.MILKING_MILK_AUTO_SELL,
+					SlaveJobSetting.MILKING_MILK_CROTCH_AUTO_SELL,
+					SlaveJobSetting.MILKING_CUM_AUTO_SELL,
+					SlaveJobSetting.MILKING_GIRLCUM_AUTO_SELL),
 			Util.newHashMapOfValues(
 					new Value<>("Room Preference", Util.newArrayListOfValues(
 							SlaveJobSetting.MILKING_INDUSTRIAL,
@@ -367,7 +371,7 @@ public enum SlaveJob {
 		}
 	},
 
-	BEDROOM(Colour.BASE_PERIWINKLE, 4, -0.5f, "bedroom", "bedroom",
+	BEDROOM(Colour.BASE_PERIWINKLE, 4, -1f, "bedroom", "bedroom",
 			"Assign this slave to wait upon you in your bedroom.",
 			0, 0.25f,
 			0,

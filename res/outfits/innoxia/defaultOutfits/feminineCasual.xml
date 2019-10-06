@@ -61,7 +61,13 @@
 			</acceptableFemininities>
 			<slot/>
 			<rarity>COMMON</rarity>
-			<conditional><![CDATA[clothing.getSlot().isJewellery() && (RND.nextInt(100)<=75 || clothing.getSlot()==IS_PIERCING_EAR)]]></conditional>
+			<conditional>
+			<![CDATA[
+			clothing.getSlot().isJewellery()
+				&& ((npc.getRace()!=RACE_SLIME && (RND.nextInt(100)<=75 || clothing.getSlot()==IS_PIERCING_EAR))
+					|| (npc.getRace()==RACE_SLIME && (RND.nextInt(100)<=20 || (npc.getFetishDesire(FETISH_MASOCHIST).isPositive() && RND.nextInt(100)<=50) || clothing.getSlot()==IS_PIERCING_EAR)))
+			]]>
+			</conditional>
 			<primaryColours>
 				<colour>presetColourGroup2</colour>
 			</primaryColours>
