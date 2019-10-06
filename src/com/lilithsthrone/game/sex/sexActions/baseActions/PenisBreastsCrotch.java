@@ -205,12 +205,12 @@ public class PenisBreastsCrotch {
 				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"Reaching down to [npc.verb(press)] [npc.her] [npc.hands] against [npc2.namePos] torso, [npc.name] repositions [npc.herself] to line [npc.her] [npc.cock] up over [npc2.her] lower abdomen,"
+								"Reaching down to press [npc.her] [npc.hands] against [npc2.namePos] torso, [npc.name] repositions [npc.herself] to line [npc.her] [npc.cock] up over [npc2.her] lower abdomen,"
 										+ " before sliding forwards and starting to grind down against [npc2.her] body."));
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"Reaching down to [npc.verb(press)] [npc.her] [npc.hands] against [npc2.namePos] torso, [npc.name] repositions [npc.herself] to line [npc.her] [npc.cock] up over [npc2.her] lower abdomen,"
+								"Reaching down to press [npc.her] [npc.hands] against [npc2.namePos] torso, [npc.name] repositions [npc.herself] to line [npc.her] [npc.cock] up over [npc2.her] lower abdomen,"
 										+ " before sliding forwards and starting to eagerly grind down against [npc2.her] body."));
 						break;
 					case DOM_ROUGH:
@@ -220,12 +220,12 @@ public class PenisBreastsCrotch {
 						break;
 					case SUB_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"Reaching down to [npc.verb(press)] [npc.her] [npc.hands] against [npc2.namePos] torso, [npc.name] repositions [npc.herself] to line [npc.her] [npc.cock] up over [npc2.her] lower abdomen,"
+								"Reaching down to press [npc.her] [npc.hands] against [npc2.namePos] torso, [npc.name] repositions [npc.herself] to line [npc.her] [npc.cock] up over [npc2.her] lower abdomen,"
 										+ " before sliding forwards and starting to grind down against [npc2.her] body."));
 						break;
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"Reaching down to [npc.verb(press)] [npc.her] [npc.hands] against [npc2.namePos] torso, [npc.name] repositions [npc.herself] to line [npc.her] [npc.cock] up over [npc2.her] lower abdomen,"
+								"Reaching down to press [npc.her] [npc.hands] against [npc2.namePos] torso, [npc.name] repositions [npc.herself] to line [npc.her] [npc.cock] up over [npc2.her] lower abdomen,"
 										+ " before sliding forwards and starting to eagerly grind down against [npc2.her] body."));
 						break;
 					default:
@@ -875,7 +875,7 @@ public class PenisBreastsCrotch {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"[npc.Name] desperately [npc.verb(try)] to pull [npc.her] [npc.cock+] out of the small amount of cleavage that [npc2.name] [npc2.has], but [npc2.she] firmly [npc2.verb(hold)] [npc.herHim] in place,"
-										+ " trying to [npc.verb(press)] [npc2.her] [npc2.crotchBoobs+] together while gently reminding [npc.herHim] that [npc2.she]'ll do whatever [npc2.she] [npc2.verb(want)].",
+										+ " trying to press [npc2.her] [npc2.crotchBoobs+] together while gently reminding [npc.herHim] that [npc2.she]'ll do whatever [npc2.she] [npc2.verb(want)].",
 
 								"[npc.Name] frantically [npc.verb(try)] to pull away from [npc2.namePos] [npc2.crotchBoobSize] [npc2.crotchBoobs], but [npc2.she] firmly [npc2.verb(hold)] [npc.herHim] in place,"
 										+ " softly [npc2.moaning] as [npc2.she] [npc2.verb(ignore)] [npc.her] desperate protests.",
@@ -886,7 +886,7 @@ public class PenisBreastsCrotch {
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"[npc.Name] desperately [npc.verb(try)] to pull [npc.her] [npc.cock+] out of the small amount of cleavage that [npc2.name] [npc2.has], but [npc2.she] roughly [npc2.verb(hold)] [npc.herHim] in place,"
-										+ " trying to [npc.verb(press)] [npc2.her] [npc2.crotchBoobs+] together while growling that [npc2.she]'ll use [npc.herHim] however [npc2.she] [npc2.verb(want)].",
+										+ " trying to press [npc2.her] [npc2.crotchBoobs+] together while growling that [npc2.she]'ll use [npc.herHim] however [npc2.she] [npc2.verb(want)].",
 
 								"[npc.Name] frantically [npc.verb(try)] to pull away from [npc2.namePos] [npc2.crotchBoobSize] [npc2.crotchBoobs], but [npc2.she] roughly [npc2.verb(hold)] [npc.herHim] in place,"
 										+ " [npc.moaning+] as [npc2.she] [npc2.verb(ignore)] [npc.her] futile protests.",
@@ -897,7 +897,7 @@ public class PenisBreastsCrotch {
 					default: // DOM_NORMAL and in case anything goes wrong:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"[npc.Name] desperately [npc.verb(try)] to pull [npc.her] [npc.cock+] out of the small amount of cleavage that [npc2.name] [npc2.has], but [npc2.she] firmly [npc2.verb(hold)] [npc.herHim] in place,"
-										+ " trying to [npc.verb(press)] [npc2.her] [npc2.crotchBoobs+] together while [npc2.moaning] that [npc2.she]'ll do whatever [npc2.she] [npc2.verb(want)].",
+										+ " trying to press [npc2.her] [npc2.crotchBoobs+] together while [npc2.moaning] that [npc2.she]'ll do whatever [npc2.she] [npc2.verb(want)].",
 
 								"[npc.Name] frantically [npc.verb(try)] to pull away from [npc2.namePos] [npc2.crotchBoobSize] [npc2.crotchBoobs], but [npc2.she] firmly [npc2.verb(hold)] [npc.herHim] in place,"
 										+ " [npc.moaning+] as [npc2.she] [npc2.verb(ignore)] [npc.her] futile protests.",
@@ -1919,7 +1919,7 @@ public class PenisBreastsCrotch {
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] can't [npc.verb(help)] but [npc.verb(let)] out [npc2.a_moan+], betraying [npc2.her] desire for more of [npc.namePos] attention.",
+							" [npc2.Name] can't [npc2.verb(help)] but let out [npc2.a_moan+], betraying [npc2.her] desire for more of [npc.namePos] attention.",
 
 							" With [npc2.a_moan+], [npc2.she] [npc2.verb(beg)] for [npc.name] to keep on using [npc2.herHim]."));
 					break;

@@ -17,7 +17,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.npcDialogue.OccupantDialogue;
+import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.ReindeerOverseerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.RentalMommyDialogue;
@@ -388,9 +388,9 @@ public class CityPlaces {
 			return ("<p><i>A particularly large and imposing incubus cuts his way through the crowd, holding the leashes of three greater cat-girl slaves."
 					+ " Each one is completely naked, and as they pass, you can clearly see their cunts drooling with excitement.</i></p>");
 		} else if (extraText <= 6) {
-			return ("<p><i>To one side, you see a pair of dog-boy enforcers questioning a shady-looking cat-boy."
+			return ("<p><i>To one side, you see a pair of dog-boy Enforcers questioning a shady-looking cat-boy."
 					+ " As you pass, the cat-boy tries to make a break for it, but is quickly tackled to the floor."
-					+ " The enforcers place a pair of restraints around his wrists before dragging him down a nearby alleyway.</i></p>");
+					+ " The Enforcers place a pair of restraints around his wrists before dragging him down a nearby alleyway.</i></p>");
 		} else if (extraText <= 9) {
 			return ("<p><i>A huge billboard covers the entire face of one of the buildings across the street."
 					+ " On it, there's an advertisement for the tournament, 'Risk it all', promising great rewards for anyone strong enough to beat the challenge."
@@ -1059,13 +1059,13 @@ public class CityPlaces {
 		public String getContent() {
 			if(Main.game.getPlayer().isDiscoveredWorldMap()) {
 				return "<p>"
-						+ "A pair of elite demon enforcers are keeping a close watch on everyone who enters or leaves the city."
+						+ "A pair of elite demon Enforcers are keeping a close watch on everyone who enters or leaves the city."
 						+ " Now that you have a map, as well as business out there in the world beyond Dominion, there's nothing stopping you from leaving right now."
 					+ "</p>";
 				
 			} else {
 				return "<p>"
-							+ "A pair of elite demon enforcers are keeping a close watch on everyone who enters or leaves the city."
+							+ "A pair of elite demon Enforcers are keeping a close watch on everyone who enters or leaves the city."
 							+ " Although there's nothing stopping you from heading out into the world beyond, you have no reason to leave Dominion at the moment, and, without a map, you imagine that it would be quite easy to get lost."
 						+ "</p>"
 						+ "<p>"

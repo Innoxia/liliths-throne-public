@@ -77,7 +77,7 @@ public class SlaveImport extends NPC {
 			this.cleanAllDirtySlots();
 			this.cleanAllClothing(true);
 			
-			this.clearNonEquippedInventory();
+			this.clearNonEquippedInventory(true);
 			if(this.getClothingInSlot(InventorySlot.NECK)!=null) {
 				this.getClothingInSlot(InventorySlot.NECK).setSealed(false);
 				this.unequipClothingIntoInventory(this.getClothingInSlot(InventorySlot.NECK), true, this);

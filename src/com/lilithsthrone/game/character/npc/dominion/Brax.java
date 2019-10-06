@@ -82,7 +82,7 @@ public class Brax extends NPC {
 	
 	public Brax(boolean isImported) {
 		super(isImported, new NameTriplet("Brax", "Bree", "Brandi"), "Volkov",
-				"Holding the rank of Inspector, Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.",
+				"Holding the rank of Inspector, Brax is a high-ranking Enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female Enforcer's attention.",
 				30, Month.NOVEMBER, 27,
 				10, Gender.M_P_MALE,
 				Subspecies.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
@@ -107,6 +107,8 @@ public class Brax extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.BRAVE);
@@ -298,30 +300,30 @@ public class Brax extends NPC {
 	@Override
 	public String getDescription() {
 		if(this.isSlave() && this.getOwner().isPlayer()) {
-			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
-				return "At one time being an enforcer holding the rank of Inspector, [brax.name] ended up becoming Candi's slave, and under her ownership, [brax.she] was transformed into a sex-obsessed bimbo wolf-girl."
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bimbofiedBrax)) {
+				return "At one time being an Enforcer holding the rank of Inspector, [brax.name] ended up becoming Candi's slave, and under her ownership, [brax.she] was transformed into a sex-obsessed bimbo wolf-girl."
 				+ " Eventually, after performing several tasks for the bimbo cat-girl Enforcer, you became [brax.namePos] new owner.";
 				
-			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
-				return "At one time being an enforcer holding the rank of Inspector, [brax.name] ended up becoming Candi's slave, and under her ownership, [brax.she] was transformed into a wolf-girl."
+			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feminisedBrax)) {
+				return "At one time being an Enforcer holding the rank of Inspector, [brax.name] ended up becoming Candi's slave, and under her ownership, [brax.she] was transformed into a wolf-girl."
 						+ " Eventually, after performing several tasks for the bimbo cat-girl Enforcer, you became [brax.namePos] new owner.";
 				
 			} else {
-				return "At one time being an enforcer holding the rank of Inspector, [brax.name] ended up becoming Candi's slave, and after you performed several tasks for the bimbo cat-girl Enforcer, you became [brax.namePos] new owner.";
+				return "At one time being an Enforcer holding the rank of Inspector, [brax.name] ended up becoming Candi's slave, and after you performed several tasks for the bimbo cat-girl Enforcer, you became [brax.namePos] new owner.";
 			}
 		}
 		
-		if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
-			return "At one time being an enforcer holding the rank of Inspector, [brax.name] is now completely unrecognisable from [brax.her] former self."
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bimbofiedBrax)) {
+			return "At one time being an Enforcer holding the rank of Inspector, [brax.name] is now completely unrecognisable from [brax.her] former self."
 					+ " With some help from Candi, she's been transformed into a brain-dead bimbo, who can only think about where the next cock is coming from.";
 			
-		} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
-			return "At one time being an enforcer holding the rank of Inspector, [brax.name] is almost unrecognisable from [brax.her] former self."
+		} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feminisedBrax)) {
+			return "At one time being an Enforcer holding the rank of Inspector, [brax.name] is almost unrecognisable from [brax.her] former self."
 					+ " With some help from Candi, you've transformed [brax.herHim] into a wolf-girl."
 					+ " Where once [brax.she] was muscular and dominant, [brax.sheIs] now feminine and submissive, and meekly agrees to do anything that's asked of [brax.herHim].";
 			
 		} else {
-			return "Holding the rank of Inspector, Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.";
+			return "Holding the rank of Inspector, Brax is a high-ranking Enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female Enforcer's attention.";
 		}
 		
 	}

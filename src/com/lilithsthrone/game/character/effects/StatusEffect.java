@@ -1524,7 +1524,7 @@ public enum StatusEffect {
 				
 				if(!place.equals(PlaceType.WORLD_MAP_DOMINION)){
 					sb.append("<p>"
-							+ "Although it breaks high over Dominion, the storm isn't contained within the city, and swiftly sweeps out across the Foloi fields and into the surrounding forests and grassland wilderness."
+							+ "Although it breaks high over Dominion, the storm isn't contained to just within the city, and swiftly sweeps out across the Foloi fields and into the surrounding forests and grassland wilderness."
 							+ " Like a chain reaction, flashes of purple lightning streak across the sky in all directions, which are quickly followed by the erotic moaning of arcane thunder."
 						+ "</p>");
 
@@ -2549,7 +2549,7 @@ public enum StatusEffect {
 	
 	OVERWORKED_3(
 			80,
-			"severley overworked",
+			"severely overworked",
 			"overworked3",
 			Colour.BASE_RED,
 			false,
@@ -3582,8 +3582,25 @@ public enum StatusEffect {
 					target.incrementBreastSize(valueIncrease);
 				}
 			}
-
-			if (target.isPlayer() && !((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+			
+			boolean udderGrowth = false;
+			if(target.hasBreastsCrotch() && Main.getProperties().pregnancyUdderGrowth>0 && target.getBreastCrotchRawSizeValue()<Main.getProperties().pregnancyUdderGrowthLimit) {
+				int valueIncrease = Math.max(1, Main.getProperties().pregnancyUdderGrowth - Main.getProperties().pregnancyBreastGrowthVariance + Util.random.nextInt(Main.getProperties().pregnancyBreastGrowthVariance*2 + 1));
+				
+				if(target.getBreastCrotchRawSizeValue() + valueIncrease > Main.getProperties().pregnancyUdderGrowthLimit) {
+					udderGrowth = true;
+					target.setBreastCrotchSize(Main.getProperties().pregnancyUdderGrowthLimit);
+				} else {
+					udderGrowth = true;
+					target.incrementBreastCrotchSize(valueIncrease);
+				}
+			}
+			
+			if(!target.isPlayer()) {
+				return "";
+			}
+			
+			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 				return "<p>"
 							+ "Even though the change has been gradual, you're suddenly hit by the realisation that your belly has swollen to a massive size."
 							+ " You can't resist rubbing your hands over the huge bump in your abdomen, and you wonder just how big it's going to get."
@@ -3602,6 +3619,12 @@ public enum StatusEffect {
 								? "<p><i>"
 										+"Your breasts have swollen and grown larger as your body prepares to start lactating."
 										+ " You now have [style.boldSex([pc.breastSize]"  + (target.getBreastRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastSize().getCupSizeName()+"-cup":"") + " breasts)]!"
+									+ "</i></p>"
+								:"")
+						+(udderGrowth
+								? "<p><i>"
+										+"Your [pc.udders] have swollen and grown larger as your body prepares to start lactating."
+										+ " You now have [style.boldSex([pc.udderSize]"  + (target.getBreastCrotchRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastCrotchSize().getCupSizeName()+"-cup":"") + " [pc.udders])]!"
 									+ "</i></p>"
 								:"");
 			} else {
@@ -3624,6 +3647,12 @@ public enum StatusEffect {
 										+"Your breasts have swollen and grown larger as your body prepares to start lactating."
 										+ " You now have [style.boldSex([pc.breastSize]"  + (target.getBreastRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastSize().getCupSizeName()+"-cup":"") + " breasts)]!"
 									+ "</i></p>"
+								:"")
+						+(udderGrowth
+								? "<p><i>"
+										+"Your [pc.udders] have swollen and grown larger as your body prepares to start lactating."
+										+ " You now have [style.boldSex([pc.udderSize]"  + (target.getBreastCrotchRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastCrotchSize().getCupSizeName()+"-cup":"") + " [pc.udders])]!"
+									+ "</i></p>"
 								:"");
 			}
 		}
@@ -3635,6 +3664,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	PREGNANT_2(
 			80,
 			"heavily pregnant",
@@ -3679,8 +3709,25 @@ public enum StatusEffect {
 					target.incrementBreastMilkStorage(valueIncrease);
 				}
 			}
+
+			boolean lactationUddersIncrease = false;
+			if(Main.getProperties().pregnancyUdderLactationIncrease>0 && target.getBreastCrotchRawMilkStorageValue()<Main.getProperties().pregnancyUdderLactationLimit) {
+				int valueIncrease = Math.max(1, Main.getProperties().pregnancyUdderLactationIncrease - Main.getProperties().pregnancyLactationIncreaseVariance + Util.random.nextInt(Main.getProperties().pregnancyLactationIncreaseVariance*2 + 1));
+				
+				if(target.getBreastCrotchRawMilkStorageValue() + valueIncrease > Main.getProperties().pregnancyUdderLactationLimit) {
+					lactationUddersIncrease = true;
+					target.setBreastCrotchMilkStorage(Main.getProperties().pregnancyUdderLactationLimit);
+				} else {
+					lactationUddersIncrease = true;
+					target.incrementBreastCrotchMilkStorage(valueIncrease);
+				}
+			}
 			
-			if (target.isPlayer() && !((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+			if(!target.isPlayer()) {
+				return "";
+			}
+			
+			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 				return "<p>"
 							+ "By now, your stomach has completely ballooned out in front of you, and you're having to arch your back and support yourself with one hand as you walk around."
 							+ (target.getBodyMaterial()==BodyMaterial.SLIME
@@ -3701,6 +3748,12 @@ public enum StatusEffect {
 								? "<p><i>"
 										+"Your breasts have gotten noticeably heavier, and as you softly stroke the round bump in your belly, you feel droplets of [pc.milk] beading up on your engorged teats."
 										+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.milk] ("+ Units.fluid(target.getBreastRawMilkStorageValue(), Units.UnitType.LONG)+"))]!"
+									+ "</i></p>"
+								:"")
+						+(lactationUddersIncrease
+								? "<p><i>"
+										+"Your [pc.udders] have gotten noticeably heavier, and as you walk, you feel droplets of [pc.crotchMilk] beading up on your engorged teats."
+										+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.crotchMilk] ("+ Units.fluid(target.getBreastRawMilkStorageValue(), Units.UnitType.LONG)+"))]!"
 									+ "</i></p>"
 								:"")
 						+ "<p style='text-align:center;'>"
@@ -3726,6 +3779,12 @@ public enum StatusEffect {
 								? "<p><i>"
 										+"Your breasts have gotten noticeably heavier, and as you softly stroke the round bump in your belly, you feel droplets of [pc.milk] beading up on your engorged teats."
 										+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.milk] ("+Units.fluid(target.getBreastRawMilkStorageValue(), Units.UnitType.LONG)+"))]!"
+									+ "</i></p>"
+								:"")
+						+(lactationUddersIncrease
+								? "<p><i>"
+										+"Your [pc.udders] have gotten noticeably heavier, and as you walk, you feel droplets of [pc.crotchMilk] beading up on your engorged teats."
+										+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.crotchMilk] ("+ Units.fluid(target.getBreastRawMilkStorageValue(), Units.UnitType.LONG)+"))]!"
 									+ "</i></p>"
 								:"")
 						+ "<p style='text-align:center;'>"
@@ -4268,7 +4327,7 @@ public enum StatusEffect {
 				plural = true;
 			}
 			if (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-				orificesRecovering.add("[style.boldViolet(penile urethra)]");
+				orificesRecovering.add("[style.boldSalmonPink(penile urethra)]");
 			}
 			if (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
 				orificesRecovering.add("[style.boldPurpleLight(vaginal urethra)]");
@@ -6068,7 +6127,7 @@ public enum StatusEffect {
 	
 	SET_ENFORCER(
 			70,
-			"enforcer's uniform",
+			"Enforcer's uniform",
 			"clothingSets/enforcer",
 			Colour.CLOTHING_WHITE,
 			true,
@@ -6080,7 +6139,7 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
-				return UtilText.parse(target, "[npc.NameIsFull] wearing an enforcer's uniform, granting [npc.herHim] the energy and strength [npc.she] [npc.verb(need)] to fight crime.");
+				return UtilText.parse(target, "[npc.NameIsFull] wearing an Enforcer's uniform, granting [npc.herHim] the energy and strength [npc.she] [npc.verb(need)] to fight crime.");
 					
 			} else {
 				return "";
@@ -6095,7 +6154,7 @@ public enum StatusEffect {
 	
 	SET_SLUTTY_ENFORCER(
 			70,
-			"slutty enforcer",
+			"slutty Enforcer",
 			"clothingSets/slutty_enforcer",
 			Colour.BASE_PINK,
 			true,
@@ -6107,7 +6166,7 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
-				return UtilText.parse(target, "[npc.NameIsFull] wearing a slutty fancy-dress version of an enforcer's uniform, making [npc.herHim] feel extremely sexy.");
+				return UtilText.parse(target, "[npc.NameIsFull] wearing a slutty fancy-dress version of an Enforcer's uniform, making [npc.herHim] feel extremely sexy.");
 					
 			} else {
 				return "";
@@ -9981,7 +10040,7 @@ public enum StatusEffect {
 
 			for(Fetish f : orderedFetishList) {
 				FetishDesire desire = target.getFetishDesire(f);
-				modList.add("<b style='color:"+desire.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(desire.getNameAsVerb())+"</b>: "+Util.capitaliseSentence(f.getShortDescriptor()));
+				modList.add("<b style='color:"+desire.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(desire.getNameAsVerb())+"</b>: "+Util.capitaliseSentence(f.getShortDescriptor(target)));
 			}
 			
 			return modList;

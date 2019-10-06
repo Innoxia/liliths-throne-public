@@ -669,7 +669,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "When you first arrived in Submission, an enforcer informed you of an ongoing situation in the tunnels."
+			return "When you first arrived in Submission, an Enforcer informed you of an ongoing situation in the tunnels."
 					+ " Apparently, there are an increasing number of Slimes who are attacking innocent travellers and transforming them into more Slimes."
 					+ " If you're able to offer any information on where these aggressive Slimes are coming from, you could earn a one-thousand flame reward.";
 		}
@@ -745,7 +745,7 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "You decided to help the Slime Queen with her plans, and agreed to trick the enforcers into believing that she's no longer a threat!";
+			return "You decided to help the Slime Queen with her plans, and agreed to trick the Enforcers into believing that she's no longer a threat!";
 		}
 	},
 	
@@ -763,7 +763,7 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward."
-				+ " With your Queen now safe from enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise!";
+				+ " With your Queen now safe from Enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise!";
 		}
 	},
 	
@@ -846,7 +846,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Having accidentally teleported into the 'SWORD' enforcer division's storage warehouse, both you and Claire now need to avoid detection and make good your escape.";
+			return "Having accidentally teleported into the 'SWORD' Enforcer division's storage warehouse, both you and Claire now need to avoid detection and make good your escape.";
 		}
 
 		@Override
@@ -864,18 +864,18 @@ public enum Quest {
 		@Override
 		public String getDescription() {
 			if(Main.game.isNonConEnabled()) {
-				return "Having been defeated by the enforcers inside SWORD's warehouse, you've been sentenced to be locked into the public use stocks at slaver alley. Endure this ordeal until Claire comes to rescue you...";
+				return "Having been defeated by the Enforcers inside SWORD's warehouse, you've been sentenced to be locked into the public use stocks at slaver alley. Endure this ordeal until Claire comes to rescue you...";
 			} else {
-				return "Having been defeated by the enforcers inside SWORD's warehouse, you've been locked into the cells at Enforcer Headquarters. You'll have to wait until Claire comes to rescue you...";
+				return "Having been defeated by the Enforcers inside SWORD's warehouse, you've been locked into the cells at Enforcer Headquarters. You'll have to wait until Claire comes to rescue you...";
 			}
 		}
 
 		@Override
 		public String getCompletedDescription() {
 			if(Main.game.isNonConEnabled()) {
-				return "Having been defeated by the enforcers inside SWORD's warehouse, you had to endure being locked into the public use stocks at slaver alley for several hours before Claire turned up to release you.";
+				return "Having been defeated by the Enforcers inside SWORD's warehouse, you had to endure being locked into the public use stocks at slaver alley for several hours before Claire turned up to release you.";
 			} else {
-				return "Having been defeated by the enforcers inside SWORD's warehouse, you had to endure being locked into the cells at Enforcer Headquarters for a couple of hours before Claire turned up to release you.";
+				return "Having been defeated by the Enforcers inside SWORD's warehouse, you had to endure being locked into the cells at Enforcer Headquarters for a couple of hours before Claire turned up to release you.";
 			}
 		}
 	},

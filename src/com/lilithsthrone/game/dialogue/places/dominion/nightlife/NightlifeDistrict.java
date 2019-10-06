@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.AlcoholLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -41,6 +42,7 @@ import com.lilithsthrone.game.sex.managers.dominion.gloryHole.SMGloryHole;
 import com.lilithsthrone.game.sex.managers.dominion.toiletStall.SMStallSex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMSitting;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
@@ -90,8 +92,8 @@ public class NightlifeDistrict {
 		
 		clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC)
 				|| (submissiveClubbers
-					?getPartner().hasPersonalityTrait(PersonalityTrait.CONFIDENT)
-					:!getPartner().hasPersonalityTrait(PersonalityTrait.CONFIDENT)));
+					?npc.hasPersonalityTrait(PersonalityTrait.CONFIDENT)
+					:!npc.hasPersonalityTrait(PersonalityTrait.CONFIDENT)));
 		
 		return clubbers;
 	}
@@ -1015,18 +1017,8 @@ public class NightlifeDistrict {
 						+getClubberStatus(this.getSecondsPassed());
 				
 			} else {
-				if(getPartner().hasPersonalityTrait(PersonalityTrait.SELFISH)) {
-					return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEARCH_GENERATE_DOM_SLEAZY", getClubbersPresent())
-							+getClubberStatus(this.getSecondsPassed());
-					
-				} else if(getPartner().hasPersonalityTrait(PersonalityTrait.KIND)) {
-					return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEARCH_GENERATE_DOM_NICE", getClubbersPresent())
-							+getClubberStatus(this.getSecondsPassed());
-					
-				} else {
-					return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEARCH_GENERATE_DOM_AVERAGE", getClubbersPresent())
-							+getClubberStatus(this.getSecondsPassed());
-				}
+				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_SEARCH_GENERATE_DOM", getClubbersPresent())
+						+getClubberStatus(this.getSecondsPassed());
 			}
 		}
 
@@ -1264,6 +1256,10 @@ public class NightlifeDistrict {
 							public boolean isPublicSex() {
 								return false;
 							}
+							@Override
+							public List<AbstractSexPosition> getAllowedSexPositions() {
+								return Util.newArrayListOfValues(SexPosition.SITTING);
+							}
 						};
 						
 						if(Main.game.getPlayer().isTaur()) { // Player is a taur/arachnid:
@@ -1274,6 +1270,10 @@ public class NightlifeDistrict {
 								@Override
 								public boolean isPublicSex() {
 									return false;
+								}
+								@Override
+								public List<AbstractSexPosition> getAllowedSexPositions() {
+									return Util.newArrayListOfValues(SexPosition.STANDING, SexPosition.SITTING);
 								}
 							};
 						}
@@ -1312,6 +1312,10 @@ public class NightlifeDistrict {
 							public boolean isPublicSex() {
 								return false;
 							}
+							@Override
+							public List<AbstractSexPosition> getAllowedSexPositions() {
+								return Util.newArrayListOfValues(SexPosition.SITTING);
+							}
 						};
 						
 						if(Main.game.getPlayer().isTaur()) {
@@ -1324,6 +1328,10 @@ public class NightlifeDistrict {
 									public boolean isPublicSex() {
 										return false;
 									}
+									@Override
+									public List<AbstractSexPosition> getAllowedSexPositions() {
+										return Util.newArrayListOfValues(SexPosition.STANDING, SexPosition.SITTING);
+									}
 								};
 							}
 							
@@ -1335,6 +1343,10 @@ public class NightlifeDistrict {
 								@Override
 								public boolean isPublicSex() {
 									return false;
+								}
+								@Override
+								public List<AbstractSexPosition> getAllowedSexPositions() {
+									return Util.newArrayListOfValues(SexPosition.STANDING, SexPosition.SITTING);
 								}
 							};
 						}
@@ -3652,7 +3664,15 @@ public class NightlifeDistrict {
 	
 	private static String gloryholeNpcNameDescriptor ="";
 	private static void spawnDomGloryHoleNPC(String genericName) {
-		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped());
+		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped()) {
+			@Override
+			public void turnUpdate() {
+				if(this.getGenitalArrangement()!=GenitalArrangement.CLOACA) {
+					this.setAreaKnownByCharacter(CoverableArea.ASS, Main.game.getPlayer(), false);
+					this.setAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer(), false);
+				}
+			}
+		};
 		
 		npc.setRaceConcealed(true);
 		
@@ -3726,6 +3746,8 @@ public class NightlifeDistrict {
 		npc.displaceClothingForAccess(CoverableArea.PENIS, null);
 		npc.setPenisVirgin(false);
 		npc.setVaginaVirgin(false);
+		
+		npc.setAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer(), false);
 		try {
 			Main.game.addNPC(npc, false);
 			Main.game.setActiveNPC(npc);
@@ -3800,7 +3822,10 @@ public class NightlifeDistrict {
 		if(Math.random()>0.75f) {
 			npc.addFetish(Fetish.FETISH_ORAL_GIVING);
 		}
-		npc.displaceClothingForAccess(CoverableArea.MOUTH, null);
+		
+//		npc.displaceClothingForAccess(CoverableArea.MOUTH, null);
+		npc.unequipAllClothingIntoVoid(true, true);
+		
 		npc.setPenisVirgin(false);
 		npc.setVaginaVirgin(false);
 		npc.setAssVirgin(false);
@@ -4321,6 +4346,7 @@ public class NightlifeDistrict {
 									WATERING_HOLE_DOM_PARTNER_REACT) {
 								@Override
 								public void effects() {
+									getPartner().incrementAlcoholLevel(-0.05f); // TO stop them from drinking to collapse
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_DOM_PARTNER_ACCEPT_RUM", getClubbersPresent()));
 									Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
 									Main.game.getTextStartStringBuilder().append(ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(getPartner(), getPartner(), 1));
@@ -4803,6 +4829,10 @@ public class NightlifeDistrict {
 							public boolean isPublicSex() {
 								return false;
 							}
+							@Override
+							public List<AbstractSexPosition> getAllowedSexPositions() {
+								return Util.newArrayListOfValues(SexPosition.SITTING);
+							}
 						};
 
 						if(getPartner().isTaur()) { // Partner is a taur/arachnid:
@@ -4813,6 +4843,10 @@ public class NightlifeDistrict {
 								@Override
 								public boolean isPublicSex() {
 									return false;
+								}
+								@Override
+								public List<AbstractSexPosition> getAllowedSexPositions() {
+									return Util.newArrayListOfValues(SexPosition.STANDING, SexPosition.SITTING);
 								}
 							};
 						}
@@ -5045,7 +5079,7 @@ public class NightlifeDistrict {
 				
 			} else if(index==5) {
 				return new Response("Angrily refuse",
-						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "There's absolutely no way you're going back to [npc.namePos] place to have sex!"
+						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that this isn't at all the sort of thing you were thinking of when accepting [npc.her] invitation to come back to [npc.her] place!"
 								+ "</br>[style.italicsBad(Removes this character from the game.)]"),
 						WATERING_HOLE_TOILETS) {
 					@Override

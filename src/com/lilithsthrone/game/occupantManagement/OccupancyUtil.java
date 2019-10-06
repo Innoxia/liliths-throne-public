@@ -27,8 +27,9 @@ import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.OccupationTag;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.NPCGenericSexFlag;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -147,22 +148,18 @@ public class OccupancyUtil implements XMLSaving {
 	}
 	
 	public void performHourlyUpdate(int day, int hour) {
-		
 		// Non-slave occupants:
-		
 		for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
 			try {
 				NPC occupant = (NPC) Main.game.getNPCById(id);
-	
 				if(!Main.game.getCharactersPresent().contains(occupant)) { // If the player isn't interacting with them, then move them:
-					if(!occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
+//					if(!occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
 						if(occupant.getHistory().isAtWork(hour)) {
 							occupant.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
-							
 						} else {
 							occupant.setLocation(occupant.getHomeWorldLocation(), occupant.getHomeLocation(), false);
 						}
-					}
+//					}
 				}
 			} catch (Exception e) {
 				Util.logGetNpcByIdError("performHourlyUpdate(), getFriendlyOccupants() section.", id);
@@ -175,6 +172,7 @@ public class OccupancyUtil implements XMLSaving {
 		clearSlavesJobTracking();
 		
 		// First need to set correct jobs:
+		List<NPC> slavesToSendToWork = new ArrayList<>();
 		for(String id : Main.game.getPlayer().getSlavesOwned()) {
 			try {
 				NPC slave = (NPC) Main.game.getNPCById(id);
@@ -185,7 +183,8 @@ public class OccupancyUtil implements XMLSaving {
 					continue;
 				}
 				
-				if(!Main.game.getCharactersPresent().contains(slave)) { // If the player isn't interacting with them, then move them:
+				if(!Main.game.getCharactersPresent().contains(slave) // If the player isn't interacting with them, then move them
+						|| Main.game.getCurrentDialogueNode()==RoomPlayer.AUNT_HOME_PLAYERS_ROOM_SLEEP) { // Also move slaves who are in bedroom but have elsewhere to be
 					slavesAtJob.get(currentJob).add(slave);
 					
 					if(slave.getSlaveJob((hour-1<0?23:hour-1))==SlaveJob.PROSTITUTE) {
@@ -203,12 +202,21 @@ public class OccupancyUtil implements XMLSaving {
 						slavesResting.add(slave);
 						
 					} else {
-						currentJob.sendToWorkLocation(hour, slave);
+						slavesToSendToWork.add(slave);
 					}
+				}
+				if(Main.game.getCurrentDialogueNode()==RoomPlayer.AUNT_HOME_PLAYERS_ROOM_SLEEP) {
+					Main.game.updateResponses();
 				}
 			} catch (Exception e) {
 				Util.logGetNpcByIdError("performHourlyUpdate(), getSlavesOwned() section.", id);
 			}
+		}
+		
+		// Send slaves to work after others have left, so that job rooms are emptied before trying to fill them:
+		for(NPC slave : slavesToSendToWork) {
+			SlaveJob currentJob = slave.getSlaveJob(hour);
+			currentJob.sendToWorkLocation(hour, slave);
 		}
 		
 		// Now can apply changes and generate events based on who else is present in the job:
@@ -527,9 +535,8 @@ public class OccupancyUtil implements XMLSaving {
 							slave.incrementBreastStoredMilk(-milked);
 							
 							if(milked>0) {
-								if(room.isAutoSellMilk()) {
+								if(slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_MILK_AUTO_SELL)) {
 									income += Math.max(1, (int) (milked * slave.getMilk().getValuePerMl()));
-									generatedIncome += income;
 									milkingSold.add("[style.colourMilk("+ Units.fluid(milked) +")] [npc.milk] sold: +"+UtilText.formatAsMoney(income, "bold"));
 									
 								} else {
@@ -546,9 +553,8 @@ public class OccupancyUtil implements XMLSaving {
 							slave.incrementBreastCrotchStoredMilk(-milked);
 							
 							if(milked>0) {
-								if(room.isAutoSellMilk()) {
+								if(slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_MILK_CROTCH_AUTO_SELL)) {
 									income += Math.max(1, (int) (milked * slave.getMilkCrotch().getValuePerMl()));
-									generatedIncome += income;
 									milkingSold.add("[style.colourMilk("+ Units.fluid(milked) +")] [npc.crotchMilk] sold: +"+UtilText.formatAsMoney(income, "bold"));
 									
 								} else {
@@ -561,9 +567,8 @@ public class OccupancyUtil implements XMLSaving {
 							int milked = MilkingRoom.getActualCumPerHour(slave);
 	
 							if(milked>0) {
-								if(room.isAutoSellCum()) {
+								if(slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_CUM_AUTO_SELL)) {
 									income += Math.max(1, (int) (milked * slave.getCum().getValuePerMl()));
-									generatedIncome += income;
 									milkingSold.add("[style.colourCum("+ Units.fluid(milked) +")] [npc.cum] sold: +"+UtilText.formatAsMoney(income, "bold"));
 								
 								} else {
@@ -576,9 +581,8 @@ public class OccupancyUtil implements XMLSaving {
 							int milked = MilkingRoom.getActualGirlcumPerHour(slave);
 							
 							if(milked>0) {
-								if(room.isAutoSellGirlcum()) {
+								if(slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_GIRLCUM_AUTO_SELL)) {
 									income += Math.max(1, (int) (milked * slave.getGirlcum().getValuePerMl()));
-									generatedIncome += income;
 									milkingSold.add("[style.colourGirlCum("+ Units.fluid(milked) +")] [npc.girlcum] sold: +"+UtilText.formatAsMoney(income, "bold"));
 								
 								} else {
@@ -587,6 +591,7 @@ public class OccupancyUtil implements XMLSaving {
 								}
 							}
 						}
+						generatedIncome += income;
 						if(!milkingSold.isEmpty()) {
 							events.add(new SlaveryEventLogEntry(hour, slave,
 									SlaveEvent.JOB_MILK_MILKED,

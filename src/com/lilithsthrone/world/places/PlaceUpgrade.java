@@ -78,9 +78,11 @@ public enum PlaceUpgrade {
 				return new Value<>(false, "");
 			}
 			boolean nonCompanionCharactersPresent = false;
-			for(String id : cell.getCharactersPresentIds()) {
-				if(!id.equals(Main.game.getPlayer().getId()) && !Main.game.getPlayer().getCompanionsId().contains(id)) {
-					nonCompanionCharactersPresent = true;
+			if(cell.getCharactersPresentIds()!=null) {
+				for(String id : cell.getCharactersPresentIds()) {
+					if(!id.equals(Main.game.getPlayer().getId()) && !Main.game.getPlayer().getCompanionsId().contains(id)) {
+						nonCompanionCharactersPresent = true;
+					}
 				}
 			}
 			if(!Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() || nonCompanionCharactersPresent) {

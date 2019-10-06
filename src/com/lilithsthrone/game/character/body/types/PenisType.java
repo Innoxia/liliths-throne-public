@@ -229,7 +229,7 @@ public enum PenisType implements BodyPartTypeInterface {
 	
 	public String getPenisHeadDescriptor(GameCharacter gc) {
 		for(PenetrationModifier mod : PenetrationModifier.values()) {
-			if(gc.getPenisModifiers().contains(PenetrationModifier.BLUNT)) {
+			if(gc.getPenisModifiers().contains(mod)) {
 				switch(mod) {
 					case BLUNT:
 						return UtilText.returnStringAtRandom("blunt");

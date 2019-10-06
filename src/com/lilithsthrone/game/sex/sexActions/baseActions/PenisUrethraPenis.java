@@ -66,7 +66,7 @@ public class PenisUrethraPenis {
 									+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] before violently slamming forwards, forcing [npc.her] [npc.cock+] deep into [npc2.her] [npc2.penisUrethra+].",
 
 							"[npc.Name] [npc.verb(position)] the [npc.cockTip+] of [npc.her] [npc.cock] over the [npc2.cockHead+] of [npc2.namePos] [npc2.penis+],"
-									+ " and with a forceful thrust, [npc.she] roughly slams it deep into [npc2.her] [npc2.penisUrethra+]."));
+									+ " and with a forceful thrust, [npc.she] roughly [npc.verb(slam)] it deep into [npc2.her] [npc2.penisUrethra+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

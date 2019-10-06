@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.managers.dominion;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.8
- * @version 0.3.4
+ * @version 0.3.5.1
  * @author Innoxia
  */
 public class SMJulesCockSucking extends SexManagerDefault {
@@ -51,5 +52,10 @@ public class SMJulesCockSucking extends SexManagerDefault {
 	@Override
 	public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 		return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Jules.class), Util.newArrayListOfValues(CoverableArea.PENIS)));
+	}
+	
+	@Override
+	public List<CoverableArea> getAdditionalAreasToExposeDuringSex(GameCharacter performer, GameCharacter target) {
+		return new ArrayList<>();
 	}
 }

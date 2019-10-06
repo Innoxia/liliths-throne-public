@@ -346,11 +346,12 @@
 	<p>
 	#IF !lilaya.isCharacterReactedToPregnancy(pc) && !lilaya.getBaseFetishDesire(FETISH_PREGNANCY).isNegative() && lilaya.isVisiblyPregnant()
 	#THEN
-		#IF lilaya.getPregnantLitter().isFatherId(pc.getId())
-		#THEN
+		#IF(lilaya.getPregnantLitter().isFatherId(pc.getId()))
 			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], you got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. So, what is it you want?)]
-		#ELSE
+		#ELSEIF(lilaya.getPregnantLitter().isFatherId(lyssieth.getId()))
 			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], mommy got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. So, what is it you want?)]
+		#ELSE
+			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], [daddy.name] got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. So, what is it you want?)]
 		#ENDIF
 	#ELSE
 		#IF !lilaya.getBaseFetishDesire(FETISH_PREGNANCY).isNegative() && lilaya.isVisiblyPregnant()
@@ -1377,7 +1378,7 @@
 		#ELSE
 			 As she does this, she places one hand on your shoulder and pushes her chest out, immediately drawing your attention towards her large breasts.
 		#ENDIF
-		 You can't help but notice that the top few buttons of bother her lab coat and her shirt are undone, giving you a clear display of her impressive cleavage.
+		 You can't help but notice that the top few buttons of both her lab coat and her shirt are undone, giving you a clear display of her impressive cleavage.
 	</p>
 	<p>
 		[lilaya.speech(I hope you aren't looking anywhere naughty...)] Lilaya softly whispers in your ear, before straightening back up and moving around behind you.

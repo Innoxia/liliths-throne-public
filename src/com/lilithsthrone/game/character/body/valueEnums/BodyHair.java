@@ -15,9 +15,9 @@ public enum BodyHair {
 	TWO_MANICURED(2, "manicured", Colour.GENERIC_SIZE_THREE),
 	THREE_TRIMMED(3, "trimmed", Colour.GENERIC_SIZE_FOUR),
 	FOUR_NATURAL(4, "natural", Colour.GENERIC_SIZE_FIVE),
-	FIVE_UNKEMPT(6, "unkempt", Colour.GENERIC_SIZE_SIX),
-	SIX_BUSHY(7, "bushy", Colour.GENERIC_SIZE_SEVEN),
-	SEVEN_WILD(8, "wild", Colour.GENERIC_SIZE_EIGHT);
+	FIVE_UNKEMPT(5, "unkempt", Colour.GENERIC_SIZE_SIX),
+	SIX_BUSHY(6, "bushy", Colour.GENERIC_SIZE_SEVEN),
+	SEVEN_WILD(7, "wild", Colour.GENERIC_SIZE_EIGHT);
 	
 	private int value;
 	private String descriptor;

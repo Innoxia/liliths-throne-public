@@ -190,7 +190,7 @@ public class HarpyNestBimbo {
 			} else {
 				return "<p>"
 						+ "This nest looks like the home of one of the matriarchs you agreed to try and calm down."
-						+ " Deciding that you should do as the enforcer sergeant asked, you set off across the nest towards the staircase leading to the upper platform."
+						+ " Deciding that you should do as the Enforcer sergeant asked, you set off across the nest towards the staircase leading to the upper platform."
 					+ "</p>"
 					+ "<p>"
 						+ "As you walk through the nest, you take a closer look at this peculiar, bleach-blonde flock."
@@ -207,7 +207,7 @@ public class HarpyNestBimbo {
 						+ " Before you know it, you've reached the staircase that leads to the upper platform, and, taking one look back at the crowd of bimbos, you set off up the the stairs, and quickly reach the top."
 					+ "</p>"
 					+ "<p>"
-						+ "You'd already seen a picture of [bimboHarpy.name] in the enforcer's papers, but even if you hadn't, it's clearly obvious who the matriarch is."
+						+ "You'd already seen a picture of [bimboHarpy.name] in the Enforcer's papers, but even if you hadn't, it's clearly obvious who the matriarch is."
 						+ " With large, perfectly shaped breasts, the body of a super-model, and one of the most gorgeous faces you've ever seen, [bimboHarpy.name] is the centre of attention."
 						+ " Her inner-circle of bimbo harpies are gathered around her, vying for their leader's attention as they giggle and agree with every word she speaks."
 						+ " One harpy in particular seems to be the closest to her, and it's this particular bimbo who's the first one to notice your approach."
@@ -340,7 +340,7 @@ public class HarpyNestBimbo {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "[pc.speech(I'm here to talk to you about all the recent unrest around here. The enforcers are having a hard time keeping the peace, and it would be really helpful if you could get your flock to calm down a little,)]"
+						+ "[pc.speech(I'm here to talk to you about all the recent unrest around here. The Enforcers are having a hard time keeping the peace, and it would be really helpful if you could get your flock to calm down a little,)]"
 						+ " you try to explain, but [bimboHarpy.name] simply rolls her eyes and makes an annoyed tutting sound in response."
 					+ "</p>"
 					+ "<p>"

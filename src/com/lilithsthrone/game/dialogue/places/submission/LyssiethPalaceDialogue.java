@@ -1106,6 +1106,9 @@ public class LyssiethPalaceDialogue {
 				};
 				
 			} else if(index==2) {
+				if(!Main.game.isAnalContentEnabled()) {
+					return null;
+				}
 				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 					return new Response("Fuck ass", "As you are unable to access your cock, you're not able to fuck Lilaya's ass...", null);
 				}
@@ -1400,6 +1403,9 @@ public class LyssiethPalaceDialogue {
 					};
 					
 				} else if(index==2) {
+					if(!Main.game.isAnalContentEnabled()) {
+						return null;
+					}
 					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 						return new Response("Fuck ass", "As you are unable to access your penis, you're not able to fuck Meraxis's ass...", null);
 					}

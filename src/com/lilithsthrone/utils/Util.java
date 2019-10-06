@@ -599,8 +599,6 @@ public class Util {
 		return "AEIOUaeiou".indexOf(c) != -1;
 	}
 
-	private static String[] splitSentence;
-
 	/**
 	 * Turns a normal sentence into a stuttering sentence. Example:
 	 * "How far is it to the town hall?" "H-How far is it to the town h-hall?"
@@ -614,42 +612,44 @@ public class Util {
 	 *            modified sentence
 	 */
 	public static String addStutter(String sentence, int frequency) {
-		splitSentence = sentence.split(" ");
-		utilitiesStringBuilder.setLength(0);
-
-		// 1 in "frequency" words are stutters, with a minimum of 1.
-		int wordsToStutter = splitSentence.length / frequency + 1;
-
-		int offset = 0;
-		for (int i = 0; i < wordsToStutter; i++) {
-			offset = random.nextInt(frequency);
-			offset = (i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset);
-
-			// In case of an accidental comma position?
-			if (splitSentence[offset].charAt(0) != ',')
-				splitSentence[offset] = splitSentence[offset].charAt(0) + "-" + splitSentence[offset];
-			else
-				splitSentence[offset] = "," + splitSentence[offset].charAt(1) + "-" + splitSentence[offset].substring(1, splitSentence[offset].length() + 1);
-
-			for (int j = 0; j < frequency && ((i * frequency + j) < splitSentence.length); j++)
-				utilitiesStringBuilder.append(splitSentence[i * frequency + j] + " ");
+		StringBuilder modifiedSentence = new StringBuilder();
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		float chance = 1f/frequency;
+		for(int i = sentence.length()-1; i>=0; i--) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
+			if(sentence.charAt(i)==' '
+					&& sentence.charAt(i+1)!='#'
+					&& sentence.charAt(i+1)!='('
+					&& sentence.charAt(i+1)!='['
+					&& openingCurly==closingCurly
+					&& openingSquare==closingSquare) {
+				if(Math.random()<chance) {
+					modifiedSentence.append("-");
+					modifiedSentence.append(sentence.charAt(i+1));
+				}
+			}
+			modifiedSentence.append(sentence.charAt(i));
 		}
-
-		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-		return utilitiesStringBuilder.toString();
+		
+		modifiedSentence.reverse();
+		return modifiedSentence.toString();
 	}
 
 	private static Pattern endOfSentence = Pattern.compile("[,.!?]");
-	/**
-	 * Determine whether a given string contains sentence-ending punctuation.
-	 * @param text text to check whether
-	 * @return boolean whether the text contains a period, exclamation or question mark
-	 */
-	private static boolean isEndOfSentence(String text) {
-		if(text.isEmpty()) {
-			return false;
-		}
-		return endOfSentence.matcher(text.substring(text.length()-1)).matches();
+	
+	private static boolean isEndOfSentence(char c) {
+		return endOfSentence.matcher(String.valueOf(c)).matches();
 	}
 
 	/**
@@ -668,55 +668,42 @@ public class Util {
 	 *            modified sentence
 	 */
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts, boolean middle) {
-		utilitiesStringBuilder.setLength(0);
-		
-		String [] splitConditional = sentence.split("#IF\\((.*?)\\)|#ELSEIF\\((.*?)\\)"); // Do not replace text inside conditional parsing statements
-		String modifiedSentence = sentence;
-		if(splitConditional.length>1) {
-			for(String s : splitConditional) {
-				modifiedSentence = sentence.replace(s, insertIntoSentences(s, frequency, inserts, middle));
-			}
-		}
-		if(!modifiedSentence.contains(" ")) {
-			return modifiedSentence;
-		}
-		
-		splitSentence = modifiedSentence.split(" ");
-		
-		// 1 in "frequency" words have an insert, with a minimum of 1.
-		int wordsToInsert = splitSentence.length / frequency + 1;
-		int offset = 0;
-		
-		for (int i = 0; i < wordsToInsert; i++) {
-			offset = Math.min(i * frequency + random.nextInt(frequency), splitSentence.length - 1);
-			String insert = inserts[random.nextInt(inserts.length)];
 
-			// If wanted, ensure not inserting to the start or end of a sentence
-			if (offset >= splitSentence.length -1 || isEndOfSentence(splitSentence[offset])) {
-				if (middle) {
-					// Skip if at end of string or sentence
-					continue;
+		StringBuilder modifiedSentence = new StringBuilder();
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		float chance = 1f/frequency;
+		for(int i = sentence.length()-1; i>=0; i--) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
+			if(i!=sentence.length()-1
+					&& sentence.charAt(i+1)==' '
+					&& !isEndOfSentence(sentence.charAt(i))
+					&& (i==0 || !middle || !isEndOfSentence(sentence.charAt(i-1)))
+					&& openingCurly==closingCurly
+					&& openingSquare==closingSquare) {
+				if(Math.random()<chance) {
+					String word = Util.randomItemFrom(inserts);
+					char[] charArray = word.toCharArray();
+					for(int cIndex=charArray.length-1; cIndex>=0; cIndex--) {
+						modifiedSentence.append(charArray[cIndex]);
+					}
 				}
-
-//				// Add a full stop to the insert, creating its own sentence
-//				insert += ".";
 			}
-
-			int len = splitSentence[offset].length();
-			// Remove duplicate commas if selected position ends with one and insert has one
-			if (insert.trim().charAt(0) == ',' && splitSentence[offset].charAt(len -1) == ',') {
-				splitSentence[offset] = splitSentence[offset].substring(0, len-1);
-			}
-
-			// Append the insert to this word:
-			splitSentence[offset] = splitSentence[offset] + insert;
+			modifiedSentence.append(sentence.charAt(i));
 		}
-		for (String word : splitSentence) {
-			utilitiesStringBuilder.append(word + " ");
-		}
-		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-
-		return utilitiesStringBuilder.toString();
+		
+		modifiedSentence.reverse();
+		return modifiedSentence.toString();
 	}
 
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts) {
@@ -746,9 +733,9 @@ public class Util {
 		sentence = insertIntoSentences(sentence, frequency, bimboWords);
 		utilitiesStringBuilder.setLength(0);
 		utilitiesStringBuilder.append(sentence);
-
-		// 1/3 chance of having a bimbo sentence ending:
-		if(!sentence.endsWith("~") && !sentence.endsWith("-")) {
+		
+		// 1/3 chance of having a bimbo sentence ending: TODO improve so it can be added anywhere
+		if(!sentence.endsWith("~") && !sentence.endsWith("-") && !sentence.endsWith("#ENDIF")) {
 			switch (random.nextInt(6)) {
 				case 0:
 					char end = utilitiesStringBuilder.charAt(utilitiesStringBuilder.length() - 1);
@@ -759,6 +746,33 @@ public class Util {
 				case 1:
 					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
 					utilitiesStringBuilder.append(", y'know?");
+					break;
+				default:
+					break;
+			}
+		}
+
+		return utilitiesStringBuilder.toString();
+	}
+	
+	private static String[] broWords = new String[] { ", like,", ", like, dude,", ", like,", ", um,", ", uh,", ", ah," };
+	public static String addBro(String sentence, int frequency) {
+		sentence = insertIntoSentences(sentence, frequency, broWords);
+		utilitiesStringBuilder.setLength(0);
+		utilitiesStringBuilder.append(sentence);
+		
+		// 1/3 chance of having a bimbo sentence ending: TODO improve so it can be added anywhere
+		if(!sentence.endsWith("~") && !sentence.endsWith("-") && !sentence.endsWith("#ENDIF")) {
+			switch (random.nextInt(6)) {
+				case 0:
+					char end = utilitiesStringBuilder.charAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.append(" and stuff");
+					utilitiesStringBuilder.append(end);
+					break;
+				case 1:
+					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.append(", y'know, dude?");
 					break;
 				default:
 					break;

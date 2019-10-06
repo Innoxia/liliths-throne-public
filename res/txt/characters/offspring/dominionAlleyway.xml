@@ -772,7 +772,7 @@
 				|
 				[npc.speech(... So then as she runs off, she's like 'You're gonna be sorry when I tell my boyfriend!', and then later this horse-boy shows up claiming to be her boyfriend, so I beat him up too!)]
 				|
-				[npc.speech(... And then the enforcers turned up, and I only just managed to get away! That was a close one...)]
+				[npc.speech(... And then the Enforcers turned up, and I only just managed to get away! That was a close one...)]
 				|
 				[npc.speech(... So after I'd robbed her, that slutty cat-girl starts begging for me to 'show her no mercy', and drops down on all fours right there in the alley!)]
 				|
@@ -1363,17 +1363,24 @@
 		#IF(npc.getMother()!=null && npc.getMother().isPlayer())
 			 which [npc.name] recognises as the place in which [npc.she] was born. Looking up at the familiar mansion in which [npc.sheIs] soon to live, [npc.name] sighs, [npc.speech(It's even bigger than I remember... Lilaya briefly told me that you were living here with her, but I didn't stick around to find out more...)]
 		#ELSE
-			 and, upon realising that you live in the huge mansion before [npc.herHim], [npc.name] gasps, [npc.speech(Y-You live here?! B-But this is a palace!)]
+			 and, upon realising that you live in the huge mansion before [npc.herHim], [npc.name] gasps, [npc.speech(You live here?! But this is a palace!)]
 		#ENDIF
 	</p>
 	<p>
-		[pc.speech(Yeah, it's kind of a long story, but basically Lilaya, who's both my aunt as well as the owner of this place, is the daughter of the elder Lilin, Lyssieth, which is how she has such a huge house. Lilaya has no interest in anything outside the experiments she performs in her lab, so she lets me use all the rooms as I see fit,)] you explain, reaching up to knock on the front door.
+		Briefly explaining how Lilaya is not only your aunt, but also the recognised daughter of Lyssieth, you reach up to knock on the front door.
 	</p>
 	<p>
-		[npc.speech(So we're related to an elder Lilin?!)] [npc.name] gasps once again, [npc.speech(So we're royalty?!)]
-	</p>
-	<p>
-		[pc.speech(Well, not really; we're not exactly recognised as such,)] you reply, but before you can say anything further, the front door swings open, and you're greeted by the familiar sight of the cat-girl maid, Rose.
+		#IF((npc.getMother()!=null && npc.getMother().equals(lyssieth)) || (npc.getFather()!=null && npc.getFather().equals(lyssieth)))
+				[npc.speech(So Lilaya's my half-sister?)] [npc.name] gasps once again, [npc.speech(Is there any chance of convincing her to have mommy recognise me as well?)]
+			</p>
+			<p>
+				[pc.speech(I think that would be pushing your luck,)] you reply, but before you can say anything further, the front door swings open, and you're greeted by the familiar sight of the cat-girl maid, Rose.
+		#ELSE
+				[npc.speech(So we're related to an elder Lilin?!)] [npc.name] gasps once again, [npc.speech(So we're royalty?!)]
+			</p>
+			<p>
+				[pc.speech(Well, not really; we're not exactly recognised as such,)] you reply, but before you can say anything further, the front door swings open, and you're greeted by the familiar sight of the cat-girl maid, Rose.
+		#ENDIF
 	</p>
 	<p>
 		[rose.speech(Good [style.evening], [pc.name],)] Rose greets you, curtsying and stepping aside to let you and [npc.name] enter. [rose.speech(I see you have company, would you like me to prepare a room?)]

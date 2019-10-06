@@ -71,7 +71,7 @@ public class EnforcerWarehouse {
 	private static EnforcerWarehouseGuard arrestingGuard = null;
 	private static List<GameCharacter> randomSexPartners = null;
 	
-	private static List<GameCharacter> getEnforcersPresent() {
+	public static List<GameCharacter> getEnforcersPresent() {
 		List<GameCharacter> list = new ArrayList<>();
 		for(GameCharacter character : Main.game.getCharactersPresent()) {
 			if(character instanceof EnforcerWarehouseGuard) {
@@ -169,14 +169,14 @@ public class EnforcerWarehouse {
 	public static void initWarehouse() {
 		List<String> usedAdjectives = Util.newArrayListOfValues("nervous", "cowardly");
 		
-		// Add an enforcer onto each of the enforcer post tiles:
+		// Add an Enforcer onto each of the Enforcer post tiles:
 		for(Cell c : Main.game.getWorlds().get(WorldType.ENFORCER_WAREHOUSE).getCells(PlaceType.ENFORCER_WAREHOUSE_ENFORCER_GUARD_POST)) {
 			EnforcerWarehouseGuard guard = generateGuard(Occupation.NPC_ENFORCER_SWORD_CONSTABLE);
 			guard.setLocation(c.getType(), c.getLocation(), true);
 			usedAdjectives.add(CharacterUtils.setGenericName(guard, "SWORD guard", usedAdjectives));
 		}
 		
-		// Add four enforcers to the entrance:
+		// Add four Enforcers to the entrance:
 		EnforcerWarehouseGuard guard = generateGuard(Occupation.NPC_ENFORCER_SWORD_INSPECTOR);
 		guard.setLocation(WorldType.ENFORCER_WAREHOUSE, PlaceType.ENFORCER_WAREHOUSE_ENTRANCE, true);
 		guard.setGenericName("SWORD Inspector");
@@ -964,6 +964,7 @@ public class EnforcerWarehouse {
 					public void effects() {
 						arrestingGuard = (EnforcerWarehouseGuard) guard;
 						Main.game.getPlayer().setLocation(WorldType.ENFORCER_WAREHOUSE, PlaceType.ENFORCER_WAREHOUSE_ENTRANCE, false);
+						arrestingGuard.setLocation(WorldType.ENFORCER_WAREHOUSE, PlaceType.ENFORCER_WAREHOUSE_ENTRANCE, false);
 						Main.game.getNpc(Claire.class).returnToHome();
 						Main.game.getNpc(Claire.class).setLust(Main.game.getNpc(Claire.class).getRestingLust());
 					}
@@ -1048,7 +1049,7 @@ public class EnforcerWarehouse {
 				
 			} else if(index==1) {
 				return new ResponseCombat("Fight",
-						"There's only way to get out of this mess, and that's by besting these SWORD enforcers in combat!",
+						"There's only way to get out of this mess, and that's by besting these SWORD Enforcers in combat!",
 						(NPC) getEnforcersPresent().get(0),
 						getEnforcersPresent(),
 						Util.newHashMapOfValues(
@@ -1063,7 +1064,7 @@ public class EnforcerWarehouse {
 					return new Response("Lightning globe", "You haven't discovered the lightning globe in the warehouse...", null);
 				}
 				return new Response("Lightning globe",
-						"Overload the lightning globe and roll it along the floor towards the enforcers. The lustful discharge should hopefully get them so horny that they will desert their post to have sex with one another.",
+						"Overload the lightning globe and roll it along the floor towards the Enforcers. The lustful discharge should hopefully get them so horny that they will desert their post to have sex with one another.",
 						ENTRANCE_LIGHTNING_GLOBE) {
 					@Override
 					public void effects() {
@@ -1153,7 +1154,7 @@ public class EnforcerWarehouse {
 		}
 	};
 	
-	public static final DialogueNode AFTER_ENTRANCE_DEFEAT = new DialogueNode("Defeat", "The four SWORD enforcers prove to be too much for you to handle, and you collapse to the floor, completely defeated.", true) {
+	public static final DialogueNode AFTER_ENTRANCE_DEFEAT = new DialogueNode("Defeat", "The four SWORD Enforcers prove to be too much for you to handle, and you collapse to the floor, completely defeated.", true) {
 		@Override
 		public int getSecondsPassed() {
 			return 60;
@@ -1267,6 +1268,10 @@ public class EnforcerWarehouse {
 											:SexSlotStocks.RECEIVING_ORAL)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.LOCKED_IN_STOCKS))) {
 							@Override
+							public boolean isCharacterStartNaked(GameCharacter character) {
+								return character.isPlayer();
+							}
+							@Override
 							public SexControl getSexControl(GameCharacter character) {
 								if(character.isPlayer()) {
 									return SexControl.NONE;
@@ -1362,6 +1367,10 @@ public class EnforcerWarehouse {
 										new Value<>(randomSexPartners.get(1), SexSlotStocks.RECEIVING_ORAL)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.LOCKED_IN_STOCKS))) {
 							@Override
+							public boolean isCharacterStartNaked(GameCharacter character) {
+								return character.isPlayer();
+							}
+							@Override
 							public SexControl getSexControl(GameCharacter character) {
 								if(character.isPlayer()) {
 									return SexControl.NONE;
@@ -1427,7 +1436,7 @@ public class EnforcerWarehouse {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Saved",
-						"The enforcer overseer unlocks the stocks and sets you free.",
+						"The Enforcer overseer unlocks the stocks and sets you free.",
 						STOCKS_SET_FREE) {
 					@Override
 					public void effects() {
@@ -1501,7 +1510,7 @@ public class EnforcerWarehouse {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Saved",
-						"Claire orders the enforcer overseeing the cells to unlock you and set you free.",
+						"Claire orders the Enforcer overseeing the cells to unlock you and set you free.",
 						CELLS_SET_FREE) {
 					@Override
 					public void effects() {

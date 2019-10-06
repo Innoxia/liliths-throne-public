@@ -923,7 +923,7 @@ position:relative;
 /*INVENTORY VIEW*/
 
 .inventory-container {
-float:left;
+	float:left;
 	position:relative;
 	display: inline-block;
 	width:49.5%;
@@ -968,6 +968,9 @@ float:left;
 	width:14.66%;
 	margin:1%;
 	-webkit-box-sizing: border-box;
+}
+.inventory-item-slot :hover {
+	opacity:1;
 }
 .inventory-item-slot.piercing{
 	width:23%;
@@ -1551,60 +1554,6 @@ float:left;
 }
 .transparent {
 	background-color:transparent;
-}
-.unknown {
-	background-color:#252527;
-}
-.unknown:hover{
-	background-color:#3e3e41;
-}
-.common {
-	background-color:#404040;
-}
-.common:hover{
-	background-color:#646468;
-}
-.uncommon {
-	background-color:#3D5C47;
-}
-.uncommon:hover{
-	background-color:#5A8767;
-}
-.rare {
-	background-color:#4b4b6c;
-}
-.rare:hover{
-	background-color:#5e5e87;
-}
-.epic {
-	background-color:#523455;
-}
-.epic:hover{
-	background-color:#6b446f;
-}
-.legendary {
-	background-color:#4b4b33;
-}
-.legendary:hover{
-	background-color:#6a6a48;
-}
-.unique {
-	background-color:#654424;
-}
-.unique:hover{
-	background-color:#B36C32;
-}
-.quest {
-	background-color:#344C4B;
-}
-.quest:hover{
-	background-color:#486A69;
-}
-.jinxed {
-	background-color:#694b4e;
-}
-.jinxed:hover{
-	background-color:#865f63;
 }
 
 /***********************************************************/

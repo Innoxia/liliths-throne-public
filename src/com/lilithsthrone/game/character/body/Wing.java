@@ -101,13 +101,13 @@ public class Wing implements BodyPartInterface {
 			case DEMON_COMMON:
 				if(owner.getLegConfiguration().isWingsOnLegConfiguration()) {
 					UtilText.transformationContentSB.append(
-							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to [npc.verb(try)] and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], bat-like wings push out from the sides of [npc.her] [npc.legConfiguration] body.<br/>"
+							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], bat-like wings push out from the sides of [npc.her] [npc.legConfiguration] body.<br/>"
 							+ (!owner.isShortStature()
 									?"[npc.Name] now [npc.has] [style.boldDemon(demonic bat-like wings)]."
 									:"[npc.Name] now [npc.has] [style.boldImp(impish bat-like wings)]."));
 				} else {
 					UtilText.transformationContentSB.append(
-							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to [npc.verb(try)] and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], bat-like wings push out from [npc.her] shoulder blades.<br/>"
+							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], bat-like wings push out from [npc.her] shoulder blades.<br/>"
 							+ (!owner.isShortStature()
 									?"[npc.Name] now [npc.has] [style.boldDemon(demonic bat-like wings)]."
 									:"[npc.Name] now [npc.has] [style.boldImp(impish bat-like wings)]."));

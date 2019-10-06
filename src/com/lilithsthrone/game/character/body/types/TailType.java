@@ -15,56 +15,59 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.5.1
  * @author Innoxia
  */
 public enum TailType implements BodyPartTypeInterface {
-	NONE(null, Race.NONE, false, false),
+	NONE(null, Race.NONE, false, false, false),
 
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true, true),
-	DEMON_HAIR_TIP(BodyCoveringType.DEMON_COMMON, Race.DEMON, true, false),
-	DEMON_HORSE(BodyCoveringType.HAIR_DEMON, Race.DEMON, false, false),
+	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true, true, true),
+	DEMON_HAIR_TIP(BodyCoveringType.DEMON_COMMON, Race.DEMON, true, false, true),
+	DEMON_HORSE(BodyCoveringType.HAIR_DEMON, Race.DEMON, false, false, false),
 
-	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false),
-	DOG_MORPH_STUBBY(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false),
+	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false, false),
+	DOG_MORPH_STUBBY(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false, false),
 	
-	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, false, false),
+	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, false, false, true),
 	
-	FOX_MORPH(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, false, false),
-	FOX_MORPH_MAGIC(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, true, false),
+	FOX_MORPH(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, false, false, true),
+	FOX_MORPH_MAGIC(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, true, false, true),
 
-	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH, false, false),
+	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH, false, false, false),
 	
-	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false),
-	CAT_MORPH_SHORT(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, false, false),
-	CAT_MORPH_TUFTED(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false),
+	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false, true),
+	CAT_MORPH_SHORT(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, false, false, false),
+	CAT_MORPH_TUFTED(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false, true),
 
-	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, false, false),
+	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, false, false, true),
 
-	BAT_MORPH(BodyCoveringType.BAT_SKIN, Race.BAT_MORPH, true, false),
+	BAT_MORPH(BodyCoveringType.BAT_SKIN, Race.BAT_MORPH, true, false, false),
 	
-	RAT_MORPH(BodyCoveringType.RAT_SKIN, Race.RAT_MORPH, true, true),
+	RAT_MORPH(BodyCoveringType.RAT_SKIN, Race.RAT_MORPH, true, true, true),
 	
-	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH, false, false),
+	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH, false, false, false),
 	
-	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH, false, false),
+	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH, false, false, true),
 	
-	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, false, false),
-	HORSE_MORPH_ZEBRA(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, false, false),
+	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, false, false, false),
+	HORSE_MORPH_ZEBRA(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, false, false, false),
 
-	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH, false, false),
+	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH, false, false, false),
 	
-	HARPY(BodyCoveringType.FEATHERS, Race.HARPY, false, false);
+	HARPY(BodyCoveringType.FEATHERS, Race.HARPY, false, false, true);
 
 	private BodyCoveringType skinType;
 	private Race race;
-	private boolean prehensile, suitableForPenetration;
+	private boolean prehensile;
+	private boolean suitableForPenetration;
+	private boolean suitableForSleepHugging;
 
-	private TailType(BodyCoveringType skinType, Race race, boolean prehensile, boolean suitableForPenetration) {
+	private TailType(BodyCoveringType skinType, Race race, boolean prehensile, boolean suitableForPenetration, boolean suitableForSleepHugging) {
 		this.skinType = skinType;
 		this.race = race;
 		this.prehensile = prehensile;
 		this.suitableForPenetration = suitableForPenetration;
+		this.suitableForSleepHugging = suitableForSleepHugging;
 	}
 
 	/**
@@ -265,6 +268,10 @@ public enum TailType implements BodyPartTypeInterface {
 		return prehensile && (suitableForPenetration || Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent));
 	}
 	
+	public boolean isSuitableForSleepHugging() {
+		return suitableForSleepHugging;
+	}
+
 	private static Map<Race, List<TailType>> typesMap = new HashMap<>();
 	public static List<TailType> getTailTypes(Race r) {
 		if(typesMap.containsKey(r)) {

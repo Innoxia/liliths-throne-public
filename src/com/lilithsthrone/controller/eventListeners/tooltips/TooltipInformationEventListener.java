@@ -45,6 +45,8 @@ import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
+import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
+import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -92,6 +94,8 @@ public class TooltipInformationEventListener implements EventListener {
 	private LoadedEnchantment loadedEnchantment;
 	private CombatMove move;
 	private Cell cell;
+	private GameCharacter moneyTransferTarget;
+	private int moneyTransferPercentage;
 	
 	private static StringBuilder tooltipSB  = new StringBuilder();
 	
@@ -505,7 +509,7 @@ public class TooltipInformationEventListener implements EventListener {
 				tooltipSB.append("</div>");
 	
 				// Picture:
-				tooltipSB.append("<div class='picture'>" + fetish.getSVGString() + "</div>");
+				tooltipSB.append("<div class='picture'>" + fetish.getSVGString(owner) + "</div>");
 	
 				// Description:
 				tooltipSB.append("<div class='description'>" + fetish.getDescription(owner) + "</div>");
@@ -778,7 +782,8 @@ public class TooltipInformationEventListener implements EventListener {
 					tooltipSB.append(getBodyPartDiv(owner, "Ears", owner.getEarRace(), owner.getEarCovering(), owner.isEarBestial()));
 					tooltipSB.append(getBodyPartDiv(owner, "Tongue", owner.getTongueRace(), owner.getTongueCovering(), owner.isTongueBestial()));
 					if (owner.getHornType() != HornType.NONE) {
-						tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getTotalHorns()))+" "+owner.getHornName(), owner.getHornRace(), owner.getHornCovering(), owner.isHornBestial()));
+						tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getTotalHorns()))+" "+(owner.getTotalHorns()==1?owner.getHornNameSingular():owner.getHornName()),
+								owner.getHornRace(), owner.getHornCovering(), owner.isHornBestial()));
 					} else {
 						tooltipSB.append(getEmptyBodyPartDiv("Horns", "None"));
 					}
@@ -1111,10 +1116,11 @@ public class TooltipInformationEventListener implements EventListener {
 				charactersPresent.addAll(Main.game.getCharactersTreatingCellAsHome(cell));
 			}
 
+			boolean teleport = Main.game.getPlayer().hasSpell(Spell.TELEPORT);
+			
 			int yIncrease = 0;
-			
 			StringBuilder charactersPresentDescription = new StringBuilder();
-			
+			StringBuilder teleportingDescription = new StringBuilder();
 			if(Main.game.getCurrentDialogueNode() != Library.DOMINION_MAP) {
 				if(!charactersPresent.isEmpty()) {
 					for(NPC character : charactersPresent) {
@@ -1126,14 +1132,23 @@ public class TooltipInformationEventListener implements EventListener {
 								+": "+(character.isRaceConcealed()?"[style.colourDisabled(Unknown race!)]":UtilText.parse(character, "[npc.FullRace(true)]"))
 								+"<br/>");
 					}
-					
 				}
-//				else {
-//					charactersPresentDescription.append("No characters present...");
-//				}
+				if(teleport) {
+					if(cell.getType().getTeleportPermissions().isIncoming() && cell.getPlace().getPlaceType().getTeleportPermissions().isIncoming()) {
+						teleportingDescription.append("It [style.colourGood(is possible)] to [style.colourArcane(teleport)] into this tile!");
+					} else {
+						teleportingDescription.append("It [style.colourBad(is not possible)] to [style.colourArcane(teleport)] into this tile!");
+					}
+					if(cell.getType().getTeleportPermissions().isOutgoing() && cell.getPlace().getPlaceType().getTeleportPermissions().isOutgoing()) {
+						teleportingDescription.append("<br/>It [style.colourGood(is possible)] to [style.colourArcane(teleport)] out of this tile!");
+					} else {
+						teleportingDescription.append("<br/>It [style.colourBad(is not possible)] to [style.colourArcane(teleport)] out of this tile!");
+					}
+				}
 			}
-
-			Main.mainController.setTooltipSize(360, 175+(yIncrease>0?32:0)+(yIncrease * LINE_HEIGHT));
+			
+			
+			Main.mainController.setTooltipSize(360, 175+(yIncrease>0?32:0)+(teleport?8+48:0)+(yIncrease * LINE_HEIGHT));
 			
 			String tooltipDesc = cell.getPlace().getPlaceType().getTooltipDescription();
 			
@@ -1149,7 +1164,76 @@ public class TooltipInformationEventListener implements EventListener {
 					+ "</div>"
 					+ (yIncrease>0
 							?"<div class='description' style='height:"+(24 + yIncrease * LINE_HEIGHT)+"px;'>"+charactersPresentDescription.toString()+"</div>"
+							:"")
+					+ (teleport
+							?"<div class='description' style='height:48px; text-align:center;'>"+teleportingDescription.toString()+"</div>"
 							:"")));
+			
+		} else if(moneyTransferPercentage>0) {
+			
+			if(InventoryDialogue.getNPCInventoryInteraction()==InventoryInteraction.FULL_MANAGEMENT
+					&& owner!=null?owner.getMoney()>0:Main.game.getPlayerCell().getInventory().getMoney()>0) {
+				Main.mainController.setTooltipSize(360, 112);
+			} else {
+				Main.mainController.setTooltipSize(360, 96);
+			}
+			tooltipSB.setLength(0);
+
+			String percentageTransfer;
+			int transferAmount;
+			
+			if(this.moneyTransferPercentage==1) {
+				tooltipSB.append("<div class='title'>[style.colourMinorGood(Small Flames Transfer)]</div>");
+				percentageTransfer = "[style.colourMinorGood("+moneyTransferPercentage+"%)]";
+			} else if(this.moneyTransferPercentage==10) {
+				tooltipSB.append("<div class='title'>[style.colourGood(Flames Transfer)]</div>");
+				percentageTransfer = "[style.colourGood("+moneyTransferPercentage+"%)]";
+			} else {
+				tooltipSB.append("<div class='title'>[style.colourExcellent(Total Flames Transfer)]</div>");
+				percentageTransfer = "[style.colourExcellent("+moneyTransferPercentage+"%)]";
+			}
+			
+			if(InventoryDialogue.getNPCInventoryInteraction()!=InventoryInteraction.FULL_MANAGEMENT) {
+				tooltipSB.append("<div class='subtitle'>"
+						+ "[style.italicsBad(Flame transfer not available in this interaction!)]"
+						+ "</div>");
+				
+			} else if(owner==null) {
+				transferAmount = (int) Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*(moneyTransferPercentage/100f));
+				tooltipSB.append("<div class='subtitle'>"
+						+ (Main.game.getPlayerCell().getInventory().getMoney()==0
+								?"[style.italicsBad(There are no flames in this area...)]"
+								:UtilText.parse(moneyTransferTarget,
+									"Pick up "+percentageTransfer+" of the flames in this area:<br/> ")
+									+ UtilText.formatAsMoney(transferAmount, "i"))
+						+"</div>");
+				
+			} else if(owner.isPlayer()) {
+				transferAmount = (int) Math.max(1, owner.getMoney()*(moneyTransferPercentage/100f));
+				tooltipSB.append("<div class='subtitle'>"
+						+ (owner.getMoney()==0
+								?"[style.italicsBad(You do not have any flames, so cannot transfer any money...)]"
+								:((moneyTransferTarget==null
+									?(Main.game.getPlayerCell().getPlace().isItemsDisappear()
+											?"[style.colourBad(Abandon)] "+percentageTransfer+" of your flames in this area:<br/> "
+											:"[style.colourGood(Safely store)] "+percentageTransfer+" of your flames in this area:<br/> ")
+									:UtilText.parse(moneyTransferTarget,
+											"Transfer "+percentageTransfer+" of your flames to [npc.name]:<br/> "))
+									+UtilText.formatAsMoney(transferAmount, "i")))
+						+"</div>");
+				
+			} else {
+				transferAmount = (int) Math.max(1, owner.getMoney()*(moneyTransferPercentage/100f));
+				tooltipSB.append("<div class='subtitle'>"
+						+ UtilText.parse(owner,
+								(owner.getMoney()==0
+									?"[style.italicsBad([npc.Name] does not have any flames...)]"
+									:"Take "+percentageTransfer+" of [npc.namePos] flames:<br/> "
+										+ UtilText.formatAsMoney(transferAmount, "i")))
+						+"</div>");
+			}
+
+			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 			
 		} else { // Standard information:
 			if(description==null || description.isEmpty()) {
@@ -1441,6 +1525,14 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 	
+	public TooltipInformationEventListener setMoneyTransferTarget(GameCharacter from, GameCharacter to, int moneyTransferPercentage) {
+		resetFields();
+		this.owner = from;
+		this.moneyTransferTarget = to;
+		this.moneyTransferPercentage = moneyTransferPercentage;
+		return this;
+	}
+	
 	private void resetFields() {
 		extraAttributes = false;
 		weather = false;
@@ -1463,5 +1555,7 @@ public class TooltipInformationEventListener implements EventListener {
 		move=null;
 		descriptionHeightOverride = 0;
 		cell = null;
+		moneyTransferTarget = null;
+		moneyTransferPercentage = 0;
 	}
 }

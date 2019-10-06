@@ -110,7 +110,7 @@ public class Nyan extends NPC {
 		commonAndrogynousAccessories = new ArrayList<>();
 		specials = new ArrayList<>();
 		if(!isImported) {
-			dailyReset();
+			dailyUpdate();
 		}
 	}
 	
@@ -177,7 +177,7 @@ public class Nyan extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.10")) {
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND,
 					PersonalityTrait.COWARDLY,
@@ -328,8 +328,8 @@ public class Nyan extends NPC {
 	}
 
 	@Override
-	public void dailyReset() {
-		clearNonEquippedInventory();
+	public void dailyUpdate() {
+		clearNonEquippedInventory(false);
 		
 		Main.game.getDialogueFlags().resetNyanActions();
 		
@@ -437,19 +437,21 @@ public class Nyan extends NPC {
 	
 	@Override
 	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice){
-		commonFemaleClothing.remove(item);
-		commonFemaleUnderwear.remove(item);
-		commonFemaleAccessories.remove(item);
-		
-		commonMaleClothing.remove(item);
-		commonMaleLingerie.remove(item);
-		commonMaleAccessories.remove(item);
-		
-		commonAndrogynousClothing.remove(item);
-		commonAndrogynousLingerie.remove(item);
-		commonAndrogynousAccessories.remove(item);
-		
-		specials.remove(item);
+		for(int i=0; i<count; i++) {
+			commonFemaleClothing.remove(item);
+			commonFemaleUnderwear.remove(item);
+			commonFemaleAccessories.remove(item);
+			
+			commonMaleClothing.remove(item);
+			commonMaleLingerie.remove(item);
+			commonMaleAccessories.remove(item);
+			
+			commonAndrogynousClothing.remove(item);
+			commonAndrogynousLingerie.remove(item);
+			commonAndrogynousAccessories.remove(item);
+			
+			specials.remove(item);
+		}
 	}
 	
 	@Override

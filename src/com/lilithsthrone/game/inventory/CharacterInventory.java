@@ -399,11 +399,13 @@ public class CharacterInventory implements XMLSaving {
 		return RenderingEngine.INVENTORY_PAGES * RenderingEngine.ITEMS_PER_PAGE;
 	}
 	
-	public void clearNonEquippedInventory(){
+	public void clearNonEquippedInventory(boolean clearMoney) {
 		clothingSubInventory.clear();
 		weaponSubInventory.clear();
 		itemSubInventory.clear();
-		money = 0;
+		if(clearMoney) {
+			money = 0;
+		}
 	}
 	
 	public void setMaximumInventorySpace(int maxInventorySpace) {
@@ -457,6 +459,44 @@ public class CharacterInventory implements XMLSaving {
 		sortItemDuplicates();
 		sortWeaponDuplicates();
 		sortClothingDuplicates();
+	}
+	
+	/**
+	 * @return The value of all non-equipped items, clothing, and weapons in this inventory.
+	 */
+	public int getNonEquippedValue() {
+		int value = 0;
+		for(Entry<AbstractItem, Integer> item : this.getAllItemsInInventory().entrySet()) {
+			value += (item.getKey().getValue() * item.getValue());
+		}
+		for(Entry<AbstractClothing, Integer> clothing : this.getAllClothingInInventory().entrySet()) {
+			value += (clothing.getKey().getValue() * clothing.getValue());
+		}
+		for(Entry<AbstractWeapon, Integer> weapon : this.getAllWeaponsInInventory().entrySet()) {
+			value += (weapon.getKey().getValue() * weapon.getValue());
+		}
+		return value;
+	}
+	
+	/**
+	 * @return The value of all equipped clothing and weapons in this inventory.
+	 */
+	public int getEquippedValue() {
+		int value = 0;
+		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
+			value += clothing.getValue();
+		}
+		for(AbstractWeapon weapon : this.getMainWeaponArray()) {
+			if(weapon!=null) {
+				value += weapon.getValue();
+			}
+		}
+		for(AbstractWeapon weapon : this.getOffhandWeaponArray()) {
+			if(weapon!=null) {
+				value += weapon.getValue();
+			}
+		}
+		return value;
 	}
 	
 	
@@ -572,7 +612,7 @@ public class CharacterInventory implements XMLSaving {
 	
 	
 	public boolean dropItem(AbstractItem item, int count, World world, Vector2i location) {
-		if (hasItem(item)) {
+		if(hasItem(item)) {
 			world.getCell(location).getInventory().addItem(item, count);
 			removeItem(item, count);
 			return true;
@@ -1107,8 +1147,8 @@ public class CharacterInventory implements XMLSaving {
 			return false;
 		}
 		
-		if (!newClothing.getClothingType().isCanBeEquipped(characterClothingOwner, slotToEquipInto)) {
-			equipTextSB.append("[style.colourBad(" + newClothing.getClothingType().getCannotBeEquippedText(characterClothingOwner, slotToEquipInto) + ")]");
+		if (!newClothing.getClothingType().isAbleToBeBeEquipped(characterClothingOwner, slotToEquipInto).getKey()) {
+			equipTextSB.append("[style.colourBad(" + newClothing.getClothingType().isAbleToBeBeEquipped(characterClothingOwner, slotToEquipInto).getValue() + ")]");
 			return false;
 		}
 

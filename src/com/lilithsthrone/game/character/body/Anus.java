@@ -72,7 +72,7 @@ public class Anus implements BodyPartInterface {
 			}
 		}
 		descriptorList.add(wetnessDescriptor);
-		if(owner.getPubicHair().getValue()>=BodyHair.FOUR_NATURAL.getValue() && Main.game.isAssHairEnabled()) {
+		if(owner.getAssHair().getValue()>=BodyHair.FOUR_NATURAL.getValue() && Main.game.isAssHairEnabled()) {
 			descriptorList.add("hairy");
 		}
 		

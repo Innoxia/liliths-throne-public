@@ -292,12 +292,26 @@ public class CharacterUtils {
 			
 			// Core body type is random:
 			if(Math.random()<=0.5) {
-				startingBodyType = motherBody;
-				stage = mother.getRaceStage();
+				if(mother.isTaur()) {
+					if(mother.getArmRace()!=Race.HUMAN) {
+						startingBodyType = motherBody;
+						stage = mother.getRaceStage();
+					}
+				} else {
+					startingBodyType = motherBody;
+					stage = mother.getRaceStage();
+				}
 				
 			} else {
-				startingBodyType = fatherBody;
-				stage = father.getRaceStage();
+				if(father.isTaur()) {
+					if(father.getArmRace()!=Race.HUMAN) {
+						startingBodyType = fatherBody;
+						stage = father.getRaceStage();
+					}
+				} else {
+					startingBodyType = fatherBody;
+					stage = father.getRaceStage();
+				}
 				raceTakesAfter = father.getSubspecies();
 				takesAfterMother = false;
 				raceFromMother = false;
@@ -331,7 +345,8 @@ public class CharacterUtils {
 			
 			body = generateBody(linkedCharacter, startingGender, startingBodyType, stage);
 		}
-		
+
+		linkedCharacter.setGenderIdentity(startingGender);
 		body.setBodyMaterial(mother.getBodyMaterial());
 		
 		// Genetics! (Sort of...)
@@ -990,7 +1005,7 @@ public class CharacterUtils {
 					?demonBody.getBreastCrotchType()
 					:BreastType.NONE,
 				Util.randomItemFrom(demonBody.getBreastCrotchShapes()),
-				demonBody.getBreastCrotchSize(),
+				demonBody.getBreastCrotchSize()+Main.getProperties().udderSizePreference,
 				demonBody.getBreastCrotchLactationRate(),
 				demonBody.getBreastCrotchCount(),
 				demonBody.getBreastCrotchNippleSize(),
@@ -1102,7 +1117,6 @@ public class CharacterUtils {
 	}
 	
 	public static Body generateBody(GameCharacter linkedCharacter, Gender startingGender, AbstractRacialBody startingBodyType, Subspecies species, RaceStage stage) {
-		
 		boolean hasVagina = startingGender.getGenderName().isHasVagina();
 		boolean hasPenis = startingGender.getGenderName().isHasPenis();
 		boolean hasBreasts = startingGender.getGenderName().isHasBreasts();
@@ -1244,7 +1258,7 @@ public class CharacterUtils {
 								?startingBodyType.getBreastCrotchType()
 								:BreastType.NONE,
 							Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
-							startingBodyType.getBreastCrotchSize(),
+							startingBodyType.getBreastCrotchSize()+Main.getProperties().udderSizePreference,
 							startingBodyType.getBreastCrotchLactationRate(),
 							startingBodyType.getBreastCrotchCount(),
 							startingBodyType.getBreastCrotchNippleSize(),
@@ -1325,7 +1339,7 @@ public class CharacterUtils {
 						?startingBodyType.getBreastCrotchType()
 						:BreastType.NONE,
 					Util.randomItemFrom(startingBodyType.getBreastCrotchShapes()),
-					startingBodyType.getBreastCrotchSize(),
+					startingBodyType.getBreastCrotchSize()+Main.getProperties().udderSizePreference,
 					startingBodyType.getBreastCrotchLactationRate(),
 					startingBodyType.getBreastCrotchCount(),
 					startingBodyType.getBreastCrotchNippleSize(),
@@ -1716,13 +1730,14 @@ public class CharacterUtils {
 		
 		// Penis:
 		if(character.hasPenis() || character.getRace()==Race.DEMON) {
-			character.setPenisVirgin(true);
-			if(Math.random()>0.15f
+			if(Math.random()<0.9f
 					|| character.getHistory()==Occupation.NPC_PROSTITUTE
 					|| character.hasFetish(Fetish.FETISH_CUM_STUD)
 					|| character.hasFetish(Fetish.FETISH_VAGINAL_GIVING)
 					|| character.hasFetish(Fetish.FETISH_ANAL_GIVING)) {
 				character.setPenisVirgin(false);
+			} else {
+				character.setPenisVirgin(true);
 			}
 			if((character.getGender()==Gender.F_P_TRAP || character.getGender()==Gender.N_P_TRAP) && Math.random()>=0.1f) { // Most traps have a small cock:
 				character.setPenisSize(PenisSize.ONE_TINY.getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
@@ -1763,7 +1778,7 @@ public class CharacterUtils {
 				character.setVaginaCapacity(capacity, true);
 				
 			} else {
-				if(Math.random()>0.99f || character.getHistory()==Occupation.NPC_PROSTITUTE) {
+				if(Math.random()<0.9f || character.getHistory()==Occupation.NPC_PROSTITUTE) {
 					character.setVaginaVirgin(false);
 					character.setVaginaCapacity(character.getVaginaRawCapacityValue()*1.2f, true);
 					character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());

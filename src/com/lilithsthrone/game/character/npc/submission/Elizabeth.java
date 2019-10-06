@@ -47,7 +47,7 @@ import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -100,7 +100,8 @@ public class Elizabeth extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.9")) {
 			this.equipClothing(Util.newArrayListOfValues(EquipClothingSetting.ADD_WEAPONS));
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
+			this.setHistory(Occupation.NPC_LYSSIETH_GUARD);
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE);
 		}
@@ -128,7 +129,7 @@ public class Elizabeth extends NPC {
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			this.setHistory(Occupation.NPC_MUGGER);
+			this.setHistory(Occupation.NPC_LYSSIETH_GUARD);
 			
 			this.clearFetishes();
 			
@@ -270,9 +271,10 @@ public class Elizabeth extends NPC {
 	public int getEscapeChance() {
 		return 0;
 	}
-	
-	public Attack attackType() {
-		return Attack.MAIN;
+
+	@Override
+	public CombatBehaviour getCombatBehaviour() {
+		return CombatBehaviour.ATTACK;
 	}
 	
 }

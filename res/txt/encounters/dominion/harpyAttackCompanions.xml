@@ -651,7 +651,7 @@
 						#IF npc.isAbleToFly()
 						#THEN takes off with a flap of [npc.her] wings and swoops down into the streets below. Letting out a sigh, you move off and continue on your way...
 						#ELSE runs off and turns a corner. Letting out a sigh, you move off and continue on your way...
-						#ENDIFcontinue on your way...
+						#ENDIF
 					</p>
 				#ENDIF
 			#ENDIF
@@ -1344,7 +1344,7 @@
 		Pulling you to your feet, [npc.name] pushes you against a nearby wall, before demanding that you hand over your money. Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more.
 	</p>
 	<p>
-		[npc.speech(Don't even <i>think</i> about reporting this to the enforcers!)] [npc.she] growls down at you, before turning around and running off.
+		[npc.speech(Don't even <i>think</i> about reporting this to the Enforcers!)] [npc.she] growls down at you, before turning around and running off.
 	</p>
 	]]>
 	</htmlContent>
@@ -1498,7 +1498,7 @@
 		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you. [npc.She] looks down at you, and you glance up to see a very satisfied smile cross [npc.her] face. [npc.She] leans down and pats you on the head. [npc.speech(We should do this again some time!)]
 	</p>
 	<p>
-		With that, [npc.she] walks off, leaving you panting on the floor. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way.
+		With that, [npc.she] walks off, leaving you panting on the ground. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way.
 	</p>
 	]]>
 	</htmlContent>

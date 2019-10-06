@@ -67,7 +67,7 @@ public class BraxOffice {
 		Main.game.getNpc(Brax.class).setAffection(Main.game.getPlayer(), -50);
 		
 		Main.game.getNpc(CandiReceptionist.class).addSlave(Main.game.getNpc(Brax.class));
-		Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(PlaceType.ENFORCER_HQ_BRAXS_OFFICE).getInventory().clearNonEquippedInventory();
+		Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(PlaceType.ENFORCER_HQ_BRAXS_OFFICE).getInventory().clearNonEquippedInventory(true);
 		
 		Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
 	}
@@ -249,7 +249,7 @@ public class BraxOffice {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "INTERIOR_BRAX_LIE_BLUFFING");
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "INTERIOR_BRAX_LIE_BLUFFING_SUCCESS");
 		}
 		
 		@Override

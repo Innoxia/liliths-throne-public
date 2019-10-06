@@ -65,7 +65,7 @@ public enum PersonalityTrait {
 	
 	LEWD(PersonalityCategory.SEX,
 			"lewd",
-			"[npc.Name] [npc.verb(seem)] to always have sex on [npc.her] mind, and often [npc.verb(display)] very crude and licentious behaviour.",
+			"[npc.NameHasFull] an extensive knowledge of all things sexual, and [npc.is] always eager to talk about lewd things.",
 			"",
 			Colour.BASE_PINK) {
 		@Override
@@ -76,7 +76,7 @@ public enum PersonalityTrait {
 	
 	INNOCENT(PersonalityCategory.SEX,
 			"innocent",
-			"[npc.Name] [npc.verb(get)] overwhelmed when faced with lewd situations, and [npc.is] not really sure what [npc.sheIs] meant to do while having sex.",
+			"[npc.Name] always [npc.verb(act)] embarrassed and innocent when talking about (or performing) sexual acts.",
 			"",
 			Colour.BASE_BLUE_LIGHT) {
 		@Override
@@ -87,7 +87,7 @@ public enum PersonalityTrait {
 	
 	PRUDE(PersonalityCategory.SEX,
 			"prude",
-			"[npc.Name] [npc.verb(act)] shocked or disinterested whenever talk turns to matters of sex.",
+			"[npc.Name] [npc.do] not like talking about sexual matters, and [npc.verb(refuse)] to even acknowledge that [npc.she] [npc.verb(know)] anything about such things.",
 			"",
 			Colour.BASE_BLUE_STEEL) {
 		@Override
@@ -97,21 +97,7 @@ public enum PersonalityTrait {
 	},
 
 	// Speech traits:
-	//TODO
-//	BIMBO(PersonalityCategory.SPEECH, "bimbo", "[npc.Name] both acts and speaks like an air-headed bimbo.", Colour.BASE_PINK_DEEP) {
-//		@Override
-//		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
-//			return Util.newArrayListOfValues(BRO);
-//		}
-//	},
-//	
-//	BRO(PersonalityCategory.SPEECH, "bro", "[npc.Name] acts, and speaks, like an air-headed surfer bro.", Colour.BASE_BLUE) {
-//		@Override
-//		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
-//			return Util.newArrayListOfValues(BIMBO);
-//		}
-//	},
-
+	
 	LISP(PersonalityCategory.SPEECH,
 			"lisp",
 			"[npc.Name] [npc.verb(speak)] with a lisp, pronouncing 's' and 'z' as 'th'.",
@@ -125,9 +111,9 @@ public enum PersonalityTrait {
 
 	STUTTER(PersonalityCategory.SPEECH,
 			"stutter",
-			"[npc.Name] has a habit of stuttering and stumbling over [npc.her] words as [npc.she] [npc.verb(speak)].",
+			"[npc.NameHasFull] a habit of stuttering and stumbling over [npc.her] words as [npc.she] [npc.verb(speak)].",
 			"[style.italicsBad(All of [npc.namePos] in-game speech will be affected by this stutter!)]",
-			Colour.BASE_VIOLET) {
+			Colour.BASE_PINK_SALMON) {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return new ArrayList<>();

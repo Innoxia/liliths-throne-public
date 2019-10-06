@@ -106,7 +106,7 @@ public class ReindeerOverseer extends NPC {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			CharacterUtils.applyMakeup(this, true);
 			
-			dailyReset(); // Give items for sale.
+			dailyUpdate(); // Give items for sale.
 
 			initHealthAndManaToMax();
 		}
@@ -154,7 +154,7 @@ public class ReindeerOverseer extends NPC {
 	}
 	
 	@Override
-	public void dailyReset() {
+	public void dailyUpdate() {
 		
 		if(!this.isSlave()) {
 			if(Main.game.getCurrentWeather()!=Weather.SNOW && Main.game.getSeason()!=Season.WINTER) {
@@ -164,7 +164,7 @@ public class ReindeerOverseer extends NPC {
 				}
 			}
 			
-			clearNonEquippedInventory();
+			clearNonEquippedInventory(false);
 			
 			if(this.getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_STREET) && !this.getLocation().equals(Main.game.getPlayer().getLocation())) {
 				this.moveToAdjacentMatchingCellType(true);

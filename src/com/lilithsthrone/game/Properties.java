@@ -87,15 +87,21 @@ public class Properties {
 
 	public int pregnancyBreastGrowthVariance = 2;
 	public int pregnancyBreastGrowth = 1;
+	public int pregnancyUdderGrowth = 1;
+	
 	public int pregnancyBreastGrowthLimit = CupSize.E.getMeasurement();
+	public int pregnancyUdderGrowthLimit = CupSize.E.getMeasurement();
+	
 	public int pregnancyLactationIncreaseVariance = 100;
 	public int pregnancyLactationIncrease = 250;
+	public int pregnancyUdderLactationIncrease = 250;
+	
 	public int pregnancyLactationLimit = 1000;
+	public int pregnancyUdderLactationLimit = 1000;
 	
 	public int breastSizePreference = 0;
+	public int udderSizePreference = 0;
 	public int penisSizePreference = 0;
-//	public String[] breastSizePreferenceLabels = new String[] {"Minimum", "Tiny", "Small", "Reduced", "Default", "Big", "Huge", "Massive", "Maximum"};
-//	public int[] breastSizePreferenceMultiplierLabels = new int[] {-8, -6, -4, -2, 0, 2, 4, 8, 16};
 	
 	public Set<PropertyValue> values;
 
@@ -259,12 +265,17 @@ public class Properties {
 
 			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowthVariance", String.valueOf(pregnancyBreastGrowthVariance));
 			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowth", String.valueOf(pregnancyBreastGrowth));
+			createXMLElementWithValue(doc, settings, "pregnancyUdderGrowth", String.valueOf(pregnancyUdderGrowth));
 			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowthLimit", String.valueOf(pregnancyBreastGrowthLimit));
+			createXMLElementWithValue(doc, settings, "pregnancyUdderGrowthLimit", String.valueOf(pregnancyUdderGrowthLimit));
 			createXMLElementWithValue(doc, settings, "pregnancyLactationIncreaseVariance", String.valueOf(pregnancyLactationIncreaseVariance));
 			createXMLElementWithValue(doc, settings, "pregnancyLactationIncrease", String.valueOf(pregnancyLactationIncrease));
+			createXMLElementWithValue(doc, settings, "pregnancyUdderLactationIncrease", String.valueOf(pregnancyUdderLactationIncrease));
 			createXMLElementWithValue(doc, settings, "pregnancyLactationLimit", String.valueOf(pregnancyLactationLimit));
+			createXMLElementWithValue(doc, settings, "pregnancyUdderLactationLimit", String.valueOf(pregnancyUdderLactationLimit));
 
 			createXMLElementWithValue(doc, settings, "breastSizePreference", String.valueOf(breastSizePreference));
+			createXMLElementWithValue(doc, settings, "udderSizePreference", String.valueOf(udderSizePreference));
 			createXMLElementWithValue(doc, settings, "penisSizePreference", String.valueOf(penisSizePreference));
 			
 			createXMLElementWithValue(doc, settings, "forcedFetishPercentage", String.valueOf(forcedFetishPercentage));
@@ -731,13 +742,24 @@ public class Properties {
 				
 				try {
 					pregnancyBreastGrowthVariance = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyBreastGrowthVariance").item(0)).getAttribute("value"));
+					
 					pregnancyBreastGrowth = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyBreastGrowth").item(0)).getAttribute("value"));
+					pregnancyUdderGrowth = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyUdderGrowth").item(0)).getAttribute("value"));
+					
 					pregnancyBreastGrowthLimit = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyBreastGrowthLimit").item(0)).getAttribute("value"));
+					pregnancyUdderGrowthLimit = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyUdderGrowthLimit").item(0)).getAttribute("value"));
+					
 					pregnancyLactationIncreaseVariance = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationIncreaseVariance").item(0)).getAttribute("value"));
+					
 					pregnancyLactationIncrease = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationIncrease").item(0)).getAttribute("value"));
+					pregnancyUdderLactationIncrease = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyUdderLactationIncrease").item(0)).getAttribute("value"));
+					
 					pregnancyLactationLimit = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationLimit").item(0)).getAttribute("value"));
+					pregnancyUdderLactationLimit = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyUdderLactationLimit").item(0)).getAttribute("value"));
 
 					breastSizePreference = Integer.valueOf(((Element)element.getElementsByTagName("breastSizePreference").item(0)).getAttribute("value"));
+					udderSizePreference = Integer.valueOf(((Element)element.getElementsByTagName("udderSizePreference").item(0)).getAttribute("value"));
+					
 					penisSizePreference = Integer.valueOf(((Element)element.getElementsByTagName("penisSizePreference").item(0)).getAttribute("value"));
 				}catch(Exception ex) {
 				}

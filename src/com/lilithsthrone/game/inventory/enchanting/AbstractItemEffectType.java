@@ -29,6 +29,7 @@ import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -56,6 +57,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
@@ -185,6 +187,9 @@ public abstract class AbstractItemEffectType {
 				return Util.newArrayListOfValues(
 						TFModifier.TF_MOD_SIZE,// ass size
 						TFModifier.TF_MOD_SIZE_SECONDARY,// hip size
+						Main.game.isAssHairEnabled()
+							?TFModifier.TF_MOD_BODY_HAIR
+							:null,
 						TFModifier.TF_MOD_CAPACITY,
 						TFModifier.TF_MOD_ELASTICITY,
 						TFModifier.TF_MOD_PLASTICITY,
@@ -194,6 +199,11 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_ORIFICE_MUSCLED,
 						TFModifier.TF_MOD_ORIFICE_TENTACLED
 						);
+			case TF_ARMS:
+				return Util.newArrayListOfValues(
+						Main.game.isBodyHairEnabled()
+							?TFModifier.TF_MOD_BODY_HAIR
+							:null);
 			case TF_BREASTS: case TF_BREASTS_CROTCH:
 				return Util.newArrayListOfValues(
 						TFModifier.TF_MOD_SIZE,// breast size
@@ -214,7 +224,10 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_SIZE,// height
 						TFModifier.TF_MOD_SIZE_SECONDARY,// muscle mass
 						TFModifier.TF_MOD_SIZE_TERTIARY,// body size
-						TFModifier.TF_MOD_FEMININITY
+						TFModifier.TF_MOD_FEMININITY,
+						Main.game.isPubicHairEnabled()
+							?TFModifier.TF_MOD_BODY_HAIR
+							:null
 						);
 			case TF_FACE:
 				return Util.newArrayListOfValues(
@@ -222,7 +235,10 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_ORIFICE_PUFFY,
 						TFModifier.TF_MOD_ORIFICE_RIBBED,
 						TFModifier.TF_MOD_ORIFICE_MUSCLED,
-						TFModifier.TF_MOD_ORIFICE_TENTACLED
+						TFModifier.TF_MOD_ORIFICE_TENTACLED,
+						Main.game.isFacialHairEnabled()
+							?TFModifier.TF_MOD_BODY_HAIR
+							:null
 						);
 			case TF_HAIR:
 				return Util.newArrayListOfValues(
@@ -235,9 +251,13 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_CAPACITY,
 						TFModifier.TF_MOD_ELASTICITY,
 						TFModifier.TF_MOD_PLASTICITY,
+						TFModifier.TF_MOD_SIZE_TERTIARY,
 						TFModifier.TF_MOD_WETNESS,
 						TFModifier.TF_MOD_CUM_EXPULSION,
-						TFModifier.TF_MOD_REGENERATION
+						TFModifier.TF_MOD_REGENERATION,
+						Main.game.isPubicHairEnabled()
+							?TFModifier.TF_MOD_BODY_HAIR
+							:null
 						);
 
 				if(Main.getProperties().hasValue(PropertyValue.urethralContent)) {
@@ -259,7 +279,10 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_ORIFICE_PUFFY,
 						TFModifier.TF_MOD_ORIFICE_RIBBED,
 						TFModifier.TF_MOD_ORIFICE_MUSCLED,
-						TFModifier.TF_MOD_ORIFICE_TENTACLED
+						TFModifier.TF_MOD_ORIFICE_TENTACLED,
+						Main.game.isPubicHairEnabled()
+							?TFModifier.TF_MOD_BODY_HAIR
+							:null
 						);
 
 				if(Main.getProperties().hasValue(PropertyValue.urethralContent)) {
@@ -316,6 +339,16 @@ public abstract class AbstractItemEffectType {
 						return AssSize.SEVEN_GIGANTIC.getValue();
 					case TF_MOD_SIZE_SECONDARY:
 						return HipSize.SEVEN_ABSURDLY_WIDE.getValue();
+					case TF_MOD_BODY_HAIR:
+						return BodyHair.SEVEN_WILD.getValue();
+					default:
+						break;
+				}
+				break;
+			case TF_ARMS:
+				switch(secondaryModifier) {
+					case TF_MOD_BODY_HAIR:
+						return BodyHair.SEVEN_WILD.getValue();
 					default:
 						break;
 				}
@@ -346,6 +379,8 @@ public abstract class AbstractItemEffectType {
 						return BodySize.FOUR_HUGE.getMaximumValue();
 					case TF_MOD_FEMININITY:
 						return Femininity.FEMININE_STRONG.getMaximumFemininity();
+					case TF_MOD_BODY_HAIR:
+						return BodyHair.SEVEN_WILD.getValue();
 					default:
 						break;
 				}
@@ -354,6 +389,8 @@ public abstract class AbstractItemEffectType {
 				switch(secondaryModifier) {
 					case TF_MOD_SIZE:
 						return LipSize.FOUR_HUGE.getValue();
+					case TF_MOD_BODY_HAIR:
+						return BodyHair.SEVEN_WILD.getValue();
 					default:
 						break;
 				}
@@ -372,12 +409,16 @@ public abstract class AbstractItemEffectType {
 						return PenisSize.SEVEN_STALLION.getMaximumValue();
 					case TF_MOD_SIZE_SECONDARY:
 						return TesticleSize.SEVEN_ABSURD.getValue();
+					case TF_MOD_SIZE_TERTIARY:
+						return PenisGirth.FOUR_FAT.getValue();
 					case TF_MOD_WETNESS:
 						return CumProduction.SEVEN_MONSTROUS.getMaximumValue();
 					case TF_MOD_CUM_EXPULSION:
 						return FluidExpulsion.FOUR_HUGE.getMaximumValue();
 					case TF_MOD_REGENERATION:
 						return FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay();
+					case TF_MOD_BODY_HAIR:
+						return BodyHair.SEVEN_WILD.getValue();
 					default:
 						break;
 				}
@@ -388,6 +429,8 @@ public abstract class AbstractItemEffectType {
 						return ClitorisSize.SEVEN_STALLION.getMaximumValue();
 					case TF_MOD_SIZE_SECONDARY:
 						return LabiaSize.FOUR_MASSIVE.getValue();
+					case TF_MOD_BODY_HAIR:
+						return BodyHair.SEVEN_WILD.getValue();
 					default:
 						break;
 				}
@@ -465,6 +508,18 @@ public abstract class AbstractItemEffectType {
 						break;
 					case TF_MOD_ORIFICE_TENTACLED:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "anus tentacled", "anal tentacles"));
+						break;
+					case TF_MOD_BODY_HAIR:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "ass hairiness", BodyHair.getBodyHairFromValue(limit).getName()));
+						break;
+					default:
+						break;
+				}
+				break;
+			case TF_ARMS:
+				switch(secondaryModifier) {
+					case TF_MOD_BODY_HAIR:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "underarm hairiness", BodyHair.getBodyHairFromValue(limit).getName()));
 						break;
 					default:
 						break;
@@ -550,6 +605,9 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_FEMININITY:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "femininity", String.valueOf(limit)));
 						break;
+					case TF_MOD_BODY_HAIR:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "pubic hairiness", BodyHair.getBodyHairFromValue(limit).getName()));
+						break;
 					default:
 						break;
 				}
@@ -574,6 +632,9 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_ORIFICE_TENTACLED:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "throat internally tentacled", "throat tentacles"));
 						break;
+					case TF_MOD_BODY_HAIR:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "beard length", BodyHair.getBodyHairFromValue(limit).getName()));
+						break;
 					default:
 						break;
 				}
@@ -593,6 +654,9 @@ public abstract class AbstractItemEffectType {
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "penis size", Units.size(limit, Units.ValueType.PRECISE, Units.UnitType.SHORT)));
 						break;
 					case TF_MOD_SIZE_SECONDARY:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "penis girth", PenisGirth.getPenisGirthFromInt(limit).getName()));
+						break;
+					case TF_MOD_SIZE_TERTIARY:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "testicle size", TesticleSize.getTesticleSizeFromInt(limit).getDescriptor()));
 						break;
 					case TF_MOD_WETNESS:
@@ -615,6 +679,9 @@ public abstract class AbstractItemEffectType {
 						break;
 					case TF_MOD_ORIFICE_TENTACLED:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra internally tentacled", "urethral tentacles"));
+						break;
+					case TF_MOD_BODY_HAIR:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "pubic hairiness", BodyHair.getBodyHairFromValue(limit).getName()));
 						break;
 					default:
 						break;
@@ -651,6 +718,9 @@ public abstract class AbstractItemEffectType {
 						break;
 					case TF_MOD_ORIFICE_TENTACLED_2:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra internally tentacled", "urethral tentacles"));
+						break;
+					case TF_MOD_BODY_HAIR:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "pubic hairiness", BodyHair.getBodyHairFromValue(limit).getName()));
 						break;
 					default:
 						break;
@@ -730,6 +800,8 @@ public abstract class AbstractItemEffectType {
 
 		int clitorisSizeIncrement = (potency.isNegative()?-1:1);
 		int labiaSizeIncrement = (potency.isNegative()?-1:1);
+
+		int bodyHairIncrement = (potency.isNegative()?-1:1);
 		
 		int TFCount = 0;
 		int secondsRequired = 60*60;
@@ -851,6 +923,26 @@ public abstract class AbstractItemEffectType {
 								if(target.hasAssOrificeModifier(OrificeModifier.TENTACLED)) {
 									sb.append(target.removeAssOrificeModifier(OrificeModifier.TENTACLED));
 								}
+							}
+							break;
+						case TF_MOD_BODY_HAIR:
+							if(isWithinLimits(bodyHairIncrement, target.getAssHair().getValue(), limit)) {
+								sb.append(target.incrementAssHair(bodyHairIncrement));
+							} else if(isSetToLimit(bodyHairIncrement, target.getAssHair().getValue(), limit)) {
+								sb.append(target.setAssHair(limit));
+							}
+							break;
+						default:
+							break;
+					}
+					break;
+				case TF_ARMS:
+					switch(secondaryModifier) {
+						case TF_MOD_BODY_HAIR:
+							if(isWithinLimits(bodyHairIncrement, target.getUnderarmHair().getValue(), limit)) {
+								sb.append(target.incrementUnderarmHair(bodyHairIncrement));
+							} else if(isSetToLimit(bodyHairIncrement, target.getUnderarmHair().getValue(), limit)) {
+								sb.append(target.setUnderarmHair(limit));
 							}
 							break;
 						default:
@@ -1101,6 +1193,13 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.setFemininity(limit));
 							}
 							break;
+						case TF_MOD_BODY_HAIR:
+							if(isWithinLimits(bodyHairIncrement, target.getPubicHair().getValue(), limit)) {
+								sb.append(target.incrementPubicHair(bodyHairIncrement));
+							} else if(isSetToLimit(bodyHairIncrement, target.getPubicHair().getValue(), limit)) {
+								sb.append(target.setPubicHair(limit));
+							}
+							break;
 						default:
 							break;
 					}
@@ -1165,6 +1264,13 @@ public abstract class AbstractItemEffectType {
 								}
 							}
 							break;
+						case TF_MOD_BODY_HAIR:
+							if(isWithinLimits(bodyHairIncrement, target.getFacialHair().getValue(), limit)) {
+								sb.append(target.incrementFacialHair(bodyHairIncrement));
+							} else if(isSetToLimit(bodyHairIncrement, target.getFacialHair().getValue(), limit)) {
+								sb.append(target.setFacialHair(limit));
+							}
+							break;
 						default:
 							break;
 					}
@@ -1193,6 +1299,13 @@ public abstract class AbstractItemEffectType {
 								}
 								break;
 							case TF_MOD_SIZE_SECONDARY:
+								if(isWithinLimits(penisSizeIncrement, target.getPenisGirth().getValue(), limit)) {
+									sb.append(target.incrementPenisGirth(penisSizeIncrement));
+								} else if(isSetToLimit(penisSizeIncrement, target.getPenisGirth().getValue(), limit)) {
+									sb.append(target.setPenisGirth(limit));
+								}
+								break;
+							case TF_MOD_SIZE_TERTIARY:
 								if(isWithinLimits(testicleSizeIncrement, target.getTesticleSize().getValue(), limit)) {
 									sb.append(target.incrementTesticleSize(testicleSizeIncrement));
 								} else if(isSetToLimit(testicleSizeIncrement, target.getTesticleSize().getValue(), limit)) {
@@ -1283,6 +1396,13 @@ public abstract class AbstractItemEffectType {
 									if(target.hasUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
 										sb.append(target.removeUrethraOrificeModifier(OrificeModifier.TENTACLED));
 									}
+								}
+								break;
+							case TF_MOD_BODY_HAIR:
+								if(isWithinLimits(bodyHairIncrement, target.getPubicHair().getValue(), limit)) {
+									sb.append(target.incrementPubicHair(bodyHairIncrement));
+								} else if(isSetToLimit(bodyHairIncrement, target.getPubicHair().getValue(), limit)) {
+									sb.append(target.setPubicHair(limit));
 								}
 								break;
 							default:
@@ -1442,6 +1562,13 @@ public abstract class AbstractItemEffectType {
 									if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
 										sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED));
 									}
+								}
+								break;
+							case TF_MOD_BODY_HAIR:
+								if(isWithinLimits(bodyHairIncrement, target.getPubicHair().getValue(), limit)) {
+									sb.append(target.incrementPubicHair(bodyHairIncrement));
+								} else if(isSetToLimit(bodyHairIncrement, target.getPubicHair().getValue(), limit)) {
+									sb.append(target.setPubicHair(limit));
 								}
 								break;
 							default:
@@ -3655,7 +3782,7 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil(
 								TailType.getTailTypes(race).size()<3 || TailType.getTailTypes(race).get(2)==TailType.NONE
 									?"Removes tail."
-									:Util.capitaliseSentence(TailType.getTailTypes(race).get(1).getTransformName())+" tail transformation.") {
+									:Util.capitaliseSentence(TailType.getTailTypes(race).get(2).getTransformName())+" tail transformation.") {
 							@Override public String applyEffect() { if(TailType.getTailTypes(race).size()<3) {return target.setTailType(TailType.NONE); } else {return target.setTailType(TailType.getTailTypes(race).get(2));} } };
 	
 					case TF_TYPE_4:

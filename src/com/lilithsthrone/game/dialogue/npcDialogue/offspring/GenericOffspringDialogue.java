@@ -12,7 +12,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -133,6 +133,7 @@ public class GenericOffspringDialogue {
 						@Override
 						public void effects() {
 							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
+							offspring().setFlag(NPCFlagValue.fightOffspringInApartment, false);
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -100));
 							setOffspringFlags();
 						}
@@ -259,6 +260,7 @@ public class GenericOffspringDialogue {
 						@Override
 						public void effects() {
 							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
+							offspring().setFlag(NPCFlagValue.fightOffspringInApartment, false);
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -100));
 							setOffspringFlags();
 						}
@@ -342,13 +344,7 @@ public class GenericOffspringDialogue {
 			if (index == 1) {
 				return new ResponseCombat("Fight",
 						"You find yourself fighting your [npc.daughter]!",
-						offspring()) {
-						@Override
-						public void effects() {
-							offspring().setFlag(NPCFlagValue.fightOffspringInApartment, true);
-							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
-						};
-				};
+						offspring());
 			} else {
 				return null;
 			}
@@ -522,6 +518,7 @@ public class GenericOffspringDialogue {
 						@Override
 						public void effects() {
 							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
+							offspring().setFlag(NPCFlagValue.fightOffspringInApartment, true);
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -100));
 							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 						}
@@ -930,13 +927,7 @@ public class GenericOffspringDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", offspring()) {
-					@Override
-					public void effects() {
-						offspring().setFlag(NPCFlagValue.fightOffspringInApartment, true);
-						offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
-					}
-				};
+				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", offspring());
 				
 			} else {
 				return null;

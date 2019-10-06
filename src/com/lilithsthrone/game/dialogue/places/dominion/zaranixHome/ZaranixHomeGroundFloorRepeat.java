@@ -87,7 +87,7 @@ public class ZaranixHomeGroundFloorRepeat {
 						@Override
 						public void effects() {
 							resetHouseAfterLeaving(); // Reset here as well in case the player teleported out of the house.
-							Main.game.getNpc(Amber.class).setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
+							Main.game.getNpc(Amber.class).setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ZARANIX, false);
 							Main.game.getNpc(Amber.class).setPlayerKnowsName(true);
 							Main.game.getNpc(Zaranix.class).returnToHome();
 						}
@@ -98,7 +98,7 @@ public class ZaranixHomeGroundFloorRepeat {
 						@Override
 						public void effects() {
 							resetHouseAfterLeaving(); // Reset here as well in case the player teleported out of the house.
-							Main.game.getNpc(Amber.class).setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
+							Main.game.getNpc(Amber.class).setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ZARANIX, false);
 							Main.game.getNpc(Amber.class).setPlayerKnowsName(true);
 							Main.game.getNpc(Zaranix.class).returnToHome();
 						}
@@ -371,11 +371,11 @@ public class ZaranixHomeGroundFloorRepeat {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Exit", "Leave Zaranix's house and head back out into Demon Home.", PlaceType.DOMINION_DEMON_HOME_ARTHUR.getDialogue(false)) {
+				return new Response("Exit", "Leave Zaranix's house and head back out into Demon Home.", PlaceType.DOMINION_DEMON_HOME_ZARANIX.getDialogue(false)) {
 					@Override
 					public void effects() {
 						resetHouseAfterLeaving();
-						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ZARANIX, false);
 					}
 				};
 

@@ -361,9 +361,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	/**
-	 * Resets this character to their default state.
+	 * Applies a daily update to this NPC, called at midnight. Usually used for traders resetting their inventories.
 	 */
-	public void dailyReset() {
+	public void dailyUpdate() {
 	}
 	
 	/**
@@ -1082,7 +1082,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		SlaveJob job = this.getSlaveJob(hour);
 		
 		// Rounding is to get rid of floating point ridiculousness (e.g. 2.3999999999999999999999):
-		if(!isAtWork(hour)) {
+		if(this.getSlaveJob(hour)==SlaveJob.IDLE) {
 			return Math.round(this.getHomeLocationPlace().getHourlyAffectionChange()*100)/100f;
 		} else {
 			return Math.round(job.getAffectionGain(this)*100)/100f;
@@ -1094,8 +1094,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		for (int hour = 0; hour < 24; hour++) {
 			SlaveJob job = this.getSlaveJob(hour);
-			if(!isAtWork(hour)) {
-				totalAffectionChange+=this.getHomeLocationPlace().getHourlyAffectionChange();
+			if(this.getSlaveJob(hour)==SlaveJob.IDLE) {
+				totalAffectionChange += this.getHomeLocationPlace().getHourlyAffectionChange();
 			} else {
 				totalAffectionChange += job.getAffectionGain(this);
 			}
@@ -1175,9 +1175,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public boolean isPendingTransformationToGenderIdentity() {
 		return this.getGender()!=this.getGenderIdentity()
+				&& !(this instanceof Elemental)
 				&& !this.isPregnant()
 				&& !this.isUnique()
 				&& !this.isSlave()
+				&& !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
 				&& (this.getSubspeciesOverride()==Subspecies.DEMON || this.getSubspecies()==Subspecies.SLIME);
 //		return NPCFlagValues.contains(NPCFlagValue.pendingTransformationToGenderIdentity);
 	}
@@ -2708,8 +2710,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					if(performingArea.isOrifice() && ((SexAreaOrifice)performingArea).isInternalOrifice()) {
 						partner.setVirginityLoss(partnerSexType, this, this.getLostVirginityDescriptor());
 						partner.setPenisVirgin(false);
+						partnerCummed = partner.getPenisRawCumStorageValue()>0;
 						if(!flags.contains(NPCGenericSexFlag.PREVENT_CREAMPIE) && partner.getPenisRawCumStorageValue()>0 && performingArea.isOrifice()) {
-							partnerCummed = true;
 							this.ingestFluid(partner, partner.getCum(), (SexAreaOrifice)performingArea, partner.getPenisRawOrgasmCumQuantity());
 							this.incrementCumCount(new SexType(SexParticipantType.NORMAL, performingArea, SexAreaPenetration.PENIS));
 							partner.applyOrgasmCumEffect();
@@ -2865,8 +2867,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					if(targetedArea.isOrifice() && ((SexAreaOrifice)targetedArea).isInternalOrifice()) {
 						this.setVirginityLoss(sexType, partner, partner.getLostVirginityDescriptor());
 						this.setPenisVirgin(false);
+						thisCummed = this.getPenisRawCumStorageValue()>0;
 						if(!flags.contains(NPCGenericSexFlag.PREVENT_CREAMPIE) && this.getPenisRawCumStorageValue()>0 && targetedArea.isOrifice()) {
-							thisCummed = true;
 							partner.ingestFluid(this, this.getCum(), (SexAreaOrifice)targetedArea, this.getPenisRawOrgasmCumQuantity());
 							partner.incrementCumCount(new SexType(SexParticipantType.NORMAL, targetedArea, SexAreaPenetration.PENIS));
 							this.applyOrgasmCumEffect();

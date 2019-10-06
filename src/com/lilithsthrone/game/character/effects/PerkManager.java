@@ -767,6 +767,21 @@ public enum PerkManager {
 		
 		boolean disabled = !isPerkOwned(character, perkEntry) && !isPerkAvailable(character, perkEntry);
 		
+		Colour borderColour = perkEntry.getCategory().getColour();
+		switch(perkEntry.getEntry().getPerkCategory()) {
+			case ARCANE:
+			case JOB:
+			case LUST:
+			case PHYSICAL:
+				break;
+			case ARCANE_AIR:
+			case ARCANE_FIRE:
+			case PHYSICAL_EARTH:
+			case PHYSICAL_WATER:
+				borderColour = perkEntry.getEntry().getPerkCategory().getColour();
+				break;
+		}
+		
 		// Append up/down lines:
 		float entryX = getX(character, perkEntry.getRow(), perkEntry);
 		if(!perkEntry.getParentLinks().isEmpty()) {
@@ -782,7 +797,7 @@ public enum PerkManager {
 							(isPerkOwned(character, perkEntry)
 									?character.hasTraitActivated(perkEntry.getEntry())
 										?"border-color:"+Colour.TRAIT.toWebHexString()+";"
-										:"border-color:"+perkEntry.getCategory().getColour().toWebHexString()+";"
+										:"border-color:"+borderColour.toWebHexString()+";"
 									:"")+"' id='"+perkEntry.getRow()+"_"+perkEntry.getCategory()+"_"+Perk.getIdFromPerk(perkEntry.getEntry())+"'>"
 				+ "<div class='square-button-content'>"+perkEntry.getEntry().getSVGString(character)+"</div>"
 				+ (disabled

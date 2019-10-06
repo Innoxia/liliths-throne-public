@@ -80,7 +80,7 @@ public class Ashley extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.PRUDE);
 		}
@@ -252,8 +252,8 @@ public class Ashley extends NPC {
 	}
 	
 	@Override
-	public void dailyReset() {
-		clearNonEquippedInventory();
+	public void dailyUpdate() {
+		clearNonEquippedInventory(false);
 		
 		for (AbstractItemType item : itemsForSale) {
 			for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {

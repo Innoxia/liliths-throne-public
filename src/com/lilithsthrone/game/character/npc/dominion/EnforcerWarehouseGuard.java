@@ -77,7 +77,7 @@ public class EnforcerWarehouseGuard extends NPC {
 			
 			this.setHistory(occupation);
 			
-			CharacterUtils.addFetishes(this, Fetish.FETISH_CROSS_DRESSER); // Do not allow cross-dressing, as otherwise it will mess with uniforms.
+			CharacterUtils.addFetishes(this, Fetish.FETISH_CROSS_DRESSER, Fetish.FETISH_EXHIBITIONIST); // Do not allow cross-dressing or exhibitionist, as otherwise it will mess with uniforms.
 			
 			this.addFetish(Fetish.FETISH_SADIST);
 			
@@ -168,7 +168,7 @@ public class EnforcerWarehouseGuard extends NPC {
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if(Main.game.getPlayer().getCell().getPlace().getPlaceType()==PlaceType.ENFORCER_WAREHOUSE_ENFORCER_GUARD_POST) {
 			if(victory) {
-				return new Response("Victory", "The enforcer slumps to the floor before you, defeated.", EnforcerWarehouse.AFTER_GUARD_COMBAT_VICTORY) {
+				return new Response("Victory", "The Enforcer slumps to the floor before you, defeated.", EnforcerWarehouse.AFTER_GUARD_COMBAT_VICTORY) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().warehouseDefeatedIDs.add(EnforcerWarehouseGuard.this.getId());
@@ -182,7 +182,7 @@ public class EnforcerWarehouseGuard extends NPC {
 			
 		} else { // Main entrance:
 			if(victory) {
-				return new Response("Victory", "The enforcers slump to the floor before you, defeated.", EnforcerWarehouse.AFTER_ENTRANCE_VICTORY);
+				return new Response("Victory", "The Enforcers slump to the floor before you, defeated.", EnforcerWarehouse.AFTER_ENTRANCE_VICTORY);
 				
 			} else {
 				return new Response ("Defeated...", "You collapse to the floor, completely defeated.", EnforcerWarehouse.AFTER_ENTRANCE_DEFEAT);

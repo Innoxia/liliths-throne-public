@@ -77,7 +77,7 @@ public class Ralph extends NPC {
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
 		
 		if(!isImported) {
-			dailyReset();
+			dailyUpdate();
 		}
 		
 	}
@@ -225,8 +225,8 @@ public class Ralph extends NPC {
 	}
 
 	@Override
-	public void dailyReset() {
-		clearNonEquippedInventory();
+	public void dailyUpdate() {
+		clearNonEquippedInventory(false);
 		
 		this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), 25, false, false);
 		this.addItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), 10, false, false);
@@ -306,7 +306,7 @@ public class Ralph extends NPC {
 					+ "</p>"
 					+ "<p>"
 						+ "After a brief greeting, you ask him about the transformative consumables on display. He politely informs you that they're all for sale, and lists off all the prices."
-						+ " Sensing that you might not be a typical customer, he tell you that he's also interested in buying any transformative consumables that you're willing to sell."
+						+ " Sensing that you might not be a typical customer, he tells you that he's also interested in buying any transformative consumables that you're willing to sell."
 						+ " As you turn back to look at the goods, Ralph tells you that he refreshes his stock every day."
 					+ "</p>";
 		

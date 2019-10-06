@@ -4,15 +4,17 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.5
- * @version 0.3.5
+ * @version 0.3.5.1
  * @author Innoxia
  */
 public class SMClaireWarehouse extends SexManagerDefault {
@@ -32,5 +34,10 @@ public class SMClaireWarehouse extends SexManagerDefault {
 	public List<AbstractSexPosition> getAllowedSexPositions() {
 		return Util.newArrayListOfValues(
 				SexPosition.AGAINST_WALL);
+	}
+	
+	@Override
+	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
+		return Sex.getNumberOfOrgasms(partner)>=partner.getOrgasmsBeforeSatisfied() && Sex.getNumberOfOrgasms(Main.game.getPlayer())>=Main.game.getPlayer().getOrgasmsBeforeSatisfied();
 	}
 }

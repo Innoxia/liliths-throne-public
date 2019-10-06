@@ -2501,7 +2501,7 @@ public class Lab {
 					+ "</p>"
 					+ "<p>"
 						+ "You notice Arthur glance across to Lilaya, and the pair of them exchange a slightly worried look, before he continues,"
-						+ " [arthur.speech(Anyway, when I returned, I discovered that Amber had already called for the enforcers."
+						+ " [arthur.speech(Anyway, when I returned, I discovered that Amber had already called for the Enforcers."
 							+ " After immediately being enslaved for 'treason', I was quickly shunted through the legal process, and, through a series of bribes, Zaranix quickly gained possession of me."
 							+ " It turned out that he'd been watching me for months, waiting for me to make a mistake so that he could get me enslaved."
 							+ " He was under the rather deluded impression that I'd be able to make a demonic transformative, among other things, and that I'd make him rich.)]"

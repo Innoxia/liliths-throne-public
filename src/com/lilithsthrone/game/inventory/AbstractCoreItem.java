@@ -199,13 +199,6 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	public Rarity getRarity() {
 		return rarity;
 	}
-	
-	/**
-	 * @return the name of a css class to use as a displayed rarity in inventory screens
-	 */
-	public String getDisplayRarity() {
-		return getRarity().getName();
-	}
 
 	public Colour getColour() {
 		return colourShade;

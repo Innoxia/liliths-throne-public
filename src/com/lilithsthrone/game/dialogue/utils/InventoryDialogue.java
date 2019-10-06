@@ -20,8 +20,8 @@ import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
-import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -86,6 +86,45 @@ public class InventoryDialogue {
 		return inventorySB.toString();
 	}
 
+	private static void equipAll(GameCharacter character) {
+		List<AbstractClothing> zlayerClothing = new ArrayList<>(character.getAllClothingInInventory().keySet());
+		zlayerClothing.removeIf((c) -> c.isEnchantmentKnown() && c.isSealed());
+		zlayerClothing.sort(new ClothingZLayerComparator().reversed());
+		Set<InventorySlot> slotsTaken = new HashSet<>();
+
+		for(AbstractClothing c : character.getClothingCurrentlyEquipped()) {
+			slotsTaken.add(c.getSlotEquippedTo());
+		}
+
+		for(AbstractClothing c : zlayerClothing) {
+			if(!slotsTaken.contains(c.getClothingType().getEquipSlots().get(0))) {
+				Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+character.equipClothingFromInventory(c, true, character, character)+"</p>");
+				slotsTaken.add(c.getClothingType().getEquipSlots().get(0));
+			}
+		}
+	}
+
+	private static String unequipAll(GameCharacter character) {
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i=0; i<character.getArmRows(); i++) {
+			sb.append(character.unequipMainWeapon(i, false, character.isPlayer()));
+			sb.append(character.unequipOffhandWeapon(i, false, character.isPlayer()));
+		}
+		
+		List<AbstractClothing> zlayerClothing = new ArrayList<>(character.getClothingCurrentlyEquipped());
+		zlayerClothing.sort(new ClothingZLayerComparator());
+		
+		for(AbstractClothing c : zlayerClothing) { 
+			if(!Main.game.isInSex() || !c.getSlotEquippedTo().isJewellery()) {
+				character.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+				sb.append("<p style='text-align:center;'>"+character.getUnequipDescription()+"</p>");
+			}
+		}
+		
+		return sb.toString();
+	}
+	
 	/**
 	 * The main DialogueNode. From here, the player can gain access to all parts
 	 * of their inventory.
@@ -190,6 +229,12 @@ public class InventoryDialogue {
 
 					} else if (index == 5) {
 						return new Response("Equip all", "You cannot do this while fighting someone!", null);
+
+					} else if(index == 6) {
+						if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
+							return new Response("Store all", "You can't do this during combat!", null);
+						}
+						return new Response("Drop all", "You can't do this during combat!", null);
 
 					} else {
 						return null;
@@ -309,13 +354,7 @@ public class InventoryDialogue {
 							return new Response("Unequip all", "Remove as much of your clothing as possible.", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator());
-
-									for(AbstractClothing c : zlayerClothing) { 
-										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
-									}
+									Main.game.getTextEndStringBuilder().append(unequipAll(Main.game.getPlayer()));
 								}
 							};
 						}
@@ -328,25 +367,51 @@ public class InventoryDialogue {
 							return new Response("Equip all", "Equip as much of the clothing in your inventory as possible.", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory().keySet());
-									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
-									Set<InventorySlot> slotsTaken = new HashSet<>();
-
-									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-										slotsTaken.add(c.getSlotEquippedTo());
-									}
-
-									for(AbstractClothing c : zlayerClothing) {
-										if(!slotsTaken.contains(c.getClothingType().getEquipSlots().get(0))) {
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer())+"</p>");
-											slotsTaken.add(c.getClothingType().getEquipSlots().get(0));
-										}
-									}
+									equipAll(Main.game.getPlayer());
 								}
 							};
 						}
 
-					} else if (index == 6 && inventoryNPC != null) {
+					} else if(index == 6) {
+						if(Main.game.getPlayer().getInventorySlotsTaken()==0) {
+							return new Response(
+									!Main.game.getPlayer().getLocationPlace().isItemsDisappear()
+										?"Store all"
+										:"Drop all",
+									!Main.game.getPlayer().getLocationPlace().isItemsDisappear()
+										?"You have nothing in your inventory to store..."
+										:"You have nothing in your inventory to drop...",
+											null);
+						}
+						return new Response(
+								!Main.game.getPlayer().getLocationPlace().isItemsDisappear()
+									?"Store all"
+									:"Drop all",
+								!Main.game.getPlayer().getLocationPlace().isItemsDisappear()
+									?"Store everything from your inventory in this location."
+									:"Drop everything from your inventory onto the ground.",
+										INVENTORY_MENU) {
+							@Override
+							public void effects() {
+								for(Entry<AbstractItem, Integer> i : new HashSet<>(Main.game.getPlayer().getAllItemsInInventory().entrySet())) {
+									if(i.getKey().getItemType().isAbleToBeDropped()) {
+										dropItems(Main.game.getPlayer(), i.getKey(), i.getValue());
+									}
+								}
+								for(Entry<AbstractWeapon, Integer> w : new HashSet<>(Main.game.getPlayer().getAllWeaponsInInventory().entrySet())) {
+									if(w.getKey().getWeaponType().isAbleToBeDropped()) {
+										dropWeapons(Main.game.getPlayer(), w.getKey(), w.getValue());
+									}
+								}
+								for(Entry<AbstractClothing, Integer> c : new HashSet<>(Main.game.getPlayer().getAllClothingInInventory().entrySet())) {
+									if(c.getKey().getClothingType().isAbleToBeDropped()) {
+										dropClothing(Main.game.getPlayer(), c.getKey(), c.getValue());
+									}
+								}
+							}
+						};
+
+					} else if (index == 7 && inventoryNPC != null) {
 						if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
 							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to displace!"), null);
 
@@ -366,7 +431,7 @@ public class InventoryDialogue {
 							};
 						}
 
-					} else if (index == 7 && inventoryNPC != null) {
+					} else if (index == 8 && inventoryNPC != null) {
 						if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
 							return new Response("Replace all (them)",  UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to replace!"), null);
 
@@ -390,7 +455,7 @@ public class InventoryDialogue {
 							};
 						}
 
-					} else if (index == 8 && inventoryNPC != null) {
+					} else if (index == 9 && inventoryNPC != null) {
 						if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
 							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to remove!"), null);
 
@@ -398,13 +463,7 @@ public class InventoryDialogue {
 							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "Remove as much of [npc.namePos] clothing as possible."), INVENTORY_MENU){
 								@Override
 								public void effects(){
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(inventoryNPC.getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator());
-
-									for(AbstractClothing c : zlayerClothing) { 
-										inventoryNPC.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+inventoryNPC.getUnequipDescription()+"</p>");
-									}
+									Main.game.getTextEndStringBuilder().append(unequipAll(inventoryNPC));
 								}
 							};
 						}
@@ -445,13 +504,7 @@ public class InventoryDialogue {
 							return new Response("Unequip all", "Remove as much of your clothing as possible.", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator());
-
-									for(AbstractClothing c : zlayerClothing){
-										Main.game.getPlayer().unequipClothingOntoFloor(c, true, Main.game.getPlayer());
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
-									}
+									Main.game.getTextEndStringBuilder().append(unequipAll(Main.game.getPlayer()));
 								}
 							};
 						}
@@ -534,13 +587,7 @@ public class InventoryDialogue {
 							return new Response("Unequip all", "Remove as much of your clothing as possible.", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator());
-
-									for(AbstractClothing c : zlayerClothing) { 
-										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
-									}
+									Main.game.getTextEndStringBuilder().append(unequipAll(Main.game.getPlayer()));
 								}
 							};
 						}
@@ -553,23 +600,16 @@ public class InventoryDialogue {
 							return new Response("Equip all", "Equip as much of the clothing in your inventory as possible.", INVENTORY_MENU){
 								@Override
 								public void effects(){
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getAllClothingInInventory().keySet());
-									zlayerClothing.sort(new ClothingZLayerComparator().reversed());
-									Set<InventorySlot> slotsTaken = new HashSet<>();
-
-									for(AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-										slotsTaken.add(c.getSlotEquippedTo());
-									}
-
-									for(AbstractClothing c : zlayerClothing) {
-										if(!slotsTaken.contains(c.getClothingType().getEquipSlots().get(0))) {
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().equipClothingFromInventory(c, true, Main.game.getPlayer(), Main.game.getPlayer())+"</p>");
-											slotsTaken.add(c.getClothingType().getEquipSlots().get(0));
-										}
-									}
+									equipAll(Main.game.getPlayer());
 								}
 							};
 						}
+
+					} else if(index == 6) {
+						if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
+							return new Response("Store all", "You can't do this while trading with someone...", null);
+						}
+						return new Response("Drop all", "You can't do this while trading with someone...", null);
 
 					} else if (index == 9 && inventoryNPC!=null) {
 						return getBuybackResponse();
@@ -623,17 +663,9 @@ public class InventoryDialogue {
 								@Override
 								public void effects(){
 									responseSB.setLength(0);
-
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator());
-
-									for(AbstractClothing c : zlayerClothing) { 
-										if(!c.getSlotEquippedTo().isJewellery()) {
-											Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-											responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
-										}
-									}
-
+									
+									responseSB.append(unequipAll(Main.game.getPlayer()));
+									
 									Sex.setUnequipClothingText(null, responseSB.toString());
 									Main.mainController.openInventory();
 									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
@@ -645,7 +677,13 @@ public class InventoryDialogue {
 					} else if (index == 5) {
 						return new Response("Equip all", "You can't equip clothing in sex!", null);
 
-					} else if (index == 6 && inventoryNPC != null) {
+					} else if(index == 6) {
+						if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
+							return new Response("Store all", "You can't do this during sex...", null);
+						}
+						return new Response("Drop all", "You can't do this during sex...", null);
+
+					} else if (index == 7 && inventoryNPC != null) {
 						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), null)) {
 							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "You can't displace [npc.namePos] clothing in this sex scene!"), null);
 
@@ -675,10 +713,10 @@ public class InventoryDialogue {
 							};
 						}
 
-					} else if (index == 7 && inventoryNPC != null) {
+					} else if (index == 8 && inventoryNPC != null) {
 						return new Response("Replace all (them)", "You can't replace clothing in sex!", null);
 
-					} else if (index == 8 && inventoryNPC != null) {
+					} else if (index == 9 && inventoryNPC != null) {
 						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), null)) {
 							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "You can't unequip [npc.namePos] clothing in this sex scene!"), null);
 
@@ -691,15 +729,7 @@ public class InventoryDialogue {
 								public void effects(){
 									responseSB.setLength(0);
 
-									List<AbstractClothing> zlayerClothing = new ArrayList<>(inventoryNPC.getClothingCurrentlyEquipped());
-									zlayerClothing.sort(new ClothingZLayerComparator());
-
-									for(AbstractClothing c : zlayerClothing) { 
-										if(!c.getSlotEquippedTo().isJewellery()) {
-											inventoryNPC.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
-											responseSB.append("<p style='text-align:center;'>"+inventoryNPC.getUnequipDescription()+"</p>");
-										}
-									}
+									responseSB.append(unequipAll(inventoryNPC));
 
 									Sex.setUnequipClothingText(null, responseSB.toString());
 									Main.mainController.openInventory();
@@ -932,7 +962,8 @@ public class InventoryDialogue {
 								if(item.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
-								} else if(Main.game.isDebugMode()) {
+								} else if(Main.game.isDebugMode()
+										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
 									return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public DialogueNode getNextDialogue() {
@@ -940,18 +971,9 @@ public class InventoryDialogue {
 										}
 									};
 									
-								} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-										return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-											@Override
-											public DialogueNode getNextDialogue() {
-												return EnchantmentDialogue.getEnchantmentMenu(item);
-											}
-										};
-									}
+								} else {
+									return new Response("Enchant", "You have not discovered how to enchant items yet...", null);
 								}
-								
-								return null;
 								
 							} else if(index == 6) {
 								if (!item.isAbleToBeUsedFromInventory()) {
@@ -1209,27 +1231,19 @@ public class InventoryDialogue {
 								if(item.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
-								} else if(Main.game.isDebugMode()) {
-									return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-										@Override
-										public DialogueNode getNextDialogue() {
-											return EnchantmentDialogue.getEnchantmentMenu(item);
-										}
-									};
-									
-								} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+								} else if(Main.game.isDebugMode()
+											|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
 										return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
 											public DialogueNode getNextDialogue() {
 												return EnchantmentDialogue.getEnchantmentMenu(item);
 											}
 										};
-									}
+								
+								} else {
+									return new Response("Enchant", "You have not discovered how to enchant items yet...", null);
 								}
-								
-								return null;
-								
+							
 							} else if(index == 6) {
 								if (!item.isAbleToBeUsedFromInventory()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (self)", item.getUnableToBeUsedFromInventoryDescription(), null);
@@ -1620,7 +1634,8 @@ public class InventoryDialogue {
 								if(item.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
-								} else if(Main.game.isDebugMode()) {
+								} else if(Main.game.isDebugMode()
+										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
 									return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public DialogueNode getNextDialogue() {
@@ -1628,18 +1643,9 @@ public class InventoryDialogue {
 										}
 									};
 									
-								} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-										return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-											@Override
-											public DialogueNode getNextDialogue() {
-												return EnchantmentDialogue.getEnchantmentMenu(item);
-											}
-										};
-									}
+								} else {
+									return new Response("Enchant", "You have not discovered how to enchant items yet...", null);
 								}
-								
-								return null;
 								
 							} else if(index == 6) {
 								if (!item.isAbleToBeUsedFromInventory()) {
@@ -2601,7 +2607,8 @@ public class InventoryDialogue {
 								if(weapon.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
-								} else if(Main.game.isDebugMode()) {
+								} else if(Main.game.isDebugMode()
+										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
 									return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public DialogueNode getNextDialogue() {
@@ -2609,18 +2616,9 @@ public class InventoryDialogue {
 										}
 									};
 									
-								} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-										return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-											@Override
-											public DialogueNode getNextDialogue() {
-												return EnchantmentDialogue.getEnchantmentMenu(weapon);
-											}
-										};
-									}
+								} else {
+									return new Response("Enchant", "You have not discovered how to enchant weapons yet...", null);
 								}
-								
-								return null;
 								
 							} else if(index == 6) {
 									return new Response("Equip Main (self)", "Equip the " + weapon.getName() + ".", INVENTORY_MENU){
@@ -2779,7 +2777,8 @@ public class InventoryDialogue {
 								if(weapon.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
-								} else if(Main.game.isDebugMode()) {
+								} else if(Main.game.isDebugMode()
+										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
 									return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public DialogueNode getNextDialogue() {
@@ -2787,18 +2786,9 @@ public class InventoryDialogue {
 										}
 									};
 									
-								} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-										return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-											@Override
-											public DialogueNode getNextDialogue() {
-												return EnchantmentDialogue.getEnchantmentMenu(weapon);
-											}
-										};
-									}
+								} else {
+									return new Response("Enchant", "You have not discovered how to enchant weapons yet...", null);
 								}
-								
-								return null;
 								
 							} else if(index == 6) {
 								return new Response("Equip Main (self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
@@ -2988,7 +2978,8 @@ public class InventoryDialogue {
 								if(weapon.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
-								} else if(Main.game.isDebugMode()) {
+								} else if(Main.game.isDebugMode()
+										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
 									return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public DialogueNode getNextDialogue() {
@@ -2996,18 +2987,9 @@ public class InventoryDialogue {
 										}
 									};
 									
-								} else if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-										return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-											@Override
-											public DialogueNode getNextDialogue() {
-												return EnchantmentDialogue.getEnchantmentMenu(weapon);
-											}
-										};
-									}
+								} else {
+									return new Response("Enchant", "You have not discovered how to enchant weapons yet...", null);
 								}
-								
-								return null;
 								
 							} else if(index == 6) {
 								return new Response("Equip Main (self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
@@ -3791,9 +3773,10 @@ public class InventoryDialogue {
 											return EnchantmentDialogue.getEnchantmentMenu(clothing);
 										}
 									};
+									
+								} else {
+									return new Response("Enchant", "You have not discovered how to enchant clothing yet...", null);
 								}
-								
-								return null;
 								
 							} else if(index >= 6 && index <= 9 && index-6<clothing.getClothingType().getEquipSlots().size()) {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
@@ -3975,9 +3958,10 @@ public class InventoryDialogue {
 											return EnchantmentDialogue.getEnchantmentMenu(clothing);
 										}
 									};
+									
+								} else {
+									return new Response("Enchant", "You have not discovered how to enchant clothing yet...", null);
 								}
-								
-								return null;
 								
 							} else if(index >= 6 && index <= 9 && index-6<clothing.getClothingType().getEquipSlots().size()) {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
@@ -4289,9 +4273,10 @@ public class InventoryDialogue {
 											return EnchantmentDialogue.getEnchantmentMenu(clothing);
 										}
 									};
+									
+								} else {
+									return new Response("Enchant", "You have not discovered how to enchant clothing yet...", null);
 								}
-								
-								return null;
 
 							} else if(index >= 6 && index <= 9 && index-6<clothing.getClothingType().getEquipSlots().size()) {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
@@ -4389,13 +4374,7 @@ public class InventoryDialogue {
 									return new Response("Unequip all", "Remove as much of your clothing as possible.", INVENTORY_MENU){
 										@Override
 										public void effects(){
-											List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-											zlayerClothing.sort(new ClothingZLayerComparator());
-	
-											for(AbstractClothing c : zlayerClothing){
-												Main.game.getPlayer().unequipClothingOntoFloor(c, true, Main.game.getPlayer());
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
-											}
+											Main.game.getTextEndStringBuilder().append(unequipAll(Main.game.getPlayer()));
 										}
 									};
 								}
@@ -5604,13 +5583,7 @@ public class InventoryDialogue {
 								return new Response("Unequip all", "Remove as much of your clothing as possible.", INVENTORY_MENU){
 									@Override
 									public void effects(){
-										List<AbstractClothing> zlayerClothing = new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped());
-										zlayerClothing.sort(new ClothingZLayerComparator());
-
-										for(AbstractClothing c : zlayerClothing){
-											Main.game.getPlayer().unequipClothingOntoFloor(c, true, Main.game.getPlayer());
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
-										}
+										Main.game.getTextEndStringBuilder().append(unequipAll(Main.game.getPlayer()));
 									}
 								};
 							}

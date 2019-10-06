@@ -167,7 +167,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.game.getPlayer().getRace()==Race.DEMON || Main.game.getPlayer().getRace()==Race.SLIME)
+			return Main.game.getPlayer().isAbleToSelfTransform()
 					&& !Main.game.getPlayer().hasPenis()
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -231,16 +231,16 @@ public class GenericActions {
 		@Override
 		public String getActionDescription() {
 			if(Sex.getCharacterTargetedForSexAction(this).getRace()==Race.DEMON) {
-				return "Get [npc2.name] to use [npc.her] demonic self-transformative powers to grow [npc.herself] a demonic cock.";
+				return "Get [npc2.name] to use [npc2.her] demonic self-transformative powers to grow [npc2.herself] a demonic cock.";
 			} else {
-				return "Get [npc2.name] to use [npc.her] slimy body's self-transformative powers to grow [npc.herself] a slimy cock.";
+				return "Get [npc2.name] to use [npc2.her] slimy body's self-transformative powers to grow [npc2.herself] a slimy cock.";
 			}
 		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isMasturbation()
-					&& (Sex.getCharacterTargetedForSexAction(this).getRace()==Race.DEMON || Sex.getCharacterTargetedForSexAction(this).getRace()==Race.SLIME)
+					&& Sex.getCharacterTargetedForSexAction(this).isAbleToSelfTransform()
 					&& !Sex.getCharacterTargetedForSexAction(this).hasPenis()
 					&& Sex.getCharacterPerformingAction().isPlayer();
 		}
@@ -1504,7 +1504,9 @@ public class GenericActions {
 		
 		@Override
 		public String getActionTitle() {
-			return "";
+			return Sex.isMasturbation()
+					?"Stop masturbating"
+					:"Stop sex";
 		}
 
 		@Override

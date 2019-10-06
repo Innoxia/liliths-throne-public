@@ -136,7 +136,7 @@ public abstract class AbstractSexPosition {
 						}
 					}
 				}
-			}catch(Exception ex) {}
+			} catch(Exception ex) {}
 			
 			
 			// Block tribbing and thigh sex if ongoing penis/vagina or penis/anus penetration:
@@ -154,21 +154,49 @@ public abstract class AbstractSexPosition {
 			}
 			
 			
-			// Block oral + groin actions if there is any groin-groin action going on:
-			if(((!Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.groinAreas)
-							&& !Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.mouthAreas))
-						|| (!Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.groinAreas)
-							&& !Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.mouthAreas)))) {
-				for(SexAreaInterface sArea : SexActionPresets.groinAreas) {
-					if((Sex.getOngoingActionsMap(target).containsKey(sArea)
-							&& Sex.getOngoingActionsMap(target).get(sArea).containsKey(performer)
-							&& !Collections.disjoint(Sex.getOngoingActionsMap(target).get(sArea).get(performer), SexActionPresets.groinAreas))
-						|| (Sex.getOngoingActionsMap(performer).containsKey(sArea)
-							&& Sex.getOngoingActionsMap(performer).get(sArea).containsKey(target)
-							&& !Collections.disjoint(Sex.getOngoingActionsMap(performer).get(sArea).get(target), SexActionPresets.groinAreas))) {
-						return true;
-					}
+			boolean ongoingGroinToGroin = false;
+			boolean ongoingGroinToBreasts = false;
+			boolean ongoingGroinToMouth = false;
+			
+			for(SexAreaInterface sArea : SexActionPresets.groinAreas) {
+				// Groin-groin actions:
+				if((Sex.getOngoingActionsMap(target).containsKey(sArea)
+						&& Sex.getOngoingActionsMap(target).get(sArea).containsKey(performer)
+						&& !Collections.disjoint(Sex.getOngoingActionsMap(target).get(sArea).get(performer), SexActionPresets.groinAreas))
+					|| (Sex.getOngoingActionsMap(performer).containsKey(sArea)
+						&& Sex.getOngoingActionsMap(performer).get(sArea).containsKey(target)
+						&& !Collections.disjoint(Sex.getOngoingActionsMap(performer).get(sArea).get(target), SexActionPresets.groinAreas))) {
+					ongoingGroinToGroin = true;
 				}
+				// Groin-breast actions:
+				if((Sex.getOngoingActionsMap(target).containsKey(sArea)
+						&& Sex.getOngoingActionsMap(target).get(sArea).containsKey(performer)
+						&& !Collections.disjoint(Sex.getOngoingActionsMap(target).get(sArea).get(performer), SexActionPresets.breastAreas))
+					|| (Sex.getOngoingActionsMap(performer).containsKey(sArea)
+						&& Sex.getOngoingActionsMap(performer).get(sArea).containsKey(target)
+						&& !Collections.disjoint(Sex.getOngoingActionsMap(performer).get(sArea).get(target), SexActionPresets.breastAreas))) {
+					ongoingGroinToBreasts = true;
+				}
+				// Groin-mouth actions:
+				if((Sex.getOngoingActionsMap(target).containsKey(sArea)
+						&& Sex.getOngoingActionsMap(target).get(sArea).containsKey(performer)
+						&& !Collections.disjoint(Sex.getOngoingActionsMap(target).get(sArea).get(performer), SexActionPresets.mouthAreas))
+					|| (Sex.getOngoingActionsMap(performer).containsKey(sArea)
+						&& Sex.getOngoingActionsMap(performer).get(sArea).containsKey(target)
+						&& !Collections.disjoint(Sex.getOngoingActionsMap(performer).get(sArea).get(target), SexActionPresets.mouthAreas))) {
+					ongoingGroinToMouth = true;
+				}
+			}
+			
+			// Block oral + groin actions if there is any groin-groin or groin-breast action going on:
+			if((!Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.groinAreas) && !Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.mouthAreas))
+					|| (!Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.groinAreas) && !Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.mouthAreas))) {
+				return ongoingGroinToGroin || ongoingGroinToBreasts;
+			}
+			// Block groin + breast actions if there is any groin-mouth or groin-groin action going on:
+			if((!Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.groinAreas) && !Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.breastAreas))
+					|| (!Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.groinAreas) && !Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.breastAreas))) {
+				return ongoingGroinToGroin || ongoingGroinToMouth;
 			}
 		}
 		

@@ -167,7 +167,7 @@ public enum ClothingSet {
 
 	DARK_SIREN("Dark Siren",
 			StatusEffect.SET_DARK_SIREN,
-			4,
+			3,
 			Util.newArrayListOfValues(
 					InventorySlot.TORSO_OVER,
 					InventorySlot.NECK,
