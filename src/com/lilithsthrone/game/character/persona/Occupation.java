@@ -12,7 +12,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public enum Occupation {
@@ -25,10 +25,6 @@ public enum Occupation {
 	ELEMENTAL_AIR(Perk.ELEMENTAL_BOUND_AIR, "air elemental", "[npc.NameIsFull] currently bound to the arcane school of Air.", OccupationTag.HAS_PREREQUISITES),
 	ELEMENTAL_ARCANE(Perk.ELEMENTAL_BOUND_ARCANE, "arcane elemental", "[npc.NameIsFull] currently bound to the arcane school of Arcane.", OccupationTag.HAS_PREREQUISITES),
 
-	
-	NPC_HARPY_MATRIARCH(Perk.JOB_NPC_HARPY_MATRIARCH, "harpy matriarch", "[npc.NameIsFull] a matriarch of a harpy flock.", OccupationTag.HAS_PREREQUISITES),
-	NPC_HARPY_FLOCK_MEMBER(Perk.JOB_NPC_HARPY_FLOCK_MEMBER, "harpy flock member", "[npc.NameIsFull] a member of a harpy flock", OccupationTag.HAS_PREREQUISITES),
-
 	NPC_ENFORCER_PATROL_INSPECTOR(Perk.JOB_NPC_ENFORCER_PATROL_INSPECTOR, "Enforcer", "[npc.NameIs] a member of the Enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
 	NPC_ENFORCER_PATROL_SERGEANT(Perk.JOB_NPC_ENFORCER_PATROL_SERGEANT, "Enforcer", "[npc.NameIs] a member of the Enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
 	NPC_ENFORCER_PATROL_CONSTABLE(Perk.JOB_NPC_ENFORCER_PATROL_CONSTABLE, "Enforcer", "[npc.NameIs] a member of the Enforcers.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_PATROL),
@@ -40,12 +36,16 @@ public enum Occupation {
 	NPC_ENFORCER_ORICL_INSPECTOR(Perk.JOB_NPC_ENFORCER_ORICL_INSPECTOR, "ORICL Enforcer", "[npc.NameIs] an Enforcer, and is a member of ORICL.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_ORICL),
 	NPC_ENFORCER_ORICL_SERGEANT(Perk.JOB_NPC_ENFORCER_ORICL_SERGEANT, "ORICL Enforcer", "[npc.NameIs] an Enforcer, and is a member of ORICL.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_ORICL),
 	NPC_ENFORCER_ORICL_CONSTABLE(Perk.JOB_NPC_ENFORCER_ORICL_CONSTABLE, "ORICL Enforcer", "[npc.NameIs] an Enforcer, and is a member of ORICL.", OccupationTag.HAS_PREREQUISITES, OccupationTag.ENFORCER_ORICL),
+
 	
+	NPC_HARPY_MATRIARCH(Perk.JOB_NPC_HARPY_MATRIARCH, "harpy matriarch", "[npc.NameIsFull] a matriarch of a harpy flock.", OccupationTag.HAS_PREREQUISITES),
+	NPC_HARPY_FLOCK_MEMBER(Perk.JOB_NPC_HARPY_FLOCK_MEMBER, "harpy flock member", "[npc.NameIsFull] a member of a harpy flock", OccupationTag.HAS_PREREQUISITES),
+
 	NPC_CULTIST(Perk.JOB_NPC_CULTIST, "Cultist", "[npc.NameIs] a full-time member of the 'Cult of Lilith'.", OccupationTag.HAS_PREREQUISITES),
 
 	NPC_SLAVER_ADMIN(Perk.JOB_NPC_SLAVER_ADMIN, "slaver administration overseer", "[npc.NameIsFull] the overseer of the slaver administration.", OccupationTag.HAS_PREREQUISITES),
 
-	NPC_NIGHTCLUB_OWNER(Perk.JOB_NPC_NIGHTCLUB_OWNER, "nightclub owner", "-", OccupationTag.HAS_PREREQUISITES),
+	NPC_NIGHTCLUB_OWNER(Perk.JOB_NPC_NIGHTCLUB_OWNER, "nightclub owner", "[npc.Name] [npc.verb(own)] and [npc.verb(manage)] a popular nightclub.", OccupationTag.HAS_PREREQUISITES),
 	NPC_BAR_TENDER(Perk.JOB_NPC_BARMAID, "bartender", "[npc.Name] [npc.verb(work)] as a bartender.", OccupationTag.EVENING_SHIFT),
 	NPC_BOUNCER(Perk.JOB_NPC_BOUNCER, "bouncer", "[npc.NameIsFull] a bouncer, in charge of keeping the riff-raff out of nightclubs and bars."),
 
@@ -65,6 +65,10 @@ public enum Occupation {
 	
 	NPC_EPONA(Perk.JOB_EPONA, "pregnancy roulette manager", "[npc.NameIs] in charge of the game 'pregnancy roulette' in Submission's gambling den.", OccupationTag.HAS_PREREQUISITES),
 
+	NPC_GANG_LEADER(Perk.JOB_GANG_LEADER, "gang leader", "[npc.NameIsFull] the leader of a notorious criminal gang.", OccupationTag.HAS_PREREQUISITES),
+	NPC_GANG_BODY_GUARD(Perk.JOB_GANG_BODY_GUARD, "gang body guard", "[npc.NameIsFull] a personal body guard of her gang's leader.", OccupationTag.HAS_PREREQUISITES),
+	NPC_GANG_MEMBER(Perk.JOB_GANG_MEMBER, "gang member", "[npc.NameIsFull] a member of a notorious criminal gang.", OccupationTag.HAS_PREREQUISITES),
+
 	NPC_LYSSIETH_GUARD(Perk.JOB_LYSSIETH_GUARD, "Lyssieth's guard", "[npc.NameIsFull] one of Lyssieth's unrecognised daughters, and has been assigned to guard her mother's palace.", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_ELDER_LILIN(Perk.JOB_ELDER_LILIN, "elder lilin", "[npc.NameIs] one of the seven elder lilin; the recognised daughters of Lilith herself.", OccupationTag.HAS_PREREQUISITES),
@@ -73,9 +77,11 @@ public enum Occupation {
 	// NPC histories:
 
 	NPC_UNEMPLOYED(Perk.JOB_UNEMPLOYED, "unemployed", "[npc.NameIsFull] unemployed.", OccupationTag.HAS_PREREQUISITES),
-	
-	
+
 	NPC_SLAVE(Perk.JOB_SLAVE, "slave", "[npc.NameIsFull] a slave, and must carry out [npc.her] owner's wishes.", OccupationTag.HAS_PREREQUISITES),
+	
+	NPC_CAPTIVE(Perk.JOB_CAPTIVE, "captive", "[npc.NameHasFull] been kidnapped and is being illegally held against [npc.her] will.", OccupationTag.HAS_PREREQUISITES),
+	
 	
 	NPC_PROSTITUTE(Perk.JOB_PROSTITUTE, "prostitute", "[npc.NameIsFull] a prostitute, making a living by selling [npc.her] body.", OccupationTag.LOWLIFE),
 	
@@ -106,7 +112,7 @@ public enum Occupation {
 	NPC_MUGGER(Perk.JOB_MUGGER, "mugger", "[npc.NameIsFull] a mugger, and [npc.verb(make)] a living by stealing other people's possessions.", OccupationTag.LOWLIFE),
 	
 	NPC_CONSTRUCTION_WORKER(Perk.JOB_CONSTRUCTION_WORKER, "construction worker", "-"),
-	NPC_CONSTRUCTION_WORKER_ARCANE(Perk.JOB_CONSTRUCTION_WORKER_ARCANE, "arcane construction worker", "-"),
+	NPC_CONSTRUCTION_WORKER_ARCANE(Perk.JOB_CONSTRUCTION_WORKER_ARCANE, "arcane construction worker", "-", OccupationTag.HAS_PREREQUISITES),
 
 	NPC_MECHANIC(Perk.JOB_MISC, "mechanic", "-", OccupationTag.HAS_PREREQUISITES),
 	

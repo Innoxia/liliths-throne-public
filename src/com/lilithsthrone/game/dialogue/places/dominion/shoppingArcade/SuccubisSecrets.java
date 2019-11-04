@@ -26,7 +26,6 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -41,12 +40,10 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.2.6
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class SuccubisSecrets {
@@ -103,38 +100,38 @@ public class SuccubisSecrets {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "EXTERIOR");
 		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ShoppingArcadeDialogue.getCoreResponseTab(index);
+		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.kateIntroduced)) {
-					return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON_ENTER) {
-						@Override
-						public void effects() {
-							BodyChanging.setTarget(Main.game.getPlayer());
-						}
-					};
-					
-				} else {
-					return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON) {
-						@Override
-						public void effects() {
-							BodyChanging.setTarget(Main.game.getPlayer());
-						}
-					};
-				}
-				
-			} else if (index == 6) {
-				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_ENTRANCE, true);
+			if(responseTab==0) {
+				if (index == 1) {
+					if(!Main.game.isExtendedWorkTime()) {
+						return new Response("Enter", "'Succubi's Secrets' is currently closed, so you'll have to come back during opening hours if you wanted to take a look inside.", null);
+						
+					} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.kateIntroduced)) {
+						return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON_ENTER) {
+							@Override
+							public void effects() {
+								BodyChanging.setTarget(Main.game.getPlayer());
+							}
+						};
+						
+					} else {
+						return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON) {
+							@Override
+							public void effects() {
+								BodyChanging.setTarget(Main.game.getPlayer());
+							}
+						};
 					}
-				};
-
-			} else {
-				return null;
+				}
 			}
+			return ShoppingArcadeDialogue.getFastTravelResponses(responseTab, index);
 		}
 	};
 	

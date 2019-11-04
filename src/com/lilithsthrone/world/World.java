@@ -188,9 +188,9 @@ public class World implements XMLSaving {
 			}
 		}
 		if(cells.isEmpty()) {
-			if(Main.DEBUG) {
-				System.err.println("World.getRandomUnoccupiedCell() - No unoccupied cells found, occupied one returned instead.");
-			}
+//			if(Main.DEBUG) {
+//				System.err.println("World.getRandomUnoccupiedCell() - No unoccupied cells found, occupied one returned instead.");
+//			}
 			return getRandomCell(place);
 		}
 		return cells.get(Util.random.nextInt(cells.size()));

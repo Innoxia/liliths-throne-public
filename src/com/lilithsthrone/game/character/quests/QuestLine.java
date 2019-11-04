@@ -67,7 +67,11 @@ public enum QuestLine {
 
 	SIDE_BUYING_BRAX("Acquiring a Wolf", "After she'd got you to perform a series of tedious tasks for her, Candi finally sold [brax.name] to you.",
 			QuestType.SIDE,
-			QuestTree.buyingBraxTree)
+			QuestTree.buyingBraxTree),
+
+	SIDE_VENGAR("Vengar's Tyranny", "You dealt with Vengar and made sure that Axel doesn't have to worry about him again.",
+			QuestType.SIDE,
+			QuestTree.vengarTree)
 	
 	;
 

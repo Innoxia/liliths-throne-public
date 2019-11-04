@@ -146,6 +146,7 @@ public class SexPositionUnique {
 		public Map<SexSlot, Map<SexSlot, SexActionInteractions>> getSlotTargets() {
 			List<Value<SexSlot, Map<SexSlot, SexActionInteractions>>> interactions = new ArrayList<>();
 			interactions.add(StandardSexActionInteractions.handHolding.getSexActionInteractions(SexSlotUnique.HAND_SEX_DOM_ROSE, SexSlotUnique.HAND_SEX_SUB_ROSE));
+			interactions.add(StandardSexActionInteractions.handHolding.getSexActionInteractions(SexSlotUnique.HAND_SEX_SUB_ROSE, SexSlotUnique.HAND_SEX_DOM_ROSE));
 			return generateSlotTargetsMap(interactions);
 		}
 	};

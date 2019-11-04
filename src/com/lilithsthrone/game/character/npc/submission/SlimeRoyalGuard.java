@@ -66,7 +66,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.6
- * @version 0.2.11
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class SlimeRoyalGuard extends NPC {
@@ -92,7 +92,7 @@ public class SlimeRoyalGuard extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
 			this.setBodyMaterial(BodyMaterial.FLESH);
-			this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER);
+			this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, false);
 			setStartingBody(true);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {

@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.lilithsthrone.utils.BaseColour;
@@ -99,5 +101,13 @@ public enum FluidFlavour {
 	
 	public String getRandomFlavourDescriptor() {
 		return flavourDescriptors.get(Util.random.nextInt(flavourDescriptors.size()));
+	}
+	
+	public static List<FluidFlavour> getUnnaturalFlavourings() {
+		List<FluidFlavour> list = new ArrayList<>(Arrays.asList(FluidFlavour.values()));
+		list.remove(CUM);
+		list.remove(MILK);
+		list.remove(GIRL_CUM);
+		return list;
 	}
 }

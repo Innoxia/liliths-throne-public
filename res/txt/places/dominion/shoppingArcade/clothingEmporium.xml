@@ -2,17 +2,29 @@
 <dialogue>
 	<htmlContent tag="NYAN_EXTERIOR"><![CDATA[
 	<p>
-		Most of the clothing stores in the shopping arcade are small, one-story affairs, with a limited selection of goods on offer.
-		 The establishment before you appears to be the exception to this rule, and takes the form of a huge, two-story clothing department bearing the sign 'Nyan's Clothing Emporium'.
+		Most of the clothing stores in the shopping arcade are small, one-story affairs, with a limited selection of goods on offer. The establishment before you appears to be the exception to this rule, and takes the form of a huge, two-story clothing department bearing the sign 'Nyan's Clothing Emporium'.
 	</p>
+	#IF(game.isExtendedWorkTime())
+		<p>
+			Due to the fact that the main doors are propped wide open, as well as there being a constant stream of shoppers entering and exiting the establishment, it's quite clear that this Clothing Emporium is [style.colourGood(open)]. A list of opening times etched into the glass beside the entrance reveals that the [style.colourMinorGood(opening hours are [unit.time(6)] to [unit.time(22)])]; the exact same as all the other stores in the arcade.
+		</p>
+		<p>
+			You wonder if you should head inside, or perhaps come back at another time...
+		</p>
+	#ELSE
+		<p>
+			Due to the fact that the main doors are firmly shut, as well as there being no lights on inside the establishment, it's quite clear that this Clothing Emporium is currently [style.colourBad(closed)]. A list of opening times etched into the glass beside the entrance reveals that the [style.colourMinorBad(opening hours are [unit.time(6)] to [unit.time(22)])]; the exact same as all the other stores in the arcade.
+		</p>
+		<p>
+			If you wanted to do some shopping here, or meet Nyan, you'll have to come back at a later time...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="NYAN_GREETING"><![CDATA[
 	<p>
-		Stepping through the open pair of wide, glass doors, you find yourself in a large, modern-looking clothing store.
-		 As you walk through the building, you discover that not only is this the largest shop in the arcade, but that it's also the busiest.
-		 Crowds of shoppers block many of the aisles that you'd like to walk down, and every member of staff that you see is busily occupied with other customers.
+		Stepping through the open pair of wide, glass doors, you find yourself in a large, modern-looking clothing store. As you walk through the building, you discover that not only is this the largest shop in the arcade, but that it's also the busiest. Crowds of shoppers block many of the aisles that you'd like to walk down, and every member of staff that you see is busily occupied with other customers.
 	</p>
 	<p>
 		Deciding that it might be best to try and find a smaller, quieter clothing store, you turn around and start to head for the exit.

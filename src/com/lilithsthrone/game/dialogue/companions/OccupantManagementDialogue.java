@@ -126,11 +126,7 @@ public class OccupantManagementDialogue {
 			}
 			
 		} else if (index == 0) {
-			return new Response("Back", "Exit the room upgrades screen.", OCCUPANT_OVERVIEW) {
-				@Override
-				public DialogueNode getNextDialogue() {
-					return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-				}
+			return new Response("Back", "Exit the occupancy ledger.", Main.game.getDefaultDialogue()) {
 				@Override
 				public void effects() {
 					Main.game.getDialogueFlags().setManagementCompanion(null);

@@ -9,7 +9,6 @@ import com.lilithsthrone.game.character.npc.dominion.Pix;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.managers.dominion.SMPixShowerTime;
@@ -22,12 +21,10 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.1.85
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class PixsPlayground {
@@ -90,44 +87,37 @@ public class PixsPlayground {
 				
 		} else if (index == 0) {
 			return new Response("Leave", "Decide to leave the gym.", GYM_EXTERIOR);
-			
-		} else
-			return null;
+		}
+		
+		return null;
 	}
 	
 	public static final DialogueNode GYM_EXTERIOR = new DialogueNode("Pix's Playground (Exterior)", "-", false) {
 
 		@Override
 		public String getContent() {
-			if (!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIntroduced)) {
-				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_EXTERIOR");
-				
-			} else {
-				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_EXTERIOR_REPEAT");
-			}
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_EXTERIOR");
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ShoppingArcadeDialogue.getCoreResponseTab(index);
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymHadTour)) {
-					return new Response("Enter", "Step inside the gym.", GYM_RETURNING);
-				} else {
-					return new Response("Enter", "Step inside the gym.", GYM);
-				}
-				
-				
-			} else if (index == 6) {
-				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_ENTRANCE, true);
+			if(responseTab==0) {
+				if (index == 1) {
+					if(!Main.game.isExtendedWorkTime()) {
+						return new Response("Enter", "The gym is currently closed. You'll have to return during opening hours if you want to work out here.", null);
+					} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymHadTour)) {
+						return new Response("Enter", "Step inside the gym.", GYM_RETURNING);
+					} else {
+						return new Response("Enter", "Step inside the gym.", GYM);
 					}
-				};
-
-			} else {
-				return null;
+				}
 			}
+			return ShoppingArcadeDialogue.getFastTravelResponses(responseTab, index);
 		}
 
 		@Override
@@ -551,8 +541,7 @@ public class PixsPlayground {
 					};
 				}
 				
-			} else 
-				if (index == 2) {
+			} else if (index == 2) {
 				return new Response("Leave", "You're far too tired to deal with Pix right now. Get changed and leave the gym, avoiding Pix in the showers as you do so.", GYM_EXTERIOR);
 				
 			} else {

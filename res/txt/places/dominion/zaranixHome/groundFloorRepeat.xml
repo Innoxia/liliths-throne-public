@@ -8,13 +8,20 @@
 	<p>
 		Since your first visit, the security seems to have been increased, and you can see the faint shimmer of an arcane barrier above the garden's fence, making any entry from that direction impossible. Similarly, the front door has been replaced by a far sturdier-looking one, and you imagine that even the strongest of demons would have difficulty in breaking it down.
 	</p>
+	#IF(!game.isExtendedWorkTime())
+		<p>
+			Due to the unsociable hour, you're certain that Amber will not come to answer the door if you were to knock it. It might be best to return at a more reasonable time, such as between [style.colourMinorBad([units.time(6)] and [units.time(22)])]...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="OUTSIDE_RETURN"><![CDATA[
-	<p>
-		As you left Zaranix on relatively amicable terms, you don't think that there would be any trouble in simply knocking the front door...
-	</p>
+	#IF(game.isExtendedWorkTime())
+		<p>
+			As you left Zaranix on relatively amicable terms, you don't think that there would be any trouble in simply knocking the front door...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

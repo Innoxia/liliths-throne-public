@@ -110,7 +110,22 @@ public enum SlaveJob {
 			null,
 			null,
 			null,
-			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB),
+			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB) {
+		@Override
+		public boolean isAvailable(int hour, GameCharacter character) {
+			if(hour<6 || hour>=22) {
+				return false;
+			}
+			return super.isAvailable(hour, character);
+		}
+		@Override
+		public String getAvailabilityText(int hour, GameCharacter character) {
+			if(hour<6 || hour>=22) {
+				return "Slaves cannot work in Lilaya's lab while she is sleeping!";
+			}
+			return super.getAvailabilityText(hour, character);
+		}
+	},
 
 	TEST_SUBJECT(Colour.BASE_RED_LIGHT, 5, 3, "test subject", "test subject",
 			"Allow Lilaya to use this slave as a test subject for her experiments.",
@@ -123,12 +138,26 @@ public enum SlaveJob {
 			null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB) {
 		@Override
-		public float getAffectionGain(GameCharacter slave) {
+		public float getAffectionGain(int hour, GameCharacter slave) {
 			if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 				return 0.5f;
 			} else {
 				return -0.5f;
 			}
+		}
+		@Override
+		public boolean isAvailable(int hour, GameCharacter character) {
+			if(hour<6 || hour>=22) {
+				return false;
+			}
+			return super.isAvailable(hour, character);
+		}
+		@Override
+		public String getAvailabilityText(int hour, GameCharacter character) {
+			if(hour<6 || hour>=22) {
+				return "Slaves cannot work in Lilaya's lab while she is sleeping!";
+			}
+			return super.getAvailabilityText(hour, character);
 		}
 	},
 	
@@ -146,7 +175,7 @@ public enum SlaveJob {
 			null,
 			WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS) {
 		@Override
-		public float getAffectionGain(GameCharacter slave) {
+		public float getAffectionGain(int hour, GameCharacter slave) {
 			if(slave.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 				return 1f;
 			} else {
@@ -170,7 +199,7 @@ public enum SlaveJob {
 			WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM) {
 		
 		@Override
-		public float getAffectionGain(GameCharacter slave) {
+		public float getAffectionGain(int hour, GameCharacter slave) {
 			if(slave.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
 				return 1f;
 			} else {
@@ -234,12 +263,13 @@ public enum SlaveJob {
 		}
 		
 		@Override
-		public float getAffectionGain(GameCharacter slave) {
+		public float getAffectionGain(int hour, GameCharacter slave) {
+			float aff = this.affectionGain;
 			if(slave.hasFetish(Fetish.FETISH_LACTATION_SELF)) {
-				return 2f;
-			} else {
-				return -0.25f;
+				aff = 2f;
 			}
+			Cell c = this.getWorkDestinationCell(hour, slave);
+			return aff + (c==null?0:c.getPlace().getHourlyAffectionChange());
 		}
 		
 		@Override
@@ -275,6 +305,11 @@ public enum SlaveJob {
 				return null;
 			}
 			return c.getPlace().getPlaceType();
+		}
+
+		@Override
+		public Cell getWorkDestinationCell(int hour, GameCharacter slave) {
+			return MilkingRoom.getMilkingCell(slave, false);
 		}
 		
 		@Override
@@ -357,6 +392,11 @@ public enum SlaveJob {
 			}
 			return c.getPlace().getPlaceType();
 		}
+
+		@Override
+		public Cell getWorkDestinationCell(int hour, GameCharacter slave) {
+			return getOfficeCell();
+		}
 		
 		@Override
 		public void sendToWorkLocation(int hour, GameCharacter slave) {
@@ -400,7 +440,7 @@ public enum SlaveJob {
 	private String nameMasculine;
 	private String description;
 	private float obedienceGain;
-	private float affectionGain;
+	protected float affectionGain;
 	private int income;
 	private float obedienceIncomeModifier;
 	private float affectionIncomeModifier;
@@ -493,12 +533,14 @@ public enum SlaveJob {
 		return description;
 	}
 	
-	public float getObedienceGain(GameCharacter slave) {
-		return obedienceGain;
+	public float getObedienceGain(int hour, GameCharacter slave) {
+		Cell c = this.getWorkDestinationCell(hour, slave);
+		return obedienceGain + (c==null?0:c.getPlace().getHourlyObedienceChange());
 	}
 
-	public float getAffectionGain(GameCharacter slave) {
-		return affectionGain;
+	public float getAffectionGain(int hour, GameCharacter slave) {
+		Cell c = this.getWorkDestinationCell(hour, slave);
+		return affectionGain + (c==null?0:c.getPlace().getHourlyAffectionChange());
 	}
 
 	public int getIncome() {
@@ -575,6 +617,14 @@ public enum SlaveJob {
 
 	public AbstractPlaceType getPlaceLocation(GameCharacter character) {
 		return placeLocation;
+	}
+	
+	public Cell getWorkDestinationCell(int hour, GameCharacter slave) {
+		WorldType wType = slave.getSlaveJob(hour).getWorldLocation(slave);
+		if(wType==null) {
+			return null;
+		}
+		return Main.game.getWorlds().get(wType).getRandomUnoccupiedCell(slave.getSlaveJob(hour).getPlaceLocation(slave));
 	}
 	
 	public void sendToWorkLocation(int hour, GameCharacter slave) {

@@ -69,6 +69,10 @@ public enum Colour {
 	BACKGROUND(false, Util.newColour(0x222222), Util.newColour(0xcccccc), "grey"),
 	BACKGROUND_ALT(false, Util.newColour(0x292929), Util.newColour(0xbbbbbb), "grey"),
 	
+	BACKGROUND_DAY(false, Util.newColour(0x222222), Util.newColour(0xcccccc), "grey"),
+	BACKGROUND_TWILIGHT(false, Util.newColour(0x191919), Util.newColour(0xbbbbbb), "black"),
+	BACKGROUND_NIGHT(false, Util.newColour(0x121212), Util.newColour(0xaaaaaa), "pitch black"),
+	
 	MAP_BACKGROUND_UNEXPLORED(false, Util.newColour(0x121212), Util.newColour(0x121212), "black"),
 	MAP_BACKGROUND_PINK(false, Util.newColour(0xb2a4bb), Util.newColour(0xb2a4bb), "pink"),
 	MAP_BACKGROUND(false, Util.newColour(0xbbbbbb), Util.newColour(0xbbbbbb), "grey"),
@@ -711,7 +715,10 @@ public enum Colour {
 	EYE_RED(false, BaseColour.RED, "red"),
 	EYE_PINK(false, BaseColour.PINK, "pink"),
 	EYE_ORANGE(false, BaseColour.ORANGE, "orange"),
-	EYE_BLACK(false, BaseColour.BLACK, "black");
+	EYE_BLACK(false, BaseColour.BLACK, "black"),
+	EYE_PITCH_BLACK(false, BaseColour.BLACK, "pitch black") {
+		public boolean isJetBlack() { return true; }
+	};
 	
 
 	public static final Colour[] ACTION_POINT_COLOURS = new Colour[] {Colour.GENERIC_EXCELLENT, Colour.GENERIC_GOOD, Colour.GENERIC_MINOR_GOOD, Colour.GENERIC_MINOR_BAD, Colour.GENERIC_BAD, Colour.GENERIC_TERRIBLE};
@@ -1018,6 +1025,7 @@ public enum Colour {
 			Colour.EYE_PURPLE,
 			Colour.EYE_VIOLET,
 			Colour.EYE_BLACK,
+			Colour.EYE_PITCH_BLACK,
 			Colour.COVERING_RAINBOW,
 			Colour.COVERING_RAINBOW_PASTEL);
 
@@ -1039,7 +1047,8 @@ public enum Colour {
 			Colour.EYE_LILAC,
 			Colour.EYE_PURPLE,
 			Colour.EYE_VIOLET,
-			Colour.EYE_BLACK);
+			Colour.EYE_BLACK,
+			Colour.EYE_PITCH_BLACK);
 	
 	public static List<Colour> dyeDemonIrisColours = Util.newArrayListOfValues(
 			Colour.EYE_SILVER,
@@ -1069,6 +1078,7 @@ public enum Colour {
 			Colour.EYE_PURPLE,
 			Colour.EYE_VIOLET,
 			Colour.EYE_BLACK,
+			Colour.EYE_PITCH_BLACK,
 			Colour.COVERING_RAINBOW,
 			Colour.COVERING_RAINBOW_PASTEL);
 	
@@ -1096,6 +1106,7 @@ public enum Colour {
 			Colour.EYE_LILAC,
 			Colour.EYE_PURPLE,
 			Colour.EYE_VIOLET,
+			Colour.EYE_PITCH_BLACK,
 			Colour.COVERING_RAINBOW,
 			Colour.COVERING_RAINBOW_PASTEL);
 	
@@ -1122,6 +1133,7 @@ public enum Colour {
 			Colour.EYE_LILAC,
 			Colour.EYE_PURPLE,
 			Colour.EYE_VIOLET,
+			Colour.EYE_PITCH_BLACK,
 			Colour.COVERING_RAINBOW,
 			Colour.COVERING_RAINBOW_PASTEL);
 	

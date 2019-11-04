@@ -76,7 +76,8 @@ public enum ParserTarget {
 	
 	STYLE(Util.newArrayListOfValues(
 			"style",
-			"game"),
+			"game",
+			"util"),
 			"Returns the same as 'pc', but should be used for style methods such as style.bold or style.italics or conditional methods such as game.isArcaneStorm.") {
 				@Override
 				public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {

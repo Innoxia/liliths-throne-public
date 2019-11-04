@@ -1741,7 +1741,7 @@ public class LyssiethPalaceDialogue {
 								// Reset offspring to full demons:
 								if(Main.game.getNpc(DarkSiren.class).isPregnant()) {
 									for(GameCharacter offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringCharacters()) {
-										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather());
+										offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather(), false);
 									}
 									Main.game.getNpc(DarkSiren.class).getPregnantLitter().generateBirthedDescription();
 								}
@@ -1757,7 +1757,7 @@ public class LyssiethPalaceDialogue {
 							// Reset offspring to full demons:
 							if(Main.game.getNpc(DarkSiren.class).isPregnant()) {
 								for(GameCharacter offspring : Main.game.getNpc(DarkSiren.class).getPregnantLitter().getOffspringCharacters()) {
-									offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather());
+									offspring.setBody(offspring.getGender(), Main.game.getNpc(DarkSiren.class), Main.game.getNpc(DarkSiren.class).getPregnantLitter().getFather(), false);
 								}
 								Main.game.getNpc(DarkSiren.class).getPregnantLitter().generateBirthedDescription();
 							}
@@ -1765,7 +1765,7 @@ public class LyssiethPalaceDialogue {
 							// Reset offspring to full demons:
 							if(Main.game.getNpc(Lilaya.class).isPregnant()) {
 								for(GameCharacter offspring : Main.game.getNpc(Lilaya.class).getPregnantLitter().getOffspringCharacters()) {
-									offspring.setBody(offspring.getGender(), Main.game.getNpc(Lilaya.class), Main.game.getNpc(Lilaya.class).getPregnantLitter().getFather());
+									offspring.setBody(offspring.getGender(), Main.game.getNpc(Lilaya.class), Main.game.getNpc(Lilaya.class).getPregnantLitter().getFather(), false);
 								}
 								Main.game.getNpc(Lilaya.class).getPregnantLitter().generateBirthedDescription();
 							}

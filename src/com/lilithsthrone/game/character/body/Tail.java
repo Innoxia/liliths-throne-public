@@ -613,14 +613,14 @@ public class Tail implements BodyPartInterface {
 		return tailCount;
 	}
 
-	public String setTailCount(GameCharacter owner, int tailCount) {
+	public String setTailCount(GameCharacter owner, int tailCount, boolean overrideYoukoLimitations) {
 		tailCount = Math.max(1, Math.min(tailCount, MAXIMUM_COUNT));
 		
 		if(owner.getTailCount() == tailCount) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		if(owner.getTailType().equals(TailType.FOX_MORPH_MAGIC)) {
+		if(owner.getTailType().equals(TailType.FOX_MORPH_MAGIC) && !overrideYoukoLimitations) {
 			return "<p style='text-align:center;'>"
 						+ "[style.colourMinorBad([npc.NamePos] arcane-infused "
 							+(this.tailCount==1

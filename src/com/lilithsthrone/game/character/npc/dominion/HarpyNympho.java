@@ -222,7 +222,7 @@ public class HarpyNympho extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, Colour.CLOTHING_PINK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_ankle_anklet", Colour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_finger_ring", Colour.CLOTHING_GOLD, false), true, this);
 
 		this.setPiercedEar(true);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
@@ -256,6 +256,17 @@ public class HarpyNympho extends NPC {
 	
 	@Override
 	public void changeFurryLevel(){
+	}
+	
+	@Override
+	public void turnUpdate() {
+		if(!Main.game.getCharactersPresent().contains(this)) {
+			if(Main.game.isExtendedWorkTime()) {
+				this.returnToHome();
+			} else {
+				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+			}
+		}
 	}
 	
 	@Override

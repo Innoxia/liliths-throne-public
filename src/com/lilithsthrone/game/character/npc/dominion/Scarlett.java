@@ -248,6 +248,19 @@ public class Scarlett extends NPC {
 	}
 	
 	@Override
+	public void turnUpdate() {
+		if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY) && !this.isSlave()) {
+			if(!Main.game.getCharactersPresent().contains(this)) {
+				if(Main.game.isExtendedWorkTime()) {
+					this.returnToHome();
+				} else {
+					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+				}
+			}
+		}
+	}
+	
+	@Override
 	public DialogueNode getEncounterDialogue() {
 		return null;
 	}

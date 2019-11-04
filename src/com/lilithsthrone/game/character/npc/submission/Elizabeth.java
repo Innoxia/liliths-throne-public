@@ -228,7 +228,7 @@ public class Elizabeth extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_pantyhose", Colour.CLOTHING_BLACK, false), true, this);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torso_feminine_short_sleeve_shirt", Colour.CLOTHING_GREEN_DRAB, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_TIE, Colour.CLOTHING_GREEN_DRAB, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_tie", Colour.CLOTHING_GREEN_DRAB, false), true, this);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_lyssiethUniform_hat", false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_lyssiethUniform_shoes", false), true, this);

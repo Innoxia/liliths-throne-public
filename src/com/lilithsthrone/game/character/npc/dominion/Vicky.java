@@ -531,11 +531,26 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
+	public void turnUpdate() {
+		if(!Main.game.getCharactersPresent().contains(this)) {
+			if(Main.game.isExtendedWorkTime()) {
+				this.returnToHome();
+			} else {
+				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+			}
+		}
+	}
+	
+	@Override
 	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice){
-		for(int i=0; i<count; i++) {
-			weaponsForSale.remove(item);
-			clothingForSale.remove(item);
-			itemsForSale.remove(item);
+		if(weaponsForSale.containsKey(item)) {
+			weaponsForSale.put((AbstractWeapon) item, weaponsForSale.get(item)-count);
+		}
+		if(clothingForSale.containsKey(item)) {
+			clothingForSale.put((AbstractClothing) item, clothingForSale.get(item)-count);
+		}
+		if(itemsForSale.containsKey(item)) {
+			itemsForSale.put((AbstractItem) item, itemsForSale.get(item)-count);
 		}
 	}
 	

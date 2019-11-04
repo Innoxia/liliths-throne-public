@@ -628,10 +628,12 @@ public class Util {
 			} else if(sentence.charAt(i)==']') {
 				closingSquare++;
 			}
+			
 			if(sentence.charAt(i)==' '
-					&& sentence.charAt(i+1)!='#'
-					&& sentence.charAt(i+1)!='('
-					&& sentence.charAt(i+1)!='['
+					&& Character.isLetter(sentence.charAt(i+1))
+//					&& sentence.charAt(i+1)!='#'
+//					&& sentence.charAt(i+1)!='('
+//					&& sentence.charAt(i+1)!='['
 					&& openingCurly==closingCurly
 					&& openingSquare==closingSquare) {
 				if(Math.random()<chance) {

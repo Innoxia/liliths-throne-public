@@ -36,7 +36,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.3.2
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class NPCOffspring extends NPC {
@@ -51,28 +51,27 @@ public class NPCOffspring extends NPC {
 				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 	}
 	
+
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
+		this(mother, father, father.getSubspecies(), father.getHalfDemonSubspecies());
+	}
+	
+	public NPCOffspring(GameCharacter mother, GameCharacter father, Subspecies fatherSubspecies, Subspecies fatherHalfDemonSubspecies) {
 		super(false, null, null, "",
 				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
-				3, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
+				3,
+				null, null, null,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
-
-
+		
 		if(mother.getSubspecies()==Subspecies.LILIN || mother.getSubspecies()==Subspecies.ELDER_LILIN) {
 			this.setSurname(mother.getName(false)+"martuilani");
 			
-		} else if(father.getSubspecies()==Subspecies.LILIN || father.getSubspecies()==Subspecies.ELDER_LILIN) {
+		} else if(father!=null && (father.getSubspecies()==Subspecies.LILIN || father.getSubspecies()==Subspecies.ELDER_LILIN)) {
 			this.setSurname(father.getName(false)+"martuilani");
 				
 		} else if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
 			this.setSurname(mother.getSurname());
 		}
-		
-		this.setMother(mother);
-		this.setFather(father);
-		
-		this.setAffection(mother, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
-		this.setAffection(father, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
 		
 		// Set random level from 1 to 3:
 		setLevel(Util.random.nextInt(3) + 1);
@@ -80,17 +79,29 @@ public class NPCOffspring extends NPC {
 		// BODY GENERATION:
 		
 		Gender gender = Gender.getGenderFromUserPreferences(false, false);
-		
-		Body preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother, father);
-		if(preGeneratedBody!=null) {
-			setBody(preGeneratedBody);
+		Body preGeneratedBody = null;
+		if(father!=null) {
+			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother, father);
 		} else {
-			setBody(gender, mother, father);
+			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother.getSubspecies(), mother.getHalfDemonSubspecies(), fatherSubspecies, fatherHalfDemonSubspecies);
+		}
+		if(preGeneratedBody!=null) {
+			setBody(preGeneratedBody, true);
+		} else {
+			setBody(gender, mother, father, true);
 		}
 		
 		setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(getGender()));
 
 		setName(Name.getRandomTriplet(getRace()));
+
+		this.setMother(mother);
+		this.setAffection(mother, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		
+		if(father!=null) {
+			this.setFather(father);
+			this.setAffection(father, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		}
 		
 		// PERSONALITY & BACKGROUND:
 		

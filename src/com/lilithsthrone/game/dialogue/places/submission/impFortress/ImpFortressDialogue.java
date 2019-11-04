@@ -2455,7 +2455,7 @@ public class ImpFortressDialogue {
 				};
 				
 			} else if(index==3 && isCompanionDialogue() && Main.game.isNonConEnabled()) {
-				if(!((NPC) getMainCompanion()).isWillingToRape(getBoss()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+				if(!((NPC) getMainCompanion()).isWillingToRape() && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
 					return new Response("Rape (companion)", 
 							UtilText.parse(getMainCompanion(), getBoss(), "[npc.Name] is not interested in raping [npc2.name], and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 				}
@@ -2498,7 +2498,7 @@ public class ImpFortressDialogue {
 				};
 				
 			} else if(index==4 && isCompanionDialogue() && Main.game.isNonConEnabled()) {
-				if(!((NPC) getMainCompanion()).isWillingToRape(getBoss()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+				if(!((NPC) getMainCompanion()).isWillingToRape() && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
 					return new Response("Rape (both)", 
 							UtilText.parse(getMainCompanion(), getBoss(), "[npc.Name] is not interested in raping [npc2.name], and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 				}

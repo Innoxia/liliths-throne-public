@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="HARPY_NEST_BIMBO"><![CDATA[
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_bimboEncountered))
+				Due to the ongoing arcane storm, [bimboHarpy.namePos] nest is completely deserted. Her entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to her.
+			#ELSE
+				Due to the ongoing arcane storm, this nest is completely deserted. The entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to the matriarch of this particular nest.
+			#ENDIF
+		</p>
+	#ELSEIF(!game.isExtendedWorkTime())
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_bimboEncountered))
+				Due to the current hour, [bimboHarpy.namePos] nest is completed deserted; both she and her flock have retired to the comfort of the buildings below in order to get a good night's rest. With the entrances to their night-time residence being securely locked, you're left with no choice but to return at another time if you wanted to speak to her.
+			#ELSE
+				Due to the current hour, this nest is completed deserted; both the matriarch and her flock have retired to the comfort of the buildings below in order to get a good night's rest. With the entrances to their night-time residence being securely locked, you're left with no choice but to return at another time if you wanted to speak to her.
+			#ENDIF
+		</p>
+	#ELSE
+		#IF(game.getDialogueFlags().hasFlag(FLAG_bimboEncountered))
+			<p>
+				You find yourself standing on the outskirts of [bimboHarpy.namePos] nest; one of the largest and most populous of all the nests in Dominion. Huge, multi-level platforms extend across the roofs of several buildings, with colourful canvas awnings erected to shield the flock from the elements.
+				#IF(!game.isDayTime())
+					 A series of bright, arcane-powered lights illuminate the entire area, and from what you can see, the harpies here are just as active at night as they are during daylight hours.
+				#ENDIF
+			</p>
+			<p>
+				Whereas most nests contain a variety of differently-coloured harpies, the overwhelming majority of [bimboHarpy.namePos] flock have, in an attempt to copy their matriarch, had their feathers dyed bleach-blonde. Looking closer, you see that their proportions are also similar to [bimboHarpy.namePos]. From those that you've seen in other nests, you know that the average breast size for a harpy is about a B-cup, but the ones in this particular nest seem to all be at least a D-cup or bigger. Their hips and asses are also far larger than the average, leading you to the obvious conclusion that this particular nest is devoted to imitating their leader.
+			</p>
+			<p>
+				Up on one of the highest platforms, you see a large gathering of harpies surrounding [bimboHarpy.name]. It seems as though the residents of this particular nest aren't too bothered about outsiders, and if you had any business with her, it would be quite easy to approach her platform.
+			</p>
+		#ELSE
+			<p>
+				You find yourself standing on the outskirts of one of the largest harpy nests in Dominion. Huge, multi-level platforms extend across the roofs of several buildings, with colourful canvas awnings erected to shield the flock from the elements.
+				#IF(!game.isDayTime())
+					 A series of bright, arcane-powered lights illuminate the entire area, and from what you can see, the harpies here are just as active at night as they are during daylight hours.
+				#ENDIF
+			</p>
+			<p>
+				Whereas most nests contain a variety of differently-coloured harpies, the overwhelming majority of this particular flock have bleach-blonde feathers.
+				 Looking closer, you see that their proportions are rather unusual as well.
+				 From those that you've seen in other nests, you know that the average breast size for a harpy is about a B-cup, but the ones in this particular nest seem to all be at least a D-cup or bigger.
+				 Their hips and asses are also far larger than the average, leading you to the obvious conclusion that this particular nest prizes large proportions.
+			</p>
+			<p>
+				Up on one of the highest platforms, you see a large gathering of harpies surrounding what must be this nest's matriarch.
+				 It seems as though the residents of this particular nest aren't too bothered about outsiders, and if you had any business with her, it would be quite easy to approach the matriarch's platform.
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	
+</dialogue>

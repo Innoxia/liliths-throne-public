@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
 import java.util.List;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -10,6 +11,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -42,6 +44,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -67,7 +70,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.6
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class SlimeGuardFire extends NPC {
@@ -93,7 +96,7 @@ public class SlimeGuardFire extends NPC {
 			resetBodyAfterVersion_2_10_5();
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && Subspecies.getFleshSubspecies(this)!=Subspecies.HUMAN) {
-			this.setBody(Gender.M_P_MALE, Subspecies.SLIME, RaceStage.HUMAN);
+			this.setBody(Gender.M_P_MALE, Subspecies.SLIME, RaceStage.HUMAN, false);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.8")) {
 			this.setLevel(15);
@@ -239,7 +242,7 @@ public class SlimeGuardFire extends NPC {
 		this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_buckler_buckler", DamageType.FIRE));
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(
-				ClothingType.FINGER_RING,
+				"innoxia_finger_ring",
 				Colour.CLOTHING_COPPER,
 				Util.newArrayListOfValues(
 						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_FIRE, TFPotency.MAJOR_BOOST, 0),
@@ -258,10 +261,18 @@ public class SlimeGuardFire extends NPC {
 				true,
 				this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SUN_NECKLACE, Colour.CLOTHING_COPPER, false),
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_elemental_sun_necklace", Colour.CLOTHING_COPPER, false),
 				true,
 				this);
 
+	}
+	
+	@Override
+	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
+		if(character instanceof SlimeGuardIce) {
+			return Util.newHashSetOfValues(Relationship.Sibling);
+		}
+		return super.getRelationshipsTo(character, excludedRelationships);
 	}
 	
 	@Override

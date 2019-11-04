@@ -49,7 +49,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.99
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class SupplierPartner extends NPC {
@@ -63,9 +63,7 @@ public class SupplierPartner extends NPC {
 				"Karl is the one of the two dobermanns who decided to drive out all the clothing suppliers from the Shopping Arcade.",
 				28, Month.AUGUST, 8,
 				10,
-				Gender.M_P_MALE,
-				Subspecies.DOG_MORPH,
-				RaceStage.GREATER,
+				null, null, null,
 				new CharacterInventory(10),
 				WorldType.SUPPLIER_DEN,
 				PlaceType.SUPPLIER_DEPOT_OFFICE,
@@ -125,7 +123,7 @@ public class SupplierPartner extends NPC {
 		
 		
 		// Body:
-		this.setBody(Gender.M_P_MALE, Subspecies.DOG_MORPH_DOBERMANN, RaceStage.GREATER);
+		this.setBody(Gender.M_P_MALE, Subspecies.DOG_MORPH_DOBERMANN, RaceStage.GREATER, false);
 
 		// Core:
 		this.setHeight(185);

@@ -4,16 +4,13 @@ import com.lilithsthrone.game.character.npc.dominion.Ashley;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.99
- * @version 0.1.99
+ * @version 0.3.5.5
  * @author Kumiko, Innoxia
  */
 public class DreamLover {
@@ -29,23 +26,46 @@ public class DreamLover {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/dreamLover", "EXTERIOR");
 		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ShoppingArcadeDialogue.getCoreResponseTab(index);
+		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Enter", "Step inside 'Dream Lover'.", ENTRY);
-				
-			} else if (index == 6) {
-				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_ENTRANCE, true);
+			if(responseTab==0) {
+				if (index == 1) {
+					if(!Main.game.isExtendedWorkTime()) {
+						return new Response("Enter", "Step inside 'Dream Lover'.", EXTERIOR_CLOSED);
 					}
-				};
-
-			} else {
-				return null;
+					return new Response("Enter", "Step inside 'Dream Lover'.", ENTRY);
+				}
 			}
+			return ShoppingArcadeDialogue.getFastTravelResponses(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode EXTERIOR_CLOSED = new DialogueNode("Dream Lover (Exterior)", "-", false, true) {
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/dreamLover", "EXTERIOR_CLOSED");
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ShoppingArcadeDialogue.getCoreResponseTab(index);
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==0) {
+				if (index == 1) {
+					return new Response("Enter", "'Dream Lover' is currently closed, so you'll have to back at another time if you wanted to do any shopping here.", null);
+				}
+			}
+			return ShoppingArcadeDialogue.getFastTravelResponses(responseTab, index);
 		}
 	};
 	

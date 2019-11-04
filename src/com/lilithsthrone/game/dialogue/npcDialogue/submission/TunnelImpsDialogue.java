@@ -2,6 +2,8 @@ package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -24,7 +26,8 @@ import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -37,15 +40,15 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.11
- * @version 0.2.12
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class TunnelImpsDialogue {
 
 	private static List<GameCharacter> impGroup = new ArrayList<>();
-	
-	private static Value<String, AbstractItem> potion = null;
-	private static Value<String, AbstractItem> companionPotion = null;
+
+	private static Value<AbstractItemType, Map<ItemEffect,String>> potion = null;
+	private static Value<AbstractItemType, Map<ItemEffect,String>> companionPotion = null;
 	
 	public static void setImpGroup(List<GameCharacter> impGroup) {
 		TunnelImpsDialogue.impGroup = impGroup;
@@ -228,13 +231,17 @@ public class TunnelImpsDialogue {
 	};
 	
 	public static final DialogueNode IMP_ATTACK_OFFER_BODY = new DialogueNode("Imp Gang", "", true) {
+
+		public void applyPreParsingEffects() {
+			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+				potion = getImpLeader().generateTransformativePotion(Main.game.getPlayer());
+			} else {
+				potion = null;
+			}
+		}
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-				potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), true);
-			}
-			
 			return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_BODY", getAllCharacters());
 		}
 		
@@ -263,8 +270,6 @@ public class TunnelImpsDialogue {
 					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
 					CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 
-					Util.Value<String, AbstractItem> potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), false);
-					
 					return new Response("Swallow",
 							(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE || Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE_HEAVY)
 								?"Swallow the potion, which, if the imps are to be believed, causes the drinker to grow both a penis and vagina, as well as becoming feminine and growing breasts..."
@@ -287,9 +292,16 @@ public class TunnelImpsDialogue {
 							
 							Main.game.getTextStartStringBuilder().append(
 									UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters()) // Re-use TF refuse dialogue
-									+ "<p>"
-										+ getImpLeader().useItem(potion.getValue(), Main.game.getPlayer(), false, true)
-									+"</p>");
+									);
+							for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
+								Main.game.getTextStartStringBuilder().append(
+										(e.getValue()!=null && !e.getValue().isEmpty()
+											?"<p>"
+												+ "[npc.speech("+e.getValue()+")]"
+											+ "</p>"
+											:"")
+										+ e.getKey().applyEffect(getImpLeader(), Main.game.getPlayer(), 1));
+							}
 						}
 					};
 				}
@@ -303,13 +315,17 @@ public class TunnelImpsDialogue {
 	};
 
 	public static final DialogueNode IMP_ATTACK_OFFER_COMPANION = new DialogueNode("Imp Gang", "", true) {
+
+		public void applyPreParsingEffects() {
+			if(getMainCompanion().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+				companionPotion = getImpLeader().generateTransformativePotion(getMainCompanion());
+			} else {
+				companionPotion = null;
+			}
+		}
 		
 		@Override
 		public String getContent() {
-			if(getMainCompanion().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-				companionPotion = getImpLeader().getTransformativePotion(getMainCompanion(), true);
-			}
-			
 			return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION", getAllCharacters());
 		}
 		
@@ -338,10 +354,17 @@ public class TunnelImpsDialogue {
 								}
 								
 								Main.game.getTextStartStringBuilder().append(
-										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_ORDER_SPIT_COMPANION_SWALLOWS", getAllCharacters())
-										+ "<p>"
-											+ getImpLeader().useItem(companionPotion.getValue(), getMainCompanion(), false, true)
-										+"</p>");
+										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_ORDER_SPIT_COMPANION_SWALLOWS", getAllCharacters()));
+								for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
+									Main.game.getTextStartStringBuilder().append(
+											(e.getValue()!=null && !e.getValue().isEmpty()
+												?"<p>"
+													+ "[npc.speech("+e.getValue()+")]"
+												+ "</p>"
+												:"")
+											+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
+								}
+								
 							} else {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_ORDER_SPIT", getAllCharacters()));
 							}
@@ -378,10 +401,16 @@ public class TunnelImpsDialogue {
 									}
 	
 									Main.game.getTextStartStringBuilder().append(
-											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_ORDER_SWALLOW", getAllCharacters())
-											+ "<p>"
-												+ getImpLeader().useItem(companionPotion.getValue(), getMainCompanion(), false, true)
-											+"</p>");
+											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_COMPANION_ORDER_SWALLOW", getAllCharacters()));
+									for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
+										Main.game.getTextStartStringBuilder().append(
+												(e.getValue()!=null && !e.getValue().isEmpty()
+													?"<p>"
+														+ "[npc.speech("+e.getValue()+")]"
+													+ "</p>"
+													:"")
+												+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
+									}
 									
 								} else {
 									Main.game.getTextStartStringBuilder().append(
@@ -401,26 +430,28 @@ public class TunnelImpsDialogue {
 	
 	
 	public static final DialogueNode IMP_ATTACK_OFFER_THREESOME = new DialogueNode("Imp Gang", "", true) {
+
+		public void applyPreParsingEffects() {
+			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+				potion = getImpLeader().generateTransformativePotion(Main.game.getPlayer());
+			} else {
+				potion = null;
+			}
+			if(getMainCompanion().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+				companionPotion = getImpLeader().generateTransformativePotion(getMainCompanion());
+			} else {
+				companionPotion = null;
+			}
+		}
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-				potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), true);
-			}
-			if(getMainCompanion().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-				companionPotion = getImpLeader().getTransformativePotion(getMainCompanion(), true);
-			}
-			
 			return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME", getAllCharacters());
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(potion != null && companionPotion != null) {
-
-				Util.Value<String, AbstractItem> potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), false);
-				Util.Value<String, AbstractItem> companionPotion = getImpLeader().getTransformativePotion(getMainCompanion(), false);
-				
 				if (index == 1) {
 					if(Main.game.isSpittingDisabled()) {
 						return Response.getDisallowedSpittingResponse();
@@ -447,10 +478,17 @@ public class TunnelImpsDialogue {
 									
 									Main.game.getTextStartStringBuilder().append(
 											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_REFUSED", getAllCharacters()) // Re-use description
-											+ UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SWALLOWS", getAllCharacters())
-											+ "<p>"
-												+ getImpLeader().useItem(companionPotion.getValue(), getMainCompanion(), false, true)
-											+"</p>");
+											+ UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SWALLOWS", getAllCharacters()));
+									for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
+										Main.game.getTextStartStringBuilder().append(
+												(e.getValue()!=null && !e.getValue().isEmpty()
+													?"<p>"
+														+ "[npc.speech("+e.getValue()+")]"
+													+ "</p>"
+													:"")
+												+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
+									}
+									
 								} else {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_BOTH_SPIT", getAllCharacters()));
 								}
@@ -493,22 +531,42 @@ public class TunnelImpsDialogue {
 								}
 
 								Main.game.getTextStartStringBuilder().append(
-										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters())
-										+ "<p>"
-											+ getImpLeader().useItem(potion.getValue(), Main.game.getPlayer(), false, true)
-										+ "</p>"
-										+ UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SWALLOWS", getAllCharacters())
-										+ "<p>"
-											+ getImpLeader().useItem(companionPotion.getValue(), getMainCompanion(), false, true)
-										+"</p>");
+										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters()));
+								for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
+									Main.game.getTextStartStringBuilder().append(
+											(e.getValue()!=null && !e.getValue().isEmpty()
+												?"<p>"
+													+ "[npc.speech("+e.getValue()+")]"
+												+ "</p>"
+												:"")
+											+ e.getKey().applyEffect(getImpLeader(), Main.game.getPlayer(), 1));
+								}
+								Main.game.getTextStartStringBuilder().append(
+										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SWALLOWS", getAllCharacters()));
+								for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
+									Main.game.getTextStartStringBuilder().append(
+											(e.getValue()!=null && !e.getValue().isEmpty()
+												?"<p>"
+													+ "[npc.speech("+e.getValue()+")]"
+												+ "</p>"
+												:"")
+											+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
+								}
 								
 							} else {
 								Main.game.getTextStartStringBuilder().append(
-										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters())
-										+ "<p>"
-											+ getImpLeader().useItem(potion.getValue(), Main.game.getPlayer(), false, true)
-										+"</p>"
-										+UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SPITS", getAllCharacters()));
+										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters()));
+								for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
+									Main.game.getTextStartStringBuilder().append(
+											(e.getValue()!=null && !e.getValue().isEmpty()
+												?"<p>"
+													+ "[npc.speech("+e.getValue()+")]"
+												+ "</p>"
+												:"")
+											+ e.getKey().applyEffect(getImpLeader(), Main.game.getPlayer(), 1));
+								}
+								Main.game.getTextStartStringBuilder().append(
+										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SPITS", getAllCharacters()));
 							}
 						}
 					};
@@ -545,10 +603,17 @@ public class TunnelImpsDialogue {
 									Main.game.getTextStartStringBuilder().append(
 											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_REFUSED", getAllCharacters())
 											+ UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_REFUSES_ORDER_TO_SPIT", getAllCharacters())
-											+ UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SWALLOWS", getAllCharacters())
-											+ "<p>"
-												+ getImpLeader().useItem(companionPotion.getValue(), getMainCompanion(), false, true)
-											+"</p>");
+											+ UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SWALLOWS", getAllCharacters()));
+									for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
+										Main.game.getTextStartStringBuilder().append(
+												(e.getValue()!=null && !e.getValue().isEmpty()
+													?"<p>"
+														+ "[npc.speech("+e.getValue()+")]"
+													+ "</p>"
+													:"")
+												+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
+									}
+									
 								} else {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_BOTH_SPIT_WITH_ORDER", getAllCharacters()));
 								}
@@ -594,23 +659,43 @@ public class TunnelImpsDialogue {
 									}
 
 									Main.game.getTextStartStringBuilder().append(
-											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters())
-											+ "<p>"
-												+ getImpLeader().useItem(potion.getValue(), Main.game.getPlayer(), false, true)
-											+"</p>"
-											+ UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_OBEYS_ORDER_TO_SWALLOW", getAllCharacters())
-											+ UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SWALLOWS", getAllCharacters())
-											+ "<p>"
-												+ getImpLeader().useItem(companionPotion.getValue(), getMainCompanion(), false, true)
-											+"</p>");
+											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters()));
+									for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
+										Main.game.getTextStartStringBuilder().append(
+												(e.getValue()!=null && !e.getValue().isEmpty()
+													?"<p>"
+														+ "[npc.speech("+e.getValue()+")]"
+													+ "</p>"
+													:"")
+												+ e.getKey().applyEffect(getImpLeader(), Main.game.getPlayer(), 1));
+									}
+									Main.game.getTextStartStringBuilder().append(
+											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_OBEYS_ORDER_TO_SWALLOW", getAllCharacters())
+											+ UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_COMPANION_SWALLOWS", getAllCharacters()));
+									for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
+										Main.game.getTextStartStringBuilder().append(
+												(e.getValue()!=null && !e.getValue().isEmpty()
+													?"<p>"
+														+ "[npc.speech("+e.getValue()+")]"
+													+ "</p>"
+													:"")
+												+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
+									}
 									
 								} else {
 									Main.game.getTextStartStringBuilder().append(
-											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters())
-											+ "<p>"
-												+ getImpLeader().useItem(potion.getValue(), Main.game.getPlayer(), false, true)
-											+"</p>"
-											+UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_REFUSES_ORDER_TO_SWALLOW", getAllCharacters()));
+											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters()));
+									for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
+										Main.game.getTextStartStringBuilder().append(
+												(e.getValue()!=null && !e.getValue().isEmpty()
+													?"<p>"
+														+ "[npc.speech("+e.getValue()+")]"
+													+ "</p>"
+													:"")
+												+ e.getKey().applyEffect(getImpLeader(), Main.game.getPlayer(), 1));
+									}
+									Main.game.getTextStartStringBuilder().append(
+											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_REFUSES_ORDER_TO_SWALLOW", getAllCharacters()));
 								}
 							}
 						};
@@ -620,9 +705,6 @@ public class TunnelImpsDialogue {
 				return AFTER_COMBAT_TRANSFORMATION.getResponse(responseTab, index);  // Sex responses
 				
 			} else if(potion != null) {
-
-				Util.Value<String, AbstractItem> potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), false);
-				
 				if (index == 1) {
 					if(Main.game.isSpittingDisabled()) {
 						return Response.getDisallowedSpittingResponse();
@@ -666,10 +748,16 @@ public class TunnelImpsDialogue {
 							}
 							
 							Main.game.getTextStartStringBuilder().append(
-									UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters())
-									+ "<p>"
-										+ getImpLeader().useItem(potion.getValue(), Main.game.getPlayer(), false, true)
-									+"</p>");
+									UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF_ACCEPTED", getAllCharacters()));
+							for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
+								Main.game.getTextStartStringBuilder().append(
+										(e.getValue()!=null && !e.getValue().isEmpty()
+											?"<p>"
+												+ "[npc.speech("+e.getValue()+")]"
+											+ "</p>"
+											:"")
+										+ e.getKey().applyEffect(getImpLeader(), Main.game.getPlayer(), 1));
+							}
 						}
 					};
 					
@@ -688,9 +776,6 @@ public class TunnelImpsDialogue {
 				}
 				
 			} else {
-
-				Util.Value<String, AbstractItem> companionPotion = getImpLeader().getTransformativePotion(getMainCompanion(), false);
-				
 				if (index == 1) {
 					return new Response("Spit", UtilText.parse(getMainCompanion(),"As the imps cannot gain access to your mouth, they are ignoring you and focusing on transforming [npc.name]!"), null);
 					
@@ -719,10 +804,16 @@ public class TunnelImpsDialogue {
 								}
 								
 								Main.game.getTextStartStringBuilder().append(
-										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_REFUSES_ORDER_TO_SWALLOW", getAllCharacters())
-										+ "<p>"
-											+ getImpLeader().useItem(companionPotion.getValue(), getMainCompanion(), false, true)
-										+ "</p>");
+										UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_REFUSES_ORDER_TO_SWALLOW", getAllCharacters()));
+								for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
+									Main.game.getTextStartStringBuilder().append(
+											(e.getValue()!=null && !e.getValue().isEmpty()
+												?"<p>"
+													+ "[npc.speech("+e.getValue()+")]"
+												+ "</p>"
+												:"")
+											+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
+								}
 							} else {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_SPIT_WITH_ORDER", getAllCharacters()));
 							}
@@ -759,10 +850,16 @@ public class TunnelImpsDialogue {
 									}
 	
 									Main.game.getTextStartStringBuilder().append(
-											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_OBEYS_ORDER_TO_SWALLOW", getAllCharacters())
-											+ "<p>"
-												+ getImpLeader().useItem(companionPotion.getValue(), getMainCompanion(), false, true)
-											+"</p>");
+											UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "IMP_ATTACK_OFFER_THREESOME_OBEYS_ORDER_TO_SWALLOW", getAllCharacters()));
+									for(Entry<ItemEffect, String> e : companionPotion.getValue().entrySet()) {
+										Main.game.getTextStartStringBuilder().append(
+												(e.getValue()!=null && !e.getValue().isEmpty()
+													?"<p>"
+														+ "[npc.speech("+e.getValue()+")]"
+													+ "</p>"
+													:"")
+												+ e.getKey().applyEffect(getImpLeader(), getMainCompanion(), 1));
+									}
 									
 								} else {
 									Main.game.getTextStartStringBuilder().append(
@@ -879,6 +976,7 @@ public class TunnelImpsDialogue {
 								@Override
 								public void effects() {
 									Main.mainController.openInventory(imp, InventoryInteraction.FULL_MANAGEMENT);
+									Main.game.setResponseTab(0);
 								}
 							};
 						}
@@ -904,7 +1002,6 @@ public class TunnelImpsDialogue {
 				return null;
 			
 			} else {
-
 				if(responseTab == 0) {
 					if (index == 1) {
 						return new Response("Continue", "Leave the imps and continue on your way...", Main.game.getDefaultDialogueNoEncounter()) {
@@ -1063,6 +1160,7 @@ public class TunnelImpsDialogue {
 								@Override
 								public void effects() {
 									Main.mainController.openInventory(imp, InventoryInteraction.FULL_MANAGEMENT);
+									Main.game.setResponseTab(0);
 								}
 							};
 						}
@@ -1093,6 +1191,19 @@ public class TunnelImpsDialogue {
 	
 	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", "", true) {
 		
+		public void applyPreParsingEffects() {
+			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+				potion = getImpLeader().generateTransformativePotion(Main.game.getPlayer());
+			} else {
+				potion = null;
+			}
+			if(isCompanionDialogue() && getMainCompanion().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+				companionPotion = getImpLeader().generateTransformativePotion(getMainCompanion());
+			} else {
+				companionPotion = null;
+			}
+		}
+		
 		@Override
 		public String getDescription() {
 			return "You have been defeated by the imps!";
@@ -1100,13 +1211,6 @@ public class TunnelImpsDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-				potion = getImpLeader().getTransformativePotion(Main.game.getPlayer(), true);
-			}
-			if(isCompanionDialogue() && getMainCompanion().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-				companionPotion = getImpLeader().getTransformativePotion(getMainCompanion(), true);
-			}
-			
 			return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "COMBAT_DEFEAT_TF", getAllCharacters());
 		}
 		

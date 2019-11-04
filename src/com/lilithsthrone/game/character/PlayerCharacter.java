@@ -3,7 +3,9 @@ package com.lilithsthrone.game.character;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -89,7 +91,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	private int karma;
 
-	private Map<QuestLine, Quest> quests;
+	private Map<QuestLine, List<Quest>> quests;
 
 	private boolean mainQuestUpdated, sideQuestUpdated, relationshipQuestUpdated;
 
@@ -115,7 +117,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		this.setMaxCompanions(1);
 		
-		quests = new EnumMap<>(QuestLine.class);
+		quests = new HashMap<>();
 
 		mainQuestUpdated = false;
 		sideQuestUpdated = false;
@@ -173,11 +175,13 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		innerElement = doc.createElement("questMap");
 		playerSpecific.appendChild(innerElement);
-		for(Entry<QuestLine, Quest> entry : quests.entrySet()) {
+		for(Entry<QuestLine, List<Quest>> entry : quests.entrySet()) {
 			Element e = doc.createElement("entry");
 			innerElement.appendChild(e);
 			CharacterUtils.addAttribute(doc, e, "questLine", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, e, "quest", String.valueOf(entry.getValue()));
+			for(int i=0; i<entry.getValue().size(); i++) {
+				CharacterUtils.addAttribute(doc, e, "q"+i, String.valueOf(entry.getValue().get(i)));
+			}
 		}
 		
 		Element friendlyOccupants = doc.createElement("friendlyOccupants");
@@ -282,7 +286,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				if(questMapElement!=null) {
 					NodeList questMapEntries = questMapElement.getElementsByTagName("entry");
 					if(Main.isVersionOlderThan(version, "0.1.99.5")) {
-					
 						for(int i=0; i< questMapEntries.getLength(); i++){
 							Element e = (Element) questMapEntries.item(i);
 							
@@ -297,37 +300,81 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 									}
 								}
 								
-	//							// Add one if quest is complete: (This is due to adding a 'complete quest' at the end of each quest line.)
-	//							if(questLine!=QuestLine.MAIN && !q.getChildren().isEmpty() && q.getChildren().get(0).getChildren().isEmpty()) {
-	//								q = q.getChildren().get(0);
-	//							}
+								Quest quest = q.getData();
+								List<Quest> questList = new ArrayList<>();
+								TreeNode<Quest> node = questLine.getQuestTree().getFirstNodeWithData(quest);
+								
+								while(node!=null) {
+									questList.add(node.getData());
+									node = node.getParent();
+								}
+								Collections.reverse(questList);
 								
 								character.quests.put(
 										questLine,
-										q.getData());
+										questList);
 								
 							} catch(Exception ex) {
 								System.err.println("ERR Quest!");
 							}
 						}
-					} else {
+						
+					} else if(Main.isVersionOlderThan(version, "0.3.5.3")) {
 						for(int i=0; i<questMapEntries.getLength(); i++){
 							Element e = (Element) questMapEntries.item(i);
 							try {
-								String questLine = e.getAttribute("questLine");
-								if(questLine.contains("SIDE_NYAN")) {
-									questLine = questLine.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
+								String questLineString = e.getAttribute("questLine");
+								if(questLineString.contains("SIDE_NYAN")) {
+									questLineString = questLineString.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
 								}
 								
-								String quest = e.getAttribute("quest");
-								if(quest.contains("SIDE_NYAN")) {
-									quest = quest.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
+								String questString = e.getAttribute("quest");
+								if(questString.contains("SIDE_NYAN")) {
+									questString = questString.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
 								}
+								
+								QuestLine questLine = QuestLine.valueOf(questLineString);
+								Quest quest = Quest.valueOf(questString);
+								
+								List<Quest> questList = new ArrayList<>();
+								TreeNode<Quest> node = questLine.getQuestTree().getFirstNodeWithData(quest);
+								
+								while(node!=null) {
+									questList.add(node.getData());
+									node = node.getParent();
+								}
+								Collections.reverse(questList);
+								
 								character.quests.put(
-										QuestLine.valueOf(questLine),
-										Quest.valueOf(quest));
+										questLine,
+										questList);
 							} catch(Exception ex) {
 							}
+						}
+						
+					} else {
+						for(int i=0; i<questMapEntries.getLength(); i++){
+							Element e = (Element) questMapEntries.item(i);
+							String questLineString = e.getAttribute("questLine");
+							QuestLine questLine = QuestLine.valueOf(questLineString);
+							String questString = e.getAttribute("q"+0);
+							Quest quest = Quest.valueOf(questString);
+							List<Quest> questList = new ArrayList<>();
+							
+							int questIncrement=0;
+							while(!questString.isEmpty()) {
+								quest = Quest.valueOf(questString);
+
+								questList.add(quest);
+								
+								questIncrement++;
+								questString = e.getAttribute("q"+questIncrement);
+							}
+							
+							character.quests.put(
+									questLine,
+									questList);
+							
 						}
 					}
 				}
@@ -603,6 +650,33 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public String startQuest(QuestLine questLine) {
 		return setQuestProgress(questLine, questLine.getQuestTree().getData());
 	}
+
+	public String addOptionalQuestProgress(QuestLine questLine, Quest quest) {
+		if(!quests.containsKey(questLine)) {
+			System.err.println("Player does not have quest line "+questLine+", so cannot add optional quest: "+quest);
+			return "";
+		}
+		
+		if(questLine.getType() == QuestType.MAIN) {
+			setMainQuestUpdated(true);
+			
+		} else if(questLine.getType() == QuestType.SIDE) {
+			setSideQuestUpdated(true);
+			
+		} else {
+			setRelationshipQuestUpdated(true);
+		}
+		
+		String experienceUpdate = incrementExperience(quest.getExperienceReward(), true);
+		
+		quests.get(questLine).add(0, quest);
+		
+		Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Optional Task Complete)]", quest.getName()));
+		return "<p style='text-align:center;'>"
+				+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b><br/>"
+				+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Optional Task Completed: " + quest.getName() + "</b><br/>"
+				+ experienceUpdate;
+	}
 	
 	public String setQuestProgress(QuestLine questLine, Quest quest) {
 		if(!questLine.getQuestTree().childrenContainsData(quest)) {
@@ -622,11 +696,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		
 		if(quests.containsKey(questLine)) {
-			Quest currentQuest = questLine.getQuestTree().getFirstNodeWithData(quests.get(questLine)).getData();
+			Quest currentQuest = questLine.getQuestTree().getFirstNodeWithData(getQuest(questLine)).getData();
 			
 			String experienceUpdate = incrementExperience(currentQuest.getExperienceReward(), true);
 			
-			quests.put(questLine, quest);
+			quests.get(questLine).add(quest);
 			
 			if (questLine.getQuestTree().getFirstNodeWithData(quest).getChildren().isEmpty()) { // QuestLine complete (No more children in the tree)
 				Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Quest Complete)]", questLine.getName()));
@@ -646,7 +720,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 			
 		} else {
-			quests.put(questLine, quest);
+			quests.put(questLine, new ArrayList<>());
+			quests.get(questLine).add(quest);
 
 			Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Quest Started)]", questLine.getName()));
 			
@@ -657,23 +732,30 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 	}
 	
-	public Map<QuestLine, Quest> getQuests() {
+	public Map<QuestLine, List<Quest>> getQuests() {
 		return quests;
 	}
 	
 	public Quest getQuest(QuestLine questLine) {
-		return quests.get(questLine);
+		return quests.get(questLine).get(quests.get(questLine).size()-1);
 	}
 	
 	public boolean hasQuest(QuestLine questLine) {
 		return quests.containsKey(questLine);
+	}
+	
+	public boolean isSubQuestCompleted(Quest subQuest, QuestLine questLine) {
+		if(quests.containsKey(questLine) && quests.get(questLine).contains(subQuest) && getQuest(questLine)!=subQuest) {
+			return true;
+		}
+		return false;
 	}
 
 	public boolean isQuestCompleted(QuestLine questLine) {
 		if(!hasQuest(questLine)) {
 			return false;
 		}
-		return questLine.getQuestTree().getFirstNodeWithData(quests.get(questLine)).getChildren().isEmpty();
+		return questLine.getQuestTree().getFirstNodeWithData(getQuest(questLine)).getChildren().isEmpty();
 	}
 	
 	public boolean isHasSlaverLicense() {

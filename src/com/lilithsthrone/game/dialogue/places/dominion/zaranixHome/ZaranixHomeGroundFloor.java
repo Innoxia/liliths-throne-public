@@ -5,7 +5,6 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
@@ -85,10 +84,13 @@ public class ZaranixHomeGroundFloor {
 				return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloor", "OUTSIDE");
 			}
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
+				if(!Main.game.isExtendedWorkTime()) {
+					return new Response("Knock door", "Nobody will come to answer the door at such an unsociable time. You'll have to come back during the day, or find another way to get inside.", null);
+				}
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixMaidsHostile)) {
 					return new Response("Knock door", "Zaranix's maids will recognise you on sight, and won't let you in. You'll have to find another way to get inside.", null);
 				}
@@ -102,6 +104,9 @@ public class ZaranixHomeGroundFloor {
 
 			} else if (index == 2) {
 				if(Main.game.getPlayer().isAbleToFly()) {
+					if(!Main.game.isExtendedWorkTime()) {
+						return new Response("Fly over fence", "The house is sure to be securely locked up at such an unsociable time. You'll have to come back during the day, or find another way to get inside.", null);
+					}
 					return new Response("Fly over fence", "Fly over the garden's fence and see if there's a way in through there.", GARDEN_ENTRY) {
 						@Override
 						public void effects() {
@@ -115,6 +120,9 @@ public class ZaranixHomeGroundFloor {
 									+ "</p>");
 						}
 					};
+				}
+				if(!Main.game.isExtendedWorkTime()) {
+					return new Response("Climb fence", "The house is sure to be securely locked up at such an unsociable time. You'll have to come back during the day, or find another way to get inside.", null);
 				}
 				return new Response("Climb fence", "Climb over the garden's fence and see if there's a way in through there.", GARDEN_ENTRY) {
 					@Override
@@ -133,7 +141,7 @@ public class ZaranixHomeGroundFloor {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKickedDownDoor)) {
 					return new Response("Kick down door", "After your last entrance, the front door has been reinforced. You're unable to enter like this again.", null);
 					
-				} else if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE) >= PhysiqueLevel.THREE_POWERFUL.getMinimumValue()) {
+				} else if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE) >= 35) {
 					return new Response("Kick down door", "Kick down the front door.", ENTRANCE_KICK_DOWN_DOOR) {
 						@Override
 						public boolean isCombatHighlight() {

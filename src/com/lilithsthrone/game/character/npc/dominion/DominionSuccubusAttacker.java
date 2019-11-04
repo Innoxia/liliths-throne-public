@@ -26,7 +26,6 @@ import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayDemonDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayDemonDialogueCompanions;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -46,7 +45,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.69
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class DominionSuccubusAttacker extends NPC {
@@ -65,7 +64,7 @@ public class DominionSuccubusAttacker extends NPC {
 			this.setLocation(Main.game.getPlayer(), true);
 			
 			if(!Gender.getGenderFromUserPreferences(false, false).isFeminine()) {
-				this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER);
+				this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, true);
 				this.setGenderIdentity(Gender.M_P_MALE);
 			}
 			
@@ -105,6 +104,8 @@ public class DominionSuccubusAttacker extends NPC {
 
 			// Set starting perks based on the character's race
 			initPerkTreeAndBackgroundPerks();
+			this.setStartingCombatMoves();
+			loadImages();
 			
 			initHealthAndManaToMax();
 		}
@@ -180,11 +181,7 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	@Override
 	public DialogueNode getEncounterDialogue() {
-		if(Main.game.getPlayer().getCompanions().isEmpty()) {
-			return AlleywayDemonDialogue.ALLEY_DEMON_ATTACK;
-		} else {
-			return AlleywayDemonDialogueCompanions.ALLEY_DEMON_ATTACK;
-		}
+		return AlleywayDemonDialogue.DEMON_ATTACK;
 	}
 
 	// Combat:
@@ -236,6 +233,7 @@ public class DominionSuccubusAttacker extends NPC {
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
 				if(clothing!=null && clothing.getClothingType().isCondom(clothing.getClothingType().getEquipSlots().get(0))) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
+					inventory.resetEquipDescription();
 				}
 				return UtilText.parse(equipper, target,
 						"<p>"

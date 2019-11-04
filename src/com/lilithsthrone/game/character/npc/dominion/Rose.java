@@ -67,7 +67,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.3
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class Rose extends NPC {
@@ -224,7 +224,7 @@ public class Rose extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_SLEEVES, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_HEELS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_BELL_COLLAR, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_bell_collar", Colour.CLOTHING_BLACK, false), true, this);
 
 	}
 
@@ -235,6 +235,17 @@ public class Rose extends NPC {
 	
 	@Override
 	public void changeFurryLevel(){
+	}
+
+	@Override
+	public void turnUpdate() {
+		if(!Main.game.getCharactersPresent().contains(this) && !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+			if(Main.game.isExtendedWorkTime()) {
+				this.setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
+			} else {
+				this.setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE);
+			}
+		}
 	}
 	
 	@Override

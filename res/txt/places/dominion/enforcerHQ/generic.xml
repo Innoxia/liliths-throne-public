@@ -5,14 +5,14 @@
 
 	<htmlContent tag="EXTERIOR"><![CDATA[
 	<p>
-		Being built in an extremely imposing example of brutalist architecture, the vast structure before you is strikingly different from the usual residential buildings which Dominion is mostly comprised of. A wide courtyard, paved in drab, grey flagstones and cordoned off with chain bollards, separates the street on which you're standing from this unusual property. Looking up at the façade, which is made almost entirely out of sheets of reflective glass and thick pillars of grey concrete, you see that there's a sign bearing the words "Enforcer Headquarters, Blackhall'.
+		Being built in an extremely imposing example of brutalist architecture, the vast structure before you is strikingly different from the usual residential buildings which Dominion is mostly comprised of. A wide courtyard, paved in drab, grey flagstones and cordoned off with chain bollards, separates the street on which you're standing from this unusual property. Looking up at the façade, which is made almost entirely out of sheets of reflective glass and thick pillars of grey concrete, you see that there's a sign bearing the words "Enforcer Headquarters, Greyhaven Park'.
 	</p>
 	<p>
 		As if the sign wasn't enough to reveal this establishment's purpose to any passersby, there are also a half-dozen or so groups of smartly-dressed
 		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
 			 demon
 		#ENDIF
-		 Enforcers loitering about the courtyard, with several more standing guard at each of the three main entrances. While the signs beside two of these doorways inform you that they're for Enforcer use only, the third bears the words 'Public Inquiries, open 24/7'. If you had any sort of business to conduct here, then this would be the door for you.
+		 Enforcers loitering about the courtyard, with several more standing guard at each of the three main entrances. While the signs beside two of these doorways inform you that they're for Enforcer use only, the third bears the words 'Public Inquiries; Reception open [units.time(9)]-[units.time(17)]'. If you had any sort of business to conduct here, then this would be the door for you.
 	</p>
 	]]>
 	</htmlContent>
@@ -41,23 +41,34 @@
 	<!-- WAITING_AREA -->
 
 	<htmlContent tag="WAITING_AREA"><![CDATA[
-	#IF(pc.getCharactersEncountered().contains(candi.getId()))
+	#IF(!game.isWorkTime())
 		<p>
-			Several rough-looking members of the local community are lounging about on the many low sofas littered around this waiting area. A reception desk is built into the left-hand wall, and you see Candi, the cat-girl bimbo, sitting behind it. She has long, bleach-blonde hair, a beautiful face that's been completely plastered in makeup, and a massive pair of G-cup breasts that threaten to spill out of her half-buttoned-up shirt at any moment. Her cute cat-like ears twitch this way and that as she stares into a little mirror on her desk, and you notice that she's busy applying a layer of bright pink lipstick to her plump lips.
+			As the reception desk is closed at this time, the many low sofas littered around this waiting area are all completely deserted. The only person you can see from where you're currently standing takes the form of a muscular horse-boy Enforcer, who's standing guard beside the door which leads to the rest of the building's interior.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_accessToEnforcerHQ))
+				 From the moment you entered the waiting area, he hasn't taken his eyes off of you, making sure that you aren't able to sneak past him.
+			#ELSE
+				 From the moment you entered the waiting area, he hasn't taken his eyes off of you, and you realise that there's absolutely no possibility of being able to sneak through the door he's guarding. If you wanted to get access to the HQ's interior, you'll have to come back during the reception desk's opening hours, which are from [style.colourMinorBad([units.time(9)] to [units.time(5)])], and then speak to the receptionist.
+			#ENDIF
 		</p>
 	#ELSE
+		#IF(pc.getCharactersEncountered().contains(candi.getId()))
+			<p>
+				Several rough-looking members of the local community are lounging about on the many low sofas littered around this waiting area. A reception desk is built into the left-hand wall, and you see Candi, the cat-girl bimbo, sitting behind it. She has long, bleach-blonde hair, a beautiful face that's been completely plastered in makeup, and a massive pair of G-cup breasts that threaten to spill out of her half-buttoned-up shirt at any moment. Her cute cat-like ears twitch this way and that as she stares into a little mirror on her desk, and you notice that she's busy applying a layer of bright pink lipstick to her plump lips.
+			</p>
+		#ELSE
+			<p>
+				Several rough-looking members of the local community are lounging about on the many low sofas littered around this waiting area. A reception desk sits off to one side of the room, and you see a lesser cat-girl, wearing an Enforcer's uniform, sitting behind it. She has long, bleach-blonde hair, a beautiful face that's been completely plastered in makeup, and a massive pair of G-cup breasts that threaten to spill out of her half-buttoned-up shirt at any moment. Her cute cat-like ears twitch this way and that as she stares into a little mirror on her desk, and you notice that she's busy applying a layer of bright pink lipstick to her plump, bimbo-like lips.
+			</p>
+		#ENDIF
 		<p>
-			Several rough-looking members of the local community are lounging about on the many low sofas littered around this waiting area. A reception desk sits off to one side of the room, and you see a lesser cat-girl, wearing an Enforcer's uniform, sitting behind it. She has long, bleach-blonde hair, a beautiful face that's been completely plastered in makeup, and a massive pair of G-cup breasts that threaten to spill out of her half-buttoned-up shirt at any moment. Her cute cat-like ears twitch this way and that as she stares into a little mirror on her desk, and you notice that she's busy applying a layer of bright pink lipstick to her plump, bimbo-like lips.
+			The only other person you can see takes the form of a muscular horse-boy Enforcer, who's standing guard beside the door which leads to the rest of the building's interior.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_accessToEnforcerHQ))
+				 His watchful gaze sweeps the room, making sure that nobody is able to sneak past him.
+			#ELSE
+				 From the moment you entered the waiting area, he hasn't taken his eyes off of you, and you realise that there's absolutely no possibility of being able to sneak through the door he's guarding. If you wanted to get access to the HQ's interior, you'll have to negotiate with the bimbo cat-girl receptionist.
+			#ENDIF
 		</p>
 	#ENDIF
-	<p>
-		The only other person you can see takes the form of a muscular horse-boy Enforcer, who's standing guard beside the door which leads to the rest of the building's interior.
-		#IF(game.getDialogueFlags().hasFlag(FLAG_accessToEnforcerHQ))
-			 His watchful gaze sweeps the room, making sure that nobody is able to sneak past him.
-		#ELSE
-			 From the moment you entered the waiting area, he hasn't taken his eyes off of you, and you realise that there's absolutely no possibility of being able to sneak through the door he's guarding. If you wanted to get access to the HQ's interior, you'll have to negotiate with the bimbo cat-girl receptionist.
-		#ENDIF
-	</p>
 	]]>
 	</htmlContent>
 
@@ -148,184 +159,193 @@
 	<!-- RECEPTION_DESK -->
 	
 	<htmlContent tag="RECEPTION_DESK"><![CDATA[
-	#IF(game.isBraxMainQuestComplete())
-		#IF(!game.getDialogueFlags().hasFlag(FLAG_seenBraxAfterQuest))
-			<p>
-				You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk. Curiously, there's another placard next to hers, and as you come to a halt in front of Candi, your eyes go wide as you read the words '[brax.name], Candi's assistant'.
-			</p>
-			<p>
-				[pc.speech(Hi, Candi,)] you greet her, continuing to smile as she looks up from her mirror, [pc.speech(how are you and [brax.name] doing? I see his name here, but where is he?)]
-			</p>
-			<p>
-				[candi.speechNoEffects(Like, omigosh! Heya, I recognise you!)] she cries out, her voice bubbling with excitement. [candi.speechNoEffects(You, like, know my little pet? Come say hello [brax.name]!)]
-			</p>
-			<p>
-				Candi reaches down to tug on something, and you hear a familiar voice respond, [brax.speech(Candi, please, I don't wa-)]
-			</p>
-			<p>
-				[brax.namePos] protest is cut off as Candi stands up, sharply yanking on what you now see to be a pink leash. [candi.speechNoEffects(Bad pet! Bad! You, like, have to do as I say! The chief said so, remember?!)]
-			</p>
-			<p>
-				Letting out another groan, [brax.name] crawls out from under Candi's desk and stands up to face you. A look of shock crosses his face, and he desperately pulls on his leash as he shouts out, [brax.speech(That's [pc.herHim]! Candi! That's the one who took the documents! Call the chie- ~Aargh!~)]
-			</p>
-			<p>
-				[brax.namePos] leash is suddenly and violently yanked backwards, immediately interrupting his accusation and causing him to choke and splutter. Candi's face has gone bright red, and she looks absolutely furious as she starts to shout, [candi.speechNoEffects(Bad pet! Bad, bad, <b>bad</b>! How <i>dare</i> you treat a visitor like that! Like, [pc.sheIs] even a friend of yours, remember?! If you say <i>one more word</i>, I'm going to, like, get the ballgag out, and no more talking for a week!)]
-			</p>
-			<p>
-				With [brax.name] suitably subdued, Candi turns back to face you. [candi.speechNoEffects(Like, I am soooo sorry! [brax.name] is kinda stupid, don't mind him! He gave away some kind of really important paper or something, and the chief said I could, like, have him as a pet. I even have, like, permission to punish him and stuff. Hey! You know what would be fun! How about you get to punish him for being so super mean to you?!)]
-			</p>
-			<p>
-				Candi finally stops talking, giving you a moment to process what's going on. It looks like [brax.name] got demoted for giving you that information about Arthur, and is now Candi's pet. She's far too stupid to understand what [brax.name] is trying to tell her, and you see a look of intense frustration cross over the unfortunate wolf-boy's face as his owner silences him.
-			</p>
-			<p>
-				You could take up Candi's offer and have some fun with [brax.name] in her office. As you're deciding what to do, you notice a little cardboard box, marked '[brax.namePos] junk', sitting on a shelf behind Candi's desk.
-				#IF(game.getDialogueFlags().hasFlag(FLAG_braxTransformedPlayer))
-					 The neck of a very familiar-looking bottle is poking out of the top, and an interesting idea runs through your mind...
-				#ELSE
-					 The neck of a delicate-looking bottle is poking out of the top, and, remembering Candi's warning about [brax.name] having a wolf-girl transformation potion, an interesting idea runs through your mind...
-				#ENDIF
-			</p>
-		#ELSE
-			#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_BUYING_BRAX))
-				#IF(game.getSecondsPassed()-game.getDialogueFlags().candiSexTimer>60*60*12)
-					<p>
-						#IF(candi.isVisiblyPregnant() && !candi.isCharacterReactedToPregnancy(pc))
-								You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. While at first it looked as though she was completely engrossed in doing her makeup, you now see that she has in fact angled the mirror in front of her in such a way that she's looking down into her own lap. Following her gaze, you find yourself looking down not only at the cat-girl's fingers rubbing away at her pussy, but also a large, rounded bump in her belly. The sound of your approach was masked by the lewd little 'oohs' and 'aahs' she's making, but as Candi leans back in her chair a little, she suddenly notices you standing before her.
-							</p>
-							<p>
-								[candi.speechNoEffects(Oh, like, it's you again!)] she exclaims, quite clearly unperturbed by your presence as she continues brazenly masturbating while talking, [candi.speechNoEffects(Look! You, like, got me all pregnant and stuff! Lucky I have, like, this cushy desk job and stuff, so I can just sit here an be all relaxin' all the time, y'know? Having to walk around carrying your kids gets, like, suuuuper exhausting! Anyway, like, you gonna just stand there, or you gonna get round here and help me out? Those lollipops really got me super horny and stuff, so, like, I'm gonna need you to fuck me. You're up for that, right?)]
-						#ELSE
-								You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. While at first it looked as though she was completely engrossed in doing her makeup, you now see that she has in fact angled the mirror in front of her in such a way that she's looking down into her own lap. Following her gaze
-								#IF(candi.isVisiblyPregnant())
-									 down over her pregnant belly
-								#ENDIF
-								, you see that her skirt has been pulled up, and her right hand is frantically rubbing away at her exposed pussy. The sound of your approach was masked by the lewd little 'oohs' and 'aahs' she's making, but as Candi leans back in her chair a little, she suddenly notices you standing before her.
-							</p>
-							<p>
-								[candi.speechNoEffects(Oh, like, it's you again!)] she exclaims, quite clearly unperturbed by your presence as she continues brazenly masturbating while talking, [candi.speechNoEffects(Like, fuck, those lollipops really got me super horny and stuff, y'know? Like, I keep on masturbating, but it's not going away! Y'know, this is kinda partly your fault for giving these to me. You need to, like, get round here and help me out! Come on, you wanna fuck, don't you?)]
-						#ENDIF
-					</p>
-					<p>
-						After asking this, the horny bimbo cat-girl bites her lip, and, putting on the most pleading and desperate look she can muster, lets out a long, imploring whine. Gazing into your eyes, she begs, [candi.speechNoEffects(Like, please?!)]
-					</p>
-				#ELSE
-					<p>
-						#IF(candi.isVisiblyPregnant() && !candi.isCharacterReactedToPregnancy(pc))
-								You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. She's completely engrossed in doing her makeup, and faint little 'oohs' and 'aahs' drift out her open mouth as she vacantly gazes into a little mirror that's sitting on her desk. Before you can say anything to get her attention, she reaches up to tuck a loose strand of bleach-blonde hair back behind her cat-like ears, and as she does so, she suddenly notices you standing before her.
-							</p>
-							<p>
-								[candi.speechNoEffects(Hey, look!)] she happily exclaims, pushing herself back from the counter to reveal her swollen belly, [candi.speechNoEffects(You, like, got me all pregnant and stuff! Lucky I have, like, this cushy desk job and stuff, so I can just sit here an be all relaxin' all the time, y'know? Having to walk around carrying your kids gets, like, suuuuper exhausting! Anyway, like, I know it's only gonna be, like, a half-day at most before my pussy starts gettin' wet and all I can think of is sex again! You gotta come back and help me out again when that happens, ok?)]
-							</p>
-						#ELSE
-								You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the
-								#IF(candi.isVisiblyPregnant())
-									 still-pregnant
-								#ENDIF
-								 cat-girl secretary hasn't even noticed your approach. She's completely engrossed in doing her makeup, and faint little 'oohs' and 'aahs' drift out her open mouth as she vacantly gazes into a little mirror that's sitting on her desk. Before you can say anything to get her attention, she reaches up to tuck a loose strand of bleach-blonde hair back behind her cat-like ears, and as she does so, she suddenly notices you standing before her.
-							</p>
-							<p>
-								[candi.speechNoEffects(Oh, hey, like, you're back!)] she happily exclaims, [candi.speechNoEffects(Thanks for, like, helping me to cum! Y'know, I'm feeling all super duper and normal again now, but I know it's only gonna be, like, a half-day at most before my pussy starts gettin' wet and all I can think of is sex! You gotta come back and help me out again when that happens, ok?)]
-							</p>
-						#ENDIF
-					<p>
-						Flashing you a big smile, Candi then turns back to her mirror and continues with her never-ending quest to get her makeup just right...
-					</p>
-				#ENDIF
-			#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_bimbofiedBrax))
+	#IF(!game.isWorkTime())
+		<p>
+			The reception desk before you, at which all public inquiries are to be made, is currently deserted. The lights behind the desk are all switched off, and there's a little placard sitting on the counter top which informs you that it is currently [style.colourBad(closed)], and will only be [style.colourMinorBad(open between the hours of [units.time(9)] to [units.time(5)])].
+		</p>
+		<p>
+			It looks as though you'll have to return later...
+		</p>
+	#ELSE
+		#IF(game.isBraxMainQuestComplete())
+			#IF(!game.getDialogueFlags().hasFlag(FLAG_seenBraxAfterQuest))
 				<p>
-					You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk. As you come to a halt in front of her, you look down over the top of the desk to see [brax.name] furiously masturbating on the floor.
+					You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk. Curiously, there's another placard next to hers, and as you come to a halt in front of Candi, your eyes go wide as you read the words '[brax.name], Candi's assistant'.
 				</p>
 				<p>
-					[pc.speech(Hi again, Candi,)] you say, continuing to smile as she looks up from her mirror, [pc.speech(it looks like [brax.namePos] having fun down there!)]
+					[pc.speech(Hi, Candi,)] you greet her, continuing to smile as she looks up from her mirror, [pc.speech(how are you and [brax.name] doing? I see his name here, but where is he?)]
 				</p>
 				<p>
-					[candi.speechNoEffects(Like, omigosh! Heya!)] she cries out, her voice bubbling with excitement, [candi.speechNoEffects(and, like, eugh! I know right?! [brax.Name], like, won't stop masturbating, even after I've told [brax.him] to like a million times! I'm, like, far too busy to punish [brax.him] properly as well!)]
+					[candi.speechNoEffects(Like, omigosh! Heya, I recognise you!)] she cries out, her voice bubbling with excitement. [candi.speechNoEffects(You, like, know my little pet? Come say hello [brax.name]!)]
 				</p>
 				<p>
-					As she speaks, Candi reaches down to tug [brax.namePos] [brax.arms] away from [brax.her] [brax.pussy], causing the horny bimbo to cry out,
-					 [brax.speechNoEffects(Awww! Candi! Please! I, like, <i>need</i> this! You gotta let m- ~Aah!~)]
+					Candi reaches down to tug on something, and you hear a familiar voice respond, [brax.speech(Candi, please, I don't wa-)]
 				</p>
 				<p>
-					[brax.NamePos] pathetic whining is cut off as Candi stands up, sharply yanking on [brax.his] pink leash. [candi.speechNoEffects(Like, try to control yourself pet! Lucky for you, your super best friend is, like, here to play!)]
+					[brax.namePos] protest is cut off as Candi stands up, sharply yanking on what you now see to be a pink leash. [candi.speechNoEffects(Bad pet! Bad! You, like, have to do as I say! The chief said so, remember?!)]
 				</p>
 				<p>
-					[brax.name] immediately jumps to [brax.his] feet, and as [brax.he] catches sight of you, [brax.he] lets out a delighted squeal, [brax.speechNoEffects(Yes! Heya! Please, like, can we play together?! I'm, like, thinking of you all the time and stuff!)]
+					Letting out another groan, [brax.name] crawls out from under Candi's desk and stands up to face you. A look of shock crosses his face, and he desperately pulls on his leash as he shouts out, [brax.speech(That's [pc.herHim]! Candi! That's the one who took the documents! Call the chie- ~Aargh!~)]
 				</p>
 				<p>
-					As [brax.name] drops [brax.his] hands back down to [brax.her] groin and starts masturbating, Candi turns back to face you. [candi.speechNoEffects(You'd be, like, doin' me a huuuge favour if you'd, like, help out with [brax.namePos] horniness! How about, like, you take [brax.him] into my office, and, like, give [brax.him] a good fucking?!)]
+					[brax.namePos] leash is suddenly and violently yanked backwards, immediately interrupting his accusation and causing him to choke and splutter. Candi's face has gone bright red, and she looks absolutely furious as she starts to shout, [candi.speechNoEffects(Bad pet! Bad, bad, <b>bad</b>! How <i>dare</i> you treat a visitor like that! Like, [pc.sheIs] even a friend of yours, remember?! If you say <i>one more word</i>, I'm going to, like, get the ballgag out, and no more talking for a week!)]
 				</p>
 				<p>
-					You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone...
-				</p>
-			#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_feminisedBrax))
-				<p>
-					You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk. As you come to a halt in front of her, you read the words on the placard next to hers; '[brax.name], Candi's assistant'.
+					With [brax.name] suitably subdued, Candi turns back to face you. [candi.speechNoEffects(Like, I am soooo sorry! [brax.name] is kinda stupid, don't mind him! He gave away some kind of really important paper or something, and the chief said I could, like, have him as a pet. I even have, like, permission to punish him and stuff. Hey! You know what would be fun! How about you get to punish him for being so super mean to you?!)]
 				</p>
 				<p>
-					[pc.speech(Hi again, Candi,)] you greet her, continuing to smile as she looks up from her mirror, [pc.speech(how are you and [brax.name] doing?)]
+					Candi finally stops talking, giving you a moment to process what's going on. It looks like [brax.name] got demoted for giving you that information about Arthur, and is now Candi's pet. She's far too stupid to understand what [brax.name] is trying to tell her, and you see a look of intense frustration cross over the unfortunate wolf-boy's face as his owner silences him.
 				</p>
 				<p>
-					[candi.speechNoEffects(Like, omigosh! Heya!)] she cries out, her voice bubbling with excitement. [candi.speechNoEffects([brax.namePos] been, like, super disobedient! [brax.He], like, refused to suck my friend's cock earlier! Can you believe that?!)]
-				</p>
-				<p>
-					As she speaks, Candi reaches down to tug on something, and you hear a familiar whimper in response, [brax.speech(Sorry, Cand-)]
-				</p>
-				<p>
-					[brax.namePos] apology is cut off as Candi stands up, sharply yanking on [brax.his] pink leash. [candi.speechNoEffects(Like, come on pet! Stand up and say hello to your friend again!)]
-				</p>
-				<p>
-					[brax.name] obediently crawls out from under Candi's desk and stands up to face you. [brax.speech(Hello...)]
-				</p>
-				<p>
-					With [brax.name] displaying an acceptable level of submission, Candi turns back to face you. [candi.speechNoEffects(Hey, like, [brax.name] still hasn't been punished for disobeying me earlier! How about, like, you punish [brax.him] for me?!)]
-				</p>
-				<p>
-					You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone. As you're making up your mind, you take another look at Candi, wondering if you could ask her to make [brax.name] a little more like her...
-				</p>
-			#ELSE
-				<p>
-					You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk. As you come to a halt in front of her, you read the words on the placard next to hers; '[brax.name], Candi's assistant'.
-				</p>
-				<p>
-					[pc.speech(Hi again, Candi,)] you greet her, continuing to smile as she looks up from her mirror, [pc.speech(how are you and [brax.name] doing?)]
-				</p>
-				<p>
-					[candi.speechNoEffects(Like, omigosh! Heya!)] she cries out, her voice bubbling with excitement. [candi.speechNoEffects([brax.namePos] been, like, super disobedient! [brax.He], like, refused to lick my shoes clean earlier! Can you believe that?!)]
-				</p>
-				<p>
-					As she speaks, Candi reaches down to tug on something, and you hear a familiar whimper in response, [brax.speech(Sorry, Cand-)]
-				</p>
-				<p>
-					[brax.namePos] apology is cut off as Candi stands up, sharply yanking on [brax.his] pink leash. [candi.speechNoEffects(Like, come on pet! Stand up and say hello to your friend again!)]
-				</p>
-				<p>
-					[brax.name] reluctantly crawls out from under Candi's desk and stands up to face you. [brax.speech(Eugh, not you aga- Aah!)]
-				</p>
-				<p>
-					Candi yanks on [brax.namePos] leash once again, before starting to furiously scold [brax.him]. After a few minutes, she's forced [brax.name] to apologise to you, and turns back to face you. [candi.speechNoEffects(Hey, like, I'm pretty sure you'll agree that [brax.name] <i>really</i> needs to be punished again! How about, like, you take [brax.him] into my office and show [brax.him] how to behave?!)]
-				</p>
-				<p>
-					You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone.
+					You could take up Candi's offer and have some fun with [brax.name] in her office. As you're deciding what to do, you notice a little cardboard box, marked '[brax.namePos] junk', sitting on a shelf behind Candi's desk.
 					#IF(game.getDialogueFlags().hasFlag(FLAG_braxTransformedPlayer))
-						 As you're deciding what to do, you notice a little cardboard box, marked '[brax.namePos] junk', sitting on a shelf behind Candi's desk. The neck of a very familiar-looking bottle is poking out of the top, and an interesting idea runs through your head...
+						 The neck of a very familiar-looking bottle is poking out of the top, and an interesting idea runs through your mind...
 					#ELSE
-						 As you're deciding what to do, you notice a little cardboard box, marked '[brax.namePos] junk', sitting on a shelf behind Candi's desk. The neck of a delicate-looking bottle is poking out of the top, and, remembering Candi's warning about [brax.name] having a wolf-girl transformation potion, an interesting idea runs through your head...
+						 The neck of a delicate-looking bottle is poking out of the top, and, remembering Candi's warning about [brax.name] having a wolf-girl transformation potion, an interesting idea runs through your mind...
 					#ENDIF
 				</p>
+			#ELSE
+				#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_BUYING_BRAX))
+					#IF(game.getSecondsPassed()-game.getDialogueFlags().candiSexTimer>60*60*12)
+						<p>
+							#IF(candi.isVisiblyPregnant() && !candi.isCharacterReactedToPregnancy(pc))
+									You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. While at first it looked as though she was completely engrossed in doing her makeup, you now see that she has in fact angled the mirror in front of her in such a way that she's looking down into her own lap. Following her gaze, you find yourself looking down not only at the cat-girl's fingers rubbing away at her pussy, but also a large, rounded bump in her belly. The sound of your approach was masked by the lewd little 'oohs' and 'aahs' she's making, but as Candi leans back in her chair a little, she suddenly notices you standing before her.
+								</p>
+								<p>
+									[candi.speechNoEffects(Oh, like, it's you again!)] she exclaims, quite clearly unperturbed by your presence as she continues brazenly masturbating while talking, [candi.speechNoEffects(Look! You, like, got me all pregnant and stuff! Lucky I have, like, this cushy desk job and stuff, so I can just sit here an be all relaxin' all the time, y'know? Having to walk around carrying your kids gets, like, suuuuper exhausting! Anyway, like, you gonna just stand there, or you gonna get round here and help me out? Those lollipops really got me super horny and stuff, so, like, I'm gonna need you to fuck me. You're up for that, right?)]
+							#ELSE
+									You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. While at first it looked as though she was completely engrossed in doing her makeup, you now see that she has in fact angled the mirror in front of her in such a way that she's looking down into her own lap. Following her gaze
+									#IF(candi.isVisiblyPregnant())
+										 down over her pregnant belly
+									#ENDIF
+									, you see that her skirt has been pulled up, and her right hand is frantically rubbing away at her exposed pussy. The sound of your approach was masked by the lewd little 'oohs' and 'aahs' she's making, but as Candi leans back in her chair a little, she suddenly notices you standing before her.
+								</p>
+								<p>
+									[candi.speechNoEffects(Oh, like, it's you again!)] she exclaims, quite clearly unperturbed by your presence as she continues brazenly masturbating while talking, [candi.speechNoEffects(Like, fuck, those lollipops really got me super horny and stuff, y'know? Like, I keep on masturbating, but it's not going away! Y'know, this is kinda partly your fault for giving these to me. You need to, like, get round here and help me out! Come on, you wanna fuck, don't you?)]
+							#ENDIF
+						</p>
+						<p>
+							After asking this, the horny bimbo cat-girl bites her lip, and, putting on the most pleading and desperate look she can muster, lets out a long, imploring whine. Gazing into your eyes, she begs, [candi.speechNoEffects(Like, please?!)]
+						</p>
+					#ELSE
+						<p>
+							#IF(candi.isVisiblyPregnant() && !candi.isCharacterReactedToPregnancy(pc))
+									You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. She's completely engrossed in doing her makeup, and faint little 'oohs' and 'aahs' drift out her open mouth as she vacantly gazes into a little mirror that's sitting on her desk. Before you can say anything to get her attention, she reaches up to tuck a loose strand of bleach-blonde hair back behind her cat-like ears, and as she does so, she suddenly notices you standing before her.
+								</p>
+								<p>
+									[candi.speechNoEffects(Hey, look!)] she happily exclaims, pushing herself back from the counter to reveal her swollen belly, [candi.speechNoEffects(You, like, got me all pregnant and stuff! Lucky I have, like, this cushy desk job and stuff, so I can just sit here an be all relaxin' all the time, y'know? Having to walk around carrying your kids gets, like, suuuuper exhausting! Anyway, like, I know it's only gonna be, like, a half-day at most before my pussy starts gettin' wet and all I can think of is sex again! You gotta come back and help me out again when that happens, ok?)]
+								</p>
+							#ELSE
+									You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the
+									#IF(candi.isVisiblyPregnant())
+										 still-pregnant
+									#ENDIF
+									 cat-girl secretary hasn't even noticed your approach. She's completely engrossed in doing her makeup, and faint little 'oohs' and 'aahs' drift out her open mouth as she vacantly gazes into a little mirror that's sitting on her desk. Before you can say anything to get her attention, she reaches up to tuck a loose strand of bleach-blonde hair back behind her cat-like ears, and as she does so, she suddenly notices you standing before her.
+								</p>
+								<p>
+									[candi.speechNoEffects(Oh, hey, like, you're back!)] she happily exclaims, [candi.speechNoEffects(Thanks for, like, helping me to cum! Y'know, I'm feeling all super duper and normal again now, but I know it's only gonna be, like, a half-day at most before my pussy starts gettin' wet and all I can think of is sex! You gotta come back and help me out again when that happens, ok?)]
+								</p>
+							#ENDIF
+						<p>
+							Flashing you a big smile, Candi then turns back to her mirror and continues with her never-ending quest to get her makeup just right...
+						</p>
+					#ENDIF
+				#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_bimbofiedBrax))
+					<p>
+						You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk. As you come to a halt in front of her, you look down over the top of the desk to see [brax.name] furiously masturbating on the floor.
+					</p>
+					<p>
+						[pc.speech(Hi again, Candi,)] you say, continuing to smile as she looks up from her mirror, [pc.speech(it looks like [brax.namePos] having fun down there!)]
+					</p>
+					<p>
+						[candi.speechNoEffects(Like, omigosh! Heya!)] she cries out, her voice bubbling with excitement, [candi.speechNoEffects(and, like, eugh! I know right?! [brax.Name], like, won't stop masturbating, even after I've told [brax.him] to like a million times! I'm, like, far too busy to punish [brax.him] properly as well!)]
+					</p>
+					<p>
+						As she speaks, Candi reaches down to tug [brax.namePos] [brax.arms] away from [brax.her] [brax.pussy], causing the horny bimbo to cry out,
+						 [brax.speechNoEffects(Awww! Candi! Please! I, like, <i>need</i> this! You gotta let m- ~Aah!~)]
+					</p>
+					<p>
+						[brax.NamePos] pathetic whining is cut off as Candi stands up, sharply yanking on [brax.his] pink leash. [candi.speechNoEffects(Like, try to control yourself pet! Lucky for you, your super best friend is, like, here to play!)]
+					</p>
+					<p>
+						[brax.name] immediately jumps to [brax.his] feet, and as [brax.he] catches sight of you, [brax.he] lets out a delighted squeal, [brax.speechNoEffects(Yes! Heya! Please, like, can we play together?! I'm, like, thinking of you all the time and stuff!)]
+					</p>
+					<p>
+						As [brax.name] drops [brax.his] hands back down to [brax.her] groin and starts masturbating, Candi turns back to face you. [candi.speechNoEffects(You'd be, like, doin' me a huuuge favour if you'd, like, help out with [brax.namePos] horniness! How about, like, you take [brax.him] into my office, and, like, give [brax.him] a good fucking?!)]
+					</p>
+					<p>
+						You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone...
+					</p>
+				#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_feminisedBrax))
+					<p>
+						You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk. As you come to a halt in front of her, you read the words on the placard next to hers; '[brax.name], Candi's assistant'.
+					</p>
+					<p>
+						[pc.speech(Hi again, Candi,)] you greet her, continuing to smile as she looks up from her mirror, [pc.speech(how are you and [brax.name] doing?)]
+					</p>
+					<p>
+						[candi.speechNoEffects(Like, omigosh! Heya!)] she cries out, her voice bubbling with excitement. [candi.speechNoEffects([brax.namePos] been, like, super disobedient! [brax.He], like, refused to suck my friend's cock earlier! Can you believe that?!)]
+					</p>
+					<p>
+						As she speaks, Candi reaches down to tug on something, and you hear a familiar whimper in response, [brax.speech(Sorry, Cand-)]
+					</p>
+					<p>
+						[brax.namePos] apology is cut off as Candi stands up, sharply yanking on [brax.his] pink leash. [candi.speechNoEffects(Like, come on pet! Stand up and say hello to your friend again!)]
+					</p>
+					<p>
+						[brax.name] obediently crawls out from under Candi's desk and stands up to face you. [brax.speech(Hello...)]
+					</p>
+					<p>
+						With [brax.name] displaying an acceptable level of submission, Candi turns back to face you. [candi.speechNoEffects(Hey, like, [brax.name] still hasn't been punished for disobeying me earlier! How about, like, you punish [brax.him] for me?!)]
+					</p>
+					<p>
+						You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone. As you're making up your mind, you take another look at Candi, wondering if you could ask her to make [brax.name] a little more like her...
+					</p>
+				#ELSE
+					<p>
+						You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk. As you come to a halt in front of her, you read the words on the placard next to hers; '[brax.name], Candi's assistant'.
+					</p>
+					<p>
+						[pc.speech(Hi again, Candi,)] you greet her, continuing to smile as she looks up from her mirror, [pc.speech(how are you and [brax.name] doing?)]
+					</p>
+					<p>
+						[candi.speechNoEffects(Like, omigosh! Heya!)] she cries out, her voice bubbling with excitement. [candi.speechNoEffects([brax.namePos] been, like, super disobedient! [brax.He], like, refused to lick my shoes clean earlier! Can you believe that?!)]
+					</p>
+					<p>
+						As she speaks, Candi reaches down to tug on something, and you hear a familiar whimper in response, [brax.speech(Sorry, Cand-)]
+					</p>
+					<p>
+						[brax.namePos] apology is cut off as Candi stands up, sharply yanking on [brax.his] pink leash. [candi.speechNoEffects(Like, come on pet! Stand up and say hello to your friend again!)]
+					</p>
+					<p>
+						[brax.name] reluctantly crawls out from under Candi's desk and stands up to face you. [brax.speech(Eugh, not you aga- Aah!)]
+					</p>
+					<p>
+						Candi yanks on [brax.namePos] leash once again, before starting to furiously scold [brax.him]. After a few minutes, she's forced [brax.name] to apologise to you, and turns back to face you. [candi.speechNoEffects(Hey, like, I'm pretty sure you'll agree that [brax.name] <i>really</i> needs to be punished again! How about, like, you take [brax.him] into my office and show [brax.him] how to behave?!)]
+					</p>
+					<p>
+						You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone.
+						#IF(game.getDialogueFlags().hasFlag(FLAG_braxTransformedPlayer))
+							 As you're deciding what to do, you notice a little cardboard box, marked '[brax.namePos] junk', sitting on a shelf behind Candi's desk. The neck of a very familiar-looking bottle is poking out of the top, and an interesting idea runs through your head...
+						#ELSE
+							 As you're deciding what to do, you notice a little cardboard box, marked '[brax.namePos] junk', sitting on a shelf behind Candi's desk. The neck of a delicate-looking bottle is poking out of the top, and, remembering Candi's warning about [brax.name] having a wolf-girl transformation potion, an interesting idea runs through your head...
+						#ENDIF
+					</p>
+				#ENDIF
 			#ENDIF
-		#ENDIF
-	#ELSE
-		<p>
-			You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. She's completely engrossed in doing her makeup, and faint little 'oohs' and 'aahs' drift out her open mouth as she vacantly gazes into a little mirror that's sitting on her desk. Every now and then, she has to tuck loose strands of bleach-blonde hair back behind her cat-like ears, interrupting her sighs with an annoyed tutting sound each time she does so.
-		</p>
-		<p>
-			In amongst her messy collection of beauty products scattered all over the desk, you see a little placard with the name 'Candi' on it.
-			 It seems as though Candi is completely oblivious to the world outside of her mirror, so you'll need to raise your voice in order to get her attention if you wanted to ask anything of her.
-		</p>
-		#IF(game.getDialogueFlags().hasFlag(FLAG_accessToEnforcerHQ))
+		#ELSE
 			<p>
-				<i>You've already got a pass from Candi, so there's no point interrupting her again...</i>
+				You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. She's completely engrossed in doing her makeup, and faint little 'oohs' and 'aahs' drift out her open mouth as she vacantly gazes into a little mirror that's sitting on her desk. Every now and then, she has to tuck loose strands of bleach-blonde hair back behind her cat-like ears, interrupting her sighs with an annoyed tutting sound each time she does so.
 			</p>
+			<p>
+				In amongst her messy collection of beauty products scattered all over the desk, you see a little placard with the name 'Candi' on it.
+				 It seems as though Candi is completely oblivious to the world outside of her mirror, so you'll need to raise your voice in order to get her attention if you wanted to ask anything of her.
+			</p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_accessToEnforcerHQ))
+				<p>
+					<i>You've already got a pass from Candi, so there's no point interrupting her again...</i>
+				</p>
+			#ENDIF
 		#ENDIF
 	#ENDIF
 	]]>

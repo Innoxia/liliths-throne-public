@@ -104,7 +104,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.12
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class Lyssieth extends NPC {
@@ -134,7 +134,7 @@ public class Lyssieth extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
-			this.setBody(Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.GREATER);
+			this.setBody(Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.GREATER, false);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5")) {
 			this.setStartingBody(true);
@@ -210,7 +210,7 @@ public class Lyssieth extends NPC {
 			this.setFetishDesire(Fetish.FETISH_NON_CON_SUB, FetishDesire.ZERO_HATE);
 		}
 		
-		this.setBody(Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.GREATER);
+		this.setBody(Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.GREATER, false);
 		
 		// Body:
 		this.setSubspeciesOverride(Subspecies.ELDER_LILIN);
@@ -749,8 +749,7 @@ public class Lyssieth extends NPC {
 	}
 	
 	public void setLilinBody() {
-		
-		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER);
+		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, false);
 
 		this.setPiercedEar(true);
 		AbstractClothing earrings = null;

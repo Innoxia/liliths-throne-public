@@ -2,7 +2,7 @@ package com.lilithsthrone.game;
 
 /**
  * @since 0.2.2
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public enum PropertyValue {
@@ -37,13 +37,14 @@ public enum PropertyValue {
 	nonConContent(false),
 	sadisticSexContent(false),
 	incestContent(false),
-	forcedTransformationContent(false),
 	inflationContent(true),
+	
 	facialHairContent(false),
 	pubicHairContent(false),
 	bodyHairContent(false),
 	assHairContent(false),
 	feminineBeardsContent(false),
+	
 	lactationContent(true),
 	cumRegenerationContent(true),
 	urethralContent(false),

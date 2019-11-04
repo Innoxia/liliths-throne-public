@@ -80,13 +80,13 @@
 
   <displacementText type="REMOVE_OR_EQUIP">
     <self>
-      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc.her] condom and throws it away.]]>
+      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc.her] condom and [npc.verb(throw)] it away.]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc2.namePos] condom and throws it away.]]>
+      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc2.namePos] condom and [npc.verb(throw)] it away.]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] impatiently [npc.verb(pull)] off [npc2.namePos] condom and throws it away.]]>
+      <![CDATA[[npc.Name] impatiently [npc.verb(pull)] off [npc2.namePos] condom and [npc.verb(throw)] it away.]]>
     </otherRough>
   </displacementText>
 

@@ -68,7 +68,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.?
- * @version 0.2.11
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class Zaranix extends NPC {
@@ -82,7 +82,9 @@ public class Zaranix extends NPC {
 				"Zaranix is one of the few demons that feels more comfortable in his incubus, rather than succubus, form."
 						+ " Muscular, tall, and handsome, Zaranix uses both his cunning mind and good looks to get what he wants.",
 				47, Month.JULY, 3,
-				15, Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
+				15,
+				null, null, null,
+				new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
 		
 	}
 	
@@ -135,7 +137,7 @@ public class Zaranix extends NPC {
 		// Body
 		// Add full body reset as this method is called after leaving Zaranix's house:
 		this.setAgeAppearanceDifferenceToAppearAsAge(32);
-		this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER);
+		this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, false);
 		this.setLegType(LegType.DEMON_COMMON);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.NONE);

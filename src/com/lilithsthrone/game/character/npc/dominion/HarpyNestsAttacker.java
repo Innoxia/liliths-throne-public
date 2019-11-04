@@ -23,7 +23,6 @@ import com.lilithsthrone.game.character.race.SubspeciesPreference;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyAttackerDialogueCompanions;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -35,7 +34,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.3.5.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class HarpyNestsAttacker extends NPC {
@@ -55,7 +54,8 @@ public class HarpyNestsAttacker extends NPC {
 	public HarpyNestsAttacker(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				4, gender, Subspecies.HARPY, RaceStage.LESSER,
+				4,
+				null, null, null,
 				new CharacterInventory(10), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false);
 
 		if(!isImported) {
@@ -65,7 +65,7 @@ public class HarpyNestsAttacker extends NPC {
 			setLevel(Util.random.nextInt(4) + 2);
 			
 			Map<Subspecies, Integer> subspeciesMap = new HashMap<>();
-			for(Entry<Subspecies, SubspeciesPreference> entry : this.hasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
+			for(Entry<Subspecies, SubspeciesPreference> entry : gender.getGenderName().isHasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
 				if(entry.getKey().getRace()==Race.HARPY) {
 					subspeciesMap.put(entry.getKey(), entry.getValue().getValue());
 				}
@@ -74,22 +74,22 @@ public class HarpyNestsAttacker extends NPC {
 			Subspecies subspecies = Util.getRandomObjectFromWeightedMap(subspeciesMap);
 			
 			// RACE & NAME:
-			if(this.hasPenis()) {
-				if(this.hasBreasts()) {
-					setBody(Gender.F_P_B_SHEMALE, subspecies, RaceStage.LESSER);
+			if(gender.getGenderName().isHasPenis()) {
+				if(gender.getGenderName().isHasBreasts()) {
+					setBody(Gender.F_P_B_SHEMALE, subspecies, RaceStage.LESSER, true);
 				} else {
-					setBody(Gender.F_P_TRAP, subspecies, RaceStage.LESSER);
+					setBody(Gender.F_P_TRAP, subspecies, RaceStage.LESSER, true);
 				}
 			} else {
-				if(this.hasBreasts()) {
-					setBody(Gender.F_V_B_FEMALE, subspecies, RaceStage.LESSER);
+				if(gender.getGenderName().isHasBreasts()) {
+					setBody(Gender.F_V_B_FEMALE, subspecies, RaceStage.LESSER, true);
 				} else {
-					setBody(Gender.F_V_FEMALE, subspecies, RaceStage.LESSER);
+					setBody(Gender.F_V_FEMALE, subspecies, RaceStage.LESSER, true);
 				}
 			}
 
 			if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
-				this.setBody(CharacterUtils.generateHalfDemonBody(this, this.getGender(), Subspecies.getFleshSubspecies(this), true));
+				this.setBody(CharacterUtils.generateHalfDemonBody(this, this.getGender(), Subspecies.getFleshSubspecies(this), true), true);
 			}
 			
 			setName(Name.getRandomTriplet(Race.HARPY));
@@ -168,11 +168,7 @@ public class HarpyNestsAttacker extends NPC {
 	
 	@Override
 	public DialogueNode getEncounterDialogue() {
-		if(Main.game.getPlayer().getCompanions().isEmpty()) {
-			return HarpyAttackerDialogue.HARPY_ATTACKS;
-		} else {
-			return HarpyAttackerDialogueCompanions.HARPY_ATTACKS;
-		}
+		return HarpyAttackerDialogue.HARPY_ATTACK;
 	}
 
 	// Combat:

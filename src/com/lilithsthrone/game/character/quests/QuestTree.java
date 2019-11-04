@@ -21,6 +21,7 @@ public class QuestTree {
 	public static TreeNode<Quest> teleportingTree = new TreeNode<Quest>(Quest.TELEPORTING_START);
 	public static TreeNode<Quest> daddyTree = new TreeNode<Quest>(Quest.DADDY_START);
 	public static TreeNode<Quest> buyingBraxTree = new TreeNode<Quest>(Quest.BUYING_BRAX_START);
+	public static TreeNode<Quest> vengarTree = new TreeNode<Quest>(Quest.VENGAR_START);
 	
 	
 	static {
@@ -165,5 +166,22 @@ public class QuestTree {
 		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
 		node1.addChild(node2);
 		
+		
+		// Dealing with Vengar:
+
+		node1 = new TreeNode<Quest>(Quest.VENGAR_ONE);
+		vengarTree.addChild(node1);
+
+		nodeBranchA = new TreeNode<Quest>(Quest.VENGAR_TWO_FIGHT);
+		node1.addChild(nodeBranchA);
+		nodeBranchB = new TreeNode<Quest>(Quest.VENGAR_TWO_JOIN);
+		nodeBranchB.addChild(nodeBranchB);
+		nodeBranchC = new TreeNode<Quest>(Quest.VENGAR_TWO_ENFORCERS);
+		nodeBranchC.addChild(nodeBranchC);
+
+		node2 = new TreeNode<Quest>(Quest.VENGAR_THREE_END);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node2.addChild(node1);
 	}
 }

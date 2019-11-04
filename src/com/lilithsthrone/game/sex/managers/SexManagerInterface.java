@@ -141,6 +141,7 @@ public interface SexManagerInterface {
 			case SUPPLIER_DEN:
 			case ZARANIX_HOUSE_FIRST_FLOOR:
 			case ZARANIX_HOUSE_GROUND_FLOOR:
+			case RAT_WARRENS:
 				positions.add(SexPosition.OVER_DESK);
 				positions.add(SexPosition.SITTING);
 				break;

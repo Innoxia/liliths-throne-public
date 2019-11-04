@@ -613,7 +613,7 @@ public enum PlaceUpgrade {
 					+ "Cum: "+Units.fluid(MilkingRoom.INDUSTRIAL_CUM_MILKING_AMOUNT)+" per hour<br/>"
 					+ "Girlcum: "+Units.fluid(MilkingRoom.INDUSTRIAL_GIRLCUM_MILKING_AMOUNT)+" per hour</i>",
 			"The industrial, arcane-powered milking machines that have been placed in this room fill the air with a steady background humming noise."
-					+ " Although they're sure to maximise milk output, and profits, these machines aren't exactly the most comfortable of devices to be strapped in to, and any slaves assigned to me milked in here are sure to hate you for it...",
+					+ " Although they're sure to maximise milk output, and profits, these machines aren't exactly the most comfortable of devices to be strapped in to, and any slaves assigned to be milked in here are sure to hate you for it...",
 			1500,
 			500,
 			100,
@@ -786,27 +786,26 @@ public enum PlaceUpgrade {
 		}
 	},
 
-	//TODO
-//	LILAYA_PLAYER_ROOM_BATH(false,
-//			Colour.BASE_BLUE_LIGHT,
-//			"Bathroom Extension",
-//			"By knocking through into an adjacent storage room, it would be possible to greatly extend the size of your bathroom."
-//					+ " With this extra space, you could turn it into a private spa, installing not only a huge new bathtub, but also a sauna and self-contained steam room.",
-//			"By knocking through into an adjacent storage room, you have greatly extended the size of your bathroom."
-//					+ " With this extra space, you've turned it into a private spa, having installed not only a huge new bathtub, but also a sauna and self-contained steam room.",
-//			"By knocking through into an adjacent storage room, your old bathroom has been greatly extended and converted into a private spa."
-//					+ " A massive bathtub, able to hold at least ten people at once, has been installed on the far right-hand side of the room, while to the left, both an enclosed sauna and a self-contained steam room have been constructed.",
-//			300000,
-//			100000,
-//			0,
-//			0,
-//			0.5f,
-//			-0.25f,
-//			null) {
-//		public Value<Boolean, String> getAvailability(Cell cell) {
-//			return new Value<>(true, "");
-//		}
-//	},
+	LILAYA_PLAYER_ROOM_BATH(false,
+			Colour.BASE_BLUE_LIGHT,
+			"Bathroom Extension",
+			"By knocking through into an adjacent storage room, it would be possible to greatly extend the size of your bathroom."
+					+ " With this extra space, you could turn it into a private spa, installing not only a huge new bathtub, but also a sauna and self-contained steam room.",
+			"By knocking through into an adjacent storage room, you have greatly extended the size of your bathroom."
+					+ " With this extra space, you've turned it into a private spa, having installed not only a huge new bathtub, but also a sauna and self-contained steam room.",
+			"By knocking through into an adjacent storage room, your old bathroom has been greatly extended and converted into a private spa."
+					+ " A massive bathtub, able to hold at least ten people at once, stretches across the entire right-hand side of the room, while to the left, both an enclosed sauna and a self-contained steam room have been constructed.",
+			300000,
+			100000,
+			0,
+			0,
+			0.5f,
+			-0.25f,
+			null) {
+		public Value<Boolean, String> getAvailability(Cell cell) {
+			return new Value<>(true, "");
+		}
+	},
 	;
 	
 	

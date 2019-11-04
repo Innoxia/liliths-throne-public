@@ -626,7 +626,7 @@ public class AlleywayProstituteDialogue {
 
 		@Override
 		public String getContent() {
-			if(getProstitute().isAttractedTo(Main.game.getPlayer()) && getProstitute().isWillingToRape(Main.game.getPlayer())) {
+			if(getProstitute().isAttractedTo(Main.game.getPlayer()) && getProstitute().isWillingToRape()) {
 				return UtilText.parse(getProstitute(),
 						"<p>"
 							+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
@@ -665,7 +665,7 @@ public class AlleywayProstituteDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(getProstitute().isAttractedTo(Main.game.getPlayer()) && getProstitute().isWillingToRape(Main.game.getPlayer())) {
+			if(getProstitute().isAttractedTo(Main.game.getPlayer()) && getProstitute().isWillingToRape()) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",

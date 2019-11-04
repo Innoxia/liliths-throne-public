@@ -27,12 +27,10 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.3.2
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class ArcaneArts {
@@ -43,23 +41,25 @@ public class ArcaneArts {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/arcaneArts", "EXTERIOR");
 		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ShoppingArcadeDialogue.getCoreResponseTab(index);
+		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Enter", "Step inside Arcane Arts.", SHOP_WEAPONS);
-				
-			} else if (index == 6) {
-				return new Response("Arcade Entrance", "Fast travel to the entrance to the arcade.", ShoppingArcadeDialogue.ENTRY){
-					@Override
-					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_ENTRANCE);
+			if(responseTab==0) {
+				if (index == 1) {
+					if(Main.game.isExtendedWorkTime()) {
+						return new Response("Enter", "Step inside Arcane Arts.", SHOP_WEAPONS);
+					} else {
+						return new Response("Enter", "Arcane Arts is currently closed. You'll have to come back later if you want to do some shopping here.", null);
 					}
-				};
-
-			} else {
-				return null;
+				}
 			}
+			
+			return ShoppingArcadeDialogue.getFastTravelResponses(responseTab, index);
 		}
 	};
 	

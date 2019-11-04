@@ -15,7 +15,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public enum SVGImages {
@@ -33,6 +33,8 @@ public enum SVGImages {
 			diskSave, diskSaveDisabled, diskSaveConfirm, diskOverwrite, diskLoad, diskLoadConfirm, diskLoadDisabled, diskDelete, diskDeleteConfirm,
 			
 			itemsOnFloorIcon,
+			
+			cornerGlowNight, cornerGlowTwilight,
 			
 			drinkSmall, drink,
 			
@@ -161,6 +163,15 @@ public enum SVGImages {
 			itemsOnFloorIcon = Util.inputStreamToString(is);
 			itemsOnFloorIcon = setColour(itemsOnFloorIcon, Colour.BASE_BLACK);
 
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/cornerGlow.svg");
+			cornerGlowNight = Util.inputStreamToString(is);
+			cornerGlowNight = setColour(cornerGlowNight, Colour.BASE_PITCH_BLACK);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/cornerGlowLight.svg");
+			cornerGlowTwilight = Util.inputStreamToString(is);
+			cornerGlowTwilight = setColour(cornerGlowTwilight, Colour.BASE_PITCH_BLACK);
+			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/drink_small.svg");
 			drinkSmall = Util.inputStreamToString(is);
@@ -869,6 +880,14 @@ public enum SVGImages {
 		return itemsOnFloorIcon;
 	}
 
+	public String getCornerGlowNight() {
+		return cornerGlowNight;
+	}
+
+	public String getCornerGlowTwilight() {
+		return cornerGlowTwilight;
+	}
+	
 	public String getPlayerMapIconMasculine() {
 		return playerMapIconMasculine;
 	}

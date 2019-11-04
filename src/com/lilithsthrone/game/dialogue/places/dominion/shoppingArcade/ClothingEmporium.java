@@ -7,7 +7,6 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
@@ -20,12 +19,10 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.1.99
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class ClothingEmporium {
@@ -36,28 +33,28 @@ public class ClothingEmporium {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_EXTERIOR");
 		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ShoppingArcadeDialogue.getCoreResponseTab(index);
+		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nyanIntroduced)) {
-					return new Response("Enter", "Step inside Nyan's Clothing Emporium.", SHOP_CLOTHING_REPEAT);
-					
-				} else {
-					return new Response("Enter", "Step inside Nyan's Clothing Emporium.", SHOP_CLOTHING);
-				}
-				
-			} else if (index == 6) {
-				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_ENTRANCE, true);
+			if(responseTab==0) {
+				if (index == 1) {
+					if(!Main.game.isExtendedWorkTime()) {
+						return new Response("Enter", "Nyan's Clothing Emporium is currently closed. You'll have to come back later...", null);
+						
+					} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nyanIntroduced)) {
+						return new Response("Enter", "Step inside Nyan's Clothing Emporium.", SHOP_CLOTHING_REPEAT);
+						
+					} else {
+						return new Response("Enter", "Step inside Nyan's Clothing Emporium.", SHOP_CLOTHING);
 					}
-				};
-
-			} else {
-				return null;
+				}
 			}
+			return ShoppingArcadeDialogue.getFastTravelResponses(responseTab, index);
 		}
 	};
 	

@@ -61,7 +61,6 @@ import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Pathing;
-import com.lilithsthrone.utils.TreeNode;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -257,7 +256,7 @@ public class PhoneDialogue {
 						Main.mainController.openPhone();
 						Main.game.getTextStartStringBuilder().append(
 								"<p style='text-align:center;'>"
-								+ "<i>You spent the next four hours loitering about, doing nothing in particular...</i>"
+								+ "<i>You spend the next four hours loitering about, doing nothing in particular...</i>"
 								+ "</p>");
 						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
 					}
@@ -307,20 +306,36 @@ public class PhoneDialogue {
 			journalSB = new StringBuilder();
 
 			// Main Quests:
-			journalSB.append("<details open>"
-					+ "<summary class='quest-title' style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";'>" + QuestLine.MAIN.getName() + "</summary>");
+			QuestLine questLine = QuestLine.MAIN;
+			List<Quest> questList = Main.game.getPlayer().getQuests().get(questLine);
+			int index = questList.size()-1;
+			Quest q = questList.get(index);
+			
+			if (Main.game.getPlayer().isQuestCompleted(questLine)) {
+				journalSB.append(
+						"<details open>"
+						+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().getShades()[1] + ";'>"
+							+ "Completed - " + questLine.getName()
+						+ "</summary>");
+				journalSB.append(getQuestBoxDiv(q, true));
+				
+			} else{
+				journalSB.append(
+						"<details open>"
+							+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().toWebHexString() + ";'>"
+								+ questLine.getName()
+							+ "</summary>");
+				journalSB.append(getQuestBoxDiv(q, false));
+			}
+			
+			index--;
+				
+			while(index>=0) {
+				q = questList.get(index);
+				journalSB.append(getQuestBoxDiv(q, true));
+				index--;
+			}
 
-			TreeNode<Quest> currentNode = QuestLine.MAIN.getQuestTree().getFirstNodeWithData(Main.game.getPlayer().getQuest(QuestLine.MAIN));
-			
-			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.MAIN)) {
-				journalSB.append(getQuestBoxDiv(currentNode.getData(), false));
-				currentNode = currentNode.getParent();
-			}
-			
-			while(currentNode!=null) {
-				journalSB.append(getQuestBoxDiv(currentNode.getData(), true));
-				currentNode = currentNode.getParent();
-			}
 			journalSB.append("</details>");
 
 			return journalSB.toString();
@@ -376,7 +391,9 @@ public class PhoneDialogue {
 				if(questLine.getType()==QuestType.SIDE) {
 					sideQuestsFound = true;
 
-					TreeNode<Quest> currentNode = questLine.getQuestTree().getFirstNodeWithData(Main.game.getPlayer().getQuest(questLine));
+					List<Quest> questList = Main.game.getPlayer().getQuests().get(questLine);
+					int index = questList.size()-1;
+					Quest q = questList.get(index);
 					
 					if (Main.game.getPlayer().isQuestCompleted(questLine)) {
 						journalSB.append(
@@ -384,7 +401,7 @@ public class PhoneDialogue {
 								+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().getShades()[1] + ";'>"
 									+ "Completed - " + questLine.getName()
 								+ "</summary>");
-						journalSB.append(getQuestBoxDiv(currentNode.getData(), true));
+						journalSB.append(getQuestBoxDiv(q, true));
 						
 					} else{
 						journalSB.append(
@@ -392,14 +409,15 @@ public class PhoneDialogue {
 									+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().toWebHexString() + ";'>"
 										+ questLine.getName()
 									+ "</summary>");
-						journalSB.append(getQuestBoxDiv(currentNode.getData(), false));
+						journalSB.append(getQuestBoxDiv(q, false));
 					}
-
-					currentNode = currentNode.getParent();
+					
+					index--;
 						
-					while(currentNode!=null) {
-						journalSB.append(getQuestBoxDiv(currentNode.getData(), true));
-						currentNode = currentNode.getParent();
+					while(index>=0) {
+						q = questList.get(index);
+						journalSB.append(getQuestBoxDiv(q, true));
+						index--;
 					}
 	
 					journalSB.append("</details>");
@@ -453,7 +471,9 @@ public class PhoneDialogue {
 				if(questLine.getType()==QuestType.RELATIONSHIP) {
 					relationshipQuestFound = true;
 					
-					TreeNode<Quest> currentNode = questLine.getQuestTree().getFirstNodeWithData(Main.game.getPlayer().getQuest(questLine));
+					List<Quest> questList = Main.game.getPlayer().getQuests().get(questLine);
+					int index = questList.size()-1;
+					Quest q = questList.get(index);
 					
 					if (Main.game.getPlayer().isQuestCompleted(questLine)) {
 						journalSB.append(
@@ -461,7 +481,7 @@ public class PhoneDialogue {
 								+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().getShades()[1] + ";'>"
 									+ "Completed - " + questLine.getName()
 								+ "</summary>");
-						journalSB.append(getQuestBoxDiv(currentNode.getData(), true));
+						journalSB.append(getQuestBoxDiv(q, true));
 						
 					} else{
 						journalSB.append(
@@ -469,14 +489,15 @@ public class PhoneDialogue {
 									+ "<summary class='quest-title' style='color:" + questLine.getType().getColour().toWebHexString() + ";'>"
 										+ questLine.getName()
 									+ "</summary>");
-						journalSB.append(getQuestBoxDiv(currentNode.getData(), false));
+						journalSB.append(getQuestBoxDiv(q, false));
 					}
-
-					currentNode = currentNode.getParent();
+					
+					index--;
 						
-					while(currentNode!=null) {
-						journalSB.append(getQuestBoxDiv(currentNode.getData(), true));
-						currentNode = currentNode.getParent();
+					while(index>=0) {
+						q = questList.get(index);
+						journalSB.append(getQuestBoxDiv(q, true));
+						index--;
 					}
 	
 					journalSB.append("</details>");
@@ -537,6 +558,7 @@ public class PhoneDialogue {
 						+ q.getCompletedDescription()
 					+ "</p>" 
 				+ "</div>";
+			
 		} else {
 			return "<div class='quest-box'>"
 					+ getLevelAndExperienceHTML(q, completed)
@@ -1062,13 +1084,15 @@ public class PhoneDialogue {
 							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER)),
 							-1,
 							true)
-					
-					+ sexStatRow(Colour.AROUSAL_STAGE_ONE, "Anal Fingering",
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.ANUS)),
-							-1,
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.FINGER)),
-							-1,
-							false)
+
+					+ (Main.game.isAnalContentEnabled()
+							?sexStatRow(Colour.AROUSAL_STAGE_ONE, "Anal Fingering",
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.ANUS)),
+									-1,
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.FINGER)),
+									-1,
+									false)
+							:"")
 					
 					+ sexStatRow(Colour.AROUSAL_STAGE_ONE, "Blowjobs",
 							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
@@ -1084,12 +1108,23 @@ public class PhoneDialogue {
 							-1,
 							false)
 					
-					+ sexStatRow(Colour.AROUSAL_STAGE_ONE, "Anilingus",
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS)),
-							-1,
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE)),
-							-1,
-							true)
+					+ (Main.game.isAnalContentEnabled()
+							?sexStatRow(Colour.AROUSAL_STAGE_ONE, "Anilingus",
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS)),
+									-1,
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE)),
+									-1,
+									true)
+							:"")
+					
+					+ (Main.game.isFootContentEnabled()
+							?sexStatRow(Colour.AROUSAL_STAGE_ONE, "Footjobs",
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FOOT)),
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FOOT)),
+									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS)),
+									true)
+							:"")
 					
 					+ sexStatRow(Colour.AROUSAL_STAGE_TWO, "Vaginal sex",
 							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
@@ -1098,40 +1133,51 @@ public class PhoneDialogue {
 							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
 							false)
 
-					+ sexStatRow(Colour.AROUSAL_STAGE_TWO, "Anal sex",
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
-							true)
 					
-					+ sexStatRow(Colour.AROUSAL_STAGE_TWO, "Nipple penetration",
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS)),
-							false)
+					+ (Main.game.isAnalContentEnabled()
+							?sexStatRow(Colour.AROUSAL_STAGE_TWO, "Anal sex",
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+									true)
+							:"")
 
-					+ sexStatRow(Colour.AROUSAL_STAGE_TWO, "Crotch Nipple penetration",
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE_CROTCH)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE_CROTCH)),
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, SexAreaPenetration.PENIS)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, SexAreaPenetration.PENIS)),
-							true)
+					+ (Main.game.isNipplePenEnabled()
+							?sexStatRow(Colour.AROUSAL_STAGE_TWO, "Nipple penetration",
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
+									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS)),
+									false)
+							:"")
+
+					+ (Main.game.isNipplePenEnabled()
+							?sexStatRow(Colour.AROUSAL_STAGE_TWO, "Crotch Nipple penetration",
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE_CROTCH)),
+									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE_CROTCH)),
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, SexAreaPenetration.PENIS)),
+									true)
+							:"")
 					
-					+ sexStatRow(Colour.AROUSAL_STAGE_TWO, "Penis Urethra penetration",
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
-							false)
-					
-					+ sexStatRow(Colour.AROUSAL_STAGE_TWO, "Vagina Urethra penetration",
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
-							true);
+					+ (Main.game.isUrethraEnabled()
+							?sexStatRow(Colour.AROUSAL_STAGE_TWO, "Penis Urethra penetration",
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
+									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
+									false)
+							:"")
+
+					+ (Main.game.isUrethraEnabled()
+							?sexStatRow(Colour.AROUSAL_STAGE_TWO, "Vagina Urethra penetration",
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
+									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
+									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
+									true)
+							:"");
 		}
 		
 		@Override

@@ -98,8 +98,8 @@ public class ClitMouth {
 	
 	public static final SexAction SUCK_CLIT = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.CLIT)),
 			SexParticipantType.NORMAL) {

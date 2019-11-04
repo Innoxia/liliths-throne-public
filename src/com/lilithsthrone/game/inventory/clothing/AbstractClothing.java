@@ -1418,7 +1418,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	public boolean isBadEnchantment() {
-		return this.getEffects().stream().mapToInt(e -> (e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || e.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE)?e.getPotency().getClothingBonusValue():0).sum()<0;
+		return this.getEffects().stream().mapToInt(e ->
+			((e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || e.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE))
+				?e.getPotency().getClothingBonusValue()*(e.getSecondaryModifier()==TFModifier.CORRUPTION?-1:1)
+				:0
+			).sum()<0;
 	}
 
 	public boolean isEnslavementClothing() {
@@ -1430,12 +1434,25 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return effects;
 	}
 
+	/**
+	 * <b>Do not call when equipped to someone!</b> (It will not update the wearer's attributes.)
+	 */
 	public void addEffect(ItemEffect effect) {
 		effects.add(effect);
 	}
 
+	/**
+	 * <b>Do not call when equipped to someone!</b> (It will not update the wearer's attributes.)
+	 */
 	public void removeEffect(ItemEffect effect) {
 		effects.remove(effect);
+	}
+
+	/**
+	 * <b>Do not call when equipped to someone!</b> (It will not update the wearer's attributes.)
+	 */
+	public void clearEffects() {
+		effects.clear();
 	}
 	
 	@Override
@@ -1452,11 +1469,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 	
 	/**
-	 * @return An integer value of the 'enchantment capacity cost' for this particular piece of clothing. Does not count negative attribute values, nor values of Corruption.
+	 * @return An integer value of the 'enchantment capacity cost' for this particular piece of clothing. Does not count negative attribute values, and values of Corruption are reversed (so reducing corruption costs enchantment stability).
 	 */
 	public int getEnchantmentCapacityCost() {
 		Map<Attribute, Integer> noCorruption = new HashMap<>();
-		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.MAJOR_CORRUPTION && ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()));
+		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()*(ent.getKey()==Attribute.MAJOR_CORRUPTION?-1:1)));
 		return noCorruption.values().stream().reduce(0, (a, b) -> a + Math.max(0, b));
 	}
 	

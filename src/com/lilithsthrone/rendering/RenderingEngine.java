@@ -72,7 +72,7 @@ import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public enum RenderingEngine {
@@ -100,15 +100,6 @@ public enum RenderingEngine {
 			InventorySlot.ANKLE,		InventorySlot.LEG,			InventorySlot.GROIN,	InventorySlot.TAIL};
 
 	public static InventorySlot[] secondaryInventorySlots = {InventorySlot.SOCK, InventorySlot.FOOT, InventorySlot.ANUS, InventorySlot.PENIS, InventorySlot.VAGINA};
-	
-//	public static InventorySlot[] mainInventorySlots = {
-//			InventorySlot.EYES,			InventorySlot.HEAD,			InventorySlot.HAIR,		InventorySlot.MOUTH,
-//			InventorySlot.NECK,			InventorySlot.TORSO_OVER,	InventorySlot.CHEST,	InventorySlot.NIPPLE,
-//			InventorySlot.STOMACH,		InventorySlot.TORSO_UNDER,	InventorySlot.WRIST,	InventorySlot.HAND,
-//			InventorySlot.HIPS,			InventorySlot.LEG,			InventorySlot.GROIN,	InventorySlot.FINGER,
-//			InventorySlot.SOCK,			InventorySlot.FOOT,			InventorySlot.ANKLE,	InventorySlot.ANUS};
-//
-//	public static InventorySlot[] secondaryInventorySlots = {InventorySlot.HORNS, InventorySlot.TAIL, InventorySlot.WINGS, InventorySlot.PENIS, InventorySlot.VAGINA};
 	
 	private static InventorySlot[] piercingSlots = {
 			InventorySlot.PIERCING_EAR,		InventorySlot.PIERCING_NOSE,
@@ -439,8 +430,8 @@ public enum RenderingEngine {
 				+ "</div>");
 			
 		} else {
-			if((charactersInventoryToRender.isPlayer() && !this.isRenderingTattoosLeft())
-					|| (!charactersInventoryToRender.isPlayer() && !this.isRenderingTattoosRight())) {
+			if((charactersInventoryToRender.isPlayer() && !this.isRenderingTattoosLeft()) || (!charactersInventoryToRender.isPlayer() && !this.isRenderingTattoosRight())
+					&& !invSlot.isJewellery()) {
 				AbstractClothing clothing = charactersInventoryToRender.getClothingInSlot(invSlot);
 
 				BodyPartClothingBlock block = invSlot.getBodyPartClothingBlock(charactersInventoryToRender);
@@ -1141,8 +1132,22 @@ public enum RenderingEngine {
 
 		uiAttributeSB.append("</div>");
 
+
+		Colour background = Colour.BACKGROUND_DAY;
+		switch(Main.game.getCurrentDayPeriod()) {
+			case CIVIL_TWILIGHT:
+				background = Colour.BACKGROUND_TWILIGHT;
+				break;
+			case DAY:
+				break;
+			case ASTRONOMICAL_TWILIGHT:
+			case NAUTICAL_TWILIGHT:
+			case NIGHT:
+				background = Colour.BACKGROUND_NIGHT;
+				break;
+		}
 		
-		uiAttributeSB.append("<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>");
+		uiAttributeSB.append("<div class='full-width-container' style='background-color:"+background.toWebHexString()+"; border-radius:5px; margin-bottom:1px; padding:4px;'>");
 		if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY && Main.game.isEnchantmentCapacityEnabled()) {
 			int enchantmentPointsUsed = Main.game.getPlayer().getEnchantmentPointsUsedTotal();
 			uiAttributeSB.append(UtilText.parse(
@@ -1827,8 +1832,25 @@ public enum RenderingEngine {
 //		long t1 = System.nanoTime();
 		
 		mapSB.setLength(0);
-
-		mapSB.append("<div class='map-container'>");
+		
+		Colour background = Colour.BACKGROUND_DAY;
+		String mapCornerGlow = "";
+		switch(Main.game.getCurrentDayPeriod()) {
+			case CIVIL_TWILIGHT:
+			case NAUTICAL_TWILIGHT:
+				background = Colour.BACKGROUND_TWILIGHT;
+				mapCornerGlow = SVGImages.SVG_IMAGE_PROVIDER.getCornerGlowTwilight();
+				break;
+			case DAY:
+				break;
+			case ASTRONOMICAL_TWILIGHT:
+			case NIGHT:
+				mapCornerGlow = SVGImages.SVG_IMAGE_PROVIDER.getCornerGlowNight();
+				background = Colour.BACKGROUND_NIGHT;
+				break;
+		}
+		
+		mapSB.append("<div class='map-container' style='background-color:"+background.toWebHexString()+";'>");
 		
 //		if(!Main.game.isInNewWorld()) {
 //			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:#19191a; border-radius:5px;'></div>");
@@ -2030,12 +2052,19 @@ public enum RenderingEngine {
 			}
 
 		}
-
+		
+		
 		if(!Main.game.isInNewWorld() || Main.game.getCurrentDialogueNode().isTravelDisabled()) {
 			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:#000; opacity:0.7; border-radius:5px;'></div>");
 			renderedDisabledMap = true;
 			
 		} else {
+			if(!mapCornerGlow.isEmpty()) {
+				mapSB.append(
+						"<div style='position:relative; left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:transparent; border-radius:5px; pointer-events:none;'>"
+							+ "<div style='position:absolute; left:0; top:0; margin:0; padding:0; height:100%; height:100vw;'>"+mapCornerGlow+"</div>"
+						+ "</div>");
+			}
 			renderedDisabledMap = false;
 		}
 		
@@ -2061,7 +2090,7 @@ public enum RenderingEngine {
 			}
 			
 			for(NPC gc : charactersHome) {
-				if(!charactersPresent.contains(gc) && (charactersHome.size()==1 || (x!=0 && y!=0))) {
+				if(!charactersPresent.contains(gc) && (charactersHome.size()==1 || x!=0 || y!=0)) {
 					mapIcons.add(gc.getHomeMapIcon());
 				}
 			}

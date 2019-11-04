@@ -336,6 +336,17 @@ public class Kate extends NPC {
 		}
 	}
 	
+	@Override
+	public void turnUpdate() {
+		if(!Main.game.getCharactersPresent().contains(this)) {
+			if(Main.game.isExtendedWorkTime()) {
+				this.returnToHome();
+			} else {
+				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+			}
+		}
+	}
+	
 	/**
 	 * Adds four uncommon clothing items to the list, and two rare items.
 	 */
@@ -521,14 +532,15 @@ public class Kate extends NPC {
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
 				if(clothing!=null && clothing.getClothingType().isCondom(clothing.getClothingType().getEquipSlots().get(0))) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
+					inventory.resetEquipDescription();
 				}
 				return "<p>"
 							+ "As you pull out a condom, a worried frown flashes across Kate's face, "
-							+ UtilText.parseSpeech("Oh! Erm, let me put that on for you!", Main.game.getNpc(Kate.class))
+							+ "[kate.speech(Oh! Erm, let me put that on for you!)]"
 							+"<br/>"
 							+ "Before you can react, Kate snatches the condom out of your hands, and with a devious smile, uses her sharp little canines to bite a big hole straight through the centre."
 							+ " She laughs at your shocked reaction, "
-							+ UtilText.parseSpeech("It's no fun if I don't get any cum!", Main.game.getNpc(Kate.class))
+							+ "[kate.speech(It's no fun if I don't get any cum!)]"
 						+ "</p>";
 			}
 		}

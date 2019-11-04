@@ -3754,14 +3754,14 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_COUNT:
 						switch(potency) {
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Removes an extra tail.") { @Override public String applyEffect() { return target.incrementTailCount(singleDrain); } };
+								return new RacialEffectUtil("Removes an extra tail.") { @Override public String applyEffect() { return target.incrementTailCount(singleDrain, false); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds an extra tail.") { @Override public String applyEffect() {
 									List<TailType> tailTypesSuitableForTransformation = TailType.getTailTypesSuitableForTransformation(RacialBody.valueOfRace(race).getTailType());
 									if(target.getTailType()==TailType.NONE && !tailTypesSuitableForTransformation.isEmpty()) {
 										return target.setTailType(tailTypesSuitableForTransformation.get(0));
 									} else {
-										return target.incrementTailCount(singleBoost);
+										return target.incrementTailCount(singleBoost, false);
 									} } };
 						}
 					case REMOVAL:

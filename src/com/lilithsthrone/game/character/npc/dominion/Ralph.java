@@ -262,6 +262,17 @@ public class Ralph extends NPC {
 	}
 	
 	@Override
+	public void turnUpdate() {
+		if(!Main.game.getCharactersPresent().contains(this)) {
+			if(Main.game.isExtendedWorkTime()) {
+				this.returnToHome();
+			} else {
+				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+			}
+		}
+	}
+	
+	@Override
 	public void changeFurryLevel(){
 	}
 	
@@ -380,6 +391,7 @@ public class Ralph extends NPC {
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
 				if(clothing!=null && clothing.getClothingType().isCondom(InventorySlot.PENIS)) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
+					inventory.resetEquipDescription();
 				}
 				return UtilText.parse(target,
 						"<p>"

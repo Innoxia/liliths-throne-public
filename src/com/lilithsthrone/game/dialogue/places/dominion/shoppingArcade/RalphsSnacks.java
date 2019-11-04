@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -13,7 +14,6 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -32,12 +32,10 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class RalphsSnacks {
@@ -54,34 +52,30 @@ public class RalphsSnacks {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "You find yourself standing before the only place in the Shopping Arcade that sells food to go."
-						+ " From the outside, it looks like an old-fashioned sweet shop, with large glass windows displaying all manner of exotic-looking food and drink."
-						+ " The words 'Ralph's Snacks' are painted in cursive gold lettering above the entrance, and a little sign reading 'Open 24/7!' hangs in the door's window."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/ralphsSnacks", "EXTERIOR");
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ShoppingArcadeDialogue.getCoreResponseTab(index);
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Enter", "Step inside Ralph's Snacks.", INTERIOR){
-					@Override
-					public void effects() {
-						resetDiscountCheck();
+			if(responseTab==0) {
+				if (index == 1) {
+					if(!Main.game.isExtendedWorkTime()) {
+						return new Response("Enter", "'Ralph's Snacks' is currently closed, so you'll have to come back during opening hours if you wanted to take a look inside.", null);
 					}
-				};
-				
-			} else if (index == 6) {
-				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_ENTRANCE, true);
-					}
-				};
-
-			} else {
-				return null;
+					return new Response("Enter", "Step inside Ralph's Snacks.", INTERIOR){
+						@Override
+						public void effects() {
+							resetDiscountCheck();
+						}
+					};
+				}
 			}
+			return ShoppingArcadeDialogue.getFastTravelResponses(responseTab, index);
 		}
 	};
 	
@@ -500,7 +494,7 @@ public class RalphsSnacks {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				if(Main.game.getPlayer().isPregnant() && Main.game.getPlayer().getPregnantLitter().getFather().equals(Main.game.getNpc(Ralph.class))) {
+				if(Main.game.getPlayer().isPregnant() && Objects.equals(Main.game.getPlayer().getPregnantLitter().getFather(), Main.game.getNpc(Ralph.class))) {
 					return new Response("Success",
 							"Not only are you now the proud owner of the limited edition box of 'A Hundred Kisses', but you've also become the mother of Ralph's "
 									+(Main.game.getPlayer().getPregnantLitter().getTotalLitterCount()==1?"child":"children")+"!",

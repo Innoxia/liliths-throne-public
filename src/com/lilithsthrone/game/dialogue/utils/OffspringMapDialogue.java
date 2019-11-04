@@ -4,6 +4,7 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.util.List;
 
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
@@ -14,7 +15,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.3.2
- * @version 0.3.2
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class OffspringMapDialogue {
@@ -24,14 +25,17 @@ public class OffspringMapDialogue {
 		
 		return Main.game.getOffspringNotSpawned(npc->
 			npc.getSubspecies().getWorldLocations().keySet().contains(worldType)
-			|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
-					&& (npc.getSubspecies()==Subspecies.ANGEL
-						|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
-						|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC))
-			|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
-					&& (npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
-						|| npc.getSubspecies()==Subspecies.SLIME
-						|| npc.getSubspecies()==Subspecies.RAT_MORPH)));
+				&& (worldType==WorldType.HARPY_NEST
+						?(npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()==Race.HARPY)
+						:(npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()!=Race.HARPY))
+				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
+						&& (npc.getSubspecies()==Subspecies.ANGEL
+							|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
+							|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC))
+				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
+						&& (npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
+							|| npc.getSubspecies()==Subspecies.SLIME
+							|| npc.getSubspecies()==Subspecies.RAT_MORPH)));
 	}
 	
 	

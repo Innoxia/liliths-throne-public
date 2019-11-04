@@ -73,7 +73,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class ZaranixMaidKatherine extends NPC {
@@ -86,7 +86,9 @@ public class ZaranixMaidKatherine extends NPC {
 		super(isImported, new NameTriplet("Katherine"), "Lasiellemartu",
 				"One of Zaranix's succubi maid twins, Katherine is assigned by her master to keep the ground floor clean.",
 				26, Month.SEPTEMBER, 20,
-				10, Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_MAID, true);
+				10,
+				null, null, null,
+				new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_MAID, true);
 
 		this.setPlayerKnowsName(true);
 		
@@ -145,7 +147,7 @@ public class ZaranixMaidKatherine extends NPC {
 		// Body:
 		// Add full body reset as this method is called after leaving Zaranix's house:
 		this.setAgeAppearanceDifferenceToAppearAsAge(18);
-		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER);
+		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, false);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.NONE);
 		this.setLegType(LegType.DEMON_COMMON);
@@ -255,7 +257,7 @@ public class ZaranixMaidKatherine extends NPC {
 
 	@Override
 	public void hourlyUpdate() {
-		if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 			this.moveToAdjacentMatchingCellType(true, PlaceType.ZARANIX_GF_CORRIDOR, PlaceType.ZARANIX_GF_STAIRS, PlaceType.ZARANIX_GF_MAID);
 		}
 	}

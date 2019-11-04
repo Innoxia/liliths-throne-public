@@ -1315,7 +1315,7 @@ public class SlaveDialogue {
 						}
 
 					} else if (index == 0) {
-						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
+						return new Response("Leave", UtilText.parse(getSlave(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogueNoEncounter()) {
 							@Override
 							public DialogueNode getNextDialogue() {
 								return Main.game.getDefaultDialogueNoEncounter();

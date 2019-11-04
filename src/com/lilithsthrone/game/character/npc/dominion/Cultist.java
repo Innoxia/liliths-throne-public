@@ -500,6 +500,7 @@ public class Cultist extends NPC {
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
 				if(clothing!=null && clothing.getClothingType().isCondom(InventorySlot.PENIS)) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
+					inventory.resetEquipDescription();
 				}
 				return UtilText.parse(target,
 						"<p>"

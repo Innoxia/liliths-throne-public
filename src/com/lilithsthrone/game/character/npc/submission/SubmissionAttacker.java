@@ -21,14 +21,12 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogueCompanions;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelSlimeDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -41,7 +39,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.1
- * @version 0.2.11
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class SubmissionAttacker extends NPC {
@@ -61,7 +59,8 @@ public class SubmissionAttacker extends NPC {
 	public SubmissionAttacker(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3, gender, Subspecies.ALLIGATOR_MORPH, RaceStage.GREATER,
+				3,
+				null, null, null,
 				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
 
 		if(!isImported) {
@@ -77,17 +76,17 @@ public class SubmissionAttacker extends NPC {
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
 				if(s==Subspecies.SLIME) {
-					addToSubspeciesMap(slimeChance, gender, s, availableRaces);
+					Subspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces);
 					
 				} else if(Subspecies.getWorldSpecies().get(WorldType.SUBMISSION).containsKey(s)) {
-					addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies().get(WorldType.SUBMISSION).get(s).getChanceMultiplier()), gender, s, availableRaces);
+					Subspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies().get(WorldType.SUBMISSION).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 			}
 			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces);
+			this.setBodyFromSubspeciesPreference(gender, availableRaces, true);
 			
 			if(Math.random()<0.05 && !this.getRace().equals(Race.DEMON) && this.getSubspecies()!=Subspecies.SLIME) { //5% chance for the NPC to be a half-demon
-				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true));
+				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
 			}
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
@@ -126,6 +125,8 @@ public class SubmissionAttacker extends NPC {
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
+			this.setStartingCombatMoves();
+			loadImages();
 
 			initHealthAndManaToMax();
 		}
@@ -229,11 +230,7 @@ public class SubmissionAttacker extends NPC {
 			}
 			
 		} else {
-			if(Main.game.getPlayer().getCompanions().isEmpty()) {
-				return TunnelAttackDialogue.TUNNEL_ATTACK;
-			} else {
-				return TunnelAttackDialogueCompanions.TUNNEL_ATTACK;
-			}
+			return TunnelAttackDialogue.TUNNEL_ATTACK;
 		}
 	}
 

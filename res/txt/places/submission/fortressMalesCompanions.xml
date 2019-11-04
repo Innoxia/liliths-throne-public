@@ -652,7 +652,7 @@
 		[npc2.Name] releases [npc2.her] grip on [npc2.her] katana as [npc2.she] hears your reply. Striding forwards and coming to a halt right in front of you, [npc2.she] reaches out to grab you by the shoulders, and, before you can react, [npc2.she] pushes you down onto your knees, before booming, [npc2.speech(Excellent! Now surrender your womb to me!)]
 	</p>
 	<p>
-		As you're now in such a submissive position, all you can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before answering, [pc.speech(Yes... I'll be the mother to your imps...)]
+		As you're now in such a submissive position, all you can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before answering, [pc.speech(Yes... Make me a mother...)]
 	</p>
 	<p>
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you down onto your back. [npc2.speech(Now, let's get started!)]
@@ -728,7 +728,7 @@
 		[npc2.Name] releases [npc2.her] grip on [npc2.her] katana as [npc2.she] hears your reply. Striding forwards and coming to a halt right in front of the two of you, [npc2.she] reaches out to grab you both by the shoulders, and, before you can react, [npc2.she] pushes you and [npc.name] down onto your knees, before booming, [npc2.speech(Excellent! Now surrender your womb to me!)]
 	</p>
 	<p>
-		As you're now in such a submissive position, all you can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before answering, [pc.speech(Yes... I'll be the mother to your imps...)]
+		As you're now in such a submissive position, all you can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before answering, [pc.speech(Yes... Make me a mother...)]
 	</p>
 	<p>
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you down onto your back. [npc2.speech(Come on, you three, have some fun with that [npc.race]!)]
@@ -765,7 +765,7 @@
 	#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
 	#THEN
 		<p>
-			As [npc.sheIs] now in such a submissive position, all [npc.name] can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before [npc.moaning], [npc.speech(Yes... I'll be the mother to your imps...)]
+			As [npc.sheIs] now in such a submissive position, all [npc.name] can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before [npc.moaning], [npc.speech(Yes... Make me a mother...)]
 		</p>
 		<p>
 			[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before [npc.herHim] and firmly pushing [npc.herHim] down onto [npc.her] back. [npc2.speech(Come on, you three, have some fun with that [pc.race]!)]
@@ -1090,7 +1090,7 @@
 		[npc2.speech(Now that's what I like to hear!)] [npc2.Name] bellows, before reaching out to grab both you and [npc.name] by the shoulders. Before you can react, [npc2.she] pushes the two of you down onto your knees, before booming, [npc2.speech(The only way to earn my forgiveness is by surrendering your womb to me, while your friend satisfies my imps!)]
 	</p>
 	<p>
-		As you're now in such a submissive position, all you can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before answering, [pc.speech(Yes... I'll be the mother to your imps...)]
+		As you're now in such a submissive position, all you can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before answering, [pc.speech(Yes... Make me a mother...)]
 	</p>
 	<p>
 		[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before you and firmly pushing you down onto your back. [npc2.speech(Come on, you three, have some fun with that [npc.race]!)]
@@ -1116,7 +1116,7 @@
 	#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
 	#THEN
 		<p>
-			As [npc.sheIs] now in such a submissive position, all [npc.name] can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before [npc.moaning], [npc.speech(Yes... I'll be the mother to your imps...)]
+			As [npc.sheIs] now in such a submissive position, all [npc.name] can do is look up into the [npc2.race]'s [npc2.eyeColour] eyes, before [npc.moaning], [npc.speech(Yes... Make me a mother...)]
 		</p>
 		<p>
 			[npc2.speech(That's what I like to hear!)] [npc2.Name] bellows, before dropping to [npc2.her] knees before [npc.herHim] and firmly pushing [npc.herHim] down onto [npc.her] back. [npc2.speech(Come on, you three, have some fun with that [pc.race]!)]
@@ -1292,7 +1292,7 @@
 		[npc2.Name] lets out a triumphant bellow as [npc2.she] watches you and [npc.name] fall to the floor, defeated. With a hungry tone in [npc2.her] voice, [npc2.she] steps forwards and booms, [npc2.speech(I think it's time for your punishment!)]
 	</p>
 	<p>
-		Looking up and letting out a startled groan, you see the [npc2.race] rubbing the thick bulge in [npc2.her] hakama. As your eyes open wide, [npc2.she] drops to [npc2.her] knees before you and your companion and firmly pushes the two of you down onto your backs. Gazing hungrily down at [npc.name], [npc2.she] bellows, [npc2.speech(You'll be the mother to a big brood of imps soon enough! And as for you, [pc.race], my imps can have some fun with you!)]
+		Looking up and letting out a startled groan, you see the [npc2.race] rubbing the thick bulge in [npc2.her] hakama. As your eyes open wide, [npc2.she] drops to [npc2.her] knees before you and your companion and firmly pushes the two of you down onto your backs. Gazing hungrily down at [npc.name], [npc2.she] bellows, [npc2.speech(Surrender your womb to me! And as for you, [pc.race], my imps can have some fun with you!)]
 	</p>
 	<p>
 		Taking hold of [npc.namePos] [npc.legs], [npc2.name] starts to push them apart, getting ready to breed [npc.herHim] as the three imps rush forwards to take advantage of you...
@@ -1534,7 +1534,7 @@
 				As [npc.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down between your [pc.legs], you make sure that the dildo is securely in place, letting out a relieved sigh as you feel that it's firmly plugging your vagina and keeping all that precious cum locked deep inside your uterus.
 			</p>
 			<p>
-				[npc.speech(Hah! I see the enchantment's having an effect already!)] [npc.she] laughs. [npc.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our imp brood. Oh, and yes, before you ask, it's sealed too, although with a stronger enchantment than the dildo. You won't be taking it off any time soon!)]
+				[npc.speech(Hah! I see the enchantment's having an effect already!)] [npc.she] laughs. [npc.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our demonic offspring. Oh, and yes, before you ask, it's sealed too, although with a stronger enchantment than the dildo. You won't be taking it off any time soon!)]
 			</p>
 			<p>
 				You feel your cheeks flush as [npc.name] talks about the imps that you might be pregnant with, and you find yourself desperately wishing that you're soon going to be showing signs of being a mother.
@@ -1560,7 +1560,7 @@
 				As [npc.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down between your [pc.legs], you push your [pc.fingers] into your cum-stuffed cunt, before desperately trying to push as much of the precious seed deep into your uterus as you possibly can.
 			</p>
 			<p>
-				[npc.speech(Hah! I see the enchantment's having an effect already!)] [npc.she] laughs. [npc.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our imp brood. Oh, and yes, before you ask, it's got a strong sealing enchantment on it. You won't be taking it off any time soon!)]
+				[npc.speech(Hah! I see the enchantment's having an effect already!)] [npc.she] laughs. [npc.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our demonic offspring. Oh, and yes, before you ask, it's got a strong sealing enchantment on it. You won't be taking it off any time soon!)]
 			</p>
 			<p>
 				You feel your cheeks flush as [npc.name] talks about the imps that you might be pregnant with, and you find yourself desperately wishing that you're soon going to be showing signs of being a mother.
@@ -1633,7 +1633,7 @@
 					As [npc2.name] says this, you can't help but let out a frantic moan at the thought of new life being born in your womb. Reaching down between your [pc.legs], you make sure that the dildo is securely in place, letting out a relieved sigh as you feel that it's firmly plugging your vagina and keeping all that precious cum locked deep inside your uterus.
 				</p>
 				<p>
-					[npc2.speech(Hah! I see the enchantment's having an effect already!)] [npc2.she] laughs. [npc2.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our imp brood. Oh, and yes, before you ask, it's sealed too, although with a stronger enchantment than the dildo. You won't be taking it off any time soon!)]
+					[npc2.speech(Hah! I see the enchantment's having an effect already!)] [npc2.she] laughs. [npc2.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our demonic offspring. Oh, and yes, before you ask, it's sealed too, although with a stronger enchantment than the dildo. You won't be taking it off any time soon!)]
 				</p>
 				<p>
 					You feel your cheeks flush as [npc2.name] talks about the imps that you might be pregnant with, and you find yourself desperately wishing that you're soon going to be showing signs of being a mother.
@@ -1692,7 +1692,7 @@
 						As [npc2.name] says this, [npc.name] can't help but let out a frantic moan at the thought of new life being born in [npc.her] womb. Reaching down between [npc.her] [npc.legs], [npc.she] makes sure that the dildo is securely in place, letting out a relieved sigh as [npc.she] feels that it's firmly plugging [npc.her] vagina and keeping all that precious cum locked deep inside [npc.her] uterus.
 					</p>
 					<p>
-						[npc2.speech(Hah! I see the enchantment's having an effect already!)] [npc2.name] laughs. [npc2.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our imp brood. Oh, and yes, before you ask, it's got a strong sealing enchantment on it. You won't be taking it off any time soon!)]
+						[npc2.speech(Hah! I see the enchantment's having an effect already!)] [npc2.name] laughs. [npc2.speech(It'll also make sure your hips are nice and wide to help you carry, and later birth, our demonic offspring. Oh, and yes, before you ask, it's got a strong sealing enchantment on it. You won't be taking it off any time soon!)]
 					</p>
 					<p>
 						[npc.NamePos] cheeks flush as [npc2.name] talks about the imps that [npc.she] might be pregnant with, and [npc.she] finds [npc.herself] desperately wishing that [npc.sheIs] soon going to be showing signs of being a mother.
