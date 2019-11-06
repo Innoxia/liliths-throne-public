@@ -2076,7 +2076,7 @@ public class OptionsDialogue {
 							"Feminine Beards",
 							"This enables feminine characters to grow beards.",
 							Main.getProperties().hasValue(PropertyValue.feminineBeardsContent)));
-				
+
 			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 							"FORCED_TF",
 							Colour.TRANSFORMATION_GENERIC,

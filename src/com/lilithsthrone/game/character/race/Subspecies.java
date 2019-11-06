@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.race;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -42,6 +44,7 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.WorldType;
 
 /**
@@ -126,7 +129,7 @@ public enum Subspecies {
 			"A typical angel.",
 			Util.newHashMapOfValues()) {
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"fallen angel",
 					"fallen angels",
@@ -374,6 +377,8 @@ public enum Subspecies {
 			"The result of copulation between a lilin and a non-demonic partner.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.ONE_VERY_RARE),
+					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ONE_VERY_RARE),
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE_VERY_RARE))) {
 		
 		@Override
@@ -598,7 +603,7 @@ public enum Subspecies {
 					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE))) {
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"minotaur",
 					"minotaurs",
@@ -654,7 +659,7 @@ public enum Subspecies {
 					}
 				}
 				@Override
-				protected String[] getHalfDemonName(GameCharacter character) {
+				public String[] getHalfDemonName(GameCharacter character) {
 					return new String[] {
 							"hellhound",
 							"hellhounds",
@@ -719,7 +724,7 @@ public enum Subspecies {
 					}
 				}
 				@Override
-				protected String[] getHalfDemonName(GameCharacter character) {
+				public String[] getHalfDemonName(GameCharacter character) {
 					return new String[] {
 							"hellhound",
 							"hellhounds",
@@ -793,7 +798,7 @@ public enum Subspecies {
 			}
 		}
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"hellhound",
 					"hellhounds",
@@ -853,7 +858,7 @@ public enum Subspecies {
 					body.getEar().setType(null, EarType.DOG_MORPH_POINTED);
 				}
 				@Override
-				protected String[] getHalfDemonName(GameCharacter character) {
+				public String[] getHalfDemonName(GameCharacter character) {
 					return new String[] {
 							"hellhound",
 							"hellhounds",
@@ -907,7 +912,7 @@ public enum Subspecies {
 			}
 		}
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"vargr",
 					"vargar",
@@ -1748,7 +1753,7 @@ public enum Subspecies {
 			body.getWing().setType(null, WingType.NONE);
 		}
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"nightmare",
 					"nightmares",
@@ -1803,7 +1808,7 @@ public enum Subspecies {
 			body.getWing().setType(null, WingType.NONE);
 		}
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"unicorn-nightmare",
 					"unicorn-nightmares",
@@ -1855,7 +1860,7 @@ public enum Subspecies {
 			body.setWing(new Wing(WingType.PEGASUS, WingSize.THREE_LARGE.getValue()));
 		}
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"pegasus-nightmare",
 					"pegasus-nightmares",
@@ -1910,7 +1915,7 @@ public enum Subspecies {
 			body.setWing(new Wing(WingType.PEGASUS, WingSize.THREE_LARGE.getValue()));
 		}
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"alicorn-nightmare",
 					"alicorn-nightmares",
@@ -1970,7 +1975,7 @@ public enum Subspecies {
 			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR, true);
 		}
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"demonic-centaur",
 					"demonic-centaurs",
@@ -2029,7 +2034,7 @@ public enum Subspecies {
 			
 		}
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"demonic-pegataur",
 					"demonic-pegataurs",
@@ -2090,7 +2095,7 @@ public enum Subspecies {
 			body.getWing().setType(null, WingType.NONE);
 		}
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"demonic-unitaur",
 					"demonic-unitaurs",
@@ -2151,7 +2156,7 @@ public enum Subspecies {
 			body.setWing(new Wing(WingType.PEGASUS, WingSize.FOUR_HUGE.getValue()));
 		}
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"demonic-alitaur",
 					"demonic-alitaurs",
@@ -2216,7 +2221,7 @@ public enum Subspecies {
 			}
 		}
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"nightmare",
 					"nightmares",
@@ -2753,7 +2758,7 @@ public enum Subspecies {
 					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.FOUR_COMMON),
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON))) {
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"fury",
 					"furies",
@@ -2810,7 +2815,7 @@ public enum Subspecies {
 			}
 		}
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"fury",
 					"furies",
@@ -2863,7 +2868,7 @@ public enum Subspecies {
 			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.COVERING_BROWN_DARK, false, Colour.COVERING_BROWN_DARK, false));
 		}
 		@Override
-		protected String[] getHalfDemonName(GameCharacter character) {
+		public String[] getHalfDemonName(GameCharacter character) {
 			return new String[] {
 					"fury",
 					"furies",
@@ -3433,18 +3438,20 @@ public enum Subspecies {
 					|| subOverride==Subspecies.HALF_DEMON
 					|| subOverride==Subspecies.IMP
 					|| subOverride==Subspecies.IMP_ALPHA) {
-				if(character!=null && character.isPlayer()) { // The player is a special case, as they are the only 'demon' that can take on any form.
-					return Subspecies.DEMON;
-				}
-				if(body.getRaceStage()!=RaceStage.GREATER) {// || body.getRaceFromPartWeighting(true)!=Race.DEMON) {
-					return Subspecies.HALF_DEMON;
-				} else if(body.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
+//				if(character!=null && character.isPlayer()) { // The player is a special case, as they are the only 'demon' that can take on any form.
+//					return Subspecies.DEMON;
+//				}
+//				if(body.getRaceStage()!=RaceStage.GREATER) {// || body.getRaceFromPartWeighting(true)!=Race.DEMON) {
+//					return Subspecies.HALF_DEMON;
+//				} else 
+				if(body.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
 					return Subspecies.IMP;
 				} else if(body.getHeight()==Height.NEGATIVE_ONE_TINY) {
 					return Subspecies.IMP_ALPHA;
-				} else {
-					return Subspecies.DEMON;
 				}
+//				else {
+//					return Subspecies.DEMON;
+//				}
 			}
 			
 			return subOverride;
@@ -3737,6 +3744,11 @@ public enum Subspecies {
 		body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, pat, c1, false, c2, false));
 	}
 	
+
+	public static Body getPreGeneratedBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father) {
+		return getPreGeneratedBody(linkedCharacter, startingGender, mother.getSubspecies(), mother.getHalfDemonSubspecies(), father.getSubspecies(), father.getHalfDemonSubspecies());
+	}
+	
 	/**
 	 * Only used for subspecies that have special offspring generation - i.e. demons.<br/><br/>
 	 * 
@@ -3773,10 +3785,7 @@ public enum Subspecies {
 	 * + anything = imps<br/>
 	 * @return The pre-generated body to use as an offspring's core body.
 	 */
-	public static Body getPreGeneratedBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father) {
-		Subspecies motherSubspecies = mother.getSubspecies(); //Subspecies.getFleshSubspecies(mother);
-		Subspecies fatherSubspecies = father.getSubspecies(); //Subspecies.getFleshSubspecies(father);
-		
+	public static Body getPreGeneratedBody(GameCharacter linkedCharacter, Gender startingGender, Subspecies motherSubspecies, Subspecies motherHalfDemonSubspecies, Subspecies fatherSubspecies, Subspecies fatherHalfDemonSubspecies) {
 		if(startingGender==null) {
 			startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
 		}
@@ -3798,7 +3807,7 @@ public enum Subspecies {
 					case DEMON:
 						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, RaceStage.GREATER);
 					case HALF_DEMON:
-						return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, father.getHalfDemonSubspecies(), true);
+						return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, fatherHalfDemonSubspecies, true);
 					case IMP:
 					case IMP_ALPHA:
 						return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
@@ -3806,13 +3815,13 @@ public enum Subspecies {
 						return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, fatherSubspecies, true);
 				}
 			case HALF_DEMON:
-				if(mother.getHalfDemonSubspecies()==Subspecies.HUMAN) {
+				if(motherHalfDemonSubspecies==Subspecies.HUMAN) {
 					switch(fatherSubspecies) {
 						case ELDER_LILIN:
 						case LILIN:
 						case DEMON:
 						case HALF_DEMON:
-							return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, mother.getHalfDemonSubspecies(), true);
+							return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 						default:
 							return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
 					}
@@ -3822,18 +3831,18 @@ public enum Subspecies {
 						case ELDER_LILIN:
 						case LILIN:
 						case DEMON:
-							return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, mother.getHalfDemonSubspecies(), true);
+							return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 						case HALF_DEMON: // IF both are non-human half-demons, it's random as to whose species is birthed
-							if(Math.random()<0.5f || father.getHalfDemonSubspecies()==Subspecies.HUMAN) {
-								return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, mother.getHalfDemonSubspecies(), true);
+							if(Math.random()<0.5f || fatherHalfDemonSubspecies==Subspecies.HUMAN) {
+								return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 							} else {
-								return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, father.getHalfDemonSubspecies(), true);
+								return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, fatherHalfDemonSubspecies, true);
 							}
 						case IMP:
 						case IMP_ALPHA:
 							return CharacterUtils.generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
 						default:
-							return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, mother.getHalfDemonSubspecies(), true);
+							return CharacterUtils.generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 					}
 				}
 			case IMP_ALPHA:
@@ -3852,28 +3861,29 @@ public enum Subspecies {
 					case IMP:
 					case IMP_ALPHA:
 					case HALF_DEMON:
-						return getPreGeneratedBody(linkedCharacter, startingGender, father, mother); // Just return this method, but with mother & father swapped, as all demonic offspring types are unaffected by who is the mother or father.
+						 // Just return this method, but with mother & father swapped, as all demonic offspring types are unaffected by who is the mother or father:
+						return getPreGeneratedBody(linkedCharacter, startingGender, fatherSubspecies, fatherHalfDemonSubspecies, motherSubspecies, motherHalfDemonSubspecies);
 					default:
 						return null;
 				}
 		}
 	}
 	
-	public static Subspecies getOffspringFromMotherSubspecies(GameCharacter mother, GameCharacter father) {
-		Body body = getPreGeneratedBody(null, null, mother, father);
-		if(body==null) {
-			return mother.getSubspecies();
-		}
-		return body.getSubspecies();
-	}
-	
-	public static Subspecies getOffspringFromFatherSubspecies(GameCharacter mother, GameCharacter father) {
-		Body body = getPreGeneratedBody(null, null, mother, father);
-		if(body==null) {
-			return father.getSubspecies();
-		}
-		return body.getSubspecies();
-	}
+//	public static Subspecies getOffspringFromMotherSubspecies(GameCharacter mother, GameCharacter father) {
+//		Body body = getPreGeneratedBody(null, null, mother, father);
+//		if(body==null) {
+//			return mother.getSubspecies();
+//		}
+//		return body.getSubspecies();
+//	}
+//	
+//	public static Subspecies getOffspringFromFatherSubspecies(GameCharacter mother, GameCharacter father) {
+//		Body body = getPreGeneratedBody(null, null, mother, father);
+//		if(body==null) {
+//			return father.getSubspecies();
+//		}
+//		return body.getSubspecies();
+//	}
 	
 	public boolean isShortStature() {
 		return false;
@@ -4194,7 +4204,16 @@ public enum Subspecies {
 		return subspeciesFromRace.get(race);
 	}
 	
-	protected String[] getHalfDemonName(GameCharacter character) {
+	/**
+	 * @return A String array of length 6, consisting of:<br/>
+	 * <b>[0]:</b> Singular generic demon name<br/>
+	 * <b>[1]:</b> Plural generic demon name<br/>
+	 * <b>[2]:</b> Singular male demon name<br/>
+	 * <b>[3]:</b> Singular female demon name<br/>
+	 * <b>[4]:</b> Plural male demon name<br/>
+	 * <b>[5]:</b> Plural female demon name<br/>
+	 */
+	public String[] getHalfDemonName(GameCharacter character) {
 		String[] names = null;
 		
 		if(this.getRace()==Race.DEMON
@@ -4355,5 +4374,47 @@ public enum Subspecies {
 		}
 		
 		return 10000;
+	}
+	
+	public static Map<Subspecies, Integer> getGenericSexPartnerSubspeciesMap(Gender gender, Subspecies... subspeciesToExclude) {
+		Map<Subspecies, Integer> availableRaces = new HashMap<>();
+		List<Subspecies> subspecies = Util.newArrayListOfValues(Subspecies.values());
+		subspecies.removeAll(Arrays.asList(subspeciesToExclude));
+		
+		for(Subspecies s : subspecies) {
+			if(s==Subspecies.REINDEER_MORPH
+					&& Main.game.getSeason()==Season.WINTER
+					&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
+				addToSubspeciesMap(10, gender, s, availableRaces);
+				
+			} else if(s.getRace()!=Race.DEMON
+					&& s.getRace()!=Race.ANGEL
+					&& s.getRace()!=Race.ELEMENTAL
+					&& s!=Subspecies.FOX_ASCENDANT
+					&& s!=Subspecies.FOX_ASCENDANT_FENNEC
+					&& s!=Subspecies.SLIME) {
+				if(Subspecies.getMainSubspeciesOfRace(s.getRace())==s) {
+					addToSubspeciesMap(10, gender, s, availableRaces);
+				} else {
+					addToSubspeciesMap(3, gender, s, availableRaces);
+				}
+			}
+		}
+		
+		return availableRaces;
+	}
+	
+	public static void addToSubspeciesMap(int weight, Gender gender, Subspecies subspecies, Map<Subspecies, Integer> map) {
+		if(gender.isFeminine()) {
+			if(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies)!=FurryPreference.HUMAN
+					&& Main.getProperties().getSubspeciesFemininePreferencesMap().get(subspecies).getValue()>0) {
+				map.put(subspecies, weight*Main.getProperties().getSubspeciesFemininePreferencesMap().get(subspecies).getValue());
+			}
+		} else {
+			if(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies)!=FurryPreference.HUMAN
+					&& Main.getProperties().getSubspeciesMasculinePreferencesMap().get(subspecies).getValue()>0) {
+				map.put(subspecies, weight*Main.getProperties().getSubspeciesMasculinePreferencesMap().get(subspecies).getValue());
+			}
+		}
 	}
 }

@@ -439,7 +439,7 @@ public class TunnelSlimeDialogue {
 			
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "RESIST_TRANSFORMED"));
 			
-			if(getSlime().isAttractedTo(Main.game.getPlayer()) && getSlime().isWillingToRape(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
+			if(getSlime().isAttractedTo(Main.game.getPlayer()) && getSlime().isWillingToRape() && Main.game.isNonConEnabled()) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "RESIST_TRANSFORMED_RAPE"));
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "RESIST_TRANSFORMED_NO_RAPE"));
@@ -450,7 +450,7 @@ public class TunnelSlimeDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
+			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape() && Main.game.isNonConEnabled()) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -775,7 +775,7 @@ public class TunnelSlimeDialogue {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_DEFEAT_TRANSFORMER"));
 				
 			} else {
-				if(getSlime().isAttractedTo(Main.game.getPlayer()) && getSlime().isWillingToRape(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
+				if(getSlime().isAttractedTo(Main.game.getPlayer()) && getSlime().isWillingToRape() && Main.game.isNonConEnabled()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_DEFEAT_RAPE"));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_DEFEAT_NO_RAPE"));
@@ -817,7 +817,7 @@ public class TunnelSlimeDialogue {
 					return null;
 				}
 				
-			} else if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
+			} else if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape() && Main.game.isNonConEnabled()) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",

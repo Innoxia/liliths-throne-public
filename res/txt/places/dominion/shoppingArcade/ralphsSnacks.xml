@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 
+	<!-- EXTERIOR -->
+
+	<htmlContent tag="EXTERIOR"><![CDATA[
+	<p>
+		While there are a few restaurants and other sit-down eateries scattered throughout the Shopping Arcade, there is a conspicuous lack of places which offer food to take out. The sole exception to this is the store in front of you, which, from the outside, is reminiscent of an old-fashioned sweet shop, with large glass windows displaying all manner of exotic-looking food and drink.
+	</p>
+	<p>
+		#IF(game.isExtendedWorkTime())
+			 The words 'Ralph's Snacks' are painted in cursive gold lettering above the entrance, while a little sign hanging in the door's window informs you that the [style.colourMinorGood(opening hours are between [unit.time(6)] and [unit.time(22)])]. As the store is currently [style.colourGood(open)], you could step inside and take a look around if you wanted to...
+		#ELSE
+			 The words 'Ralph's Snacks' are painted in cursive gold lettering above the entrance, while a little sign hanging in the door's window informs you that the [style.colourMinorBad(opening hours are between [unit.time(6)] and [unit.time(22)])]. As the store is currently [style.colourBad(closed)], you'll have to come back later if you wanted to take a look inside...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- CANDI_LIPSTICK -->
 
 	<htmlContent tag="CANDI_LIPSTICK"><![CDATA[

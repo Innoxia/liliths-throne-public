@@ -77,7 +77,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.11
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class DarkSiren extends NPC {
@@ -135,7 +135,7 @@ public class DarkSiren extends NPC {
 		this.setGenericName("dark siren");
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.5")) {
-			this.setBody(Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL);
+			this.setBody(Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, false);
 			setStartingBody(true);
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);

@@ -42,6 +42,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -587,7 +589,8 @@ public class ImpCitadelDialogue {
 								Main.game.getPlayer().getParty(),
 								null,
 								null,
-								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								IMP_AFTER_SEX_VICTORY,
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 					}
 					
 				} else if(responseTab == 1) {
@@ -684,7 +687,7 @@ public class ImpCitadelDialogue {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
 								Util.newArrayListOfValues(getMainCompanion()),
-								IMP_AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 						
 					} else if (index == 6) {
 						GameCharacter companion = getMainCompanion();
@@ -1070,16 +1073,13 @@ public class ImpCitadelDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(index==1) {
-					return new Response("Recover", "Take a moment to catch your breath, and then continue on your way.", Main.game.getDefaultDialogueNoEncounter()) {
-						@Override
-						public void effects() {
-							banishImps();
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_SEX_DEFEAT_RECOVER", getAllCharacters()));
-						}
-					};
-				}
-				return null;
+				return new Response("Recover", "Take a moment to catch your breath, and then continue on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+					@Override
+					public void effects() {
+						banishImps();
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_SEX_DEFEAT_RECOVER", getAllCharacters()));
+					}
+				};
 				
 			} else {
 				return null;
@@ -1218,12 +1218,16 @@ public class ImpCitadelDialogue {
 
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(1000));
 
-							Value<String, AbstractItem> potion = ((NPC)getArcanist()).getTransformativePotion(Main.game.getPlayer(), true);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(potion.getValue(), false));
-
+							Value<AbstractItemType, Map<ItemEffect, String>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+							AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+							potion.setName("Foxy Fuck");
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(potion, 1, false, true));
+							
 							if(isCompanionDialogue()) {
-								potion = ((NPC)getArcanist()).getTransformativePotion(getMainCompanion(), true);
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(potion.getValue(), false));
+								effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer().getMainCompanion());
+								potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+								potion.setName("Foxy Fuck");
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(potion, 1, false, true));
 							}
 						}
 					};
@@ -1320,8 +1324,11 @@ public class ImpCitadelDialogue {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
-						Value<String, AbstractItem> potion = ((NPC)getArcanist()).getTransformativePotion(Main.game.getPlayer(), true);
-						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion.getValue(), Main.game.getPlayer(), false));
+
+						Value<AbstractItemType, Map<ItemEffect, String>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+						AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, Main.game.getPlayer(), false));
+						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_SOLO_TF_OFFER_SEX", getAllCharacters()));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistAcceptedTF, true);
 					}
@@ -1398,8 +1405,11 @@ public class ImpCitadelDialogue {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
-						Value<String, AbstractItem> potion = ((NPC)getArcanist()).getTransformativePotion(getMainCompanion(), true);
-						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion.getValue(), getMainCompanion(), false));
+						
+						Value<AbstractItemType, Map<ItemEffect, String>> effects = ((NPC)getArcanist()).generateTransformativePotion(getMainCompanion());
+						AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, getMainCompanion(), false));
+						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_COMPANION_TF_OFFER_SEX", getAllCharacters()));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistAcceptedTF, true);
 					}
@@ -1490,11 +1500,17 @@ public class ImpCitadelDialogue {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
-						Value<String, AbstractItem> potion = ((NPC)getArcanist()).getTransformativePotion(Main.game.getPlayer(), true);
-						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion.getValue(), Main.game.getPlayer(), false));
+
+						Value<AbstractItemType, Map<ItemEffect, String>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+						AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, Main.game.getPlayer(), false));
+						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "ARCANIST_BOTH_TF", getAllCharacters()));
-						potion = ((NPC)getArcanist()).getTransformativePotion(getMainCompanion(), true);
-						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion.getValue(), getMainCompanion(), false));
+
+						effects = ((NPC)getArcanist()).generateTransformativePotion(getMainCompanion());
+						potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, getMainCompanion(), false));
+						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_BOTH_TF_OFFER_SEX", getAllCharacters()));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistAcceptedTF, true);
 					}

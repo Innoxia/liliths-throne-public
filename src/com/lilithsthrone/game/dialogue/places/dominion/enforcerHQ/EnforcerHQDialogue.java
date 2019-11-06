@@ -22,7 +22,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
@@ -37,11 +36,31 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.5
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class EnforcerHQDialogue {
 	
+	public static void obtainBraxAsSlave() {
+		Main.game.getPlayer().addSlave(Main.game.getNpc(Brax.class));
+		
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bimbofiedBrax)) {
+			Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfskirt", Colour.CLOTHING_BLACK, false), false);
+			Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_flsldshirt", Colour.CLOTHING_PINK, false), false);
+			Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("innoxia_neck_tie", Colour.CLOTHING_BLACK, false), false);
+			
+			Main.game.getNpc(Brax.class).setObedience(50);
+		} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feminisedBrax)) {
+			Main.game.getNpc(Brax.class).setObedience(-20);
+		} else {
+			Main.game.getNpc(Brax.class).setObedience(-80);
+		}
+		Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_uniques_enfdjacket_brax", Colour.CLOTHING_BLACK, false), false);
+		Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", Colour.CLOTHING_DESATURATED_BROWN, false), false);
+		Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_pcap", Colour.CLOTHING_BLACK, false), false);
+		
+		Main.game.getNpc(Brax.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
+	}
 
 	public static final DialogueNode EXTERIOR = new DialogueNode("Enforcer HQ", "Enforcer HQ", false) {
 		@Override
@@ -267,6 +286,20 @@ public class EnforcerHQDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(!Main.game.isWorkTime()) {
+				if(index==0) {
+					return new Response("Step back",
+							"As there's nobody here to talk to, there's nothing else to be done but step away from the desk.",
+							WAITING_AREA) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_WAITING_AREA, false);
+						}
+					};
+				}
+				return null;
+			}
+			
 			if(index==0) {
 				return new Response("Step back",
 						"Tell Candi that you'll be back later and step away from her desk, allowing her to continue applying her makeup.",
@@ -462,24 +495,8 @@ public class EnforcerHQDialogue {
 										Main.game.getPlayer().removeItemByType(ItemType.CANDI_HUNDRED_KISSES);
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().removedItemFromInventoryText(ItemType.CANDI_HUNDRED_KISSES));
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.SIDE_UTIL_COMPLETE));
-										Main.game.getPlayer().addSlave(Main.game.getNpc(Brax.class));
 										
-										if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bimbofiedBrax)) {
-											Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfskirt", Colour.CLOTHING_BLACK, false), false);
-											Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_flsldshirt", Colour.CLOTHING_PINK, false), false);
-											Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_TIE, Colour.CLOTHING_BLACK, false), false);
-											
-											Main.game.getNpc(Brax.class).setObedience(50);
-										} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feminisedBrax)) {
-											Main.game.getNpc(Brax.class).setObedience(-20);
-										} else {
-											Main.game.getNpc(Brax.class).setObedience(-80);
-										}
-										Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_uniques_enfdjacket_brax", Colour.CLOTHING_BLACK, false), false);
-										Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", Colour.CLOTHING_DESATURATED_BROWN, false), false);
-										Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_pcap", Colour.CLOTHING_BLACK, false), false);
-										
-										Main.game.getNpc(Brax.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
+										obtainBraxAsSlave();
 									}
 								};
 								
@@ -520,7 +537,6 @@ public class EnforcerHQDialogue {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.accessToEnforcerHQ);
-						Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_WAITING_AREA);
 					}
 				};
 
@@ -541,7 +557,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNode INTERIOR_SECRETARY_BRAX = new DialogueNode("Enforcer HQ", "-", false) {
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX = new DialogueNode("Enforcer HQ", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -550,6 +566,16 @@ public class EnforcerHQDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Step back",
+						"Now that you've got what you were after, you can step away from Candi's desk, allowing the bimbo enforcer to continue applying her makeup.",
+						WAITING_AREA) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_WAITING_AREA);
+						}
+					};
+			}
 			return null;
 		}
 	};
@@ -568,7 +594,6 @@ public class EnforcerHQDialogue {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.accessToEnforcerHQ);
-						Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_WAITING_AREA);
 					}
 				};
 
@@ -589,15 +614,25 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNode INTERIOR_SECRETARY_BRAX_BIMBO = new DialogueNode("Enforcer HQ", "-", false) {
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_BIMBO = new DialogueNode("Enforcer HQ", "-", true) {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BIMBO");
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "INTERIOR_SECRETARY_BRAX_BIMBO");
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Step back",
+						"Now that you've got what you were after, you can step away from Candi's desk, allowing the bimbo enforcer to continue applying her makeup.",
+						WAITING_AREA) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_WAITING_AREA);
+						}
+					};
+			}
 			return null;
 		}
 	};

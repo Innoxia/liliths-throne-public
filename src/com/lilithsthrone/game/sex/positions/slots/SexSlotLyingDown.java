@@ -88,7 +88,7 @@ public class SexSlotLyingDown {
 	};
 
 	
-	
+	// Sitting looking down into the person's eyes
 	public static final SexSlot FACE_SITTING = new SexSlot(
 			"Frontal face-sitting",
 			"face-sitting",
@@ -115,6 +115,7 @@ public class SexSlotLyingDown {
 
 	
 
+	// Sitting looking down at the person's lower body
 	public static final SexSlot FACE_SITTING_REVERSE = new SexSlot(
 			"Reverse face-sitting",
 			"reverse face-sitting",

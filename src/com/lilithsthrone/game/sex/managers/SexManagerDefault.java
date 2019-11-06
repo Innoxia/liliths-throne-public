@@ -108,7 +108,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		return areasBannedMap;
 	}
 	
-	private static List<SexActionInterface> possibleActions = new ArrayList<>(), bannedActions = new ArrayList<>();
+	private static List<SexActionInterface> possibleActions = new ArrayList<>();
+	private static List<SexActionInterface> bannedActions = new ArrayList<>();
 	
 	/**
 	 * New:<br/>

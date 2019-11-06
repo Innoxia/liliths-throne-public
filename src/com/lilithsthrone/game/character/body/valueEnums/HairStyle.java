@@ -28,6 +28,7 @@ public enum HairStyle {
 	PIXIE("pixie-cut", HairLength.TWO_SHORT),
 	MOHAWK("mohawk", HairLength.TWO_SHORT),
 	DREADLOCKS("dreadlocks", HairLength.TWO_SHORT),
+	BUN("bun", HairLength.THREE_SHOULDER_LENGTH),
 	BOB_CUT("bob-cut", HairLength.THREE_SHOULDER_LENGTH),
 	CHONMAGE("chonmage", HairLength.THREE_SHOULDER_LENGTH),
 	TOPKNOT("topknot", HairLength.THREE_SHOULDER_LENGTH),
@@ -35,6 +36,7 @@ public enum HairStyle {
 	PONYTAIL("ponytail", HairLength.THREE_SHOULDER_LENGTH),
 	LOW_PONYTAIL("low ponytail", HairLength.THREE_SHOULDER_LENGTH),
 	TWIN_TAILS("twintails", HairLength.THREE_SHOULDER_LENGTH),
+	CHIGNON("chignon", HairLength.FOUR_MID_BACK),
 	BRAIDED("braided", HairLength.FOUR_MID_BACK),
 	TWIN_BRAIDS("twin braids", HairLength.FOUR_MID_BACK),
 	CROWN_BRAID("crown braid", HairLength.FOUR_MID_BACK),
@@ -68,7 +70,7 @@ public enum HairStyle {
 		}
 		
 		// Most likely to have a "normal" hair style:
-		if(Math.random()>0.2f) {
+		if(Math.random()>0.10f) {
 			availableStyles.remove(HairStyle.AFRO);
 			availableStyles.remove(HairStyle.SIDECUT);
 			availableStyles.remove(HairStyle.MOHAWK);

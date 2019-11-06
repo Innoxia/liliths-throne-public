@@ -22,7 +22,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -48,7 +47,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.2
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class GenericSexualPartner extends NPC {
@@ -69,7 +68,8 @@ public class GenericSexualPartner extends NPC {
 	public GenericSexualPartner(Gender gender, WorldType worldLocation, Vector2i location, boolean isImported, Predicate<Subspecies> subspeciesRemovalFilter) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
+				3,
+				null, null, null,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
@@ -91,7 +91,7 @@ public class GenericSexualPartner extends NPC {
 				if(s==Subspecies.REINDEER_MORPH
 						&& Main.game.getSeason()==Season.WINTER
 						&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-					addToSubspeciesMap(10, gender, s, availableRaces);
+					Subspecies.addToSubspeciesMap(10, gender, s, availableRaces);
 					
 				} else if(s.getRace()!=Race.DEMON
 						&& s.getRace()!=Race.ANGEL
@@ -100,13 +100,14 @@ public class GenericSexualPartner extends NPC {
 						&& s!=Subspecies.FOX_ASCENDANT_FENNEC
 						&& s!=Subspecies.SLIME) {
 					if(Subspecies.getMainSubspeciesOfRace(s.getRace())==s) {
-						addToSubspeciesMap(10, gender, s, availableRaces);
+						Subspecies.addToSubspeciesMap(10, gender, s, availableRaces);
 					} else {
-						addToSubspeciesMap(3, gender, s, availableRaces);
+						Subspecies.addToSubspeciesMap(3, gender, s, availableRaces);
 					}
-				}}
+				}
+			}
 			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces);
+			this.setBodyFromSubspeciesPreference(gender, availableRaces, true);
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
@@ -137,6 +138,8 @@ public class GenericSexualPartner extends NPC {
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
+			this.setStartingCombatMoves();
+			loadImages();
 
 			initHealthAndManaToMax();
 		}

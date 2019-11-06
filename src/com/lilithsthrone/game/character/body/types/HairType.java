@@ -78,7 +78,7 @@ public enum HairType implements BodyPartTypeInterface {
 	public boolean isDefaultPlural() {
 		switch(coveringType) {
 			case HAIR_HARPY:
-			case ALLIGATOR_SCALES:
+			case HAIR_SCALES_ALLIGATOR:
 				return true;
 			default:
 				return false;
@@ -89,11 +89,11 @@ public enum HairType implements BodyPartTypeInterface {
 	public String getNameSingular(GameCharacter gc) {
 		switch(coveringType) {
 			case HAIR_HARPY:
-				return "feather";
-			case ALLIGATOR_SCALES:
-				return "scale";
-			case SLIME:
-				return "slime";
+				return "head-feather";
+			case HAIR_SCALES_ALLIGATOR:
+				return "head-scale";
+			case SLIME_HAIR:
+				return "slime-hair";
 			default:
 				return "hair";
 		}
@@ -103,11 +103,11 @@ public enum HairType implements BodyPartTypeInterface {
 	public String getNamePlural(GameCharacter gc) {
 		switch(coveringType) {
 			case HAIR_HARPY:
-				return "feathers";
-			case ALLIGATOR_SCALES:
-				return "scales";
-			case SLIME:
-				return "slime";
+				return "head-feathers";
+			case HAIR_SCALES_ALLIGATOR:
+				return "head-scales";
+			case SLIME_HAIR:
+				return "slime-hair";
 			default:
 				return "hair";
 		}

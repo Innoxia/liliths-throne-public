@@ -8,7 +8,6 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -190,13 +189,6 @@ public class ResponseSex extends Response {
 							return false;
 						}
 						return super.isPositionChangingAllowed(character);
-					}
-					@Override
-					public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-						if(ResponseSex.this.exposeAtStartOfSexMap()!=null) {
-							return ResponseSex.this.exposeAtStartOfSexMap();
-						}
-						return super.exposeAtStartOfSexMap();
 					}
 				};
 			}
@@ -390,13 +382,6 @@ public class ResponseSex extends Response {
 		return sexManager!=null && sexManager.isPlayerDom();
 	}
 	
-	/**
-	 * Override for use in automatically-generated sex managers.
-	 */
-	public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-		return null;
-	}
-	
 	public List<InitialSexActionInformation> getInitialSexActions() {
 		return new ArrayList<>();
 	}
@@ -477,13 +462,6 @@ public class ResponseSex extends Response {
 					return false;
 				}
 				return super.isPositionChangingAllowed(character);
-			}
-			@Override
-			public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-				if(ResponseSex.this.exposeAtStartOfSexMap()!=null) {
-					return ResponseSex.this.exposeAtStartOfSexMap();
-				}
-				return super.exposeAtStartOfSexMap();
 			}
 		};
 	
@@ -573,13 +551,6 @@ public class ResponseSex extends Response {
 				}
 				return super.isPositionChangingAllowed(character);
 			}
-			@Override
-			public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-				if(ResponseSex.this.exposeAtStartOfSexMap()!=null) {
-					return ResponseSex.this.exposeAtStartOfSexMap();
-				}
-				return super.exposeAtStartOfSexMap();
-			}
 		};
 	}
 	
@@ -666,13 +637,6 @@ public class ResponseSex extends Response {
 					return false;
 				}
 				return super.isPositionChangingAllowed(character);
-			}
-			@Override
-			public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-				if(ResponseSex.this.exposeAtStartOfSexMap()!=null) {
-					return ResponseSex.this.exposeAtStartOfSexMap();
-				}
-				return super.exposeAtStartOfSexMap();
 			}
 		};
 	}

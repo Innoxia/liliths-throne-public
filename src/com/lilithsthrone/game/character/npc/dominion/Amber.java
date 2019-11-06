@@ -97,7 +97,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.95
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class Amber extends NPC {
@@ -110,7 +110,9 @@ public class Amber extends NPC {
 		super(isImported, new NameTriplet("Amber"), "Acerbi",
 				"The highest-ranking of Zaranix's maids, Amber is clearly outraged by the fact that you're wandering around her master's house unsupervised.",
 				39, Month.OCTOBER, 17,
-				15, Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
+				15,
+				null, null, null,
+				new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
 		
 	}
 	
@@ -172,7 +174,7 @@ public class Amber extends NPC {
 		// Body:
 		// Add full body reset as this method is called after leaving Zaranix's house:
 		this.setAgeAppearanceDifferenceToAppearAsAge(28);
-		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER);
+		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, false);
 		this.setTailType(TailType.DEMON_HAIR_TIP);
 		this.setWingType(WingType.NONE);
 		this.setLegType(LegType.DEMON_COMMON);

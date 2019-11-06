@@ -5,9 +5,26 @@
 	<p>
 		You find yourself standing before one of the largest frontages in the Shopping Arcade. The words 'Pix's Playground' are emblazoned in bright red lettering above the entrance, and beneath, you read the words 'Dominions #1 Gym!'.
 	</p>
-	<p>
-		Most of the gym's frontage is made up of large glass panels, allowing you to take a good look inside. From what you can see, the interior consists of a wide open space, filled with an impressive variety of gym equipment. Looking through the glass doors of the entrance, you see a dog-girl sitting behind the lobby's front desk.
-	</p>
+		#IF(game.isExtendedWorkTime())
+		<p>
+			Most of the gym's frontage is made up of large glass panels, allowing you to take a good look inside. From what you can see, the interior consists of a wide open space, filled with an impressive variety of gym equipment.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_gymIntroduced))
+				 Moving your gaze over to look through the main entrance's glass doors, you see Pix sitting behind the lobby's front desk.
+			#ELSE
+				 Moving your gaze over to look through the main entrance's glass doors, you see a border-collie-girl sitting behind the lobby's front desk.
+			#ENDIF
+		</p>
+		<p>
+			Although obvious from the fact that all the lights are on and the front desk is staffed, there's a sign hanging on the glass doors which confirms that the gym is currently [style.colourGood(open)], and remains so between the hours of [style.colourMinorGood([unit.time(6)] and [unit.time(22)])].
+		</p>
+		#ELSE
+		<p>
+			Most of the gym's frontage is made up of large glass panels, allowing you to take a good look inside. From what you can see, the interior consists of a wide open space, filled with an impressive variety of gym equipment. Just like the lobby's front desk, however, the entire place seems to be deserted.
+		</p>
+		<p>
+			A sign hanging on the glass doors reveals that the gym is currently [style.colourBad(closed)], and is only [style.colourMinorBad(open between [unit.time(6)] and [unit.time(22)])]. You'll have to come back then if you wanted to work out here.
+		</p>
+		#ENDIF
 	]]>
 	</htmlContent>
 	

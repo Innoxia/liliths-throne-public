@@ -1787,7 +1787,8 @@ public class MainControllerInitMethod {
 					id = slaveId+"_INVENTORY";
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getDialogueFlags().setManagementCompanion(slave);
+							CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), slave);
+//							Main.game.getDialogueFlags().setManagementCompanion(slave);
 							Main.mainController.openInventory(slave, InventoryInteraction.FULL_MANAGEMENT);
 						}, false);
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
@@ -1908,6 +1909,7 @@ public class MainControllerInitMethod {
 								Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementInspectSlaveDialogue(occupant)) {
 									@Override
 									public void effects() {
+										CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), occupant);
 										Main.game.setResponseTab(CompanionManagement.getDefaultResponseTab());
 									}
 								});
@@ -2549,7 +2551,7 @@ public class MainControllerInitMethod {
 				}
 				
 				
-				// Height:
+				// Age:
 				id = "AGE_APPEARANCE_INCREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -6431,9 +6433,10 @@ public class MainControllerInitMethod {
 			}
 		}
 		
-
-		// Save/load enchantment:
-		if(Main.game.isStarted() && Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_GAMBLING)) {
+		
+		// Dice poker:
+		
+		if(Main.game.isStarted() && DicePoker.progress>0) {
 			for(int i=0; i<DicePoker.getPlayerDice().size(); i++) {
 				setDiceHandler(i);
 			}

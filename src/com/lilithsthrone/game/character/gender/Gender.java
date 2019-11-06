@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.gender;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.settings.ContentPreferenceValue;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -177,6 +178,27 @@ public enum Gender {
 				}
 				return Gender.F_V_B_FEMALE;
 				
+			} else {
+				return Gender.M_P_MALE;
+			}
+		}
+		
+		return Util.getRandomObjectFromWeightedMap(genderMap);
+	}
+	
+	public static Gender getGenderFromUserPreferences(Femininity femininity) {
+		Map<Gender, Integer> genderMap = new HashMap<>();
+		
+		for(Gender g : Gender.values()) {
+			if(g.isFeminine() == femininity.isFeminine()
+					&& Main.getProperties().genderPreferencesMap.get(g)>0) {
+				genderMap.put(g, Main.getProperties().genderPreferencesMap.get(g));
+			}
+		}
+		
+		if(genderMap.isEmpty()) {
+			if(femininity.isFeminine()) {
+				return Gender.F_V_B_FEMALE;
 			} else {
 				return Gender.M_P_MALE;
 			}

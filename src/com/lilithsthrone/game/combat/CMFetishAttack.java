@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -481,7 +482,7 @@ public class CMFetishAttack {
 	            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
 	            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you love fucking your relatives, dealing "
 	            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
-	            				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] is not related to you!)]":""));
+	            				+ " [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] is not related to you!)]");
             }
         }
 
@@ -1621,7 +1622,8 @@ public class CMFetishAttack {
         }
 
         private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
-            if(target.getBreastRawMilkStorageValue()==0 || target.getFetishDesire(oppositeFetish).isNegative()) {
+            if((target.getBreastRawMilkStorageValue()==0 && (!target.hasBreastsCrotch() || !Main.game.isCrotchBoobContentEnabled() || target.getBreastCrotchRawMilkStorageValue()==0))
+            	|| target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
             return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
@@ -1641,7 +1643,7 @@ public class CMFetishAttack {
             		(isCrit?"[style.colourExcellent(Critical)]: ":"")
             		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] that you want to milk [npc2.her] [npc2.breasts], dealing "
             				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
-            				+ (target.getBreastRawMilkStorageValue()==0
+            				+ (target.getBreastRawMilkStorageValue()==0 && (!target.hasBreastsCrotch() || !Main.game.isCrotchBoobContentEnabled() || target.getBreastCrotchRawMilkStorageValue()==0)
             						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] is not lactating!)]"
             						:(target.getFetishDesire(oppositeFetish).isNegative()
                     						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]"
@@ -1673,12 +1675,22 @@ public class CMFetishAttack {
 				attackText = UtilText.parse(source, target,
 						(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(grin)] at [npc2.name], gazing at [npc2.her] [npc2.breasts+] as [npc.she] [npc.moansVerb],"
-								+" [npc.speech(I'm going to have fun milking your udders!)]",
+								+" [npc.speech(I'm going to have fun milking your tits!)]",
 							"[npc.Name] hungrily [npc.verb(stare)] at [npc2.namePos] [npc2.breasts+], [npc.moaning],"
 								+" [npc.speech(I can't wait to give you a good milking!)]",
 							"Gazing lustfully at [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out [npc.a_moan+],"
 									+" [npc.speech(I'm going to have fun milking those [npc2.breasts+] of yours!)]")));
 				
+            } else if(target.hasBreastsCrotch() && Main.game.isCrotchBoobContentEnabled() && target.getBreastCrotchRawMilkStorageValue()>0) {
+				attackText = UtilText.parse(source, target,
+						(UtilText.returnStringAtRandom(
+							"[npc.Name] [npc.verb(grin)] at [npc2.name], gazing at [npc2.her] [npc2.crotchBoobs+] as [npc.she] [npc.moansVerb],"
+								+" [npc.speech(I'm going to have fun milking your udders!)]",
+							"[npc.Name] hungrily [npc.verb(stare)] at [npc2.namePos] [npc2.crotchBoobs+], [npc.moaning],"
+								+" [npc.speech(I can't wait to give you a good milking!)]",
+							"Gazing lustfully at [npc2.namePos] [npc2.crotchBoobs+], [npc.name] [npc.verb(let)] out [npc.a_moan+],"
+									+" [npc.speech(I'm going to have fun milking those [npc2.breasts+] of yours!)]")));
+            	
 			} else {
 				attackText = UtilText.parse(source, target,
 						(UtilText.returnStringAtRandom(
@@ -1737,7 +1749,8 @@ public class CMFetishAttack {
         }
 
         private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
-            if(source.getBreastRawMilkStorageValue()==0 || target.getFetishDesire(oppositeFetish).isNegative()) {
+            if((source.getBreastRawMilkStorageValue()==0 && (!source.hasBreastsCrotch() || !Main.game.isCrotchBoobContentEnabled() || source.getBreastCrotchRawMilkStorageValue()==0))
+            		|| target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
             return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
@@ -1745,7 +1758,8 @@ public class CMFetishAttack {
         
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
-            return new Value<>(source.hasFetish(associatedFetish) && source.hasBreasts(), "Available to characters who both have breasts and who have the "+associatedFetish.getName(source)+" fetish.");
+            return new Value<>(source.hasFetish(associatedFetish) && (source.hasBreasts() || (source.hasBreastsCrotch() && Main.game.isCrotchBoobContentEnabled())),
+            		"Available to characters who both have breasts and who have the "+associatedFetish.getName(source)+" fetish.");
         }
 
         @Override
@@ -1757,7 +1771,11 @@ public class CMFetishAttack {
             		(isCrit?"[style.colourExcellent(Critical)]: ":"")
             		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by offering to let [npc2.herHim] milk [npc.her] tits, dealing "
             				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
-            				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
+            				+ (target.getFetishDesire(oppositeFetish).isNegative()
+            						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]"
+            						:(source.getBreastRawMilkStorageValue()==0 && (!source.hasBreastsCrotch() || !Main.game.isCrotchBoobContentEnabled() || source.getBreastCrotchRawMilkStorageValue()==0)
+            							?" [style.italicsMinorBad(Damage is reduced to 1 as [npc.nameIsFull] not lactating!)]"
+            							:"")));
         }
 
         @Override
@@ -1765,7 +1783,7 @@ public class CMFetishAttack {
             DamageType damageType = getDamageType(source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
-            				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
+            				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish, or if [npc.nameIsFull] not lactating.)]");
         }
 
         @Override
@@ -1780,21 +1798,46 @@ public class CMFetishAttack {
             	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
-            return formatAttackOutcome(source, target,
-            		(UtilText.returnStringAtRandom(
-    						"Pushing [npc.her] [npc.breasts+] together, [npc.name] [npc.verb(pout)] at [npc2.name], "
-    								+ "[npc.speech(My breasts are so sore! Please, I need milking!)]",
-    						"Pushing [npc.her] [npc.breasts+] together, [npc.name] [npc.verb(let)] out a whine as [npc.she] [npc.verb(bat)] [npc.her] eyelids at [npc2.name], "
-    								+ "[npc.speech(I'm so full of milk! I need help!)]",
-    						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] [npc.verb(bite)] [npc.her] lip before pouting at [npc2.name], "
-    								+ "[npc.speech(Please, I need milking!)]",
-    						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] [npc.verb(bite)] [npc.her] lip before pouting at [npc2.name], "
-    								+ "[npc.speech(~Aah!~ I'm so full of milk! Please, I need your help!)]"))+dealtDamage.getKey(),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
-            		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
-            			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            if(source.hasBreasts()) {
+                return formatAttackOutcome(source, target,
+                		(UtilText.returnStringAtRandom(
+        						"Pushing [npc.her] [npc.breasts+] together, [npc.name] [npc.verb(pout)] at [npc2.name], "
+        								+ "[npc.speech(My breasts are so sore! Please, I need milking!)]",
+        						"Pushing [npc.her] [npc.breasts+] together, [npc.name] [npc.verb(let)] out a whine as [npc.she] [npc.verb(bat)] [npc.her] eyelids at [npc2.name], "
+        								+ "[npc.speech(I'm so full of milk! I need help!)]",
+        						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] [npc.verb(bite)] [npc.her] lip before pouting at [npc2.name], "
+        								+ "[npc.speech(Please, I need milking!)]",
+        						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] [npc.verb(bite)] [npc.her] lip before pouting at [npc2.name], "
+        								+ "[npc.speech(~Aah!~ I'm so full of milk! Please, I need your help!)]"))+dealtDamage.getKey(),
+                		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
+                		(isCrit
+                			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+                			:null),
+                		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            	
+            } else { // Crotch boobs:
+                return formatAttackOutcome(source, target,
+                		(UtilText.returnStringAtRandom(
+        						"Presenting [npc.her] [npc.crotchBoobs+] to [npc2.name], [npc.name] [npc.verb(pout)] and [npc.verb(whine)], "
+        								+ "[npc.speech(My teats are so sore! Please, I need milking!)]",
+        						"Presenting [npc.her] [npc.crotchBoobs+] to [npc2.name], [npc.name] [npc.verb(bat)] [npc.her] eyelids and [npc.verb(whine)], "
+        								+ "[npc.speech(I'm so full of milk! I need help!)]",
+        						(source.isTaur()
+        							?null
+        							:"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] [npc.verb(bite)] [npc.her] lip before pouting at [npc2.name], "
+        								+ "[npc.speech(Please, I need milking!)]"),
+        						(source.isTaur()
+        							?null
+        							:"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] [npc.verb(bite)] [npc.her] lip before pouting at [npc2.name], "
+    									+ "[npc.speech(~Aah!~ I'm so full of milk! Please, I need your help!)]")))
+                				+dealtDamage.getKey(),
+                		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
+                		(isCrit
+                			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+                			:null),
+                		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            	
+            }
         }
 
         @Override

@@ -1,6 +1,7 @@
 package com.lilithsthrone.controller;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +34,7 @@ import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInventoryEven
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipMoveEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipResponseDescriptionEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipResponseMoveEventListener;
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterChangeEventListener;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -102,6 +104,9 @@ import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.time.DateAndTime;
+import com.lilithsthrone.utils.time.DayPeriod;
+import com.lilithsthrone.utils.time.SolarElevationAngle;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
@@ -344,6 +349,9 @@ public class MainController implements Initializable {
 					@Override
 					public void effects() {
 						Main.game.setResponseTab(CompanionManagement.getDefaultResponseTab());
+						if(CompanionManagement.getCoreNode()==OccupantManagementDialogue.SLAVE_LIST) {
+							CompanionManagement.initManagement(null, 0, null);
+						}
 					}
 				});
 				
@@ -479,54 +487,12 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-//							int mines = 10;
-//							int gridSize = 8;
-//							String[][] grid = new String[gridSize][gridSize];
-//							String mine = "||:boom:||";
-//							String[] counts = new String[] {":zero:", ":one:", ":two:", ":three:", ":four:", ":five:", ":six:", ":seven:", ":eight:"};
-//							for(int i=mines; i>0; i--) {
-//								int rndX = Util.random.nextInt(gridSize);
-//								int rndY = Util.random.nextInt(gridSize);
-//								while(grid[rndX][rndY]==mine) {
-//									rndX = Util.random.nextInt(gridSize);
-//									rndY = Util.random.nextInt(gridSize);
-//								}
-//								grid[rndX][rndY] = mine;
+//							for(SolarElevationAngle sea : SolarElevationAngle.values()) {
+//								LocalDateTime[] ldt = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), sea, Game.DOMINION_LONGITUDE, Game.DOMINION_LATITUDE);
+//								System.out.println(sea+": "+ ldt[0] + " | " + ldt[1]);
 //							}
-//							for(int i=0;i<gridSize;i++) {
-//								for(int j=0;j<gridSize;j++) {
-//									if(grid[i][j]!=mine) {
-//										int count = 0;
-//										for(int x=-1;x<=1;x++) {
-//											for(int y=-1;y<=1;y++) {
-//												if(i+x>=0 && i+x<gridSize && j+y>=0 && j+y<gridSize) {
-//													if(grid[i+x][j+y]==mine) {
-//														count++;
-//													}
-//												}
-//											}
-//										}
-//										grid[i][j] = "||"+counts[count]+"||";
-//									}
-//								}
-//							}
-//							for(int i=0;i<gridSize;i++) {
-//								for(int j=0;j<gridSize;j++) {
-//									System.out.print(grid[i][j]);
-//								}
-//								System.out.println();
-//							}
-
-//							System.out.println();
-//							for(char c : "hooded cloak".toCharArray()) {
-//								System.out.print("["+c+","+(int)c+"]");
-//							}
-//							System.out.println();
-//							for(char c : "hooded cloak".toCharArray()) {
-//								System.out.print("["+c+","+(int)c+"]");
-//							}
-							
-//							Main.game.getPlayer().setArousal(99);
+//							
+//							System.out.println(DateAndTime.getDayPeriod(Main.game.getDateNow(), Game.DOMINION_LONGITUDE, Game.DOMINION_LATITUDE));
 						}
 						 
 
@@ -1419,7 +1385,7 @@ public class MainController implements Initializable {
 		String id = "TAIL_COUNT_"+i;
 		if (((EventTarget) document.getElementById(id)) != null) {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setTailCount(i);
+				BodyChanging.getTarget().setTailCount(i, false);
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
@@ -1477,7 +1443,7 @@ public class MainController implements Initializable {
 			id = invSlot.toString() + "Slot";
 			if (!invSlot.isWeapon()) {
 				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
-					if(!RenderingEngine.ENGINE.isRenderingTattoosLeft()) {
+					if(!RenderingEngine.ENGINE.isRenderingTattoosLeft() || invSlot.isJewellery()) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(Main.game.getPlayer(), invSlot);
 						addEventListener(documentAttributes, id, "click", el, false);
 					}
@@ -1569,11 +1535,17 @@ public class MainController implements Initializable {
 				MainController.updateUI();
 			}, false);
 			
+			DayPeriod dp = DateAndTime.getDayPeriod(Main.game.getDateNow(), Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
+			LocalDateTime[] ldt = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
+			
 			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
-			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Toggle Time Display",
-					"Toggle the time format between 24 hour and 12 hour (AM/PM) display.<br/>"
-					+ "The current time is: "+Units.time(Main.game.getDateNow()));
+			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
+					(Main.game.isDayTime()?"Day-time":"Night-time"),
+					"Current time: "+Units.time(Main.game.getDateNow())+" (<span style='color:"+dp.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(dp.getName())+"</span>)<br/>"
+					+ "Sunrise: [style.colourYellow("+Units.dateTime(ldt[0])+")]<br/>"
+					+ "Sunset: [style.colourOrange("+Units.dateTime(ldt[1])+")]<br/>"
+					+ "<i>Click to toggle the time display between a 24-hour and 12-hour clock.</i>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 		
@@ -1584,8 +1556,6 @@ public class MainController implements Initializable {
 			TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setEssence(TFEssence.ARCANE);
 			addEventListener(documentAttributes, "ESSENCE_" + TFEssence.ARCANE.hashCode(), "mouseenter", el2, false);
 		}
-		
-		
 		
 		Attribute[] attributes = {
 				Attribute.HEALTH_MAXIMUM,
@@ -1853,7 +1823,7 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, id, "mouseenter", el2, false);
 						
 					} else {
-						if(!RenderingEngine.ENGINE.isRenderingTattoosRight()) {
+						if(!RenderingEngine.ENGINE.isRenderingTattoosRight() || invSlot.isJewellery()) {
 							InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(RenderingEngine.getCharacterToRender(), invSlot);
 							addEventListener(documentRight, id, "click", el, false);
 						}

@@ -55,9 +55,9 @@
 			#ENDIF
 		#ELSE
 			#IF (npc.hasFetish(FETISH_PREGNANCY))
-				[npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
+				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
 			#ELSE
-				[npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
+				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
 			#ENDIF
 		#ENDIF
 	</p>
@@ -473,6 +473,55 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- OCCUPANT_JOB_SUGGESTION -->
+	
+	<htmlContent tag="OCCUPANT_JOB_SUGGESTION_CHANGE"><![CDATA[
+	<p>
+		Although [npc.name] is currently employed, you aren't sure if working as [npc.a_job] is really suitable for [npc.herHim]. Knowing that [npc.she] trusts your opinion, you wonder if you should suggest that [npc.she] starts looking for a different job...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_JOB_SUGGESTION"><![CDATA[
+	<p>
+		Although [npc.name] is currently looking for a job, you aren't sure if [npc.sheIs] going to end up finding one that's suitable for [npc.herHim]. Knowing that [npc.she] trusts your opinion, you wonder if you should suggest the sort of job that [npc.she] should be looking for...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OCCUPANT_JOB_SUGGESTION_MADE -->
+	
+	<htmlContent tag="OCCUPANT_JOB_SUGGESTION_MADE_CHANGE"><![CDATA[
+	<p>
+		Not liking the fact that [npc.name] is working as [npc.a_job], you suggest to [npc.herHim] that [npc.she] should start looking for a job as [npc.a_desiredJob].
+	</p>
+	<p>
+		#IF(npc.isShy())
+			Casting [npc.her] gaze to the floor, [npc.name] shyly shuffles [npc.her] [npc.feet] as [npc.she] replies to your suggestion, [npc.speech(Oh, well, if you think that's for the best, [pc.name]... I'll start looking for an opening as [npc.a_desiredJob] right away...)]
+		#ELSE
+			Letting out a contemplative hum, [npc.name] replies to your suggestion, [npc.speech(You know, [pc.name], I <i>had</i> been thinking about a change of job... I'll start looking for an opening as [npc.a_desiredJob] right away!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_JOB_SUGGESTION_MADE"><![CDATA[
+	<p>
+		Thinking that you have the perfect suggestion for [npc.name], you tell [npc.herHim] that [npc.she] should start looking for a job as [npc.a_desiredJob].
+	</p>
+	<p>
+		#IF(npc.isShy())
+			Casting [npc.her] gaze to the floor, [npc.name] shyly shuffles [npc.her] [npc.feet] as [npc.she] replies, [npc.speech(Oh, well, if you think that's for the best, [pc.name]... I'll start looking for an opening as [npc.a_desiredJob] right away...)]
+		#ELSE
+			Letting out a contemplative hum, [npc.name] replies, [npc.speech(You know, [pc.name], I <i>had</i> been thinking about that sort of thing... I'll start looking for an opening as [npc.a_desiredJob] right away!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<htmlContent tag="AFTER_SEX_THREESOME"><![CDATA[
 	<p>
 		You, [npc.name], and [npc2.name] all collapse down onto the bed together, panting and sighing as you all press closely against one another. After spending some time getting your breath back, the three of you start to get your things together, before eventually standing up and smiling at one another.
@@ -657,9 +706,9 @@
 			#ENDIF
 		#ELSE
 			#IF (npc.hasFetish(FETISH_PREGNANCY))
-				[npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
+				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
 			#ELSE
-				[npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
+				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
 			#ENDIF
 		#ENDIF
 	</p>

@@ -73,7 +73,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class ZaranixMaidKelly extends NPC {
@@ -86,7 +86,9 @@ public class ZaranixMaidKelly extends NPC {
 		super(isImported, new NameTriplet("Kelly"), "Lasiellemartu",
 				"One of Zaranix's succubi maid twins, Kelly is assigned by her master to keep the first floor clean.",
 				26, Month.SEPTEMBER, 20,
-				10, Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_MAID, true);
+				10,
+				null, null, null,
+				new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_MAID, true);
 
 		this.setPlayerKnowsName(true);
 		
@@ -125,7 +127,6 @@ public class ZaranixMaidKelly extends NPC {
 	
 	@Override
 	public void setStartingBody(boolean setPersona) {
-		
 		// Persona:
 
 		if(setPersona) {
@@ -145,7 +146,7 @@ public class ZaranixMaidKelly extends NPC {
 		// Body:
 		// Add full body reset as this method is called after leaving Zaranix's house:
 		this.setAgeAppearanceDifferenceToAppearAsAge(18);
-		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER);
+		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, false);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.NONE);
 		this.setLegType(LegType.DEMON_COMMON);

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="roomMilkingGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#roomMilkingGradient"/>
+    </defs>
+    <g transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-width=".139" d="M21.421 1036.718c-2.278-.401-9.09.136-7.968-2.546-8.05-1.142-.647-3.605 3.841-3.622l3.654-.014-.012 2.069c2.644 5.018 21.397 3.684 21.602-.328.019-.374.06-1.044.067-1.454 6.396.693 12.713 2.289 8.584 4.38 4.93 1.439-1.933 3.663-7.574 2.13l-4.83-.154c-4.068 2.259-18.452 1.837-17.364-.461z"/>
+        <ellipse cx="18.772" cy="1037.729" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".139" rx="1.273" ry=".45"/>
+        <ellipse cx="37.088" cy="1040.259" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".139" rx="1.273" ry=".45"/>
+        <ellipse cx="40.565" cy="1039.917" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".139" rx="1.77" ry=".73"/>
+        <ellipse cx="36.498" cy="1039.017" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".139" rx=".949" ry=".312"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-width=".167" d="M26.153 996.4c-1.223.74-2.95 1.26-3.394 2.529-.324.922.676 1.37 1.536 1.778l.063-.105c-.456-.564-1.441-.485-1.262-1.546.182-1.072 2.007-1.78 3.184-2.403z"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-width=".167" d="M25.625 998.385l-.02-2.112c-.01-.961 1.44-.676 1.583 0l.443 2.09zM21.592 1032.023c3.28 4.86 19.278 3.1 20.23.127l.288-22.256c-4.7 2.24-17.32 2.524-20.797-.063z"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-width=".167" d="M21.296 1009.302l2.6-4.741c4.294 1.315 12.137.977 15.627-.01l2.58 4.717c-4.33 1.985-15.382 2.809-20.807.03zM28.001 999.936c.776.054 1.56.084 2.342.097-1.122.133-1.315.292-2.245.316-.174 0-.08-.218-.097-.413z"/>
+        <path fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".132" d="M31.642 997.905c-4.377 0-7.926.373-7.925.833 0 .46 3.549.832 7.925.832 4.377 0 7.925-.372 7.926-.832 0-.46-3.548-.833-7.926-.833z"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-width=".167" d="M38.411 999.104l-.01-1.564c-.006-.887-1.586-1.45-1.69-.021l-.126 1.752c.871.135 1.311-.066 1.826-.167zM22.833 999.589c-.858.433-.55.91-.27 1.344l4.51.791.126-.795.128-.803z"/>
+        <ellipse cx="27.305" cy="1000.963" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".125" rx=".664" ry=".806"/>
+        <ellipse cx="37.607" cy="997.775" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".167" rx=".48" ry=".473"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-width=".167" d="M27.326 1001.104c4.003.122 7.093-1.336 10.543-3.067.295-.21.206-.62-.122-.622-3.238 1.946-6.396 3.068-10.351 3.3-.342.13-.191.26-.07.389z"/>
+        <ellipse cx="26.386" cy="996.453" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".125" rx=".343" ry=".328"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-width=".167" d="M24.253 1004.065c.01-.882-.002-1.649-.019-2.42 1.211.188 1.739.413 3.09.523.289.024.662-.193 1.168-.678 1.753-.01 5.4-.974 6.084-1.541a58.483 58.483 0 0 0 4.52-.43l.023 4.462c-4.93.942-10.96.607-14.866.085z"/>
+    </g>
+</svg>

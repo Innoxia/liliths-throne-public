@@ -853,8 +853,8 @@ public class CompanionManagement {
 						+ "</div>");
 			
 			for(SlaveJob job : SlaveJob.values()) {
-				affectionChange = job.getAffectionGain(character);
-				obedienceChange = job.getObedienceGain(character);
+				affectionChange = job.getAffectionGain(Main.game.getHourOfDay(), character);
+				obedienceChange = job.getObedienceGain(Main.game.getHourOfDay(), character);
 				int income = job.getFinalHourlyIncomeAfterModifiers(character);
 				boolean isCurrentJob = character.hasSlaveJobAssigned(job);
 				

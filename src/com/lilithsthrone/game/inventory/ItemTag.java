@@ -30,7 +30,7 @@ public enum ItemTag {
 	ESSENCE(false),
 	ATTRIBUTE_TF_ITEM(false),
 	RACIAL_TF_ITEM(false),
-	MISC_TF_ITEM(false),
+	MISC_TF_ITEM(false), // Fetish or non-racial body part transformations
 	BOOK(false), 
 	GIFT(false),
 	DOMINION_ALLEYWAY_SPAWN(false),

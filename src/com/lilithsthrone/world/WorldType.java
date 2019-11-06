@@ -13,7 +13,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.5
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public enum WorldType {
@@ -686,6 +686,8 @@ public enum WorldType {
 					
 					new Value<>(new Color(0x00ff00), PlaceType.GAMBLING_DEN_ENTRANCE),
 					
+					new Value<>(new Color(0x4bb1d0), PlaceType.GAMBLING_DEN_OFFICE),
+					
 					new Value<>(new Color(0xffff00), PlaceType.GAMBLING_DEN_TRADER),
 					
 					new Value<>(new Color(0x0080ff), PlaceType.GAMBLING_DEN_GAMBLING),
@@ -698,24 +700,36 @@ public enum WorldType {
 		public boolean isRevealedOnStart() {
 			return true;
 		}
-	}
-	;
+	},
 	
-//	JUNGLE(6,
-//			"jungle",
-//			Colour.BASE_GREEN_LIME,
-//			240,
-//			PlaceType.WORLD_MAP_DOMINION,
-//			PlaceType.JUNGLE_ENTRANCE,
-//			PlaceType.JUNGLE_PATH,
-//			PlaceType.JUNGLE_DENSE_JUNGLE,
-//			Util.newArrayListOfValues(
-//					PlaceType.JUNGLE_BROTHEL,
-//					PlaceType.JUNGLE_CLUB,
-//					PlaceType.JUNGLE_ENTRANCE),
-//
-//			Util.newArrayListOfValues(PlaceType.JUNGLE_TENTACLE_QUEENS_LAIR));
+	RAT_WARRENS("Rat Warrens",
+			Colour.BASE_BROWN,
+			1,
+			false,
+			TeleportPermissions.OUTGOING_ONLY,
+			"/com/lilithsthrone/res/map/submission/ratWarrens/ratWarrens.png",
+			PlaceType.WORLD_MAP_DOMINION,
+			PlaceType.RAT_WARRENS_ENTRANCE,
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.RAT_WARRENS_CORRIDOR_LEFT),
+					new Value<>(new Color(0xb9b9b9), PlaceType.RAT_WARRENS_CORRIDOR),
+					new Value<>(new Color(0x3b3b3b), PlaceType.RAT_WARRENS_CORRIDOR_RIGHT),
+					new Value<>(new Color(0x00ff00), PlaceType.RAT_WARRENS_ENTRANCE),
 
+					new Value<>(new Color(0x00ffff), PlaceType.RAT_WARRENS_CHECKPOINT_LEFT),
+					new Value<>(new Color(0x80ffff), PlaceType.RAT_WARRENS_CHECKPOINT_RIGHT),
+					
+					new Value<>(new Color(0xff8080), PlaceType.RAT_WARRENS_DORMITORY_LEFT),
+					new Value<>(new Color(0xff8000), PlaceType.RAT_WARRENS_DORMITORY_RIGHT),
+					
+					new Value<>(new Color(0x0000ff), PlaceType.RAT_WARRENS_DICE_DEN),
+					new Value<>(new Color(0xffff00), PlaceType.RAT_WARRENS_MILKING_ROOM),
+					new Value<>(new Color(0x8000ff), PlaceType.RAT_WARRENS_VENGARS_HALL),
+					new Value<>(new Color(0x800080), PlaceType.RAT_WARRENS_VENGARS_BEDROOM)
+					
+					)),
+	;
 	
 	private final String name;
 	private final String fileLocation;

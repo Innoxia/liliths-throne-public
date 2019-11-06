@@ -855,13 +855,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 		colourSet.clear();
 		this.allAvailablePatternSecondaryColours = new ArrayList<>();
-//		if(availablePatternSecondaryColours!=null) {
-//			colourSet.addAll(availablePatternSecondaryColours);
-//		}
-//		if(availablePatternSecondaryDyeColours!=null) {
-//			colourSet.addAll(availablePatternSecondaryDyeColours);
-//		}
-//		this.allAvailablePatternSecondaryColours.addAll(colourSet);
 		this.allAvailablePatternSecondaryColours.addAll(this.availablePatternSecondaryColours);
 		this.allAvailablePatternSecondaryColours.addAll(this.availablePatternSecondaryDyeColours);
 		this.allAvailablePatternSecondaryColours.sort((c1, c2) -> c1.compareTo(c2));
@@ -881,13 +874,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 		colourSet.clear();
 		this.allAvailablePatternTertiaryColours = new ArrayList<>();
-		if(availablePatternTertiaryColours!=null) {
-			colourSet.addAll(availablePatternTertiaryColours);
-		}
-		if(availablePatternTertiaryDyeColours!=null) {
-			colourSet.addAll(availablePatternTertiaryDyeColours);
-		}
-		this.allAvailablePatternTertiaryColours.addAll(colourSet);
+		this.allAvailablePatternTertiaryColours.addAll(this.availablePatternTertiaryColours);
+		this.allAvailablePatternTertiaryColours.addAll(this.availablePatternTertiaryDyeColours);
 		this.allAvailablePatternTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
 	}
 

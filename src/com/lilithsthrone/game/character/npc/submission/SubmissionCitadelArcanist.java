@@ -1,8 +1,10 @@
 package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -55,11 +57,9 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
-import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
@@ -119,6 +119,9 @@ public class SubmissionCitadelArcanist extends NPC {
 					PersonalityTrait.SELFISH);
 		}
 		setStartingCombatMoves();
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.5")) {
+			this.setTailCount(3, true);
+		}
 	}
 
 	@Override
@@ -157,7 +160,7 @@ public class SubmissionCitadelArcanist extends NPC {
 		}
 		
 		// Body:
-		this.setTailCount(3);
+		this.setTailCount(3, true);
 
 		// Core:
 		this.setHeight(172);
@@ -302,115 +305,108 @@ public class SubmissionCitadelArcanist extends NPC {
 	}
 
 	// TF potion:
-
-	@Override
-	public Value<String, AbstractItem> getTransformativePotion(GameCharacter target, boolean generateNew) {
-		if(generateNew) {
-			this.heldTransformativePotion = generateTransformativePotion(target);
-		}
-		
-		return this.heldTransformativePotion;
-	}
 	
 	@SuppressWarnings("fallthrough")
 	@Override
-	public Value<String, AbstractItem> generateTransformativePotion(GameCharacter target) {
+	public Value<AbstractItemType, Map<ItemEffect, String>> generateTransformativePotion(GameCharacter target) {
 		
 		AbstractItemType itemType = ItemType.RACE_INGREDIENT_FOX_MORPH;
 		
-		List<ItemEffect> effects = new ArrayList<>();
+		Map<ItemEffect, String> effects = new HashMap<>();
 		
-		List<ItemEffect> minimumEffects = new ArrayList<>();
-		List<ItemEffect> reducedEffects = new ArrayList<>();
-		List<ItemEffect> maximumEffects = new ArrayList<>();
+		Map<ItemEffect, String> minimumEffects = new HashMap<>();
+		Map<ItemEffect, String> reducedEffects = new HashMap<>();
+		Map<ItemEffect, String> maximumEffects = new HashMap<>();
 		
 		switch(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(Subspecies.FOX_MORPH)) {
 			case MAXIMUM:
 			case NORMAL:
-				maximumEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_SKIN, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1));
+				maximumEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_SKIN, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), "");
 				if(Main.getProperties().multiBreasts>0) {
 					if(target.getBreastRows()<3) {
-						maximumEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_COUNT, TFPotency.MINOR_BOOST, 1));
+						maximumEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_COUNT, TFPotency.MINOR_BOOST, 1), "");
 					}
 					if(target.getBreastRows()<2) {
-						maximumEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_COUNT, TFPotency.MINOR_BOOST, 1));
+						maximumEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_COUNT, TFPotency.MINOR_BOOST, 1), "");
 					}
 				}
-				maximumEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1));
+				maximumEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), "");
 //				break;
 			case REDUCED:
-				reducedEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1));
-				reducedEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1));
-				reducedEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_LEGS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1));
-				reducedEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ARMS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1));
+				reducedEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), "");
+				reducedEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), "");
+				reducedEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_LEGS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), "");
+				reducedEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ARMS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), "");
 //				break;
 				
 			case MINIMUM:
-				minimumEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EARS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1));
-				minimumEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EYES, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1));
-				minimumEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_TAIL, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1));
-				minimumEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1));
-				minimumEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1));
-//				minimumEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ANTENNA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1));
-				minimumEffects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1));
+				minimumEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EARS, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), "");
+				minimumEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EYES, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), "");
+				minimumEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_TAIL, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), "");
+				minimumEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), "");
+				minimumEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "");
+//				minimumEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ANTENNA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "");
+				minimumEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "");
 //				break;
 			case HUMAN:
 				break;
 		}
 		
-		effects.addAll(minimumEffects);
+		for(Entry<ItemEffect, String> e : minimumEffects.entrySet()) {
+			effects.put(e.getKey(), e.getValue());
+		}
 		
-		effects.addAll(getFeminineEffects(target, itemType));
+		for(Entry<ItemEffect, String> e : getFeminineEffects(target, itemType).entrySet()) {
+			effects.put(e.getKey(), e.getValue());
+		}
 		
 		// Remove penis:
-		effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1));
+		effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "");
 		
 		// Add wet vagina:
-		effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1));
-		effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
-		effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
-		effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1));
+		effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "");
+		effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1), "");
+		effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1), "");
+		effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1), "");
 
-		effects.addAll(reducedEffects);
-
-		effects.addAll(maximumEffects);
+		for(Entry<ItemEffect, String> e : reducedEffects.entrySet()) {
+			effects.put(e.getKey(), e.getValue());
+		}
+		for(Entry<ItemEffect, String> e : maximumEffects.entrySet()) {
+			effects.put(e.getKey(), e.getValue());
+		}
 		
-		
-		AbstractItem ingredient = AbstractItemType.generateItem(itemType);
-		AbstractItem potion = EnchantingUtils.craftItem(ingredient, effects);
-		potion.setName("Foxy Fuck");
-		
-		return new Value<>("", potion);
+		return new Value<>(itemType, effects);
 	}
 	
-	private static List<ItemEffect> getFeminineEffects(GameCharacter target, AbstractItemType itemType) {
-		List<ItemEffect>effects = new ArrayList<>();
+	private static Map<ItemEffect, String> getFeminineEffects(GameCharacter target, AbstractItemType itemType) {
+		Map<ItemEffect, String> effects = new HashMap<>();
 		
 		for(int i=target.getFemininityValue(); i<Femininity.FEMININE.getMinimumFemininity(); i+=15) { // Turn feminine:
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_BOOST, 1));
+			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_BOOST, 1), "");
 		}
 		if(target.getMuscleValue()>Muscle.THREE_MUSCULAR.getMedianValue()) {
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1));
+			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1), "");
 		}
 		if(target.getBodySizeValue()>BodySize.TWO_AVERAGE.getMinimumValue()) {
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_DRAIN, 1));
+			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_DRAIN, 1), "");
 		}
 		for(int i=target.getBreastSize().getMeasurement(); i<CupSize.C.getMeasurement(); i+=3) {
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1));
+			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1), "");
 		}
 		if(target.getHipSize().getValue()<HipSize.THREE_GIRLY.getValue()) {
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1));
+			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1), "");
 		}
 		if(target.getAssSize().getValue()<AssSize.THREE_NORMAL.getValue()) {
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1));
+			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1), "");
 		}
 		if(target.getHairRawLengthValue()>0) { // If bald, leave bald.
 			for(int i=target.getHairRawLengthValue(); i<HairLength.THREE_SHOULDER_LENGTH.getMaximumValue(); i+=15) {
-				effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1));
+				effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1), "");
 			}
 		}
 		for(int i=target.getLipSizeValue(); i<LipSize.TWO_FULL.getValue(); i+=2) {
-			effects.add(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1));
+			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1), "");
 		}
 		
 		return effects;

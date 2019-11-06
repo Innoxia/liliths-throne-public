@@ -1,13 +1,16 @@
 package com.lilithsthrone.game.dialogue.companions;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -20,7 +23,10 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.time.DateAndTime;
+import com.lilithsthrone.utils.time.SolarElevationAngle;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -274,6 +280,22 @@ public class OccupantDialogue {
 							}
 						};
 					}
+					
+				} else if (index == 6) {
+					return new Response(
+							hasJob()
+								?"Suggest job change"
+								:"Suggest job",
+							UtilText.parse(occupant(),
+									hasJob()
+										?"Tell [npc.name] that you think [npc.she] should look for a new job."
+										:"Tell [npc.name] what sort of job you think [npc.she] should be looking for."),
+							OCCUPANT_JOB_SUGGESTION) {
+						@Override
+						public void effects() {
+							applyReactionReset();
+						}
+					};
 					
 				} else if (index == 10) {
 					if(hasJob()) {
@@ -757,7 +779,7 @@ public class OccupantDialogue {
 					}
 
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							Main.game.setResponseTab(0);
@@ -931,6 +953,108 @@ public class OccupantDialogue {
 			return OCCUPANT_START.getResponse(responseTab, index);
 		}
 	};
+
+
+	public static final DialogueNode OCCUPANT_JOB_SUGGESTION = new DialogueNode("", "", true) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
+		
+		@Override
+		public String getLabel(){
+			return "Talking with [npc.Name]";
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			if(hasJob()) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_JOB_SUGGESTION_CHANGE", occupant()));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_JOB_SUGGESTION", occupant()));
+			}
+			
+			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			List<Occupation> availableOccuaptions = new ArrayList<>();
+			for(Occupation occ : Occupation.values()) {
+				if(!occ.isAvailableToPlayer()
+						&& occ.isAvailable(occupant())
+						&& occ!=Occupation.NPC_UNEMPLOYED
+						&& !occ.isLowlife()) {
+					availableOccuaptions.add(occ);
+				}
+			}
+			
+			if(index==0) {
+				return new Response("Back", UtilText.parse(occupant(), "Decide against telling [npc.name] what job you think [npc.she] should have."), isApartment?OCCUPANT_APARTMENT:OCCUPANT_START);
+				
+			} else if(index-1<availableOccuaptions.size()) {
+				Occupation job = availableOccuaptions.get(index-1);
+				if(occupant().getHistory().equals(job)) {
+					return new Response(Util.capitaliseSentence(job.getName()),
+							UtilText.parse(occupant(), "[npc.Name] is already employed as "+UtilText.generateSingularDeterminer(job.getName())+" "+job.getName()+"."),
+							null);
+					
+				} else if(occupant().getDesiredJobs().contains(job)) {
+					return new ResponseEffectsOnly(Util.capitaliseSentence(job.getName()),
+							UtilText.parse(occupant(), "[npc.Name] is already looking for a job as "+UtilText.generateSingularDeterminer(job.getName())+" "+job.getName()+".")) {
+						@Override
+						public Colour getHighlightColour() {
+							return Colour.GENERIC_MINOR_GOOD;
+						}
+					};
+					
+				} else {
+					return new Response(Util.capitaliseSentence(job.getName()),
+							UtilText.parse(occupant(), "Tell [npc.name] that [npc.she] should look for a job as "+UtilText.generateSingularDeterminer(job.getName())+" "+job.getName()+"."),
+							OCCUPANT_JOB_SUGGESTION_MADE) {
+						@Override
+						public void effects() {
+							occupant().clearDesiredJobs();
+							occupant().addDesiredJob(job);
+						}
+					};
+				}
+			}
+			
+			return null;
+		}
+	};
+	
+	public static final DialogueNode OCCUPANT_JOB_SUGGESTION_MADE = new DialogueNode("", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			if(hasJob()) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_JOB_SUGGESTION_MADE_CHANGE", occupant()));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_JOB_SUGGESTION_MADE", occupant()));
+			}
+			
+			return UtilText.parse(occupant(), UtilText.nodeContentSB.toString());
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return (isApartment?OCCUPANT_APARTMENT:OCCUPANT_START).getResponseTabTitle(index);
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return (isApartment?OCCUPANT_APARTMENT:OCCUPANT_START).getResponse(responseTab, index);
+		}
+	};
+	
+	
 	
 	public static final DialogueNode AFTER_SEX = new DialogueNode("Finish", "", true) {
 		
@@ -1070,7 +1194,7 @@ public class OccupantDialogue {
 		}
 	};
 
-	private static int sleepTimer = 240;
+	private static int sleepTimeInMinutes = 240;
 	
 	public static final DialogueNode OCCUPANT_APARTMENT = new DialogueNode("Moving out", "", true) {
 
@@ -1174,30 +1298,45 @@ public class OccupantDialogue {
 						return new Response("Job", UtilText.parse(occupant(), "You've already asked [npc.name] about [npc.her] job today."), null);
 					}
 					
-				} else if (index == 3) {
-
-					int minutesPassed = (int) (Main.game.getMinutesPassed() % (24 * 60));
-					sleepTimer = (Main.game.isDayTime()
-							? (int) ((60 * 21) - minutesPassed)
-							: (int) ((60 * (minutesPassed<(60*7)?7:31)) - minutesPassed));
-					
-					return new Response(
-							"Rest until " + (Main.game.isDayTime() ? "Evening" : "Morning"),
-							"Ask [npc.name] if you can crash on [npc.her] sofa for " + (sleepTimer >= 60 ? sleepTimer / 60 + " hours " : " ")
-								+ (sleepTimer % 60 != 0 ? sleepTimer % 60 + " minutes" : "")
-								+ " until " + (Main.game.isDayTime() ? "evening (21:00)." : "morning (07:00).")
-								+ " As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
+				}
+				else if (index == 3) {
+					return new Response("Rest",
+							"Ask [npc.name] if you can crash on [npc.her] sofa for four hours."
+							+ " As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
 							OCCUPANT_APARTMENT_SLEEP_OVER){
 						@Override
 						public void effects() {
+							sleepTimeInMinutes = 240;
+							
 							Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 							Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 							Main.game.getPlayer().setLustNoText(0);
 							
-							RoomPlayer.applyWellRestedStatusEffect();
+							RoomPlayer.applySleep(sleepTimeInMinutes);
 						}
 					};
-					
+
+				} else if (index == 4) {
+					int timeUntilChange = RoomPlayer.getMinutesUntilMorningOrEvening();
+					LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
+					return new Response("Rest until " + (Main.game.isDayTime() ? "Sunset" : "Sunrise"),
+							"Ask [npc.name] if you can crash on [npc.her] sofa for " + (timeUntilChange >= 60 ?timeUntilChange / 60 + " hours " : " ")
+								+ (timeUntilChange % 60 != 0 ? timeUntilChange % 60 + " minutes" : "")
+								+ " until " + (Main.game.isDayTime() ? "evening ("+Units.time(sunriseSunset[1])+")." : "morning ("+Units.time(sunriseSunset[0])+").")
+								+ " As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
+								OCCUPANT_APARTMENT_SLEEP_OVER){
+						@Override
+						public void effects() {
+							sleepTimeInMinutes = RoomPlayer.getMinutesUntilMorningOrEvening();
+							
+							Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
+							Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
+							Main.game.getPlayer().setLustNoText(0);
+							
+							RoomPlayer.applySleep(sleepTimeInMinutes);
+						}
+					};
+
 				} else if (index == 5) {
 					if(!Main.game.getPlayer().hasCompanion(occupant())) {
 						
@@ -1235,10 +1374,26 @@ public class OccupantDialogue {
 						};
 					}
 					
+				} else if (index == 6) {
+					return new Response(
+							hasJob()
+								?"Suggest job change"
+								:"Suggest job",
+							UtilText.parse(occupant(),
+									hasJob()
+										?"Tell [npc.name] that you think [npc.she] should look for a new job."
+										:"Tell [npc.name] what sort of job you think [npc.she] should be looking for."),
+							OCCUPANT_JOB_SUGGESTION) {
+						@Override
+						public void effects() {
+							applyReactionReset();
+						}
+					};
+					
 				} else if (index == 10) {
 					if(confirmKickOut) {
-						return new Response("Confirm removal", "Tell [npc.name] that you need to move on, and that you won't see [npc.herHim] ever again.<br/>"
-								+ "[style.italicsBad(This will permanently remove [npc.name] from the game!)]",
+						return new Response("Confirm removal", UtilText.parse(occupant(), "Tell [npc.name] that you need to move on, and that you won't see [npc.herHim] ever again.<br/>"
+								+ "[style.italicsBad(This will permanently remove [npc.name] from the game!)]"),
 								OCCUPANT_APARTMENT_REMOVE) {
 							@Override
 							public Colour getHighlightColour() {
@@ -1255,8 +1410,8 @@ public class OccupantDialogue {
 						};
 						
 					} else {
-						return new ResponseEffectsOnly("Remove character", "Tell [npc.name] that you need to move on, and that you won't see [npc.herHim] ever again.<br/>"
-								+ "[style.italicsMinorBad(After choosing this action, you'll need to click again to confirm that you want this character removed from the game forever.)]") {
+						return new ResponseEffectsOnly("Remove character", UtilText.parse(occupant(), "Tell [npc.name] that you need to move on, and that you won't see [npc.herHim] ever again.<br/>"
+								+ "[style.italicsMinorBad(After choosing this action, you'll need to click again to confirm that you want this character removed from the game forever.)]")) {
 							@Override
 							public void effects() {
 								confirmKickOut = true;
@@ -1265,7 +1420,7 @@ public class OccupantDialogue {
 					}
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							applyReactionReset();
@@ -1278,7 +1433,7 @@ public class OccupantDialogue {
 			
 			} else if(responseTab == 1) {
 				if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_LEAVING", occupant()));
@@ -1371,7 +1526,7 @@ public class OccupantDialogue {
 
 		@Override
 		public int getSecondsPassed() {
-			return sleepTimer*60;
+			return sleepTimeInMinutes*60;
 		}
 		
 		@Override

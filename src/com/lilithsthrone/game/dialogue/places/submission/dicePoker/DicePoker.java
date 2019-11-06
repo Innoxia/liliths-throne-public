@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.places.submission.GamblingDenDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -19,11 +17,12 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.6
- * @version 0.2.6
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class DicePoker {
 	
+	private static DialogueNode endingNode;
 	private static int moneyPool;
 	private static DicePokerTable table;
 	private static NPC gambler;
@@ -31,7 +30,7 @@ public class DicePoker {
 	private static List<Dice> gamblerDice = new ArrayList<>();
 	private static List<Dice> diceToReroll = new ArrayList<>();
 	private static String[] progressDescriptions = new String[] {"Roll", "Betting", "Re-roll", "Payment"};
-	private static int progress = 0;
+	public static int progress = 0;
 	private static String responseContent;
 	private static String buyInDescription;
 	
@@ -42,12 +41,9 @@ public class DicePoker {
 		}
 	}
 	
-	public static DialogueNode initDicePoker(NPC gambler) {
-		if(gambler instanceof GamblingDenPatron) {
-			DicePoker.table = ((GamblingDenPatron)gambler).getTable();
-		} else {
-			DicePoker.table = DicePokerTable.SILVER;
-		}
+	public static DialogueNode initDicePoker(NPC gambler, DicePokerTable table, DialogueNode endingNode) {
+		DicePoker.endingNode = endingNode;
+		DicePoker.table = table;
 		
 		progress = 0;
 		moneyPool = table.getInitialBet()*2;
@@ -519,7 +515,12 @@ public class DicePoker {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Step away from the table.", GamblingDenDialogue.GAMBLING);
+				return new Response("Continue", "Step away from the table.", endingNode) {
+					@Override
+					public void effects() {
+						progress = 0;
+					}
+				};
 			}
 			return null;
 		}
@@ -535,7 +536,12 @@ public class DicePoker {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Step away from the table.", GamblingDenDialogue.GAMBLING);
+				return new Response("Continue", "Step away from the table.", endingNode) {
+					@Override
+					public void effects() {
+						progress = 0;
+					}
+				};
 			}
 			return null;
 		}
@@ -551,7 +557,12 @@ public class DicePoker {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Accept loss", "Step away from the table.", GamblingDenDialogue.GAMBLING);
+				return new Response("Accept loss", "Step away from the table.", endingNode) {
+					@Override
+					public void effects() {
+						progress = 0;
+					}
+				};
 				
 			} else if(index==2) {
 				return new Response("Offer body",
@@ -585,9 +596,10 @@ public class DicePoker {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Decline", "Step away from the table.", GamblingDenDialogue.GAMBLING) {
+				return new Response("Decline", "Step away from the table.", endingNode) {
 					@Override
 					public void effects() {
+						progress = 0;
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "[pc.speech(On second thoughts, I don't need my money back,)] you say, before turning around and quickly taking your leave."
@@ -638,7 +650,12 @@ public class DicePoker {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Step away from the table.", GamblingDenDialogue.GAMBLING);
+				return new Response("Continue", "Step away from the table.", endingNode) {
+					@Override
+					public void effects() {
+						progress = 0;
+					}
+				};
 			}
 			return null;
 		}

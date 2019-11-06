@@ -18,7 +18,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.83
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class HarpyNestAlexa {
@@ -34,6 +34,8 @@ public class HarpyNestAlexa {
 		public String getContent() {
 			if(Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
 				return UtilText.parseFromXMLFile("places/dominion/harpyNests/alexa", "ALEXAS_NEST_EXTERIOR_STORM");
+			} else if(!Main.game.isExtendedWorkTime()) {
+				return UtilText.parseFromXMLFile("places/dominion/harpyNests/alexa", "ALEXAS_NEST_EXTERIOR_SLEEPING");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/harpyNests/alexa", "ALEXAS_NEST_EXTERIOR");
 			}
@@ -44,6 +46,9 @@ public class HarpyNestAlexa {
 			if(index==1) {
 				if(Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
 					return new Response("Meet with Alexa", "Alexa's flock is taking shelter in the buildings below her nest. You'll have to come back after the arcane storm has passed.", null);
+					
+				} else if(!Main.game.isExtendedWorkTime()) {
+					return new Response("Meet with Alexa", "Both Alexa and her flock are sleeping in the buildings below her nest. You'll have to come back during the day if you want to speak with her.", null);
 					
 				} else {
 					if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_ALEXA) {

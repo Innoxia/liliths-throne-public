@@ -6,12 +6,12 @@
 		Making your way down one of the the many walkways that criss-cross Dominion's rooftops, you find yourself approaching an exceptionally large Harpy Nest. Spanning several buildings, and with an elaborate system of multi-level platforms built on top of each one, you instantly recognise this as a nest of particular importance.
 	</p>
 	<p>
-		#IF game.isDayTime()
-		#THEN
+		#IF(game.isDayTime())
 			The platforms are covered in countless groups of harpies; lounging around and talking amongst one another, their lazy behaviour is in stark contrast to those flying around in the skies above. Looking up, you see a multitude of colours dashing through the sky as yet more of this nest's residents swoop and dart around in the
-			#IF game.isMorning()
-			#THEN morning's cool air
-			#ELSE afternoon's warm air
+			#IF(game.isMorning())
+				 morning's cool air
+			#ELSE
+				 afternoon's warm air
 			#ENDIF
 			, their energetic dives and spiralling loops threatening to make your head spin if you try to watch them for too long.
 		#ELSE
@@ -27,8 +27,7 @@
 		Meeting with Alexa by appointment only.</i>
 	</p>
 	<p>
-		#IF pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_ALEXA
-		#THEN
+		#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_ALEXA)
 			Stepping back, you wonder if you should call over one of the nearby harpies. After all, you do have business with Alexa, and you're sure that she'd want to hear about Scarlett as soon as possible.
 		#ELSE
 			Stepping back, you decide against calling over one of the nearby harpies.
@@ -54,14 +53,39 @@
 		Meeting with Alexa by appointment only.</i>
 	</p>
 	<p>
-		#IF pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_ALEXA
-		#THEN
-			You do have business with Alexa, and you're sure that she'd want to hear about Scarlett as soon as possible, but you'll have to come back after the ongoing storm has passed.
+		#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_ALEXA)
+			You do have business with Alexa, and you're sure that she'd want to hear about Scarlett as soon as possible, but you'll have to come back after the ongoing storm has passed...
 		#ELSE
-			Stepping back, you decide against calling over one of the nearby harpies.
-			#IF pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_ALEXA)
-			#THEN There's not much point in waiting around for the storm to pass, as Alexa's not even here at the moment.
-			#ELSE There's not much point in waiting around for the storm to pass, as you don't have any business with Alexa.
+			#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_ALEXA))
+				There's not much point in waiting around for the storm to pass, as Alexa's not even here at the moment...
+			#ELSE
+				There's not much point in waiting around for the storm to pass, as you don't have any business with Alexa...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ALEXAS_NEST_EXTERIOR_SLEEPING"><![CDATA[
+	<p>
+		Making your way down one of the the many walkways that criss-cross Dominion's rooftops, you find yourself approaching an exceptionally large Harpy Nest. Spanning several buildings, and with an elaborate system of multi-level platforms built on top of each one, you instantly recognise this as a nest of particular importance.
+	</p>
+	<p>
+		Due to the current hour, the nest is completed deserted; its residents having retired to the comfort of the buildings below in order to get a good night's sleep. Taking a look around the deserted platform, you notice that there are little signs dotted around the edges of the nest. Walking up to the nearest one, you read, in flowing, ornate script, the following words;
+	</p>
+	<p style='text-align:center;'>
+		<i><b>~Alexa's Paradise~</b><br/>
+		Visitors must be accompanied at all times.<br/>
+		Meeting with Alexa by appointment only.</i>
+	</p>
+	<p>
+		#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_ALEXA)
+			You do have business with Alexa, and you're sure that she'd want to hear about Scarlett as soon as possible, but you'll have to come back once she's awake, [style.colourMinorBad(between [units.time(6)] and [units.time(22)])]...
+		#ELSE
+			#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_ALEXA))
+				There's not much point in waiting around for the nests' residents to wake up, as Alexa's not even here at the moment...
+			#ELSE
+				There's not much point in waiting around for the nests' residents to wake up, as you don't have any business with Alexa...
 			#ENDIF
 		#ENDIF
 	</p>

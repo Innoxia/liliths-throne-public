@@ -12,7 +12,6 @@ import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -29,7 +28,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class ClothingType {
@@ -1159,339 +1158,6 @@ public class ClothingType {
 		}
 	};
 
-	// NECK
-	// Choker, Collar
-
-	public static AbstractClothingType NECK_HEART_NECKLACE = new AbstractClothingType(350,
-			"a",
-			false,
-			"heart necklace",
-			"heart necklaces",
-			"A necklace with a little heart-shaped pendant.",
-			0,
-			Femininity.FEMININE,
-			InventorySlot.NECK,
-			Rarity.COMMON,
-			null,
-			"clothing/neck_heartNecklace",
-			null,
-			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
-			null,
-			ColourListPresets.ALL_METAL,
-			null,
-			null,
-			null,
-			null,
-			null, 
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You put on the necklace, clipping the chain together at the back of your neck.",
-					"fasten the necklace around [npc.namePos] neck.",
-					"You hold [npc.namePos] head still as you fasten the necklace around [npc.her] neck.",
-					"[npc.Name] puts a necklace around [npc.her] neck, before reaching around to fasten the clip at the back.",
-					"[npc.Name] clips a necklace around your neck.",
-					"[npc.Name] holds your head still and fastens a necklace around your neck.", null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You unclip your necklace and take it off.",
-					"You unclip [npc.namePos] necklace and take it off.",
-					"You grab [npc.namePos] necklace and yank it from [npc.her] neck.",
-					"[npc.Name] unclips [npc.her] necklace and takes it off.",
-					"[npc.Name] unclips your necklace and removes it.",
-					"[npc.Name] grabs your necklace and yanks it from your neck.", null, null);
-		}
-	};
-
-	public static AbstractClothingType NECK_ANKH_NECKLACE = new AbstractClothingType(250,
-			"an",
-			false,
-			"ankh necklace",
-			"ankh necklaces",
-			"A necklace with a cross-shaped pendant, which has a loop instead of the top arm.",
-			0,
-			null,
-			InventorySlot.NECK,
-			Rarity.COMMON,
-			null,
-			"clothing/neck_ankhNecklace",
-			null,
-			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
-			null,
-			ColourListPresets.ALL_METAL,
-			null,
-			null,
-			null,
-			null,
-			null, 
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You put on the ankh necklace, before reaching back and clipping the chain together behind your neck.",
-					"You place the ankh necklace around [npc.namePos] neck, before reaching back and clipping the chain together.",
-					"You hold [npc.namePos] head still as you fasten the ankh necklace around [npc.her] neck.",
-					"[npc.Name] puts on the ankh necklace, before reaching around and clipping the chain together behind [npc.her] neck.",
-					"[npc.Name] places the ankh necklace around your neck, before reaching around and clipping the chain together.",
-					"[npc.Name] holds your head still and fastens an ankh necklace around your neck.", null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You unclip your ankh necklace and take it off.",
-					"You unclip [npc.namePos] ankh necklace and take it off.",
-					"You grab [npc.namePos] ankh necklace and yank it from [npc.her] neck.",
-					"[npc.Name] unclips [npc.her] ankh necklace and takes it off.",
-					"[npc.Name] unclips your ankh necklace and removes it.",
-					"[npc.Name] grabs your ankh necklace and yanks it from your neck.", null, null);
-		}
-	};
-	
-	public static AbstractClothingType NECK_BELL_COLLAR  = new AbstractClothingType(450,
-			"a",
-			false,
-			"bell collar",
-			"bell collars",
-			"A leather collar, with a little bell attached to the front.",
-			0,
-			null,
-			InventorySlot.NECK,
-			Rarity.COMMON,
-			null,
-			"clothing/neck_bell_collar",
-			null,
-			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
-			null,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You fasten the bell collar around your neck.",
-					"You fasten the bell collar around [npc.namePos] neck.",
-					null,
-					"[npc.Name] fastens the bell collar around [npc.her] neck.",
-					"[npc.Name] fastens the bell collar around your neck.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You take off your bell collar.",
-					"You take off [npc.namePos] bell collar.",
-					null,
-					"[npc.Name] takes [npc.her] bell collar off.",
-					"[npc.Name] takes your bell collar off.",
-					null, null, null);
-		}
-	};
-	
-	public static AbstractClothingType NECK_SCARF = new AbstractClothingType(150,
-			"a",
-			false,
-			"scarf",
-			"scarfs",
-			"A unisex scarf, made of a soft, woolly fabric.",
-			0,
-			null,
-			InventorySlot.NECK,
-			Rarity.COMMON,
-			null,
-			"clothing/neck_scarf",
-			null,
-			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
-			null,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You wrap the scarf around your neck.",
-					"You wrap the scarf around [npc.namePos] neck.",
-					null,
-					"[npc.Name] wraps a scarf around [npc.her] neck.",
-					"[npc.Name] wraps a scarf around your neck.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You take off your scarf.",
-					"You take off [npc.namePos] scarf.",
-					null,
-					"[npc.Name] takes [npc.her] scarf off.",
-					"[npc.Name] takes your scarf off.",
-					null, null, null);
-		}
-	};
-	
-	public static AbstractClothingType NECK_TIE = new AbstractClothingType(100,
-			"a",
-			false,
-			"tie",
-			"tie",
-			"A smart-looking tie. Although designed to be worn with a shirt, it could be worn with any outfit as a fashion statement.",
-			0,
-			null,
-			InventorySlot.NECK,
-			Rarity.COMMON,
-			null,
-			"clothing/neck_tie",
-			null,
-			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
-			null,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)) {
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You fasten the tie around your neck.",
-					"You fasten the tie around [npc.namePos] neck.",
-					null,
-					"[npc.Name] fastens the tie around [npc.her] neck.",
-					"[npc.Name] fasten the tie around your neck.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You take off your tie.",
-					"You take off [npc.namePos] tie.",
-					null,
-					"[npc.Name] takes [npc.her] tie off.",
-					"[npc.Name] takes your tie off.",
-					null, null, null);
-		}
-	};
-	
-	public static AbstractClothingType NECK_COLLAR_BOWTIE = new AbstractClothingType(150,
-			"a",
-			false,
-			"collar bowtie",
-			"collar bowties",
-			"A shirt collar, with a little bowtie affixed to the front.",
-			0,
-			null,
-			InventorySlot.NECK,
-			Rarity.COMMON,
-			null,
-			"clothing/neck_collar_bowtie",
-			null,
-			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
-			null,
-			ColourListPresets.JUST_BLACK, ColourListPresets.ALL,
-			ColourListPresets.JUST_WHITE, ColourListPresets.ALL,
-			ColourListPresets.JUST_BLACK, ColourListPresets.ALL, 
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You fasten the collar bowtie around your neck.",
-					"You fasten the collar bowtie around [npc.namePos] neck.",
-					null,
-					"[npc.Name] fastens the collar bowtie around [npc.her] neck.",
-					"[npc.Name] fasten the collar bowtie around your neck.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You take off your collar bowtie.",
-					"You take off [npc.namePos] collar bowtie.",
-					null,
-					"[npc.Name] takes [npc.her] collar bowtie off.",
-					"[npc.Name] takes your collar bowtie off.",
-					null, null, null);
-		}
-	};
-	
-	public static AbstractClothingType NECK_BREEDER_COLLAR = new AbstractClothingType(10000,
-			"a",
-			false,
-			"breeder collar",
-			"breeder collars",
-			"A [style.glowPink(glowing pink)] leather collar, with bold metal lettering attached to the front spelling out the word 'BREEDER'.",
-			0.1f,
-			null,
-			InventorySlot.NECK,
-			Rarity.EPIC,
-			null,
-			"clothing/neck_breeder_collar",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_ENSLAVEMENT, TFPotency.MINOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_PREGNANCY, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_IMPREGNATION, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, Wetness.SEVEN_DROOLING.getValue())),
-			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
-			null,
-			ColourListPresets.JUST_PINK,
-			ColourListPresets.ALL,
-			ColourListPresets.JUST_STEEL,
-			ColourListPresets.ALL_METAL,
-			ColourListPresets.JUST_STEEL,
-			ColourListPresets.ALL_METAL, 
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You can't help but let out a small, needy moan as you fasten the enchanted collar around your neck.",
-					"A small, needy moan drifts out from [npc.namePos] mouth as you fasten the enchanted collar around [npc.her] neck.",
-					null,
-					"[npc.Name] can't help but let out a small, needy moan as [npc.she] fastens the collar around [npc.her] neck.",
-					"You can't help but let out a small, needy moan as [npc.name] fastens the collar around your neck.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You take off your collar.",
-					"You take off [npc.namePos] collar.",
-					null,
-					"[npc.Name] takes [npc.her] collar off.",
-					"[npc.Name] takes your collar off.",
-					null, null, null);
-		}
-	};
-	
-
 	// TORSO
 
 	public static AbstractClothingType TORSO_OXFORD_SHIRT = new AbstractClothingType(150,
@@ -1611,10 +1277,10 @@ public class ClothingType {
 			null,
 			ColourListPresets.ALL,
 			null,
-			null,
-			null,
-			null,
-			null,
+			Util.newArrayListOfValues(Colour.CLOTHING_GREY_LIGHT),
+			ColourListPresets.ALL,
+			Util.newArrayListOfValues(Colour.CLOTHING_WHITE),
+			ColourListPresets.ALL,
 			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
@@ -4735,59 +4401,6 @@ public class ClothingType {
 		}
 	};
 
-	// FINGER
-
-	public static AbstractClothingType FINGER_RING = new AbstractClothingType(250,
-			"a",
-			false,
-			"ring",
-			"rings",
-			"A plain band of metal that fits onto a person's finger.",
-			0,
-			null,
-			InventorySlot.FINGER,
-			Rarity.COMMON,
-			null,
-			"clothing/finger_ring",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.FINGERS),
-							null,
-							null, null)),
-
-			null,
-			ColourListPresets.ALL_METAL,
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You slide the ring onto your finger.";
-			else
-				return UtilText.parse(clothingOwner, "[npc.Name] slides " + clothing.getName(true) + " onto [npc.her] finger.");
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull off the ring.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls off [npc.her] ring.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls off your ring.";
-				else
-					return UtilText.parse(clothingOwner, "You pull off [npc.namePos] ring.");
-			}
-		}
-	};
-
 	// BELT
 	
 	public static AbstractClothingType HIPS_CONDOMS = new AbstractClothingType(20,
@@ -7271,7 +6884,7 @@ public class ClothingType {
 			ClothingSet.BDSM,
 			"clothing/bdsm_neck_metal_collar",
 			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ENSLAVEMENT, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_ENSLAVEMENT, TFPotency.BOOST, 0),
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.BOOST, 0),
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_DRAIN, 0),
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_DRAIN, 0),
@@ -8152,56 +7765,6 @@ public class ClothingType {
 					null,
 					"[npc.Name] slides [npc.her] nose ring out.",
 					"[npc.Name] slides your nose ring out.",
-					null, null, null);
-		}
-	};
-	
-	public static AbstractClothingType CATTLE_NECK_COWBELL_COLLAR  = new AbstractClothingType(600,
-			"a",
-			false,
-			"cowbell collar",
-			"cowbell collars",
-			"A leather collar, with a cowbell attached to the front.",
-			0,
-			null,
-			InventorySlot.NECK,
-			Rarity.EPIC,
-			ClothingSet.CATTLE,
-			"clothing/neck_cowbell_collar",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0)),
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							null, null, null, null)),
-			null,
-			ColourListPresets.ALL_METAL,
-			null,
-			ColourListPresets.JUST_BLACK,
-			ColourListPresets.ALL,
-			ColourListPresets.JUST_STEEL,
-			ColourListPresets.ALL_METAL,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You put on the cowbell collar, before fastening the clasp at the back of your neck in order to hold it in place.",
-					"You put the cowbell collar on [npc.name], before fastening the clasp at the back of [npc.her] neck in order to hold it in place.",
-					null,
-					"[npc.Name] puts on the cowbell collar, before fastening the clasp at the back of [npc.her] neck in order to hold it in place.",
-					"[npc.Name] puts the cowbell collar on you, before fastening the clasp at the back of your neck in order to hold it in place.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You unfasten the cowbell collar and take it off.",
-					"You unfasten [npc.namePos] cowbell collar and remove it from [npc.her] neck.",
-					null,
-					"[npc.Name] unfastens [npc.her] cowbell collar and takes it off.",
-					"[npc.Name] unfastens your cowbell collar and removes it from around your neck.",
 					null, null, null);
 		}
 	};
@@ -9332,57 +8895,6 @@ public class ClothingType {
 	
 	// Snowflake set:
 	
-	public static AbstractClothingType NECK_SNOWFLAKE_NECKLACE = new AbstractClothingType(250,
-			"a",
-			false,
-			"snowflake necklace",
-			"snowflake necklaces",
-			"A necklace with a little snowflake pendant.",
-			0,
-			null,
-			InventorySlot.NECK,
-			Rarity.EPIC,
-			ClothingSet.SNOWFLAKE,
-			"clothing/neck_snowflake_necklace",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.MAJOR_BOOST, 0), 
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_ICE, TFPotency.MAJOR_BOOST, 0)),
-			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
-			null,
-			ColourListPresets.JUST_SILVER,
-			ColourListPresets.ALL_METAL,
-			null,
-			null,
-			null,
-			null, 
-			Util.newArrayListOfValues(
-					ItemTag.REINDEER_GIFT,
-					ItemTag.SOLD_BY_NYAN)){
-		
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You put on the necklace, clipping the chain together at the back of your neck.",
-					"fasten the necklace around [npc.namePos] neck.",
-					"You hold [npc.namePos] head still as you fasten the necklace around [npc.her] neck.",
-					"[npc.Name] puts a necklace around [npc.her] neck, before reaching around to fasten the clip at the back.",
-					"[npc.Name] clips a necklace around your neck.",
-					"[npc.Name] holds your head still and fastens a necklace around your neck.", null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You unclip your necklace and take it off.",
-					"You unclip [npc.namePos] necklace and take it off.",
-					"You grab [npc.namePos] necklace and yank it from [npc.her] neck.",
-					"[npc.Name] unclips [npc.her] necklace and takes it off.",
-					"[npc.Name] unclips your necklace and removes it.",
-					"[npc.Name] grabs your necklace and yanks it from your neck.", null, null);
-		}
-	};
-	
 	public static AbstractClothingType PIERCING_EAR_SNOW_FLAKES = new AbstractClothingType(150,
 			"a pair of",
 			true,
@@ -9485,56 +8997,6 @@ public class ClothingType {
 	};
 	
 	// Sun set:
-	
-	public static AbstractClothingType NECK_SUN_NECKLACE = new AbstractClothingType(250,
-			"a",
-			false,
-			"sun necklace",
-			"sun necklaces",
-			"A necklace with a little sun pendant.",
-			0,
-			null,
-			InventorySlot.NECK,
-			Rarity.EPIC,
-			ClothingSet.SUN,
-			"clothing/neck_sun_necklace",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_FIRE, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_FIRE, TFPotency.MAJOR_BOOST, 0)),
-			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
-			null,
-			ColourListPresets.JUST_COPPER,
-			ColourListPresets.ALL_METAL,
-			ColourListPresets.JUST_ORANGE,
-			ColourListPresets.ALL,
-			null,
-			null, 
-			Util.newArrayListOfValues(
-					ItemTag.SOLD_BY_NYAN)){
-		
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You put on the necklace, clipping the chain together at the back of your neck.",
-					"fasten the necklace around [npc.namePos] neck.",
-					"You hold [npc.namePos] head still as you fasten the necklace around [npc.her] neck.",
-					"[npc.Name] puts a necklace around [npc.her] neck, before reaching around to fasten the clip at the back.",
-					"[npc.Name] clips a necklace around your neck.",
-					"[npc.Name] holds your head still and fastens a necklace around your neck.", null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You unclip your necklace and take it off.",
-					"You unclip [npc.namePos] necklace and take it off.",
-					"You grab [npc.namePos] necklace and yank it from [npc.her] neck.",
-					"[npc.Name] unclips [npc.her] necklace and takes it off.",
-					"[npc.Name] unclips your necklace and removes it.",
-					"[npc.Name] grabs your necklace and yanks it from your neck.", null, null);
-		}
-	};
 	
 	public static AbstractClothingType PIERCING_EAR_SUN = new AbstractClothingType(150,
 			"a pair of",
@@ -9880,7 +9342,23 @@ public class ClothingType {
 		oldIdConversionMap.put("HAND_WRAPS", "innoxia_hand_wraps");
 		oldIdConversionMap.put("HAND_FISHNET_GLOVES", "innoxia_hand_fishnet_gloves");
 
+		oldIdConversionMap.put("FINGER_RING", "innoxia_finger_ring");
 
+		oldIdConversionMap.put("NECK_ANKH_NECKLACE", "innoxia_neck_ankh_necklace");
+		oldIdConversionMap.put("NECK_BELL_COLLAR", "innoxia_neck_bell_collar");
+		oldIdConversionMap.put("NECK_COLLAR_BOWTIE", "innoxia_neck_collar_bowtie");
+		oldIdConversionMap.put("NECK_HEART_NECKLACE", "innoxia_neck_heart_necklace");
+		oldIdConversionMap.put("NECK_SCARF", "innoxia_neck_scarf");
+		oldIdConversionMap.put("NECK_TIE", "innoxia_neck_tie");
+		oldIdConversionMap.put("NECK_BREEDER_COLLAR", "innoxia_neck_breeder_collar");
+
+		oldIdConversionMap.put("CATTLE_NECK_COWBELL_COLLAR", "innoxia_cattle_cowbell_collar");
+
+		oldIdConversionMap.put("NECK_SNOWFLAKE_NECKLACE", "innoxia_elemental_snowflake_necklace");
+		
+		oldIdConversionMap.put("NECK_SUN_NECKLACE", "innoxia_elemental_sun_necklace");
+		
+		
 		oldIdConversionMap.put("FOOT_ANKLE_BOOTS", "innoxia_foot_ankle_boots");
 		oldIdConversionMap.put("FOOT_CHELSEA_BOOTS", "innoxia_foot_chelsea_boots");
 		oldIdConversionMap.put("FOOT_HEELS", "innoxia_foot_heels");
@@ -10064,11 +9542,12 @@ public class ClothingType {
 					
 					// hmm... I don't know why this is here... TODO remove?
 					if(ct.isCondom(ct.getEquipSlots().get(0))
-							|| ct==ClothingType.TORSO_OVER_CHRISTMAS_SWEATER
-							|| ct==ClothingType.HEAD_ANTLER_HEADBAND
-							|| ct==ClothingType.PIERCING_EAR_SNOW_FLAKES
-							|| ct==ClothingType.PIERCING_NOSE_SNOWFLAKE_STUD
-							|| ct==ClothingType.NECK_SNOWFLAKE_NECKLACE) {
+//							|| ct==ClothingType.TORSO_OVER_CHRISTMAS_SWEATER
+//							|| ct==ClothingType.HEAD_ANTLER_HEADBAND
+//							|| ct==ClothingType.PIERCING_EAR_SNOW_FLAKES
+//							|| ct==ClothingType.PIERCING_NOSE_SNOWFLAKE_STUD
+//							|| ct==ClothingType.NECK_SNOWFLAKE_NECKLACE
+							) {
 						continue;
 					}
 					
@@ -10103,7 +9582,7 @@ public class ClothingType {
 						ClothingType.CHEST_OPEN_CUP_BRA,
 						ClothingType.CHEST_PLUNGE_BRA,
 						ClothingType.EYES_AVIATORS,
-						ClothingType.FINGER_RING,
+						ClothingType.getClothingTypeFromId("innoxia_finger_ring"),
 						ClothingType.getClothingTypeFromId("innoxia_foot_chelsea_boots"),
 						ClothingType.getClothingTypeFromId("innoxia_foot_ankle_boots"),
 						ClothingType.getClothingTypeFromId("innoxia_foot_heels"),
@@ -10123,8 +9602,8 @@ public class ClothingType {
 						ClothingType.LEG_MICRO_SKIRT_PLEATED,
 						ClothingType.LEG_MINI_SKIRT,
 						ClothingType.LEG_SKIRT,
-						ClothingType.NECK_HEART_NECKLACE,
-						ClothingType.NECK_ANKH_NECKLACE,
+						ClothingType.getClothingTypeFromId("innoxia_neck_heart_necklace"),
+						ClothingType.getClothingTypeFromId("innoxia_neck_ankh_necklace"),
 						ClothingType.NIPPLE_TAPE_CROSSES,
 						ClothingType.getClothingTypeFromId("innoxia_hand_fishnet_gloves"),
 						ClothingType.getClothingTypeFromId("innoxia_sock_fishnets"),

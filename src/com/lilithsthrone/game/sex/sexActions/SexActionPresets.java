@@ -159,6 +159,7 @@ public class SexActionPresets {
 			SexAreaOrifice.MOUTH);
 
 	public static List<SexAreaInterface> allowedInterPenetrationAreas = Util.newArrayListOfValues(
+			SexAreaPenetration.FOOT,
 			SexAreaPenetration.FINGER,
 			SexAreaPenetration.TAIL,
 			SexAreaPenetration.TENTACLE,

@@ -610,22 +610,22 @@ public class PenisAnus {
 			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.parse(getCharactersForParsing(),
-							"Wanting to join in on the fun, [npc.name] [npc.verb(bring)] the [npc.cockHead+] of [npc.her] [npc.cock] up to [npc2.namePos] [npc2.asshole+], and the next time [npc3.namePos] [npc3.verb(pull)] back,"
+							"Wanting to join in on the fun, [npc.name] [npc.verb(bring)] the [npc.cockHead+] of [npc.her] [npc.cock] up to [npc2.namePos] [npc2.asshole+], and the next time [npc3.name] [npc3.verb(pull)] back,"
 									+ " [npc.she] gently [npc.verb(push)] forwards, pushing [npc.her] [npc.cock+] in alongside [npc3.hers] and joining [npc3.herHim] in double-penetrating [npc2.name]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.parse(getCharactersForParsing(),
-							"Wanting to join in on the fun, [npc.name] [npc.verb(bring)] the [npc.cockHead+] of [npc.her] [npc.cock] up to [npc2.namePos] [npc2.asshole+], and the next time [npc3.namePos] [npc3.verb(pull)] back,"
+							"Wanting to join in on the fun, [npc.name] [npc.verb(bring)] the [npc.cockHead+] of [npc.her] [npc.cock] up to [npc2.namePos] [npc2.asshole+], and the next time [npc3.name] [npc3.verb(pull)] back,"
 									+ " [npc.she] roughly [npc.verb(thrust)] forwards, forcing [npc.her] [npc.cock+] in alongside [npc3.hers] and joining [npc3.herHim] in double-penetrating [npc2.name]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.parse(getCharactersForParsing(),
-							"Wanting to join in on the fun, [npc.name] [npc.verb(bring)] the [npc.cockHead+] of [npc.her] [npc.cock] up to [npc2.namePos] [npc2.asshole+], and the next time [npc3.namePos] [npc3.verb(pull)] back,"
+							"Wanting to join in on the fun, [npc.name] [npc.verb(bring)] the [npc.cockHead+] of [npc.her] [npc.cock] up to [npc2.namePos] [npc2.asshole+], and the next time [npc3.name] [npc3.verb(pull)] back,"
 									+ " [npc.she] [npc.verb(thrust)] forwards, pushing [npc.her] [npc.cock+] in alongside [npc3.hers] and joining [npc3.herHim] in double-penetrating [npc2.name]."));
 					break;
 				default: // Dom normal and sub eager:
 					UtilText.nodeContentSB.append(UtilText.parse(getCharactersForParsing(),
-							"Wanting to join in on the fun, [npc.name] [npc.verb(bring)] the [npc.cockHead+] of [npc.her] [npc.cock] up to [npc2.namePos] [npc2.asshole+], and the next time [npc3.namePos] [npc3.verb(pull)] back,"
+							"Wanting to join in on the fun, [npc.name] [npc.verb(bring)] the [npc.cockHead+] of [npc.her] [npc.cock] up to [npc2.namePos] [npc2.asshole+], and the next time [npc3.name] [npc3.verb(pull)] back,"
 									+ " [npc.she] desperately [npc.verb(thrust)] forwards, ramming [npc.her] [npc.cock+] in alongside [npc3.hers] and joining [npc3.herHim] in double-penetrating [npc2.name]."));
 					break;
 			}
@@ -633,15 +633,18 @@ public class PenisAnus {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.parse(getCharactersForParsing(),
-							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as the second [npc.cock] enters [npc2.her] [npc2.asshole+], before gently thrusting [npc2.her] [npc2.hips] out in order to sink it deeply in beside [npc3.namePos]."));
+							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as the second [npc.cock] enters [npc2.her] [npc2.asshole+],"
+									+ " before gently thrusting [npc2.her] [npc2.hips] out in order to sink it deeply in beside [npc3.namePos] [npc3.cock+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.parse(getCharactersForParsing(),
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as the second [npc.cock] enters [npc2.her] [npc2.asshole+], before roughly slamming [npc2.her] [npc2.hips] out in order to sink it deeply in beside [npc3.namePos]."));
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as the second [npc.cock] enters [npc2.her] [npc2.asshole+],"
+									+ " before roughly slamming [npc2.her] [npc2.hips] out in order to sink it deeply in beside [npc3.namePos] [npc3.cock+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.parse(getCharactersForParsing(),
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as the second [npc.cock] enters [npc2.her] [npc2.asshole+], before bucking [npc2.her] [npc2.hips] out in order to sink it deeply in beside [npc3.namePos]."));
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as the second [npc.cock] enters [npc2.her] [npc2.asshole+],"
+									+ " before bucking [npc2.her] [npc2.hips] out in order to sink it deeply in beside [npc3.namePos] [npc3.cock+]."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.parse(getCharactersForParsing(), UtilText.returnStringAtRandom(
@@ -652,7 +655,8 @@ public class PenisAnus {
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.parse(getCharactersForParsing(),
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as the second [npc.cock] enters [npc2.her] [npc2.asshole+], before greedily bucking [npc2.her] [npc2.hips] out in order to sink it deeply in beside [npc3.namePos]."));
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as the second [npc.cock] enters [npc2.her] [npc2.asshole+],"
+									+ " before greedily bucking [npc2.her] [npc2.hips] out in order to sink it deeply in beside [npc3.namePos] [npc3.cock+]."));
 					break;
 			}
 			

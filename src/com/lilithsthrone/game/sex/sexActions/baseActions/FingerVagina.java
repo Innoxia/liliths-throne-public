@@ -1013,21 +1013,21 @@ public class FingerVagina {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc2.she] enters [npc.name], curling [npc2.her] [npc2.fingers] up before gently starting to finger [npc.her] [npc.pussy+].",
+							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc2.she] [npc2.verb(enter)] [npc.name], curling [npc2.her] [npc2.fingers] up before gently starting to finger [npc.her] [npc.pussy+].",
 
 							" With a soft [npc2.moan], [npc2.name] [npc2.verb(curl)] [npc2.her] [npc2.fingers+] up inside of [npc.name],"
 									+ " gently stroking [npc.her] vaginal walls as [npc2.she] [npc2.verb(set)] about fingering [npc.her] [npc.pussy+]."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] enters [npc.name], curling [npc2.her] [npc2.fingers] up before eagerly starting to finger [npc.her] [npc.pussy+].",
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(enter)] [npc.name], curling [npc2.her] [npc2.fingers] up before eagerly starting to finger [npc.her] [npc.pussy+].",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(curl)] [npc2.her] [npc2.fingers+] up inside of [npc.name],"
 									+ " eagerly stroking [npc.her] vaginal walls as [npc2.she] [npc2.verb(set)] about fingering [npc.her] [npc.pussy+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] enters [npc.name], and, seeking to remind [npc.herHim] who's in charge,"
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(enter)] [npc.name], and, seeking to remind [npc.herHim] who's in charge,"
 									+ " [npc2.she] roughly [npc2.verb(curl)] [npc2.her] [npc2.fingers] up before starting to ruthlessly finger-fuck [npc.her] [npc.pussy+].",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(curl)] [npc2.her] [npc2.fingers+] up inside of [npc.name],"
@@ -1035,14 +1035,14 @@ public class FingerVagina {
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] enters [npc.name], curling [npc2.her] [npc2.fingers] up before eagerly starting to finger [npc.her] [npc.pussy+].",
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(enter)] [npc.name], curling [npc2.her] [npc2.fingers] up before eagerly starting to finger [npc.her] [npc.pussy+].",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(curl)] [npc2.her] [npc2.fingers+] up inside of [npc.name],"
 									+ " eagerly stroking [npc.her] vaginal walls as [npc2.she] [npc2.verb(set)] about fingering [npc.her] [npc.pussy+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] enters [npc.name], curling [npc2.her] [npc2.fingers] up before starting to finger [npc.her] [npc.pussy+].",
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(enter)] [npc.name], curling [npc2.her] [npc2.fingers] up before starting to finger [npc.her] [npc.pussy+].",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(curl)] [npc2.her] [npc2.fingers+] up inside of [npc.name],"
 									+ " stroking [npc.her] vaginal walls as [npc2.she] [npc2.verb(set)] about fingering [npc.her] [npc.pussy+]."));

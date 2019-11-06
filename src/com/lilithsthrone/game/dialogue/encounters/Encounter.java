@@ -28,6 +28,7 @@ import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
@@ -76,7 +77,7 @@ public enum Encounter {
 					try {
 						NPC slave = (NPC) Main.game.getNPCById(id);
 						if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
-								&& slave.getSlaveJob(Main.game.getHourOfDay())!=SlaveJob.IDLE
+								&& slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE
 								&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)
 								&& slave.isAttractedTo(Main.game.getPlayer())) {
 							if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
@@ -296,10 +297,11 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc-> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+						npc-> ((npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
 								|| npc.getSubspecies()==Subspecies.ANGEL
 								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
-								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC));
+								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)
+							&& (npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()!=Race.HARPY)));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -417,10 +419,11 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
-							|| npc.getSubspecies()==Subspecies.SLIME
-							|| npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
-							|| npc.getSubspecies()==Subspecies.RAT_MORPH);
+						npc -> ((npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+									|| npc.getSubspecies()==Subspecies.SLIME
+									|| npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
+									|| npc.getSubspecies()==Subspecies.RAT_MORPH)
+								&& (npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()!=Race.HARPY)));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -476,7 +479,8 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST));
+						npc -> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST)
+								&& (npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()==Race.HARPY)));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -564,7 +568,8 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST));
+						npc -> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST)
+								&& (npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()==Race.HARPY)));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -841,7 +846,8 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) {
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc -> npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION));
+						npc -> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION)
+								&& (npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION))));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -950,7 +956,7 @@ public enum Encounter {
 			try {
 				NPC slave = (NPC) Main.game.getNPCById(id);
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
-						&& slave.getSlaveJob(Main.game.getHourOfDay())!=SlaveJob.IDLE
+						&& slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.IDLE
 						&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_OUTSIDE_FREEDOM)
 						&& slave.isAttractedTo(Main.game.getPlayer())) {
 					if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {

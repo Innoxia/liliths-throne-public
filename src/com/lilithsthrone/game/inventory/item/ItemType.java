@@ -1194,6 +1194,11 @@ public class ItemType {
 					ItemTag.SOLD_BY_RALPH)) {
 
 		@Override
+		public boolean isFetishGiving() {
+			return true;
+		}
+		
+		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.FETISH_ENHANCEMENT;
 		}
@@ -1234,7 +1239,6 @@ public class ItemType {
 			null,
 			null,
 			null) {
-
 
 		@Override
 		public boolean isFetishGiving() {
@@ -1285,7 +1289,6 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.MISC_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
 
@@ -1409,7 +1412,11 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.BAT_CAVERNS_SPAWN)) {
 
-
+		@Override
+		public boolean isTransformative() {
+			return true;
+		}
+		
 		@Override
 		public boolean isAbleToBeUsedInSex() {
 			return true;
@@ -1483,6 +1490,52 @@ public class ItemType {
 					"[npc.Name] pulls out a bottle of 'Innoxia's Gift', and, after quickly pulling out the stopper, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Innoxia's Gift', and, after quickly pulling out the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " You suppress your gag reflex as your senses are suddenly overwhelmed by the sickeningly-sweet liquid.");
+		}
+	};
+	
+	public static AbstractItemType DEBUG_YOUKO_POTION = new AbstractItemType(100_000_000,
+			"a bottle of",
+			false,
+			"Inno-chan's Gift",
+			"Inno-chan's Gifts",
+			"This is no ordinary bottle of wine, as it turns anyone who drinks it into a youko! Additional consumption will increase the number of Youko tails the drinker has."
+					+ "<br/>[style.italicsMinorGood(While this is a debug-only item, it should be safe to use anywhere.)]",
+			"attributeFoxMorphDrink",
+			Colour.RACE_FOX_MORPH,
+			null,
+			null,
+			Rarity.LEGENDARY,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DEBUG_YOUKO_POTION_EFFECT)),
+			Util.newArrayListOfValues()) {
+
+		@Override
+		public boolean isTransformative() {
+			return true;
+		}
+		
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return true;
+		}
+
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
+			return true;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"The moment you pull the stopper out from the top of the bottle of 'Inno-chan's Gift', you're filled with a desperate need to drink the sweet-smelling wine contained within, and after pulling out the cork, you do just that.",
+					"You pull the cork out from the top of the bottle of 'Inno-chan's Gift', before bringing it to [npc.namePos] lips and forcing [npc.herHim] to drink down the liquid within.",
+					"[npc.Name] pulls out a bottle of 'Inno-chan's Gift', and, after quickly pulling out the cork, [npc.she] promptly downs the entire bottle.",
+					"[npc.Name] pulls out a bottle of 'Inno-chan's Gift', and, after quickly pulling out the cork, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents.");
 		}
 	};
 	
@@ -3718,7 +3771,6 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.MISC_TF_ITEM,
 					ItemTag.SOLD_BY_RALPH)) {
 
 
@@ -3734,6 +3786,78 @@ public class ItemType {
 					"Bringing the bottle up to [npc.namePos] [npc.lips], you push the teat-like opening into [npc.her] mouth, before forcing [npc.herHim] to suckle down the creamy liquid within.",
 					"[npc.Name] produces a bottle of 'Mother's Milk', and, taking the teat-like opening into [npc.her] mouth, [npc.she] greedily starts to suckle down the creamy liquid within.",
 					"[npc.Name] produces a bottle of 'Mother's Milk', and, pushing the teat-like opening into your mouth, [npc.she] forces you to suckle down the creamy liquid within.");
+		}
+	};
+	
+	public static AbstractItemType CIGARETTE_PACK = new AbstractItemType(350,
+			"a pack of",
+			true,
+			"Starr Cigarette",
+			"Starr Cigarettes",
+			"An unopened, purple-and-white cardboard pack which contains twenty 'Starr Cigarettes'."
+					+ " According to the information printed on the back of the box, these cigarettes are both 'enhanced with aura-fortifying supplements' and 'guaranteed to make you look cool'.",
+			"cigaretteBox",
+			Colour.CLOTHING_PURPLE_DARK,
+			Colour.CLOTHING_GOLD,
+			null,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CIGARETTE_PACK)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.SOLD_BY_RALPH)) {
+
+		@Override
+		public String getUseName() {
+			return "open";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"By opening the top of the pack, you gain access to the twenty cigarettes stored within.",
+					"By opening the top of the pack, you gain access to the twenty cigarettes stored within, and then proceed to give them to [npc.name].",
+					"By opening the top of the pack, [npc.name] gains access to the twenty cigarettes stored within.",
+					"By opening the top of the pack, [npc.name] gains access to the twenty cigarettes stored within, and then proceeds to give them to you.");
+		}
+	};
+	
+	public static AbstractItemType CIGARETTE = new AbstractItemType(20,
+			"a",
+			false,
+			"Starr Cigarette",
+			"Starr Cigarettes",
+			"A rolled up paper cylinder, fitted with a sponge-like filter, and packed with a combination of dried plant matter and aura-boosting supplements."
+					+ " It's been enchanted with a very weak fire spell, so that when placed in someone's mouth, it will self-ignite.",
+			"cigarette",
+			Colour.CLOTHING_ORANGE,
+			Colour.CLOTHING_BRASS,
+			Colour.CLOTHING_WHITE,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CIGARETTE)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.SOLD_BY_RALPH)) {
+
+		@Override
+		public String getUseName() {
+			return "smoke";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You lift the cigarette to your [pc.lips] and put the end in your mouth, at which point the fire enchantment auto-ignites the opposite end."
+							+ " Breathing in, you inhale the smoke that's produced from the burning plant matter, before exhaling and creating a small white cloud in front of your face.",
+					"You lift the cigarette to [npc.namePos] [npc.lips] and put the end in [npc.her] mouth, at which point the fire enchantment auto-ignites the opposite end."
+							+ " Breathing in, [npc.she] inhales the smoke that's produced from the burning plant matter, before exhaling and creating a small white cloud in front of [npc.her] face.",
+					"[npc.NamePos] lifts the cigarette to [npc.her] [npc.lips] and puts the end in [npc.her] mouth, at which point the fire enchantment auto-ignites the opposite end."
+							+ " Breathing in, [npc.she] inhales the smoke that's produced from the burning plant matter, before exhaling and creating a small white cloud in front of [npc.her] face.",
+					"[npc.NamePos] lifts the cigarette to your [pc.lips] and puts the end in your mouth, at which point the fire enchantment auto-ignites the opposite end."
+							+ " Breathing in, you inhale the smoke that's produced from the burning plant matter, before exhaling and creating a small white cloud in front of your face.");
 		}
 	};
 	
@@ -3774,51 +3898,6 @@ public class ItemType {
 					"You force [npc.name] to untie the ribbon and peel off the wrapping paper, before getting [npc.herHim] to open the box to discover what's inside...",
 					"[npc.Name] produces a present, and then proceeds to untie the ribbon and peel off the wrapping paper, before opening the box to discover what's inside...",
 					"[npc.Name] produces a present, and then proceeds to make you untie the ribbon and peel off the wrapping paper, before getting you to open the box to discover what's inside...");
-		}
-	};
-	
-	public static AbstractItemType GIFT_ROSE = new AbstractItemType(
-			100,
-			null,
-			false,
-			"Rose",
-			"Roses",
-			"A bouquet filled with roses of many colours, it smells pleasant even from a distance."
-				+ " [Ashley.speech(Just in case you're clueless to the point that you don't even know the favourite colour of your intended recipient, every natural colour is included here.)]",
-			//				+ " If their favourite happens to be blue, tough luck; maybe you should try getting acquainted with another species of flower instead of going with what's safe.)] ",
-			"giftRose",
-			Colour.BASE_CRIMSON,
-			Colour.BASE_GREEN_DARK,
-			null,
-			Rarity.UNCOMMON,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.GIFT)) {
-
-
-		@Override
-		public String getDescription() {
-			return "A single, red rose."
-					+ " You imagine that if it were any other colour, it would smell just as sweet.";
-		}
-		
-		@Override
-		public String getUseName() {
-			return "smell";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"You take a smell of the delicate perfume given off by the red rose.",
-					"You get [npc.name] to take a smell of the delicate perfume given off by the red rose.",
-					"[npc.Name] takes a smell of the delicate perfume given off by the red rose.",
-					"[npc.Name] gets you to take a smell of the delicate perfume given off by the red rose.");
-		}
-		
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
 		}
 	};
 	
@@ -4384,6 +4463,36 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return "It's obvious from even a casual glance at this stylish box that it contains nothing other than the best lipsticks money can buy.";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType RESONANCE_STONE = new AbstractItemType(0,
+			"",
+			false,
+			"Claire's Resonance Stone",
+			"Claire's Resonance Stones",
+			"A small, polished sphere, which has a single groove running around its entire circumference."
+					+ " Normally prohibited to citizens, Claire has given you this one so that you can send a signal to the SWORD Enforcers stationed near the Rat Warrens.",
+			"resonanceStone",
+			Colour.CLOTHING_PURPLE_VERY_DARK,
+			null,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "The resonance stone is made out of some kind of highly-polished stone, and by twisting its two halves in opposite directions, can be activated to send a signal to any other stones which are linked to it."
+					+ " Claire has told you that this one will trigger SWORD Enforcers to begin their raid on the Rat Warrens, and should only be used once you've confirmed that Vengar is present.";
 		}
 		@Override
 		public boolean isConsumedOnUse() {

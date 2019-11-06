@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>100</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[rose]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[roses]]></namePlural>
+		<description><![CDATA[A single, colourful rose, which could be tucked into someone's hair as a decorative accessory. You imagine that if it were any other colour, it would smell just as sweet.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>HAIR</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>rose.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_RED_DARK</colour>
+			<colour>CLOTHING_RED</colour>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_YELLOW</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+			<colour>CLOTHING_PINK_HOT</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_GREEN_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags>
+			<tag>GIFT</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(tuck)] the rose into [npc.her] [npc.hair].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(tuck)] the rose into [npc2.namePos] [npc.hair].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] the rose into [npc2.namePos] [npc.hair].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(take)] the rose out of [npc.her] [npc.hair].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(take)] the rose out of [npc2.namePos] [npc.hair].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(snatch)] the rose out of [npc2.namePos] [npc.hair].]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>

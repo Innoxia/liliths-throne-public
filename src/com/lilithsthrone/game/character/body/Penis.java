@@ -794,7 +794,7 @@ public class Penis implements BodyPartInterface {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		if(owner==null) {
+		if(owner==null || owner.getBody()==null) {
 			penisModifiers.add(modifier);
 			return "";
 		}

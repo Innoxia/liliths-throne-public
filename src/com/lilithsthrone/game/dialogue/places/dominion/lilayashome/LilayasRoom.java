@@ -34,7 +34,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.5
- * @version 0.3.5
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class LilayasRoom {
@@ -64,6 +64,9 @@ public class LilayasRoom {
 				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
 			}
 			if (index == 1) {
+				if(!Main.game.isExtendedWorkTime()) {
+					return new Response("Lilaya's Room", "The door is firmly shut and locked at the moment...", null);
+				}
 				return new Response("Lilaya's Room", "Have a look around Lilaya's room.", ROOM_LILAYA_INSIDE);
 
 			}  else {

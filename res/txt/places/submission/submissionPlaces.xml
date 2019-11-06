@@ -261,6 +261,60 @@
 	</htmlContent>
 
 	
+	<!-- CLAIRE_VENGAR_HELP -->
+	
+	<htmlContent tag="CLAIRE_VENGAR_HELP"><![CDATA[
+	<p>
+		Thinking that it would be a good idea to hear Claire's opinion of Vengar, you ask her if she's aware of the fact that he's leading a criminal gang, and if there's anything the Enforcers are doing to stop him. 
+	</p>
+	<p>
+		[claire.speech(Yes, of course I'm aware of Vengar,)] the busty cat-girl sighs, [claire.speech(And no, there's nothing we can do to stop him; frontline patrol units aren't equipped to directly confront gangs like his, and we don't have the manpower to guard the premises he's extorting for protection money. There's really nothing we can do about him.)]
+	</p>
+	<p>
+		[pc.speech(So I wouldn't get any help if I were to go into his hideout and confront him?)] you ask, revealing your intentions.
+	</p>
+	<p>
+		[claire.speech(Excuse me?!)] Claire exclaims, puffing up her chest and wagging a finger as she scolds you, [claire.speech(You'd better not be serious about that! Do you realise how dangerous Vengar is?! There's no way you're actually thinking about trying to confront him, right?!)]
+	</p>
+	<p>
+		Replying that you are in fact serious about wanting to put a stop to Vengar's criminal activities, you watch as Claire pouts and places her hands on her hips, before letting out a weary sigh and revealing, [claire.speech(If you're really, truly serious about all this, then there is something that I can do to help. I'll need to run it by the Inspector first, though, so just wait here, ok?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLAIRE_VENGAR_HELP_WAIT"><![CDATA[
+	<p>
+		Agreeing to wait for her return, you watch Claire hurry off to a door marked 'Inspector Powell', before knocking on it and stepping inside. After an uneventful five minutes, she eventually steps back out of the office, and with her huge breasts bouncing up and down, she rushes back over towards you.
+	</p>
+	<p>
+		[claire.speech(Ok, I got permission to give you some help,)] she reveals, [claire.speech(but under the condition that this is all off the record, ok? If we manage to capture Vengar, we can't offer you a reward or anything...)]
+	</p>
+	<p>
+		Curious to hear what kind of help Claire is willing to offer, you tell her that you're ok with not getting any official recognition, before asking what she has in mind.
+	</p>
+	<p>
+		[claire.speech(This is meant to be classified information, but seeing as you might be able to provide us with a unique opportunity, and also due to the fact that I vouched for you, the Inspector is allowing me to tell you this,)] Claire reveals, before stepping closer to you and lowering her voice, [claire.speech(There's been a SWORD unit waiting to launch a raid on the Rat Warrens for a couple of weeks now, but they're only interested in capturing Vengar himself, and so they're waiting for confirmation that he's inside before assaulting the place. If they were to raid the place and fail to find Vengar, he'd be sure to take precautions against ever being found again...)]
+	</p>
+	<p>
+		[pc.speech(So you want me to find out if he's in there for you?)] you ask, picking up on what it is Claire is about to ask you.
+	</p>
+	<p>
+		[claire.speech(That's right,)] she confirms, before reaching into a pouch on her vest and producing a small, dark-purple sphere. Handing it towards you, she says, [claire.speech(This is a basic resonance stone, calibrated to send a signal to the one in the SWORD unit's possession. These are normally illegal for citizens to use, but you have special permission from the Inspector. Just twist the two halves in opposite directions to activate it and only use it once you're in the rat Warrens and have confirmed that Vengar is inside, ok?)]
+	</p>
+	<p>
+		Taking the resonance stone from Claire, you see that there's a shallow groove running the entire way around its circumference, effectively splitting the sphere into two halves. Telling the busty cat-girl that you understand how it works, you put it away into your inventory.
+	</p>
+	<p>
+		[claire.speech(The Inspector told me that the response time for the SWORD squad is going to be about five to ten minutes, so just buy some time after activating the stone, and they'll come to help you deal with Vengar as soon as they can,)] Claire further explains, [claire.speech(Oh, and show them the stone when they arrive, so that they don't arrest you by mistake...)]
+	</p>
+	<p>
+		Thanking Claire, and with nothing more on the matter to discuss, you wonder what to do next... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
 	<!-- CLAIRE_TELEPORTATION_PADS -->
 	
 	<htmlContent tag="CLAIRE_TELEPORTATION_PADS"><![CDATA[
@@ -395,7 +449,7 @@
 		[pc.speech(Don't worry, I've kept it a secret,)] you reply, [pc.speech(and there's nobody nearby who's going to overhear us.)]
 	</p>
 	<p>
-		[claire.speech(Y-Yes, well, you never know,)] Claire responds, and you notice that for some odd reason she's starting to blush. Before you can ask her waht's wrong, she continues, [claire.speech(The truth is, I kind of found that whole experience to be... well.. pretty exciting...)]
+		[claire.speech(Y-Yes, well, you never know,)] Claire responds, and you notice that for some odd reason she's starting to blush. Before you can ask her what's wrong, she continues, [claire.speech(The truth is, I kind of found that whole experience to be... well.. pretty exciting...)]
 	</p>
 	<p>
 		[pc.speech(I suppose it was,)] you reply.
@@ -576,18 +630,57 @@
 	</htmlContent>
 	
 	
+	<!-- RAT_WARREN -->
+	
 	<htmlContent tag="RAT_WARREN"><![CDATA[
 	<p>
-		This side tunnel looks just like all of the others that you've travelled through so far, but with one exception.
-		 Built into the wall nearest to where you're standing, a large stone archway has been constructed.
-		 A pair of heavy oaken doors, firmly shut tight, fill the opening, leaving you to wonder what could possibly be on the other side.
+		This side tunnel looks just like all of the others that you've travelled through so far, but with one exception. Built into the wall nearest to where you're standing, a large stone archway has been constructed, which houses a pair of heavy oaken doors. Shut tight and bolted from within, these doors block access to whatever is on the other side.
 	</p>
 	<p>
-		Stepping forwards to take a closer look, you see that the name 'Vengar' has been crudely carved into the wood.
-		 Pressing your [pc.ear] against the surface, you can hear the distinct sounds of life within, and you wonder if you should give the doors a knock, or simply carry on your way...
+		Stepping forwards to take a closer look, you see that the words <i>'Vengar's Rat Warrens'</i> have been carved into the stone to the right of the doors. You wonder if you should give the doors a knock, or simply carry on your way...
 	</p>
 	]]>
 	</htmlContent>
+	
+	
+	<!-- RAT_WARREN_KNOCK_ON_DOOR -->
+	
+	<htmlContent tag="RAT_WARREN_KNOCK_ON_DOOR"><![CDATA[
+	#IF(pc.hasQuest(QUEST_LINE_SIDE_VENGAR))
+		<p>
+			Knock on door, give password. Door unlocks.
+		</p>
+	#ELSE
+		<p>
+			Knock on door, don't have password. Refused entry.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RAT_WARREN_ENTRY_STEP_BACK"><![CDATA[
+	<p>
+		You change your mind and step back.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RAT_WARREN_STEP_BACK"><![CDATA[
+	<p>
+		You step back.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RAT_WARREN_ENTRY"><![CDATA[
+	<p>
+		You enter the rat warrens. Rat guards.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GAMBLING_DEN -->
 	
 	<htmlContent tag="GAMBLING_DEN"><![CDATA[
 	<p>

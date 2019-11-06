@@ -319,7 +319,6 @@ public class TooltipInventoryEventListener implements EventListener {
 				}
 
 			} else if (invSlot == InventorySlot.WEAPON_OFFHAND_2) {
-
 				if (equippedToCharacter != null) {
 					if (equippedToCharacter.getOffhandWeapon(1) == null) {
 						AbstractWeapon primary = equippedToCharacter.getMainWeapon(1);
@@ -349,7 +348,6 @@ public class TooltipInventoryEventListener implements EventListener {
 				}
 
 			} else if (invSlot == InventorySlot.WEAPON_OFFHAND_3) {
-
 				if (equippedToCharacter != null) {
 					if (equippedToCharacter.getOffhandWeapon(2) == null) {
 						AbstractWeapon primary = equippedToCharacter.getMainWeapon(2);
@@ -380,11 +378,10 @@ public class TooltipInventoryEventListener implements EventListener {
 
 			} else {
 				if (equippedToCharacter != null) {
-					
 					boolean renderingTattoos = false;
 					
-					if((equippedToCharacter.isPlayer() && RenderingEngine.ENGINE.isRenderingTattoosLeft())
-							|| (!equippedToCharacter.isPlayer() && RenderingEngine.ENGINE.isRenderingTattoosRight())) {
+					if((equippedToCharacter.isPlayer() && RenderingEngine.ENGINE.isRenderingTattoosLeft()) || (!equippedToCharacter.isPlayer() && RenderingEngine.ENGINE.isRenderingTattoosRight())
+							&& !invSlot.isJewellery()) {
 						renderingTattoos = true;
 					}
 						
@@ -578,7 +575,7 @@ public class TooltipInventoryEventListener implements EventListener {
 						}
 
 					} else {
-						if(renderingTattoos) {
+						if(renderingTattoos && !invSlot.isJewellery()) {
 							tattooTooltip(equippedToCharacter.getTattooInSlot(invSlot));
 						} else {
 							clothingTooltip(equippedToCharacter.getClothingInSlot(invSlot));
@@ -1158,7 +1155,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		Femininity femininityRestriction = absClothing.getClothingType().getFemininityRestriction();
 		tooltipSB.append(
 				"<span style='color:" + (absClothing.isEnchantmentKnown()?absClothing.getRarity().getColour():Colour.TEXT_GREY).toWebHexString() + ";'>"
-						+Util.capitaliseSentence(absClothing.getRarity().getName())
+						+Util.capitaliseSentence(absClothing.isEnchantmentKnown()?absClothing.getRarity().getName():"Unknown")
 				+"</span>"
 				+ " | "
 				+ (femininityRestriction==null || femininityRestriction==Femininity.ANDROGYNOUS

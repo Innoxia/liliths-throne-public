@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		Entrance to the rat warrens. Rat-morph guards.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		Twisting passageways through the rat warrens. In some places very narrow, others wide. Some parts have stone walls, other wood, and in some places, just bare dirt.
+	</p>
+	<p>
+		If corridor not cleared:<br/>
+		Rats sometimes loitering about who give you funny looks or make an occasional comment.<br/>
+		Else:<br/>
+		Corridors clear, as the rats loitering about here rushed to the entrance (and were defeated by you).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY"><![CDATA[
+	<p>
+		Bunk beds line the walls, and wooden tables and chairs are haphazardly placed in the middle of the room. If night , lots of rats sleeping here. In day, just a couple milling about.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DICE_DEN"><![CDATA[
+	<p>
+		Large room with a bar down one side, and tables in the middle. In day, rats gambling. At night, quieter, but still some around.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MILKING_ROOM"><![CDATA[
+	<p>
+		Stocks in the middle of the room, with human girls being milked. Chains and manacles bolted into one wall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL"><![CDATA[
+	<p>
+		Huge stone hall. A dozen long, wooden tables. At the far end, a raised dais, with a throne sitting atop it.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

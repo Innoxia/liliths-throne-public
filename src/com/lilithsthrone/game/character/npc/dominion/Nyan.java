@@ -71,7 +71,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class Nyan extends NPC {
@@ -410,6 +410,17 @@ public class Nyan extends NPC {
 		}
 	}
 	
+	@Override
+	public void turnUpdate() {
+		if(!Main.game.getCharactersPresent().contains(this)) {
+			if(Main.game.isExtendedWorkTime()) {
+				this.returnToHome();
+			} else {
+				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+			}
+		}
+	}
+	
 	/**
 	 * Adds three uncommon clothing items to the list, and one rare item.
 	 */
@@ -493,13 +504,7 @@ public class Nyan extends NPC {
 							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
 							:"");
 				
-			} else if(type.equals(ItemType.GIFT_ROSE)) {
-				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_SINGLE_ROSE")
-						+(applyEffects
-								?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
-								:"");
-					
-				} else if(type.equals(ItemType.GIFT_ROSE_BOUQUET)) {
+			} else if(type.equals(ItemType.GIFT_ROSE_BOUQUET)) {
 				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_ROSES")
 					+(applyEffects
 							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 10)
@@ -510,7 +515,16 @@ public class Nyan extends NPC {
 					+(applyEffects
 							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 15)
 							:"");
-				
+			}
+			
+		} else if(gift instanceof AbstractClothing) {
+			AbstractClothingType type = ((AbstractClothing)gift).getClothingType();
+			if(type.equals(ClothingType.getClothingTypeFromId("innoxia_hair_rose"))) {
+				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_SINGLE_ROSE")
+						+(applyEffects
+								?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
+								:"");
+					
 			}
 		}
 		

@@ -127,10 +127,6 @@ public class EnforcerWarehouseGuard extends NPC {
 	}
 	
 	@Override
-	public void hourlyUpdate() {
-	}
-	
-	@Override
 	public String getDescription() {
 		return UtilText.parse(this, "[npc.Name]."); //TODO
 	}

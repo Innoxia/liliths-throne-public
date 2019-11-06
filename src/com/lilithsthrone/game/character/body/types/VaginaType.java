@@ -17,50 +17,51 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  */
 public enum VaginaType implements BodyPartTypeInterface {
 
-	NONE(null, FluidType.GIRL_CUM_HUMAN, Race.NONE),
+	NONE(null, FluidType.GIRL_CUM_HUMAN, Race.NONE, false),
 
-	HUMAN(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HUMAN, Race.HUMAN),
+	HUMAN(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HUMAN, Race.HUMAN, false),
 
-	ANGEL(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_ANGEL, Race.ANGEL, OrificeModifier.MUSCLE_CONTROL),
+	ANGEL(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_ANGEL, Race.ANGEL, false, OrificeModifier.MUSCLE_CONTROL),
 
-	DEMON_COMMON(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DEMON, Race.DEMON, OrificeModifier.MUSCLE_CONTROL, OrificeModifier.TENTACLED),
+	DEMON_COMMON(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DEMON, Race.DEMON, false, OrificeModifier.MUSCLE_CONTROL, OrificeModifier.TENTACLED),
 
-	DOG_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DOG_MORPH, Race.DOG_MORPH),
+	DOG_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DOG_MORPH, Race.DOG_MORPH, false),
 
-	WOLF_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_WOLF_MORPH, Race.WOLF_MORPH),
+	WOLF_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_WOLF_MORPH, Race.WOLF_MORPH, false),
 	
-	FOX_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_FOX_MORPH, Race.FOX_MORPH),
+	FOX_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_FOX_MORPH, Race.FOX_MORPH, false),
 
-	SQUIRREL_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
+	SQUIRREL_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH, false),
 
-	RAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_RAT_MORPH, Race.RAT_MORPH),
+	RAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_RAT_MORPH, Race.RAT_MORPH, false),
 
-	RABBIT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_RABBIT_MORPH, Race.RABBIT_MORPH),
+	RABBIT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_RABBIT_MORPH, Race.RABBIT_MORPH, false),
 
-	BAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_BAT_MORPH, Race.BAT_MORPH),
+	BAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_BAT_MORPH, Race.BAT_MORPH, false),
 	
-	ALLIGATOR_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH),
+	ALLIGATOR_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH, true),
 	
-	CAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_CAT_MORPH, Race.CAT_MORPH),
+	CAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_CAT_MORPH, Race.CAT_MORPH, false),
 
-	COW_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_COW_MORPH, Race.COW_MORPH),
+	COW_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_COW_MORPH, Race.COW_MORPH, false),
 
-	HORSE_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HORSE_MORPH, Race.HORSE_MORPH, OrificeModifier.PUFFY, OrificeModifier.MUSCLE_CONTROL),
+	HORSE_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HORSE_MORPH, Race.HORSE_MORPH, false, OrificeModifier.PUFFY, OrificeModifier.MUSCLE_CONTROL),
 
-	REINDEER_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_REINDEER_MORPH, Race.REINDEER_MORPH, OrificeModifier.PUFFY),
+	REINDEER_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_REINDEER_MORPH, Race.REINDEER_MORPH, false, OrificeModifier.PUFFY),
 
-	HARPY(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HARPY, Race.HARPY);
+	HARPY(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HARPY, Race.HARPY, true);
 
 	private BodyCoveringType skinType;
 	private FluidType fluidType;
 	private Race race;
 	private List<OrificeModifier> defaultRacialOrificeModifiers;
+	private boolean eggLayer;
 
-	private VaginaType(BodyCoveringType skinType, FluidType fluidType, Race race, OrificeModifier... defaultRacialOrificeModifiers) {
+	private VaginaType(BodyCoveringType skinType, FluidType fluidType, Race race, boolean eggLayer, OrificeModifier... defaultRacialOrificeModifiers) {
 		this.skinType = skinType;
 		this.fluidType = fluidType;
 		this.race = race;
-		
+		this.eggLayer = eggLayer;
 		this.defaultRacialOrificeModifiers = new ArrayList<>();
 		Collections.addAll(this.defaultRacialOrificeModifiers, defaultRacialOrificeModifiers);
 	}
@@ -253,6 +254,10 @@ public enum VaginaType implements BodyPartTypeInterface {
 
 	public FluidType getFluidType() {
 		return fluidType;
+	}
+
+	public boolean isEggLayer() {
+		return eggLayer;
 	}
 
 	public List<OrificeModifier> getDefaultRacialOrificeModifiers() {

@@ -297,7 +297,10 @@ public class CharacterInventory implements XMLSaving {
 				
 				int count = Integer.parseInt(e.getAttribute("count"));
 				String id = e.getAttribute("id");
-				if(id.equals(ItemType.getItemToIdMap().get(ItemType.CONDOM_USED))) {
+				if(id.equals("GIFT_ROSE")) { // Changed the rose to a clothing item in v0.3.5.5
+					inventory.addClothing(AbstractClothingType.generateClothing("innoxia_hair_rose", Colour.CLOTHING_RED_DARK, Colour.CLOTHING_GREEN_DARK, null, false), count);
+					
+				} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.CONDOM_USED))) {
 					itemMapToAdd.put(AbstractFilledCondom.loadFromXML(e, doc), count);
 					
 				} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.MOO_MILKER_FULL))) {
@@ -1124,6 +1127,10 @@ public class CharacterInventory implements XMLSaving {
 		return equipTextSB.toString();
 	}
 
+	public void resetEquipDescription() {
+		equipTextSB.setLength(0);
+	}
+	
 	private Set<AbstractClothing> incompatibleUnequippableClothing = new HashSet<>();
 	private Set<AbstractClothing> incompatibleRemovableClothing = new HashSet<>();
 	// Map of clothing that needs to be removed. If value is

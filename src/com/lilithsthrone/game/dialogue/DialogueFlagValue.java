@@ -167,7 +167,8 @@ public enum DialogueFlagValue {
 	slimeQueenForced,
 	
 	// Gambling Den:
-	axelToldAboutVengar,
+	axelMentionedVengar,
+	axelExplainedVengar,
 	roxyAddicted,
 	playedPregnancyRouletteAsMother,
 	playedPregnancyRouletteAsBreeder,
@@ -227,6 +228,15 @@ public enum DialogueFlagValue {
 	lyssiethQuestionAsked5,
 
 	meraxisRepeatDemonTF,
+	
+	// Rat warrens:
+	ratWarrensEntry,
+	ratWarrensEntryWhore,
+	ratWarrensHostile,
+
+	ratWarrensClearedLeft,
+	ratWarrensClearedCentre,
+	ratWarrensClearedRight,
 	
 	;
 }

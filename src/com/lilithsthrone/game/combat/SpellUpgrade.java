@@ -315,10 +315,10 @@ public enum SpellUpgrade {
 			SpellSchool.AIR,
 			"vacuum_secondary_voids",
 			"Secondary Voids",
-			"The target of Vacuum additionally suffers -25 critical power, and -20 to "+Attribute.ENERGY_SHIELDING.getName()+" shielding.",
+			"The target of Vacuum additionally suffers -15 critical power, and -5 to "+Attribute.ENERGY_SHIELDING.getName()+" shielding.",
 			null, Util.newArrayListOfValues(
-					"Vacuum additionally applies <b>-25</b> "+Attribute.CRITICAL_DAMAGE.getColouredName("b"),
-					"Vacuum debuff increased to <b>-20</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b"))),
+					"Vacuum additionally applies <b>-15</b> "+Attribute.CRITICAL_DAMAGE.getColouredName("b"),
+					"Vacuum debuff increased to <b>-5</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b"))),
 	VACUUM_2(2,
 			SpellSchool.AIR,
 			"vacuum_suction",

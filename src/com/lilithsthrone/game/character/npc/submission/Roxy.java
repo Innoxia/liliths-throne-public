@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Scar;
@@ -58,6 +59,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.submission.SARoxySpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -68,12 +70,13 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.6
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class Roxy extends NPC {
 
 	private static List<AbstractItemType> itemsForSale = Util.newArrayListOfValues(
+			ItemType.CIGARETTE_PACK,
 			ItemType.FETISH_UNREFINED,
 			ItemType.MOO_MILKER_EMPTY,
 			ItemType.VIXENS_VIRILITY,
@@ -124,11 +127,15 @@ public class Roxy extends NPC {
 			this.setLevel(15);
 			this.resetPerksMap(true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.5")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH,
+					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.COWARDLY,
 					PersonalityTrait.LEWD);
+			this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_NONE));
+			this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_NONE));
+			this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_NONE));
 		}
 	}
 
@@ -150,6 +157,7 @@ public class Roxy extends NPC {
 		if(setPersona) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH,
+					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.COWARDLY,
 					PersonalityTrait.LEWD);
 			
@@ -188,9 +196,9 @@ public class Roxy extends NPC {
 		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_CLEAR));
 		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_CLEAR));
 //		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
-		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_PINK_LIGHT));
-		this.setSkinCovering(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PINK), true);
+//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_PINK_LIGHT));
+//		this.setSkinCovering(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK), true);
+//		this.setSkinCovering(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PINK), true);
 		
 		// Face:
 		this.setFaceVirgin(false);
@@ -239,7 +247,6 @@ public class Roxy extends NPC {
 	
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-
 		this.unequipAllClothingIntoVoid(true, true);
 
 		this.setScar(InventorySlot.EYES, new Scar(ScarType.CLAW_MARKS, true));
@@ -261,7 +268,7 @@ public class Roxy extends NPC {
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_ankle_anklet", Colour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_finger_ring", Colour.CLOTHING_GOLD, false), true, this);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_PATCH, Colour.CLOTHING_BLACK, false), true, this);
@@ -291,6 +298,19 @@ public class Roxy extends NPC {
 	public void endSex() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			c.getDisplacedList().clear();
+		}
+	}
+
+	@Override
+	public void turnUpdate() {
+		if(!this.hasStatusEffect(StatusEffect.SMOKING) && !Main.game.isInSex()) {
+			if(this.hasStatusEffect(StatusEffect.RECENTLY_SMOKED)) {
+				if(this.getStatusEffectDuration(StatusEffect.RECENTLY_SMOKED)<60*60*2) {
+					this.addStatusEffect(StatusEffect.SMOKING, 60*5);
+				}
+			} else {
+				this.addStatusEffect(StatusEffect.SMOKING, 60*5);
+			}
 		}
 	}
 	
@@ -375,6 +395,10 @@ public class Roxy extends NPC {
 		return item instanceof AbstractClothing;
 	}
 
+	@Override
+	public SexPace getSexPaceDomPreference(){
+		return SexPace.DOM_NORMAL;
+	}
 	
 	@Override
 	public List<Class<?>> getUniqueSexClasses() {

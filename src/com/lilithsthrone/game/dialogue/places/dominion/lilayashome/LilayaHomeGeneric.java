@@ -24,6 +24,7 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
@@ -33,6 +34,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
@@ -152,14 +154,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "Positioned near the very centre of Dominion, Lilaya's home would be more aptly described as a palace, rather than a town-house."
-						+ " While the surrounding buildings are of an impressive size, you reckon that you could fit at least two or three of them into the plot which your [lilaya.relation(pc)]'s dwelling occupies."
-					+ "</p>"
-					+ "<p>"
-						+ "With your demonic [lilaya.relation(pc)] happily treating you as one of her blood-relatives, you've been given full permission to come and go from here as you please."
-						+ " If you wanted to enter the house right now, all you'd need to do is knock on the front door, and you can be sure that Lilaya's cat-girl maid, Rose, will respond in mere moments."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "OUTSIDE");
 		}
 
 		@Override
@@ -169,13 +164,12 @@ public class LilayaHomeGeneric {
 				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.daddyFound)
 						&& !Main.game.getPlayer().getFetishDesire(Fetish.FETISH_INCEST).isNegative()
 						&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN) // Only trigger after having met Lyssieth
-						&& Main.game.isDayTime()
+						&& Main.game.getHourOfDay()>=7 && Main.game.getHourOfDay()<=21
 						&& time.getMonth().equals(Month.JUNE) && time.getDayOfMonth()>=14 && time.getDayOfMonth()<=21) { // Father's day timing, 3rd week of June
 					return new Response("Enter", "Knock on the door and wait for Rose to let you in.", DaddyDialogue.FIRST_ENCOUNTER) {
 						@Override
 						public void effects() {
 							Main.game.getNpc(Daddy.class).setLocation(Main.game.getPlayer(), false);
-//							Main.game.getNpc(Rose.class).setLocation(Main.game.getPlayer(), false);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.daddyFound, true);
 						}
 					};
@@ -186,31 +180,7 @@ public class LilayaHomeGeneric {
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.daddySendingReward, false);
 							
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "You knock on the front door, and after only a brief moment, it swings open."
-									+ "</p>"
-									+ "<p>"
-										+ "[rose.speech(Welcome back, [pc.name],)]"
-										+ " Rose says, curtsying to you as she steps back in order to grant you access to Lilaya's house,"
-										+ " [rose.speech(While you were out, a package arrived for you.)]"
-									+ "</p>"
-									+ "<p>"
-										+ "As you forwards into the impressive entrance hall, the cat-girl maid retrieves a small box, wrapped in brown packaging paper, from off of the top of a nearby table."
-										+ " Smiling at you one last time, Rose hands the package to you, before excusing herself and quickly hurrying off in the direction of your [lilaya.relation(pc)]'s laboratory."
-									+ "</p>"
-									+ "<p>"
-										+ "Opening the package, you discover that it contains a spell book and several scrolls, along with a small note which reads;"
-									+ "</p>"
-									+ "<p style='text-align:center;'><i>"
-										+ "Hi [pc.name],<br/>"
-										+ "Here are the scrolls and spell book which I promised to send to you. Hope this letter finds you well, and look forwards to seeing you again soon!<br/>"
-										+ "Love,<br/>"
-										+ "[daddy.Dad]"
-									+ "</i></p>"
-									+ "<p>"
-										+ "Smiling to yourself as you finish reading the note, you put the contents of the package into your inventory, before discarding the now-empty box and packaging into a nearby waste-paper bin."
-									+ "</p>");
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "OUTSIDE_DADDY_PACKAGE"));
 							
 							Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
 
@@ -223,17 +193,7 @@ public class LilayaHomeGeneric {
 					return new ResponseEffectsOnly("Enter", "Knock on the door and wait for Rose to let you in."){
 						@Override
 						public void effects() {
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "You knock on the front door, and after only a brief moment, it swings open."
-									+ "</p>"
-									+ "<p>"
-										+ "[rose.speech(Welcome back, [pc.name],)] Rose says, curtsying to you as she steps back in order to grant you access to Lilaya's house."
-									+ "</p>"
-									+ "<p>"
-										+ "Moving forwards into the impressive entrance hall, you greet the cat-girl maid as she closes the door behind you."
-										+ " Turning to smile at you one last time, Rose then excuses herself, before quickly hurrying off in the direction of your [lilaya.relation(pc)]'s laboratory..."
-									+ "</p>");
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "OUTSIDE_KNOCK_ON_DOOR"));
 							
 							Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
 						}
@@ -423,6 +383,10 @@ public class LilayaHomeGeneric {
 					@Override
 					public DialogueNode getNextDialogue() {
 						return OccupantManagementDialogue.getSlaveryRoomListDialogue(null);
+					}
+					@Override
+					public void effects() {
+						CompanionManagement.initManagement(Main.game.getDefaultDialogue(), 0, null);
 					}
 				};
 			} else {
@@ -862,6 +826,10 @@ public class LilayaHomeGeneric {
 						@Override
 						public DialogueNode getNextDialogue() {
 							return OccupantManagementDialogue.getSlaveryOverviewDialogue();
+						}
+						@Override
+						public void effects() {
+							CompanionManagement.initManagement(Main.game.getDefaultDialogue(), 0, null);
 						}
 					};
 //				} else {
@@ -1957,17 +1925,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "Evidence of Rose's close relationship with Lilaya is apparent as you approach the cat-girl's room."
-					+ " Hanging on the door, there's a little home-made sign bearing her name, and underneath, in what is clearly Lilaya's handwriting, a little message reads: <i>'Lilaya's favourite pet'</i>."
-				+ "</p>"
-				+ "<p>"
-					+ "The door appears to be locked at the moment, and there's no sound of anyone stirring within."
-					+ " Rose seems to only allow herself some rest when she's sure that nobody else is around who might need her, so she's probably off in another part of the house at the moment."
-				+ "</p>"
-				+ "<p>"
-					+ "You notice that there's a little bell set into the wall beside her door, and you wonder if you should try ringing it to get Rose to come up to her room."
-				+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROOM_ROSE");
 		}
 
 		@Override
@@ -1981,225 +1939,20 @@ public class LilayaHomeGeneric {
 				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
 			}
 			if (index == 1) {
+				if(!Main.game.isExtendedWorkTime()) {
+					return new Response("Call for Rose", "The sign hanging beside Rose's door explicitly says not to disturb her, so it would be best to return during the day if you wanted to talk to her about anything.", null);
+				}
+				
 				return new Response("Call for Rose", "Lilaya's slave, Rose, is always close at hand. If you were to ring the little bell beside her bedroom's door, she'd be sure to come running.", AUNT_HOME_ROSE){
 					@Override
 					public void effects() {
-						roseContent = "<p>"
-									+ "Deciding that you'd like to talk to Rose, you decide to push the little bell that's situated beside her bedroom's door, causing a faint ringing noise to echo up from somewhere else in the house."
-									+ " Despite the enormous size of Lilaya's home, Rose never seems to be far away, and you soon hear her walking down the corridor as she rushes to respond to your call."
-								+ "</p>"
-								+ "<p>"
-									+ "As she approaches, you see her cat-like tail swishing from side to side, and you notice one of her ears twitch as she sees you standing outside her bedroom waiting for her."
-									+ " Realising that you're obviously wanting to have a talk, she curtsies before issuing a greeting."
-								+ "</p>"
-								+ "<p>"
-									+ "[rose.speech("+(Main.game.isDayTime() ? "Good day," : "Good evening,")+")]"
-									+ " she says."
-									+ " [rose.speech(How may I help you?)]"
-								+ "</p>";
+						roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROOM_ROSE_INITIAL_CALL");
 						
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.auntHomeJustEntered);
 						Main.game.getNpc(Rose.class).setLocation(Main.game.getActiveWorld().getWorldType(), Main.game.getPlayer().getLocation(), false);
 					}
 				};
 				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNode GARDEN = new DialogueNode("Garden courtyard", ".", false) {
-
-		@Override
-		public int getSecondsPassed() {
-			return 10;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "The garden courtyard consists of a series of wide, perfectly trimmed grass pathways, each one lined with beds of brightly-coloured flowers."
-					+ " Although Rose is now the one responsible for maintaining it, you guess that Lilaya must have hired a professional company in order to have had this area landscaped so perfectly."
-				+ "</p>";
-		}
-
-		@Override
-		public String getResponseTabTitle(int index) {
-			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(responseTab==1) {
-				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
-			}
-			return null;
-		}
-	};
-	
-	public static final DialogueNode FOUNTAIN = new DialogueNode("Water fountain", ".", false) {
-
-		@Override
-		public int getSecondsPassed() {
-			return 10;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "In the very centre of the garden courtyard, a huge, ornate water fountain happily bubbles away with a mind of its own."
-					+ " The structure is made up of a collection of intricate statues; each one of a beautiful woman in some manner of indecent pose."
-				+ "</p>";
-		}
-
-		@Override
-		public String getResponseTabTitle(int index) {
-			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(responseTab==1) {
-				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
-			}
-			return null;
-		}
-	};
-	
-	public static final DialogueNode ENTRANCE_HALL = new DialogueNode("Entrance hall", ".", false) {
-
-		@Override
-		public int getSecondsPassed() {
-			return 10;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "Lilaya's house is by far the most impressive building you've ever been in."
-						+ " The entrance hall that you find yourself standing in is alone far larger than your old flat, and is extravagantly decorated in a style befitting a royal palace."
-						+ " Fine paintings and marble busts line the walls, and a huge crystal chandelier hangs from the double-height ceiling, casting its warm light over a grand, red-carpeted staircase that leads to the upper floor."
-					+ "</p>"
-					+ "<p>"
-						+ "From previous explorations, you know that the rest of the house is furnished in much the same manner."
-						+ " You tried to count all the rooms once, but gave up after reaching well over one hundred."
-						+ " Despite its grand appearance and impressive size, the only member of staff you've ever seen is Lilaya's slave; the cat-girl maid called Rose."
-						+ " Lilaya herself spends almost every waking moment working in her lab, resulting in the house being eerily quiet for most of the time."
-					+ "</p>";
-		}
-
-		@Override
-		public String getResponseTabTitle(int index) {
-			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(responseTab==1) {
-				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
-			}
-			if (index == 1) {
-				return new ResponseEffectsOnly("Exit", "Leave Lilaya's house."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_AUNTS_HOME, true);
-					}
-				};
-
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNode STAIRCASE_UP = new DialogueNode("Staircase up", ".", false) {
-
-		@Override
-		public int getSecondsPassed() {
-			return 10;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "The grand, red-carpeted staircase is one of the first things you see when entering Lilaya's home."
-						+ " Half-way up the shallow steps, there's a secondary landing area, which is home to a couple of antique-looking cabinets and well looked after house plants."
-						+ " Branching off from the sides of this landing, two slightly-narrower staircases wrap around and lead up to the floor above."
-					+ "</p>"
-					+ "<p>"
-						+ "A huge portrait of two women hangs on the wall of the landing area, overlooking the entire entrance hall."
-						+ " You immediately recognise the half-demon sitting in the chair as Lilaya, and you can only assume that the gorgeous figure standing behind her is her Lilin mother, Lyssieth."
-						+ " Although Lilin can change their appearance at will, Lyssieth has chosen to appear as a beautiful half-demon in her mid-forties,"
-							+ " and you wonder if she did this to make Lilaya feel more comfortable, or whether that's simply the form she prefers to take."
-					+ "</p>"
-					+ "<p>"
-						+ "Remarking one last time upon how beautiful the mother-daughter pair are, you continue on your way..."
-					+ "</p>";
-		}
-
-		@Override
-		public String getResponseTabTitle(int index) {
-			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(responseTab==1) {
-				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
-			}
-			if (index == 1) {
-				return new ResponseEffectsOnly("Upstairs", "Go upstairs to the first floor."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_STAIR_DOWN, true);
-					}
-				};
-
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNode STAIRCASE_DOWN = new DialogueNode("Staircase down", ".", false) {
-
-		@Override
-		public int getSecondsPassed() {
-			return 10;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "Standing at the top of the grand, red-carpeted staircase, you find yourself looking down at the huge portrait of Lilaya and her mother."
-						+ " Although you didn't notice it from the ground floor, you seem to detect a hint of annoyance in Lyssieth's eyes,"
-							+ " giving you the impression that she's trying her best to hide her resentment towards either the artist, or someone who must have been close by."
-					+ "</p>"
-							//TODO met Lyssieth
-					+ "<p>"
-						+ "Wondering if you'll ever get to ask Lilaya, or perhaps even Lyssieth herself, about the circumstances under which this portrait was painted, you look away and continue on your way..."
-					+ "</p>";
-		}
-
-		@Override
-		public String getResponseTabTitle(int index) {
-			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(responseTab==1) {
-				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
-			}
-			if (index == 1) {
-				return new ResponseEffectsOnly("Downstairs", "Go back downstairs to the ground floor."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_STAIR_UP, true);
-					}
-				};
-
 			} else {
 				return null;
 			}
@@ -2250,12 +2003,12 @@ public class LilayaHomeGeneric {
 				};
 
 			} else if (index == 5) {
-				if(Main.game.getPlayer().hasItemType(ItemType.GIFT_ROSE) && !giftedRose) {
+				if(Main.game.getPlayer().hasClothingType(ClothingType.getClothingTypeFromId("innoxia_hair_rose"), false) && !giftedRose) {
 					return new Response("Offer rose", "Offer Rose the rose you have in your inventory.", AUNT_HOME_ROSE) {
 						@Override
 						public void effects() {
 							roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROSE_TALK_OFFER_ROSE");
-							Main.game.getPlayer().removeItemByType(ItemType.GIFT_ROSE);
+							Main.game.getPlayer().removeClothingByType(ClothingType.getClothingTypeFromId("innoxia_hair_rose"));
 							giftedRose = true;
 						}
 					};
@@ -2323,21 +2076,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "As Rose places the gifted rose into a nearby vase, you find yourself unable to look at anything but her hands... her amazing hands..."
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.thought(Holy shit... Look at those hands!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "With her cat-like tail swishing excitedly behind her, Rose sees what it is that's caught your attention, and holds up her perfect, angelic hands for you to admire."
-						+ " Her soft, pale skin almost seems to glow as she steps up in front of you, and you subconsciously start reaching out towards her delicate fingers."
-						+ " Her nails are painted a soft shade of pink, and as your fingertips touch with hers, you feel her soft warmth radiating into your [pc.armSkin]."
-					+ "</p>"
-					+ "<p>"
-						+ "The moment you make physical contact, Rose lets out a desperate moan, and as her cheeks somehow manage to flush an ever deeper shade of crimson, she sighs,"
-						+ " [rose.speech(~Aah!~ Yes! Lilaya never appreciates how much effort I put into keeping my hands so nice and soft! ~Yes!~ Take me! Take me now!)]"
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROSE_HANDS");
 		}
 
 		@Override
@@ -2359,6 +2098,166 @@ public class LilayaHomeGeneric {
 		@Override
 		public boolean isInventoryDisabled() {
 			return true;
+		}
+	};
+	
+	public static final DialogueNode GARDEN = new DialogueNode("Garden courtyard", ".", false) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 10;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "GARDEN");
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode FOUNTAIN = new DialogueNode("Water fountain", ".", false) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 10;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "FOUNTAIN");
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode ENTRANCE_HALL = new DialogueNode("Entrance hall", ".", false) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 10;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ENTRANCE_HALL");
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
+			if (index == 1) {
+				return new ResponseEffectsOnly("Exit", "Leave Lilaya's house."){
+					@Override
+					public void effects() {
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_AUNTS_HOME, true);
+					}
+				};
+
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNode STAIRCASE_UP = new DialogueNode("Staircase up", ".", false) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 10;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "STAIRCASE_UP");
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
+			if (index == 1) {
+				return new ResponseEffectsOnly("Upstairs", "Go upstairs to the first floor."){
+					@Override
+					public void effects() {
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_STAIR_DOWN, true);
+					}
+				};
+
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNode STAIRCASE_DOWN = new DialogueNode("Staircase down", ".", false) {
+
+		@Override
+		public int getSecondsPassed() {
+			return 10;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "STAIRCASE_DOWN");
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
+			if (index == 1) {
+				return new ResponseEffectsOnly("Downstairs", "Go back downstairs to the ground floor."){
+					@Override
+					public void effects() {
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_STAIR_UP, true);
+					}
+				};
+
+			} else {
+				return null;
+			}
 		}
 	};
 }

@@ -244,6 +244,17 @@ public class HarpyDominant extends NPC {
 	}
 	
 	@Override
+	public void turnUpdate() {
+		if(!Main.game.getCharactersPresent().contains(this)) {
+			if(Main.game.isExtendedWorkTime()) {
+				this.returnToHome();
+			} else {
+				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+			}
+		}
+	}
+	
+	@Override
 	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
