@@ -737,7 +737,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 	
 	public Quest getQuest(QuestLine questLine) {
-		return quests.get(questLine).get(quests.get(questLine).size()-1);
+		List<Quest> quests = this.quests.get(questLine);
+		if (null == quests) {
+			return null;
+		}
+		return quests.get(quests.size()-1);
 	}
 	
 	public boolean hasQuest(QuestLine questLine) {
