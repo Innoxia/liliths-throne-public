@@ -61,9 +61,9 @@ public class HarpyAttackerDialogue {
 	
 	private static String getDialogueId() {
 		if(isCompanionDialogue()) {
-			return "alleywayAttackCompanions";
+			return "harpyAttackCompanions";
 		}
-		return "alleywayAttack";
+		return "harpyAttack";
 	}
 
 	private static GameCharacter getMainCompanion() {
@@ -89,7 +89,7 @@ public class HarpyAttackerDialogue {
 		if(Main.game.getPlayer().isVisiblyPregnant()) {
 			Main.game.getPlayer().setCharacterReactedToPregnancy(getHarpy(), true);
 		}
-		if(getMainCompanion().isVisiblyPregnant()) {
+		if(isCompanionDialogue() && getMainCompanion().isVisiblyPregnant()) {
 			getMainCompanion().setCharacterReactedToPregnancy(getHarpy(), true);
 		}
 	}

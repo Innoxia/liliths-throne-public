@@ -85,7 +85,7 @@ public class TunnelAttackDialogue {
 		if(Main.game.getPlayer().isVisiblyPregnant()) {
 			Main.game.getPlayer().setCharacterReactedToPregnancy(getMugger(), true);
 		}
-		if(getMainCompanion().isVisiblyPregnant()) {
+		if(isCompanionDialogue() && getMainCompanion().isVisiblyPregnant()) {
 			getMainCompanion().setCharacterReactedToPregnancy(getMugger(), true);
 		}
 	}
