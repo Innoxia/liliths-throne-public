@@ -1586,18 +1586,25 @@ public class CharacterUtils {
 //				case BIMBO:
 //				case BRO:
 				case LISP:
+					break;
 				case STUTTER:
+					characterAdjectives.add("stuttering");
+					break;
+				case MUTE:
 					break;
 				case INNOCENT:
 					break;
 			}
 		}
 		
-		characterAdjectives.removeAll(exclusiveAdjectives);
-		
+		if(exclusiveAdjectives!=null) {
+			characterAdjectives.removeAll(exclusiveAdjectives);
+		}
 		if(characterAdjectives.isEmpty()) {
 			characterAdjectives = Util.newArrayListOfValues("cheeky", "excitable", "energetic", "cunning", "rude", "cocky", "smug");
-			characterAdjectives.removeAll(exclusiveAdjectives);
+			if(exclusiveAdjectives!=null) {
+				characterAdjectives.removeAll(exclusiveAdjectives);
+			}
 		}
 		
 		String adjective = Util.randomItemFrom(characterAdjectives);

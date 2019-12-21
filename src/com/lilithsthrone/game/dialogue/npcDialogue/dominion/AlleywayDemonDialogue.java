@@ -304,7 +304,7 @@ public class AlleywayDemonDialogue {
 									}
 								},
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getAllCharacters())) {
+								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), isCompanionDialogue()?"DEMON_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION":"DEMON_ATTACK_OFFER_BODY", getAllCharacters())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -1084,10 +1084,10 @@ public class AlleywayDemonDialogue {
 		StringBuilder sb = new StringBuilder();
 		
 		if(potion!=null && forcedTF) {
-			sb.append(UtilText.parse(getDemon(),
+			sb.append(UtilText.parse(getDemon(), target,
 					"<p>"
-						+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid."
-						+ " [npc.speech(Good [pc.girl]! I'm going to turn you into my perfect "+getDemon().getPreferredBodyDescription("b")+"!)]"
+						+ "[npc.Name] steps back, grinning down at [npc2.name] as [npc2.she] obediently [npc2.verb(swallow)] the strange liquid."
+						+ " [npc.speech(Good [npc2.girl]! I'm going to turn you into my perfect "+getDemon().getPreferredBodyDescription("b")+"!)]"
 					+ "</p>"));
 			for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
 				sb.append(UtilText.parse(getDemon(),

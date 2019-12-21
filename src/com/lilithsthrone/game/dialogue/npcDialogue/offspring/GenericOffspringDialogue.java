@@ -1357,7 +1357,7 @@ public class GenericOffspringDialogue {
 			AbstractClothing enslavementClothing = offspring().getEnslavementClothing();
 			
 			if(!offspring().isSlave() && offspring().isAbleToBeEnslaved()) {
-				if(enslavementClothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR)) {
+				if(enslavementClothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"))) {
 					return UtilText.parse(offspring(),
 							"<p>"
 								+ "As you lift the collar up to [npc.namePos] neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting your [npc.daughter] as a potential enslavement target."

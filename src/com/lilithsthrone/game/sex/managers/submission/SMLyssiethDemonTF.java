@@ -22,13 +22,14 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class SMLyssiethDemonTF extends SexManagerDefault {
 
 	public SMLyssiethDemonTF(AbstractSexPosition sexPositionType, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(sexPositionType,
+		super(false,
+				sexPositionType,
 				dominants,
 				submissives);
 	}

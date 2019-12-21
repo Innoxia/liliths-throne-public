@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- STOCKS_INITIAL -->
+	
+	<htmlContent tag="STOCKS_INITIAL"><![CDATA[
+	<p>
+		You (and your companion) are exhausted from your defeat and the subsequent fucking. After they've left, Murk appears and attaches a heavy metal chain to your collar, before unlocking the stocks and telling you that you can sleep on the straw bedding behind you.
+	</p>
+	<p>
+		With no strength left in your body, you do just that, and despite the discomfort, you soon fall asleep on the straw...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_SLEEP -->
+	
+	<htmlContent tag="STOCKS_SLEEP"><![CDATA[
+	<p>
+		You (and companion) curl up on your respective straw bedding and drift off to sleep...
+	</p>
+	<p>
+		...
+	</p>
+	<p>
+		The next morning, you find yourself being woken by Murk tugging on your chain. He tells you to get back in the milking stocks, and you have little option but to do as he says.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_INTRO_FEMININE"><![CDATA[
+	<p>
+		Murk says that he's going to turn you into another one of his milkers. Rat-girl enters and overhears, saying that Murk should do something more fun with you (and companion).
+	</p>
+	<p>
+		They argue, but when the rat-girl threatens Murk, you sense that he's afraid. Running out of options, he passes the choice onto you, asking if you want him to turn you into a female. The rat-girl says that you want to be a futa so she can come and milk your cock. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_INTRO_MASCULINE"><![CDATA[
+	<p>
+		Murk says that he's got enough female milkers, and that he's going to turn you and your companion into masculine cum milkers. To see how docile you are, he steps up behind you and presses his cock against your ass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_SELF_TF_DEMAND"><![CDATA[
+	<p>
+		Murk says that you're going to perform some self-transformations for him. As you've gained the transformation fetish, you're happy to oblige.
+	</p>
+	<p>
+		He unclasps your collar, and warns you that if you do anything other than exactly what he says, you'll be in serious trouble.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_POTION"><![CDATA[
+	<p>
+		Murk produces a potion and says that you need some more adjustments. If ring-gag, you cannot spit. If no ring-gag, you can spit.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_MILKING_CHECK"><![CDATA[
+	<p>
+		Murk attaches the milking equipment, before going around behind you. If player has pussy, inserts enchanted insertable dildo. If player has only cock, he inserts enchanted butt-plug. Murk comments on player's capacity.
+	</p>
+	<p>
+		You start producing milk/cum for the machine to suck out of you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_TF_FEMALE"><![CDATA[
+	<p>
+		You look up at Murk, signalling that you'd prefer not to become a futa. The rat-girl storms off.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_TF_FUTA"><![CDATA[
+	<p>
+		You look up at the rat-girl, signalling that you'd prefer to become a futa. Murk seems annoyed, but the rat-girl insists.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_TF_MASCULINE"><![CDATA[
+	<p>
+		You pull away from Murk's cock, making him laugh. He says it's more fun to break you in, and that he's going to make you really manly so that you feel ashamed at being owned and dominated by him.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_TF_SISSY"><![CDATA[
+	<p>
+		You push your ass back against Murk's cock. He laughs and says he was thinking about turning you into his sissy fucktoy, and your behaviour has decided your fate.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_ALREADY_TF_COMPLETE"><![CDATA[
+	<p>
+		Murk says taht you're already perfect the way you are, and he won't need to transform you at all.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_SELF"><![CDATA[
+	<p>
+		You do as Murk says, and prepare to transform yourself for him...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_SWALLOW"><![CDATA[
+	<p>
+		You swallow the potion. If ring-gag, you have no choice.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_REFUSE"><![CDATA[
+	<p>
+		You spit out the potion. Ring-gag fitted.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_MILKING"><![CDATA[
+	<p>
+		Murk hooks you up to the milking machine. Fondles you while doing it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_SELF"><![CDATA[
+	<p>
+		Your companion self-transforms...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_SWALLOW"><![CDATA[
+	<p>
+		Your companion swallows the potion. If ring-gag, they have no choice.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_REFUSE"><![CDATA[
+	<p>
+		Your companion spits out the potion. Ring-gag fitted.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_MILKING"><![CDATA[
+	<p>
+		Murk hooks your companion up to the milking machine. Gropes them while doing it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_MILKING_START"><![CDATA[
+	<p>
+		Murk hooks your companion up to the milking machine for the first time. Gropes them while doing it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_TRANSFORM -->
+	
+	<htmlContent tag="STOCKS_TRANSFORM_MILKING_START"><![CDATA[
+	<p>
+		With all transformations finished, Murk hooks you up to the milking machine.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_GIVE_BIRTH -->
+	
+	<htmlContent tag="STOCKS_GIVE_BIRTH_EGGS"><![CDATA[
+	<p>
+		Murk fetches Silence, who helps you to deliver. Laying eggs and then guard on bedding.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_GIVE_BIRTH"><![CDATA[
+	<p>
+		Murk fetches Silence, who helps you to deliver. You pass out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_GIVE_BIRTH_PROTECT_THE_EGGS -->
+	
+	<htmlContent tag="STOCKS_GIVE_BIRTH_PROTECT_THE_EGGS"><![CDATA[
+	<p>
+		You guard your eggs. Eggs hatch. You pass out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_GIVE_BIRTH_FINISHED -->
+	
+	<htmlContent tag="STOCKS_GIVE_BIRTH_FINISHED_EGGS"><![CDATA[
+	<p>
+		Wake up later and get locked  back into milking stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_GIVE_BIRTH_FINISHED"><![CDATA[
+	<p>
+		Wake up later and get locked back into milking stall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_WAITING -->
+	
+	<htmlContent tag="STOCKS_WAITING_START"><![CDATA[
+	<p>
+		Being locked into the milking stall, there's nothing to do but wait and see what happens to you next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_END_PREGNANACY"><![CDATA[
+	<p>
+		Your companion, having been impregnated, is taken away by Silence and helped to give birth. After an hour or so, she returns...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_MILKING"><![CDATA[
+	<p>
+		Your companion is milked by Murk.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_PUNISHMENT"><![CDATA[
+	<p>
+		Murk punishes your companion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_MURK_SEX"><![CDATA[
+	<p>
+		Murk decides to fuck your companion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_SEX"><![CDATA[
+	<p>
+		A rat pays Murk to fuck one of the milkers. They step up to your companion and fuck them.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_SEX_THREESOME"><![CDATA[
+	<p>
+		A couple of rats pay Murk to fuck one of the milkers. They step up to your companion and fuck them.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_TEASE"><![CDATA[
+	<p>
+		Murk teases your companion with his cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_ESSENCE_EXTRACTION"><![CDATA[
+	<p>
+		Murk uses the essence extraction machine on you, commenting on how you're his cash cow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_MILKING"><![CDATA[
+	<p>
+		Murk milks you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_PUNISHMENT"><![CDATA[
+	<p>
+		Murk punishes you. If player does not have masochist fetish, it's quite tame.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_SEX"><![CDATA[
+	<p>
+		A rat pays Murk to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_SEX_THREESOME"><![CDATA[
+	<p>
+		A couple of rats pay Murk to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_TEASE"><![CDATA[
+	<p>
+		Murk teases you with his cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_MURK_LEAVES"><![CDATA[
+	<p>
+		Having had his fun, Murk departs, leaving you with little else to do but wait...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_REFUSE_TO_BEG"><![CDATA[
+	<p>
+		You refuse to beg for Murk to fuck you. Annoyed, he says that he's going to give a discount to anyone else who wants to fuck you, before leaving.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX"><![CDATA[
+	<p>
+		You beg for Murk to fuck you. This is a backup dialogue node, and should never be seen.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_ANAL"><![CDATA[
+	<p>
+		You beg for Murk to fuck your ass. Add variation for if you are stretched to his size.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_VAGINAL"><![CDATA[
+	<p>
+		You beg for Murk to fuck you. Add variation for if you are stretched to his size.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_BLOWJOB"><![CDATA[
+	<p>
+		You beg for Murk to fuck your throat.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_ANILINGUS"><![CDATA[
+	<p>
+		You beg for Murk to let you lick his ass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_RECEIVE_ANILINGUS"><![CDATA[
+	<p>
+		You beg for Murk to lick your ass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_RECEIVE_HANDJOB"><![CDATA[
+	<p>
+		You beg for Murk to give you a handjob.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_RECEIVE_FINGERING"><![CDATA[
+	<p>
+		You beg for Murk to finger you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_RECEIVE_CUNNILINGUS"><![CDATA[
+	<p>
+		You beg for Murk to eat you out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_SOLO_SEX"><![CDATA[
+	<p>
+		The rat steps up behind you, slapping your ass before wondering aloud how to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_THREESOME_SEX"><![CDATA[
+	<p>
+		[npc.Name] steps up behind you, slapping your ass before wondering aloud how to fuck you...
+	</p>
+	<p>
+		[npc2.Name] moves around in front...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_AFTER_SEX -->
+	
+	<htmlContent tag="STOCKS_AFTER_SEX_MURK"><![CDATA[
+	<p>
+		Murk has finished with you. Comments on gape.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_AFTER_SEX_THREESOME"><![CDATA[
+	<p>
+		The rats have finished with you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_AFTER_SEX_SOLO"><![CDATA[
+	<p>
+		[npc.Name] has finished with you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_NIGHT -->
+	
+	<htmlContent tag="STOCKS_NIGHT"><![CDATA[
+	<p>
+		Murk unlocks you all from milking stalls and tells you to sleep. Chain linked to collar prevents you from moving far, but as your stall is closest to the milking storage room, you think you could step inside if you wanted to...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_NIGHT_BREAK_LOCK"><![CDATA[
+	<p>
+		You use your raw strength to rip the chain out of the wall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_NIGHT_BREAK_LOCK_SPELL"><![CDATA[
+	<p>
+		You use a spell to break the chain out of the wall. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_BROKEN_FREE -->
+	
+	<htmlContent tag="STOCKS_BROKEN_FREE"><![CDATA[
+	<p>
+		Murk comes in and sees what's happened. He tells you that if you submit to him, he'll forget about it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_BROKEN_FREE_SUBMIT"><![CDATA[
+	<p>
+		You decide that fighting Murk would be a bad idea, so you do as he says and submit to him...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_CALL_OUT -->
+	
+	<htmlContent tag="STOCKS_CALL_OUT"><![CDATA[
+	<p>
+		You shout out for Murk. He comes and is annoyed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_CALL_OUT_CHOKE"><![CDATA[
+	<p>
+		You pretend to be choking. Murk reluctantly undoes your collar, before saying that he expects something in return for his help...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_CALL_OUT_SEDUCE"><![CDATA[
+	<p>
+		You tell Murk that you're desperate for his cock. Say that if he undoes your collar, you can really show him what you're capable of. Blinded by lust, he does it and then demands sex...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_CALL_OUT_RELEASED -->
+	
+	<htmlContent tag="STOCKS_CALL_OUT_RELEASED_SEX"><![CDATA[
+	<p>
+		You have sex with Murk.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_RELEASED_AFTER_SEX -->
+	
+	<htmlContent tag="STOCKS_RELEASED_AFTER_SEX"><![CDATA[
+	<p>
+		Murk says it's time to lock you up again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_RELEASED_AFTER_SEX_LOCKED_UP"><![CDATA[
+	<p>
+		You allow Murk to lock you back up.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_RELEASED_OFFER_COMPANY -->
+	
+	<htmlContent tag="STOCKS_RELEASED_OFFER_COMPANY"><![CDATA[
+	<p>
+		You offer to spend the night with Murk. He accepts and fondles you before sleeping.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_RELEASED_OFFER_COMPANY_SLIP_AWAY"><![CDATA[
+	<p>
+		You take the opportunity to escape, and release your companion and get your gear back.
+	</p>
+	<p>
+		You travel through the tunnels.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_RELEASED_OFFER_COMPANY_LOCKED_UP"><![CDATA[
+	<p>
+		You stay with Murk. After a while he wakes back up and then locks you back up again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_ESCAPE_FIGHT_VICTORY -->
+	
+	<htmlContent tag="STOCKS_ESCAPE_FIGHT_VICTORY"><![CDATA[
+	<p>
+		You beat Murk. No time to do anything, as guards will arrive soon. Get gear, free companion, and escape.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_ESCAPE_FIGHT_VICTORY_ESCAPING"><![CDATA[
+	<p>
+		You travel through the tunnels.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_ESCAPE_FIGHT_DEFEAT -->
+	
+	<htmlContent tag="STOCKS_ESCAPE_FIGHT_DEFEAT"><![CDATA[
+	<p>
+		Murk defeat you. Approaches with collar in hand...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_ESCAPE_FIGHT_DEFEAT_SEX -->
+	
+	<htmlContent tag="DEFEAT_SEX_ANAL"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEAT_SEX_VAGINAL"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEAT_SEX_BLOWJOB"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEAT_SEX_CUNNILINGUS"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEAT_SEX_ANILINGUS"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEAT_SEX_RECEIVE_ANILINGUS"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEAT_SEX_RECEIVE_HANDJOB"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEAT_SEX_RECEIVE_FINGERING"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEAT_SEX_RECEIVE_CUNNILINGUS"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEAT_SEX"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_AFTER_DEFEAT_SEX -->
+	
+	<htmlContent tag="STOCKS_INITIAL"><![CDATA[
+	<p>
+		Murk has finished with you. Chains you back up.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_ESCAPED -->
+	
+	<htmlContent tag="STOCKS_ESCAPED"><![CDATA[
+	<p>
+		You manage to slip past the guards (see Vengar fucking a rat-girl on the way out). As you exit, you meet SWORD Enforcers about to carry out raid. They demand to know if Vengar is inside. Say yes, they raid.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

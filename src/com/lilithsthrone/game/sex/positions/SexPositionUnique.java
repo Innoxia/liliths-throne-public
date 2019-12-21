@@ -247,7 +247,6 @@ public class SexPositionUnique {
 		}
 		@Override
 		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
-			
 			if(Sex.getSexPositionSlot(performer) == SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR) {
 				if((action.getActionType()==SexActionType.ONGOING
 						|| action.getActionType()==SexActionType.START_ONGOING

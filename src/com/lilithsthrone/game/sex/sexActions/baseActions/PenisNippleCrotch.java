@@ -56,7 +56,7 @@ public class PenisNippleCrotch {
 					&& Main.game.isNipplePenEnabled()
 					&& Sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()
 					&& Sex.getCharacterTargetedForSexAction(this).isBreastCrotchFuckableNipplePenetration()
-					&& !this.isForbiddenArea(SexAreaOrifice.NIPPLE_CROTCH);
+					&& !this.isForbiddenArea(SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE_CROTCH);
 		}
 
 		@Override
@@ -207,7 +207,7 @@ public class PenisNippleCrotch {
 					&& Main.game.isNipplePenEnabled()
 					&& Sex.getCharacterPerformingAction().hasBreastsCrotch()
 					&& Sex.getCharacterPerformingAction().isBreastCrotchFuckableNipplePenetration()
-					&& !this.isForbiddenArea(SexAreaOrifice.NIPPLE_CROTCH);
+					&& !this.isForbiddenArea(SexAreaOrifice.NIPPLE_CROTCH, SexAreaPenetration.PENIS);
 		}
 
 		@Override

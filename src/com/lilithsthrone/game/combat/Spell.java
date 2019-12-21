@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -144,7 +146,7 @@ public enum Spell {
 	
 	FLASH(false,
 			SpellSchool.FIRE,
-			SpellType.OFFENSIVE,
+			SpellType.OFFENSIVE_STATUS_EFFECT,
 			DamageType.FIRE,
 			false,
 			"Flash",
@@ -249,7 +251,7 @@ public enum Spell {
 	
 	CLOAK_OF_FLAMES(false,
 			SpellSchool.FIRE,
-			SpellType.DEFENSIVE,
+			SpellType.DEFENSIVE_STATUS_EFFECT,
 			DamageType.FIRE,
 			true,
 			"Cloak of Flames",
@@ -330,7 +332,7 @@ public enum Spell {
 	
 	ELEMENTAL_FIRE(false,
 			SpellSchool.FIRE,
-			SpellType.DEFENSIVE,
+			SpellType.SUMMON,
 			DamageType.FIRE,
 			true,
 			"Elemental Fire",
@@ -516,7 +518,7 @@ public enum Spell {
 
 	RAIN_CLOUD(false,
 			SpellSchool.WATER,
-			SpellType.OFFENSIVE,
+			SpellType.OFFENSIVE_STATUS_EFFECT,
 			DamageType.ICE,
 			false,
 			"Rain Cloud",
@@ -596,7 +598,7 @@ public enum Spell {
 
 	SOOTHING_WATERS(false,
 			SpellSchool.WATER,
-			SpellType.DEFENSIVE,
+			SpellType.DEFENSIVE_HEAL,
 			DamageType.ICE,
 			true,
 			"Soothing Waters",
@@ -703,7 +705,7 @@ public enum Spell {
 	
 	ELEMENTAL_WATER(false,
 			SpellSchool.WATER,
-			SpellType.DEFENSIVE,
+			SpellType.SUMMON,
 			DamageType.ICE,
 			true,
 			"Elemental Water",
@@ -791,7 +793,7 @@ public enum Spell {
 	
 	POISON_VAPOURS(false,
 			SpellSchool.AIR,
-			SpellType.OFFENSIVE,
+			SpellType.OFFENSIVE_STATUS_EFFECT,
 			DamageType.POISON,
 			false,
 			"Poison Vapours",
@@ -870,7 +872,7 @@ public enum Spell {
 
 	VACUUM(false,
 			SpellSchool.AIR,
-			SpellType.OFFENSIVE,
+			SpellType.OFFENSIVE_STATUS_EFFECT_MINOR_DAMAGE,
 			DamageType.PHYSICAL,
 			false,
 			"Vacuum",
@@ -951,7 +953,7 @@ public enum Spell {
 
 	PROTECTIVE_GUSTS(false,
 			SpellSchool.AIR,
-			SpellType.DEFENSIVE,
+			SpellType.DEFENSIVE_STATUS_EFFECT,
 			DamageType.PHYSICAL,
 			true,
 			"Protective Gusts",
@@ -1030,7 +1032,7 @@ public enum Spell {
 	
 	ELEMENTAL_AIR(false,
 			SpellSchool.AIR,
-			SpellType.DEFENSIVE,
+			SpellType.SUMMON,
 			DamageType.PHYSICAL,
 			true,
 			"Elemental Air",
@@ -1205,7 +1207,7 @@ public enum Spell {
 
 	TELEKENETIC_SHOWER(false,
 			SpellSchool.EARTH,
-			SpellType.OFFENSIVE,
+			SpellType.OFFENSIVE_STATUS_EFFECT,
 			DamageType.PHYSICAL,
 			false,
 			"Telekinetic Shower",
@@ -1282,7 +1284,7 @@ public enum Spell {
 
 	STONE_SHELL(false,
 			SpellSchool.EARTH,
-			SpellType.DEFENSIVE,
+			SpellType.DEFENSIVE_STATUS_EFFECT,
 			DamageType.PHYSICAL,
 			true,
 			"Stone Shell",
@@ -1358,7 +1360,7 @@ public enum Spell {
 	
 	ELEMENTAL_EARTH(false,
 			SpellSchool.EARTH,
-			SpellType.DEFENSIVE,
+			SpellType.SUMMON,
 			DamageType.PHYSICAL,
 			false,
 			"Elemental Earth",
@@ -1529,7 +1531,7 @@ public enum Spell {
 	
 	TELEPATHIC_COMMUNICATION(false,
 			SpellSchool.ARCANE,
-			SpellType.DEFENSIVE,
+			SpellType.DEFENSIVE_STATUS_EFFECT,
 			DamageType.PHYSICAL,
 			true,
 			"Telepathic Communication",
@@ -1605,7 +1607,7 @@ public enum Spell {
 	
 	ARCANE_CLOUD(false,
 			SpellSchool.ARCANE,
-			SpellType.OFFENSIVE,
+			SpellType.OFFENSIVE_STATUS_EFFECT,
 			DamageType.PHYSICAL,
 			false,
 			"Arcane Cloud",
@@ -1683,7 +1685,7 @@ public enum Spell {
 	
 	CLEANSE(true,
 			SpellSchool.ARCANE,
-			SpellType.DEFENSIVE,
+			SpellType.DEFENSIVE_STATUS_EFFECT_CLEAR,
 			DamageType.PHYSICAL,
 			true,
 			"Cleanse",
@@ -1741,7 +1743,7 @@ public enum Spell {
 											"Thrusting [npc.her] [npc.hand] forwards, [npc.name] summons forth an explosion of cleansing arcane energy upon [npc2.name]!")
 								);
 
-			descriptionSB.append(UtilText.parse(Combat.getTargetedCombatant(caster),
+			descriptionSB.append(UtilText.parse(this.getPreferredTarget(caster, enemies, allies),
 					" The energy then shoots off and explodes around [npc.name]!"));
 			
 			
@@ -1759,13 +1761,13 @@ public enum Spell {
 				}
 				// Remove status effects from enemy:
 				effectsToRemove.clear();
-				for(StatusEffect se : Combat.getTargetedCombatant(caster).getStatusEffects()) {
+				for(StatusEffect se : this.getPreferredTarget(caster, enemies, allies).getStatusEffects()) {
 					if(se.isCombatEffect() && (se.isBeneficial() || (!se.isBeneficial() && !caster.hasSpellUpgrade(SpellUpgrade.CLEANSE_1)))) {
 						effectsToRemove.add(se);
 					}
 				}
 				for(StatusEffect se : effectsToRemove) {
-					descriptionSB.append(Combat.getTargetedCombatant(caster).removeStatusEffectCombat(se));
+					descriptionSB.append(this.getPreferredTarget(caster, enemies, allies).removeStatusEffectCombat(se));
 				}
 				
 				descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
@@ -1781,7 +1783,7 @@ public enum Spell {
 	
 	STEAL(true,
 			SpellSchool.ARCANE,
-			SpellType.OFFENSIVE,
+			SpellType.MISC,
 			DamageType.PHYSICAL,
 			false,
 			"Steal",
@@ -2015,7 +2017,7 @@ public enum Spell {
 	
 	TELEPORT(true,
 			SpellSchool.ARCANE,
-			SpellType.DEFENSIVE,
+			SpellType.DEFENSIVE_STATUS_EFFECT,
 			DamageType.PHYSICAL,
 			true,
 			"Teleport",
@@ -2206,7 +2208,7 @@ public enum Spell {
 	
 	ELEMENTAL_ARCANE(false,
 			SpellSchool.ARCANE,
-			SpellType.DEFENSIVE,
+			SpellType.SUMMON,
 			DamageType.LUST,
 			false,
 			"Elemental Arcane",
@@ -2293,7 +2295,7 @@ public enum Spell {
 	
 	WITCH_SEAL(false,
 			SpellSchool.AIR,
-			SpellType.OFFENSIVE,
+			SpellType.OFFENSIVE_STATUS_EFFECT,
 			DamageType.MISC,
 			false,
 			"Witch's Seal",
@@ -2306,7 +2308,7 @@ public enum Spell {
 			null,
 			null, Util.newArrayListOfValues(
 					"[style.boldExcellent(Stuns)] the target",
-					"Lasts for [style.colourGood(3 turns)]")) {
+					"Lasts for [style.colourGood(2 turns)]")) {
 		
 		@Override
 		public boolean isSpellBook() {
@@ -2348,7 +2350,7 @@ public enum Spell {
 	
 	WITCH_CHARM(false,
 			SpellSchool.ARCANE,
-			SpellType.DEFENSIVE,
+			SpellType.DEFENSIVE_STATUS_EFFECT,
 			DamageType.MISC,
 			true,
 			"Witch's Charm",
@@ -2404,7 +2406,7 @@ public enum Spell {
 	
 	DARK_SIREN_SIRENS_CALL(false,
 			SpellSchool.AIR,
-			SpellType.OFFENSIVE,
+			SpellType.OFFENSIVE_STATUS_EFFECT_MINOR_DAMAGE,
 			DamageType.PHYSICAL,
 			false,
 			"Siren's Call",
@@ -3319,6 +3321,67 @@ public enum Spell {
 		if(isCanTargetAllies() && allies.isEmpty()) {
 			return 0.0f;
 		}
+		
+		if(this.getType().isStatusEffectFocus()) { // If this spell is just for the application of a status effect, do not use it if all targets already have that status effect:
+			boolean noEffect = true;
+			if(isCanTargetEnemies()) { // Enemy status effect application:
+				Set<GameCharacter> survivingEnemies = new HashSet<>(enemies);
+				survivingEnemies.removeIf(enemy -> Combat.isCombatantDefeated(enemy));
+//				System.out.println(survivingEnemies.size());
+				enemyLoop:
+				for(GameCharacter enemy : survivingEnemies) {
+					List<StatusEffect> statusEffects = new ArrayList<>(this.getStatusEffects(source, enemy, false).keySet());
+					if(!statusEffects.isEmpty()) {
+						for(StatusEffect se : statusEffects) {
+							if(!enemy.hasStatusEffect(se)) {
+								boolean alreadyTargetedWithThisSpell = false;
+								for(Value<GameCharacter, CombatMove> move : source.getSelectedMoves()) {
+									if(move.getKey()==enemy && move.getValue().getAssociatedSpell()==this) {
+										alreadyTargetedWithThisSpell = true;
+										break;
+									}
+								}
+								if(!alreadyTargetedWithThisSpell) {
+									noEffect = false;
+//									System.out.println(source.getName()+" | "+this.getName());
+									break enemyLoop;
+								}
+							}
+						}
+					}
+				}
+				
+			} else {
+				Set<GameCharacter> survivingAllies = new HashSet<>(allies);
+				survivingAllies.add(source);
+				survivingAllies.removeIf(ally -> Combat.isCombatantDefeated(ally));
+				allyLoop:
+				for(GameCharacter ally : survivingAllies) {
+					List<StatusEffect> statusEffects = new ArrayList<>(this.getStatusEffects(source, ally, false).keySet());
+					if(!statusEffects.isEmpty()) {
+						for(StatusEffect se : statusEffects) {
+							if(!ally.hasStatusEffect(se)) {
+								boolean alreadyTargetedWithThisSpell = false;
+								for(Value<GameCharacter, CombatMove> move : source.getSelectedMoves()) {
+									if(move.getKey()==ally && move.getValue().getAssociatedSpell()==this) {
+										alreadyTargetedWithThisSpell = true;
+										break;
+									}
+								}
+								if(!alreadyTargetedWithThisSpell) {
+									noEffect = false;
+									break allyLoop;
+								}
+							}
+						}
+					}
+				}
+			}
+			if(noEffect) {
+				return 0;
+			}
+		}
+		
 		int behaviourMultiplier = 1;
 		if(source.getCombatBehaviour()==CombatBehaviour.ATTACK && !this.isBeneficial()) {
 			behaviourMultiplier = 2;
@@ -3333,20 +3396,49 @@ public enum Spell {
 	}
 
 	public GameCharacter getPreferredTarget(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		if(Main.game.isInCombat() && source.isPlayer()) {
+			return Combat.getTargetedCombatant();
+		}
 		if(isCanTargetEnemies()) {
 			if(CombatMove.shouldBlunder()) {
 				return enemies.get(Util.random.nextInt(enemies.size()));
-			}
-			else
-			{
+				
+			} else {
 				float lowestHP = -1;
 				GameCharacter potentialCharacter = null;
-				for(GameCharacter character : enemies)
-				{
-					if(lowestHP == -1 || character.getHealth() < lowestHP)
-					{
-						potentialCharacter = character;
-						lowestHP = character.getHealth();
+				
+				if(this.getType().isStatusEffectFocus()) { // If this spell is primarily concerned with applying a status effect, only use it on targets who do not already have that status effect:
+					Set<GameCharacter> survivingEnemies = new HashSet<>(enemies);
+					survivingEnemies.removeIf(enemy -> Combat.isCombatantDefeated(enemy));
+					enemyLoop:
+					for(GameCharacter enemy : survivingEnemies) {
+						List<StatusEffect> statusEffects = new ArrayList<>(this.getStatusEffects(source, enemy, false).keySet());
+						if(!statusEffects.isEmpty()) {
+							for(StatusEffect se : statusEffects) {
+								if(!enemy.hasStatusEffect(se)) {
+									boolean alreadyTargetedWithThisSpell = false;
+									for(Value<GameCharacter, CombatMove> move : source.getSelectedMoves()) {
+										if(move.getKey()==enemy && move.getValue().getAssociatedSpell()==this) {
+											alreadyTargetedWithThisSpell = true;
+											break;
+										}
+									}
+									if(!alreadyTargetedWithThisSpell) {
+										potentialCharacter = enemy;
+										break enemyLoop;
+									}
+								}
+							}
+						}
+					}
+				}
+				
+				if(potentialCharacter==null) {
+					for(GameCharacter character : enemies) {
+						if(lowestHP == -1 || character.getHealth() < lowestHP) {
+							potentialCharacter = character;
+							lowestHP = character.getHealth();
+						}
 					}
 				}
 				return potentialCharacter;
@@ -3355,17 +3447,44 @@ public enum Spell {
 		if(isCanTargetAllies() && !allies.isEmpty()) {
 			if(CombatMove.shouldBlunder()) {
 				return allies.get(Util.random.nextInt(allies.size()));
-			}
-			else
-			{
+				
+			} else {
 				float lowestHP = -1;
 				GameCharacter potentialCharacter = null;
-				for(GameCharacter character : allies)
-				{
-					if(lowestHP == -1 || character.getHealth() < lowestHP)
-					{
-						potentialCharacter = character;
-						lowestHP = character.getHealth();
+				
+				if(this.getType().isStatusEffectFocus()) { // If this spell is primarily concerned with applying a status effect, only use it on targets who do not already have that status effect:
+					Set<GameCharacter> survivingAllies = new HashSet<>(allies);
+					survivingAllies.add(source);
+					survivingAllies.removeIf(ally -> Combat.isCombatantDefeated(ally));
+					allyLoop:
+					for(GameCharacter ally : survivingAllies) {
+						List<StatusEffect> statusEffects = new ArrayList<>(this.getStatusEffects(source, ally, false).keySet());
+						if(!statusEffects.isEmpty()) {
+							for(StatusEffect se : statusEffects) {
+								if(!ally.hasStatusEffect(se)) {
+									boolean alreadyTargetedWithThisSpell = false;
+									for(Value<GameCharacter, CombatMove> move : source.getSelectedMoves()) {
+										if(move.getKey()==ally && move.getValue().getAssociatedSpell()==this) {
+											alreadyTargetedWithThisSpell = true;
+											break;
+										}
+									}
+									if(!alreadyTargetedWithThisSpell) {
+										potentialCharacter = ally;
+										break allyLoop;
+									}
+								}
+							}
+						}
+					}
+				}
+				
+				if(potentialCharacter==null) {
+					for(GameCharacter character : allies) {
+						if(lowestHP == -1 || character.getHealth() < lowestHP) {
+							potentialCharacter = character;
+							lowestHP = character.getHealth();
+						}
 					}
 				}
 				return potentialCharacter;

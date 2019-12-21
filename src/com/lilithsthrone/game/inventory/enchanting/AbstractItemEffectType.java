@@ -1877,9 +1877,7 @@ public abstract class AbstractItemEffectType {
 					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
 				
-				if(primaryModifier==TFModifier.TF_BREASTS_CROTCH) {
-					secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
-				}
+				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT_SECONDARY, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
@@ -2490,7 +2488,11 @@ public abstract class AbstractItemEffectType {
 					case TF_TYPE_5:
 						return new RacialEffectUtil(Util.capitaliseSentence(BreastType.getBreastTypes(race).get(4).getTransformName())+" breast transformation.") {
 							@Override public String applyEffect() { return target.setBreastType(BreastType.getBreastTypes(race).get(4)); } };
-						
+
+					case REMOVAL:
+						return new RacialEffectUtil("Completely flattens breasts.") {
+							@Override public String applyEffect() { return target.setBreastSize(0); } };
+							
 					case TF_MOD_COUNT:
 						switch(potency) {
 							case MINOR_DRAIN:

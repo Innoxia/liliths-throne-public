@@ -305,7 +305,7 @@ public class CompanionManagement {
 					return new Response(
 							characterSelected() instanceof Elemental
 								?"Dispel"
-								:"Go Home",
+								:"Go home",
 							"You're in the middle of something right now!"+getBusyWarning(),
 							null);
 					
@@ -314,7 +314,7 @@ public class CompanionManagement {
 						return new ResponseEffectsOnly(
 								characterSelected() instanceof Elemental
 									?"Dispel"
-									:"Go Home",
+									:"Go home",
 									UtilText.parse(characterSelected(), 
 										characterSelected() instanceof Elemental
 											?"Dispel [npc.namePos] physical form, and return [npc.herHim] to your arcane aura."
@@ -327,7 +327,8 @@ public class CompanionManagement {
 								}
 								Main.game.getPlayer().removeCompanion(characterSelected());
 								characterSelected().returnToHome();
-								Main.mainController.openCharactersPresent();
+//								Main.mainController.openCharactersPresent();
+								Main.game.restoreSavedContent(false);
 							}
 						};
 						
@@ -335,7 +336,7 @@ public class CompanionManagement {
 						return new Response(
 								characterSelected() instanceof Elemental
 									?"Dispel"
-									:"Go Home",
+									:"Go home",
 									UtilText.parse(characterSelected(), 
 										characterSelected() instanceof Elemental
 											?"Dispel [npc.namePos] physical form, and return [npc.herHim] to your arcane aura."
@@ -349,9 +350,9 @@ public class CompanionManagement {
 								}
 								Main.game.getPlayer().removeCompanion(characterSelected());
 								characterSelected().returnToHome();
-								
+
 								Main.game.setResponseTab(0);
-								CharactersPresentDialogue.resetContent(charactersPresent.get(0));
+								CharactersPresentDialogue.resetContent(Main.game.getCharactersPresent().get(0));
 							}
 						};
 					}
@@ -359,14 +360,14 @@ public class CompanionManagement {
 				
 			} else if(index==11) {
 				if(Main.game.isSavedDialogueNeutral()) {
-					return new Response("Combat Moves", UtilText.parse(characterSelected(), "Adjust the moves [npc.name] can perform in combat."), CombatMovesSetup.COMBAT_MOVES_CORE) {
+					return new Response("Combat moves", UtilText.parse(characterSelected(), "Adjust the moves [npc.name] can perform in combat."), CombatMovesSetup.COMBAT_MOVES_CORE) {
 						@Override
 						public void effects() {
 							CombatMovesSetup.setTarget(characterSelected(), coreNode);
 						}
 					};
 				} else {
-					return new Response("Combat Moves", "You're in the middle of something right now!"+getBusyWarning(), null);
+					return new Response("Combat moves", "You're in the middle of something right now!"+getBusyWarning(), null);
 				}
 				
 			} else if(index==12) {
@@ -384,14 +385,14 @@ public class CompanionManagement {
 				
 			} else if(index==13) {
 				if(!characterSelected().isElementalSummoned()) {
-					return new Response("Dispel Elemental", UtilText.parse(characterSelected(), "[npc.Name] doesn't have an elemental summoned..."), null);
+					return new Response("Dispel elemental", UtilText.parse(characterSelected(), "[npc.Name] doesn't have an elemental summoned..."), null);
 					
 				} else {
 					if(!Main.game.isSavedDialogueNeutral()) {
-						return new Response("Dispel Elemental", "You're in the middle of something right now!"+getBusyWarning(), null);
+						return new Response("Dispel elemental", "You're in the middle of something right now!"+getBusyWarning(), null);
 						
 					} else {
-						return new Response("Dispel Elemental", UtilText.parse(characterSelected(), "Tell [npc.name] to dispel [npc.her] elemental."), coreNode){
+						return new Response("Dispel elemental", UtilText.parse(characterSelected(), "Tell [npc.name] to dispel [npc.her] elemental."), coreNode){
 							@Override
 							public void effects() {
 								characterSelected().removeCompanion(characterSelected().getElemental());
@@ -505,9 +506,9 @@ public class CompanionManagement {
 				
 			} else if(index==11) {
 				if(!characterSelected().getOwner().isPlayer()) {
-					return new Response("Combat Moves", "You can't manage the combat moves of slaves that you do not own!", null);
+					return new Response("Combat moves", "You can't manage the combat moves of slaves that you do not own!", null);
 				}
-				return new Response("Combat Moves", UtilText.parse(characterSelected(), "Adjust the moves [npc.name] can perform in combat."), CombatMovesSetup.COMBAT_MOVES_CORE) {
+				return new Response("Combat moves", UtilText.parse(characterSelected(), "Adjust the moves [npc.name] can perform in combat."), CombatMovesSetup.COMBAT_MOVES_CORE) {
 					@Override
 					public void effects() {
 						CombatMovesSetup.setTarget(characterSelected(), coreNode);
@@ -524,10 +525,10 @@ public class CompanionManagement {
 				
 			} else if(index==13) {
 				if(!characterSelected().isElementalSummoned()) {
-					return new Response("Dispel Elemental", UtilText.parse(characterSelected(), "[npc.Name] doesn't have an elemental summoned..."), null);
+					return new Response("Dispel elemental", UtilText.parse(characterSelected(), "[npc.Name] doesn't have an elemental summoned..."), null);
 					
 				} else {
-					return new Response("Dispel Elemental", UtilText.parse(characterSelected(), "Tell [npc.name] to dispel [npc.her] elemental."), coreNode) {
+					return new Response("Dispel elemental", UtilText.parse(characterSelected(), "Tell [npc.name] to dispel [npc.her] elemental."), coreNode) {
 						@Override
 						public void effects() {
 							characterSelected().removeCompanion(characterSelected().getElemental());
@@ -656,9 +657,9 @@ public class CompanionManagement {
 				
 			} else if(index==11) {
 				if(characterSelected() == null) {
-					return new Response("Combat Moves", "You haven't selected anyone...", null);
+					return new Response("Combat moves", "You haven't selected anyone...", null);
 				}
-				return new Response("Combat Moves", UtilText.parse(characterSelected(), "Adjust the moves [npc.name] can perform in combat."), CombatMovesSetup.COMBAT_MOVES_CORE) {
+				return new Response("Combat moves", UtilText.parse(characterSelected(), "Adjust the moves [npc.name] can perform in combat."), CombatMovesSetup.COMBAT_MOVES_CORE) {
 					@Override
 					public void effects() {
 						CombatMovesSetup.setTarget(characterSelected(), coreNode);
@@ -678,13 +679,13 @@ public class CompanionManagement {
 				
 			} else if(index==13) {
 				if(characterSelected() == null) {
-					return new Response("Dispel Elemental", "You haven't selected anyone...", null);
+					return new Response("Dispel elemental", "You haven't selected anyone...", null);
 				}
 				if(!characterSelected().isElementalSummoned()) {
-					return new Response("Dispel Elemental", UtilText.parse(characterSelected(), "[npc.Name] doesn't have an elemental summoned..."), null);
+					return new Response("Dispel elemental", UtilText.parse(characterSelected(), "[npc.Name] doesn't have an elemental summoned..."), null);
 					
 				} else {
-					return new Response("Dispel Elemental", UtilText.parse(characterSelected(), "Tell [npc.name] to dispel [npc.her] elemental."), coreNode) {
+					return new Response("Dispel elemental", UtilText.parse(characterSelected(), "Tell [npc.name] to dispel [npc.her] elemental."), coreNode) {
 						@Override
 						public void effects() {
 							characterSelected().removeCompanion(characterSelected().getElemental());

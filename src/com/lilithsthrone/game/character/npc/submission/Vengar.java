@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.Covering;
@@ -45,8 +46,11 @@ import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
+import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -82,6 +86,11 @@ public class Vengar extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) { // Reset character
+			setupPerks(true);
+			setStartingBody(true);
+			equipClothing(null);
+		}
 	}
 
 	@Override
@@ -98,6 +107,10 @@ public class Vengar extends NPC {
 	public void setStartingBody(boolean setPersona) {
 		// Persona:
 		if(setPersona) {
+			this.clearPersonalityTraits();
+			this.clearFetishes();
+			this.clearFetishDesires();
+			
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.CONFIDENT,
@@ -131,7 +144,6 @@ public class Vengar extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_LIGHT), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_BROWN), true);
-
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
 		this.setHairLength(0);
 		this.setHairStyle(HairStyle.NONE);
@@ -199,7 +211,7 @@ public class Vengar extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_BLACK, false), true, this);
 		this.isAbleToBeDisplaced(this.getClothingInSlot(InventorySlot.TORSO_UNDER), DisplacementType.UNBUTTONS, true, true, this);
 		
-		AbstractClothing cargo = AbstractClothingType.generateClothing(ClothingType.LEG_CARGO_TROUSERS, Colour.CLOTHING_BLACK, false);
+		AbstractClothing cargo = AbstractClothingType.generateClothing("innoxia_leg_cargo_trousers", Colour.CLOTHING_BLACK, false);
 		cargo.setPattern("multi_camo");
 		cargo.setPatternColour(Colour.CLOTHING_BLACK);
 		cargo.setPatternSecondaryColour(Colour.CLOTHING_BLACK_JET);
@@ -211,7 +223,18 @@ public class Vengar extends NPC {
 	
 	@Override
 	public String getDescription() {
-		return "";//TODO
+		StringBuilder sb = new StringBuilder();
+		
+		if(this.getHomeLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_TRADER) {
+			sb.append("While at one time he was the leader of a ruthless criminal gang, Vengar now finds himself at the mercy of his ex-girlfriend, Roxy."
+					+ " Thoroughly subdued and hopelessly addicted to her pussy, this once-proud rat-boy now finds himself doing anything his abusive ex demands of him.");
+			
+		} else {
+			sb.append("Strong, scarred, and with an almost-perpetual snarl on his face, Vengar strikes the very sort of figure that's needed to ensure the unwavering loyalty of several dozen criminal rat-morphs."
+					+ " Always ready to back up his words with action, this rat-boy is considered to be one of the most dangerous inhabitants of Submission.");
+		}
+		
+		return sb.toString();
 	}
 	
 	@Override
@@ -232,10 +255,47 @@ public class Vengar extends NPC {
 	public void turnUpdate() {
 		if(!Main.game.getCharactersPresent().contains(this) && !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
 			if(!Main.game.isExtendedWorkTime() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
-				this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_BEDROOM);
+				this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
 			} else {
 				this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 			}
+		}
+	}
+	
+	@Override
+	public boolean isAbleToBeImpregnated(){
+		return true;
+	}
+
+	@Override
+	public void endSex() {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveVengarSatisfied, true);
+	}
+
+	// Combat:
+	
+	@Override
+	public int getEscapeChance() {
+		return 0;
+	}
+	
+	@Override
+	public CombatBehaviour getCombatBehaviour() {
+		return CombatBehaviour.ATTACK;
+	}
+
+	@Override
+	public Response endCombat(boolean applyEffects, boolean victory) {
+		if(victory) {
+			return new Response("", "", RatWarrensDialogue.VENGAR_COMBAT_VICTORY);
+			
+		} else {
+			return new Response("", "", RatWarrensDialogue.VENGAR_COMBAT_DEFEAT) {
+				@Override
+				public void effects() {
+					RatWarrensDialogue.applyCombatDefeatFlagsReset();
+				}
+			};
 		}
 	}
 }

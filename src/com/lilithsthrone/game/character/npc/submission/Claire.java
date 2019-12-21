@@ -108,7 +108,7 @@ public class Claire extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.5")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
 			this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
 			this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PINK));
 		}

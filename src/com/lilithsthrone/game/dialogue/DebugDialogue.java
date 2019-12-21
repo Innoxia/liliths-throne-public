@@ -416,6 +416,22 @@ public class DebugDialogue {
 							}
 						}
 					};
+				} else if (index == 12) {
+					return new Response("[style.boldMinorBad(Day -)]", "Reduce current day by 1.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							Main.game.incrementStartingDateDays(-1);
+						}
+					};
+					
+				} else if (index == 13) {
+						return new Response("[style.boldMinorGood(Day +)]", "Increase current day by 1.", DEBUG_MENU){
+							@Override
+							public void effects() {
+								Main.game.incrementStartingDateDays(1);
+							}
+						};
+						
 				}
 				
 			} else if(responseTab == 3) {
@@ -645,7 +661,8 @@ public class DebugDialogue {
 								+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
 										weaponType.getAvailableDamageTypes().get(0),
 										weaponType.getAvailablePrimaryColours().isEmpty()?null:weaponType.getAvailablePrimaryColours().get(0),
-										weaponType.getAvailableSecondaryColours().isEmpty()?null:weaponType.getAvailableSecondaryColours().get(0))
+										weaponType.getAvailableSecondaryColours().isEmpty()?null:weaponType.getAvailableSecondaryColours().get(0),
+										weaponType.getAvailableTertiaryColours().isEmpty()?null:weaponType.getAvailableTertiaryColours().get(0))
 								+"</div>"
 								+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
 							+ "</div>");
@@ -686,7 +703,8 @@ public class DebugDialogue {
 												+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
 														weaponType.getAvailableDamageTypes().get(0),
 														weaponType.getAvailablePrimaryColours().isEmpty()?null:weaponType.getAvailablePrimaryColours().get(0),
-														weaponType.getAvailableSecondaryColours().isEmpty()?null:weaponType.getAvailableSecondaryColours().get(0))
+														weaponType.getAvailableSecondaryColours().isEmpty()?null:weaponType.getAvailableSecondaryColours().get(0),
+														weaponType.getAvailableTertiaryColours().isEmpty()?null:weaponType.getAvailableTertiaryColours().get(0))
 												+"</div>"
 												+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
 											+ "</div>");
@@ -817,7 +835,8 @@ public class DebugDialogue {
 												+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
 														weaponType.getAvailableDamageTypes().get(0),
 														weaponType.getAvailablePrimaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailablePrimaryColours()),
-														weaponType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailableSecondaryColours()))
+														weaponType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailableSecondaryColours()),
+														weaponType.getAvailableTertiaryColours().isEmpty()?null:weaponType.getAvailableTertiaryColours().get(0))
 												+"</div>"
 												+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
 											+ "</div>"

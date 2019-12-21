@@ -20,6 +20,12 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 		duplicateCounts = new LinkedHashMap<>();
 	}
 
+	AbstractInventory(AbstractInventory<T, U> inventoryToCopy) {
+		this.comparator = inventoryToCopy.comparator;
+		this.typeRetriever = inventoryToCopy.typeRetriever;
+		duplicateCounts = new LinkedHashMap<>(inventoryToCopy.duplicateCounts);
+	}
+	
 	public void clear() {
 		duplicateCounts.clear();
 	}

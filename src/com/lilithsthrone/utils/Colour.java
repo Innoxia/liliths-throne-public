@@ -80,7 +80,7 @@ public enum Colour {
 	MAP_BACKGROUND_DANGEROUS(false, Util.newColour(0x303030), Util.newColour(0xaaaaaa), "dark grey"),
 	MAP_BACKGROUND_BLUE(false, BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("lightBlue")),
 	
-	GENERIC_SEX(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("sex")),
+	GENERIC_SEX(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("sex", "sexSub", "subSex")),
 	GENERIC_SEX_AS_DOM(false,Util.newColour(0xFF75BA), Util.newColour(0xD82C8B), "pink", Util.newArrayListOfValues("sexDom", "domSex")),
 	DOMINANT(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("dom", "dominant")),
 	SUBMISSIVE(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("sub", "submissive")),

@@ -87,7 +87,7 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_FEMALES, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_GOLD, false), true, Main.game.getNpc(Finch.class));
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_GOLD, false), true, Main.game.getNpc(Finch.class));
 			Main.game.getNpc(Finch.class).addSlave(slave);
 			slave.setPlayerKnowsName(true);
 			
@@ -115,7 +115,7 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_MALES, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
 			Main.game.getNpc(Finch.class).addSlave(slave);
 			slave.setPlayerKnowsName(true);
 			
@@ -140,7 +140,7 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ANAL, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
 			if(i==0) {
 				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug"), false), true, Main.game.getNpc(Finch.class));
 			} else if(i==1) {
@@ -174,7 +174,7 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_VAGINAL, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
 			Main.game.getNpc(Finch.class).addSlave(slave);
 			slave.setPlayerKnowsName(true);
 			
@@ -199,7 +199,7 @@ public class SlaverAlleyDialogue {
 			
 			slave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_STALL_ORAL, true);
 			slave.resetInventory(true);
-			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
+			slave.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Finch.class));
 			if(Math.random()<0.5f) {
 				slave.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, false), true, Main.game.getNpc(Finch.class));
 			}
@@ -256,23 +256,7 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "As you navigate through the labyrinthine passageways of Dominion's back-alleys, you start to hear the faint murmur of voices somewhere before you."
-						+ " Proceeding with caution, you slowly step around the next corner, and find yourself looking into a small, well-kept courtyard."
-					+ "</p>"
-					+ "<p>"
-						+ "Clean, grey cobblestones line the floor, and in the middle of the little square, surrounded by wooden benches, a bubbling stream of water cascades out of a finely-crafted stone fountain."
-						+ " On three of its sides, multiple narrow entrances link this area to the surrounding alleyways, but it's what's on the fourth that draws your attention."
-						+ " A huge, open gateway, flanked by a pair of muscular horse-boys, has been built into the wall, and it's through this opening that the sound of a busy marketplace can be heard."
-					+ "</p>"
-					+ "<p>"
-						+ "As you step closer, neither of the guards react to your presence, and you notice that their attention is focused solely on who's trying to leave the area beyond."
-						+ " Crossing the courtyard, you see that the words 'Slaver Alley' have been cast into the dull iron framing of the gate, and on the walls to either side,"
-							+ " promotional posters for different vendors have been plastered over the red bricks."
-					+ "</p>"
-					+ "<p>"
-						+ "It looks as though any member of the public is free to come and go as they please."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "OUTSIDE");
 		}
 		
 		@Override
@@ -295,21 +279,7 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "You find yourself standing in the gateway that links Slaver Alley to the rest of Dominion."
-						+ " On either side of you, horse-boy guards keep a watchful eye on anyone that passes through here; obviously on the lookout for runaway slaves."
-					+ "</p>"
-					+ "<p>"
-						+ "A touristy-looking information board, looking quite out of place with its surroundings, has been fixed to a nearby wall, and upon reading it,"
-							+ " you discover that a powerful arcane shield has been erected over the entire area, which prevents the effects of any on-going arcane storms from being felt by any of the marketplace's occupants."
-						+ " True enough, as you glance up at the sky above, you see the faint pink crackle of the shield's arcane energy, reassuring you that you needn't worry about attacks from any horny customers."
-					+ "</p>"
-					+ "<p>"
-						+ "There are only a couple of other pieces of information that are of any real relevance to you."
-						+ " In large red writing at the top of the information board, you read that you must be in possession of a slaver license before being able to buy or sell slaves here."
-						+ " Underneath, the sentence telling you that you can obtain a license from the Slaver Administration building is crossed out, and in scrawling writing, the words"
-						+ " 'Slaver Licenses are not being issued' has been written beneath."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY");
 		}
 
 		@Override
@@ -337,42 +307,7 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(
-					"<p>"
-						+ "You find yourself walking down one of Slaver Alley's numerous interconnected passageways."
-						+ " Lined with clean, grey cobblestone, and being almost as wide as a normal street, they're quite unlike the regular sort of passages that make up the rest of Dominion's back-alleys.");
-			
-			if (Main.game.isDayTime()) {
-				UtilText.nodeContentSB.append(
-							" Colourful canvas awnings have been unfurled from the sides of the surrounding buildings, and, looking up through the gap in the middle, you see a faint pink crackle;"
-									+ " evidence of the shield that protects Slaver Alley from arcane storms."
-						+ "</p>");
-			} else {
-				UtilText.nodeContentSB.append(
-							" A series of arcane-powered lights cast a flickering glow over the area, and as you look up at the night sky, you see a faint pink crackle;"
-									+ " evidence of the shield that protects Slaver Alley from arcane storms."
-						+ "</p>");
-			}
-			
-			UtilText.nodeContentSB.append(
-					"<p>"
-						+ "Although not as busy as Dominion's main streets, there are still a significant amount of people wandering about,"
-							+ " and you often have to push your way through small crowds that inexplicably decide to loiter right in the middle of the path."
-						+ " The close proximity of the surrounding buildings echoes and amplifies the crowd's inane chatter, making Slaver Alley feel more alive than any other part of the city you've wandered through."
-					+ "</p>"
-					+ "<p>"
-						+ "The most striking feature of this area is the manner of goods that are sold here."
-						+ " Down each passageway, multiple wooden stands have been erected, and on top each one, slaves of all different races and sexes are being publicly displayed."
-						+ " You see that information boards have been attached to each one of these stands, giving you instructions as to which shop you need to visit in order to negotiate the purchase of the wares on display."
-					+ "</p>"
-					+ "<p>"
-						+ "Glancing up at the slaves as you pass, you notice that the one thing they all have in common is that they're all wearing metal collars of some sort or another."
-						+ " Apart from that peculiar accessory, the vast majority of them are completely naked, although you do see a few that have been dressed in skimpy pieces of highly-revealing clothing."
-					+ "</p>");
-
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "ALLEYWAY");
 		}
 
 		@Override
@@ -616,19 +551,7 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "Deciding that you'd like to take a look inside one of the shops, you approach the entrance to the nearest building."
-						+ " In order to display yet more slaves to passing customers, you see that a series of large glass windows have been installed into the walls before you."
-						+ " As you walk up to the entrance, some of the slaves standing behind these windows glance your way; no doubt wondering if you'll be their next owner."
-					+ "</p>"
-					+ "<p>"
-						+ "Pushing open the door, you step inside the shop, and find that the interior is surprisingly clean, well-lit, and airy."
-						+ " Yet more slaves line the walls around you, and in the middle of the room, the shop's owner cries out a greeting from behind a circular wooden desk."
-					+ "</p>"
-					+ "<p>"
-						+ "After browsing the wares for a moment, you decide that you've had enough."
-						+ " After all, without a permit, you're unable to buy anything."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "MARKET_STALL");
 		}
 
 		@Override
@@ -636,6 +559,53 @@ public class SlaverAlleyDialogue {
 			return null;
 		}
 	};
+	
+	public static final DialogueNode BOUNTY_HUNTERS = new DialogueNode("Bounty Hunter Lodge", ".", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "BOUNTY_HUNTERS");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Enter", "Enter the establishment and take a look around inside...", BOUNTY_HUNTERS_INTERIOR) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "BOUNTY_HUNTERS_ENTER"));
+					}
+				};
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode BOUNTY_HUNTERS_INTERIOR = new DialogueNode("Bounty Hunter Lodge", ".", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "BOUNTY_HUNTERS_INTERIOR");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Leave", "Turn around and exit the establishment...", BOUNTY_HUNTERS) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "BOUNTY_HUNTERS_INTERIOR_LEAVE"));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
 	
 	public static final DialogueNode AUCTION_BLOCK = new DialogueNode("Auctioning block", ".", false) {
 
@@ -646,16 +616,7 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>" // captured or slaves for public sale (seized assets)
-						+ "As you walk towards Slaver Alley's central courtyard, the excited buzz of hundreds of voices grows louder and louder."
-						+ " The source of this incessant din is hard to miss, and takes the form a huge, bustling crowd, which has surrounded a raised wooden platform."
-						+ " Several noticeboards, elevated above the heads of the energetic mob by means of several-[unit.lSize]-high poles, declare this area to be for 'Public Auctions'."
-					+ "</p>"
-					+ "<p>"
-						+ (Main.game.getPlayer().isHasSlaverLicense()
-								?"Being in possession of a slaver's license, you wonder if you should approach the stage and participate in the next auction."
-								:"The noticeboards also declare that you'd need a slaver license in order to participate in any auctions, so, not being in possession of one yourself, there'd be no point in approaching the stage.")
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "AUCTION_BLOCK");
 		}
 
 		@Override
@@ -1010,7 +971,7 @@ public class SlaverAlleyDialogue {
 			for(NPC npc : charactersPresent) {
 				UtilText.nodeContentSB.append(UtilText.parse(npc, 
 						"<p>"
-							+ "[npc.Name]," + (npc.getOwner().isPlayer()?" <b style=color:"+Colour.GENERIC_ARCANE.toWebHexString()+";>who is your slave</b>, and is":"")
+							+ "[npc.Name]," + (npc.getOwner().isPlayer()?" [style.boldArcane(who is your slave)], and is":"")
 							+ " <span style='color:"+npc.getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span>"
 									+ " <span style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</span>, has been marked as available for"));
 				

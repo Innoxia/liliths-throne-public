@@ -82,7 +82,8 @@ public class RoxysShop {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 						return new ResponseSex("Lick for item", "Agree to let Roxy sit on your face and eat her out until she cums in exchange for a random item from her shop.",
 								Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
-								true, false,
+								true,
+								false,
 								new SMRoxyPussyLicker(
 										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Roxy.class), SexSlotLyingDown.FACE_SITTING)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))),

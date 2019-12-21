@@ -4836,6 +4836,20 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
+				for (Colour c : weapon.getAllAvailableTertiaryColours()) {
+					id = "TERTIARY_"+weapon.hashCode() + "_" + c.toString();
+					if ((EventTarget) MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							InventoryDialogue.dyePreviewTertiary = c;
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeWeaponTertiary(InventoryDialogue.getWeapon(), c);
+						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+					}
+				}
 				for (DamageType dt : weapon.getAvailableDamageTypes()) {
 					id = "DAMAGE_TYPE_"+weapon.hashCode() + "_" + dt.toString();
 					if ((EventTarget) MainController.document.getElementById(id) != null) {

@@ -61,9 +61,9 @@ public class HarpyAttackerDialogue {
 	
 	private static String getDialogueId() {
 		if(isCompanionDialogue()) {
-			return "alleywayAttackCompanions";
+			return "harpyAttackCompanions";
 		}
-		return "alleywayAttack";
+		return "harpyAttack";
 	}
 
 	private static GameCharacter getMainCompanion() {
@@ -89,7 +89,7 @@ public class HarpyAttackerDialogue {
 		if(Main.game.getPlayer().isVisiblyPregnant()) {
 			Main.game.getPlayer().setCharacterReactedToPregnancy(getHarpy(), true);
 		}
-		if(getMainCompanion().isVisiblyPregnant()) {
+		if(isCompanionDialogue() && getMainCompanion().isVisiblyPregnant()) {
 			getMainCompanion().setCharacterReactedToPregnancy(getHarpy(), true);
 		}
 	}
@@ -279,7 +279,7 @@ public class HarpyAttackerDialogue {
 									}
 								},
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "HARPY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getAllCharacters())) {
+								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), isCompanionDialogue()?"HARPY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION":"HARPY_ATTACK_OFFER_BODY", getAllCharacters())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -1173,10 +1173,10 @@ public class HarpyAttackerDialogue {
 		StringBuilder sb = new StringBuilder();
 		
 		if(potion!=null && forcedTF) {
-			sb.append(UtilText.parse(getHarpy(),
+			sb.append(UtilText.parse(getHarpy(), target,
 					"<p>"
-						+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid."
-						+ " [npc.speech(Good [pc.girl]! I'm going to turn you into my perfect "+getHarpy().getPreferredBodyDescription("b")+"!)]"
+						+ "[npc.Name] steps back, grinning down at [npc2.name] as [npc2.she] obediently [npc2.verb(swallow)] the strange liquid."
+						+ " [npc.speech(Good [npc2.girl]! I'm going to turn you into my perfect "+getHarpy().getPreferredBodyDescription("b")+"!)]"
 					+ "</p>"));
 			for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
 				sb.append(UtilText.parse(getHarpy(),

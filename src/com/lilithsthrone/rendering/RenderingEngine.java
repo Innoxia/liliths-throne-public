@@ -1233,7 +1233,7 @@ public enum RenderingEngine {
 		}
 		
 		if(Main.game.isInCombat()) {
-			return Combat.getTargetedCombatant(Main.game.getPlayer());
+			return Combat.getTargetedCombatant();
 		}
 		
 		if(InventoryDialogue.getInventoryNPC()!=null && Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY) {
@@ -2256,9 +2256,9 @@ public enum RenderingEngine {
 		panelSB.append(
 				"<div class='attribute-container' style='"
 						+ (Main.game.isInCombat()
-								?(Combat.getTargetedCombatant(Main.game.getPlayer()).equals(character)
+								?(Combat.getTargetedCombatant().equals(character)
 										?"border:2px solid "+Colour.GENERIC_COMBAT.toWebHexString()+";"
-										:(Combat.getTargetedAlliedCombatant(Main.game.getPlayer()).equals(character)
+										:(Combat.getTargetedAlliedCombatant().equals(character)
 												?"border:2px solid "+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";"
 												:"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";"))
 								:"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";")

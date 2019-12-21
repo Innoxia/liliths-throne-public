@@ -52,260 +52,227 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Engine:
-		Improved handling of turn updates, which has reduced the amount of lag encountered each turn, especially when the time would pass into a new hour.
-		Improved speed of body generation for randomly-generated NPCs.
-		Moved more text content into external txt files.
+	Contributions:
+		Fixed some stores in the Shopping Arcade causing a softlock. (PR#1227 by triples941)
+		Fixed several issues with random attacker dialogue not displaying correctly. (PR#1231 by triples941)
+		Made some slight adjustments to Maven configuration. (PR#1235 by Zsar)
 	
 	Gameplay:
-		Day/night time is now based on real-world sunrise/sunset times for the coordinates 51.4934 N, 0.0000 E, so days are shorter in winter, and longer in summer.
-		Added a minor darkening effect to the map when in civil & nautical twilight, and a major darkening effect when in astronomical twilight or night time.
-		Added sunrise/sunset info to the clock tooltip.
-		Sleeping in your room or a friend's apartment is now to the next sunrise or sunset, instead of to 07:00 or 21:00.
-		All shops in the Shopping Arcade are now only open between 06:00 and 22:00.
-		Candi's desk is only open between 09:00 and 17:00.
-		Zaranix's home is locked up between 22:00 and 06:00.
-		The harpy matriarchs go to sleep between 22:00 and 06:00.
-		Lilaya and Rose go to bed at 22:00 and return to the lab at 06:00. The 'lab assistant' and 'test subject' slave jobs are no longer available during these times.
-		Breastfeeding/Nipple-kissing is now an ongoing action, with the target's milk (if they are lactating) being drunk every turn. Also improved descriptions of these actions to factor in nipple-shape.
-		You can now take a bath in your room's ensuite, which cleans your companions and applies a regenerative-boosting status effect. (Descriptions are still a 'TODO')
-		Roxy now smokes and has this reflected in her dialogue. She also no longer wears lipstick (which I thought might be weird on a greater rat-morph face).
-		Added some unique sex actions in Roxy's facesitting scene: her smoking; her teasing you; a customer briefly interrupting her. Her sex scene now also correctly starts with you eating her out, and her dress pulled up.
-		
-	Items:
-		Added cigarettes as individual items and as packs of 20. Smoking cigarettes provides a status effect which applies +10 aura and -5 health.
-		Added  'rat skull' tattoo.
-		Slightly improved the short sleeve shirt icon and added dye colours for the buttons & label.
-		Added 'Kerambit' weapon (one handed, sold by Vicky).
-		Added 'Gemstone ring' (finger slot, sold by Nyan).
-		Added 'Demonstone necklace' (neck slot, sold by Nyan).
-		Moved internal finger and neck clothing into the res folder.
-		Added secondary colours to heart and ankh necklaces, and you can now equip these necklaces (as well as sun and snowflake necklaces) into the wrist slot.
-		Improved bell collar and added secondary and tertiary dye colours for metal parts.
+		Added a 'Quick Sex' action to sex, under the 'Misc. Actions' tab. Selecting this will immediately end sex, but apply all effects as though (some basic) sex had taken place. A short description of the sex actions performed will be displayed.
+	
+	Artwork:
+		Added: 16 images for Lyssieth drawn by FriendlyAlienFriend. These include variations for human/lilin forms, pregnancy, and futa.
 	
 	Other:
-		You can now equip unique clothing & weapons onto NPCs. If these NPCs are removed from the game at any point, the unique clothing/weapons which they have equipped are returned to your inventory.
-		Reduced the arcane lightning globe's base damage from 25 to 15, and reduced its value from 500,000 to 250,000.
-		If you have an alligator-morph vagina, you now get the egg-laying birthing variation.
-		Changed the 'rose' gift item into an item of clothing, which can now be worn in the 'hair' slot. Any roses already in your game will be automatically converted into their clothing counterpart when you load into this version.
-		Added 'pitch black' for eye colours.
-		Added 'bun' and 'chignon' hair styles, and reduced the chance of NPCs spawning with 'unusual' hair styles (from 20% to 10%).
-		Added a debug consumable item which turns the drinker into a youko, and adds a tail to drinkers who are already a youko.
-		Added 'footjobs' to the sex stats screen (only displayed if you have foot content turned on). Anal, nipple-penetration, and urethral sex stats are now hidden if you have the associated content disabled.
-		Added personality setting tab to debug menu.
-		Clothing & weapons enchanted to remove corruption now cost enchantment stability, equal to the value of corruption removed.
-		NPCs who have a positive desire towards the 'cum stud' or 'impregnation' fetishes, and are either selfish or in the rough pace, will now refuse to wear condoms in sex. 
-		Added a 'fast travel' tab which is available everywhere within the shopping arcade.
-		You can now suggest a job (or change of job) to any of the friendly occupants either living with you or in their own apartment.
-		Added an indication that the main quest currently ends at the 'Finding the youko' quest in the quest log.
-		Added more slave greeting and sleeping dialogue variations for when they are assigned to your room. Also added slave-related quick/thorough wash descriptions.
-		Added office tile to gambling den map.
-		Reduced 'vaccuum' spell's 'secondary voids' effects from -20 to -5 energy shielding, and -25 to -15 critical damage.
+		Demons no longer spawn with tentacles in their anus and vagina. (I'll add those for different demon varieties in the jungle and some other places later on.)
+		Improved generic sex effects (such as when slaves are having sex when you are not present) to take into account girlcum and milk being drunk, condoms being used, orifices being stretched, and body parts being dirtied by cum.
+		Moved dice poker and some more of Slaver Alley's dialogue text into external .txt files.
+		Added 'Bounty Hunter Lodge' location in Slaver Alley.
+		Renamed 'Alexa' to 'Helena'. (For three reasons: I felt there were a disproportionate amount of 'A'-named unique NPCs; I wanted her name to be similar to a beautiful character from mythology; I didn't want her to share a name with a popular intrusive electronic device.)
+		NPCs will now prefer to move out of the 'standing' position if they want to have penetrative sex.
+		Added day incrementing to debug menu's 'Misc.' actions.
+		In combat, NPCs should now only cast status-effect-application spells on suitable targets (i.e. they should no longer continuously use spells such as 'poison vapours' on a target which already has has associated status effect).
+		In combat, NPCs will now use a wider range of moves available to them, and will be a lot more willing to cast defensive spells on themselves or their allies.
+		You can now transform vaginas of pregnant characters (but cannot remove them). The unborn offspring are unaffected by this.
+		Added 'Mute' personality trait, which at the moment is unavailable to the player, and has a 0.01% of being given to a random NPC.
+		Added options to have repeat sex with Lyssieth in her lilin form after you've been transformed into a demon.
+		Improved Lyssieth's sex preferences when having repeat sex with her in her office.
 		
-	Forced-transformation content:
-		NPCs now have a gender, subspecies, and race-stage preference, instead of a fully pre-generated body preference. This should help to cut down on save file size.
-		NPCs will no longer try to transform you if you are a demon, nor try to transform you into a demon or imp (although they will still force non-racial transformations onto you). Youko tail addition/removal transformations have also been disabled.
-		Fixed issues with forced TF potions not applying genital changes correctly, and the NPC getting stuck on trying to change your genitals even when you had the genitals they wanted.
-		Fixed issue with NPCs trying to transform away any strap-on that you were wearing.
-		Improved NPCs transformation selection for the potions they force on you.
-		Added more dialogue for each part that an NPC transforms.
-		Forced transformation content availability is no longer linked to the non-con content toggle.
-		NPCs who want to transform you into a slime will now be able to do so without getting stuck.
-		Demons in the dark alleyway tiles have had forced transformation behaviour added to them. (They usually end up preferring demons, however, in which case they will only attempt to transform your gender.)
-		Added penis girth, ball size, body size, muscle, vagina capacity, ass capacity, and ass wetness to forced transformation variations.
-		Increased non-racial TF amounts in a single forced-TF (such as ass size or height being increased/reduced by larger amounts).
-		NPCs will now transform both you and your companion.
-		NPCs will now apply fetish changes as well as body transformations in the same scene.
-		NPCs will no longer TF if mouth blocked.
-	
-	Random encounters:
-		Changed and expanded dialogue for post-defeat transformations and sex for: Dominion alleyway; Harpy nest; Submission tunnels; Demon alleyway; Cavern attacker/slime/bat.
-		Added quick TF options (in the combat's post-victory actions) to all these scenes.
-		NPCs will now choose whether to have sex with you, your companion, or both of you after defeating you.
-		NPCs who dislike raping will no longer rape.
-	
+	Items:
+		Added: 'Pistol crossbow' (common, one-handed, ranged, sold by Vicky).
+		Updated: Chaos feather (rare) to 'rough arcane feather', and Chaos feather (Epic) to 'arcane feather'. Updated icons for each, and increased their value.
+		Added: 'Pristine arcane feather' (legendary, one-handed, ranged, sold by Vicky).
+		Added support for tertiary colouring of weapons.
+		Added a 'self-transformation inhibition' enchantment, which can be added to clothing and tattoos by selecting the primary modifier 'Special effects' and then the secondary modifier 'Self-Transformation inhibition'. While worn/tattooed onto someone, this enchantment prevents demons and slimes from accessing the self-transformation menu.
+		Moved slave collar into res folder, improved icon and description, and added more recolouring options. Default enchantments for slave collar are now -15 arcane, -15 lust resist, sealing, enslavement, and self-transformation inhibition.
+		Added 'removal' as a secondary modifier for breast transformation potions, which completely flattens breasts when used.
+		Moved all leg clothing into external res folder, and slightly improved several leg clothing icons (skirt, miniskirt, pleated microskirt, belted microskirt, bike shorts, hotpants, tight jeans, jeans).
+		Added a requirements element to tattoo xml files, so you can limit tattoo availability based on the target who is receiving it. (See the 'heart womb' tattoo xml file for an example.)
+		
 	Bugs:
-		Typo and parsing fixes.
-		Fixed issue with the Office's 'Occupancy ledger' sometimes causing a background error to be thrown, which was sometimes breaking the game.
-		Fixed similar issue where accessing inventories through the slave list would sometimes result in not being able to close the inventory, leading to numerous background errors being thrown.
-		Fixed another issue with the 'Occupancy Ledger', where inspecting a friendly occupant would cause the game to throw several background errors.
-		Fixed bug where slaves assigned to sex-related jobs would have their virginity loss descriptions reset.
-		Jules no longer wears socks on his hoofs.
-		Fixed bug where previously-creampied orifices would not be recognised as being lubricated by cum at the start of sex.
-		Fixed bug where room upgrades were not affecting obedience & affection gains for slaves working there.
-		Any weapons that are unequipped during sex are now correctly re-equipped when sex ends.
-		Fixed bug where backing out of the inventory screen during sex would sometimes return you to the scene you were in before sex, while not correctly ending sex, causing the game to break.
-		Fixed yet more bugs in stuttering characters' speech effects.
-		Fixed minor issue where checking imp gang inventories defaulted the response tab to the empty 'selected item' one, rather than the 'overview' one.
-		Fixed bug where breast/nipple interactions would be disabled when receiving a blowjob in the sixty-nine position.
-		Fixed bug where clothing tooltips would display the rarity of unidentified items, letting you know if they were jinxed or not without first identifying them.
-		Fixed 'Mystery Kink' not being recognised as a fetish-giving item, and 'Glowing Mushrooms' not being recognised as transformative, which was allowing some unique NPCs to consume them during sex.
-		Fixed issue where offspring could sometimes spawn with 'heterochromatic' eyes that both had the same colour.
-		Fixed bug causing incorrect descriptions when removing horns.
-		Fixed incorrect action labels in debug's race reset screen.
-		Fixed bug where buying items from Vicky would clear the entire stack of that item from her inventory the next time you opened her trade menu.
-		Fixed Takahashi not having 3 youko tails as intended.
-		Fixed Fury offspring (half-demon harpies) spawning in Dominion (they now only spawn in the harpy nests). Also fixed offspring of non-Submission half-demon subspecies spawning in Submission's tunnels.
-		Fixed equipped piercings displaying a 'No tattoo' tooltip when hovering over them in tattoo view mode.
-		Fixed tertiary dye colours not displaying for several items of clothing.
-		If, in a previous version, Brax has somehow bugged out after completing the side quest to obtain him, he will correctly have his ownership transferred to you when you load into this version.
-		Fixed item and clothing encyclopedia entries not being added if you used an item from an NPC's inventory, or equipped clothing onto an NPC.
-		Fixed incorrectly describing Kate's breasts as E-cup.
-		Fixed footjob climax tattoo counter not working.
-		Fixed bug where footjob sex stats were not being saved/loaded correctly.
-		Fixed sex bug where characters couldn't start oral actions while they were receiving a footjob.
-		Fixed bug where performing/receiving foot-related actions would result in a huge lust drain per turn if neither participant had a positive desire towards foot fetishes. This will not affect NPCs' decision to use foot actions (which they prefer to avoid unless they have an associated fetish).
-		Fixed bug where the 'Localised Storm' upgrade for the Arcane Cloud spell would affect enemies of the target, instead of all their allies.
-		Fixed bug where clothing was able to be equipped in sex into slots which were not supposed to be available.
-		You can no longer equip clothing during sex into inventory slots that are involved in an ongoing action.
-		Fixed Rose's handholding sex scene missing the mouth-finger interactions which were present in older versions.
-		Fixed 'Suck clit' sex action having arousal increment values reversed for the performer/target.
-		Fixed enslavement collars not spawning with the enslavement enchantment.
-		Fixed dates before 0CE being displayed as a negative value, and are now correctly displayed as 'xxxx BCE'.
-		Fixed bug in the flow of dialogue when talking to Candi for the first time about Brax.
-		Fixed clothing enchantments which reduce corruption being regarded as 'bad' enchantments.
-		Fixed broken condom equip behaviour for cultists, dark alleyway demon attackers, Kate, and Ralph.
-		Fixed bug where slaves who were given the permission to use you would only do so when they were supposed to be at work, instead of when they had free time (set to 'idle').
-		Actions using a parnter's clit are no longer displayed as greyed-out actions, until you know that the partner has a vagina.
-		Fixed another cause of the bug where slaves jumping you when sleeping would not work correctly.
-		Fixed some issues with the lactation fetish special tease attack, and made it available to characters who have crotch boobs which are lactating.
-		When starting sex, the active response tab should no longer start on one that has no actions available in it.
-		Fixed some incorrect descriptions of the 'choke' action in multiple-character sex scenes.
-		Fixed bug where character home icons would not be shown on any tiles that bordered the map's lower or left edges.
-		Fixed some references to Jhortrax fathering imps instead of half-demons.
-		Girlcum fluid modifiers are now described in a character's appearance page.
-		Characters performing oral on a vagina will now correctly ingest girlcum (once the vagina is lubricated by girlcum).
-		Fixed bug where incorrect dialogue would be displayed when slaves jumped you for sex after sleeping.
-		Fixed some issues with half-demon subspecies detection, which should have resolved the unusual self-transformation behaviour encountered after turning yourself into a half-demon through the debug menu.
-		Fixed alligator hair-scales and slime hair being called by the wrong name.
-		Fixed branching quests not correctly saving/loading the quest route you selected (was just affecting the slime queen quest, but wasn't having any impact on gameplay).
-		Blaze and Crystal (the Slime Queen's guards) are now correctly identified in the code as being siblings (but only if you have incest content turned on).
-		Fixed bug where post-sex dialogue after beating and then submitting to the imps in the Dark Siren's fortress would be the 'defeated' variant instead of the correct 'victory' variant.
-
-	
-	
-	[x] Get the entire quest completely sorted in plan
-	
-	- Add Axel's quest (will take place in the Rat Warren).
-		[] Assets:
-			[x] Map
-			[x] Vengar
-				Greater rat-boy
-				Dark brown-fur
-				Muscular
-				Scarred chest
-				Occupation Gang leader
-			[x] Shade is pitch-black-furred, and is lithe, very fit and muscular. Very confident. Is melee expert. 5'8" B-cups
-				[x] enchanted ring
-				[] In combat, if silence is defeated, she goes beserk and gains +200% HP and +3AP
-			[x] Silence is white-furred, and has a slight build. Looks a little nervous. Is powerful poison arcane user. 5'6" DD-cups
-				[] add mute personality trait
-				[x] enchanted amulet
-				[] In combat, if shade is defeated, she goes into a trance, summons a wind elemental, gains +250 aura and +3AP
-			[] Generic rat gang member
-				[x] Occupation Gang member
-			[] Spawn 5 humans in milking room when enter
-			[x] Tattoo
-			[x] new weapons for Shadow
-			[] Skull bandana
-			[] vagina ring(s)
-			[] choker
+		Fixed background error sometimes being thrown when generating half-demons, which was blocking randomly-spawned characters from being half-demons.
+		Quite a few typo, parsing, and formatting fixes.
+		Fixed some background errors when in non-companion dialogue for the random harpy attackers, Submission tunnel attackers, and Bat cavern attackers.
+		Fixed incorrect descriptions when an enemy forces a transformation potion onto your companion (after being defeated in combat).
+		Asymmetrical skirt now correctly blocks the anus slot when not pulled up.
+		NPCs spawning with randomly generated weapons will now have enough essences to use their weapons (if any of them have an essence cost).
+		Fixed incorrect public sex descriptions from being displayed while you were watching sex in public places.
+		Fixed 'Offer body' dialogue not working in random attacker scenes when you didn't have a companion with you.
+		Fixed bug where bat cavern random bat-morph attackers would not initialise correctly (and therefore no bat-morph enemies would spawn when you were travelling through or exploring the tunnels of the bat caverns).
+		Fixed issue where randomly spawned clients in Angel's Kiss might sometimes not be cleared up correctly.
+		Fixed formatting bug where expanding a character's 'Stats' information box would conceal the 'Perks' information box beneath it.
+		Fixed some cases where menu navigation could get slightly broken when sending companions home or dismissing elementals.
+		Fixed issue where characters would not be recognised as half-siblings if one or more of the three relevant parents were removed from the game.
+		Corrected Slime Queen's job perk icon.
+		Companion's elementals should no longer do increased damage if the difficulty setting is meant to be boosting enemy damage.
+		Fixed application of lisp and stutter in speech causing style tags to break.
+		Fixed player's gender identity not being correctly set (this shouldn't affect anything, and if it's used in future content, I'll provide a way to define it).
+		Breast feeding and other oral+nipple actions are no loner blocked when nipple penetration content is turned off.
+		Fixed issue where the UI could sometimes freeze on the 1st of every month.
+		Fixed bug where half-demon offspring would not initialise correctly and cause game-breaking freezes. This was being encountered at the moment of impregnation if generated offspring were half-demons.
+		Fixed mouth orifice always being referred to as 'a mouth'.
+		Fixed issues with Roxy sometimes being happy to switch to anilingus or other sex types.
+		Random NPCs will no longer spawn wearing Enforcer's tactical combat boots.
+		'Impregnations' tattoo counter should now function correctly.
+		Helena will no longer return to her nest after taking over Scarlet's shop in slaver alley.
+		Fixed bug where clothing unequipped as a result of a body part transformation (such as unequipping a tail ribbon when losing your tail) would not revert attribute modifications from that clothing item.
+		Clothing which requires a penis to be equipped (condoms & chastity cages) can no longer be equipped onto strapons or dildos. (This change was made due to an underlying conflict in the code, but I will try to refactor it at some point to re-enable this behaviour.)
+		Meraxis (The Dark Siren) will now correctly use all of the spells at her disposal.
 		
+	
+	[x] Finish text placeholders
+	[x] Add artwork
+	[x] Add Lyssieth lilin-form repeat sex
+	[x] Change Vengar's bedroom references to 'private bed-chambers'
+	[x] Remove addictive fluids when transformed (both).
+	[] Add Shadow/Silence/Vengar/Murk scenes
+	[x] Get quest updating sorted out.
+	[]  Make sure all routes work correctly.
+	[] Check through bugs.
+	[] Writing.
+	
+	Bugs
+		[x] Cannot skip sex when spectator
+		[] Quick sex does not use sex manager's preference
+		[] When spectating, second dom only performed foreplay on companion when skipping sex
+		[] Lyssieth did not remove butt plug when wanting to fuck ass, even though it was not jinxed...
+	
+	Very rarely it seems like Silence spams the protective gusts spell on herself...
+	
+	[x] Test leg clothing
+		Fix all physicalResistance>0.X
+	
+	Vengar sex slave
+		[x] Shadow TF potions
+		[x] new unique character descriptions
+		[x] Disable fast travel while captive
+		For both captive scenes:
+			[x] Pregnancy handling (companion blocked)
+			[x] Companion cannot leave for work when captive
+			[x] Companion does not follow when captive
+		[x] Make spawned rats have correct fetish preferences
+	End-state for Axel
+		[x] Axel sissy TF
+		[x] Lexa fuck
+	[] Murk at gambling den
+		Epona hates him after finding out what he had been doing. Tells you that she's got a helping hand in rehabilitating slave girls.
+		You can suggest that he be given a taste of his own medicine. Epona transforms & trains him into female (Minx), taking a week, and then offers her as a prize for new game.
+	[] Vengar at gambling den
+		Roxy is abusive (tells you that she broke up with him after she caught him fucking Shadow/Silence)
+		Has Vengar addicted to her pussy.
+		You can buy an hour with Vengar.
+	[] Shadow & Silence in Slaver Alley
+		[] Add hint at quest
+		[] Make sure they don't go to bedroom at night (Murk & Vengar behaviour as well)
+	[x] Regen NPCs on load
+	
+	Eating out pussy/ass needs to eat cum out of them
+	
+	Two paths:
+		1. Conflict, resulting in Vengar & Murk being enslaved and given to Axel as compensation.
+			You can either take them from him (he doesn't really want to own slaves), or:
+				Murk: Epona transforms him into female (Minx) and offers her as consolation prize in breeding roulette.
+				Vengar: Roxy
+			Shadow and Silence co-operated fully, and so are let off in exchange for naming all the gang members who did bad things
+				Shadow says they need a new line of "honest" work, and they're going to try their luck up in Dominion.
+				They become bounty hunters in slaver alley, working to capture runaway slaves (so still a pretty morally-grey area).
+					Change one of the coffee shops into bounty hunter office.
+					You can help them take over the business fully, then they reward you with sex.
+		2. Cooperation, resulting in Vengar going clean and focusing on Black Rat's Rum distillery business.
+			Rat Warrens becomes distillery.
+			Axel: TF into sissy or leave as he is.
+			Vengar: Can become his fucktoy or secretly be dominating him.
+			Murk: Can persuade Vengar that he's a liability (and gain ownership of him), or become his cocksleeve.
+			Shadow says her and Silence are no longer needed, and they're going to try their luck up in Dominion.
+				They become bounty hunters in slaver alley, working to capture runaway slaves (so still a pretty morally-grey area).
+					Change one of the coffee shops into bounty hunter office.
+					You can help them take over the business fully, then they reward you with sex.
+	
+	Add arousing consumable
+	
+	Add gape content option
+		Add gape/tight fetishes
+		NPCs transform plasticity/elasticity with these fetishes
+	Make milkers have gaping orifices
+	Test:
+		Collar 500 essence removal
+		Cannot remove collar jinx during sex? (essence drain should take care of this)
+	Make the owner a unique character?
+	Remove 'shy' modifier for rat gang member generic names
+	Add Hunter gaping cum inside sex scene
+	
+	Does sex skip take into account multiple orgasms?
+	Does skip sex work correctly when player is spectating?
+	
+	Make sure self-TF inhibition works when TF'ing companions and post-victory imps
+	
+	Monday:
+		[x] Skip sex
+			[x] Apply non-skippable to Lyssieth, Ralph, cultist sealed, masturbation, rose hands
+			[] Restrict for some others? (Jhortrax need it?)
+			[] Need to also pass in sex manager so can calculate which actions are available? Take into account which positions are available as well.
+				[] SexManager needs to also be used to get preferences
+			[x] Action
+				[x] Targeting
+				[x] Make it greyed out if not available
+				[x] Test as dominant in large group
+			[x] Generic sex method
+				[x] Implement girlcum/milk, condoms, stretching, body parts dirtied.
+				[x] Doms should target someone else if they need to cum multiple times
+				[x] Girlcum drinking is wrong way around
+				[x] Need virginity losses
+				[x] Need orgasming on body parts descriptions
+				[x] Need to not cum all cum on orgasm
+				[x] SexType.getPerformanceDescription() error: No description found for TONGUE targeting BREAST!
+				[x] Testing solo
+				[x] Testing companion
+				[x] Testing large group sex
+				[x] Formatting of stretch, virginity loss, and cum targeting.
+				[x] Fix stretch and virginity loss not centred
+				[x] Cumming inside should be influenced by fetishes
+				[x] Add description for pulling out
+				[x] Standardise names for areas
+				[x] Make each section a noPad centre class
+				[x] Append virginity loss directly after sex type description
+		[] All Vengar dialogue framework added, including txt file links
+		
+		[] Skull bandana
+		[] vagina ring(s)
+		[] choker
+	
 		[] Meraxis to use scythe spell
-		
-		[x] check quest branching (it doesn't save properly)
-		[x] add quest progress
-		
-		After met Roxy, can talk to Axel about Roxy's rudeness.
-			He says how she's the ex of Vengar, and he's been told to let her run her shop
-		Add Axel Vengar dialogue
-		Talk to Axel about Vengar
-			He says how he's being forced to pay protection money, like most of the other shops in Submission
-		Offer to help
-			He says he doubts there's much you can do
-				He's already talked to the enforcers, but you could try if you wanted to
-				Says if you think you can talk to Vengar about it, the password to get past the guards is just saying the current date
-			Quest:
-				Vengar's Gang
-					Optional (Report to Claire)
-						She says they are aware of the situation, but they don't have permission to deal with it
-						Says a dozen or so enforcers stationed nearest to the rat warrens (who are annoyed at being unable to act on Vengar's gang) could raid the warrens, but they'd need you to get inside and confirm Vengar is in there first
-						Gives you a basic resonance stone. Activate once Vengar is spotted
-					Rat Warren
-						Entry
-							If enforcer uniform, special scene
-							Say you're there to talk to Vengar about Axel's monthly payment
-								Taken to Vengar or fight
-							Say you're a prostitute (requires corruption)
-								Have to fuck/suck guards
-							Fight your way in
-								Flag rats as aggressive
-								Have to do big fight in the hall (3 waves of 6?)
-						Explore
-							Milking den
-								Kidnapped humans with huge breasts being milked
-									Tattood with what flavour their milk is
-									If day, they are being fucked
-								None of them want to leave
-									If time:
-										Except one human, who has only been started on the process
-										She has big tits and is being milked, but hasn't had the full fetish treatment yet
-										Begs for you to save her
-							Dice room
-								In day, 4 rats are in here
-							Sleeping quarters
-								At night, 4 rats are in here
-							Vengar's hall
-								Make Vengar drinking rum
-								Lots of rats
-								2 rat-girls beside Vengar
-								Enforcer raid:
-									Activate resonance stone
-									Hear commotion
-									Realising what's happening, Shadow stabs Vengar in the back and restrains him with Silence. Say to enforcers when they enter that they'd been kept here against their will.
-									Enforcers storm in
-									Arrest Vengar and gang members, free milkers
-									Sergeant says it's a complete mess, asks Shadow and Silence to help him identify the rats
-									Shadow and Silence go with him
-								Confront:
-									Vengar offers you to join if you suck his cock
-									Persuade to stop:
-										Have to transform Axel into submissive girl or sissy trap
-										Then get him to come and submit to Vengar
-									Fight:
-										Have to beat his twin rat-girl guards (who can use poison arcane)
-										Then 1-on-1
-										If lose, taken to breeding den
-											If non-con:
-												Vengar fucks you (and companion)
-												Says you're going (both) to be turned into his cash cow(s)
-												TF potion
-												Start loop:
-													Morning TF potion
-													Fucked/milked
-													Can try to escape at night
-											If no non-con:
-												Get thrown out
-										If win, Vengar's stranglehold is broken
-											SWORD enforcers turn up, say brought by the commotion.
-											They will go in and make sure everything is sorted out.
-									Join:
-										Have to suck Vengar's cock (rat-girls assist)
-										Tattoo (from rat-girls)
-										Special perk
-										He says as Axel sent you after him, he can't trust him to do the right thing
-											Vengar wants to make example of him - go and get Axel to report to Vengar
-											Get choice to turn Axel into submissive girl or sissy trap (or nothing)
-											Can then fuck him
-										Repeat content:
-											sucking/fucking Vengar's cock
-											Play dice
-											Fuck/milk milkers
-						Complete quest
-							Axel gives you reward
-							If male, says he'd like to thank you a little more personally
-							Office sex
 	
+	
+	I have troubles with Zaranix. 
+		When I try to 'thanks' him for handing over Arthur, I can't dislocate any of the items. It says that I am not allowed to do that in this sex scene. Problem is, he wears pants so the option to suck him off is unavailable, and I can't shift aside my clothes to do something while I wait for him to remove his pants. Is this a bug or am I doing something wrong?
+	
+	Investigate maid duty slaves fucking or not
+	
+	Okay, so I am having major problems with the slave menu right now. Every time I open up the inventory of one of my slaves, I am stuck in that menu. If I go to the main menu, I get stuck there. For a brief period, when I left the menu, I would go into the end of an encounter with a cat girl, but when I restarted the game, I got stuck instead.
+	
+	Slave waking you up dialogue does not diplay correct sex variation, even though only actoin available is 'Sex'
+	
+	I turned raven-harpy and bald-eagle-harpy to not spawning and they still spawned
+	
+	idk if it's a bug or not but in 0.3.5.4 with Forced TF set to 0%, and Forced Fetishes set to 100%, NPCs are spawning with the correct kinks but still transforming me and only rarely giving me fetishes when I lose
+		every loss is ending with transformation with sometimes a fetish being included
+		
+	Not sure if it was reported and fixed, but I had an odd issue where a demon tigeress' hair would change her fur instead.
+	
+	Fix cat subspecies recognition (leopard is apparently hard to get)
+	
+	two character perfoming oral on you while you're sitting can fuck each other, idk if that's intended
+	NPCs in doggy can start intercrural on all fours (1) while other is fucking them (1)
+	
+	if you beat Meraxis without visiting the palace does it give you the xp you would have gotten if you visited the palace first or does that xp go into limbo
+	
+	I imported a child of mine that i had with Amber to be used as a new character. then i had a child with Amber using the imported character. checked the stats to see what her parentage was and this was the result:
+		Great-Grandmother, Grandmother, Mother, and sister.
+		Should have just been mother and sister
+	
+	Balance fur colours
+	
+	Some kind of bug in Prostitute client removal hourly update loop (DominionAlleywayAttacker)
 	
 	Improve necklace items so that they just show part of the chain
 	

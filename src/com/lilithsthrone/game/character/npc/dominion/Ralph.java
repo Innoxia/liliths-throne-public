@@ -201,7 +201,7 @@ public class Ralph extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_jeans", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, this);
 
@@ -469,30 +469,30 @@ public class Ralph extends NPC {
 	// Vagina:
 	
 	@Override
-	public String getStretchingDescription(GameCharacter partner, SexAreaPenetration penetrationType, SexAreaOrifice orifice) {
+	public String getStretchingDescription(GameCharacter partner, SexAreaPenetration penetrationType, SexAreaOrifice orifice, boolean pastTense) {
 		switch(orifice) {
 			case MOUTH:
 				if(Math.random()<0.3) {
-					return super.getStretchingDescription(partner, penetrationType, orifice);
+					return super.getStretchingDescription(partner, penetrationType, orifice, pastTense);
 				} else {
-					return formatStretching(UtilText.returnStringAtRandom(
+					return UtilText.returnStringAtRandom(
 							"You feel tears streaming down your face as you force the [ralph.cock+] down your throat.",
 							"You aren't skilled enough at giving head to be able to comfortably handle Ralph's [ralph.cock+].",
 							"You squirm and choke as you do your best to fit the [ralph.cock+] down your throat.",
-							"You struggle to fit Ralph's [ralph.cock+] down your throat."));
+							"You struggle to fit Ralph's [ralph.cock+] down your throat.");
 				}
 			case VAGINA:
 				if(Math.random()<0.3) {
-					return super.getStretchingDescription(partner, penetrationType, orifice);
+					return super.getStretchingDescription(partner, penetrationType, orifice, pastTense);
 				} else {
-					return formatStretching(UtilText.returnStringAtRandom(
+					return UtilText.returnStringAtRandom(
 							"You squirm about uncomfortably on the counter-top as Ralph's [ralph.cock+] struggles to fit in your [pc.pussyCapacity] [pc.pussy].",
 							"Ralph's [ralph.cock+] painfully stretches you out as it rams its way in and out of your [pc.pussyCapacity] [pc.pussy].",
 							"Ralph's [ralph.cock+] is too large for your [pc.pussyCapacity] [pc.pussy], and you let out an uncomfortable whine as it stretches you out.",
-							"Your [pc.pussyCapacity] little [pc.pussy] struggles to accommodate the sheer size of Ralph's [ralph.cock+]."));
+							"Your [pc.pussyCapacity] little [pc.pussy] struggles to accommodate the sheer size of Ralph's [ralph.cock+].");
 				}
 			default:
-				return super.getStretchingDescription(partner, penetrationType, orifice);
+				return super.getStretchingDescription(partner, penetrationType, orifice, pastTense);
 		}
 	}
 	
@@ -500,11 +500,11 @@ public class Ralph extends NPC {
 	public String getStretchingFinishedDescription(SexAreaOrifice orifice) {
 		switch(orifice) {
 			case MOUTH:
-				return formatStretching("The next time Ralph gently pushes forwards, you feel your throat instinctively opening up to accommodate his flared equine member,"
-						+ " and with a muffled moan of delight, you realise that you're now able to comfortably suck Ralph's massive black horse-cock!");
+				return "The next time Ralph gently pushes forwards, you feel your throat instinctively opening up to accommodate his flared equine member,"
+						+ " and with a muffled moan of delight, you realise that you're now able to comfortably suck Ralph's massive black horse-cock!";
 			case VAGINA:
-				return formatStretching("The next time Ralph slams forwards, you feel your pussy easily stretching out to accommodate his flared equine member, and with a squeal of delight,"
-						+ " you realise that you're now able to comfortably fit Ralph's massive black horse-cock in your [pc.pussy+]!");
+				return "The next time Ralph slams forwards, you feel your pussy easily stretching out to accommodate his flared equine member, and with a squeal of delight,"
+						+ " you realise that you're now able to comfortably fit Ralph's massive black horse-cock in your [pc.pussy+]!";
 			default:
 				return super.getStretchingFinishedDescription(orifice);
 		}

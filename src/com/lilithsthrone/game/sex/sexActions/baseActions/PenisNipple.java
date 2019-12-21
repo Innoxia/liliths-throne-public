@@ -45,7 +45,7 @@ public class PenisNipple {
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Main.game.isNipplePenEnabled()
 					&& Sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()
-					&& !this.isForbiddenArea(SexAreaOrifice.NIPPLE);
+					&& !this.isForbiddenArea(SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE);
 		}
 
 		@Override
@@ -195,7 +195,7 @@ public class PenisNipple {
 			return Sex.getSexPace(Sex.getCharacterPerformingAction()) != SexPace.SUB_RESISTING
 					&& Main.game.isNipplePenEnabled()
 					&& Sex.getCharacterPerformingAction().isBreastFuckableNipplePenetration()
-					&& !this.isForbiddenArea(SexAreaOrifice.NIPPLE);
+					&& !this.isForbiddenArea(SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS);
 		}
 
 		@Override

@@ -1817,7 +1817,7 @@ public class ZaranixHomeGroundFloorRepeat {
 								pet.addFetish(Fetish.FETISH_ANAL_GIVING);
 							}
 							pet.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-							pet.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, owner);
+							pet.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", false), true, owner);
 							if(Math.random()>0.5f) {
 								pet.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_BALLGAG), true, owner);
 							}

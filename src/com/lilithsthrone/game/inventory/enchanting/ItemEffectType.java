@@ -3021,9 +3021,9 @@ public class ItemEffectType {
 				
 			} else if(primaryModifier == TFModifier.CLOTHING_SPECIAL) {
 				if(Main.game.getPlayer().isHasSlaverLicense()) {
-					return Util.newArrayListOfValues(TFModifier.CLOTHING_SEALING, TFModifier.CLOTHING_ENSLAVEMENT);
+					return Util.newArrayListOfValues(TFModifier.CLOTHING_SEALING, TFModifier.CLOTHING_ANTI_SELF_TRANSFORMATION, TFModifier.CLOTHING_ENSLAVEMENT);
 				} else {
-					return Util.newArrayListOfValues(TFModifier.CLOTHING_SEALING);
+					return Util.newArrayListOfValues(TFModifier.CLOTHING_SEALING, TFModifier.CLOTHING_ANTI_SELF_TRANSFORMATION);
 				}
 				
 			} else if(primaryModifier == TFModifier.CLOTHING_CONDOM) {
@@ -3078,8 +3078,11 @@ public class ItemEffectType {
 					effectsList.add("[style.boldCrimson(Seals onto wearer)] <b>(Removal cost: [style.boldArcane(5)])</b>");
 				}
 				
+			} else if(secondaryModifier == TFModifier.CLOTHING_ANTI_SELF_TRANSFORMATION) {
+				effectsList.add("[style.boldBad(Inhibits)] [style.boldTfGeneric(self-transformations)]");
+				
 			} else if(secondaryModifier == TFModifier.CLOTHING_ENSLAVEMENT) {
-					effectsList.add("[style.boldCrimson(Enslaves the wearer)]");
+				effectsList.add("[style.boldCrimson(Enslaves the wearer)]");
 				
 			} else if(primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART) {
@@ -3135,6 +3138,7 @@ public class ItemEffectType {
 			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
 					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
 					|| secondaryModifier == TFModifier.CLOTHING_ENSLAVEMENT
+					|| secondaryModifier == TFModifier.CLOTHING_ANTI_SELF_TRANSFORMATION
 					|| secondaryModifier == TFModifier.CLOTHING_SEALING
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART

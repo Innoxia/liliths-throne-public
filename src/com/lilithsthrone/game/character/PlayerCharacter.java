@@ -220,6 +220,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc, settings);
 		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
+			character.setGenderIdentity(character.getGender());
+		}
+		
 		character.sortInventory();
 		
 		boolean newGameImport = Arrays.asList(settings).contains(CharacterImportSetting.NEW_GAME_IMPORT);
@@ -332,6 +336,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 								if(questString.contains("SIDE_NYAN")) {
 									questString = questString.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
 								}
+								if(questString.equals("MAIN_1_E_REPORT_TO_ALEXA")) {
+									questString = "MAIN_1_E_REPORT_TO_HELENA";
+								}
 								
 								QuestLine questLine = QuestLine.valueOf(questLineString);
 								Quest quest = Quest.valueOf(questString);
@@ -358,6 +365,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							String questLineString = e.getAttribute("questLine");
 							QuestLine questLine = QuestLine.valueOf(questLineString);
 							String questString = e.getAttribute("q"+0);
+							if(questString.equals("MAIN_1_E_REPORT_TO_ALEXA")) {
+								questString = "MAIN_1_E_REPORT_TO_HELENA";
+							}
 							Quest quest = Quest.valueOf(questString);
 							List<Quest> questList = new ArrayList<>();
 							
@@ -369,6 +379,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 								
 								questIncrement++;
 								questString = e.getAttribute("q"+questIncrement);
+								if(questString.equals("MAIN_1_E_REPORT_TO_ALEXA")) {
+									questString = "MAIN_1_E_REPORT_TO_HELENA";
+								}
 							}
 							
 							character.quests.put(
@@ -731,13 +744,25 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		
 	}
+
+	/**
+	 * <b>This method should only be used in very special circumstances!</b>
+	 * @param questLine the QuestLine to be removed.
+	 */
+	public void removeQuest(QuestLine questLine) {
+		quests.remove(questLine);
+	}
 	
 	public Map<QuestLine, List<Quest>> getQuests() {
 		return quests;
 	}
 	
 	public Quest getQuest(QuestLine questLine) {
-		return quests.get(questLine).get(quests.get(questLine).size()-1);
+		List<Quest> quests = this.quests.get(questLine);
+		if (null == quests) {
+			return null;
+		}
+		return quests.get(quests.size()-1);
 	}
 	
 	public boolean hasQuest(QuestLine questLine) {

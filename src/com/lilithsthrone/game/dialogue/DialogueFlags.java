@@ -182,7 +182,12 @@ public class DialogueFlags implements XMLSaving {
 			Element e = (Element) ((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").item(i);
 			
 			try {
-				newFlags.values.add(DialogueFlagValue.valueOf(e.getAttribute("value")));
+				String flag = e.getAttribute("value");
+				if(flag.equalsIgnoreCase("punishedByAlexa")) {
+					newFlags.values.add(DialogueFlagValue.punishedByHelena);
+				} else {
+					newFlags.values.add(DialogueFlagValue.valueOf(flag));
+				}
 			} catch(Exception ex) {
 			}
 		}

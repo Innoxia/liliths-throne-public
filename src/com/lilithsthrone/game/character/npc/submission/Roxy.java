@@ -127,7 +127,7 @@ public class Roxy extends NPC {
 			this.setLevel(15);
 			this.resetPerksMap(true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.5")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.CONFIDENT,

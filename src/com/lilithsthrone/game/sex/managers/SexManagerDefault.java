@@ -28,6 +28,7 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -44,7 +45,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public abstract class SexManagerDefault implements SexManagerInterface {
@@ -53,10 +54,14 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	protected Map<GameCharacter, SexSlot> dominants;
 	protected Map<GameCharacter, SexSlot> submissives;
 	protected Map<GameCharacter, List<SexAreaInterface>> areasBannedMap;
-	
+	protected boolean ableToSkipSexScene;
 
 	public SexManagerDefault(AbstractSexPosition position, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		
+		this(true, position, dominants, submissives);
+	}
+
+	public SexManagerDefault(boolean ableToSkipSexScene, AbstractSexPosition position, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		this.ableToSkipSexScene = ableToSkipSexScene;
 		this.position = position;
 		this.dominants = dominants==null?new HashMap<>():dominants;
 		this.submissives = submissives==null?new HashMap<>():submissives;
@@ -104,6 +109,11 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		return submissives;
 	}
 
+	@Override
+	public boolean isAbleToSkipSexScene() {
+		return ableToSkipSexScene;
+	}
+	
 	public Map<GameCharacter, List<SexAreaInterface>> getAreasBannedMap() {
 		return areasBannedMap;
 	}
@@ -218,6 +228,24 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					break;
 				} else {
 //					System.out.println("Not happy in slot");
+				}
+			}
+			
+			// Prefer not to stay in standing if prefer to be fucking:
+			if(Sex.getPosition()==SexPosition.STANDING) {
+				SexAreaInterface performingArea = partner.getCurrentSexPreference(Sex.getTargetedPartner(partner)).getPerformingSexArea();
+				SexAreaInterface targetedArea = partner.getCurrentSexPreference(Sex.getTargetedPartner(partner)).getTargetedSexArea();
+				if(performingArea.isPenetration() && ((SexAreaPenetration)performingArea).isTakesVirginity()) {
+					if(targetedArea.isOrifice()
+							&& (targetedArea==SexAreaOrifice.ANUS || targetedArea==SexAreaOrifice.VAGINA || targetedArea==SexAreaOrifice.URETHRA_PENIS || targetedArea==SexAreaOrifice.URETHRA_VAGINA)) {
+						suitablePosition = false;
+					}
+				}
+				if(targetedArea.isPenetration() && ((SexAreaPenetration)targetedArea).isTakesVirginity()) {
+					if(performingArea.isOrifice()
+							&& (performingArea==SexAreaOrifice.ANUS || performingArea==SexAreaOrifice.VAGINA || performingArea==SexAreaOrifice.URETHRA_PENIS || performingArea==SexAreaOrifice.URETHRA_VAGINA)) {
+						suitablePosition = false;
+					}
 				}
 			}
 			

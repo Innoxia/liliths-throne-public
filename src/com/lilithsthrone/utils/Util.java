@@ -615,6 +615,8 @@ public class Util {
 		StringBuilder modifiedSentence = new StringBuilder();
 		int openingCurly = 0;
 		int closingCurly = 0;
+		int openingAngular = 0;
+		int closingAngular = 0;
 		int openingSquare = 0;
 		int closingSquare = 0;
 		float chance = 1f/frequency;
@@ -623,6 +625,10 @@ public class Util {
 				openingCurly++;
 			} else if(sentence.charAt(i)==')') {
 				closingCurly++;
+			} else if(sentence.charAt(i)=='<') {
+				openingAngular++;
+			} else if(sentence.charAt(i)=='>') {
+				closingAngular++;
 			} else if(sentence.charAt(i)=='[') {
 				openingSquare++;
 			} else if(sentence.charAt(i)==']') {
@@ -631,10 +637,8 @@ public class Util {
 			
 			if(sentence.charAt(i)==' '
 					&& Character.isLetter(sentence.charAt(i+1))
-//					&& sentence.charAt(i+1)!='#'
-//					&& sentence.charAt(i+1)!='('
-//					&& sentence.charAt(i+1)!='['
 					&& openingCurly==closingCurly
+					&& openingAngular==closingAngular
 					&& openingSquare==closingSquare) {
 				if(Math.random()<chance) {
 					modifiedSentence.append("-");
@@ -784,6 +788,28 @@ public class Util {
 		return utilitiesStringBuilder.toString();
 	}
 
+	private static String[] muteSexSounds = new String[] { "... ~Ooh!~", "... ~Mmm!~", "... ~Aah!~" };
+	/**
+	 * @param sentence The sentence to mute.
+	 * @param sexMoans If the character should moan/pant due to being in sex.
+	 * @return A series of "..." if no sexMoans, or "... ~Ooh!~", "... ~Mmm!~", "... ~Aah!~" if sexMoans
+	 */
+	public static String replaceWithMute(String sentence, boolean sexMoans) {
+		int length = Math.max(1, sentence.split(" ").length/3);
+		
+		StringBuilder muteSB = new StringBuilder();
+		for(int i=0; i<length; i++) {
+			if(sexMoans) {
+				muteSB.append(muteSexSounds[random.nextInt(muteSexSounds.length)]+" ");
+				
+			} else {
+				muteSB.append("... ");
+			}
+		}
+		muteSB.deleteCharAt(muteSB.length()-1);
+		return muteSB.toString();
+	}
+		
 	private static String[] muffledSounds = new String[] { " ~Mrph~", " ~Mmm~", " ~Mrmm~" };
 	/**
 	 * Turns a normal sentence into a muffled sentence.<br/>
@@ -882,21 +908,61 @@ public class Util {
 	 * @return The modified sentence.
 	 */
 	public static String applyLisp(String sentence) {
-		String [] split = sentence.split("\\[(.*?)\\]");
-		for(String s : split) {
-			String [] splitConditional = s.split("#IF\\((.*?)\\)|#ELSEIF\\((.*?)\\)"); // Do not replace text inside conditional parsing statements
-			for(String s2 : splitConditional) {
-				String sReplace = s2
-						.replaceAll("s", "<i>th</i>")
-						.replaceAll("z", "<i>th</i>")
-						.replaceAll("S", "<i>Th</i>")
-						.replaceAll("Z", "<i>Th</i>");
-					
-					sentence = sentence.replace(s2, sReplace);
+		StringBuilder modifiedSentence = new StringBuilder();
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingAngular = 0;
+		int closingAngular = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		for(int i = sentence.length()-1; i>=0; i--) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='<') {
+				openingAngular++;
+			} else if(sentence.charAt(i)=='>') {
+				closingAngular++;
+			}else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
+			
+			if(openingCurly==closingCurly && openingAngular==closingAngular && openingSquare==closingSquare) {
+				if(sentence.charAt(i)=='s' || sentence.charAt(i)=='z') {
+					modifiedSentence.append(">i/<ht>i<");
+				} else if(sentence.charAt(i)=='S' || sentence.charAt(i)=='Z') {
+					modifiedSentence.append(">i/<hT>i<");
+				} else {
+					modifiedSentence.append(sentence.charAt(i));
+				}
+				
+			} else {
+				modifiedSentence.append(sentence.charAt(i));
 			}
 		}
 		
-		return sentence;
+		modifiedSentence.reverse();
+		return modifiedSentence.toString();
+	
+		
+//		String [] split = sentence.split("\\[(.*?)\\]");
+//		for(String s : split) {
+//			String [] splitConditional = s.split("#IF\\((.*?)\\)|#ELSEIF\\((.*?)\\)"); // Do not replace text inside conditional parsing statements
+//			for(String s2 : splitConditional) {
+//				String sReplace = s2
+//						.replaceAll("s", "<i>th</i>")
+//						.replaceAll("z", "<i>th</i>")
+//						.replaceAll("S", "<i>Th</i>")
+//						.replaceAll("Z", "<i>Th</i>");
+//					
+//					sentence = sentence.replace(s2, sReplace);
+//			}
+//		}
+//		
+//		return sentence;
 	}
 	
 	

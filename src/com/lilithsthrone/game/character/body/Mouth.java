@@ -48,7 +48,14 @@ public class Mouth implements BodyPartInterface {
 
 	@Override
 	public String getName(GameCharacter owner) {
-		return getNamePlural(owner);
+		return getNameSingular(owner);
+	}
+	
+	@Override
+	public String getName(GameCharacter gc, boolean withDescriptor) {
+		String name = getName(gc);
+		return //UtilText.generateSingularDeterminer(name)+" "+
+				name;
 	}
 
 	@Override

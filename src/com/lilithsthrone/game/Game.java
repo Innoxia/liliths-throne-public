@@ -6,12 +6,15 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -45,14 +48,13 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.Alexa;
+import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
 import com.lilithsthrone.game.character.npc.dominion.Angel;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
@@ -111,6 +113,7 @@ import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.character.npc.submission.Murk;
 import com.lilithsthrone.game.character.npc.submission.Roxy;
 import com.lilithsthrone.game.character.npc.submission.Shadow;
 import com.lilithsthrone.game.character.npc.submission.Silence;
@@ -140,6 +143,8 @@ import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDi
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensCaptiveDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -151,6 +156,7 @@ import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -175,6 +181,7 @@ import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.DayPeriod;
+import com.lilithsthrone.utils.time.SolarElevationAngle;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.Season;
@@ -237,6 +244,8 @@ public class Game implements XMLSaving {
 	
 	private DialogueFlags dialogueFlags;
 	
+	private static Map<String, CharacterInventory> savedInventories; // Map of ID to inventory
+	
 	// Responses:
 	private int responsePointer = 0;
 	
@@ -282,6 +291,8 @@ public class Game implements XMLSaving {
 		started = false;
 
 		NPCMap = new ConcurrentHashMap<>();
+		
+		savedInventories = new HashMap<>();
 		
 		// Start in clouds:
 		currentWeather = Weather.CLOUD;
@@ -454,7 +465,16 @@ public class Game implements XMLSaving {
 				CharacterUtils.addAttribute(doc, informationNode, "nextStormTimeInSeconds", String.valueOf(Main.game.nextStormTimeInSeconds));
 				CharacterUtils.addAttribute(doc, informationNode, "gatheringStormDurationInSeconds", String.valueOf(Main.game.gatheringStormDurationInSeconds));
 				CharacterUtils.addAttribute(doc, informationNode, "weatherTimeRemainingInSeconds", String.valueOf(Main.game.weatherTimeRemainingInSeconds));
-	
+
+				Element inventoryNode = doc.createElement("savedInventories");
+				game.appendChild(inventoryNode);
+				for(Entry<String, CharacterInventory> entry : savedInventories.entrySet()) {
+					Element element = doc.createElement("savedInventory");
+					CharacterUtils.addAttribute(doc, element, "character", entry.getKey());
+					inventoryNode.appendChild(element);
+					entry.getValue().saveAsXML(element, doc);
+				}
+				
 				try {
 					Main.game.getOccupancyUtil().saveAsXML(game, doc);
 				}catch(Exception ex) {
@@ -649,6 +669,22 @@ public class Game implements XMLSaving {
 				} catch(Exception ex) {
 				}
 				
+				
+				// Saved inventories:
+				//TODO test
+				Element inventoryNode = (Element) gameElement.getElementsByTagName("savedInventories").item(0);
+				if(inventoryNode!=null) {
+					NodeList nodes = inventoryNode.getElementsByTagName("savedInventory");
+					for (int i=0; i < nodes.getLength(); i++) {
+						Element savedInventory = (Element) nodes.item(i);
+						String id = savedInventory.getAttribute("character");
+						CharacterInventory inventory = CharacterInventory.loadFromXML((Element) savedInventory.getElementsByTagName("characterInventory").item(0), doc);
+						savedInventories.put(id, inventory);
+					}
+				}
+				
+				// Date:
+				
 				Element dateNode = (Element) gameElement.getElementsByTagName("date").item(0);
 				Main.game.startingDate = LocalDateTime.of(
 						Integer.valueOf(dateNode.getAttribute("year")),
@@ -706,11 +742,14 @@ public class Game implements XMLSaving {
 									|| !Main.isVersionOlderThan(loadingVersion, "0.2.11"))
 							&& (!worldType.equals("IMP_FORTRESS_DEMON") || !Main.isVersionOlderThan(loadingVersion, "0.2.12.5"))
 							&& (!worldType.equals("DOMINION") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
-							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
+//							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
 							&& (!worldType.equals("HARPY_NEST") || !Main.isVersionOlderThan(loadingVersion, "0.2.1.5"))
 							&& (!worldType.equals("BAT_CAVERNS") || !Main.isVersionOlderThan(loadingVersion, "0.2.3.5"))
-							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.2.10"))
+//							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.2.10"))
 							&& (!worldType.equals("LYSSIETH_PALACE") || !Main.isVersionOlderThan(loadingVersion, "0.3"))
+//							&& (!worldType.equals("GAMBLING_DEN") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.4"))
+							&& (!worldType.equals("RAT_WARRENS") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.6"))
+							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.6"))
 							&& !worldType.equals("JUNGLE")
 							) {
 						World world = World.loadFromXML(e, doc);
@@ -741,7 +780,7 @@ public class Game implements XMLSaving {
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.2.2")) {
 						gen.worldGeneration(WorldType.DOMINION);
-						gen.worldGeneration(WorldType.SLAVER_ALLEY);
+//						gen.worldGeneration(WorldType.SLAVER_ALLEY);
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.2.3.5")) {
 						gen.worldGeneration(WorldType.BAT_CAVERNS);
@@ -752,9 +791,9 @@ public class Game implements XMLSaving {
 					if(Main.isVersionOlderThan(loadingVersion, "0.2.8.1")) {
 						gen.worldGeneration(WorldType.EMPTY);
 					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.2.10")) {
-						gen.worldGeneration(WorldType.SLAVER_ALLEY);
-					}
+//					if(Main.isVersionOlderThan(loadingVersion, "0.2.10")) {
+//						gen.worldGeneration(WorldType.SLAVER_ALLEY);
+//					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
 						gen.worldGeneration(WorldType.LYSSIETH_PALACE);
 					}
@@ -767,6 +806,10 @@ public class Game implements XMLSaving {
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.3.5.4")) {
 						gen.worldGeneration(WorldType.GAMBLING_DEN);
+					}
+					if(Main.isVersionOlderThan(loadingVersion, "0.3.5.6")) {
+						gen.worldGeneration(WorldType.RAT_WARRENS);
+						gen.worldGeneration(WorldType.SLAVER_ALLEY);
 					}
 					if(Main.game.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
@@ -807,6 +850,9 @@ public class Game implements XMLSaving {
 								}
 								if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
 									className = className.replace("FortressDemonLeader", "DarkSiren");
+								}
+								if(Main.isVersionOlderThan(loadingVersion, "0.3.5.6")) {
+									className = className.replace("Alexa", "Helena");
 								}
 								
 								NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
@@ -1094,19 +1140,6 @@ public class Game implements XMLSaving {
 					}
 				}
 
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.3.9")) { // Set Lilaya's and Meraxis's coverings to their correct colours:
-					List<NPC> demons = Util.newArrayListOfValues(Main.game.getNpc(Lilaya.class), Main.game.getNpc(DarkSiren.class));
-					for(NPC demon : demons) {
-						if(demon.getSubspecies().equals(Subspecies.DEMON)) {
-							demon.setSkinCovering(new Covering(BodyCoveringType.ANUS, demon.getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
-							demon.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, demon.getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
-							demon.setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, demon.getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
-							demon.setSkinCovering(new Covering(BodyCoveringType.VAGINA, demon.getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
-							demon.setSkinCovering(new Covering(BodyCoveringType.PENIS, demon.getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour()), false);
-						}
-					}
-				}
-
 				if(Main.isVersionOlderThan(loadingVersion, "0.3.4.1")) {
 					Cell c = Main.game.getWorlds().get(WorldType.DOMINION).getCell(PlaceType.DOMINION_DEMON_HOME_ARTHUR);
 					if(c!=null) {
@@ -1115,20 +1148,6 @@ public class Game implements XMLSaving {
 							c = Main.game.getWorlds().get(WorldType.DOMINION).getCell(PlaceType.DOMINION_DEMON_HOME_ARTHUR);
 						}
 						((Arthur)Main.game.getNpc(Arthur.class)).generateNewTile();
-					}
-					
-					if(Main.game.getNpc(Lilaya.class).getSubspecies()==Subspecies.DEMON) {
-						Main.game.getNpc(Lilaya.class).setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
-						Main.game.getNpc(Lilaya.class).setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_RED_DARK), false);
-						Main.game.getNpc(Lilaya.class).setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, Colour.SKIN_RED_DARK), false);
-						Main.game.getNpc(Lilaya.class).setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_RED_DARK), false);
-					}
-
-					if(Main.game.getNpc(DarkSiren.class).getSubspecies()==Subspecies.DEMON) {
-						Main.game.getNpc(DarkSiren.class).setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
-						Main.game.getNpc(DarkSiren.class).setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_RED_DARK), false);
-						Main.game.getNpc(DarkSiren.class).setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, Colour.SKIN_RED_DARK), false);
-						Main.game.getNpc(DarkSiren.class).setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_RED_DARK), false);
 					}
 				}
 				
@@ -1167,7 +1186,7 @@ public class Game implements XMLSaving {
 					}
 				}
 
-				if(Main.isVersionOlderThan(loadingVersion, "0.3.5.5")) {
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.5.6")) {
 					if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_BUYING_BRAX)
 							&& (!Main.game.getNpc(Brax.class).isSlave() || !Main.game.getNpc(Brax.class).getOwner().isPlayer() || Main.game.getNpc(Brax.class).getLocationPlace().getPlaceType()==PlaceType.ENFORCER_HQ_RECEPTION_DESK)) {
 						EnforcerHQDialogue.obtainBraxAsSlave();
@@ -1381,7 +1400,7 @@ public class Game implements XMLSaving {
 
 			// Harpy nests:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Scarlett.class))) { addNPC(new Scarlett(), false); addedNpcs.add(Scarlett.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Alexa.class))) { addNPC(new Alexa(), false); addedNpcs.add(Alexa.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Helena.class))) { addNPC(new Helena(), false); addedNpcs.add(Helena.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyBimbo.class))) { addNPC(new HarpyBimbo(), false); addedNpcs.add(HarpyBimbo.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyBimboCompanion.class))) { addNPC(new HarpyBimboCompanion(), false); addedNpcs.add(HarpyBimboCompanion.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(HarpyDominant.class))) { addNPC(new HarpyDominant(), false); addedNpcs.add(HarpyDominant.class); }
@@ -1391,13 +1410,13 @@ public class Game implements XMLSaving {
 
 			if(addedNpcs.contains(Scarlett.class)) {
 				Main.game.getNpc(Scarlett.class).setAffection(Main.game.getPlayer(), AffectionLevel.NEGATIVE_TWO_DISLIKE.getMedianValue());
-				Main.game.getNpc(Scarlett.class).setAffection(Main.game.getNpc(Alexa.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+				Main.game.getNpc(Scarlett.class).setAffection(Main.game.getNpc(Helena.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
 				if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
-					Main.game.getNpc(Scarlett.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ALEXAS_NEST);
+					Main.game.getNpc(Scarlett.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST);
 				}
 			}
-			if(addedNpcs.contains(Alexa.class)) {
-				Main.game.getNpc(Alexa.class).setAffection(Main.game.getNpc(Scarlett.class), AffectionLevel.NEGATIVE_FOUR_HATE.getMedianValue());
+			if(addedNpcs.contains(Helena.class)) {
+				Main.game.getNpc(Helena.class).setAffection(Main.game.getNpc(Scarlett.class), AffectionLevel.NEGATIVE_FOUR_HATE.getMedianValue());
 			}
 			if(addedNpcs.contains(HarpyBimbo.class)) {
 				Main.game.getNpc(HarpyBimbo.class).setAffection(Main.game.getNpc(HarpyBimboCompanion.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
@@ -1507,6 +1526,7 @@ public class Game implements XMLSaving {
 				getNpc(Silence.class).setAffection(getNpc(Vengar.class), 20);
 				getNpc(Silence.class).setAffection(getNpc(Silence.class), 100);
 			}
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Murk.class))) { addNPC(new Murk(), false); addedNpcs.add(Murk.class); }
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1648,8 +1668,11 @@ public class Game implements XMLSaving {
 			if(loopDebug) {
 				System.out.println("starting slaver alley reset");
 			}
-			// Slaver alley reset:
+			
+			// Place resets:
 			SlaverAlleyDialogue.dailyReset();
+			RatWarrensCaptiveDialogue.applyDailyReset();
+			VengarCaptiveDialogue.applyDailyReset();
 		}
 		
 		if(pendingSlaveInStocksReset && !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS)) {
@@ -3048,10 +3071,10 @@ public class Game implements XMLSaving {
 		pastDialogueSB.append(previousPastDialogueSBContents);
 
 		if (Main.getProperties().fontSize == FONT_SIZE_NORMAL) {
-			currentDialogue = currentDialogue.replaceFirst("<div class='div-center' style='font-size:" + FONT_SIZE_LARGE + "px'; line-height:" + (FONT_SIZE_LARGE + 6) + "px;>",
-					"<div class='div-center' style='font-size:" + FONT_SIZE_NORMAL + "px'; line-height:" + (FONT_SIZE_NORMAL + 6) + "px;>");
-			currentDialogue = currentDialogue.replaceFirst("<div class='div-center' style='font-size:" + FONT_SIZE_HUGE + "px'; line-height:" + (FONT_SIZE_HUGE + 6) + "px;>",
-					"<div class='div-center' style='font-size:" + FONT_SIZE_NORMAL + "px'; line-height:" + (FONT_SIZE_NORMAL + 6) + "px;>");
+			currentDialogue = currentDialogue.replaceFirst("<div class='div-center' style='font-size:" + FONT_SIZE_LARGE + "px'; line-height:" + (FONT_SIZE_LARGE + 6) + "px;'>",
+					"<div class='div-center' style='font-size:" + FONT_SIZE_NORMAL + "px'; line-height:" + (FONT_SIZE_NORMAL + 6) + "px;'>");
+			currentDialogue = currentDialogue.replaceFirst("<div class='div-center' style='font-size:" + FONT_SIZE_HUGE + "px'; line-height:" + (FONT_SIZE_HUGE + 6) + "px;'>",
+					"<div class='div-center' style='font-size:" + FONT_SIZE_NORMAL + "px'; line-height:" + (FONT_SIZE_NORMAL + 6) + "px;'>");
 		} else if (Main.getProperties().fontSize == FONT_SIZE_LARGE) {
 			currentDialogue = currentDialogue.replaceFirst("<div class='div-center' style='font-size:" + FONT_SIZE_NORMAL + "px; line-height:" + (FONT_SIZE_NORMAL + 6) + "px;'>",
 					"<div class='div-center' style='font-size:" + FONT_SIZE_LARGE + "px; line-height:" + (FONT_SIZE_LARGE + 6) + "px;'>");
@@ -3083,13 +3106,10 @@ public class Game implements XMLSaving {
 		Main.mainController.setMainContent(prefix + currentDialogue.replaceAll("\\.\\.\\.", "&hellip;").replaceAll("\\.([\\D])", ".\u200b$1").replaceAll("\\[", "\u200b[\u200b"));
 	}
 	
-	private List<NPC> charactersPresent = new ArrayList<>();
-	private List<NPC> charactersHome = new ArrayList<>();
-	
 	public List<NPC> getCharactersPresent() {
 		if(player==null) {
-			charactersPresent.clear();
-			return charactersPresent;
+			return new ArrayList<>();
+			
 		} else {
 			return getCharactersPresent(player.getWorldLocation(), player.getLocation());
 		}
@@ -3110,7 +3130,7 @@ public class Game implements XMLSaving {
 	}
 	
 	public List<NPC> getCharactersTreatingCellAsHome(Cell cell) {
-		charactersHome.clear();
+		List<NPC> charactersHome = new ArrayList<>();
 
 		if(cell.getCharactersHomeIds()!=null) {
 			Set<String> ids = new HashSet<>(cell.getCharactersHomeIds());
@@ -3129,16 +3149,6 @@ public class Game implements XMLSaving {
 				}
 			}
 		}
-		
-//		for(NPC npc : NPCMap.values()) {
-//			if(npc!=null
-//					&& npc.getHomeWorldLocation()!=null
-//					&& npc.getHomeWorldLocation()==cell.getType()
-//					&& npc.getHomeLocation()!=null
-//					&& npc.getHomeLocation().equals(cell.getLocation())) {
-//				charactersHome.add(npc);
-//			}
-//		}
 
 		charactersHome.sort((c1, c2) ->
 				(c2.getLevel()-c1.getLevel())==0
@@ -3159,7 +3169,7 @@ public class Game implements XMLSaving {
 	}
 	
 	public List<NPC> getCharactersPresent(WorldType worldType, Vector2i location) {
-		charactersPresent.clear();
+		List<NPC> charactersPresent = new ArrayList<>();
 		
 		if(getWorlds().get(worldType).getCell(location).getCharactersPresentIds()!=null) {
 			Set<String> ids = new HashSet<>(getWorlds().get(worldType).getCell(location).getCharactersPresentIds());
@@ -3178,12 +3188,6 @@ public class Game implements XMLSaving {
 				}
 			}
 		}
-		
-//		for(NPC npc : NPCMap.values()) {
-//			if(npc.getWorldLocation()==worldType && npc.getLocation().equals(location)) {
-//				charactersPresent.add(npc);
-//			}
-//		}
 		
 		try {
 			charactersPresent.sort((c1, c2) ->
@@ -3313,6 +3317,19 @@ public class Game implements XMLSaving {
 		return secondsPassed/60;
 	}
 	
+	public int getMinutesUntilNextMorningOrEvening() {
+		int minutesPassed = Main.game.getDayMinutes();
+		
+		LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
+		
+		return (Main.game.isDayTime()
+				? (sunriseSunset[1].get(ChronoField.MINUTE_OF_DAY) - minutesPassed)
+				: (minutesPassed<sunriseSunset[0].get(ChronoField.MINUTE_OF_DAY)
+					?sunriseSunset[0].get(ChronoField.MINUTE_OF_DAY)
+					:(24*60)+sunriseSunset[0].get(ChronoField.MINUTE_OF_DAY)) - minutesPassed)
+				+1;
+	}
+	
 	public LocalDateTime getStartingDate() {
 		return startingDate;
 	}
@@ -3321,15 +3338,22 @@ public class Game implements XMLSaving {
 		startingDate = startingDate.plusYears(TIME_SKIP_YEARS);
 	}
 	
+	/**
+	 * Should only be used for debugging purposes.
+	 */
+	public void incrementStartingDateDays(int days) {
+		startingDate = startingDate.plusDays(days);
+	}
+
+	/**
+	 * Should only be used for game start or debugging purposes.
+	 */
 	public void setStartingDateMonth(Month month) {
 		if(startingDate.getMonthValue() > month.getValue()) {
 			startingDate = startingDate.minusMonths(startingDate.getMonthValue() - month.getValue());
 		} else {
 			startingDate = startingDate.plusMonths(month.getValue() - startingDate.getMonthValue());
 		}
-		
-		
-//		startingDate = LocalDateTime.of(LocalDateTime.now().getYear(), month, LocalDateTime.now().getDayOfMonth(), 00, 00).plusYears(3);
 	}
 	
 	public LocalDateTime getDateNow() {
@@ -3630,6 +3654,7 @@ public class Game implements XMLSaving {
 				|| npc.isUnique()) {
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 			return false;
+			
 		} else {
 			removeNPC(npc);
 			return true;
@@ -3670,6 +3695,7 @@ public class Game implements XMLSaving {
 		
 		if(isInNPCUpdateLoop) {
 			npcsToRemove.add(npc);
+			
 		} else {
 			npc.getCell().removeCharacterPresentId(npc.getId());
 			npc.getCell().removeCharacterHomeId(npc.getId());
@@ -3993,5 +4019,14 @@ public class Game implements XMLSaving {
 	
 	public boolean isBraxMainQuestComplete() {
 		return Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN);
+	}
+
+	public Map<String, CharacterInventory> getSavedInventories() {
+		return savedInventories;
+	}
+
+	public void addSavedInventory(GameCharacter character) {
+		savedInventories.put(character.getId(), new CharacterInventory(character.getInventory()));
+		System.out.println("Saved: "+character.getName());
 	}
 }

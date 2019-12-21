@@ -12,20 +12,25 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
-import com.lilithsthrone.game.dialogue.places.submission.RatWarrensDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensCaptiveDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -74,9 +79,28 @@ public class RatGangMember extends NPC {
 			}
 			Subspecies subspecies = Util.getRandomObjectFromWeightedMap(subspeciesMap);
 			RaceStage stage = RaceStage.getRaceStageFromUserPreferences(subspecies);
+			if(stage==RaceStage.HUMAN) {
+				stage = RaceStage.PARTIAL;
+			}
 			
 			this.setBody(gender, subspecies, stage, true);
+			
 			CharacterUtils.addFetishes(this);
+			// Do not give a negative fetish desire towards these fetishes, as otherwise it ends up in the gang members being gentle in sex, which doesn't really fit, or not using appropriate actions:
+			Fetish[] fetishes = new Fetish[] {
+					Fetish.FETISH_NON_CON_DOM,
+					Fetish.FETISH_SADIST,
+					Fetish.FETISH_DOMINANT,
+					Fetish.FETISH_PENIS_GIVING,
+					Fetish.FETISH_ANAL_GIVING,
+					Fetish.FETISH_VAGINAL_GIVING,
+					Fetish.FETISH_VAGINAL_RECEIVING,
+					Fetish.FETISH_ORAL_RECEIVING};
+			for(Fetish f : fetishes) {
+				if(this.getFetishDesire(f).isNegative()) {
+					this.setFetishDesire(f, FetishDesire.TWO_NEUTRAL);
+				}
+			}
 			
 //			if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
 //				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
@@ -102,8 +126,10 @@ public class RatGangMember extends NPC {
 			initPerkTreeAndBackgroundPerks();
 			this.setStartingCombatMoves();
 			loadImages();
-
+			
 			initHealthAndManaToMax();
+			this.removePersonalityTrait(PersonalityTrait.LISP);
+			this.removePersonalityTrait(PersonalityTrait.STUTTER);
 		}
 		
 		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
@@ -120,7 +146,7 @@ public class RatGangMember extends NPC {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC); // Just to make player defeats easier to handle
 			
 			this.setHistory(Occupation.NPC_GANG_MEMBER);
-
+			
 		}
 	}
 
@@ -178,12 +204,33 @@ public class RatGangMember extends NPC {
 	// Combat:
 	
 	@Override
+	public int getEscapeChance() {
+		return 0;
+	}
+	
+	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		if (victory) {
+		if(victory) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveAttemptingEscape)) {
+				return new Response("", "", RatWarrensCaptiveDialogue.STOCKS_ESCAPE_FIGHT_VICTORY);
+			}
 			return new Response("", "", RatWarrensDialogue.GUARD_COMBAT_VICTORY);
 			
 		} else {
-			return new Response("", "", RatWarrensDialogue.GUARD_COMBAT_DEFEAT);
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveAttemptingEscape)) {
+				return new Response("", "", RatWarrensCaptiveDialogue.STOCKS_ESCAPE_FIGHT_DEFEAT) {
+					@Override
+					public void effects() {
+						RatWarrensDialogue.applyCombatDefeatFlagsReset();
+					}
+				};
+			}
+			return new Response("", "", RatWarrensDialogue.GUARD_COMBAT_DEFEAT) {
+				@Override
+				public void effects() {
+					RatWarrensDialogue.applyCombatDefeatFlagsReset();
+				}
+			};
 		}
 	}
 }

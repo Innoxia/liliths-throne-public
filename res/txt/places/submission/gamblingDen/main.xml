@@ -11,22 +11,22 @@
 		Although there only a few people loitering around in this entrance hall, the constant drone of chatter coming from up ahead lets you know that this place must be quite popular. As you start to walk forwards, intent on exploring the establishment, a voice suddenly calls out from your right-hand side, [axel.speech(Hello there! I haven't seen you here before!)]
 	</p>
 	<p>
-		Turning towards the source of the voice, you see a tall, muscular alligator-boy grinning at you. The scales covering his body are all a brilliant white, and as he comes to a halt in front of you, his pair of bright blue eyes lock onto yours, and he continues, [axel.speech(I'm Axel, the owner of this place, and I like to say hello to every fresh face I see!)]
+		Turning towards the source of the voice, you see a tall, muscular alligator-boy grinning at you. The scales covering his body are all a brilliant white, and as he comes to a halt in front of you, his pair of bright blue eyes lock onto yours, and he continues, [axel.speech(I'm [axel.name], the owner of this place, and I like to say hello to every fresh face I see!)]
 	</p>
 	<p>
 		[pc.speech(I'm [pc.name],)] you reply, returning the alligator-boy's greeting as he happily reaches out to shake your hand.
 	</p>
 	<p>
-		[axel.speech(It's a pleasure to meet you! Now, if you're looking to have some fun, you've come to the right place. We've got dice poker straight ahead down the hall here,)] Axel says, pointing one of his clawed hands forwards, before turning it to the right and continuing, [axel.speech(and the slot machines are lining the main atrium down to the right there. If you continue on down to the very end, you'll find my good friend Epona, who runs our very special 'pregnancy roulette' game! You can get all the details of that from her.)]
+		[axel.speech(It's a pleasure to meet you! Now, if you're looking to have some fun, you've come to the right place. We've got dice poker straight ahead down the hall here,)] [axel.name] says, pointing one of his clawed hands forwards, before turning it to the right and continuing, [axel.speech(and the slot machines are lining the main atrium down to the right there. If you continue on down to the very end, you'll find my good friend Epona, who runs our very special 'pregnancy roulette' game! You can get all the details of that from her.)]
 	</p>
 	<p>
 		[pc.speech(Thanks,)] you say, [pc.speech(I'll go and check it all out.)]
 	</p>
 	<p>
-		[axel.speech(Oh, and, erm, we've also got a shop,)] Axel says, the friendly tone of his voice shifting into one of discomfort. [axel.speech(Roxy's the one that runs it. Just be careful around her, ok?)]
+		[axel.speech(Oh, and, erm, we've also got a shop,)] [axel.name] says, the friendly tone of his voice shifting into one of discomfort. [axel.speech(Roxy's the one that runs it. Just be careful around her, ok?)]
 	</p>
 	<p>
-		[pc.speech(Ok, I'll see you around,)] you say, letting Axel hurry off to one side of the hall before moving off to explore the building.
+		[pc.speech(Ok, I'll see you around,)] you say, letting [axel.name] hurry off to one side of the hall before moving off to explore the building.
 	</p>
 	]]>
 	</htmlContent>
@@ -36,7 +36,68 @@
 		You find yourself standing in the Gambling Den's entrance hall. A sign hanging from the ceiling in front of you reads 'Welcome to the Gambling Den!', and from somewhere further within the building, you hear the distinctive sounds of laughter, conversation, and then of a slot machine dispensing coins to a lucky winner. 
 	</p>
 	<p>
-		To one side of the hall, you see the large, muscular figure of Axel, the owner of this establishment. The albino alligator-boy looks to be busy keeping a close watch over everyone who comes and goes.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_axelFeminised))
+			To one side of the hall, you see the curvy, feminine figure of [axel.name], the owner of this establishment. The albino [axel.race] looks to be busy keeping a close watch over everyone who comes and goes.
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_axelSissified))
+			To one side of the hall, you see the slim, androgynous figure of [axel.name], the owner of this establishment. The albino [axel.race] looks to be busy keeping a close watch over everyone who comes and goes.
+		#ELSE
+			To one side of the hall, you see the large, muscular figure of [axel.name], the owner of this establishment. The albino [axel.race] looks to be busy keeping a close watch over everyone who comes and goes.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_END_VENGAR_QUEST"><![CDATA[
+	<p>
+		As you enter the gambling den, you once again spot the large, muscular figure of [axel.name] happily welcoming visitors to his establishment. Upon catching sight of you, his smile widens, and he hurries over to thank you for what you've done, [axel.speech([pc.Name]! I can't thank you enough for helping me sort out that whole Vengar situation! If I'm honest, I didn't really expect you to be able to do it, but I'm finally free of him! Well... Almost free, that is...)]
+	</p>
+	<p>
+		Asking Axel what he means by that, and also how he found out that Vengar had been dealt with so quickly, you listen as the albino alligator-boy explains, [axel.speech(Well, I had a visit from the Enforcers, you see. Apparently, they confiscated all of of Vengar's wealth as 'evidence', so they couldn't give me any of my money back. Instead, they gave me a different form of compensation...)]
+	</p>
+	<p>
+		At that moment, you notice the familiar figure of Roxy swiftly walking over from her shop, and, not caring at all about interrupting your conversation, she shouts out, [roxy.speech('Ey! Lizard! I's got another question 'bout Vengar!)]
+	</p>
+	<p>
+		[axel.speech(Please, I already asked you not to call me that,)] Axel replies, turning to one side to face the rat-girl, [axel.speech(and can't you see that I'm talking to [pc.name]? You could at least say 'excuse me', you know...)]
+	</p>
+	<p>
+		[roxy.speech(I ain't got time fer yer shit,)] Roxy states, before pausing for a moment to stick a cigarette in her mouth and light it. BLowing out a large cloud of smoke, she continues, [roxy.speech(So, I ain't askin' ta be 'is owner or anythin', wot with not 'avin' a slaver license an shit, but you's said I could do wot I wanted with Vengar, yeah? It ain't gonna be a problem fer me later down the line if I get 'im addicted ta me cunt or transform 'im a bit, will it?)]
+	</p>
+	<p>
+		[axel.speech(Look, I don't want you abusing people you're responsible for, even if he is a nasty piece of wor-)] Axel starts, but Roxy furrows her eyebrows and interrupts him yet again.
+	</p>
+	<p>
+		[roxy.speech(Don't you's be callin' 'im names! We were together fer years, an' I ain't gonna listen ta ya insultin' 'im behind 'is back!)] she shouts, before puffing on her cigarette and asking again, [roxy.speech(So can I do it or not? I don't want ya gettin' all pissy later cos I didn't ask or some shit like that.)]
+	</p>
+	<p>
+		Some of the nearby patrons of the gambling den start to turn their heads at the scene unfolding before them, and, wanting to avoid this negative publicity, Axel gives in to Roxy's demands, [axel.speech(Yes, yes, I already said you can treat him like he's yours, so long as you prevent him from causing any damage to my business.)]
+	</p>
+	<p>
+		Letting a wicked grin settle on her face, Roxy turns her back on the two of you and marches back off to her shop, calling over her shoulder and addressing you as she goes, [roxy.speech(Ya want a taste o' my cunt, all yer gotta do is drop by later! See ya!)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_RESOLUTION -->
+	
+	<htmlContent tag="AXEL_VENGAR_RESOLUTION"><![CDATA[
+	<p>
+		With an exasperated sigh, Axel turns back towards you and reveals what by now was obvious, [axel.speech(Yes, that 'compensation' the Enforcers gave me was a Slaver License and the recently-enslaved Vengar, as well as another of his thugs; some nasty piece of work called 'Murk'. I have neither the time nor inclination for dealing with those two, so I agreed to give Vengar to Roxy, while Murk is being watched over by Epona.)]
+	</p>
+	<p>
+		You ask Axel if he's considered selling the two of them, seeing as he doesn't have any real interest in owning slaves. Letting his shoulders slump, and releasing another heavy sigh, the alligator-boy reveals, [axel.speech(The Enforcers have places selling restrictions on the two of them. They said they might need evidence from them later, and don't want to be chasing paper trails all over the city, so I'm stuck with them. Anyway, enough of my troubles, I need to get you a reward!)]
+	</p>
+	<p>
+		#IF(pc.hasCompanions())
+			Asking you to wait for a moment, Axel hurries off into his office to fetch this reward, leaving you and [npc.name] to speculate between yourselves as to what it could be.
+		#ELSE
+			Asking you to wait for a moment, Axel hurries off into his office to fetch this reward, leaving you to speculate as to what it could be.
+		#ENDIF
+		 After just a couple of minutes, he returns holding a small bag, and with a big smile on his face, pushes it into your [pc.hands]. [axel.speech(This is for all your trouble, and you also have my eternal thanks!)] he happily exclaims, before revealing, [axel.speech(There are fifty thousand flames in there.)]
+	</p>
+	<p>
+		Opening the bag, you see that it's filled with coins, and after thanking him, you wonder what to say to Axel next...
 	</p>
 	]]>
 	</htmlContent>
@@ -46,7 +107,327 @@
 	
 	<htmlContent tag="OFFICE"><![CDATA[
 	<p>
-		To the left-hand side of the Gambling Den's main entrance, there's a sturdy wooden door bearing a brass plaque engraved with the words 'Axel's Office'. At the moment, it's securely shut and locked, so there's not really much for you to do except turn around and step away from the door...
+		To the left-hand side of the Gambling Den's main entrance, there's a sturdy wooden door bearing a brass plaque engraved with the words '[axel.name]'s Office'. At the moment, it's securely shut and locked, so there's not really much for you to do except turn around and step away from the door...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_AXEL -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA"><![CDATA[
+	#IF(axel.isAttractedTo(pc))
+		<p>
+			You ask [axel.name] to come and have a 'discussion' with you in [axel.her] office. [axel.She] blushes and accepts, rubbing up against you as [axel.she] leads you inside. Once in there, [npc.she] asks what it is you wanted to do to [axel.herHim]...
+		</p>
+	#ELSE
+		<p>
+			You ask [axel.name] to come and have a 'discussion' with you in [axel.her] office. [axel.She] accepts, but doesn't dsplay any sign of being attracted to you as [axel.she] leads you inside. Once in there, [npc.she] asks what it is you wanted...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_AXEL"><![CDATA[
+	<p>
+		You ask [axel.name] to come and have a 'discussion' with you in [axel.her] office. [axel.She] accepts, rubbing up against you as [axel.she] leads you inside. Once in there, [npc.she] asks what it is you wanted of [axel.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_LEXA_DOMINATE"><![CDATA[
+	<p>
+		You tell [axel.name] that you're going to dominate [axel.herHim]. [axel.Name] moans and tells you to do whatever you want to [axel.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_LEXA_SUBMIT"><![CDATA[
+	<p>
+		You tell [axel.name] that you want [axel.herHim] to dominate you. [axel.Name] blushes and tells you that [axel.she]'ll do [axel.her] best...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CAGE_OFF"><![CDATA[
+	<p>
+		You tell [lexa.name] that you're going to take [lexa.her] cage off. You do so.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CAGE_ON"><![CDATA[
+	<p>
+		You tell [lexa.name] that [lexa.she] needs to be caged. You do so.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_LEAVE"><![CDATA[
+	<p>
+		You decide against doing anything with [lexa.name] and take your leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_AXEL_ORAL_PERFORMING"><![CDATA[
+	<p>
+		You tell Axel that you want to suck his cock. Kneeling before him, you get it out and take it into your mouth...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_AXEL_ORAL_RECEIVING"><![CDATA[
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			You tell Axel that you want him to suck your cock. Kneeling before you, he gets it out and takes it into his mouth...
+		#ELSE
+			You tell Axel that you want him to perform cunnilingus on you. Kneeling before you, he gains access to your pussy and starts eating you out...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_AXEL_ANILINGUS_PERFORMING"><![CDATA[
+	<p>
+		You tell Axel that you want to perform anilingus on him. Kneeling behind him, you gain access to his ass and start licking his asshole...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_AXEL_ANILINGUS_RECEIVING"><![CDATA[
+	<p>
+		You tell Axel that you want him to perform anilingus on you. Kneeling behind you, he gains access to your ass and starts licking your asshole...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_AXEL_LEAVE"><![CDATA[
+	<p>
+		You decide against doing anything with Axel and take your leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_AXEL_ORAL -->
+	
+	<htmlContent tag="AFTER_AXEL_ORAL"><![CDATA[
+	<p>
+		You and Axel step back from one another. Still horny, he asks if you want to go further...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_AXEL_SEX_DESK"><![CDATA[
+	<p>
+		#IF(!game.isAnalContentEnabled())
+			Axel bends you over his desk and starts fucking your pussy...
+		#ELSE
+			Axel bends you over his desk and starts fucking your ass...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_AXEL_SEX_CHAIR"><![CDATA[
+	<p>
+		#IF(!game.isAnalContentEnabled())
+			You get Axel to sit down, then sit in his lap and guide his cock into your pussy...
+		#ELSE
+			You get Axel to sit down, then sit in his lap and guide his cock into your ass...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_AXEL_SEX_RIDDEN"><![CDATA[
+	<p>
+		You lie down and get Axel to ride your cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_AXEL_ORAL_LEAVE"><![CDATA[
+	<p>
+		You decide against going any further with Axel and take your leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_AXEL_SEX -->
+	
+	<htmlContent tag="AFTER_AXEL_SEX"><![CDATA[
+	<p>
+		You and Axel disentangle yourselves from one another's clutches.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_AXEL_SEX_LEAVE"><![CDATA[
+	<p>
+		You and Axel leave his office and head back out into the gambling den.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_LEXA_SEX -->
+	
+	<htmlContent tag="AFTER_LEXA_SEX"><![CDATA[
+	<p>
+		You and [lexa.name] disentangle yourselves from one another's clutches.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_LEXA_SEX_LEAVE"><![CDATA[
+	<p>
+		You and [lexa.name] leave [lexa.her] office and head back out into the gambling den.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_LEXA_HYPNO -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_HYPNO"><![CDATA[
+	<p>
+		You convince [lexa.name] that there's more pleasure to be had if [lexa.she] was attracted to both feminine and masculine people. You use your Hypno-watch to make [lexa.herHim] ambiphilic...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_LEXA_FEMINISE -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE"><![CDATA[
+	<p>
+		You ask [lexa.name] if [lexa.she] has the feminising potion which Vengar gave [lexa.herHim]. [lexa.She] replies in the affirmative, and wonders out loud if [lexa.she] should use it. [lexa.She] also reveals that [lexa.she] had a cock-size potion supplement made, in case [lexa.she] wanted to grow [lexa.her] cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE_APPLY_ZERO"><![CDATA[
+	<p>
+		You convince [lexa.name] to drink the potion which Vengar gave [lexa.herHim], without taking any of the supplement.
+	</p>
+	<p>
+		She feminises fully into a pretty alligator-girl, while her cock shrinks down to a tiny little clit-dick.
+	</p>
+	<p>
+		She expresses that she doesn't feel comfortable in her current clothes anymore, and asks you for advice.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE_APPLY_HALF"><![CDATA[
+	<p>
+		You convince [lexa.name] to drink the potion which Vengar gave [lexa.herHim], while taking half of the supplement.
+	</p>
+	<p>
+		She feminises fully into a pretty alligator-girl, while her cock stays the same size.
+	</p>
+	<p>
+		She expresses that she doesn't feel comfortable in her current clothes anymore, and asks you for advice.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE_APPLY_FULL"><![CDATA[
+	<p>
+		You convince [lexa.name] to drink the potion which Vengar gave [lexa.herHim], while taking all of the supplement.
+	</p>
+	<p>
+		She feminises fully into a pretty alligator-girl, while her cock grows to the same large size it used to be.
+	</p>
+	<p>
+		She expresses that she doesn't feel comfortable in her current clothes anymore, and asks you for advice.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_LEXA_FEMINISE_BACK_OUT -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE_BACK_OUT"><![CDATA[
+	<p>
+		You decide against convincing [lexa.name] to drink the potion, and instead wonder if there's anything else you want from [lexa.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_LEXA_FEMINISE_APPLY -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END_FEMININE"><![CDATA[
+	<p>
+		You tell [lexa.name] that she should start wearing more feminine clothes, like dresses. She says that she's bought some clothing in anticipation of this moment, and asks you to wait while she gets changed.
+	</p>
+	<p>
+		Agreeing to wait, [lexa.name] gets changed and returns wearing a dress. You compliment her on it, making her happy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END_MAID"><![CDATA[
+	<p>
+		You tell [lexa.name] that she should start wearing maid clothes. She says that she's bought some clothing in anticipation of this moment, and asks you to wait while she gets changed.
+	</p>
+	<p>
+		Agreeing to wait, [lexa.name] gets changed and returns wearing a maid's outfit. You compliment her on it, making her happy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END_WHORE"><![CDATA[
+	<p>
+		You tell [lexa.name] that she should start wearing really trashy, whorish clothing, so that everyone knows she's your little slut. She says that she's bought some clothing in anticipation of this moment, and asks you to wait while she gets changed.
+	</p>
+	<p>
+		Agreeing to wait, [lexa.name] gets changed and returns wearing slutty, very revealing clothing. You compliment her on it, making her happy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_LEXA_CLOTHING -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CLOTHING"><![CDATA[
+	<p>
+		You tell [lexa.name] that she should change her outfit.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CLOTHING_FEMININE"><![CDATA[
+	<p>
+		You tell [lexa.name] that she should start wearing more feminine clothes, like dresses. She gets changed and returns wearing a dress. You compliment her on it, making her happy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CLOTHING_MAID"><![CDATA[
+	<p>
+		You tell [lexa.name] that she should start wearing a maid outfit. She gets changed and returns wearing a maid's dress. You compliment her on it, making her happy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CLOTHING_WHORE"><![CDATA[
+	<p>
+		You tell [lexa.name] that she should start wearing really slutty clothing. She gets changed and returns wearing a very revealing, whorish clothing. You compliment her on it, making her happy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_WITH_LEXA_CLOTHING_BACK_OUT -->
+	
+	<htmlContent tag="OFFICE_WITH_LEXA_CLOTHING_BACK_OUT"><![CDATA[
+	<p>
+		You decide against having [lexa.name] change her outfit, and instead wonder if there's anything else you want from [lexa.herHim]...
 	</p>
 	]]>
 	</htmlContent>
@@ -56,35 +437,35 @@
 	
 	<htmlContent tag="AXEL"><![CDATA[
 	<p>
-		Deciding that you'd like to talk to Axel, you approach the albino [axel.race] and call out a greeting to him.
+		Deciding that you'd like to talk to [axel.name], you approach the albino [axel.race] and call out a greeting to [axel.herHim].
 	</p>
 	<p>
-		[axel.speech(Ah, hello, [pc.name]!)] he responds, turning to face you. You notice that he sounds a little flustered as he asks, [axel.speech(What can I do for you?)]
+		[axel.speech(Ah, hello, [pc.name]!)] [axel.she] responds, turning to face you. Flashing you a toothy grin, [axel.she] asks, [axel.speech(What can I do for you?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AXEL_ROXY"><![CDATA[
 	<p>
-		[pc.speech(So what's the story with Roxy?)] you ask. [pc.speech(She seems to be a little rough with her customers.)]
+		[pc.speech(So what's the story with Roxy?)] you ask, [pc.speech(She seems to be a little rough with her customers.)]
 	</p>
 	<p>
-		[axel.speech(Yeah, she's nothing but trouble.)] Axel sighs. [axel.speech(If it were up to me, I'd have thrown her out a long time ago. Seeing as she's Vengar's ex, and the two of them are still on good terms with one another, I've got no choice but to leave her alo-)]
+		[axel.speech(Yeah, she's nothing but trouble.)] [axel.name] sighs, [axel.speech(If it were up to me, I'd have thrown her out a long time ago. Seeing as she's Vengar's ex, I've got no choice but to leave her alo-)]
 	</p>
 	<p>
-		Axel suddenly stops talking mid-sentence, and upon realising that he's said more than he meant to, starts to panic and stutter, [axel.speech(I-I mean, she's no trouble at all, ok? I never really meant to say that I want to throw her out! I was just joking, you understand?)]
+		[axel.name] suddenly stops talking mid-sentence, and upon realising that he's said more than he meant to, starts to panic and stutter, [axel.speech(I-I mean, she's no trouble at all, ok? I never really meant to say that I want to throw her out! I was just joking, you understand?)]
 	</p>
 	<p>
-		[pc.speech(What's the matter?)] you ask, worried about Axel's sudden shift in tone, [pc.speech(And who's Vengar?)]
+		[pc.speech(What's the matter?)] you ask, worried about [axel.name]'s sudden shift in tone, [pc.speech(And who's Vengar?)]
 	</p>
 	<p>
-		Axel glances around nervously, before leaning in towards you and lowering his voice, [axel.speech(Y-You mean you're not working for him?)]
+		[axel.name] glances around nervously, before leaning in towards you and lowering his voice, [axel.speech(Y-You mean you're not working for him?)]
 	</p>
 	<p>
 		[pc.speech(I don't even know who he is,)] you reply.
 	</p>
 	<p>
-		Axel lets out a big sigh of relief, [axel.speech(Thank goodness. I've been getting careless recently. I really shouldn't have mentioned Vengar... Just forget what I said, ok?)]
+		[axel.name] lets out a big sigh of relief, [axel.speech(Thank goodness. I've been getting careless recently. I really shouldn't have mentioned Vengar... Just forget what I said, ok?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -92,29 +473,38 @@
 	<htmlContent tag="AXEL_ROXY_REPEAT"><![CDATA[
 	#IF(pc.hasQuest(QUEST_LINE_SIDE_VENGAR))
 		<p>
-			[pc.speech(Can you tell me anything else about Roxy?)] you ask, hoping to get some more information from Axel about her.
+			[pc.speech(Can you tell me anything else about Roxy?)] you ask, hoping to get some more information from [axel.name] about her.
 		</p>
 		<p>
-			[axel.speech(Well, other than that she's Vengar's ex-girlfriend, I don't really know much about her,)] the [axel.race] replies, [axel.speech(That is, other than the obvious fact that she's extremely rude. She treats me like dirt whenever I try talking to her, so I've never been able to find out anything about her.)]
+			[axel.speech(Well, other than that she's Vengar's ex-girlfriend, I don't really know too much about her,)] the [axel.race] replies, [axel.speech(That is, other than the obvious fact that she's extremely rude. She treats me like dirt whenever I try talking to her, so I've never been able to find out anything about her.)]
 		</p>
+		#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_VENGAR))
+			<p>
+				[pc.speech(And you can't get rid of her even though the situation with Vengar is all sorted out now?)] you ask.
+			</p>
+			<p>
+				[axel.speech(That's right. The two of them forced me to sign a contract letting her work here indefinitely, so there's nothing that can legally be done to get rid of her now...)]
+			</p>
+		#ELSE
+			<p>
+				[pc.speech(And you can't get rid of her due to Vengar?)] you ask.
+			</p>
+			<p>
+				[axel.speech(That's right, but even if Vengar was no longer a problem, I'd still be stuck with her. The two of them forced me to sign a contract letting her work here indefinitely, so there's nothing that can legally be done to get rid of her now...)]
+			</p>
+		#ENDIF
 		<p>
-			[pc.speech(And you can't get rid of her due to Vengar?)] you ask.
-		</p>
-		<p>
-			[axel.speech(That's right, but even if Vengar was no longer a problem, I'd still be stuck with her. She made me sign a contract, you see, so there's nothing that can legally be done to get rid of her now...)]
-		</p>
-		<p>
-			With your questions answered, you wonder what to ask Axel about next...
+			With your questions answered, you wonder what to ask [axel.name] about next...
 		</p>
 	#ELSE
 		<p>
-			[pc.speech(Can you tell me anything else about Roxy?)] you ask, hoping to get some more information from Axel about her.
+			[pc.speech(Can you tell me anything else about Roxy?)] you ask, hoping to get some more information from [axel.name] about her.
 		</p>
 		<p>
-			[axel.speech(Well, that's complicated,)] Axel replies, nervously shuffling his feet. [axel.speech(I mean, I don't know anything about her really, other than she's a pleasure to be around.)]
+			[axel.speech(Well, that's complicated,)] [axel.name] replies, nervously shuffling his feet. [axel.speech(I mean, I don't know anything about her really, other than she's a pleasure to be around.)]
 		</p>
 		<p>
-			You can tell that Axel is lying, and you surmise that it's because he doesn't know you well enough to be openly talking to you about Roxy. Perhaps if you were to try and get some more information regarding this 'Vengar' person first, you'd be able to earn his trust and then ask him about Roxy again?
+			You can tell that [axel.name] is lying, and you surmise that it's because he doesn't know you well enough to be openly talking to you about Roxy. Perhaps if you were to try and get some more information regarding this 'Vengar' person first, you'd be able to earn his trust and then ask him about Roxy again?
 		</p>
 	#ENDIF
 	]]>
@@ -122,13 +512,13 @@
 	
 	<htmlContent tag="AXEL_VENGAR"><![CDATA[
 	<p>
-		Picking up on the name which Axel inadvertently let slip, you inquire as to who 'Vengar' is, and why Roxy being his ex makes it so that Axel has to put up with her.
+		Picking up on the name which [axel.name] inadvertently let slip, you inquire as to who 'Vengar' is, and why Roxy being his ex makes it so that [axel.name] has to put up with her.
 	</p>
 	<p>
-		[axel.speech(You mean you don't know who Vengar is?)] Axel asks, before nervously glancing around to make sure that nobody's eavesdropping on your conversation. Convinced that it's safe to talk, he steps a little closer towards you and continues, [axel.speech(I guess you'll just end up going around asking questions elsewhere if I don't explain it to you, so I'll tell you who Vengar is. He likes to keep a low profile, so please don't mention to anyone that it was me who told you about him, ok?)]
+		[axel.speech(You mean you don't know who Vengar is?)] [axel.name] asks, before nervously glancing around to make sure that nobody's eavesdropping on your conversation. Convinced that it's safe to talk, he steps a little closer towards you and continues, [axel.speech(I guess you'll just end up going around asking questions elsewhere if I don't explain it to you, so I'll tell you who Vengar is. He likes to keep a low profile, so please don't mention to anyone that it was me who told you about him, ok?)]
 	</p>
 	<p>
-		You can tell from the tone of Axel's voice that he's scared to be talking about this 'Vengar' character, so you quickly reassure him that any information that he shares with you will remain a secret. Put at ease by your words, the albino [axel.race] lets out a small sigh, before once again glancing around to check for eavesdroppers, and then starting to explain.
+		You can tell from the tone of [axel.name]'s voice that he's scared to be talking about this 'Vengar' character, so you quickly reassure him that any information that he shares with you will remain a secret. Put at ease by your words, the albino [axel.race] lets out a small sigh, before once again glancing around to check for eavesdroppers, and then starting to explain.
 	</p>
 	<p>
 		[axel.speech(Vengar's the leader of the largest and most dangerous criminal gang down here in Submission,)] he reveals, [axel.speech(He and his rat-morph followers extort all of the business owners down here, and those who refuse to pay protection money either have their premises vandalised, or even worse, are sometimes beaten up or even go missing. Thanks to how successful my business has been, Vengar's taken a personal interest in me, and keeps on demanding more and more protection money every month. It's gotten almost to the point where I'm going to have to shut the Gambling Den down...)]
@@ -137,17 +527,17 @@
 		[pc.speech(Can't the Enforcers do anything?)] you ask.
 	</p>
 	<p>
-		[axel.speech(I've already tried talking to them about it, but they say they don't have the manpower to guard my business, and while Vengar <i>is</i> a wanted criminal, he's proving impossible to track down and arrest,)] Axel sighs, [axel.speech(So there's nothing anyone can do to help, and that's about the whole story...)]
+		[axel.speech(I've already tried talking to them about it, but they say they don't have the manpower to guard my business, and while Vengar <i>is</i> a wanted criminal, he's proving impossible to track down and arrest,)] [axel.name] sighs, [axel.speech(So there's nothing anyone can do to help, and that's about the whole story...)]
 	</p>
 	<p>
-		It sounds as though Axel doesn't want to talk about this any more, but if you wanted to get involved, you suppose you could always offer to help track down Vengar and put a stop to his extortion of Submission's business owners...
+		It sounds as though [axel.name] doesn't want to talk about this any more, but if you wanted to get involved, you suppose you could always offer to help track down Vengar and put a stop to his extortion of Submission's business owners...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AXEL_VENGAR_OFFER_HELP"><![CDATA[
 	<p>
-		Deciding that you want to help Axel, you offer,
+		Deciding that you want to help [axel.name], you offer,
 		#IF(pc.isCowardly())
 			 [pc.speech(I could try to find a way to get Vengar off your back, so long as I don't have to fight anyone or anything... Where exactly is he?)]
 		#ELSEIF(pc.isBrave() && !pc.isShy())
@@ -157,19 +547,19 @@
 		#ENDIF
 	</p>
 	<p>
-		[axel.speech(Really? You'd be willing to help me out like that?)] Axel asks in disbelief, [axel.speech(I wouldn't want you to risk yourself on my behalf, but if you're really serious, then you can find Vengar in his hideout; they call it the 'Rat Warrens', and it's down in the South-Western tunnels here in Submission. I have to go down there every month to pay Vengar, so I can tell you that the password to get in is ''.)]
+		[axel.speech(Really? You'd be willing to help me out like that?)] [axel.name] asks in disbelief, [axel.speech(I wouldn't want you to risk yourself on my behalf, but if you're really serious, then you might be able to find Vengar in his gang's main hideout; they call it the 'Rat Warrens', and it's down in the South-Western tunnels here in Submission. I don't know what the password to get is, but I guess if you say you're there regarding the money I owe them, they should let you in.)]
 	</p>
 	<p>
-		Telling Axel that you'll find Vengar and bring him to justice, you get ready to set off, but before you go, the albino [axel.race] says that he has some more advice for you.
+		Telling [axel.name] that you'll find Vengar and bring him to justice, you get ready to set off, but before you go, the albino [axel.race] says that he has some more advice for you.
 	</p>
 	<p>
-		[axel.speech(You could always try to get the Enforcers to help,)] he suggests, [axel.speech(They weren't able to help me before, but as you're willing to take a more direct approach, maybe they'd offer you some help? Oh, and I should also warn you; if you're thinking of fighting Vengar, then you need to be on the lookout for his two rat-girl bodyguards. I've never seen them myself, but Vengar said that if I ever refused to pay him, then I'd be given to them as a plaything...)]
+		[axel.speech(You could always try to get the Enforcers to help,)] he suggests, [axel.speech(They told me that they were unable to make a move on his hideout, but maybe you could convince them to give you some backup? Oh, and I should also warn you; if you're thinking of fighting Vengar, then you need to be on the lookout for his two rat-girl bodyguards. I've never seen them myself, but Vengar said that if I ever refused to pay him, then I'd be given to them as a plaything...)]
 	</p>
 	<p>
-		Axel shudders as he recalls a disturbing memory, before shaking his head and giving you a toothy smile. [axel.speech(I really appreciate your offer of help, but please don't feel obliged to put yourself in harm's way solely on my account. If you do decide to confront Vengar, just please stay safe, ok?)]
+		[axel.name] shudders as he recalls a disturbing memory, before shaking his head and giving you a toothy smile. [axel.speech(I really appreciate your offer of help, but please don't feel obliged to put yourself in harm's way solely on my account. If you do decide to confront Vengar, just please stay safe, ok?)]
 	</p>
 	<p>
-		Telling Axel that you'll be careful, you wonder if you should do as he suggests and ask Claire for some help from the Enforcers. Then again, you could always try to deal with Vengar by yourself...
+		Telling [axel.name] that you'll be careful, you wonder if you should do as he suggests and ask Claire for some help from the Enforcers. Then again, you could always try to deal with Vengar by yourself...
 	</p>
 	]]>
 	</htmlContent>
@@ -180,20 +570,29 @@
 	<htmlContent tag="AXEL_BUSINESS"><![CDATA[
 	#IF(pc.hasQuest(QUEST_LINE_SIDE_VENGAR))
 		<p>
-			Curious to find out about any recent events at the Gambling Den, you ask Axel how he is and how his business is going.
+			Curious to find out about any recent events at the Gambling Den, you ask [axel.name] how [axel.she] is and how [axel.her] business is going.
 		</p>
-		<p>
-			[axel.speech(I'm doing well, thank you,)] Axel responds, before letting out a sigh as he continues, [axel.speech(But I don't know how much longer I can keep this place open. Business is going well, but Vengar's demanding more and more protection money. I've already told him that he's going to run this place into the ground, but he just doesn't care.)]
-		</p>
-		<p>
-			Before you can respond to this, the alligator-boy shakes his head and smiles at you, before apologising, [axel.speech(Sorry, I don't mean to be pessimistic, and I don't want to offload my worries onto you. Is there anything else I can help you with?)] 
-		</p>
+		#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_VENGAR))
+			<p>
+				[axel.speech(I'm doing well, thank you,)] [axel.name] responds, smiling happily at you as [npc.she] continues, [axel.speech(Now that I'm not having to pay Vengar every month, I'm finally starting to turn a profit on this place. I can't thank you enough for your help in resolving that whole business...)]
+			</p>
+			<p>
+				Before you can respond to this, the [axel.race] smiles at you and asks, [axel.speech(So, is there anything else I can help you with?)] 
+			</p>
+		#ELSE
+			<p>
+				[axel.speech(I'm doing well, thank you,)] [axel.name] responds, before letting out a sigh as he continues, [axel.speech(But I don't know how much longer I can keep this place open. Business is going well, but Vengar's demanding more and more protection money. I've already told him that he's going to run this place into the ground, but he just doesn't care.)]
+			</p>
+			<p>
+				Before you can respond to this, the alligator-boy shakes his head and smiles at you, before apologising, [axel.speech(Sorry, I don't mean to be pessimistic, and I don't want to offload my worries onto you. Is there anything else I can help you with?)] 
+			</p>
+		#ENDIF
 	#ELSE
 		<p>
-			Curious to find out about any recent events at the Gambling Den, you ask Axel how he is and how his business is going.
+			Curious to find out about any recent events at the Gambling Den, you ask [axel.name] how he is and how his business is going.
 		</p>
 		<p>
-			[axel.speech(I'm doing well, thank you,)] Axel responds, before letting out a weary sigh as he continues, [axel.speech(But if I'm being honest with you, I'm just about ready to give up on this whole business...)]
+			[axel.speech(I'm doing well, thank you,)] [axel.name] responds, before letting out a weary sigh as he continues, [axel.speech(But if I'm being honest with you, I'm just about ready to give up on this whole business...)]
 		</p>
 		<p>
 			Before you can respond to this, the alligator-boy shakes his head and smiles at you, [axel.speech(Sorry, I don't mean to be pessimistic, and I don't want to offload my worries onto you. Please ignore what I just said; everything's fine with me, thanks for asking.)] 
@@ -202,15 +601,160 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="AXEL_BUSINESS_VENGAR"><![CDATA[
+	
+	<!-- AXEL_VENGAR_SUBMIT -->
+	
+	<htmlContent tag="AXEL_VENGAR_SUBMIT"><![CDATA[
 	<p>
-		[pc.speech(How are you? Is business going well?)] you ask.
+		You tell Axel about Vengar's demand, of having to go to the Rat Warrens and submit in person. Axel is flustered, but agrees to go if you think that's the best way tor resolve this whole mess. Asks if you want to go now or later.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT"><![CDATA[
+	<p>
+		You tell Axel that the two of you should go and see Vengar now. You go with him to the Rat Warrens, and are escorted towards Vengar's hall. On the way, Shadow slips in behind you and whispers into your ear that Vengar has prepared a potion that will sissify Axel.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_KNEEL -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_KNEEL"><![CDATA[
+	<p>
+		You arrive at the hall, where Vengar demands Axel strip and kneel to show his submission. Axel does it with a brave face. Vengar tells him he's impressed, and to have a final drink together before never having to see one another again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_STOPPED -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_STOPPED"><![CDATA[
+	<p>
+		You stop Axel from drinking the potion-laced rum. Vengar laughs and lets you go.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_SISSIFIED -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED"><![CDATA[
+	<p>
+		You say nothing and let Axel drink the potion-laced rum. He transforms before your eyes into a far slimmer and shorter androgynous version of himself. Vengar advances on Axel and says that [axel.she] should have a new name, 'Lexa'.
 	</p>
 	<p>
-		[axel.speech(I'm doing well, thank you,)] Axel responds, before letting out a sigh as he continues, [axel.speech(But I don't know how much longer I can keep this place open. Business is going extremely well, but Vengar's demanding more and more protection money. I've already told him that he's going to run this place into the ground, but he just doesn't care.)]
+		Lexa agrees and lets out a little moan as Vengar traces his fingers over [lexa.her] chest...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_SISSIFIED_RETURN -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_RETURN"><![CDATA[
+	<p>
+		You stop Vegnar from going any further. He laughs and lets the two of you go.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_SISSIFIED_FINISH -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_FINISH"><![CDATA[
+	<p>
+		Vengar suggests that either you or he should fuck Lexa to really put [lexa.herHim] in [lexa.her] place...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_FINISH_STOPPED_RETURN"><![CDATA[
+	<p>
+		You stop Vengar from going any further. He laughs and lets the two of you go.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_FINISH_PLAYER_FUCK"><![CDATA[
+	<p>
+		You agree, and say that you should be the one to fuck [lexa.herHim]. [lexa.Name] eagerly submits to you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_FINISH_PLAYER_CUNNILINGUS"><![CDATA[
+	<p>
+		You agree, and say that you should be the one who [lexa.name] submits to. [lexa.Name] eagerly kneels and prepares to eat you out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_FINISH_PLAYER_BLOWJOB"><![CDATA[
+	<p>
+		You agree, and say that you should be the one who [lexa.name] submits to. [lexa.Name] eagerly kneels and prepares to give you a blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_FINISH_VENGAR_FUCK"><![CDATA[
+	<p>
+		You agree, and say that Vengar should be the one who [lexa.name] submits to. [lexa.Name] eagerly submits and gets fucked by the rat-boy...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_FINISH_VENGAR_BLOWJOB"><![CDATA[
+	<p>
+		You agree, and say that Vengar should be the one who [lexa.name] submits to. [lexa.Name] eagerly kneels and prepares to give the rat-boy a blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_AXEL_SISSIFIED_SEX -->
+	
+	<htmlContent tag="AFTER_AXEL_SISSIFIED_SEX"><![CDATA[
+	<p>
+		Having shown [lexa.her] submission in such a humiliating manner, [lexa.name] hugs tightly to you as the two of you prepare to leave the Rat Warrens...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_AXEL_SISSIFIED_SEX_RETURN"><![CDATA[
+	<p>
+		The two of you travel back to the gambling den, where [lexa.name] tells you that [lexa.she] has a reward for all of your help...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AXEL_VENGAR_VISIT_STOPPED_RETURN_FINISH -->
+	
+	<htmlContent tag="AXEL_VENGAR_VISIT_STOPPED_RETURN_FINISH"><![CDATA[
+	<p>
+		[lexa.name] gives you 50,000 flames, and reveals that [lexa.she] overhead Shadow, but thought that it sounded fun to have an opportunity to have a different perspective. Asks you if you'll come back and see [lexa.herHim] again for maybe some more 'rewards'. For now, though, [lexa.she] asks if you can go and report all of this to Claire.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- REPORT_TO_CLAIRE -->
+	
+	<htmlContent tag="REPORT_TO_CLAIRE"><![CDATA[
+	<p>
+		You tell [lexa.name] that you'll visit [lexa.herHim] another time, before doing as she asks and setting off to see Claire.
 	</p>
 	<p>
-		Before you can respond to this, the alligator-boy shakes his head and smiles at you. [axel.speech(Sorry, I don't mean to be pessimistic, and I don't want to offload my worries onto you. Is there anything else I can help you with?)] 
+		You get to the Enforcer post and meet Claire. She reveals that Vengar is no longer wanted, after bribing all the right people and turning over a large amount of his lieutenants in what amounts to such a significant betrayal that any hopes of his gang reforming and completely dead in the water.
+	</p>
+	<p>
+		She also reveals that Shadow and Silence were let off, and have sought out a new line of work up in Dominion's slaver alley. Other than that, there's not much more to report, and you leave.
 	</p>
 	]]>
 	</htmlContent>
@@ -255,7 +799,7 @@
 		Deciding to read the rules of dice poker before starting a game, you walk up to the nearest informative sign, and briefly scan over it...
 	</p>
 	<p style='text-align:center;'>
-		<b>Axel's Rules For Dice Poker</b><br/>
+		<b>[axel.name]'s Rules For Dice Poker</b><br/>
 		1. Both players place the buy-in amount to start a game. This is [style.moneyFormat(500, span)] for [style.colourCopper(copper)] tables, [style.moneyFormat(2500, span)] for [style.colourSilver(silver)], and [style.moneyFormat(10000, span)] for [style.colourGold(gold)].<br/>
 		2. Both players roll five dice each.<br/>
 		3. Players can choose to increase the bet (referred to as a 'raise'), or leave the bet at the buy-in amount (referred to as a 'call').<br/>

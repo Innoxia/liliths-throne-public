@@ -347,6 +347,22 @@ public class Lyssieth extends NPC {
 		
 		return children;
 	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if(this.getSkinType().getRace()==Race.HUMAN) {
+			if(this.isVisiblyPregnant()) {
+				return "LyssiethHumanPregnant";
+			}
+			return "LyssiethHuman";
+			
+		} else {
+			if(this.isVisiblyPregnant()) {
+				return "LyssiethDemonPregnant";
+			}
+			return "LyssiethDemon";
+		}
+	}
 	
 	@Override
 	public void changeFurryLevel(){

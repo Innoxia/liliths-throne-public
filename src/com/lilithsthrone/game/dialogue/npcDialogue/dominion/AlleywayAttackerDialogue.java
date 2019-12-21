@@ -849,7 +849,7 @@ public class AlleywayAttackerDialogue {
 									null,
 									ResponseTag.PREFER_DOGGY),
 							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "ALLEY_ATTACK_OFFER_BODY_WITH_COMPANION", getMugger(), companion));
+							UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), isCompanionDialogue()?"ALLEY_ATTACK_OFFER_BODY_WITH_COMPANION":"ALLEY_ATTACK_OFFER_BODY", getMugger(), companion));
 				}
 				
 			} else if (index == 5 && isCompanionDialogue() && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
@@ -1198,10 +1198,10 @@ public class AlleywayAttackerDialogue {
 		StringBuilder sb = new StringBuilder();
 		
 		if(potion!=null && forcedTF) {
-			sb.append(UtilText.parse(getMugger(),
+			sb.append(UtilText.parse(getMugger(), target,
 					"<p>"
-						+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid."
-						+ " [npc.speech(Good [pc.girl]! I'm going to turn you into my perfect "+getMugger().getPreferredBodyDescription("b")+"!)]"
+						+ "[npc.Name] steps back, grinning down at [npc2.name] as [npc2.she] obediently [npc2.verb(swallow)] the strange liquid."
+						+ " [npc.speech(Good [npc2.girl]! I'm going to turn you into my perfect "+getMugger().getPreferredBodyDescription("b")+"!)]"
 					+ "</p>"));
 			for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
 				sb.append(UtilText.parse(getMugger(),

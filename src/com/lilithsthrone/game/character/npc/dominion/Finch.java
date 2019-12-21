@@ -207,7 +207,7 @@ public class Finch extends NPC {
 		this.setMoney(10);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_CROTCHLESS_CHAPS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_crotchless_chaps", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_work_boots", Colour.CLOTHING_BLACK, false), true, this);
@@ -225,7 +225,7 @@ public class Finch extends NPC {
 		
 		// Always at least 4 slave collars:
 		for(int i = 0; i<4; i++) {
-			this.addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, false), false);
+			this.addClothing(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", false), false);
 		}
 		
 		List<AbstractClothing> clothingToSell = new ArrayList<>();

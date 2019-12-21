@@ -32,6 +32,7 @@
 		<clothingConditional4 constant="true"><![CDATA[RND.nextInt(100)<=25]]></clothingConditional4> <!-- For legwear femininity -->
 		<clothingConditional5 constant="true"><![CDATA[RND.nextInt(100)<=90]]></clothingConditional5> <!-- weapons -->
 		<clothingConditional6 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></clothingConditional6> <!-- is bipedal -->
+		<clothingConditional7 constant="true"><![CDATA[RND.nextInt(100)<=15]]></clothingConditional7> <!-- Offhand crossbow -->
 		
 		<presetColourGroup1>
 			<randomColour>CLOTHING_BLACK</randomColour>
@@ -68,8 +69,15 @@
 		
         <offhandWeapons>
 			<weapon>
-				<conditional><![CDATA[clothingConditional5 && clothingConditional2 && RND.nextInt(100)<=50]]></conditional>
+				<conditional><![CDATA[clothingConditional5 && clothingConditional2 && !clothingConditional7 && RND.nextInt(100)<=50]]></conditional>
 				<type>innoxia_knuckleDusters_knuckle_dusters</type>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+			<weapon>
+				<conditional><![CDATA[clothingConditional4 && clothingConditional7]]></conditional>
+				<type>innoxia_pistolCrossbow_pistol_crossbow</type>
 				<damageTypes/>
 				<primaryColours/>
 				<secondaryColours/>

@@ -267,6 +267,13 @@ public enum TFModifier {
 			"modifier_circle_sealing",
 			Colour.SEALED,
 			Rarity.LEGENDARY),
+	
+	CLOTHING_ANTI_SELF_TRANSFORMATION("self-transformation inhibition",
+			"Makes the wearer unable to perform demonic, slime, or any other racially-enabled self-transformations.",
+			"self-transformation inhibition",
+			"modifier_circle_anti_transformation",
+			Colour.TRANSFORMATION_GENERIC,
+			Rarity.LEGENDARY),
 
 	CLOTHING_CONDOM("condom strength",
 			"Provides underlying strength to the condom.",

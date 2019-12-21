@@ -1317,7 +1317,7 @@ public class OccupantDialogue {
 					};
 
 				} else if (index == 4) {
-					int timeUntilChange = RoomPlayer.getMinutesUntilMorningOrEvening();
+					int timeUntilChange = Main.game.getMinutesUntilNextMorningOrEvening();
 					LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
 					return new Response("Rest until " + (Main.game.isDayTime() ? "Sunset" : "Sunrise"),
 							"Ask [npc.name] if you can crash on [npc.her] sofa for " + (timeUntilChange >= 60 ?timeUntilChange / 60 + " hours " : " ")
@@ -1327,7 +1327,7 @@ public class OccupantDialogue {
 								OCCUPANT_APARTMENT_SLEEP_OVER){
 						@Override
 						public void effects() {
-							sleepTimeInMinutes = RoomPlayer.getMinutesUntilMorningOrEvening();
+							sleepTimeInMinutes = Main.game.getMinutesUntilNextMorningOrEvening();
 							
 							Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 							Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));

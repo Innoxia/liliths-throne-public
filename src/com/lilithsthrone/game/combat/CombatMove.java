@@ -275,7 +275,7 @@ public class CombatMove {
             }
             
             @Override
-            public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             	int essenceCost = getArcaneCost(source);
             	int weaponCount = 0;
         		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
@@ -288,7 +288,7 @@ public class CombatMove {
             	if(source.getEssenceCount(TFEssence.ARCANE)<essenceCost) {
             		return "You don't have enough arcane essences to use your weapon"+(weaponCount>1?"s":"")+"! ("+Util.capitaliseSentence(Util.intToString(essenceCost))+" "+(essenceCost==1?"is":"are")+" required.)";
             	}
-            	return super.isUseable(source, target, enemies, allies);
+            	return super.isUsable(source, target, enemies, allies);
             }
             
             @Override
@@ -311,7 +311,7 @@ public class CombatMove {
          *
          *
          */
-        newCombatMove = new CombatMove("offhand strike",
+        newCombatMove = new CombatMove("offhand-strike",
                 "offhand strike",
                 0,
                 1,
@@ -513,7 +513,7 @@ public class CombatMove {
             }
             
             @Override
-            public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             	int essenceCost = getArcaneCost(source);
             	int weaponCount = 0;
         		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
@@ -526,7 +526,7 @@ public class CombatMove {
             	if(source.getEssenceCount(TFEssence.ARCANE)<essenceCost) {
             		return "You don't have enough arcane essences to use your weapon"+(weaponCount>1?"s":"")+"! ("+Util.capitaliseSentence(Util.intToString(essenceCost))+" "+(essenceCost==1?"is":"are")+" required.)";
             	}
-            	return super.isUseable(source, target, enemies, allies);
+            	return super.isUsable(source, target, enemies, allies);
             }
             
             @Override
@@ -767,7 +767,7 @@ public class CombatMove {
             }
             
             @Override
-            public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             	if(source.getArmRows()==1) {
 	            	if(source.getMainWeapon(0)!=null && source.getMainWeapon(0).getWeaponType().isTwoHanded()) {
 	            		return "You are using a two-handed weapon, so have no free hand with which to use an all-out strike!";
@@ -780,7 +780,7 @@ public class CombatMove {
             	if(source.getEssenceCount(TFEssence.ARCANE)<cost) {
             		return "You don't have enough arcane essences to use your weapon! ("+Util.capitaliseSentence(Util.intToString(cost))+" "+(cost==1?"is":"are")+" required.)";
             	}
-            	return super.isUseable(source, target, enemies, allies);
+            	return super.isUsable(source, target, enemies, allies);
             }
             
             @Override
@@ -999,12 +999,11 @@ public class CombatMove {
             public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
                 boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 
-                GameCharacter targetedEnemy = Combat.getTargetedCombatant(source);
-                return (formatAttackOutcome(source, targetedEnemy,
-        				"[npc.Name] focused on resisting [npc2.namePos] seductive moves.",
+                return formatAttackOutcome(source, target,
+        				"[npc.Name] focused on resisting any attempts at seduction.",
         				"[npc.SheIs] now protected against " + getFormattedDamage(getDamageType(source), getBlock(isCrit), target, true) + " damage!",
         				isCrit?"":null,
-        				isCrit?"[npc.Name] [npc.verb(double)] [npc.her] shielding!":""));
+        				isCrit?"[npc.Name] [npc.verb(double)] [npc.her] shielding!":"");
             }
 
             @Override
@@ -1186,8 +1185,8 @@ public class CombatMove {
                 }
 
                 @Override
-                public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-                    String reason = super.isUseable(source, target, enemies, allies);
+                public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                    String reason = super.isUsable(source, target, enemies, allies);
                     if(reason == null) {
                         if((getAssociatedSpell().getSpellSchool()!=SpellSchool.FIRE || !source.hasStatusEffect(StatusEffect.FIRE_MANA_BURN)) && source.getMana()<getAssociatedSpell().getModifiedCost(source)) {
                             reason = "Not enough aura to cast this spell!";
@@ -1734,7 +1733,7 @@ public class CombatMove {
      * @param enemies Enemies of the character
      * @param allies Allies of the character
      */
-    public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         if(target != null) {
             if(!canTargetSelf && source == target) {
                 return "This action can't be used on yourself!";
