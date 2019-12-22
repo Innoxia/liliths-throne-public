@@ -861,15 +861,39 @@
 	<p>
 		You approach the throne.
 	</p>
-	<p>
-		If hostile: Vengar says he thinks after you're beaten, he'll turn you into his rat-girl fucktoy. If haven't seen Silence, introduce her and Vengar says she'll be more than enough to deal with you. If observant perk, you notice Shadow sneaking up behind you. If not, Vengar says she always fights with Shadow, and as you realise that there's no sign of her, she takes you by surprise and stabs you in the back. Start combat with -50% HP.
-	</p>
-	<p>
-		If not hostile, Vengar calls out to ask who you are and what you want. You see Shadow and Silence lurking to one side of the room near Vengar.
-	</p>
-	<p>
-		If agreed to cooperate, he invites you into his bedroom. If Lexa, he suggests paying her a visit together.
-	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensHostile))
+		<p>
+			Vengar says he thinks after you're beaten, he'll turn you into his rat-girl fucktoy. Introduce Silence, with Vengar saying she'll be more than enough to deal with you.
+			#IF(pc.hasCompanions())
+				#IF(pc.hasTraitActivated(PERK_OBSERVANT))
+					 You see Shadow sneaking up behind you, and manage to prevent her from launching a surprise attack.
+				#ELSEIF(npc.hasTraitActivated(PERK_OBSERVANT))
+					 [npc.Name] sees Shadow sneaking up behind you, and manages to prevent her from launching a surprise attack.
+				#ELSE
+					 Shadow sneaks up behind [npc.name] and stabs [npc.herHim] in the back with her ethereal poison blades!
+				#ENDIF
+			#ELSE
+				#IF(pc.hasTraitActivated(PERK_OBSERVANT))
+					 You see Shadow sneaking up behind you, and manage to prevent her from launching a surprise attack.
+				#ELSE
+					 Shadow sneaks up behind you and stabs you in the back with her ethereal poison blades!
+				#ENDIF
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Vengar calls out to ask who you are and what you want. You see Shadow and Silence lurking to one side of the room near Vengar.
+		</p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_vengarIntroduced))
+			<p>
+				#IF(game.getDialogueFlags().hasFlag(FLAG_axelSissified))
+					He asks if you'd like to join him in his private bed-chambers, or perhaps the two of you could go and visit Lexa together.
+				#ELSE
+					He asks if you'd like to join him in his private bed-chambers.
+				#ENDIF
+			</p>
+		#ENDIF
+	#ENDIF
 	]]>
 	</htmlContent>
 	

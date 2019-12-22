@@ -206,7 +206,13 @@
 		In the middle of a small square on one side of Slaver Alley, there sits a very striking statue. Made completely out of jet-black obsidian, and standing at least twelve feet from head-to-toe, it's a masterfully-crafted depiction of what appears to be a buxom female fallen angel, with wide hips and massive, GG-cup breasts.
 	</p>
 	<p>
-		Her huge, feathered wings reach up to the sky behind her, and, linked by heavy chains, bracers have been clasped around her delicate wrists and ankles. One of her hands is reaching down between her legs, where she's lewdly spreading her tentacled, gaping pussy for all to see, while the other is reaching around behind her back in order to dig her slender fingers into her exposed asshole.
+		Her huge, feathered wings reach up to the sky behind her, and, linked by heavy chains, bracers have been clasped around her delicate wrists and ankles. One of her hands is reaching down between her legs, where she's lewdly spreading her
+		#IF(game.isGapeContentEnabled())
+			 tentacled, gaping pussy
+		#ELSE
+			 tentacled pussy
+		#ENDIF
+		 for all to see, while the other is reaching around behind her back in order to dig her slender fingers into her exposed asshole.
 	</p>
 	<p>
 		Looking up at her face, you see that her beautiful features are contorted into an orgasmic scream, and, as evidence that her corruption has manifested itself into physical transformations other than just the one between her legs, an abnormally long tongue drops down out of her open mouth to push its way into one of her lip-shaped nipples, which appears in turn to be desperately sucking on the wet, squirming muscle.
@@ -225,7 +231,13 @@
 		In the middle of a small square on one side of Slaver Alley, there sits a very striking statue. Made completely out of jet-black obsidian, and standing at least twelve feet from head-to-toe, it's a masterfully-crafted depiction of what appears to be a female fallen angel.
 	</p>
 	<p>
-		Her huge, feathered wings reach up to the sky behind her, and, linked by heavy chains, bracers have been clasped around her delicate wrists and ankles. One of her hands is reaching down between her legs, where she's lewdly spreading her tentacled, gaping pussy for all to see, while the other is reaching around behind her back in order to dig her slender fingers into her exposed asshole.
+		Her huge, feathered wings reach up to the sky behind her, and, linked by heavy chains, bracers have been clasped around her delicate wrists and ankles. One of her hands is reaching down between her legs, where she's lewdly spreading her
+		#IF(game.isGapeContentEnabled())
+			 tentacled, gaping pussy
+		#ELSE
+			 tentacled pussy
+		#ENDIF
+		 for all to see, while the other is reaching around behind her back in order to dig her slender fingers into her exposed asshole.
 	</p>
 	<p>
 		Looking up at her face, you see that her beautiful features are contorted into an orgasmic scream, and, as evidence that her corruption has manifested itself into physical transformations other than just the one between her legs, an abnormally long tongue drops down out of her open mouth to push its way into one of her lip-shaped nipples, which appears in turn to be desperately sucking on the wet, squirming muscle.
@@ -328,7 +340,11 @@
 		The interior of the 'Bounty Hunter Lodge' takes the form of a large open-plan dining area, with a long wooden bar running along the far wall. The expansive floor area is filled with long wooden tables and benches, which are currently seating a large number of people of all different shapes and sizes. From the heady smell in the air and the inebriated shouts and laughter coming from the tavern's patrons, you can safely assume that a large portion of most bounty hunter's pay-checks are spent in here on alcohol.
 	</p>
 	<p>
-		As you don't have any business with these bounty hunters, there's not much else you can do but turn around and leave...
+		#IF(game.getCharactersPresent().contains(silence))
+			Sitting all alone in one corner of the large hall, you see the familiar figure of Silence, the albino rat-girl whom you first met serving as one of Vengar's bodyguards. You wonder if you should head over and say something to her, or turn around and leave...
+		#ELSE
+			As you don't have any business with these bounty hunters, there's not much else you can do but turn around and leave...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

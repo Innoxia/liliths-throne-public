@@ -1,13 +1,14 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
 import com.lilithsthrone.game.character.body.Penis;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 
 /**
  * Measured in cm of penis size that could fit comfortably within this capacity.
  * 
  * @since 0.1.0
- * @version 0.3.4.5
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public enum Capacity {
@@ -21,11 +22,35 @@ public enum Capacity {
 	
 	FOUR_LOOSE("loose", PenisSize.ONE_TINY, PenisSize.FOUR_HUGE, PenisSize.FIVE_ENORMOUS, Colour.GENERIC_SIZE_FIVE),
 	
-	FIVE_ROOMY("very loose", PenisSize.TWO_AVERAGE, PenisSize.FIVE_ENORMOUS, PenisSize.SIX_GIGANTIC, Colour.GENERIC_SIZE_SIX),
+	FIVE_ROOMY("very loose", PenisSize.TWO_AVERAGE, PenisSize.FIVE_ENORMOUS, PenisSize.SIX_GIGANTIC, Colour.GENERIC_SIZE_SIX) {
+		@Override
+		public String getDescriptor() {
+			if(!Main.game.isGapeContentEnabled()) {
+				return "loose";
+			}
+			return super.getDescriptor();
+		}
+	},
 	
-	SIX_STRETCHED_OPEN("stretched open", PenisSize.TWO_AVERAGE, PenisSize.SIX_GIGANTIC, PenisSize.SEVEN_STALLION, Colour.GENERIC_SIZE_SEVEN),
+	SIX_STRETCHED_OPEN("stretched open", PenisSize.TWO_AVERAGE, PenisSize.SIX_GIGANTIC, PenisSize.SEVEN_STALLION, Colour.GENERIC_SIZE_SEVEN) {
+		@Override
+		public String getDescriptor() {
+			if(!Main.game.isGapeContentEnabled()) {
+				return "loose";
+			}
+			return super.getDescriptor();
+		}
+	},
 	
-	SEVEN_GAPING("gaping wide", PenisSize.THREE_LARGE, PenisSize.SEVEN_STALLION, PenisSize.SEVEN_STALLION, Colour.GENERIC_SIZE_EIGHT);
+	SEVEN_GAPING("gaping wide", PenisSize.THREE_LARGE, PenisSize.SEVEN_STALLION, PenisSize.SEVEN_STALLION, Colour.GENERIC_SIZE_EIGHT) {
+		@Override
+		public String getDescriptor() {
+			if(!Main.game.isGapeContentEnabled()) {
+				return "loose";
+			}
+			return super.getDescriptor();
+		}
+	};
 
 	
 	private String descriptor;

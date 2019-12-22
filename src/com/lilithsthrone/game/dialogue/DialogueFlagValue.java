@@ -33,10 +33,6 @@ public enum DialogueFlagValue {
 	playerCaptive,
 	
 	
-	// Romance:
-	axelDateSuccess,
-	
-	
 	// Gym:
 	gymIntroduced,
 	gymHadTour,
@@ -187,8 +183,12 @@ public enum DialogueFlagValue {
 	axelClothingMaid,
 	
 	roxyAddicted,
+	roxyVengarOwnerIntroduced,
 	playedPregnancyRouletteAsMother,
 	playedPregnancyRouletteAsBreeder,
+	
+	eponaMurkOwnerIntroduced,
+	eponaMurkSubmitted,
 	
 	// Nightlife:
 	julesIntroduced,

@@ -577,4 +577,248 @@
 	</htmlContent>
 	
 	
+	<!-- MURK -->
+	
+	<htmlContent tag="MURK_REPEAT"><![CDATA[
+	<p>
+		You ask Epona how [murk.name] has been behaving recently. She says she doesn't really get involved with [murk.herHim], and has some of her other helpers use [murk.herHim] to help them clean whenever they need to. She again expresses her disgust at what Murk was doing in the Rat Warrens.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK"><![CDATA[
+	<p>
+		You ask Epona if she is in charge of [murk.name], having heard this from Axel. She says she is, but she doesn't really get involved with [murk.herHim], and has some of her other helpers use [murk.herHim] to help them clean the stalls whenever they need to.
+	</p>
+	<p>
+		She goes on to express her disgust at what Murk was doing in the Rat Warrens, and says that she is very impressed with you for putting an end to it all. She gives you three tokens to express her gratitude, and says if you ever want to lecture Murk or do anything else you see fit to him, you're welcome to go into the rear storeroom where he's being kept and do it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_ALONE -->
+	
+	<htmlContent tag="MURK_ALONE"><![CDATA[
+	<p>
+		You ask Epona if you can go and punish Murk for what [murk.she] did to the innocent people [murk.she] kidnapped. She readily agrees, and shows you to the storeroom in which [murk.sheIs] being kept.
+		#IF(!murk.isFeminine())
+			 She says there are feminisation potions of all kinds stored in there from an old game that's no longer played, so feel free to use them on him.
+		#ENDIF
+	</p>
+	<p>
+		You find yourself alone in the storeroom with [murk.name], who is tethered to a pole to prevent [murk.herHim] from reaching the potions stored in here.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_eponaMurkSubmitted))
+			 Murk tells you to get down and worship his cock like the submissive slut you are.
+		#ELSE
+			#IF(!murk.isFeminine())
+				 [murk.She] asks what it is you want.
+			#ELSE
+				 [murk.She] asks if you're here to dominate her pussy.
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SEX_DOM"><![CDATA[
+	<p>
+		You get [murk.name] to submit to you, and prepare to dominantly fuck [murk.herHim].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SEX_SUB_VAGINA"><![CDATA[
+	<p>
+		You tell Murk that you want him to dominate you. He orders you to get down on all fours, which you do.
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveMilkingStarted))
+			He teases you about turning you into his cock-sleeve, and how that's all you'll ever be. Makes you call him sir and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your pussy and starts humping you.
+		#ELSE
+			He teases you about wanting his fat cock. Makes you call him sir and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your pussy and starts humping you.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SEX_SUB_ANUS"><![CDATA[
+	<p>
+		You tell Murk that you want him to dominate you. He orders you to get down on all fours, which you do.
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveMilkingStarted))
+			He teases you about turning you into his cock-sleeve, and how that's all you'll ever be. Makes you call him sir and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your ass and starts humping you.
+		#ELSE
+			He teases you about wanting his fat cock. Makes you call him sir and kiss his cock, before walking around behind you and mounting you. Thrusts his cock into your ass and starts humping you.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SEX_SUB"><![CDATA[
+	<p>
+		You tell Murk that you want him to dominate you. He orders you to get down on all fours, which you do.
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveMilkingStarted))
+			He teases you about turning you into his cock-sleeve, and how that's all you'll ever be. Makes you call him sir and kiss his cock, before grabbing your head and thrusting his cock down your throat.
+		#ELSE
+			He teases you about wanting his fat cock. Makes you call him sir and kiss his cock, before grabbing your head and thrusting his cock down your throat.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_ALONE_LEAVE"><![CDATA[
+	<p>
+		You decide not to do anything else with [murk.name], and take your leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_LECTURING -->
+	
+	<htmlContent tag="MURK_LECTURING"><![CDATA[
+	<p>
+		Wanting [murk.name] to fully understand why what [murk.she] did was wrong, you spend a good amount of time lecturing [murk.herHim] on issues of morality.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_SPANKING -->
+	
+	<htmlContent tag="MURK_SPANKING"><![CDATA[
+	<p>
+		Wanting to teach [murk.name] a lesson for some the bad things [murk.sheHas] done in the past, you bend [murk.herHim] over a stool and start spanking [murk.herHim].
+		#IF(!murk.isFeminine())
+			 [murk.She] clearly enjoys it, and is soon dripping wet and panting for more.
+		#ELSE
+			 [murk.She] clearly hates it, and struggles against you with each and every blow.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_MURK_SEX -->
+	
+	<htmlContent tag="AFTER_MURK_SEX_AS_DOM"><![CDATA[
+	<p>
+		You finish fucking [murk.name] and allow [murk.herHim] to collapse to the floor. It looks like you aren't going to be able to get anything else out of [murk.herHim] for some time, so you decide to leave and maybe come back later...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_MURK_SEX_AS_SUB"><![CDATA[
+	<p>
+		Murk finishes fucking you and allows you to collapse to the floor. Still acting as though he's the one in cahrge, he orders you to leave and come back another time so that he can fuck you again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_MURK_SEX_DOM_LEAVE"><![CDATA[
+	<p>
+		You head back out into the gambling den.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_MURK_SEX_SUB_LEAVE"><![CDATA[
+	<p>
+		You head back out into the gambling den, but not before Murk makes you thank him for fucking you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_FEMINISE -->
+	
+	<htmlContent tag="MURK_FEMINISE"><![CDATA[
+	<p>
+		You get Murk to drink the potions on the shelves which have been marked out by Epona for being suitable to give to him. He transforms into a rat-girl version of himself. While sill short and a little chubby, she is now unmistakably feminine, and in place of a huge cock, she now has a wet pussy.
+	</p>
+	<p>
+		The potions also have affected her mental state, as she now acts submissive and begs you to fuck her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_SUBMIT_ACCEPT -->
+	
+	<htmlContent tag="MURK_SUBMIT_ACCEPT_POTION"><![CDATA[
+	<p>
+		You do as Murk commands, and drop down onto your knees to worship his cock. He produces a bottle, and says that he was able to reach one of the lower shelves, where he found this. Orders you to drink it, saying it will make your holes malleable for his cock to stretch out, turning you into his personal cock-sleeve.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SUBMIT_ACCEPT_NO_ACCESS"><![CDATA[
+	<p>
+		You do as Murk commands, and drop down onto your knees to worship his cock. As he is unable to access your holes, he gets you to stay down on all fours as he masturbates to your submissive figure.
+	</p>
+	<p>
+		When he's about to cum, he orders you to shuffle around and raise your ass to him. You do as he says and he cums all over your ass. He then tells you to get lost and only come back when you've got a hole for him to fuck.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SUBMIT_ACCEPT"><![CDATA[
+	<p>
+		You do as Murk commands, and drop down onto your knees to worship his cock. He pushes you down onto all fours and tells you that he's going to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SUBMIT_ACCEPT_KICKED_OUT"><![CDATA[
+	<p>
+		Having been dismissed by Murk, you head back out into the gambling den.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SUBMIT_SEX_SUB_VAGINA"><![CDATA[
+	<p>
+		Murk makes you expose your pussy to him, and he rubs his cock up and down over it. Makes you beg for his cock before mounting you and penetrating you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SUBMIT_SEX_SUB_ANUS"><![CDATA[
+	<p>
+		Murk makes you expose your asshole to him, and he rubs his cock up and down over it. Makes you beg for his cock before mounting you and penetrating you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MURK_SUBMIT_SEX_SUB"><![CDATA[
+	<p>
+		Murk makes you kiss his cock, and he rubs it up and down over your face. Makes you beg for his cock before grabbing your head and thrusting it down your throat.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_SUBMIT_ACCEPT_POTION -->
+	
+	<htmlContent tag="MURK_SUBMIT_ACCEPT_POTION"><![CDATA[
+	<p>
+		You drink the potion, and feel a strange tingling feeling spread throughout your groin. Murk then says he's going to make you beg for his cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MURK_SUBMIT_REFUSE -->
+	
+	<htmlContent tag="MURK_SUBMIT_REFUSE"><![CDATA[
+	<p>
+		You refuse to submit to Murk again, and remind him of his place.
+	</p>
+	]]>
+	</htmlContent>
+	
 </dialogue>

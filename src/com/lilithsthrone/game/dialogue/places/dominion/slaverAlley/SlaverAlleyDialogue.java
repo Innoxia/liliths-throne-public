@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
+import com.lilithsthrone.game.character.npc.submission.Silence;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -594,7 +595,10 @@ public class SlaverAlleyDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
+			if(index==1 && Main.game.getCharactersPresent().contains(Main.game.getNpc(Silence.class))) {
+				return new Response("Silence", "Head over and say something to Silence...<br/>[style.italicsBad(A mini-quest involving Silence and Shadow will be added soon!)]", null);
+				
+			} else if(index==0) {
 				return new Response("Leave", "Turn around and exit the establishment...", BOUNTY_HUNTERS) {
 					@Override
 					public void effects() {

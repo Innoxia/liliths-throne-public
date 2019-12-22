@@ -11,16 +11,20 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
@@ -72,7 +76,7 @@ public class Murk extends NPC {
 	}
 	
 	public Murk(boolean isImported) {
-		super(isImported, new NameTriplet("Murk", "Miss", "Miss"), "Triche",
+		super(isImported, new NameTriplet("Murk", "Missy", "Missy"), "Triche",
 				"",
 				27, Month.DECEMBER, 22,
 				10, Gender.M_P_MALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
@@ -214,7 +218,7 @@ public class Murk extends NPC {
 		if(this.getHomeLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE) {
 			if(this.isFeminine()) {
 				sb.append("Having convinced Epona to punish Murk in a manner fitting his crimes, the once rat-'boy' is now a rat-'girl'."
-						+ " 'Miss', as she's now known, is still responsible for cleaning up the pregnancy roulette stalls, but now is also offered as a consolation prize for losing contestants.");
+						+ " 'Missy', as she's now known, is still responsible for cleaning up the pregnancy roulette stalls, although Epona seems to be a little more lenient towards her now.");
 				
 			} else {
 				sb.append("Having been enslaved as punishment for his crimes of rape and kidnap, Murk has ended up being given to [axel.name] as a form of compensation for the protection money he was made to pay in the past."
@@ -232,6 +236,81 @@ public class Murk extends NPC {
 		}
 		
 		return sb.toString();
+	}
+	
+	public void applyFeminisation() {
+		this.clearFetishes();
+		this.clearFetishDesires();
+		
+		this.addFetish(Fetish.FETISH_SUBMISSIVE);
+		this.addFetish(Fetish.FETISH_MASOCHIST);
+		this.addFetish(Fetish.FETISH_EXHIBITIONIST);
+		
+		this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
+		this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
+		this.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.THREE_LIKE);
+		this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.THREE_LIKE);
+		this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.ZERO_HATE);
+		this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ZERO_HATE);
+		
+		// Body:
+		// Core:
+		this.setHeight(146);
+		this.setFemininity(75);
+		this.setMuscle(Muscle.ZERO_SOFT.getMedianValue());
+		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+		
+		// Coverings:
+		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, Colour.EYE_YELLOW), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_LIGHT), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_EBONY), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_EBONY), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BLACK), false);
+		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH);
+		this.setHairStyle(HairStyle.LOOSE);
+
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, Colour.COVERING_BLACK), false);
+		this.setUnderarmHair(BodyHair.ZERO_NONE);
+		this.setAssHair(BodyHair.FOUR_NATURAL);
+		this.setPubicHair(BodyHair.FOUR_NATURAL);
+		this.setFacialHair(BodyHair.ZERO_NONE);
+
+		// Face:
+		this.setLipSize(LipSize.TWO_FULL);
+		this.setFaceCapacity(Capacity.ZERO_IMPENETRABLE, true);
+		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
+		
+		// Chest:
+		this.setBreastSize(CupSize.DD.getMeasurement());
+		this.setBreastShape(BreastShape.POINTY);
+		this.setNippleSize(NippleSize.THREE_LARGE);
+		this.setAreolaeSize(AreolaeSize.THREE_LARGE);
+		
+		// Ass:
+		this.setAssSize(AssSize.FOUR_LARGE);
+		this.setHipSize(HipSize.FOUR_WOMANLY);
+		this.setAssCapacity(Capacity.ZERO_IMPENETRABLE, true);
+		this.setAssWetness(Wetness.ONE_SLIGHTLY_MOIST);
+		this.setAssElasticity(OrificeElasticity.ONE_RIGID.getValue());
+		this.setAssPlasticity(OrificePlasticity.FIVE_YIELDING.getValue());
+		// Anus modifiers
+		
+		// Penis:
+		this.setPenisType(PenisType.NONE);
+		
+		// Vagina:
+		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
+		this.setVaginaLabiaSize(LabiaSize.THREE_LARGE);
+		this.setVaginaSquirter(true);
+		this.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
+		this.setVaginaWetness(Wetness.FOUR_SLIMY);
+		this.setVaginaElasticity(OrificeElasticity.THREE_FLEXIBLE.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.FIVE_YIELDING.getValue());
+		
+		// Feet:
+		// Foot shape
 	}
 	
 	@Override

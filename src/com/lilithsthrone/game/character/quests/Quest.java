@@ -1199,7 +1199,7 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "Now Vengar has been dealt with, you need to return to Axel and let him know what happened.";
+			return "Now that Vengar has been dealt with, you need to return to Axel and let him know what happened.";
 		}
 		@Override
 		public String getCompletedDescription() {

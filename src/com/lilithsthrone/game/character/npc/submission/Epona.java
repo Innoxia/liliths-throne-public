@@ -90,8 +90,9 @@ public class Epona extends NPC {
 			this.setLevel(15);
 			this.resetPerksMap(true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
 			this.setPersonalityTraits(
+					PersonalityTrait.KIND,
 					PersonalityTrait.LEWD);
 		}
 	}
@@ -116,6 +117,7 @@ public class Epona extends NPC {
 
 		if(setPersona) {
 			this.setPersonalityTraits(
+					PersonalityTrait.KIND,
 					PersonalityTrait.LEWD);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);

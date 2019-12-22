@@ -447,7 +447,7 @@ public class GamblingDenDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AFTER_AXEL_ORAL");
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "AFTER_AXEL_ORAL");
 		}
 
 		@Override
@@ -605,7 +605,7 @@ public class GamblingDenDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AFTER_AXEL_SEX");
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "AFTER_AXEL_SEX");
 		}
 
 		@Override
@@ -630,7 +630,7 @@ public class GamblingDenDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AFTER_LEXA_SEX");
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "AFTER_LEXA_SEX");
 		}
 
 		@Override
@@ -672,7 +672,7 @@ public class GamblingDenDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "OFFICE_WITH_LEXA_HYPNO");
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "OFFICE_WITH_LEXA_HYPNO");
 		}
 
 		@Override
@@ -688,7 +688,7 @@ public class GamblingDenDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "OFFICE_WITH_LEXA_FEMINISE");
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "OFFICE_WITH_LEXA_FEMINISE");
 		}
 
 		@Override
@@ -699,7 +699,7 @@ public class GamblingDenDialogue {
 						OFFICE_WITH_LEXA_FEMINISE_APPLY) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "OFFICE_WITH_LEXA_FEMINISE_APPLY_ZERO"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "OFFICE_WITH_LEXA_FEMINISE_APPLY_ZERO"));
 						((Axel)Main.game.getNpc(Axel.class)).applyFeminisation(PenisGirth.ONE_THIN, PenisSize.ONE_TINY, TesticleSize.ZERO_VESTIGIAL, CumProduction.ONE_TRICKLE);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelFeminised, true);
 					}
@@ -711,7 +711,7 @@ public class GamblingDenDialogue {
 						OFFICE_WITH_LEXA_FEMINISE_APPLY) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "OFFICE_WITH_LEXA_FEMINISE_APPLY_HALF"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "OFFICE_WITH_LEXA_FEMINISE_APPLY_HALF"));
 						((Axel)Main.game.getNpc(Axel.class)).applyFeminisation(PenisGirth.TWO_AVERAGE, PenisSize.TWO_AVERAGE, TesticleSize.TWO_AVERAGE, CumProduction.ONE_TRICKLE);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelFeminised, true);
 					}
@@ -723,7 +723,7 @@ public class GamblingDenDialogue {
 						OFFICE_WITH_LEXA_FEMINISE_APPLY) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "OFFICE_WITH_LEXA_FEMINISE_APPLY_FULL"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "OFFICE_WITH_LEXA_FEMINISE_APPLY_FULL"));
 						((Axel)Main.game.getNpc(Axel.class)).applyFeminisation(PenisGirth.FOUR_FAT, PenisSize.FOUR_HUGE, TesticleSize.FOUR_HUGE, CumProduction.FOUR_LARGE);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelFeminised, true);
 					}
@@ -745,7 +745,7 @@ public class GamblingDenDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "OFFICE_WITH_LEXA_FEMINISE_BACK_OUT");
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "OFFICE_WITH_LEXA_FEMINISE_BACK_OUT");
 		}
 
 		@Override
@@ -772,7 +772,7 @@ public class GamblingDenDialogue {
 						OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END_FEMININE"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END_FEMININE"));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelClothingFeminine, true);
 						Main.game.getNpc(Axel.class).equipClothing(null);
 					}
@@ -784,7 +784,7 @@ public class GamblingDenDialogue {
 						OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END_MAID"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END_MAID"));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelClothingMaid, true);
 						Main.game.getNpc(Axel.class).equipClothing(null);
 					}
@@ -796,7 +796,7 @@ public class GamblingDenDialogue {
 						OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END_WHORE"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END_WHORE"));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelClothingWhore, true);
 						Main.game.getNpc(Axel.class).equipClothing(null);
 					}
@@ -843,7 +843,7 @@ public class GamblingDenDialogue {
 						OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "OFFICE_WITH_LEXA_CLOTHING_FEMININE"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "OFFICE_WITH_LEXA_CLOTHING_FEMININE"));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelClothingFeminine, true);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelClothingMaid, false);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelClothingWhore, false);
@@ -860,7 +860,7 @@ public class GamblingDenDialogue {
 						OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "OFFICE_WITH_LEXA_CLOTHING_MAID"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "OFFICE_WITH_LEXA_CLOTHING_MAID"));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelClothingFeminine, false);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelClothingMaid, true);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelClothingWhore, false);
@@ -877,7 +877,7 @@ public class GamblingDenDialogue {
 						OFFICE_WITH_LEXA_FEMINISE_CLOTHING_END) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "OFFICE_WITH_LEXA_CLOTHING_WHORE"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "OFFICE_WITH_LEXA_CLOTHING_WHORE"));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelClothingFeminine, false);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelClothingMaid, false);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelClothingWhore, true);
@@ -901,7 +901,7 @@ public class GamblingDenDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "OFFICE_WITH_LEXA_CLOTHING_BACK_OUT");
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "OFFICE_WITH_LEXA_CLOTHING_BACK_OUT");
 		}
 
 		@Override
@@ -996,7 +996,7 @@ public class GamblingDenDialogue {
 							|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelFeminised)) {
 						return new Response("Office", "Tell Lexa that you want to have a private 'discussion' with [lexa.herHim] in [lexa.her] office.", OFFICE_WITH_AXEL);
 						
-					} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelDateSuccess)) {
+					} else {
 						if(Main.game.getPlayer().isFeminine()) {
 							return new Response("Office", "You can tell that Axel isn't sexually interested in someone as feminine as you, and would therefore be unwilling to spend some time with you in his office.", null);
 						}
@@ -1259,7 +1259,7 @@ public class GamblingDenDialogue {
 									Main.game.getNpc(Silence.class)),
 							null,
 							AFTER_AXEL_SISSIFIED_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AXEL_VENGAR_VISIT_SISSIFIED_FINISH_PLAYER_FUCK")) {
+							UtilText.parseFromXMLFile("places/submission/submissionPlaces", "AXEL_VENGAR_VISIT_SISSIFIED_FINISH_PLAYER_FUCK")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Axel.class), PenisAnus.PENIS_FUCKING_START, false, true));
@@ -1296,7 +1296,7 @@ public class GamblingDenDialogue {
 											Main.game.getNpc(Silence.class)),
 									null,
 									AFTER_AXEL_SISSIFIED_SEX,
-									UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AXEL_VENGAR_VISIT_SISSIFIED_FINISH_PLAYER_CUNNILINGUS")) {
+									UtilText.parseFromXMLFile("places/submission/submissionPlaces", "AXEL_VENGAR_VISIT_SISSIFIED_FINISH_PLAYER_CUNNILINGUS")) {
 								@Override
 								public List<InitialSexActionInformation> getInitialSexActions() {
 									return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Axel.class), Main.game.getPlayer(), TongueVagina.CUNNILINGUS_START, false, true));
@@ -1329,7 +1329,7 @@ public class GamblingDenDialogue {
 									Main.game.getNpc(Silence.class)),
 							null,
 							AFTER_AXEL_SISSIFIED_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AXEL_VENGAR_VISIT_SISSIFIED_FINISH_PLAYER_BLOWJOB")) {
+							UtilText.parseFromXMLFile("places/submission/submissionPlaces", "AXEL_VENGAR_VISIT_SISSIFIED_FINISH_PLAYER_BLOWJOB")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Axel.class), Main.game.getPlayer(), PenisMouth.GIVING_BLOWJOB_START, false, true));
@@ -1357,7 +1357,7 @@ public class GamblingDenDialogue {
 									Main.game.getNpc(Silence.class)),
 							null,
 							AFTER_AXEL_SISSIFIED_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AXEL_VENGAR_VISIT_SISSIFIED_FINISH_VENGAR_FUCK")) {
+							UtilText.parseFromXMLFile("places/submission/submissionPlaces", "AXEL_VENGAR_VISIT_SISSIFIED_FINISH_VENGAR_FUCK")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Vengar.class), Main.game.getNpc(Axel.class), PenisAnus.PENIS_FUCKING_START, false, true));
@@ -1382,7 +1382,7 @@ public class GamblingDenDialogue {
 									Main.game.getNpc(Silence.class)),
 							null,
 							AFTER_AXEL_SISSIFIED_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AXEL_VENGAR_VISIT_SISSIFIED_FINISH_VENGAR_BLOWJOB")) {
+							UtilText.parseFromXMLFile("places/submission/submissionPlaces", "AXEL_VENGAR_VISIT_SISSIFIED_FINISH_VENGAR_BLOWJOB")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Vengar.class), Main.game.getNpc(Axel.class), PenisMouth.BLOWJOB_START, false, true));
@@ -1402,7 +1402,7 @@ public class GamblingDenDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AFTER_AXEL_SISSIFIED_SEX");
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "AFTER_AXEL_SISSIFIED_SEX");
 		}
 
 		@Override
@@ -1459,7 +1459,7 @@ public class GamblingDenDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AXEL_VENGAR_VISIT_STOPPED_RETURN_FINISH");
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "AXEL_VENGAR_VISIT_STOPPED_RETURN_FINISH");
 		}
 
 		@Override
@@ -1489,7 +1489,7 @@ public class GamblingDenDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "REPORT_TO_CLAIRE");
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "REPORT_TO_CLAIRE");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {

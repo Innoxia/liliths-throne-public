@@ -585,7 +585,7 @@ public class RatWarrensCaptiveDialogue {
 				if(!Main.getProperties().getForcedTFTendency().isMasculine()) {
 					if(index==1) {
 						return new Response("[murk.Name]",
-								"Look up at the rat-boy, signalling that you'd prefer to be transformed into a [style.colourFeminine(female)] milker.",
+								"Look up at Murk, signalling that you'd prefer to be transformed into a [style.colourFeminine(female)] milker.",
 								STOCKS_SLEEP_FIRST_DAY) {
 							@Override
 							public void effects() {
@@ -1501,6 +1501,7 @@ public class RatWarrensCaptiveDialogue {
 				return new Response("Follow", "Follow Shadow and Silence as they lead you out of the Rat Warrens.", ESCAPING) {
 					@Override
 					public void effects() {
+						RatWarrensCaptiveDialogue.restoreInventories();
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, false);
 						Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE);
 						Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE);
@@ -1519,12 +1520,12 @@ public class RatWarrensCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "ESCAPING");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "ESCAPING");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Escape", "As the guards aren't paying any attention, you're able to slip past and escape!", RatWarrensDialogue.POST_CAPTIVITY_SWORD_RAID) {
+				return new Response("Escape", "Follow Shadow through the tunnels.", RatWarrensDialogue.POST_CAPTIVITY_SWORD_RAID) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);

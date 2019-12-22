@@ -43,6 +43,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
@@ -315,11 +316,13 @@ public class Shadow extends NPC {
 
 	@Override
 	public void turnUpdate() {
-		if(!Main.game.getCharactersPresent().contains(this) && !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
-			if(!Main.game.isExtendedWorkTime() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
-				this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-			} else {
-				this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
+			if(!Main.game.getCharactersPresent().contains(this) && !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+				if(!Main.game.isExtendedWorkTime() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
+					this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+				} else {
+					this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+				}
 			}
 		}
 	}
@@ -338,7 +341,7 @@ public class Shadow extends NPC {
 
 	@Override
 	public Response interruptCombatSpecialCase() {
-		if(Combat.getAllCombatants(false).contains(this) && Combat.isCombatantDefeated(this)) {
+		if(Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class)) && Combat.isCombatantDefeated(this) && !Combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
 			return new Response("Silence",
 					"As she sees Shadow fall to the floor, Silence stumbles back, looking as though she's about to faint.",
 					RatWarrensDialogue.BODYGUARDS_COMBAT_SHADOW_DEFEATED){
@@ -348,7 +351,7 @@ public class Shadow extends NPC {
 				}
 			};
 			
-		} else if(Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class)) && Combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
+		} else if(Combat.getAllCombatants(false).contains(this) && !Combat.isCombatantDefeated(this) && Combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
 			return new Response("Shadow",
 					"As she sees Silence fall to the floor, Shadow lets out a furious scream, looking as though she's about to completely lose her mind.",
 					RatWarrensDialogue.BODYGUARDS_COMBAT_SILENCE_DEFEATED){

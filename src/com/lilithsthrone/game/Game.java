@@ -1526,6 +1526,10 @@ public class Game implements XMLSaving {
 				getNpc(Silence.class).setAffection(getNpc(Vengar.class), 20);
 				getNpc(Silence.class).setAffection(getNpc(Silence.class), 100);
 			}
+			if(Main.isVersionOlderThan(loadingVersion, "0.3.5.6")) {
+				getNpc(Roxy.class).setAffection(getNpc(Vengar.class), -80);
+				getNpc(Vengar.class).setAffection(getNpc(Roxy.class), 50);
+			}
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Murk.class))) { addNPC(new Murk(), false); addedNpcs.add(Murk.class); }
 			
 		} catch (Exception e) {
@@ -3698,7 +3702,7 @@ public class Game implements XMLSaving {
 			
 		} else {
 			npc.getCell().removeCharacterPresentId(npc.getId());
-			npc.getCell().removeCharacterHomeId(npc.getId());
+			npc.getHomeCell().removeCharacterHomeId(npc.getId());
 			NPCMap.remove(npc.getId());
 		}
 	}
@@ -3904,6 +3908,10 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.analContent);
 	}
 
+	public boolean isGapeContentEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.gapeContent);
+	}
+	
 	public boolean isFootContentEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.footContent);
 	}

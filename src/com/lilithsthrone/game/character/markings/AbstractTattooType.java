@@ -276,7 +276,7 @@ public class AbstractTattooType extends AbstractCoreType {
 	}
 	
 	public boolean isAvailable(GameCharacter target) {
-		if(availabilityRequirements!=null) {
+		if(availabilityRequirements!=null && !availabilityRequirements.isEmpty()) {
 			return Boolean.valueOf(UtilText.parse(target, ("[#"+availabilityRequirements+"]").replaceAll("\u200b", "")));
 		}
 		return true;

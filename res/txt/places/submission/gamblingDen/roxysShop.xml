@@ -2,6 +2,47 @@
 <dialogue>
 
 	<!-- TRADER -->
+	
+	<htmlContent tag="TRADER_VENGAR_INTRO_START"><![CDATA[
+	<p>
+		Once again deciding to enter Roxy's store, you scan the interior for any sign of the crass owner or her latest rat-boy acquisition. Before you see them, however, you're alerted to their presence by the unmistakable sound of Roxy's grating laughter coming from the other side of the shop. Approaching the source of the noise, you suddenly see the rat-girl stand up from behind her counter, puffing away on a cigarette. Grinning down at who you assume must be Vengar, she teases, [roxy.speech(That's right, keep on lickin' yer lips! Ya ain't gonna be gettin' any more o' me cunt juices until yer willin' ta do exactly what I say! I'll make ya regret ever fuckin' those sluts!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_VENGAR_INTRO_ADDICTED"><![CDATA[
+	<p>
+		Suddenly noticing your approach out of the corner of her eye, Roxy turns towards you with an angry snarl on her face. Upon recognising you, however, her scowl shifts into a devious grin. Leaning heavily on the counter-top, she takes a deep drag of her cigarette and teases, [roxy.speech(If yer back ta get another taste o' me cunt, ya know ya gotta pay a thousand flames. Me little slave 'ere 'as already got me cunt all wet an' drippin' from excitement. Ya ain't gonna resist gettin' a taste o' me flowin' juices now, are ya?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_VENGAR_INTRO_NOT_ADDICTED"><![CDATA[
+	<p>
+		Suddenly noticing your approach out of the corner of her eye, Roxy turns towards you with an angry snarl on her face. Upon recognising you, however, her scowl shifts into a devious grin. Leaning heavily on the counter-top, she takes a deep drag of her cigarette and teases, [roxy.speech(If yer here lookin' fer some hot little rat pussy ta get a taste of, me little slave 'ere 'as already got me cunt all wet an' drippin' from excitement. Ya ain't gonna resist gettin' a taste o' me flowin' juices now, are ya? Remember, ya get a free item from me shop as an extra reward!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_VENGAR_INTRO_END"><![CDATA[
+	<p>
+		Before you can reply, Roxy's 'little slave' stands up from behind the counter, and is, of course, the familiar figure of Vengar. Steadying himself against the counter with one hand, he doesn't notice who you are at first as he angrily addresses Roxy, [vengar.speech(I ain't ya slave, bitch! You ain't gonna get away with thi-)] 
+	</p>
+	<p>
+		[roxy.speech(You want me ta fuckin' gag ya?!)] Roxy screeches, before turning to slap Vengar across the face. Before he can react, she grabs the ring on the front of the rat-boy's slave collar and yanks downwards, forcing him to his knees. Glaring down at her insolent ex-boyfriend, she continues, [roxy.speech(That fuckin' lizard said I can do whatever I want with ya, includin' transformin' ya, so if ya don't wanna be turned into a sissy rat-slut, ya betta never even <i>think</i> about talkin' back ta me! Ain't that right, [pc.name]?)]
+	</p>
+	<p>
+		Having been present at the moment when Axel gave Roxy permission to transform Vengar, you confirm that what she's saying is the truth. Recognising your voice, Vengar peers over the top of the counter, before exclaiming, [vengar.speech(You?! This is all your faul-)] 
+	</p>
+	<p>
+		Having a habit of interrupting people, Roxy once again cuts Vengar off by roughly shoving him to the ground. Raising her paw, she steps on his face, snarling, [roxy.speech(Shut yer fuckin' mouth! Yer ain't gonna speak ta me customers without me express permission, ya understand, slave?!)]
+	</p>
+	<p>
+		After hearing a muffled groan of agreement, the rat-girl turns back towards you, cigarette still in mouth, and asks, [roxy.speech(So, wot ya wantin' this time?)]
+	</p>
+	]]>
+	</htmlContent>
+	
 
 	<htmlContent tag="TRADER"><![CDATA[
 	<p>
@@ -246,5 +287,77 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	
+	<!-- VENGAR -->
+	
+	<htmlContent tag="VENGAR"><![CDATA[
+	<p>
+		You ask to see Vengar. He is insubordinate if not sissy.
+	</p>
+	<p>
+		Roxy says you can pay her to fuck him or have him fuck you. If not sissy, he is complaining, leading Roxy to threaten him with sissification and no girlcum again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGAR_SEX_DOM"><![CDATA[
+	<p>
+		You pay to dominantly fuck Vengar.
+	</p>
+	<p>
+		#IF(vengar.isFeminine())
+			Vengar submissively agrees to get fucked by you. Roxy tells you that her cage is unlocked, so take it off if you want.
+		#ELSE
+			Vengar objects, but gets put in his place by Roxy.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGAR_SEX_SUB"><![CDATA[
+	<p>
+		You pay to have Vengar dominantly fuck you.
+	</p>
+	<p>
+		#IF(vengar.isFeminine())
+			Roxy takes off her cage and tells Vengar that she can hump you if she wants.
+		#ELSE
+			Vengar readily accepts, happy to get a chance to give you some payback.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_VENGAR_SEX -->
+	
+	<htmlContent tag="AFTER_VENGAR_SEX_AS_DOM"><![CDATA[
+	<p>
+		You finish fucking Vengar. Roxy laughs and tells you that if you want to fuck [vengar.herHim] again, you just need to pay up.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_VENGAR_SEX_AS_SUB"><![CDATA[
+	<p>
+		You finish being fucked by Vengar. Roxy laughs and tells you that if you want to be a subby bitch again, you just need to pay up.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGAR_SISSIFY -->
+	
+	<htmlContent tag="VENGAR_SISSIFY"><![CDATA[
+	<p>
+		You convince Roxy to sissify Vengar. She forces him to drink a potion, which transforms him into a submissive rat-girl.
+	</p>
+	<p>
+		Roxy then gets Vengar to humiliate herself, before locking her small cock in a cage and inserting a buttplug into her ass. Vengar obeys Roxy's every command, much to her delight.
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 </dialogue>
