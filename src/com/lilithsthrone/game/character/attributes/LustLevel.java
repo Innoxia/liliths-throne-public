@@ -134,10 +134,16 @@ public enum LustLevel {
 			
 			if((character.hasFetish(Fetish.FETISH_SUBMISSIVE) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_DOMINANT))
 					|| character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ZERO_HATE) {
+			    if (pace == SexPace.DOM_ROUGH) {
+				pace = SexPace.DOM_NORMAL;
+			    } else {
 				pace = SexPace.DOM_GENTLE;
+			    }
 				
 			} else if(character.getFetishDesire(Fetish.FETISH_SADIST).isNegative()) {
+			    if (pace != SexPace.DOM_GENTLE) {
 				pace = SexPace.DOM_NORMAL;
+			    }
 				
 			} else if(character.hasFetish(Fetish.FETISH_SADIST)) {
 				return SexPace.DOM_ROUGH;
@@ -153,7 +159,7 @@ public enum LustLevel {
 		} else {
 			pace = getSexPaceSubmissive();
 			if(character.hasFetish(Fetish.FETISH_NON_CON_SUB) || ((character instanceof NPC) && ((NPC)character).hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer))) {
-				pace = SexPace.SUB_RESISTING;
+			    pace = SexPace.SUB_RESISTING; // what if is consensual?
 			}
 		}
 		

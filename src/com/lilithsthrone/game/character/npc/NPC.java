@@ -3440,6 +3440,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 	// The methods of theoretical sex paces should be applicable to all those branches of thought in which the essential features are expressible with fetishes, arousal, and lust.
 	public SexPace getTheoreticalSexPaceSubPreference(GameCharacter character) {
+		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE) &&
+		   // If they're vulnerable to arcane storms, they will always be eager during a storm - except that someone
+		   // with FETISH_NON_CON_SUB is being "eager" by resisting!
+		   (! (this.hasFetish(Fetish.FETISH_NON_CON_SUB) &&
+		       Main.game.isNonConEnabled()))) {
+			return SexPace.SUB_EAGER;
+		}
+
 		if(!isAttractedTo(character) || this.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 			if(Main.game.isNonConEnabled()) {
 				if(isSlave()) {
