@@ -227,11 +227,15 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 									+ "<b>Availability:</b>"
 									+response.getTooltipBlockingList()+response.getTooltipRequiredList()
 							+"</div>");
-					
-					tooltipSB.append(
-							"<div class='description-small'>"
-									+response.getTooltipCorruptionBypassText()
-							+"</div>");
+
+					String corruptionBypassText = response.getTooltipCorruptionBypassText();
+					if (!corruptionBypassText.isEmpty())
+						tooltipSB.append(
+								 "<div class='description-small'>"
+								 +corruptionBypassText
+								 +"</div>");
+					else
+						boxHeight-=54; // this is a guess! XXX
 					
 					String extraSexInfo = response.getAdditionalSexActionInformationText();
 					if(!extraSexInfo.isEmpty()) {

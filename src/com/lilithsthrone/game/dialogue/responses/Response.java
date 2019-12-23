@@ -223,7 +223,7 @@ public class Response {
 	}
 	/**
 	 * @return Typically null, unless this method is overridden in order to set special requirements related to the availability of a sex action of type START_ADDITIONAL_ONGOING.
-	 *  The keys correspond descriptions of requirements, while the value is used to determine if this requirement is met.
+	 *  The keys correspond to descriptions of requirements, while the value is used to determine if this requirement is met.
 	 */
 	public Map<String, Boolean> getAdditionalOngoingAvailableMap() {
 		return null;
@@ -312,12 +312,17 @@ public class Response {
 			SB.append("This action is being blocked, due to not meeting certain [style.colourBad(requirements)].");
 		} else {
 			if(isAvailableFromFetishes()) {
-				SB.append("Your [style.colourFetish(fetish)] bypasses this action's [style.colourCorruption(corruption)] requirements!");
+				if (corruptionBypass == null || corruptionBypass.getMinimumValue() < CorruptionLevel.ONE_VANILLA.getMinimumValue())
+				    SB.append("Your [style.colourFetish(fetish)] would bypass any [style.colourCorruption(corruption)] requirements for this action.");
+				else
+				    SB.append("Your [style.colourFetish(fetish)] bypasses this action's [style.colourCorruption(corruption)] requirements!");
 				return SB.toString();
 			}
 			
 			if(corruptionBypass != null) {
-				if(isCorruptionWithinRange())
+				if(corruptionBypass.getMinimumValue() < CorruptionLevel.ONE_VANILLA.getMinimumValue())
+					return SB.toString(); // would simply 'return "";' be preferable?
+				else if(isCorruptionWithinRange())
 					SB.append("Your <span style='color:"+Main.game.getPlayer().getCorruptionLevel().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getCorruptionLevel().getName())+"</span>"
 							+ " [style.colourCorruption(corruption)] has unlocked this action!");
 				else
