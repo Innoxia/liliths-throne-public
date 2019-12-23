@@ -56,8 +56,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed some stores in the Shopping Arcade causing a softlock. (PR#1227 by triples941)
 		Fixed several issues with random attacker dialogue not displaying correctly. (PR#1231 by triples941)
 		Made some slight adjustments to Maven configuration. (PR#1235 by Zsar)
+		Fixed issue with NPC sex positioning sometimes causing a game-breaking bug in sex. (by Rist)
 	
 	Gameplay:
+		Added a new quest for Axel. (There is a lot of placeholder dialogue for now, and is still very rough around the edges. It will be improved for the next update!)
 		Added a 'Quick Sex' action to sex, under the 'Misc. Actions' tab. Selecting this will immediately end sex, but apply all effects as though (some basic) sex had taken place. A short description of the sex actions performed will be displayed.
 		Added a 'Gape content' preference, which by default is turned on (keeping the game's behaviour as it always has been). When turned off, 'gaping' descriptions of orifices are replaced with less extreme descriptions (such as just 'loose'), and any special gape-related content will be hidden.
 	
@@ -120,6 +122,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Clothing which requires a penis to be equipped (condoms & chastity cages) can no longer be equipped onto strapons or dildos. (This change was made due to an underlying conflict in the code, but I will try to refactor it at some point to re-enable this behaviour.)
 		Meraxis (The Dark Siren) will now correctly use all of the spells at her disposal.
 		Fixed minor issue where NPCs' home locations were not cleared correctly upon being removed from the game.
+		Fixed issue with NPCs' combat move selection not working correctly.
+		Fixed some incorrect skin colours on Axel.
+		Fixed 'Offer body' in the post-loss dice poker scene being available even if the gambler is not attracted to you.
 	
 	
 	[x] Finish text placeholders
@@ -131,9 +136,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] Get quest updating sorted out.
 	[]  Make sure all routes work correctly.
 		[x] Conflict route
+		[x] Conflict route solo
 			[x] Post-combat Bar tender not banished
 			[x] Dialogue options in milking persisting
-			[x] Silence/Shadow comabt never ends
+			[x] Silence/Shadow combat never ends
 			[x] Silence/Shadow defeat same turn not working
 			[x] Silence/Shadow don't disappear after Vengar fight
 			[x] Claire & SWORD do not show up in characters present
@@ -142,29 +148,132 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[x] Axel post-quest dialogue broken
 			[x] Axel post-quest office not available
 			[x] Make sure all unique characters don't go to bedroom or other places at night after quest complete
-		[] Cooperation route
-			[] seduce
-			[] threaten
+			[x] After finishing the quest, you can go back and enter the Rat Warrens again...
+			[x] Do not rely on slavery detection for quest completion detection.
+			[x] Shadow/Silence moving back to Rat Warrens
+			[x] Need to move out the milkers once complete.
+			[x] Set all tiles as safe once complete.
+			[x] Dice den tile description is wrong
+			[x] Entrance challenge is available after hostilities started
+			[x] stepping back from Murk gives Entrance responses
+			[x] solo error: at com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue$5.getResponse(RatWarrensDialogue.java:750)
+			[x] milker orifices need to be gaped if gape/anal content on
+			[x] Silence combat repeats for infinity
+			[] Test milker sex history
+		[x] Cooperation route
+		[x] Cooperation route solo
+			[x] seduce
+				[x] error in parsing tooltip for seduce
+				[x] quest does not update
+				[x] Vengar gains no affection for seduced
+			[x] threaten
+				[x] Silence and Shadow do not disappear after knock-out
+				[x] Vengar loses no affection for threatened or any fights started
 			[] pay/kneel
+				[x] kneel submit should be action 1, refuse should be 2
+				[x] kneel submit throws error
+				[x] afterwards put in wrong tile and movement restricted
+				[x] money not taken
+				[x] no indication that it will prevent future conflict
+				[x] Conflict is not blocked in other tiles once going down coop route
+				[x] Threesome post-sex dialogue has incorrect response
+				[x] murk gets stuck in milking room
+				[x] axel skin colours should be white
+				[x] Incorrect parsing paths for Lexa route
+				[x] get stuck at Submission Enforcer post after reporting to Claire
+				[x] On return check
+					[x] Post-Vengar bedroom sex puts out in wrong corridor
+					[x] Throne room should always block movement (otherwise can walk into bedroom and see sex options)
+				[x] Axel not called Lexa
+				[x] Vengar needs to cage Lexa
+				[x] Lexa does not equip clothing after TF
+				[x] Hypno watch available even if don't have it
+				[x] Make sure Silence is described as giving Axel the feminisation potion (via Shadow). In gambling den as well
+				[x] Lexa feminise supplement missing
+				[x] Lexa jacket needs to be unzipped
+				[x] Axel gains no affection for helping him
+				[x] Vengar gains no affection for submitting
+				[x] Dice den rum for companion as well
+				[x] Lexa visit does not move her into the office
+				[x] can fight Murk after quest finished
+				[x] Dice den gamblers' names need to be revealed
+				[x] Error: There is no DiceFace with the value '0'...
+				[x] Offer body in post-defeat gambling is available even if gambler is not attracted to you
+				[x] Vengar does not gain affection for bringing Axel to him
+				[x] Vengar, SS, go to bedroom at night, so when you enter the hall at night there's nobody there...
 		[] Captive route
-			[] foursome on you + companion stocks targeting is broken
-			[] murk mikls you even if you aren't lactating yet
-			[] after refusing to beg for Murk's cock, change of being fucked should increase
-			[] sex ends up using your companion as the dom...
-			[] day ends too late. Should end at 10
+		[] Captive route solo
+			[] foursome on you + companion stocks targeting is broken (They all target you)
+			[x] Murk milks you even if you aren't lactating yet
+			[] after refusing to beg for Murk's cock, chance of being fucked should increase
+			[] Break out fight needs to be without companion
+			[x] sex ends up using your companion as the dom...
+			[x] day ends too late. Should end at 10
+			[x] Sleep sometimes fires late, and maybe can be missed?
+			[] Flow needs general improvement
 			[x] 'Step back' dialogue leads into incorrect scene
-		[] Vengar sex slave route
+			[x] retain essences on enslavement/escape
+		[x] Vengar sex slave route
+		[x] Vengar sex slave route solo
+			[x] Murk does not move back to his own tile
+			[x] VENGARS_HALL_GROPED_START_SEX and several others pointing to wrong folder location
+			[x] tattoo has no image
+			[x] no encounters trigger
+			[x] Need to be moved into bed chambers from hall, then trigger next scene
+			[x] gang members spawning with virginities
+			[x] Silence needs to dispel elemental after combat
+			[x] Rats persist after encounters, and too many rats are spawning inconsistently
+			[x] Need to stop Rat Warrens being all dangerous
+			[x] group flirt sex actions are broken
+			[x] time advances too far past extended work time when serving
+			[x] no encounter to return you to bedroom after events
+			[x] player not moved to bedroom still
+			[x] serving takes too long in general
+			[x] cannot escape via pretending to sleep
+			[x] 'Wait' should advance by 30 minutes
+			[x] Need 'wait' in bed chambers
+			[x] solo transformation encounters companion error freeze
+			[x] When captured and while applying the fetish transformations, there are error messages from missing dialogue nodes
+			[] Need reduced fetish gain and desire alteration text
+			[x] Change enchantment to 'servitude' (block self-TF, cannot manage companions, cannot unjinx clothing, cannot enchant, cannot teleport, cannot summon elementals)
+				[x] handle loading
+				[x] methods sorted out and inventory dialogue updated
+			[x] When captured, if you have a companion, you can tell this character to go home, and they will do so, removing them from the Rat Warrens
+			[x] You can summon elementals while captive
+			[x] Choose Vengar action leads to no responses
+	[] Add content
+		[] Add interaction with rats in dorms
+		[] Vengar full fem option
+		[] Need non-violent post-quest Vengar rum discussion. Also need Warrens to be converted
+		[] Need non-violent post-quest Murk removal option
+		[] Make Vengar hall repeat scenes based on persuasion, threatened, or seduced
 	[] Check through other bugs.
 	[] Tail chonk TF
-	[] Writing.
+	[] Inverted nipple chance
+	[] Writing -make sure parsing targets are passed in correctly.
 	[] Roxy's shop enter variations for Vengar slave.
 	
+	
+	Dialogue involving your companion when captured has references to he/his etc, when the companion is a female.
+	
+	This is probably the way the whole ‘captured’ part of the plot works, but I have seen no way to escape the Rat Warrens as yet.
+		I have seen that it should be possible, as there are dialogue nodes for it. And as you said the whole thing still needs work it seems that it’s just not possible yet.
+		Or maybe you need to gather 500 essences so you can unjinx the collar. That’s a lot of orgasms…
+	
+	
 	Bugs
-		[] All enemies just use resist lust damage when player is down but companion is fighting
+		[x] All enemies just use resist lust damage when player is down but companion is fighting
 		[x] Cannot skip sex when spectator
 		[] Quick sex does not use sex manager's preference
 		[] When spectating, second dom only performed foreplay on companion when skipping sex
 		[] Lyssieth did not remove butt plug when wanting to fuck ass, even though it was not jinxed...
+		[] Check Lilaya birthing delivering scenes for parsing errors
+		[] NPCs can start(NPC1)/stop(NPC2) indefinitely when player watching two of them interacting
+		[] IF NPC is willing at start, but goes to 0 lust and they end sex, they get -200 affection and it counts as rape?
+		[] After sex threesome, quick-sexing when Vengar is fucking companion makes him fuck you. (Define target preferences and make sure quick sex uses them. Also make quick sex subs get each other off if consensual)
+		[] Remove odd penis names from dialogue parsing (such as 'shaft')
+		[] Tattoos are not being given default names on tooltips
+		[] Encounter initialisation is being called many times on one encounter. This could be causing issues.
 	
 	Very rarely it seems like Silence spams the protective gusts spell on herself...
 	

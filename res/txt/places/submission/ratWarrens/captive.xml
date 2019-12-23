@@ -63,12 +63,19 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_SLEEP_MILKING_CHECK"><![CDATA[
+	<htmlContent tag="STOCKS_SLEEP_MILKING_CHECK_FIRST"><![CDATA[
 	<p>
-		Murk attaches the milking equipment, before going around behind you. If player has pussy, inserts enchanted insertable dildo. If player has only cock, he inserts enchanted butt-plug. Murk comments on player's capacity.
+		Murk has finished transforming you. Comments on your new form.
 	</p>
 	<p>
-		You start producing milk/cum for the machine to suck out of you.
+		If producing milk, he attaches the milking equipment, before going around behind you. If player has pussy, inserts arcane-powered vibrator (turned off). If player has only cock (and anal content on), he inserts it into ass instead. If gape content, Murk comments on player's capacity.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_MILKING_CHECK"><![CDATA[
+	<p>
+		If producing milk, he attaches the milking equipment, before going around behind you. If player has pussy, inserts enchanted insertable dildo. If player has only cock, he inserts enchanted butt-plug. Murk comments on player's capacity.
 	</p>
 	]]>
 	</htmlContent>
@@ -129,9 +136,22 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="STOCKS_TRANSFORM_MILKING_FIRST_TIME"><![CDATA[
+	<p>
+		Murk fondles you and makes you beg to have the machine turned on. Teases you that this is the last moment before you get addicted to the pleasure of being milked.
+	</p>
+	<p>
+		He turns it on and it starts milking you of milk/cum.
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="STOCKS_TRANSFORM_MILKING"><![CDATA[
 	<p>
-		Murk hooks you up to the milking machine. Fondles you while doing it.
+		Murk fondles you and makes you beg to have the machine turned on.
+	</p>
+	<p>
+		He turns it on and it starts milking you of milk/cum.
 	</p>
 	]]>
 	</htmlContent>
@@ -167,16 +187,6 @@
 	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_MILKING_START"><![CDATA[
 	<p>
 		Murk hooks your companion up to the milking machine for the first time. Gropes them while doing it.
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- STOCKS_TRANSFORM -->
-	
-	<htmlContent tag="STOCKS_TRANSFORM_MILKING_START"><![CDATA[
-	<p>
-		With all transformations finished, Murk hooks you up to the milking machine.
 	</p>
 	]]>
 	</htmlContent>
@@ -280,13 +290,6 @@
 	<htmlContent tag="STOCKS_WAITING_COMPANION_TEASE"><![CDATA[
 	<p>
 		Murk teases your companion with his cock.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_WAITING_ESSENCE_EXTRACTION"><![CDATA[
-	<p>
-		Murk uses the essence extraction machine on you, commenting on how you're his cash cow.
 	</p>
 	]]>
 	</htmlContent>
@@ -654,24 +657,23 @@
 	</htmlContent>
 	
 	
-	<!-- STOCKS_AFTER_DEFEAT_SEX -->
+	<!-- STOCKS_INITIAL -->
 	
 	<htmlContent tag="STOCKS_INITIAL"><![CDATA[
 	<p>
-		Murk has finished with you. Chains you back up.
+		Murk attaches a chain to your collar, before freeing you from the stocks. Tells you (and companion) to sleep on the straw near your stocks. He'll get transformative potions prepared for you tomorrow...
 	</p>
 	]]>
 	</htmlContent>
 	
 	
-	<!-- STOCKS_ESCAPED -->
+	<!-- ESCAPING -->
 	
-	<htmlContent tag="STOCKS_ESCAPED"><![CDATA[
+	<htmlContent tag="ESCAPING"><![CDATA[
 	<p>
-		You manage to slip past the guards (see Vengar fucking a rat-girl on the way out). As you exit, you meet SWORD Enforcers about to carry out raid. They demand to know if Vengar is inside. Say yes, they raid.
+		Shadow and Silence lead you (and companion) down tunnels.
 	</p>
 	]]>
 	</htmlContent>
-	
 	
 </dialogue>

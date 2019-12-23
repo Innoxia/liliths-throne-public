@@ -5444,10 +5444,11 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(isAbleToRemoveJinxes()) {
+								if(getJinxRemovalBlockedResponse()==null) {
 									return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You can't unjinx clothing in combat!", null);
+									
 								} else {
-									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
+									return getJinxRemovalBlockedResponse();
 								}
 							} else {
 								if(clothing.isCondom()) {
@@ -5536,7 +5537,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(isAbleToRemoveJinxes()) {
+								if(getJinxRemovalBlockedResponse()==null) {
 									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
 										return new Response("Unjinx ([style.italicsArcane("+clothing.getJinxRemovalCost()+" Essences)])",
 												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.", INVENTORY_MENU) {
@@ -5556,8 +5557,9 @@ public class InventoryDialogue {
 									} else {
 										return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx this piece of clothing!", null);
 									}
+									
 								} else {
-									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
+									return getJinxRemovalBlockedResponse();
 								}
 							} else {
 								if(clothing.isCondom()) {
@@ -5736,7 +5738,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(isAbleToRemoveJinxes()) {
+								if(getJinxRemovalBlockedResponse()==null) {
 									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
 										return new Response("Unjinx ([style.italicsArcane("+clothing.getJinxRemovalCost()+" Essences)])",
 												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.",
@@ -5761,7 +5763,7 @@ public class InventoryDialogue {
 										return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx a piece of clothing!", null);
 									}
 								} else {
-									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
+									return getJinxRemovalBlockedResponse();
 								}
 							} else {
 								if(clothing.isCondom()) {
@@ -5857,10 +5859,10 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(isAbleToRemoveJinxes()) {
+								if(getJinxRemovalBlockedResponse()==null) {
 									return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You can't unjinx someone's clothing while fighting them!", null);
 								} else {
-									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
+									return getJinxRemovalBlockedResponse();
 								}
 							} else {
 								if(clothing.isCondom()) {
@@ -5978,7 +5980,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(isAbleToRemoveJinxes()) {
+								if(getJinxRemovalBlockedResponse()==null) {
 									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
 										return new Response("Unjinx ([style.italicsArcane("+clothing.getJinxRemovalCost()+" Essences)])",
 												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.", INVENTORY_MENU) {
@@ -5999,7 +6001,7 @@ public class InventoryDialogue {
 										return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx this piece of clothing!", null);
 									}
 								} else {
-									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
+									return getJinxRemovalBlockedResponse();
 								}
 							} else {
 								if(clothing.isCondom()) {
@@ -6136,7 +6138,7 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(isAbleToRemoveJinxes()) {
+								if(getJinxRemovalBlockedResponse()==null) {
 									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
 										return new Response("Unjinx ([style.italicsArcane("+clothing.getJinxRemovalCost()+" Essences)])",
 												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.", Sex.SEX_DIALOGUE) {
@@ -6160,7 +6162,7 @@ public class InventoryDialogue {
 										return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx this piece of clothing!", null);
 									}
 								} else {
-									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
+									return getJinxRemovalBlockedResponse();
 								}
 							} else {
 								if(clothing.isCondom()) {
@@ -8312,8 +8314,21 @@ public class InventoryDialogue {
 //		}
 	}
 	
-	private static boolean isAbleToRemoveJinxes() {
-		return Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY);
+	private static Response getJinxRemovalBlockedResponse() {
+		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+			return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit and ask her about it...", null);
+		}
+		if(Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSelfTransformationInhibiting())) {
+			return new Response("Unjinx",
+					"Although you are normally able to unjinx clothing, you cannot do so due to an enchantment on one or more pieces of your equipped clothing!",
+					null);
+		}
+		if(Main.game.getPlayer().getTattoos().values().stream().anyMatch(c -> c.isSelfTransformationInhibiting())) {
+			return new Response("Unjinx",
+					"Although you are normally able to unjinx clothing, you cannot do so due to an enchantment on one or more of your tattoos!",
+					null);
+		}
+		return null;
 	}
 	
 	

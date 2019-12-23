@@ -1895,7 +1895,7 @@ public class LyssiethPalaceDialogue {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.meraxisRepeatDemonTF)) {
 				return SIREN_OFFICE.getResponse(responseTab, index);
 			}
-			return Main.game.getDefaultDialogueNoEncounter().getResponse(responseTab, index);
+			return Main.game.getDefaultDialogue(false).getResponse(responseTab, index);
 		}
 	};
 }

@@ -170,33 +170,33 @@ public class SubmissionGenericPlaces {
 	};
 	
 	public static final DialogueNode RAT_WARREN = new DialogueNode("Rat Warrens", "", false) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 3*60;
 		}
-		
 		@Override
 		public String getContent() {
+			if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)) {
+				return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "RAT_WARREN_CLOSED");
+			}
 			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "RAT_WARREN");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Knock",
-						"Knock on the door and wait to see if anyone answers.",
-						RAT_WARREN_KNOCK_ON_DOOR) {
-					@Override
-					public void effects() {
-						RatWarrensDialogue.init();
-						Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE);
-					}
-				};
-				
-			} else {
-				return null;
+			if(!Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)) {
+				if(index==1) {
+					return new Response("Knock",
+							"Knock on the door and wait to see if anyone answers.",
+							RAT_WARREN_KNOCK_ON_DOOR) {
+						@Override
+						public void effects() {
+							RatWarrensDialogue.init();
+							Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE);
+						}
+					};
+				}
 			}
+			return null;
 		}
 	};
 	

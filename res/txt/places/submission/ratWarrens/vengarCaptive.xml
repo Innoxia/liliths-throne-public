@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 	
+	<!-- Fetish Transformations -->
+	
+	<htmlContent tag="APPLY_FETISH_SUBMISSIVE"><![CDATA[
+	<p>
+		Shadow tells you that you're going to love being a submissive bitch from now on.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPLY_FETISH_TRANSFORMATION"><![CDATA[
+	<p>
+		#IF(!pc.isAbleToHaveRaceTransformed())
+			Shadow teases you about how you're going to beg her to be allowed to self-transform into a slutty cock-sleeve after this.
+		#ELSE
+			Shadow teases you about how you're going to love being transformed into a rat-girl slut after this.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPLY_FETISH_BEHAVIOUR_EXTRAS"><![CDATA[
+	<p>
+		Shadow tells you you're going to love exposing your slutty cunt and getting it pumped full of rat cum.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPLY_FETISH_HOLES"><![CDATA[
+	<p>
+		The black-furred rat-girl teases you about how you're going to love having all your holes used.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPLY_FETISH_SERVICING_HOLES"><![CDATA[
+	<p>
+		Shadow laughs as she says that you're going to be permanently desperate to service all the gang's cocks and pussies.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPLY_FETISH_FINISHED_NO_EFFECT"><![CDATA[
+	<p>
+		Shadow laughs as she realises that you're suffering no effects due to already having all the fetishes she wanted to inflict upon you. Tells you that the real transformations are coming next.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPLY_FETISH_FINISHED"><![CDATA[
+	<p>
+		Shadow laughs as she informs you that you're nothing but her plaything now. Tells you that the real transformations are coming next.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- FINAL_COMBAT_DEFEAT_STRIPPED -->
 	
 	<htmlContent tag="FINAL_COMBAT_DEFEAT_STRIPPED"><![CDATA[
@@ -815,6 +871,41 @@
 	</htmlContent>
 	
 	
+	<!-- VENGARS_HALL_NIGHT_TIME_ESCORTED -->
+	
+	<htmlContent tag="VENGARS_HALL_NIGHT_TIME_ESCORTED_SEX"><![CDATA[
+	<p>
+		You go with Shadow as she leads you into the private bedchambers. Shows you to Vengar's bedroom, then leaves to go to her own shared bedroom with Silence.
+	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Vengar and [npc.name] are already in his bedroom. Vengar asks which of you he'll fuck tonight...
+		</p>
+	#ELSE
+		<p>
+			Vengar is already in his bedroom. He tells you to present yourself to be fucked...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_NIGHT_TIME_ESCORTED"><![CDATA[
+	<p>
+		You go with Shadow as she leads you into the private bedchambers. Shows you to Vengar's bedroom, then leaves to go to her own shared bedroom with Silence.
+	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Vengar and [npc.name] are already in his bedroom. Vengar is too tired to fuck you or [npc.name] tonight...
+		</p>
+	#ELSE
+		<p>
+			Vengar is already in his bedroom. Vengar is too tired to fuck you tonight...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
 	<!-- VENGARS_HALL_SERVE -->
 	
 	<htmlContent tag="VENGARS_HALL_SERVE"><![CDATA[
@@ -840,6 +931,16 @@
 	<htmlContent tag="VENGARS_HALL_GROPED"><![CDATA[
 	<p>
 		[npc.Name(A)] grabs you as you pass [npc.her] table and starts groping and feeling you up...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_GROPED_GROUP_START_SEX"><![CDATA[
+	<p>
+		Sitting on the table, you spread your legs and entice the rats to fuck you...
+	</p>
+	<p>
+		The rats move you into position, with one of them lying down and getting you to sit down into the cowgirl position, riding [npc.her] cock. If anal is enabled, another penetrates your ass. If not, the others surround you and prepare to receive oral...
 	</p>
 	]]>
 	</htmlContent>
@@ -877,6 +978,13 @@
 	
 	
 	<!-- VENGARS_HALL_GROPED_FINISH -->
+	
+	<htmlContent tag="VENGARS_HALL_GROPED_GROUP_FINISH"><![CDATA[
+	<p>
+		You let the rats grope and feel you up for some time, before they've finally had enough and dismiss you...
+	</p>
+	]]>
+	</htmlContent>
 	
 	<htmlContent tag="VENGARS_HALL_GROPED_FINISH"><![CDATA[
 	<p>
@@ -948,7 +1056,7 @@
 	
 	<htmlContent tag="VENGARS_HALL_GROUP_SEX_START"><![CDATA[
 	<p>
-		The rats move you into position, with one of them lying down and getting you to sit down into the cowgirl position, riding [npc.her] cock. If anal is enabled, anotehr penetrates your ass. If not, the others surround you and prepare to reeive oral...
+		The rats move you into position, with one of them lying down and getting you to sit down into the cowgirl position, riding [npc.her] cock. If anal is enabled, another penetrates your ass. If not, the others surround you and prepare to receive oral...
 	</p>
 	]]>
 	</htmlContent>
@@ -1244,7 +1352,7 @@
 		You finish with Silence, and she pats you on the head, before pointing behind you. You turn around to see Shadow looking down at you.
 	</p>
 	<p>
-		Letting out a sigh, she reveals that she and Silence were playing along and helping to keep you captive only as part of a larger scheme. Everything is in place now, and your escape attempt has coincided with her decision to make her move. Tells you that your equipment is no longer stored in her, and to follow her.
+		With a grin on her face, she reveals that she and Silence were playing along and helping to keep you captive only as part of a larger scheme. Everything is in place now, and your escape attempt has coincided with her decision to make her move. Tells you that your equipment is no longer stored in her, and to follow her.
 	</p>
 	]]>
 	</htmlContent>
@@ -1267,7 +1375,7 @@
 	
 	<htmlContent tag="ESCAPING"><![CDATA[
 	<p>
-		Shadow leads you (and companion) to a hidden storage room, where your equipment is being stored. Unclasping your collar, she discards it before letting you get your old gear back.
+		Shadow leads you (and companion) out of the hall and to a hidden storage room further down the tunnel, where your equipment is being stored. Unclasping your collar, she discards it before letting you get your old gear back.
 	</p>
 	<p>
 		Once you're fully equipped again, she tells you that your only hope of getting out of this place is to follow her.

@@ -26,11 +26,8 @@ import com.lilithsthrone.game.character.npc.dominion.Lumi;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.submission.BatMorphCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
-import com.lilithsthrone.game.character.npc.submission.Shadow;
-import com.lilithsthrone.game.character.npc.submission.Silence;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
-import com.lilithsthrone.game.character.npc.submission.Vengar;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -973,12 +970,6 @@ public enum Encounter {
 		@Override
 		protected DialogueNode getBaseRandomEncounter(boolean forceEncounter) {
 			if(!Main.game.isExtendedWorkTime()) {
-				Main.game.getNpc(Vengar.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-				Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-				Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-				if(Main.game.getPlayer().hasCompanions()) {
-					Main.game.getPlayer().getMainCompanion().setLocation(Main.game.getPlayer(), false);
-				}
 				return VengarCaptiveDialogue.VENGARS_HALL_NIGHT_TIME;
 			}
 			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_3)) {
@@ -995,25 +986,15 @@ public enum Encounter {
 				return VengarCaptiveDialogue.VENGARS_HALL_SERVE;
 				
 			} else if(node == EncounterType.VENGAR_CAPTIVE_GROPED) {
-				VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, false));
 				return VengarCaptiveDialogue.VENGARS_HALL_GROPED;
 				
 			} else if(node == EncounterType.VENGAR_CAPTIVE_VENGAR_FUCK) {
 				return VengarCaptiveDialogue.VENGARS_HALL_VENGAR_FUCK;
 				
 			} else if(node == EncounterType.VENGAR_CAPTIVE_RAT_FUCK) {
-				VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, false));
 				return VengarCaptiveDialogue.VENGARS_HALL_RAT_FUCK;
 				
 			} else if(node == EncounterType.VENGAR_CAPTIVE_GROUP_SEX) {
-				VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, true));
-				if(Main.game.isAnalContentEnabled()) {
-					VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, true));
-				} else {
-					VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(true, false));
-				}
-				VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, false));
-				VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, false));
 				return VengarCaptiveDialogue.VENGARS_HALL_GROUP_SEX;
 			}
 			
@@ -1045,12 +1026,6 @@ public enum Encounter {
 		@Override
 		protected DialogueNode getBaseRandomEncounter(boolean forceEncounter) {
 			if(!Main.game.isExtendedWorkTime()) {
-				Main.game.getNpc(Vengar.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-				Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-				Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-				if(Main.game.getPlayer().hasCompanions()) {
-					Main.game.getPlayer().getMainCompanion().setLocation(Main.game.getPlayer(), false);
-				}
 				return VengarCaptiveDialogue.VENGARS_BEDROOM_NIGHT_TIME;
 			}
 			return super.getBaseRandomEncounter(forceEncounter);
@@ -1058,19 +1033,12 @@ public enum Encounter {
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.VENGAR_CAPTIVE_CLEAN_ROOM) {
-				Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
 				return VengarCaptiveDialogue.VENGARS_BEDROOM_CLEAN;
 				
 			} else if(node == EncounterType.VENGAR_CAPTIVE_SHADOW_SILENCE_DOMINATE) {
-				Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-				Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-				if(Main.game.getPlayer().hasCompanions()) {
-					Main.game.getPlayer().getMainCompanion().setLocation(Main.game.getPlayer(), false);
-				}
 				return VengarCaptiveDialogue.VENGARS_BEDROOM_SHADOW_SILENCE;
 				
 			} else if(node == EncounterType.VENGAR_CAPTIVE_ROOM_BARRED) {
-				Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
 				return VengarCaptiveDialogue.VENGARS_BEDROOM_BARRED;
 			}
 			

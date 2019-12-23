@@ -39,6 +39,7 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -114,7 +115,7 @@ public class RatWarrensCaptiveDialogue {
 		guards.addAll(Main.game.getCharactersPresent());
 		guards.removeIf(npc -> Main.game.getPlayer().getParty().contains(npc) || (!includeMilkers && (npc instanceof RatWarrensCaptive)));
 		Collections.sort(guards, (a, b)->a.getLevel()-b.getLevel());
-		if(Main.game.getPlayer().hasCompanions()) {
+		if(Main.game.getPlayer().hasCompanions() && includeCompanion) {
 			guards.add(0, Main.game.getPlayer().getMainCompanion());
 		}
 		return guards;
@@ -431,9 +432,6 @@ public class RatWarrensCaptiveDialogue {
 				boolean murkSex=false;
 				calculatePlayerSexType();
 				switch(companionInteraction) {
-					case ESSENCE_EXTRACTION:
-						// Should be impossible
-						break;
 					case MILKING:
 						getOwner().setLocation(Main.game.getPlayer(), false);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_WAITING_COMPANION_MILKING", getCharacters(true, false)));
@@ -446,12 +444,12 @@ public class RatWarrensCaptiveDialogue {
 						break;
 					case SEX:
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_WAITING_COMPANION_SEX", getCharacters(true, false)));
-						Main.game.getTextStartStringBuilder().append(getMainCompanion().calculateGenericSexEffects(false, true, null, Subspecies.RAT_MORPH, null, getRandomSexTypeForCompanion(null)));
+						Main.game.getTextStartStringBuilder().append(getMainCompanion().calculateGenericSexEffects(false, true, null, Subspecies.RAT_MORPH, null, getRandomSexTypeForCompanion(null), GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED));
 						break;
 					case SEX_THREESOME:
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_WAITING_COMPANION_SEX_THREESOME", getCharacters(true, false)));
-						Main.game.getTextStartStringBuilder().append(getMainCompanion().calculateGenericSexEffects(false, true, null, Subspecies.RAT_MORPH, null, getRandomSexTypeForCompanion(null)));
-						Main.game.getTextStartStringBuilder().append(getMainCompanion().calculateGenericSexEffects(false, true, null, Subspecies.RAT_MORPH, null, getRandomSexTypeForCompanion(null)));
+						Main.game.getTextStartStringBuilder().append(getMainCompanion().calculateGenericSexEffects(false, true, null, Subspecies.RAT_MORPH, null, getRandomSexTypeForCompanion(null), GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED));
+						Main.game.getTextStartStringBuilder().append(getMainCompanion().calculateGenericSexEffects(false, true, null, Subspecies.RAT_MORPH, null, getRandomSexTypeForCompanion(null), GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED));
 						break;
 					case TEASE:
 						getOwner().setLocation(Main.game.getPlayer(), false);
@@ -461,7 +459,7 @@ public class RatWarrensCaptiveDialogue {
 				}
 				if(murkSex) {
 					Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_WAITING_COMPANION_MURK_SEX", getCharacters(true, false)));
-					Main.game.getTextStartStringBuilder().append(getMainCompanion().calculateGenericSexEffects(false, true, getOwner(), getRandomSexTypeForCompanion(getOwner())));
+					Main.game.getTextStartStringBuilder().append(getMainCompanion().calculateGenericSexEffects(false, true, getOwner(), getRandomSexTypeForCompanion(getOwner()), GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED));
 				}
 			}
 		}
@@ -471,12 +469,6 @@ public class RatWarrensCaptiveDialogue {
 		playerInteraction = CaptiveInteractionType.getRandomType(Main.game.getPlayer());
 		playerMurkSex = false;
 		switch(playerInteraction) {
-			case ESSENCE_EXTRACTION:
-				getOwner().setLocation(Main.game.getPlayer(), false);
-				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_WAITING_ESSENCE_EXTRACTION", getCharacters(true, false)));
-				Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setLust(75));
-				Main.game.getPlayer().setEssenceCount(TFEssence.ARCANE, 0);
-				break;
 			case MILKING:
 				getOwner().setLocation(Main.game.getPlayer(), false);
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_WAITING_MILKING", getCharacters(true, false)));
@@ -505,9 +497,14 @@ public class RatWarrensCaptiveDialogue {
 	}
 	
 	public static void restoreInventories() {
+		int essences = Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE);
 		Main.game.getPlayer().setInventory(Main.game.getSavedInventories().get(Main.game.getPlayer().getId()));
+		Main.game.getPlayer().setEssenceCount(TFEssence.ARCANE, essences);
+		
 		if(isCompanionDialogue()) {
+			essences = getMainCompanion().getEssenceCount(TFEssence.ARCANE);
 			getMainCompanion().setInventory(Main.game.getSavedInventories().get(getMainCompanion().getId()));
+			getMainCompanion().setEssenceCount(TFEssence.ARCANE, essences);
 		}
 	}
 	
@@ -571,7 +568,12 @@ public class RatWarrensCaptiveDialogue {
 					}
 					
 				} else {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_SLEEP_MILKING_CHECK", getCharacters(true, false)));
+					if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveMilkingStarted)) {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_SLEEP_MILKING_CHECK_FIRST", getCharacters(true, false)));
+						
+					} else {
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_SLEEP_MILKING_CHECK", getCharacters(true, false)));
+					}
 				}
 			}
 			
@@ -740,7 +742,17 @@ public class RatWarrensCaptiveDialogue {
 					
 				} else {
 					if(index==1) {
-						return new Response("Milked", UtilText.parse(getOwner(), "[npc.Name] hooks you back up to the milking machine..."), STOCKS_TRANSFORM) {
+						if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveMilkingStarted)) {
+							return new Response("Milked", UtilText.parse(getOwner(), "[npc.Name] prepares to turn on your milking machine for the first time..."), STOCKS_TRANSFORM) {
+								@Override
+								public void effects() {
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_TRANSFORM_MILKING_FIRST_TIME", getCharacters(true, false)));
+									Main.game.getTextStartStringBuilder().append(getCompanionTfEffects());
+									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveMilkingStarted, true);
+								}
+							};
+						}
+						return new Response("Milked", UtilText.parse(getOwner(), "[npc.Name] prepares to turn on your milking machine..."), STOCKS_TRANSFORM) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_TRANSFORM_MILKING", getCharacters(true, false)));
@@ -781,18 +793,7 @@ public class RatWarrensCaptiveDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveMilkingStarted)) {
-				if(index==1) {
-					return new Response("Milked", UtilText.parse(getOwner(), "[npc.Name] hooks you up to the milking machine..."), STOCKS_TRANSFORM) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_TRANSFORM_MILKING_START", getCharacters(true, false)));
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveMilkingStarted, true);
-						}
-					};
-				}
-				
-			} else if(Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_3)) {
+			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_3)) {
 				// Silence delivers
 				if(index==1) {
 					return new Response("Birthing", UtilText.parse(getOwner(), "[npc.Name] notices that you're ready to give birth..."), STOCKS_GIVE_BIRTH) {
@@ -912,7 +913,13 @@ public class RatWarrensCaptiveDialogue {
 	public static final DialogueNode STOCKS_WAITING = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return (1+Util.random.nextInt(5))*60*60;
+			int seconds = (1+Util.random.nextInt(5))*60*60;
+			int progression = seconds + Main.game.getDaySeconds();
+			if(progression > 22*60*60) { // Do not pass 22:10:
+				seconds = seconds - (progression - 22*60*60);
+				seconds += 10*60;
+			}
+			return seconds; 
 		}
 		@Override
 		public String getContent() {
@@ -921,7 +928,6 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			switch(playerInteraction) {
-				case ESSENCE_EXTRACTION:
 				case MILKING:
 				case PUNISHMENT:
 					if(index==1) {
@@ -942,8 +948,13 @@ public class RatWarrensCaptiveDialogue {
 					break;
 				case TEASE:
 					if(index==1) {
-						return new Response("Refuse",
-								UtilText.parse(getOwner(), "Refuse to beg for [npc.name] to fuck you, and instead stay quiet and wait for [npc.herHim] to leave..."),
+						return new Response(
+								playerMurkSex
+									?"Refuse"
+									:"Continue",
+								playerMurkSex
+									?UtilText.parse(getOwner(), "Refuse to beg for [npc.name] to fuck you, and instead stay quiet and wait for [npc.herHim] to leave...")
+									:"Murk isn't interested in fucking you right now, and turns around to leave...",
 								Main.game.isExtendedWorkTime()
 									?STOCKS_WAITING
 									:STOCKS_NIGHT) {
@@ -998,7 +1009,7 @@ public class RatWarrensCaptiveDialogue {
 				case SEX_THREESOME:
 					if(index==1) {
 						return getPlayerMilkingStallSexResponse("Fucked",
-								UtilText.parse(getCharacters(false, false).get(0), "There's nothing you can do to stop the rat from having [npc.her] way with you..."),
+								UtilText.parse(getCharacters(false, false).get(0), "There's nothing you can do to stop the rats from having their way with you..."),
 								STOCKS_AFTER_SEX, 
 								Util.newHashMapOfValues(
 										new Value<>(getCharacters(false, false).get(0), SexSlotMilkingStall.BEHIND_MILKING_STALL),
@@ -1062,7 +1073,6 @@ public class RatWarrensCaptiveDialogue {
 	};
 
 	public static final DialogueNode STOCKS_NIGHT = new DialogueNode("", "", false) {
-		//TODO prevent all fast travel
 		@Override
 		public int getSecondsPassed() {
 			return 30*60;
@@ -1307,7 +1317,7 @@ public class RatWarrensCaptiveDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_RELEASED_OFFER_COMPANY_SLIP_AWAY", getCharacters(true, false)));
-						restoreInventories(); //TODO remember to add description of essences
+						restoreInventories();
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveAttemptingEscape, true);
 					}
 				};
@@ -1359,7 +1369,7 @@ public class RatWarrensCaptiveDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_ESCAPE_FIGHT_VICTORY_ESCAPING", getCharacters(true, false)));
-						restoreInventories(); //TODO remember to add description of essences
+						restoreInventories();
 					}
 				};
 			}

@@ -146,7 +146,12 @@ public class RatGangMember extends NPC {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC); // Just to make player defeats easier to handle
 			
 			this.setHistory(Occupation.NPC_GANG_MEMBER);
-			
+		}
+		if(this.hasPenis()) {
+			this.setPenisVirgin(false);
+		}
+		if(this.hasVagina() && !this.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+			this.setVaginaVirgin(false);
 		}
 	}
 

@@ -7,7 +7,6 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -36,13 +35,6 @@ public enum CaptiveInteractionType {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.hasVagina() || Main.game.isAnalContentEnabled() || target.hasPenis();
-		}
-	},
-
-	ESSENCE_EXTRACTION {
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return target.getEssenceCount(TFEssence.ARCANE)>250;
 		}
 	},
 	

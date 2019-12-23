@@ -47,6 +47,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -347,14 +348,20 @@ public class Silence extends NPC {
 
 	@Override
 	public void turnUpdate() {
-		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
-			if(!Main.game.getCharactersPresent().contains(this) && !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+		if(!Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)
+				&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_COOPERATION_END)) {
+			if(!Main.game.getCharactersPresent().contains(this)
+					&& Main.game.getPlayer().isCaptive()
+					&& !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
 				if(!Main.game.isExtendedWorkTime() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
 					this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
 				} else {
 					this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 				}
 			}
+
+		} else {
+			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS);
 		}
 	}
 	
@@ -407,6 +414,11 @@ public class Silence extends NPC {
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
+		if(this.isElementalSummoned()) {
+			NPC elemental = this.getElemental();
+			this.removeCompanion(elemental);
+			elemental.returnToHome();
+		}
 		return Main.game.getNpc(Shadow.class).endCombat(applyEffects, victory);
 	}
 }

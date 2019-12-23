@@ -301,7 +301,15 @@ public class CompanionManagement {
 						OCCUPANT_CHOOSE_NAME);
 				
 			} else if(index==10) {
-				if(!Main.game.isSavedDialogueNeutral()) {
+				if(Main.game.getPlayer().isCaptive()) {
+					return new Response(
+							characterSelected() instanceof Elemental
+								?"Dispel"
+								:"Go home",
+							"As you are a captive, you cannot dismiss your companions!",
+							null);
+					
+				} else if(!Main.game.isSavedDialogueNeutral()) {
 					return new Response(
 							characterSelected() instanceof Elemental
 								?"Dispel"

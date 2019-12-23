@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.5.6";
+	public static final String VERSION_NUMBER = "0.3.5.7";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -90,8 +90,14 @@ public class Main extends Application {
 		+ "</p>"
 		
 		+ "<p>"
-			+ "Sorry about how long this version has taken to get out."
-			+ " I've hit a bit of a rough patch with Axel's quest, and as such it isn't quite ready just yet, but it will be in the next version."
+			+ "A thousand apologies for the delay between this update and the last one!"
+			+ " I kept on running into issues with Axel's quest, and ended up losing pretty much all of November to continuous scrapping and remaking of the flow of his quest."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "Please be aware that there is a significant amount of placeholder dialogue in this version of Axel's quest, and it is still rough around the edges."
+			+ " [style.italicsBad(I would advise only playing this version if you want a sneak peek of the sort of thing his quest involves!)]"
+			+ " A more polished version will be released very soon."
 		+ "</p>"
 			
 		+ "<br/>"
@@ -102,7 +108,86 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<br/>"
-
+		
+		+ "<list>"
+			+ "<h6>v0.3.5.7</h6>"
+			+"<li>Contributions:</li>"
+			+"<ul>Fixed some stores in the Shopping Arcade causing a softlock. (PR#1227 by triples941)</ul>"
+			+"<ul>Fixed several issues with random attacker dialogue not displaying correctly. (PR#1231 by triples941)</ul>"
+			+"<ul>Made some slight adjustments to Maven configuration. (PR#1235 by Zsar)</ul>"
+			+"<ul>Fixed issue with NPC sex positioning sometimes causing a game-breaking bug in sex. (by Rist)</ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul>Added a new quest for Axel. (There is a lot of placeholder dialogue for now, and is still very rough around the edges. It will be improved for the next update!)</ul>"
+			+"<ul>Added a 'Quick Sex' action to sex, under the 'Misc. Actions' tab. Selecting this will immediately end sex, but apply all effects as though (some basic) sex had taken place. A short description of the sex actions performed will be displayed.</ul>"
+			+"<ul>Added a 'Gape content' preference, which by default is turned on (keeping the game's behaviour as it always has been). When turned off, 'gaping' descriptions of orifices are replaced with less extreme descriptions (such as just 'loose'), and any special gape-related content will be hidden.</ul>"
+			
+			+"<li>Artwork:</li>"
+			+"<ul>Added: 16 images for Lyssieth drawn by FriendlyAlienFriend. These include variations for human/lilin forms, pregnancy, and futa.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Demons no longer spawn with tentacles in their anus and vagina. (I'll add those for different demon varieties in the jungle and some other places later on.)</ul>"
+			+"<ul>Improved generic sex effects (such as when slaves are having sex when you are not present) to take into account girlcum and milk being drunk, condoms being used, orifices being stretched, and body parts being dirtied by cum.</ul>"
+			+"<ul>Moved dice poker and some more of Slaver Alley's dialogue text into external .txt files.</ul>"
+			+"<ul>Added 'Bounty Hunter Lodge' location in Slaver Alley.</ul>"
+			+"<ul>Renamed 'Alexa' to 'Helena'. (For three reasons: I felt there were a disproportionate amount of 'A'-named unique NPCs; I wanted her name to be similar to a beautiful character from mythology; I didn't want her to share a name with a popular intrusive electronic device.)</ul>"
+			+"<ul>NPCs will now prefer to move out of the 'standing' position if they want to have penetrative sex.</ul>"
+			+"<ul>Added day incrementing to debug menu's 'Misc.' actions.</ul>"
+			+"<ul>In combat, NPCs should now only cast status-effect-application spells on suitable targets (i.e. they should no longer continuously use spells such as 'poison vapours' on a target which already has has associated status effect).</ul>"
+			+"<ul>In combat, NPCs will now use a wider range of moves available to them, and will be a lot more willing to cast defensive spells on themselves or their allies.</ul>"
+			+"<ul>You can now transform vaginas of pregnant characters (but cannot remove them). The unborn offspring are unaffected by this.</ul>"
+			+"<ul>Added 'Mute' personality trait, which at the moment is unavailable to the player, and has a 0.01% of being given to a random NPC.</ul>"
+			+"<ul>Added options to have repeat sex with Lyssieth in her lilin form after you've been transformed into a demon.</ul>"
+			+"<ul>Improved Lyssieth's sex preferences when having repeat sex with her in her office.</ul>"
+			
+			+"<li>Items:</li>"
+			+"<ul>Added: 'Pistol crossbow' (common, one-handed, ranged, sold by Vicky).</ul>"
+			+"<ul>Updated: Chaos feather (rare) to 'rough arcane feather', and Chaos feather (Epic) to 'arcane feather'. Updated icons for each, and increased their value.</ul>"
+			+"<ul>Added: 'Pristine arcane feather' (legendary, one-handed, ranged, sold by Vicky).</ul>"
+			+"<ul>Added support for tertiary colouring of weapons.</ul>"
+			+"<ul>Added a 'self-transformation inhibition' enchantment, which can be added to clothing and tattoos by selecting the primary modifier 'Special effects' and then the secondary modifier 'Self-Transformation inhibition'. While worn/tattooed onto someone, this enchantment prevents demons and slimes from accessing the self-transformation menu.</ul>"
+			+"<ul>Moved slave collar into res folder, improved icon and description, and added more recolouring options. Default enchantments for slave collar are now -15 arcane, -15 lust resist, sealing, enslavement, and self-transformation inhibition.</ul>"
+			+"<ul>Added 'removal' as a secondary modifier for breast transformation potions, which completely flattens breasts when used.</ul>"
+			+"<ul>Moved all leg clothing into external res folder, and slightly improved several leg clothing icons (skirt, miniskirt, pleated microskirt, belted microskirt, bike shorts, hotpants, tight jeans, jeans).</ul>"
+			+"<ul>Added a requirements element to tattoo xml files, so you can limit tattoo availability based on the target who is receiving it. (See the 'heart womb' tattoo xml file for an example.)</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed background error sometimes being thrown when generating half-demons, which was blocking randomly-spawned characters from being half-demons.</ul>"
+			+"<ul>Quite a few typo, parsing, and formatting fixes.</ul>"
+			+"<ul>Fixed some background errors when in non-companion dialogue for the random harpy attackers, Submission tunnel attackers, and Bat cavern attackers.</ul>"
+			+"<ul>Fixed incorrect descriptions when an enemy forces a transformation potion onto your companion (after being defeated in combat).</ul>"
+			+"<ul>Asymmetrical skirt now correctly blocks the anus slot when not pulled up.</ul>"
+			+"<ul>NPCs spawning with randomly generated weapons will now have enough essences to use their weapons (if any of them have an essence cost).</ul>"
+			+"<ul>Fixed incorrect public sex descriptions from being displayed while you were watching sex in public places.</ul>"
+			+"<ul>Fixed 'Offer body' dialogue not working in random attacker scenes when you didn't have a companion with you.</ul>"
+			+"<ul>Fixed bug where bat cavern random bat-morph attackers would not initialise correctly (and therefore no bat-morph enemies would spawn when you were travelling through or exploring the tunnels of the bat caverns).</ul>"
+			+"<ul>Fixed issue where randomly spawned clients in Angel's Kiss might sometimes not be cleared up correctly.</ul>"
+			+"<ul>Fixed formatting bug where expanding a character's 'Stats' information box would conceal the 'Perks' information box beneath it.</ul>"
+			+"<ul>Fixed some cases where menu navigation could get slightly broken when sending companions home or dismissing elementals.</ul>"
+			+"<ul>Fixed issue where characters would not be recognised as half-siblings if one or more of the three relevant parents were removed from the game.</ul>"
+			+"<ul>Corrected Slime Queen's job perk icon.</ul>"
+			+"<ul>Companion's elementals should no longer do increased damage if the difficulty setting is meant to be boosting enemy damage.</ul>"
+			+"<ul>Fixed application of lisp and stutter in speech causing style tags to break.</ul>"
+			+"<ul>Fixed player's gender identity not being correctly set (this shouldn't affect anything, and if it's used in future content, I'll provide a way to define it).</ul>"
+			+"<ul>Breast feeding and other oral+nipple actions are no loner blocked when nipple penetration content is turned off.</ul>"
+			+"<ul>Fixed issue where the UI could sometimes freeze on the 1st of every month.</ul>"
+			+"<ul>Fixed bug where half-demon offspring would not initialise correctly and cause game-breaking freezes. This was being encountered at the moment of impregnation if generated offspring were half-demons.</ul>"
+			+"<ul>Fixed mouth orifice always being referred to as 'a mouth'.</ul>"
+			+"<ul>Fixed issues with Roxy sometimes being happy to switch to anilingus or other sex types.</ul>"
+			+"<ul>Random NPCs will no longer spawn wearing Enforcer's tactical combat boots.</ul>"
+			+"<ul>'Impregnations' tattoo counter should now function correctly.</ul>"
+			+"<ul>Helena will no longer return to her nest after taking over Scarlet's shop in slaver alley.</ul>"
+			+"<ul>Fixed bug where clothing unequipped as a result of a body part transformation (such as unequipping a tail ribbon when losing your tail) would not revert attribute modifications from that clothing item.</ul>"
+			+"<ul>Clothing which requires a penis to be equipped (condoms & chastity cages) can no longer be equipped onto strapons or dildos. (This change was made due to an underlying conflict in the code, but I will try to refactor it at some point to re-enable this behaviour.)</ul>"
+			+"<ul>Meraxis (The Dark Siren) will now correctly use all of the spells at her disposal.</ul>"
+			+"<ul>Fixed minor issue where NPCs' home locations were not cleared correctly upon being removed from the game.</ul>"
+			+"<ul>Fixed issue with NPCs' combat move selection not working correctly.</ul>"
+			+"<ul>Fixed some incorrect skin colours on Axel.</ul>"
+			+"<ul>Fixed 'Offer body' in the post-loss dice poker scene being available even if the gambler is not attracted to you.</ul>"
+		+ "</list>"
+			
+		+ "<br/>"
+		
 		+ "<list>"
 			+ "<h6>v0.3.5.4</h6>"
 			+"<li>Engine:</li>"
@@ -831,7 +916,7 @@ public class Main extends Application {
 		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.NORMAL) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Can only quicksave in a normal scene!");
 			
-		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogueNoEncounter())) {
+		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogue(false))) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot save in this scene!");
 			
 		} else {
@@ -851,7 +936,7 @@ public class Main extends Application {
 	}
 
 	public static boolean isSaveGameAvailable() {
-		return Main.game.isStarted() && Main.game.getSavedDialogueNode() == Main.game.getDefaultDialogueNoEncounter();
+		return Main.game.isStarted() && Main.game.getSavedDialogueNode() == Main.game.getDefaultDialogue(false);
 	}
 	
 	public static void saveGame(String name, boolean allowOverwrite) {

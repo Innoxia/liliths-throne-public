@@ -304,7 +304,7 @@
 	
 	<htmlContent tag="OFFICE_WITH_LEXA_FEMINISE"><![CDATA[
 	<p>
-		You ask [lexa.name] if [lexa.she] has the feminising potion which Vengar gave [lexa.herHim]. [lexa.She] replies in the affirmative, and wonders out loud if [lexa.she] should use it. [lexa.She] also reveals that [lexa.she] had a cock-size potion supplement made, in case [lexa.she] wanted to grow [lexa.her] cock...
+		You ask [lexa.name] if [lexa.she] has the feminising potion which Vengar gave [lexa.herHim]. [lexa.She] replies in the affirmative, and wonders out loud if [lexa.she] should use it. [lexa.She] also expresses uncertainty about using the blue potion which would increase [lexa.her] cock size...
 	</p>
 	]]>
 	</htmlContent>
@@ -649,7 +649,7 @@
 		You say nothing and let Axel drink the potion-laced rum. He transforms before your eyes into a far slimmer and shorter androgynous version of himself. Vengar advances on Axel and says that [axel.she] should have a new name, 'Lexa'.
 	</p>
 	<p>
-		Lexa agrees and lets out a little moan as Vengar traces his fingers over [lexa.her] chest...
+		Lexa agrees and lets out a little moan as Vengar traces his fingers over [lexa.her] chest. Vengar produces a light pink chastity cage and clips it on Lexa's cock, saying [lexa.she] won't need to be doing any dominant fucking any more.
 	</p>
 	]]>
 	</htmlContent>
@@ -659,7 +659,13 @@
 	
 	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_RETURN"><![CDATA[
 	<p>
-		You stop Vegnar from going any further. He laughs and lets the two of you go.
+		You stop Vegnar from going any further. He laughs and lets the two of you go. Gives you the key to Lexa's cage.
+	</p>
+	<p>
+		On the way out, Silence gives a pair of potions to Lexa; one pink, the other smaller and blue. Shadow says the pink one will make [lexa.herHim] even more feminine, while the blue will retain or even grow [lexa.her] cock size if drunk immediately after.
+	</p>
+	<p>
+		You return to the gambling den. [lexa.Name] tells you that [lexa.she] has a reward for all of your help...
 	</p>
 	]]>
 	</htmlContent>
@@ -671,12 +677,23 @@
 	<p>
 		Vengar suggests that either you or he should fuck Lexa to really put [lexa.herHim] in [lexa.her] place...
 	</p>
+	#IF(!axel.isAttractedTo(pc))
+		<p>
+			Lexa expresses [lexa.her] unwillingness to have sex with someone as feminine as you. Vengar says you'll just have to watch him fuck Lexa then...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AXEL_VENGAR_VISIT_SISSIFIED_FINISH_STOPPED_RETURN"><![CDATA[
 	<p>
-		You stop Vengar from going any further. He laughs and lets the two of you go.
+		You stop Vengar from going any further. He laughs and lets the two of you go. Gives you the key to Lexa's cage.
+	</p>
+	<p>
+		On the way out, Silence gives a pair of potions to Lexa; one pink, the other smaller and blue. Shadow says the pink one will make [lexa.herHim] even more feminine, while the blue will retain or even grow [lexa.her] cock size if drunk immediately after.
+	</p>
+	<p>
+		You return to the gambling den. [lexa.Name] tells you that [lexa.she] has a reward for all of your help...
 	</p>
 	]]>
 	</htmlContent>
@@ -728,7 +745,13 @@
 	
 	<htmlContent tag="AFTER_AXEL_SISSIFIED_SEX_RETURN"><![CDATA[
 	<p>
-		The two of you travel back to the gambling den, where [lexa.name] tells you that [lexa.she] has a reward for all of your help...
+		The two of you head back out of the Rat Warrens. Vengar gives you the key to Lexa's cage.
+	</p>
+	<p>
+		On the way out, Silence gives a pair of potions to Lexa; one pink, the other smaller and blue. Shadow says the pink one will make [lexa.herHim] even more feminine, while the blue will retain or even grow [lexa.her] cock size if drunk immediately after.
+	</p>
+	<p>
+		You return to the gambling den. [lexa.Name] tells you that [lexa.she] has a reward for all of your help...
 	</p>
 	]]>
 	</htmlContent>
@@ -738,7 +761,14 @@
 	
 	<htmlContent tag="AXEL_VENGAR_VISIT_STOPPED_RETURN_FINISH"><![CDATA[
 	<p>
-		[lexa.name] gives you 50,000 flames, and reveals that [lexa.she] overhead Shadow, but thought that it sounded fun to have an opportunity to have a different perspective. Asks you if you'll come back and see [lexa.herHim] again for maybe some more 'rewards'. For now, though, [lexa.she] asks if you can go and report all of this to Claire.
+		[lexa.name] gives you [#SPECIAL_PARSE_0] flames, and reveals that [lexa.she] overhead Shadow, but thought that it sounded fun to have an opportunity to have a different perspective.
+	</p>
+	<p>
+		#IF(axel.isAttractedTo(pc))
+			Asks you if you'll come back and see [lexa.herHim] again for maybe some more 'rewards'. For now, though, [lexa.she] asks if you can go and report all of this to Claire.
+		#ELSE
+			As a final favour, [lexa.name] asks if you'd go and report all of this to Claire.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

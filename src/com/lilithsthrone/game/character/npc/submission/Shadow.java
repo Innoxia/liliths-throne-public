@@ -43,6 +43,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -92,7 +93,7 @@ public class Shadow extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) { // Reset character
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.7")) { // Reset character
 			setupPerks(true);
 			setStartingBody(true);
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
@@ -154,7 +155,7 @@ public class Shadow extends NPC {
 		// Body:
 		// Core:
 		this.setHeight(173);
-		this.setFemininity(80);
+		this.setFemininity(70);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
 
@@ -316,14 +317,20 @@ public class Shadow extends NPC {
 
 	@Override
 	public void turnUpdate() {
-		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
-			if(!Main.game.getCharactersPresent().contains(this) && !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+		if(!Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)
+				&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_COOPERATION_END)) {
+			if(!Main.game.getCharactersPresent().contains(this)
+					&& Main.game.getPlayer().isCaptive()
+					&& !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
 				if(!Main.game.isExtendedWorkTime() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
 					this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
 				} else {
 					this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 				}
 			}
+			
+		} else {
+			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS);
 		}
 	}
 	
@@ -341,7 +348,10 @@ public class Shadow extends NPC {
 
 	@Override
 	public Response interruptCombatSpecialCase() {
-		if(Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class)) && Combat.isCombatantDefeated(this) && !Combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
+		if(Combat.getAllCombatants(false).contains(this)
+				&& Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))
+				&& Combat.isCombatantDefeated(this)
+				&& !Combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
 			return new Response("Silence",
 					"As she sees Shadow fall to the floor, Silence stumbles back, looking as though she's about to faint.",
 					RatWarrensDialogue.BODYGUARDS_COMBAT_SHADOW_DEFEATED){
@@ -351,7 +361,10 @@ public class Shadow extends NPC {
 				}
 			};
 			
-		} else if(Combat.getAllCombatants(false).contains(this) && !Combat.isCombatantDefeated(this) && Combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
+		} else if(Combat.getAllCombatants(false).contains(this)
+				&& Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))
+				&& !Combat.isCombatantDefeated(this)
+				&& Combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
 			return new Response("Shadow",
 					"As she sees Silence fall to the floor, Shadow lets out a furious scream, looking as though she's about to completely lose her mind.",
 					RatWarrensDialogue.BODYGUARDS_COMBAT_SILENCE_DEFEATED){

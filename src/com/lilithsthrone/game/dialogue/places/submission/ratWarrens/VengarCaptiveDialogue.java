@@ -161,7 +161,7 @@ public class VengarCaptiveDialogue {
 		List<GameCharacter> characters = new ArrayList<>();
 		characters.addAll(Main.game.getCharactersPresent());
 		characters.removeIf(npc -> Main.game.getPlayer().getParty().contains(npc) || !(npc instanceof RatGangMember));
-		Collections.sort(characters, (a, b)->a.hasPenis()?(b.hasPenis()?0:-1):(b.hasPenis()?1:0)); //TODO test (penises should be first)
+		Collections.sort(characters, (a, b)->a.hasPenis()?(b.hasPenis()?0:-1):(b.hasPenis()?1:0));
 		if(Main.game.getPlayer().hasCompanions() && includeCompanion) {
 			characters.add(0, Main.game.getPlayer().getMainCompanion());
 		}
@@ -170,33 +170,57 @@ public class VengarCaptiveDialogue {
 	
 	private static String applyFetishTransformation(GameCharacter target) {
 		StringBuilder sb = new StringBuilder();
+		boolean tfApplied = false;
 		
-		sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_SUBMISSIVE"));
-		sb.append(target.addFetish(Fetish.FETISH_SUBMISSIVE));
-		sb.append(target.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.THREE_LIKE));
+		if(!target.hasFetish(Fetish.FETISH_SUBMISSIVE) || !target.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive()) {
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_SUBMISSIVE"));
+			sb.append(target.addFetish(Fetish.FETISH_SUBMISSIVE));
+			sb.append(target.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.THREE_LIKE));
+			tfApplied = true;
+		}
 
-		sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_TRANSFORMATION"));
-		sb.append(target.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING));
+		if(!target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_TRANSFORMATION"));
+			sb.append(target.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING));
+			tfApplied = true;
+		}
 
-		sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_BEHAVIOUR_EXTRAS"));
-		sb.append(target.setFetishDesire(Fetish.FETISH_EXHIBITIONIST, FetishDesire.THREE_LIKE));
-		sb.append(target.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE));
+		if(!target.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isPositive() || !target.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive()) {
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_BEHAVIOUR_EXTRAS"));
+			sb.append(target.setFetishDesire(Fetish.FETISH_EXHIBITIONIST, FetishDesire.THREE_LIKE));
+			sb.append(target.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE));
+			tfApplied = true;
+		}
 
-		sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_HOLES"));
-		sb.append(target.addFetish(Fetish.FETISH_VAGINAL_RECEIVING));
-		sb.append(target.addFetish(Fetish.FETISH_ORAL_GIVING));
-		if(Main.game.isAnalContentEnabled()) {
-			sb.append(target.addFetish(Fetish.FETISH_ANAL_RECEIVING));
+		if(!target.hasFetish(Fetish.FETISH_VAGINAL_RECEIVING) 
+				|| !target.hasFetish(Fetish.FETISH_ORAL_GIVING) 
+				|| (Main.game.isAnalContentEnabled() && !target.hasFetish(Fetish.FETISH_ANAL_RECEIVING))) {
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_HOLES"));
+			sb.append(target.addFetish(Fetish.FETISH_VAGINAL_RECEIVING));
+			sb.append(target.addFetish(Fetish.FETISH_ORAL_GIVING));
+			if(Main.game.isAnalContentEnabled()) {
+				sb.append(target.addFetish(Fetish.FETISH_ANAL_RECEIVING));
+			}
+			tfApplied = true;
+		}
+
+		if(!target.hasFetish(Fetish.FETISH_PENIS_RECEIVING) 
+				|| !target.hasFetish(Fetish.FETISH_VAGINAL_GIVING) 
+				|| (Main.game.isAnalContentEnabled() && !target.hasFetish(Fetish.FETISH_ANAL_GIVING))) {
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_SERVICING_HOLES"));
+			sb.append(target.addFetish(Fetish.FETISH_PENIS_RECEIVING));
+			sb.append(target.addFetish(Fetish.FETISH_VAGINAL_GIVING));
+			if(Main.game.isAnalContentEnabled()) {
+				sb.append(target.addFetish(Fetish.FETISH_ANAL_GIVING));
+			}
+			tfApplied = true;
 		}
 		
-		sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_SERVICING_HOLES"));
-		sb.append(target.addFetish(Fetish.FETISH_PENIS_RECEIVING));
-		sb.append(target.addFetish(Fetish.FETISH_VAGINAL_GIVING));
-		if(Main.game.isAnalContentEnabled()) {
-			sb.append(target.addFetish(Fetish.FETISH_ANAL_GIVING));
+		if(!tfApplied) {
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_FINISHED_NO_EFFECT"));
+		} else {
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_FINISHED"));
 		}
-		
-		sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_FINISHED"));
 		
 		return sb.toString();
 	}
@@ -204,7 +228,7 @@ public class VengarCaptiveDialogue {
 	private static String applyTransformation(GameCharacter target) {
 		StringBuilder sb = new StringBuilder();
 		
-		if(!target.isAbleToSelfTransform()) {
+		if(target.isAbleToHaveRaceTransformed()) {
 			boolean genitalsSet = false;
 			switch(Main.getProperties().getForcedTFPreference()) {
 				case NORMAL:
@@ -278,8 +302,8 @@ public class VengarCaptiveDialogue {
 	}
 	
 	private static void applyTattoo(GameCharacter target, String text) {
-		Tattoo tattoo = new Tattoo(TattooType.NONE, null, null, null, false, new TattooWriting(text, Colour.BASE_PINK, false), null);
-		tattoo.setName(text);
+		Tattoo tattoo = new Tattoo(TattooType.NONE, Colour.CLOTHING_GREY, null, null, false, new TattooWriting(text, Colour.BASE_PINK, false), null);
+		tattoo.setName("'"+text+"' tattoo");
 		target.addTattoo(InventorySlot.GROIN, tattoo);
 	}
 	
@@ -339,18 +363,20 @@ public class VengarCaptiveDialogue {
 						null) {
 					@Override
 					public void effects() {
-						if(Main.game.getPlayer().isAbleToSelfTransform()) {
+						if(!Main.game.getPlayer().isAbleToHaveRaceTransformed()) {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "TF_SELF_TF"));
 						} else {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "TF_SWALLOW"));
 						}
 						Main.game.getTextStartStringBuilder().append(applyTransformation(Main.game.getPlayer()));
-
-						applyTransformation(getMainCompanion());
-						if(Main.game.getPlayer().isAbleToSelfTransform()) {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "TF_COMPANION_SELF_TF"));
-						} else {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "TF_COMPANION_SWALLOW"));
+						
+						if(isCompanionDialogue()) {
+							applyTransformation(getMainCompanion());
+							if(!getMainCompanion().isAbleToHaveRaceTransformed()) {
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "TF_COMPANION_SELF_TF"));
+							} else {
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "TF_COMPANION_SWALLOW"));
+							}
 						}
 					}
 				};
@@ -524,7 +550,7 @@ public class VengarCaptiveDialogue {
 							null,
 							null,
 							START_VENGAR_PUBLIC_FUCK_AFTER_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX_DOUBLE_PLAYER_START")) {
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX_DOUBLE_PLAYER_START", getCharactersPresent(true))) {
 						@Override
 						public void effects() {
 							Main.game.getNpc(Shadow.class).calculateGenericSexEffects(
@@ -565,14 +591,7 @@ public class VengarCaptiveDialogue {
 							null,
 							null,
 							START_VENGAR_PUBLIC_FUCK_AFTER_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX_DOUBLE_COMPANION_START")) {
-						@Override
-						public void effects() {
-							Main.game.getNpc(Shadow.class).calculateGenericSexEffects(
-									true, true, null, Subspecies.RAT_MORPH, Subspecies.RAT_MORPH, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.PREVENT_CREAMPIE);
-							Main.game.getNpc(Silence.class).calculateGenericSexEffects(
-									true, true, null, Subspecies.RAT_MORPH, Subspecies.RAT_MORPH, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.PREVENT_CREAMPIE);
-						}
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX_DOUBLE_COMPANION_START", getCharactersPresent(true))) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							List<InitialSexActionInformation> list = new ArrayList<>();
@@ -597,7 +616,7 @@ public class VengarCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX", getCharactersPresent(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -617,11 +636,11 @@ public class VengarCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX_TATTOOED");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX_TATTOOED", getCharactersPresent(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			List<String> tattooNames = Util.newArrayListOfValues("Public cum dump", "Public cock sleeve", "Free fuck", "Rat-cock only");
+			List<String> tattooNames = Util.newArrayListOfValues("Public cum dump", "Public cock sleeve", "Free fuck", "Free use");
 			
 			if(index==1) {
 				return new Response("Stay quiet",
@@ -642,7 +661,7 @@ public class VengarCaptiveDialogue {
 							UtilText.addSpecialParsingString(companionTattooName, false);
 						}
 						
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX_TATTOOED_STAY_QUIET"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX_TATTOOED_STAY_QUIET", getCharactersPresent(true)));
 					}
 				};
 				
@@ -664,7 +683,7 @@ public class VengarCaptiveDialogue {
 							UtilText.addSpecialParsingString(companionTattooName, false);
 						}
 						
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX_TATTOOED_CHOOSE_TATTOO"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX_TATTOOED_CHOOSE_TATTOO", getCharactersPresent(true)));
 					}
 				};
 				
@@ -687,25 +706,35 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Continue",
 						"You're left free to wander between the hall and Vengar's bedroom.",
-						Main.game.getDefaultDialogue());
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())) {
+					@Override
+					public void effects() {
+						applyDailyReset(); // So that Vengar, Shadow, and Silence are willing to fuck on the first day
+					}
+				};
 			}
 			return null;
 		}
 	};
 	
-	public static final DialogueNode VENGARS_HALL = new DialogueNode("", "", false) { //TODO Test disabled fast travel while captive
+	public static final DialogueNode VENGARS_HALL = new DialogueNode("", "", false) {
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL", getCharactersPresent(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Wait", "Loiter around in the hall, waiting to see is something will be asked of you.", PlaceType.RAT_WARRENS_VENGARS_HALL.getDialogue(true, true));
+				return new Response("Wait", "Loiter around in the hall, waiting to see is something will be asked of you.", PlaceType.RAT_WARRENS_VENGARS_HALL.getDialogue(true, true)) {
+					@Override
+					public int getSecondsPassed() {
+						return 30*60;
+					}
+				};
 				
 			} else if(index==2) {
 				return new Response("Serve", "Start serving food and drink to the rats gathered in the hall.", VENGARS_HALL_CHOOSE_SERVE);
@@ -758,7 +787,16 @@ public class VengarCaptiveDialogue {
 						switch(currentCompanionBehaviour) {
 							case FLIRTING:
 							case FUCKING:
-								generateRat(Gender.getGenderFromUserPreferences(false, false)); //TODO need penis or vagina
+								Gender gender = Gender.getGenderFromUserPreferences(false, false);
+								// Need penis or vagina:
+								if(!gender.getGenderName().isHasPenis() && !gender.getGenderName().isHasVagina()) {
+									if(gender.isFeminine()) {
+										gender = Gender.getGenderFromUserPreferences(true, false);
+									} else {
+										gender = Gender.getGenderFromUserPreferences(false, true);
+									}
+								}
+								generateRat(gender); 
 								break;
 							case GROUP_SEX:
 								generateRat(Gender.getGenderFromUserPreferences(false, true));
@@ -829,7 +867,7 @@ public class VengarCaptiveDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vengarCaptiveVengarSatisfied)) {
 				if(index==1) {
-					new Response("Obey", "Drop down onto your knees before Vengar and get his cock out.", VENGARS_HALL_CHOOSE_VENGAR_HANDJOB) {
+					return new Response("Obey", "Drop down onto your knees before Vengar and get his cock out.", VENGARS_HALL_CHOOSE_VENGAR_HANDJOB) {
 						@Override
 						public boolean isSexHighlight() {
 							return true;
@@ -902,7 +940,7 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Dismissed",
 						"Do as Vengar commands and head back down into the hall.",
-						Main.game.getDefaultDialogue());
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 			}
 			return null;
 		}
@@ -938,7 +976,7 @@ public class VengarCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Do as Vengar commands and head back down into the hall.", Main.game.getDefaultDialogue());
+				return new Response("Continue", "Do as Vengar commands and head back down into the hall.", Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 			}
 			return null;
 		}
@@ -951,7 +989,7 @@ public class VengarCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vengarCaptiveShadowSatisfied)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vengarCaptiveShadowSatisfied)) {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_CHOOSE_SHADOW_DISMISSED");
 			}
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_CHOOSE_SHADOW");
@@ -975,7 +1013,7 @@ public class VengarCaptiveDialogue {
 				
 			} else {
 				if(index==1) {
-					return new Response("Continue", "Do as Shadow commands and leave her alone, heading back into the hall instead.", Main.game.getDefaultDialogue());
+					return new Response("Continue", "Do as Shadow commands and leave her alone, heading back into the hall instead.", Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 				}
 			}
 			return null;
@@ -1031,7 +1069,7 @@ public class VengarCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Do as Shadow commands and head back down into the hall.", Main.game.getDefaultDialogue());
+				return new Response("Continue", "Do as Shadow commands and head back down into the hall.", Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 			}
 			return null;
 		}
@@ -1044,7 +1082,7 @@ public class VengarCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vengarCaptiveSilenceSatisfied)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vengarCaptiveSilenceSatisfied)) {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_CHOOSE_SILENCE_DISMISSED");
 			}
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_CHOOSE_SILENCE");
@@ -1075,13 +1113,13 @@ public class VengarCaptiveDialogue {
 					};
 				
 				} else if(index==2) {
-					return new Response("Leave", "Decide against performing oral on Silence and head back into the hall instead.", Main.game.getDefaultDialogue());
+					return new Response("Leave", "Decide against performing oral on Silence and head back into the hall instead.", Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 					
 				}
 				
 			} else {
 				if(index==1) {
-					return new Response("Continue", "As Silence seems unwilling to react to your presence, there's nothing left to do except head back into the hall.", Main.game.getDefaultDialogue());
+					return new Response("Continue", "As Silence seems unwilling to react to your presence, there's nothing left to do except head back into the hall.", Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 				}
 			}
 			return null;
@@ -1100,7 +1138,7 @@ public class VengarCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Silence seems unwilling to do anything else with you at the moment, so you have little option but to head back into the hall.", Main.game.getDefaultDialogue());
+				return new Response("Continue", "Silence seems unwilling to do anything else with you at the moment, so you have little option but to head back into the hall.", Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 			}
 			return null;
 		}
@@ -1148,7 +1186,7 @@ public class VengarCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Leave", UtilText.parse(getMainCompanion(), "Leave [npc.name] to it and head back into the hall."), Main.game.getDefaultDialogue());
+				return new Response("Leave", UtilText.parse(getMainCompanion(), "Leave [npc.name] to it and head back into the hall."), Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 			}
 			switch(currentCompanionBehaviour) {
 				case FLIRTING:
@@ -1279,7 +1317,7 @@ public class VengarCaptiveDialogue {
 						null,
 						null,
 						AFTER_COMPANION_FLIRTING_ORAL,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_CHOOSE_COMPANION_FLIRTING_ORAL", getCharactersPresent(true)));
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_CHOOSE_COMPANION_FLIRTING_ORAL", getCharactersPresent(true)));
 			}
 			return null;
 		}
@@ -1303,7 +1341,7 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Continue",
 						UtilText.parse(getCharactersPresent(true), "Having had [npc2.her] fun, [npc2.name] leaves you and [npc.name] to get on with other duties in the hall..."),
-						Main.game.getDefaultDialogue()) {
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())) {
 					@Override
 					public void effects() {
 						banishGenericRats();
@@ -1328,7 +1366,7 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Continue",
 						UtilText.parse(getCharactersPresent(true), "Having had [npc2.her] fun, [npc2.name] leaves you and [npc.name] to get on with other duties in the hall..."),
-						Main.game.getDefaultDialogue()){
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())){
 					@Override
 					public void effects() {
 						banishGenericRats();
@@ -1357,7 +1395,7 @@ public class VengarCaptiveDialogue {
 				if(index==1) {
 					return new Response("Leave",
 							UtilText.parse(getCharactersPresent(true), "Decide against getting involved with [npc.name] and [npc2.name]..."),
-							Main.game.getDefaultDialogue());
+							Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 					
 				} else if(index==2) {
 					return new ResponseSex("Take place",
@@ -1418,7 +1456,7 @@ public class VengarCaptiveDialogue {
 							null,
 							null,
 							AFTER_COMPANION_FUCKING,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_CHOOSE_COMPANION_FUCKING_GET_FUCKED", getCharactersPresent(true))){
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_CHOOSE_COMPANION_FUCKING_GET_FUCKED", getCharactersPresent(true))){
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							List<InitialSexActionInformation> initialActions = new ArrayList<>();
@@ -1440,7 +1478,7 @@ public class VengarCaptiveDialogue {
 				if(index==1) {
 					return new Response("Leave",
 							UtilText.parse(getCharactersPresent(true), "Decide against getting involved with [npc.name] and [npc2.name]..."),
-							Main.game.getDefaultDialogue());
+							Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 					
 				} else if(index==2) {
 					return new ResponseSex("Take place",
@@ -1494,7 +1532,7 @@ public class VengarCaptiveDialogue {
 							null,
 							null,
 							AFTER_COMPANION_FUCKING,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_CHOOSE_COMPANION_FUCKING_PERFORM_CUNNILINGUS", getCharactersPresent(true))){
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_CHOOSE_COMPANION_FUCKING_PERFORM_CUNNILINGUS", getCharactersPresent(true))){
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							List<InitialSexActionInformation> initialActions = new ArrayList<>();
@@ -1557,7 +1595,7 @@ public class VengarCaptiveDialogue {
 							null,
 							null,
 							AFTER_COMPANION_FUCKING,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_CHOOSE_COMPANION_FUCKING_PERFORM_ANILINGUS", getCharactersPresent(true))){
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_CHOOSE_COMPANION_FUCKING_PERFORM_ANILINGUS", getCharactersPresent(true))){
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							List<InitialSexActionInformation> initialActions = new ArrayList<>();
@@ -1593,7 +1631,7 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Continue",
 						UtilText.parse(getCharactersPresent(true), "Having had [npc2.her] fun, [npc2.name] leaves you and [npc.name] to get on with other duties in the hall..."),
-						Main.game.getDefaultDialogue()) {
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())) {
 					@Override
 					public void effects() {
 						banishGenericRats();
@@ -1618,7 +1656,7 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Leave",
 						UtilText.parse(getCharactersPresent(true), "Decide against getting involved with [npc.name] and the group of rats..."),
-						Main.game.getDefaultDialogue());
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 				
 			} else if(index==2) {
 				return new ResponseSex("Join in",
@@ -1713,7 +1751,7 @@ public class VengarCaptiveDialogue {
 						null,
 						null,
 						AFTER_COMPANION_GROUP_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_CHOOSE_COMPANION_GROUP_SEX_JOIN", getCharactersPresent(true))){
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_CHOOSE_COMPANION_GROUP_SEX_JOIN", getCharactersPresent(true))){
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
 						List<InitialSexActionInformation> initialActions = new ArrayList<>();
@@ -1763,7 +1801,7 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Continue",
 						UtilText.parse(getCharactersPresent(true), "Having had their fun, the rats leave you and [npc.name] to get on with other duties in the hall..."),
-						Main.game.getDefaultDialogue()) {
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())) {
 					@Override
 					public void effects() {
 						banishGenericRats();
@@ -1777,7 +1815,13 @@ public class VengarCaptiveDialogue {
 	public static final DialogueNode VENGARS_HALL_CHOOSE_COMPANION_SERVING = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 3*60*60;
+			int seconds = 3*60*60;
+			int progression = seconds + Main.game.getDaySeconds();
+			if(progression > 22*60*60) { // Do not pass 22:10:
+				seconds = seconds - (progression - 22*60*60);
+				seconds += 10*60;
+			}
+			return seconds; 
 		}
 		@Override
 		public String getContent() {
@@ -1788,7 +1832,7 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Finished",
 						UtilText.parse(getMainCompanion(), "After hours of having to serve food and drink to the rats in the hall, you and [npc.name] are finally finished."),
-						Main.game.getDefaultDialogue());
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 			}
 			return null;
 		}
@@ -1868,7 +1912,7 @@ public class VengarCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Do as Shadow commands and head back down into the hall.", Main.game.getDefaultDialogue());
+				return new Response("Continue", "Do as Shadow commands and head back down into the hall.", Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 			}
 			return null;
 		}
@@ -1932,7 +1976,7 @@ public class VengarCaptiveDialogue {
 			} else if(index==3) {
 				return new Response("Leave",
 						UtilText.parse(getCharactersPresent(true), "Leave [npc.name] to eat the cum out of Silence's freshly-creampied pussy and get on with other duties in the hall..."),
-						Main.game.getDefaultDialogue()) {
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())) {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Silence.class).clearFluidsStored(SexAreaOrifice.VAGINA);
@@ -2113,7 +2157,7 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Continue",
 						UtilText.parse(getCharactersPresent(true), "Having had his fun, Vengar orders you and [npc.name] to get on with other duties in the hall..."),
-						Main.game.getDefaultDialogue()) {
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())) {
 					@Override
 					public void effects() {
 						banishGenericRats();
@@ -2141,7 +2185,7 @@ public class VengarCaptiveDialogue {
 			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_3)) {
 				return new Response("Bedroom",
 						"Follow Shadow and Silence into the bedroom.",
-						Main.game.getDefaultDialogue()) {
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
@@ -2154,7 +2198,7 @@ public class VengarCaptiveDialogue {
 				if(index==1) {
 					return new Response("Continue",
 							UtilText.parse(getMainCompanion(), "From the gentle way in which Silence is treating [npc.name], you're able to continue with your duties in the hall without having to worry about [npc.herHim]."),
-							Main.game.getDefaultDialogue()) {
+							Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())) {
 						@Override
 						public void effects() {
 							getMainCompanion().endPregnancy(true);
@@ -2227,7 +2271,7 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Continue",
 						UtilText.parse(getCharactersPresent(true), "It's time for you to return to your duties in the hall..."),
-						Main.game.getDefaultDialogue());
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 			}
 			return null;
 		}
@@ -2247,7 +2291,7 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Continue",
 						UtilText.parse(getCharactersPresent(true), "It's time for you to return to your duties in the hall..."),
-						Main.game.getDefaultDialogue());
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 			}
 			return null;
 		}
@@ -2264,6 +2308,15 @@ public class VengarCaptiveDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Wait", "Loiter around in the bed-chambers in an attempt to pass the time without having to work in the hall...", PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS.getDialogue(true, true)) {
+					@Override
+					public int getSecondsPassed() {
+						return 30*60;
+					}
+				};
+				
+			}
 			return null;
 		}
 	};
@@ -2311,12 +2364,48 @@ public class VengarCaptiveDialogue {
 
 	public static final DialogueNode VENGARS_HALL_NIGHT_TIME = new DialogueNode("", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Vengar.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+			Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+			if(Main.game.getPlayer().hasCompanions()) {
+				Main.game.getPlayer().getMainCompanion().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+			}
+			Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_NIGHT_TIME");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Shadow", "Shadow leads you into the private bed-chambers...", VENGARS_HALL_NIGHT_TIME_ESCORTED) {
+					@Override
+					public void effects() {
+						Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+						Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+					}
+				};
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode VENGARS_HALL_NIGHT_TIME_ESCORTED = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vengarCaptiveVengarSatisfied)) {
+				return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_NIGHT_TIME_ESCORTED_SEX", getCharactersPresent(true));
+			}
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_NIGHT_TIME_ESCORTED", getCharactersPresent(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -2347,7 +2436,13 @@ public class VengarCaptiveDialogue {
 	public static final DialogueNode VENGARS_HALL_SERVING = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 5*60*60;
+			int seconds = 3*60*60;
+			int progression = seconds + Main.game.getDaySeconds();
+			if(progression > 22*60*60) { // Do not pass 22:10:
+				seconds = seconds - (progression - 22*60*60);
+				seconds += 10*60;
+			}
+			return seconds; 
 		}
 		@Override
 		public String getContent() {
@@ -2358,13 +2453,17 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Finished",
 						"After hours of having to serve food and drink to the rats in the hall, you are finally finished.",
-						Main.game.getDefaultDialogue());
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 			}
 			return null;
 		}
 	};
 	
 	public static final DialogueNode VENGARS_HALL_GROPED = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, false));
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -2375,121 +2474,220 @@ public class VengarCaptiveDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Groped",
-						UtilText.parse(getCharactersPresent(false), "Just let [npc.name] grope you without letting [npc.herHim] take it any further."),
-						VENGARS_HALL_GROPED_FINISH);
-				
-			} else if(index==2 && (getCharactersPresent(false).get(0).hasPenis() || getCharactersPresent(false).get(0).hasVagina())) {
-				return new ResponseSex("Perform oral",
-						UtilText.parse(getCharactersPresent(false), "Perform oral on [npc.name]."),
-						true,
-						false,
-						new SMSitting(
-								Util.newHashMapOfValues(
-										new Value<>(getCharactersPresent(false).get(0), SexSlotSitting.SITTING)),
-								Util.newHashMapOfValues(
-										new Value<>(Main.game.getPlayer(), SexSlotSitting.PERFORMING_ORAL))) {
-							@Override
-							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-								Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-								if(getCharactersPresent(false).get(0).hasPenis()) {
+			if(getCharactersPresent(false).size()>1) {
+				if(index==1) {
+					return new Response("Groped",
+							"Just let the rats grope you without letting them take it any further.",
+							VENGARS_HALL_GROPED_FINISH);
+					
+				} else if(index==2) {
+					return new ResponseSex("Fucked",
+							"Lie back on the table and entice the rats to fuck you.",
+							true,
+							false,
+							new SMLyingDown(
+									Util.newHashMapOfValues(
+											new Value<>(getCharactersPresent(false).get(0), SexSlotLyingDown.LYING_DOWN),
+											new Value<>(getCharactersPresent(false).get(1), Main.game.isAnalContentEnabled()?SexSlotLyingDown.MISSIONARY:SexSlotLyingDown.FACE_SITTING),
+											new Value<>(getCharactersPresent(false).get(2), SexSlotLyingDown.BESIDE),
+											new Value<>(getCharactersPresent(false).get(3), SexSlotLyingDown.BESIDE_TWO)),
+									Util.newHashMapOfValues(
+											new Value<>(Main.game.getPlayer(), SexSlotLyingDown.COWGIRL))) {
+								@Override
+								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
 									map.put(getCharactersPresent(false).get(0), Util.newArrayListOfValues(CoverableArea.PENIS));
-								} else {
-									map.put(getCharactersPresent(false).get(0), Util.newArrayListOfValues(CoverableArea.VAGINA));
-								}
-								return map;
-							}
-							@Override
-							public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
-								return false;
-							}
-							@Override
-							public boolean isPositionChangingAllowed(GameCharacter character) {
-								return false;
-							}
-							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
-								if(character.equals(getCharactersPresent(false).get(0))) {
-									if(character.hasPenis()) {
-										return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
-										
+									if(Main.game.isAnalContentEnabled()) {
+										map.put(getCharactersPresent(false).get(1), Util.newArrayListOfValues(CoverableArea.PENIS));
 									} else {
-										return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
+										map.put(getCharactersPresent(false).get(1), Util.newArrayListOfValues(CoverableArea.VAGINA));
+										map.get(getCharactersPresent(false).get(0)).add(CoverableArea.MOUTH);
 									}
+									map.put(getCharactersPresent(false).get(2), Util.newArrayListOfValues(CoverableArea.VAGINA));
+									map.put(getCharactersPresent(false).get(3), Util.newArrayListOfValues(CoverableArea.VAGINA));
+									
+									map.put(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA));
+									if(Main.game.isAnalContentEnabled()) {
+										map.get(Main.game.getPlayer()).add(CoverableArea.ANUS);
+									}
+									return map;
 								}
-								return super.getForeplayPreference(character, targetedCharacter);
+								@Override
+								public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+									return false;
+								}
+								@Override
+								public boolean isPositionChangingAllowed(GameCharacter character) {
+									return false;
+								}
+								@Override
+								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+									if(character.equals(getCharactersPresent(false).get(0))) {
+										if(targetedCharacter.isPlayer()) {
+											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+										}
+										if(targetedCharacter.equals(getCharactersPresent(false).get(1)) && !Main.game.isAnalContentEnabled()) {
+											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
+										}
+									}
+									if(character.equals(getCharactersPresent(false).get(1))) {
+										if(targetedCharacter.isPlayer()) {
+											if(Main.game.isAnalContentEnabled()) {
+												return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
+											}
+										}
+										if(targetedCharacter.equals(getCharactersPresent(false).get(0)) && !Main.game.isAnalContentEnabled()) {
+											return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
+										}
+									}
+									return super.getForeplayPreference(character, targetedCharacter);
+								}
+								@Override
+								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+									if(!character.isPlayer()) {
+										return character.getForeplayPreference(targetedCharacter);
+									}
+									return super.getMainSexPreference(character, targetedCharacter);
+								}
+							},
+							null,
+							null,
+							VENGARS_HALL_AFTER_GROUP_SEX,
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_GROPED_GROUP_START_SEX", getCharactersPresent(false))){
+						@Override
+						public List<InitialSexActionInformation> getInitialSexActions() {
+							List<InitialSexActionInformation> initialActions = new ArrayList<>();
+							
+							initialActions.add(new InitialSexActionInformation(getCharactersPresent(false).get(0), Main.game.getPlayer(), PenisVagina.PENIS_FUCKING_START, true, true));
+							
+							if(Main.game.isAnalContentEnabled()) {
+								initialActions.add(new InitialSexActionInformation(getCharactersPresent(false).get(1), Main.game.getPlayer(), PenisAnus.PENIS_FUCKING_START, true, true));
+							} else {
+								initialActions.add(new InitialSexActionInformation(getCharactersPresent(false).get(0), getCharactersPresent(false).get(1), TongueVagina.CUNNILINGUS_START, true, true));
 							}
-							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
-								return getForeplayPreference(character, targetedCharacter);
-							}
-						},
-						null,
-						null,
-						AFTER_GROPED_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_GROPED_START_ORAL", getCharactersPresent(false))){
-					@Override
-					public List<InitialSexActionInformation> getInitialSexActions() {
-						List<InitialSexActionInformation> initialActions = new ArrayList<>();
-
-						if(getCharactersPresent(false).get(0).hasPenis()) {
-							initialActions.add(new InitialSexActionInformation(getCharactersPresent(false).get(0), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
-						} else {
-							initialActions.add(new InitialSexActionInformation(getCharactersPresent(false).get(0), Main.game.getPlayer(), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
+							
+							return initialActions;
 						}
-						
-						return initialActions;
-					}
-				};
+					};
+				}
 				
-			} else if(index==3 && getCharactersPresent(false).get(0).hasPenis()) {
-				return new ResponseSex("Fucked",
-						UtilText.parse(getCharactersPresent(false), "Lie back on the table and entice [npc.name] to fuck you."),
-						true,
-						false,
-						new SMOverDesk(
-								Util.newHashMapOfValues(
-										new Value<>(getCharactersPresent(false).get(0), SexSlotDesk.BETWEEN_LEGS)),
-								Util.newHashMapOfValues(
-										new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))) {
-							@Override
-							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-								Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-								map.put(getCharactersPresent(false).get(0), Util.newArrayListOfValues(CoverableArea.PENIS));
-								return map;
-							}
-							@Override
-							public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
-								return false;
-							}
-							@Override
-							public boolean isPositionChangingAllowed(GameCharacter character) {
-								return false;
-							}
-							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
-								if(character.equals(getCharactersPresent(false).get(0))) {
-									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+			} else { //Solo rat:
+				if(index==1) {
+					return new Response("Groped",
+							UtilText.parse(getCharactersPresent(false), "Just let [npc.name] grope you without letting [npc.herHim] take it any further."),
+							VENGARS_HALL_GROPED_FINISH);
+					
+				} else if(index==2 && (getCharactersPresent(false).get(0).hasPenis() || getCharactersPresent(false).get(0).hasVagina())) {
+					return new ResponseSex("Perform oral",
+							UtilText.parse(getCharactersPresent(false), "Perform oral on [npc.name]."),
+							true,
+							false,
+							new SMSitting(
+									Util.newHashMapOfValues(
+											new Value<>(getCharactersPresent(false).get(0), SexSlotSitting.SITTING)),
+									Util.newHashMapOfValues(
+											new Value<>(Main.game.getPlayer(), SexSlotSitting.PERFORMING_ORAL))) {
+								@Override
+								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
+									if(getCharactersPresent(false).get(0).hasPenis()) {
+										map.put(getCharactersPresent(false).get(0), Util.newArrayListOfValues(CoverableArea.PENIS));
+									} else {
+										map.put(getCharactersPresent(false).get(0), Util.newArrayListOfValues(CoverableArea.VAGINA));
+									}
+									return map;
 								}
-								return super.getForeplayPreference(character, targetedCharacter);
+								@Override
+								public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+									return false;
+								}
+								@Override
+								public boolean isPositionChangingAllowed(GameCharacter character) {
+									return false;
+								}
+								@Override
+								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+									if(character.equals(getCharactersPresent(false).get(0))) {
+										if(character.hasPenis()) {
+											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+											
+										} else {
+											return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
+										}
+									}
+									return super.getForeplayPreference(character, targetedCharacter);
+								}
+								@Override
+								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+									return getForeplayPreference(character, targetedCharacter);
+								}
+							},
+							null,
+							null,
+							AFTER_GROPED_SEX,
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_GROPED_START_ORAL", getCharactersPresent(false))){
+						@Override
+						public List<InitialSexActionInformation> getInitialSexActions() {
+							List<InitialSexActionInformation> initialActions = new ArrayList<>();
+	
+							if(getCharactersPresent(false).get(0).hasPenis()) {
+								initialActions.add(new InitialSexActionInformation(getCharactersPresent(false).get(0), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
+							} else {
+								initialActions.add(new InitialSexActionInformation(getCharactersPresent(false).get(0), Main.game.getPlayer(), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
 							}
-							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
-								return getForeplayPreference(character, targetedCharacter);
-							}
-						},
-						null,
-						null,
-						AFTER_GROPED_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_GROPED_START_SEX", getCharactersPresent(false))){
-					@Override
-					public List<InitialSexActionInformation> getInitialSexActions() {
-						List<InitialSexActionInformation> initialActions = new ArrayList<>();
-						initialActions.add(new InitialSexActionInformation(getCharactersPresent(false).get(0), Main.game.getPlayer(), PenisVagina.PENIS_FUCKING_START, false, true));
-						return initialActions;
-					}
-				};
+							
+							return initialActions;
+						}
+					};
+					
+				} else if(index==3 && getCharactersPresent(false).get(0).hasPenis()) {
+					return new ResponseSex("Fucked",
+							UtilText.parse(getCharactersPresent(false), "Lie back on the table and entice [npc.name] to fuck you."),
+							true,
+							false,
+							new SMOverDesk(
+									Util.newHashMapOfValues(
+											new Value<>(getCharactersPresent(false).get(0), SexSlotDesk.BETWEEN_LEGS)),
+									Util.newHashMapOfValues(
+											new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_BACK))) {
+								@Override
+								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+									Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
+									map.put(getCharactersPresent(false).get(0), Util.newArrayListOfValues(CoverableArea.PENIS));
+									return map;
+								}
+								@Override
+								public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
+									return false;
+								}
+								@Override
+								public boolean isPositionChangingAllowed(GameCharacter character) {
+									return false;
+								}
+								@Override
+								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+									if(character.equals(getCharactersPresent(false).get(0))) {
+										return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+									}
+									return super.getForeplayPreference(character, targetedCharacter);
+								}
+								@Override
+								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+									return getForeplayPreference(character, targetedCharacter);
+								}
+							},
+							null,
+							null,
+							AFTER_GROPED_SEX,
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_GROPED_START_SEX", getCharactersPresent(false))){
+						@Override
+						public List<InitialSexActionInformation> getInitialSexActions() {
+							List<InitialSexActionInformation> initialActions = new ArrayList<>();
+							initialActions.add(new InitialSexActionInformation(getCharactersPresent(false).get(0), Main.game.getPlayer(), PenisVagina.PENIS_FUCKING_START, false, true));
+							return initialActions;
+						}
+					};
+				}
 			}
 			return null;
 		}
@@ -2516,7 +2714,7 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Continue",
 						UtilText.parse(getCharactersPresent(false), "Having had [npc.her] fun, [npc.name] leaves you to get on with other duties in the hall..."),
-						Main.game.getDefaultDialogue()) {
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())) {
 					@Override
 					public void effects() {
 						banishGenericRats();
@@ -2534,14 +2732,19 @@ public class VengarCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
+			if(getCharactersPresent(false).size()>1) {
+				return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_GROPED_GROUP_FINISH", getCharactersPresent(false));
+			}
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_GROPED_FINISH", getCharactersPresent(false));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Continue",
-						UtilText.parse(getCharactersPresent(false), "Having had [npc.her] fun, [npc.name] leaves you to get on with other duties in the hall..."),
-						Main.game.getDefaultDialogue()){
+						getCharactersPresent(false).size()>1
+							?"Having had their fun, the rats leave you to get on with other duties in the hall..."
+							:UtilText.parse(getCharactersPresent(false), "Having had [npc.her] fun, [npc.name] leaves you to get on with other duties in the hall..."),
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())){
 					@Override
 					public void effects() {
 						banishGenericRats();
@@ -2568,6 +2771,10 @@ public class VengarCaptiveDialogue {
 	};
 	
 	public static final DialogueNode VENGARS_HALL_RAT_FUCK = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, false));
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -2630,7 +2837,7 @@ public class VengarCaptiveDialogue {
 							null,
 							null,
 							VENGARS_HALL_RAT_FUCK_AFTER_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_RAT_FUCK_FUCKED", getCharactersPresent(false))){
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_RAT_FUCK_FUCKED", getCharactersPresent(false))){
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							List<InitialSexActionInformation> initialActions = new ArrayList<>();
@@ -2689,7 +2896,7 @@ public class VengarCaptiveDialogue {
 							null,
 							null,
 							VENGARS_HALL_RAT_FUCK_AFTER_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_RAT_FUCK_CUNNILINGUS", getCharactersPresent(false))){
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_RAT_FUCK_CUNNILINGUS", getCharactersPresent(false))){
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							List<InitialSexActionInformation> initialActions = new ArrayList<>();
@@ -2713,14 +2920,14 @@ public class VengarCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_RAT_FUCK_AFTER_SEX");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_RAT_FUCK_AFTER_SEX", getCharactersPresent(false));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Continue",
 						UtilText.parse(getCharactersPresent(false), "Having had [npc.her] fun, [npc.name] leaves you to get on with other duties in the hall..."),
-						Main.game.getDefaultDialogue()){
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())){
 					@Override
 					public void effects() {
 						banishGenericRats();
@@ -2733,12 +2940,23 @@ public class VengarCaptiveDialogue {
 	
 	public static final DialogueNode VENGARS_HALL_GROUP_SEX = new DialogueNode("", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, true));
+			if(Main.game.isAnalContentEnabled()) {
+				VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, true));
+			} else {
+				VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(true, false));
+			}
+			VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, false));
+			VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, false));
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_GROUP_SEX");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_GROUP_SEX", getCharactersPresent(false));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -2815,7 +3033,7 @@ public class VengarCaptiveDialogue {
 						null,
 						null,
 						VENGARS_HALL_AFTER_GROUP_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_GROUP_SEX_START", getCharactersPresent(false))){
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_GROUP_SEX_START", getCharactersPresent(false))){
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
 						List<InitialSexActionInformation> initialActions = new ArrayList<>();
@@ -2831,7 +3049,6 @@ public class VengarCaptiveDialogue {
 						return initialActions;
 					}
 				};
-				
 			}
 			return null;
 		}
@@ -2844,14 +3061,14 @@ public class VengarCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_AFTER_GROUP_SEX");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_HALL_AFTER_GROUP_SEX", getCharactersPresent(false));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Continue",
 						"Having had their fun, the rats leave you to get on with other duties in the hall...",
-						Main.game.getDefaultDialogue()){
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())){
 					@Override
 					public void effects() {
 						banishGenericRats();
@@ -2863,6 +3080,10 @@ public class VengarCaptiveDialogue {
 	};
 	
 	public static final DialogueNode VENGARS_BEDROOM_CLEAN = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -2877,6 +3098,7 @@ public class VengarCaptiveDialogue {
 				return new Response("Clean", "Do as Shadow commands and set about cleaning the bedroom.", VENGARS_BEDROOM_CLEAN_FINISH) {
 					@Override
 					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveRoomCleaned, true);
 						if(Math.random()<0.5f) {
 							Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 							Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
@@ -3013,7 +3235,7 @@ public class VengarCaptiveDialogue {
 			if(index==1) {
 				return new Response("Continue",
 						"Think about what to do in the main hall next.",
-						Main.game.getDefaultDialogue());
+						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime()));
 			}
 			return null;
 		}
@@ -3118,6 +3340,14 @@ public class VengarCaptiveDialogue {
 	};
 	
 	public static final DialogueNode VENGARS_BEDROOM_SHADOW_SILENCE = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+			Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+			if(Main.game.getPlayer().hasCompanions()) {
+				Main.game.getPlayer().getMainCompanion().setLocation(Main.game.getPlayer(), false);
+			}
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 30*60;
@@ -3246,7 +3476,9 @@ public class VengarCaptiveDialogue {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
-						getMainCompanion().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+						if(isCompanionDialogue()) {
+							getMainCompanion().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+						}
 						Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 						Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 					}
@@ -3257,6 +3489,10 @@ public class VengarCaptiveDialogue {
 	};
 	
 	public static final DialogueNode VENGARS_BEDROOM_BARRED = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -3274,9 +3510,7 @@ public class VengarCaptiveDialogue {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
-						getMainCompanion().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 						Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
-						Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 					}
 				};
 			}
@@ -3288,6 +3522,15 @@ public class VengarCaptiveDialogue {
 	// Night time dialogues:
 	
 	public static final DialogueNode VENGARS_BEDROOM_NIGHT_TIME = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Vengar.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+			Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+			Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+			if(Main.game.getPlayer().hasCompanions()) {
+				Main.game.getPlayer().getMainCompanion().setLocation(Main.game.getPlayer(), false);
+			}
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -3369,14 +3612,16 @@ public class VengarCaptiveDialogue {
 				return new Response("Sleep", "Snuggle up to Vengar and fall asleep with him.", VENGARS_BEDROOM_NIGHT_TIME_SLEEP) {
 					@Override
 					public void effects() {
-						getMainCompanion().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+						if(isCompanionDialogue()) {
+							getMainCompanion().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+						}
 						Main.game.getNpc(Vengar.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 						Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 					}
 				};
 				
 			} else if(index==2) {
-				return new Response("Pretend", "Stay away from Vengar and pretend to fall asleep, ready to sneak out once you're sure he's sleeping.", VENGARS_BEDROOM_NIGHT_TIME_SLEEP);
+				return new Response("Pretend", "Stay away from Vengar and pretend to fall asleep, ready to sneak out once you're sure he's sleeping.", VENGARS_BEDROOM_NIGHT_TIME_PRETEND);
 			}
 			return null;
 		}
@@ -3430,7 +3675,9 @@ public class VengarCaptiveDialogue {
 				return new Response("Sleep", "Decide against trying to escape, and instead snuggle up to Vengar and go to sleep.", VENGARS_BEDROOM_NIGHT_TIME_SLEEP) {
 					@Override
 					public void effects() {
-						getMainCompanion().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+						if(isCompanionDialogue()) {
+							getMainCompanion().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+						}
 						Main.game.getNpc(Vengar.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 						Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 					}
@@ -3486,7 +3733,9 @@ public class VengarCaptiveDialogue {
 				return new Response("Give up", "Give up on your escape attempt for tonight, and instead go back to bed and go to sleep.", VENGARS_BEDROOM_NIGHT_TIME_SLEEP) {
 					@Override
 					public void effects() {
-						getMainCompanion().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+						if(isCompanionDialogue()) {
+							getMainCompanion().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+						}
 						Main.game.getNpc(Vengar.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 						Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 					}
@@ -3496,7 +3745,7 @@ public class VengarCaptiveDialogue {
 		}
 	};
 	
-	public static final DialogueNode VENGARS_BEDROOM_NIGHT_TIME_PRETEND_ESCAPE_AFTER_ORAL = new DialogueNode("", "", true) {
+	public static final DialogueNode VENGARS_BEDROOM_NIGHT_TIME_PRETEND_ESCAPE_AFTER_ORAL = new DialogueNode("Finished", "Silence lets out a gentle sigh and steps back, satisfied with your performance.", true) {
 		@Override
 		public int getSecondsPassed() {
 			return 10*60;
@@ -3513,9 +3762,9 @@ public class VengarCaptiveDialogue {
 					public void effects() {
 						RatWarrensCaptiveDialogue.restoreInventories();
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, false);
-						Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE);
-						Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE);
-						Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE);
+						Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CHECKPOINT_RIGHT);
+						Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CHECKPOINT_RIGHT);
+						Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CHECKPOINT_RIGHT);
 					}
 				};
 			}

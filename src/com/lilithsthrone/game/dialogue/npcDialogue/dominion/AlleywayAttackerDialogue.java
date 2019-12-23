@@ -274,7 +274,7 @@ public class AlleywayAttackerDialogue {
 					if(Main.game.getPlayer().getMoney()<250) {
 						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
 					} else {
-						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogueNoEncounter()) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -578,7 +578,7 @@ public class AlleywayAttackerDialogue {
 					};
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you're in a rush to be somewhere else, before continuing on your way.", Main.game.getDefaultDialogueNoEncounter());
+					return new Response("Leave", "Tell [npc.name] that you're in a rush to be somewhere else, before continuing on your way.", Main.game.getDefaultDialogue(false));
 					
 				} else {
 					return null;
@@ -611,7 +611,7 @@ public class AlleywayAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Let [npc.name] go.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Let [npc.name] go.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -643,7 +643,7 @@ public class AlleywayAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Let [npc.name] go and buy food.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Let [npc.name] go and buy food.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -688,7 +688,7 @@ public class AlleywayAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Let [npc.name] get settled in.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Let [npc.name] get settled in.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -728,7 +728,7 @@ public class AlleywayAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -746,7 +746,7 @@ public class AlleywayAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -768,7 +768,7 @@ public class AlleywayAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -915,7 +915,7 @@ public class AlleywayAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogueNoEncounter()){
+				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
@@ -1080,7 +1080,7 @@ public class AlleywayAttackerDialogue {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
-						Main.game.getDefaultDialogueNoEncounter()){
+						Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_BANISH_NPC", getAllCharacters()));
@@ -1181,7 +1181,7 @@ public class AlleywayAttackerDialogue {
 			if (index == 1) {
 				return new Response("Continue",
 						"Let [npc.name] go.",
-						Main.game.getDefaultDialogueNoEncounter());
+						Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -1343,7 +1343,7 @@ public class AlleywayAttackerDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				if (index == 1) {
-					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {
 							Main.game.banishNPC(getMugger());
@@ -1763,7 +1763,7 @@ public class AlleywayAttackerDialogue {
 						} else if (index == 4 && !getMugger().isWillingToRape()) {
 							return new Response("Refuse",
 									UtilText.parse(getMugger(), "Refuse to have sex with [npc.name] and continue on your way."),
-									Main.game.getDefaultDialogueNoEncounter()) {
+									Main.game.getDefaultDialogue(false)) {
 								@Override
 								public void effects() {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_REFUSE_THREESOME", getAllCharacters()));
@@ -1820,7 +1820,7 @@ public class AlleywayAttackerDialogue {
 						} else if (index == 4 && !getMugger().isWillingToRape()) {
 							return new Response("Refuse",
 									UtilText.parse(getMugger(), "Refuse to have sex with [npc.name] and continue on your way."),
-									Main.game.getDefaultDialogueNoEncounter()) {
+									Main.game.getDefaultDialogue(false)) {
 								@Override
 								public void effects() {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_REFUSE_SEX_SOLO", getAllCharacters()));
@@ -1866,7 +1866,7 @@ public class AlleywayAttackerDialogue {
 						return new Response(
 								UtilText.parse(getMainCompanion(), "[npc.Name] refuses"),
 								UtilText.parse(getMugger(), getMainCompanion(), "It looks like [npc2.name] is going to refuse to have sex with [npc.name]."),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_REFUSE_SEX_SOLO_COMPANION", getAllCharacters()));
@@ -1924,7 +1924,7 @@ public class AlleywayAttackerDialogue {
 					} else if (index == 4 && !getMugger().isWillingToRape()) {
 						return new Response("Refuse",
 								UtilText.parse(getMugger(), "Refuse to have sex with [npc.name] and continue on your way."),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_REFUSE_SEX", getAllCharacters()));
@@ -1935,7 +1935,7 @@ public class AlleywayAttackerDialogue {
 				}
 			}
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_NO_SEX", getAllCharacters()));
@@ -1977,7 +1977,7 @@ public class AlleywayAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()){
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
@@ -2001,7 +2001,7 @@ public class AlleywayAttackerDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -2044,7 +2044,7 @@ public class AlleywayAttackerDialogue {
 					}
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				

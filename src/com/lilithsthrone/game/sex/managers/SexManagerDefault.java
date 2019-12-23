@@ -233,18 +233,21 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			
 			// Prefer not to stay in standing if prefer to be fucking:
 			if(Sex.getPosition()==SexPosition.STANDING) {
-				SexAreaInterface performingArea = partner.getCurrentSexPreference(Sex.getTargetedPartner(partner)).getPerformingSexArea();
-				SexAreaInterface targetedArea = partner.getCurrentSexPreference(Sex.getTargetedPartner(partner)).getTargetedSexArea();
-				if(performingArea.isPenetration() && ((SexAreaPenetration)performingArea).isTakesVirginity()) {
-					if(targetedArea.isOrifice()
-							&& (targetedArea==SexAreaOrifice.ANUS || targetedArea==SexAreaOrifice.VAGINA || targetedArea==SexAreaOrifice.URETHRA_PENIS || targetedArea==SexAreaOrifice.URETHRA_VAGINA)) {
-						suitablePosition = false;
+				SexType currentSexPreference = partner.getCurrentSexPreference(Sex.getTargetedPartner(partner));
+				if(currentSexPreference != null) {
+					SexAreaInterface performingArea = currentSexPreference.getPerformingSexArea();
+					SexAreaInterface targetedArea = currentSexPreference.getTargetedSexArea();
+					if(performingArea.isPenetration() && ((SexAreaPenetration)performingArea).isTakesVirginity()) {
+						if(targetedArea.isOrifice()
+								&& (targetedArea==SexAreaOrifice.ANUS || targetedArea==SexAreaOrifice.VAGINA || targetedArea==SexAreaOrifice.URETHRA_PENIS || targetedArea==SexAreaOrifice.URETHRA_VAGINA)) {
+							suitablePosition = false;
+						}
 					}
-				}
-				if(targetedArea.isPenetration() && ((SexAreaPenetration)targetedArea).isTakesVirginity()) {
-					if(performingArea.isOrifice()
-							&& (performingArea==SexAreaOrifice.ANUS || performingArea==SexAreaOrifice.VAGINA || performingArea==SexAreaOrifice.URETHRA_PENIS || performingArea==SexAreaOrifice.URETHRA_VAGINA)) {
-						suitablePosition = false;
+					if(targetedArea.isPenetration() && ((SexAreaPenetration)targetedArea).isTakesVirginity()) {
+						if(performingArea.isOrifice()
+								&& (performingArea==SexAreaOrifice.ANUS || performingArea==SexAreaOrifice.VAGINA || performingArea==SexAreaOrifice.URETHRA_PENIS || performingArea==SexAreaOrifice.URETHRA_VAGINA)) {
+							suitablePosition = false;
+						}
 					}
 				}
 			}

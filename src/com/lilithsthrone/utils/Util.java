@@ -333,7 +333,7 @@ public class Util {
 	}
 	
 	public static <T> T getRandomObjectFromWeightedFloatMap(Map<T, Float> map) {
-		int total = 0;
+		float total = 0;
 		for(float f : map.values()) {
 			total+=f;
 		}

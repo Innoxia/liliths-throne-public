@@ -1504,6 +1504,13 @@
 	
 	<!-- LEXA_VISIT -->
 	
+	<htmlContent tag="LEXA_VISIT_REPEAT"><![CDATA[
+	<p>
+		You and Vengar go to the Gambling den to pay Lexa another visit. Upon arriving, she once again shows the two of you into her office (companion waits outside).
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="LEXA_VISIT"><![CDATA[
 	<p>
 		You and Vengar go to the Gambling den to pay Lexa a visit. Upon arriving, she shows the two of you into her office (companion waits outside).

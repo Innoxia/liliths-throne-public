@@ -3610,7 +3610,7 @@ public class PlaceType {
 
 	public static final AbstractPlaceType RAT_WARRENS_DICE_DEN = new AbstractPlaceType(
 			"Dice Den",
-			"Bunkbeds line the walls of this damp and dingy room, while a few tables and chairs are scattered around the middle.",
+			"A place where gang members go to drink and gamble.",
 			"submission/ratWarrens/diceDen",
 			BaseColour.COPPER,
 			RatWarrensDialogue.DICE_DEN,
@@ -3686,7 +3686,9 @@ public class PlaceType {
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
-				return VengarCaptiveDialogue.VENGARS_HALL;
+				dialogue = VengarCaptiveDialogue.VENGARS_HALL;
+			} else {
+				dialogue = RatWarrensDialogue.VENGARS_HALL;
 			}
 			return super.getDialogue(withRandomEncounter, forceEncounter);
 		}
@@ -3725,9 +3727,15 @@ public class PlaceType {
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
-				return VengarCaptiveDialogue.VENGARS_BEDROOM;
+				dialogue = VengarCaptiveDialogue.VENGARS_BEDROOM;
+			} else {
+				dialogue = RatWarrensDialogue.VENGARS_BEDROOM;
 			}
 			return super.getDialogue(withRandomEncounter, forceEncounter);
+		}
+		@Override
+		public boolean isDangerous() {
+			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensHostile);
 		}
 	}.initWeatherImmune();
 	

@@ -769,6 +769,13 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return quests.containsKey(questLine);
 	}
 	
+	public boolean hasQuestInLine(QuestLine questLine, Quest quest) {
+		if(!hasQuest(questLine)) {
+			return false;
+		}
+		return quests.get(questLine).contains(quest);
+	}
+	
 	public boolean isSubQuestCompleted(Quest subQuest, QuestLine questLine) {
 		if(quests.containsKey(questLine) && quests.get(questLine).contains(subQuest) && getQuest(questLine)!=subQuest) {
 			return true;

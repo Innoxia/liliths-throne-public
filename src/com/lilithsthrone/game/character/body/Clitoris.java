@@ -46,7 +46,9 @@ public class Clitoris implements BodyPartInterface {
 	@Override
 	public String getName(GameCharacter gc, boolean withDescriptor) {
 		String name = getName(gc);
-		return UtilText.generateSingularDeterminer(name)+" "+name;
+		return 
+//				UtilText.generateSingularDeterminer(name)+" "+
+				name;
 	}
 
 	@Override

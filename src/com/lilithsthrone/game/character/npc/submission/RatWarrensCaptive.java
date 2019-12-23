@@ -121,6 +121,10 @@ public class RatWarrensCaptive extends NPC {
 
 			this.setFetishDesire(Fetish.FETISH_NON_CON_SUB, FetishDesire.THREE_LIKE);
 		}
+
+		this.setFaceVirgin(false);
+		this.setAssVirgin(false);
+		this.setVaginaVirgin(false);
 		
 		// Milking:
 		this.setBreastSize(CupSize.DD.getMeasurement()+Util.random.nextInt(6));
@@ -128,8 +132,23 @@ public class RatWarrensCaptive extends NPC {
 		this.setBreastMilkStorage(Lactation.SIX_EXTREME_AMOUNT_DRIPPING.getMedianValue()+Util.random.nextInt(Lactation.SIX_EXTREME_AMOUNT_DRIPPING.getMedianValue()));
 		this.setBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()+Util.random.nextInt(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()));
 		
-		// From sex:
-		this.setVaginaCapacity(Util.randomItemFrom(new Capacity[] {Capacity.THREE_SLIGHTLY_LOOSE, Capacity.FOUR_LOOSE, Capacity.FIVE_ROOMY, Capacity.SIX_STRETCHED_OPEN}), true);
+		// From anal sex:
+		if(Main.game.isAnalContentEnabled()) {
+			if(Main.game.isGapeContentEnabled()) {
+				this.setAssCapacity(32, true);
+			} else {
+				this.setAssCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+			}
+			this.setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+			this.setAssPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
+		}
+
+		// From vaginal sex:
+		if(Main.game.isGapeContentEnabled()) {
+			this.setVaginaCapacity(32, true);
+		} else {
+			this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+		}
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		

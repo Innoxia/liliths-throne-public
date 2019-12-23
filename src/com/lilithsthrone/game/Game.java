@@ -144,6 +144,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGr
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensCaptiveDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -1190,6 +1191,13 @@ public class Game implements XMLSaving {
 					if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_BUYING_BRAX)
 							&& (!Main.game.getNpc(Brax.class).isSlave() || !Main.game.getNpc(Brax.class).getOwner().isPlayer() || Main.game.getNpc(Brax.class).getLocationPlace().getPlaceType()==PlaceType.ENFORCER_HQ_RECEPTION_DESK)) {
 						EnforcerHQDialogue.obtainBraxAsSlave();
+					}
+				}
+
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.5.7")) {
+					if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)) {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, false);
+						RatWarrensDialogue.banishMilkers();
 					}
 				}
 				
@@ -3403,6 +3411,13 @@ public class Game implements XMLSaving {
 	public int getDayMinutes() {
 		return (int) (getMinutesPassed()%(24*60));
 	}
+
+	/**
+	 * @return The number of seconds that have passed in the current day.
+	 */
+	public int getDaySeconds() {
+		return (int) (getSecondsPassed()%(24*60*60));
+	}
 	
 	/**
 	 * @param desiredTime The targeted time, in minutes of the day. (i.e. a number from 0 to 1440)
@@ -3994,9 +4009,9 @@ public class Game implements XMLSaving {
 	public DialogueNode getDefaultDialogue() {
 		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 	}
-
-	public DialogueNode getDefaultDialogueNoEncounter() {
-		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);
+	
+	public DialogueNode getDefaultDialogue(boolean withRandomEncounter) {
+		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(withRandomEncounter);
 	}
 
 	public boolean isRequestAutosave() {
@@ -4035,6 +4050,6 @@ public class Game implements XMLSaving {
 
 	public void addSavedInventory(GameCharacter character) {
 		savedInventories.put(character.getId(), new CharacterInventory(character.getInventory()));
-		System.out.println("Saved: "+character.getName());
+//		System.out.println("Saved: "+character.getName());
 	}
 }

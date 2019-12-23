@@ -631,6 +631,29 @@
 	
 	<!-- RAT_WARREN -->
 	
+	<htmlContent tag="RAT_WARREN_CLOSED"><![CDATA[
+	<p>
+		This side tunnel looks just like all of the others that you've travelled through so far, but with one exception. Built into the wall nearest to where you're standing, a large stone archway has been constructed, which houses a pair of heavy oaken doors.
+	</p>
+	<p>
+		Having been cleared out by the SWORD raid, the Rat Warrens are now completely deserted, and to prevent any new gang from moving in and setting up shop, several iron bars have been bolted onto the doors in front of you, preventing them from being opened. Several identical pieces of paper have been plastered over the stonework to either side of the entrance, and, taking a closer look at one of them, you read:
+	</p>
+	<h6 style='text-align:center;'>Submission Enforcer Department</h6>
+	<h5 style='text-align:center;'>NOTICE OF ASSET SEIZURE</h5>
+	<p style='text-align:center;'>
+		Having been identified as being used, or suspected of being used, by criminal(s), this property has been seized by the Submission Enforcer Department.<br/>
+		Any unauthorised entry beyond this point is in violation of the law.
+		<br/><br/>
+		Officer in charge of investigation: <i>Inspector Powell</i>
+		<br/><br/>
+		Any complaints or inquiries should be made in person at the nearest Submission Enforcer Outpost. Thank you for your understanding.
+	</p>
+	<p>
+		With nothing more to be gained from loitering in this area, you step back from the doors and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="RAT_WARREN"><![CDATA[
 	<p>
 		This side tunnel looks just like all of the others that you've travelled through so far, but with one exception. Built into the wall nearest to where you're standing, a large stone archway has been constructed, which houses a pair of heavy oaken doors. Shut tight and bolted from within, these doors block access to whatever is on the other side.

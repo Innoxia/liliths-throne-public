@@ -135,6 +135,7 @@ public class RoxysShop {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-1000));
+								Main.game.getNpc(Roxy.class).incrementMoney(1000);
 							}
 							@Override
 							public List<InitialSexActionInformation> getInitialSexActions() {
@@ -330,6 +331,7 @@ public class RoxysShop {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-VENGAR_SUB_DOM_COST));
+						Main.game.getNpc(Roxy.class).incrementMoney(VENGAR_SUB_DOM_COST);
 					}
 				};
 				
@@ -370,6 +372,7 @@ public class RoxysShop {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-VENGAR_SUB_SEX_COST));
+						Main.game.getNpc(Roxy.class).incrementMoney(VENGAR_SUB_SEX_COST);
 					}
 				};
 				

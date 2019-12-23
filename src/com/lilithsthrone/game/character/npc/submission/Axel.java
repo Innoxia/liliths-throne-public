@@ -51,6 +51,7 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -94,8 +95,17 @@ public class Axel extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.resetPerksMap(true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
-			setStartingBody(true);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.7")) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelSissified)) {
+				this.applySissification();
+				
+			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelFeminised)) {
+				this.applyFeminisation(this.getPenisGirth(), this.getPenisSize(), this.getTesticleSize(), CumProduction.getCumProductionFromInt(this.getPenisRawCumProductionRegenerationValue()));
+				
+			} else {
+				setStartingBody(true);
+			}
+			this.setName( new NameTriplet("Axel", "Lexa", "Lexa"));
 		}
 	}
 
@@ -146,7 +156,11 @@ public class Axel extends NPC {
 		// Coverings:
 		this.setSkinCovering(new Covering(BodyCoveringType.EYE_ALLIGATOR_MORPH, Colour.EYE_AQUA), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.ALLIGATOR_SCALES, Colour.COVERING_WHITE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.COVERING_WHITE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_IVORY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_IVORY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_IVORY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_IVORY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.MOUTH, Colour.SKIN_IVORY, Colour.ORIFICE_INTERIOR), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_SCALES_ALLIGATOR, Colour.COVERING_GREY), false);
 		this.setHairLength(0);
@@ -217,8 +231,12 @@ public class Axel extends NPC {
 		// Coverings:
 		this.setSkinCovering(new Covering(BodyCoveringType.EYE_ALLIGATOR_MORPH, Colour.EYE_AQUA), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.ALLIGATOR_SCALES, Colour.COVERING_WHITE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.COVERING_WHITE), true);
-
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_IVORY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_IVORY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_IVORY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_IVORY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.MOUTH, Colour.SKIN_IVORY, Colour.ORIFICE_INTERIOR), false);
+		
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_SCALES_ALLIGATOR, Colour.COVERING_GREY), false);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
 		this.setHairStyle(HairStyle.LOOSE);
@@ -282,7 +300,11 @@ public class Axel extends NPC {
 		// Coverings:
 		this.setSkinCovering(new Covering(BodyCoveringType.EYE_ALLIGATOR_MORPH, Colour.EYE_AQUA), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.ALLIGATOR_SCALES, Colour.COVERING_WHITE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.COVERING_WHITE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_IVORY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_IVORY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_IVORY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_IVORY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.MOUTH, Colour.SKIN_IVORY, Colour.ORIFICE_INTERIOR), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_SCALES_ALLIGATOR, Colour.COVERING_GREY), false);
 		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
@@ -334,10 +356,10 @@ public class Axel extends NPC {
 		AbstractClothing cage = this.getClothingInSlot(InventorySlot.PENIS);
 		
 		if(cage==null && !equip) {
-			throw new IllegalArgumentException("Error code 1");
+			throw new IllegalArgumentException("Axel applyCage(): Error code 1");
 		}
 		if(cage!=null && equip) {
-			throw new IllegalArgumentException("Error code 2");
+			throw new IllegalArgumentException("Axel applyCage(): Error code 2");
 		}
 		
 		if(equip) {
@@ -371,10 +393,10 @@ public class Axel extends NPC {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_thighhigh_socks", Colour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK_JET, Colour.CLOTHING_TAN, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND_BOW, Colour.CLOTHING_WHITE, Colour.CLOTHING_GREY, Colour.CLOTHING_PINK, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND_BOW, Colour.CLOTHING_WHITE, Colour.CLOTHING_GREY, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_heart_necklace", Colour.CLOTHING_SILVER, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_KHAKI, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_finger_ring", Colour.CLOTHING_SILVER, false), true, this);
 				
 			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelClothingWhore)) {
@@ -382,13 +404,14 @@ public class Axel extends NPC {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_SILVER, Colour.CLOTHING_PURPLE, null, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_heart_necklace", Colour.CLOTHING_GOLD, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, Colour.CLOTHING_BLACK, false), true, this);
+				this.isAbleToBeDisplaced(this.getClothingInSlot(InventorySlot.TORSO_OVER), DisplacementType.UNZIPS, true, true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_FISHNET_TOP, Colour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_fishnets", Colour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NIPPLE_TAPE_CROSSES, Colour.CLOTHING_BLACK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_fishnet_gloves", Colour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_finger_gemstone_ring", Colour.CLOTHING_PLATINUM, Colour.CLOTHING_PURPLE, null, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HIPS_CONDOMS, Colour.CLOTHING_BLACK, false), true, this);
+//				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HIPS_CONDOMS, Colour.CLOTHING_BLACK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_micro_skirt_pleated", Colour.CLOTHING_PURPLE_VERY_DARK, Colour.CLOTHING_BLACK, null, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_groin_lacy_thong", Colour.CLOTHING_BLACK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_thigh_high_boots", Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK_JET, Colour.CLOTHING_GREY, false), true, this);
@@ -403,7 +426,7 @@ public class Axel extends NPC {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_STOCKINGS, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_WHITE, null, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_HEELS, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_WHITE, Colour.CLOTHING_SILVER, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_SLEEVES, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_WHITE, null, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_KHAKI, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_finger_ring", Colour.CLOTHING_SILVER, false), true, this);
 				
 			} else {

@@ -1179,7 +1179,7 @@ public enum Quest {
 	VENGAR_THREE_COOPERATION_END(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
-			return "Going straight";
+			return "Turning a new leaf";
 		}
 		@Override
 		public String getDescription() {

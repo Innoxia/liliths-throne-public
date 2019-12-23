@@ -743,7 +743,7 @@ public enum Combat {
 						public void effects() {
 							enemyLeader.applyEscapeCombatEffects();
 							Main.game.setInCombat(false);
-							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 						}
 					};
 				} else {

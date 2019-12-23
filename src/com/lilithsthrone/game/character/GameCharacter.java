@@ -7136,7 +7136,11 @@ public abstract class GameCharacter implements XMLSaving {
 							this.addDirtySlot(slot);
 							slotNames.add(slot.getName());
 						}
-						ingestFluidSB.append(UtilText.parse(partner, this, "<p class='centre noPad'>[npc.Name] [style.colourCum(came on)] [npc2.namePos] "+Util.stringsToStringList(slotNames, false)+"!</p>"));
+						if(partnerPresent) {
+							ingestFluidSB.append(UtilText.parse(partner, this, "<p class='centre noPad'>[npc.Name] [style.colourCum(came on)] [npc2.namePos] "+Util.stringsToStringList(slotNames, false)+"!</p>"));
+						} else {
+							ingestFluidSB.append(UtilText.parse(this, "<p class='centre noPad'>[npc.Name] had [npc.her] "+Util.stringsToStringList(slotNames, false)+" [style.colourCum(covered in cum)]!</p>"));
+						}
 					}
 				}
 			}
@@ -19985,7 +19989,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	//TODO Improve isFeminine method to take into account knowledge of the character's gender.
 	public boolean isFeminine() {
-		boolean isFeminine = body.isFeminine();
+		boolean isFeminine = body==null || body.isFeminine();
 		
 		if(Femininity.valueOf(getFemininityValue()) == Femininity.ANDROGYNOUS) {
 			switch(Main.getProperties().androgynousIdentification){
@@ -20010,7 +20014,6 @@ public abstract class GameCharacter implements XMLSaving {
 //		}
 		return isFeminine;
 	}
-
 
 	public Race getRace() {
 		return getSubspecies().getRace();
@@ -24017,7 +24020,6 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return Formatted description of skin colour change.
 	 */
 	public String setSkinCovering(Covering covering, boolean updateAllSkinColours) {
-		
 		if(!this.getBodyMaterial().isAbleToWearMakeup()) {
 			switch(covering.getType()) {
 				case MAKEUP_BLUSHER:
@@ -24035,7 +24037,6 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		if(!getCovering(covering.getType()).equals(covering)) {
-
 			BodyCoveringType coveringType = covering.getType();
 			
 			body.getCoverings().put(coveringType, covering);

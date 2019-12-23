@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.2.11
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public enum TFModifier {
@@ -268,11 +268,12 @@ public enum TFModifier {
 			Colour.SEALED,
 			Rarity.LEGENDARY),
 	
-	CLOTHING_ANTI_SELF_TRANSFORMATION("self-transformation inhibition",
-			"Makes the wearer unable to perform demonic, slime, or any other racially-enabled self-transformations.",
-			"self-transformation inhibition",
-			"modifier_circle_anti_transformation",
-			Colour.TRANSFORMATION_GENERIC,
+	//CLOTHING_ANTI_SELF_TRANSFORMATION
+	CLOTHING_SERVITUDE("servitude",
+			"Makes the wearer unable to self-transform or unjinx clothing.",
+			"servitude",
+			"modifier_circle_servitude",
+			Colour.BASE_PINK_LIGHT,
 			Rarity.LEGENDARY),
 
 	CLOTHING_CONDOM("condom strength",

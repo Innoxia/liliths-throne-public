@@ -291,8 +291,8 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 				if(ie.getSecondaryModifier() == TFModifier.CLOTHING_ENSLAVEMENT) {
 					return "of "+(coloured?"<"+tag+" style='color:"+TFModifier.CLOTHING_ENSLAVEMENT.getColour().toWebHexString()+";'>enslavement</"+tag+">":"enslavement");
 					
-				} else if(ie.getSecondaryModifier() == TFModifier.CLOTHING_ANTI_SELF_TRANSFORMATION) {
-					return "of "+(coloured?"<"+tag+" style='color:"+TFModifier.CLOTHING_ANTI_SELF_TRANSFORMATION.getColour().toWebHexString()+";'>anti-transformation</"+tag+">":"anti-transformation");
+				} else if(ie.getSecondaryModifier() == TFModifier.CLOTHING_SERVITUDE) {
+					return "of "+(coloured?"<"+tag+" style='color:"+TFModifier.CLOTHING_SERVITUDE.getColour().toWebHexString()+";'>servitude</"+tag+">":"servitude");
 					
 				} else if(ie.getPrimaryModifier() == TFModifier.TF_MOD_FETISH_BEHAVIOUR || ie.getPrimaryModifier() == TFModifier.TF_MOD_FETISH_BODY_PART) {
 					return "of "+(coloured?"<"+tag+" style='color:"+Colour.FETISH.toWebHexString()+";'>"+ie.getSecondaryModifier().getDescriptor()+"</"+tag+">":ie.getSecondaryModifier().getDescriptor());
@@ -332,12 +332,16 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 					?e.getPotency().getClothingBonusValue()*(e.getSecondaryModifier()==TFModifier.CORRUPTION?-1:1)
 					:0)
 				+ (e.getSecondaryModifier()==TFModifier.CLOTHING_SEALING?-10:0)
-				+ (e.getSecondaryModifier()==TFModifier.CLOTHING_ANTI_SELF_TRANSFORMATION?-10:0)
+				+ (e.getSecondaryModifier()==TFModifier.CLOTHING_SERVITUDE?-10:0)
 			).sum()<0;
 	}
 	
 	public boolean isSelfTransformationInhibiting() {
-		return this.getEffects().stream().anyMatch(e -> e.getSecondaryModifier() == TFModifier.CLOTHING_ANTI_SELF_TRANSFORMATION);
+		return this.getEffects().stream().anyMatch(e -> e.getSecondaryModifier() == TFModifier.CLOTHING_SERVITUDE);
+	}
+
+	public boolean isJinxRemovalInhibiting() {
+		return this.getEffects().stream().anyMatch(e -> e.getSecondaryModifier() == TFModifier.CLOTHING_SERVITUDE);
 	}
 	
 	public Map<Attribute, Integer> getAttributeModifiers() {

@@ -109,7 +109,7 @@ public class ZaranixHomeGroundFloorRepeat {
 				}
 
 			} else if (index == 0) {
-				return new Response("Leave", "Turn around and walk away.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Leave", "Turn around and walk away.", Main.game.getDefaultDialogue(false));
 
 			} else {
 				return null;

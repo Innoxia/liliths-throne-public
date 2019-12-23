@@ -75,6 +75,8 @@ public class DicePoker {
 		diceToReroll.addAll(playerDice);
 		diceToReroll.addAll(gamblerDice);
 		
+		gambler.setPlayerKnowsName(true);
+		
 		return START;
 	}
 	
@@ -477,6 +479,9 @@ public class DicePoker {
 				};
 				
 			} else if(index==2) {
+				if(!gambler.isAttractedTo(Main.game.getPlayer())) {
+					return new Response("Offer body", UtilText.parse(gambler, "[npc.Name] is not attracted to you, so you can't hope to get your money back by offering your body to [npc.herHim]."), null);
+				}
 				return new Response("Offer body",
 						UtilText.parse(gambler, "Offer [npc.name] use of your body if [npc.she]'ll give you your money back."),
 						END_LOSS_OFFER_BODY);
