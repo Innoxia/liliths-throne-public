@@ -61,6 +61,7 @@ import com.lilithsthrone.game.dialogue.places.submission.gamblingDen.PregnancyRo
 import com.lilithsthrone.game.dialogue.places.submission.gamblingDen.RoxysShop;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensCaptiveDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -3642,6 +3643,15 @@ public class PlaceType {
 			null,
 			"in the Rat Warrens") {
 		@Override
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+				dialogue = RatWarrensCaptiveDialogue.STOCKS_NIGHT;
+			} else {
+				dialogue = RatWarrensDialogue.MILKING_ROOM;
+			}
+			return super.getDialogue(withRandomEncounter, forceEncounter);
+		}
+		@Override
 		public boolean isDangerous() {
 			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensHostile) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft);
 		}
@@ -3655,13 +3665,6 @@ public class PlaceType {
 			RatWarrensDialogue.MILKING_STORAGE,
 			null,
 			"in the Rat Warrens") {
-		@Override
-		public Population getPopulation() {
-			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
-				return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
-			}
-			return null;
-		}
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensHostile) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft);

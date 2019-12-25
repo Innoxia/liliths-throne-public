@@ -174,21 +174,21 @@ public class VengarCaptiveDialogue {
 		
 		if(!target.hasFetish(Fetish.FETISH_SUBMISSIVE) || !target.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive()) {
 			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_SUBMISSIVE"));
-			sb.append(target.addFetish(Fetish.FETISH_SUBMISSIVE));
-			sb.append(target.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.THREE_LIKE));
+			sb.append(target.addFetish(Fetish.FETISH_SUBMISSIVE, true));
+			sb.append(target.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.THREE_LIKE, true));
 			tfApplied = true;
 		}
 
 		if(!target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_TRANSFORMATION"));
-			sb.append(target.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING));
+			sb.append(target.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING, true));
 			tfApplied = true;
 		}
 
 		if(!target.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isPositive() || !target.getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive()) {
 			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_BEHAVIOUR_EXTRAS"));
-			sb.append(target.setFetishDesire(Fetish.FETISH_EXHIBITIONIST, FetishDesire.THREE_LIKE));
-			sb.append(target.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE));
+			sb.append(target.setFetishDesire(Fetish.FETISH_EXHIBITIONIST, FetishDesire.THREE_LIKE, true));
+			sb.append(target.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE, true));
 			tfApplied = true;
 		}
 
@@ -196,10 +196,10 @@ public class VengarCaptiveDialogue {
 				|| !target.hasFetish(Fetish.FETISH_ORAL_GIVING) 
 				|| (Main.game.isAnalContentEnabled() && !target.hasFetish(Fetish.FETISH_ANAL_RECEIVING))) {
 			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_HOLES"));
-			sb.append(target.addFetish(Fetish.FETISH_VAGINAL_RECEIVING));
-			sb.append(target.addFetish(Fetish.FETISH_ORAL_GIVING));
+			sb.append(target.addFetish(Fetish.FETISH_VAGINAL_RECEIVING, true));
+			sb.append(target.addFetish(Fetish.FETISH_ORAL_GIVING, true));
 			if(Main.game.isAnalContentEnabled()) {
-				sb.append(target.addFetish(Fetish.FETISH_ANAL_RECEIVING));
+				sb.append(target.addFetish(Fetish.FETISH_ANAL_RECEIVING, true));
 			}
 			tfApplied = true;
 		}
@@ -208,10 +208,10 @@ public class VengarCaptiveDialogue {
 				|| !target.hasFetish(Fetish.FETISH_VAGINAL_GIVING) 
 				|| (Main.game.isAnalContentEnabled() && !target.hasFetish(Fetish.FETISH_ANAL_GIVING))) {
 			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_SERVICING_HOLES"));
-			sb.append(target.addFetish(Fetish.FETISH_PENIS_RECEIVING));
-			sb.append(target.addFetish(Fetish.FETISH_VAGINAL_GIVING));
+			sb.append(target.addFetish(Fetish.FETISH_PENIS_RECEIVING, true));
+			sb.append(target.addFetish(Fetish.FETISH_VAGINAL_GIVING, true));
 			if(Main.game.isAnalContentEnabled()) {
-				sb.append(target.addFetish(Fetish.FETISH_ANAL_GIVING));
+				sb.append(target.addFetish(Fetish.FETISH_ANAL_GIVING, true));
 			}
 			tfApplied = true;
 		}
@@ -3149,7 +3149,7 @@ public class VengarCaptiveDialogue {
 								null,
 								null,
 								VENGARS_BEDROOM_AFTER_RAT_GIRL_ORAL,
-								UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_BEDROOM_CLEAN_FINISH_ORAL_SHADOW")) {
+								UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_BEDROOM_CLEAN_FINISH_SHADOW_ORAL_START")) {
 							@Override
 							public List<InitialSexActionInformation> getInitialSexActions() {
 								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Shadow.class), Main.game.getPlayer(), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
@@ -3181,7 +3181,7 @@ public class VengarCaptiveDialogue {
 								null,
 								null,
 								VENGARS_BEDROOM_AFTER_RAT_GIRL_ORAL,
-								UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_BEDROOM_CLEAN_FINISH_ORAL_SILENCE")) {
+								UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_BEDROOM_CLEAN_FINISH_SILENCE_ORAL_START")) {
 							@Override
 							public List<InitialSexActionInformation> getInitialSexActions() {
 								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Silence.class), Main.game.getPlayer(), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));

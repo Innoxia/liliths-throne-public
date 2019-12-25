@@ -1897,6 +1897,7 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_BREAST_SHAPE_NARROW, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_NIPPLE_NORMAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_NIPPLE_INVERTED, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_NIPPLE_VAGINA, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_NIPPLE_LIPS, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				
@@ -2554,7 +2555,9 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Transforms breast shape into being narrow.") { @Override public String applyEffect() { return target.setBreastShape(BreastShape.NARROW); } };
 						
 					case TF_MOD_NIPPLE_NORMAL:
-						return new RacialEffectUtil("Turns nipples into a normal, human-like shape.") { @Override public String applyEffect() { return target.setNippleShape(NippleShape.NORMAL); } };
+						return new RacialEffectUtil("Turns nipples into a normal shape.") { @Override public String applyEffect() { return target.setNippleShape(NippleShape.NORMAL); } };
+					case TF_MOD_NIPPLE_INVERTED:
+						return new RacialEffectUtil("Turns nipples into a normal, although inverted, shape.") { @Override public String applyEffect() { return target.setNippleShape(NippleShape.INVERTED); } };
 					case TF_MOD_NIPPLE_VAGINA:
 						return new RacialEffectUtil("Turns nipples into vaginas.") { @Override public String applyEffect() { return target.setNippleShape(NippleShape.VAGINA); } };
 					case TF_MOD_NIPPLE_LIPS:
@@ -2782,7 +2785,9 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Transforms crotch-boob shape into being narrow.") { @Override public String applyEffect() { return target.setBreastCrotchShape(BreastShape.NARROW); } };
 						
 					case TF_MOD_NIPPLE_NORMAL:
-						return new RacialEffectUtil("Turns nipples into a normal, human-like shape.") { @Override public String applyEffect() { return target.setNippleCrotchShape(NippleShape.NORMAL); } };
+						return new RacialEffectUtil("Turns nipples into a normal shape.") { @Override public String applyEffect() { return target.setNippleCrotchShape(NippleShape.NORMAL); } };
+					case TF_MOD_NIPPLE_INVERTED:
+						return new RacialEffectUtil("Turns nipples into a normal, although inverted, shape.") { @Override public String applyEffect() { return target.setNippleCrotchShape(NippleShape.INVERTED); } };
 					case TF_MOD_NIPPLE_VAGINA:
 						return new RacialEffectUtil("Turns nipples into vaginas.") { @Override public String applyEffect() { return target.setNippleCrotchShape(NippleShape.VAGINA); } };
 					case TF_MOD_NIPPLE_LIPS:

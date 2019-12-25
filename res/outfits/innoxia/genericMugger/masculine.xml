@@ -60,6 +60,20 @@
 				<secondaryColours/>
 			</weapon>
 			<weapon>
+				<conditional><![CDATA[clothingConditional4 && !clothingConditional2]]></conditional>
+				<type>innoxia_bat_wooden</type>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+			<weapon>
+				<conditional><![CDATA[clothingConditional4 && !clothingConditional2]]></conditional>
+				<type>innoxia_bat_metal</type>
+				<damageTypes/>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+			<weapon>
 				<conditional><![CDATA[clothingConditional4 && clothingConditional2]]></conditional>
 				<type>innoxia_knuckleDusters_knuckle_dusters</type>
 				<damageTypes/>

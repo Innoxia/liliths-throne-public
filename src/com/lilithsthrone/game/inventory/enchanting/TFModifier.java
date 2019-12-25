@@ -844,6 +844,13 @@ public enum TFModifier {
 			"modifier_circle_nipple_normal",
 			Colour.BASE_PURPLE_LIGHT,
 			Rarity.COMMON),
+
+	TF_MOD_NIPPLE_INVERTED("inverted nipples",
+			"Applies an effect related to making nipples inverted.",
+			"inverted nipples",
+			"modifier_circle_nipple_normal",
+			Colour.BASE_RED_LIGHT,
+			Rarity.COMMON),
 	
 	TF_MOD_NIPPLE_VAGINA("nipple cunts",
 			"Applies an effect related to making nipples look like pussies.",

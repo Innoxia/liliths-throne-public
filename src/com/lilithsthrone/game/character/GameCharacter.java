@@ -3316,10 +3316,12 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void setAreaKnownByCharacter(CoverableArea area, String targetId, boolean known) {
-		if(known) {
-			areasKnownByCharactersMap.get(area).add(targetId);
-		} else {
-			areasKnownByCharactersMap.get(area).remove(targetId);
+		if(area.isSaveDiscoveredStatus()) {
+			if(known) {
+				areasKnownByCharactersMap.get(area).add(targetId);
+			} else {
+				areasKnownByCharactersMap.get(area).remove(targetId);
+			}
 		}
 	}
 	
@@ -3329,11 +3331,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void setAllAreasKnownByCharacter(GameCharacter target, boolean known) {
 		for(CoverableArea area : CoverableArea.values()) {
-			if(known) {
-				areasKnownByCharactersMap.get(area).add(target.getId());
-			} else {
-				areasKnownByCharactersMap.get(area).remove(target.getId());
-			}
+			setAreaKnownByCharacter(area, target, known);
 		}
 	}
 
@@ -6786,7 +6784,7 @@ public abstract class GameCharacter implements XMLSaving {
 								}
 							}
 							if(descriptionNeeded) {
-								stretchDescription = "<p class='centre noPad'>[style.italicsBad("+getStretchDescription(partner, partner.getPenisRawSizeValue(), this, (SexAreaOrifice)performingArea)+")]</p>";
+								stretchDescription = "<p class='centre noPad'>[style.italicsBad("+getStretchDescription(partner, partner.getPenisGirth(), partner.getPenisRawSizeValue(), this, (SexAreaOrifice)performingArea)+")]</p>";
 							}
 							if(partnerCummed) { // If the partner came, apply relevant effects
 								if(partnerCondom) { // Handle the partner wearing a condom:
@@ -6844,7 +6842,7 @@ public abstract class GameCharacter implements XMLSaving {
 						} else {
 							if(includesOrgasm) {
 								AbstractRacialBody body = RacialBody.valueOfRace(subspeciesBackup.getRace());
-								getStretchDescription(null, body.getPenisSize(), this, (SexAreaOrifice)performingArea);
+								getStretchDescription(null, PenisGirth.getPenisGirthFromInt(body.getPenisGirth()), body.getPenisSize(), this, (SexAreaOrifice)performingArea);
 								this.ingestFluid(null,
 										subspeciesBackup,
 										halfDemonSubspeciesBackup,
@@ -7183,7 +7181,7 @@ public abstract class GameCharacter implements XMLSaving {
 						}
 						if(partnerPresent) {
 							if(descriptionNeeded) {
-								stretchDescription = "<p class='centre noPad'>[style.italicsBad("+getStretchDescription(this, this.getPenisRawSizeValue(), partner, (SexAreaOrifice)targetedArea)+")]</p>";
+								stretchDescription = "<p class='centre noPad'>[style.italicsBad("+getStretchDescription(this, this.getPenisGirth(), this.getPenisRawSizeValue(), partner, (SexAreaOrifice)targetedArea)+")]</p>";
 							}
 							if(thisCummed) { // If this character came, apply relevant effects
 								if(thisCondom) { // Handle this character wearing a condom:
@@ -7554,8 +7552,10 @@ public abstract class GameCharacter implements XMLSaving {
 				+ ingestFluidSB.toString();
 	}
 	
-	private static String getStretchDescription(GameCharacter characterPenetrating, int penisSize, GameCharacter orificeCharacter, SexAreaOrifice orifice) {
+	private static String getStretchDescription(GameCharacter characterPenetrating, PenisGirth girth, int penisSize, GameCharacter orificeCharacter, SexAreaOrifice orifice) {
 		int stretchCount = 5; // How many times the orifice should be stretched (based on its starting value).
+		// This method doens't simulate diminishing stretching, so while 5 seems small, it should be enough to simulate more like 10 or so 'real' stretches.
+		
 		switch(orifice) {
 			case ASS:
 			case BREAST:
@@ -7564,7 +7564,7 @@ public abstract class GameCharacter implements XMLSaving {
 			case THIGHS:
 				return "";
 			case ANUS:
-				if(Capacity.isPenisSizeTooBig((int)orificeCharacter.getAssStretchedCapacity(), penisSize, true, false)) {
+				if(Capacity.isPenisSizeTooBig(orificeCharacter.getAssElasticity(), orificeCharacter.getAssStretchedCapacity(), girth, penisSize, true, false)) {
 					// Stretch out the orifice by a factor of elasticity's modifier:
 					orificeCharacter.incrementAssStretchedCapacity((penisSize-orificeCharacter.getAssStretchedCapacity())*orificeCharacter.getAssElasticity().getStretchModifier() * stretchCount);
 					if(orificeCharacter.getAssStretchedCapacity()>penisSize) {
@@ -7575,7 +7575,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				break;
 			case NIPPLE:
-				if(Capacity.isPenisSizeTooBig((int)orificeCharacter.getNippleStretchedCapacity(), penisSize, true, false)) {
+				if(Capacity.isPenisSizeTooBig(orificeCharacter.getNippleElasticity(), orificeCharacter.getNippleStretchedCapacity(), girth, penisSize, true, false)) {
 					// Stretch out the orifice by a factor of elasticity's modifier:
 					orificeCharacter.incrementNippleStretchedCapacity((penisSize-orificeCharacter.getNippleStretchedCapacity())*orificeCharacter.getNippleElasticity().getStretchModifier() * stretchCount);
 					if(orificeCharacter.getNippleStretchedCapacity()>penisSize) {
@@ -7586,7 +7586,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				break;
 			case NIPPLE_CROTCH:
-				if(Capacity.isPenisSizeTooBig((int)orificeCharacter.getNippleCrotchStretchedCapacity(), penisSize, true, false)) {
+				if(Capacity.isPenisSizeTooBig(orificeCharacter.getNippleCrotchElasticity(), orificeCharacter.getNippleCrotchStretchedCapacity(), girth, penisSize, true, false)) {
 					// Stretch out the orifice by a factor of elasticity's modifier:
 					orificeCharacter.incrementNippleCrotchStretchedCapacity((penisSize-orificeCharacter.getNippleCrotchStretchedCapacity())*orificeCharacter.getNippleCrotchElasticity().getStretchModifier() * stretchCount);
 					if(orificeCharacter.getNippleCrotchStretchedCapacity()>penisSize) {
@@ -7597,7 +7597,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				break;
 			case URETHRA_PENIS:
-				if(Capacity.isPenisSizeTooBig((int)orificeCharacter.getPenisStretchedCapacity(), penisSize, true, false)) {
+				if(Capacity.isPenisSizeTooBig(orificeCharacter.getUrethraElasticity(), orificeCharacter.getPenisStretchedCapacity(), girth, penisSize, true, false)) {
 					// Stretch out the orifice by a factor of elasticity's modifier:
 					orificeCharacter.incrementPenisStretchedCapacity((penisSize-orificeCharacter.getPenisStretchedCapacity())*orificeCharacter.getUrethraElasticity().getStretchModifier() * stretchCount);
 					if(orificeCharacter.getPenisStretchedCapacity()>penisSize) {
@@ -7608,7 +7608,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				break;
 			case URETHRA_VAGINA:
-				if(Capacity.isPenisSizeTooBig((int)orificeCharacter.getVaginaUrethraStretchedCapacity(), penisSize, true, false)) {
+				if(Capacity.isPenisSizeTooBig(orificeCharacter.getVaginaUrethraElasticity(), orificeCharacter.getVaginaUrethraStretchedCapacity(), girth, penisSize, true, false)) {
 					// Stretch out the orifice by a factor of elasticity's modifier:
 					orificeCharacter.incrementVaginaUrethraStretchedCapacity((penisSize-orificeCharacter.getVaginaUrethraStretchedCapacity())*orificeCharacter.getVaginaUrethraElasticity().getStretchModifier() * stretchCount);
 					if(orificeCharacter.getVaginaUrethraStretchedCapacity()>penisSize) {
@@ -7619,7 +7619,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				break;
 			case VAGINA:
-				if(Capacity.isPenisSizeTooBig((int)orificeCharacter.getVaginaStretchedCapacity(), penisSize, true, false)) {
+				if(Capacity.isPenisSizeTooBig(orificeCharacter.getVaginaElasticity(), orificeCharacter.getVaginaStretchedCapacity(), girth, penisSize, true, false)) {
 					// Stretch out the orifice by a factor of elasticity's modifier:
 					orificeCharacter.incrementVaginaStretchedCapacity(((penisSize-orificeCharacter.getVaginaStretchedCapacity())*orificeCharacter.getVaginaElasticity().getStretchModifier()) * stretchCount);
 					if(orificeCharacter.getVaginaStretchedCapacity()>penisSize) {
@@ -13925,6 +13925,8 @@ public abstract class GameCharacter implements XMLSaving {
 							switch(characterPenetrated.getNippleShape()) {
 								case LIPS:
 									return UtilText.parse(characterPenetrating, characterPenetrated, "[npc.Name] [npc.verb(let)] out a muffled [npc.moan] as [npc.she] [npc.verb(start)] kissing [npc2.namePos] mouth-like lipples.");
+								case INVERTED:
+									return UtilText.parse(characterPenetrating, characterPenetrated, "[npc.Name] [npc.verb(let)] out a muffled [npc.moan] as [npc.she] [npc.verb(start)] sucking on [npc2.namePos] inverted nipples.");
 								case NORMAL:
 									return UtilText.parse(characterPenetrating, characterPenetrated, "[npc.Name] [npc.verb(let)] out a muffled [npc.moan] as [npc.she] [npc.verb(start)] sucking on [npc2.namePos] nipples.");
 								case VAGINA:
@@ -19991,22 +19993,24 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isFeminine() {
 		boolean isFeminine = body==null || body.isFeminine();
 		
-		if(Femininity.valueOf(getFemininityValue()) == Femininity.ANDROGYNOUS) {
-			switch(Main.getProperties().androgynousIdentification){
-				case FEMININE:
-					isFeminine = true;
-					break;
-				case CLOTHING_FEMININE:
-					isFeminine = getClothingAverageFemininity() >= 50;
-					break;
-				case CLOTHING_MASCULINE:
-					isFeminine = getClothingAverageFemininity() > 50;
-					break;
-				case MASCULINE:
-					isFeminine = false;
-					break;
-				default:
-					break;
+		if(body!=null) {
+			if(Femininity.valueOf(getFemininityValue()) == Femininity.ANDROGYNOUS) {
+				switch(Main.getProperties().androgynousIdentification){
+					case FEMININE:
+						isFeminine = true;
+						break;
+					case CLOTHING_FEMININE:
+						isFeminine = getClothingAverageFemininity() >= 50;
+						break;
+					case CLOTHING_MASCULINE:
+						isFeminine = getClothingAverageFemininity() > 50;
+						break;
+					case MASCULINE:
+						isFeminine = false;
+						break;
+					default:
+						break;
+				}
 			}
 		}
 //		else {

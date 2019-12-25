@@ -1102,15 +1102,25 @@ public class PregnancyRoulette {
 				};
 				
 			} else if(index==0) {
-				return new Response("Back", "Tell Epona that you've had enough of discussing [murk.name] for now.", MURK_LEAVE) {
+				return new Response("Back", "Tell Epona that you've had enough of discussing [murk.name] for now.", MURK_BACK) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_LEAVE"));
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaMurkOwnerIntroduced, true);
 					}
 				};
 			}
 			return null;
+		}
+	};
+
+	public static final DialogueNode MURK_BACK = new DialogueNode("", "", false) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "MURK_BACK");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return PREGNANCY_ROULETTE.getResponse(responseTab, index);
 		}
 	};
 	
@@ -1352,7 +1362,7 @@ public class PregnancyRoulette {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				if(Sex.isDom(Main.game.getPlayer())) {
-					return new Response("Leave", "Leave [murk.name] panting on teh floor and leave", MURK_LEAVE){
+					return new Response("Leave", "Leave [murk.name] panting on the floor and leave", MURK_LEAVE){
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/pregnancyRoulette", "AFTER_MURK_SEX_DOM_LEAVE"));
@@ -1382,7 +1392,7 @@ public class PregnancyRoulette {
 		}
 	};
 
-	public static final DialogueNode MURK_LEAVE = new DialogueNode("", "", true) {
+	public static final DialogueNode MURK_LEAVE = new DialogueNode("", "", false) {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_CORRIDOR);

@@ -812,7 +812,10 @@ public interface SexActionInterface {
 				
 				
 			} else if(getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED) {
-
+				if(Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.NONE) {
+					return null;
+				}
+				
 				// Check penetrations:
 				for(SexAreaPenetration sArea : this.getPerformingCharacterPenetrations()) {
 					if(!Sex.getCharacterPerformingAction().isPenetrationTypeExposed(sArea)) {
@@ -853,6 +856,9 @@ public interface SexActionInterface {
 				
 				
 			} else if(getActionType()==SexActionType.REQUIRES_EXPOSED) {
+				if(Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.NONE) {
+					return null;
+				}
 
 				// Check penetrations:
 				for(SexAreaPenetration sArea : this.getPerformingCharacterPenetrations()) {
@@ -882,6 +888,9 @@ public interface SexActionInterface {
 				
 				
 			} else if(getActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
+				if(Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.NONE) {
+					return null;
+				}
 
 				// Check penetrations:
 				for(SexAreaPenetration sArea : this.getPerformingCharacterPenetrations()) {

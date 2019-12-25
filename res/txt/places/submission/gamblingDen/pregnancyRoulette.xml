@@ -747,6 +747,16 @@
 	</htmlContent>
 	
 	
+	<!-- MURK_LEAVE -->
+	
+	<htmlContent tag="MURK_BACK"><![CDATA[
+	<p>
+		You decide against asking to see Murk. With Epona still standing at the counter, you wonder if you should ask her anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- MURK_SUBMIT_ACCEPT -->
 	
 	<htmlContent tag="MURK_SUBMIT_ACCEPT_POTION"><![CDATA[

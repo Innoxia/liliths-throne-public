@@ -827,7 +827,7 @@ public class Game implements XMLSaving {
 				}
 				
 				Main.game.player = PlayerCharacter.loadFromXML(null, (Element) ((Element) gameElement.getElementsByTagName("playerCharacter").item(0)), doc);
-
+				
 				if(debug) {
 					System.out.println("Player finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
@@ -3285,6 +3285,8 @@ public class Game implements XMLSaving {
 	}
 
 	public World getActiveWorld() {
+		worlds.size();
+		player.isFeminine();
 		return worlds.get(player.getWorldLocation());
 	}
 

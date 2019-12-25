@@ -55,6 +55,11 @@ public class DialogueFlags implements XMLSaving {
 	// Storage tiles checked:
 	public Set<Vector2i> supplierStorageRoomsChecked = new HashSet<>();
 	
+	// Murk transformation stage tracking:
+	private int murkPlayerTfStage;
+	private int murkCompanionTfStage;
+	
+	
 	private String slaveTrader;
 	
 	private String managementCompanion;
@@ -87,6 +92,9 @@ public class DialogueFlags implements XMLSaving {
 			= -50000;
 		
 		impCitadelImpWave = 0;
+		
+		murkPlayerTfStage = 0;
+		murkCompanionTfStage = 0;
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -106,6 +114,9 @@ public class DialogueFlags implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressMalesDefeatedTime", String.valueOf(impFortressMalesDefeatedTime));
 
 		CharacterUtils.createXMLElementWithValue(doc, element, "impCitadelImpWave", String.valueOf(impCitadelImpWave));
+
+		CharacterUtils.createXMLElementWithValue(doc, element, "murkPlayerTfStage", String.valueOf(murkPlayerTfStage));
+		CharacterUtils.createXMLElementWithValue(doc, element, "murkCompanionTfStage", String.valueOf(murkCompanionTfStage));
 		
 		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
@@ -176,7 +187,12 @@ public class DialogueFlags implements XMLSaving {
 			newFlags.impCitadelImpWave = Integer.valueOf(((Element)parentElement.getElementsByTagName("impCitadelImpWave").item(0)).getAttribute("value"));
 		} catch(Exception ex) {
 		}
-		
+
+		try {
+			newFlags.murkPlayerTfStage = Integer.valueOf(((Element)parentElement.getElementsByTagName("murkPlayerTfStage").item(0)).getAttribute("value"));
+			newFlags.murkCompanionTfStage = Integer.valueOf(((Element)parentElement.getElementsByTagName("murkCompanionTfStage").item(0)).getAttribute("value"));
+		} catch(Exception ex) {
+		}
 		
 		for(int i=0; i<((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").getLength(); i++){
 			Element e = (Element) ((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").item(i);
@@ -365,5 +381,20 @@ public class DialogueFlags implements XMLSaving {
 		this.setFlag(DialogueFlagValue.nyanMakeOut, false);
 		this.setFlag(DialogueFlagValue.nyanSex, false);
 		this.setFlag(DialogueFlagValue.nyanGift, false);
+	}
+	
+	public int getMurkTfStage(GameCharacter target) {
+		if(target.isPlayer()) {
+			return murkPlayerTfStage;
+		}
+		return murkCompanionTfStage;
+	}
+	
+	public void setMurkTfStage(GameCharacter target, int stage) {
+		if(target.isPlayer()) {
+			this.murkPlayerTfStage = stage;
+		} else {
+			this.murkCompanionTfStage = stage;
+		}
 	}
 }

@@ -41,6 +41,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFoot;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailMouth;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -543,6 +544,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		availableActions.removeIf(si -> !si.isAddedToAvailableSexActions() && !si.isAbleToAccessParts(performingCharacter));
 		
 		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
+		if(!performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
+			bannedActions.add(PartnerSelfTailMouth.PARTNER_SELF_TAIL_MOUTH_PENETRATION);
+		}
 		
 		if(sexActionPlayer.getActionType()==SexActionType.STOP_ONGOING
 				|| sexActionPlayer.equals(GenericActions.PLAYER_FORBID_PARTNER_SELF)
@@ -651,6 +655,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		}
 		
 		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
+		if(!performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
+			bannedActions.add(PartnerSelfTailMouth.PARTNER_SELF_TAIL_MOUTH_PENETRATION);
+		}
 		availableActions.removeAll(bannedActions);
 		List<SexActionInterface> returnableActions = new ArrayList<>();
 		

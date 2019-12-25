@@ -967,7 +967,53 @@ public enum Subspecies {
 			}
 		}
 	},
-	
+
+	FOX_MORPH_ARCTIC("statusEffects/race/raceFoxMorph",
+			"statusEffects/race/raceBackground",
+			"arctic-fox-morph",
+			"arctic-fox-morphs",
+			"arctic-fox-boy",
+			"arctic-fox-girl",
+			"arctic-fox-boys",
+			"arctic-fox-girls",
+			"arctic-fox",
+			"[npc.NameIsFull] very sly and nimble, and [npc.sheIs] able to use [npc.her] heightened senses to detect opportune moments in which to attack."
+					+ " As [npc.sheIsFull] adapted to arctic conditions, [npc.sheIs] also better able to resist incoming cold damage.",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 1f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f)),
+			null,
+			"Skulking Vulpines",
+			"Skulking Vulpines",
+			"FOX_MORPH_BASIC",
+			"FOX_MORPH_ADVANCED",
+			Race.FOX_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Colour.RACE_FOX_MORPH_ARCTIC,
+			SubspeciesPreference.ONE_LOW,
+			"An anthropomorphic fox with white fur, known as an 'arctic-fox-morph' when bipedal, and an 'arctic-foxtaur' when the lower body is that of a typically-oversized feral fox.",
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE))) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, Colour.COVERING_WHITE, false, Colour.COVERING_WHITE, false));
+			if(body.getPenis().getType()==PenisType.VULPINE) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
+			}
+		}
+	},
 	FOX_MORPH_FENNEC("statusEffects/race/raceFoxMorph",
 			"statusEffects/race/raceBackground",
 			"fennec-morph",
@@ -1364,7 +1410,7 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 1f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f)),
 			null,
 			"Curious Kitties",
 			"Curious Kitties",
@@ -1429,7 +1475,7 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 1f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f)),
 			null,
 			"Curious Kitties",
 			"Curious Kitties",
@@ -1489,7 +1535,7 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 1f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f)),
 			null,
 			"Curious Kitties",
 			"Curious Kitties",
@@ -2185,7 +2231,7 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f)),
 			null,
 			"Equine Encyclopedia",
 			"Equine Encyclopedias",
@@ -3630,6 +3676,9 @@ public enum Subspecies {
 					
 				} else if (body.getTail().getType() == TailType.FOX_MORPH_MAGIC) {
 					subspecies = Subspecies.FOX_ASCENDANT;
+					
+				} else if (fox_fur.getPrimaryColour() == Colour.COVERING_WHITE) {
+					subspecies = Subspecies.FOX_MORPH_ARCTIC;
 				}
 				break;
 			case HORSE_MORPH:
@@ -4358,6 +4407,8 @@ public enum Subspecies {
 			case FOX_MORPH:
 			case FOX_MORPH_FENNEC:
 				return 8000;
+			case FOX_MORPH_ARCTIC:
+				return 10_000;
 			case FOX_ASCENDANT:
 				return 15000 * character.getTailCount();
 			case FOX_ASCENDANT_FENNEC:

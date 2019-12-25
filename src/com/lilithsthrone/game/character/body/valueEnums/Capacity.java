@@ -12,57 +12,76 @@ import com.lilithsthrone.utils.Colour;
  * @author Innoxia
  */
 public enum Capacity {
-	ZERO_IMPENETRABLE("extremely tight", PenisSize.NEGATIVE_UTILITY_VALUE, PenisSize.ZERO_MICROSCOPIC, PenisSize.ONE_TINY, Colour.GENERIC_SIZE_ONE),
+	ZERO_IMPENETRABLE("extremely tight", PenisSize.ZERO_MICROSCOPIC, PenisSize.ONE_TINY, Colour.GENERIC_SIZE_ONE),
 	
-	ONE_EXTREMELY_TIGHT("tight", PenisSize.ZERO_MICROSCOPIC, PenisSize.ONE_TINY, PenisSize.TWO_AVERAGE, Colour.GENERIC_SIZE_TWO),
+	ONE_EXTREMELY_TIGHT("tight", PenisSize.ONE_TINY, PenisSize.TWO_AVERAGE, Colour.GENERIC_SIZE_TWO),
 	
-	TWO_TIGHT("somewhat tight", PenisSize.ZERO_MICROSCOPIC, PenisSize.TWO_AVERAGE, PenisSize.THREE_LARGE, Colour.GENERIC_SIZE_THREE),
+	TWO_TIGHT("somewhat tight", PenisSize.TWO_AVERAGE, PenisSize.THREE_LARGE, Colour.GENERIC_SIZE_THREE),
 	
-	THREE_SLIGHTLY_LOOSE("slightly loose", PenisSize.ONE_TINY, PenisSize.THREE_LARGE, PenisSize.FOUR_HUGE, Colour.GENERIC_SIZE_FOUR),
+	THREE_SLIGHTLY_LOOSE("slightly loose", PenisSize.THREE_LARGE, PenisSize.FOUR_HUGE, Colour.GENERIC_SIZE_FOUR),
 	
-	FOUR_LOOSE("loose", PenisSize.ONE_TINY, PenisSize.FOUR_HUGE, PenisSize.FIVE_ENORMOUS, Colour.GENERIC_SIZE_FIVE),
+	FOUR_LOOSE("loose", PenisSize.FOUR_HUGE, PenisSize.FIVE_ENORMOUS, Colour.GENERIC_SIZE_FIVE),
 	
-	FIVE_ROOMY("very loose", PenisSize.TWO_AVERAGE, PenisSize.FIVE_ENORMOUS, PenisSize.SIX_GIGANTIC, Colour.GENERIC_SIZE_SIX) {
+	FIVE_ROOMY("very loose", PenisSize.FIVE_ENORMOUS, PenisSize.SIX_GIGANTIC, Colour.GENERIC_SIZE_SIX) {
 		@Override
 		public String getDescriptor() {
 			if(!Main.game.isGapeContentEnabled()) {
-				return "loose";
+				return FOUR_LOOSE.getDescriptor();
 			}
 			return super.getDescriptor();
 		}
-	},
-	
-	SIX_STRETCHED_OPEN("stretched open", PenisSize.TWO_AVERAGE, PenisSize.SIX_GIGANTIC, PenisSize.SEVEN_STALLION, Colour.GENERIC_SIZE_SEVEN) {
 		@Override
-		public String getDescriptor() {
+		public Colour getColour() {
 			if(!Main.game.isGapeContentEnabled()) {
-				return "loose";
+				return FOUR_LOOSE.getColour();
 			}
-			return super.getDescriptor();
+			return super.getColour();
 		}
 	},
 	
-	SEVEN_GAPING("gaping wide", PenisSize.THREE_LARGE, PenisSize.SEVEN_STALLION, PenisSize.SEVEN_STALLION, Colour.GENERIC_SIZE_EIGHT) {
+	SIX_STRETCHED_OPEN("stretched open", PenisSize.SIX_GIGANTIC, PenisSize.SEVEN_STALLION, Colour.GENERIC_SIZE_SEVEN) {
 		@Override
 		public String getDescriptor() {
 			if(!Main.game.isGapeContentEnabled()) {
-				return "loose";
+				return FOUR_LOOSE.getDescriptor();
 			}
 			return super.getDescriptor();
+		}
+		@Override
+		public Colour getColour() {
+			if(!Main.game.isGapeContentEnabled()) {
+				return FOUR_LOOSE.getColour();
+			}
+			return super.getColour();
+		}
+	},
+	
+	SEVEN_GAPING("gaping wide", PenisSize.SEVEN_STALLION, PenisSize.SEVEN_STALLION, Colour.GENERIC_SIZE_EIGHT) {
+		@Override
+		public String getDescriptor() {
+			if(!Main.game.isGapeContentEnabled()) {
+				return FOUR_LOOSE.getDescriptor();
+			}
+			return super.getDescriptor();
+		}
+		@Override
+		public Colour getColour() {
+			if(!Main.game.isGapeContentEnabled()) {
+				return FOUR_LOOSE.getColour();
+			}
+			return super.getColour();
 		}
 	};
 
 	
 	private String descriptor;
-	private PenisSize sizeTooSmall;
 	private PenisSize maximumSizeComfortable;
 	private PenisSize maximumSizeComfortableWithLube;
 	private Colour colour;
 
-	private Capacity(String descriptor, PenisSize sizeTooSmall, PenisSize maximumSizeComfortable, PenisSize maximumSizeComfortableWithLube, Colour colour) {
+	private Capacity(String descriptor, PenisSize maximumSizeComfortable, PenisSize maximumSizeComfortableWithLube, Colour colour) {
 		this.descriptor = descriptor;
 
-		this.sizeTooSmall = sizeTooSmall;
 		this.maximumSizeComfortable = maximumSizeComfortable;
 		this.maximumSizeComfortableWithLube = maximumSizeComfortableWithLube;
 		this.colour=colour;
@@ -97,35 +116,72 @@ public enum Capacity {
 		}
 		return SEVEN_GAPING;
 	}
-	
-	private static float calculatePenisSizeUsed(int penisSize, boolean twoPenisesInVagina) {
+
+	/**
+	 * @param girth The girth of the penetrating object.
+	 * @param penisSize The size of the penetrating object.
+	 * @param twoPenetrationsInOrifice Whether there are two objects penetrating the orifice.
+	 * @return The size of the penetrating object for use in stretch calculations.
+	 */
+	public static float calculateStretchSize(PenisGirth girth, int penisSize, boolean twoPenetrationsInOrifice) {
+		float penisSizeWithGirth = ((float)penisSize)*girth.getOrificeStretchFactor();
 		return Math.min(
 				PenisSize.SEVEN_STALLION.getMaximumValue(),
-				twoPenisesInVagina
-					? penisSize * Penis.TWO_PENIS_SIZE_MULTIPLIER
-					: penisSize);
+				twoPenetrationsInOrifice
+					? penisSizeWithGirth * Penis.TWO_PENIS_SIZE_MULTIPLIER
+					: penisSizeWithGirth);
 	}
-
-	public static boolean isPenisSizeTooSmall(int capacity, int penisSize, boolean twoPenisesInVagina) {
-		return calculatePenisSizeUsed(penisSize, twoPenisesInVagina) <= Capacity.getCapacityFromValue(capacity).getSizeTooSmall().getMaximumValue();
-	}
-
-	public static boolean isPenisSizeTooBig(int capacity, int penisSize, boolean lubed, boolean twoPenises) {
-		float penisSizeUsed = calculatePenisSizeUsed(penisSize, twoPenises);
-		return (lubed && penisSizeUsed > Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortableWithLube().getMaximumValue())
-				|| (!lubed && penisSizeUsed > Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortable().getMaximumValue());
+	
+	/**
+	 * @param capacity The capacity of the orifice being penetrated.
+	 * @param penisSize The size of the penis (or other penetrative object) being inserted.
+	 * @param twoPenisesInVagina Pass in true if there are two penises in the orifice.
+	 * @return true if the penis size is <=60% of the orifice capacity.
+	 */
+	public static boolean isPenisSizeTooSmall(float capacity, PenisGirth girth, int penisSize, boolean twoPenisesInVagina) {
+		return calculateStretchSize(girth, penisSize, twoPenisesInVagina) <= capacity*0.6f;
 	}
 
 	/**
-	 * To fit into a sentence: "Your vagina is "+getDescriptor()+"." "Your "
-	 * getDescriptor()+" asshole is stretched wide open."
+	 * @param elasticity The elasticity of the orifice being penetrated. A higher elasticity is more tolerable of bigger penetrations.
+	 * @param capacity The capacity of the orifice being penetrated.
+	 * @param penisSize The size of the penis (or other penetrative object) being inserted.
+	 * @param lubed Whether the orifice is lubricated or not. If lubricated, the orifice is able to take bigger penetrations.
+	 * @param twoPenisesInVagina Pass in true if there are two penises in the orifice.
+	 * @return true if the penis size (factoring in girth) is larger than the capacity can handle.
+	 */
+	public static boolean isPenisSizeTooBig(OrificeElasticity elasticity, float capacity, PenisGirth girth, int penisSize, boolean lubed, boolean twoPenises) {
+		float penisSizeUsed = calculateStretchSize(girth, penisSize, twoPenises);
+		
+		float tolerance = elasticity.getSizeTolerancePercentage();
+		if(tolerance>0 && lubed) {
+			tolerance+=0.1f; // Add 10% tolerance if lubed
+		}
+		tolerance+=1.01; // Base of 1%
+//		System.out.println("Capacity check: "+penisSizeUsed+" | "+(capacity*tolerance));
+		return penisSizeUsed > capacity*tolerance;
+		
+//		return (lubed && penisSizeUsed > Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortableWithLube().getMaximumValue())
+//				|| (!lubed && penisSizeUsed > Capacity.getCapacityFromValue(capacity).getMaximumSizeComfortable().getMaximumValue());
+	}
+
+	/**
+	 * To fit into a sentence:
+	 * <br/>"Your vagina is "+getDescriptor()+"."
+	 * <br/>"Your "+getDescriptor()+" asshole is stretched wide open."
 	 */
 	public String getDescriptor() {
 		return descriptor;
 	}
-
-	public PenisSize getSizeTooSmall() {
-		return sizeTooSmall;
+	
+	/**
+	 * A coloured version of getDescriptor().
+	 */
+	public String getDescriptor(boolean coloured) {
+		if(coloured) {
+			return "<span style='color:"+this.getColour().toWebHexString()+";'>"+getDescriptor()+"</span>";
+		}
+		return getDescriptor();
 	}
 
 	public PenisSize getMaximumSizeComfortable() {

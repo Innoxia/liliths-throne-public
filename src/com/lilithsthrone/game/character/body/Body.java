@@ -1660,6 +1660,15 @@ public class Body implements XMLSaving {
 						colourSecondary = "COVERING_DIRTY_BLONDE";
 					}
 				}
+
+				if(type.startsWith("EYE_")) {
+					if(colourPrimary.equals("COVERING_BLUE")) {
+						colourPrimary = "COVERING_BLUE_LIGHT";
+					}
+					if(colourSecondary.equals("COVERING_BLUE")) {
+						colourSecondary = "COVERING_BLUE_LIGHT";
+					}
+				}
 				
 				if(e.getAttribute("modifier").isEmpty()) {
 					body.setBodyCoveringForXMLImport(BodyCoveringType.getTypeFromString(type),
@@ -3462,7 +3471,7 @@ public class Body implements XMLSaving {
 			descriptionSB.append(" [style.colourBestial(Being a part of [npc.her] bestial lower body, it is entirely feral in form, and is no different to that of a regular [npc.assRace]'s.)]");
 		}
 
-		descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is "+Capacity.getCapacityFromValue(ass.getAnus().getOrificeAnus().getStretchedCapacity()).getDescriptor()+", and can comfortably take "
+		descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is "+Capacity.getCapacityFromValue(ass.getAnus().getOrificeAnus().getStretchedCapacity()).getDescriptor(true)+", and can comfortably take "
 				+ Capacity.getCapacityFromValue(ass.getAnus().getOrificeAnus().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with enough lube.</span>");
 		
 		if (ass.getAnus().getOrificeAnus().isVirgin()){
@@ -3608,6 +3617,7 @@ public class Body implements XMLSaving {
 			
 			switch(owner.getNippleShape()) {
 				case NORMAL:
+				case INVERTED:
 					descriptionSB.append(" [npc.nipplePrimaryColour(true)]");
 					break;
 				case LIPS:
@@ -3862,6 +3872,7 @@ public class Body implements XMLSaving {
 			}
 			
 			switch(owner.getNippleCrotchShape()) {
+				case INVERTED:
 				case NORMAL:
 					descriptionSB.append(" [npc.crotchNipplePrimaryColour(true)]");
 					break;
@@ -4644,7 +4655,7 @@ public class Body implements XMLSaving {
 			descriptionSB.append(" [style.colourBestial(As it is located on the lower, animalistic part of [npc.her] body, [npc.her] [npc.pussy] is no different to that of a feral [npc.vaginaRace]'s.)]");
 		}
 		
-		descriptionSB.append(" [npc.She] [npc.has] [npc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
+		descriptionSB.append(" [npc.She] [npc.has] [npc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [npc.clitGirth]")
 				+" clit, which measures [npc.clitSizeValue] in length.");
 		
 		for(PenetrationModifier pm : PenetrationModifier.values()) {
@@ -4687,22 +4698,22 @@ public class Body implements XMLSaving {
 		// Virgin/capacity:
 		if (viewedVagina.getOrificeVagina().isVirgin()) {
 			if (isPlayer) {
-				descriptionSB.append(" [style.colourSex(Within your " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor()
+				descriptionSB.append(" [style.colourSex(Within your " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor(true)
 						+ " [pc.pussy], your hymen is still intact, as it has never been penetrated before.)]"
 						+ " [style.colourGood(You have retained your vaginal virginity.)]");
 			} else if(!hallucinating) {
-				descriptionSB.append(" [style.colourSex(Within [npc.her] " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor()
+				descriptionSB.append(" [style.colourSex(Within [npc.her] " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor(true)
 						+ " [npc.pussy], [npc.her] hymen is still intact, as it has never been penetrated before.)]"
 						+ " [style.colourGood([npc.She] has retained [npc.her] vaginal virginity.)]");
 			}
 			
 		} else {
 			if (isPlayer) {
-				descriptionSB.append(" [style.colourSex(Your pussy is " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
+				descriptionSB.append(" [style.colourSex(Your pussy is " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor(true) + ", and can comfortably take "
 						+ Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 				
 			} else if(!hallucinating) {
-				descriptionSB.append(" [style.colourSex([npc.Her] pussy is " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
+				descriptionSB.append(" [style.colourSex([npc.Her] pussy is " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor(true) + ", and can comfortably take "
 						+ Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 			}
 

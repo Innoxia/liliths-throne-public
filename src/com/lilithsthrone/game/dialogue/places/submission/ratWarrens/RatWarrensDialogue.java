@@ -863,6 +863,7 @@ public class RatWarrensDialogue {
 							GUARD_COMBAT_DEFEAT_STOCKS) {
 						@Override
 						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_DEFEAT_STOCKS", getGuards(true)));
 							List<GameCharacter> guards = getGuards(false);
 							int count=0;
 							for(GameCharacter npc : guards) {
@@ -882,7 +883,7 @@ public class RatWarrensDialogue {
 							}
 							Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM);
 							
-							applyCaptivity(Main.game.getPlayer(), true); //TODO remember to give description of essences being extracted
+							applyCaptivity(Main.game.getPlayer(), true);
 							if(!guards.get(0).hasPenis()) {
 								guards.get(0).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, false), true, guards.get(0));
 							}
@@ -891,6 +892,41 @@ public class RatWarrensDialogue {
 								if(!guards.get(2).hasPenis()) {
 									guards.get(2).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, false), true, guards.get(2));
 								}
+							}
+						}
+					};
+					
+				} else if(index==2
+						&& isCompanionDialogue()
+						&& !Main.game.isInvoluntaryNTREnabled()) {
+					return new Response(UtilText.parse(getMainCompanion(), "Save [npc.name]"),
+							UtilText.parse(getMainCompanion(), "Use the last of your energy to hold off the rats long enough for [npc.name] to escape."
+									+ "<br/>[style.italicsMinorGood(Unlocked having the 'Involuntary NTR' content setting turned off."
+										+ " [npc.Name] will safely return home, but the rest of the loss route will proceed as normal.)]"),
+							GUARD_COMBAT_DEFEAT_STOCKS) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_DEFEAT_STOCKS_COMPANION_ESCAPE", getGuards(true)));
+							
+							GameCharacter companion = getMainCompanion();
+							Main.game.getPlayer().removeCompanion(companion);
+							companion.returnToHome();
+							
+							List<GameCharacter> guards = getGuards(false);
+							int count=0;
+							for(GameCharacter npc : guards) {
+								count++;
+								if(count>2) {
+									Main.game.banishNPC((NPC) npc);
+									continue;
+								}
+								npc.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM);
+							}
+							Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM);
+							
+							applyCaptivity(Main.game.getPlayer(), true);
+							if(!guards.get(0).hasPenis()) {
+								guards.get(0).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, false), true, guards.get(0));
 							}
 						}
 					};
@@ -932,6 +968,45 @@ public class RatWarrensDialogue {
 					map.put(guards.get(2), Util.newArrayListOfValues(CoverableArea.PENIS));
 				}
 				return map;
+			}
+			@Override
+			public void assignNPCTarget(GameCharacter targeter) {
+				if(isCompanionDialogue()) {
+					if(targeter.equals(guards.get(0))) {
+						if(Math.random()<0.9) {
+							Sex.setTargetedPartner(targeter, Main.game.getPlayer());
+						} else {
+							Sex.setTargetedPartner(targeter, guards.get(1));
+						}
+						
+					} else if(targeter.equals(guards.get(1))) {
+						if(Math.random()<0.9) {
+							Sex.setTargetedPartner(targeter, Main.game.getPlayer());
+						} else {
+							Sex.setTargetedPartner(targeter, guards.get(0));
+						}
+						
+					} else if(targeter.equals(guards.get(2))) {
+						if(Math.random()<0.9) {
+							Sex.setTargetedPartner(targeter, getMainCompanion());
+						} else {
+							Sex.setTargetedPartner(targeter, guards.get(3));
+						}
+						
+					} else if(targeter.equals(guards.get(3))) {
+						if(Math.random()<0.9) {
+							Sex.setTargetedPartner(targeter, getMainCompanion());
+						} else {
+							Sex.setTargetedPartner(targeter, guards.get(2));
+						}
+						
+					} else {
+						super.assignNPCTarget(targeter);
+					}
+					
+				} else  {
+					super.assignNPCTarget(targeter);
+				}
 			}
 			@Override
 			public SexControl getSexControl(GameCharacter character) {
@@ -980,7 +1055,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_DEFEAT_STOCKS", getGuards(true));
+			return "";
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3276,10 +3351,31 @@ public class RatWarrensDialogue {
 						@Override
 						public void effects() {
 							Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
-							applyCaptivity(Main.game.getPlayer(), false); //TODO remember to give description of essences being extracted
+							applyCaptivity(Main.game.getPlayer(), false);
 							if(isCompanionDialogue()) {
 								applyCaptivity(getMainCompanion(), false);
 							}
+						}
+					};
+					
+				} else if(index==2
+						&& isCompanionDialogue()
+						&& !Main.game.isInvoluntaryNTREnabled()) {
+					return new Response(UtilText.parse(getMainCompanion(), "Save [npc.name]"),
+							UtilText.parse(getMainCompanion(), "Use the last of your energy to hold off the rats long enough for [npc.name] to escape."
+									+ "<br/>[style.italicsMinorGood(Unlocked having the 'Involuntary NTR' content setting turned off."
+										+ " [npc.Name] will safely return home, but the rest of the loss route will proceed as normal.)]"),
+							VengarCaptiveDialogue.FINAL_COMBAT_DEFEAT_STRIPPED) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_DEFEAT_COMPANION_ESCAPE", getGuards(true)));
+							
+							GameCharacter companion = getMainCompanion();
+							Main.game.getPlayer().removeCompanion(companion);
+							companion.returnToHome();
+
+							Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
+							applyCaptivity(Main.game.getPlayer(), false);
 						}
 					};
 				}

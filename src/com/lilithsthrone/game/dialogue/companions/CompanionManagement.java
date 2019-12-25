@@ -305,7 +305,7 @@ public class CompanionManagement {
 					return new Response(
 							characterSelected() instanceof Elemental
 								?"Dispel"
-								:"Go home",
+								:"Send home",
 							"As you are a captive, you cannot dismiss your companions!",
 							null);
 					
@@ -313,7 +313,7 @@ public class CompanionManagement {
 					return new Response(
 							characterSelected() instanceof Elemental
 								?"Dispel"
-								:"Go home",
+								:"Send home",
 							"You're in the middle of something right now!"+getBusyWarning(),
 							null);
 					
@@ -322,7 +322,7 @@ public class CompanionManagement {
 						return new ResponseEffectsOnly(
 								characterSelected() instanceof Elemental
 									?"Dispel"
-									:"Go home",
+									:"Send home",
 									UtilText.parse(characterSelected(), 
 										characterSelected() instanceof Elemental
 											?"Dispel [npc.namePos] physical form, and return [npc.herHim] to your arcane aura."
@@ -344,7 +344,7 @@ public class CompanionManagement {
 						return new Response(
 								characterSelected() instanceof Elemental
 									?"Dispel"
-									:"Go home",
+									:"Send home",
 									UtilText.parse(characterSelected(), 
 										characterSelected() instanceof Elemental
 											?"Dispel [npc.namePos] physical form, and return [npc.herHim] to your arcane aura."

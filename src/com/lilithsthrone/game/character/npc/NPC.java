@@ -954,6 +954,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case FOX_ASCENDANT:
 				case FOX_ASCENDANT_FENNEC:
 				case FOX_MORPH_FENNEC:
+				case FOX_MORPH_ARCTIC:
 					raceIngredient = ItemType.INT_INGREDIENT_GRAPE_JUICE;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_FOX_MORPH;
 					break;
@@ -1306,6 +1307,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case FOX_ASCENDANT:
 				case FOX_ASCENDANT_FENNEC:
 				case FOX_MORPH_FENNEC:
+				case FOX_MORPH_ARCTIC:
 					itemType = ItemType.RACE_INGREDIENT_FOX_MORPH;
 					break;
 				case HARPY:

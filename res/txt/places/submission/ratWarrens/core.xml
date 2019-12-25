@@ -542,6 +542,25 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_COMPANION_ESCAPE"><![CDATA[
+	<p>
+		With the last of your energy, you manage to hold off the rats long enough for [npc.name] to escape.
+	</p>
+	<p>
+		The gang members drag you deep into the tunnels, and you soon find yourself entering milking storage room. If Murk introduced, recognise the room, else describe it and Murk. 
+	</p>
+	<p>
+		The rat leader makes a deal with Murk to give you to him in order to pay off debts. Murk agrees to let them fuck you in exchange for keeping all your gear. The rats strip you completely naked and lock you into milking stall. A heavy metal collar is fit around your neck, and you instantly feel it inhibiting your aura's strength. All of your gear is thrown into wooden chests, with Murk helping himself to all your flames.
+	</p>
+	<p>
+		Looking around, you see that you're in a large cave-like chamber, with several human females locked into stocks just like yours. They all have huge breasts and are hooked up to milking machines.
+	</p>
+	<p>
+		If gang member 0 and 2 have no penis, describe them putting strapons on. The gang members say how Murk will take good care of you, but first they're going to get some payback for earlier.
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_SEX"><![CDATA[
 	<p>
 		The rats move to fuck you (and your companion). You don't resist, much to their delight.
@@ -1414,7 +1433,14 @@
 	
 	<htmlContent tag="BODYGUARDS_COMBAT_DEFEAT"><![CDATA[
 	<p>
-		You are defeated by the rat-girls. If non-con disabled, explosion in heard before anyone can make a move on you. If non-con is on, Shadow strips you (Silence strips companion, if applicable) in front of everyone in the hall. Essence extraction somehow.
+		You are defeated by the rat-girls. If non-con disabled, explosion in heard before anyone can make a move on you. If non-con is on, Shadow strips you (Silence strips companion, if applicable) in front of everyone in the hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BODYGUARDS_COMBAT_DEFEAT_COMPANION_ESCAPE"><![CDATA[
+	<p>
+		You manage to hold off the rats long enough for [npc.name] to escape.
 	</p>
 	]]>
 	</htmlContent>

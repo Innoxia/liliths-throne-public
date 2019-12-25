@@ -1,6 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission.ratWarrens;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -21,13 +22,9 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.markings.Tattoo;
-import com.lilithsthrone.game.character.markings.TattooType;
-import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -43,18 +40,18 @@ public enum CaptiveTransformation {
 	MASCULINE_FETISH(false) {
 		@Override
 		public Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects) {
-			Map<String, String> map = new HashMap<>();
+			Map<String, String> map = new LinkedHashMap<>();
 			
 			if(!target.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("Let's get yer likin' the fact that yer gonna be naked from now on!",
-						target.addFetish(Fetish.FETISH_EXHIBITIONIST));
+						target.addFetish(Fetish.FETISH_EXHIBITIONIST, true));
 			}
 
 			if(!target.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("We don't want yer thinkin' yer anythin' but a submissive milker now, do we?",
-						target.addFetish(Fetish.FETISH_SUBMISSIVE));
+						target.addFetish(Fetish.FETISH_SUBMISSIVE, true));
 			}
 
 			if(!target.hasFetish(Fetish.FETISH_PENIS_GIVING)) {
@@ -62,27 +59,28 @@ public enum CaptiveTransformation {
 				map.put(target.hasPenisIgnoreDildo()
 							?"We're gonna want yer desperate ta be having yer cock used..."
 							:"Once we've got yer ta grow a nice big cock, we're gonna want yer ta be desperate ta use it...",
-						target.addFetish(Fetish.FETISH_PENIS_GIVING));
+						target.addFetish(Fetish.FETISH_PENIS_GIVING, true));
 			}
 
 			if(!target.hasFetish(Fetish.FETISH_CUM_STUD)) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("This'll make yer love nothin' more than ta be cummin' into the milkin' machine all day long!",
-						target.addFetish(Fetish.FETISH_CUM_STUD));
+						target.addFetish(Fetish.FETISH_CUM_STUD, true));
 			}
 			
 			if(Main.game.isAnalContentEnabled() && !target.hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("It's betta fer everyone involved if yer love havin' yer ass fucked!",
-						target.addFetish(Fetish.FETISH_ANAL_RECEIVING));
+						target.addFetish(Fetish.FETISH_ANAL_RECEIVING, true));
 			}
 
 			if(!target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("We're gonna want yer ta be desperate ta 'ave us transform yer into one o' our cum milkers!",
-						target.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING));
+						target.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING, true));
 			}
 			
+			Main.game.getDialogueFlags().setMurkTfStage(target, 1);
 			return map;
 		}
 	},
@@ -90,7 +88,7 @@ public enum CaptiveTransformation {
 	MASCULINE_FEMININITY(false) {
 		@Override
 		public Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects) {
-			Map<String, String> map = new HashMap<>();
+			Map<String, String> map = new LinkedHashMap<>();
 
 			// Flag for character becoming a sissy:
 			boolean sissy = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveSissy);
@@ -125,7 +123,8 @@ public enum CaptiveTransformation {
 							target.setFemininity(5));
 				}
 			}
-			
+
+			Main.game.getDialogueFlags().setMurkTfStage(target, 2);
 			return map;
 		}
 	},
@@ -133,7 +132,7 @@ public enum CaptiveTransformation {
 	MASCULINE_GENITALS(false) {
 		@Override
 		public Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects) {
-			Map<String, String> map = new HashMap<>();
+			Map<String, String> map = new LinkedHashMap<>();
 
 			// Flag for character becoming a sissy:
 			boolean sissy = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveSissy);
@@ -222,26 +221,29 @@ public enum CaptiveTransformation {
 							+(!selfTransform?"":" I know ya can make yerself nice an' wet back 'ere, so do it already!"),
 							target.setAssWetness(Wetness.FIVE_SLOPPY));
 				}
-				if(target.getAssRawCapacityValue()>1) {
-					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-					map.put("We like ta play a game around 'ere, where new milkers get <i>real</i> tight 'oles to start off with, then we see how long it takes fer us ta stretch 'em out an' ruin 'em! Heh-heh-heh!"
-							+(!selfTransform?"":" So make yer asshole tight as a vice!"),
-							target.setAssCapacity(1, true));
-				}
-				if(target.getAssPlasticity().getValue()<OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
-					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-					map.put("Now we just need yer ass ta be transformed so that it moulds to the shape o' the biggest cock that fucks you! It's gonna be nothin' but a ruined fuck-hole 'fore long, mark me words!"
-							+(!selfTransform?"":" Make yer ass nice an' pliable!"),
-							target.setAssPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue()));
-				}
-				if(target.getAssElasticity().getValue()>OrificeElasticity.ZERO_UNYIELDING.getValue()) {
-					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-					map.put("I want yer ta spend a good long time feelin' yer asshole stretch out!"
-							+(!selfTransform?"":" Make yer ass real resistant ta bein' stretched out!"),
-							target.setAssElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue()));
+				if(Main.game.isGapeContentEnabled()) {
+					if(target.getAssRawCapacityValue()>1) {
+						if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+						map.put("We like ta play a game around 'ere, where new milkers get <i>real</i> tight 'oles to start off with, then we see how long it takes fer us ta stretch 'em out an' ruin 'em! Heh-heh-heh!"
+								+(!selfTransform?"":" So make yer asshole tight as a vice!"),
+								target.setAssCapacity(1, true));
+					}
+					if(target.getAssPlasticity().getValue()<OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
+						if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+						map.put("Now we just need yer ass ta be transformed so that it moulds to the shape o' the biggest cock that fucks you! It's gonna be nothin' but a ruined fuck-hole 'fore long, mark me words!"
+								+(!selfTransform?"":" Make yer ass nice an' pliable!"),
+								target.setAssPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue()));
+					}
+					if(target.getAssElasticity().getValue()>OrificeElasticity.ZERO_UNYIELDING.getValue()) {
+						if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+						map.put("I want yer ta spend a good long time feelin' yer asshole stretch out!"
+								+(!selfTransform?"":" Make yer ass real resistant ta bein' stretched out!"),
+								target.setAssElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue()));
+					}
 				}
 			}
-			
+
+			Main.game.getDialogueFlags().setMurkTfStage(target, 3);
 			return map;
 		}
 	},
@@ -249,7 +251,7 @@ public enum CaptiveTransformation {
 	MASCULINE_FLUIDS(false) {
 		@Override
 		public Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects) {
-			Map<String, String> map = new HashMap<>();
+			Map<String, String> map = new LinkedHashMap<>();
 
 			// Flag for character becoming a sissy:
 			boolean sissy = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveSissy);
@@ -278,14 +280,16 @@ public enum CaptiveTransformation {
 							target.setTesticleSize(TesticleSize.SIX_GIGANTIC));
 				}
 			}
+			
+			Main.game.getDialogueFlags().setMurkTfStage(target, 4);
 			return map;
 		}
 	},
 	
-	MASCULINE_FLAVOUR_TATTOO(false) {
+	MASCULINE_FLAVOUR(false) {
 		@Override
 		public Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects) {
-			Map<String, String> map = new HashMap<>();
+			Map<String, String> map = new LinkedHashMap<>();
 
 			FluidFlavour flavour = Util.randomItemFrom(FluidFlavour.getUnnaturalFlavourings());
 			
@@ -315,15 +319,7 @@ public enum CaptiveTransformation {
 //						target.addCumModifier(FluidModifier.ALCOHOLIC));
 //			}
 			
-			if(target.getTattoos().get(InventorySlot.PENIS)==null || !target.getTattoos().get(InventorySlot.PENIS).getName().equalsIgnoreCase("cum milker")) {
-				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-				Tattoo tattoo = new Tattoo(TattooType.NONE, null, null, null, false, new TattooWriting("Flavour: "+Util.capitaliseSentence(target.getCumFlavour().getName()), target.getCumFlavour().getColour(), false), null);
-				tattoo.setName("cum milker");
-				target.addTattoo(InventorySlot.PENIS, tattoo);
-				map.put("Yer all ready fer the machines now! I'll go an' get Silence, so she can get yer cock marked up; it makes it easier fer us ta keep track o' wot flavourin' each milker 'as.",
-						"");//TODO Silence tattoo
-			}
-			
+			Main.game.getDialogueFlags().setMurkTfStage(target, 5);
 			return map;
 		}
 	},
@@ -333,30 +329,30 @@ public enum CaptiveTransformation {
 	FEMININE_FETISH(true) {
 		@Override
 		public Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects) {
-			Map<String, String> map = new HashMap<>();
+			Map<String, String> map = new LinkedHashMap<>();
 			
 			if(!target.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("Let's get yer likin' the fact that yer gonna be naked from now on!",
-						target.addFetish(Fetish.FETISH_EXHIBITIONIST));
+						target.addFetish(Fetish.FETISH_EXHIBITIONIST, true));
 			}
 
 			if(!target.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("We don't want yer thinkin' yer anythin' but a submissive milker now, do we?",
-						target.addFetish(Fetish.FETISH_SUBMISSIVE));
+						target.addFetish(Fetish.FETISH_SUBMISSIVE, true));
 			}
 			
 			if(!target.hasFetish(Fetish.FETISH_BREASTS_SELF)) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("When we plug them suction cups over yer tits 'an turn 'em on, yer never gonna want 'em taken off!",
-						target.addFetish(Fetish.FETISH_BREASTS_SELF));
+						target.addFetish(Fetish.FETISH_BREASTS_SELF, true));
 			}
 			
 			if(!target.hasFetish(Fetish.FETISH_LACTATION_SELF)) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("Yer gonna love the feelin' o' havin' yer tits milked all day!",
-						target.addFetish(Fetish.FETISH_LACTATION_SELF));
+						target.addFetish(Fetish.FETISH_LACTATION_SELF, true));
 			}
 			
 			if(!target.hasFetish(Fetish.FETISH_VAGINAL_RECEIVING)) {
@@ -364,21 +360,22 @@ public enum CaptiveTransformation {
 				map.put(target.hasVagina()
 							?"With yer cunt on display like this, yer gonna be takin' a lot o' cock; it'll be betta fer everyone if yer love it!"
 							:"Once we've given yer a drippin' cunt between yer legs, we're gonna want yer ta love people just walkin' up behind yer an' fuckin' it!",
-						target.addFetish(Fetish.FETISH_VAGINAL_RECEIVING));
+						target.addFetish(Fetish.FETISH_VAGINAL_RECEIVING, true));
 			}
 			
 			if(Main.game.isAnalContentEnabled() && !target.hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("It's betta fer everyone involved if yer love havin' yer ass fucked!",
-						target.addFetish(Fetish.FETISH_ANAL_RECEIVING));
+						target.addFetish(Fetish.FETISH_ANAL_RECEIVING, true));
 			}
 
 			if(!target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("We're gonna want yer ta be desperate ta 'ave us transform yer into one o' our milkers!",
-						target.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING));
+						target.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING, true));
 			}
-			
+
+			Main.game.getDialogueFlags().setMurkTfStage(target, 1);
 			return map;
 		}
 	},
@@ -386,7 +383,7 @@ public enum CaptiveTransformation {
 	FEMININE_FEMININITY(true) {
 		@Override
 		public Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects) {
-			Map<String, String> map = new HashMap<>();
+			Map<String, String> map = new LinkedHashMap<>();
 			
 			if(target.getBreastSize().getMeasurement()<CupSize.DD.getMeasurement()) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
@@ -432,7 +429,8 @@ public enum CaptiveTransformation {
 							target.setFemininity(Femininity.FEMININE.getMedianFemininity()));
 				}
 			}
-			
+
+			Main.game.getDialogueFlags().setMurkTfStage(target, 2);
 			return map;
 		}
 	},
@@ -440,7 +438,7 @@ public enum CaptiveTransformation {
 	FEMININE_GENITALS(true) {
 		@Override
 		public Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects) {
-			Map<String, String> map = new HashMap<>();
+			Map<String, String> map = new LinkedHashMap<>();
 			
 			// Flag for character becoming a futa:
 			boolean futa = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveFuta);
@@ -496,12 +494,12 @@ public enum CaptiveTransformation {
 						+(!selfTransform?"":" Come on; I wanna see yer growin' yerself a twat fer us ta fuck!"),
 						target.setVaginaType(RacialBody.valueOfRace(target.getRace()).getVaginaType()));
 			}
-			if(!target.hasVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
-				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-				map.put("Now ta give yer some extra muscles in yer cunt; I'll make sure ta let everyone know yer got these, so they can't resist fuckin' ya to see how they feel!"
-						+(!selfTransform?"":" This'll be one fun hole ta fuck!"),
-						target.addVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
-			}
+//			if(!target.hasVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+//				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+//				map.put("Now ta give yer some extra muscles in yer cunt; I'll make sure ta let everyone know yer got these, so they can't resist fuckin' ya to see how they feel!"
+//						+(!selfTransform?"":" This'll be one fun hole ta fuck!"),
+//						target.addVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+//			}
 			if(target.getVaginaWetness().getValue()<Wetness.SEVEN_DROOLING.getValue()) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("Yer twat need's ta always be drippin' wet, so any rat wandering past can't resist steppin' up and plunging their cock in yer droolin' fuck-hole!"
@@ -509,30 +507,37 @@ public enum CaptiveTransformation {
 						target.setVaginaWetness(Wetness.SEVEN_DROOLING));
 			}
 			boolean vaginaTightened = false;
-			if(target.getVaginaRawCapacityValue()>1) {
-				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-				vaginaTightened = true;
-				map.put("We like ta play a game around 'ere, where new milkers get <i>real</i> tight 'oles to start off with, then we see how long it takes fer us ta stretch 'em out an' ruin 'em! Heh-heh-heh!"
-						+(!selfTransform?"":" So make yer pretty little cunt tight as a vice!"),
-						target.setVaginaCapacity(1, true));
-			}
 			boolean vaginaPlasticised = false;
-			if(target.getVaginaPlasticity().getValue()<OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
-				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-				vaginaPlasticised = true;
-				map.put("Now we just need yer cunt ta be transformed so that it moulds to the shape o' the biggest cock that fucks you! It's gonna be nothin' but a ruined fuck-hole 'fore long, mark me words!"
-						+(!selfTransform?"":" Make yer twat nice an' pliable!"),
-						target.setVaginaPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue()));
-			}
 			boolean vaginaElasticised = false;
-			if(target.getVaginaElasticity().getValue()>OrificeElasticity.ZERO_UNYIELDING.getValue()) {
-				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-				vaginaElasticised = true;
-				map.put("I want yer ta spend a good long time feelin' yer cunt stretch out!"
-						+(!selfTransform?"":" Make yer twat real resistant ta bein' stretched out!"),
-						target.setVaginaElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue()));
+			if(Main.game.isGapeContentEnabled()) {
+				if(target.getVaginaRawCapacityValue()>1) {
+					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+					vaginaTightened = true;
+					map.put("We like ta play a game around 'ere, where new milkers get <i>real</i> tight 'oles to start off with, then we see how long it takes fer us ta stretch 'em out an' ruin 'em! Heh-heh-heh!"
+							+(!selfTransform?"":" So make yer pretty little cunt tight as a vice!"),
+							target.setVaginaCapacity(1, true));
+				}
+				if(target.getVaginaLabiaSize()!=LabiaSize.ZERO_TINY) {
+					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+					map.put("Havin' yer cunt lookin' all fresh an' unused makes it even better when I gets ta ruin it!"
+							+(!selfTransform?"":" Get rid o' yer big fuckin' labia!"),
+							target.setVaginaLabiaSize(LabiaSize.ZERO_TINY));
+				}
+				if(target.getVaginaPlasticity().getValue()<OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
+					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+					vaginaPlasticised = true;
+					map.put("Now we just need yer cunt ta be transformed so that it moulds to the shape o' the biggest cock that fucks you! It's gonna be nothin' but a ruined fuck-hole 'fore long, mark me words!"
+							+(!selfTransform?"":" Make yer twat nice an' pliable!"),
+							target.setVaginaPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue()));
+				}
+				if(target.getVaginaElasticity().getValue()>OrificeElasticity.ZERO_UNYIELDING.getValue()) {
+					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+					vaginaElasticised = true;
+					map.put("I want yer ta spend a good long time feelin' yer cunt stretch out!"
+							+(!selfTransform?"":" Make yer twat real resistant ta bein' stretched out!"),
+							target.setVaginaElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue()));
+				}
 			}
-			
 
 			if(Main.game.isAnalContentEnabled()) {
 				if(!target.hasAssOrificeModifier(OrificeModifier.PUFFY)) {
@@ -547,34 +552,37 @@ public enum CaptiveTransformation {
 							+(!selfTransform?"":" I know ya can make yerself nice an' wet back 'ere, so do it already!"),
 							target.setAssWetness(Wetness.FIVE_SLOPPY));
 				}
-				if(target.getAssRawCapacityValue()>1) {
-					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-					map.put(vaginaTightened
-								?"Yer asshole's gonna be just like yer cunt; nice an' tight so that we can all play the game o' seein' 'ow long it takes ta ruin it!"
-										+(!selfTransform?"":" Do the same as what yer did with yer cunt!")
-								:"We like ta play a game around 'ere, where new milkers get <i>real</i> tight 'oles to start off with, then we see how long it takes fer us ta stretch 'em out an' ruin 'em! Heh-heh-heh!"
-										+(!selfTransform?"":" So make yer ass tight as a vice!"),
-							target.setAssCapacity(1, true));
-				}
-				if(target.getAssPlasticity().getValue()<OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
-					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-					map.put(vaginaPlasticised
-								?"Like we did with yer twat, we're gonna make it so that yer ass takes the shape o' the biggest cock that fucks it!"
-									+(!selfTransform?"":" Make yer butt like putty fer our cocks ta mould inta shape!")
-								:"Now we just need yer ass ta be transformed so that it moulds to the shape o' the biggest cock that fucks you! It's gonna be nothin' but a ruined fuck-hole 'fore long, mark me words!"
-									+(!selfTransform?"":" Make yer butt like putty fer our cocks ta mould inta shape!"),
-							target.setAssPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue()));
-				}
-				if(target.getAssElasticity().getValue()>OrificeElasticity.ZERO_UNYIELDING.getValue()) {
-					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-					map.put(vaginaElasticised
-								?"Make yer ass just as slow ta stretch out as yer cunt!"
-								:"I want yer ta spend a good long time feelin' yer asshole stretch out!"
-							+(!selfTransform?"":" Do what I say!"),
-							target.setAssElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue()));
+				if(Main.game.isGapeContentEnabled()) {
+					if(target.getAssRawCapacityValue()>1) {
+						if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+						map.put(vaginaTightened
+									?"Yer asshole's gonna be just like yer cunt; nice an' tight so's we can all play the game o' seein' 'ow long it takes ta ruin it!"
+											+(!selfTransform?"":" Do the same as what yer did with yer cunt!")
+									:"We like ta play a game around 'ere, where new milkers get <i>real</i> tight 'oles to start off with, then we see how long it takes fer us ta stretch 'em out an' ruin 'em! Heh-heh-heh!"
+											+(!selfTransform?"":" So make yer ass tight as a vice!"),
+								target.setAssCapacity(1, true));
+					}
+					if(target.getAssPlasticity().getValue()<OrificePlasticity.SEVEN_MOULDABLE.getValue()) {
+						if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+						map.put(vaginaPlasticised
+									?"Like we did with yer twat, we're gonna make it so that yer ass takes the shape o' the biggest cock that fucks it!"
+										+(!selfTransform?"":" Make yer butt like putty fer our cocks ta mould inta shape!")
+									:"Now we just need yer ass ta be transformed so that it moulds to the shape o' the biggest cock that fucks you! It's gonna be nothin' but a ruined fuck-hole 'fore long, mark me words!"
+										+(!selfTransform?"":" Make yer butt like putty fer our cocks ta mould inta shape!"),
+								target.setAssPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue()));
+					}
+					if(target.getAssElasticity().getValue()>OrificeElasticity.ZERO_UNYIELDING.getValue()) {
+						if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+						map.put(vaginaElasticised
+									?"Make yer ass just as slow ta stretch out as yer cunt!"
+									:"I want yer ta spend a good long time feelin' yer asshole stretch out!"
+								+(!selfTransform?"":" Do what I say!"),
+								target.setAssElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue()));
+					}
 				}
 			}
-			
+
+			Main.game.getDialogueFlags().setMurkTfStage(target, 3);
 			return map;
 		}
 	},
@@ -582,7 +590,7 @@ public enum CaptiveTransformation {
 	FEMININE_FLUIDS(true) {
 		@Override
 		public Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects) {
-			Map<String, String> map = new HashMap<>();
+			Map<String, String> map = new LinkedHashMap<>();
 
 			// Flag for character becoming a futa:
 			boolean futa = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveFuta);
@@ -685,15 +693,16 @@ public enum CaptiveTransformation {
 							target.setTesticleSize(TesticleSize.SIX_GIGANTIC));
 				}
 			}
-			
+
+			Main.game.getDialogueFlags().setMurkTfStage(target, 4);
 			return map;
 		}
 	},
 	
-	FEMININE_FLAVOUR_TATTOO(true) {
+	FEMININE_FLAVOUR(true) {
 		@Override
 		public Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects) {
-			Map<String, String> map = new HashMap<>();
+			Map<String, String> map = new LinkedHashMap<>();
 
 			// Flag for character becoming a futa:
 			boolean futa = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveFuta);
@@ -794,24 +803,7 @@ public enum CaptiveTransformation {
 						target.removeGirlcumModifier(FluidModifier.ADDICTIVE));
 			}
 			
-			if(target.getTattoos().get(InventorySlot.CHEST)==null || !target.getTattoos().get(InventorySlot.CHEST).getName().equalsIgnoreCase("milker")) {
-				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-				Tattoo tattoo = new Tattoo(TattooType.NONE, null, null, null, false, new TattooWriting("Flavour: "+Util.capitaliseSentence(target.getMilkFlavour().getName()), target.getMilkFlavour().getColour(), false), null);
-				tattoo.setName("milker");
-				target.addTattoo(InventorySlot.CHEST, tattoo);
-				map.put("Yer all ready fer the machines now! I'll go an' get Silence, so she can get yer tits marked up; it makes it easier fer us ta keep track o' wot flavourin' each milker 'as.",
-						""); //TODO Silence tattoo
-			}
-			
-			if(target.getTattoos().get(InventorySlot.PENIS)==null || !target.getTattoos().get(InventorySlot.PENIS).getName().equalsIgnoreCase("cum milker")) {
-				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-				Tattoo tattoo = new Tattoo(TattooType.NONE, null, null, null, false, new TattooWriting("Flavour: "+Util.capitaliseSentence(target.getCumFlavour().getName()), target.getCumFlavour().getColour(), false), null);
-				tattoo.setName("cum milker");
-				target.addTattoo(InventorySlot.PENIS, tattoo);
-				map.put("Now do 'er cock, Silence! This slut wanted both 'er tits and cock ta be milked!",
-						""); //TODO Silence tattoo
-			}
-			
+			Main.game.getDialogueFlags().setMurkTfStage(target, 5);
 			return map;
 		}
 	};
@@ -831,8 +823,8 @@ public enum CaptiveTransformation {
 		return !getEffects(target, false, false).isEmpty();
 	}
 
-	public Map<String, String> getEffects(GameCharacter target, boolean selfTransform) {
-		return getEffects(target, selfTransform, true);
+	public Map<String, String> getEffects(GameCharacter target) {
+		return getEffects(target, !target.isAbleToHaveRaceTransformed(), true);
 	}
 	
 	protected abstract Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects);
@@ -844,38 +836,40 @@ public enum CaptiveTransformation {
 	public static CaptiveTransformation getTransformationType(GameCharacter target) {
 		boolean masculineTF = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveMasculine) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveSissy);
 		
+		int stage = Main.game.getDialogueFlags().getMurkTfStage(target);
+		
 		if(masculineTF) {
-			if(MASCULINE_FETISH.isConditionsMet(target)) {
+			if(MASCULINE_FETISH.isConditionsMet(target) && stage==0) {
 				return MASCULINE_FETISH;
 				
-			} else if(MASCULINE_FEMININITY.isConditionsMet(target)) {
+			} else if(MASCULINE_FEMININITY.isConditionsMet(target) && stage==1) {
 				return MASCULINE_FEMININITY;
 				
-			} else if(MASCULINE_GENITALS.isConditionsMet(target)) {
+			} else if(MASCULINE_GENITALS.isConditionsMet(target) && stage==2) {
 				return MASCULINE_GENITALS;
 				
-			} else if(MASCULINE_FLUIDS.isConditionsMet(target)) {
+			} else if(MASCULINE_FLUIDS.isConditionsMet(target) && stage==3) {
 				return MASCULINE_FLUIDS;
 				
-			} else if(MASCULINE_FLAVOUR_TATTOO.isConditionsMet(target)) {
-				return MASCULINE_FLAVOUR_TATTOO;
+			} else if(MASCULINE_FLAVOUR.isConditionsMet(target) && stage==4) {
+				return MASCULINE_FLAVOUR;
 			}
 			
 		} else {
-			if(FEMININE_FETISH.isConditionsMet(target)) {
+			if(FEMININE_FETISH.isConditionsMet(target) && stage==0) {
 				return FEMININE_FETISH;
 				
-			} else if(FEMININE_FEMININITY.isConditionsMet(target)) {
+			} else if(FEMININE_FEMININITY.isConditionsMet(target) && stage==1) {
 				return FEMININE_FEMININITY;
 				
-			} else if(FEMININE_GENITALS.isConditionsMet(target)) {
+			} else if(FEMININE_GENITALS.isConditionsMet(target) && stage==2) {
 				return FEMININE_GENITALS;
 				
-			} else if(FEMININE_FLUIDS.isConditionsMet(target)) {
+			} else if(FEMININE_FLUIDS.isConditionsMet(target) && stage==3) {
 				return FEMININE_FLUIDS;
 				
-			} else if(FEMININE_FLAVOUR_TATTOO.isConditionsMet(target)) {
-				return FEMININE_FLAVOUR_TATTOO;
+			} else if(FEMININE_FLAVOUR.isConditionsMet(target) && stage==4) {
+				return FEMININE_FLAVOUR;
 			}
 			
 		}

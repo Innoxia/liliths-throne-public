@@ -90,7 +90,7 @@ public enum ClothingSet {
 
 	BDSM("Locked in Bondage",
 			StatusEffect.SET_BDSM,
-			4,
+			3,
 			null,
 			null,
 			null),

@@ -708,7 +708,7 @@ public class GamblingDenDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "OFFICE_WITH_LEXA_FEMINISE_APPLY_ZERO"));
-						((Axel)Main.game.getNpc(Axel.class)).applyFeminisation(PenisGirth.ONE_THIN, PenisSize.ONE_TINY, TesticleSize.ZERO_VESTIGIAL, CumProduction.ONE_TRICKLE);
+						((Axel)Main.game.getNpc(Axel.class)).applyFeminisation(PenisGirth.ONE_SLENDER, PenisSize.ONE_TINY, TesticleSize.ZERO_VESTIGIAL, CumProduction.ONE_TRICKLE);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.axelFeminised, true);
 					}
 				};
@@ -951,7 +951,10 @@ public class GamblingDenDialogue {
 			} else if(index==3) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelMentionedVengar) && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)) { // Initial asking/quest start:
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelExplainedVengar)) {
-						return new Response("Offer help", "Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar.", AXEL_VENGAR) {
+						return new Response("Offer help",
+								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar."
+										+ "<br/>[style.italicsBad(This quest is in a very rough state in this version! I advise waiting for the next update before playing through it properly!)]",
+								AXEL_VENGAR) {
 							@Override
 							public Colour getHighlightColour() {
 								return Colour.QUEST_SIDE;

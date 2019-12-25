@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.5.7";
+	public static final String VERSION_NUMBER = "0.3.5.8";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -96,7 +96,7 @@ public class Main extends Application {
 			
 		+ "<p>"
 			+ "Please be aware that there is a significant amount of placeholder dialogue in this version of Axel's quest, and it is still rough around the edges."
-			+ " [style.italicsBad(I would advise only playing this version if you want a sneak peek of the sort of thing his quest involves!)]"
+			+ " [style.italicsBad(I would advise only playing through Axel's quest if you want a sneak peek of the sort of content involved!)]"
 			+ " A more polished version will be released very soon."
 		+ "</p>"
 			
@@ -106,7 +106,47 @@ public class Main extends Application {
 			+ "Thank you all for playing Lilith's Throne, and a very big thank you to all of you who support development by reporting bugs, making PRs, or backing me on SubscribeStar!"
 			+ " If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"
+
+		+ "<br/>"
+		
+		+ "<list>"
+			+ "<h6>v0.3.5.8</h6>"
+			+"<li>Axel's quest:</li>"
+			+"<ul>Tidied up fetish gain text in captive TF routes.</ul>"
+			+"<ul>Fixed issues with NPC targeting in the post-combat-loss stocks sex scene.</ul>"
+			+"<ul>Fixed numerous bugs and issues with dialogue flow in the Murk captive loss route.</ul>"
+			+"<ul>Added and altered some scenes in Murk's captive loss route.</ul>"
+			+"<ul>Locked several of the transformation administered by Murk behind the new 'gape' content toggle.</ul>"
+			+"<ul>Murk now wields a metal bat.</ul>"
+			+"<ul>If involuntary NTR is off, you now get the option to have your companion escape at the end of combat losses.</ul>"
+			+"<ul>You can now save the game when Murk's captive (at night, when you can move around).</ul>"
 			
+			+"<li>Items:</li>"
+			+"<ul>Added: 'Wooden bat' and 'Metal bat' melee weapons. One-handed, sold by Vicky. Muggers can sometimes be found using them.</ul>"
+			
+			+"<li>Sex:</li>"
+			+"<ul>Orifice elasticity is now factored into the calculation of whether a penetration is too big to fit comfortably into an orifice. The stretch calculation also now more accurately takes into consideration the penetrating object's size.</ul>"
+			+"<ul>At lower elasticity values, orifices now stretch out slower and stretch out to sizes closer to the penetrating object's size (due to the change above).</ul>"
+			+"<ul>Penis girth is now factored in when calculating if a penis is too large for an orifice.</ul>"
+			+"<ul>NPCs will no longer start sucking their own tail during sex unless they have an oral fetish.</ul>"
+			+"<ul>Crotch-nipples now have stretch effects when being penetrated in sex like all other orifices.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>The 'locked in bondage' clothing set is now activated when wearing at least 3 set items instead of at least 4.</ul>"
+			+"<ul>Zebra, leopard, and lion morphs now have 5 Fire shielding. Snow leopard morphs now have 5 Cold shielding.</ul>"
+			+"<ul>Added 'arctic-fox' subspecies, which is detected by being a fox-morph with white fox-fur.</ul>"
+			+"<ul>Added 'dark blue' and 'blue' to eye colours. The old value of 'blue' eyes is now classified as 'light blue'.</ul>"
+			+"<ul>Slightly reduced save file size.</ul>"
+			+"<ul>Swapped 'thin' and 'slender' penis girth decriptors (so 'thin' is now the thinnest).</ul>"
+			+"<ul>Character view's capacity descriptors for anus and vagina are now coloured according to their capacity.</ul>"
+			+"<ul>Added inverted nipples as a new nipple shape. There's a 2.5% chance for characters with breasts to spawn in with inverted nipples. Added a transformation for inverted nipple shape.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Parsing fixes.</ul>"
+			+"<ul>Fixes issue with 'Anal control' action being unlocked by having an internally-muscled vagina, instead of internally-muscled anus.</ul>"
+			+"<ul>Fixed some (harmless) background errors being thrown when half-demon characters were generated.</ul>"
+		+ "</list>"
+		
 		+ "<br/>"
 		
 		+ "<list>"
