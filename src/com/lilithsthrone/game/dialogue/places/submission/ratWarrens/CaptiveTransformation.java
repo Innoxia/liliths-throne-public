@@ -399,12 +399,13 @@ public enum CaptiveTransformation {
 						target.setNippleSize(NippleSize.THREE_LARGE.getValue()));
 			}
 			
-			if((target.isTaur() && Main.getProperties().udders>=1)
-					|| (target.getRaceStage()==RaceStage.GREATER && RacialBody.valueOfRace(target.getRace()).getBreastCrotchType()!=BreastType.NONE && Main.getProperties().udders==2)) {
+			if((target.isTaur() && Main.getProperties().udders>=1) || (target.getRaceStage()==RaceStage.GREATER && Main.getProperties().udders==2)) {
+				if (RacialBody.valueOfRace(target.getRace()).getBreastCrotchType()==BreastType.NONE) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("Let's give yer some udders as well; gotta get that milk production up as 'igh as we can!"
 						+(!selfTransform?"":" Just get 'em teats grown in first; we can make 'em bigger another time!"),
 						target.setBreastCrotchType(RacialBody.valueOfRace(target.getRace()).getBreastCrotchType()));
+				}
 				
 				if(target.getNippleCrotchSize().getValue()<NippleSize.THREE_LARGE.getValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
@@ -609,7 +610,7 @@ public enum CaptiveTransformation {
 						target.setNippleSize(NippleSize.FOUR_MASSIVE.getValue()));
 			}
 
-			if(target.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
+			if(!target.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("Now ta puff up those fat nipples of yours; the machines seem ta work better when they've got big puffy teats ta be suckin' on!"
 						+(!selfTransform?"":" That's it; make 'em all puffy and squeezable!"),
@@ -645,7 +646,7 @@ public enum CaptiveTransformation {
 							target.setNippleCrotchSize(NippleSize.FOUR_MASSIVE.getValue()));
 				}
 
-				if(target.hasNippleCrotchOrificeModifier(OrificeModifier.PUFFY)) {
+				if(!target.hasNippleCrotchOrificeModifier(OrificeModifier.PUFFY)) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("let's get them teats o' yours all puffed up and ready ta be sucked on by the machines!"
 							+(!selfTransform?"":" Go on, make 'em all puffy and beggin' ta be sucked on!"),

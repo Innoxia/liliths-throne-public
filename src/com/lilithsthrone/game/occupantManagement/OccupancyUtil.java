@@ -472,7 +472,7 @@ public class OccupancyUtil implements XMLSaving {
 	}
 
 	/**
-	 * @param minute Time at which this event is happening.
+	 * @param hour Time at which this event is happening.
 	 * @param slave The slave to calculate an event for.
 	 */
 	private List<SlaveryEventLogEntry> generateEvents(int hour, NPC slave) {

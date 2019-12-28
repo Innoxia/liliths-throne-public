@@ -4556,7 +4556,7 @@ public abstract class GameCharacter implements XMLSaving {
 	/**
 	 * Adds a companion character, if possible. Removes character from a previous party.<br/>
 	 * Should be preceded by a canHaveMoreCompanions() check.
-	 * @param npc
+	 * @param character
 	 * @return
 	 */
 	public boolean addCompanion(GameCharacter character) {
@@ -4888,7 +4888,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * Override this to see if companion is willing to have sex with player
 	 */
 	public String getCompanionSexRejectionReason(boolean companionIsSub) {
-		if(!Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))) {
+		if(Main.game.getSavedDialogueNode() != null && !Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))) {
 			return "You're in the middle of something right now!";
 		}
 		if(this instanceof Elemental) {
@@ -6762,7 +6762,7 @@ public abstract class GameCharacter implements XMLSaving {
 						partnerCummedInside = false;
 						
 					} else if(partnerPresent) {
-						if(Sex.getSexManager().getCharacterOrgasmBehaviour(partner)==OrgasmBehaviour.CREAMPIE
+						if((Sex.getSexManager() != null && Sex.getSexManager().getCharacterOrgasmBehaviour(partner)==OrgasmBehaviour.CREAMPIE)
 							|| partner.getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive()
 							|| (performingArea==SexAreaOrifice.VAGINA && partner.hasFetish(Fetish.FETISH_IMPREGNATION))) {
 							partnerCummedInside = true;
@@ -7155,7 +7155,7 @@ public abstract class GameCharacter implements XMLSaving {
 						thisCummedInside = false;
 						
 					} else {
-						if(Sex.getSexManager().getCharacterOrgasmBehaviour(this)==OrgasmBehaviour.CREAMPIE
+						if((Sex.getSexManager() != null && Sex.getSexManager().getCharacterOrgasmBehaviour(this)==OrgasmBehaviour.CREAMPIE)
 							|| this.getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive()
 							|| (performingArea==SexAreaOrifice.VAGINA && this.hasFetish(Fetish.FETISH_IMPREGNATION))) {
 							thisCummedInside = true;
@@ -12744,7 +12744,7 @@ public abstract class GameCharacter implements XMLSaving {
 											"[npc2.Name] fails to suppress a mocking giggle as [npc2.she] sees that you've got a tiny [npc.cock] between your [npc.legs], ",
 											"[npc2.Name] lets out a surprised laugh as your tiny [npc.cock] is revealed, ",
 											"[npc2.Name] lets out a derisive laugh as [npc2.she] sees your tiny [npc.cock], "));
-									if(characterBeingRevealed.getAppearsAsGender()!=characterBeingRevealed.getGender()) {
+									if(characterBeingRevealed.getAppearsAsGender(true)!=characterBeingRevealed.getGender()) {
 										sb.append(UtilText.returnStringAtRandom(
 												"[npc2.speech(Aww, that's so cute! I didn't realise you were [npc.a_gender]!)]",
 												"[npc2.speech(Wait, you're [npc.a_gender]?! What a pathetic little clitty dick you've got!)]"));
@@ -12770,7 +12770,7 @@ public abstract class GameCharacter implements XMLSaving {
 											"[npc2.Name] lets out a booming, mocking laugh your tiny [npc.cock] is revealed, ",
 											"[npc2.Name] lets out a surprised grunt as your tiny [npc.cock] is revealed, ",
 											"[npc2.Name] lets out a derisive grunt as [npc2.she] sees that you've got a tiny [npc.cock] between your [npc.legs], "));
-									if(characterBeingRevealed.getAppearsAsGender()!=characterBeingRevealed.getGender()) {
+									if(characterBeingRevealed.getAppearsAsGender(true)!=characterBeingRevealed.getGender()) {
 										sb.append(UtilText.returnStringAtRandom(
 												"[npc2.speech(Is that pathetic little thing your cock?! I didn't realise you were [npc.a_gender]!)]",
 												"[npc2.speech(Wait, you're [npc.a_gender]?! What a pathetic excuse for a cock you've got!)]"));
@@ -12798,7 +12798,7 @@ public abstract class GameCharacter implements XMLSaving {
 										"[npc2.Name] fails to suppress a flustered [npc2.moan] as [npc2.she] sees that you've got a [npc.cockSize] [npc.cock] between your [npc.legs], ",
 										"[npc2.Name] lets out a surprised [npc2.moan] as your [npc.cockSize] [npc.cock] is revealed, ",
 										"[npc2.Name] lets out a startled [npc2.moan] as [npc2.she] sees your [npc.cockSize] [npc.cock], "));
-								if(characterBeingRevealed.getAppearsAsGender()!=characterBeingRevealed.getGender()) {
+								if(characterBeingRevealed.getAppearsAsGender(true)!=characterBeingRevealed.getGender()) {
 									sb.append(UtilText.returnStringAtRandom(
 											"[npc2.speech(Hey! I didn't realise you were [npc.a_gender]! Well, whatever...)]",
 											"[npc2.speech(Wait, you're [npc.a_gender]?! Well, whatever...)]"));
@@ -19331,7 +19331,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public Gender getAppearsAsGender() {
-		return calculateGenderAppearance(false).gender;
+		return getAppearsAsGender(false);
+	}
+	
+	public Gender getAppearsAsGender(boolean ignoreGenitalVisibility) {
+		return calculateGenderAppearance(false, ignoreGenitalVisibility).gender;
 	}
 
 	public String getAppearsAsGenderDescription(boolean colouredGender) {
@@ -19354,9 +19358,14 @@ public abstract class GameCharacter implements XMLSaving {
 						: getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue());
 	}
 	
-	private GenderAppearance calculateGenderAppearance(boolean colouredGender) {
-		boolean visibleVagina = isCoverableAreaVisible(CoverableArea.VAGINA) && hasVagina();
-		boolean visiblePenis = isCoverableAreaVisible(CoverableArea.PENIS) && hasPenis();
+	private GenderAppearance calculateGenderAppearance(boolean colouredGender)
+	{
+		return calculateGenderAppearance(colouredGender, false);
+	}
+	
+	private GenderAppearance calculateGenderAppearance(boolean colouredGender, boolean ignoreGenitalVisibility) {
+		boolean visibleVagina = !ignoreGenitalVisibility && isCoverableAreaVisible(CoverableArea.VAGINA) && hasVagina();
+		boolean visiblePenis = !ignoreGenitalVisibility && isCoverableAreaVisible(CoverableArea.PENIS) && hasPenis();
 		
 		if(this.getFemininityValue()>=Femininity.FEMININE.getMinimumFemininity()) {
 			if(hasBreasts()) {
