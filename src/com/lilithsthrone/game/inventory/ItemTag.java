@@ -125,9 +125,13 @@ public enum ItemTag {
 	
 	FITS_HARPY_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
-					"[style.colourBestial(Only fits arm-wings)]"),
+					"[style.colourBestial(Only fits harpy-wings)]"),
 			false),
-	FITS_HARPY_WINGS(
+	FITS_BAT_WINGS_EXCLUSIVE(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Only fits bat-wings)]"),
+			false),
+	FITS_ARM_WINGS(
 			Util.newArrayListOfValues(
 					"[style.colourBestial(Fits arm-wings)]"),
 			false),

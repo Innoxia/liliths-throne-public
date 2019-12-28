@@ -1802,7 +1802,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for cephalopod bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
 		}
 		if(tags.contains(ItemTag.FITS_HARPY_WINGS_EXCLUSIVE) && clothingOwner.getArmType()!=ArmType.HARPY) {
-			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for arm-wings, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for harpy-wings, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_BAT_WINGS_EXCLUSIVE) && clothingOwner.getArmType()!=ArmType.BAT_MORPH) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for bat-wings, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
 		}
 		if(tags.contains(ItemTag.FITS_HOOFS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.HOOFS) {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for hoofs, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
