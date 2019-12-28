@@ -354,6 +354,18 @@ public class ArmType {
 		public boolean allowsFlight() {
 			return true;
 		}
+
+		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
+				Util.newArrayListOfValues(
+						InventorySlot.HAND,
+						InventorySlot.WRIST),
+				Race.BAT_MORPH,
+				"Due to the fact that [npc.nameHasFull] bat-like wings instead of arms, only specialist clothing can be worn in this slot.",
+				Util.newArrayListOfValues(ItemTag.FITS_BAT_WINGS_EXCLUSIVE, ItemTag.FITS_ARM_WINGS));
+		@Override
+		public BodyPartClothingBlock getBodyPartClothingBlock() {
+			return clothingBlock;
+		}
 	};
 
 	public static AbstractArmType HARPY = new AbstractArmType(BodyCoveringType.FEATHERS,
@@ -391,7 +403,7 @@ public class ArmType {
 						InventorySlot.WRIST),
 				Race.HARPY,
 				"Due to the fact that [npc.nameHasFull] bird-like wings instead of arms, only specialist clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_HARPY_WINGS_EXCLUSIVE, ItemTag.FITS_HARPY_WINGS));
+				Util.newArrayListOfValues(ItemTag.FITS_HARPY_WINGS_EXCLUSIVE, ItemTag.FITS_ARM_WINGS));
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock() {
 			return clothingBlock;
