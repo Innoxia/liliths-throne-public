@@ -2220,10 +2220,13 @@ public abstract class GameCharacter implements XMLSaving {
 			NodeList relationshipElements = element.getElementsByTagName("relationship");
 			for(int i=0; i<relationshipElements.getLength(); i++){
 				Element e = ((Element)relationshipElements.item(i));
-				
-				if(!e.getAttribute("character").equals("NOT_SET")) {
-					character.setAffection(e.getAttribute("character"), Float.valueOf(e.getAttribute("value")));
-					CharacterUtils.appendToImportLog(log, "<br/>Set Relationship: "+e.getAttribute("character") +" , "+ Float.valueOf(e.getAttribute("value")));
+				String characterId = e.getAttribute("character");
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
+					characterId = characterId.replaceAll("Alexa", "Helena");
+				}
+				if(!characterId.equals("NOT_SET")) {
+					character.setAffection(characterId, Float.valueOf(e.getAttribute("value")));
+					CharacterUtils.appendToImportLog(log, "<br/>Set Relationship: "+characterId +" , "+ Float.valueOf(e.getAttribute("value")));
 				}
 			}
 		}
@@ -2362,8 +2365,12 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 				}
 				
-				character.setOwner(((Element)slaveryElement.getElementsByTagName("owner").item(0)).getAttribute("value"));
-				CharacterUtils.appendToImportLog(log, "<br/>Set owner: "+character.getOwnerId());
+				String ownerId = ((Element)slaveryElement.getElementsByTagName("owner").item(0)).getAttribute("value");
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
+					ownerId = ownerId.replaceAll("Alexa", "Helena");
+				}
+				character.setOwner(ownerId);
+				CharacterUtils.appendToImportLog(log, "<br/>Set owner: "+ownerId);
 				
 				if(slaveryElement.getElementsByTagName("slaveJob").item(0)!=null) { // Old slave job versions:
 					SlaveJob sJob = SlaveJob.valueOf(((Element)slaveryElement.getElementsByTagName("slaveJob").item(0)).getAttribute("value"));
@@ -2927,6 +2934,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if (folder.equals(artworkFolderName) && !forceReload) {
 			// Nothing changed, abort loading
 			return;
+			
 		} else {
 			artworkList.clear();
 			artworkFolderName = folder;
@@ -12030,12 +12038,6 @@ public abstract class GameCharacter implements XMLSaving {
 										"Let me go! Get your ass away from my face!",
 										"Please! Stop! I don't want this!"));
 								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Get that tongue deeper!",
-										"Oh yeah! Keep going!",
-										"Deeper! Don't stop!"));
-								break;
 						}
 						break;
 					case ASS:
@@ -12078,12 +12080,6 @@ public abstract class GameCharacter implements XMLSaving {
 										"Let me go! I don't want to do this!",
 										"Please! Stop! I don't want this!"));
 								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep going!",
-										"Oh yeah! Keep going!",
-										"Don't stop!"));
-								break;
 						}
 						break;
 					case BREAST_CROTCH:
@@ -12123,12 +12119,6 @@ public abstract class GameCharacter implements XMLSaving {
 										"I don't want to do this! Please let me stop!",
 										"Let me go! I don't want to do this!",
 										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Keep going!",
-										"Oh yeah! Keep going!",
-										"Don't stop!"));
 								break;
 						}
 						break;
@@ -12170,12 +12160,6 @@ public abstract class GameCharacter implements XMLSaving {
 										"Let me go! I don't want to do this!",
 										"Please! Stop! I don't want this!"));
 								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Your lips taste so good!",
-										"I love kissing you!",
-										"Don't stop!"));
-								break;
 						}
 						break;
 					case NIPPLE:
@@ -12216,12 +12200,6 @@ public abstract class GameCharacter implements XMLSaving {
 										"Let me go! I don't want to do this!",
 										"Please! Stop! I don't want this!"));
 								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Get that tongue deeper!",
-										"Oh yeah! Keep going!",
-										"Deeper! Don't stop!"));
-								break;
 						}
 						break;
 					case NIPPLE_CROTCH:
@@ -12261,12 +12239,6 @@ public abstract class GameCharacter implements XMLSaving {
 										"I don't want to do this! Please let me stop!",
 										"Let me go! I don't want to do this!",
 										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Get that tongue deeper!",
-										"Oh yeah! Keep going!",
-										"Deeper! Don't stop!"));
 								break;
 						}
 						break;
@@ -12313,12 +12285,6 @@ public abstract class GameCharacter implements XMLSaving {
 										"I don't want to do this! Please stop!",
 										"Let me go! Get your pussy away from my face!",
 										"Please! Stop! I don't want this!"));
-								break;
-							default:
-								availableLines.add(UtilText.returnStringAtRandom(
-										"Yes! Get that tongue deeper!",
-										"Oh yeah! Keep going!",
-										"Deeper! Don't stop!"));
 								break;
 						}
 						break;
@@ -14819,7 +14785,6 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		List<FluidModifier> modifiers = fluid.getFluidModifiers();
 		
-		//TODO convert all instances of this method to just (GameCharacter charactersFluid, BodyPartInterface fluid, int millilitres)
 		boolean found = false;
 		
 		if((orificeIngestedThrough.equals(SexAreaOrifice.VAGINA) || orificeIngestedThrough.equals(SexAreaOrifice.URETHRA_VAGINA)) && this.isVisiblyPregnant()) { // Limit intake based on 250ml max for pregnant characters:
@@ -14989,7 +14954,7 @@ public abstract class GameCharacter implements XMLSaving {
 					"<p style='padding:0; margin:0; text-align:center;'>"
 						+ "Due to the addictive properties of "+(charactersFluid==null?"":(charactersFluid.equals(this)?"[npc.her]":UtilText.parse(charactersFluid, "[npc.namePos]")))+" "+fluid.getName(charactersFluid)
 							+", [npc.name] [npc.verb(find)] [npc.herself] [style.colourArcane(craving)]"
-							+ " <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"+fluid.getType().getRace().getName(fluid.isBestial(charactersFluid))+"</span> "+fluid.getName(charactersFluid)+"!"
+							+ " <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"+fluid.getType().getRace().getName(charactersFluid, fluid.isBestial(charactersFluid))+"</span> "+fluid.getName(charactersFluid)+"!"
 					+ "</p>"));
 			
 			
@@ -14999,7 +14964,7 @@ public abstract class GameCharacter implements XMLSaving {
 				fluidIngestionSB.append(UtilText.parse(this, charactersFluid,
 						"<p style='padding:0; margin:0; text-align:center;'>"
 							+ "[npc.NamePos] [style.colourArcane(craving)] for <span style='color:"+fluid.getType().getRace().getColour().toWebHexString()+";'>"
-								+fluid.getType().getRace().getName(fluid.isBestial(charactersFluid))
+								+fluid.getType().getRace().getName(charactersFluid, fluid.isBestial(charactersFluid))
 							+"</span> "+fluid.getName(charactersFluid)
 								+" has been satisfied!"
 							+ (curedWithdrawal
@@ -19301,6 +19266,14 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 
+	public Race getSubspeciesOverrideRace() {
+		try {
+			return getSubspeciesOverride().getRace();
+		} catch (Exception ex) {
+			return Race.NONE;
+		}
+	}
+	
 	public void setSubspeciesOverride(Subspecies subspeciesOverride) {
 		body.setSubspeciesOverride(subspeciesOverride);
 	}
@@ -20047,7 +20020,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return A description of why this character cannot self-transform. Returns an empty String if they are able to self-transform.
 	 */
 	public String getUnableToTransformDescription() {
-		if((this.getSubspeciesOverride()==null || this.getSubspeciesOverride().getRace()!=Race.DEMON)
+		if((this.getSubspeciesOverrideRace()!=Race.DEMON)
 				&& this.getRace()!=Race.SLIME
 				&& !(this instanceof Elemental)) {
 			return "Only demons, slimes, and elementals can transform their bodies at will!";
@@ -21540,7 +21513,7 @@ public abstract class GameCharacter implements XMLSaving {
 							+ "</p>");
 				}
 				
-			} else if(this.getSubspeciesOverride()==null || this.getSubspeciesOverride().getRace()!=Race.DEMON) {
+			} else if(this.getSubspeciesOverrideRace()!=Race.DEMON) {
 				// If the character is not a demon, revert all demonic body parts to human:
 				boolean resetAreas = false;
 				
@@ -21613,8 +21586,8 @@ public abstract class GameCharacter implements XMLSaving {
 							+ "</p>");
 				}
 				
-			} else if(this.getSubspeciesOverride()==null || this.getSubspeciesOverride().getRace()!=Race.ANGEL) {
-				// If the character is not a demon, revert all angelic body parts to human:
+			} else if(this.getSubspeciesOverrideRace()!=Race.ANGEL) {
+				// If the character is not an angel, revert all angelic body parts to human:
 				boolean resetAreas = false;
 				
 				if(this.getArmType().getRace()==Race.ANGEL) {

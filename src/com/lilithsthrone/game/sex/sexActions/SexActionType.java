@@ -12,6 +12,9 @@ public enum SexActionType {
 
 	/**An action in which a character is speaking.*/
 	SPEECH,
+
+	/**An action in which a character is speaking, but which also has alternative action text for if speech is blocked.*/
+	SPEECH_WITH_ALTERNATIVE,
 	
 	/**Standard non-penetrative action. Requires all SexAreaInterfaces to be exposed.*/
 	REQUIRES_EXPOSED,

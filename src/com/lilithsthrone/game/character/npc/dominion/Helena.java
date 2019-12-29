@@ -101,8 +101,13 @@ public class Helena extends NPC {
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.INNOCENT);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
 			this.setName(new NameTriplet("Helena"));
+			this.getHomeCell().removeCharacterHomeId("-1,Alexa");
+			this.getHomeCell().addCharacterHomeId("-1,Helena");
+			this.getCell().removeCharacterPresentId("-1,Alexa");
+			this.getCell().addCharacterPresentId("-1,Helena");
+			this.setId("-1,Helena");
 		}
 	}
 
@@ -246,13 +251,6 @@ public class Helena extends NPC {
 	@Override
 	public void dailyUpdate() {
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
-			for(String id : this.getSlavesOwned()) {
-				if(Main.game.isCharacterExisting(id)) {
-					Main.game.banishNPC(id);
-				}
-			}
-			this.removeAllSlaves();
-			
 			for(int i=0; i<3; i++) {
 				NPC newSlave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 				newSlave.setHistory(Occupation.NPC_SLAVE);
@@ -278,14 +276,29 @@ public class Helena extends NPC {
 	@Override
 	public void turnUpdate() {
 		if(!Main.game.getCharactersPresent().contains(this)) {
-			if(Main.game.isExtendedWorkTime()) {
-				if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
+			if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
+				if(Main.game.isExtendedWorkTime()) {
 					this.setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST, true);
+					
 				} else {
-					this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 				}
+				
 			} else {
-				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+				if(Main.game.isExtendedWorkTime() || Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
+					this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+					
+				} else {
+					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+					if(!Main.game.isExtendedWorkTime() && Main.game.getHourOfDay()>12) {
+						for(String id : this.getSlavesOwned()) {
+							if(Main.game.isCharacterExisting(id)) {
+								Main.game.banishNPC(id);
+							}
+						}
+						this.removeAllSlaves();
+					}
+				}
 			}
 		}
 	}

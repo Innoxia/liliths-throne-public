@@ -205,7 +205,8 @@ public class GenericPositioning {
 		if(bipedalOral1) {
 			performerSlots.add(SexSlotStanding.PERFORMING_ORAL);
 		} else {
-			if(receiver.hasPenis() && (!Main.game.isInSex() || ((performer instanceof NPC) && ((NPC)performer).getCurrentSexPreference(receiver)!=null && ((NPC)performer).getCurrentSexPreference(receiver).getTargetedSexArea()==SexAreaPenetration.PENIS))) {
+			if(receiver.hasPenis()
+					&& (!Main.game.isInSex() || ((performer instanceof NPC) && ((NPC)performer).getCurrentSexPreference(receiver)!=null && ((NPC)performer).getCurrentSexPreference(receiver).getTargetedSexArea()==SexAreaPenetration.PENIS))) {
 				performerSlots.add(SexSlotStanding.PERFORMING_ORAL);
 			} else {
 				performerSlots.add(SexSlotStanding.PERFORMING_ORAL_BEHIND);
@@ -769,6 +770,7 @@ public class GenericPositioning {
 		@Override
 		public void applyEffects() {
 			Sex.setPositionRequest(generatePerformingOralData(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this)));
+//			System.out.println(Sex.getPositionRequest().getPosition().getName()+", "+Sex.getPositionRequest().getPerformerSlots().get(0).getName(null)+", "+Sex.getPositionRequest().getPartnerSlots().get(0).getName(null));
 		}
 		@Override
 		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
@@ -2556,7 +2558,7 @@ public class GenericPositioning {
 				}
 				
 			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotStanding.STANDING_DOMINANT
-					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL) {
+					&& (Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL || Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL_BEHIND)) {
 				if(isHappy) {
 					boolean biped = !Sex.getCharacterPerformingAction().isTaur();
 					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {

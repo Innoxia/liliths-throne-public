@@ -100,6 +100,10 @@ public class Murk extends NPC {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			setStartingBody(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.8")) {  // Reset character
+			this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_PALE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_PALE), false);
+		}
 	}
 
 	@Override
@@ -151,9 +155,9 @@ public class Murk extends NPC {
 		// Coverings:
 		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, Colour.EYE_YELLOW), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_GREY), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_LIGHT), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_PALE), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_LIGHT), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_PALE), false);
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BLACK), false);
 		this.setHairLength(0);
 		this.setHairStyle(HairStyle.NONE);

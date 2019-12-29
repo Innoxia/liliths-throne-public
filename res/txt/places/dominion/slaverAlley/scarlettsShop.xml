@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 
-	<htmlContent tag="SCARLETTS_SHOP_EXTERIOR"><![CDATA[
+	<!-- SCARLETTS_SHOP_EXTERIOR -->
+	
+	<htmlContent tag="SCARLETTS_SHOP_EXTERIOR_CLOSED"><![CDATA[
 	<p>
-		Tucked away in one corner of Slaver Alley, you see a shop that's quite unlike all the others. Although the words 'Scarlett's Shop; open for business' are painted in fancy gold lettering above the door, the large glass windows don't show any sign of there being any slaves for sale. While the areas in front of all of the other shops in Slaver Alley are filled with advertisement boards and platforms upon which to display their goods, the area in front of 'Scarlett's Shop' is noticeably barren; yet further proof that this particular store must have fallen upon hard times.
+		Tucked away in one corner of Slaver Alley, you see a shop that's quite unlike all the others. Looking down from the words 'Scarlett's Shop' painted in fancy gold lettering above the door, you see that there's a sign hanging in one of the large glass windows, which reads, [style.italicsBad('Open every day, 6am-10pm')].
 	</p>
-	#IF pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_HELENA
-	#THEN
+	#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_HELENA)
 		<p>
-			You haven't gone to report to Scarlett's matriarch, [helena.name], yet, and you don't really want to have to talk to Scarlett until you've done as she's asked. Scarlett said that you can find [helena.name] up in the Harpy Nests, so you'll need to go there report to her before stepping foot inside this shop again.
+			As the shop is currently closed, there's nothing more for you to do here except turn around and leave. You also haven't yet gone to report to Scarlett's matriarch, [helena.name], so there wouldn't be much for you to do here even if the shop was open. Scarlett said that you can find [helena.name] up in the Harpy Nests...
+		</p>
+	#ELSE
+		<p>
+			As the shop is currently closed, there's nothing more for you to do here except turn around and leave. If you wanted to talk to Scarlett, you'll have to come back at some time after six in the morning...
 		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="SCARLETTS_SHOP_EXTERIOR"><![CDATA[
+	<p>
+		Tucked away in one corner of Slaver Alley, you see a shop that's quite unlike all the others. Looking down from the words 'Scarlett's Shop' painted in fancy gold lettering above the door, you see that there's a sign hanging in one of the large glass windows, which reads, [style.italicsGood('Open every day, 6am-10pm')].
+	</p>
+	<p>
+		Despite the sign proclaiming that this shop is open for business, you don't see any sign of there being any slaves for sale inside. Furthermore, while the other shops in Slaver Alley use the area in front of their premises to proudly display advertisement boards and platforms upon which to display their goods, the area in front of 'Scarlett's Shop' is noticeably barren; yet further proof that this particular store must have fallen upon hard times.
+	</p>
+	#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_HELENA)
+		<p>
+			You haven't yet gone to report to Scarlett's matriarch, [helena.name], and you don't really want to have to talk to the rude harpy again until you've done as she's asked. Scarlett said that you can find [helena.name] up in the Harpy Nests, so you'll need to go there report to her before stepping foot inside this shop again.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SCARLETTS_SHOP -->
 	
 	<htmlContent tag="SCARLETTS_SHOP_INTRO"><![CDATA[
 	<p>
@@ -39,6 +62,9 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	
+	<!-- SCARLETT_IS_A_BITCH -->
 	
 	<htmlContent tag="SCARLETT_IS_A_BITCH"><![CDATA[
 	<p>
@@ -74,6 +100,9 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- SCARLETT_IS_A_SUPER_BITCH -->
+	
 	<htmlContent tag="SCARLETT_IS_A_SUPER_BITCH"><![CDATA[
 	<p>
 		Deciding to just agree with the insufferable harpy for now, you respond, [pc.speech(Fine, I'll do it, but you'd better keep your end of the bargain here. When I get back, you're going to tell me exactly what's happened to Arthur, ok?)]
@@ -86,6 +115,9 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_EXTERIOR -->
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_HELENA_RETURNS"><![CDATA[
 	<p>
@@ -102,10 +134,20 @@
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR"><![CDATA[
 	<p>
-		Once again, you find yourself standing in the quiet area in front of Scarlett's old shop. Stepping forwards, you see that the fancy gold lettering reading 'Scarlett's shop; open for business' has been roughly crossed out in red paint, and beneath, in the same scarlet hue, you read the words '[helena.name]'s Pet Shop'.
+		Once again, you find yourself standing in the quiet area in front of Scarlett's old shop. Stepping forwards, you see that the fancy gold lettering reading 'Scarlett's shop; open for business' has been roughly crossed out in red paint, and beneath, in the same scarlet hue, you read the words '[helena.name]'s Pet Shop'. Just as it was before, there's a sign hanging in one of the large glass windows, reading, [style.italicsGood('Open every day, 6am-10pm')].
 	</p>
 	<p>
 		You wonder if you should enter [helena.name]'s Pet Shop now, or come back later.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_EXTERIOR_CLOSED"><![CDATA[
+	<p>
+		Once again, you find yourself standing in the quiet area in front of Scarlett's old shop. Stepping forwards, you see that the fancy gold lettering reading 'Scarlett's shop; open for business' has been roughly crossed out in red paint, and beneath, in the same scarlet hue, you read the words '[helena.name]'s Pet Shop'. Just as it was before, there's a sign hanging in one of the large glass windows, reading, [style.italicsBad('Open every day, 6am-10pm')].
+	</p>
+	<p>
+		As the shop is currently closed, there's nothing more for you to do here except turn around and leave. If you wanted to talk to [helena.name], you'll have to come back at some time after six in the morning...
 	</p>
 	]]>
 	</htmlContent>

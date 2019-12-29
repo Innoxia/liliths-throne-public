@@ -56,11 +56,6 @@ public class AlleywayDemonDialogue {
 				|| pt.equals(PlaceType.DOMINION_CANAL_END);
 	}
 	
-	private static boolean isStorm() {
-		AbstractPlaceType pt = getDemon().getLocationPlace().getPlaceType();
-		return !pt.equals(PlaceType.DOMINION_BACK_ALLEYS) && !isCanal();
-	}
-	
 	private static boolean isWantsToFight() {
 		return getDemon().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue();
 	}
@@ -804,7 +799,7 @@ public class AlleywayDemonDialogue {
 				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
-						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
+						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 							Main.game.banishNPC(getDemon());
 						}
 					}
@@ -931,7 +926,7 @@ public class AlleywayDemonDialogue {
 					}
 				};
 				
-			} else if (index == 7 && !isStorm()) {
+			} else if (index == 7) {
 				if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
 					
@@ -962,7 +957,7 @@ public class AlleywayDemonDialogue {
 								+ "(You'll return to these options once finished transforming [npc.herHim].)",
 						QuickTransformations.initQuickTransformations("encounters/dominion/"+getDialogueId(), getDemon(), AFTER_COMBAT_VICTORY));
 			
-			} else if (index == 10 && !isStorm() && !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+			} else if (index == 10 && !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -1866,7 +1861,7 @@ public class AlleywayDemonDialogue {
 				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
-						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
+						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 							Main.game.banishNPC(getDemon());
 						}
 					}
@@ -1880,7 +1875,7 @@ public class AlleywayDemonDialogue {
 					}
 				};
 				
-			} else if (index == 10 && !isStorm() && !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+			} else if (index == 10 && !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
@@ -1924,7 +1919,7 @@ public class AlleywayDemonDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY) {
 					@Override
 					public void effects() {
-						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
+						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 							Main.game.banishNPC(getDemon());
 						}
 					}

@@ -553,9 +553,6 @@ public class RoomPlayer {
 
 		@Override
 		public String getResponseTabTitle(int index) {
-			if(index==2) {
-				return "Bathroom";
-			}
 			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
 		}
 		

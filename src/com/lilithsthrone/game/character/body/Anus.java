@@ -79,7 +79,7 @@ public class Anus implements BodyPartInterface {
 		if(owner.isAnusBestial()) {
 			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
 					"feral",
-					owner.getAssRace().getName(true)+"-",
+					owner.getAssRace().getName(owner, true)+"-",
 					"bestial",
 					"animalistic")));
 		} else {

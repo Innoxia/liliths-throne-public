@@ -68,7 +68,6 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -262,8 +261,8 @@ public class Amber extends NPC {
 		
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
-		this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
+		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_crystal_epic", DamageType.FIRE));
+		this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_crystal_epic", DamageType.FIRE));
 		
 		// Tattoos
 		// Scars

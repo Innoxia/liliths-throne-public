@@ -514,7 +514,7 @@ public class LyssiethPalaceDialogue {
 				};
 				
 			} else if(index==8) {
-				if(Main.game.getPlayer().getSubspeciesOverride().getRace()==Race.DEMON) {
+				if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 					return new ResponseSex("Lilin sex (pussy)",
 							"Tell Lyssieth that you want her to take on her lilin form, and that you want to use her pussy.",
 							true,
@@ -560,7 +560,7 @@ public class LyssiethPalaceDialogue {
 					}
 				}
 				
-			} else if(index==9 && Main.game.getPlayer().getSubspeciesOverride().getRace()==Race.DEMON) {
+			} else if(index==9 && Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 				return new ResponseSex("Lilin sex (cock)",
 						"Tell Lyssieth that you want her to take on her lilin form, and that she should grow a cock and fuck you.",
 						true,

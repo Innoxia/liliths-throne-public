@@ -384,6 +384,16 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 		}
+
+		@Override
+		public String getFeralName(GameCharacter character) {
+			Race r = character.getLegType().getRace();
+			return character.getLegConfiguration()!=LegConfiguration.BIPEDAL
+					?r==Race.HUMAN
+						?"demonic-horse"
+						:"demonic-"+r.getName(character, true)
+					:"demon";
+		}
 		
 		@Override
 		public String getName(GameCharacter character) {
@@ -1008,12 +1018,16 @@ public enum Subspecies {
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, Colour.SKIN_PALE, false, Colour.SKIN_PALE, true));
 			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, Colour.COVERING_WHITE, false, Colour.COVERING_WHITE, false));
+			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.HAIR_FOX_FUR, CoveringPattern.NONE, Colour.COVERING_WHITE, false, Colour.COVERING_WHITE, false));
+			body.getCoverings().put(BodyCoveringType.BODY_HAIR_FOX_FUR, new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, CoveringPattern.NONE, Colour.COVERING_WHITE, false, Colour.COVERING_WHITE, false));
 			if(body.getPenis().getType()==PenisType.VULPINE) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
 			}
 		}
 	},
+	
 	FOX_MORPH_FENNEC("statusEffects/race/raceFoxMorph",
 			"statusEffects/race/raceBackground",
 			"fennec-morph",
@@ -2440,7 +2454,7 @@ public enum Subspecies {
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character!=null) {
 				Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character);
-				if(character.getSubspeciesOverride()!=null && character.getSubspeciesOverride().getRace()==Race.DEMON) {
+				if(character.getSubspeciesOverrideRace()==Race.DEMON) {
 					return UtilText.parse(character,
 							"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any serious unarmed damage."
 							+ " [npc.Her] slime core is pulsating with an immense power, revealing the fact that [npc.sheIs] a true demonic slime.");
@@ -3954,17 +3968,17 @@ public enum Subspecies {
 		if(!isNonBiped() && character!=null) {
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:
-					return feralName+"-arachne";
+					return getFeralName(character)+"-arachne";
 				case BIPEDAL:
 					break;
 				case CEPHALOPOD:
-					return feralName+"-kraken";
+					return getFeralName(character)+"-kraken";
 				case TAIL:
-					return "mer"+feralName;
+					return "mer"+getFeralName(character);
 				case TAIL_LONG:
-					return feralName+"-lamia";
+					return getFeralName(character)+"-lamia";
 				case TAUR:
-					return feralName+getTaurEnding();
+					return getFeralName(character)+getTaurEnding();
 			}
 		}
 		return name;
@@ -3978,17 +3992,17 @@ public enum Subspecies {
 		if(!isNonBiped() && character!=null) {
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:
-					return feralName+"-arachnes";
+					return getFeralName(character)+"-arachnes";
 				case BIPEDAL:
 					break;
 				case CEPHALOPOD:
-					return feralName+"-krakens";
+					return getFeralName(character)+"-krakens";
 				case TAIL:
-					return "mer"+feralName;
+					return "mer"+getFeralName(character);
 				case TAIL_LONG:
-					return feralName+"-lamias";
+					return getFeralName(character)+"-lamias";
 				case TAUR:
-					return feralName+getTaurEnding()+"s";
+					return getFeralName(character)+getTaurEnding()+"s";
 			}
 		}
 		return namePlural;
@@ -4002,17 +4016,17 @@ public enum Subspecies {
 		if(!isNonBiped() && character!=null) {
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:
-					return feralName+"-arachne";
+					return getFeralName(character)+"-arachne";
 				case BIPEDAL:
 					break;
 				case CEPHALOPOD:
-					return feralName+"-kraken";
+					return getFeralName(character)+"-kraken";
 				case TAIL:
-					return "mer"+feralName;
+					return "mer"+getFeralName(character);
 				case TAIL_LONG:
-					return feralName+"-lamia";
+					return getFeralName(character)+"-lamia";
 				case TAUR:
-					return feralName+getTaurEnding();
+					return getFeralName(character)+getTaurEnding();
 			}
 		}
 
@@ -4036,17 +4050,17 @@ public enum Subspecies {
 		if(!isNonBiped() && character!=null) {
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:
-					return feralName+"-arachne";
+					return getFeralName(character)+"-arachne";
 				case BIPEDAL:
 					break;
 				case CEPHALOPOD:
-					return feralName+"-kraken";
+					return getFeralName(character)+"-kraken";
 				case TAIL:
-					return "mer"+feralName;
+					return "mer"+getFeralName(character);
 				case TAIL_LONG:
-					return feralName+"-lamia";
+					return getFeralName(character)+"-lamia";
 				case TAUR:
-					return feralName+getTaurEnding()+"ess";
+					return getFeralName(character)+getTaurEnding()+"ess";
 			}
 		}
 		
@@ -4071,17 +4085,17 @@ public enum Subspecies {
 		if(!isNonBiped() && character!=null) {
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:
-					return feralName+"-arachnes";
+					return getFeralName(character)+"-arachnes";
 				case BIPEDAL:
 					break;
 				case CEPHALOPOD:
-					return feralName+"-krakens";
+					return getFeralName(character)+"-krakens";
 				case TAIL:
-					return "mer"+feralName;
+					return "mer"+getFeralName(character);
 				case TAIL_LONG:
-					return feralName+"-lamias";
+					return getFeralName(character)+"-lamias";
 				case TAUR:
-					return feralName+getTaurEnding()+"s";
+					return getFeralName(character)+getTaurEnding()+"s";
 			}
 		}
 		return pluralMaleName;
@@ -4095,17 +4109,17 @@ public enum Subspecies {
 		if(!isNonBiped() && character!=null) {
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:
-					return feralName+"-arachnes";
+					return getFeralName(character)+"-arachnes";
 				case BIPEDAL:
 					break;
 				case CEPHALOPOD:
-					return feralName+"-krakens";
+					return getFeralName(character)+"-krakens";
 				case TAIL:
-					return "mer"+feralName;
+					return "mer"+getFeralName(character);
 				case TAIL_LONG:
-					return feralName+"-lamias";
+					return getFeralName(character)+"-lamias";
 				case TAUR:
-					return feralName+getTaurEnding()+"esses";
+					return getFeralName(character)+getTaurEnding()+"esses";
 			}
 		}
 		return pluralFemaleName;
