@@ -2964,7 +2964,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 									+ "</p>"
 									+ "<p>"
 										+ "Hearing [npc.namePos] willing response, [npc2.name] [npc2.verb(remove)] the bottle's stopper, before handing it over to [npc.herHim]."
-										+ " Eager to please, [npc.she] happily [npc.verb(wrap)] [npc.her] [npc.lips] around the bottle's opening, before gullping down all of the liquid in one huge swig."
+										+ " Eager to please, [npc.she] happily [npc.verb(wrap)] [npc.her] [npc.lips] around the bottle's opening, before gulping down all of the liquid in one huge swig."
 									+ " [npc.She] [npc.verb(cough)] and [npc.verb(splutter)] for a moment, before letting out a startled cry as [npc.she] [npc.verb(start)] to feel the liquid's effects taking root deep in [npc.her] mind..."
 									+ "</p>"));
 							}

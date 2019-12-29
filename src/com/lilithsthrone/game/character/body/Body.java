@@ -1743,9 +1743,6 @@ public class Body implements XMLSaving {
 	
 	/**
 	 * @param owner
-	 * @param playerKnowledgeOfThroat
-	 * @param playerKnowledgeOfBreasts
-	 * @param playerKnowledgeOfGroin
 	 * @return
 	 */
 	public String getDescription(GameCharacter owner) {

@@ -6128,15 +6128,15 @@ public class GenericOrgasms {
 	
 					} else if(Sex.getOngoingCharactersUsingAreas(Sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, SexAreaOrifice.BREAST).contains(getCharacterBeingFucked())) {
 						sb.append("Not wanting [npc2.name] to cum all over of [npc3.name], [npc.name] [npc.verb(cry)] out for [npc2.herHim] to stop,"
-								+" [npc.speech(I don't want you cumming on [npc3.herHim] tits"+(petName?", [#npc.getPetName(npc2)]":"")+"! Pull away from [npc3.herHim]!)]");
+								+" [npc.speech(I don't want you cumming on [npc3.her] tits"+(petName?", [#npc.getPetName(npc2)]":"")+"! Pull away from [npc3.herHim]!)]");
 	
 					} else if(Sex.getOngoingCharactersUsingAreas(Sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, SexAreaPenetration.FOOT).contains(getCharacterBeingFucked())) {
 						sb.append("Not wanting [npc2.name] to cum all over of [npc3.name], [npc.name] [npc.verb(cry)] out for [npc2.herHim] to stop,"
-								+" [npc.speech(I don't want you cumming on [npc3.herHim] [npc3.feet]"+(petName?", [#npc.getPetName(npc2)]":"")+"! Pull away from [npc3.herHim]!)]");
+								+" [npc.speech(I don't want you cumming on [npc3.her] [npc3.feet]"+(petName?", [#npc.getPetName(npc2)]":"")+"! Pull away from [npc3.herHim]!)]");
 						
 					} else {
 						sb.append("Not wanting [npc2.name] to cum all over of [npc3.name], [npc.name] [npc.verb(cry)] out for [npc2.herHim] to stop,"
-								+" [npc.speech(I don't want you cumming on [npc3.herHim]"+(petName?", [#npc.getPetName(npc2)]":"")+"! Pull away from [npc3.herHim]!)]");
+								+" [npc.speech(I don't want you cumming on [npc3.her]"+(petName?", [#npc.getPetName(npc2)]":"")+"! Pull away from [npc3.herHim]!)]");
 					}
 				}
 			}

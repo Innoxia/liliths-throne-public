@@ -103,7 +103,7 @@ public enum NippleType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("nipple", "teat");
 					
 				} else {
-					return "nipples";
+					return "nipple";
 				}
 			case VAGINA:
 				return UtilText.returnStringAtRandom("nipple-cunt", "nipple-pussy");
