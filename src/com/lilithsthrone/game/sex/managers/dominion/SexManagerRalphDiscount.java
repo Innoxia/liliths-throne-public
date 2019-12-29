@@ -16,13 +16,14 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.6?
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class SexManagerRalphDiscount extends SexManagerDefault {
 	
 	public SexManagerRalphDiscount(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionUnique.UNDER_DESK_RALPH,
+		super(false,
+				SexPositionUnique.UNDER_DESK_RALPH,
 				dominants,
 				submissives);
 	}

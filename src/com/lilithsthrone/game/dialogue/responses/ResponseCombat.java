@@ -74,6 +74,9 @@ public class ResponseCombat extends Response {
 		// Irbynx's note:
 		// Assuming this function overload is used for very specific combat instances in mind. To add companions to equation, just pass them mixed in with the lists
 		this.enemies = new ArrayList<>();
+		if(!enemies.contains(enemyLeader)) {
+			this.enemies.add(enemyLeader);
+		}
 		for(GameCharacter enemy : enemies) {
 			this.enemies.add((NPC) enemy);
 		}
@@ -97,6 +100,9 @@ public class ResponseCombat extends Response {
 		// Irbynx's note:
 		// Assuming this function overload is used for very specific combat instances in mind. To add companions to equation, just pass them mixed in with the lists
 		this.enemies = new ArrayList<>();
+		if(!enemies.contains(enemyLeader)) {
+			this.enemies.add(enemyLeader);
+		}
 		for(GameCharacter enemy : enemies) {
 			this.enemies.add((NPC) enemy);
 		}

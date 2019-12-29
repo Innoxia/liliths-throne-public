@@ -182,7 +182,10 @@ public class UtilText {
 		
 		modifiedSentence = splitOnConditional[splitOnConditional.length-1];
 		
-		if(!parserTags.contains(ParserTag.SEX_ALLOW_MUFFLED_SPEECH)
+		if(target.hasPersonalityTrait(PersonalityTrait.MUTE)) {
+			modifiedSentence = Util.replaceWithMute(modifiedSentence, Main.game.isInSex() && Sex.getAllParticipants().contains(target));
+			
+		} else if(!parserTags.contains(ParserTag.SEX_ALLOW_MUFFLED_SPEECH)
 				&& Main.game.isInSex()
 				&& Sex.getAllParticipants().contains(target)
 				&& target.isSpeechMuffled()) {
@@ -446,15 +449,15 @@ public class UtilText {
 	}
 	
 	public static String formatVirginityLoss(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'><i>"+s+"</i></p>";
 	}
 	
 	public static String formatTooLoose(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'><i>"+s+"</i></p>";
 	}
 	
 	public static String formatStretching(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'><i>"+s+"</i></p>";
 	}
 
 	public static boolean isVowel(char c) {
@@ -3095,7 +3098,8 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"eagerly",
 						"gently",
-						"roughly"),
+						"roughly",
+						"sexPaceVerb"),
 				true,
 				false,
 				"(Alternative start string)",

@@ -113,7 +113,7 @@ public class DaddyDialogue {
 	public static final DialogueNode BLANK_DEFAULT_DIALOGUE = new DialogueNode("", "", false) {
 		@Override
 		public String getLabel() {
-			return Main.game.getDefaultDialogueNoEncounter().getLabel();
+			return Main.game.getDefaultDialogue(false).getLabel();
 		}
 		@Override
 		public String getContent() {
@@ -121,7 +121,7 @@ public class DaddyDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return Main.game.getDefaultDialogueNoEncounter().getResponse(responseTab, index);
+			return Main.game.getDefaultDialogue(false).getResponse(responseTab, index);
 		}
 	};
 	

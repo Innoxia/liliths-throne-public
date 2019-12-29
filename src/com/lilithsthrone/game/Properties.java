@@ -65,6 +65,7 @@ public class Properties {
 			"Randomly-generated NPCs will only have multiple rows of breasts if they have furry skin. (Default setting.)",
 			"Randomly-generated NPCs will have multiple rows of breasts if their breast type is furry (starts at 'Minor morph' level)."};
 	
+	/** 0=off, 1=taur-only, 2=on*/
 	public int udders = 1;
 	public static String[] uddersLabels = new String[] {"Off", "Taur-only", "On"};
 	public static String[] uddersDescriptions = new String[] {

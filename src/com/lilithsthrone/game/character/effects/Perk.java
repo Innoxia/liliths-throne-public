@@ -537,9 +537,12 @@ public class Perk {
 			"royal jelly",
 			PerkCategory.JOB,
 			"perks/jobs/npc_slime_queen",
-			Colour.SLIME_PINK,
+			Util.newArrayListOfValues(Colour.CLOTHING_GOLD, Colour.CLOTHING_RED_VERY_DARK, Colour.CLOTHING_GOLD),
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50)),
+			null,
+			null,
+			null,
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -607,7 +610,7 @@ public class Perk {
 	
 	public static AbstractPerk JOB_GANG_BODY_GUARD = new AbstractPerk(20,
 			true,
-			"proven loyalty",
+			"sharpest fangs",
 			PerkCategory.JOB,
 			"perks/jobs/npc_rat_gang",
 			Util.newArrayListOfValues(
@@ -624,7 +627,7 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"[npc.NameHasFull] proven [npc.herself] to be unquestionably loyal to [npc.her] gang, and as such, has earned the position of bodyguard of [npc.her] leader.");
+					"Having been recognised as one of the most powerful members of [npc.her] gang, [npc.name] has earned the position of being a bodyguard of [npc.her] leader.");
 		}
 	};
 	
@@ -2360,6 +2363,31 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] had countless sexual partners, and [npc.has] performed all manner of lewd acts with them.");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
+			return true;
+		}
+	};
+	
+	public static AbstractPerk SPECIAL_MEGA_SLUT = new AbstractPerk(20,
+			false,
+			"debauched",
+			PerkCategory.ARCANE,
+			"perks/attSeduction3",
+			Colour.ATTRIBUTE_LUST,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
+					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 75)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "When not partaking in it with complete strangers, [npc.nameIsFull] almost always fantasising about sex, and thinks of little else but what sort of lewd act [npc.she] should perform with [npc.her] next partner.");
 		}
 		@Override
 		public boolean isHiddenPerk() {

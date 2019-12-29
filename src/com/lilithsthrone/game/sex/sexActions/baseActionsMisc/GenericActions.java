@@ -1,6 +1,9 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -15,11 +18,14 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -31,11 +37,189 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.79
- * @version 0.3.3
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class GenericActions {
 	
+	public static final SexAction PLAYER_SKIP_SEX = new SexAction(
+			SexActionType.SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+
+		@Override
+		public Colour getHighlightColour() {
+			return Colour.BASE_ORANGE;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Quick sex";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Skips this sex scene, but still [style.boldSex(applies all applicable effects)] as though the scene had taken place, based on your partner's preferences."
+					+ " A description of the resulting sex scene will be displayed before the scene ends.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getInitialSexManager().isAbleToSkipSexScene()
+					&& Sex.getCharacterPerformingAction().isPlayer();
+		}
+
+		@Override
+		public String getDescription() {
+			StringBuilder sb = new StringBuilder();
+			
+			HashMap<GameCharacter, GameCharacter> targetedCharacters = new HashMap<>();
+			List<GameCharacter> availableSubs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+			boolean allDomsAssigned = false;
+			boolean allSubsAssigned = false;
+			List<GameCharacter> domsNotSatisfied = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
+			
+			// All characters in sex should know of each others' parts:
+			for(GameCharacter character : Sex.getAllParticipants()) {
+				for(GameCharacter partner : Sex.getAllParticipants()) {
+					if(!character.equals(partner)) {
+						partner.setAllAreasKnownByCharacter(character, true);
+						character.setAllAreasKnownByCharacter(partner, true);
+					}
+				}
+			}
+			
+			while(!allSubsAssigned) {
+				for(GameCharacter dom : domsNotSatisfied) {
+					GameCharacter target = dom.isPlayer()?Sex.getTargetedPartner(dom):((NPC) dom).getPreferredSexTarget();
+					if(target==null || (dom.isPlayer() && allDomsAssigned && Sex.isSubHasEqualControl())) { // If second time through loop, and equal control, give player another target if available
+						if(availableSubs.isEmpty()) { // If run out of subs, re-populate sub list.
+							availableSubs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+						}
+						float topWeight = -10_000;
+						for(GameCharacter sub : availableSubs) {
+							float weight = dom.isAttractedTo(sub)?dom.getAffection(sub):-1_000;
+							if(weight>topWeight) {
+								topWeight = weight;
+								target = sub;
+							}
+						}
+					}
+					availableSubs.remove(target);
+					if(availableSubs.isEmpty()) {
+						allSubsAssigned = true;
+					}
+					targetedCharacters.put(dom, target);
+					if(allDomsAssigned && allSubsAssigned) { // If this is the second+ time going through the loop, break as soon as all subs are accounted for
+						break;
+					}
+				}
+				allDomsAssigned = true;
+				
+				// Apply all generic sex effects:
+				for(Entry<GameCharacter, GameCharacter> entry : targetedCharacters.entrySet()) {
+					GameCharacter dom = entry.getKey();
+					GameCharacter sub = entry.getValue();
+					sb.append(UtilText.parse(dom, sub,
+							"<p style='text-align:center;'>"
+//								+ "<b>[style.boldSexDom([npc.Name])] dominantly "+(Sex.isSubHasEqualControl()?"having sex with":"fucking")+" [style.boldSexSub([npc2.name])]</b>"
+								+ "<b><b style='color:"+dom.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b>"
+									+ " dominantly "+(Sex.isSubHasEqualControl()?"having sex with ":"fucking ")
+									+"<b style='color:"+sub.getFemininity().getColour().toWebHexString()+";'>[npc2.name]</b></b>"
+							+ "</p>"));
+					
+					// Foreplay:
+					SexType preference;
+					if(Sex.isInForeplay(dom)) {
+						preference = getForeplayPreference(dom, sub);
+						sb.append("<p style='margin:0; padding:0; text-align:center;'>");
+						sb.append("[style.boldPurpleLight(Foreplay)] ([style.colourSexDom("+Util.capitaliseSentence(preference.getPerformingSexArea().getName(dom, true))+")]-[style.colourSexSub("+preference.getTargetedSexArea().getName(sub, true)+")]): ");
+						sb.append(dom.calculateGenericSexEffects(true, false, sub, preference, GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED));
+						sb.append("</p>");
+					}
+					
+					// Main sex:
+					preference = getMainSexPreference(dom, sub);
+					// If equal sex control, dom should satisfy subs:
+					int orgamsNeeded = !Sex.isSubHasEqualControl()?1:(sub.getOrgasmsBeforeSatisfied()-Sex.getNumberOfOrgasms(sub));
+							//Math.max(Sex.isSubHasEqualControl()?0:(sub.getOrgasmsBeforeSatisfied()-Sex.getNumberOfOrgasms(sub)), dom.getOrgasmsBeforeSatisfied()-Sex.getNumberOfOrgasms(dom));
+					for(int i=0; i<orgamsNeeded; i++) {
+						sb.append("<p style='margin:0; padding:0; text-align:center;'>");
+						sb.append("[style.boldPurple(Sex)] ([style.colourSexDom("+Util.capitaliseSentence(preference.getPerformingSexArea().getName(dom, true))+")]-[style.colourSexSub("+preference.getTargetedSexArea().getName(sub, true)+")]): ");
+						sb.append(dom.calculateGenericSexEffects(true, true, sub, preference, GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED));
+						sb.append("</p>");
+						if(orgamsNeeded>1) {
+							dom.generateSexChoices(false, sub);
+							preference = getMainSexPreference(dom, sub);
+						}
+					}
+				}
+				
+				for(GameCharacter dom : new ArrayList<>(domsNotSatisfied)) {
+					if(Sex.getNumberOfOrgasms(dom)>=dom.getOrgasmsBeforeSatisfied()) {
+						domsNotSatisfied.remove(dom);
+					}
+				}
+				
+				if(!Sex.isSubHasEqualControl() && domsNotSatisfied.isEmpty()) { // If the doms don't care about satisfying all the subs, treat all subs assigned as being true
+					allSubsAssigned = true;
+				}
+			}
+			
+			return sb.toString();
+		}
+
+		private SexType getForeplayPreference(GameCharacter dom, GameCharacter sub) {
+			SexType preference = dom.getForeplayPreference(sub);
+			//TODO check for blocked
+			if(preference==null) {
+				preference = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH);
+			}
+			return preference;
+		}
+		
+		private SexType getMainSexPreference(GameCharacter dom, GameCharacter sub) {
+			SexType 
+			preference = dom.getMainSexPreference(sub);
+			//TODO check for blocked
+			if(preference==null) {
+				if(dom.hasPenis()) {
+					if(sub.hasVagina()) {
+						preference = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
+					} else {
+						preference = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
+					}
+					
+				} else if(dom.hasVagina()) {
+					if(sub.hasPenis()) {
+						preference = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
+					} else if(sub.hasTail() && sub.getTailType().isSuitableForPenetration()){
+						preference = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TAIL);
+					} else {
+						preference = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER);
+					}
+					
+				} else {
+					if(sub.hasPenis()) {
+						preference = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS);
+					} else if(sub.hasVagina()) {
+						preference = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
+					} else {
+						preference = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH);
+					}
+				}
+			}
+			return preference;
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return true;
+		}
+	};
 	
 	public static final SexAction GENERIC_RESIST = new SexAction(
 			SexActionType.ONGOING,

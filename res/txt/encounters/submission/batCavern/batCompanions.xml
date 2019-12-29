@@ -53,22 +53,6 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="CAVERN_ATTACK_OFFER_BODY"><![CDATA[
-	<p>
-		Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of, and flash a seductive smile at [npc.name]. [pc.speech(There's no need to fight. If you're looking for a bit of fun, all you have to do is ask...)]
-	</p>
-	<p>
-		[npc.speech(Oh really?)] [npc.name] replies, stepping forwards in an intimidating manner. You remain in place, biting your [pc.lip] and trying to make yourself as small as possible as you attempt to entice [npc.name] into using you for some sexual relief.
-	</p>
-	<p>
-		Much to your delight, your would-be attacker reaches up and grabs you by the [pc.arms], before pulling you forwards into a tight embrace. Pressing [npc.her] [npc.lips] against yours, [npc.she] thrusts [npc.her] [npc.tongue] into your mouth, aggressively kissing you for a moment before pulling back, growling, [npc.speech(You're going to be a good [pc.girl] now, aren't you bitch?)]
-	</p>
-	<p>
-		Whimpering in the affirmative, you surrender yourself to [npc.namePos] dominant touch, allowing yourself to be used as payment for trespassing on [npc.her] territory...
-	</p>
-	]]>
-	</htmlContent>
-	
 	<htmlContent tag="CAVERN_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION"><![CDATA[
 	<p>
 		Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of, and flash a seductive smile at [npc.name]. [pc.speech(There's no need to fight. If you're looking for a bit of fun, all you have to do is ask...)]

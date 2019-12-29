@@ -123,7 +123,12 @@
 		</blockedPartsList>
 		
 		<!-- Inventory slots that are incompatible with this clothing. The game's swimsuit makes use of this, and, while fitting into the 'CHEST' slot, also blocks 'GROIN' and 'STOMACH'. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java 
-			- Example: You need to define an "incompatibleSlots" element for each slot that the clothing can be equipped into, so here, I've defined an empty one for "SOCK", and another empty one for "HAND".-->
+			- Example: You need to define an "incompatibleSlots" element for each slot that the clothing can be equipped into, so here, I've defined an empty one for "SOCK", and another empty one for "HAND".
+			- Example 2: If you want to add slots, then use the element like so (which would block the FINGER slot when equipped into the WRIST slot): 
+				<incompatibleSlots slot="WRIST">
+					<slot>FINGER</slot>
+				</incompatibleSlots>
+		-->
 		<incompatibleSlots slot="SOCK"/>
 		<incompatibleSlots slot="HAND"/>
 		

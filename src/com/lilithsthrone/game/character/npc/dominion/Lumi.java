@@ -229,7 +229,7 @@ public class Lumi extends NPC {
 		this.setMoney(0);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_SPORT_SHORTS, Colour.CLOTHING_RED, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_sport_shorts", Colour.CLOTHING_RED, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_wraps", Colour.CLOTHING_RED, false), true, this);
 

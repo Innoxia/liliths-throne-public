@@ -71,7 +71,7 @@ public class FingerPenis {
 	};
 	
 
-	public static final SexAction MASTURBATE_COCK = new SexAction(
+	public static final SexAction COCK_MASTURBATING_START = new SexAction(
 			SexActionType.START_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>350</value> 
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[bike shorts]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[bike shorts]]></namePlural>
+		<description><![CDATA[A pair of very tight lycra bike shorts, which are commonly also called 'spats'. The elastic material hugs to the wearer's body, showing off their curves.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>LEG</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>bike_shorts.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>THIGHS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GROIN"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(step)] into the bike shorts, before pulling them up to fit around [npc.her] waist.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(get)] [npc2.name] to step into the bike shorts, before pulling them up to fit around [npc2.her] waist.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(force)] [npc2.name] to step into the bike shorts, before yanking them up to fit around [npc2.her] waist.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] down [npc.her] bike shorts, before slipping them off.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] down [npc2.namePos] bike shorts, before slipping them off.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] down [npc2.namePos] bike shorts, before yanking them off.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

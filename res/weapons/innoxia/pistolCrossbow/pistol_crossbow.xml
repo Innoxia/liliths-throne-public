@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>1500</value>
+		<melee>false</melee>
+		<twoHanded>false</twoHanded>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[pistol crossbow]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[pistol crossbows]]></namePlural>
+		<description><![CDATA[Consisting of a bow-like assembly mounted horizontally on a pistol-shaped frame, this small crossbow can easily be wielded in one hand. When the string is drawn back, an arcane essence is extracted from the wielder and converted into an ethereal bolt, ready to be fired at a target.]]></description>
+		<attackDescriptor>fire</attackDescriptor>
+		<attackTooltipDescription>Shoot [npc2.name] with your pistol crossbow.</attackTooltipDescription>
+		<rarity>COMMON</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(draw)] [npc.her] pistol crossbow, ready to use it in combat.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(holster)] [npc.her] pistol crossbow.]]></unequipText>
+		
+		<imageName>pistol_crossbow.svg</imageName> 
+		<imageEquippedName>pistol_crossbow_equipped.svg</imageEquippedName>
+		
+		<damage>14</damage> 
+		
+		<arcaneCost>1</arcaneCost> 
+		
+		<damageVariance>MEDIUM</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+			<damageType>ICE</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>10</enchantmentLimit>
+		
+		<effects/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK_STEEL</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours> 
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</secondaryColours> 
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours> 
+			<colour>CLOTHING_STEEL</colour>
+		</tertiaryColours> 
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
+		
+		<itemTags>
+			<tag>SOLD_BY_VICKY</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Aiming and firing [npc.her] pistol crossbow, [npc.name] [npc.verb(manage)] to hit [npc2.name] with a powerful arcane bolt!
+		]]></hitText>
+		<hitText><![CDATA[
+		Taking aim at [npc2.name] with [npc.her] pistol crossbow, [npc.name] [npc.verb(pull)] the trigger, unleashing a powerful blast of arcane energy that slams into [npc2.namePos] torso!
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(aim)] at [npc2.name] with [npc.her] pistol crossbow, and, pulling the trigger, [npc.she] [npc.verb(manage)] to hit [npc2.herHim] right in the chest!
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		Aiming and firing [npc.her] pistol crossbow, [npc.name] [npc.verb(miss)] [npc2.name]!
+		]]></missText>
+		<missText><![CDATA[
+		Taking aim at [npc2.name] with [npc.her] pistol crossbow, [npc.name] [npc.verb(pull)] the trigger, letting out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(aim)] at [npc2.name] with [npc.her] pistol crossbow and [npc.verb(pull)] the trigger, but [npc.she] [npc.verb(end)] up missing [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

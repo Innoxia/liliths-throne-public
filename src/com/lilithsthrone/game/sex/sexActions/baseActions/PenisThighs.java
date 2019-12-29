@@ -82,7 +82,7 @@ public class PenisThighs {
 			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc.name] [npc.verb(start)] using [npc.her] [npc.legs],"
+							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc.name] [npc.verb(start)] using [npc2.her] [npc2.legs],"
 									+ " gently bucking back against [npc.herHim] as [npc2.she] [npc2.verb(help)] to sink the [npc.cock+] even deeper between [npc2.her] thighs.",
 
 							" With a soft [npc2.moan], [npc2.name] [npc2.verb(start)] gently bucking back against [npc.namePos] crotch,"
@@ -90,7 +90,7 @@ public class PenisThighs {
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] using [npc.her] [npc.legs],"
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] using [npc2.her] [npc2.legs],"
 									+ " eagerly bucking back against [npc.herHim] as [npc2.she] [npc2.verb(help)] to sink the [npc.cock+] even deeper between [npc2.her] thighs.",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] eagerly bucking back against [npc.namePos] crotch,"
@@ -98,7 +98,7 @@ public class PenisThighs {
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] using [npc.her] [npc.legs],"
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] using [npc2.her] [npc2.legs],"
 									+ " violently thrusting back against [npc.herHim] as [npc2.she] roughly [npc2.verb(force)] the [npc.cock+] even deeper between [npc2.her] thighs.",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] violently bucking back against [npc.namePos] crotch,"
@@ -106,7 +106,7 @@ public class PenisThighs {
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] using [npc.her] [npc.legs],"
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] using [npc2.her] [npc2.legs],"
 									+ " eagerly bucking back against [npc.herHim] as [npc2.she] [npc2.verb(help)] to sink the [npc.cock+] even deeper between [npc2.her] thighs.",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] eagerly bucking back against [npc.namePos] crotch,"
@@ -114,7 +114,7 @@ public class PenisThighs {
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] using [npc.her] [npc.legs],"
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] using [npc2.her] [npc2.legs],"
 									+ " bucking back against [npc.herHim] as [npc2.she] [npc2.verb(help)] to sink the [npc.cock+] even deeper between [npc2.her] thighs.",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] bucking back against [npc.namePos] crotch,"
@@ -122,7 +122,7 @@ public class PenisThighs {
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(start)] using [npc.her] [npc.legs], and,"
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc.name] [npc.verb(start)] using [npc2.her] [npc2.legs], and,"
 									+ " with tears running down [npc2.her] [npc2.face], [npc2.she] desperately [npc2.verb(beg)] for [npc.herHim] to stop.",
 
 							" With [npc2.a_sob+], [npc2.name] [npc2.verb(try)] to pull away from [npc.name];"

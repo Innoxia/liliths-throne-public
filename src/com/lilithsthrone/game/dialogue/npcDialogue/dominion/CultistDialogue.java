@@ -90,7 +90,7 @@ public class CultistDialogue {
 					}
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -358,7 +358,7 @@ public class CultistDialogue {
 				return new Response("Continue", "Leave the chapel and head back out into the streets of Dominion.", ENCOUNTER_CHAPEL_LEAVING){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 			
@@ -369,7 +369,7 @@ public class CultistDialogue {
 						ENCOUNTER_CHAPEL_LEAVING){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -612,7 +612,7 @@ public class CultistDialogue {
 				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_POST_ORAL_SEX){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -646,7 +646,7 @@ public class CultistDialogue {
 				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_POST_VAGINAL_SEX){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -680,7 +680,7 @@ public class CultistDialogue {
 				return new Response("Continue", "Continue on your way.", ENCOUNTER_CHAPEL_POST_VAGINAL_SEX){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -728,7 +728,7 @@ public class CultistDialogue {
 				return new Response("Continue", "Continue on your way.", ENCOUNTER_CHAPEL_POST_ORAL_SEX){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				

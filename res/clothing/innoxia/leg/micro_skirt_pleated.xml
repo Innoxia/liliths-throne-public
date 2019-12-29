@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>250</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[pleated microskirt]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[pleated microskirts]]></namePlural>
+		<description><![CDATA[Consisting of little more than a narrow band of pleated fabric, this microskirt is so short that it leaves its wearer's private parts completely exposed.]]></description> 
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>LEG</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>micro_skirt_pleated.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		<blockedPartsList/>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_NON_BIPED_BODY_HUMANOID</tag>
+		</itemTags>
+	</coreAttributes>
+	
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(step)] into the pleated microskirt and [npc.verb(pull)] it up to fit around [npc.her] waist.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(get)] [npc2.name] to step into the pleated microskirt, before pulling it up around [npc2.her] waist.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(force)] [npc2.name] to step into the pleated microskirt, before yanking it up around [npc2.her] waist.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] down [npc.her] pleated microskirt, before slipping it off.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] down [npc2.namePos] pleated microskirt, before slipping it off.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] down [npc2.namePos] pleated microskirt, before yanking it off.]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>

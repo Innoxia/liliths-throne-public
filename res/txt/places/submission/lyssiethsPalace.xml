@@ -470,16 +470,18 @@
 	<htmlContent tag="SEX_PUSSY"><![CDATA[
 	<p>
 		Noticing that Lyssieth keeps on hungrily eyeing you up and flashing you seductive glances, you step up to her and take hold of her arms, before leaning in and saying,
-		#IF pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
-		#THEN [pc.speech(Mommy, I can tell that you want me to fuck your pussy, so go on, lie back over your desk and spread your legs. I'll be your good [pc.girl] and give you what you want!)]
-		#ELSE [pc.speech(I can tell that you want me to fuck your pussy, so go on, lie back over your desk and spread your legs for me.)]
+		#IF(pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
+			 [pc.speech(Mommy, I can tell that you want me to fuck your pussy, so go on, lie back over your desk and spread your legs. I'll be your good [pc.girl] and give you what you want!)]
+		#ELSE
+			 [pc.speech(I can tell that you want me to fuck your pussy, so go on, lie back over your desk and spread your legs for me.)]
 		#ENDIF
 	</p>
 	<p>
 		[lyssieth.speech(Mmm, yes,)] Lyssieth softly moans, taking a step back and lying down over the top of her desk.
-		#IF pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
-		#THEN [lyssieth.speech(Mommy's pussy is all yours!)]
-		#ELSE [lyssieth.speech(My pussy's all yours!)]
+		#IF(pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
+			 [lyssieth.speech(Mommy's pussy is all yours!)]
+		#ELSE
+			 [lyssieth.speech(My pussy's all yours!)]
 		#ENDIF
 	</p>
 	<p>
@@ -491,20 +493,128 @@
 	<htmlContent tag="SEX_COCK"><![CDATA[
 	<p>
 		Noticing that Lyssieth keeps on hungrily eyeing you up and flashing you seductive glances, you step up to her and softly moan,
-		#IF pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
-		#THEN [pc.speech(Mommy, I can tell that you want to fuck me, so go on, grow a nice big cock for me. I'll be your good [pc.girl] and take it!)]
-		#ELSE [pc.speech(I can tell that you want to fuck me, so go on, grow a nice big cock and come take me!)]
+		#IF(pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
+			 [pc.speech(Mommy, I can tell that you want to fuck me, so go on, grow a nice big cock for me. I'll be your good [pc.girl] and take it!)]
+		#ELSE
+			 [pc.speech(I can tell that you want to fuck me, so go on, grow a nice big cock and come take me!)]
 		#ENDIF
 	</p>
 	<p>
 		[lyssieth.speech(Mmm, yes,)] Lyssieth eagerly replies, grabbing hold of your [pc.arms] and spinning you around. With a quick step forwards, she pushes you down so that you're lying back over the top of her desk. Looking down between her legs, you see a thick bulge start to press out against the fabric of her skirt, and, biting her lip, she softly moans, 
-		#IF pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
-		#THEN [lyssieth.speech(Mommy's big cock's aching to be inside of her good [pc.girl]... Spread your legs for her now...)]
-		#ELSE [lyssieth.speech(My big cock's aching to be inside of you... Spread your legs for me now...)]
+		#IF(pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
+			 [lyssieth.speech(Mommy's big cock's aching to be inside of her good [pc.girl]... Spread your legs for her now...)]
+		#ELSE
+			 [lyssieth.speech(My big cock's aching to be inside of you... Spread your legs for me now...)]
 		#ENDIF
 	</p>
 	<p>
 		Doing as the elder lilin says, you spread your legs and get ready to receive a good fucking...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_LILIN_PUSSY"><![CDATA[
+	<p>
+		Noticing that Lyssieth keeps on hungrily eyeing you up and flashing you seductive glances, you step up to her and take hold of her arms, before leaning in and saying,
+		#IF(pc.hasFetish(FETISH_INCEST))
+			 [pc.speech(Mommy, I can tell that you want me to fuck your pussy, so go on, lie back over your desk and spread your legs. I'll be your good [pc.girl] and give you what you want!)]
+		#ELSE
+			 [pc.speech(I can tell that you want me to fuck your pussy, so go on, lie back over your desk and spread your legs for me.)]
+		#ENDIF
+	</p>
+	<p>
+		[lyssieth.speech(Mmm, yes,)] Lyssieth softly moans, taking a step back and lying down over the top of her desk, before whining,
+		#IF(pc.hasFetish(FETISH_INCEST))
+			 [lyssieth.speech(Mommy's pussy is all yours!)]
+		#ELSE
+			 [lyssieth.speech(My pussy's all yours!)]
+		#ENDIF
+	</p>
+	<p>
+		Stepping forwards between the elder lilin's legs, you reach down and tease your [pc.fingers] up and down over her lacy thong, pressing the fabric down against her cunt and drawing a desperate moan out from between her lips. Wanting to fuck Lyssieth in her true form, however, you draw back, before commanding, [pc.speech(If you want me to use your pussy, you're going to take on your true form for me.)]
+	</p>
+	<p>
+		#IF(pc.hasFetish(FETISH_INCEST))
+			[lyssieth.speech(But, sweetie, you know Mommy prefers her human form,)] Lyssieth whines, before pouting at you.
+		#ELSE
+			[lyssieth.speech(But you know that I prefer my human form,)] Lyssieth whines, before pouting at you.
+		#ENDIF
+	</p>
+	<p>
+		[pc.speech(Well then, I suppose neither of us will get what we want,)] you say, stepping back.
+	</p>
+	<p>
+		#IF(pc.hasFetish(FETISH_INCEST))
+			[lyssieth.speech(No, wait!)] Lyssieth cries, before standing up and sighing, [lyssieth.speech(Seeing as it's you who's asking, Mommy will take on her true form for you...)]
+		#ELSE
+			[lyssieth.speech(No, wait!)] Lyssieth cries, before standing up and sighing, [lyssieth.speech(Seeing as it's you who's asking, I'll take on my true form for you...)]
+		#ENDIF
+	</p>
+	<p>
+		Letting out a deep sigh, Lyssieth blinks, and when her eyes open, you see that her green irises have changed to be glowing yellow in colour, while her pupils have transformed into vertical, snake-like slits. Taking a deep breath, the elder lilin grows right before your eyes, gaining well over a foot in height to stand at about 6 and a half feet tall. Stretching her arms up towards the ceiling, a huge pair of demonic, scarlet-coloured wings suddenly unfold from behind her back. Immediately afterwards, a long, spaded tail grows down and start playfully stroking up and down one of her legs. As the elder lilin lets out an erotic sigh, a pair of long, grey horns grow out from her forehead to sweep back over her now-black, silken hair. Her ears then suddenly point out and, along with her arms and legs, darken and turn the same shade of scarlet as her wings and tail.
+	</p>
+	<p>
+		[lyssieth.speech(Mmm... Almost done!)] Lyssieth cries out as her breasts expand into [lyssieth.breastSize] [lyssieth.cupSize]-cups, while her pussy takes on the same scarlet colour as her other demonic parts. Shortly after this, the entirety of her body and face changes colour in much the same way, and as her demonic transformation comes to an end, she lies back on her desk once again.
+	</p>
+	<p>
+		#IF(pc.hasFetish(FETISH_INCEST))
+			[lyssieth.speech(Come on then,)] Lyssieth moans, smiling as you step forwards between her legs, [lyssieth.speech(Be a good [pc.girl] and give your Mommy what she wants...)]
+		#ELSE
+			[lyssieth.speech(Come on then,)] Lyssieth moans, smiling as you step forwards between her legs, [lyssieth.speech(Give me what I want already...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_LILIN_COCK"><![CDATA[
+	<p>
+		Noticing that Lyssieth keeps on hungrily eyeing you up and flashing you seductive glances, you step up to her and softly moan,
+		#IF(pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
+			 [pc.speech(Mommy, I can tell that you want to fuck me, so go on, grow a nice big cock for me. I'll be your good [pc.girl] and take it!)]
+		#ELSE
+			 [pc.speech(I can tell that you want to fuck me, so go on, grow a nice big cock and come take me!)]
+		#ENDIF
+	</p>
+	<p>
+		[lyssieth.speech(Mmm, yes,)] Lyssieth eagerly replies, grabbing hold of your [pc.arms] and spinning you around. With a quick step forwards, she pushes you down so that you're lying back over the top of her desk. Looking down between her legs, you see a thick bulge start to press out against the fabric of her skirt, and, biting her lip, she softly moans, 
+		#IF(pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
+			 [lyssieth.speech(Mommy's big cock's aching to be inside of her good [pc.girl]... Spread your legs for her now...)]
+		#ELSE
+			 [lyssieth.speech(My big cock's aching to be inside of you... Spread your legs for me now...)]
+		#ENDIF
+	</p>
+	<p>
+		Wanting to be fucked by Lyssieth in her true form, however, you keep your legs closed, before commanding, [pc.speech(If you want to fuck me, you're going to take on your true form for me.)]
+	</p>
+	<p>
+		#IF(pc.hasFetish(FETISH_INCEST))
+			[lyssieth.speech(But, sweetie, you know Mommy prefers her human form,)] Lyssieth whines, before pouting at you.
+		#ELSE
+			[lyssieth.speech(But you know that I prefer my human form,)] Lyssieth whines, before pouting at you.
+		#ENDIF
+	</p>
+	<p>
+		[pc.speech(Well then, I suppose neither of us will get what we want,)] you say, propping yourself up on Lyssieth's desk.
+	</p>
+	<p>
+		#IF(pc.hasFetish(FETISH_INCEST))
+			[lyssieth.speech(No, wait!)] the elder lilin cries, before stepping back and sighing, [lyssieth.speech(Seeing as it's you who's asking, Mommy will take on her true form for you...)]
+		#ELSE
+			[lyssieth.speech(No, wait!)] the elder lilin cries, before stepping back and sighing, [lyssieth.speech(Seeing as it's you who's asking, I'll take on my true form for you...)]
+		#ENDIF
+	</p>
+	<p>
+		Letting out a deep sigh, Lyssieth blinks, and when her eyes open, you see that her green irises have changed to be glowing yellow in colour, while her pupils have transformed into vertical, snake-like slits. Taking a deep breath, the elder lilin grows right before your eyes, gaining well over a foot in height to stand at about 6 and a half feet tall. Stretching her arms up towards the ceiling, a huge pair of demonic, scarlet-coloured wings suddenly unfold from behind her back. Immediately afterwards, a long, spaded tail grows down and start playfully stroking up and down one of her legs. As the elder lilin lets out an erotic sigh, a pair of long, grey horns grow out from her forehead to sweep back over her now-black, silken hair. Her ears then suddenly point out and, along with her arms and legs, darken and turn the same shade of scarlet as her wings and tail.
+	</p>
+	<p>
+		[lyssieth.speech(Mmm... Yes!)] Lyssieth cries out as her breasts expand into [lyssieth.breastSize] [lyssieth.cupSize]-cups, while her pussy takes on the same scarlet colour as her other demonic parts. Shortly after this, the entirety of her body and face changes colour in much the same way, and finally, you see the bulge between her legs grow in size, before she steps forwards between your legs once more.
+	</p>
+	<p>
+		#IF(pc.hasFetish(FETISH_INCEST))
+			[lyssieth.speech(Go on then,)] Lyssieth teases, reaching down to stroke your inner-thigh, [lyssieth.speech(Be a good [pc.girl] and spread your legs for Mommy's fat demonic cock...)]
+		#ELSE
+			[lyssieth.speech(Go on then,)] Lyssieth teases, reaching down to stroke your inner-thigh, [lyssieth.speech(Spread your legs for my fat demonic cock...)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

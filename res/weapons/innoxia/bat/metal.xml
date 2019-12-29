@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+	
+		<value>250</value>
+		<melee>true</melee>
+		<twoHanded>false</twoHanded>
+		<determiner><![CDATA[]]></determiner>
+		<name><![CDATA[metal bat]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[metal bat]]></namePlural>
+		<description><![CDATA[A smooth metal club used to strike a ball as a form of sport. This particular bat has been enchanted for use as a weapon.]]></description> 
+		
+		<attackDescriptor>whack</attackDescriptor>
+		
+		<attackTooltipDescription><![CDATA[Whack [npc2.name] with your metal bat.]]></attackTooltipDescription>
+		
+		<rarity>COMMON</rarity> 
+		
+		<weaponSet/> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(ready)] [npc.her] metal bat in anticipation of using it as a weapon.]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] away [npc.her] metal bat.]]></unequipText>
+		
+		<imageName>metal.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<damage>8</damage> 
+		
+		<arcaneCost>0</arcaneCost> 
+		
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+			<damageType>FIRE</damageType>
+			<damageType>ICE</damageType>
+			<damageType>POISON</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects/>
+		
+		<primaryColours>
+			<colour>CLOTHING_STEEL</colour>
+			<colour>CLOTHING_GUNMETAL</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</secondaryColours>		
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_VICKY</tag>
+		</itemTags>
+		
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(swing)] [npc.her] metal bat at [npc2.name], grinning as it connects with [npc2.her] body!
+		]]></hitText>
+		<hitText><![CDATA[
+		Striking out at [npc2.name] with [npc.her] metal bat, [npc.name] [npc.verb(grin)] as it strikes [npc2.herHim] on the [npc2.arm]!
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(swipe)] at [npc2.name] with [npc.her] metal bat, causing [npc2.herHim] to stagger back as [npc2.she] [npc2.verb(get)] whacked in the [npc2.arm]!
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(swing)] [npc.her] metal bat at [npc2.name], but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		Striking out at [npc2.name] with [npc.her] metal bat, [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(swipe)] at [npc2.name] with [npc.her] metal bat, but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

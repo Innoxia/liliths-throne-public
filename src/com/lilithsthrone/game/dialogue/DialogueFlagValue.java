@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.3.3.10
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -30,6 +30,9 @@ public enum DialogueFlagValue {
 	talkedWithDaddy,
 	daddySendingReward,
 	
+	playerCaptive,
+	
+	
 	// Gym:
 	gymIntroduced,
 	gymHadTour,
@@ -52,6 +55,8 @@ public enum DialogueFlagValue {
 	axelIntroduced,
 	eponaIntroduced,
 	elizabethIntroduced,
+	vengarIntroduced,
+	murkIntroduced,
 	
 	
 	// Red-light district:
@@ -129,7 +134,7 @@ public enum DialogueFlagValue {
 	dominantPacified,
 	nymphoEncountered,
 	nymphoPacified,
-	punishedByAlexa,
+	punishedByHelena,
 	
 	// Slaver Alley:
 	finchIntroduced,
@@ -169,9 +174,21 @@ public enum DialogueFlagValue {
 	// Gambling Den:
 	axelMentionedVengar,
 	axelExplainedVengar,
+	axelToldSubmit,
+	
+	axelSissified,
+	axelFeminised,
+	axelClothingFeminine,
+	axelClothingWhore,
+	axelClothingMaid,
+	
 	roxyAddicted,
+	roxyVengarOwnerIntroduced,
 	playedPregnancyRouletteAsMother,
 	playedPregnancyRouletteAsBreeder,
+	
+	eponaMurkOwnerIntroduced,
+	eponaMurkSubmitted,
 	
 	// Nightlife:
 	julesIntroduced,
@@ -229,14 +246,52 @@ public enum DialogueFlagValue {
 
 	meraxisRepeatDemonTF,
 	
+	
 	// Rat warrens:
+	
 	ratWarrensEntry,
 	ratWarrensEntryWhore,
 	ratWarrensHostile,
-
+	ratWarrensEntranceGuardsFight,
+	
 	ratWarrensClearedLeft,
 	ratWarrensClearedCentre,
 	ratWarrensClearedRight,
 	
+	ratWarrensLootedDiceDen,
+	
+	vengarThreatened,
+	vengarPersuaded,
+	vengarSeduced,
+	ratWarrensRaid,
+
+	vengarCaptiveRoomCleaned, // Reset to false every day
+	vengarCaptiveVengarSatisfied, // Reset to false every day
+	vengarCaptiveShadowSatisfied, // Reset to false every day
+	vengarCaptiveSilenceSatisfied, // Reset to false every day
+	vengarCaptiveCompanionGivenBirth, // Reset to false every day
+	vengarCaptiveGangBanged, // Reset to false every day
+	
+	ratWarrensCaptiveAttemptingEscape,
+	ratWarrensCaptiveEscaped,
+	ratWarrensCaptiveTransformationsStarted,
+	
+	ratWarrensCaptiveFeminine,
+	ratWarrensCaptiveFuta,
+	ratWarrensCaptiveMasculine,
+	ratWarrensCaptiveSissy,
+
+	ratWarrensCaptiveFuckedByMurk,
+	ratWarrensCaptiveCompanionFuckedByMurk,
+	
+	ratWarrensCaptiveMilkingStarted,
+	ratWarrensCaptiveMilkingStartedCompanion,
+
+	ratWarrensCaptiveCalledOut, // Reset to false when sleep
+	
+	ratWarrensCaptiveCompanionGivenBirth, // Reset to false every day
+	ratWarrensCaptiveOwnerSex, // Reset to false every day
+	ratWarrensCaptiveOwnerCompanionSex, // Reset to false every day
+	ratWarrensCaptiveDailyTransformed // Reset to false every day
 	;
 }

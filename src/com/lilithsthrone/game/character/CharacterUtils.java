@@ -69,6 +69,7 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -78,6 +79,7 @@ import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
@@ -1586,18 +1588,25 @@ public class CharacterUtils {
 //				case BIMBO:
 //				case BRO:
 				case LISP:
+					break;
 				case STUTTER:
+					characterAdjectives.add("stuttering");
+					break;
+				case MUTE:
 					break;
 				case INNOCENT:
 					break;
 			}
 		}
 		
-		characterAdjectives.removeAll(exclusiveAdjectives);
-		
+		if(exclusiveAdjectives!=null) {
+			characterAdjectives.removeAll(exclusiveAdjectives);
+		}
 		if(characterAdjectives.isEmpty()) {
 			characterAdjectives = Util.newArrayListOfValues("cheeky", "excitable", "energetic", "cunning", "rude", "cocky", "smug");
-			characterAdjectives.removeAll(exclusiveAdjectives);
+			if(exclusiveAdjectives!=null) {
+				characterAdjectives.removeAll(exclusiveAdjectives);
+			}
 		}
 		
 		String adjective = Util.randomItemFrom(characterAdjectives);
@@ -1683,6 +1692,10 @@ public class CharacterUtils {
 					character.addMilkModifier(FluidModifier.HALLUCINOGENIC);
 				}
 			}
+			if(character.getNippleShape()==NippleShape.NORMAL
+					&& Math.random()<0.025) {
+				character.setNippleShape(NippleShape.INVERTED);
+			}
 		}
 		
 		//BreastsCrotch:
@@ -1701,6 +1714,10 @@ public class CharacterUtils {
 				if(Math.random()<=0.025f) {
 					character.addMilkCrotchModifier(FluidModifier.HALLUCINOGENIC);
 				}
+			}
+			if(character.getNippleCrotchShape()==NippleShape.INVERTED
+					&& character.getBreastCrotchShape()!=BreastShape.UDDERS) {
+				character.setNippleCrotchShape(NippleShape.INVERTED);
 			}
 		}
 		
