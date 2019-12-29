@@ -1489,6 +1489,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ARMS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 								"Your arms could do with a change!");
 					}
+					/*
+					// NOTE: To make this variant work, the LegConfiguration need to be passed to `body` later on.
+					// Left here as a reminder.
+					if(target.getLegType() != body.getLeg().getType()) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_LEGS, body.getLeg().getLegConfiguration().getTFModifier(), TFPotency.MINOR_BOOST, 1),
+								"I'm sure you'll love getting some new legs!");
+					}
+					*/
 					TFModifier legSecondaryTFMod = TFModifier.NONE;
 					if(!body.getLeg().getType().isLegConfigurationAvailable(target.getLegConfiguration())) {
 						legSecondaryTFMod = body.getLeg().getType().getDefaultLegConfiguration().getTFModifier();
