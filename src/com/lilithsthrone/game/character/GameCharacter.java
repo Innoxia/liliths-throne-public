@@ -19301,6 +19301,14 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 
+	public Race getSubspeciesOverrideRace() {
+		try {
+			return getSubspeciesOverride().getRace();
+		} catch(Exception ex) {
+			return Race.NONE;
+		}
+	}
+
 	public void setSubspeciesOverride(Subspecies subspeciesOverride) {
 		body.setSubspeciesOverride(subspeciesOverride);
 	}
