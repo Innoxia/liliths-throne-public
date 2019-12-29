@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -58,6 +59,10 @@ public enum LegConfiguration {
 		public void setLegsToDemon(GameCharacter character) {
 			character.setLegType(LegType.DEMON_COMMON);
 		}
+		@Override
+		public TFModifier getTFModifier() {
+			return TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL;
+		}
 	},
 
 	/**
@@ -91,6 +96,10 @@ public enum LegConfiguration {
 			@Override
 			public void setLegsToDemon(GameCharacter character) {
 				character.setLegType(LegType.DEMON_HOOFED);
+			}
+			@Override
+			public TFModifier getTFModifier() {
+				return TFModifier.TF_MOD_LEG_CONFIG_TAUR;
 			}
 	},
 
@@ -147,6 +156,10 @@ public enum LegConfiguration {
 							ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
 							ItemTag.FITS_LONG_TAIL_BODY));
 		}
+		@Override
+		public TFModifier getTFModifier() {
+			return TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG;
+		}
 	},
 
 	/**
@@ -176,6 +189,10 @@ public enum LegConfiguration {
 					Util.newArrayListOfValues(
 							ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
 							ItemTag.FITS_TAIL_BODY));
+		}
+		@Override
+		public TFModifier getTFModifier() {
+			return TFModifier.TF_MOD_LEG_CONFIG_TAIL;
 		}
 	},
 
@@ -211,6 +228,10 @@ public enum LegConfiguration {
 		@Override
 		public boolean isGenitalsExposed(GameCharacter character) { // When genitals are in a cloaca (i.e. beneath the arachnid body), they are not visible.
 			return character.getGenitalArrangement()==GenitalArrangement.NORMAL;
+		}
+		@Override
+		public TFModifier getTFModifier() {
+			return TFModifier.TF_MOD_LEG_CONFIG_ARACHNID;
 		}
 	},
 
@@ -263,6 +284,10 @@ public enum LegConfiguration {
 		@Override
 		public boolean isGenitalsExposed(GameCharacter character) { // Genitals are under tentacles, so are not visible even when naked.
 			return false;
+		}
+		@Override
+		public TFModifier getTFModifier() {
+			return TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD;
 		}
 	};
 
@@ -392,6 +417,10 @@ public enum LegConfiguration {
 	
 	public void setLegsToDemon(GameCharacter character) {
 		throw new IllegalArgumentException("Demon legs for this leg configuration is not yet implemented!");
+	}
+
+	public TFModifier getTFModifier() {
+		throw new IllegalArgumentException("TF modifier for this leg configuration has not been defined!");
 	}
 
 	public void setWingsToDemon(GameCharacter character) {
