@@ -633,12 +633,4 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	public boolean isLegConfigurationAvailable(LegConfiguration legConfiguration) {
 		return allowedLegConfigurations.contains(legConfiguration);
 	}
-
-	/**
-	 * Returns the first item in the list of allowedLegConfigurations as the default.
-	 * @return The default LegConfiguration
-	 */
-	public LegConfiguration getDefaultLegConfiguration() {
-		return allowedLegConfigurations.get(0);
-	}
 }
