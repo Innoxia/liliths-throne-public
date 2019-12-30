@@ -304,7 +304,7 @@ public class AlleywayAttackerDialogue {
 									}
 								},
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "ALLEY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getAllCharacters())) {
+								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), Main.game.getPlayer().hasCompanions() ? "ALLEY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION" : "ALLEY_ATTACK_OFFER_BODY", getAllCharacters())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();

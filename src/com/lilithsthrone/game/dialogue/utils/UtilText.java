@@ -1568,7 +1568,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 				try {
-					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), null);
+					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), specialNPCs);
 					Set<Relationship> set = character.getRelationshipsTo(targetedCharacter);
 					if(set.size()>=1) {
 						return set.iterator().next().getName(character);
@@ -1596,7 +1596,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 				try {
-					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), null);
+					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), specialNPCs);
 					return character.getRelationshipStrTo(targetedCharacter);
 					
 				} catch(Exception ex) {
