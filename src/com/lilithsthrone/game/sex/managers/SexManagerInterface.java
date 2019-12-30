@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexControl;
@@ -37,7 +38,7 @@ import com.lilithsthrone.world.places.Population;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public interface SexManagerInterface {
@@ -49,6 +50,7 @@ public interface SexManagerInterface {
 	public Map<GameCharacter, SexSlot> getDominants();
 	public Map<GameCharacter, SexSlot> getSubmissives();
 	
+	public boolean isAbleToSkipSexScene();
 	
 	public default SexPace getStartingSexPaceModifier(GameCharacter character) {
 		return null;
@@ -79,6 +81,11 @@ public interface SexManagerInterface {
 	
 	public default String getStartSexDescription() {
 		return "";
+	}
+
+	/**Maps: character who is lubricated -> Map of areas -> Map of owner of lubrication -> lubrications*/
+	public default Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> getStartingWetAreas() {
+		return null;
 	}
 	
 	public default SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
@@ -426,7 +433,7 @@ public interface SexManagerInterface {
 							"Several members of the crowd shout and cheer as you carry on masturbating in front of them.")
 					+"</p>";
 			
-		} else {
+		} else if(Sex.getAllParticipants(false).contains(Main.game.getPlayer())) {
 			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 						+ UtilText.parse(Sex.getTargetedPartner(Main.game.getPlayer()),
 							UtilText.returnStringAtRandom(
@@ -442,6 +449,25 @@ public interface SexManagerInterface {
 								"Several members of the crowd shout and cheer as you and [npc.name] carry on having sex in front of them.",
 								"Several members of the crowd cheer you on as you and [npc.name] carry on having sex in front of them."))
 					+"</p>";
+			
+		} else {
+			GameCharacter target = Util.randomItemFrom(Sex.getDominantParticipants(false).keySet());
+			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+					+ UtilText.parse(target, Sex.getTargetedPartner(target),
+						UtilText.returnStringAtRandom(
+							"The crowd of onlookers laugh and cheer as they look on.",
+							"You hear someone in the crowd wolf-whistling as they watch [npc.name] fucking [npc2.name].",
+//							"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance.",
+							"You hear the crowd that's gathered to watch [npc.name] commenting on [npc.her] performance.",
+							"You hear the crowd that's gathered to watch [npc2.name] commenting on [npc2.her] performance.",
+							"Cheering and laughing, the crowd of onlookers watch as [npc.name] continues having sex with [npc2.name].",
+							"You glance across to see several members of the crowd touching themselves as they watch [npc.name] and [npc2.name] go at it.",
+							"The crowd cheers [npc.name] on as [npc.she] carries on having sex in front of them.",
+							"The crowd laughs and cheers as [npc.name] and [npc2.name] carry on having sex in front of them.",
+							"Several members of the crowd shout and cheer as [npc.name] and [npc2.name] carry on having sex in front of them.",
+							"Several members of the crowd cheer [npc.name] on as [npc.she] carries on fucking [npc2.name] in front of them."))
+				+"</p>";
+			
 		}
 	}
 	

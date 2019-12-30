@@ -49,8 +49,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	private List<Spell> spells;
 	private Colour primaryColour;
 	private Colour secondaryColour;
+	private Colour tertiaryColour;
 
-	public AbstractWeapon(AbstractWeaponType weaponType, DamageType dt, Colour primaryColour, Colour secondaryColour) {
+	public AbstractWeapon(AbstractWeaponType weaponType, DamageType dt, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour) {
 		super(weaponType.getName(), weaponType.getNamePlural(), weaponType.getPathName(), dt.getMultiplierAttribute().getColour(), weaponType.getRarity(), null);
 		
 		this.weaponType = weaponType;
@@ -131,10 +132,15 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 
 		this.primaryColour = primaryColour;
 		this.secondaryColour = secondaryColour;
+		this.tertiaryColour = tertiaryColour;
 	}
 
+//	public AbstractWeapon(AbstractWeaponType weaponType, DamageType dt, Colour primaryColour, Colour secondaryColour) {
+//		this(weaponType, dt, primaryColour, secondaryColour, null);
+//	}
+	
 	public AbstractWeapon(AbstractWeapon weapon) {
-		this(weapon.getWeaponType(), weapon.getDamageType(), weapon.getPrimaryColour(), weapon.getSecondaryColour());
+		this(weapon.getWeaponType(), weapon.getDamageType(), weapon.getPrimaryColour(), weapon.getSecondaryColour(), weapon.getTertiaryColour());
 		
 		this.setEffects(new ArrayList<>(weapon.getEffects()));
 		
@@ -157,9 +163,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		
 		sb.append(WeaponType.getIdFromWeaponType(this.getWeaponType()));
 		sb.append(this.getColour().toString());
-		sb.append(this.getSecondaryColour()!=null?this.getSecondaryColour().toString():"n");
+		sb.append(this.getSecondaryColour()!=null?this.getSecondaryColour().toString():"ns");
+		sb.append(this.getTertiaryColour()!=null?this.getTertiaryColour().toString():"nt");
 		sb.append(this.getDamageType().toString());
-		sb.append(this.getCoreEnchantment()==null?"n":this.getCoreEnchantment().toString());
+		sb.append(this.getCoreEnchantment()==null?"ne":this.getCoreEnchantment().toString());
 		
 		for(Spell s : this.getSpells()) {
 			sb.append(s.toString());
@@ -179,6 +186,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 				if(((AbstractWeapon)o).getWeaponType().equals(getWeaponType())
 						&& ((AbstractWeapon)o).getPrimaryColour()==this.getPrimaryColour()
 						&& ((AbstractWeapon)o).getSecondaryColour()==this.getSecondaryColour()
+						&& ((AbstractWeapon)o).getTertiaryColour()==this.getTertiaryColour()
 						&& ((AbstractWeapon)o).getDamageType()==this.getDamageType()
 						&& ((AbstractWeapon)o).getCoreEnchantment()==this.getCoreEnchantment()
 						&& ((AbstractWeapon)o).getSpells().equals(this.getSpells())
@@ -202,6 +210,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		if(getSecondaryColour()!=null) {
 			result = 31 * result + getSecondaryColour().hashCode();
 		}
+		if(getTertiaryColour()!=null) {
+			result = 31 * result + getTertiaryColour().hashCode();
+		}
 		if(getCoreEnchantment()!=null) {
 			result = 31 * result + getCoreEnchantment().hashCode();
 		}
@@ -220,6 +231,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		CharacterUtils.addAttribute(doc, element, "coreEnchantment", (this.getCoreEnchantment()==null?"null":this.getCoreEnchantment().toString()));
 		CharacterUtils.addAttribute(doc, element, "colourPrimary", this.getPrimaryColour().toString());
 		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
+		CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().toString());
 		
 		Element innerElement = doc.createElement("effects");
 		element.appendChild(innerElement);
@@ -270,6 +282,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		try {
 			weapon.setPrimaryColour(Colour.valueOf(parentElement.getAttribute("colourPrimary")));
 			weapon.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
+			weapon.setTertiaryColour(Colour.valueOf(parentElement.getAttribute("colourTertiary")));
 		} catch(Exception ex) {
 		}
 
@@ -329,6 +342,14 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 
 	public void setSecondaryColour(Colour secondaryColour) {
 		this.secondaryColour = secondaryColour;
+	}
+	
+	public Colour getTertiaryColour() {
+		return tertiaryColour;
+	}
+
+	public void setTertiaryColour(Colour tertiaryColour) {
+		this.tertiaryColour = tertiaryColour;
 	}
 	
 	public String getDescription() {
@@ -408,16 +429,16 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	public int getValue() {
 		float runningTotal = this.getWeaponType().getBaseValue();
 
-		if (colourShade == Colour.CLOTHING_PLATINUM) {
+		if (this.getPrimaryColour() == Colour.CLOTHING_PLATINUM) {
 			runningTotal *= 2f;
 			
-		} else if (colourShade == Colour.CLOTHING_GOLD) {
+		} else if (this.getPrimaryColour() == Colour.CLOTHING_GOLD) {
 			runningTotal *= 1.75f;
 			
-		} else if (colourShade == Colour.CLOTHING_ROSE_GOLD) {
+		} else if (this.getPrimaryColour() == Colour.CLOTHING_ROSE_GOLD) {
 			runningTotal *= 1.5f;
 			
-		} else if (colourShade == Colour.CLOTHING_SILVER) {
+		} else if (this.getPrimaryColour() == Colour.CLOTHING_SILVER) {
 			runningTotal *= 1.25f;
 		}
 		
@@ -479,11 +500,11 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 
 	@Override
 	public String getSVGString() {
-		return weaponType.getSVGImage(damageType, this.getPrimaryColour(), this.getSecondaryColour());
+		return weaponType.getSVGImage(damageType, this.getPrimaryColour(), this.getSecondaryColour(), this.getTertiaryColour());
 	}
 
 	public String getSVGEquippedString(GameCharacter owner) {
-		return weaponType.getSVGEquippedImage(damageType, this.getPrimaryColour(), this.getSecondaryColour());
+		return weaponType.getSVGEquippedImage(damageType, this.getPrimaryColour(), this.getSecondaryColour(), this.getTertiaryColour());
 	}
 
 	public List<Spell> getSpells() {

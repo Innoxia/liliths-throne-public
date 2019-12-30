@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="HELENAS_NEST_EXTERIOR"><![CDATA[
+	<p>
+		Making your way down one of the the many walkways that criss-cross Dominion's rooftops, you find yourself approaching an exceptionally large Harpy Nest. Spanning several buildings, and with an elaborate system of multi-level platforms built on top of each one, you instantly recognise this as a nest of particular importance.
+	</p>
+	<p>
+		#IF(game.isDayTime())
+			The platforms are covered in countless groups of harpies; lounging around and talking amongst one another, their lazy behaviour is in stark contrast to those flying around in the skies above. Looking up, you see a multitude of colours dashing through the sky as yet more of this nest's residents swoop and dart around in the
+			#IF(game.isMorning())
+				 morning's cool air
+			#ELSE
+				 afternoon's warm air
+			#ENDIF
+			, their energetic dives and spiralling loops threatening to make your head spin if you try to watch them for too long.
+		#ELSE
+			The platforms are covered in countless groups of harpies; illuminated under soft white lights, you see them lounging around and talking amongst one another, their lazy behaviour in stark contrast to those flying around in the skies above. Looking up, you see a multitude of colours dashing through the sky as yet more of this nest's residents swoop and dart around in the cool night air; their feathers lit up by the arcane-powered lights that are covering this nest.
+		#ENDIF
+	</p>
+	<p>
+		Looking back down, you notice that there are little signs dotted around the edges of the platform. Walking up to the nearest one, you read, in flowing, ornate script, the following words;
+	</p>
+	<p style='text-align:center;'>
+		<i><b>~[helena.name]'s Paradise~</b><br/>
+		Visitors must be accompanied at all times.<br/>
+		Meeting with [helena.name] by appointment only.</i>
+	</p>
+	<p>
+		#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_HELENA)
+			Stepping back, you wonder if you should call over one of the nearby harpies. After all, you do have business with [helena.name], and you're sure that she'd want to hear about Scarlett as soon as possible.
+		#ELSE
+			Stepping back, you decide against calling over one of the nearby harpies.
+			#IF pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_HELENA)
+			#THEN After all, she's not even here at the moment.
+			#ELSE After all, you don't have any business with her.
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="HELENAS_NEST_EXTERIOR_STORM"><![CDATA[
+	<p>
+		Making your way down one of the the many walkways that criss-cross Dominion's rooftops, you find yourself approaching an exceptionally large Harpy Nest. Spanning several buildings, and with an elaborate system of multi-level platforms built on top of each one, you instantly recognise this as a nest of particular importance.
+	</p>
+	<p>
+		Due to the ongoing arcane storm, the nest is completed deserted; its residents having retreated down into the safety of the buildings below. As yet another flash of arcane lightning illuminates the platforms before you, you notice that there are little signs dotted around the edges of the nest. Walking up to the nearest one, you read, in flowing, ornate script, the following words;
+	</p>
+	<p style='text-align:center;'>
+		<i><b>~[helena.name]'s Paradise~</b><br/>
+		Visitors must be accompanied at all times.<br/>
+		Meeting with [helena.name] by appointment only.</i>
+	</p>
+	<p>
+		#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_HELENA)
+			You do have business with [helena.name], and you're sure that she'd want to hear about Scarlett as soon as possible, but you'll have to come back after the ongoing storm has passed...
+		#ELSE
+			#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_HELENA))
+				There's not much point in waiting around for the storm to pass, as [helena.name]'s not even here at the moment...
+			#ELSE
+				There's not much point in waiting around for the storm to pass, as you don't have any business with [helena.name]...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_EXTERIOR_SLEEPING"><![CDATA[
+	<p>
+		Making your way down one of the the many walkways that criss-cross Dominion's rooftops, you find yourself approaching an exceptionally large Harpy Nest. Spanning several buildings, and with an elaborate system of multi-level platforms built on top of each one, you instantly recognise this as a nest of particular importance.
+	</p>
+	<p>
+		Due to the current hour, the nest is completed deserted; its residents having retired to the comfort of the buildings below in order to get a good night's sleep. Taking a look around the deserted platform, you notice that there are little signs dotted around the edges of the nest. Walking up to the nearest one, you read, in flowing, ornate script, the following words;
+	</p>
+	<p style='text-align:center;'>
+		<i><b>~[helena.name]'s Paradise~</b><br/>
+		Visitors must be accompanied at all times.<br/>
+		Meeting with [helena.name] by appointment only.</i>
+	</p>
+	<p>
+		#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_HELENA)
+			You do have business with [helena.name], and you're sure that she'd want to hear about Scarlett as soon as possible, but you'll have to come back once she's awake, [style.colourMinorBad(between [units.time(6)] and [units.time(22)])]...
+		#ELSE
+			#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_HELENA))
+				There's not much point in waiting around for the nests' residents to wake up, as [helena.name]'s not even here at the moment...
+			#ELSE
+				There's not much point in waiting around for the nests' residents to wake up, as you don't have any business with [helena.name]...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="HELENAS_NEST"><![CDATA[
+	<p>
+		Stepping forwards, you look around for a harpy who can take you to [helena.name]. You don't need to look for long, however, as the moment you take a step into the nest, a flustered-looking harpy runs up to you.
+	</p>
+	<p>
+		[femaleNPC.speech(Stop! Wait! You can't come in here!)] she shouts, waving her pink-feathered wings in front of your face. [femaleNPC.speech(You need an appointment if you want to see [helena.name]!)]
+	</p>
+	<p>
+		[pc.speech(It's kind of urgent,)] you reply, standing your ground. [pc.speech(I need to talk to [helena.name] about Scarlett, now.)]
+	</p>
+	<p>
+		A few of the surrounding harpies, obviously listening in to your conversation, suddenly start whispering to one another. The harpy that you're dealing with trips over her words as she hurries to respond, obviously caught off-guard at the mention of Scarlett's name. [femaleNPC.speech(W-Wait, Scarlett?! As in, <i>the</i> Scarlett? She's meant to be banished to Slaver Alley!)]
+	</p>
+	<p>
+		[pc.speech(Yeah, that's the one,)] you reply, [pc.speech(so can you take me to [helena.name] now please?)]
+	</p>
+	<p>
+		[femaleNPC.speech(Yes! Of course!)] the harpy exclaims, [femaleNPC.speech(Thank goodness [helena.name]'s in a good mood... Follow me!)]
+	</p>
+	<p>
+		With that, the harpy hurries off into the nest, and you quickly follow in her footsteps. As you pass through the crowds of harpies, you see that you're being led to the tallest platform in the nest, and at the very top, you see a white-feathered harpy sitting on what appears to be some sort of throne. You're led up a flight of stairs, and, as you reach the top, you find yourself walking out into the midst of small, and very special, group of harpies.
+	</p>
+	<p>
+		As your guide bows down to her superiors, you take a good look at what must be [helena.name]'s inner-circle. Each of the harpies before you are jaw-droppingly beautiful; their feminine features and vivid, well-preened feathers leaving you with no doubt that they'd each be capable of being a matriarch of their own nest, if they so pleased. Your vision doesn't linger on them for long, however, as your gaze is irresistibly drawn to this nest's matriarch.
+	</p>
+	<p>
+		Sitting upright on an ornate golden throne, you find yourself looking upon what surely must be the most beautiful creature to ever have existed. [helena.name]'s feathers are the first thing that your eyes are drawn to; their pure white brilliance seems to almost radiate a heavenly glow, and each and every one is perfectly preened and spotlessly clean. Her pale skin, much like her feathers, is absolutely flawless, and there isn't the slightest hint of a blemish anywhere on her perfect, hourglass-shaped body. The white bikini-top that she's wearing reveals a large portion of her D-cup cleavage, and you can't help but marvel at how perfectly-formed her breasts are. As your eyes finally reach the top of her body, you find yourself looking upon the perfectly-symmetrical face of Aphrodite reborn; with high cheekbones, full lips, and, revealed as she takes off her gold-framed aviators, vividly-blue eyes, [helena.name] is without doubt the most beautiful harpy in the entire nests.
+	</p>
+	<p>
+		You barely hear your guide introducing you as the bearer of Scarlett-related news, but as she mentions that name, you pick up on a twitch in [helena.name]'s right eye. As you're ushered forwards, [helena.name] stands up, and, just like her beauty would suggest, she holds herself with bearing and poise befitting a queen. She smiles the most beautiful smile you've ever seen, and as she opens her mouth to speak, you discover that her voice is gentle and melodic, but there's a faint, icy undertone that sends a shiver up your spine.
+	</p>
+	<p>
+		[helena.speech(Welcome to my nest, visitor. If I were not so pressed with prior engagements, I would insist upon giving you my full hospitality, but, alas, my time is limited and in short supply. If you have news of my <i>dear Scarlett</i>,)] you notice the chill in her voice as she says that name, [helena.speech(then pray do tell, and I shall be in your debt.)]
+	</p>
+	<p>
+		[helena.name] ever so slightly leans forwards in her chair as she finishes speaking, and you notice a slight twitch in her right wing; a clear indication that she's impatient to hear what news you have.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="HELENAS_NEST_SCARLETT"><![CDATA[
+	<p>
+		[pc.speech(She wanted me to tell you that her slavery business has failed. She's run out of money, and she has no slaves left,)] you explain, noticing that [helena.name]'s pale cheeks start flushing red as you talk. Before you have an opportunity to relay Scarlett's request that you take her punishment for her, [helena.name] speaks.
+	</p>
+	<p>
+		[helena.speech(That... <i>bitch</i>!)] she exclaims, losing her noble composure as she starts pacing back and forth. [helena.speech(That <i>stupid slut</i>! I told her this was her last chance!)]
+	</p>
+	<p>
+		The harpy closest to [helena.name]'s throne moves towards her matriarch, seeking to calm her down. [femaleNPC.speech([helena.name], please! Don't get angry, she's not worth it!)]
+	</p>
+	<p>
+		[helena.speech(Be quiet!)] [helena.name] screeches, quickly working herself up into a fit as she continues to curse. [helena.speech(That whore's going to pay for this! How many chances have I given her?! I've had enough!)]
+	</p>
+	<p>
+		It seems as though [helena.name]'s forgotten about your existence, and, ignoring her follower's attempts to calm her down, she moves off to the edge of the platform, spreading her wings as she prepares to take flight. You only have a moment in which to try and stop her, and you wonder if you should use this opportunity to offer to take Scarlett's punishment on her behalf...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="HELENAS_NEST_NO_PUNISHMENT"><![CDATA[
+	<p>
+		Deciding that it would be best to avoid [helena.name]'s wrath, you say nothing as she spreads her white-feathered wings, and look on as she launches herself off the platform, flying off in the direction of Slaver Alley. You're confident that you did the right thing; after all, who knows what horrific punishment [helena.name] would have given you.
+	</p>
+	<p>
+		[helena.name]'s inner-circle of harpies pay you no heed as their matriarch soars off into the #IF(game.isDayTime())sky#ELSEnight#ENDIF. They're far too concerned with speculating as to what [helena.name] is going to do to Scarlett, and as you overhear some of their more frightful ideas, you suddenly remember that you need the abrasive harpy to tell you what happened to Arthur.
+	</p>
+	<p>
+		It doesn't look like anyone's going to prevent you from leaving, so you quickly move to make your exit. You should probably hurry back to Scarlett's shop and find out what [helena.name] had in store for her...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="HELENAS_NEST_LEAVING"><![CDATA[
+	<p>
+		Heading down the staircase, you leave your guide to hurry after you, fretting and flapping her wings as she asks you to try and calm [helena.name] down. Going back the same way that you came, it only takes a few moments before you're exiting [helena.name]'s nest, and, leaving the worrisome harpy guide behind, you resolve to travel to Slaver Alley as soon as you can.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="HELENAS_NEST_TAKE_PUNISHMENT"><![CDATA[
+	<p>
+		[pc.speech(Wait!)] you cry out, [pc.speech(There's something else!)]
+	</p>
+	<p>
+		[helena.name] lowers her wings and turns towards you. [helena.speech(What is it?!)]
+	</p>
+	<p>
+		[pc.speech(Well, I sort of told Scarlett that I'd take her punishment for her...)] you explain, your voice trailing off as [helena.name] strides towards you.
+	</p>
+	<p>
+		[helena.speech(Oh, well in that case, everything's forgiven!)] she responds, her voice dripping with sarcasm. [helena.speech(I'll just let Scarlett get away with everything! After all, <i>you're</i> going to take her punishment for her!)]
+	</p>
+	<p>
+		[pc.speech(It's just that I-)] you start to speak, but [helena.name] cuts you off.
+	</p>
+	<p>
+		[helena.speech(Silence! Scarlett's not getting out of this that easily, but seeing as you're so <i>desperate</i> for attention, it's only fair that I deal with you first!)]
+	</p>
+	<p>
+		A deep red glow starts to pulsate around [helena.name]'s wings, and before you get the chance to react to her apparent ability to harness the arcane, she sweeps her arms down. Caught off-guard, the powerful wave of force slams you to the ground, then, as you try to struggle to your feet, it pulls you roughly over towards the furious matriarch.
+	</p>
+	<p>
+		The sound of mocking laughter echoes all around you as you suddenly find yourself in a rather compromising position. [helena.name] has sat back down on her throne, and, bent over her knee, you feel your exposed [pc.ass] pointing up into the air. Her arcane mastery is quite impressive, and you feel your [pc.arms] and [pc.legs] bound by an ethereal force as [helena.name] prepares to administer her punishment.
+	</p>
+	<p>
+		[helena.speech(You've got my full attention now, sweetheart,)] she whispers down into your [pc.ear]. [helena.speech(Let's see if this is really what you wanted!)]
+	</p>
+	<p>
+		With that, [helena.name] raises her right wing high in the air, and, with a swift thwack, she slaps down on your naked [pc.ass]. Normally, a harpy's touch would be quite weak; their delicate wings well-suited for swift, mid-flight movements rather than for administering forceful blows, but [helena.name]'s strike is anything but light. A crackle of arcane force accompanies her blow, and you let out an alarmed cry as you feel the stinging pain in your left cheek. Your exclamation is met by a chorus of mocking laughter from [helena.name]'s inner-circle, and you hear them encouraging their matriarch to show you no mercy as she raises her wing to strike again...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="HELENAS_NEST_TAKE_PUNISHMENT_ENDURE"><![CDATA[
+	<p>
+		You scrunch your [pc.eyes] shut and do your best to endure your punishment without complaint. Despite your best efforts to stay quiet, however, [helena.name]'s sharp blows occasionally force a little whimper out from between your [pc.lips], much to the amusement of the harpy on-lookers.
+	</p>
+	<p>
+		Your public spanking continues for some time; [helena.name]'s wing-like hand alternating from check to cheek with each of her ruthless slaps. Eventually, however, she decides that you've had enough, and with a rough shove, pushes you off of her lap. The arcane bonds restraining your [pc.arms] and [pc.legs] break, and you reach back to rub at your tender [pc.ass].
+	</p>
+	<p>
+		[helena.speech(Silly [pc.girl],)] [helena.name] says, looking down at you, [helena.speech(but I must commend you for your resolve. I wonder if Scarlett will be even half as well-behaved as you were. Knowing her, I doubt it...)]
+	</p>
+	<p>
+		With that, she once again walks off to the edge of the platform, and, spreading her white-feathered wings, she launches herself into the air, before flying off in the direction of Slaver Alley. You feel both sets of your cheeks burning red as you stand up; one from pain, the other from humiliation. Despite your discomfort, and although [helena.name] still seems intent on punishing Scarlett, you're confident that you did the right thing by upholding your end of the bargain.
+	</p>
+	<p>
+		It doesn't look like anyone's going to prevent you from leaving, so you quickly move to make your exit. You should probably hurry back to Scarlett's shop and find out what [helena.name] had in store for her...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="HELENAS_NEST_TAKE_PUNISHMENT_STRUGGLE"><![CDATA[
+	<p>
+		You let out a loud cry as [helena.name]'s wing smacks down yet again on your exposed ass. Not giving you a moment's respite, she lifts her wing and delivers a third stinging blow to your [pc.ass+], causing you to squeal in pain. Each of her smacks draw out a desperate wail from between your [pc.lips], and, much to the amusement of the harpy on-lookers, you fruitlessly kick and struggle about in the matriarch's lap.
+	</p>
+	<p>
+		Your public spanking continues for some time; [helena.name]'s wing-like hand alternating from check to cheek as you continue struggling and shouting. Eventually, however, she decides that you've had enough, and with a rough shove, pushes you off of her lap. The arcane bonds restraining your [pc.arms] and [pc.legs] break, and with a little whimper, your [pc.hands] dart back to rub at your tender [pc.ass].
+	</p>
+	<p>
+		[helena.speech(Silly [pc.girl],)] [helena.name] says, looking down at you. [helena.speech(I wonder if Scarlett will struggle as much as you did. Knowing her, I'd bet on it...)]
+	</p>
+	<p>
+		With that, she once again walks off to the edge of the platform, and, spreading her white-feathered wings, she launches herself into the air, before flying off in the direction of Slaver Alley. You feel both sets of your cheeks burning red as you stand up; one from pain, the other from humiliation. Despite your discomfort, and although [helena.name] still seems intent on punishing Scarlett, you're confident that you did the right thing by upholding your end of the bargain.
+	</p>
+	<p>
+		It doesn't look like anyone's going to prevent you from leaving, so you quickly move to make your exit. You should probably hurry back to Scarlett's shop and find out what [helena.name] had in store for her...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="HELENAS_NEST_TAKE_PUNISHMENT_ENJOY"><![CDATA[
+	<p>
+		You let out a lewd cry as [helena.name]'s wing smacks down yet again on your exposed ass. Not giving you a moment's respite, she lifts her wing and delivers a third stinging blow to your [pc.ass+], causing you to squeal in a delightful mixture of pleasure and pain, [pc.speech(Yes! Punish me!)]
+	</p>
+	<p>
+		[helena.name] leans down, and you hear her icy voice whisper into your ear, [helena.speech(You horny little thing, are you getting off to this?)]
+	</p>
+	<p>
+		You whimper in the affirmative, and [helena.name] sits back up, laughing. The next blow that lands on your ass is far harsher than the ones before, and, despite your burning arousal, you can't help but let out a whimpering scream. Encouraged by the knowledge that you're enjoying this, each of [helena.name]'s smacks grow harder and harder, drawing out desperate wails and pleasurable moans from between your [pc.lips].
+	</p>
+	<p>
+		Your public spanking continues for some time; [helena.name]'s wing-like hand alternating from check to cheek as the harpy onlookers giggle and point at your submissive form. Eventually, however, the matriarch decides that you've had enough, and with a rough shove, she pushes you off of her lap. The arcane bonds restraining your [pc.arms] and [pc.legs] break, and with a last little whimper, your [pc.hands] dart back to rub at your tender [pc.ass].
+	</p>
+	<p>
+		[helena.speech(Silly [pc.girl],)] [helena.name] says, looking down at you. [helena.speech(I wonder if Scarlett will enjoy her punishment as much as you did. Knowing her, I doubt it...)]
+	</p>
+	<p>
+		With that, she once again walks off to the edge of the platform, and, spreading her white-feathered wings, she launches herself into the air, before flying off in the direction of Slaver Alley. You feel both sets of your cheeks burning red as you stand up; one from pain, the other from humiliation. Despite your discomfort, and although [helena.name] still seems intent on punishing Scarlett, you're confident that you did the right thing by upholding your end of the bargain.
+	</p>
+	<p>
+		It doesn't look like anyone's going to prevent you from leaving, so you quickly move to make your exit. You should probably hurry back to Scarlett's shop and find out what [helena.name] had in store for her...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="HELENAS_NEST_TAKE_FLIGHT"><![CDATA[
+	<p>
+		Following in [helena.name]'s footsteps, you hurry to edge of the platform. With a flap of your wings, you leap off and take flight, following the speck of white in the distance as [helena.name] leads you back to Scarlett's shop.
+	</p>
+	<p>
+		Somewhere along the way, you lose sight of the harpy matriarch, and it takes you a little while to get your bearings again. Soon enough, however, you spot the familiar pattern of Slaver Alley's passages beneath you, and swoop down to land in front of Scarlett's shop.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

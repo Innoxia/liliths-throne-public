@@ -15,7 +15,7 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 
 /**
  * @since 0.2.7
- * @version 0.3.4.5
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class SMBreedingStall extends SexManagerDefault {

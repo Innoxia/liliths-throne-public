@@ -1,0 +1,1612 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- RAT_WARREN_INITIAL_ENTRY -->
+	
+	<htmlContent tag="ENTRANCE_WHORE"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Telling the guards that you'd like to come inside again, you patiently wait as they activate the mechanism to shut the doors behind you, before opening the interior ones to grant you access to the Rat Warrens. As you step inside, the rats move up on either side of you and [npc.name], before [npc2.name] asks, [npc2.speech(So, you two 'ere ta fuck Vengar again, huh?)]
+		</p>
+		<p>
+			#IF(pc.isLewd())
+				#IF(pc.hasVagina())
+					#IF(npc.hasVagina())
+						[pc.speech(Well, our little pussies <i>are</i> crying out for a good pounding from your leader,)] you lewdly tease, [pc.speech(What's it to you?)]
+					#ELSE
+						[pc.speech(Well, my little pussy <i>is</i> crying out for a good pounding from your leader,)] you lewdly tease, [pc.speech(What's it to you?)]
+					#ENDIF
+				#ELSE
+					[pc.speech(Well, I can't say that the two of us would mind getting a taste of your leader's fat cock,)] you lewdly tease, [pc.speech(What's it to you?)]
+				#ENDIF
+			#ELSE
+				[pc.speech(Maybe,)] you coyly tease, [pc.speech(What's it to you?)]
+			#ENDIF
+		</p>
+		<p>
+			Unable to keep their hands to themselves, the pair of rats step closer and reach around to grope both your and [npc.namePos] asses. Leaning in to grind up against your companion, [npc3.name] growls, [npc3.speech(Wot's it ta us is that we want a piece o' this sweet ass! Ya goin' ta let us get ya warmed up fer Vengar, ain't ya?)]
+		</p>
+	#ELSE
+		<p>
+			Telling the guards that you'd like to come inside again, you patiently wait as they activate the mechanism to shut the doors behind you, before opening the interior ones to grant you access to the Rat Warrens. As you step inside, the rats move up on either side of you, before [npc.name] asks, [npc.speech(So, you 'ere ta fuck Vengar again, huh?)]
+		</p>
+		<p>
+			#IF(pc.isLewd())
+				#IF(pc.hasVagina())
+					[pc.speech(Well, my little pussy <i>is</i> crying out for a good pounding from your leader,)] you lewdly tease, [pc.speech(What's it to you?)]
+				#ELSE
+					[pc.speech(Well, I can't say that I'd mind getting a taste of your leader's fat cock,)] you lewdly tease, [pc.speech(What's it to you?)]
+				#ENDIF
+			#ELSE
+				[pc.speech(Maybe,)] you coyly tease, [pc.speech(What's it to you?)]
+			#ENDIF
+		</p>
+		<p>
+			Unable to keep their hands to themselves, the pair of rats step closer and reach around to grope your [pc.ass+]. Leaning in to grind up against you, [npc2.name] slips [npc2.her] down to give your crotch a squeeze, before growling into your [pc.ear], [npc2.speech(Wot's it ta us is that we want a piece o' your sweet ass! Yer goin' ta let us get ya warmed up fer Vengar, ain't ya?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_REPEAT"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Telling the guards that you do indeed have more business with Vengar, you patiently wait as they activate the mechanism to shut the doors behind you, before opening the interior ones to grant you and your companion access to the Rat Warrens.
+		</p>
+		<p>
+			As you step inside, the rats quickly move around in front of you and [npc.name], blocking the way forwards. Narrowing [npc2.her] eyes, [npc2.name] sneers and suspiciously asks, [npc2.speech(So, wot business ya got with Vengar, huh?)]
+		</p>
+	#ELSE
+		<p>
+			Telling the guards that you do indeed have more business with Vengar, you patiently wait as they activate the mechanism to shut the doors behind you, before opening the interior ones to grant you access to the Rat Warrens.
+		</p>
+		<p>
+			As you step inside, the rats quickly move around in front of you, blocking the way forwards. Narrowing [npc.her] eyes, [npc.name] sneers and suspiciously asks, [npc.speech(So, wot business ya got with Vengar, huh?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_INITIAL"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Telling the guards that you have business with Vengar, you patiently wait as they step back from the hatches and start whispering to one another.
+		</p>
+		<p>
+			[npc2.speech(The boss did say 'e was expectin' visitors,)] [npc2.name] hisses, completely failing to keep [npc2.her] voice low enough to not be overheard, [npc2.speech(An' if these ain't the ones, we can deal with 'em easily enough.)]
+		</p>
+		<p>
+			[npc3.speech(Yeah, I ain't wantin' ta get on the boss's bad side if we end up turnin' away people 'e was waitin' for,)] [npc3.name] replies, [npc3.speech(Let's let 'em in.)]
+		</p>
+		<p>
+			Reappearing at the hatch, [npc2.name] growls out, [npc2.speech(Right, we's goin' ta let yer in. Just stay there; these inner doors can't open unless them outer ones are shut first. It's security. Ya wouldn't understand, so don' ya be questionin' it.)]
+		</p>
+		<p>
+			Convinced that these two guards don't have the mental capacity to trap you in this hallway, you allow them to activate the mechanism which shuts the doors behind you, and, sure enough, once they're firmly closed, the interior ones slowly open to grant you and your companion access to the Rat Warrens.
+		</p>
+		<p>
+			As you step inside, the rats quickly move around in front of you and [npc.name], blocking the way forwards. Narrowing [npc2.her] eyes, [npc2.name] sneers and suspiciously asks, [npc2.speech(So, before we let ya get any further, exactly wot business is it ya got with Vengar, huh?)]
+		</p>
+	#ELSE
+		<p>
+			Telling the guards that you have business with Vengar, you patiently wait as they step back from the hatches and start whispering to one another.
+		</p>
+		<p>
+			[npc.speech(The boss did say 'e was expectin' a visitor,)] [npc.name] hisses, completely failing to keep [npc.her] voice low enough to not be overheard, [npc.speech(An' if [pc.she] ain't the one, we can deal with [pc.herHim] easily enough.)]
+		</p>
+		<p>
+			[npc2.speech(Yeah, I ain't wantin' ta get on the boss's bad side if we end up turnin' away people 'e was waitin' for,)] [npc2.name] replies, [npc2.speech(Let's let [pc.herHim] in.)]
+		</p>
+		<p>
+			Reappearing at the hatch, [npc.name] growls out, [npc.speech(Right, we's goin' ta let yer in. Just stay there; these inner doors can't open unless them outer ones are shut first. It's security. Ya wouldn't understand, so don' ya be questionin' it.)]
+		</p>
+		<p>
+			Convinced that these two guards don't have the mental capacity to trap you in this hallway, you allow them to activate the mechanism which shuts the doors behind you, and, sure enough, once they're firmly closed, the interior ones slowly open to grant you access to the Rat Warrens.
+		</p>
+		<p>
+			As you step inside, the rats quickly move around in front of you, blocking the way forwards. Narrowing [npc.her] eyes, [npc.name] sneers and suspiciously asks, [npc.speech(So, before we let ya get any further, exactly wot business is it ya got with Vengar, huh?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_REPEAT_ACCESSED"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			[pc.speech(That's confidential,)] you reply, [pc.speech(you wouldn't want your boss knowing that you'd been asking about his private affairs, would you?)]
+		</p>
+		<p>
+			[npc2.speech(You's better not be lyin' ta me,)] [npc2.name] sneers, before taking a step back and waving you on, [npc2.speech(We's got our eyes on the two o' you, so ya betta watch yerselves in 'ere...)]
+		</p>
+		<p>
+			Following [npc3.her] superior's lead, [npc3.name] steps aside, allowing you and [npc.name] to freely enter the Rat Warrens...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(That's confidential,)] you reply, [pc.speech(you wouldn't want your boss knowing that you'd been asking about his private affairs, would you?)]
+		</p>
+		<p>
+			[npc.speech(You's better not be lyin' ta me,)] [npc.name] sneers, before taking a step back and waving you on, [npc.speech(We's got our eyes on you, so ya betta watch yerself in 'ere...)]
+		</p>
+		<p>
+			Following [npc2.her] superior's lead, [npc2.name] steps aside, allowing you to freely enter the Rat Warrens...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_INTITIAL_ENTRY_AXEL"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Dropping the name 'Axel', you tell the two guards that you're here to discuss the handling of protection money payments.
+		</p>
+		<p>
+			[npc2.speech(Axel, huh... You's better not be lyin' ta me,)] [npc2.name] sneers, before taking a step back and waving you on, [npc2.speech(We's got our eyes on the two o' you, so ya betta watch yerselves in 'ere...)]
+		</p>
+		<p>
+			Following [npc3.her] superior's lead, [npc3.name] steps aside, allowing you and [npc.name] to freely enter the Rat Warrens...
+		</p>
+	#ELSE
+		<p>
+			Dropping the name 'Axel', you tell the two guards that you're here to discuss the handling of protection money payments.
+		</p>
+		<p>
+			[npc2.speech(Axel, huh... You's better not be lyin' ta me,)] [npc.name] sneers, before taking a step back and waving you on, [npc.speech(We's got our eyes on you, so ya betta watch yerself in 'ere...)]
+		</p>
+		<p>
+			Following [npc2.her] superior's lead, [npc2.name] steps aside, allowing you to freely enter the Rat Warrens...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_INTITIAL_ENTRY_FIGHT"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			#IF(pc.isBrave())
+				Feeling supremely confident in your combat abilities, you tell the rats that you're here to put an end to their criminal activities, before readying yourself for a fight. [npc.Name] follows your lead, and similarly prepares [npc.herself] to join you in combat.
+			#ELSE
+				Wanting to take the direct route, you tell the rats that you're here to put an end to their criminal activities, before readying yourself for a fight. [npc.Name] follows your lead, and similarly prepares [npc.herself] to join you in combat.
+			#ENDIF
+		</p>
+		<p>
+			[npc2.speech(You's 'ere ta do wot?!)] [npc2.name] exclaims, before turning [npc2.her] head back to the tunnels behind [npc2.herHim] and bellowing at the top of [npc2.her] voice, [npc2.speech(Everyone! Get in 'ere! We need 'elp!)]
+		</p>
+		<p>
+			Within seconds, half a dozen rat-morphs are dashing into the area as backup, but as they see that there's a fight afoot, a couple of them turn around and run off, abandoning their comrades. Looking around, you count six gang members in front of you and [npc.name], including the two who granted you entry.
+		</p>
+		<p>
+			Caught up in the moment, [npc2.name] yanks on a nearby lever so hard that it breaks off in [npc2.her] hand. Behind you, you hear a heavy lock slam shut, sealing the doors and dashing any hopes you might have had of attempting to escape. With a wild grin on [npc2.her] face, [npc2.name] gleefully shouts, [npc2.speech(There ain't no escape fer ya now! Let's do this!)]
+		</p>
+	#ELSE
+		<p>
+			#IF(pc.isBrave())
+				Feeling supremely confident in your combat abilities, you tell the rats that you're here to put an end to their criminal activities, before readying yourself for a fight.
+			#ELSE
+				Wanting to take the direct route, you tell the rats that you're here to put an end to their criminal activities, before readying yourself for a fight.
+			#ENDIF
+		</p>
+		<p>
+			[npc.speech(You's 'ere ta do wot?!)] [npc.name] exclaims, before turning [npc.her] head back to the tunnels behind [npc.herHim] and bellowing at the top of [npc.her] voice, [npc.speech(Everyone! Get in 'ere! We need 'elp!)]
+		</p>
+		<p>
+			Within seconds, half a dozen rat-morphs are dashing into the area as backup, but as they see that there's a fight afoot, a couple of them turn around and run off, abandoning their comrades. Looking around, you count six gang members in front of you, including the two who granted you entry.
+		</p>
+		<p>
+			Caught up in the moment, [npc.name] yanks on a nearby lever so hard that it breaks off in [npc.her] hand. Behind you, you hear a heavy lock slam shut, sealing the doors and dashing any hopes you might have had of attempting to escape. With a wild grin on [npc.her] face, [npc.name] gleefully shouts, [npc.speech(There ain't no escape fer ya now! Let's do this!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- RAT_WARREN_INITIAL_ENTRY_WHORE -->
+	
+	<htmlContent tag="RAT_WARREN_INITIAL_ENTRY_WHORE"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			#IF(pc.isLewd())
+				#IF(pc.hasVagina() && npc.hasVagina())
+					Deciding that it would be easiest to pretend that you're whores here to see Vengar, you lewdly tease, [pc.speech(The business we have with Vengar concerns our hot little pussies and how the two of us are going to get a good pounding from his fat cock.)]
+				#ELSE
+					Deciding that it would be easiest to pretend that you're whores here to see Vengar, you lewdly tease, [pc.speech(The business we have with Vengar concerns how the two of us are going to get a good pounding from his fat cock.)]
+				#ENDIF
+			#ELSE
+				Deciding that it would be easiest to pretend that you're whores here to see Vengar, you coyly tease, [pc.speech(You could say that the business we have with Vengar is of a very <i>intimate</i> nature...)]
+			#ENDIF
+		</p>
+		<p>
+			Looking across at one another, the pair of rats let devious smiles settle on their faces, and as one, they step forwards and reach around to grope both your and [npc.namePos] asses. Leaning in to grind up against your companion, [npc3.name] growls, [npc3.speech(The boss is real lucky, gettin' ta plough such a sweet ass! Ya goin' ta let us get ya warmed up fer him, ain't ya?)]
+		</p>
+	#ELSE
+		<p>
+			#IF(pc.isLewd())
+				#IF(pc.hasVagina())
+					Deciding that it would be easiest to pretend that you're a whore here to see Vengar, you lewdly tease, [pc.speech(The business I have with Vengar concerns my hot little pussy and how it's going to get a good pounding from his fat cock.)]
+				#ELSE
+					Deciding that it would be easiest to pretend that you're a whore here to see Vengar, you lewdly tease, [pc.speech(The business I have with Vengar concerns his fat cock and how he's going to use it to give me a good pounding.)]
+				#ENDIF
+			#ELSE
+				Deciding that it would be easiest to pretend that you're a whore here to see Vengar, you coyly tease, [pc.speech(You could say that the business we have with Vengar is of a very <i>intimate</i> nature...)]
+			#ENDIF
+		</p>
+		<p>
+			Looking across at one another, the pair of rats let devious smiles settle on their faces, and as one, they step forwards and reach around to grope your [pc.ass+]. Leaning in to grind up against you, [npc2.name] growls, [npc2.speech(The boss is real lucky, gettin' ta plough such a sweet ass! Ya goin' ta let us get ya warmed up fer him, ain't ya?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RAT_WARREN_INITIAL_ENTRY_WHORE_NO_SEX"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Not wanting to have sex with these guards, you step out of their grasp and turn to pout at them, explaining, [pc.speech(Sorry, but we've already been paid for, and your boss might not take too kindly to finding out that his purchases have been tampered with in transit...)]
+		</p>
+		<p>
+			[npc2.speech(Fine,)] [npc2.name] huffs, stepping back and leaning heavily against a nearby wall, [npc2.speech(But if yer still feelin' horny after the boss has had 'is fun, then ya just come back 'ere, ok? The two o' us will show ya a real good time.)]
+		</p>
+		<p>
+			Smiling at the rats, you turn your back on them and prepare to head off into the tunnels with [npc.name], letting out a sigh of relief under your breath as you reflect on the fact that your ruse was successful...
+		</p>
+	#ELSE
+		<p>
+			Not wanting to have sex with these guards, you step out of their grasp and turn to pout at them, explaining, [pc.speech(Sorry, but I've already been paid for, and your boss might not take too kindly to finding out that his purchase has been tampered with in transit...)]
+		</p>
+		<p>
+			[npc.speech(Fine,)] [npc.name] huffs, stepping back and leaning heavily against a nearby wall, [npc.speech(But if yer still feelin' horny after the boss has had 'is fun, then ya just come back 'ere, ok? The two o' us will show ya a real good time.)]
+		</p>
+		<p>
+			Smiling at the rats, you turn your back on them and prepare to head off into the tunnels, letting out a sigh of relief under your breath as you reflect on the fact that your ruse was successful...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RAT_WARREN_INITIAL_ENTRY_WHORE_SOLO"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Thinking that it might be fun to get fucked by these guards, you bite your lip and explain, [pc.speech(You know, that does sound like fun, but at least one of us needs to be unspoiled for Vengar... [npc.Name], you just stand back and watch, ok?)]
+		</p>
+		<p>
+			[npc.speech(Ok,)] your companion replies, stepping away from the two rats before turning to watch.
+		</p>
+		<p>
+			[npc2.speech(What a horny little slut,)] [npc2.name] groans into your [pc.ear], [npc2.speech(Ya gonna love the feelin' o' my cock!)]
+		</p>
+		<p>
+			[npc3.speech(This is gonna be good!)] [npc3.name] [npc3.moans], groping your [pc.ass+] as [npc3.she] grinds up against you.
+		</p>
+		<p>
+			Letting out a horny [pc.moan], you tell the two guards that they can do whatever they want with you...
+		</p>
+	#ELSE
+		<p>
+			Thinking that it might be fun to get fucked by these guards, you bite your lip and tease, [pc.speech(You know, that does sound like fun... I'm sure Vengar wouldn't mind sharing me with the two of you...)]
+		</p>
+		<p>
+			[npc.speech(What a horny little slut,)] [npc.name] groans into your [pc.ear], [npc.speech(Ya gonna love the feelin' o' my cock!)]
+		</p>
+		<p>
+			[npc2.speech(This is gonna be good!)] [npc2.name] [npc2.moans], groping your [pc.ass+] as [npc2.she] grinds up against you.
+		</p>
+		<p>
+			Letting out a horny [pc.moan], you tell the two guards that they can do whatever they want with you...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RAT_WARREN_INITIAL_ENTRY_WHORE_BOTH"><![CDATA[
+	<p>
+		Thinking that it might be fun to get fucked by these guards, you bite your lip and tease, [pc.speech(You know, that does sound like fun... I'm sure Vengar wouldn't mind sharing the two of us with his hard-working guards...)]
+	</p>
+	<p>
+		#IF(!npc.isAttractedTo(npc2))
+			[npc.speech(Eugh... As if you're going to make me do this...)] your companion sighs, reluctantly allowing [npc3.name] to start fondling [npc.herHim].
+		#ELSE
+			[npc.speech(Mmm, that's right, don't be shy now,)] your companion sensually sighs, encouraging [npc3.name] to start fondling [npc.herHim].
+		#ENDIF
+	</p>
+	<p>
+		[npc2.speech(What a horny little slut,)] [npc2.name] groans into your [pc.ear], [npc2.speech(Ya gonna love the feelin' o' my cock!)]
+	</p>
+	<p>
+		[npc3.speech(This is gonna be good!)] [npc3.name] [npc3.moans], groping your companion's [npc.ass+] as [npc3.she] grinds up against [npc.herHim].
+	</p>
+	<p>
+		Letting out a horny [pc.moan], you tell the two guards that they can do whatever they want with the two of you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RAT_WARREN_INITIAL_ENTRY_WHORE_COMPANION"><![CDATA[
+	<p>
+		Thinking that it might be fun to watch your companion being fucked by these guards, you bite your lip and explain, [pc.speech(You know, that does sound like fun, but at least one of us needs to be unspoiled for Vengar... [npc.Name], you don't mind letting these two have some fun with you, do you?)]
+	</p>
+	<p>
+		#IF(!npc.isAttractedTo(npc2))
+			[npc.speech(Eugh... As if you're going to make me do this...)] your companion sighs, reluctantly allowing [npc2.name] to start fondling [npc.herHim].
+		#ELSE
+			[npc.speech(Mmm, that's right, don't be shy now,)] your companion sensually sighs, encouraging [npc2.name] to start fondling [npc.herHim].
+		#ENDIF
+	</p>
+	<p>
+		[npc2.speech(You horny little slut,)] [npc2.name] groans into your companion's [npc.ear], [npc2.speech(Ya gonna love the feelin' o' my cock!)]
+	</p>
+	<p>
+		[npc3.speech(This is gonna be good!)] [npc3.name] [npc3.moans], groping [npc.namePos] [npc.ass+] as [npc3.she] grinds up against [npc.herHim].
+	</p>
+	<p>
+		Letting out an excited [pc.moan], you tell the two guards that they can do whatever they want with [npc.name], before stepping abck and preparing to watch the show...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_ENTRANCE_SEX -->
+	
+	<htmlContent tag="AFTER_ENTRANCE_SEX_COMPANION_WATCHING"><![CDATA[
+	<p>
+		Having had their fun, the two guards step back, leaving you panting and [pc.moaning] as you try to quickly recover your breath.
+	</p>
+	<p>
+		[npc2.speech(Not bad,)] [npc2.name] growls, grinning at you as [npc2.she] gets [npc2.her] clothing back in order.
+	</p>
+	<p>
+		[npc3.speech(Yeah, come back at any time an' we can give yer a real good fuckin' again!)] [npc3.name] laughs, clearly happy with how things turned out.
+	</p>
+	<p>
+		Copying the two rats, you get your things back in order, before stepping over to your companion. Looking across at you, [npc.name] asks, [npc.speech(So, feeling satisfied?)]
+	</p>
+	<p>
+		#IF(pc.isSatisfiedFromLastSex())
+			[pc.speech(For now...)] you reply, before preparing to set off into the tunnels...
+		#ELSE
+			[pc.speech(Not really,)] you whine, before preparing to set off into the tunnels...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ENTRANCE_SEX_PLAYER_WATCHING"><![CDATA[
+	<p>
+		Having had their fun, the two guards step back, leaving [npc.name] panting and [npc.moaning] as [npc.she] tries to quickly recover [npc.her] breath.
+	</p>
+	<p>
+		[npc2.speech(Not bad,)] [npc2.name] growls, grinning at your companion as [npc2.she] gets [npc2.her] clothing back in order.
+	</p>
+	<p>
+		[npc3.speech(Yeah, come back at any time an' we can give yer a real good fuckin' again!)] [npc3.name] laughs, clearly happy with how things turned out.
+	</p>
+	<p>
+		Copying the two rats, [npc.name] gets [npc.her] things back in order, before stepping over to you. Looking across at your companion, you ask, [pc.speech(So, feeling satisfied?)]
+	</p>
+	<p>
+		#IF(npc.isSatisfiedFromLastSex())
+			[npc.speech(Yes...)] [npc.she] sighs, before preparing to follow you off into the tunnels...
+		#ELSE
+			[npc.speech(Not really,)] [npc.she] whines, before preparing to follow you off into the tunnels...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ENTRANCE_SEX_BOTH"><![CDATA[
+	<p>
+		Having had their fun, the two guards step back, leaving you and [npc.name] panting and [pc.moaning] as you try to quickly recover your breath.
+	</p>
+	<p>
+		[npc2.speech(Not bad,)] [npc2.name] growls, grinning at the two of you as [npc2.she] gets [npc2.her] clothing back in order.
+	</p>
+	<p>
+		[npc3.speech(Yeah, come back at any time an' we can give yer a real good fuckin' again!)] [npc3.name] laughs, clearly happy with how things turned out.
+	</p>
+	<p>
+		Copying the two rats, you and [npc.name] get your things back in order, before preparing to set off into the tunnels...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ENTRANCE_SEX_SOLO"><![CDATA[
+	<p>
+		Having had their fun, the two guards step back, leaving you panting and [pc.moaning] as you try to quickly recover your breath.
+	</p>
+	<p>
+		[npc.speech(Not bad,)] [npc.name] growls, grinning at you as [npc.she] gets [npc.her] clothing back in order.
+	</p>
+	<p>
+		[npc2.speech(Yeah, come back at any time an' we can give yer a real good fuckin' again!)] [npc2.name] laughs, clearly happy with how things turned out.
+	</p>
+	<p>
+		Copying the two rats, you get your things back in order, before preparing to set off into the tunnels...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GUARD_COMBAT_VICTORY -->
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY"><![CDATA[
+	<p>
+		You have defeated the guards. The surrounding tunnels will most likely be clear of rats, but you can be sure that other parts of the tunnels will become aware of your presence and be ready to fight you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_SCARE_OFF"><![CDATA[
+	<p>
+		You tell the gang members to get out of here while they still can. They scurry off in the direction of the exit.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX"><![CDATA[
+	<p>
+		You have sex with the gang members (while your companion watches).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
+	<p>
+		You have gentle sex with the gang members (while your companion watches).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
+	<p>
+		You have rough sex with the gang members (while your companion watches).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
+	<p>
+		You feel turned on by the prospect of having these gang members use you, and so (telling your companion to step aside) you submit to them and let them fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GROUP"><![CDATA[
+	<p>
+		You and your companion have dominant sex with the gang members.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GROUP_SUBMIT"><![CDATA[
+	<p>
+		You and your companion submit to the gang members and let them dominantly fuck the two of you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GIVE_TO_COMPANION"><![CDATA[
+	<p>
+		You tell your companion that she can fuck the guards while you watch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_OFFER_COMPANION"><![CDATA[
+	<p>
+		You tell the gang members that they can fuck your companion while you watch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GUARD_COMBAT_VICTORY_AFTER_SEX -->
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_AFTER_SEX"><![CDATA[
+	<p>
+		You (and/or your companion) finish having sex with the guards.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GUARD_COMBAT_DEFEAT -->
+	
+	<htmlContent tag="GUARD_COMBAT_DEFEAT"><![CDATA[
+	<p>
+		You slump to the ground, defeated. The gang members advance on you. (If non-con, they say they know just what to do with meddlers like you. If non-con is off, they grab you and drag you to the entrance. If companion dialogue, they tell 2 to stay and guard.)
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_DEFEAT_THROWN_OUT"><![CDATA[
+	<p>
+		The gang members throw you out into Submission's tunnels, telling you that if you come back, they'll be ready to beat you all over again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GUARD_COMBAT_DEFEAT_STOCKS -->
+	
+	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS"><![CDATA[
+	<p>
+		The gang members drag you deep into the tunnels, and you (along with your companion) soon find yourself entering milking storage room. If Murk introduced, recognise the room, else describe it and Murk. 
+	</p>
+	<p>
+		The rat leader makes a deal with Murk to give you (plus companion) to him in order to pay off debts. Murk agrees to let them fuck you in exchange for keeping all your gear. The rats strip you completely naked and lock you into milking stall. A heavy metal collar is fit around your neck, and you instantly feel it inhibiting your aura's strength. All of your gear is thrown into wooden chests, with Murk helping himself to all your flames.
+	</p>
+	<p>
+		Looking around, you see that you're in a large cave-like chamber, with several human females locked into stocks just like yours. They all have huge breasts and are hooked up to milking machines.
+	</p>
+	<p>
+		If gang member 0 and 2 have no penis, describe them putting strapons on. The gang members say how Murk will take good care of you, but first they're going to get some payback for earlier.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_COMPANION_ESCAPE"><![CDATA[
+	<p>
+		With the last of your energy, you manage to hold off the rats long enough for [npc.name] to escape.
+	</p>
+	<p>
+		The gang members drag you deep into the tunnels, and you soon find yourself entering milking storage room. If Murk introduced, recognise the room, else describe it and Murk. 
+	</p>
+	<p>
+		The rat leader makes a deal with Murk to give you to him in order to pay off debts. Murk agrees to let them fuck you in exchange for keeping all your gear. The rats strip you completely naked and lock you into milking stall. A heavy metal collar is fit around your neck, and you instantly feel it inhibiting your aura's strength. All of your gear is thrown into wooden chests, with Murk helping himself to all your flames.
+	</p>
+	<p>
+		Looking around, you see that you're in a large cave-like chamber, with several human females locked into stocks just like yours. They all have huge breasts and are hooked up to milking machines.
+	</p>
+	<p>
+		If gang member 0 and 2 have no penis, describe them putting strapons on. The gang members say how Murk will take good care of you, but first they're going to get some payback for earlier.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_SEX"><![CDATA[
+	<p>
+		The rats move to fuck you (and your companion). You don't resist, much to their delight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_SEX_EAGER"><![CDATA[
+	<p>
+		The rats move to fuck you (and your companion). You eagerly beg for them to do it, much to their amusement and delight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_SEX_RESIST"><![CDATA[
+	<p>
+		The rats move to fuck you (and your companion). You try to resist, much to their amusement.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GUARD_COMBAT_DEFEAT_STOCKS_AFTER_SEX -->
+	
+	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_AFTER_SEX"><![CDATA[
+	<p>
+		The rats finish with you (and your companion). They tell you that Murk will enjoy transforming you into their milker bitch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRANCE -->
+	
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		Entrance to the rat warrens.
+	</p>
+	<p>
+		If cleared centre, rats are not here. Otherwise, they watch you suspiciously.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_FIGHT"><![CDATA[
+	<p>
+		You're here to clear the rat warrens of gang members. The guards prepare to fight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CORRIDOR -->
+	
+	<htmlContent tag="CHECKPOINT_LEFT"><![CDATA[
+	<p>
+		Rats alerted to your presence are waiting here to fight. Defend yourself!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CHECKPOINT_RIGHT"><![CDATA[
+	<p>
+		Rats alerted to your presence are waiting here to fight. Defend yourself!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR_CLEARED"><![CDATA[
+	<p>
+		Having defeated the strongest rats in this area, the rest of them have fled, leaving the corridors completely deserted.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		Twisting passageways through the rat warrens. In some places very narrow, others wide. Some parts have stone walls, other wood, and in some places, just bare dirt.
+	</p>
+	<p>
+		Rats sometimes loitering about who give you funny looks or make an occasional comment.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DORMITORY -->
+	
+	<htmlContent tag="DORMITORY"><![CDATA[
+	<p>
+		Bunk beds line the walls, and wooden tables and chairs are haphazardly placed in the middle of the room.
+	</p>
+	<p>
+		If cleared, no rats here. Otherwise: If night, lots of rats sleeping here. In day, just a couple milling about.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_FIGHT"><![CDATA[
+	<p>
+		You're here to clear the rat warrens of gang members. The rats prepare to fight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DICE_DEN -->
+	
+	<htmlContent tag="DICE_DEN"><![CDATA[
+	<p>
+		Large room with a bar down one side, and tables in the middle. 
+	</p>
+	<p>
+		If cleared/hostile, nobody here. Otherwise: In day, rats gambling. At night, quieter, but still some around.
+	</p>
+	<p>
+		Rat behind bar tells you if you want to play, they handle betting money, so let them know. They also sell rum.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DICE_DEN_CHALLENGE"><![CDATA[
+	<p>
+		You challenge the rats to a fight, saying you're here to clear out the gang. While some run away, 6 stay to fight (including bar-tender).
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DICE_DEN_LOOT -->
+	
+	<htmlContent tag="DICE_DEN_LOOT"><![CDATA[
+	<p>
+		Having cleared out this area, there's nothing stopping you from looting the bar. You do just that.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DICE_DEN_RULES -->
+	
+	<htmlContent tag="DICE_DEN_RULES"><![CDATA[
+	<p>
+		The bar-tender tells you the rules of dice poker.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DICE_DEN_RUM -->
+	
+	<htmlContent tag="DICE_DEN_RUM"><![CDATA[
+	<p>
+		You buy a glass of rum from [npc.name]. [npc.She] says that if you're still thirsty, you can earn your money back by letting [npc.herHim] fuck your throat (or eat her out if no penis).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DICE_DEN_RUM_ORAL"><![CDATA[
+	<p>
+		You agree, get paid, and are forced to your knees. If has cock, [npc.name] forces it down your throat. If pussy, [npc.name] forces your face between [npc.her] legs.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DICE_DEN_RUM_ORAL_COMPANIOn"><![CDATA[
+	<p>
+		You agree to let [npc.name] perform oral, get paid, and watch as [npc.sheIs] forced to [npc.her] knees. If has cock, [npc2.name] forces it down your companion's throat. If pussy, [npc2.name] forces your companion's face between [npc2.her] legs.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_DICE_DEN_ORAL -->
+	
+	<htmlContent tag="AFTER_DICE_DEN_ORAL_COMPANION"><![CDATA[
+	<p>
+		[npc2.Name] has finished with your companion, says [npc.she] knows how to please a rat's cock/cunt.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_DICE_DEN_ORAL"><![CDATA[
+	<p>
+		[npc.Name] has finished with you, says you know how to please a rat's cock/cunt.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MILKING_STORAGE -->
+	
+	<htmlContent tag="MILKING_STORAGE"><![CDATA[
+	<p>
+		Room with metal vats and shelves of mechanical components. Small rat-boy is tinkering with something, hears you enter.
+	</p>
+	<p>
+		Murk introduction (if not seen already). Cock on display, very lewd and rude comments.
+	</p>
+	<p>
+		He says that you can go back the way you came, or, if you're interested, he'll let you use one of his cock-sleeves for 5000 flames. No refunds.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MILKING_STORAGE_CAPTIVE"><![CDATA[
+	<p>
+		You find that you can walk up near to the milking storage door, but can't get close enough to open it. For now all you can do is return to your bed...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MILKING_STORAGE_CHALLENGE"><![CDATA[
+	<p>
+		You tell Murk that you're here to beat him up. He calls for help, and some rats come charging in.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- MILKING_ROOM -->
+	
+	<htmlContent tag="MILKING_ROOM"><![CDATA[
+	<p>
+		Stocks in the middle of the room, with human girls being milked. Chains and manacles bolted into one wall.
+	</p>
+	<p>
+		If not cleared, you've gained access by paying Murk. He shows off the girls and asks which one you want to fuck. Shows how loyal they all are (if non-con enabled, make reference of how he kidnapped them as humans and transformed them into his rat-girl milking sluts). If gape content is on, he says you'll have to deal with their loose holes; his cock has stretched them out nicely to his size...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MILKING_ROOM_SEX"><![CDATA[
+	<p>
+		You choose [npc.name], and move up to fuck [npc.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MILKING_ROOM_SEX_AFTER_CLEARED"><![CDATA[
+	<p>
+		With nobody around to stop you, you decide to have some fun with [npc.name], and move up to fuck [npc.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MILKING_ROOM_CHALLENGE"><![CDATA[
+	<p>
+		You tell Murk that you're not going to allow him to continue with his depraved treatment of these girls any longer! He calls for help, and some rats come charging in.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_MILKER_SEX -->
+	
+	<htmlContent tag="AFTER_MILKER_SEX"><![CDATA[
+	<p>
+		You finish with [npc.name], and step away from [npc.herHim]. Murk approaches and says he'll have to fuck [npc.herHim] later so that [npc.she] remembers who [npc.her] real owner is. Tells you to follow him back into the storage room.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_MILKER_SEX_CLEARED"><![CDATA[
+	<p>
+		You finish with [npc.name], and step away from [npc.herHim]. As you've cleared this section of the Rat Warrens out, there's nothing stopping you from choosing another milker to fuck next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_MILKER_SEX_CHALLENGE"><![CDATA[
+	<p>
+		You tell Murk that these girls are yours now, and move to attack him. He calls for help, and some rats come charging in.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_MILKER_SEX_FINISHED -->
+	
+	<htmlContent tag="AFTER_MILKER_SEX_FINISHED"><![CDATA[
+	<p>
+		You follow Murk back into the storage room. He says if you want another fuck, you know how much it is.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MILKING_ROOM_FREE_ATTEMPT -->
+	
+	<htmlContent tag="MILKING_ROOM_FREE_ATTEMPT"><![CDATA[
+	<p>
+		You try to free the captives, but they don't want to be freed, and just keep asking to be milked and fucked. You'll have to deal with them later...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL -->
+	
+	<htmlContent tag="VENGARS_HALL"><![CDATA[
+	<p>
+		Huge stone hall. A dozen long, wooden tables. At the far end, a raised dais, with a throne sitting atop it.
+	</p>
+	<p>
+		If hostile, the rats you beat are here (and Murk, if introduced), they throw insults at you, but are too scared to fight. Vengar calls out that you're going to see what they do to busybodies like you.<br/>
+		If not hostile, Vengar calls out for you to come forwards.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH"><![CDATA[
+	<p>
+		You approach the throne.
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensHostile))
+		<p>
+			Vengar says he thinks after you're beaten, he'll turn you into his rat-girl fucktoy. Introduce Silence, with Vengar saying she'll be more than enough to deal with you.
+			#IF(pc.hasCompanions())
+				#IF(pc.hasTraitActivated(PERK_OBSERVANT))
+					 You see Shadow sneaking up behind you, and manage to prevent her from launching a surprise attack.
+				#ELSEIF(npc.hasTraitActivated(PERK_OBSERVANT))
+					 [npc.Name] sees Shadow sneaking up behind you, and manages to prevent her from launching a surprise attack.
+				#ELSE
+					 Shadow sneaks up behind [npc.name] and stabs [npc.herHim] in the back with her ethereal poison blades!
+				#ENDIF
+			#ELSE
+				#IF(pc.hasTraitActivated(PERK_OBSERVANT))
+					 You see Shadow sneaking up behind you, and manage to prevent her from launching a surprise attack.
+				#ELSE
+					 Shadow sneaks up behind you and stabs you in the back with her ethereal poison blades!
+				#ENDIF
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Vengar calls out to ask who you are and what you want. You see Shadow and Silence lurking to one side of the room near Vengar.
+		</p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_vengarIntroduced))
+			<p>
+				#IF(game.getDialogueFlags().hasFlag(FLAG_axelSissified))
+					He asks if you'd like to join him in his private bed-chambers, or perhaps the two of you could go and visit Lexa together.
+				#ELSE
+					He asks if you'd like to join him in his private bed-chambers.
+				#ENDIF
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_FIGHT_SURPRISED"><![CDATA[
+	<p>
+		You manage to twist out of Shadow's grip. She sadistically laughs and says how she loves it when people scream. Stepping over to Silence, she says that the two of them will destroy you. Silence just nods.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_FIGHT_SURPRISED_COMPANION"><![CDATA[
+	<p>
+		You move to help your companion get out of Shadow's grip. She twists away, sadistically laughing, and says how she loves it when people scream. Stepping over to Silence, she says that the two of them will destroy you. Silence just nods.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_FIGHT"><![CDATA[
+	<p>
+		Stepping over to Silence, Shadow says that the two of them will destroy you. Silence just nods.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHALLENGE"><![CDATA[
+	<p>
+		You tell Vengar that you're here to fight him. He says you'll have to get through his bodyguards first.
+	</p>
+	<p>
+		Shadow and Silence step forwards. Shadow says that the two of them will destroy you. Silence just nods.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_PERSUADE -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE"><![CDATA[
+	<p>
+		You try to convince Vengar to stop extorting Submission's honest businessfolk. He asks why he should listen to someone who clearly doesn't know their place. Demands that you either pay [#SPECIAL_PARSE_0] flames to keep your dignity, or kneel before him (with companion, if applicable) to show everyone that you're submissive to him.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_REFUSE"><![CDATA[
+	<p>
+		You refuse to do either. Enraged, Vengar says that you're going to submit whether you like it or not. Bodyguards step forwards to fight you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_PERSUADE_PAY -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_PAY"><![CDATA[
+	<p>
+		Deciding to take the non-violent approach, and unwilling to kneel to him, you pay Vengar the [#SPECIAL_PARSE_0] flames. He reveals that he was intending to stop illegal activities and focus on the rum distillery business that he 'acquired' a few months ago.
+	</p>
+	<p>
+		Says that before he can do this, he needs the more powerful shop keepers to come and show their submission, otherwise his gang members will lose respect. Now that you've decided on this course of action, you suppose that convincing Axel to come and do this is acceptable.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_PAY_LEAVE"><![CDATA[
+	<p>
+		You tell Vengar that you'll do as he asks, before leaving the hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_PERSUADE_KNEEL -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_KNEEL"><![CDATA[
+	<p>
+		You (and companion) step up in front of Vengar and kneel down before him. Grinning in delight, he demands that you get down on all fours and act as his footrest.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_KNEEL_REFUSE"><![CDATA[
+	<p>
+		You refuse to do something so humiliating, and tell him no. Enraged, Vengar says that you're going to submit whether you like it or not. Bodyguards step forwards to fight you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_PERSUADE_KNEEL_SUBMIT -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_KNEEL_SUBMIT_START"><![CDATA[
+	<p>
+		You (and companion) kneel down before Vengar. He demands that you turn to face the hall, so he can look at your ass.
+	</p>
+	<p>
+		Puts his feet up on you (and companion) while rats in hall laugh and jeer at you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_BOTH"><![CDATA[
+	<p>
+		After a while of being humiliated like this, Vengar takes his feet off, before leaning forwards and grabbing your and companion's asses. Rubbing his thumb over your asshole/pussy, he says that he can tell you want to really show your submission. Orders you both to expose yourselves and raise your asses so that he can fuck you in front of everyone.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_COMPANION_WATCHING"><![CDATA[
+	<p>
+		After a while of being humiliated like this, Vengar takes his feet off, before leaning forwards and grabbing your ass. Annoyed that your companion cannot be exposed. Rubbing his thumb over your asshole/pussy, he says that he can tell you want to really show your submission. Orders you to expose yourself and raise your ass so that he can fuck you in front of everyone. Says to your companion that [npc.she] can watch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_SOLO"><![CDATA[
+	<p>
+		After a while of being humiliated like this, Vengar takes his feet off, before leaning forwards and grabbing your ass. Rubbing his thumb over your asshole/pussy, he says that he can tell you want to really show your submission. Orders you to expose yourself and raise your ass so that he can fuck you in front of everyone.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_PLAYER_WATCHING"><![CDATA[
+	<p>
+		After a while of being humiliated like this, Vengar takes his feet off, before leaning forwards and grabbing your companion's ass. Annoyed that you cannot be exposed. Rubbing his thumb over [npc.namePos] asshole/pussy, he says that he can tell [npc.she] wants to really show [npc.her] submission. Orders [npc.herHim] to expose [npc.herself] and raise [npc.her] ass so that he can fuck [npc.her] in front of everyone. Says to you that you can watch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_NO_ACCESS_NO_NTR"><![CDATA[
+	<p>
+		After a while of being humiliated like this, Vengar takes his feet off, before saying that he's annoyed you can't be fucked.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_NO_ACCESS"><![CDATA[
+	<p>
+		After a while of being humiliated like this, Vengar takes his feet off, before saying that he's annoyed that neither of you can be fucked.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_NO_ACCESS_SOLO"><![CDATA[
+	<p>
+		After a while of being humiliated like this, Vengar takes his feet off, before saying that he's annoyed you can't be fucked.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_NO_ACCESS_FINISH"><![CDATA[
+	<p>
+		Vengar tells you (and companion, if applicable) to get up, before revealing that he was intending to stop illegal activities and focus on the rum distillery business that he 'acquired' a few months ago.
+	</p>
+	<p>
+		Says that before he can do this, he needs the more powerful shop keepers to come and show their submission, otherwise his gang members will lose respect. Now that you've decided on this course of action, you suppose that convincing Axel to come and do this is acceptable.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_PLAYER_WATCHING_REFUSE_FINISH"><![CDATA[
+	<p>
+		You tell Vengar that you're not going to let him fuck [npc.name] in front of everyone, and that you've already done what he asked of you. He laughs but doesn't press the issue. Reveals that he was intending to stop illegal activities and focus on the rum distillery business that he 'acquired' a few months ago.
+	</p>
+	<p>
+		Says that before he can do this, he needs the more powerful shop keepers to come and show their submission, otherwise his gang members will lose respect. Now that you've decided on this course of action, you suppose that convincing Axel to come and do this is acceptable.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_PLAYER_WATCHING_START"><![CDATA[
+	<p>
+		You can't bring yourself to object.
+		<br/>If companion attracted to Vengar: From the speed and enthusiasm which [npc.name] exposes [npc.herself] to Vengar, [npc.she] also doesn't seem opposed to the idea.
+		<br/>If not, [npc.she] reluctantly goes along with it.
+	</p>
+	<p>
+		Vengar exposes his rapidly-hardening cock, before taunting you and starting to fuck your companion. All you can do is join the rest of the hall's occupants in watching...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_REFUSED"><![CDATA[
+	<p>
+		You tell Vengar that you're not going to let him fuck you (and companion, if applicable) in front of everyone, and that you've already done what he asked of you. He laughs but doesn't press the issue. Reveals that he was intending to stop illegal activities and focus on the rum distillery business that he 'acquired' a few months ago.
+	</p>
+	<p>
+		Says that before he can do this, he needs the more powerful shop keepers to come and show their submission, otherwise his gang members will lose respect. Now that you've decided on this course of action, you suppose that convincing Axel to come and do this is acceptable.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_SOLO_START"><![CDATA[
+	<p>
+		If companion dialogue, get companion to stand back and watch. Expose yourself to Vengar as he ordered.
+	</p>
+	<p>
+		Vengar exposes his rapidly-hardening cock, before (taunting companion, if applicable, and) starting to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_PLAYER_OFFER_COMPANION"><![CDATA[
+	<p>
+		You say that he can fuck your companion, but not you.
+		<br/>If companion attracted to Vengar: From the speed and enthusiasm which [npc.name] exposes [npc.herself] to Vengar, [npc.she] also doesn't seem opposed to the idea.
+		<br/>If not, [npc.she] reluctantly goes along with it.
+	</p>
+	<p>
+		Vengar exposes his rapidly-hardening cock, before taunting you and starting to fuck your companion. All you can do is join the rest of the hall's occupants in watching...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_PERSUADE_SEX_DOUBLE_CHOICE -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_SEX_DOUBLE_CHOICE"><![CDATA[
+	<p>
+		You tell your companion to go along with it, and expose yourself to Vengar.
+		<br/>If companion attracted to Vengar: From the speed and enthusiasm which [npc.name] exposes [npc.herself] to Vengar, [npc.she] also doesn't seem opposed to the idea.
+		<br/>If not, [npc.she] reluctantly goes along with it.
+	</p>
+	<p>
+		Vengar exposes his rapidly-hardening cock, before rubbing it over your ass/pussy and then your companion's. Says that you can eat [npc.name] out while he fucks you, getting [npc.her] ready for his second load, or the other way around (factoring in mouth access).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_BOTH_PLAYER_FIRST"><![CDATA[
+	<p>
+		You push back against Vengar's cock, signalling that you want to be fucked first. If able, he tells your companion to receive oral from you. Makes you beg, then starts fucking you. If available, companion gets you to start oral on [npc.herHim].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_BOTH_COMPANION_FIRST"><![CDATA[
+	<p>
+		You shuffle away from Vengar's cock, signalling that you want to be fucked second. If able, he tells your companion to perform oral on you. Makes [npc.her] beg, then starts fucking [npc.herHim]. If available, companion starts oral on you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_DOUBLE -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_DOUBLE_PLAYER_NEXT"><![CDATA[
+	<p>
+		Having been prepared by your companion, Vengar slides his fingers into you, before declaring you ready for his cock. If able, companion is told to present you with Vengar's creampie. If not, they watch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_DOUBLE_COMPANION_NEXT"><![CDATA[
+	<p>
+		Having been prepared by your tongue, Vengar slides his fingers into your companion, before declaring [npc.herHim] ready for his cock. If able, you are told to present your companion with Vengar's creampie. If not, you watch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_BOTH_PLAYER_SECOND_START"><![CDATA[
+	<p>
+		Vengar teases, then slides into you. If able, companion is set about receiving oral from you, eating out Vengar's creampie. If not, they watch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_SUB_SEX_BOTH_COMPANION_SECOND_START"><![CDATA[
+	<p>
+		Vengar teases, then slides into [npc.name]. If able, you are set about receiving oral from your companion, eating out Vengar's creampie. If not, you watch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX"><![CDATA[
+	<p>
+		Vengar is finished. Makes derogatory comments about your submission. Tells you to stand up.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_FINISH"><![CDATA[
+	<p>
+		You stand up. Vengar reveals that he was intending to stop illegal activities and focus on the rum distillery business that he 'acquired' a few months ago.
+	</p>
+	<p>
+		Says that before he can do this, he needs the more powerful shop keepers to come and show their submission, otherwise his gang members will lose respect. Now that you've decided on this course of action, you suppose that convincing Axel to come and do this is acceptable.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_PERSUADE_FINISH -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_FINISH_LEAVE"><![CDATA[
+	<p>
+		You agree to do as Vengar asks. Leave the hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_THREATEN -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_THREATEN_CHUUNI"><![CDATA[
+	<p>
+		You make ridiculous chuuni threats. The rats actually seem nervous. Vengar tries to call you out on your nonsense (but you actually believe your own words). If companion (who is not chuuni), they cringe.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_THREATEN_DEMON"><![CDATA[
+	<p>
+		You use the fact that you're a demon to intimidate and threaten Vengar. The rats actually seem nervous.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_THREATEN"><![CDATA[
+	<p>
+		You use the fact that you know that you're a lot more powerful than Vengar to intimidate and threaten him. The rats actually seem nervous.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_THREATEN_END"><![CDATA[
+	<p>
+		Vengar stands up and says that he'll give you one chance to make amends. Reveals that he was intending to stop illegal activities and focus on the rum distillery business that he 'acquired' a few months ago.
+	</p>
+	<p>
+		Says that before he can do this, he needs the more powerful shop keepers to come and show their submission, otherwise his gang members will lose respect. Vengar strides towards you, ready to press you on the issue.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_THREATEN_AGREE"><![CDATA[
+	<p>
+		You agree to do as Vengar asks. He returns to his throne. You leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_THREATEN_FIGHT"><![CDATA[
+	<p>
+		You tell Vengar that if it's a fight he wants, you'll give it to him.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT"><![CDATA[
+	<p>
+		You use your unarmed skills to effortlessly throw Vengar to the floor, knocking him out. A large commotion breaks out, with some rats starting to fight each other as they argue about if Vengar is still the leader. You notice that the two rat-girl bodyguards have disappeared.
+	</p>
+	<p>
+		A large explosion is suddenly heard throughout the Warrens.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_SWORD_RAID -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_SWORD_RAID"><![CDATA[
+	<p>
+		SWORD bursts in, shooting and arresting rats. Thankfully, Claire is with them, and recognises you. She stops SWORD from arresting you and tells you to follow her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SWORD_RAID_EXIT -->
+	
+	<htmlContent tag="SWORD_RAID_EXIT"><![CDATA[
+	<p>
+		You go with Claire back to the nearest Enforcer outpost. You have to stay there for 6 hours while paperwork is sorted out. Claire says that Vengar and Murk are being enslaved and given to Axel as compensation. Shadow and Silence cooperated, and apparently Claire received orders from higher up to let them go without any charge.
+	</p>
+	<p>
+		Claire apologises for how long it took, and you're finally allowed to go.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_SEDUCE -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_TELEPATHY"><![CDATA[
+	<p>
+		You seduce Vengar by using your telepathic abilities. Convince him to take you to his bedroom.
+	</p>
+	<p>
+		You enter his bedroom, leaving behind companion (if applicable).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE"><![CDATA[
+	<p>
+		You seduce Vengar. Convince him to take you to his bedroom.
+	</p>
+	<p>
+		You enter his bedroom, leaving behind companion (if applicable).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_SEX_SUBMISSIVE"><![CDATA[
+	<p>
+		You submit to Vengar, allowing him to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_SEX_DOMINANT"><![CDATA[
+	<p>
+		You tell Vengar that you're in charge. He's so horny that he accepts, allowing you to dom him.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_SEDUCE_NO_SEX -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_NO_SEX"><![CDATA[
+	<p>
+		You continue to lead Vengar on, but don't allow him to get physical with you. You get him to reveal that he was intending to stop illegal activities and focus on the rum distillery business that he 'acquired' a few months ago.
+	</p>
+	<p>
+		Says that before he can do this, he needs the more powerful shop keepers to come and show their submission, otherwise his gang members will lose respect. Vengar strides towards you, ready to press you on the issue.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_NO_SEX_LEAVE"><![CDATA[
+	<p>
+		You agree to do as Vengar asks, before leaving.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX -->
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX"><![CDATA[
+	<p>
+		You finish having sex. Vengar reveals that he was intending to stop illegal activities and focus on the rum distillery business that he 'acquired' a few months ago.
+	</p>
+	<p>
+		Says that before he can do this, he needs the more powerful shop keepers to come and show their submission, otherwise his gang members will lose respect. Vengar strides towards you, ready to press you on the issue.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		You agree to do as Vengar asks, before leaving.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_RESONANCE_STONE -->
+	
+	<htmlContent tag="VENGARS_HALL_RESONANCE_STONE"><![CDATA[
+	<p>
+		Seeing that Vengar is here, you activate the resonance stone which Claire gave to you. Now to stall for time until the SWORD Enforcers show up...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_RESONANCE_STONE_RAID"><![CDATA[
+	<p>
+		You stall for time. There is a loud explosion, before moments later SWORD enters.
+	</p>
+	<p>
+		Claire is with them, tells you to follow her out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BODYGUARDS_COMBAT_SHADOW_DEFEATED -->
+	
+	<htmlContent tag="BODYGUARDS_COMBAT_SHADOW_DEFEATED"><![CDATA[
+	<p>
+		As Shadow falls to the ground, Silence staggers back, looking like she's about to collapse as well. She goes into a trance and summons an air elemental, which speaks for her and says she will destroy you. Her eyes glow with increased intensity as she attacks you once again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BODYGUARDS_COMBAT_SILENCE_DEFEATED -->
+	
+	<htmlContent tag="BODYGUARDS_COMBAT_SILENCE_DEFEATED"><![CDATA[
+	<p>
+		As Silence falls to the ground, Shadow lets out a furious scream. Seemingly filled with a renewed vigour, she launches back into combat alone.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BODYGUARDS_COMBAT_VICTORY -->
+	
+	<htmlContent tag="BODYGUARDS_COMBAT_VICTORY"><![CDATA[
+	<p>
+		Having defeated both Shadow and Silence, you look up at Vengar to see that he's advancing on you. With no time to prepare, you must now defend yourself against his attacks!
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BODYGUARDS_COMBAT_DEFEAT -->
+	
+	<htmlContent tag="BODYGUARDS_COMBAT_DEFEAT"><![CDATA[
+	<p>
+		You are defeated by the rat-girls. If non-con disabled, explosion in heard before anyone can make a move on you. If non-con is on, Shadow strips you (Silence strips companion, if applicable) in front of everyone in the hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BODYGUARDS_COMBAT_DEFEAT_COMPANION_ESCAPE"><![CDATA[
+	<p>
+		You manage to hold off the rats long enough for [npc.name] to escape.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGAR_COMBAT_VICTORY -->
+	
+	<htmlContent tag="VENGAR_COMBAT_VICTORY"><![CDATA[
+	<p>
+		You have defeated the rats. A large commotion breaks out, with some rats starting to fight each other as they argue about if Vengar is still the leader. You notice that the two rat-girl bodyguards have disappeared.
+	</p>
+	<p>
+		A large explosion is suddenly heard throughout the Warrens.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGAR_COMBAT_DEFEAT -->
+	
+	<htmlContent tag="VENGAR_COMBAT_DEFEAT"><![CDATA[
+	<p>
+		You are defeated by Vengar. If non-con disabled, explosion in heard before anyone can make a move on you. If non-con is on, Shadow recovers and strips you (Silence strips companion, if applicable) in front of everyone in the hall. Essence extraction somehow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- FINAL_COMBAT_VICTORY_SWORD_RAID -->
+	
+	<htmlContent tag="FINAL_COMBAT_VICTORY_SWORD_RAID"><![CDATA[
+	
+	<p>
+		SWORD squad enters. Claire is with them, tells you to follow her out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_REPEAT"><![CDATA[
+	<p>
+		Accepting Vengar's offer (and leaving your companion with Shadow and Silence), you soon once again find yourself in his bedroom with him. Kissing one another, you wonder if you should take the lead or let Vengar dom...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM"><![CDATA[
+	<p>
+		Accepting Vengar's offer (and leaving your companion with Shadow and Silence), you find yourself in his bedroom with him. Kissing one another, you wonder if you should take the lead or let Vengar dom...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_SEX_SUBMISSIVE"><![CDATA[
+	<p>
+		You submit to Vengar.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_SEX_DOMINANT"><![CDATA[
+	<p>
+		You dominate Vengar.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_AFTER_SEX -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_AFTER_SEX"><![CDATA[
+	<p>
+		You finish having sex.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		You head back into the Rat Warrens.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LEXA_VISIT -->
+	
+	<htmlContent tag="LEXA_VISIT_REPEAT"><![CDATA[
+	<p>
+		You and Vengar go to the Gambling den to pay Lexa another visit. Upon arriving, she once again shows the two of you into her office (companion waits outside).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEXA_VISIT"><![CDATA[
+	<p>
+		You and Vengar go to the Gambling den to pay Lexa a visit. Upon arriving, she shows the two of you into her office (companion waits outside).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEXA_VISIT_THREESOME"><![CDATA[
+	<p>
+		You and Vengar move to start having sex with Lexa
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEXA_VISIT_WATCH"><![CDATA[
+	<p>
+		You decide against having sex with Lexa, and instead stand back and watch Vengar fuck her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LEXA_VISIT_LEAVE"><![CDATA[
+	<p>
+		You decide against having sex with Lexa, and instead leave Vengar to fuck her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LEXA_VISIT_AFTER_SEX -->
+	
+	<htmlContent tag="LEXA_VISIT_AFTER_SEX"><![CDATA[
+	<p>
+		Finish sex and step back out into entrance of the gambling den.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- POST_CAPTIVITY_SWORD_RAID -->
+	
+	<htmlContent tag="POST_CAPTIVITY_SWORD_RAID"><![CDATA[
+	<p>
+		Shadow leaves you with Silence while she makes sure the way is clear. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_CAPTIVITY_SWORD_RAID_FINISH"><![CDATA[
+	<p>
+		Shadow returns and leads you out of the Warrens. To your surprise, SWORD squad is there with Claire. They start their raid and Claire tells you to go with her. Shadow and Silence seem to vanish while this is happening. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- POST_DEFEAT_SWORD_RAID -->
+	
+	<htmlContent tag="POST_DEFEAT_SWORD_RAID"><![CDATA[
+	<p>
+		SWORD raids the Warrens. They seem to recognise or at least know who Silence is (random rat says they betrayed them). She stops SWORD from taking you into custody. The officer says he'll wait for the one who can actually talk.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_CAPTIVITY_SWORD_RAID_FINISH"><![CDATA[
+	<p>
+		Shadow returns with Claire, who tells you to go with her. Shadow and Silence seem to vanish while this is happening.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

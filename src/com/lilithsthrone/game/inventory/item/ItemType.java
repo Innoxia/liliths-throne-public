@@ -2254,12 +2254,13 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return (!Main.game.isInCombat() || target.isPlayer()) && !target.isPregnant();
+//			return (!Main.game.isInCombat() || target.isPlayer()) && !target.isPregnant();
+			return !Main.game.isInCombat();
 		}
 		
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "This item cannot be used on pregnant people!";
+			return "This item cannot be used in combat!";//"This item cannot be used on pregnant people!";
 		}
 		
 		@Override

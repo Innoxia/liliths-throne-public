@@ -1819,10 +1819,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		if(tags.contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.TAUR) {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for taur bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
 		}
-		if(clothingOwner.hasPenis() && tags.contains(ItemTag.REQUIRES_NO_PENIS)) {
+		if(clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_NO_PENIS)) {
 			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.NameHasFull] a penis, which is blocking [npc.herHim] from wearing the "+this.getName()+"!"));
 		}
-		if(!clothingOwner.hasPenis() && tags.contains(ItemTag.REQUIRES_PENIS)) {
+		if(!clothingOwner.hasPenisIgnoreDildo() && tags.contains(ItemTag.REQUIRES_PENIS)) {
 			return new Value<>(false, UtilText.parse(clothingOwner, "[npc.Name] [npc.do]n't have a penis, so [npc.she] can't wear the "+this.getName()+"!"));
 		}
 		if(clothingOwner.hasVagina() && tags.contains(ItemTag.REQUIRES_NO_VAGINA)) {

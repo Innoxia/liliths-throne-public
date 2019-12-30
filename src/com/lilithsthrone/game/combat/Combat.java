@@ -692,6 +692,9 @@ public enum Combat {
 		
 		@Override
 		public String getResponseTabTitle(int index) {
+			if(enemyLeader.interruptCombatSpecialCase()!=null) {
+				return null;
+			}
 			if(index==0) {
 				return "Core moves";
 				
@@ -712,6 +715,13 @@ public enum Combat {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			//TODO
+			if(enemyLeader.interruptCombatSpecialCase()!=null) {
+				if(index == 1) {
+					return enemyLeader.interruptCombatSpecialCase();
+				}
+				return null;
+			}
 			if(Main.game.getPlayer().isStunned()) {
 				if (index == 1) {
 					return new Response("Stunned!", "You are unable to make an action this turn!", ENEMY_ATTACK){
@@ -726,21 +736,21 @@ public enum Combat {
 					return null;
 				}
 				
-			} else if (escaped) {
+			} else if(escaped) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
 						public void effects() {
 							enemyLeader.applyEscapeCombatEffects();
 							Main.game.setInCombat(false);
-							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 						}
 					};
 				} else {
 					return null;
 				}
 				
-			} else if (isEnemyPartyDefeated()) {
+			} else if(isEnemyPartyDefeated()) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Victory", UtilText.parse(enemyLeader, "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have defeated [npc.name]!</span>")){
 						@Override
@@ -752,7 +762,7 @@ public enum Combat {
 				} else
 					return null;
 				
-			}  else if (isAlliedPartyDefeated()) {
+			}  else if(isAlliedPartyDefeated()) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Defeat", "You have been defeated!"){
 						@Override
@@ -942,7 +952,7 @@ public enum Combat {
 				}
 				
 			} else if(index==11) {
-				return new ResponseEffectsOnly("[style.colourGood(Target:)] "+(Combat.getTargetedAlliedCombatant(Main.game.getPlayer()).isPlayer()?"Yourself":Util.capitaliseSentence(Combat.getTargetedAlliedCombatant(Main.game.getPlayer()).getName())),
+				return new ResponseEffectsOnly("[style.colourGood(Target:)] "+(Combat.getTargetedAlliedCombatant().isPlayer()?"Yourself":Util.capitaliseSentence(Combat.getTargetedAlliedCombatant().getName())),
 						"You can cycle through your targeted allied combatant by either using this action, or clicking on their name on the right-hand side of the screen.") {
 					@Override
 					public void effects() {
@@ -952,7 +962,7 @@ public enum Combat {
 							return;
 						}
 						for(int i=0; i<alliesPlusPlayer.size(); i++) {
-							if(alliesPlusPlayer.get(i).equals(Combat.getTargetedAlliedCombatant(Main.game.getPlayer()))) {
+							if(alliesPlusPlayer.get(i).equals(Combat.getTargetedAlliedCombatant())) {
 								if(i+1<alliesPlusPlayer.size()) {
 									Combat.setTargetedCombatant(alliesPlusPlayer.get(i+1));
 									break;
@@ -966,7 +976,7 @@ public enum Combat {
 				};
 
 			} else if(index==12) {
-				return new ResponseEffectsOnly("[style.colourBad(Target:)] "+Util.capitaliseSentence(Combat.getTargetedCombatant(Main.game.getPlayer()).getName()),
+				return new ResponseEffectsOnly("[style.colourBad(Target:)] "+Util.capitaliseSentence(Combat.getTargetedCombatant().getName()),
 						"You can cycle through your targeted enemy combatant by either using this action, or clicking on their name on the right-hand side of the screen.") {
 					@Override
 					public void effects() {
@@ -975,7 +985,7 @@ public enum Combat {
 							return;
 						}
 						for(int i=0; i<playerEnemies.size(); i++) {
-							if(playerEnemies.get(i).equals(Combat.getTargetedCombatant(Main.game.getPlayer()))) {
+							if(playerEnemies.get(i).equals(Combat.getTargetedCombatant())) {
 								if(i+1<playerEnemies.size()) {
 									Combat.setTargetedCombatant(playerEnemies.get(i+1));
 									break;
@@ -1028,11 +1038,11 @@ public enum Combat {
 	};
 	
 	private static Response getMoveResponse(CombatMove move, List<GameCharacter> pcEnemies, List<GameCharacter> pcAllies) {
-		GameCharacter moveTarget = move.isCanTargetAllies()||move.isCanTargetSelf()?getTargetedAlliedCombatant(Main.game.getPlayer()):getTargetedCombatant(Main.game.getPlayer());
+		GameCharacter moveTarget = move.isCanTargetAllies()||move.isCanTargetSelf()?getTargetedAlliedCombatant():getTargetedCombatant();
 
 		int selectedMoveIndex = Main.game.getPlayer().getSelectedMoves().size();
 		
-		String rejectionReason = move.isUseable(Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies);
+		String rejectionReason = move.isUsable(Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies);
 		if(rejectionReason != null) {
 			return new Response(Util.capitaliseSentence(move.getName(selectedMoveIndex, Main.game.getPlayer())),
 								rejectionReason,
@@ -1322,7 +1332,7 @@ public enum Combat {
 				if(activeCombatants.remove(character)) {
 					List<String> vampyres = new ArrayList<>();
 					boolean playerVampyre = false;
-					float manaAbsorbed = character.getMana()/2;
+					float manaAbsorbed = Math.round(character.getMana()/2);
 					for(GameCharacter c2 : combatants) {
 						if(!isCombatantDefeated(c2) && c2.hasTraitActivated(Perk.ARCANE_VAMPYRISM)) {
 							if(c2.isPlayer()) {
@@ -1340,7 +1350,7 @@ public enum Combat {
 						predictionContent.put(character, Util.newArrayListOfValues(
 										UtilText.parse(character,
 												"[style.boldArcane("+(Util.capitaliseSentence(Perk.ARCANE_VAMPYRISM.getName(Main.game.getPlayer())))+":)]<br/>"
-														+Util.capitaliseSentence(Util.stringsToStringList(vampyres, false))+(vampyres.size()>1 || playerVampyre?" absorb":"absorbs")
+														+Util.capitaliseSentence(Util.stringsToStringList(vampyres, false))+(vampyres.size()>1 || playerVampyre?" absorb":" absorbs")
 														+" half of [npc.namePos] remaining aura,"
 														+ (Combat.enemies.contains(character)
 																?"[style.colourGood("
@@ -1392,7 +1402,7 @@ public enum Combat {
 		int apRemaining = character.getRemainingAP();
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(" <b>(<span style='color:"+(apRemaining==0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD).toWebHexString()+";'>"+apRemaining+"</span>/"+Main.game.getPlayer().getMaxAP()+" AP)</b>");
+		sb.append(" <b>(<span style='color:"+(apRemaining==0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD).toWebHexString()+";'>"+apRemaining+"</span>/"+character.getMaxAP()+" AP)</b>");
 		
 		sb.append("<div class='container-full-width' style='text-align:center;'>");
 		
@@ -1515,59 +1525,18 @@ public enum Combat {
 		}
 	}
 	
-	public static GameCharacter getTargetedCombatant(GameCharacter attacker) {
-		if(attacker.isPlayer()) {
-			return targetedEnemy;
-		}
-		
-		if(allies.contains(attacker)) {
-			for(NPC enemy : enemies) {
-				if(!isCombatantDefeated(enemy)) {
-//					System.out.println("T1: "+enemy.getName());
-					return enemy;
-				}
-			}
-			return enemyLeader;
-		}
-		
-		if(enemies.contains(attacker)) {
-			for(NPC playerAlly : allies) {
-				if(!isCombatantDefeated(playerAlly)) {
-//					System.out.println("T2: "+playerAlly.getName());
-					return playerAlly;
-				}
-			}
-		}
-		
-		return Main.game.getPlayer();
+	/**
+	 * @return The enemy NPC which the player is targeting. Use COmbatMove's getPreferredTarget for NPC targeting.
+	 */
+	public static GameCharacter getTargetedCombatant() {
+		return targetedEnemy;
 	}
-	
-	public static GameCharacter getTargetedAlliedCombatant(GameCharacter attacker) {
-		if(attacker.isPlayer()) {
-			return targetedAlly;
-		}
-		
-		if(allies.contains(attacker)) {
-			if(Math.random()>0.5f && !isCombatantDefeated(Main.game.getPlayer())) {
-				return Main.game.getPlayer();
-			}
-			for(NPC ally : allies) {
-				if(!isCombatantDefeated(ally)) {
-					return ally;
-				}
-			}
-			return allies.get(0);
-		}
-		
-		if(enemies.contains(attacker)) {
-			for(NPC enemy : enemies) {
-				if(!isCombatantDefeated(enemy)) {
-					return enemy;
-				}
-			}
-		}
-		
-		return Main.game.getPlayer();
+
+	/**
+	 * @return The allied NPC which the player is targeting. Use COmbatMove's getPreferredTarget for NPC targeting.
+	 */
+	public static GameCharacter getTargetedAlliedCombatant() {
+		return targetedAlly;
 	}
 
 	public static void setTargetedCombatant(GameCharacter targetedCombatant) {

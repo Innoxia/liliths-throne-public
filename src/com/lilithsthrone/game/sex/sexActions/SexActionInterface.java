@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -69,6 +70,10 @@ public interface SexActionInterface {
 	public abstract String getActionDescription();
 	
 	public abstract String getDescription();
+	
+	public default Colour getHighlightColour() {
+		return null;
+	}
 	
 	public abstract String getFluidFlavourDescription(GameCharacter performing, GameCharacter receiving);
 
@@ -522,7 +527,7 @@ public interface SexActionInterface {
 			}
 
 			for(Entry<SexAreaInterface, SexAreaInterface> entry : getSexAreaInteractions().entrySet()) {
-				if(isForbiddenArea(entry.getKey()) || isForbiddenArea(entry.getValue())) {
+				if(isForbiddenArea(entry.getKey(), entry.getValue())) {
 					return null;
 				}
 			}
@@ -807,7 +812,10 @@ public interface SexActionInterface {
 				
 				
 			} else if(getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED) {
-
+				if(Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.NONE) {
+					return null;
+				}
+				
 				// Check penetrations:
 				for(SexAreaPenetration sArea : this.getPerformingCharacterPenetrations()) {
 					if(!Sex.getCharacterPerformingAction().isPenetrationTypeExposed(sArea)) {
@@ -848,6 +856,9 @@ public interface SexActionInterface {
 				
 				
 			} else if(getActionType()==SexActionType.REQUIRES_EXPOSED) {
+				if(Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.NONE) {
+					return null;
+				}
 
 				// Check penetrations:
 				for(SexAreaPenetration sArea : this.getPerformingCharacterPenetrations()) {
@@ -877,6 +888,9 @@ public interface SexActionInterface {
 				
 				
 			} else if(getActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
+				if(Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.NONE) {
+					return null;
+				}
 
 				// Check penetrations:
 				for(SexAreaPenetration sArea : this.getPerformingCharacterPenetrations()) {
@@ -907,7 +921,7 @@ public interface SexActionInterface {
 			
 			} else if(getActionType()==SexActionType.SPEECH) {
 				// Check penetrations:
-				if(Sex.isOngoingActionsBlockingSpeech(Sex.getCharacterPerformingAction())) {
+				if(Sex.getCharacterPerformingAction().hasPersonalityTrait(PersonalityTrait.MUTE)) {//Sex.isOngoingActionsBlockingSpeech(Sex.getCharacterPerformingAction())) {
 					return convertToNullResponse();
 				}
 				
@@ -937,16 +951,42 @@ public interface SexActionInterface {
 		}
 	}
 	
-	default boolean isForbiddenArea(SexAreaInterface sArea) {
-		if(sArea!=null && sArea.isOrifice()) {
-			switch((SexAreaOrifice) sArea){
+	default boolean isForbiddenArea(SexAreaInterface performingArea, SexAreaInterface targetedArea) {
+		if(targetedArea!=null && targetedArea.isOrifice()) {
+			switch((SexAreaOrifice) targetedArea){
 				case NIPPLE:
-					if(!Main.getProperties().hasValue(PropertyValue.nipplePenContent) && this.getActionType()==SexActionType.START_ONGOING) {
+					if(!Main.getProperties().hasValue(PropertyValue.nipplePenContent) && this.getActionType()==SexActionType.START_ONGOING && performingArea.isPenetration() && performingArea!=SexAreaPenetration.TONGUE) {
 						return true;
 					}
 					break;
 				case NIPPLE_CROTCH:
-					if(!Main.getProperties().hasValue(PropertyValue.nipplePenContent) && this.getActionType()==SexActionType.START_ONGOING) {
+					if(!Main.getProperties().hasValue(PropertyValue.nipplePenContent) && this.getActionType()==SexActionType.START_ONGOING && performingArea.isPenetration() && performingArea!=SexAreaPenetration.TONGUE) {
+						return true;
+					}
+					break;
+				case URETHRA_PENIS:
+					if(!Main.getProperties().hasValue(PropertyValue.urethralContent) && this.getActionType()==SexActionType.START_ONGOING) {
+						return true;
+					}
+					break;
+				case URETHRA_VAGINA:
+					if(!Main.getProperties().hasValue(PropertyValue.urethralContent) && this.getActionType()==SexActionType.START_ONGOING) {
+						return true;
+					}
+					break;
+				default:
+					break;
+			}
+		}
+		if(performingArea!=null && performingArea.isOrifice()) {
+			switch((SexAreaOrifice) performingArea){
+				case NIPPLE:
+					if(!Main.getProperties().hasValue(PropertyValue.nipplePenContent) && this.getActionType()==SexActionType.START_ONGOING && targetedArea.isPenetration() && targetedArea!=SexAreaPenetration.TONGUE) {
+						return true;
+					}
+					break;
+				case NIPPLE_CROTCH:
+					if(!Main.getProperties().hasValue(PropertyValue.nipplePenContent) && this.getActionType()==SexActionType.START_ONGOING && targetedArea.isPenetration() && targetedArea!=SexAreaPenetration.TONGUE) {
 						return true;
 					}
 					break;
@@ -1038,6 +1078,9 @@ public interface SexActionInterface {
 				}
 				@Override
 				public Colour getHighlightColour() {
+					if(SexActionInterface.this.getHighlightColour()!=null) {
+						return SexActionInterface.this.getHighlightColour();
+					}
 					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
 						return Colour.BASE_LILAC;
 					}
@@ -1113,6 +1156,9 @@ public interface SexActionInterface {
 				}
 				@Override
 				public Colour getHighlightColour() {
+					if(SexActionInterface.this.getHighlightColour()!=null) {
+						return SexActionInterface.this.getHighlightColour();
+					}
 					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
 						return Colour.BASE_LILAC;
 					}

@@ -90,8 +90,9 @@ public class Epona extends NPC {
 			this.setLevel(15);
 			this.resetPerksMap(true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
 			this.setPersonalityTraits(
+					PersonalityTrait.KIND,
 					PersonalityTrait.LEWD);
 		}
 	}
@@ -116,6 +117,7 @@ public class Epona extends NPC {
 
 		if(setPersona) {
 			this.setPersonalityTraits(
+					PersonalityTrait.KIND,
 					PersonalityTrait.LEWD);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -218,7 +220,7 @@ public class Epona extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, Colour.CLOTHING_GREY, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_SKIRT, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_skirt", Colour.CLOTHING_BLACK, false), true, this);
 
 		this.setPiercedEar(true);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_COPPER, false), true, this);

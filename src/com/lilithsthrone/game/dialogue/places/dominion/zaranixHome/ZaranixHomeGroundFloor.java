@@ -162,7 +162,7 @@ public class ZaranixHomeGroundFloor {
 				}
 				
 			} else if (index == 0) {
-				return new Response("Leave", "Turn around and walk away.", Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("Leave", "Turn around and walk away.", Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixDiscoveredHome, true);
@@ -222,7 +222,7 @@ public class ZaranixHomeGroundFloor {
 					};
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Say that you've got the wrong house and take your leave.", Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Leave", "Say that you've got the wrong house and take your leave.", Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {
 							Main.game.getNpc(Amber.class).returnToHome();

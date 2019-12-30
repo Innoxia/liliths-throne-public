@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.Alexa;
+import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
 import com.lilithsthrone.game.character.npc.dominion.Angel;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
@@ -49,19 +49,23 @@ import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.npc.submission.Axel;
 import com.lilithsthrone.game.character.npc.submission.Claire;
+import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.npc.submission.Epona;
 import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
-import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.character.npc.submission.Murk;
 import com.lilithsthrone.game.character.npc.submission.Roxy;
+import com.lilithsthrone.game.character.npc.submission.Shadow;
+import com.lilithsthrone.game.character.npc.submission.Silence;
 import com.lilithsthrone.game.character.npc.submission.SlimeGuardFire;
 import com.lilithsthrone.game.character.npc.submission.SlimeGuardIce;
 import com.lilithsthrone.game.character.npc.submission.SlimeQueen;
 import com.lilithsthrone.game.character.npc.submission.SlimeRoyalGuard;
 import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
+import com.lilithsthrone.game.character.npc.submission.Vengar;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
@@ -390,14 +394,14 @@ public enum ParserTarget {
 		}
 	},
 	
-	ALEXA(Util.newArrayListOfValues("alexa"), "") {
+	HELENA(Util.newArrayListOfValues("helena"), "") {
 		public String getDescription() {
-			return Main.game.getNpc(Alexa.class).getDescription();
+			return Main.game.getNpc(Helena.class).getDescription();
 		}
 
 		@Override
 		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
-			return Main.game.getNpc(Alexa.class);
+			return Main.game.getNpc(Helena.class);
 		}
 	},
 	
@@ -709,7 +713,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	AXEL(Util.newArrayListOfValues("axel"), "") {
+	AXEL(Util.newArrayListOfValues("axel", "lexa"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(Axel.class).getDescription();
 		}
@@ -863,6 +867,50 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Elizabeth.class);
+		}
+	},
+	
+	VENGAR(Util.newArrayListOfValues("vengar"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Vengar.class).getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Vengar.class);
+		}
+	},
+	
+	SHADOW(Util.newArrayListOfValues("shadow"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Shadow.class).getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Shadow.class);
+		}
+	},
+	
+	SILENCE(Util.newArrayListOfValues("silence"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Silence.class).getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Silence.class);
+		}
+	},
+	
+	MURK(Util.newArrayListOfValues("murk"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Murk.class).getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Murk.class);
 		}
 	},
 	

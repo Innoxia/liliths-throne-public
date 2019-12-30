@@ -1999,6 +1999,13 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.analContent)));
 
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"GAPE",
+							Colour.BASE_PINK_DEEP,
+							"Gape Content",
+							"When disabled, changes descriptions of gaping orifices to simply be 'loose', and also hides any special gape-related content.",
+							Main.getProperties().hasValue(PropertyValue.gapeContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"FOOT",
 							Colour.BASE_TAN,
 							"Foot Content",

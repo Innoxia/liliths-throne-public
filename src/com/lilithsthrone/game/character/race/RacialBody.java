@@ -571,7 +571,7 @@ public class RacialBody {
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY,
 			HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
-			PenisType.AVIAN, 5, PenisGirth.ONE_THIN,
+			PenisType.AVIAN, 5, PenisGirth.ONE_SLENDER,
 			TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.ONE_TRICKLE,
 			Util.newArrayListOfValues(TailType.HARPY), TentacleType.NONE, VaginaType.HARPY,
 			Wetness.THREE_WET,

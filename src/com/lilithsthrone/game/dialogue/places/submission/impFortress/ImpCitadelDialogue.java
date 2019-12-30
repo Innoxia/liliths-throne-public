@@ -531,7 +531,7 @@ public class ImpCitadelDialogue {
 			if(!isCompanionDialogue()) {
 				if(responseTab == 0) {
 					if (index == 1) {
-						return new Response("Scare off", "Tell the imps to get out of here while they still can...", Main.game.getDefaultDialogueNoEncounter()) {
+						return new Response("Scare off", "Tell the imps to get out of here while they still can...", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SCARE_OFF", getAllCharacters()));
@@ -629,7 +629,7 @@ public class ImpCitadelDialogue {
 			} else {
 				if(responseTab == 0) {
 					if (index == 1) {
-						return new Response("Scare off", "Tell the imps to get out of here while they still can...", Main.game.getDefaultDialogueNoEncounter()) {
+						return new Response("Scare off", "Tell the imps to get out of here while they still can...", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SCARE_OFF", getAllCharacters()));
@@ -840,7 +840,7 @@ public class ImpCitadelDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(!Main.game.isNonConEnabled()) {
 				if(index==1) {
-					return new Response("Recover", "Take a moment to catch your breath, and then continue on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Recover", "Take a moment to catch your breath, and then continue on your way.", Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {
 							banishImps();
@@ -1022,7 +1022,7 @@ public class ImpCitadelDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==0) {
 				if (index == 1) {
-					return new Response("Scare off", "Scare the imps off and continue on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Scare off", "Scare the imps off and continue on your way.", Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {
 							banishImps();
@@ -1073,7 +1073,7 @@ public class ImpCitadelDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Recover", "Take a moment to catch your breath, and then continue on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("Recover", "Take a moment to catch your breath, and then continue on your way.", Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
 						banishImps();
@@ -1725,7 +1725,7 @@ public class ImpCitadelDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "", Main.game.getDefaultDialogue(false));
 			}
 			return null;
 		}

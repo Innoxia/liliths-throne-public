@@ -119,7 +119,7 @@ public class SubmissionCitadelArcanist extends NPC {
 					PersonalityTrait.SELFISH);
 		}
 		setStartingCombatMoves();
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.5")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
 			this.setTailCount(3, true);
 		}
 	}

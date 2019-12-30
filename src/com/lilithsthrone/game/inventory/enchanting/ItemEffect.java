@@ -165,6 +165,9 @@ public class ItemEffect implements XMLSaving {
 			case "CRITICAL_CHANCE":
 				secondaryMod = "CRITICAL_DAMAGE";
 				break;
+			case "CLOTHING_ANTI_SELF_TRANSFORMATION":
+				secondaryMod = "CLOTHING_SERVITUDE";
+				break;
 		}
 		
 		ItemEffect ie;

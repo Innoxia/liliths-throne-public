@@ -674,7 +674,7 @@ public class TongueAnus {
 								+ " and, gently pressing [npc2.her] [npc2.lips+] against [npc.namePos] [npc.assCloaca+], [npc2.she] [npc2.verb(start)] slowly sliding [npc2.her] [npc2.tongue+] deep into [npc.namePos] [npc.asshole+].",
 	
 						" [npc2.Moaning] in delight, [npc2.name] gently [npc2.verb(press)] [npc2.her] [npc2.lips+] against [npc.namePos] [npc.assCloaca],"
-								+ " before gently sliding [npc.her] [npc.tongue+] as deep as possible into [npc.her] [npc.asshole+]."));
+								+ " before gently sliding [npc2.her] [npc2.tongue+] as deep as possible into [npc.her] [npc.asshole+]."));
 				break;
 			case DOM_ROUGH:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -685,7 +685,7 @@ public class TongueAnus {
 								+ " and, roughly grinding [npc2.her] [npc2.lips+] against [npc.namePos] [npc.assCloaca+], [npc2.she] [npc2.verb(start)] violently thrusting [npc2.her] [npc2.tongue+] deep into [npc.namePos] [npc.asshole+].",
 	
 						" [npc2.Moaning] in delight, [npc2.name] forcefully [npc2.verb(press)] [npc2.her] [npc2.lips+] against [npc.namePos] [npc.assCloaca],"
-								+ " before aggressively thrusting [npc.her] [npc.tongue+] as deep as possible into [npc.her] [npc.asshole+]."));
+								+ " before aggressively thrusting [npc2.her] [npc2.tongue+] as deep as possible into [npc.her] [npc.asshole+]."));
 				break;
 			case SUB_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -696,7 +696,7 @@ public class TongueAnus {
 								+ " and, pressing [npc2.her] [npc2.lips+] against [npc.namePos] [npc.assCloaca+], [npc2.she] [npc2.verb(start)] thrusting [npc2.her] [npc2.tongue+] deep into [npc.namePos] [npc.asshole+].",
 	
 						" [npc2.Moaning] in delight, [npc2.name] [npc2.verb(grind)] [npc2.her] [npc2.lips+] against [npc.namePos] [npc.assCloaca],"
-								+ " before driving [npc.her] [npc.tongue+] as deep as possible into [npc.her] [npc.asshole+]."));
+								+ " before driving [npc2.her] [npc2.tongue+] as deep as possible into [npc.her] [npc.asshole+]."));
 				break;
 		}
 		return "";
