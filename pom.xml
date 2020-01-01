@@ -69,9 +69,9 @@
 					<source>1.8</source>
 					<target>1.8</target>
 					<useIncrementalCompilation>false</useIncrementalCompilation>
-					<!-- <compilerArgs>
+					<compilerArgs>
 						<arg>-Xlint:all</arg>
-					</compilerArgs> -->
+					</compilerArgs>
 				</configuration>
 			</plugin>
 			<plugin>
