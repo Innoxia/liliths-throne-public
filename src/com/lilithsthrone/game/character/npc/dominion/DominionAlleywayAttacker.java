@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -277,12 +278,13 @@ public class DominionAlleywayAttacker extends NPC {
 	public void hourlyUpdate() {
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE && this.getLocationPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
 			// Remove client:
-			List<NPC> charactersPresent = Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation());
+			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation()));
 			charactersPresent.removeAll(Main.game.getPlayer().getCompanions());
 			if(charactersPresent.size()>1) {
 				for(NPC npc : charactersPresent) {
 					if(npc instanceof GenericSexualPartner) {
-	//					System.out.println("partner removed for "+slave.getName());
+//						System.out.println("partner removed for "+this.getName());
+//						System.out.println(npc.getId());
 						Main.game.banishNPC(npc);
 					}
 				}

@@ -1,0 +1,1400 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- Fetish Transformations -->
+	
+	<htmlContent tag="APPLY_FETISH_SUBMISSIVE"><![CDATA[
+	<p>
+		Shadow tells you that you're going to love being a submissive bitch from now on.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPLY_FETISH_TRANSFORMATION"><![CDATA[
+	<p>
+		#IF(!pc.isAbleToHaveRaceTransformed())
+			Shadow teases you about how you're going to beg her to be allowed to self-transform into a slutty cock-sleeve after this.
+		#ELSE
+			Shadow teases you about how you're going to love being transformed into a rat-girl slut after this.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPLY_FETISH_BEHAVIOUR_EXTRAS"><![CDATA[
+	<p>
+		Shadow tells you you're going to love exposing your slutty cunt and getting it pumped full of rat cum.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPLY_FETISH_HOLES"><![CDATA[
+	<p>
+		The black-furred rat-girl teases you about how you're going to love having all your holes used.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPLY_FETISH_SERVICING_HOLES"><![CDATA[
+	<p>
+		Shadow laughs as she says that you're going to be permanently desperate to service all the gang's cocks and pussies.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPLY_FETISH_FINISHED_NO_EFFECT"><![CDATA[
+	<p>
+		Shadow laughs as she realises that you're suffering no effects due to already having all the fetishes she wanted to inflict upon you. Tells you that the real transformations are coming next.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="APPLY_FETISH_FINISHED"><![CDATA[
+	<p>
+		Shadow laughs as she informs you that you're nothing but her plaything now. Tells you that the real transformations are coming next.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- FINAL_COMBAT_DEFEAT_STRIPPED -->
+	
+	<htmlContent tag="FINAL_COMBAT_DEFEAT_STRIPPED"><![CDATA[
+	<p>
+		Vengar orders rats to strip you (and companion). Silence removes jinxes if any are present. You get groped a lot during it.
+	</p>
+	<p>
+		Vengar tells Silence to get the potions she was working on.
+	</p>
+	<p>
+		Silence hurries off to obey while Shadow (egged on by rats) sadistically pins you to the floor (if you defeated her in combat, she takes some revenge now). After a minute of this, Silence returns and frowns at Shadow, who releases her grip a little. She hands the bottle(s) over to Shadow (and Vengar) who proceed to force you (and your companion) to drink them.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FINAL_COMBAT_DEFEAT_FETISH_APPLICATION"><![CDATA[
+	<p>
+		Cackling in delight, Shadow releases her hold on your nose and mouth, before roughly grabbing you by the chin and leaning down to stare into your eyes. With an evil grin plastered across her face, she teases, [shadow.speech(Yer gonna get hit by some real nice mental changes now! Gotta turn yer into a droolin' subby slut wot's gonna spread yer legs whenever yer get told yer gonna get fucked by one o' us rats!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FINAL_COMBAT_DEFEAT_FETISH_APPLICATION_END"><![CDATA[
+	<p>
+		If companion dialogue, you look over and see companion has had same treatment.
+	</p>
+	<p>
+		If can self-TF, Shadow unclasps your collar and says it's time for you to make some changes to yourself. If not, she gets given another potion by Silence, and orders you to open wide.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- FINAL_COMBAT_DEFEAT_FETISH_APPLICATION -->
+	
+	<htmlContent tag="TF_SELF_TF"><![CDATA[
+	<p>
+		[shadow.Name] sits back heavily on your stomach, causing you to sharply exhale. Letting out a wicked cackle at your reaction to her sadistic move, she then proceeds to stand up, before snarling down at you, [npc.speech(Listen close, yer filthy slut, and make sure yer get this right; I ain't repeatin' meself! Yer gonna use yer powers ta transform yerself inta the <i>exact</i> form I specify, got it?!)]
+	</p>
+	<p>
+		Nodding your head, you look up into the pitch-black rat-girl's bright green eyes and prepare to do as she says. Seeing your sign of subordination, she leans down to unfasten your collar, allowing you to use your self-transformative powers as she prepares to start giving you instructions...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TF_SWALLOW"><![CDATA[
+	<p>
+		Finding yourself desperately turned on by being treated in such a dominant manner by the pitch-black rat-girl sitting on top of you, you find yourself unwilling to do anything but obey each and every command she gives you. Upon being told to open wide, you immediately open your mouth, allowing Shadow to push the neck of this next bottle past your waiting lips. Desperate to be transformed, you can't help but let out a series of pathetic mewling noises as you crane your neck and eagerly gulp down the sweet liquid that begins to flow into your mouth.
+	</p>
+	<p>
+		After just a couple of moments, you've completely emptied the bottle, and Shadow carelessly hurls the glass container to one side, showing no care at all as you hear it smash against a nearby wall. Releasing you from her pin, she stands up, before letting out an evil cackle and teasing, [npc.speech(I 'ope ya sayin' yer last goodbyes ta yer current body; once this potion 'as done its work, yer gonna be nothin' more than an 'orny little rat-slut who gets 'er filthy pussy filled with rat cock day afta day!)]
+	</p>
+	<p>
+		To the laughter and jeers of the surrounding rats, you feel your body start to get hot and itchy all over, and can't help but let out a horny moan as you anticipate transforming into your new form. Squatting down beside you, Shadow grins and licks her lips, before preparing to start commenting on your physical changes...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TF_COMPANION_SELF_TF"><![CDATA[
+	<p>
+		Looking over at your companion, you see that Vengar has made [npc.herHim] go through very much the same process as you. Using [npc.her] self-transformative powers, [npc.sheHas] morphed [npc.herself] to become very feminine, and is now about the same height as you with a bust size to match.
+	</p>
+	<p>
+		Stooping down and greedily running his hands down over [npc.her] body, Vengar grins and teases, [vengar.speech(Now yer lookin' just 'ow I like my girls! Yer tight, drippin' pussy is gonna feel real good grippin' down around my fat cock!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TF_COMPANION_SWALLOW"><![CDATA[
+	<p>
+		Looking over at your companion, you see that Vengar has made [npc.herHim] go through very much the same process as you. Having drunk a potion with a very similar enchantment to yours, [npc.sheHas] morphed into a short, busty rat-girl, and is blushing and panting from excitement as [npc.she] looks up into Vengar's hungry eyes.
+	</p>
+	<p>
+		Stooping down and greedily running his hands down over [npc.her] body, Vengar grins and teases, [vengar.speech(Now yer lookin' just 'ow I like my girls! Yer tight, drippin' pussy is gonna feel real good grippin' down around my fat cock!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- START_VENGAR_PUBLIC_FUCK -->
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK_BOTH"><![CDATA[
+	<p>
+		Shadow makes you get down on all fours and lift your ass up towards the hall. Grabbing your new tail, she hikes your ass up higher and slaps your pussy, before starting to rub your clit. You feel yourself getting wet as the rats jeer and comment on your exposed cunt.
+	</p>
+	<p>
+		Letting you go, she does the same to your companion if applicable, before asking which one of you now wants to get fucked by Vengar first. She says the two of you can eat her and Silence out while Vengar fucks whoever is going first.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK_SOLO"><![CDATA[
+	<p>
+		Shadow makes you get down on all fours and lift your ass up towards the hall. Grabbing your new tail, she hikes your ass up higher and slaps your pussy, before starting to rub your clit. You feel yourself getting wet as the rats jeer and comment on your exposed cunt.
+	</p>
+	<p>
+		Letting you go, she says she's turned herself on by doing this. Tells you to present yourself to Vengar.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK"><![CDATA[
+	<p>
+		You present yourself to Vengar, who starts fucking you. Silence and Shadow grab nearby rat-boys and start riding them.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK_FIRST"><![CDATA[
+	<p>
+		eager to be fucked, you present yourself to Vengar, who slides into your wet pussy and starts fucking you. Shadow forces you to start eating her out, while Silence does the same to your companion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK_SECOND"><![CDATA[
+	<p>
+		You let [npc.name] present [npc.herself] to Vengar first, who quickly slides into [npc.her] wet pussy and starts fucking [npc.herHim]. Shadow forces [npc.herHim] to start eating her out, while Silence does the same to your you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- START_VENGAR_PUBLIC_FUCK_AFTER_SEX_DOUBLE -->
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK_AFTER_SEX_DOUBLE_PLAYER_NEXT"><![CDATA[
+	<p>
+		Vengar slides out of [npc.name] and moves over behind you. Silence and Shadow grab nearby rat-boys and start riding them. Vengar tells your companion to get cleaned up by you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK_AFTER_SEX_DOUBLE_COMPANION_NEXT"><![CDATA[
+	<p>
+		Vengar slides out of you and moves over behind [npc.name]. Silence and Shadow grab nearby rat-boys and start riding them. Vengar tells you to get cleaned up by your companion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK_AFTER_SEX_DOUBLE_PLAYER_START"><![CDATA[
+	<p>
+		Vengar starts fucking you. [npc.Name] pushes [npc.her] creampied pussy into your face, forcing you to eat the cum out of it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK_AFTER_SEX_DOUBLE_COMPANION_START"><![CDATA[
+	<p>
+		Vengar starts fucking [npc.name]. You push your creampied pussy into [npc.her] face, forcing [npc.herHim] to eat the cum out of it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- START_VENGAR_PUBLIC_FUCK_AFTER_SEX -->
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK_AFTER_SEX"><![CDATA[
+	<p>
+		You (and companion, if applicable) are well and truly fucked. Rats in hall are fucking one another.
+	</p>
+	<p>
+		Vengar says that he enjoyed breaking you in, but it would be selfish to keep you all for himself. Tells Silence to get her equipment to get you (and companion) marked up.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- START_VENGAR_PUBLIC_FUCK_AFTER_SEX_TATTOOED -->
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK_AFTER_SEX_TATTOOED"><![CDATA[
+	<p>
+		Silence soon returns, holding a small black box. Vengar gets you (and companion) to lie on your backs and spread your legs.
+	</p>
+	<p>
+		Silence gets a small brush out of the box. You can tell that it has a powerful arcane enchantment. Vengar says you're going to be tattooed so that everyone knows your pussy is a free hole. asks you if you have any preference as to what it says.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK_AFTER_SEX_TATTOOED_STAY_QUIET"><![CDATA[
+	<p>
+		You stay quiet, but Shadow appears over Silence's shoulder and whispers something into her ear. Smiling, she starts painting on your groin, and you look down to see the words '[#SPECIAL_PARSE_0]' permanently inked just above your recently-fucked cunt.
+	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Again following Shadow's instructions, Silence moves over and paints on your companion's groin, and you look over to see the words '[#SPECIAL_PARSE_1]' on [npc.her] crotch.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK_AFTER_SEX_TATTOOED_CHOOSE_TATTOO"><![CDATA[
+	<p>
+		Caught up in the moment, and feeling extremely turned on by what's happening to you, you beg for Silence to mark you as '[#SPECIAL_PARSE_0]'. Smiling, she starts painting on your groin, and you look down to see the words you requested permanently inked just above your recently-fucked cunt.
+	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Shadow appears over Silence's shoulder and whispers something into her ear. Following the instructions she just received, Silence moves over and paints on your companion's groin, and you look over to see the words '[#SPECIAL_PARSE_1]' on [npc.her] crotch.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- START_VENGAR_PUBLIC_FUCK_AFTER_SEX_TATTOOED_END -->
+	
+	<htmlContent tag="START_VENGAR_PUBLIC_FUCK_AFTER_SEX_TATTOOED_END"><![CDATA[
+	<p>
+		having been marked, and with the slave collar heavy around your neck, the rats step back and leave you to wander freely about the hall...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL -->
+	
+	<htmlContent tag="VENGARS_HALL"><![CDATA[
+	<p>
+		There are many rats in the hall, eating, drinking, or just hanging out. Vengar is on his throne, but sometimes walks around or heads over to talk to a rat.
+	</p>
+	<p>
+		Silence and Shadow are never too far away. Sometimes one or the other is either riding a rat's cock or getting someone to eat them out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_SERVE -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_SERVE"><![CDATA[
+	<p>
+		You decide to start serving food and drink to the rats around the hall. While there's no kitchen area, there are several open fires scattered around the hall, with meat cooking over them, and bottles of alcohol stacked up in one corner.
+	</p>
+	<p>
+		Grabbing a tray, a bottle of rum, and some glasses, you approach the first table. The rats are thrilled that they're being waited on, and start ordering things from you....
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_FLIRT -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_FLIRT"><![CDATA[
+	<p>
+		You head over to a nearby table where [npc.a_race] is sitting by [npc.herself]. Asking [npc.her] if [npc.she] wants some company, you start flirting with [npc.herHim].
+	</p>
+	<p>
+		[npc.She] gets you to sit in [npc.her] lap, and [npc.she] starts groping you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_FLIRT -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_VENGAR_FUCK"><![CDATA[
+	<p>
+		You approach Vengar. He grins as he reads your tattoo, and says to get down and get his cock out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_VENGAR_KNEEL"><![CDATA[
+	<p>
+		You approach Vengar. He says he's not in the mood to fuck right now, so you can show your subservience by kneeling beside him.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_VENGAR_HANDJOB -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_VENGAR_HANDJOB"><![CDATA[
+	<p>
+		You kneel before VEngar and get his cock out. He tells you to give him a handjob.
+	</p>
+	<p>
+		You obediently stroke his cock for a short while. Eventually, he tells you to stand up and sit in his lap; he's feeling like cumming in your pussy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_VENGAR_SITTING_SEX"><![CDATA[
+	<p>
+		You do as you're told and sit in Vengar's lap, guiding his cock into your wet cunt as you do so.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_VENGAR_FUCK_AFTER_SEX -->
+	
+	<htmlContent tag="VENGARS_HALL_VENGAR_FUCK_AFTER_SEX"><![CDATA[
+	<p>
+		Having had his fun, Vengar dismisses you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_VENGAR_KNEEL -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_VENGAR_KNEEL"><![CDATA[
+	<p>
+		In a display of submission, you kneel down beside Vengar. After fifteen minutes of this, he tells you to get down on all fours so taht he can use you as a footrest.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_VENGAR_FOOTREST -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_VENGAR_FOOTREST"><![CDATA[
+	<p>
+		Dropping down on all fours, you allow Vengar to put his feet up on your back. You're made to stay like this for half an hour, before Vengar grows weary of your presence and tells you to go back down into the hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_SHADOW -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_SHADOW_DISMISSED"><![CDATA[
+	<p>
+		You approach Shadow. She tells you that she doesn't have any more time for you today, and to get lost.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_SHADOW"><![CDATA[
+	<p>
+		You approach Shadow. She tells you that she doesn't take kindly to being bothered. Pushes you over a nearby table. Orders you to raise your ass and prepare for a spanking.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_SHADOW_SPANKING -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_SHADOW_SPANKING"><![CDATA[
+	<p>
+		Shadow spanks you, while intermittently rubbing your pussy. Soon your cheeks are red and your pussy is dripping from excitement.
+	</p>
+	<p>
+		Kneeling down behind you, Shadow spreads your labia, before giving your cunt a long, wet lick. Tells you to hold still.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_SHADOW_SPANKING_START_SEX"><![CDATA[
+	<p>
+		Shadow buries her face between your legs, licking and kissing your dripping cunt.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SHADOW_ORAL -->
+	
+	<htmlContent tag="AFTER_SHADOW_ORAL"><![CDATA[
+	<p>
+		Shadow has finished. Tells you to hurry off and bother someone else.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_SILENCE -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_SILENCE_DISMISSED"><![CDATA[
+	<p>
+		You approach Silence. She shakes her head and makes a shooing motion with her hands. Maybe she'll want some attention tomorrow instead...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_SILENCE"><![CDATA[
+	<p>
+		You approach Silence. She steps back against a nearby wall and slides her underwear off. Lifting her skirt, she beckons you to come and eat her out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_SILENCE_START_SEX"><![CDATA[
+	<p>
+		kneeling down before Silence, you press your lips to her pussy and start eating her out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SILENCE_ORAL -->
+	
+	<htmlContent tag="AFTER_SILENCE_ORAL"><![CDATA[
+	<p>
+		Silence has finished with you, and motions for you to return to the hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_START"><![CDATA[
+	<p>
+		Deciding that you want to find [npc.name] and see what [npc.sheIs] doing, you set off looking for [npc.herHim].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_START_FLIRTING"><![CDATA[
+	<p>
+		You soon find [npc.herHim] flirting with [npc2.name(a)].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_START_FUCKING_PENIS"><![CDATA[
+	<p>
+		You soon find [npc.herHim] pressed up against the wall being fucked by [npc2.name(a)].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_START_FUCKING_VAGINA"><![CDATA[
+	<p>
+		You soon find [npc.herHim] kneeling down before [npc2.name(a)], eating [npc2.herHim] out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_START_GROUP_SEX"><![CDATA[
+	<p>
+		You soon find [npc.herHim] getting fucked by a group of rats.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_START_SERVING"><![CDATA[
+	<p>
+		You soon find [npc.herHim] serving food and drink to the tables.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_START_SHADOW"><![CDATA[
+	<p>
+		You soon find [npc.herHim] bent over a table, getting spanked by Shadow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_START_SILENCE"><![CDATA[
+	<p>
+		You soon find [npc.herHim] watching Silence as she rides a rat-boy's cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_START_SILENCE"><![CDATA[
+	<p>
+		You soon find [npc.herHim] bent over a table, getting spanked by Shadow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_START_VENGAR"><![CDATA[
+	<p>
+		You soon find [npc.herHim] kneeling down beside Vengar.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION_FLIRTING -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_FLIRTING"><![CDATA[
+	<p>
+		You join [npc.name] in flirting with [npc2.name].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_FLIRTING_ORAL"><![CDATA[
+	<p>
+		You and [npc.name] drop down onto your knees before [npc2.name] in order to perform oral on [npc2.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_COMPANION_FLIRTING_ORAL -->
+	
+	<htmlContent tag="AFTER_COMPANION_FLIRTING_ORAL"><![CDATA[
+	<p>
+		You and [npc.name] are finished performing oral on [npc2.name]. [npc2.She] tells the two of you to go bother someone else now.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION_FLIRTING_FINISH -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_FLIRTING_FINISH"><![CDATA[
+	<p>
+		You and [npc.name] just flirt with [npc2.name] for a while and let [npc2.herHim] grope the two of you. [npc2.She] eventually tells you to go bother someone else now.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION_FUCKING -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_FUCKING_PENIS"><![CDATA[
+	<p>
+		Your companion moans as [npc2.name] starts cumming inside [npc.her] pussy. You wonder if you should leave, or perhaps wait around and hope to receive the same treatment once [npc2.name] has finished with [npc.herHim].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_FUCKING_VAGINA"><![CDATA[
+	<p>
+		Your companion moans as [npc2.name] pulls [npc.her] face into [npc2.her] pussy. You wonder if you should leave, or perhaps join in...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_FUCKING_GET_FUCKED"><![CDATA[
+	<p>
+		You hang around and wait for [npc2.name] to pull out of [npc.name]. Seeing you hovering nearby, [npc2.name] gets you to lie down, before positioning [npc2.herself] between your legs and starting to fuck you. [npc.Name] sits on your face, getting you to eat the cum out of [npc.her] pussy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_FUCKING_PERFORM_CUNNILINGUS"><![CDATA[
+	<p>
+		Wanting to get in on the action, you kneel down beside [npc.name]. [npc2.Name] pushes you down onto your back, before sitting on your face. Commands [npc.name] to start eating you out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_FUCKING_PERFORM_ANILINGUS"><![CDATA[
+	<p>
+		Wanting to get in on the action, you kneel down behind [npc.name] and start performing anilingus on [npc2.herHim] while your companion eats [npc2.herHim] out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_COMPANION_FUCKING -->
+	
+	<htmlContent tag="AFTER_COMPANION_FUCKING"><![CDATA[
+	<p>
+		[npc2.Name] is finished with you and [npc.name], and tells you to return to your duties in the hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION_GROUP_SEX -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_GROUP_SEX"><![CDATA[
+	<p>
+		You approach [npc.name], who is cowgirl-riding [npc2.name], while [npc3.name] fucks [npc.herHim] from behind. Another couple of rats are standing to either side, receiving oral from your companion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_GROUP_SEX_JOIN"><![CDATA[
+	<p>
+		Wanting to join in, you ask [npc.name] if you can lend [npc.her] a hand. The rats push you down onto your back beside [npc.herHim], before spreading your legs and fucking you alongside your companion. The other two rats side down on your faces, forcing you to perform oral on them. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_COMPANION_GROUP_SEX -->
+	
+	<htmlContent tag="AFTER_COMPANION_GROUP_SEX"><![CDATA[
+	<p>
+		The rats are finished with you and [npc.name]. You're both told to get back to your other duties.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION_SERVING -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_SERVING"><![CDATA[
+	<p>
+		You help [npc.name] to serve food and drink to the rats in the hall for the next few hours.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION_SHADOW -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_SHADOW"><![CDATA[
+	<p>
+		You tell Shadow to stop spanking [npc.name] so hard. Ruthlessly pushing you down over the table next to her, Shadow says that you're going to get it now too.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION_SHADOW_SPANKED -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_SHADOW_SPANKED"><![CDATA[
+	<p>
+		Shadow starts spanking you and [npc.name], while intermittently stroking your pussies and dirty-talking to you. Eventually, she says that she already tasted [npc.name] moments before you arrived, and now you can be her dessert.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_SHADOW_SPANKED_START_SEX"><![CDATA[
+	<p>
+		Shadow kneels down behind you and starts eating you out. She fingers [npc.name] at the same time.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SHADOW_COMPANION_ORAL -->
+	
+	<htmlContent tag="AFTER_SHADOW_COMPANION_ORAL"><![CDATA[
+	<p>
+		Shadow finishes with you and [npc.name], giving each of you one final lick before telling you to get back to your duties.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION_SILENCE -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_SILENCE"><![CDATA[
+	<p>
+		You join [npc.name] in watching Silence, who soon forced the rat-boy to cum inside of her. Stepping away, she notices the two of you, and points at her cum-filled pussy...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_SILENCE_PLAYER_CLEANS"><![CDATA[
+	<p>
+		You drop down in front of Silence and start eating her out as [npc.name] watches...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_SILENCE_COMPANION_CLEANS"><![CDATA[
+	<p>
+		You watch as [npc.name] drops down in front of Silence and starts eating her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION_VENGAR -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_VENGAR"><![CDATA[
+	<p>
+		You approach Vengar, who forces you to kneel down beside [npc.name] and act as his footrest...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION_VENGAR_FOOTREST -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_VENGAR_FOOTREST"><![CDATA[
+	<p>
+		You and [npc.name] act as footrests for Vengar, facing the hall so that you can see the rats' sneers. Eventually, Vengar puts his feet down and wonders out loud which of you he should fuck. Tells you both to present your pussies to him, so that he can choose...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION_VENGAR_FOOTREST_PRESENT -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_VENGAR_FOOTREST_PRESENT"><![CDATA[
+	<p>
+		You do your best to present your pussy to Vengar, and are rewarded when he tells you that you're his choice. Shouts out to another rat to fuck your companion so that [npc.she] doesn't miss out on the fun.
+	</p>
+	<p>
+		Teases your pussy with his cock, and tells you to admit that you're nothing but his cock-sleeve.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_VENGAR_FOOTREST_PRESENT_START"><![CDATA[
+	<p>
+		You tell Vengar that you're his cock-sleeve, and he penetrates you. Beside you, the other rat starts fucking your companion...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION_VENGAR_FOOTREST_HOLD_BACK -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_VENGAR_FOOTREST_HOLD_BACK"><![CDATA[
+	<p>
+		You hold back, and Vengar says that [npc.name] is his choice. Shouts out to another rat to fuck you so that you doesn't miss out on the fun.
+	</p>
+	<p>
+		The rat teases your pussy with his cock, and tells you to admit that you're nothing but a public cum-dump.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_VENGAR_FOOTREST_HOLD_BACK_START"><![CDATA[
+	<p>
+		You tell the rat that you're a public cum-dump, and he penetrates you. Beside you, Vengar starts fucking your companion...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_CHOOSE_COMPANION_VENGAR_AFTER_SEX -->
+	
+	<htmlContent tag="VENGARS_HALL_CHOOSE_COMPANION_VENGAR_AFTER_SEX"><![CDATA[
+	<p>
+		Having had their fun, Vengar and [npc2.name] have finished with you and [npc.name]. You're told to get on with other duties in the hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_DELIVERY -->
+	
+	<htmlContent tag="VENGARS_HALL_DELIVERY_PLAYER"><![CDATA[
+	<p>
+		Being ready to give birth, Shadow and Silence approach you, with the former telling you that Silence will use her arcane abilities to deliver your offspring. Silence very gently strokes your pregnant bump, before smiling kindly at you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_DELIVERY_COMPANION"><![CDATA[
+	<p>
+		Being ready to give birth, you see Shadow and Silence approach your companion, with the former telling [npc.herHim] that Silence will use her arcane abilities to deliver [npc.her] offspring. Silence very gently strokes [npc.namePos] pregnant bump, before leading [npc.herHim] into the privacy of the private bed-chambers.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_DELIVERY_BIRTHING -->
+	
+	<htmlContent tag="VENGARS_HALL_DELIVERY_BIRTHING_EGGS"><![CDATA[
+	<p>
+		Silence helps you to deliver your eggs. You get a powerful instinct to protect the eggs, and drive off Shadow and Silence. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_DELIVERY_BIRTHING"><![CDATA[
+	<p>
+		Silence helps you to deliver. You pass out and awaken some time later. Shadow tells you that she escorted your offspring up to Dominion, and that their fate is now in their hands.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_DELIVERY_BIRTHING_EGG_PROTECTION -->
+	
+	<htmlContent tag="VENGARS_HALL_DELIVERY_BIRTHING_EGG_PROTECTION"><![CDATA[
+	<p>
+		You spend the next twelve hours protecting your eggs, until eventually they start to hatch and you pass out from exhaustion.
+	</p>
+	<p>
+		You awaken some time later. Shadow tells you that she escorted your offspring up to Dominion, and that their fate is now in their hands. Having already rested, you're ready to continue with your duties in the hall...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_DELIVERY_BIRTHING_FINISHED -->
+	
+	<htmlContent tag="VENGARS_HALL_DELIVERY_BIRTHING_FINISHED"><![CDATA[
+	<p>
+		You spend some time resting, and then the next morning, you're ready to continue with your duties in the hall...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM -->
+	
+	<htmlContent tag="VENGARS_BEDROOM"><![CDATA[
+	<p>
+		The private bedchambers consist of two large rooms; one in which Vengar has his bedroom, and one in which Silence and Shadow sleep.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CORRIDOR -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		You move towards the hall's exit, but one of the numerous rats standing guard makes you turn around and head back into the hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_NIGHT_TIME -->
+	
+	<htmlContent tag="VENGARS_HALL_NIGHT_TIME"><![CDATA[
+	<p>
+		It's getting late, and Shadow finds you to escort you into the private bedchambers...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_NIGHT_TIME_ESCORTED -->
+	
+	<htmlContent tag="VENGARS_HALL_NIGHT_TIME_ESCORTED_SEX"><![CDATA[
+	<p>
+		You go with Shadow as she leads you into the private bedchambers. Shows you to Vengar's bedroom, then leaves to go to her own shared bedroom with Silence.
+	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Vengar and [npc.name] are already in his bedroom. Vengar asks which of you he'll fuck tonight...
+		</p>
+	#ELSE
+		<p>
+			Vengar is already in his bedroom. He tells you to present yourself to be fucked...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_NIGHT_TIME_ESCORTED"><![CDATA[
+	<p>
+		You go with Shadow as she leads you into the private bedchambers. Shows you to Vengar's bedroom, then leaves to go to her own shared bedroom with Silence.
+	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Vengar and [npc.name] are already in his bedroom. Vengar is too tired to fuck you or [npc.name] tonight...
+		</p>
+	#ELSE
+		<p>
+			Vengar is already in his bedroom. Vengar is too tired to fuck you tonight...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_SERVE -->
+	
+	<htmlContent tag="VENGARS_HALL_SERVE"><![CDATA[
+	<p>
+		Some rats recruit you into serving food and drink for them. Others join in, piling on the orders...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_SERVING -->
+	
+	<htmlContent tag="VENGARS_HALL_SERVING"><![CDATA[
+	<p>
+		You have to continue serving rats for several hours, but eventually they're finished with you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_GROPED -->
+	
+	<htmlContent tag="VENGARS_HALL_GROPED"><![CDATA[
+	<p>
+		[npc.Name(A)] grabs you as you pass [npc.her] table and starts groping and feeling you up...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_GROPED_GROUP_START_SEX"><![CDATA[
+	<p>
+		Sitting on the table, you spread your legs and entice the rats to fuck you...
+	</p>
+	<p>
+		The rats move you into position, with one of them lying down and getting you to sit down into the cowgirl position, riding [npc.her] cock. If anal is enabled, another penetrates your ass. If not, the others surround you and prepare to receive oral...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_GROPED_START_ORAL"><![CDATA[
+	<p>
+		You drop down onto your knees and start performing oral on [npc.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_GROPED_START_SEX"><![CDATA[
+	<p>
+		Sitting on the table, you spread your legs and entice [npc.name] to fuck you. Pushing you back, [npc.she] does just that, and thrusts [npc.cock+] into your slutty cunt.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_GROPED_SEX -->
+	
+	<htmlContent tag="AFTER_GROPED_ORAL"><![CDATA[
+	<p>
+		[npc.Name] says that you know how to use your mouth, before telling you to go and bother someone else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_GROPED_SEX"><![CDATA[
+	<p>
+		[npc.Name] says that you're a good fuck, before telling you to go and bother someone else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_GROPED_FINISH -->
+	
+	<htmlContent tag="VENGARS_HALL_GROPED_GROUP_FINISH"><![CDATA[
+	<p>
+		You let the rats grope and feel you up for some time, before they've finally had enough and dismiss you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_GROPED_FINISH"><![CDATA[
+	<p>
+		You let [npc.name] grope and feel you up for some time, before [npc.sheHas] finally had enough and dismisses you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_VENGAR_FUCK -->
+	
+	<htmlContent tag="VENGARS_HALL_VENGAR_FUCK"><![CDATA[
+	<p>
+		Vengar calls you over to him, and, not having much choice but to obey, you step up to where he's sitting on his throne. He tells you that he's been watching you for some time, and wants you to get his cock out and get him hard, ready to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_RAT_FUCK -->
+	
+	<htmlContent tag="VENGARS_HALL_RAT_FUCK_PENIS"><![CDATA[
+	<p>
+		[npc.Name(A)] grabs you and pushes you over a nearby table, saying [npc.sheIs] going to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_RAT_FUCK_VAGINA"><![CDATA[
+	<p>
+		[npc.Name(A)] grabs you and pulls you over to one side of the hall, before leaning back against the wall and telling you that you're going to service [npc.her] pussy...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_RAT_FUCK_FUCKED"><![CDATA[
+	<p>
+		If rat has anal fetish, they fuck your ass. If not, they fuck your pussy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_RAT_FUCK_CUNNILINGUS"><![CDATA[
+	<p>
+		You are forced to start performing cunnilingus on [npc.name]... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_RAT_FUCK_AFTER_SEX -->
+	
+	<htmlContent tag="VENGARS_HALL_RAT_FUCK_AFTER_SEX"><![CDATA[
+	<p>
+		[npc.Name] is finished with you, saying you were a good fuck, before dismissing you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_GROUP_SEX -->
+	
+	<htmlContent tag="VENGARS_HALL_GROUP_SEX"><![CDATA[
+	<p>
+		A group of rats surround you, before telling you that you're going to be their toy for a while...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_GROUP_SEX_START"><![CDATA[
+	<p>
+		The rats move you into position, with one of them lying down and getting you to sit down into the cowgirl position, riding [npc.her] cock. If anal is enabled, another penetrates your ass. If not, the others surround you and prepare to receive oral...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_HALL_AFTER_GROUP_SEX -->
+	
+	<htmlContent tag="VENGARS_HALL_AFTER_GROUP_SEX"><![CDATA[
+	<p>
+		The rats finish with you, leaving you panting on the floor. After some time, you recover and set out into the hall once more...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_CLEAN -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_CLEAN"><![CDATA[
+	<p>
+		Shadow appears behind you, saying that she finally found you. She says that seeing as you're in here, you may as well get to cleaning the place.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_CLEAN_FINISH -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_CLEAN_FINISH_SHADOW_ORAL"><![CDATA[
+	<p>
+		You set about cleaning the room. Shadow leaves you to it. After an hour, you're almost done. Kneeling down on all fours to sweep out under a cabinet, when suddenly someone grabs you from behind.
+	</p>
+	<p>
+		Looking back, you see Shadow sliding down onto her knees behind you. She says your pussy looked so tasty. Tells you to raise your ass so that she can get a taste of you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_CLEAN_FINISH_SHADOW_ORAL_START"><![CDATA[
+	<p>
+		You raise your ass and Shadow starts eating you out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_CLEAN_FINISH_SHADOW"><![CDATA[
+	<p>
+		You set about cleaning the room. Shadow leaves you to it. After an hour, you're done. Shadow reappears and tells you to get back out into the main hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_CLEAN_FINISH_SILENCE_ORAL"><![CDATA[
+	<p>
+		You set about cleaning the room. Shadow leaves you to it. After an hour, you're done. After kneeling down on all fours to sweep out under a cabinet, you stand up and turn around to see Silence masturbating and staring at you.
+	</p>
+	<p>
+		She spreads her labia and bites her lip, motioning for you to come forwards and orally service her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_CLEAN_FINISH_SILENCE_ORAL_START"><![CDATA[
+	<p>
+		You kneel before SIlence and start eating her out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_CLEAN_FINISH_SILENCE"><![CDATA[
+	<p>
+		You set about cleaning the room. Shadow leaves you to it. After an hour, you're done. Silence appears and points for you to go back out into the main hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_CLEAN_FINISH_IGNORE_SILENCE -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_CLEAN_FINISH_IGNORE_SILENCE"><![CDATA[
+	<p>
+		You ignore Silence, and step past her out into the main hall. Despite her desire to have you eat her out, the albino rat-girl allows you to leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_CLEAN_FINISH_IGNORE_SHADOW -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_CLEAN_FINISH_IGNORE_SHADOW"><![CDATA[
+	<p>
+		Instead of doing as you're told, you stand up and try to leave. Angry at disobeying her, Shadow grabs you and pushes you over the cabinet you were just cleaning, before delivering a stinging slap to your ass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_CLEAN_FINISH_IGNORE_SHADOW_FACE_SITTING -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_CLEAN_FINISH_IGNORE_SHADOW_FACE_SITTING"><![CDATA[
+	<p>
+		Shadow spanks you for some time, while occasionally fingering your dripping pussy. Eventually, she pushes you to the floor, before sitting on your face and demanding you to put all your effort into eating her out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_CLEAN_FINISH_IGNORE_SHADOW_FACE_SITTING_START"><![CDATA[
+	<p>
+		With little choice but to do as Shadow demands, you start eating her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_AFTER_RAT_GIRL_ORAL -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_AFTER_SHADOW_PERFORMING_ORAL"><![CDATA[
+	<p>
+		Having had enough of eating you out, Shadow tells you to get back into the main hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_AFTER_SHADOW_RECEIVING_ORAL"><![CDATA[
+	<p>
+		Having had enough of riding your tongue, Shadow tells you to get back into the main hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_AFTER_SILENCE_ORAL"><![CDATA[
+	<p>
+		Having had enough of being eaten out, Shadow steps back and points for you to get back into the main hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_SHADOW_SILENCE -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_SHADOW_SILENCE"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			As you're wandering about the bed-chambers, wondering what to do, Silence and Shadow enter, leading [npc.name] along with them. Upon seeing you, Shadow's eyes light up, and she moves over to rub up against you.
+		</p>
+		<p>
+			Tells you that you're going to join in with their game. Asks you if you want to eat out Silence, or let her eat you out...
+		</p>
+	#ELSE
+		<p>
+			As you're wandering about the bed-chambers, wondering what to do, Silence and Shadow find you. Shadow tells you that the two of them were looking to ahev some fun together, but now that you're here, you can join in. Tells you to lie down and spread your legs.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_SHADOW_SILENCE_FOURSOME_SHADOW_START"><![CDATA[
+	<p>
+		You tell Shadow that you want her to eat you out. Stand against the wall beside Silence as Shadow starts performing cunnilingus on you. [npc.Name] does the same to Silence.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_SHADOW_SILENCE_FOURSOME_SILENCE_START"><![CDATA[
+	<p>
+		You tell Shadow that you want to eat Silence out. Your companion stands against the wall beside Silence as Shadow starts performing cunnilingus on [npc.herHim]. You do the same to Silence.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_SHADOW_SILENCE_SOLO_START"><![CDATA[
+	<p>
+		You do as Shadow commands, and as you lie down, Silence sits on your face. Shadow kneels down as you spread your legs and starts performing oral on you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_SHADOW_SILENCE_AFTER_SEX -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_SHADOW_SILENCE_AFTER_SEX"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Shadow and Silence have finished with you and [npc.name], and you're told to return to the main hall.
+		</p>
+	#ELSE
+		<p>
+			Shadow and Silence have finished with you, and you're told to return to the main hall.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_BARRED -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_BARRED"><![CDATA[
+	<p>
+		Shadow finds you loitering in the bed-chambers and orders you back out into the main hall...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_NIGHT_TIME -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_NIGHT_TIME_SEX"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			As it's getting late, Vengar and [npc.name] join you in the bed-chambers. Vengar asks which of you he'll fuck tonight...
+		</p>
+	#ELSE
+		<p>
+			As it's getting late, Vengar joins you in the bed-chambers. Vengar tells you to present yourself to be fucked...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_NIGHT_TIME"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			As it's getting late, Vengar and [npc.name] join you in the bed-chambers. He's tired and not interested in sex...
+		</p>
+	#ELSE
+		<p>
+			As it's getting late, Vengar joins you in the bed-chambers. He's tired and not interested in sex...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_NIGHT_TIME_SEX_START"><![CDATA[
+	<p>
+		You get down on all fours and present yourself to Vengar. He wastes no time in penetrating you and starts fucking you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_NIGHT_TIME_SEX_COMPANION_START"><![CDATA[
+	<p>
+		You let [npc.name] be the one to get down on all fours and present [npc.herself] to Vengar. He wastes no time in penetrating your companion and starts fucking [npc.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_NIGHT_TIME_AFTER_SEX -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_NIGHT_TIME_AFTER_SEX"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Vengar is finished and tells you and [npc.name] to sleep.
+		</p>
+	#ELSE
+		<p>
+			Vengar is finished and tells you to sleep.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_NIGHT_TIME_SLEEP -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_NIGHT_TIME_SLEEP"><![CDATA[
+	<p>
+		You awake the next morning to find Shadow looming over you. She tells you to get into the main hall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_NIGHT_TIME_PRETEND -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_NIGHT_TIME_PRETEND"><![CDATA[
+	<p>
+		You pretend to be asleep, and wait until Vengar is deeply asleep before deciding upon whether to make a move or not...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_NIGHT_TIME_PRETEND_ESCAPE -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_NIGHT_TIME_PRETEND_ESCAPE"><![CDATA[
+	<p>
+		You sneak out of bed and prepare to escape. Knowing that your belongings are stored in the other room, you sneak into there and search for them.
+	</p>
+	<p>
+		Despite being quiet, you suddenly hear movement behind you, and you turn around to see Silence staring down at you. Instead of raising the alarm, however, she simply lifts up her skirt and motions for you to eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_BEDROOM_NIGHT_TIME_PRETEND_ESCAPE_SILENCE_ORAL_START"><![CDATA[
+	<p>
+		Deciding that it would be a good idea to do as the albino rat-girl wants, you shuffle forwards and start eating her out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_NIGHT_TIME_PRETEND_ESCAPE_AFTER_ORAL -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_NIGHT_TIME_PRETEND_ESCAPE_AFTER_ORAL"><![CDATA[
+	<p>
+		You finish with Silence, and she pats you on the head, before pointing behind you. You turn around to see Shadow looking down at you.
+	</p>
+	<p>
+		With a grin on her face, she reveals that she and Silence were playing along and helping to keep you captive only as part of a larger scheme. Everything is in place now, and your escape attempt has coincided with her decision to make her move. Tells you that your equipment is no longer stored in her, and to follow her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- VENGARS_BEDROOM_NIGHT_TIME_PRETEND_ESCAPE_PUSH_PAST -->
+	
+	<htmlContent tag="VENGARS_BEDROOM_NIGHT_TIME_PRETEND_ESCAPE_PUSH_PAST"><![CDATA[
+	<p>
+		You push past Silence, and she grabs you by the wrist, before pointing behind you. You turn around to see Shadow staring into your eyes.
+	</p>
+	<p>
+		Letting out a sigh, she reveals that she and Silence were playing along and helping to keep you captive only as part of a larger scheme. Everything is in place now, and your escape attempt has coincided with her decision to make her move. Tells you that your equipment is no longer stored in her, and to follow her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ESCAPING -->
+	
+	<htmlContent tag="ESCAPING"><![CDATA[
+	<p>
+		Shadow leads you (and companion) out of the hall and to a hidden storage room further down the tunnel, where your equipment is being stored. Unclasping your collar, she discards it before letting you get your old gear back.
+	</p>
+	<p>
+		Once you're fully equipped again, she tells you that your only hope of getting out of this place is to follow her.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

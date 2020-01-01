@@ -814,6 +814,6 @@ public class Response {
 	}
 
 	public static Response getDisallowedSpittingResponse(String desc) {
-		return new Response(desc, "[style.italicsBad(Rejection of TF potions is disabled!)]<br/>Your opponent is forcing you to drink down the potion!", null);
+		return new Response(desc, "You are being forced to drink down the potion!<br/>[style.italicsBad(Rejection of TF potions is disabled in the gameplay options!)]", null);
 	}
 }

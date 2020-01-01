@@ -12,13 +12,14 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 
 /**
  * @since 0.1.88
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class SMAltarMissionarySealed extends SexManagerDefault {
 
 	public SMAltarMissionarySealed(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionUnique.MISSIONARY_ALTAR_SEALED_CULTIST,
+		super(false,
+				SexPositionUnique.MISSIONARY_ALTAR_SEALED_CULTIST,
 				dominants,
 				submissives);
 	}

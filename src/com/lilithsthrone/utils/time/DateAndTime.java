@@ -194,7 +194,7 @@ public class DateAndTime {
 		int E = (int) ((B-D)/30.6001);
 		int F = (int) (30.6001*E);
 		
-		int day = (int) (B-D-F+(Q-Z)) + 1;
+		int day = (int) (B-D-F+(Q-Z));
 		int month = (E-1)<=12?(E-1):E-13;
 		int year = month==1||month==2?C-4715:C-4716;
 		
@@ -204,7 +204,7 @@ public class DateAndTime {
 		final int seconds = Math.min(59, (int) ((dayFraction * 24 * 3600 - (hours * 3600 + minutes * 60)) + .5));
 		
 		try {
-			return LocalDateTime.of(year, month, day, hours, minutes, seconds);
+			return LocalDateTime.of(year, month, day, hours, minutes, seconds).plusDays(1);
 		} catch(Exception ex) {
 			if(DEBUG) {
 				System.err.println("Error in julianDayToDate(): "+julianDate+": "+hours+":"+minutes+":"+seconds+" | "+day+", "+month+", "+year);

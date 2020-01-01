@@ -256,7 +256,7 @@ public class SlaveDialogue {
 						}
 						@Override
 						public DialogueNode getNextDialogue(){
-							return Main.game.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogue(false);
 						}
 					};
 				} else {
@@ -769,7 +769,7 @@ public class SlaveDialogue {
 					return new Response("Leave", UtilText.parse(getSlave(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), SLAVE_START) {
 						@Override
 						public DialogueNode getNextDialogue() {
-							return Main.game.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogue(false);
 						}
 						@Override
 						public void effects() {
@@ -1315,10 +1315,10 @@ public class SlaveDialogue {
 						}
 
 					} else if (index == 0) {
-						return new Response("Leave", UtilText.parse(getSlave(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogueNoEncounter()) {
+						return new Response("Leave", UtilText.parse(getSlave(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogue(false)) {
 							@Override
 							public DialogueNode getNextDialogue() {
-								return Main.game.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogue(false);
 							}
 							@Override
 							public void effects() {
@@ -3182,7 +3182,7 @@ public class SlaveDialogue {
 				return new Response("Continue", "Continue on your way.", SLAVE_USES_YOU_POST_SEX) {
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -3309,7 +3309,7 @@ public class SlaveDialogue {
 				return new Response("Continue", "Continue on your way.", SLAVE_USES_YOU_POST_SEX) {
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -3456,7 +3456,7 @@ public class SlaveDialogue {
 				return new Response("Continue", "Continue on your way.", SLAVE_USES_YOU_POST_SEX) {
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {

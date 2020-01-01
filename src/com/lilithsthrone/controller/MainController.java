@@ -307,10 +307,10 @@ public class MainController implements Initializable {
 			openInventory(null, InventoryInteraction.CHARACTER_CREATION);
 			
 		} else if(Main.game.isInCombat()) {
-			if(Combat.getTargetedCombatant(Main.game.getPlayer()).isPlayer()) {
+			if(Combat.getTargetedCombatant().isPlayer()) {
 				openInventory((NPC) Combat.getEnemies(Main.game.getPlayer()).get(0), InventoryInteraction.COMBAT);
 			} else {
-				openInventory((NPC) Combat.getTargetedCombatant(Main.game.getPlayer()), InventoryInteraction.COMBAT);
+				openInventory((NPC) Combat.getTargetedCombatant(), InventoryInteraction.COMBAT);
 			}
 			
 		} else if(Main.game.isInSex()) {
@@ -487,6 +487,7 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
+//							Main.game.getPlayer().setInventory(Main.game.getSavedInventories().get(Main.game.getPlayer().getId()));
 //							for(SolarElevationAngle sea : SolarElevationAngle.values()) {
 //								LocalDateTime[] ldt = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), sea, Game.DOMINION_LONGITUDE, Game.DOMINION_LATITUDE);
 //								System.out.println(sea+": "+ ldt[0] + " | " + ldt[1]);
@@ -2174,7 +2175,7 @@ public class MainController implements Initializable {
 		if (lastKeysEqual(KeyCode.B, KeyCode.U, KeyCode.G, KeyCode.G, KeyCode.Y)) {
 			if(Main.game!=null) {
 				if(Main.game.isStarted() && Main.game.isInNewWorld() && Main.game.isPrologueFinished()) {
-					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 					Main.game.saveDialogueNode();
 					Main.game.setContent(new Response("", "", DebugDialogue.DEBUG_MENU));
 				} else {
@@ -2206,13 +2207,14 @@ public class MainController implements Initializable {
 						&& Combat.getEnemies(Main.game.getPlayer()).get(0).isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 					GameCharacter target = Combat.getEnemies(Main.game.getPlayer()).get(0);
 					Combat.endCombat(true);
-//					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+//					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 					Main.game.setContent(new ResponseSex(
 							"Dominate",
 							"",
 							false,
 							false,
 							new SexManagerDefault(
+									true,
 									SexPosition.LYING_DOWN,
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MATING_PRESS)),
 									Util.newHashMapOfValues(new Value<>(target, SexSlotLyingDown.LYING_DOWN))) {
@@ -2284,13 +2286,14 @@ public class MainController implements Initializable {
 						&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 					GameCharacter target = Combat.getEnemies(Main.game.getPlayer()).get(0);
 					Combat.endCombat(false);
-//					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+//					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 					Main.game.setContent(new ResponseSex(
 							"Dominated",
 							"",
 							false,
 							false,
 							new SexManagerDefault(
+									true,
 									SexPosition.LYING_DOWN,
 									Util.newHashMapOfValues(new Value<>(target, SexSlotLyingDown.MATING_PRESS)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))) {

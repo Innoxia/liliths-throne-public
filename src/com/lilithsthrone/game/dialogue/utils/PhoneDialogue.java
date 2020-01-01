@@ -291,7 +291,7 @@ public class PhoneDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Continue on your way...", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Continue on your way...", Main.game.getDefaultDialogue(false));
 
 			} else {
 				return null;
@@ -1016,14 +1016,16 @@ public class PhoneDialogue {
 					"<details>"
 							+ "<summary style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Orifice Mechanics</summary>"
 						
-						+ "[style.boldSex(Capacity:)] An orifice's capacity determines the size of objects that can be comfortably inserted."
+						+ "[style.boldSex(Capacity:)] An orifice's capacity determines the size of penetrative objects that can be comfortably inserted."
+							+ " Penetrative objects' girth is factored into their effective size, with girthier objects requiring higher capacities than their same-sized thinner counterparts."
 							+ " <b>Higher capacity values mean that the orifice can take larger insertions without stretching</b>."
 							+ "<br/>Capacity values range from 0 (extremely tight) to 40 (gaping wide)."
 						
 						+ "<br/><br/>"
 						
-						+ "[style.boldSex(Elasticity:)] An orifice's elasticity determines how quickly it stretches out."
+						+ "[style.boldSex(Elasticity:)] An orifice's elasticity determines how quickly it stretches out, and also has an influence on detecting whether a penetrative object is too big for the orifice."
 							+ " If a partner's penis is too large for your orifice's capacity value, then your orifice will stretch out each turn during sex, with <b>higher elasticity values meaning that it stretches out quicker</b>."
+							+ " <b>Higher elasticity values also have an increased tolerance for objects that would normally be too large for the orifice, allowing larger objects to be inserted before stretching begins</b>."
 							+ "<br/>Elasticity values range from 0 (extremely resistant to being stretched out) to 7 (instantly stretching out)."
 							
 							+ "<br/><br/>"

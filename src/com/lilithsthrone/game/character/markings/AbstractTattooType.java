@@ -18,6 +18,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
@@ -54,6 +55,8 @@ public class AbstractTattooType extends AbstractCoreType {
 	
 	private String pathName;
 	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringMap;
+
+	private String availabilityRequirements;
 	
 	public AbstractTattooType(
 			String pathName,
@@ -143,6 +146,11 @@ public class AbstractTattooType extends AbstractCoreType {
 				this.pathName = tattooXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
 				this.name = coreAttributes.getElementsByTagName("name").item(0).getTextContent();
 				this.description = coreAttributes.getElementsByTagName("description").item(0).getTextContent();
+
+				try {
+					this.availabilityRequirements = coreAttributes.getElementsByTagName("availabilityRequirements").item(0).getTextContent();
+				} catch(Exception ex) {
+				}
 				
 				try {
 					enchantmentLimit = Integer.valueOf(coreAttributes.getElementsByTagName("enchantmentLimit").item(0).getTextContent());
@@ -265,6 +273,13 @@ public class AbstractTattooType extends AbstractCoreType {
 
 	public List<InventorySlot> getSlotAvailability() {
 		return slotAvailability;
+	}
+	
+	public boolean isAvailable(GameCharacter target) {
+		if(availabilityRequirements!=null && !availabilityRequirements.isEmpty()) {
+			return Boolean.valueOf(UtilText.parse(target, ("[#"+availabilityRequirements+"]").replaceAll("\u200b", "")));
+		}
+		return true;
 	}
 	
 	public String getId() {

@@ -166,7 +166,7 @@ public class TongueNippleCrotch {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterTargetedForSexAction(this).getBreastCrotchShape()==BreastShape.UDDERS) {
+			if(Sex.getCharacterPerformingAction().getBreastCrotchShape()==BreastShape.UDDERS) {
 				return "Breastfeed (udders)";
 			} else {
 				return "Breastfeed (crotch-boobs)";

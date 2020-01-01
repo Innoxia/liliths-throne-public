@@ -262,7 +262,7 @@ public class BatCavernDialogue {
 					if(Main.game.getPlayer().getMoney()<250) {
 						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
 					} else {
-						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogueNoEncounter()) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -292,7 +292,7 @@ public class BatCavernDialogue {
 									}
 								},
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getAllCharacters())) {
+								UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), isCompanionDialogue()?"CAVERN_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION":"CAVERN_ATTACK_OFFER_BODY", getAllCharacters())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -377,7 +377,7 @@ public class BatCavernDialogue {
 					if(!Main.game.getPlayer().hasItemType(ItemType.MUSHROOM)) {
 						return new Response("Offer mushroom", "You don't have any mushrooms to offer to [npc.name]!", null);
 					} else {
-						return new Response("Offer mushroom", "Offer one of your Glowing Mushrooms to [npc.name] in exchange for leaving you alone.", Main.game.getDefaultDialogueNoEncounter()) {
+						return new Response("Offer mushroom", "Offer one of your Glowing Mushrooms to [npc.name] in exchange for leaving you alone.", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								if(getMugger().isVisiblyPregnant()){
@@ -585,7 +585,7 @@ public class BatCavernDialogue {
 					};
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you're in a rush to be somewhere else, before continuing on your way.", Main.game.getDefaultDialogueNoEncounter());
+					return new Response("Leave", "Tell [npc.name] that you're in a rush to be somewhere else, before continuing on your way.", Main.game.getDefaultDialogue(false));
 					
 				} else {
 					return null;
@@ -618,7 +618,7 @@ public class BatCavernDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Let [npc.name] go.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Let [npc.name] go.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -650,7 +650,7 @@ public class BatCavernDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Let [npc.name] go and buy food.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Let [npc.name] go and buy food.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -695,7 +695,7 @@ public class BatCavernDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Let [npc.name] get settled in.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Let [npc.name] get settled in.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -735,7 +735,7 @@ public class BatCavernDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -753,7 +753,7 @@ public class BatCavernDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -775,7 +775,7 @@ public class BatCavernDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -808,7 +808,7 @@ public class BatCavernDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogueNoEncounter()){
+				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
@@ -973,7 +973,7 @@ public class BatCavernDialogue {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
-						Main.game.getDefaultDialogueNoEncounter()){
+						Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "AFTER_COMBAT_VICTORY_BANISH_NPC", getAllCharacters()));
@@ -1074,7 +1074,7 @@ public class BatCavernDialogue {
 			if (index == 1) {
 				return new Response("Continue",
 						"Let [npc.name] go.",
-						Main.game.getDefaultDialogueNoEncounter());
+						Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -1091,10 +1091,10 @@ public class BatCavernDialogue {
 		StringBuilder sb = new StringBuilder();
 		
 		if(potion!=null && forcedTF) {
-			sb.append(UtilText.parse(getMugger(),
+			sb.append(UtilText.parse(getMugger(), target,
 					"<p>"
-						+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid."
-						+ " [npc.speech(Good [pc.girl]! I'm going to turn you into my perfect "+getMugger().getPreferredBodyDescription("b")+"!)]"
+						+ "[npc.Name] steps back, grinning down at [npc2.name] as [npc2.she] obediently [npc2.verb(swallow)] the strange liquid."
+						+ " [npc.speech(Good [npc2.girl]! I'm going to turn you into my perfect "+getMugger().getPreferredBodyDescription("b")+"!)]"
 					+ "</p>"));
 			for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
 				sb.append(UtilText.parse(getMugger(),
@@ -1236,7 +1236,7 @@ public class BatCavernDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				if (index == 1) {
-					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {
 							Main.game.banishNPC(getMugger());
@@ -1656,7 +1656,7 @@ public class BatCavernDialogue {
 						} else if (index == 4 && !getMugger().isWillingToRape()) {
 							return new Response("Refuse",
 									UtilText.parse(getMugger(), "Refuse to have sex with [npc.name] and continue on your way."),
-									Main.game.getDefaultDialogueNoEncounter()) {
+									Main.game.getDefaultDialogue(false)) {
 								@Override
 								public void effects() {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "DEFEATED_REFUSE_THREESOME", getAllCharacters()));
@@ -1713,7 +1713,7 @@ public class BatCavernDialogue {
 						} else if (index == 4 && !getMugger().isWillingToRape()) {
 							return new Response("Refuse",
 									UtilText.parse(getMugger(), "Refuse to have sex with [npc.name] and continue on your way."),
-									Main.game.getDefaultDialogueNoEncounter()) {
+									Main.game.getDefaultDialogue(false)) {
 								@Override
 								public void effects() {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "DEFEATED_REFUSE_SEX_SOLO", getAllCharacters()));
@@ -1759,7 +1759,7 @@ public class BatCavernDialogue {
 						return new Response(
 								UtilText.parse(getMainCompanion(), "[npc.Name] refuses"),
 								UtilText.parse(getMugger(), getMainCompanion(), "It looks like [npc2.name] is going to refuse to have sex with [npc.name]."),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "DEFEATED_REFUSE_SEX_SOLO_COMPANION", getAllCharacters()));
@@ -1817,7 +1817,7 @@ public class BatCavernDialogue {
 					} else if (index == 4 && !getMugger().isWillingToRape()) {
 						return new Response("Refuse",
 								UtilText.parse(getMugger(), "Refuse to have sex with [npc.name] and continue on your way."),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "DEFEATED_REFUSE_SEX", getAllCharacters()));
@@ -1828,7 +1828,7 @@ public class BatCavernDialogue {
 				}
 			}
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "DEFEATED_NO_SEX", getAllCharacters()));
@@ -1870,7 +1870,7 @@ public class BatCavernDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()){
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
@@ -1894,7 +1894,7 @@ public class BatCavernDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -1937,7 +1937,7 @@ public class BatCavernDialogue {
 					}
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				

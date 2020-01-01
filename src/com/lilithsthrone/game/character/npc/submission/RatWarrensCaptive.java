@@ -9,6 +9,8 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.body.FluidCum;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
@@ -36,6 +38,8 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
@@ -117,6 +121,10 @@ public class RatWarrensCaptive extends NPC {
 
 			this.setFetishDesire(Fetish.FETISH_NON_CON_SUB, FetishDesire.THREE_LIKE);
 		}
+
+		this.setFaceVirgin(false);
+		this.setAssVirgin(false);
+		this.setVaginaVirgin(false);
 		
 		// Milking:
 		this.setBreastSize(CupSize.DD.getMeasurement()+Util.random.nextInt(6));
@@ -124,8 +132,23 @@ public class RatWarrensCaptive extends NPC {
 		this.setBreastMilkStorage(Lactation.SIX_EXTREME_AMOUNT_DRIPPING.getMedianValue()+Util.random.nextInt(Lactation.SIX_EXTREME_AMOUNT_DRIPPING.getMedianValue()));
 		this.setBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()+Util.random.nextInt(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()));
 		
-		// From sex:
-		this.setVaginaCapacity(Util.randomItemFrom(new Capacity[] {Capacity.THREE_SLIGHTLY_LOOSE, Capacity.FOUR_LOOSE, Capacity.FIVE_ROOMY, Capacity.SIX_STRETCHED_OPEN}), true);
+		// From anal sex:
+		if(Main.game.isAnalContentEnabled()) {
+			if(Main.game.isGapeContentEnabled()) {
+				this.setAssCapacity(32, true);
+			} else {
+				this.setAssCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+			}
+			this.setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+			this.setAssPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
+		}
+
+		// From vaginal sex:
+		if(Main.game.isGapeContentEnabled()) {
+			this.setVaginaCapacity(32, true);
+		} else {
+			this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+		}
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		
@@ -146,7 +169,7 @@ public class RatWarrensCaptive extends NPC {
 					new TattooCounter(TattooCounterType.SEX_SUB, TattooCountType.TALLY, Colour.BASE_BLACK, false)));
 		}
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_STEEL, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_STEEL, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_SPREADER_BAR, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, Colour.CLOTHING_BLACK, false), true, this);
 	}
@@ -154,6 +177,17 @@ public class RatWarrensCaptive extends NPC {
 	@Override
 	public boolean isUnique() {
 		return false;
+	}
+	
+	@Override
+	public void hourlyUpdate() {
+		float rnd = (float) Math.random();
+		if(rnd<0.1f && Main.game.isAnalContentEnabled()) {
+			this.ingestFluid(null, Subspecies.RAT_MORPH, Subspecies.RAT_MORPH, new FluidCum(FluidType.CUM_RAT_MORPH), SexAreaOrifice.ANUS, 20+Util.random.nextInt(100));
+			
+		} else if(rnd<0.5f) {
+			this.ingestFluid(null, Subspecies.RAT_MORPH, Subspecies.RAT_MORPH, new FluidCum(FluidType.CUM_RAT_MORPH), SexAreaOrifice.VAGINA, 20+Util.random.nextInt(100));
+		}
 	}
 	
 	@Override

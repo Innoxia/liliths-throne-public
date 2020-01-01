@@ -655,7 +655,7 @@ public class OccupantManagementDialogue {
 				return new Response("Back", "Return to the previous screen.", ROOM_UPGRADES) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 			} else {

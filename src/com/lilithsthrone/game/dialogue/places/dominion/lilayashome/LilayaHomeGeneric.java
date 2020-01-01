@@ -940,7 +940,7 @@ public class LilayaHomeGeneric {
 				return new Response("Continue", "Unstrap yourself from the milking machine and continue on your way.", MILKED) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 			} else {

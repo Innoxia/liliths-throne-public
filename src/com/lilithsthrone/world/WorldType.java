@@ -262,7 +262,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff0000), PlaceType.HARPY_NESTS_HARPY_NEST_RED),
 					new Value<>(new Color(0xff00ff), PlaceType.HARPY_NESTS_HARPY_NEST_PINK),
 					new Value<>(new Color(0xffff00), PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW),
-					new Value<>(new Color(0xff9100), PlaceType.HARPY_NESTS_ALEXAS_NEST))),
+					new Value<>(new Color(0xff9100), PlaceType.HARPY_NESTS_HELENAS_NEST))),
 	
 	SLAVER_ALLEY("Slaver Alley",
 			Colour.BASE_RED,
@@ -274,7 +274,7 @@ public enum WorldType {
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SLAVER_ALLEY_PATH),
 					new Value<>(new Color(0xff0000), PlaceType.SLAVER_ALLEY_ENTRANCE),
-
+					
 					new Value<>(new Color(0xff80ff), PlaceType.SLAVER_ALLEY_STALL_FEMALES),
 					new Value<>(new Color(0x0080ff), PlaceType.SLAVER_ALLEY_STALL_MALES),
 					
@@ -286,6 +286,8 @@ public enum WorldType {
 					new Value<>(new Color(0x21bfc5), PlaceType.SLAVER_ALLEY_MARKET_STALL_EXCLUSIVE),
 					new Value<>(new Color(0x004080), PlaceType.SLAVER_ALLEY_MARKET_STALL_BULK),
 					new Value<>(new Color(0x008080), PlaceType.SLAVER_ALLEY_CAFE),
+					
+					new Value<>(new Color(0xbfff00), PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS),
 					
 					new Value<>(new Color(0x0000ff), PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION),
 					new Value<>(new Color(0xff0080), PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP),
@@ -706,7 +708,7 @@ public enum WorldType {
 			Colour.BASE_BROWN,
 			1,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
+			TeleportPermissions.NONE,
 			"/com/lilithsthrone/res/map/submission/ratWarrens/ratWarrens.png",
 			PlaceType.WORLD_MAP_DOMINION,
 			PlaceType.RAT_WARRENS_ENTRANCE,
@@ -725,9 +727,9 @@ public enum WorldType {
 					
 					new Value<>(new Color(0x0000ff), PlaceType.RAT_WARRENS_DICE_DEN),
 					new Value<>(new Color(0xffff00), PlaceType.RAT_WARRENS_MILKING_ROOM),
+					new Value<>(new Color(0xffbf00), PlaceType.RAT_WARRENS_MILKING_STORAGE),
 					new Value<>(new Color(0x8000ff), PlaceType.RAT_WARRENS_VENGARS_HALL),
-					new Value<>(new Color(0x800080), PlaceType.RAT_WARRENS_VENGARS_BEDROOM)
-					
+					new Value<>(new Color(0x800080), PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS)
 					)),
 	;
 	

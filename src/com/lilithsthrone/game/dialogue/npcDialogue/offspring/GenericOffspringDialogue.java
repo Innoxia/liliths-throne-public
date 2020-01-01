@@ -144,7 +144,7 @@ public class GenericOffspringDialogue {
 							@Override
 							public DialogueNode getNextDialogue() {
 								setOffspringFlags();
-								return Main.game.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogue(false);
 							}
 						};
 					
@@ -270,7 +270,7 @@ public class GenericOffspringDialogue {
 					return new Response("Leave", UtilText.parse(offspring(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), OFFSPRING_ENCOUNTER) {
 							@Override
 							public DialogueNode getNextDialogue() {
-								return Main.game.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogue(false);
 							}
 							@Override
 							public void effects() {
@@ -317,7 +317,7 @@ public class GenericOffspringDialogue {
 				return new Response("Continue", "Give [npc.name] some time to think, and continue on your way.", OFFSPRING_ENCOUNTER_APOLOGY) {
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -381,7 +381,7 @@ public class GenericOffspringDialogue {
 						}
 						@Override
 						public DialogueNode getNextDialogue() {
-							return Main.game.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogue(false);
 						}
 					};
 					
@@ -545,7 +545,7 @@ public class GenericOffspringDialogue {
 							}
 							@Override
 							public DialogueNode getNextDialogue() {
-								return Main.game.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogue(false);
 							}
 						};
 					
@@ -953,7 +953,7 @@ public class GenericOffspringDialogue {
 				return new Response("Apologise", "Maybe you went too far... Perhaps you should apologise?", null){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -1107,7 +1107,7 @@ public class GenericOffspringDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -1121,7 +1121,7 @@ public class GenericOffspringDialogue {
 				return new Response("Leave", "Now that you've taught [npc.name] a lesson, you can be on your way...", AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -1212,7 +1212,7 @@ public class GenericOffspringDialogue {
 					return new Response("Continue", "You're left to continue on your way...", AFTER_COMBAT_DEFEAT){
 						@Override
 						public DialogueNode getNextDialogue(){
-							return Main.game.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogue(false);
 						}
 						@Override
 						public void effects() {
@@ -1245,7 +1245,7 @@ public class GenericOffspringDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_CONSENSUAL){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -1277,7 +1277,7 @@ public class GenericOffspringDialogue {
 					}
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -1296,7 +1296,7 @@ public class GenericOffspringDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -1335,7 +1335,7 @@ public class GenericOffspringDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -1357,7 +1357,7 @@ public class GenericOffspringDialogue {
 			AbstractClothing enslavementClothing = offspring().getEnslavementClothing();
 			
 			if(!offspring().isSlave() && offspring().isAbleToBeEnslaved()) {
-				if(enslavementClothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR)) {
+				if(enslavementClothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"))) {
 					return UtilText.parse(offspring(),
 							"<p>"
 								+ "As you lift the collar up to [npc.namePos] neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting your [npc.daughter] as a potential enslavement target."
@@ -1468,7 +1468,7 @@ public class GenericOffspringDialogue {
 					return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
 						@Override
 						public DialogueNode getNextDialogue(){
-							return Main.game.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogue(false);
 						}
 						@Override
 						public void effects() {

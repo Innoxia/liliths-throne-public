@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>150</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[miniskirt]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[miniskirts]]></namePlural>
+		<description><![CDATA[A very short skirt, which barely reaches down to the wearer's mid-thigh.]]></description> 
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>LEG</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>mini_skirt.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GROIN"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_NON_BIPED_BODY_HUMANOID</tag>
+		</itemTags>
+	</coreAttributes>
+	
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(step)] into the miniskirt and [npc.verb(pull)] it up to fit around [npc.her] waist.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(get)] [npc2.name] to step into the miniskirt, before pulling it up around [npc2.her] waist.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(force)] [npc2.name] to step into the miniskirt, before yanking it up around [npc2.her] waist.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] down [npc.her] miniskirt, before slipping it off.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] down [npc2.namePos] miniskirt, before slipping it off.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] down [npc2.namePos] miniskirt, before yanking it off.]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>

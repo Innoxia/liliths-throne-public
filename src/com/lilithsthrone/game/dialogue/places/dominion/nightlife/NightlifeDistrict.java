@@ -250,7 +250,7 @@ public class NightlifeDistrict {
 	private static Response getEndResponse(int index, int minutesPassedForNextScene) {
 		if(isPartnerLeaving()) {
 			if(index==1) {
-				return new Response("Continue", UtilText.parse(getClubbersPresent(), "Perhaps you should have treated [npc.name] a little better..."), Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("Continue", UtilText.parse(getClubbersPresent(), "Perhaps you should have treated [npc.name] a little better..."), Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
 						if(isPartnerSub()) {
@@ -265,7 +265,7 @@ public class NightlifeDistrict {
 			
 		} else if(isPartnerPassingOut()) {
 			if(index==1) {
-				return new Response("Continue", UtilText.parse(getClubbersPresent(), "[npc.Name] collapses!"), Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("Continue", UtilText.parse(getClubbersPresent(), "[npc.Name] collapses!"), Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_PARTNER_TOO_WASTED", getClubbersPresent()));
@@ -285,7 +285,7 @@ public class NightlifeDistrict {
 							saveClubbers();
 							
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_NIGHTLIFE_DISTRICT);
-							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 						}
 					};
 					
@@ -317,7 +317,7 @@ public class NightlifeDistrict {
 							removeClubbers();
 							
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_NIGHTLIFE_DISTRICT);
-							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 						}
 					};
 					
@@ -329,7 +329,7 @@ public class NightlifeDistrict {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_NIGHTLIFE_DISTRICT);
-							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, false);
 						}
 					};
@@ -456,7 +456,7 @@ public class NightlifeDistrict {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.julesIntroduced, true);
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_NIGHTLIFE_DISTRICT);
 							
-							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 						}
 					};
 					
@@ -512,7 +512,7 @@ public class NightlifeDistrict {
 							saveClubbers();
 							
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_NIGHTLIFE_DISTRICT);
-							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 						}
 					};
 					
@@ -541,7 +541,7 @@ public class NightlifeDistrict {
 							removeClubbers();
 							
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_NIGHTLIFE_DISTRICT);
-							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 						}
 					};
 					
@@ -933,7 +933,7 @@ public class NightlifeDistrict {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
-				return new Response("Back", "Decide against looking for someone to approach.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Back", "Decide against looking for someone to approach.", Main.game.getDefaultDialogue(false));
 			}
 			int count = 1;
 			for(Gender gender : Gender.values()) {
@@ -1024,7 +1024,7 @@ public class NightlifeDistrict {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return Main.game.getDefaultDialogueNoEncounter().getResponse(responseTab, index);
+			return Main.game.getDefaultDialogue(false).getResponse(responseTab, index);
 		}
 	};
 	
@@ -1079,7 +1079,7 @@ public class NightlifeDistrict {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return Main.game.getDefaultDialogueNoEncounter().getResponse(responseTab, index);
+			return Main.game.getDefaultDialogue(false).getResponse(responseTab, index);
 		}
 	};
 	
@@ -1110,7 +1110,7 @@ public class NightlifeDistrict {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return Main.game.getDefaultDialogueNoEncounter().getResponse(responseTab, index);
+			return Main.game.getDefaultDialogue(false).getResponse(responseTab, index);
 		}
 	};
 	
@@ -4528,7 +4528,7 @@ public class NightlifeDistrict {
 						return new Response("Refuse (gentle)",
 								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you're not interested in going back to [npc.her] place, but that you hope to see [npc.herHim] at the club another time."
 										+ "</br>[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BAR_INVITE_HOME_REFUSE_GENTLE", NightlifeDistrict.getClubbersPresent()));
@@ -4540,7 +4540,7 @@ public class NightlifeDistrict {
 						return new Response("Refuse (harsh)",
 								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Bluntly tell [npc.name] that you have no interest whatsoever in having sex with [npc.herHim]."
 										+ "</br>[style.italicsBad(Removes this character from the game.)]"),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BAR_INVITE_HOME_REFUSE_RUDE", NightlifeDistrict.getClubbersPresent()));
@@ -4771,7 +4771,7 @@ public class NightlifeDistrict {
 						return new Response("Refuse (gentle)",
 								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you're not interested in going back to [npc.her] place, but that you hope to see [npc.herHim] at the club another time."
 										+ "</br>[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "SIT_DOWN_INVITE_HOME_REFUSE_GENTLE", NightlifeDistrict.getClubbersPresent()));
@@ -4783,7 +4783,7 @@ public class NightlifeDistrict {
 						return new Response("Refuse (harsh)",
 								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Bluntly tell [npc.name] that you have no interest whatsoever in having sex with [npc.herHim]."
 										+ "</br>[style.italicsBad(Removes this character from the game.)]"),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "SIT_DOWN_INVITE_HOME_REFUSE_RUDE", NightlifeDistrict.getClubbersPresent()));
@@ -4864,7 +4864,7 @@ public class NightlifeDistrict {
 						return new Response("Refuse (gentle)",
 								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you're not interested in having sex with [npc.herHim], but that you hope to see [npc.herHim] at the club another time."
 										+ "</br>[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(
@@ -4877,7 +4877,7 @@ public class NightlifeDistrict {
 						return new Response("Refuse (harsh)",
 								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Bluntly tell [npc.name] that you have no interest whatsoever in having sex with [npc.herHim]."
 										+ "</br>[style.italicsBad(Removes this character from the game.)]"),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(
@@ -4936,7 +4936,7 @@ public class NightlifeDistrict {
 						return new Response("Refuse (gentle)",
 								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you're not interested in having sex with [npc.herHim], but that you hope to see [npc.herHim] at the club another time."
 										+ "</br>[style.italicsGood(Saves this character, who can then be encountered in the club again.)]"),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(
@@ -4949,7 +4949,7 @@ public class NightlifeDistrict {
 						return new Response("Refuse (harsh)",
 								UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Bluntly tell [npc.name] that you have no interest whatsoever in having sex with [npc.herHim]."
 										+ "</br>[style.italicsBad(Removes this character from the game.)]"),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(

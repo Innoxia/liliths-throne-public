@@ -258,7 +258,7 @@ public class CharactersPresentDialogue {
 				return new Response("Continue", "Decide what to do next.", AFTER_SEX) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {

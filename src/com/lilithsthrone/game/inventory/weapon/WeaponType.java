@@ -61,6 +61,8 @@ public class WeaponType {
 			null,
 			null,
 			null,
+			null,
+			null,
 			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
 				
 		@Override
@@ -133,6 +135,8 @@ public class WeaponType {
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0),
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0)),
+			null,
+			null,
 			null,
 			null,
 			null,
@@ -211,6 +215,8 @@ public class WeaponType {
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0),
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0),
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_WEAPON, TFPotency.MAJOR_BOOST, 0)),
+			null,
+			null,
 			null,
 			null,
 			null,
@@ -295,6 +301,8 @@ public class WeaponType {
 			ColourListPresets.ALL,
 			ColourListPresets.JUST_STEEL,
 			ColourListPresets.ALL_METAL,
+			null,
+			null,
 			Util.newArrayListOfValues(
 					ItemTag.SOLD_BY_VICKY,
 					ItemTag.WEAPON_BLADE)) {
@@ -345,152 +353,6 @@ public class WeaponType {
 		}
 	};
 
-	// OFFHAND
-	public static AbstractWeaponType OFFHAND_CHAOS_RARE = new AbstractWeaponType(1000,
-			false,
-			false,
-			"a",
-			false,
-			"chaos feather",
-			"chaos feathers",
-			"Feather Bolt",
-			"An arcane feather, the power of which can be harnessed as a weapon."
-					+ " Feathers like this are rumoured to have been plucked from a Lilin's wings.",
-			"rangedFeather1",
-			"rangedFeather1",
-			Rarity.RARE,
-			0,
-			null,
-			Util.newArrayListOfValues(DamageType.PHYSICAL, DamageType.FIRE, DamageType.ICE, DamageType.POISON),
-			8,
-			0,
-			DamageVariance.HIGH,
-			5,
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_WEAPON, TFPotency.MAJOR_BOOST, 0)),
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
-
-		@Override
-		public String equipText(GameCharacter character) {
-			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the feather."
-					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform arcane-imbued attacks at range.");
-		}
-
-		@Override
-		public String unequipText(GameCharacter character) {
-			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy inside of [npc.herHim], forcing it out from [npc.her] body."
-					+ " As [npc.she] [npc.does] so, it reforms back into a chaos feather.");
-		}
-
-		@Override
-		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
-			return genericRangedAttackDescription(character, target, isHit);
-		}
-
-		@Override
-		public String getAttackDescription(GameCharacter user, GameCharacter target) {
-			return UtilText.parse(target,
-					"Use your feather's power to shoot a bolt of energy at [npc.name]!");
-		}
-		
-		@Override
-		public List<Spell> getGenerationSpells(DamageType dt) {
-			switch(dt) {
-				case FIRE:
-					return Util.newArrayListOfValues(Spell.FIREBALL);
-				case ICE:
-					return Util.newArrayListOfValues(Spell.ICE_SHARD);
-				case LUST:
-					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
-				case PHYSICAL:
-					return Util.newArrayListOfValues(Spell.SLAM);
-				case POISON:
-					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
-				default:
-					break;
-			}
-			return null;
-		}
-	};
-	
-	public static AbstractWeaponType OFFHAND_CHAOS_EPIC = new AbstractWeaponType(1500,
-			false,
-			false,
-			"a",
-			false,
-			"chaos feather",
-			"chaos feathers",
-			"Feather Bolt",
-			"A well-preserved arcane feather, the power of which can be harnessed as a weapon."
-					+ " Feathers like this are rumoured to have been plucked from a Lilin's wings.",
-			"rangedFeather2",
-			"rangedFeather2",
-			Rarity.EPIC,
-			0,
-			null,
-			Util.newArrayListOfValues(DamageType.PHYSICAL, DamageType.FIRE, DamageType.ICE, DamageType.POISON),
-			14,
-			0,
-			DamageVariance.HIGH,
-			5,
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_WEAPON, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_WEAPON, TFPotency.MAJOR_BOOST, 0)),
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
-
-		@Override
-		public String equipText(GameCharacter character) {
-			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the feather."
-					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform arcane-imbued attacks at range.");
-		}
-
-		@Override
-		public String unequipText(GameCharacter character) {
-			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy inside of [npc.herHim], forcing it out from [npc.her] body."
-					+ " As [npc.she] [npc.does] so, it reforms back into a chaos feather.");
-		}
-
-		@Override
-		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
-			return genericRangedAttackDescription(character, target,isHit);
-		}
-
-		@Override
-		public String getAttackDescription(GameCharacter user, GameCharacter target) {
-			return UtilText.parse(target,
-					"Use your feather's power to shoot a bolt of energy at [npc.name]!");
-		}
-		
-		@Override
-		public List<Spell> getGenerationSpells(DamageType dt) {
-			switch(dt) {
-				case FIRE:
-					return Util.newArrayListOfValues(Spell.FIREBALL);
-				case ICE:
-					return Util.newArrayListOfValues(Spell.ICE_SHARD);
-				case LUST:
-					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
-				case PHYSICAL:
-					return Util.newArrayListOfValues(Spell.SLAM);
-				case POISON:
-					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
-				default:
-					break;
-			}
-			return null;
-		}
-	};
-	
 	public static AbstractWeaponType RANGED_MUSKET = new AbstractWeaponType(15000,
 			false,
 			true,
@@ -512,6 +374,8 @@ public class WeaponType {
 			1,
 			DamageVariance.LOW,
 			5,
+			null,
+			null,
 			null,
 			null,
 			null,
@@ -606,6 +470,8 @@ public class WeaponType {
 			null,
 			null,
 			null,
+			null,
+			null,
 			null) {
 		
 		@Override
@@ -680,6 +546,8 @@ public class WeaponType {
 			0,
 			DamageVariance.LOW,
 			5,
+			null,
+			null,
 			null,
 			null,
 			null,
@@ -785,6 +653,8 @@ public class WeaponType {
 			null,
 			null,
 			null,
+			null,
+			null,
 			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
 
 		@Override
@@ -842,6 +712,13 @@ public class WeaponType {
 		if(id.equals("MELEE_KNIGHTLY_SWORD")) {	
 			id = "innoxia_european_swords_arming_sword";
 		}
+		if(id.equals("OFFHAND_CHAOS_RARE")) {	
+			id = "innoxia_feather_rare";
+		}
+		if(id.equals("OFFHAND_CHAOS_EPIC")) {	
+			id = "innoxia_feather_epic";
+		}
+		
 		id = Util.getClosestStringMatch(id, idToWeaponMap.keySet());
 //		System.out.println("  set to: "+id);
 		return idToWeaponMap.get(id);

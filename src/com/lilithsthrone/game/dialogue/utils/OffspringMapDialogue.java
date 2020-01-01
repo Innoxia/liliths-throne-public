@@ -86,7 +86,7 @@ public class OffspringMapDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return new Response("Back", "Decide not to look for any of your offspring in this location after all.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Back", "Decide not to look for any of your offspring in this location after all.", Main.game.getDefaultDialogue(false));
 				
 			} else if(index-1 < Main.game.getOffspringNotSpawned(npc->true).size()) {
 				NPC offspring = Main.game.getOffspringNotSpawned(npc->true).get(index-1);
