@@ -1544,8 +1544,8 @@ public class MainController implements Initializable {
 			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
 					(Main.game.isDayTime()?"Day-time":"Night-time"),
 					"Current time: "+Units.time(Main.game.getDateNow())+" (<span style='color:"+dp.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(dp.getName())+"</span>)<br/>"
-					+ "Sunrise: [style.colourYellow("+Units.dateTime(ldt[0])+")]<br/>"
-					+ "Sunset: [style.colourOrange("+Units.dateTime(ldt[1])+")]<br/>"
+					+ "Sunrise: [style.colourYellow("+Units.time(ldt[0])+")]<br/>"
+					+ "Sunset: [style.colourOrange("+Units.time(ldt[1])+")]<br/>"
 					+ "<i>Click to toggle the time display between a 24-hour and 12-hour clock.</i>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}

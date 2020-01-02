@@ -264,22 +264,22 @@ public class DateAndTime {
 	public static DayPeriod getDayPeriod(LocalDateTime date, double latitude, double longitudeWest) {
 		
 		LocalDateTime[] times = getTimeOfSolarElevationChange(date, SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, latitude, longitudeWest);
-		if(times[0]==null || (date.isAfter(times[0]) && date.isBefore(times[1]))) {
+		if(times[0]==null || (date.toLocalTime().isAfter(times[0].toLocalTime()) && date.toLocalTime().isBefore(times[1].toLocalTime()))) {
 			return DayPeriod.DAY;
 		}
 
 		times = getTimeOfSolarElevationChange(date, SolarElevationAngle.SUN_ALTITUDE_CIVIL_TWILIGHT, latitude, longitudeWest);
-		if(times[0]==null || (date.isAfter(times[0]) && date.isBefore(times[1]))) {
+		if(times[0]==null || (date.toLocalTime().isAfter(times[0].toLocalTime()) && date.toLocalTime().isBefore(times[1].toLocalTime()))) {
 			return DayPeriod.CIVIL_TWILIGHT;
 		}
 
 		times = getTimeOfSolarElevationChange(date, SolarElevationAngle.SUN_ALTITUDE_NAUTICAL_TWILIGHT, latitude, longitudeWest);
-		if(times[0]==null || (date.isAfter(times[0]) && date.isBefore(times[1]))) {
+		if(times[0]==null || (date.toLocalTime().isAfter(times[0].toLocalTime()) && date.toLocalTime().isBefore(times[1].toLocalTime()))) {
 			return DayPeriod.NAUTICAL_TWILIGHT;
 		}
 
 		times = getTimeOfSolarElevationChange(date, SolarElevationAngle.SUN_ALTITUDE_ASTRONOMICAL_TWILIGHT, latitude, longitudeWest);
-		if(times[0]==null || (date.isAfter(times[0]) && date.isBefore(times[1]))) {
+		if(times[0]==null || (date.toLocalTime().isAfter(times[0].toLocalTime()) && date.toLocalTime().isBefore(times[1].toLocalTime()))) {
 			return DayPeriod.ASTRONOMICAL_TWILIGHT;
 		}
 		
