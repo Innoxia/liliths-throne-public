@@ -810,7 +810,7 @@ public class CityPlaces {
 				+ "</p>"
 				+ "<p>"
 					+ "You look around, but don't see anyone nearby who could be this 'William' character."
-					+ " Focusing your attention back to his rose garden, you decide to do as William's sign says, and, stepping forwards, you pluck a single red rose from the nearest bush."
+					+ " Focusing your attention back to his rose garden, you decide to do as William's sign says, and, stepping forwards, you pluck a single rose from the nearest bush."
 				+ "</p>";
 		}
 
