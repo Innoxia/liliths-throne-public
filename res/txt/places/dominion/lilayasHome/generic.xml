@@ -190,10 +190,10 @@
 	
 	<htmlContent tag="ROSE_TALK_OFFER_ROSE"><![CDATA[
 	<p>
-		Feeling that it would be fitting to offer this cat-girl maid her namesake as a gift, you hold out the red rose which you've been carrying with you towards her, and say, [pc.speech(This is for you, Rose, as thanks for all of your hard work.)]
+		Feeling that it would be fitting to offer this cat-girl maid her namesake as a gift, you hold out the beautiful rose which you've been carrying with you towards her, and say, [pc.speech(This is for you, Rose, as thanks for all of your hard work.)]
 	</p>
 	<p>
-		As she sees what it is you're giving to her, Rose's cheeks flush to almost the same deep scarlet as the delicate flower's petals, and as she takes the gift from you, she shyly smiles and shuffles her feet. [rose.speech([pc.Name]... That's so thoughtful of you! Thank you so much!)]
+		As she sees what it is you're giving to her, Rose's cheeks flush to a deep scarlet, and as she takes the gift from you, she shyly smiles and shuffles her feet. [rose.speech([pc.Name]... That's so thoughtful of you! Thank you so much!)]
 	</p>
 	<p>
 		As you watch her take the rose from you, you suddenly notice how delicate and perfectly-formed Rose's hands are. Even after all of the cleaning and manual labour she does as part of her duties around the house, she's somehow managed to keep her hands perfectly spotless, with nails that are manicured to a perfect finish.
