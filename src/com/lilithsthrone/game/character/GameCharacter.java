@@ -5808,7 +5808,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		recalculateCombatMoves();
-		updateAttributeListeners();
+		updateAttributeListeners(); // Why do this if no attribute modifiers?
 		calculateSpecialFetishes();
 	}
 
@@ -5858,7 +5858,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		recalculateCombatMoves();
-		updateAttributeListeners();
+		updateAttributeListeners(); // Why do this if no attribute modifiers?
 		calculateSpecialFetishes();
 	}
 	
@@ -5932,7 +5932,10 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public FetishDesire getFetishDesire(Fetish fetish) {
 		if(hasFetish(fetish)) {
-			return FetishDesire.FOUR_LOVE;
+		    if (hasBaseFetish(fetish) && (fetishDesireMap.get(fetish)!=FetishDesire.FOUR_LOVE)) {
+			fetishDesireMap.put(fetish, FetishDesire.FOUR_LOVE);
+		    }
+		    return FetishDesire.FOUR_LOVE;
 		}
 		
 		FetishDesire baseDesire = getBaseFetishDesire(fetish);
