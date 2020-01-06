@@ -559,7 +559,7 @@
 		[axel.name] shudders as he recalls a disturbing memory, before shaking his head and giving you a toothy smile. [axel.speech(I really appreciate your offer of help, but please don't feel obliged to put yourself in harm's way solely on my account. If you do decide to confront Vengar, just please stay safe, ok?)]
 	</p>
 	<p>
-		Telling [axel.name] that you'll be careful, you wonder if you should do as he suggests and ask Claire for some help from the Enforcers. Then again, you could always try to deal with Vengar by yourself...
+		Telling [axel.name] that you'll be careful, you wonder if you should do as he suggests and ask Claire for some help from the Enforcers. Then again, you could always try to deal with Vengar without their assistance...
 	</p>
 	<p>
 		[style.italicsBad(Innoxia's note: This quest is in a very rough state in this version! I advise waiting for the next update before playing through the rest of it!)]
@@ -858,8 +858,6 @@
 		Although both players have 'Two pair', player A wins, as the total of their ranking dice is 18 (3+3+6+6), compared to player B's 6 (2+2+1+1).<br/><br/>
 		
 		If both players have the same ranking, and the same value, the game is a draw, and the money in the pot is returned to each player's hand.
-	</p>
-	<p>
 	</p>
 	]]>
 	</htmlContent>

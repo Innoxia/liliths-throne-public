@@ -212,7 +212,7 @@ public class Pix extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_sport_shorts", Colour.CLOTHING_BLUE_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_trainers", Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_SWEATBAND, Colour.CLOTHING_RED, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_sweatband", Colour.CLOTHING_RED, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WRISTBANDS, Colour.CLOTHING_RED, false), true, this);
 
 	}

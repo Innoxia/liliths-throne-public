@@ -3571,7 +3571,7 @@ public class PlaceType {
 		public Population getPopulation() {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
 				if(Main.game.isExtendedWorkTime()) {
-					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
+					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
 				} else {
 					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
 				}
@@ -3596,7 +3596,7 @@ public class PlaceType {
 		public Population getPopulation() {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
 				if(Main.game.isExtendedWorkTime()) {
-					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
+					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
 				} else {
 					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
 				}

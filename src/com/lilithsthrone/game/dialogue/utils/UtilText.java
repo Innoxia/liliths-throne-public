@@ -202,6 +202,10 @@ public class UtilText {
 				}
 			}
 			
+			if(target.hasPersonalityTrait(PersonalityTrait.SLOVENLY)) {
+				modifiedSentence = Util.applySlovenlySpeech(modifiedSentence);
+			}
+			
 			if(target.getAlcoholLevel().getSlurredSpeechFrequency()>0) {
 				modifiedSentence = Util.addDrunkSlur(modifiedSentence, target.getAlcoholLevel().getSlurredSpeechFrequency());
 			}
@@ -1568,7 +1572,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 				try {
-					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), null);
+					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), specialNPCs);
 					Set<Relationship> set = character.getRelationshipsTo(targetedCharacter);
 					if(set.size()>=1) {
 						return set.iterator().next().getName(character);
@@ -1596,7 +1600,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 				try {
-					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), null);
+					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), specialNPCs);
 					return character.getRelationshipStrTo(targetedCharacter);
 					
 				} catch(Exception ex) {
@@ -3392,6 +3396,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "your";
+					
 				} else {
 					if(character.isFeminine()) {
 						if(character.isPlayer()) {

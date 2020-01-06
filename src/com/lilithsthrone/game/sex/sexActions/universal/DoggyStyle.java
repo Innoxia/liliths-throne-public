@@ -522,8 +522,8 @@ public class DoggyStyle {
 							:" a real dom treats their submissive bitch.")
 					+ " Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.ass+], grinning devilishly as [npc2.she] [npc2.verb(let)] out [npc2.a_moan+]."
 					+ "<br/><br/>"
-					+ "Reaching down, [npc.she] then [npc.verb(grab)] [npc2.namePos] shoulders, before pushing [npc.her] weight down onto [npc2.her] back as [npc.she] roughly [npc2.verb(mount)] [npc2.herHim]."
-					+ " With [npc.namePos] weight now on top of [npc2.herHim], [npc2.name] [npc2.verb(collapses)] to the floor with [npc2.a_moan+]."
+					+ "Reaching down, [npc.she] then [npc.verb(grab)] [npc2.namePos] shoulders, before pushing [npc.her] weight down onto [npc2.her] back as [npc.she] roughly [npc.verb(mount)] [npc2.herHim]."
+					+ " With [npc.namePos] weight now on top of [npc2.herHim], [npc2.name] [npc2.verb(collapse)] to the floor with [npc2.a_moan+]."
 					+ " Bending down, and with [npc.her] throbbing [npc.cock] still hilted in [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(growl)] menacingly in [npc2.her] [npc2.ear], "
 							+ "[npc.speech(You little bitch! All you're good for is being my slutty cock-sleeve!)]"
 					+"<br/><br/>"
@@ -666,8 +666,8 @@ public class DoggyStyle {
 							:" a real dom treats their submissive bitch.")
 					+ " Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.pussy+], grinning devilishly as [npc2.she] [npc2.verb(let)] out [npc2.a_moan+]."
 					+ "<br/><br/>"
-					+ "Reaching down, [npc.she] then [npc.verb(grab)] [npc2.namePos] shoulders, before pushing [npc.her] weight down onto [npc2.her] back as [npc.she] roughly [npc2.verb(mount)] [npc2.herHim]."
-					+ " With [npc.namePos] weight now on top of [npc2.herHim], [npc2.name] [npc2.verb(collapses)] to the floor with [npc2.a_moan+]."
+					+ "Reaching down, [npc.she] then [npc.verb(grab)] [npc2.namePos] shoulders, before pushing [npc.her] weight down onto [npc2.her] back as [npc.she] roughly [npc.verb(mount)] [npc2.herHim]."
+					+ " With [npc.namePos] weight now on top of [npc2.herHim], [npc2.name] [npc2.verb(collapse)] to the floor with [npc2.a_moan+]."
 					+ " Bending down, and with [npc.her] throbbing [npc.cock] still hilted in [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(growl)] menacingly in [npc2.her] [npc2.ear], "
 							+ "[npc.speech(You little bitch! All you're good for is being my slutty cock-sleeve!)]"
 					+"<br/><br/>"

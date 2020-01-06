@@ -463,7 +463,7 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.EYES_AVIATORS, Colour.CLOTHING_BLACK_STEEL);
 				generateClothingOnFloor(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL);
 				generateClothingOnFloor("innoxia_hand_gloves", Colour.CLOTHING_BLACK);
-				generateClothingOnFloor(ClothingType.HEAD_CAP, Colour.CLOTHING_BLUE);
+				generateClothingOnFloor("innoxia_head_cap", Colour.CLOTHING_BLUE);
 				generateClothingOnFloor("innoxia_neck_scarf", Colour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.TORSO_RIBBED_SWEATER, Colour.CLOTHING_GREY);
@@ -494,7 +494,7 @@ public class CharacterCreation {
 
 				generateClothingOnFloor("innoxia_neck_scarf", Colour.CLOTHING_RED);
 				
-				generateClothingOnFloor(ClothingType.HEAD_CAP, Colour.CLOTHING_BLUE);
+				generateClothingOnFloor("innoxia_head_cap", Colour.CLOTHING_BLUE);
 				
 				generateClothingOnFloor(ClothingType.STOMACH_UNDERBUST_CORSET, Colour.CLOTHING_BLACK);
 
@@ -537,8 +537,8 @@ public class CharacterCreation {
 				generateClothingOnFloor("innoxia_foot_heels", Colour.CLOTHING_BLACK);
 
 				generateClothingOnFloor("innoxia_hand_elbow_length_gloves", Colour.CLOTHING_BLACK);
-				generateClothingOnFloor(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK);
-				generateClothingOnFloor(ClothingType.HEAD_HEADBAND_BOW, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_BLACK, Colour.CLOTHING_PINK);
+				generateClothingOnFloor("innoxia_head_headband", Colour.CLOTHING_BLACK);
+				generateClothingOnFloor(ClothingType.getClothingTypeFromId("innoxia_head_headband_bow"), Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_BLACK, Colour.CLOTHING_PINK);
 
 				generateClothingOnFloor("innoxia_leg_hotpants", Colour.CLOTHING_WHITE);
 				generateClothingOnFloor("innoxia_leg_mini_skirt", Colour.CLOTHING_BLACK);

@@ -988,14 +988,33 @@
 		[amber.speech(We can't have you going outside without being marked as my property, now, can we bitch?)] Amber sneers, before bending down to fasten the collar around your neck. Instantly, you feel [style.colourArcane(a powerful enchantment)] within the collar start to take effect, and you let out a whimpering little moan as you realise that it's making you both hornier and more submissive. A the same time, you feel the collar jinx's [style.colourBad(sealing)] the collar onto you.
 	</p>
 	<p>
-		[amber.speech(Good bitch,)] Mistress Amber says, clipping the leash to the metal ring at the front of your new collar. With a sudden, sharp yank of the leash, Mistress Amber pulls you towards a free-standing mirror in one corner of the lounge. [amber.speech(Look, bitch, don't you just look completely pathetic?)]
+		[amber.speech(Good bitch,)] Mistress Amber says, clipping the leash to the metal ring at the front of your new collar. With a sudden, sharp yank of the leash, Mistress Amber pulls you towards a free-standing mirror in one corner of the lounge. [amber.speech(Take a look at yourself, bitch. You're completely pathetic, aren't you?!)]
 	</p>
 	<p>
-		You look up to see that your Mistress is right. Down on all fours, wearing a pink collar and leash, you look every bit Mistress Amber's property. Peering closer into the mirror, you see that there's a little name tag on your collar, which reads 'Amber's Bitch'. [pc.speech(Yes, Mistress Amber. I look pathetic.)]
+		You look up to see that your Mistress is right. Down on all fours, wearing a pink collar and leash, you look every bit Mistress Amber's property. Peering closer into the mirror, you see that there's a little name tag on your collar, which reads 'Amber's Bitch'. [pc.speech(Yes, Mistress Amber. I'm your pathetic bitch.)]
 	</p>
+	#IF(game.isLevelDrainContentEnabled())
+		<p>
+			[amber.speech(Good bitch,)] your Mistress says, before giving your leash a cruel yank and ordering you to sit. As you do as you're told, the fiery-haired succubus gleefully stares down at you, before revealing one final aspect of your subservient relationship with her, [amber.speech(As you're now my pet bitch, I'm going to have to start working on getting you properly trained for your new role. It simply wouldn't do to have you getting more powerful than your owner now, would it?)]
+		</p>
+		<p>
+			Pausing for you to give a response, your Mistress smiles as you reply, [pc.speech(No, Mistress Amber.)]
+		</p>
+		<p>
+			[amber.speech(That's right,)] she continues, [amber.speech(and that's why, for as long as you're wearing your collar to show your submission to me, I'm going to start using a very special power on you. For every time I make you orgasm, I'm going to permanently drain some of your power. As weak and pathetic as you are, I can't imagine that it will take more than a few sessions of dominating you before I've turned you into a truly powerless nobody. You'd like that, wouldn't you, bitch?)]
+		</p>
+		<p>
+			By now completely committed to being Mistress Amber's bitch, you dutifully reply, [pc.speech(Yes, Mistress Amber. Please, take all my power for yourself.)]
+		</p>
+	#ENDIF
 	<p>
 		[amber.speech(Good bitch. Now, heel,)] your Mistress says, yanking the lead once more as she leads you towards the lounge door. You obediently do as she says, crawling along beside the sadistic succubus as she leads you out of the lounge, down the corridor, and out of the front door into the street beyond.
 	</p>
+	#IF(game.isLevelDrainContentEnabled())
+		<p style='text-align:center;'>
+			[style.italicsBad(While you're wearing her collar, Amber will now drain one level from you every time you orgasm in sex with her!)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

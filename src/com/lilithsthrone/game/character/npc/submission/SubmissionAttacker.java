@@ -93,7 +93,7 @@ public class SubmissionAttacker extends NPC {
 				}
 			}
 			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces, true);
+			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			
 			if(Math.random()<0.05 && !this.getRace().equals(Race.DEMON) && this.getSubspecies()!=Subspecies.SLIME) { //5% chance for the NPC to be a half-demon
 				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);

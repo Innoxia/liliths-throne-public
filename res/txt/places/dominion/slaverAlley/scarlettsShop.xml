@@ -5,7 +5,7 @@
 	
 	<htmlContent tag="SCARLETTS_SHOP_EXTERIOR_CLOSED"><![CDATA[
 	<p>
-		Tucked away in one corner of Slaver Alley, you see a shop that's quite unlike all the others. Looking down from the words 'Scarlett's Shop' painted in fancy gold lettering above the door, you see that there's a sign hanging in one of the large glass windows, which reads, [style.italicsBad('Open every day, 6am-10pm')].
+		Tucked away in one corner of Slaver Alley, you see a shop that's quite unlike all the others. Looking down from the words 'Scarlett's Shop' painted in fancy gold lettering above the door, you see that there's a sign hanging in one of the large glass windows, which reads, [style.italicsBad('Open every day, [unit.time(6)] to [unit.time(22)]')].
 	</p>
 	#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_HELENA)
 		<p>
@@ -21,7 +21,7 @@
 	
 	<htmlContent tag="SCARLETTS_SHOP_EXTERIOR"><![CDATA[
 	<p>
-		Tucked away in one corner of Slaver Alley, you see a shop that's quite unlike all the others. Looking down from the words 'Scarlett's Shop' painted in fancy gold lettering above the door, you see that there's a sign hanging in one of the large glass windows, which reads, [style.italicsGood('Open every day, 6am-10pm')].
+		Tucked away in one corner of Slaver Alley, you see a shop that's quite unlike all the others. Looking down from the words 'Scarlett's Shop' painted in fancy gold lettering above the door, you see that there's a sign hanging in one of the large glass windows, which reads, [style.italicsGood('Open every day, [unit.time(6)] to [unit.time(22)]')].
 	</p>
 	<p>
 		Despite the sign proclaiming that this shop is open for business, you don't see any sign of there being any slaves for sale inside. Furthermore, while the other shops in Slaver Alley use the area in front of their premises to proudly display advertisement boards and platforms upon which to display their goods, the area in front of 'Scarlett's Shop' is noticeably barren; yet further proof that this particular store must have fallen upon hard times.
@@ -134,7 +134,7 @@
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR"><![CDATA[
 	<p>
-		Once again, you find yourself standing in the quiet area in front of Scarlett's old shop. Stepping forwards, you see that the fancy gold lettering reading 'Scarlett's shop; open for business' has been roughly crossed out in red paint, and beneath, in the same scarlet hue, you read the words '[helena.name]'s Pet Shop'. Just as it was before, there's a sign hanging in one of the large glass windows, reading, [style.italicsGood('Open every day, 6am-10pm')].
+		Once again, you find yourself standing in the quiet area in front of Scarlett's old shop. Stepping forwards, you see that the fancy gold lettering reading 'Scarlett's shop; open for business' has been roughly crossed out in red paint, and beneath, in the same scarlet hue, you read the words '[helena.name]'s Pet Shop'. Just as it was before, there's a sign hanging in one of the large glass windows, reading, [style.italicsGood('Open every day, [unit.time(6)] to [unit.time(22)]')].
 	</p>
 	<p>
 		You wonder if you should enter [helena.name]'s Pet Shop now, or come back later.
@@ -144,7 +144,7 @@
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_CLOSED"><![CDATA[
 	<p>
-		Once again, you find yourself standing in the quiet area in front of Scarlett's old shop. Stepping forwards, you see that the fancy gold lettering reading 'Scarlett's shop; open for business' has been roughly crossed out in red paint, and beneath, in the same scarlet hue, you read the words '[helena.name]'s Pet Shop'. Just as it was before, there's a sign hanging in one of the large glass windows, reading, [style.italicsBad('Open every day, 6am-10pm')].
+		Once again, you find yourself standing in the quiet area in front of Scarlett's old shop. Stepping forwards, you see that the fancy gold lettering reading 'Scarlett's shop; open for business' has been roughly crossed out in red paint, and beneath, in the same scarlet hue, you read the words '[helena.name]'s Pet Shop'. Just as it was before, there's a sign hanging in one of the large glass windows, reading, [style.italicsBad('Open every day, [unit.time(6)] to [unit.time(22)]')].
 	</p>
 	<p>
 		As the shop is currently closed, there's nothing more for you to do here except turn around and leave. If you wanted to talk to [helena.name], you'll have to come back at some time after six in the morning...

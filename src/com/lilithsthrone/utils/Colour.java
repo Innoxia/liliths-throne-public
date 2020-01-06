@@ -884,7 +884,7 @@ public enum Colour {
 			Colour.COVERING_RAINBOW,
 			Colour.COVERING_RAINBOW_PASTEL
 			);
-			
+	
 	public static List<Colour> naturalFurColours = Util.newArrayListOfValues(
 			Colour.COVERING_WHITE,
 			Colour.COVERING_SILVER,

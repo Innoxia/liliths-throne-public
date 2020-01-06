@@ -518,7 +518,7 @@ public class RoomPlayer {
 								
 							} else if(npc.isSelfish()) {
 								speechGreetings.add("[npc.speech(Eugh, what do you want now, [pc.name)]?)]");
-								speechGreetings.add("[npc.speech(And what exactly do you want <i>this</i> time, [npc.name]?)]");
+								speechGreetings.add("[npc.speech(And what exactly do you want <i>this</i> time, [pc.name]?)]");
 								speechGreetings.add("[npc.speech(So, why are you back?)]");
 								speechGreetings.add("[npc.speech(Why did you have to come back?)]");
 								
@@ -528,7 +528,7 @@ public class RoomPlayer {
 								
 							} else {
 								speechGreetings.add("[npc.speech(Just do whatever it is you're here to do, [pc.name],)]");
-								speechGreetings.add("[npc.speech(Go on then, [npc.name], do whatever it is you're here to do,)]");
+								speechGreetings.add("[npc.speech(Go on then, [pc.name], do whatever it is you're here to do,)]");
 								speechGreetings.add("[npc.speech(Let's just get this over with,)]");
 								speechGreetings.add("[npc.speech(Go on then, tell me what it is you want this time,)]");
 								

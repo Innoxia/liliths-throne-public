@@ -65,6 +65,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
@@ -131,12 +132,14 @@ public class Amber extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.8")) {
 			this.setLevel(15);
 			this.equipClothing(null);
-			this.resetPerksMap(true);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.BRAVE);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
+			this.resetPerksMap(true);
 		}
 	}
 
@@ -144,6 +147,7 @@ public class Amber extends NPC {
 	public void setupPerks(boolean autoSelectPerks) {
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
+						Perk.ORGASMIC_LEVEL_DRAIN,
 						Perk.UNARMED_TRAINING),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 3),
@@ -602,6 +606,12 @@ public class Amber extends NPC {
 	}
 	
 	// Sex:
+
+	@Override
+	public boolean isLevelDrainAvailableToUse() {
+		return Main.game.isLevelDrainContentEnabled()
+				&& Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).getClothingType()==ClothingType.AMBERS_BITCH_CHOKER;
+	}
 	
 	@Override
 	public List<Class<?>> getUniqueSexClasses() {

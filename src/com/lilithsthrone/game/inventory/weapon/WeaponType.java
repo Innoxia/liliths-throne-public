@@ -459,7 +459,6 @@ public class WeaponType {
 		}
 	};
 	
-	public static List<AbstractWeaponType> rareWeapons = new ArrayList<>();
 	private static List<AbstractWeaponType> allWeapons = new ArrayList<>();
 	public static List<AbstractWeaponType> moddedWeapons = new ArrayList<>();
 	
@@ -590,10 +589,6 @@ public class WeaponType {
 					idToWeaponMap.put(f.getName(), weapon);
 					
 					allWeapons.add(weapon);
-				
-					if (weapon.getRarity() == Rarity.RARE) {
-						rareWeapons.add(weapon);
-					}
 					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();

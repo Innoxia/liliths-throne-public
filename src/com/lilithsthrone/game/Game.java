@@ -3856,6 +3856,10 @@ public class Game implements XMLSaving {
 	public boolean isEnchantmentCapacityEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.enchantmentLimits);
 	}
+
+	public boolean isLevelDrainContentEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.levelDrain);
+	}
 	
 	public boolean isSillyModeEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.sillyMode);

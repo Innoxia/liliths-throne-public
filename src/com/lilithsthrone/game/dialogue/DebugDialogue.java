@@ -313,7 +313,6 @@ public class DebugDialogue {
 						@Override
 						public void effects() {
 							Main.game.setStartingDateMonth(Main.game.getStartingDate().getMonth().minus(1));
-							
 						}
 					};
 					
@@ -322,7 +321,6 @@ public class DebugDialogue {
 							@Override
 							public void effects() {
 								Main.game.setStartingDateMonth(Main.game.getStartingDate().getMonth().plus(1));
-								
 							}
 						};
 						

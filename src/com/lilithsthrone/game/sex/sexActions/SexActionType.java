@@ -37,8 +37,11 @@ public enum SexActionType {
 	/**Positioning action.*/
 	POSITIONING,
 
-	/**OPening the positioning menu action.*/
+	/**Opening the positioning menu action.*/
 	POSITIONING_MENU,
+
+	/**Miscellaneous actions which do not advance the sex turn.*/
+	MISC_NO_TURN_END,
 
 	/**The action taken to prepare for partner's orgasm.*/
 	PREPARE_FOR_PARTNER_ORGASM,
