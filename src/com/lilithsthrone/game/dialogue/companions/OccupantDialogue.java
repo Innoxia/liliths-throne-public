@@ -1127,6 +1127,7 @@ public class OccupantDialogue {
 					public void effects() {
 						occupant().setRandomUnoccupiedLocation(WorldType.DOMINION, true, PlaceType.DOMINION_STREET, PlaceType.DOMINION_STREET_HARPY_NESTS, PlaceType.DOMINION_BOULEVARD);
 						occupant().setHomeLocation();
+						OccupantDialogue.isApartment = true;
 						Main.game.getPlayer().setLocation(occupant().getWorldLocation(), occupant().getLocation(), false);
 					}
 				};
