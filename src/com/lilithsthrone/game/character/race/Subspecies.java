@@ -1132,7 +1132,7 @@ public enum Subspecies {
 						new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
 						new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
 						new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 25f),
+						new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 55f),
 						new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 100f));
 			}
 		}
@@ -1236,7 +1236,7 @@ public enum Subspecies {
 						new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
 						new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
 						new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
-						new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 25f),
+						new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 55f),
 						new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 100f));
 			}
 		}
