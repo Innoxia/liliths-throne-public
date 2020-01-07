@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.types;
 
+import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -371,6 +372,10 @@ public class ArmType {
 		public BodyPartClothingBlock getBodyPartClothingBlock() {
 			return clothingBlock;
 		}
+		@Override
+		public List<ArmTypeTag> getTags() {
+			return Util.newArrayListOfValues(ArmTypeTag.WINGS, ArmTypeTag.WINGS_LEATHERY);
+		}
 	};
 
 	public static AbstractArmType HARPY = new AbstractArmType(BodyCoveringType.FEATHERS,
@@ -417,6 +422,10 @@ public class ArmType {
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock() {
 			return clothingBlock;
+		}
+		@Override
+		public List<ArmTypeTag> getTags() {
+			return Util.newArrayListOfValues(ArmTypeTag.WINGS, ArmTypeTag.WINGS_FEATHERED);
 		}
 	};
 	
