@@ -156,14 +156,14 @@ public enum CaptiveTransformation {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("I want yer cock nice an' small, so that yer feel ashamed o' it when yer look at 'ow big mine is!"
 							+(!selfTransform?"":" Go on, make it tiny!"),
-							target.setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue()));
+							target.setPenisSize(PenisSize.ONE_TINY.getMedianValue()));
 				}
 
 				if(target.getPenisRawGirthValue()>PenisGirth.TWO_AVERAGE.getValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("I don't want no sissy cock bein' as thick as mine!"
 							+(!selfTransform?"":" Go on, I wanna see yer slim yer cock down!"),
-							target.setPenisGirth(PenisGirth.THREE_THICK));
+							target.setPenisGirth(PenisGirth.TWO_AVERAGE));
 				}
 				
 			} else {

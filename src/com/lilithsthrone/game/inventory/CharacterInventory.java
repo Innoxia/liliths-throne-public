@@ -1714,7 +1714,7 @@ public class CharacterInventory implements XMLSaving {
 														:!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType))
 												&& !isDisplacementAvailableFromElsewhere(characterClothingOwner, equippedClothing, caBlocked)) {
 											
-											if (bpEquipped.displacementType != DisplacementType.REMOVE_OR_EQUIP && !clothingToRemove.containsKey(equippedClothing)) { // Can be displaced:
+											if (bpEquipped.displacementType != DisplacementType.REMOVE_OR_EQUIP /*&& !clothingToRemove.containsKey(equippedClothing)*/) { // Can be displaced:
 												if (!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)){ // Not already displaced:
 													if(automaticClothingManagement) {
 														clothingToRemove.put(equippedClothing, bpEquipped.displacementType);

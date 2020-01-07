@@ -55,7 +55,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.75
- * @version 0.3.5
+ * @version 0.3.5.8
  * @author Innoxia
  */
 public class LilayaHomeGeneric {
@@ -76,6 +76,10 @@ public class LilayaHomeGeneric {
 				return "Actions";
 			case 1:
 				return "Fast Travel";
+			case 2:
+				if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_ROOM_PLAYER) {
+					return "Bathroom";
+				}
 		}
 		return null;
 	}
@@ -89,6 +93,7 @@ public class LilayaHomeGeneric {
 				@Override
 				public void effects() {
 					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
+					Main.game.setResponseTab(0);
 				}
 			};
 
@@ -100,6 +105,7 @@ public class LilayaHomeGeneric {
 				@Override
 				public void effects() {
 					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_LAB, true);
+					Main.game.setResponseTab(0);
 				}
 			};
 			
@@ -111,6 +117,7 @@ public class LilayaHomeGeneric {
 				@Override
 				public void effects() {
 					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_KITCHEN, true);
+					Main.game.setResponseTab(0);
 				}
 			};
 			
@@ -122,6 +129,7 @@ public class LilayaHomeGeneric {
 				@Override
 				public void effects() {
 					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_LIBRARY, true);
+					Main.game.setResponseTab(0);
 				}
 			};
 			
@@ -133,6 +141,7 @@ public class LilayaHomeGeneric {
 				@Override
 				public void effects() {
 					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
+					Main.game.setResponseTab(0);
 				}
 			};
 		}

@@ -120,7 +120,7 @@ public class Vagina implements BodyPartInterface {
 			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
 					(this.getType().getRace()==Race.HORSE_MORPH?"mare":null),
 					"feral",
-					owner.getVaginaRace().getName(true)+"-",
+					owner.getVaginaRace().getName(owner, true)+"-",
 					"bestial",
 					"animalistic")));
 		} else {

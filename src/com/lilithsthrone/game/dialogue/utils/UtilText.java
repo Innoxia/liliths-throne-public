@@ -202,6 +202,10 @@ public class UtilText {
 				}
 			}
 			
+			if(target.hasPersonalityTrait(PersonalityTrait.SLOVENLY)) {
+				modifiedSentence = Util.applySlovenlySpeech(modifiedSentence);
+			}
+			
 			if(target.getAlcoholLevel().getSlurredSpeechFrequency()>0) {
 				modifiedSentence = Util.addDrunkSlur(modifiedSentence, target.getAlcoholLevel().getSlurredSpeechFrequency());
 			}
@@ -3436,6 +3440,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "your";
+					
 				} else {
 					if(character.isFeminine()) {
 						if(character.isPlayer()) {
@@ -6854,7 +6859,7 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				try {
-					return getBodyPartFromType(bodyPart,character).getType().getRace().getName(getBodyPartFromType(bodyPart,character).isBestial(character));
+					return getBodyPartFromType(bodyPart,character).getType().getRace().getName(character, getBodyPartFromType(bodyPart, character).isBestial(character));
 				} catch(Exception ex) {
 					return "null_body_part";
 				}
@@ -7226,15 +7231,15 @@ public class UtilText {
 		return (descriptor.length() > 0 ? descriptor + " " : (UtilText.isVowel(input.charAt(0))?"an ":"a ")) + input;
 	}
 
-	private static String getSubspeciesName(Subspecies race, GameCharacter character) {
-		if(race==null) {
+	private static String getSubspeciesName(Subspecies subspecies, GameCharacter character) {
+		if(subspecies==null) {
 			return "";
 		}
 		
 		if (character.isFeminine()) {
-			return race.getSingularFemaleName(character);
+			return subspecies.getSingularFemaleName(character);
 		} else {
-			return race.getSingularMaleName(character);
+			return subspecies.getSingularMaleName(character);
 		}
 	}
 	

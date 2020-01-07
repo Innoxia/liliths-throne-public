@@ -953,7 +953,7 @@ public class GamblingDenDialogue {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelExplainedVengar)) {
 						return new Response("Offer help",
 								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar."
-										+ "<br/>[style.italicsBad(This quest is in a very rough state in this version! I advise waiting for the next update before playing through it properly!)]",
+										+"<br/>[style.italicsBad(This quest is in a very rough state in this version! I advise waiting for the next update before playing through it properly!)]",
 								AXEL_VENGAR) {
 							@Override
 							public Colour getHighlightColour() {

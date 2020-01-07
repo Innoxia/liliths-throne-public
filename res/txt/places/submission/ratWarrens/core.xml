@@ -302,9 +302,9 @@
 	</p>
 	<p>
 		#IF(!npc.isAttractedTo(npc2))
-			[npc.speech(Eugh... As if you're going to make me do this...)] your companion sighs, reluctantly allowing [npc3.name] to start fondling [npc.herHim].
+			[npc.speech(Eugh... As if you're going to make me do this...)] [npc.name] sighs, reluctantly allowing [npc3.name] to start fondling [npc.herHim].
 		#ELSE
-			[npc.speech(Mmm, that's right, don't be shy now,)] your companion sensually sighs, encouraging [npc3.name] to start fondling [npc.herHim].
+			[npc.speech(Mmm, that's right, don't be shy now,)] [npc.name] sensually sighs, encouraging [npc3.name] to start fondling [npc.herHim].
 		#ENDIF
 	</p>
 	<p>
@@ -325,9 +325,9 @@
 	</p>
 	<p>
 		#IF(!npc.isAttractedTo(npc2))
-			[npc.speech(Eugh... As if you're going to make me do this...)] your companion sighs, reluctantly allowing [npc2.name] to start fondling [npc.herHim].
+			[npc.speech(Eugh... As if you're going to make me do this...)] [npc.name] sighs, reluctantly allowing [npc2.name] to start fondling [npc.herHim].
 		#ELSE
-			[npc.speech(Mmm, that's right, don't be shy now,)] your companion sensually sighs, encouraging [npc2.name] to start fondling [npc.herHim].
+			[npc.speech(Mmm, that's right, don't be shy now,)] [npc.name] sensually sighs, encouraging [npc2.name] to start fondling [npc.herHim].
 		#ENDIF
 	</p>
 	<p>
@@ -427,81 +427,234 @@
 	<!-- GUARD_COMBAT_VICTORY -->
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			You and [npc.name] watch as the last of the rats staggers back, before collapsing to the floor alongside the other five. First making sure that there are no other combatants ready to spring a trap, you and your companion lower your guard and step forwards towards your vanquished foes.
+		</p>
+	#ELSE
+		<p>
+			You watch as the last of the rats staggers back, before collapsing to the floor alongside the other five. First making sure that there are no other combatants ready to spring a trap, you lower your guard and step forwards towards your vanquished foes.
+		</p>
+	#ENDIF
 	<p>
-		You have defeated the guards. The surrounding tunnels will most likely be clear of rats, but you can be sure that other parts of the tunnels will become aware of your presence and be ready to fight you...
+		[npc2.speech(Eugh...)] [npc2.name] groans, before raising [npc2.her] [npc2.ass] and whining, [npc2.speech(What ya waitin' for? Come an' fuck us already!)]
+	</p>
+	<p>
+		Ignoring [npc2.her] moans for a moment, you reflect on the fact that the surrounding tunnels will most likely now be clear of hostile rats, but you can be sure that the areas deeper into the Rat Warrens will be alert and getting ready to fight you. Before you can deal with that situation, however, you need to decide what to do with the six defeated, horny gang members in front of you...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SCARE_OFF"><![CDATA[
 	<p>
-		You tell the gang members to get out of here while they still can. They scurry off in the direction of the exit.
+		Not wanting these rats to recover their courage and return to fight you all over again, you put on your most intimidating tone of voice and tell them that you'll have them all enslaved if they dare come back to challenge you again. Having already been made well aware of the fact that you're far stronger than them, the rats immediately scurry to get out of your sight. As the front entrance is temporarily sealed off, they rush off deeper into the Rat Warrens, no doubt to warn Vengar of your approach.
+	</p>
+	<p>
+		#IF(pc.hasCompanions())
+			With little else to do now but prepare yourself for your next fight, you and [npc.name] get ready to follow in the fleeing rat's footsteps and head further into the Rat Warrens yourselves...
+		#ELSE
+			With little else to do now but prepare yourself for your next fight, you get ready to follow in the fleeing rat's footsteps and head further into the Rat Warrens yourself...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX"><![CDATA[
-	<p>
-		You have sex with the gang members (while your companion watches).
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Turning back to address your companion, you say, [pc.speech(You just stand back and keep watch, [npc.name]. I wouldn't want any surprises to interrupt my fun!)]
+		</p>
+		<p>
+			Nodding in confirmation, [npc.name] steps back and watches as you step up to [npc2.name] and [pc.moan], [pc.speech(You're hoping to get fucked, huh? I think I can help you with that...)]
+		</p>
+		<p>
+			Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
+		</p>
+	#ELSE
+		<p>
+			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Stepping up to [npc2.name], you [pc.moan], [pc.speech(You're hoping to get fucked, huh? I think I can help you with that...)]
+		</p>
+		<p>
+			Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
-	<p>
-		You have gentle sex with the gang members (while your companion watches).
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Turning back to address your companion, you say, [pc.speech(You just stand back and keep watch, [npc.name]. I wouldn't want any surprises to interrupt my fun!)]
+		</p>
+		<p>
+			Nodding in confirmation, [npc.name] steps back and watches as you step up to [npc2.name] and softly [pc.moan], [pc.speech(You want some nice gentle fun, hmm? I think I can help you with that...)]
+		</p>
+		<p>
+			Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
+		</p>
+	#ELSE
+		<p>
+			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Stepping up to [npc2.name], you softly [pc.moan], [pc.speech(You want some nice gentle fun, hmm? I think I can help you with that...)]
+		</p>
+		<p>
+			Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
-	<p>
-		You have rough sex with the gang members (while your companion watches).
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a predatory growl as you advance on them with lewd thoughts in your mind. Turning back to address your companion, you say, [pc.speech(You just stand back and keep watch, [npc.name]. I wouldn't want any surprises to interrupt my fun!)]
+		</p>
+		<p>
+			Nodding in confirmation, [npc.name] steps back and watches as you step up to [npc2.name] and snarl, [pc.speech(You want to be fucked like a bitch, huh? I'll give you what you want alright!)]
+		</p>
+		<p>
+			Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
+		</p>
+	#ELSE
+		<p>
+			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a predatory growl as you advance on them with lewd thoughts in your mind. Stepping up to [npc2.name], you snarl, [pc.speech(You want to be fucked like a bitch, huh? I'll give you what you want alright!)]
+		</p>
+		<p>
+			Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
-	<p>
-		You feel turned on by the prospect of having these gang members use you, and so (telling your companion to step aside) you submit to them and let them fuck you.
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Looking down at the defeated gang members sprawled across the floor, you start to feel a desperate desire to let them reverse the situation and have their way with you. Not wanting your companion to get involved in your scheme, you turn to face [npc.herHim] and say, [pc.speech(I'm going to let these rats have a little fun with me, so you just step back and keep watch until they're finished...)]
+		</p>
+		<p>
+			[npc.speech(If you're sure about this...)] [npc.name] replies, before stepping back and doing as [npc.sheIs] told.
+		</p>
+		<p>
+			Stepping forwards, you kneel down beside the group of rats, before asking [npc2.name], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use me however you'd like...)] 
+		</p>
+		<p>
+			Quick to take advantage of your suggestion, [npc2.name] pushes [npc2.herself] up onto [npc2.her] feet, before asking, [npc2.speech(Are ya fer real? Ya gonna let us fuck ya after beatin' us like that?)]
+		</p>
+		<p>
+			Making a show of looking small and submissive, you confirm to [npc2.name] that [npc2.she] and the rest of the rats can fuck you any way they want. Letting out a chorus of lewd comments, the group immediately advances on you, and after pulling you up onto your feet, they set about groping you and preparing to give you what you want...
+		</p>
+	#ELSE
+		<p>
+			Looking down at the defeated gang members sprawled across the floor, you start to feel a desperate desire to let them reverse the situation and have their way with you. Stepping forwards, you kneel down beside the group of rats, before asking [npc2.name], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use me however you'd like...)] 
+		</p>
+		<p>
+			Quick to take advantage of your suggestion, [npc2.name] pushes [npc2.herself] up onto [npc2.her] feet, before asking, [npc2.speech(Are ya fer real? Ya gonna let us fuck ya after beatin' us like that?)]
+		</p>
+		<p>
+			Making a show of looking small and submissive, you confirm to [npc2.name] that [npc2.she] and the rest of the rats can fuck you any way they want. Letting out a chorus of lewd comments, the group immediately advances on you, and after pulling you up onto your feet, they set about groping you and preparing to give you what you want...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GROUP"><![CDATA[
 	<p>
-		You and your companion have dominant sex with the gang members.
+		Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Turning back to address your companion, you tell [npc.herHim] to join you in having dominant sex with them.
+	</p>
+	<p>
+		#IF(!npc.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
+			Letting out an exasperated sigh, [npc.name] mutters, [npc.speech(I don't really have a choice, do I...)]
+		#ELSE
+			Letting out an eager [npc.moan], [npc.name] enthusiastically replies, [npc.speech(This is going to be good!)]
+		#ENDIF
+	</p>
+	<p>
+		Stepping up in front of the defeated gang members, you and your companion smirk as they submissively shuffle closer and start begging to be the one who's fucked first...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GROUP_SUBMIT"><![CDATA[
 	<p>
-		You and your companion submit to the gang members and let them dominantly fuck the two of you.
+		Looking down at the defeated gang members sprawled across the floor, you start to feel a desperate desire to let them reverse the situation and have their way with you and your companion. Turning to face [npc.name], you reveal your plan and tell [npc.herHim] to join you in submitting to them.
+	</p>
+	<p>
+		#IF(!npc.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
+			Letting out an exasperated sigh, [npc.name] mutters, [npc.speech(I don't really have a choice, do I...)]
+		#ELSE
+			Letting out an eager [npc.moan], [npc.name] enthusiastically replies, [npc.speech(This is going to be good!)]
+		#ENDIF
+	</p>
+	<p>
+		Joined by your companion, you step forwards and kneel down beside the group of rats, before asking [npc2.name], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use the two of us however you'd like...)] 
+	</p>
+	<p>
+		Quick to take advantage of your suggestion, [npc2.name] pushes [npc2.herself] up onto [npc2.her] feet, before asking, [npc2.speech(Are ya fer real? Ya gonna let us fuck ya after beatin' us like that?)]
+	</p>
+	<p>
+		Making a show of looking small and submissive, you confirm to [npc2.name] that [npc2.she] and the rest of the rats can fuck you and [npc.name] any way they want. Letting out a chorus of lewd comments, the group immediately advances on the two of you, and after pulling you and [npc.name] up onto your feet, they set about groping you and preparing to give you what you want...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GIVE_TO_COMPANION"><![CDATA[
 	<p>
-		You tell your companion that she can fuck the guards while you watch.
+		Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as a particularly lewd thought enters your mind. Turning to address your companion, you tell [npc.herHim], [pc.speech(Go on, [npc.name], have sex with them while I watch...)]
+	</p>
+	<p>
+		#IF(!npc.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
+			Letting out an exasperated sigh, [npc.name] mutters, [npc.speech(I don't really have a choice, do I...)]
+		#ELSE
+			Letting out an eager [npc.moan], [npc.name] enthusiastically replies, [npc.speech(This is going to be good!)]
+		#ENDIF
+	</p>
+	<p>
+		Stepping up in front of the defeated gang members, your companion smirks as they submissively shuffle closer and start begging to be the one who's fucked first. Stepping back a little, you can't help but let out a [pc.moan] as you prepare to watch [npc.name] fuck all of them at once...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_OFFER_COMPANION"><![CDATA[
 	<p>
-		You tell the gang members that they can fuck your companion while you watch.
+		Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as a particularly lewd thought enters your mind. Turning to address your companion, you tell [npc.herHim], [pc.speech(Go on, [npc.name], submit to them and let them fuck you while I watch...)]
 	</p>
+	#IF(!npc.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
+		<p>
+			Letting out an exasperated sigh, [npc.name] mutters, [npc.speech(I don't really have a choice, do I...)]
+		</p>
+		<p>
+			Stepping up in front of the defeated gang members, your companion reluctantly informs the rats that they can do whatever they want to [npc.herHim]. Letting out a chorus of lewd comments, the group immediately advances on [npc.name], and you can't help but let out a [pc.moan] as you prepare to watch [npc.herHim] get fucked by all of them at once...
+		</p>
+	#ELSE
+		<p>
+			Letting out an eager [npc.moan], [npc.name] enthusiastically replies, [npc.speech(This is going to be good!)]
+		</p>
+		<p>
+			Stepping up in front of the defeated gang members, your companion lets out a submissive whine before informing the rats that they can do whatever they want to [npc.herHim]. Letting out a chorus of lewd comments, the group immediately advances on [npc.name], and you can't help but let out a [pc.moan] as you prepare to watch [npc.herHim] get fucked by all of them at once...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	
 	<!-- GUARD_COMBAT_VICTORY_AFTER_SEX -->
 	
-	<htmlContent tag="GUARD_COMBAT_VICTORY_AFTER_SEX"><![CDATA[
+	<htmlContent tag="GUARD_COMBAT_VICTORY_AFTER_SEX_BOTH"><![CDATA[
 	<p>
-		You (and/or your companion) finish having sex with the guards.
+		Having had enough fun for now, you and [npc.name] disentangle yourselves from the group of rats, before stepping back and getting your things in order. A moment later, and the two of you are ready to continue on your way through the Rat Warrens. First, however, you need to decide what to do with the rats panting on the floor before you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_AFTER_SEX_SOLO"><![CDATA[
+	<p>
+		Having had enough fun for now, you disentangle yourself from the group of rats, before stepping back and getting your things in order. A moment later, and you're ready to continue on your way through the Rat Warrens. First, however, you need to decide what to do with the rats panting on the floor before you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_AFTER_SEX_COMPANION"><![CDATA[
+	<p>
+		Having had enough fun for now, [npc.name] disentangles [npc.herself] from the group of rats, before stepping back and getting [npc.her] things in order. A moment later, and the two of you are ready to continue on your way through the Rat Warrens. First, however, you need to decide what to do with the rats panting on the floor before you...
 	</p>
 	]]>
 	</htmlContent>
@@ -509,76 +662,578 @@
 	
 	<!-- GUARD_COMBAT_DEFEAT -->
 	
+	<htmlContent tag="GUARD_COMBAT_DEFEAT_NO_NON_CON"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Unable to continue fighting any longer, you and [npc.name] slump to the ground, utterly defeated. A chorus of mocking laughter causes you to wearily look up, only to see the six rats looming over you with wicked grins on their faces.
+		</p>
+		<p>
+			[npc2.speech(Ya fucked with the wrong gang!)] [npc2.name] sneers, [npc2.speech(There ain't no chance a couple as pathetic as the two o' ya could ever beat us!)]
+		</p>
+		<p>
+			Another round of mocking laughter accompanies this statement, and before you can think of what to do next, [npc2.name] turns to [npc2.her] subordinates and orders, [npc2.speech(Throw 'em out into the tunnels! I ain't wastin' any more time on these losers!)]
+		</p>
+	#ELSE
+		<p>
+			Unable to continue fighting any longer, you slump to the ground, utterly defeated. A chorus of mocking laughter causes you to wearily look up, only to see the six rats looming over you with wicked grins on their faces.
+		</p>
+		<p>
+			[npc.speech(Ya fucked with the wrong gang!)] [npc.name] sneers, [npc.speech(There ain't no chance someone as pathetic as ya could ever beat us!)]
+		</p>
+		<p>
+			Another round of mocking laughter accompanies this statement, and before you can think of what to do next, [npc.name] turns to [npc.her] subordinates and orders, [npc.speech(Throw this trash out into the tunnels! I ain't wastin' any more time on 'em!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="GUARD_COMBAT_DEFEAT"><![CDATA[
-	<p>
-		You slump to the ground, defeated. The gang members advance on you. (If non-con, they say they know just what to do with meddlers like you. If non-con is off, they grab you and drag you to the entrance. If companion dialogue, they tell 2 to stay and guard.)
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Unable to continue fighting any longer, you and [npc.name] slump to the ground, utterly defeated. A chorus of mocking laughter causes you to wearily look up, only to see the six rats looming over you with wicked grins on their faces.
+		</p>
+		<p>
+			[npc2.speech(Ya fucked with the wrong gang!)] [npc2.name] sneers, [npc2.speech(There ain't no chance a couple as pathetic as the two o' ya could ever beat us, an' ya ain't ever gonna get the chance ta try again!)]
+		</p>
+		<p>
+			Another round of mocking laughter accompanies this statement, and before you can think of what to do next, [npc2.name] turns to [npc2.her] subordinates and orders, [npc2.speech(The four o' ya, go let the others know the situation's dealt with! An' you, help me drag these two to Murk! I'm gonna trade 'em with 'im to write off me debt.)]
+		</p>
+		#IF(!game.isInvoluntaryNTREnabled())
+			<p>
+				<i>You feel as though you might be able to summon just enough energy to fight the rats off long enough to buy [npc.name] time to escape. [style.italicsSex(This will be your only opportunity to prevent your companion from being used without your consent!)]</i>
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Unable to continue fighting any longer, you slump to the ground, utterly defeated. A chorus of mocking laughter causes you to wearily look up, only to see the six rats looming over you with wicked grins on their faces.
+		</p>
+		<p>
+			[npc.speech(Ya fucked with the wrong gang!)] [npc.name] sneers, [npc.speech(There ain't no chance someone as pathetic as ya could ever beat us, an' ya ain't ever gonna get the chance ta try again!)]
+		</p>
+		<p>
+			Another round of mocking laughter accompanies this statement, and before you can think of what to do next, [npc.name] turns to [npc.her] subordinates and orders, [npc2.speech(Yous lot, go let the others know the situation's dealt with! I'm gonna drag this 'un to Murk, so's I can trade [pc.herHim] with 'im to write off me debt.)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_DEFEAT_THROWN_OUT"><![CDATA[
-	<p>
-		The gang members throw you out into Submission's tunnels, telling you that if you come back, they'll be ready to beat you all over again.
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- GUARD_COMBAT_DEFEAT_STOCKS -->
-	
-	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS"><![CDATA[
-	<p>
-		The gang members drag you deep into the tunnels, and you (along with your companion) soon find yourself entering milking storage room. If Murk introduced, recognise the room, else describe it and Murk. 
-	</p>
-	<p>
-		The rat leader makes a deal with Murk to give you (plus companion) to him in order to pay off debts. Murk agrees to let them fuck you in exchange for keeping all your gear. The rats strip you completely naked and lock you into milking stall. A heavy metal collar is fit around your neck, and you instantly feel it inhibiting your aura's strength. All of your gear is thrown into wooden chests, with Murk helping himself to all your flames.
-	</p>
-	<p>
-		Looking around, you see that you're in a large cave-like chamber, with several human females locked into stocks just like yours. They all have huge breasts and are hooked up to milking machines.
-	</p>
-	<p>
-		If gang member 0 and 2 have no penis, describe them putting strapons on. The gang members say how Murk will take good care of you, but first they're going to get some payback for earlier.
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Hurrying to obey [npc2.namePos] command, the gang members roughly grab hold of you and [npc.name], and after a short wait while the door release mechanism is fixed, the two of you are dragged back out into Submission's tunnels. Hurled to the hard ground with no concern for your safety or comfort, the rats tell you that if you ever dare to show your faces back here again, they'll be ready to give you another sound beating.
+		</p>
+		<p>
+			Making sure that [npc.name] is not hurt, the two of you spend a moment getting your breath back, before brushing yourselves off and preparing to continue on your way once again...
+		</p>
+	#ELSE
+		<p>
+			Hurrying to obey [npc.namePos] command, the gang members roughly grab hold of you, and after a short wait while the door release mechanism is fixed, you find yourself being dragged back out into Submission's tunnels. Hurled to the hard ground with no concern for your safety or comfort, the rats tell you that if you ever dare to show your face back here again, they'll be ready to give you another sound beating.
+		</p>
+		<p>
+			You take a moment to get your breath back while the doors to the Rat Warrens creak shut behind you, before brushing yourself off and preparing to continue on your way once again...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_COMPANION_ESCAPE"><![CDATA[
 	<p>
-		With the last of your energy, you manage to hold off the rats long enough for [npc.name] to escape.
+		Desperately wanting to avoid an unpleasant fate for your companion, you summon the last of your energy and push the rats back, before turning to [npc.name] and shouting, [pc.speech(Get out of here, now!)]
 	</p>
 	<p>
-		The gang members drag you deep into the tunnels, and you soon find yourself entering milking storage room. If Murk introduced, recognise the room, else describe it and Murk. 
+		Realising the desperate state you're both in, [npc.name] does as you command, and manages to rush away to safety while you hold the rats off. Only once you feel confident that you've bought enough time for your companion to make a getaway, do you allow your fatigue to wash over you, and, collapsing to the ground ocne more, you're soon grabbed by the rats and pinned to the floor.
 	</p>
 	<p>
-		The rat leader makes a deal with Murk to give you to him in order to pay off debts. Murk agrees to let them fuck you in exchange for keeping all your gear. The rats strip you completely naked and lock you into milking stall. A heavy metal collar is fit around your neck, and you instantly feel it inhibiting your aura's strength. All of your gear is thrown into wooden chests, with Murk helping himself to all your flames.
+		[npc2.speech(Ya gonna pay fer that!)] [npc2.name] angrily shouts at you, before turning once again to [npc2.her] subordinates and ordering, [npc2.speech(Yous lot, go let the others know the situation's really been dealt with this time! I'm gonna drag this 'un to Murk! We may have lost [pc.her] friend, but this 'un's gonna be more than enough ta trade with Murk in order to write off me debt.)]
 	</p>
-	<p>
-		Looking around, you see that you're in a large cave-like chamber, with several human females locked into stocks just like yours. They all have huge breasts and are hooked up to milking machines.
-	</p>
-	<p>
-		If gang member 0 and 2 have no penis, describe them putting strapons on. The gang members say how Murk will take good care of you, but first they're going to get some payback for earlier.
-	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Hurrying to do as they're told, four of the rats run off into the tunnels to tell the rest of the gang that you and [npc.name] have been dealt with, while the two which remain roughly grab hold of you and your companion and start dragging you off in a different direction. Letting out cruel laugh, [npc2.name] sneers, [npc2.speech(You's gonna love havin' Murk as yer master! I's seen it 'appen a couple o' times now; he's gonna transform the two o' ya into milkin' bitches, an' get yer broken in an' worshippin' 'is cock!)]
+		</p>
+		<p>
+			[npc3.speech(That's right,)] [npc3.name] joins in, laughing at the thought of what's going to happen to you, [npc3.speech(Once yer both nothin' but 'is obedient sluts, he'll start rentin' yer out, so all o' us in the gang can come an' 'ave a go fuckin' ya!)]
+		</p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_murkIntroduced))
+			<p>
+				The rats' taunts and mocking laughter fills the twisting passageways as they continue dragging you and your companion towards your fate at the hands of Murk. Knowing all too well the sort of vile character he is, you know that what the gang members are saying is true, but you aren't given too long to think about your future, as the rats suddenly come to a stop and throw the two of you down to the hard ground.
+			</p>
+			<p>
+				Looking up, you see that you're once again in the milk storage room, with dozens of metal pails stacked up against the walls. Sitting on his tatty old red sofa, you see Murk staring at you and [npc.name] with a wicked gleam in his eye. Just like the last time you were here, the rat-boy's massive, sheathed cock and huge balls are fully on display, and as he stands up and walks towards you, his disproportionately-large testicles swing ponderously from side to side.
+			</p>
+			<p>
+				[murk.speech(Fancy seein' the two o' yer 'ere again!)] Murk sneers in a slovenly tone as he comes to a halt in front of you. Reaching up to scratch his chubby belly, the foul-mannered rat-boy lets out a loud belch, before throwing the empty can in his other hand over to one side of the room. Moving his hungry gaze up from you to look at the rat which dragged you into this place, he snarls, [murk.speech(Took ya long enough ta get 'em subdued! So, ya 'ere ta 'and 'em over ta me then, are ya?)]
+			</p>
+			<p>
+				[npc2.speech(If ya write off me debt, then sure,)] [npc2.name] responds, [npc2.speech(or else I'll go throw 'em out into Submission an' ya can miss out on gettin' this pair o' new toys.)]
+			</p>
+			<p>
+				Spitting on the ground, Murk sneers once again, [murk.speech(Let's get 'em stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
+			</p>
+		#ELSE
+			<p>
+				The rats' taunts and mocking laughter fills the twisting passageways as they continue dragging you and your companion towards your fate at the hands of this 'Murk' character, whoever he may be. You aren't sure whether the gang members are making all of this up to scare you, but you aren't given too long to think about it, as the rats suddenly come to a stop and throw the two of you down to the hard ground.
+			</p>
+			<p>
+				Looking up, you see that you're in a relatively small, well-lit room, with the most striking feature being dozens of metal milk-pails stacked up against the walls. Over on the far side of the earth-packed floor, directly ahead of you, there's a collection of old, tatty-looking furniture arrayed next to an old wooden door. A couple of worn, wooden tables are haphazardly surrounded by half a dozen stools and chairs, while pushed up against the far wall are several crates and cabinets. Finishing off this assortment of furnishings is an old, faded, red sofa, which catches your eye both due to its splash of colour, as well as due to there being a greater rat-boy sitting in the middle of it.
+			</p>
+			<p>
+				This resident gang member, who you assume must be 'Murk' looks over at you and [npc.name] with a wicked gleam in his shifty yellow eyes. Reaching up to scratch the dark-brown fur covering his exposed, chubby belly, he lets out an evil snicker before sliding off the sofa and starting to stroll towards you. Due to his short stature, being only around [murk.heightValue] tall, his lower half was obscured behind one of the chairs while he was slouched on the sofa, but as he walks towards you and [npc.name], you see that he's wearing a pair of black, crotchless chaps, leaving his genitals totally exposed.
+			</p>
+			<p>
+				Although it's sheathed, and so impossible to know the erect length of it, the circumference of the rat-boy's withdrawn, pale-pink cock is absolutely huge. The pair of massive, heavy balls hanging down between his legs are also disproportionately large in relation to his height, and you can't help but glance at them as they ponderously swing from side to side in pace with his short stride.
+			</p>
+			<p>
+				[murk.speech('Ungry fer me fat cock, are ya?)] Murk sneers at you in a slovenly tone as he catches you looking at his massive genitals. Reaching up to scratch his chubby belly once again, the foul-mannered rat-boy lets out a loud belch, before throwing the empty can in his other hand over to one side of the room. Moving his hungry gaze up from you to look at the rat which dragged you into this place, Murk snarls, [murk.speech(I 'eard there were a couple o' troublemakers runnin' around in 'ere. Took ya long enough ta get 'em subdued, didn't it?! So, ya 'ere ta 'and 'em over ta me then, are ya?)]
+			</p>
+			<p>
+				[npc2.speech(If ya write off me debt, then sure,)] [npc2.name] responds, [npc2.speech(or else I'll go throw 'em out into Submission an' ya can miss out on gettin' this pair o' new toys.)]
+			</p>
+			<p>
+				Spitting on the ground, Murk sneers once again, [murk.speech(Let's get 'em stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Hurrying to do as they're told, all of the other rats run off into the tunnels to tell the rest of the gang that you've been dealt with, while the leader who remains roughly grabs hold you and starts dragging you off in a different direction. Letting out cruel laugh, [npc.name] sneers, [npc.speech(You's gonna love havin' Murk as yer master! I's seen it 'appen a couple o' times now; he's gonna transform ya into an 'orny milkin' bitch, an' get yer broken in an' worshippin' 'is cock! Then once yer nothin' but 'is obedient slut, he'll start rentin' yer out, so all o' us in the gang can come an' 'ave a go fuckin' ya!)]
+		</p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_murkIntroduced))
+			<p>
+				The rat's taunts and mocking laughter fills the twisting passageways as [npc.she] continues dragging you towards your fate at the hands of Murk. Knowing all too well the sort of vile character he is, you know that what your captor is saying is true, but you aren't given too long to think about your future, as [npc.she] suddenly comes to a stop and throws you down to the hard ground.
+			</p>
+			<p>
+				Looking up, you see that you're once again in the milk storage room, with dozens of metal pails stacked up against the walls. Sitting on his tatty old red sofa, you see Murk staring at you with a wicked gleam in his eye. Just like the last time you were here, the rat-boy's massive, sheathed cock and huge balls are fully on display, and as he stands up and walks towards you, his disproportionately-large testicles swing ponderously from side to side.
+			</p>
+			<p>
+				[murk.speech(Fancy seein' ya 'ere again!)] Murk sneers in a slovenly tone as he comes to a halt in front of you. Reaching up to scratch his chubby belly, the foul-mannered rat-boy lets out a loud belch, before throwing the empty can in his other hand over to one side of the room. Moving his hungry gaze up from you to look at the rat which dragged you into this place, he snarls, [murk.speech(Took ya long enough ta get [pc.herHim] subdued! So, ya 'ere ta 'and [pc.herHim] over ta me then, are ya?)]
+			</p>
+			<p>
+				[npc.speech(If ya write off me debt, then sure,)] [npc.name] responds, [npc.speech(or else I'll go throw [pc.herHim] out into Submission an' ya can miss out on gettin' yerself a new toy.)]
+			</p>
+			<p>
+				Spitting on the ground, Murk sneers once again, [murk.speech(Let's get [pc.herHim] stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
+			</p>
+		#ELSE
+			<p>
+				The rat's taunts and mocking laughter fills the twisting passageways as [npc.she] continues dragging you towards your fate at the hands of this 'Murk' character, whoever he may be. You aren't sure whether your captor is making all of this up to scare you, but you aren't given too long to think about it, as [npc.she] suddenly comes to a stop and throws you down to the hard ground.
+			</p>
+			<p>
+				Looking up, you see that you're in a relatively small, well-lit room, with the most striking feature being dozens of metal milk-pails stacked up against the walls. Over on the far side of the earth-packed floor, directly ahead of you, there's a collection of old, tatty-looking furniture arrayed next to an old wooden door. A couple of worn, wooden tables are haphazardly surrounded by half a dozen stools and chairs, while pushed up against the far wall are several crates and cabinets. Finishing off this assortment of furnishings is an old, faded, red sofa, which catches your eye both due to its splash of colour, as well as due to there being a greater rat-boy sitting in the middle of it.
+			</p>
+			<p>
+				This resident gang member, who you assume must be 'Murk' looks over at you with a wicked gleam in his shifty yellow eyes. Reaching up to scratch the dark-brown fur covering his exposed, chubby belly, he lets out an evil snicker before sliding off the sofa and starting to stroll towards you. Due to his short stature, being only around [murk.heightValue] tall, his lower half was obscured behind one of the chairs while he was slouched on the sofa, but as he walks towards you, you see that he's wearing a pair of black, crotchless chaps, leaving his genitals totally exposed.
+			</p>
+			<p>
+				Although it's sheathed, and so impossible to know the erect length of it, the circumference of the rat-boy's withdrawn, pale-pink cock is absolutely huge. The pair of massive, heavy balls hanging down between his legs are also disproportionately large in relation to his height, and you can't help but glance at them as they ponderously swing from side to side in pace with his short stride.
+			</p>
+			<p>
+				[murk.speech('Ungry fer me fat cock, are ya?)] Murk sneers at you in a slovenly tone as he catches you looking at his massive genitals. Reaching up to scratch his chubby belly once again, the foul-mannered rat-boy lets out a loud belch, before throwing the empty can in his other hand over to one side of the room. Moving his hungry gaze up from you to look at the rat which dragged you into this place, Murk snarls, [murk.speech(I 'eard there were a troublemaker runnin' around in 'ere. Took ya long enough ta get [pc.herHim] subdued, didn't it?! So, ya 'ere ta 'and [pc.herHim] over ta me then, are ya?)]
+			</p>
+			<p>
+				[npc2.speech(If ya write off me debt, then sure,)] [npc2.name] responds, [npc2.speech(or else I'll go throw [pc.herHim] out into Submission an' ya can miss out on gettin' yerself a new toy.)]
+			</p>
+			<p>
+				Spitting on the ground, Murk sneers once again, [murk.speech(Let's get [pc.herHim] stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GUARD_COMBAT_DEFEAT_STOCKS_STRIPPED -->
+	
+	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_STRIPPED"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Still completely exhausted from your fight, neither you nor [npc.name] are able to put up an effective resistance as the rats set about stripping each of you of all your clothes and belongings. Setting about their task with much enthusiasm, the horny gang members take full advantage of the situation to grope and squeeze every part of your naked bodies. Their lewd comments and hungry growls are broken only by Murk reminding them that all of your possessions are now his, and to place them in a nearby storage crate which he's opened specially for this occasion.
+		</p>
+		<p>
+			Once you and your companion have been completely stripped of all of your flames, clothing, and other belongings, Murk securely locks the crate into which they were placed, before turning to your captors and snarling, [murk.speech(Don't think fer a moment that this is goin' towards payin' off yer debts! I ain't gonna be touchin' this stuff we took 'til I get the chance ta discuss it with Vengar, and seein' as me and 'im ain't on the best o' terms right now, that might be a while. Anyways, yous lot just watch over these two while I get their new 'outfits'... Heh-heh-heh...)]
+		</p>
+		<p>
+			Chuckling to himself, Murk walks off to the other crates stacked up against the far side of the room, before opening the nearest one and starting to rummage about inside of it. After a moment of being forced to wait down on your knees beside the four rats, you watch as Murk pulls something out of the crate, and as he starts walking back over towards you and [npc.name], you're able to see that he's holding a matching pair of heavy metal collars, each of which is coloured in a very feminine shade of light pink.
+		</p>
+		<p>
+			Dealing with your companion first, the chubby rat-boy locks one of these collars in place around [npc.namePos] neck, before stepping over to you and doing the same. As the jinxed item of clothing locks into place, you feel the effects of the collar's powerful enchantment seeping into your mind and making you unable to bring yourself to either attempt to unjinx it, or use any self-transformative powers you might possess in order to slip out of it.
+		</p>
+		<p>
+			[murk.speech(Hmm, yeah, these two are gonna do nicely,)] Murk muses to himself, before addressing [npc2.name] and continuing, [murk.speech(I'll write off yer debts if ya let me keep the two o' 'em. I'm doin' ya a favour 'ere; I'm sure I don't need ta remind ya 'ow much ya owe me!)]
+		</p>
+		<p>
+			[npc2.speech(These two is worth way more than wot I owe's ya,)] [npc2.name] replies, [npc2.speech(But if ya let us fuck 'em, we can call it even, agreed?)]
+		</p>
+		<p>
+			[murk.speech(Ya can use their mouths, sure,)] Murk replies, [murk.speech(but their other 'oles are reserved fer my fat cock.)]
+		</p>
+		<p>
+			[npc2.speech(Deal,)] [npc2.name] says, spitting on [npc2.her] hand and holding it out to Murk. The chubby rat-boy likewise spits on the palm of his hand, before the two rats shake on their deal.
+		</p>
+		<p>
+			[murk.speech(Bring 'em through into the milkin' room,)] Murk finally says, [murk.speech(I want the two o' 'em chained up and locked into their new 'omes before ya let 'em get intimate with wot's between ya legs.)]
+		</p>
+	#ELSE
+		<p>
+			Still completely exhausted from your fight, you aren't able to put up an effective resistance as Murk and [npc.name] set about stripping you of all your clothes and belongings. Setting about their task with much enthusiasm, the horny rats take full advantage of the situation to grope and squeeze every part of your naked body. [npc.NamePos] lewd comments and hungry growls are broken only by Murk occasionally reminding [npc.herHim] that all of your possessions are now his, and to place them in a nearby storage crate which he's opened specially for this occasion.
+		</p>
+		<p>
+			Once you've been completely stripped of all of your flames, clothing, and other belongings, Murk securely locks the crate into which they were placed, before turning to your captors and snarling, [murk.speech(Don't think fer a moment that this is goin' towards payin' off yer debts! I ain't gonna be touchin' this stuff we took 'til I get the chance ta discuss it with Vengar, and seein' as me and 'im ain't on the best o' terms right now, that might be a while. Anyways, yous lot just watch over [pc.herHim] while I get [pc.her] new 'outfit'... Heheheh...)]
+		</p>
+		<p>
+			Chuckling to himself, Murk walks off to the other crates stacked up against the far side of the room, before opening the nearest one and starting to rummage about inside of it. After a moment of being forced to wait down on your knees beside [npc.name], you watch as Murk pulls something out of the crate, and as he starts walking back over towards you, you're able to see that he's holding a heavy metal collar, which is coloured in a very feminine shade of light pink.
+		</p>
+		<p>
+			Stepping up to you, the chubby rat-boy reaches down and roughly locks the heavy collar into place around your neck. The very moment that it seals shut, you feel the effects of the collar's powerful enchantment seeping into your mind and making you unable to bring yourself to either attempt to unjinx it, or use any self-transformative powers you might possess in order to slip out of it.
+		</p>
+		<p>
+			[murk.speech(Hmm, yeah, this 'un's gonna do nicely,)] Murk muses to himself, before addressing [npc.name] and continuing, [murk.speech(I'll write off yer debts if ya let me keep [pc.herHim]. I'm doin' ya a favour 'ere; I'm sure I don't need ta remind ya 'ow much ya owe me!)]
+		</p>
+		<p>
+			[npc.speech([pc.SheIs] worth way more than wot I owe's ya,)] [npc.name] replies, [npc.speech(But if ya let me fuck [pc.herHim], we can call it even, agreed?)]
+		</p>
+		<p>
+			[murk.speech(Ya can use [pc.her] mouth, sure,)] Murk replies, [murk.speech(but [pc.her] other 'oles are reserved fer my fat cock.)]
+		</p>
+		<p>
+			[npc.speech(Deal,)] [npc.name] says, spitting on [npc.her] hand and holding it out to Murk. The chubby rat-boy likewise spits on the palm of his hand, before the two rats shake on their deal.
+		</p>
+		<p>
+			[murk.speech(Bring [pc.herHim] through into the milkin' room,)] Murk finally says, [murk.speech(I want [pc.herHim] chained up and locked into [pc.her] new 'ome before ya let [pc.herHim] get intimate with wot's between ya legs.)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GUARD_COMBAT_DEFEAT_STOCKS_STRIPPED_END -->
+	
+	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_STRIPPED_END"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Grabbing hold of you and [npc.name] one last time, the gang members drag the two of you over to the old wooden door on the other side of the room. Stepping in front of you, Murk twists the handle and opens the door, before leading you into the room beyond.
+		</p>
+		<p>
+			As you step into your 'new home', the first thing that you immediately notice is that this room's proportions are more akin to a wide corridor than a conventional square or rectangular shape. The very next thing you register is that running down alongside the left-hand wall, there are a series of metal-framed stalls, each consisting of a padded bench plus surrounding supports to which an occupant's legs or arms can be chained. Out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for Murk as they hear you enter.
+		</p>
+		<p>
+			[npc4.speech(Master! Please, fill my pussy!)] one of them whines.
+		</p>
+		<p>
+			[npc6.speech(Please, master! I need your cock!)] the one beside the first cries out.
+		</p>
+		<p>
+			[murk.speech(Ain't none o' yous milker sluts gonna get a feel o' me cock if ya don't shut up!)] Murk shouts out, causing the four 'milkers' to quieten down. They don't completely stop making a noise, however, as each one of them settles into letting out a series of subdued, horny moans. As the gang members start dragging you and [npc.name] towards the nearby vacant stalls, you see the cause of the milkers' lewd background noise taking the form of an arcane-powered milking machine positioned beside each one of them. Leading back into these machines via a long tube, steadily-pumping suction cups have been attached over each of the milkers' puffy, milk-dripping nipples,
+			#IF(game.isAnalContentEnabled())
+				#IF(game.isGapeContentEnabled())
+					 while a pair of fat, rhythmically-vibrating dildos have been firmly inserted into each of their dripping, stretched-out pussies and assholes.
+				#ELSE
+					 while a pair of thick, rhythmically-vibrating dildos have been firmly inserted into each of their dripping pussies and assholes.
+				#ENDIF
+			#ELSE
+				#IF(game.isGapeContentEnabled())
+					 while a fat, rhythmically-vibrating dildo has been firmly inserted into each of their dripping, stretched-out pussies.
+				#ELSE
+					 while a thick, rhythmically-vibrating dildo has been firmly inserted into each of their dripping pussies.
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			[murk.speech(Ya like the look o' yer new home?)] Murk asks you and [npc.name] in a mocking tone. Not waiting for an answer, he motions the rats to push the two of you stomach-down onto the vacant benches, and once that's done, he locks each of your collars to metal chains welded to the stalls' frames. Wanting to make sure that you can't stand up and attempt to resist, the rats use a nearby series of secondary chains and locks to firmly secure your arms and legs to the cold metal frame, resulting in each of you having very little room in which to move around, while simultaneously leaving your rear ends completely exposed to the room.
+		</p>
+		<p>
+			[murk.speech(So go on, gets ta usin' their mouths already. The sooner yer done with 'em, the sooner I can get on with startin' their trainin'!)] Murk scowls, before stepping back and keeping a close watch to ensure that the rats only make use of your mouths...
+		</p>
+	#ELSE
+		<p>
+			Grabbing hold of you one last time, [npc.name] drags you over to the old wooden door on the other side of the room. Stepping in front of you, Murk twists the handle and opens the door, before leading you into the room beyond.
+		</p>
+		<p>
+			As you step into your 'new home', the first thing that you immediately notice is that this room's proportions are more akin to a wide corridor than a conventional square or rectangular shape. The very next thing you register is that running down alongside the left-hand wall, there are a series of metal-framed stalls, each consisting of a padded bench plus surrounding supports to which an occupant's legs or arms can be chained. Out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for Murk as they hear you enter.
+		</p>
+		<p>
+			[npc4.speech(Master! Please, fill my pussy!)] one of them whines.
+		</p>
+		<p>
+			[npc6.speech(Please, master! I need your cock!)] the one beside the first cries out.
+		</p>
+		<p>
+			[murk.speech(Ain't none o' yous milker sluts gonna get a feel o' me cock if ya don't shut up!)] Murk shouts out, causing the four 'milkers' to quieten down. They don't completely stop making a noise, however, as each one of them settles into letting out a series of subdued, horny moans. As [npc.name] starts dragging you towards the nearest vacant stall, you see the cause of the milkers' lewd background noise taking the form of an arcane-powered milking machine positioned beside each one of them. Leading back into these machines via a long tube, steadily-pumping suction cups have been attached over each of the milkers' puffy, milk-dripping nipples,
+			#IF(game.isAnalContentEnabled())
+				#IF(game.isGapeContentEnabled())
+					 while a pair of fat, rhythmically-vibrating dildos have been firmly inserted into each of their dripping, stretched-out pussies and assholes.
+				#ELSE
+					 while a pair of thick, rhythmically-vibrating dildos have been firmly inserted into each of their dripping pussies and assholes.
+				#ENDIF
+			#ELSE
+				#IF(game.isGapeContentEnabled())
+					 while a fat, rhythmically-vibrating dildo has been firmly inserted into each of their dripping, stretched-out pussies.
+				#ELSE
+					 while a thick, rhythmically-vibrating dildo has been firmly inserted into each of their dripping pussies.
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			[murk.speech(Ya like the look o' yer new home?)] Murk asks you in a mocking tone. Not waiting for an answer, he motions [npc.name] to push you stomach-down onto the vacant bench, and once that's done, he locks your collar to a heavy metal chain welded to the stall's frame. Wanting to make sure that you can't stand up and attempt to resist, Murk uses a nearby series of secondary chains and locks to firmly secure your arms and legs to the cold metal frame, resulting in you having very little room in which to move around, while simultaneously leaving your rear end completely exposed to the room.
+		</p>
+		<p>
+			[murk.speech(So go on, gets ta usin' [pc.her] mouth already. The sooner yer done with [pc.herHim], the sooner I can get on with startin' [pc.her] trainin'!)] Murk scowls, before stepping back and keeping a close watch to ensure that [npc.name] only makes use of your mouth...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_SEX"><![CDATA[
-	<p>
-		The rats move to fuck you (and your companion). You don't resist, much to their delight.
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Seeing the futility of trying to resist in your current situation, you stay still as [npc2.name] steps around in front of you and starts fiddling with [npc2.her] clothing in order to expose [npc2.her] groin. Just a moment more, and you find yourself
+			#IF(npc2.hasPenis())
+				 staring at [npc2.namePos] [npc2.cockSize], [npc2.cockGirth] [npc2.cock], which is rapidly hardening right in front of your face.
+				</p>
+				<p>
+					[npc2.speech(Open wide, slut,)] [npc2.name] orders, and, not seeing any point in disobeying, you submissively open your mouth and prepare to take [npc2.her] [npc2.cock+] down your throat.
+				</p>
+				<p>
+					[npc2.speech(Ya ain't gonna need ta do much ta break this 'un in! [pc.SheIs] already 'ungry fer rat cock!)] [npc2.name] gleefully shouts out to Murk, before pushing [npc2.her] hips forwards and sliding [npc2.her] throbbing cock past your waiting lips.
+				</p>
+				<p>
+					Off to one side, you hear [npc3.name] similarly starting to receive oral from [npc.name], but with the [npc2.cock+] pushing its way down your throat, you've got other things to be focusing on...
+				</p>
+			#ELSEIF(npc2.hasVagina())
+				 staring at [npc2.namePos] [npc2.fingers+] teasing their way up and down over [npc2.her] [npc2.pussy+].
+				</p>
+				<p>
+					[npc2.speech(Open wide, bitch, an' get ready ta use yer tongue!)] [npc2.name] orders, and, not seeing any point in disobeying, you submissively open your mouth and prepare to start performing cunnilingus on your captor.
+				</p>
+				<p>
+					[npc2.speech(Ya ain't gonna need ta do much ta break this 'un in! [pc.SheIs] already 'ungry fer the taste o' rat cunt!)] [npc2.name] gleefully shouts out to Murk, before pushing [npc2.her] hips forwards and pressing [npc2.her] [npc2.pussy+] against your waiting lips.
+				</p>
+				<p>
+					Off to one side, you hear [npc3.name] similarly starting to receive oral from [npc.name], but as you push your [pc.tongue] out past [npc2.namePos] [npc2.labia+], you find yourself with other things to be focusing on...
+				</p>
+			#ELSE
+				 staring at [npc2.namePos] [npc2.fingers+] teasing their way up and down over [npc2.her] smooth, doll-like groin.
+				</p>
+				<p>
+					[npc2.speech(Open wide, bitch, an' get ready ta use yer tongue!)] [npc2.name] orders, and, not seeing any point in disobeying, you submissively open your mouth and prepare to start performing oral on your captor.
+				</p>
+				<p>
+					[npc2.speech(Ya ain't gonna need ta do much ta break this 'un in!)] [npc2.name] gleefully shouts out to Murk, before pushing [npc2.her] hips forwards and pressing [npc2.her] smooth crotch against your waiting lips.
+				</p>
+				<p>
+					Off to one side, you hear [npc3.name] similarly starting to receive oral from [npc.name], but you quickly find yourself with other things to be focusing on...
+				</p>
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Seeing the futility of trying to resist in your current situation, you stay still as [npc.name] steps around in front of you and starts fiddling with [npc.her] clothing in order to expose [npc.her] groin. Just a moment more, and you find yourself
+			#IF(npc.hasPenis())
+				 staring at [npc.namePos] [npc.cockSize], [npc.cockGirth] [npc.cock], which is rapidly hardening right in front of your face.
+				</p>
+				<p>
+					[npc.speech(Open wide, slut,)] [npc.name] orders, and, not seeing any point in disobeying, you submissively open your mouth and prepare to take [npc.her] [npc.cock+] down your throat.
+				</p>
+				<p>
+					[npc.speech(Ya ain't gonna need ta do much ta break this 'un in! [pc.SheIs] already 'ungry fer rat cock!)] [npc.name] gleefully shouts out to Murk, before pushing [npc.her] hips forwards and sliding [npc.her] throbbing cock past your waiting lips...
+				</p>
+			#ELSEIF(npc.hasVagina())
+				 staring at [npc.namePos] [npc.fingers+] teasing their way up and down over [npc.her] [npc.pussy+].
+				</p>
+				<p>
+					[npc.speech(Open wide, bitch, an' get ready ta use yer tongue!)] [npc.name] orders, and, not seeing any point in disobeying, you submissively open your mouth and prepare to start performing cunnilingus on your captor.
+				</p>
+				<p>
+					[npc.speech(Ya ain't gonna need ta do much ta break this 'un in! [pc.SheIs] already 'ungry fer the taste o' rat cunt!)] [npc.name] gleefully shouts out to Murk, before pushing [npc.her] hips forwards and pressing [npc.her] [npc.pussy+] against your waiting lips...
+				</p>
+			#ELSE
+				 staring at [npc.namePos] [npc.fingers+] teasing their way up and down over [npc.her] smooth, doll-like groin.
+				</p>
+				<p>
+					[npc.speech(Open wide, bitch, an' get ready ta use yer tongue!)] [npc.name] orders, and, not seeing any point in disobeying, you submissively open your mouth and prepare to start performing oral on your captor.
+				</p>
+				<p>
+					[npc.speech(Ya ain't gonna need ta do much ta break this 'un in!)] [npc.name] gleefully shouts out to Murk, before pushing [npc.her] hips forwards and pressing [npc.her] smooth crotch against your waiting lips...
+				</p>
+			#ENDIF
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_SEX_EAGER"><![CDATA[
-	<p>
-		The rats move to fuck you (and your companion). You eagerly beg for them to do it, much to their amusement and delight.
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Your current situation has got you incredibly turned on, and you can't help but let out an eager [pc.moan] as [npc2.name] steps around in front of you and starts fiddling with [npc2.her] clothing. Just a moment later, and you find yourself hungrily
+			#IF(npc2.hasPenis())
+				 staring at [npc2.namePos] [npc2.cockSize], [npc2.cockGirth] [npc2.cock], which is rapidly hardening right in front of your face. Desperate to get a taste, you open your mouth and let out a pleading whine.
+				</p>
+				<p>
+					[npc2.speech(Ya ain't gonna need ta do much ta break this 'un in! [pc.SheIs] already 'ungry fer rat cock!)] [npc2.name] gleefully shouts out to Murk, before pushing [npc2.her] hips forwards and rubbing the head of [npc2.her] throbbing cock against your waiting lips. Letting out a sneer, [npc2.she] teases, [npc2.speech(Go on, beg fer it, slut!)]
+				</p>
+				<p>
+					[pc.speech(Please! Let me suck your cock!)] you desperately whine, craning your neck forwards and trying to take [npc2.namePos] [npc2.cock+] into your mouth.
+				</p>
+				<p>
+					[npc2.speech(That's a good slut,)] [npc2.name] says, before stepping forwards and sliding [npc2.her] throbbing cock past your waiting lips.
+				</p>
+				<p>
+					Off to one side, you hear [npc3.name] similarly starting to receive oral from [npc.name], but with the [npc2.cock+] pushing its way down your throat, you've got other things you'd rather be focusing on...
+				</p>
+			#ELSEIF(npc2.hasVagina())
+				 staring at [npc2.namePos] [npc2.fingers+] teasing their way up and down over [npc2.her] [npc2.pussy+]. Desperate to get a taste, you open your mouth and let out a pleading whine.
+				</p>
+				<p>
+					[npc2.speech(Ya ain't gonna need ta do much ta break this 'un in! [pc.SheIs] already 'ungry fer the taste o' rat cunt!)] [npc2.name] gleefully shouts out to Murk, before pushing [npc2.her] hips forwards bringing [npc2.her] [npc2.pussy+] closer towards your waiting lips. Letting out a sneer, [npc2.she] teases, [npc2.speech(Go on, beg fer it, slut!)]
+				</p>
+				<p>
+					[pc.speech(Please! Let me lick your pussy!)] you desperately whine, craning your neck forwards and trying to lick [npc2.namePos] [npc2.pussy+].
+				</p>
+				<p>
+					[npc2.speech(That's a good slut,)] [npc2.name] says, before stepping forwards and letting you slide your tongue into [npc2.her] [npc2.pussy].
+				</p>
+				<p>
+					Off to one side, you hear [npc3.name] similarly starting to receive oral from [npc.name], but as you push your [pc.tongue] past [npc2.namePos] [npc2.labia+], you find yourself with other things you'd rather be focusing on...
+				</p>
+			#ELSE
+				 staring at [npc2.namePos] [npc2.fingers+] teasing their way up and down over [npc2.her] smooth, doll-like groin. Desperate to please [npc2.herHim], you open your mouth and let out a pleading whine.
+				</p>
+				<p>
+					[npc2.speech(Open wide, bitch, an' get ready ta use yer tongue!)] [npc2.name] orders, and, not seeing any point in disobeying, you submissively open your mouth and prepare to start performing oral on your captor.
+				</p>
+				<p>
+					[npc2.speech(Ya ain't gonna need ta do much ta break this 'un in!)] [npc2.name] gleefully shouts out to Murk, before pushing [npc2.her] hips forwards and pressing [npc2.her] smooth crotch against your waiting lips.
+				</p>
+				<p>
+					Off to one side, you hear [npc3.name] similarly starting to receive oral from [npc.name], but you quickly find yourself with other things to be focusing on...
+				</p>
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Your current situation has got you incredibly turned on, and you can't help but let out an eager [pc.moan] as [npc.name] steps around in front of you and starts fiddling with [npc.her] clothing. Just a moment later, and you find yourself hungrily
+			#IF(npc.hasPenis())
+				 staring at [npc.namePos] [npc.cockSize], [npc.cockGirth] [npc.cock], which is rapidly hardening right in front of your face. Desperate to get a taste, you open your mouth and let out a pleading whine.
+				</p>
+				<p>
+					[npc.speech(Ya ain't gonna need ta do much ta break this 'un in! [pc.SheIs] already 'ungry fer rat cock!)] [npc.name] gleefully shouts out to Murk, before pushing [npc.her] hips forwards and rubbing the head of [npc.her] throbbing cock against your waiting lips. Letting out a sneer, [npc.she] teases, [npc.speech(Go on, beg fer it, slut!)]
+				</p>
+				<p>
+					[pc.speech(Please! Let me suck your cock!)] you desperately whine, craning your neck forwards and trying to take [npc.namePos] [npc.cock+] into your mouth.
+				</p>
+				<p>
+					[npc.speech(That's a good slut,)] [npc.name] says, before stepping forwards and sliding [npc.her] throbbing cock past your waiting lips...
+				</p>
+			#ELSEIF(npc.hasVagina())
+				 staring at [npc.namePos] [npc.fingers+] teasing their way up and down over [npc.her] [npc.pussy+]. Desperate to get a taste, you open your mouth and let out a pleading whine.
+				</p>
+				<p>
+					[npc.speech(Ya ain't gonna need ta do much ta break this 'un in! [pc.SheIs] already 'ungry fer the taste o' rat cunt!)] [npc.name] gleefully shouts out to Murk, before pushing [npc.her] hips forwards bringing [npc.her] [npc.pussy+] closer towards your waiting lips. Letting out a sneer, [npc.she] teases, [npc.speech(Go on, beg fer it, slut!)]
+				</p>
+				<p>
+					[pc.speech(Please! Let me lick your pussy!)] you desperately whine, craning your neck forwards and trying to lick [npc.namePos] [npc.pussy+].
+				</p>
+				<p>
+					[npc.speech(That's a good slut,)] [npc.name] says, before stepping forwards and letting you slide your tongue into [npc.her] [npc.pussy]...
+				</p>
+			#ELSE
+				 staring at [npc.namePos] [npc.fingers+] teasing their way up and down over [npc.her] smooth, doll-like groin. Desperate to please [npc.herHim], you open your mouth and let out a pleading whine.
+				</p>
+				<p>
+					[npc.speech(Open wide, bitch, an' get ready ta use yer tongue!)] [npc.name] orders, and, not seeing any point in disobeying, you submissively open your mouth and prepare to start performing oral on your captor.
+				</p>
+				<p>
+					[npc.speech(Ya ain't gonna need ta do much ta break this 'un in!)] [npc.name] gleefully shouts out to Murk, before pushing [npc.her] hips forwards and pressing [npc.her] smooth crotch against your waiting lips...
+				</p>
+			#ENDIF
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_SEX_RESIST"><![CDATA[
-	<p>
-		The rats move to fuck you (and your companion). You try to resist, much to their amusement.
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Finally starting to recover enough energy to resist, you start to struggle against your restraints, shouting, [pc.speech(Stop this! Let me go!)]
+		</p>
+		<p>
+			Letting out a mocking laugh, but otherwise ignoring your protests, [npc2.name] steps around in front of you and starts fiddling with [npc2.her] clothing. Just a moment later, and you find yourself trying to wriggle backwards as
+			#IF(npc2.hasPenis())
+				 [npc2.namePos] [npc2.cockSize], [npc2.cockGirth] [npc2.cock] flops free right in front of your face.
+				</p>
+				<p>
+					[npc2.speech('Ain't no use in strugglin', slut! Ya gonna be chokin' on me fat cock in a moment, an' there ain't nothin' ya can do about it!)] [npc2.name] sneers, while reaching down to start stroking [npc2.her] cock to full erectness. While you continue squirming and struggling against your restraints, [npc2.name] pushes [npc2.her] hips forwards and forcefully rubs the head of [npc2.her] throbbing cock against your lips. Letting out a mocking laugh, [npc2.she] teases, [npc2.speech(If ya say please, I'll think about leavin' ya alone!)]
+				</p>
+				<p>
+					Seeing no other option but to take a chance on doing what [npc2.name] asks, you open your mouth to say please, but the moment you do, [npc2.name] thrusts forwards and rams [npc2.her] [npc2.cock+] into your mouth. Pushing [npc2.her] throbbing shaft deep down your throat, [npc2.name] sneers, [npc2.speech(That's me good dumb slut! Yer gonna learn ta love rat cock soon enough!)] 
+				</p>
+				<p>
+					Off to one side, you hear [npc3.name] similarly starting to receive oral from [npc.name], but with the [npc2.cock+] pushing its way down your throat, you've got other things you'd rather be focusing on and trying to resist...
+				</p>
+			#ELSEIF(npc2.hasVagina())
+				 [npc2.namePos] [npc2.pussy+] hovers right in front of your face.
+				</p>
+				<p>
+					[npc2.speech('Ain't no use in strugglin', slut! Ya gonna be eatin' me out in a moment, an' there ain't nothin' ya can do about it!)] [npc2.name] sneers, while reaching down to tauntingly spread [npc2.her] [npc2.labia+]. While you continue squirming and struggling against your restraints, [npc2.name] pushes [npc2.her] hips forwards and forcefully rubs [npc2.her] clit against your lips. Letting out a mocking laugh, [npc2.she] teases, [npc2.speech(If ya say please, I'll think about leavin' ya alone!)]
+				</p>
+				<p>
+					Seeing no other option but to take a chance on doing what [npc2.name] asks, you open your mouth to say please, but the moment you do, [npc2.name] thrusts forwards and firmly presses [npc2.her] [npc2.pussy+] over your mouth. Grinding [npc2.her] [npc2.labia] over your face, [npc2.name] sneers, [npc2.speech(That's me good dumb slut! Yer gonna learn ta love rat pussy soon enough!)] 
+				</p>
+				<p>
+					Off to one side, you hear [npc3.name] similarly starting to receive oral from [npc.name], but you find yourself with other things you'd rather be focusing on and trying to resist...
+				</p>
+			#ELSE
+				 [npc2.namePos] smooth, doll-like groin hovers right in front of your face.
+				</p>
+				<p>
+					[npc2.speech('Ain't no use in strugglin', slut! Ya gonna be servicin' me in a moment, an' there ain't nothin' ya can do about it!)] [npc2.name] sneers. While you continue squirming and struggling against your restraints, [npc2.name] pushes [npc2.her] hips forwards and forcefully rubs [npc2.her] doll-like crotch against your lips. Letting out a mocking laugh, [npc2.she] teases, [npc2.speech(If ya say please, I'll think about leavin' ya alone!)]
+				</p>
+				<p>
+					Seeing no other option but to take a chance on doing what [npc2.name] asks, you open your mouth to say please, but the moment you do, [npc2.name] thrusts forwards and firmly presses [npc2.her] mound over your mouth. Grinding up and down over your face, [npc2.she] sneers, [npc2.speech(That's me good dumb slut! Yer gonna learn ta love this soon enough!)] 
+				</p>
+				<p>
+					Off to one side, you hear [npc3.name] similarly starting to receive oral from [npc.name], but you find yourself with other things you'd rather be focusing on and trying to resist...
+				</p>
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Finally starting to recover enough energy to resist, you start to struggle against your restraints, shouting, [pc.speech(Stop this! Let me go!)]
+		</p>
+		<p>
+			Letting out a mocking laugh, but otherwise ignoring your protests, [npc.name] steps around in front of you and starts fiddling with [npc.her] clothing. Just a moment later, and you find yourself trying to wriggle backwards as
+			#IF(npc.hasPenis())
+				 [npc.namePos] [npc.cockSize], [npc.cockGirth] [npc.cock] flops free right in front of your face.
+				</p>
+				<p>
+					[npc.speech('Ain't no use in strugglin', slut! Ya gonna be chokin' on me fat cock in a moment, an' there ain't nothin' ya can do about it!)] [npc.name] sneers, while reaching down to start stroking [npc.her] cock to full erectness. While you continue squirming and struggling against your restraints, [npc.name] pushes [npc.her] hips forwards and forcefully rubs the head of [npc.her] throbbing cock against your lips. Letting out a mocking laugh, [npc.she] teases, [npc.speech(If ya say please, I'll think about leavin' ya alone!)]
+				</p>
+				<p>
+					Seeing no other option but to take a chance on doing what [npc.name] asks, you open your mouth to say please, but the moment you do, [npc.name] thrusts forwards and rams [npc.her] [npc.cock+] into your mouth. Pushing [npc.her] throbbing shaft deep down your throat, [npc.name] sneers, [npc.speech(That's me good dumb slut! Yer gonna learn ta love rat cock soon enough!)] 
+				</p>
+			#ELSEIF(npc.hasVagina())
+				 [npc.namePos] [npc.pussy+] hovers right in front of your face.
+				</p>
+				<p>
+					[npc.speech('Ain't no use in strugglin', slut! Ya gonna be eatin' me out in a moment, an' there ain't nothin' ya can do about it!)] [npc.name] sneers, while reaching down to tauntingly spread [npc.her] [npc.labia+]. While you continue squirming and struggling against your restraints, [npc.name] pushes [npc.her] hips forwards and forcefully rubs [npc.her] clit against your lips. Letting out a mocking laugh, [npc.she] teases, [npc.speech(If ya say please, I'll think about leavin' ya alone!)]
+				</p>
+				<p>
+					Seeing no other option but to take a chance on doing what [npc.name] asks, you open your mouth to say please, but the moment you do, [npc.name] thrusts forwards and firmly presses [npc.her] [npc.pussy+] over your mouth. Grinding [npc.her] [npc.labia] over your face, [npc.name] sneers, [npc.speech(That's me good dumb slut! Yer gonna learn ta love rat pussy soon enough!)] 
+				</p>
+			#ELSE
+				 [npc.namePos] smooth, doll-like groin hovers right in front of your face.
+				</p>
+				<p>
+					[npc.speech('Ain't no use in strugglin', slut! Ya gonna be servicin' me in a moment, an' there ain't nothin' ya can do about it!)] [npc.name] sneers. While you continue squirming and struggling against your restraints, [npc.name] pushes [npc.her] hips forwards and forcefully rubs [npc.her] doll-like crotch against your lips. Letting out a mocking laugh, [npc.she] teases, [npc.speech(If ya say please, I'll think about leavin' ya alone!)]
+				</p>
+				<p>
+					Seeing no other option but to take a chance on doing what [npc.name] asks, you open your mouth to say please, but the moment you do, [npc.name] thrusts forwards and firmly presses [npc.her] mound over your mouth. Grinding up and down over your face, [npc.she] sneers, [npc.speech(That's me good dumb slut! Yer gonna learn ta love this soon enough!)] 
+				</p>
+			#ENDIF
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -586,9 +1241,21 @@
 	<!-- GUARD_COMBAT_DEFEAT_STOCKS_AFTER_SEX -->
 	
 	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_AFTER_SEX"><![CDATA[
-	<p>
-		The rats finish with you (and your companion). They tell you that Murk will enjoy transforming you into their milker bitch.
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Having had their fun, the two rats step back from you and your companion, bringing an end to your oral sex session. While [npc3.name] is quick to get [npc3.her] clothing back in place and take [npc3.her] leave, [npc2.name] takes a moment to mock you one last time, [npc2.speech(This is wot ya deserve fer tryin' ta fight us! Murk's gonna get ya turned into an obedient bitch beggin' fer 'is fat cock soon enough! I's give ya no more than five days before ya just like the rest o' these milkers; callin' Murk ya master an' pleading fer 'im ta rut ya all day long! Heh-heh-heh!)]
+		</p>
+		<p>
+			With that, [npc2.name] follows [npc2.her] subordinate out of the milking room, leaving you and [npc.name] alone with Murk...
+		</p>
+	#ELSE
+		<p>
+			Having had [npc.her] fun, [npc.name] steps back, bringing an end to your oral sex session. Before [npc.she] takes [npc.her] leave, however, your captor takes a moment to mock you one last time, [npc.speech(This is wot ya deserve fer tryin' ta fight us! Murk's gonna get ya turned into an obedient bitch beggin' fer 'is fat cock soon enough! I's give ya no more than five days before ya just like the rest o' these milkers; callin' Murk ya master an' pleading fer 'im ta rut ya all day long! Heh-heh-heh!)]
+		</p>
+		<p>
+			With that, [npc.name] heads out of the milking room, leaving you alone with Murk...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -597,51 +1264,78 @@
 	
 	<htmlContent tag="ENTRANCE"><![CDATA[
 	<p>
-		Entrance to the rat warrens.
+		The entrance to the Rat Warrens is secured by two sets of sturdy wooden doors, separated by a small inner chamber. The opening and closing of both sets of these doors is handled by means of two crude levers, located near to where you're currently standing. Small hatches are located on either side of the inner pair of doors, allowing any guards stationed here to shoot into the inner chamber.  
 	</p>
-	<p>
-		If cleared centre, rats are not here. Otherwise, they watch you suspiciously.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="ENTRANCE_FIGHT"><![CDATA[
-	<p>
-		You're here to clear the rat warrens of gang members. The guards prepare to fight.
-	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensClearedCentre))
+		<p>
+			Having already beaten the rats guarding the entrance, there are no gang members present in this area right now. What's more, the levers which control the door's operation seem to be broken, trapping
+			#IF(pc.hasCompanions())
+				 you and [npc.name] inside. If you want to get out of here, the two of you will have to venture further into the gang's den and confront Vengar...
+			#ELSE
+				 you inside. If you want to get out of here, you'll have to venture further into the gang's den and confront Vengar...
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			#IF(pc.hasCompanions())
+				#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensEntryWhore))
+					Having been told that you and [npc.name] are whores, the two rats give you lustful looks as you enter the area. Hungrily licking [npc2.her] lips, [npc2.name] asks, [npc2.speech(Surely ya ain't gonna leave without 'avin' quick fuck with the two o' us, are ya?)]
+				#ELSE
+					The two rats on guard duty eye you and [npc.name] suspiciously as you enter the area. Spitting on the ground, [npc2.name] asks, [npc2.speech(You's wantin' ta leave? Or ya just 'angin' around 'ere fer the fun o' it?)]
+				#ENDIF
+			#ELSE
+				#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensEntryWhore))
+					Having been told that you're a whore, the two rats give you lustful looks as you enter the area. Hungrily licking [npc2.her] lips, [npc2.name] asks, [npc2.speech(Surely ya ain't gonna leave without 'avin' quick fuck with the two o' us, are ya?)]
+				#ELSE
+					The two rats on guard duty eye you suspiciously as you enter the area. Spitting on the ground, [npc.name] asks, [npc.speech(You's wantin' ta leave? Or ya just 'angin' around 'ere fer the fun o' it?)]
+				#ENDIF
+			#ENDIF
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	
 	<!-- CORRIDOR -->
 	
-	<htmlContent tag="CHECKPOINT_LEFT"><![CDATA[
+	<htmlContent tag="CHECKPOINT_FIGHT"><![CDATA[
 	<p>
-		Rats alerted to your presence are waiting here to fight. Defend yourself!
+		Knowing that the inhabitants of the Rat Warrens must be alerted to your hostile presence by now, you make sure to stay alert as you travel down the twisting passageways. Just as you expected, when you turn the next corner, you see six rat-morphs waiting to confront you.
 	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="CHECKPOINT_RIGHT"><![CDATA[
 	<p>
-		Rats alerted to your presence are waiting here to fight. Defend yourself!
+		#IF(pc.hasCompanions())
+			Seeing you and [npc.name] at the same time as you see them, the rats let out a shout and prepare to fight you. As they advance on the two of you, their leader calls out, [npc2.speech(Yer gonna pay fer this! I 'ope yer ready fer a beatin'!)]
+		#ELSE
+			Seeing you at the same time as you see them, the rats let out a shout and prepare to fight you. As they advance on you, their leader calls out, [npc.speech(Yer gonna pay fer this! I 'ope yer ready fer a beatin'!)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="CORRIDOR_CLEARED"><![CDATA[
 	<p>
-		Having defeated the strongest rats in this area, the rest of them have fled, leaving the corridors completely deserted.
+		Just like the one you find yourself walking through right now, the vast majority of the space inside the Rat Warrens consists of twisting, poorly-lit passageways. In places passing through cavernous, naturally-formed chambers, and in others so narrowly carved through solid rock that two people would struggle to walk abreast, these tunnels are invariable only in the crudity of their construction and maintenance. Here and there, old wooden pillars and boards are holding up the walls and ceiling, while piled up against the edges of the earth-packed floor are piles of crumbled stone mixed with all manner of rubbish.
+	</p>
+	<p>
+		#IF(pc.hasCompanions())
+			With the inhabitants of the Rat Warrens now alerted to your hostile presence, you and [npc.name] don't run into any gang members on your way through the tunnels. The lack of any sign of life gives the whole place a very eerie atmosphere, and you can't shake the feeling that someone's silently watching the two you from the shadows...
+		#ELSE
+			With the inhabitants of the Rat Warrens now alerted to your hostile presence, you don't run into any gang members on your way through the tunnels. The lack of any sign of life gives the whole place a very eerie atmosphere, and you can't shake the feeling that someone's silently watching you from the shadows...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="CORRIDOR"><![CDATA[
 	<p>
-		Twisting passageways through the rat warrens. In some places very narrow, others wide. Some parts have stone walls, other wood, and in some places, just bare dirt.
+		Just like the one you find yourself walking through right now, the vast majority of the space inside the Rat Warrens consists of twisting, poorly-lit passageways. In places passing through cavernous, naturally-formed chambers, and in others so narrowly carved through solid rock that two people would struggle to walk abreast, these tunnels are invariable only in the crudity of their construction and maintenance. Here and there, old wooden pillars and boards are holding up the walls and ceiling, while piled up against the edges of the earth-packed floor are piles of crumbled stone mixed with all manner of rubbish.
 	</p>
 	<p>
-		Rats sometimes loitering about who give you funny looks or make an occasional comment.
+		#IF(pc.hasCompanions())
+			Although rare, you and [npc.name] sometimes encounter one or two rat-morphs, either travelling in the opposite direction, or getting intimate with one another in a dimly-lit hollow. While the ones not too busy with one another sometimes take a moment to question who the two of you are, they don't really seem to care what answer you give, and quickly scurry off on their business. 
+		#ELSE
+			Although rare, you sometimes encounter one or two rat-morphs, either travelling in the opposite direction, or getting intimate with one another in a dimly-lit hollow. While the ones not too busy with one another sometimes take a moment to question who you are, they don't really seem to care what answer you give, and quickly scurry off on their business. 
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -651,18 +1345,81 @@
 	
 	<htmlContent tag="DORMITORY"><![CDATA[
 	<p>
-		Bunk beds line the walls, and wooden tables and chairs are haphazardly placed in the middle of the room.
+		Located at the end of a long, twisting tunnel, there's a relatively spacious, well-lit room carved out of solid rock. Lacking any sort of door to partition the interior from the Rat Warren's gloomy passageways, you're able to step right into what turns out to be some kind of dormitory for the resident gang members. Looking around, you see that there are several wooden bunk beds lining the walls, each with a ragged cloth curtain which can be drawn to afford the occupants a small amount of privacy. Next to each bunk bed, there are a couple of wooden chests for personal belongings, but apart from those, the only other pieces of furniture present are a few tables and chairs haphazardly placed in the middle of the room.
 	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_OCCUPIED"><![CDATA[
 	<p>
-		If cleared, no rats here. Otherwise: If night, lots of rats sleeping here. In day, just a couple milling about.
+		#IF(game.isExtendedWorkTime())
+			As it's not time for the gang members to be making use of these sleeping quarters, the bunk beds are all currently empty. The place isn't completely deserted, however, as a few rats are sitting around one of the tables gambling with some dice. Although they turn to see who's entered the room, none of them bother to ask who you are, and after shooting you suspicious glares, they quickly turn back to their game.
+		#ELSE
+			As it's currently night time, several of the bunk beds are currently occupied by sleeping gang members, whose loud snores fill the otherwise deserted room.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_CLEARED"><![CDATA[
+	<p>
+		As you've already cleared out this section of the Rat Warrens, the dormitory is completely deserted. Although there's nobody here to stop you from pilfering through the wooden chests beside each bunk bed, you can tell that there's absolutely nothing of value in them, and so there's nothing for you to do in here except turn around and head back into the tunnels...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="DORMITORY_FIGHT"><![CDATA[
-	<p>
-		You're here to clear the rat warrens of gang members. The rats prepare to fight.
-	</p>
+	#IF(pc.hasCompanions())
+		#IF(game.isExtendedWorkTime())
+			<p>
+				Deciding that this is the right time to get started on clearing out the Rat Warrens, you step up to the occupied table and tell the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you and [npc.name] ready yourselves for combat.
+			</p>
+			<p>
+				[npc2.speech(You's 'ere ta do wot?!)] [npc2.name] exclaims, before bellowing at the top of [npc2.her] voice, [npc2.speech(Everyone! Get in 'ere! We need 'elp!)]
+			</p>
+			<p>
+				Within seconds, more than half a dozen rat-morphs are dashing into the dormitory as backup, but as they see that there's a fight afoot, a few of them turn around and run off, abandoning their comrades. At the end of all this, you count six gang members left in front of you and [npc.name].
+			</p>
+		#ELSE
+			<p>
+				Deciding that this is the right time to get started on clearing out the Rat Warrens, you shout out that you're here to put an end to all of the rats' criminal activities. Angry at being woken from their slumber, the gang members quickly jump out of their bunk-beds while you and [npc.name] ready yourselves for combat.
+			</p>
+			<p>
+				[npc2.speech(You's 'ere ta do wot?!)] the nearest gang member exclaims, [npc2.speech(Come on you's lot! 'Elp me give these two a beatin'!)]
+			</p>
+			<p>
+				Although they greatly outnumber you, a few of the rats don't seem to like their odds, and quickly dash past you and run off into the tunnels, abandoning their comrades. Once they're gone, you count six gang members left in front of you and [npc.name].
+			</p>
+		#ENDIF
+		<p>
+			With a wild snarl, [npc2.name] shouts to the remaining rats, [npc2.speech(We'll deal with them cowardly scum later! Fer now, let's give these two a real good beatin'!)]
+		</p>
+	#ELSE
+		#IF(game.isExtendedWorkTime())
+			<p>
+				Deciding that this is the right time to get started on clearing out the Rat Warrens, you step up to the occupied table and tell the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you ready yourself for combat.
+			</p>
+			<p>
+				[npc.speech(You's 'ere ta do wot?!)] [npc.name] exclaims, before bellowing at the top of [npc.her] voice, [npc.speech(Everyone! Get in 'ere! We need 'elp!)]
+			</p>
+			<p>
+				Within seconds, more than half a dozen rat-morphs are dashing into the dormitory as backup, but as they see that there's a fight afoot, a few of them turn around and run off, abandoning their comrades. At the end of all this, you count six gang members left in front of you.
+			</p>
+		#ELSE
+			<p>
+				Deciding that this is the right time to get started on clearing out the Rat Warrens, you shout out that you're here to put an end to all of the rats' criminal activities. Angry at being woken from their slumber, the gang members quickly jump out of their bunk-beds while you ready yourself for combat.
+			</p>
+			<p>
+				[npc.speech(You's 'ere ta do wot?!)] the nearest gang member exclaims, [npc.speech(Come on you's lot! 'Elp me give this 'un a beatin'!)]
+			</p>
+			<p>
+				Although they greatly outnumber you, a few of the rats don't seem to like their odds, and quickly dash past you and run off into the tunnels, abandoning their comrades. Once they're gone, you count six gang members left in front of you.
+			</p>
+		#ENDIF
+		<p>
+			With a wild snarl, [npc.name] shouts to the remaining rats, [npc.speech(We'll deal with them cowardly scum later! Fer now, let's give this 'un a real good beatin'!)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -671,21 +1428,67 @@
 	
 	<htmlContent tag="DICE_DEN"><![CDATA[
 	<p>
-		Large room with a bar down one side, and tables in the middle. 
+		At the end of one of the many tunnels which snake their way through the Rat Warrens, there's a large, naturally-formed grotto, and it's within this underground hollow that you currently find yourself standing. A few small, barred holes in the high ceiling allow both natural light and a steady stream of water to flow down into this area, filling the cave with the sound of murmuring, echoing splashes. 
 	</p>
 	<p>
-		If cleared/hostile, nobody here. Otherwise: In day, rats gambling. At night, quieter, but still some around.
-	</p>
-	<p>
-		Rat behind bar tells you if you want to play, they handle betting money, so let them know. They also sell rum.
+		Running through the middle of the floor, a shallow channel has been half-dug, half-eroded into the solid rock, diverting the water down and away into a metal pipe, which no doubt leads into Submission's main waterways. Positioned all around the rest of this cavern, there are about two dozen old wooden tables, each surrounded with four or so chairs. Running along part of the left-hand wall, there's an open bar, consisting of a long counter-top positioned in front of numerous bottle-filled shelves and cabinets.
 	</p>
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="DICE_DEN_ENTRY"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensHostile))
+		<p>
+			Having already cleared the gang members out of this area, the entire place is completely deserted...
+		</p>
+	#ELSE
+		<p>
+			#IF(pc.hasCompanions())
+				#IF(game.isExtendedWorkTime())
+					You see that several rats are currently sitting around a few of the tables, either chatting with one another or playing some kind of dice game. Standing behind the bar, there's [npc2.a_race], who leans forwards on the counter-top and calls out to you and [npc.name], [npc2.speech(Ya lookin' ta buy a drink? Or maybe ya want ta play some dice poker? Come over 'ere an' let me know if ya are.)]
+				#ELSE
+					Despite the unsociable hour, you see that several rats are currently sitting around a few of the tables, either chatting with one another or playing some kind of dice game. Standing behind the bar, there's [npc2.a_race], who leans forwards on the counter-top and calls out to you and [npc.name], [npc2.speech(Ya can't sleep either, huh? So long as ya awake, ya might as well come an' buy a drink, right? Or maybe ya want ta play some dice poker? Come over 'ere an' let me know if ya are.)]
+				#ENDIF
+			#ELSE
+				#IF(game.isExtendedWorkTime())
+					You see that several rats are currently sitting around a few of the tables, either chatting with one another or playing some kind of dice game. Standing behind the bar, there's [npc2.a_race], who leans forwards on the counter-top and calls out to you, [npc.speech(Ya lookin' ta buy a drink? Or maybe ya want ta play some dice poker? Come over 'ere an' let me know if ya are.)]
+				#ELSE
+					Despite the unsociable hour, you see that several rats are currently sitting around a few of the tables, either chatting with one another or playing some kind of dice game. Standing behind the bar, there's [npc2.a_race], who leans forwards on the counter-top and calls out to you, [npc.speech(Ya can't sleep either, huh? So long as ya awake, ya might as well come an' buy a drink, right? Or maybe ya want ta play some dice poker? Come over 'ere an' let me know if ya are.)]
+				#ENDIF
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="DICE_DEN_CHALLENGE"><![CDATA[
-	<p>
-		You challenge the rats to a fight, saying you're here to clear out the gang. While some run away, 6 stay to fight (including bar-tender).
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Deciding that this is the right time to get started on clearing out the Rat Warrens, you step step forwards and call out to the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you and [npc.name] ready yourselves for combat.
+		</p>
+		<p>
+			[npc7.speech(You's 'ere ta do wot?!)] [npc7.name] exclaims, before rushing around from behind the bar and calling out, [npc7.speech(Come on everyone! Let's show 'em wot we do ta troublemakers!)]
+		</p>
+		<p>
+			Although many of the gang members join [npc7.name] in getting ready to fight you, many more of them dash past you and run off into the tunnels, abandoning their comrades. All in all, you count six gang members, including [npc7.name], left in front of you and [npc.name].
+		</p>
+		<p>
+			With a wild snarl, [npc2.name] makes [npc2.herself] known as the leader of this group, and shouts to the remaining rats, [npc2.speech(We'll deal with them cowardly scum later! Fer now, let's give these two a real good beatin'!)]
+		</p>
+	#ELSE
+		<p>
+			Deciding that this is the right time to get started on clearing out the Rat Warrens, you step step forwards and call out to the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you ready yourself for combat.
+		</p>
+		<p>
+			[npc6.speech(You's 'ere ta do wot?!)] [npc6.name] exclaims, before rushing around from behind the bar and calling out, [npc6.speech(Come on everyone! Let's show 'em wot we do ta troublemakers!)]
+		</p>
+		<p>
+			Although many of the gang members join [npc6.name] in getting ready to fight you, many more of them dash past you and run off into the tunnels, abandoning their comrades. All in all, you count six gang members, including [npc6.name], left in front of you.
+		</p>
+		<p>
+			With a wild snarl, [npc.name] makes [npc.herself] known as the leader of this group, and shouts to the remaining rats, [npc.speech(We'll deal with them cowardly scum later! Fer now, let's give this 'un a real good beatin'!)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -694,7 +1497,11 @@
 	
 	<htmlContent tag="DICE_DEN_LOOT"><![CDATA[
 	<p>
-		Having cleared out this area, there's nothing stopping you from looting the bar. You do just that.
+		#IF(pc.hasCompanions())
+			Having cleared out this part of the Rat Warrens, there's nobody left to stop you from heading behind the bar and searching it for anything worth taking. Telling [npc.name] to keep watch in case anyone turns up, you set about looting the shelves and cabinets situated behind the bar's long counter. Although most of the bottles are either half-empty or in such a filthy state that they're not worth taking, you're still able to procure a decent amount of alcohol...
+		#ELSE
+			Having cleared out this part of the Rat Warrens, there's nobody left to stop you from heading behind the bar and searching it for anything worth taking. Taking one last look around the cavern to make sure that there's nobody waiting to ambush you, you then set about looting the shelves and cabinets situated behind the bar's long counter. Although most of the bottles are either half-empty or in such a filthy state that they're not worth taking, you're still able to procure a decent amount of alcohol...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -704,7 +1511,56 @@
 	
 	<htmlContent tag="DICE_DEN_RULES"><![CDATA[
 	<p>
-		The bar-tender tells you the rules of dice poker.
+		#IF(pc.hasCompanions())
+			Wanting to know the rules of dice poker before starting a game, you walk up to the bar and ask [npc2.name] to explain them to you. Letting out a devious laugh, [npc2.she] reaches down under the counter to grab something, before straightening up and placing a slightly-rusted metal sign down on the surface before you. Grinning in a mischievous manner, [npc2.she] says, [npc2.speech(One o' me mates pilfered this from that Gamblin' Den a few months back. Ya can read the rules on 'ere, an' if ya wantin' ta do a game, let me know an' I'll find ya an opponent.)]
+		#ELSE
+			Wanting to know the rules of dice poker before starting a game, you walk up to the bar and ask [npc.name] to explain them to you. Letting out a devious laugh, [npc.she] reaches down under the counter to grab something, before straightening up and placing a slightly-rusted metal sign down on the surface before you. Grinning in a mischievous manner, [npc.she] says, [npc.speech(One o' me mates pilfered this from that Gamblin' Den a few months back. Ya can read the rules on 'ere, an' if ya wantin' ta do a game, let me know an' I'll find ya an opponent.)]
+		#ENDIF
+	</p>
+	<p>
+		Looking down at the sign, you read:
+	</p>
+	<p style='text-align:center;'>
+		<b>[axel.name]'s Rules For Dice Poker</b><br/>
+		1. Both players place the buy-in amount to start a game.<br/><i>Some of the text has been etched out here, and replaced with crude writing:</i><br/>If ya wont to play, you haz to pay up [style.moneyFormat(500, span)]. No reefundz, no arrguinn if ya looses.<br/>
+		2. Both players roll five dice each.<br/>
+		3. Players can choose to increase the bet (referred to as a 'raise'), or leave the bet at the buy-in amount (referred to as a 'call').<br/>
+		4. After betting is done, each player selects as many of their dice as they want to re-roll.<br/>
+		5. The players re-roll their chosen dice.<br/>
+		6. The ranking of each player's dice is compared to find the winner, who then takes all of the money in the pot.
+	</p>
+	<p style='text-align:center;'>
+		<b>Results ranking (from winning to losing)</b><br/>
+		1. Five of a kind: Five dice of the same value. (e.g. 33333)<br/>
+		2. Four of a kind: Four dice of the same value. (e.g. 55551)<br/>
+		3. High straight: Consecutive numbers starting at two. (e.g. 23456)<br/>
+		4. Full house: Two dice of the same value, plus three dice of a different, same value. (e.g. 22666)<br/>
+		5. Three of a kind: Three dice of the same value. (e.g. 44415)<br/>
+		6. Low straight: Consecutive numbers starting at one. (e.g. 12345)<br/>
+		7. Two pair: Two dice of the same value, plus two dice of a different, same value. (e.g. 55331)<br/>
+		8. Pair: Two dice of the same value. (e.g. 22415)<br/>
+		9. Runt: All dice of different values. (e.g. 13456)<br/><br/>
+		
+		If both players have the same ranking, the total value of the dice that make up their rank are compared. For example:<br/>
+		Player A: 33661<br/>
+		Player B: 22115<br/>
+		Although both players have 'Two pair', player A wins, as the total of their ranking dice is 18 (3+3+6+6), compared to player B's 6 (2+2+1+1).<br/><br/>
+		
+		If both players have the same ranking, and the same value, the game is a draw, and the money in the pot is returned to each player's hand.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DICE_DEN_POST_GAMBLING -->
+	
+	<htmlContent tag="DICE_DEN_POST_GAMBLING"><![CDATA[
+	<p>
+		#IF(pc.hasCompanions())
+			Having finished your game, you leave the table and walk back over to the bar. Seeing you and [npc.name] approach, [npc2.name] calls out, [npc2.speech(Ya want another opponent, just ask me! Or if ya want a drink ta quench ya thirst, I's got the best rum you's ever gonna taste!)]
+		#ELSE
+			Having finished your game, you leave the table and walk back over to the bar. Seeing you approach, [npc.name] calls out, [npc.speech(Ya want another opponent, just ask me! Or if ya want a drink ta quench ya thirst, I's got the best rum you's ever gonna taste!)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -713,23 +1569,161 @@
 	<!-- DICE_DEN_RUM -->
 	
 	<htmlContent tag="DICE_DEN_RUM"><![CDATA[
-	<p>
-		You buy a glass of rum from [npc.name]. [npc.She] says that if you're still thirsty, you can earn your money back by letting [npc.herHim] fuck your throat (or eat her out if no penis).
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Feeling thirsty and with the temptation of the bar right in front of you, you ask [npc2.name] for a glass of rum, before handing over the flames [npc2.she] asks for. Grinning at you, the [npc2.race] leaves the flames sitting on the counter as [npc2.she] reaches under the counter to grab a glass. Turning around and picking up a half-empty bottle of rum, [npc2.she] pours your drink and then steps back, still leaving the money untouched on the counter-top.
+		</p>
+		<p>
+			Picking up the glass, you quickly drink down the rum, before placing the now-empty vessel back down on the counter and preparing to move off. Before you can go, however, [npc2.name] calls out for you stay, [npc2.speech(Hey, why don't ya 'ang around a little longer? I's bettin' ya'd like ta earn that money o' yours back, wouldn't ya?)]
+		</p>
+		#IF(npc2.hasPenis())
+			<p>
+				Looking down at the money still sitting on the counter, you ask [npc2.name] what it is you'd have to do. Leaning forwards and grinning at you, [npc2.she] says, [npc2.speech(Well, wot with 'avin' ta work behind this 'ere bar all day long, I don't get much time fer gettin' me dick wet. If ya want yer money back, all ya 'ave ta do is come round 'ere an' get down on yer knees, then wrap yer pretty little mouth 'round me cock an' get ta suckin'. Let me blow a load down yer throat or over ya face, an' ya can 'ave yer money back.)]
+			</p>
+			#IF(game.isVoluntaryNTREnabled())
+				<p>
+					As you're thinking of what to say in response to this offer, [npc2.name] continues, [npc2.speech(I'll even let yer friend 'ere watch me fuck yer throat! Or maybe [npc.she]'d like ta be the one suckin' me cock an' ya can watch us!)]
+				</p>
+			#ENDIF
+		#ELSE
+			<p>
+				Looking down at the money still sitting on the counter, you ask [npc2.name] what it is you'd have to do. Leaning forwards and grinning at you, [npc2.she] says, [npc2.speech(Well, wot with 'avin' ta work behind this 'ere bar all day long, me cunt don't get much attention. If ya want yer money back, all ya 'ave ta do is come round 'ere an' get down on yer knees, then open wide an' get ta eatin' me out. Once I've 'ad enough fun with yer tongue, ya can 'ave yer money back.)]
+			</p>
+			#IF(game.isVoluntaryNTREnabled())
+				<p>
+					As you're thinking of what to say in response to this offer, [npc2.name] continues, [npc2.speech(I'll even let yer friend 'ere watch! Or maybe [npc.she]'d like ta be the one servicin' me pussy an' ya can watch us!)]
+				</p>
+			#ENDIF
+		#ENDIF
+	#ELSE
+		<p>
+			Feeling thirsty and with the temptation of the bar right in front of you, you ask [npc.name] for a glass of rum, before handing over the flames [npc.she] asks for. Grinning at you, the [npc.race] leaves the flames sitting on the counter as [npc.she] reaches under the counter to grab a glass. Turning around and picking up a half-empty bottle of rum, [npc.she] pours your drink and then steps back, still leaving the money untouched on the counter-top.
+		</p>
+		<p>
+			Picking up the glass, you quickly drink down the rum, before placing the now-empty vessel back down on the counter and preparing to move off. Before you can go, however, [npc.name] calls out for you stay, [npc.speech(Hey, why don't ya 'ang around a little longer? I's bettin' ya'd like ta earn that money o' yours back, wouldn't ya?)]
+		</p>
+		#IF(npc.hasPenis())
+			<p>
+				Looking down at the money still sitting on the counter, you ask [npc.name] what it is you'd have to do. Leaning forwards and grinning at you, [npc.she] says, [npc.speech(Well, wot with 'avin' ta work behind this 'ere bar all day long, I don't get much time fer gettin' me dick wet. If ya want yer money back, all ya 'ave ta do is come round 'ere an' get down on yer knees, then wrap yer pretty little mouth 'round me cock an' get ta suckin'. Let me blow a load down yer throat or over ya face, an' ya can 'ave yer money back.)]
+			</p>
+		#ELSE
+			<p>
+				Looking down at the money still sitting on the counter, you ask [npc.name] what it is you'd have to do. Leaning forwards and grinning at you, [npc.she] says, [npc.speech(Well, wot with 'avin' ta work behind this 'ere bar all day long, me cunt don't get much attention. If ya want yer money back, all ya 'ave ta do is come round 'ere an' get down on yer knees, then open wide an' get ta eatin' me out. Once I've 'ad enough fun with yer tongue, ya can 'ave yer money back.)]
+			</p>
+		#ENDIF
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="DICE_DEN_RUM_ORAL"><![CDATA[
-	<p>
-		You agree, get paid, and are forced to your knees. If has cock, [npc.name] forces it down your throat. If pussy, [npc.name] forces your face between [npc.her] legs.
-	</p>
+	#IF(pc.hasCompanions())
+		#IF(npc2.hasPenis())
+			<p>
+				Deciding that you're willing to suck [npc2.namePos] cock in order to get your flames back, you agree to do as [npc2.she] asks. Letting out a triumphant laugh, [npc2.she] says, [npc2.speech(Get round 'ere then an' drop down onto ya knees. Yer friend 'ere can come round an' watch as well!)]
+			</p>
+			<p>
+				Walking around to the end of the bar, you and [npc.name] step around behind it and move up to [npc2.name]. Doing as you're told, you drop down onto your knees in front of [npc2.herHim], while [npc.name] keeps [npc.her] distance and watches.
+			</p>
+			<p>
+				[npc2.speech(Get it out then, slut,)] [npc2.name] commands, and you obediently displace [npc2.her] clothing in order to allow [npc2.her] [npc2.cock+] to flop free in front of your face. Impatiently thrusting [npc2.her] hips forwards a little, [npc2.name] continues, [npc2.speech(Get me hard with yer tongue, slut, then ya can take me cock down yer throat.)]
+			</p>
+			<p>
+				Leaning in to [npc2.her] groin, you start licking [npc2.namePos] cock, and are rewarded for your efforts as it quickly stiffens to full erectness. Opening wide, you then wrap your [pc.lips+] around the head, before taking [npc2.her] throbbing length into your mouth and down your throat. As you start giving [npc2.name] a blowjob, [npc2.she] [npc2.moans], [npc2.speech(Good slut. Keep this up an' I'll be bustin' a nut down yer throat in no time!)]
+			</p>
+		#ELSE
+			<p>
+				Deciding that you're willing to perform cunnilingus on [npc2.name] in order to get your flames back, you agree to do as [npc2.she] asks. Letting out a triumphant laugh, [npc2.she] says, [npc2.speech(Get round 'ere then an' drop down onto ya knees. Yer friend 'ere can come round an' watch as well!)]
+			</p>
+			<p>
+				Walking around to the end of the bar, you and [npc.name] step around behind it and move up to [npc2.name]. Doing as you're told, you drop down onto your knees in front of [npc2.herHim], while [npc.name] keeps [npc.her] distance and watches.
+			</p>
+			<p>
+				[npc2.speech(Get to it then, slut,)] [npc2.name] commands, and you obediently displace [npc2.her] clothing in order to gain access to [npc2.her] [npc2.pussy+]. Impatiently thrusting [npc2.her] hips forwards a little, [npc2.name] continues, [npc2.speech(Use yer tongue a bit first, slut, then ya can get tucked in an' start eatin' me out proper.)]
+			</p>
+			<p>
+				Leaning in to [npc2.her] groin, you do as you're instructed and start licking [npc2.namePos] [npc2.labia+], before teasing [npc2.her] clit with the tip of your tongue. Quickly wanting more than what you're giving to [npc2.herHim], [npc2.name] suddenly grabs the back of your head and pulls you into [npc2.her] groin. Finding your lips pressed up against [npc2.namePos] [npc2.pussy+], you start enthusiastically eating [npc2.herHim] out, causing [npc2.herHim] to [npc2.moanVerb] out from above, [npc2.speech(That's it, slut! Keep this up an' I'll be squirtin' all over ya face in no time!)]
+			</p>
+		#ENDIF
+	#ELSE
+		#IF(npc.hasPenis())
+			<p>
+				Deciding that you're willing to suck [npc.namePos] cock in order to get your flames back, you agree to do as [npc.she] asks. Letting out a triumphant laugh, [npc.she] says, [npc.speech(Get round 'ere then an' drop down onto ya knees!)]
+			</p>
+			<p>
+				Walking around to the end of the bar, you step around behind it and move up to [npc.name]. Doing as you're told, you then drop down onto your knees in front of [npc.herHim].
+			</p>
+			<p>
+				[npc.speech(Get it out then, slut,)] [npc.name] commands, and you obediently displace [npc.her] clothing in order to allow [npc.her] [npc.cock+] to flop free in front of your face. Impatiently thrusting [npc.her] hips forwards a little, [npc.name] continues, [npc.speech(Get me hard with yer tongue, slut, then ya can take me cock down yer throat.)]
+			</p>
+			<p>
+				Leaning in to [npc.her] groin, you start licking [npc.namePos] cock, and are rewarded for your efforts as it quickly stiffens to full erectness. Opening wide, you then wrap your [pc.lips+] around the head, before taking [npc.her] throbbing length into your mouth and down your throat. As you start giving [npc.name] a blowjob, [npc.she] [npc.moans], [npc.speech(Good slut. Keep this up an' I'll be bustin' a nut down yer throat in no time!)]
+			</p>
+		#ELSE
+			<p>
+				Deciding that you're willing to perform cunnilingus on [npc.name] in order to get your flames back, you agree to do as [npc.she] asks. Letting out a triumphant laugh, [npc.she] says, [npc.speech(Get round 'ere then an' drop down onto ya knees!)]
+			</p>
+			<p>
+				Walking around to the end of the bar, you step around behind it and move up to [npc.name]. Doing as you're told, you then drop down onto your knees in front of [npc.herHim].
+			</p>
+			<p>
+				[npc.speech(Get to it then, slut,)] [npc.name] commands, and you obediently displace [npc.her] clothing in order to gain access to [npc.her] [npc.pussy+]. Impatiently thrusting [npc.her] hips forwards a little, [npc.name] continues, [npc.speech(Use yer tongue a bit first, slut, then ya can get tucked in an' start eatin' me out proper.)]
+			</p>
+			<p>
+				Leaning in to [npc.her] groin, you do as you're instructed and start licking [npc.namePos] [npc.labia+], before teasing [npc.her] clit with the tip of your tongue. Quickly wanting more than what you're giving to [npc.herHim], [npc.name] suddenly grabs the back of your head and pulls you into [npc.her] groin. Finding your lips pressed up against [npc.namePos] [npc.pussy+], you start enthusiastically eating [npc.herHim] out, causing [npc.herHim] to [npc.moanVerb] out from above, [npc.speech(That's it, slut! Keep this up an' I'll be squirtin' all over ya face in no time!)]
+			</p>
+		#ENDIF
+	#ENDIF
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="DICE_DEN_RUM_ORAL_COMPANIOn"><![CDATA[
-	<p>
-		You agree to let [npc.name] perform oral, get paid, and watch as [npc.sheIs] forced to [npc.her] knees. If has cock, [npc2.name] forces it down your companion's throat. If pussy, [npc2.name] forces your companion's face between [npc2.her] legs.
-	</p>
+	<htmlContent tag="DICE_DEN_RUM_ORAL_COMPANION"><![CDATA[
+	#IF(npc2.hasPenis())
+		<p>
+			Thinking that it would be a good idea for [npc.name] to help you get your flames back, you turn to your companion and say, [pc.speech(Go on, [npc.name]. Suck [npc2.her] cock so that I can get those flames back.)]
+		</p>
+		<p>
+			#IF(!npc.isAttractedTo(npc2))
+				[npc.speech(Eugh... I really don't want to do this,)] [npc.name] protests, [npc.speech(but I guess I've got no choice, have I?)]
+			#ELSE
+				[npc.speech(Mmm, that sounds like fun,)] [npc.name] replies, [npc.speech(I wonder how big [npc2.she] is...)]
+			#ENDIF
+		</p>
+		<p>
+			Letting out a triumphant laugh as [npc2.she] hears what it is the two of you are saying, [npc2.name] looks [npc.name] and commands, [npc2.speech(Get round 'ere then an' drop down onto ya knees. Yer friend 'ere can come round an' watch as well!)]
+		</p>
+		<p>
+			Walking around to the end of the bar, you and [npc.name] step around behind it and move up to [npc2.name]. Doing as [npc.sheIs] told, your companion drops down onto [npc.her] knees in front of the [npc2.race] while you keep your distance and watch.
+		</p>
+		<p>
+			[npc2.speech(Get it out then, slut,)] [npc2.name] commands. Doing as [npc.sheIs] told, [npc.name] quickly displaces [npc2.namePos] clothing, and after just a moment, [npc2.her] [npc2.cock+] flops free in front of your companion's face. Impatiently thrusting [npc2.her] hips forwards a little, [npc2.name] continues, [npc2.speech(Get me hard with yer tongue, slut, then ya can take me cock down yer throat.)]
+		</p>
+		<p>
+			Leaning in to [npc2.her] groin, [npc.name] starts licking [npc2.namePos] cock, and is rewarded for [npc.her] efforts as it quickly stiffens to full erectness. Opening wide, [npc.she] then wraps [npc.her] [npc.lips+] around the head, before taking the [npc2.race]'s throbbing length into [npc.her] mouth and down [npc.her] throat. As your companion starts giving [npc2.name] a blowjob, the [npc2.race] [npc2.moans], [npc2.speech(Good slut. Keep this up an' I'll be bustin' a nut down yer throat in no time!)]
+		</p>
+	#ELSE
+		<p>
+			Thinking that it would be a good idea for [npc.name] to help you get your flames back, you turn to your companion and say, [pc.speech(Go on, [npc.name]. Eat [npc2.herHim] out so that I can get those flames back.)]
+		</p>
+		<p>
+			#IF(!npc.isAttractedTo(npc2))
+				[npc.speech(Eugh... I really don't want to do this,)] [npc.name] protests, [npc.speech(but I guess I've got no choice, have I?)]
+			#ELSE
+				[npc.speech(Mmm, that sounds like fun,)] [npc.name] replies, [npc.speech(I can't wait to get a taste of [npc2.her] pussy...)]
+			#ENDIF
+		</p>
+		<p>
+			Letting out a triumphant laugh as [npc2.she] hears what it is the two of you are saying, [npc2.name] looks [npc.name] and commands, [npc2.speech(Get round 'ere then an' drop down onto ya knees. Yer friend 'ere can come round an' watch as well!)]
+		</p>
+		<p>
+			Walking around to the end of the bar, you and [npc.name] step around behind it and move up to [npc2.name]. Doing as [npc.sheIs] told, your companion drops down onto [npc.her] knees in front of the [npc2.race] while you keep your distance and watch.
+		</p>
+		<p>
+			[npc2.speech(Get it out then, slut,)] [npc2.name] commands. Doing as [npc.sheIs] told, [npc.name] quickly displaces [npc2.namePos] clothing in order to gain access to [npc2.her] [npc2.pussy+]. Impatiently thrusting [npc2.her] hips forwards a little, [npc2.name] continues, [npc2.speech(Use yer tongue a bit first, slut, then ya can get tucked in an' start eatin' me out proper.)]
+		</p>
+		<p>
+			Leaning in to the [npc2.race]'s groin, [npc.name] does as [npc.sheIs] instructed and starts licking [npc2.namePos] [npc2.labia+], before teasing [npc2.her] clit with the tip of [npc.her] tongue. Quickly wanting more than what your companion is giving to [npc2.herHim], [npc2.name] suddenly grabs the back of [npc.namePos] head and pulls [npc.herHim] into [npc2.her] groin. Finding [npc.her] lips pressed up against [npc2.namePos] [npc2.pussy+], [npc.name] starts eating [npc2.herHim] out, causing the [npc2.race] to [npc2.moanVerb] out from above, [npc2.speech(That's it, slut! Keep this up an' I'll be squirtin' all over ya face in no time!)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -737,16 +1731,58 @@
 	<!-- AFTER_DICE_DEN_ORAL -->
 	
 	<htmlContent tag="AFTER_DICE_DEN_ORAL_COMPANION"><![CDATA[
+	#IF(npc2.hasPenis())
+		<p>
+			Letting out a satisfied sigh, [npc2.name] makes your companion lick the head of [npc2.her] [npc2.cock+] one last time before pushing [npc.herHim] away and sneering, [npc2.speech(Ya know how ta please a rat's cock, I'll give yer that!)]
+		</p>
+	#ELSE
+		<p>
+			Letting out a satisfied sigh, [npc2.name] makes your companion lick [npc2.her] sopping-wet pussy one last time before pushing [npc.herHim] away and sneering, [npc2.speech(Ya know how ta please a rat's cunt, I'll give yer that!)]
+		</p>
+	#ENDIF
 	<p>
-		[npc2.Name] has finished with your companion, says [npc.she] knows how to please a rat's cock/cunt.
+		As [npc.name] cleans [npc.herself] up a little, you walk around to the other side of the bar and collect the money which you paid for the glass of rum. After just a moment more, your companion walks around to return to your side, and after throwing [npc.her] a lustful grin, [npc2.name] turns to you and says, [npc2.speech(Ya welcome ta buy another drink whenever ya want! Perhaps next time yer gonna be the one who's down on yer knees, eh?!)]
+	</p>
+	<p>
+		With the [npc2.race]'s cackling laughter ringing out over the counter-top, you wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_DICE_DEN_ORAL"><![CDATA[
-	<p>
-		[npc.Name] has finished with you, says you know how to please a rat's cock/cunt.
-	</p>
+	#IF(pc.hasCompanions())
+		#IF(npc2.hasPenis())
+			<p>
+				Letting out a satisfied sigh, [npc2.name] makes you lick the head of [npc2.her] [npc2.cock+] one last time before pushing you away and sneering, [npc2.speech(Ya know how ta please a rat's cock, I'll give yer that!)]
+			</p>
+		#ELSE
+			<p>
+				Letting out a satisfied sigh, [npc2.name] makes you lick [npc2.her] sopping-wet pussy one last time before pushing you away and sneering, [npc2.speech(Ya know how ta please a rat's cunt, I'll give yer that!)]
+			</p>
+		#ENDIF
+		<p>
+			After cleaning yourself up a little, you walk around to the other side of the bar with [npc.name] and collect the money which you paid for the glass of rum. As you do this, [npc2.name] throws you a lustful grin and says, [npc2.speech(Ya welcome ta buy another drink whenever ya want!)]
+		</p>
+		<p>
+			With the [npc2.race]'s cackling laughter ringing out over the counter-top, you wonder what to do next...
+		</p>
+	#ELSE
+		#IF(npc.hasPenis())
+			<p>
+				Letting out a satisfied sigh, [npc.name] makes you lick the head of [npc.her] [npc.cock+] one last time before pushing you away and sneering, [npc.speech(Ya know how ta please a rat's cock, I'll give yer that!)]
+			</p>
+		#ELSE
+			<p>
+				Letting out a satisfied sigh, [npc.name] makes you lick [npc.her] sopping-wet pussy one last time before pushing you away and sneering, [npc.speech(Ya know how ta please a rat's cunt, I'll give yer that!)]
+			</p>
+		#ENDIF
+		<p>
+			After cleaning yourself up a little, you walk around to the other side of the bar and collect the money which you paid for the glass of rum. As you do this, [npc.name] throws you a lustful grin and says, [npc.speech(Ya welcome ta buy another drink whenever ya want!)]
+		</p>
+		<p>
+			With the [npc.race]'s cackling laughter ringing out over the counter-top, you wonder what to do next...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

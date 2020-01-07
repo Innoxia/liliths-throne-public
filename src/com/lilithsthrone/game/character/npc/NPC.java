@@ -51,12 +51,15 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
+import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.Spell;
@@ -952,6 +955,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					
 				case FOX_MORPH:
 				case FOX_ASCENDANT:
+				case FOX_ASCENDANT_ARCTIC:
 				case FOX_ASCENDANT_FENNEC:
 				case FOX_MORPH_FENNEC:
 				case FOX_MORPH_ARCTIC:
@@ -1206,6 +1210,72 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				&& this.isAbleToSelfTransform();
 	}
 	
+	/**
+	 * Resets this character's body to align with their gender identity.
+	 * @param completeReset True if you want them to completely regenerate a new body. False if you just want femininity, breasts, and genitals altered.
+	 */
+	public void setBodyToGenderIdentity(boolean completeReset) {
+		if(completeReset) {
+			boolean assVirgin = this.isAssVirgin();
+			boolean faceVirgin = this.isFaceVirgin();
+			boolean nippleVirgin = this.isNippleVirgin();
+			boolean penisVirgin = this.isPenisVirgin();
+			boolean urethraVirgin = this.isUrethraVirgin();
+			boolean vaginaVirgin = this.isVaginaVirgin();
+			boolean vaginaUrethraVirgin = this.isVaginaUrethraVirgin();
+			
+			BodyMaterial material = this.getBodyMaterial();
+			this.setBody(this.getGenderIdentity(), Subspecies.getFleshSubspecies(this), this.getBody().getRaceStageFromPartWeighting(), false);
+			this.setBodyMaterial(material);
+			CharacterUtils.randomiseBody(this, false);
+			
+			this.setAssVirgin(assVirgin);
+			this.setFaceVirgin(faceVirgin);
+			this.setNippleVirgin(nippleVirgin);
+			this.setPenisVirgin(penisVirgin);
+			this.setUrethraVirgin(urethraVirgin);
+			this.setVaginaVirgin(vaginaVirgin);
+			this.setVaginaUrethraVirgin(vaginaUrethraVirgin);
+			
+		} else {
+			AbstractRacialBody racialBody = RacialBody.valueOfRace(Subspecies.getFleshSubspecies(this).getRace());
+			if(this.getGenderIdentity().getType()==PronounType.FEMININE) {
+				this.setFemininity(racialBody.getFemaleFemininity());
+				
+			} else if(this.getGenderIdentity().getType()==PronounType.NEUTRAL) {
+				this.setFemininity(50);
+				
+			} else {
+				this.setFemininity(racialBody.getMaleFemininity());
+			}
+			
+			if(this.getGenderIdentity().getGenderName().isHasBreasts()) {
+				this.setBreastSize(racialBody.getBreastSize());
+			} else {
+				this.setBreastSize(racialBody.getNoBreastSize());
+			}
+			
+			boolean largeGenitals = this.isTaur();
+			if(this.getGenderIdentity().getGenderName().isHasPenis()) {
+				this.setPenisType(racialBody.getPenisType());
+				this.setPenisSize((int) (racialBody.getPenisSize()*(largeGenitals?2.5f:1)));
+				this.setPenisGirth(racialBody.getPenisGirth()+(largeGenitals?1:0));
+				this.setPenisCumStorage(racialBody.getCumProduction()*(largeGenitals?10:1));
+				this.setTesticleSize(racialBody.getTesticleSize()+(largeGenitals?1:0));
+				this.setTesticleCount(racialBody.getTesticleQuantity());
+			} else {
+				this.setPenisType(PenisType.NONE);
+			}
+			
+			if(this.getGenderIdentity().getGenderName().isHasVagina()) {
+				this.setVaginaType(racialBody.getVaginaType());
+				this.setVaginaWetness(racialBody.getVaginaWetness());
+			} else {
+				this.setVaginaType(VaginaType.NONE);
+			}
+		}
+	}
+	
 	public long getLastTimeEncountered() {
 		return lastTimeEncountered;
 	}
@@ -1305,6 +1375,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 				case FOX_MORPH:
 				case FOX_ASCENDANT:
+				case FOX_ASCENDANT_ARCTIC:
 				case FOX_ASCENDANT_FENNEC:
 				case FOX_MORPH_FENNEC:
 				case FOX_MORPH_ARCTIC:
@@ -1393,10 +1464,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(!skipGenitalsTF) {
 			// Sexual transformations:
-			if(!target.isHasAnyPregnancyEffects() && !vaginaSet) { // Vagina cannot be transformed if pregnant, so skip this
+			if(!vaginaSet) {
 				if(body.getVagina().getType()==VaginaType.NONE) {
-					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1),
-							"Say goodbye to your cunt; you're not going to be needing it anymore!");
+					if(!target.isHasAnyPregnancyEffects()) { // Vagina cannot be transformed if pregnant, so skip this
+						possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1),
+								"Say goodbye to your cunt; you're not going to be needing it anymore!");
+					}
 					
 				} else {
 					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
@@ -2737,7 +2810,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 					
 				} else if(isItemOrdinary
-						|| (!Main.game.isInCombat() && Combat.isPlayerVictory() && Combat.getEnemies(Main.game.getPlayer()).contains(target))
+						|| (!target.isUnique() && !Main.game.isInCombat() && Combat.isPlayerVictory() && Combat.getEnemies(Main.game.getPlayer()).contains(target))
 						|| (target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user))) {
 					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
 					

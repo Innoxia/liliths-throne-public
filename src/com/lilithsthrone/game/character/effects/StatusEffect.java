@@ -776,9 +776,9 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
 					"[npc.NameIsFull] completely and utterly corrupted"
-						+ (owner.getSubspeciesOverride()!=null && owner.getSubspeciesOverride().getRace()==Race.DEMON
-						?", as is fitting for [npc.a_race]."
-						:", and desperately [npc.verb(wish)] that [npc.she] [npc.was] a demon.")
+						+ (owner.getSubspeciesOverrideRace()==Race.DEMON
+							?", as is fitting for [npc.a_race]."
+							:", and desperately [npc.verb(wish)] that [npc.she] [npc.was] a demon.")
 					+ " The lewd thoughts and fantasies that continuously run through [npc.her] mind have unlocked the full power of the arcane, making [npc.her] body hyper-fertile and virile.");
 		}
 
@@ -4358,7 +4358,7 @@ public enum StatusEffect {
 			}
 			
 			if (target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
-				recoveringEffects.add("[style.boldVagina(Vagina recovering:)]");
+				recoveringEffects.add("[style.boldVagina(Vagina "+recoveringText+":)]");
 				recoveringEffects.add(from1+" [style.boldBad("+Units.size(target.getVaginaStretchedCapacity())+")] "+from2+" [style.boldGood("+Units.size(target.getVaginaRawCapacityValue())+")]");
 				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaPlasticity().getRecoveryModifier())+")]");
 			}

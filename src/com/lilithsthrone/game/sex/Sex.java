@@ -149,7 +149,8 @@ public class Sex {
 	private static boolean publicSex;
 	private static boolean playerUniqueActions = false; // Set to true when the player's turn consists of unique actions.
 	private static boolean overridePlayerArousalRestriction; // Set to true to prevent player's arousal locking at 99 during a turn of sex. Is reset to false after every turn.
-
+	private static boolean playerLevelDrain; // When set to true and player has 'orgasmic level drain' perk, orgasming partners lose a level.
+	
 	private static Map<GameCharacter, SexSlot> dominants;
 	private static Map<GameCharacter, SexSlot> submissives;
 	private static List<GameCharacter> allParticipants;
@@ -292,6 +293,7 @@ public class Sex {
 		
 		sexInitFinished = false;
 		overridePlayerArousalRestriction = false;
+		playerLevelDrain = true;
 		turn = 1;
 		
 		SexFlags.reset();
@@ -360,14 +362,14 @@ public class Sex {
 			}
 		}
 		
-		for(GameCharacter character : Sex.getAllParticipants()) {
-			for(GameCharacter character2 : Sex.getAllParticipants()) {
+		for(GameCharacter character : Sex.getAllParticipants(false)) {
+			for(GameCharacter character2 : Sex.getAllParticipants(false)) {
 				character.addSexPartner(character2);
 			}
 		}
 		
-		for(GameCharacter character : Sex.getAllParticipants()) {
-			for(GameCharacter partner : Sex.getAllParticipants()) {
+		for(GameCharacter character : Sex.getAllParticipants(false)) {
+			for(GameCharacter partner : Sex.getAllParticipants(false)) {
 				if(isConsensual()) {
 					character.setSexConsensualCount(partner, character.getSexConsensualCount(partner)+1);
 				}
@@ -1720,6 +1722,8 @@ public class Sex {
 
 		List<SexActionInterface> uniqueActions = new ArrayList<>();
 		List<SexActionInterface> normalActions = new ArrayList<>();
+
+		boolean partnerOrgasming = false;
 		
 		if (isReadyToOrgasm(Main.game.getPlayer())) { // Add orgasm actions if player ready to orgasm:
 			characterOrgasming = Main.game.getPlayer();
@@ -1738,8 +1742,8 @@ public class Sex {
 				}
 			}
 			
+			
 		} else {
-			boolean partnerOrgasming = false;
 			for(GameCharacter character : Sex.getAllParticipants(false)) {
 				if(!character.isPlayer() && isReadyToOrgasm(character)) {
 					characterOrgasming = character;
@@ -1810,6 +1814,61 @@ public class Sex {
 			}
 			return s1.getActionType().compareTo(s2.getActionType());
 			});
+		if(partnerOrgasming && Main.game.getPlayer().hasPerkAnywhereInTree(Perk.ORGASMIC_LEVEL_DRAIN)) {
+			boolean oppositeDom = Sex.isDom(Sex.getCharacterOrgasming())!=isDom(Main.game.getPlayer());
+			boolean characterImmune = Sex.getCharacterOrgasming().isImmuneToLevelDrain();
+			availableSexActionsPlayer.add(new SexAction(
+					SexActionType.MISC_NO_TURN_END,
+					ArousalIncrease.ZERO_NONE,
+					ArousalIncrease.ZERO_NONE,
+					CorruptionLevel.ZERO_PURE,
+					null,
+					SexParticipantType.NORMAL) {
+						@Override
+						public SexActionLimitation getLimitation() {
+							return SexActionLimitation.PLAYER_ONLY;
+						}
+						@Override
+						public String getActionTitle() {
+							if(!oppositeDom || characterImmune) {
+								return "[style.colourDisabled(Level drain: "
+										+(playerLevelDrain
+											?"ON)]"
+											:"OFF)]");
+							}
+							return "[style.colourSex(Level drain:)]"
+									+(playerLevelDrain
+										?"[style.colourMinorGood(ON)]"
+										:"[style.colourMinorBad(OFF)]");
+						}
+						@Override
+						public String getActionDescription() {
+							return UtilText.parse(Sex.getCharacterOrgasming(),
+									"'"+Util.capitaliseSentence(Perk.ORGASMIC_LEVEL_DRAIN.getName(Main.game.getPlayer()))+"' perk effect:<br/>"
+											+ "Toggle whether or not you're going to drain [npc.namePos] level when [npc.she] orgasms."
+											+(!oppositeDom
+												?" [style.italicsMinorBad(You can only drain opposite partners (sub/dom)!)]"
+												:" You can only use this ability to drain opposite partners (sub/dom).")
+											+(characterImmune
+												?"<br/>[style.italicsTerrible([npc.Name] cannot have [npc.her] level drained!)]"
+												:""));
+						}
+						@Override
+						public String getDescription() {
+							return "";
+						}
+						@Override
+						public SexActionCategory getCategory() {
+							return SexActionCategory.SEX;
+						}
+						@Override
+						public void applyEffects() {
+							if(oppositeDom && !characterImmune) {
+								Sex.playerLevelDrain = !Sex.playerLevelDrain;
+							}
+						}
+					});
+		}
 		
 		characterSwitchActionsPlayer.clear();
 		miscActionsPlayer.clear();
@@ -2391,6 +2450,7 @@ public class Sex {
 				}
 			}
 			
+			
 			// Apply orgasm arousal resets:
 			if((Sex.getCharacterPerformingAction().hasPenis() && Sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()>0)
 					|| Sex.getCharacterPerformingAction().hasVagina()
@@ -2407,6 +2467,46 @@ public class Sex {
 				Sex.getCharacterPerformingAction().addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, (4*60*60)+(postSexDialogue.getSecondsPassed()));
 				stringBuilderForAppendingDescriptions.append(UtilText.parse(Sex.getCharacterPerformingAction(),
 						"<p style='text-align:center'>Without producing any cum, [npc.namePos] climax can't be counted as a real orgasm, and makes [npc.name] feel [style.boldBad(frustrated and horny)]!</p>"));
+			}
+			
+			// Draining levels:
+			Set<GameCharacter> levelDrains = new HashSet<>();
+			if(!Sex.getCharacterPerformingAction().isImmuneToLevelDrain()) {
+				if(Sex.isDom(Sex.getCharacterPerformingAction())) {
+					for(GameCharacter sub : Sex.getSubmissiveParticipants(false).keySet()) {
+						if(sub.hasPerkAnywhereInTree(Perk.ORGASMIC_LEVEL_DRAIN) && (!sub.isPlayer() || Sex.playerLevelDrain)) {
+							levelDrains.add(sub);
+						}
+					}
+					
+				} else {
+					for(GameCharacter dom : Sex.getDominantParticipants(false).keySet()) {
+						if(dom.hasPerkAnywhereInTree(Perk.ORGASMIC_LEVEL_DRAIN) && (!dom.isPlayer() || Sex.playerLevelDrain)) {
+							levelDrains.add(dom);
+						}
+					}
+				}
+			}
+			for(GameCharacter drainer : levelDrains) {
+				if(drainer.isLevelDrainAvailableToUse()) {
+					if(Sex.getCharacterPerformingAction().getTrueLevel()>1) {
+						int exp = Sex.getCharacterPerformingAction().getExperienceNeededForNextLevel();
+						Sex.getCharacterPerformingAction().levelDown();
+						stringBuilderForAppendingDescriptions.append(UtilText.parse(Sex.getCharacterPerformingAction(), drainer,
+								drainer.getLevelDrainDescription(Sex.getCharacterPerformingAction())
+								+ "<p style='text-align:center; margin:0;'>"
+									+ "[style.italicsBad(As [npc.she] [npc.verb(orgasm)], [npc.name] [npc.verb(feel)] [npc.herself] getting weaker...)]"
+									+ "<br/>[style.italicsTerrible([npc.Name] [npc.verb(lose)] 1 level!)]"
+								+ "</p>"
+								+ drainer.incrementExperience(exp, false)));
+						
+					} else {
+						stringBuilderForAppendingDescriptions.append(UtilText.parse(Sex.getCharacterPerformingAction(), drainer,
+								"<p style='text-align:center'>"
+									+ "Although [npc2.nameHasFull] the '"+Perk.ORGASMIC_LEVEL_DRAIN.getName(drainer)+"' perk, [npc.nameIsFull] already at the minimum level, so [npc.her] experience cannot be drained..."
+								+ "</p>"));
+					}
+				}
 			}
 
 			// Reset appropriate flags:

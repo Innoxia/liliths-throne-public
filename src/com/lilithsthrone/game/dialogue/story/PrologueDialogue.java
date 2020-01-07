@@ -28,7 +28,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
@@ -717,7 +716,7 @@ public class PrologueDialogue {
 							}
 						}
 						
-						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
+						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_crystal_rare", DamageType.FIRE));
 						
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();

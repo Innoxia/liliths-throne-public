@@ -5713,6 +5713,7 @@ public class MainControllerInitMethod {
 			
 			Map<String, PropertyValue> settingsMap = Util.newHashMapOfValues(
 					new Value<>("ENCHANTMENT_LIMITS", PropertyValue.enchantmentLimits),
+					new Value<>("LEVEL_DRAIN", PropertyValue.levelDrain),
 					new Value<>("ARTWORK", PropertyValue.artwork),
 					new Value<>("THUMBNAIL", PropertyValue.thumbnail),
 					new Value<>("SILLY", PropertyValue.sillyMode),

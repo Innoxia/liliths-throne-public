@@ -24,7 +24,7 @@ import com.lilithsthrone.utils.Util;
 public class GenericTalk {
 
 	public static final SexAction ROUGH_TALK = new SexAction(
-			SexActionType.SPEECH,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
@@ -91,7 +91,7 @@ public class GenericTalk {
 	};
 	
 	public static final SexAction SUBMISSIVE_TALK = new SexAction(
-			SexActionType.SPEECH,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
@@ -164,7 +164,7 @@ public class GenericTalk {
 	};
 	
 	public static final SexAction ASKING_FOR_ROUGH_SEX = new SexAction(
-			SexActionType.SPEECH,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
@@ -290,9 +290,9 @@ public class GenericTalk {
 		
 		@Override
 		public String getActionTitle() {
-//			if(Sex.getCharacterPerformingAction().isSpeechMuffled()) {
-//				return "Look worried";
-//			}
+			if(Sex.getCharacterPerformingAction().isSpeechMuffled()) {
+				return "Look worried";
+			}
 			return "Object to rough";
 		}
 		

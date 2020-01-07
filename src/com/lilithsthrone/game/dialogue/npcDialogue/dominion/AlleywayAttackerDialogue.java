@@ -304,7 +304,7 @@ public class AlleywayAttackerDialogue {
 									}
 								},
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), Main.game.getPlayer().hasCompanions() ? "ALLEY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION" : "ALLEY_ATTACK_OFFER_BODY", getAllCharacters())) {
+								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), isCompanionDialogue()?"ALLEY_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION":"ALLEY_ATTACK_OFFER_BODY", getAllCharacters())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -1312,7 +1312,7 @@ public class AlleywayAttackerDialogue {
 						if(potion!=null && forcedTF) {
 							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_TF_AND_FETISH", getAllCharacters()));
 						} else {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_TF_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_FETISH", getAllCharacters()));
 						}
 					} else {
 						sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_TF", getAllCharacters()));

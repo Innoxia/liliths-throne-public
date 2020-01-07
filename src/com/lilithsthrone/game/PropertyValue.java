@@ -12,6 +12,7 @@ public enum PropertyValue {
 	concealedSlotsReveal(false),
 	
 	enchantmentLimits(true),
+	levelDrain(true),
 	
 	artwork(true),
 	thumbnail(true),
