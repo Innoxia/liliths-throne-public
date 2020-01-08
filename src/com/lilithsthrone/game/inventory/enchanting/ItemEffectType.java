@@ -1029,8 +1029,6 @@ public class ItemEffectType {
 		}
 	};
 	
-	
-	
 	public static AbstractItemEffectType EGGPLANT_POTION = new AbstractItemEffectType(null,
 			Colour.BASE_PURPLE) {
 
@@ -1057,6 +1055,20 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return getRacialEffect(Race.HUMAN, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+		}
+	};
+	
+	public static AbstractItemEffectType FEMININE_BURGER = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"[style.boldSex(+10)] [style.boldFeminine(femininity)]"),
+			Colour.GENERIC_SEX) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return "<p style='text-align:center;'>"
+					+UtilText.parse(target, "[npc.Name] feels the burger's side effects kicking in almost immediately...")
+					+ "<br/>"
+					+ target.incrementFemininity(10)
+					+ "</p>";
 		}
 	};
 	

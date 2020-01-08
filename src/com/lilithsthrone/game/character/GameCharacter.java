@@ -6423,7 +6423,6 @@ public abstract class GameCharacter implements XMLSaving {
 	// Sex stats:
 	
 	public int getOrgasmsBeforeSatisfied() {
-
 		int increment = 0;
 		if(Main.game.isInSex()) {
 			for(GameCharacter character : Sex.getAllParticipants()) {
@@ -8251,7 +8250,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isImmuneToLevelDrain() {
-		return !this.isUnique();
+		return this.isUnique();
 	}
 	
 	/**

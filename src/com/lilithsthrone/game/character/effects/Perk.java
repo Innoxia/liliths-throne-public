@@ -2047,7 +2047,7 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
 					"Via a complex manipulation of [npc.her] arcane aura, [npc.name] [npc.has] become far slower to learn from new experiences,"
-					+ " but in return [npc.is] now able to drain the experience of both defeated and victorious foes who orgasm in [npc.her] presence.");
+					+ " but in return [npc.is] now able to drain the experience of sexual partners who orgasm in [npc.her] presence.");
 		}
 	};
 	

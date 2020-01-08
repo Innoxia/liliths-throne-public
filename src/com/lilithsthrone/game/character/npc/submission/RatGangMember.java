@@ -252,6 +252,7 @@ public class RatGangMember extends NPC {
 					@Override
 					public void effects() {
 						RatWarrensDialogue.applyCombatDefeatFlagsReset();
+						Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
 					}
 				};
 			}
@@ -259,6 +260,7 @@ public class RatGangMember extends NPC {
 				@Override
 				public void effects() {
 					RatWarrensDialogue.applyCombatDefeatFlagsReset();
+					Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
 				}
 			};
 		}

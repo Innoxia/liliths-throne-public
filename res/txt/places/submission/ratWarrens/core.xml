@@ -765,13 +765,13 @@
 				Looking up, you see that you're once again in the milk storage room, with dozens of metal pails stacked up against the walls. Sitting on his tatty old red sofa, you see Murk staring at you and [npc.name] with a wicked gleam in his eye. Just like the last time you were here, the rat-boy's massive, sheathed cock and huge balls are fully on display, and as he stands up and walks towards you, his disproportionately-large testicles swing ponderously from side to side.
 			</p>
 			<p>
-				[murk.speech(Fancy seein' the two o' yer 'ere again!)] Murk sneers in a slovenly tone as he comes to a halt in front of you. Reaching up to scratch his chubby belly, the foul-mannered rat-boy lets out a loud belch, before throwing the empty can in his other hand over to one side of the room. Moving his hungry gaze up from you to look at the rat which dragged you into this place, he snarls, [murk.speech(Took ya long enough ta get 'em subdued! So, ya 'ere ta 'and 'em over ta me then, are ya?)]
+				[murk.speechNoEffects(Fancy seein' the two o' yer 'ere again!)] Murk sneers in a slovenly tone as he comes to a halt in front of you. Reaching up to scratch his chubby belly, the foul-mannered rat-boy lets out a loud belch, before throwing the empty can in his other hand over to one side of the room. Moving his hungry gaze up from you to look at the rat which dragged you into this place, he snarls, [murk.speechNoEffects(Took ya long enough ta get 'em subdued! So, ya 'ere ta 'and 'em over ta me then, are ya?)]
 			</p>
 			<p>
 				[npc2.speech(If ya write off me debt, then sure,)] [npc2.name] responds, [npc2.speech(or else I'll go throw 'em out into Submission an' ya can miss out on gettin' this pair o' new toys.)]
 			</p>
 			<p>
-				Spitting on the ground, Murk sneers once again, [murk.speech(Let's get 'em stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
+				Spitting on the ground, Murk sneers once again, [murk.speechNoEffects(Let's get 'em stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
 			</p>
 		#ELSE
 			<p>
@@ -787,13 +787,13 @@
 				Although it's sheathed, and so impossible to know the erect length of it, the circumference of the rat-boy's withdrawn, pale-pink cock is absolutely huge. The pair of massive, heavy balls hanging down between his legs are also disproportionately large in relation to his height, and you can't help but glance at them as they ponderously swing from side to side in pace with his short stride.
 			</p>
 			<p>
-				[murk.speech('Ungry fer me fat cock, are ya?)] Murk sneers at you in a slovenly tone as he catches you looking at his massive genitals. Reaching up to scratch his chubby belly once again, the foul-mannered rat-boy lets out a loud belch, before throwing the empty can in his other hand over to one side of the room. Moving his hungry gaze up from you to look at the rat which dragged you into this place, Murk snarls, [murk.speech(I 'eard there were a couple o' troublemakers runnin' around in 'ere. Took ya long enough ta get 'em subdued, didn't it?! So, ya 'ere ta 'and 'em over ta me then, are ya?)]
+				[murk.speechNoEffects('Ungry fer me fat cock, are ya?)] Murk sneers at you in a slovenly tone as he catches you looking at his massive genitals. Reaching up to scratch his chubby belly once again, the foul-mannered rat-boy lets out a loud belch, before throwing the empty can in his other hand over to one side of the room. Moving his hungry gaze up from you to look at the rat which dragged you into this place, Murk snarls, [murk.speechNoEffects(I 'eard there were a couple o' troublemakers runnin' around in 'ere. Took ya long enough ta get 'em subdued, didn't it?! So, ya 'ere ta 'and 'em over ta me then, are ya?)]
 			</p>
 			<p>
 				[npc2.speech(If ya write off me debt, then sure,)] [npc2.name] responds, [npc2.speech(or else I'll go throw 'em out into Submission an' ya can miss out on gettin' this pair o' new toys.)]
 			</p>
 			<p>
-				Spitting on the ground, Murk sneers once again, [murk.speech(Let's get 'em stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
+				Spitting on the ground, Murk sneers once again, [murk.speechNoEffects(Let's get 'em stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
 			</p>
 		#ENDIF
 	#ELSE
@@ -808,13 +808,13 @@
 				Looking up, you see that you're once again in the milk storage room, with dozens of metal pails stacked up against the walls. Sitting on his tatty old red sofa, you see Murk staring at you with a wicked gleam in his eye. Just like the last time you were here, the rat-boy's massive, sheathed cock and huge balls are fully on display, and as he stands up and walks towards you, his disproportionately-large testicles swing ponderously from side to side.
 			</p>
 			<p>
-				[murk.speech(Fancy seein' ya 'ere again!)] Murk sneers in a slovenly tone as he comes to a halt in front of you. Reaching up to scratch his chubby belly, the foul-mannered rat-boy lets out a loud belch, before throwing the empty can in his other hand over to one side of the room. Moving his hungry gaze up from you to look at the rat which dragged you into this place, he snarls, [murk.speech(Took ya long enough ta get [pc.herHim] subdued! So, ya 'ere ta 'and [pc.herHim] over ta me then, are ya?)]
+				[murk.speechNoEffects(Fancy seein' ya 'ere again!)] Murk sneers in a slovenly tone as he comes to a halt in front of you. Reaching up to scratch his chubby belly, the foul-mannered rat-boy lets out a loud belch, before throwing the empty can in his other hand over to one side of the room. Moving his hungry gaze up from you to look at the rat which dragged you into this place, he snarls, [murk.speechNoEffects(Took ya long enough ta get [pc.herHim] subdued! So, ya 'ere ta 'and [pc.herHim] over ta me then, are ya?)]
 			</p>
 			<p>
 				[npc.speech(If ya write off me debt, then sure,)] [npc.name] responds, [npc.speech(or else I'll go throw [pc.herHim] out into Submission an' ya can miss out on gettin' yerself a new toy.)]
 			</p>
 			<p>
-				Spitting on the ground, Murk sneers once again, [murk.speech(Let's get [pc.herHim] stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
+				Spitting on the ground, Murk sneers once again, [murk.speechNoEffects(Let's get [pc.herHim] stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
 			</p>
 		#ELSE
 			<p>
@@ -830,13 +830,13 @@
 				Although it's sheathed, and so impossible to know the erect length of it, the circumference of the rat-boy's withdrawn, pale-pink cock is absolutely huge. The pair of massive, heavy balls hanging down between his legs are also disproportionately large in relation to his height, and you can't help but glance at them as they ponderously swing from side to side in pace with his short stride.
 			</p>
 			<p>
-				[murk.speech('Ungry fer me fat cock, are ya?)] Murk sneers at you in a slovenly tone as he catches you looking at his massive genitals. Reaching up to scratch his chubby belly once again, the foul-mannered rat-boy lets out a loud belch, before throwing the empty can in his other hand over to one side of the room. Moving his hungry gaze up from you to look at the rat which dragged you into this place, Murk snarls, [murk.speech(I 'eard there were a troublemaker runnin' around in 'ere. Took ya long enough ta get [pc.herHim] subdued, didn't it?! So, ya 'ere ta 'and [pc.herHim] over ta me then, are ya?)]
+				[murk.speechNoEffects('Ungry fer me fat cock, are ya?)] Murk sneers at you in a slovenly tone as he catches you looking at his massive genitals. Reaching up to scratch his chubby belly once again, the foul-mannered rat-boy lets out a loud belch, before throwing the empty can in his other hand over to one side of the room. Moving his hungry gaze up from you to look at the rat which dragged you into this place, Murk snarls, [murk.speechNoEffects(I 'eard there were a troublemaker runnin' around in 'ere. Took ya long enough ta get [pc.herHim] subdued, didn't it?! So, ya 'ere ta 'and [pc.herHim] over ta me then, are ya?)]
 			</p>
 			<p>
 				[npc2.speech(If ya write off me debt, then sure,)] [npc2.name] responds, [npc2.speech(or else I'll go throw [pc.herHim] out into Submission an' ya can miss out on gettin' yerself a new toy.)]
 			</p>
 			<p>
-				Spitting on the ground, Murk sneers once again, [murk.speech(Let's get [pc.herHim] stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
+				Spitting on the ground, Murk sneers once again, [murk.speechNoEffects(Let's get [pc.herHim] stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
 			</p>
 		#ENDIF
 	#ENDIF
@@ -852,7 +852,7 @@
 			Still completely exhausted from your fight, neither you nor [npc.name] are able to put up an effective resistance as the rats set about stripping each of you of all your clothes and belongings. Setting about their task with much enthusiasm, the horny gang members take full advantage of the situation to grope and squeeze every part of your naked bodies. Their lewd comments and hungry growls are broken only by Murk reminding them that all of your possessions are now his, and to place them in a nearby storage crate which he's opened specially for this occasion.
 		</p>
 		<p>
-			Once you and your companion have been completely stripped of all of your flames, clothing, and other belongings, Murk securely locks the crate into which they were placed, before turning to your captors and snarling, [murk.speech(Don't think fer a moment that this is goin' towards payin' off yer debts! I ain't gonna be touchin' this stuff we took 'til I get the chance ta discuss it with Vengar, and seein' as me and 'im ain't on the best o' terms right now, that might be a while. Anyways, yous lot just watch over these two while I get their new 'outfits'... Heh-heh-heh...)]
+			Once you and your companion have been completely stripped of all of your flames, clothing, and other belongings, Murk securely locks the crate into which they were placed, before turning to your captors and snarling, [murk.speechNoEffects(Don't think fer a moment that this is goin' towards payin' off yer debts! I ain't gonna be touchin' this stuff we took 'til I get the chance ta discuss it with Vengar, and seein' as me and 'im ain't on the best o' terms right now, that might be a while. Anyways, yous lot just watch over these two while I get their new 'outfits'... Heh-heh-heh...)]
 		</p>
 		<p>
 			Chuckling to himself, Murk walks off to the other crates stacked up against the far side of the room, before opening the nearest one and starting to rummage about inside of it. After a moment of being forced to wait down on your knees beside the four rats, you watch as Murk pulls something out of the crate, and as he starts walking back over towards you and [npc.name], you're able to see that he's holding a matching pair of heavy metal collars, each of which is coloured in a very feminine shade of light pink.
@@ -861,26 +861,26 @@
 			Dealing with your companion first, the chubby rat-boy locks one of these collars in place around [npc.namePos] neck, before stepping over to you and doing the same. As the jinxed item of clothing locks into place, you feel the effects of the collar's powerful enchantment seeping into your mind and making you unable to bring yourself to either attempt to unjinx it, or use any self-transformative powers you might possess in order to slip out of it.
 		</p>
 		<p>
-			[murk.speech(Hmm, yeah, these two are gonna do nicely,)] Murk muses to himself, before addressing [npc2.name] and continuing, [murk.speech(I'll write off yer debts if ya let me keep the two o' 'em. I'm doin' ya a favour 'ere; I'm sure I don't need ta remind ya 'ow much ya owe me!)]
+			[murk.speechNoEffects(Hmm, yeah, these two are gonna do nicely,)] Murk muses to himself, before addressing [npc2.name] and continuing, [murk.speechNoEffects(I'll write off yer debts if ya let me keep the two o' 'em. I'm doin' ya a favour 'ere; I'm sure I don't need ta remind ya 'ow much ya owe me!)]
 		</p>
 		<p>
 			[npc2.speech(These two is worth way more than wot I owe's ya,)] [npc2.name] replies, [npc2.speech(But if ya let us fuck 'em, we can call it even, agreed?)]
 		</p>
 		<p>
-			[murk.speech(Ya can use their mouths, sure,)] Murk replies, [murk.speech(but their other 'oles are reserved fer my fat cock.)]
+			[murk.speechNoEffects(Ya can use their mouths, sure,)] Murk replies, [murk.speechNoEffects(but their other 'oles are reserved fer my fat cock.)]
 		</p>
 		<p>
 			[npc2.speech(Deal,)] [npc2.name] says, spitting on [npc2.her] hand and holding it out to Murk. The chubby rat-boy likewise spits on the palm of his hand, before the two rats shake on their deal.
 		</p>
 		<p>
-			[murk.speech(Bring 'em through into the milkin' room,)] Murk finally says, [murk.speech(I want the two o' 'em chained up and locked into their new 'omes before ya let 'em get intimate with wot's between ya legs.)]
+			[murk.speechNoEffects(Bring 'em through into the milkin' room,)] Murk finally says, [murk.speechNoEffects(I want the two o' 'em chained up and locked into their new 'omes before ya let 'em get intimate with wot's between ya legs.)]
 		</p>
 	#ELSE
 		<p>
 			Still completely exhausted from your fight, you aren't able to put up an effective resistance as Murk and [npc.name] set about stripping you of all your clothes and belongings. Setting about their task with much enthusiasm, the horny rats take full advantage of the situation to grope and squeeze every part of your naked body. [npc.NamePos] lewd comments and hungry growls are broken only by Murk occasionally reminding [npc.herHim] that all of your possessions are now his, and to place them in a nearby storage crate which he's opened specially for this occasion.
 		</p>
 		<p>
-			Once you've been completely stripped of all of your flames, clothing, and other belongings, Murk securely locks the crate into which they were placed, before turning to your captors and snarling, [murk.speech(Don't think fer a moment that this is goin' towards payin' off yer debts! I ain't gonna be touchin' this stuff we took 'til I get the chance ta discuss it with Vengar, and seein' as me and 'im ain't on the best o' terms right now, that might be a while. Anyways, yous lot just watch over [pc.herHim] while I get [pc.her] new 'outfit'... Heheheh...)]
+			Once you've been completely stripped of all of your flames, clothing, and other belongings, Murk securely locks the crate into which they were placed, before turning to your captors and snarling, [murk.speechNoEffects(Don't think fer a moment that this is goin' towards payin' off yer debts! I ain't gonna be touchin' this stuff we took 'til I get the chance ta discuss it with Vengar, and seein' as me and 'im ain't on the best o' terms right now, that might be a while. Anyways, yous lot just watch over [pc.herHim] while I get [pc.her] new 'outfit'... Heheheh...)]
 		</p>
 		<p>
 			Chuckling to himself, Murk walks off to the other crates stacked up against the far side of the room, before opening the nearest one and starting to rummage about inside of it. After a moment of being forced to wait down on your knees beside [npc.name], you watch as Murk pulls something out of the crate, and as he starts walking back over towards you, you're able to see that he's holding a heavy metal collar, which is coloured in a very feminine shade of light pink.
@@ -889,19 +889,19 @@
 			Stepping up to you, the chubby rat-boy reaches down and roughly locks the heavy collar into place around your neck. The very moment that it seals shut, you feel the effects of the collar's powerful enchantment seeping into your mind and making you unable to bring yourself to either attempt to unjinx it, or use any self-transformative powers you might possess in order to slip out of it.
 		</p>
 		<p>
-			[murk.speech(Hmm, yeah, this 'un's gonna do nicely,)] Murk muses to himself, before addressing [npc.name] and continuing, [murk.speech(I'll write off yer debts if ya let me keep [pc.herHim]. I'm doin' ya a favour 'ere; I'm sure I don't need ta remind ya 'ow much ya owe me!)]
+			[murk.speechNoEffects(Hmm, yeah, this 'un's gonna do nicely,)] Murk muses to himself, before addressing [npc.name] and continuing, [murk.speechNoEffects(I'll write off yer debts if ya let me keep [pc.herHim]. I'm doin' ya a favour 'ere; I'm sure I don't need ta remind ya 'ow much ya owe me!)]
 		</p>
 		<p>
 			[npc.speech([pc.SheIs] worth way more than wot I owe's ya,)] [npc.name] replies, [npc.speech(But if ya let me fuck [pc.herHim], we can call it even, agreed?)]
 		</p>
 		<p>
-			[murk.speech(Ya can use [pc.her] mouth, sure,)] Murk replies, [murk.speech(but [pc.her] other 'oles are reserved fer my fat cock.)]
+			[murk.speechNoEffects(Ya can use [pc.her] mouth, sure,)] Murk replies, [murk.speechNoEffects(but [pc.her] other 'oles are reserved fer my fat cock.)]
 		</p>
 		<p>
 			[npc.speech(Deal,)] [npc.name] says, spitting on [npc.her] hand and holding it out to Murk. The chubby rat-boy likewise spits on the palm of his hand, before the two rats shake on their deal.
 		</p>
 		<p>
-			[murk.speech(Bring [pc.herHim] through into the milkin' room,)] Murk finally says, [murk.speech(I want [pc.herHim] chained up and locked into [pc.her] new 'ome before ya let [pc.herHim] get intimate with wot's between ya legs.)]
+			[murk.speechNoEffects(Bring [pc.herHim] through into the milkin' room,)] Murk finally says, [murk.speechNoEffects(I want [pc.herHim] chained up and locked into [pc.her] new 'ome before ya let [pc.herHim] get intimate with wot's between ya legs.)]
 		</p>
 	#ENDIF
 	]]>
@@ -916,7 +916,11 @@
 			Grabbing hold of you and [npc.name] one last time, the gang members drag the two of you over to the old wooden door on the other side of the room. Stepping in front of you, Murk twists the handle and opens the door, before leading you into the room beyond.
 		</p>
 		<p>
-			As you step into your 'new home', the first thing that you immediately notice is that this room's proportions are more akin to a wide corridor than a conventional square or rectangular shape. The very next thing you register is that running down alongside the left-hand wall, there are a series of metal-framed stalls, each consisting of a padded bench plus surrounding supports to which an occupant's legs or arms can be chained. Out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for Murk as they hear you enter.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+				Having already seen your 'new home' before, you're already familiar with the sight of the long series of metal-framed stalls. Just like the last time you were here, out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for Murk as they hear you enter.
+			#ELSE
+				As you step into your 'new home', the first thing that you immediately notice is that this room's proportions are more akin to a wide corridor than a conventional square or rectangular shape. The very next thing you register is that running down alongside the left-hand wall, there are a series of metal-framed stalls, each consisting of a padded bench plus surrounding supports to which an occupant's legs or arms can be chained. Out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for Murk as they hear you enter.
+			#ENDIF
 		</p>
 		<p>
 			[npc4.speech(Master! Please, fill my pussy!)] one of them whines.
@@ -925,7 +929,12 @@
 			[npc6.speech(Please, master! I need your cock!)] the one beside the first cries out.
 		</p>
 		<p>
-			[murk.speech(Ain't none o' yous milker sluts gonna get a feel o' me cock if ya don't shut up!)] Murk shouts out, causing the four 'milkers' to quieten down. They don't completely stop making a noise, however, as each one of them settles into letting out a series of subdued, horny moans. As the gang members start dragging you and [npc.name] towards the nearby vacant stalls, you see the cause of the milkers' lewd background noise taking the form of an arcane-powered milking machine positioned beside each one of them. Leading back into these machines via a long tube, steadily-pumping suction cups have been attached over each of the milkers' puffy, milk-dripping nipples,
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+				[murk.speechNoEffects(Ain't none o' yous milker sluts gonna get a feel o' me cock if ya don't shut up!)] Murk shouts out, causing the four milkers to quieten down. They don't completely stop making a noise, however, as each one of them settles into letting out a series of subdued, horny moans. As the gang members start dragging you and [npc.name] towards the nearby vacant stalls, you see the cause of the milkers' lewd background noise taking the familiar form of an arcane-powered milking machine positioned beside each one of them.
+			#ELSE
+				[murk.speechNoEffects(Ain't none o' yous milker sluts gonna get a feel o' me cock if ya don't shut up!)] Murk shouts out, causing the four 'milkers' to quieten down. They don't completely stop making a noise, however, as each one of them settles into letting out a series of subdued, horny moans. As the gang members start dragging you and [npc.name] towards the nearby vacant stalls, you see the cause of the milkers' lewd background noise taking the form of an arcane-powered milking machine positioned beside each one of them.
+			#ENDIF
+			 Leading back into these machines via a long tube, steadily-pumping suction cups have been attached over each of the milkers' puffy, milk-dripping nipples,
 			#IF(game.isAnalContentEnabled())
 				#IF(game.isGapeContentEnabled())
 					 while a pair of fat, rhythmically-vibrating dildos have been firmly inserted into each of their dripping, stretched-out pussies and assholes.
@@ -941,17 +950,26 @@
 			#ENDIF
 		</p>
 		<p>
-			[murk.speech(Ya like the look o' yer new home?)] Murk asks you and [npc.name] in a mocking tone. Not waiting for an answer, he motions the rats to push the two of you stomach-down onto the vacant benches, and once that's done, he locks each of your collars to metal chains welded to the stalls' frames. Wanting to make sure that you can't stand up and attempt to resist, the rats use a nearby series of secondary chains and locks to firmly secure your arms and legs to the cold metal frame, resulting in each of you having very little room in which to move around, while simultaneously leaving your rear ends completely exposed to the room.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+				[murk.speechNoEffects(I's bettin' ya never thought yer were gonna end up bein' in the milker's position, did ya?)]
+			#ELSE
+				[murk.speechNoEffects(Ya like the look o' yer new home?)]
+			#ENDIF
+			 Murk asks you and [npc.name] in a mocking tone. Not waiting for an answer, he motions the rats to push the two of you stomach-down onto the vacant benches, and once that's done, he locks each of your collars to metal chains welded to the stalls' frames. Wanting to make sure that you can't stand up and attempt to resist, the rats use a nearby series of secondary chains and locks to firmly secure your arms and legs to the cold metal frame, resulting in each of you having very little room in which to move around, while simultaneously leaving your rear ends completely exposed to the room.
 		</p>
 		<p>
-			[murk.speech(So go on, gets ta usin' their mouths already. The sooner yer done with 'em, the sooner I can get on with startin' their trainin'!)] Murk scowls, before stepping back and keeping a close watch to ensure that the rats only make use of your mouths...
+			[murk.speechNoEffects(So go on, gets ta usin' their mouths already. The sooner yer done with 'em, the sooner I can get on with startin' their trainin'!)] Murk scowls, before stepping back and keeping a close watch to ensure that the rats only make use of your mouths...
 		</p>
 	#ELSE
 		<p>
 			Grabbing hold of you one last time, [npc.name] drags you over to the old wooden door on the other side of the room. Stepping in front of you, Murk twists the handle and opens the door, before leading you into the room beyond.
 		</p>
 		<p>
-			As you step into your 'new home', the first thing that you immediately notice is that this room's proportions are more akin to a wide corridor than a conventional square or rectangular shape. The very next thing you register is that running down alongside the left-hand wall, there are a series of metal-framed stalls, each consisting of a padded bench plus surrounding supports to which an occupant's legs or arms can be chained. Out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for Murk as they hear you enter.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+				Having already seen your 'new home' before, you're already familiar with the sight of the long series of metal-framed stalls. Just like the last time you were here, out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for Murk as they hear you enter.
+			#ELSE
+				As you step into your 'new home', the first thing that you immediately notice is that this room's proportions are more akin to a wide corridor than a conventional square or rectangular shape. The very next thing you register is that running down alongside the left-hand wall, there are a series of metal-framed stalls, each consisting of a padded bench plus surrounding supports to which an occupant's legs or arms can be chained. Out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for Murk as they hear you enter.
+			#ENDIF
 		</p>
 		<p>
 			[npc4.speech(Master! Please, fill my pussy!)] one of them whines.
@@ -960,7 +978,12 @@
 			[npc6.speech(Please, master! I need your cock!)] the one beside the first cries out.
 		</p>
 		<p>
-			[murk.speech(Ain't none o' yous milker sluts gonna get a feel o' me cock if ya don't shut up!)] Murk shouts out, causing the four 'milkers' to quieten down. They don't completely stop making a noise, however, as each one of them settles into letting out a series of subdued, horny moans. As [npc.name] starts dragging you towards the nearest vacant stall, you see the cause of the milkers' lewd background noise taking the form of an arcane-powered milking machine positioned beside each one of them. Leading back into these machines via a long tube, steadily-pumping suction cups have been attached over each of the milkers' puffy, milk-dripping nipples,
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+				[murk.speechNoEffects(Ain't none o' yous milker sluts gonna get a feel o' me cock if ya don't shut up!)] Murk shouts out, causing the four milkers to quieten down. They don't completely stop making a noise, however, as each one of them settles into letting out a series of subdued, horny moans. As the gang members start dragging you towards the nearby vacant stalls, you see the cause of the milkers' lewd background noise taking the familiar form of an arcane-powered milking machine positioned beside each one of them.
+			#ELSE
+				[murk.speechNoEffects(Ain't none o' yous milker sluts gonna get a feel o' me cock if ya don't shut up!)] Murk shouts out, causing the four 'milkers' to quieten down. They don't completely stop making a noise, however, as each one of them settles into letting out a series of subdued, horny moans. As [npc.name] starts dragging you towards the nearest vacant stall, you see the cause of the milkers' lewd background noise taking the form of an arcane-powered milking machine positioned beside each one of them.
+			#ENDIF
+			 Leading back into these machines via a long tube, steadily-pumping suction cups have been attached over each of the milkers' puffy, milk-dripping nipples,
 			#IF(game.isAnalContentEnabled())
 				#IF(game.isGapeContentEnabled())
 					 while a pair of fat, rhythmically-vibrating dildos have been firmly inserted into each of their dripping, stretched-out pussies and assholes.
@@ -976,10 +999,15 @@
 			#ENDIF
 		</p>
 		<p>
-			[murk.speech(Ya like the look o' yer new home?)] Murk asks you in a mocking tone. Not waiting for an answer, he motions [npc.name] to push you stomach-down onto the vacant bench, and once that's done, he locks your collar to a heavy metal chain welded to the stall's frame. Wanting to make sure that you can't stand up and attempt to resist, Murk uses a nearby series of secondary chains and locks to firmly secure your arms and legs to the cold metal frame, resulting in you having very little room in which to move around, while simultaneously leaving your rear end completely exposed to the room.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+				[murk.speechNoEffects(I's bettin' ya never thought yer were gonna end up bein' in the milker's position, did ya?)]
+			#ELSE
+				[murk.speechNoEffects(Ya like the look o' yer new home?)]
+			#ENDIF
+			 Murk asks you in a mocking tone. Not waiting for an answer, he motions [npc.name] to push you stomach-down onto the vacant bench, and once that's done, he locks your collar to a heavy metal chain welded to the stall's frame. Wanting to make sure that you can't stand up and attempt to resist, Murk uses a nearby series of secondary chains and locks to firmly secure your arms and legs to the cold metal frame, resulting in you having very little room in which to move around, while simultaneously leaving your rear end completely exposed to the room.
 		</p>
 		<p>
-			[murk.speech(So go on, gets ta usin' [pc.her] mouth already. The sooner yer done with [pc.herHim], the sooner I can get on with startin' [pc.her] trainin'!)] Murk scowls, before stepping back and keeping a close watch to ensure that [npc.name] only makes use of your mouth...
+			[murk.speechNoEffects(So go on, gets ta usin' [pc.her] mouth already. The sooner yer done with [pc.herHim], the sooner I can get on with startin' [pc.her] trainin'!)] Murk scowls, before stepping back and keeping a close watch to ensure that [npc.name] only makes use of your mouth...
 		</p>
 	#ENDIF
 	]]>
@@ -1789,30 +1817,120 @@
 	
 	<!-- MILKING_STORAGE -->
 	
+	<htmlContent tag="MILKING_STORAGE_CLEARED"><![CDATA[
+	<p>
+		Branching off from a twist in a particularly damp and dingy section of the Rat Warren's tunnels, you follow a narrow passageway which ends up leading into a relatively small, well-lit room. Judging by the fact that the high ceiling is home to many naturally-formed stalactites, while the walls and floor form a uniform rectangular shape, this area seems to have been carved out from a smaller pre-existing cave.
+	</p>
+	<p>
+		Taking a look at your surroundings, you find that the most striking feature of this area is the dozens of metal milk-pails stacked up on shelving units against the walls. Over on the far side of the earth-packed floor, directly ahead of you, there's also an odd collection of old, tatty-looking furniture arrayed next to an old wooden door. A couple of worn, wooden tables are haphazardly surrounded by half a dozen stools and chairs, while pushed up against the far wall are several crates and cabinets. Finishing off this assortment of furnishings is an old, faded, red sofa, which, like the rest of the room, is absent of any sign of life.
+	</p>
+	<p>
+		As you've cleared out the gang members from this section of the Rat Warrens, there's nothing stopping you from opening the old wooden door and heading through into the room beyond...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="MILKING_STORAGE"><![CDATA[
-	<p>
-		Room with metal vats and shelves of mechanical components. Small rat-boy is tinkering with something, hears you enter.
-	</p>
-	<p>
-		Murk introduction (if not seen already). Cock on display, very lewd and rude comments.
-	</p>
-	<p>
-		He says that you can go back the way you came, or, if you're interested, he'll let you use one of his cock-sleeves for 5000 flames. No refunds.
-	</p>
+	#IF(!game.getDialogueFlags().hasFlag(FLAG_murkIntroduced))
+		<p>
+			Branching off from a twist in a particularly damp and dingy section of the Rat Warren's tunnels, you follow a narrow passageway which ends up leading into a relatively small, well-lit room. Judging by the fact that the high ceiling is home to many naturally-formed stalactites, while the walls and floor form a uniform rectangular shape, this area seems to have been carved out from a smaller pre-existing cave.
+		</p>
+		<p>
+			Taking a look at your surroundings, you find that the most striking feature of this area is the dozens of metal milk-pails stacked up on shelving units against the walls. Over on the far side of the earth-packed floor, directly ahead of you, there's also an odd collection of old, tatty-looking furniture arrayed next to an old wooden door. A couple of worn, wooden tables are haphazardly surrounded by half a dozen stools and chairs, while pushed up against the far wall are several crates and cabinets. Finishing off this assortment of furnishings is an old, faded, red sofa, which catches your eye both due to its splash of colour, as well as due to there being a greater rat-boy sitting in the middle of it.
+		</p>
+		<p>
+			As you catch sight of this resident gang member, you see that he's staring at you with an opportunistic gleam in his shifty yellow eyes. Reaching up to scratch the dark-brown fur covering his exposed, chubby belly, he lets out a loud belch before sliding off the sofa and starting to stroll towards you. Now standing fully upright, you see that this rat-boy is only around [murk.heightValue] tall, but as he walks towards you, you find yourself thinking not of his short stature, but instead of the fact that his black, crotchless chaps are leaving his genitals totally exposed.
+		</p>
+		<p>
+			Although it's sheathed, and so impossible to know the erect length of it, the circumference of the rat-boy's withdrawn, pale-pink cock is absolutely huge. The pair of massive, heavy balls hanging down between his legs are also disproportionately large in relation to his height, and you can't help but glance at them as they ponderously swing from side to side in pace with his short stride.
+		</p>
+		<p>
+			[murk.speechNoEffects('Ungry fer me fat cock, are ya?)] the rat-boy sneers at you in a slovenly tone as he catches you looking at his massive genitals. Looking you up and down, he lets out a tutting noise before continuing, [murk.speechNoEffects(I's gonna 'ave ta disappoint ya; me cock's reserved fer me milkers, so's I ain't gonna fuck ya no matter 'ow much ya beg.)]
+		</p>
+		<p>
+			[pc.speech(Your 'milkers'?)] you ask, ignoring the foul-mannered rat-boy's other comments.
+		</p>
+		<p>
+			[murk.speechNoEffects(Wot, ya ain't 'eard 'bout me milkers? Then I's guessin' ya don't know that me name's 'Murk' either, does ya?)] 'Murk' replies, but before you can answer, he continues, [murk.speechNoEffects(Well, ain't no issue if ya don't know who I is; this way ain't no cunt's gone an' given' ya the wrong impression o' me.)]
+		</p>
+		<p>
+			Wondering just how anyone could possibly be given a worse impression of Murk than how he is in reality, you continue to listen as he turns around and strolls back over to his sofa, shouting behind him as he goes, [murk.speechNoEffects(I's known 'round 'ere as bein' the guy ya need when ya wantin' ta 'ave a quick fuck but there ain't no rat sluts willin' ta do it with ya. I's got a collection o' humans who're willin' ta do anything I's tell 'em ta do, ya see, an' they're wot I call me milkers. Rats come 'ere, pay me, an' I let 'em fuck one o' me milkers.)]
+		</p>
+		<p>
+			Reaching his sofa, Murk spits on the ground before turning around and motioning to the milk pails stacked up against the walls. [murk.speechNoEffects(Me milkers provide a good income fer me; their milk sells fer a pretty penny up in the city. They's also real good at doin' milkin' themselves; milkin' me balls into their cunts that is! Heh-heh-heh!)]
+		</p>
+		<p>
+			Before you can think of what to say in response to this, the rat-boy jumps back up onto his sofa, and, leaning back and scratching his chubby belly once again, he says, [murk.speechNoEffects(It's five 'undred flames ta fuck one o' me milkers. They's through that door behind me, an' you's got ta pay up before ya gets ta see 'em. I's let ya choose which one ya want ta fuck, but there ain't no refunds if ya don't like any o' 'em, an' I's got a rule that only one o' you's can be fuckin' 'em at once, so yer friend 'ere is gonna 'ave ta watch. So, ya gonna pay up, or ya gonna go back the way ya came?)]
+		</p>
+	#ELSE
+		<p>
+			Branching off from a twist in a particularly damp and dingy section of the Rat Warren's tunnels, you once again follow the narrow passageway which leads into Murk's relatively small, well-lit milking storage room. Judging by the fact that the high ceiling is home to many naturally-formed stalactites, while the walls and floor form a uniform rectangular shape, you remark to yourself how this area seems to have been carved out from a smaller pre-existing cave.
+		</p>
+		<p>
+			Taking a look at your surroundings, you find that the most striking feature of this area is the dozens of metal milk-pails stacked up on shelving units against the walls. Over on the far side of the earth-packed floor, directly ahead of you, there's also an odd collection of old, tatty-looking furniture arrayed next to an old wooden door. A couple of worn, wooden tables are haphazardly surrounded by half a dozen stools and chairs, while pushed up against the far wall are several crates and cabinets. Finishing off this assortment of furnishings is an old, faded, red sofa, which catches your eye both due to its splash of colour, as well as due to the fact that Murk is currently sitting in the middle of it.
+		</p>
+		<p>
+			As you catch sight of the crass gang member, you see that he's staring at you with an opportunistic gleam in his shifty yellow eyes. Reaching up to scratch the dark-brown fur covering his exposed, chubby belly, he lets out a loud belch before spreading his legs a little and once again revealing that his black, crotchless chaps are leaving his disproportionately-huge balls and sheathed cock totally exposed.
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+				#IF(pc.hasCompanions())
+					Before you can say anything, the rat-boy calls out, [murk.speechNoEffects(It's gonna be five 'undred flames if ya want ta see me milkers again. Just as before, you's got ta pay up before ya gets ta see 'em. I's let ya choose which one ya want ta fuck, but there ain't no refunds if ya don't like any o' 'em, an' I's got a rule that only one o' you's can be fuckin' 'em at once, so yer friend 'ere is gonna 'ave ta watch. So, ya gonna pay up, or ya gonna go back the way ya came?)]
+				#ELSE
+					Before you can say anything, the rat-boy calls out, [murk.speechNoEffects(It's gonna be five 'undred flames if ya want ta see me milkers again. Just as before, you's got ta pay up before ya gets ta see 'em. I's let ya choose which one ya want ta fuck, but there ain't no refunds if ya don't like any o' 'em. So, ya gonna pay up, or ya gonna go back the way ya came?)]
+				#ENDIF
+			#ELSE
+				#IF(pc.hasCompanions())
+					Before you can say anything, the rat-boy calls out, [murk.speechNoEffects(It's still gonna be five 'undred flames ta fuck one o' me milkers. They's through that door behind me, an' you's got ta pay up before ya gets ta see 'em. I's let ya choose which one ya want ta fuck, but there ain't no refunds if ya don't like any o' 'em, an' I's got a rule that only one o' you's can be fuckin' 'em at once, so yer friend 'ere is gonna 'ave ta watch. So, ya gonna pay up, or ya gonna go back the way ya came?)]
+				#ELSE
+					Before you can say anything, the rat-boy calls out, [murk.speechNoEffects(It's still gonna be five 'undred flames ta fuck one o' me milkers. They's through that door behind me, an' you's got ta pay up before ya gets ta see 'em. I's let ya choose which one ya want ta fuck, but there ain't no refunds if ya don't like any o' 'em. So, ya gonna pay up, or ya gonna go back the way ya came?)]
+				#ENDIF
+			#ENDIF
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MILKING_STORAGE_CAPTIVE"><![CDATA[
 	<p>
-		You find that you can walk up near to the milking storage door, but can't get close enough to open it. For now all you can do is return to your bed...
+		Thanks to your bedding being closest to the door to the milking storage room, you find that you're able to get quite close to it before the solid chain binding your collar to your milking stall reaches its furthest extent. As you're not actually able to reach the door, however, all you can do for now is return to your bedding...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MILKING_STORAGE_CHALLENGE"><![CDATA[
 	<p>
-		You tell Murk that you're here to beat him up. He calls for help, and some rats come charging in.
+		Not willing to endure Murk's offensive presence for a single moment longer than you have to, you step forwards and tell him that you're here to put an end to his evildoings.
 	</p>
+	<p>
+		As the rat-boy realises that you intend to fight him, the smirk is instantly wiped off his face, and with eyes wide in fear, he jumps off his sofa and bolts over to one of the larger cabinets placed up against the wall. Not expecting the chubby rat-boy to be capable of such a burst of speed, you're taken a little off-guard and aren't able to stop him in time before he grabs one side of the cabinet and pulls it crashing to the ground. Murk's unexpected move reveals the entrance to a hidden tunnel, and it's into this cramped, dark passageway that he frantically bolts.
+	</p>
+	<p>
+		#IF(pc.hasCompanions())
+			Rushing over to try and catch him before he's able to get too far, you and [npc.name] quickly cross the room and prepare to enter the tunnel yourselves.
+		#ELSE
+			Rushing over to try and catch him before he's able to get too far, you quickly cross the room and prepare to enter the tunnel yourself.
+		#ENDIF
+		 Just as you get there, however, a metallic clang suddenly rings out from behind you. Spinning around, you see a couple of milk pails rolling across the floor, followed quickly by Murk as he hastily exits through yet another concealed entrance to his escape tunnel.
+	</p>
+	<p>
+		Rushing off into the Rat Warrens, Murk half-shouts, half-screams at the top of his lungs, [murk.speechNoEffects('Elp! 'Elp! Get over 'ere an' 'elp me!)] 
+	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Although you and [npc.name] are able to quite quickly catch up with him, Murk's cries end up attracting the attention of numerous rats who, fortuitously for the chubby rat-boy, must have been loitering nearby. As you and your companion come to halt in the passageway and prepare to defend yourselves, Murk cries out, [murk.speechNoEffects(You's lot! These two cunts are tryin' ta attack me! Beat 'em down an' I'll give yer all a free fuck with me milkers!)]
+		</p>
+		<p>
+			Obviously liking the sound of Murk's offer, the rats quickly advance on you and [npc.name]. With this new threat demanding all of your attention, Murk shows his cowardly nature once again by slipping past and running off into the tunnels, leaving his comrades to deal with the two of you without his help...
+		</p>
+	#ELSE
+		<p>
+			Although you're able to quite quickly catch up with him, Murk's cries end up attracting the attention of numerous rats who, fortuitously for the chubby rat-boy, must have been loitering nearby. As you come to halt in the passageway and prepare to defend yourself, Murk cries out, [murk.speechNoEffects(You's lot! This cunt is tryin' ta attack me! Beat 'em down an' I'll give yer all a free fuck with me milkers!)]
+		</p>
+		<p>
+			Obviously liking the sound of Murk's offer, the rats quickly advance on you. With this new threat demanding all of your attention, Murk shows his cowardly nature once again by slipping past and running off into the tunnels, leaving his comrades to deal with you without his help...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -1821,33 +1939,266 @@
 	<!-- MILKING_ROOM -->
 	
 	<htmlContent tag="MILKING_ROOM"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+				Wanting to gain access to the milking room again, you tell Murk that you and [npc.name] would like to have some fun with his milkers. The rat-boy's face turns up into a grin as he hears you say this, and after rudely spitting on the floor, he sneers, [murk.speechNoEffects(Ya gots the five 'undred flames then, huh? You's two ain't gettin any o' me milkers' pussy without payin' me first!)]
+			#ELSE
+				Wanting to find out who these 'milkers' are, you tell Murk that you and [npc.name] would like to see them. The rat-boy's face turns up into a grin as he hears you say this, and after rudely spitting on the floor, he sneers, [murk.speechNoEffects(Ya gots the five 'undred flames then, huh? You's two ain't gettin any o' me milkers' pussy without payin' me first!)]
+			#ENDIF
+		</p>
+		<p>
+			Producing the money which Murk is asking for, you hand over the five hundred flames. Snatching the coins and hurrying over to put them away in a nearby chest, the rat-boy then walks over to the nearby wooden door, before pushing it open and stepping through. Calling over his shoulder, he shouts, [murk.speechNoEffects(Come on then, you's two! I ain't got all day!)]
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+				Following the chubby rat-boy into the narrow room beyond, you're greeted by the familiar sight of the long series of metal-framed stalls running down the left-hand wall. Just like the last time you were here, out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for Murk as they hear you enter.
+			#ELSE
+				Following the rat-boy through the doorway, the first thing which you immediately notice about the room beyond is that its proportions are more akin to a wide corridor than a conventional square or rectangular shape. The very next thing you register is that running down alongside the left-hand wall, there are a series of metal-framed stalls, each consisting of a padded bench plus surrounding supports to which an occupant's legs or arms can be chained. Out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for Murk as they hear you enter.
+			#ENDIF
+		</p>
+		<p>
+			[npc2.speech(Master! Please, fill my pussy!)] one of them whines.
+		</p>
+		<p>
+			[npc4.speech(Please, master! I need your cock!)] the one beside the first cries out.
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+				[murk.speechNoEffects(Shut it, ya milker sluts! One o' you's is gonna be fucked by someone else this time!)] Murk shouts out, causing the four milkers to quieten down. They don't completely stop making a noise, however, as each one of them settles into letting out a series of subdued, horny moans. As Murk leads you and [npc.name] towards the occupied stalls, you see the cause of the milkers' lewd background noise taking the familiar form of an arcane-powered milking machine positioned beside each one of them.
+			#ELSE
+				[murk.speechNoEffects(Shut it, ya milker sluts! One o' you's is gonna be fucked by someone else this time!)] Murk shouts out, causing the four 'milkers' to quieten down. They don't completely stop making a noise, however, as each one of them settles into letting out a series of subdued, horny moans. As Murk leads you and [npc.name] towards the occupied stalls, you see the cause of the milkers' lewd background noise taking the form of an arcane-powered milking machine positioned beside each one of them.
+			#ENDIF
+			 Leading back into these machines via a long tube, steadily-pumping suction cups have been attached over each of the milkers' puffy, milk-dripping nipples,
+			#IF(game.isAnalContentEnabled())
+				#IF(game.isGapeContentEnabled())
+					 while a pair of fat, rhythmically-vibrating dildos have been firmly inserted into each of their pussies and assholes. Making his way from one milker to another, Murk pulls these dildos out and drops them to the floor, revealing that every one of the milkers' holes are not only dripping wet, but have also been permanently stretched open.
+				#ELSE
+					 while a pair of thick, rhythmically-vibrating dildos have been firmly inserted into each of their dripping pussies and assholes. Making his way from one milker to another, Murk pulls these dildos out and drops them to the floor, revealing that every one of the milkers' holes are dripping wet and ready for penetration.
+				#ENDIF
+			#ELSE
+				#IF(game.isGapeContentEnabled())
+					 while a fat, rhythmically-vibrating dildo has been firmly inserted into each of their dripping, stretched-out pussies. Making his way from one milker to another, Murk pulls these dildos out and drops them to the floor, revealing that every one of the milkers' cunts are not only dripping wet, but have also been permanently stretched open.
+				#ELSE
+					 while a thick, rhythmically-vibrating dildo has been firmly inserted into each of their dripping pussies. Making his way from one milker to another, Murk pulls these dildos out and drops them to the floor, revealing that every one of the milkers' cunts are dripping wet and ready for penetration.
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			#IF(game.isGapeContentEnabled())
+				Quickly finishing his task of freeing up all their holes, Murk pushes several of his fingers into the loose pussy of the nearest milker, causing her to let out a desperate moan. Pulling his now-wet fingers back, the rat-boy delivers a sharp slap on the her rear end, before turning towards you and sneering, [murk.speechNoEffects(I 'ope ya don't mind 'ow I've gone an' gaped their 'oles so as ta fit me fat cock! So, which one o' these sluts  ya lookin' ta fuck? Remember, I's got the rule that on;y one o' ya can be fuckin' 'em at once, so decide between ya which one o' ya is gonna be watchin' the other doin' the fuckin'. Oh, an' if ya change yer mind an' think these 'oles ain't tight enough ta satisfy ya, then just ya remember that there ain't no refunds!)]
+			#ELSE
+				Quickly finishing his task of freeing up all their holes, Murk pushes several of his fingers into the dripping-wet pussy of the nearest milker, causing her to let out a desperate moan. Pulling his now-wet fingers back, the rat-boy delivers a sharp slap on the her rear end, before turning towards you and sneering, [murk.speechNoEffects(I 'ope ya don't mind knowin' that I've fucked these 'oles more time than I's able ta count! So, which one o' these sluts ya lookin' ta fuck? Remember, I's got the rule that on;y one o' ya can be fuckin' 'em at once, so decide between ya which one o' ya is gonna be watchin' the other doin' the fuckin'. Oh, an' if ya change yer mind an' think these 'oles ain't appealin' to ya, then just ya remember that there ain't no refunds!)]
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+				Wanting to gain access to the milking room again, you tell Murk that you'd like to have some fun with his milkers. The rat-boy's face turns up into a grin as he hears you say this, and after rudely spitting on the floor, he sneers, [murk.speechNoEffects(Ya gots the five 'undred flames then, huh? Ya ain't gettin any o' me milkers' pussy without payin' me first!)]
+			#ELSE
+				Wanting to find out who these 'milkers' are, you tell Murk that you'd like to see them. The rat-boy's face turns up into a grin as he hears you say this, and after rudely spitting on the floor, he sneers, [murk.speechNoEffects(Ya gots the five 'undred flames then, huh? Ya ain't gettin any o' me milkers' pussy without payin' me first!)]
+			#ENDIF
+		</p>
+		<p>
+			Producing the money which Murk is asking for, you hand over the five hundred flames. Snatching the coins and hurrying over to put them away in a nearby chest, the rat-boy then walks over to the nearby wooden door, before pushing it open and stepping through. Calling over his shoulder, he shouts, [murk.speechNoEffects(Come on then! I ain't got all day!)]
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+				Following the chubby rat-boy into the narrow room beyond, you're greeted by the familiar sight of the long series of metal-framed stalls running down the left-hand wall. Just like the last time you were here, out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for Murk as they hear you enter.
+			#ELSE
+				Following the rat-boy through the doorway, the first thing which you immediately notice about the room beyond is that its proportions are more akin to a wide corridor than a conventional square or rectangular shape. The very next thing you register is that running down alongside the left-hand wall, there are a series of metal-framed stalls, each consisting of a padded bench plus surrounding supports to which an occupant's legs or arms can be chained. Out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for Murk as they hear you enter.
+			#ENDIF
+		</p>
+		<p>
+			[npc2.speech(Master! Please, fill my pussy!)] one of them whines.
+		</p>
+		<p>
+			[npc4.speech(Please, master! I need your cock!)] the one beside the first cries out.
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+				[murk.speechNoEffects(Shut it, ya milker sluts! One o' you's is gonna be fucked by someone else this time!)] Murk shouts out, causing the four milkers to quieten down. They don't completely stop making a noise, however, as each one of them settles into letting out a series of subdued, horny moans. As Murk leads you and [npc.name] towards the occupied stalls, you see the cause of the milkers' lewd background noise taking the familiar form of an arcane-powered milking machine positioned beside each one of them.
+			#ELSE
+				[murk.speechNoEffects(Shut it, ya milker sluts! One o' you's is gonna be fucked by someone else this time!)] Murk shouts out, causing the four 'milkers' to quieten down. They don't completely stop making a noise, however, as each one of them settles into letting out a series of subdued, horny moans. As Murk leads you and [npc.name] towards the occupied stalls, you see the cause of the milkers' lewd background noise taking the form of an arcane-powered milking machine positioned beside each one of them.
+			#ENDIF
+			 Leading back into these machines via a long tube, steadily-pumping suction cups have been attached over each of the milkers' puffy, milk-dripping nipples,
+			#IF(game.isAnalContentEnabled())
+				#IF(game.isGapeContentEnabled())
+					 while a pair of fat, rhythmically-vibrating dildos have been firmly inserted into each of their pussies and assholes. Making his way from one milker to another, Murk pulls these dildos out and drops them to the floor, revealing that every one of the milkers' holes are not only dripping wet, but have also been permanently stretched open.
+				#ELSE
+					 while a pair of thick, rhythmically-vibrating dildos have been firmly inserted into each of their dripping pussies and assholes. Making his way from one milker to another, Murk pulls these dildos out and drops them to the floor, revealing that every one of the milkers' holes are dripping wet and ready for penetration.
+				#ENDIF
+			#ELSE
+				#IF(game.isGapeContentEnabled())
+					 while a fat, rhythmically-vibrating dildo has been firmly inserted into each of their dripping, stretched-out pussies. Making his way from one milker to another, Murk pulls these dildos out and drops them to the floor, revealing that every one of the milkers' cunts are not only dripping wet, but have also been permanently stretched open.
+				#ELSE
+					 while a thick, rhythmically-vibrating dildo has been firmly inserted into each of their dripping pussies. Making his way from one milker to another, Murk pulls these dildos out and drops them to the floor, revealing that every one of the milkers' cunts are dripping wet and ready for penetration.
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			#IF(game.isGapeContentEnabled())
+				Quickly finishing his task of freeing up all their holes, Murk pushes several of his fingers into the loose pussy of the nearest milker, causing her to let out a desperate moan. Pulling his now-wet fingers back, the rat-boy delivers a sharp slap on the her rear end, before turning towards you and sneering, [murk.speechNoEffects(I 'ope ya don't mind 'ow I've gone an' gaped their 'oles so as ta fit me fat cock! So, which one o' these sluts ya lookin' ta fuck? Oh, an' if ya change yer mind an' think these 'oles ain't tight enough ta satisfy ya, then just ya remember that there ain't no refunds!)]
+			#ELSE
+				Quickly finishing his task of freeing up all their holes, Murk pushes several of his fingers into the dripping-wet pussy of the nearest milker, causing her to let out a desperate moan. Pulling his now-wet fingers back, the rat-boy delivers a sharp slap on the her rear end, before turning towards you and sneering, [murk.speechNoEffects(I 'ope ya don't mind knowin' that I've fucked these 'oles more time than I's able ta count! So, which one o' these sluts ya lookin' ta fuck? Oh, an' if ya change yer mind an' think these 'oles ain't appealin' to ya, then just ya remember that there ain't no refunds!)]
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MILKING_ROOM_CLEARED"><![CDATA[
 	<p>
-		Stocks in the middle of the room, with human girls being milked. Chains and manacles bolted into one wall.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+			Heading through the old wooden door into the 'milking room', you're once again greeted by the familiar sight of the long series of metal-framed stalls running down the left-hand wall. Just like the last time you were here, out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for
+			#IF(game.getDialogueFlags().hasFlag(FLAG_murkIntroduced))
+				 Murk
+			#ELSE
+				 their 'master'
+			#ENDIF
+			 as they hear you enter.
+		#ELSE
+			Curious to see what exactly is behind the wooden door on the far side of the room, you head over to it and push it open. Stepping through into the room beyond, the first thing which you immediately notice is that its proportions are more akin to a wide corridor than a conventional square or rectangular shape. The very next thing you register is that running down alongside the left-hand wall, there are a series of metal-framed stalls, each consisting of a padded bench plus surrounding supports to which an occupant's legs or arms can be chained. Out of the six wall-facing stalls which you count, the four furthest from the door are currently occupied by busty human females, who all start desperately crying out for
+			#IF(game.getDialogueFlags().hasFlag(FLAG_murkIntroduced))
+				 Murk
+			#ELSE
+				 their 'master'
+			#ENDIF
+			 as they hear you enter.
+		#ENDIF
 	</p>
 	<p>
-		If not cleared, you've gained access by paying Murk. He shows off the girls and asks which one you want to fuck. Shows how loyal they all are (if non-con enabled, make reference of how he kidnapped them as humans and transformed them into his rat-girl milking sluts). If gape content is on, he says you'll have to deal with their loose holes; his cock has stretched them out nicely to his size...
+		[npc2.speech(Master! Please, fill my pussy!)] one of them whines.
+	</p>
+	<p>
+		[npc3.speech(Please, master! I need your cock!)] the one beside the first cries out.
+	</p>
+	<p>
+		Craning their necks to see why their master hasn't replied to their cries, the four 'milkers' start to quieten down as they see#IF(pc.hasCompanions()) you and [npc.name]#ELSE you#ENDIF standing there instead. They don't completely stop making a noise, however, as each one of them settles into letting out a series of subdued, horny moans. As you start to move towards the occupied stalls, you see the cause of the milkers' lewd background noise taking the familiar form of an arcane-powered milking machine positioned beside each one of them. Leading back into these machines via a long tube, steadily-pumping suction cups have been attached over each of the milkers' puffy, milk-dripping nipples,
+		#IF(game.isAnalContentEnabled())
+			#IF(game.isGapeContentEnabled())
+				 while a pair of fat, rhythmically-vibrating dildos have been firmly inserted into each of their pussies and assholes.
+			#ELSE
+				 while a pair of thick, rhythmically-vibrating dildos have been firmly inserted into each of their dripping pussies and assholes.
+			#ENDIF
+		#ELSE
+			#IF(game.isGapeContentEnabled())
+				 while a fat, rhythmically-vibrating dildo has been firmly inserted into each of their dripping, stretched-out pussies.
+			#ELSE
+				 while a thick, rhythmically-vibrating dildo has been firmly inserted into each of their dripping pussies.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		With nobody here to stop you,#IF(pc.hasCompanions()) you and [npc.name]#ELSE you#ENDIF could quite easily have some fun with one or more of these milkers. Then again, you could always just turn around and leave, or even try to free them...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MILKING_ROOM_SEX"><![CDATA[
-	<p>
-		You choose [npc.name], and move up to fuck [npc.herHim]...
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Deciding that you want to fuck [npc2.name], you step up behind [npc2.herHim] and give [npc2.her] [npc2.ass+] a squeeze, causing [npc2.herHim] to let out [npc2.a_moan+]. Seeing which of his milkers you've chosen, Murk steps back and remarks, [murk.speechNoEffects(Ya gonna enjoy fuckin' this 'un; she always squeals the loudest when I's fillin' 'er with me fat cock!)]
+		</p>
+		<p>
+			Telling [npc.name] to stand back and watch, you prepare to start getting your money's worth out of [npc2.name]...
+		</p>
+	#ELSE
+		<p>
+			Deciding that you want to fuck [npc.name], you step up behind [npc.herHim] and give [npc.her] [npc.ass+] a squeeze, causing [npc.herHim] to let out [npc.a_moan+]. Seeing which of his milkers you've chosen, Murk steps back and remarks, [murk.speechNoEffects(Ya gonna enjoy fuckin' this 'un; she always squeals the loudest when I's fillin' 'er with me fat cock!)]
+		</p>
+		<p>
+			Ignoring Murk's comment, you prepare to start getting your money's worth out of [npc.name]...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MILKING_ROOM_SEX_AFTER_CLEARED"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Deciding that you want to fuck [npc2.name], you step up behind [npc2.herHim] and give [npc2.her] [npc2.ass+] a squeeze, causing [npc2.herHim] to let out [npc2.a_moan+]. Telling [npc.name] to stand back and watch, you prepare to start having some fun with [npc2.name]...
+		</p>
+	#ELSE
+		<p>
+			Deciding that you want to fuck [npc.name], you step up behind [npc.herHim] and give [npc.her] [npc.ass+] a squeeze, causing [npc.herHim] to let out [npc.a_moan+]. With nobody here to stop you, you prepare to start having some fun with [npc.herHim]...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MILKING_ROOM_SEX_COMPANION"><![CDATA[
 	<p>
-		With nobody around to stop you, you decide to have some fun with [npc.name], and move up to fuck [npc.herHim]...
+		Deciding that you want to watch [npc.name] fuck [npc2.name], you move into a position from which you can see everything that's going to be going on and then tell your companion to get to it.
+		#IF(!npc.isAttractedTo(npc2))
+			 Letting out a disgruntled sigh, [npc.name] reluctantly moves forwards, muttering, [npc.speech(I suppose I don't have a choice...)]
+		#ELSE
+			 Letting out an eager [npc.moan], [npc.name] quickly moves forwards, exclaiming, [npc.speech(Oh, this is going to be fun!)]
+		#ENDIF
+	</p>
+	<p>
+		Seeing which of his milkers [npc.name] is about to fuck, Murk steps back and remarks, [murk.speechNoEffects(Ya gonna enjoy playin' with this 'un; she always squeals the loudest when I's fillin' 'er with me fat cock!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MILKING_ROOM_SEX_COMPANION_AFTER_CLEARED"><![CDATA[
+	<p>
+		Deciding that you want to watch [npc.name] fuck [npc2.name], you move into a position from which you can see everything that's going to be going on and then tell your companion to get to it.
+		#IF(!npc.isAttractedTo(npc2))
+			 Letting out a disgruntled sigh, [npc.name] reluctantly moves forwards, muttering, [npc.speech(I suppose I don't have a choice...)]
+		#ELSE
+			 Letting out an eager [npc.moan], [npc.name] quickly moves forwards, exclaiming, [npc.speech(Oh, this is going to be fun!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MILKING_ROOM_SEX_BOTH_AFTER_CLEARED"><![CDATA[
+	<p>
+		Deciding that you want [npc.name] to join you in fucking [npc2.name], you move into a position behind the moaning milker and then tell your companion to move around to [npc2.her] front.
+		#IF(!npc.isAttractedTo(npc2))
+			 Letting out a disgruntled sigh, [npc.name] reluctantly moves forwards, muttering, [npc.speech(I suppose I don't have a choice...)]
+		#ELSE
+			 Letting out an eager [npc.moan], [npc.name] quickly moves forwards, exclaiming, [npc.speech(Oh, this is going to be fun!)]
+		#ENDIF
+	</p>
+	<p>
+		Reaching down to give [npc2.namePos] [npc2.ass+] a squeeze, you smile as [npc2.she] responds by letting out [npc2.a_moan+]. As soon as [npc.name] gets into position, you get started on using the horny milker...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MILKING_ROOM_CHALLENGE"><![CDATA[
 	<p>
-		You tell Murk that you're not going to allow him to continue with his depraved treatment of these girls any longer! He calls for help, and some rats come charging in.
+		Not willing to endure Murk's offensive presence for a single moment longer than you have to, you step forwards and tell him that you're here to put an end to his evildoings.
 	</p>
+	<p>
+		As the rat-boy realises that you intend to fight him, the smirk is instantly wiped off his face, and with eyes wide in fear, he bolts past you and dashes towards the door through which you entered. Not expecting the chubby rat-boy to be capable of such a burst of speed, you're taken a little off-guard and aren't able to stop him in time before he manages to escape back out into the milk storage room.
+	</p>
+	<p>
+		#IF(pc.hasCompanions())
+			Rushing to try and catch him before he's able to get too far, you and [npc.name] pursue Murk past his tatty old red sofa, across the room, and into the Rat Warren's tunnels.
+		#ELSE
+			Rushing to try and catch him before he's able to get too far, you pursue Murk past his tatty old red sofa, across the room, and into the Rat Warren's tunnels.
+		#ENDIF
+		 Despite his initial burst of speed, Murk turns out to be not nearly as fast as you are, and as he realises that you're about to catch him, he half-shouts, half-screams at the top of his lungs, [murk.speechNoEffects('Elp! 'Elp! Get over 'ere an' 'elp me!)] 
+	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Murk's cries end up attracting the attention of numerous rats who, fortuitously for the chubby rat-boy, must have been loitering nearby. As you and your companion come to halt in the passageway and prepare to defend yourselves, Murk cries out, [murk.speechNoEffects(You's lot! These two cunts are tryin' ta attack me! Beat 'em down an' I'll give yer all a free fuck with me milkers!)]
+		</p>
+		<p>
+			Obviously liking the sound of Murk's offer, the rats quickly advance on you and [npc.name]. With this new threat demanding all of your attention, Murk shows his cowardly nature once again by slipping past and running off into the tunnels, leaving his comrades to deal with the two of you without his help...
+		</p>
+	#ELSE
+		<p>
+			Murk's cries end up attracting the attention of numerous rats who, fortuitously for the chubby rat-boy, must have been loitering nearby. As you come to halt in the passageway and prepare to defend yourself, Murk cries out, [murk.speechNoEffects(You's lot! This cunt is tryin' ta attack me! Beat 'em down an' I'll give yer all a free fuck with me milkers!)]
+		</p>
+		<p>
+			Obviously liking the sound of Murk's offer, the rats quickly advance on you. With this new threat demanding all of your attention, Murk shows his cowardly nature once again by slipping past and running off into the tunnels, leaving his comrades to deal with you without his help...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -1856,6 +2207,7 @@
 	
 	<htmlContent tag="AFTER_MILKER_SEX"><![CDATA[
 	<p>
+		If orgasmed, then when stop you see Murk finish fucking one of the other milkers. Their tongue lolling out, they are completely lost in bliss as Murk fills their gaping pussy with cum. Gets off them and plugs their pussy with the vibrating dildo again.
 		You finish with [npc.name], and step away from [npc.herHim]. Murk approaches and says he'll have to fuck [npc.herHim] later so that [npc.she] remembers who [npc.her] real owner is. Tells you to follow him back into the storage room.
 	</p>
 	]]>
@@ -1881,6 +2233,16 @@
 	<htmlContent tag="AFTER_MILKER_SEX_FINISHED"><![CDATA[
 	<p>
 		You follow Murk back into the storage room. He says if you want another fuck, you know how much it is.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MILKING_ROOM_BACKGROUND -->
+	
+	<htmlContent tag="MILKING_ROOM_BACKGROUND"><![CDATA[
+	<p>
+		Shows how loyal they all are (if non-con enabled, make reference of how he kidnapped them as humans and transformed them into his milking sluts). If gape content is on, he says you'll have to deal with their loose holes; his cock has stretched them out nicely to his size...
 	</p>
 	]]>
 	</htmlContent>

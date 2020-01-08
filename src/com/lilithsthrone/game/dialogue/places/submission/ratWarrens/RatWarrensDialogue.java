@@ -887,7 +887,6 @@ public class RatWarrensDialogue {
 								}
 								npc.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
 							}
-							Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
 							Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
 							
 						}
@@ -920,7 +919,6 @@ public class RatWarrensDialogue {
 								}
 								npc.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
 							}
-							Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
 							Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
 						}
 					};
@@ -1821,6 +1819,12 @@ public class RatWarrensDialogue {
 	
 	public static final DialogueNode MILKING_STORAGE = new DialogueNode("Entrance", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			if(Main.game.getWorlds().get(WorldType.RAT_WARRENS).getCell(PlaceType.RAT_WARRENS_MILKING_ROOM).isTravelledTo()) {
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSeenMilkers, true);
+			}
+		}
+		@Override
 		public boolean isTravelDisabled() {
 			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft);
 		}
@@ -1830,6 +1834,9 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
+				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_STORAGE_CLEARED", getGuards(true));
+			}
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_STORAGE_CAPTIVE", getGuards(true));
 			}
@@ -1859,14 +1866,14 @@ public class RatWarrensDialogue {
 					};
 					
 				} else if(index==2) {
-					return new Response("Cock-sleeves ("+UtilText.formatAsMoney(5000, "span")+")", "Pay Murk 5000 flames to gain access to his 'cock-sleeves'.", MILKING_ROOM) { //TODO companion handling
+					return new Response("Milkers ("+UtilText.formatAsMoney(500, "span")+")", "Pay Murk 500 flames to gain access to his 'milkers'.", MILKING_ROOM) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.murkIntroduced, true);
 							Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM);
 							Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-5000));
-							Main.game.getNpc(Murk.class).incrementMoney(5000);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-500));
+							Main.game.getNpc(Murk.class).incrementMoney(500);
 						}
 					};
 					
@@ -1875,9 +1882,10 @@ public class RatWarrensDialogue {
 					return new Response("Challenge", "Tell Murk that you're here to fight.<br/>[style.italicsBad(This will undoubtedly result in a significant amount of gang members arriving as backup!)]", ENTRANCE_FIGHT) {
 						@Override
 						public void effects() {
+							Main.game.getPlayer().setNearestLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CORRIDOR_LEFT, false);
+							Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.murkIntroduced, true);
 							spawnGuards(true, 6);
-							Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, true);
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_STORAGE_CHALLENGE", getGuards(true)));
 						}
@@ -1903,52 +1911,187 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM", getGuards(true));
+			List<GameCharacter> characters = new ArrayList<>();
+			if(isCompanionDialogue()) {
+				characters.add(getMainCompanion());
+			}
+			characters.addAll(getMilkers());
+			
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
+				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM", characters);
+			}
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM_CLEARED", characters);
 		}
 		@Override
-		public Response getResponse(int responseTab, int index) { //TODO companion
+		public String getResponseTabTitle(int index) {
+			if(isCompanionDialogue()) {
+				switch(index) {
+					case 0:
+						return "You";
+					case 1:
+						return UtilText.parse(getMainCompanion(), "[npc.Name]");
+					case 2:
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
+							return "Both";
+						}
+						break;
+				}
+			}
+			return null;
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) { //TODO Either player or companion fucks while other watches (Murk only allows one at a time)
 			List<GameCharacter> milkers = getMilkers();
-			if(index>=1 && index<=4) {
-				GameCharacter milker = milkers.get(index-1);
-				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
-					return new ResponseSex(
-							"Use "+milker.getName(true),
-							UtilText.parse(milker, "Choose to have sex with [npc.name]..."),
-							true,
-							false,
-							new SMMilkingStall(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
-									Util.newHashMapOfValues(new Value<>(milker, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))) {
-								@Override
-								public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
-									return false;
-								}
-							},
-							Main.game.getPlayer().getParty(),
-							null,
-							AFTER_MILKER_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM_SEX", getGuards(true)));
-					
-				} else {
-					return new ResponseSex(
-							"Use "+milker.getName(true),
-							UtilText.parse(milker, "Now that you've defeated Murk and the gang members in this area, there's nobody to stop you from having sex with [npc.name]..."),
-							true,
-							false,
-							new SMMilkingStall(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
-									Util.newHashMapOfValues(new Value<>(milker, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
-							Main.game.getPlayer().getParty(),
-							null,
-							AFTER_MILKER_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM_SEX_AFTER_CLEARED", getGuards(true)));
+			if(responseTab==0) {
+				if(index>=1 && index<=4) {
+					GameCharacter milker = milkers.get(index-1);
+					if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
+						return new ResponseSex(
+								"Use "+milker.getName(true),
+								UtilText.parse(milker, "Choose to have sex with [npc.name]..."),
+								true,
+								false,
+								new SMMilkingStall(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
+										Util.newHashMapOfValues(new Value<>(milker, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))) {
+									@Override
+									public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
+										return false;
+									}
+								},
+								Main.game.getPlayer().getParty(),
+								null,
+								AFTER_MILKER_SEX,
+								UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM_SEX", Util.newArrayListOfValues(isCompanionDialogue()?getMainCompanion():null, milker))) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSeenMilkers, true);
+							}
+						};
+						
+					} else {
+						return new ResponseSex(
+								"Use "+milker.getName(true),
+								UtilText.parse(milker, "Now that you've defeated Murk and the gang members in this area, there's nobody to stop you from having sex with [npc.name]..."),
+								true,
+								false,
+								new SMMilkingStall(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
+										Util.newHashMapOfValues(new Value<>(milker, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
+								Main.game.getPlayer().getParty(),
+								null,
+								AFTER_MILKER_SEX,
+								UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM_SEX_AFTER_CLEARED", Util.newArrayListOfValues(isCompanionDialogue()?getMainCompanion():null, milker))) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSeenMilkers, true);
+							}
+						};
+					}
 				}
 				
-			} else if(index==5 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
-				return new Response(
-						"Free captives",
-						"Now that you've defeated the gang members in this area, there's nobody to stop you from freeing the captive humans...",
-						MILKING_ROOM_FREE_ATTEMPT);
+			} else if(responseTab==1) {
+				if(index>=1 && index<=4) {
+					GameCharacter milker = milkers.get(index-1);
+					
+					if(!getMainCompanion().isAttractedTo(milker) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+						return new Response(UtilText.parse(milker, "[npc.Name]"),
+								UtilText.parse(getMainCompanion(), milker,
+										"You can tell that [npc.name] isn't at all interested in having sex with [npc2.name], and as [npc.sheIs] not your slave, you can't force [npc.herHim] to do so..."),
+								null);
+					}
+					
+					if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
+						return new ResponseSex(
+								UtilText.parse(milker, "[npc.Name]"),
+								UtilText.parse(getMainCompanion(), milker, "Tell [npc.name] to fuck [npc2.name] while you and Murk watch..."),
+								true,
+								false,
+								new SMMilkingStall(
+										Util.newHashMapOfValues(new Value<>(getMainCompanion(), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
+										Util.newHashMapOfValues(new Value<>(milker, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))) {
+									@Override
+									public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
+										return false;
+									}
+								},
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								AFTER_MILKER_SEX,
+								UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM_SEX_COMPANION", Util.newArrayListOfValues(isCompanionDialogue()?getMainCompanion():null, milker))) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSeenMilkers, true);
+							}
+						};
+						
+					} else {
+						return new ResponseSex(
+								UtilText.parse(milker, "[npc.Name]"),
+								UtilText.parse(getMainCompanion(), milker, "Now that you've defeated Murk and the gang members in this area, there's nobody to stop you from ordering [npc.name] to have sex with [npc2.name] while you watch..."),
+								true,
+								false,
+								new SMMilkingStall(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
+										Util.newHashMapOfValues(new Value<>(milker, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
+								Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								AFTER_MILKER_SEX,
+								UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM_SEX_COMPANION_AFTER_CLEARED", Util.newArrayListOfValues(isCompanionDialogue()?getMainCompanion():null, milker))) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSeenMilkers, true);
+							}
+						};
+					}
+				}
+				
+			} else if(responseTab==2) {
+				if(index>=1 && index<=4) {
+					GameCharacter milker = milkers.get(index-1);
+					
+					if(!getMainCompanion().isAttractedTo(milker) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+						return new Response(UtilText.parse(milker, "Both ([npc.Name])"),
+								UtilText.parse(getMainCompanion(), milker,
+										"You can tell that [npc.name] isn't at all interested in having sex with [npc2.name], and as [npc.sheIs] not your slave, you can't force [npc.herHim] to do so..."),
+								null);
+					}
+					
+					return new ResponseSex(
+							UtilText.parse(milker, "Both ([npc.Name])"),
+							UtilText.parse(getMainCompanion(), milker, "Now that you've defeated Murk and the gang members in this area, there's nobody to stop you and [npc.name] from having sex with [npc2.name]..."),
+							true,
+							false,
+							new SMMilkingStall(
+									Util.newHashMapOfValues(
+											new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL),
+											new Value<>(getMainCompanion(), SexSlotMilkingStall.RECEIVING_ORAL)),
+									Util.newHashMapOfValues(new Value<>(milker, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
+							null,
+							null,
+							AFTER_MILKER_SEX,
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM_SEX_BOTH_AFTER_CLEARED", Util.newArrayListOfValues(isCompanionDialogue()?getMainCompanion():null, milker))) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSeenMilkers, true);
+						}
+					};
+				}
+			}
+			
+			if(index==5) {
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
+					return new Response(
+							"Free captives",
+							"Now that you've defeated the gang members in this area, there's nobody to stop you from freeing the captive humans...",
+							MILKING_ROOM_FREE_ATTEMPT);
+					
+				} else {
+					return new Response(
+							"Milkers",
+							"Ask Murk how he came to acquire these 'milkers'...",
+							MILKING_ROOM_BACKGROUND);
+				}
 				
 			} else if(index==6
 					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_COOPERATION)
@@ -1956,6 +2099,8 @@ public class RatWarrensDialogue {
 				return new Response("Fight Murk", "Tell Murk that you're here to fight him.<br/>[style.italicsBad(This will undoubtedly result in a significant amount of gang members arriving as backup!)]", ENTRANCE_FIGHT) {
 					@Override
 					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSeenMilkers, true);
+						Main.game.getPlayer().setNearestLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CORRIDOR_LEFT, false);
 						spawnGuards(true, 6);
 						Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, true);
@@ -1972,6 +2117,7 @@ public class RatWarrensDialogue {
 					@Override
 					public void effects() {
 						//TODO append
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSeenMilkers, true);
 						Main.game.getPlayer().setNearestLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CORRIDOR_LEFT, false);
 						Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
 					}
@@ -2050,10 +2196,31 @@ public class RatWarrensDialogue {
 		}
 	};
 	
+	public static final DialogueNode MILKING_ROOM_BACKGROUND = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 3*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM_BACKGROUND", getGuards(true));
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==5) {
+				return new Response(
+						"Milkers",
+						"You are already asking Murk about how he came to acquire these 'milkers'!",
+						null);
+			}
+			return MILKING_ROOM.getResponse(responseTab, index);
+		}
+	};
+	
 	public static final DialogueNode MILKING_ROOM_FREE_ATTEMPT = new DialogueNode("", "", false) {
 		@Override
 		public int getSecondsPassed() {
-			return 1*60;
+			return 3*60;
 		}
 		@Override
 		public String getContent() {

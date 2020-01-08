@@ -6,18 +6,20 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.types.FluidType;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -36,8 +38,12 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -80,16 +86,12 @@ public class RatWarrensCaptive extends NPC {
 			
 			CharacterUtils.randomiseBody(this, true);
 			
-			
 			// INVENTORY:
 			
 			resetInventory(true);
 			inventory.setMoney(0);
 	
 //			CharacterUtils.applyMakeup(this, true);
-			
-			//TODO set sex had
-			this.setSexAsSubCount("", 100+Util.random.nextInt(200));
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -105,6 +107,13 @@ public class RatWarrensCaptive extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
+			this.setVaginaCapacity(32*PenisGirth.FOUR_FAT.getOrificeStretchFactor(), true);
+			this.setAssCapacity(32*PenisGirth.FOUR_FAT.getOrificeStretchFactor(), true);
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
+		}
 	}
 
 	@Override
@@ -134,21 +143,14 @@ public class RatWarrensCaptive extends NPC {
 		
 		// From anal sex:
 		if(Main.game.isAnalContentEnabled()) {
-			if(Main.game.isGapeContentEnabled()) {
-				this.setAssCapacity(32, true);
-			} else {
-				this.setAssCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
-			}
+			this.setAssCapacity(32*PenisGirth.FOUR_FAT.getOrificeStretchFactor(), true);
 			this.setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 			this.setAssPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		}
 
 		// From vaginal sex:
-		if(Main.game.isGapeContentEnabled()) {
-			this.setVaginaCapacity(32, true);
-		} else {
-			this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
-		}
+		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
+		this.setVaginaCapacity(32*PenisGirth.FOUR_FAT.getOrificeStretchFactor(), true);
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		
@@ -169,9 +171,11 @@ public class RatWarrensCaptive extends NPC {
 					new TattooCounter(TattooCounterType.SEX_SUB, TattooCountType.TALLY, Colour.BASE_BLACK, false)));
 		}
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_STEEL, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_SPREADER_BAR, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, Colour.CLOTHING_BLACK, false), true, this);
+		AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_STEEL, Colour.CLOTHING_GUNMETAL, false);
+		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_ENSLAVEMENT, TFPotency.MINOR_BOOST, 0));
+		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_BOOST, 0));
+		collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_DRAIN, 0));
+		this.equipClothingFromNowhere(collar, true, this);
 	}
 	
 	@Override

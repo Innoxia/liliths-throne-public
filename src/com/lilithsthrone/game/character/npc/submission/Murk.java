@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.submission;
 
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +87,7 @@ public class Murk extends NPC {
 	public Murk(boolean isImported) {
 		super(isImported, new NameTriplet("Murk", "Missy", "Missy"), "Triche",
 				"",
-				27, Month.DECEMBER, 22,
+				36, Month.JANUARY, 12,
 				10, Gender.M_P_MALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
 				new CharacterInventory(2500), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE, true);
 	}
@@ -107,6 +108,9 @@ public class Murk extends NPC {
 			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_PALE), false);
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
 			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.setBirthday(LocalDateTime.of(Main.game.getStartingDate().getYear()-36, Month.JANUARY, 12, 12, 0));
 		}
 	}
 
