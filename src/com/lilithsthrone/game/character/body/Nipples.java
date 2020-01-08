@@ -216,6 +216,19 @@ public class Nipples implements BodyPartInterface {
 		String transformation = "";
 		
 		switch(nippleShape) {
+			case INVERTED:
+				if(owner.isPlayer()) {
+					transformation = "<p>"
+										+ "Your [pc.nipples] suddenly grow sore and sensitive, and before you have any time to react, they suddenly transform into normal-looking nipples, before pulling inwards and inverting!<br/>"
+										+ "Your [pc.nipplesFullDescriptionColour] [pc.nipples] have transformed into [style.boldSex(inverted nipples)]!"
+									+ "</p>";
+				} else {
+					transformation = "<p>"
+										+ "[npc.Name] shifts about uncomfortably as [npc.her] [npc.nipples] start to grow sore and sensitive, before suddenly transforming into normal-looking nipples, before pulling inwards and inverting!<br/>"
+										+ "[npc.NamePos] [npc.nipplesFullDescriptionColour] [npc.nipples] have transformed into [style.boldSex(inverted nipples)]!"
+									+ "</p>";
+				}
+				break;
 			case NORMAL:
 				if(owner.isPlayer()) {
 					transformation = "<p>"

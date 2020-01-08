@@ -196,6 +196,13 @@ input:focus {
 .center {
 	text-align:center;
 }
+.centre {
+	text-align:center;
+}
+.noPad {
+	padding:0;
+	margin:0;
+}
 
 /***********************************************************/
 /*GENERAL*/

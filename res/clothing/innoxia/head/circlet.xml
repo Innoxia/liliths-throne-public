@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>500</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[circlet]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[circlets]]></namePlural>
+		<description><![CDATA[A decorative accessory, this thin band of metal sits atop the wearer's head.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>HEAD</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>circlet.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="ALL_METAL"/>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(place)] the circlet onto [npc.her] head.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(place)] the circlet onto [npc2.namePos] head.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] the circlet onto [npc2.namePos] head.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] circlet.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] circlet.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(snatch)] off [npc2.namePos] circlet.]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>

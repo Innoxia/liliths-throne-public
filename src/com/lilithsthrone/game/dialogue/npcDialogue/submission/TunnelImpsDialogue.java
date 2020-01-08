@@ -906,7 +906,7 @@ public class TunnelImpsDialogue {
 			if(!isCompanionDialogue()) {
 				if(responseTab == 0) {
 					if (index == 1) {
-						return new Response("Continue", "Leave the imps and continue on your way...", Main.game.getDefaultDialogueNoEncounter()) {
+						return new Response("Continue", "Leave the imps and continue on your way...", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								banishImpGroup();
@@ -1004,7 +1004,7 @@ public class TunnelImpsDialogue {
 			} else {
 				if(responseTab == 0) {
 					if (index == 1) {
-						return new Response("Continue", "Leave the imps and continue on your way...", Main.game.getDefaultDialogueNoEncounter()) {
+						return new Response("Continue", "Leave the imps and continue on your way...", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								banishImpGroup();
@@ -1376,7 +1376,7 @@ public class TunnelImpsDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==0) {
 				if (index == 1) {
-					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {
 							banishImpGroup();
@@ -1416,7 +1416,7 @@ public class TunnelImpsDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
 						for(GameCharacter imp :getImpGroup()) {
@@ -1449,7 +1449,7 @@ public class TunnelImpsDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
 						for(GameCharacter imp :getImpGroup()) {
@@ -1588,7 +1588,7 @@ public class TunnelImpsDialogue {
 					};
 					
 				} else {
-					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()){
+					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)){
 						@Override
 						public void effects() {
 							GameCharacter target = SlaveDialogue.getEnslavementTarget();

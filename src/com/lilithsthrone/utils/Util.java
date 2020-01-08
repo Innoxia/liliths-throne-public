@@ -333,7 +333,7 @@ public class Util {
 	}
 	
 	public static <T> T getRandomObjectFromWeightedFloatMap(Map<T, Float> map) {
-		int total = 0;
+		float total = 0;
 		for(float f : map.values()) {
 			total+=f;
 		}
@@ -615,6 +615,8 @@ public class Util {
 		StringBuilder modifiedSentence = new StringBuilder();
 		int openingCurly = 0;
 		int closingCurly = 0;
+		int openingAngular = 0;
+		int closingAngular = 0;
 		int openingSquare = 0;
 		int closingSquare = 0;
 		float chance = 1f/frequency;
@@ -623,6 +625,10 @@ public class Util {
 				openingCurly++;
 			} else if(sentence.charAt(i)==')') {
 				closingCurly++;
+			} else if(sentence.charAt(i)=='<') {
+				openingAngular++;
+			} else if(sentence.charAt(i)=='>') {
+				closingAngular++;
 			} else if(sentence.charAt(i)=='[') {
 				openingSquare++;
 			} else if(sentence.charAt(i)==']') {
@@ -631,10 +637,8 @@ public class Util {
 			
 			if(sentence.charAt(i)==' '
 					&& Character.isLetter(sentence.charAt(i+1))
-//					&& sentence.charAt(i+1)!='#'
-//					&& sentence.charAt(i+1)!='('
-//					&& sentence.charAt(i+1)!='['
 					&& openingCurly==closingCurly
+					&& openingAngular==closingAngular
 					&& openingSquare==closingSquare) {
 				if(Math.random()<chance) {
 					modifiedSentence.append("-");
@@ -784,6 +788,28 @@ public class Util {
 		return utilitiesStringBuilder.toString();
 	}
 
+	private static String[] muteSexSounds = new String[] { "... ~Ooh!~", "... ~Mmm!~", "... ~Aah!~" };
+	/**
+	 * @param sentence The sentence to mute.
+	 * @param sexMoans If the character should moan/pant due to being in sex.
+	 * @return A series of "..." if no sexMoans, or "... ~Ooh!~", "... ~Mmm!~", "... ~Aah!~" if sexMoans
+	 */
+	public static String replaceWithMute(String sentence, boolean sexMoans) {
+		int length = Math.max(1, sentence.split(" ").length/3);
+		
+		StringBuilder muteSB = new StringBuilder();
+		for(int i=0; i<length; i++) {
+			if(sexMoans) {
+				muteSB.append(muteSexSounds[random.nextInt(muteSexSounds.length)]+" ");
+				
+			} else {
+				muteSB.append("... ");
+			}
+		}
+		muteSB.deleteCharAt(muteSB.length()-1);
+		return muteSB.toString();
+	}
+		
 	private static String[] muffledSounds = new String[] { " ~Mrph~", " ~Mmm~", " ~Mrmm~" };
 	/**
 	 * Turns a normal sentence into a muffled sentence.<br/>
@@ -871,6 +897,145 @@ public class Util {
 //			.replaceAll("So", "Sho")
 //			.replaceAll("so", "sho");
 	}
+
+	private static Map<String, String> slovenlySpeechReplacementMap = new HashMap<>();
+	static {
+		slovenlySpeechReplacementMap.put("Are", "Is");
+		slovenlySpeechReplacementMap.put("are", "is");
+		
+		slovenlySpeechReplacementMap.put("ou're", "er");
+		
+		slovenlySpeechReplacementMap.put("Your", "Yer");
+		slovenlySpeechReplacementMap.put("your", "yer");
+		
+		slovenlySpeechReplacementMap.put("You", "Ya");
+		slovenlySpeechReplacementMap.put("you", "ya");
+		
+		slovenlySpeechReplacementMap.put("Yourself", "Yerself");
+		slovenlySpeechReplacementMap.put("yourself", "yerself");
+
+		slovenlySpeechReplacementMap.put("You'd", "You's");
+		slovenlySpeechReplacementMap.put("you'd", "you's");
+		
+		slovenlySpeechReplacementMap.put("To", "Ta");
+		slovenlySpeechReplacementMap.put("to", "ta");
+
+		slovenlySpeechReplacementMap.put("The", "Da");
+		slovenlySpeechReplacementMap.put("the", "da");
+
+		slovenlySpeechReplacementMap.put("Them", "Dem");
+		slovenlySpeechReplacementMap.put("them!", "dem");
+
+		slovenlySpeechReplacementMap.put("And", "'An");
+		slovenlySpeechReplacementMap.put("and", "an'");
+		
+		slovenlySpeechReplacementMap.put("Of", "O'");
+		slovenlySpeechReplacementMap.put("of", "o'");
+		slovenlySpeechReplacementMap.put("Who", "O'");
+		slovenlySpeechReplacementMap.put("who", "o'");
+		
+		slovenlySpeechReplacementMap.put("Was", "Were");
+		slovenlySpeechReplacementMap.put("was", "were");
+		
+		slovenlySpeechReplacementMap.put("What", "Wot");
+		slovenlySpeechReplacementMap.put("what", "wot");
+		
+		slovenlySpeechReplacementMap.put("Isn't", "Ain't");
+		slovenlySpeechReplacementMap.put("isn't", "ain't");
+		slovenlySpeechReplacementMap.put("Aren't", "Ain't");
+		slovenlySpeechReplacementMap.put("aren't", "ain't");
+		
+		slovenlySpeechReplacementMap.put("One", "'Un");
+		slovenlySpeechReplacementMap.put("one", "'un");
+		
+		slovenlySpeechReplacementMap.put("Before", "'Afore");
+		slovenlySpeechReplacementMap.put("before", "'afore");
+		
+		slovenlySpeechReplacementMap.put("Give me", "Gimme");
+		slovenlySpeechReplacementMap.put("give me", "gimme");
+		
+		slovenlySpeechReplacementMap.put("Going to", "Gonna");
+		slovenlySpeechReplacementMap.put("going to", "gonna");
+		
+		slovenlySpeechReplacementMap.put("ing", "in'");
+		
+		slovenlySpeechReplacementMap.put("We're", "We's");
+		slovenlySpeechReplacementMap.put("we're", "we's");
+		
+		slovenlySpeechReplacementMap.put("So that", "So's");
+		slovenlySpeechReplacementMap.put("so that", "so's");
+
+		slovenlySpeechReplacementMap.put("Have not", "'Aven't");
+		slovenlySpeechReplacementMap.put("have not", "'aven't");
+		slovenlySpeechReplacementMap.put("Have", "'Ave");
+		slovenlySpeechReplacementMap.put("have", "'ave");
+
+		slovenlySpeechReplacementMap.put("Here", "'Ere");
+		slovenlySpeechReplacementMap.put("here", "'ere");
+		
+		slovenlySpeechReplacementMap.put("My", "Me");
+		slovenlySpeechReplacementMap.put("my", "me");
+
+		slovenlySpeechReplacementMap.put("That", "Dat");
+		slovenlySpeechReplacementMap.put("that", "dat");
+
+		slovenlySpeechReplacementMap.put("Some", "Sum");
+		slovenlySpeechReplacementMap.put("some", "sum");
+
+		slovenlySpeechReplacementMap.put("This", "Dis");
+		slovenlySpeechReplacementMap.put("this", "dis");
+		
+		slovenlySpeechReplacementMap.put("For", "Fer");
+		slovenlySpeechReplacementMap.put("for", "fer");
+		
+		slovenlySpeechReplacementMap.put("Very", "Real");
+		slovenlySpeechReplacementMap.put("very", "real");
+	}
+	/**
+	 * Replaces words in the sentence to give the impression that the speaker is talking in a slovenly manner. The replacements are:
+			<br/>Are -> Is
+			<br/>You're -> Yer
+			<br/>Your -> Yer
+			<br/>You -> Ya
+			<br/>Yourself - Yerself
+			<br/>You'd -> You's
+			<br/>To -> Ta
+			<br/>The -> Da
+			<br/>Them -> Dem
+			<br/>And -> An'
+			<br/>Of -> 'O
+			<br/>Who -> 'O
+			<br/>Who -> 'O
+			<br/>Was -> Were
+			<br/>Isn't -> ain't
+			<br/>Aren't -> ain't
+			<br/>One -> 'Un
+			<br/>Before -> 'afore
+			<br/>Give me -> Gimme
+			<br/>Going to -> gonna
+			<br/><i>X</i>ing -> <i>X</i>in'
+			<br/>We're -> We's
+			<br/>So that -> so's
+			<br/>Have not -> 'aven't
+			<br/>Have -> 'ave
+			<br/>My -> Me
+			<br/>That -> Dat
+			<br/>Some -> Sum
+			<br/>For -> Fer
+			<br/>Here -> 'ere
+			<br/>Very -> Real
+	 *
+	 * @param sentence The speech to which the lisp should be applied.
+	 * @return The modified sentence.
+	 */
+	public static String applySlovenlySpeech(String sentence) {
+		//Use non-letter regex replacement ([^A-Za-z0-9]) 
+		String modifiedSentence = sentence;
+		for(Entry<String, String> entry : slovenlySpeechReplacementMap.entrySet()) {
+			modifiedSentence = modifiedSentence.replaceAll("([^A-Za-z0-9])"+entry.getKey()+"([^A-Za-z0-9])", "$1"+entry.getValue()+"$2");
+		}
+		return modifiedSentence;
+	}
 	
 	/**
 	 * Applies a lisp to speech (a speech defect in which s is pronounced like th in thick and z is pronounced like th in this). Modified sibilants are italicised in order to assist with reading.<br/>
@@ -882,21 +1047,44 @@ public class Util {
 	 * @return The modified sentence.
 	 */
 	public static String applyLisp(String sentence) {
-		String [] split = sentence.split("\\[(.*?)\\]");
-		for(String s : split) {
-			String [] splitConditional = s.split("#IF\\((.*?)\\)|#ELSEIF\\((.*?)\\)"); // Do not replace text inside conditional parsing statements
-			for(String s2 : splitConditional) {
-				String sReplace = s2
-						.replaceAll("s", "<i>th</i>")
-						.replaceAll("z", "<i>th</i>")
-						.replaceAll("S", "<i>Th</i>")
-						.replaceAll("Z", "<i>Th</i>");
-					
-					sentence = sentence.replace(s2, sReplace);
+		StringBuilder modifiedSentence = new StringBuilder();
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingAngular = 0;
+		int closingAngular = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		for(int i = sentence.length()-1; i>=0; i--) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='<') {
+				openingAngular++;
+			} else if(sentence.charAt(i)=='>') {
+				closingAngular++;
+			}else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
+			
+			if(openingCurly==closingCurly && openingAngular==closingAngular && openingSquare==closingSquare) {
+				if(sentence.charAt(i)=='s' || sentence.charAt(i)=='z') {
+					modifiedSentence.append(">i/<ht>i<");
+				} else if(sentence.charAt(i)=='S' || sentence.charAt(i)=='Z') {
+					modifiedSentence.append(">i/<hT>i<");
+				} else {
+					modifiedSentence.append(sentence.charAt(i));
+				}
+				
+			} else {
+				modifiedSentence.append(sentence.charAt(i));
 			}
 		}
 		
-		return sentence;
+		modifiedSentence.reverse();
+		return modifiedSentence.toString();
 	}
 	
 	

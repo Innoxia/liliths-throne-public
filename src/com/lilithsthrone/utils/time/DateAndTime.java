@@ -194,7 +194,7 @@ public class DateAndTime {
 		int E = (int) ((B-D)/30.6001);
 		int F = (int) (30.6001*E);
 		
-		int day = (int) (B-D-F+(Q-Z)) + 1;
+		int day = (int) (B-D-F+(Q-Z));
 		int month = (E-1)<=12?(E-1):E-13;
 		int year = month==1||month==2?C-4715:C-4716;
 		
@@ -204,7 +204,7 @@ public class DateAndTime {
 		final int seconds = Math.min(59, (int) ((dayFraction * 24 * 3600 - (hours * 3600 + minutes * 60)) + .5));
 		
 		try {
-			return LocalDateTime.of(year, month, day, hours, minutes, seconds);
+			return LocalDateTime.of(year, month, day, hours, minutes, seconds).plusDays(1);
 		} catch(Exception ex) {
 			if(DEBUG) {
 				System.err.println("Error in julianDayToDate(): "+julianDate+": "+hours+":"+minutes+":"+seconds+" | "+day+", "+month+", "+year);
@@ -232,9 +232,15 @@ public class DateAndTime {
 
 		double sunrise = sunrise(solarTransit, hourAngle);
 		LocalDateTime sunriseLDT = Double.isNaN(sunrise)?null:julianDayToDate(sunrise);
-
+		if(sunriseLDT!=null) { //FIXME Temporary fix because when ticking over from 31/12/2022 to 01/01/2023, the day incremented one past date's day.
+			sunriseLDT = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), sunriseLDT.getHour(), sunriseLDT.getMinute(), sunriseLDT.getSecond(), sunriseLDT.getNano());
+		}
+		
 		double sunset = sunset(solarTransit, hourAngle);
 		LocalDateTime sunsetLDT = Double.isNaN(sunset)?null:julianDayToDate(sunset);
+		if(sunsetLDT!=null) { //FIXME Temporary fix because when ticking over from 31/12/2022 to 01/01/2023, the day incremented one past date's day.
+			sunsetLDT = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), sunsetLDT.getHour(), sunsetLDT.getMinute(), sunsetLDT.getSecond(), sunsetLDT.getNano());
+		}
 		
 		if(DEBUG) {
 			System.out.println("julianDay: "+julianDay);
@@ -264,6 +270,13 @@ public class DateAndTime {
 	public static DayPeriod getDayPeriod(LocalDateTime date, double latitude, double longitudeWest) {
 		
 		LocalDateTime[] times = getTimeOfSolarElevationChange(date, SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, latitude, longitudeWest);
+//		try {
+//			System.out.println(date);
+//			System.out.println(times[0]);
+//			System.out.println(times[1]);
+//		} catch(Exception ex) {
+//			System.err.println("---");
+//		}
 		if(times[0]==null || (date.isAfter(times[0]) && date.isBefore(times[1]))) {
 			return DayPeriod.DAY;
 		}

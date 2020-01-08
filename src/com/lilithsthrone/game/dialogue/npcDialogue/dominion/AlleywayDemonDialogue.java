@@ -56,11 +56,6 @@ public class AlleywayDemonDialogue {
 				|| pt.equals(PlaceType.DOMINION_CANAL_END);
 	}
 	
-	private static boolean isStorm() {
-		AbstractPlaceType pt = getDemon().getLocationPlace().getPlaceType();
-		return !pt.equals(PlaceType.DOMINION_BACK_ALLEYS) && !isCanal();
-	}
-	
 	private static boolean isWantsToFight() {
 		return getDemon().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue();
 	}
@@ -274,7 +269,7 @@ public class AlleywayDemonDialogue {
 					if(Main.game.getPlayer().getMoney()<250) {
 						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
 					} else {
-						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogueNoEncounter()) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -304,7 +299,7 @@ public class AlleywayDemonDialogue {
 									}
 								},
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION", getAllCharacters())) {
+								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), isCompanionDialogue()?"DEMON_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION":"DEMON_ATTACK_OFFER_BODY", getAllCharacters())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -578,7 +573,7 @@ public class AlleywayDemonDialogue {
 					};
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you're in a rush to be somewhere else, before continuing on your way.", Main.game.getDefaultDialogueNoEncounter());
+					return new Response("Leave", "Tell [npc.name] that you're in a rush to be somewhere else, before continuing on your way.", Main.game.getDefaultDialogue(false));
 					
 				} else {
 					return null;
@@ -611,7 +606,7 @@ public class AlleywayDemonDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Let [npc.name] go.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Let [npc.name] go.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -643,7 +638,7 @@ public class AlleywayDemonDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Let [npc.name] go and buy food.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Let [npc.name] go and buy food.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -688,7 +683,7 @@ public class AlleywayDemonDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Let [npc.name] get settled in.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Let [npc.name] get settled in.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -728,7 +723,7 @@ public class AlleywayDemonDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -746,7 +741,7 @@ public class AlleywayDemonDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -768,7 +763,7 @@ public class AlleywayDemonDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -801,10 +796,10 @@ public class AlleywayDemonDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogueNoEncounter()){
+				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
-						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
+						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 							Main.game.banishNPC(getDemon());
 						}
 					}
@@ -931,7 +926,7 @@ public class AlleywayDemonDialogue {
 					}
 				};
 				
-			} else if (index == 7 && !isStorm()) {
+			} else if (index == 7) {
 				if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
 					
@@ -962,11 +957,11 @@ public class AlleywayDemonDialogue {
 								+ "(You'll return to these options once finished transforming [npc.herHim].)",
 						QuickTransformations.initQuickTransformations("encounters/dominion/"+getDialogueId(), getDemon(), AFTER_COMBAT_VICTORY));
 			
-			} else if (index == 10 && !isStorm() && !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+			} else if (index == 10 && !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
-						Main.game.getDefaultDialogueNoEncounter()){
+						Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_BANISH_NPC", getAllCharacters()));
@@ -1067,7 +1062,7 @@ public class AlleywayDemonDialogue {
 			if (index == 1) {
 				return new Response("Continue",
 						"Let [npc.name] go.",
-						Main.game.getDefaultDialogueNoEncounter());
+						Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -1084,10 +1079,10 @@ public class AlleywayDemonDialogue {
 		StringBuilder sb = new StringBuilder();
 		
 		if(potion!=null && forcedTF) {
-			sb.append(UtilText.parse(getDemon(),
+			sb.append(UtilText.parse(getDemon(), target,
 					"<p>"
-						+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid."
-						+ " [npc.speech(Good [pc.girl]! I'm going to turn you into my perfect "+getDemon().getPreferredBodyDescription("b")+"!)]"
+						+ "[npc.Name] steps back, grinning down at [npc2.name] as [npc2.she] obediently [npc2.verb(swallow)] the strange liquid."
+						+ " [npc.speech(Good [npc2.girl]! I'm going to turn you into my perfect "+getDemon().getPreferredBodyDescription("b")+"!)]"
 					+ "</p>"));
 			for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
 				sb.append(UtilText.parse(getDemon(),
@@ -1198,7 +1193,7 @@ public class AlleywayDemonDialogue {
 						if(potion!=null && forcedTF) {
 							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_TF_AND_FETISH", getAllCharacters()));
 						} else {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_TF_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_FETISH", getAllCharacters()));
 						}
 					} else {
 						sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_TF", getAllCharacters()));
@@ -1229,7 +1224,7 @@ public class AlleywayDemonDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				if (index == 1) {
-					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {
 							Main.game.banishNPC(getDemon());
@@ -1649,7 +1644,7 @@ public class AlleywayDemonDialogue {
 						} else if (index == 4 && !getDemon().isWillingToRape()) {
 							return new Response("Refuse",
 									UtilText.parse(getDemon(), "Refuse to have sex with [npc.name] and continue on your way."),
-									Main.game.getDefaultDialogueNoEncounter()) {
+									Main.game.getDefaultDialogue(false)) {
 								@Override
 								public void effects() {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_REFUSE_THREESOME", getAllCharacters()));
@@ -1706,7 +1701,7 @@ public class AlleywayDemonDialogue {
 						} else if (index == 4 && !getDemon().isWillingToRape()) {
 							return new Response("Refuse",
 									UtilText.parse(getDemon(), "Refuse to have sex with [npc.name] and continue on your way."),
-									Main.game.getDefaultDialogueNoEncounter()) {
+									Main.game.getDefaultDialogue(false)) {
 								@Override
 								public void effects() {
 									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_REFUSE_SEX_SOLO", getAllCharacters()));
@@ -1752,7 +1747,7 @@ public class AlleywayDemonDialogue {
 						return new Response(
 								UtilText.parse(getMainCompanion(), "[npc.Name] refuses"),
 								UtilText.parse(getDemon(), getMainCompanion(), "It looks like [npc2.name] is going to refuse to have sex with [npc.name]."),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_REFUSE_SEX_SOLO_COMPANION", getAllCharacters()));
@@ -1810,7 +1805,7 @@ public class AlleywayDemonDialogue {
 					} else if (index == 4 && !getDemon().isWillingToRape()) {
 						return new Response("Refuse",
 								UtilText.parse(getDemon(), "Refuse to have sex with [npc.name] and continue on your way."),
-								Main.game.getDefaultDialogueNoEncounter()) {
+								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_REFUSE_SEX", getAllCharacters()));
@@ -1821,7 +1816,7 @@ public class AlleywayDemonDialogue {
 				}
 			}
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_NO_SEX", getAllCharacters()));
@@ -1863,10 +1858,10 @@ public class AlleywayDemonDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()){
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
-						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
+						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 							Main.game.banishNPC(getDemon());
 						}
 					}
@@ -1880,14 +1875,14 @@ public class AlleywayDemonDialogue {
 					}
 				};
 				
-			} else if (index == 10 && !isStorm() && !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+			} else if (index == 10 && !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -1924,13 +1919,13 @@ public class AlleywayDemonDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY) {
 					@Override
 					public void effects() {
-						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) || isStorm()) {
+						if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 							Main.game.banishNPC(getDemon());
 						}
 					}
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				

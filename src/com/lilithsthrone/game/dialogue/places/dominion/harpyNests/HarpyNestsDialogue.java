@@ -245,7 +245,7 @@ public class HarpyNestsDialogue {
 		@Override
 		public String getContent() {
 
-			if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_ALEXA) {
+			if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_HELENA) {
 				return "<p>"
 						+"As you approach the desk, one of the Enforcers, a minor wolf-girl, catches your eye and calls out to you, "
 						+ "[style.speechFeminine(Hey you, yeah <i>you</i>, come here!)]"
@@ -253,7 +253,7 @@ public class HarpyNestsDialogue {
 					+ "<p>"
 						+ "You do as she asks and walk over towards her."
 						+ " Stopping just short of the desk, you look down and explain why you're here, "
-						+ "[pc.speech(Hi, I'm here to find a harpy matriarch called Alexa, you wouldn't happen to know where she is, would you?)]"
+						+ "[pc.speech(Hi, I'm here to find a harpy matriarch called Helena, you wouldn't happen to know where she is, would you?)]"
 					+ "</p>"
 					+"<p>"
 						+"A look of surprise crosses the wolf-girl's face as you mention that name. "
@@ -265,8 +265,8 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 					+"<p>"
 						+ "[style.speechFeminine(Wait, hold on a moment. I don't know if you know what happened here recently, but I'd better inform you of the facts before you go out there."
-						+ " Basically, some idiot dog-girl decided to say to Alexa that she wasn't as pretty as another matriarch she'd seen."
-						+ " Well, after Alexa got her flock to fuck that dog-girl into a broken mess, she decided to go and see how pretty this other matriarch was."
+						+ " Basically, some idiot dog-girl decided to say to Helena that she wasn't as pretty as another matriarch she'd seen."
+						+ " Well, after Helena got her flock to fuck that dog-girl into a broken mess, she decided to go and see how pretty this other matriarch was."
 						+ " One thing led to another, and within about twenty minutes we almost had a full-blown riot on our hands.)]"
 					+ "</p>"
 					+ "<p>"
@@ -400,7 +400,7 @@ public class HarpyNestsDialogue {
 					+ "<p>"
 						+ "[style.speechMasculineStrong(So, as everyone's aware, the Harpy Nests are exceptionally dangerous right now."
 						+ " The more prominent of the matriarchs have been at each other's throats ever since that business with the dog-girl."
-						+ " We've come to an agreement with Alexa, who, if you didn't know, is the most important of the matriarchs."
+						+ " We've come to an agreement with Helena, who, if you didn't know, is the most important of the matriarchs."
 						+ " Those other three, however,)] he points to the papers in your hand, [style.speechMasculineStrong(are refusing to cooperate.)]"
 					+ "</p>"
 					+ "<p>"
@@ -415,7 +415,7 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[style.speechMasculineStrong(If we tried sending Enforcers in to do that, it'd be an insult to all the harpy flocks."
-						+ " Alexa would probably even get involved, which is the last thing we need."
+						+ " Helena would probably even get involved, which is the last thing we need."
 						+ " I hate asking for help like this, but if by some miracle you're able to subdue those three,)]"
 						+ " he points to the papers in your hand again,"
 						+ " [style.speechMasculineStrong(I could offer a five thousand flame reward.)]"

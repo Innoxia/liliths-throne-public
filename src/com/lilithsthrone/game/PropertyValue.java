@@ -12,6 +12,7 @@ public enum PropertyValue {
 	concealedSlotsReveal(false),
 	
 	enchantmentLimits(true),
+	levelDrain(true),
 	
 	artwork(true),
 	thumbnail(true),
@@ -51,6 +52,8 @@ public enum PropertyValue {
 	nipplePenContent(true),
 	analContent(true),
 	footContent(true),
+	gapeContent(true),
+	
 	futanariTesticles(true),
 	bipedalCloaca(true),
 	voluntaryNTR(false),

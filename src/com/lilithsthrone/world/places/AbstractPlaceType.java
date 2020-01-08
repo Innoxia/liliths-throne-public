@@ -192,7 +192,7 @@ public class AbstractPlaceType {
 	}
 	
 	public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
-		if (getEncounterType() != null && withRandomEncounter) {
+		if(getEncounterType()!=null && withRandomEncounter) {
 			DialogueNode dn = getEncounterType().getRandomEncounter(forceEncounter);
 			if (dn != null) {
 				return dn;

@@ -21,11 +21,14 @@ public enum MapTravelType {
 			Colour.GENERIC_MINOR_GOOD) {
 				@Override
 				public boolean isAvailable(Cell c, GameCharacter character) {
-					return true;
+					return !character.isCaptive();
 				}
 
 				@Override
 				public String getUnavailablilityDescription(Cell c, GameCharacter character) {
+					if(character.isCaptive()) {
+						return "You cannot use fast travel while you are a captive!";
+					}
 					return "";
 				}
 			},
@@ -36,11 +39,14 @@ public enum MapTravelType {
 			Colour.GENERIC_MINOR_BAD) {
 				@Override
 				public boolean isAvailable(Cell c, GameCharacter character) {
-					return true;
+					return !character.isCaptive();
 				}
 
 				@Override
 				public String getUnavailablilityDescription(Cell c, GameCharacter character) {
+					if(character.isCaptive()) {
+						return "You cannot use fast travel while you are a captive!";
+					}
 					return "";
 				}
 			},
@@ -51,11 +57,14 @@ public enum MapTravelType {
 			Colour.SPELL_SCHOOL_AIR) {
 				@Override
 				public boolean isAvailable(Cell c, GameCharacter character) {
-					return character.isPartyAbleToFly();
+					return !character.isCaptive() && character.isPartyAbleToFly();
 				}
 
 				@Override
 				public String getUnavailablilityDescription(Cell c, GameCharacter character) {
+					if(character.isCaptive()) {
+						return "You cannot use fast travel while you are a captive!";
+					}
 					if(!character.isAbleToFly()) {
 						return "You are not able to fly!";
 					}
@@ -69,6 +78,9 @@ public enum MapTravelType {
 			Colour.SPELL_SCHOOL_ARCANE) {
 				@Override
 				public boolean isAvailable(Cell c, GameCharacter character) {
+					if(character.isCaptive()) {
+						return false;
+					}
 					if(Main.game.isDebugMode()) {
 						return true;
 					}
@@ -82,6 +94,9 @@ public enum MapTravelType {
 
 				@Override
 				public String getUnavailablilityDescription(Cell c, GameCharacter character) {
+					if(character.isCaptive()) {
+						return "You cannot use fast travel while you are a captive!";
+					}
 					if(!character.getWorldLocation().getTeleportPermissions().isOutgoing()) {
 						return "You cannot teleport out of the area '"+character.getWorldLocation().getName()+"'!";
 					}

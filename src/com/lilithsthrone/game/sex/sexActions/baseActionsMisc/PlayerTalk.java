@@ -30,7 +30,7 @@ import com.lilithsthrone.utils.Util;
 public class PlayerTalk {
 	
 	public static final SexAction DIRTY_TALK = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
@@ -418,7 +418,7 @@ public class PlayerTalk {
 	}
 	
 	public static final SexAction PLAYER_OFFER_VAGINAL = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
@@ -484,7 +484,7 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_VAGINAL = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
@@ -552,7 +552,7 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_OFFER_ANAL = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
@@ -632,7 +632,7 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_ANAL = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
@@ -708,7 +708,7 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_OFFER_ORAL = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPEECH,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
@@ -774,7 +774,7 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_ORAL = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
@@ -852,7 +852,7 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_OFFER_NIPPLE = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
@@ -928,7 +928,7 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_OFFER_PAIZURI = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
@@ -1006,7 +1006,7 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_OFFER_NAIZURI = new SexAction(
-			SexActionType.ONGOING,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,

@@ -13,13 +13,14 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7?
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class SMRoseHands extends SexManagerDefault {
 
 	public SMRoseHands(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionUnique.HANDS_ROSE,
+		super(false,
+				SexPositionUnique.HANDS_ROSE,
 				dominants,
 				submissives);
 	}

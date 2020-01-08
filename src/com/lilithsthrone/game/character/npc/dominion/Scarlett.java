@@ -57,7 +57,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.2.11
+ * @version 0.3.5.8
  * @author Innoxia
  */
 public class Scarlett extends NPC {
@@ -201,7 +201,7 @@ public class Scarlett extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TIGHT_TROUSERS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_tight_jeans", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, Colour.CLOTHING_RED_DARK, false), true, this);
 		
@@ -249,13 +249,12 @@ public class Scarlett extends NPC {
 	
 	@Override
 	public void turnUpdate() {
-		if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY) && !this.isSlave()) {
-			if(!Main.game.getCharactersPresent().contains(this)) {
-				if(Main.game.isExtendedWorkTime()) {
-					this.returnToHome();
-				} else {
-					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
-				}
+		if(!this.isSlave() && !Main.game.getCharactersPresent().contains(this)) {
+			if(Main.game.isExtendedWorkTime() || Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
+				this.returnToHome();
+				
+			} else {
+				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 			}
 		}
 	}

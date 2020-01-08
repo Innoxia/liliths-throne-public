@@ -25,7 +25,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemograp
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallProperty;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.BraxOffice;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.EnforcerHQDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestAlexa;
+import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestHelena;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
@@ -54,7 +54,6 @@ import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGr
 import com.lilithsthrone.game.dialogue.places.global.GlobalFoloiFields;
 import com.lilithsthrone.game.dialogue.places.submission.BatCaverns;
 import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
-import com.lilithsthrone.game.dialogue.places.submission.RatWarrensDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
 import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
 import com.lilithsthrone.game.dialogue.places.submission.gamblingDen.GamblingDenDialogue;
@@ -62,6 +61,9 @@ import com.lilithsthrone.game.dialogue.places.submission.gamblingDen.PregnancyRo
 import com.lilithsthrone.game.dialogue.places.submission.gamblingDen.RoxysShop;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensCaptiveDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -1178,14 +1180,14 @@ public class PlaceType {
 		}
 	}.initWeatherImmune();
 	
-	public static final AbstractPlaceType HARPY_NESTS_ALEXAS_NEST = new AbstractPlaceType(
-			"Alexa's nest",
-			"The stunningly beautiful harpy matriarch, Alexa, rules over the largest of all the harpy nests.",
-			"dominion/harpyNests/nestAlexa",
+	public static final AbstractPlaceType HARPY_NESTS_HELENAS_NEST = new AbstractPlaceType(
+			"Helena's nest",
+			"The stunningly beautiful harpy matriarch, Helena, rules over the largest of all the harpy nests.",
+			"dominion/harpyNests/nestHelena",
 			BaseColour.GOLD,
-			HarpyNestAlexa.ALEXAS_NEST_EXTERIOR,
+			HarpyNestHelena.HELENAS_NEST_EXTERIOR,
 			null,
-			"in Alexa's nest"){
+			"in Helena's nest"){
 		@Override
 		public Population getPopulation() {
 			return HARPY_NESTS_WALKWAYS.getPopulation();
@@ -2337,7 +2339,21 @@ public class PlaceType {
 			return new Population(PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies().get(WorldType.DOMINION));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
-
+	
+	public static final AbstractPlaceType SLAVER_ALLEY_BOUNTY_HUNTERS = new AbstractPlaceType(
+			"Bounty Hunter Lodge",
+			"A tavern in which bounty hunters can be contracted to track down runaway slaves.",
+			"dominion/slaverAlley/bountyHunters",
+			BaseColour.RED_DARK,
+			SlaverAlleyDialogue.BOUNTY_HUNTERS,
+			null,
+			"in Slaver's Alley"){
+		@Override
+		public Population getPopulation() {
+			return new Population(PopulationType.PEOPLE, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies().get(WorldType.DOMINION));
+		}
+	}.initWeatherImmune(Weather.MAGIC_STORM);
+	
 	public static final AbstractPlaceType SLAVER_ALLEY_SLAVERY_ADMINISTRATION = new AbstractPlaceType(
 			"Slavery Administration",
 			"The main administrative hub for all matters related to the ownership of slaves.",
@@ -2365,8 +2381,8 @@ public class PlaceType {
 			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) { // Scarlett owns the shop:
 				return ScarlettsShop.SCARLETTS_SHOP_EXTERIOR;
 				
-			} else { // Alexa owns the shop:
-				return ScarlettsShop.ALEXAS_SHOP_EXTERIOR;
+			} else { // Helena owns the shop:
+				return ScarlettsShop.HELENAS_SHOP_EXTERIOR;
 			}
 		}
 		@Override
@@ -2374,7 +2390,7 @@ public class PlaceType {
 			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
 				return tooltipDescription;
 			} else {
-				return "Alexa has taken over the shop which Scarlett one had the responsibility of running, and has renamed it to 'Alexa's pet shop'.";
+				return "Helena has taken over the shop which Scarlett one had the responsibility of running, and has renamed it to 'Helena's pet shop'.";
 			}
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
@@ -3502,6 +3518,13 @@ public class PlaceType {
 			null,
 			"in the Rat Warrens") {
 		@Override
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+				return VengarCaptiveDialogue.CORRIDOR;
+			}
+			return super.getDialogue(withRandomEncounter, forceEncounter);
+		}
+		@Override
 		public boolean isDangerous() {
 			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensHostile) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight);
 		}
@@ -3548,7 +3571,7 @@ public class PlaceType {
 		public Population getPopulation() {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
 				if(Main.game.isExtendedWorkTime()) {
-					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
+					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
 				} else {
 					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
 				}
@@ -3573,7 +3596,7 @@ public class PlaceType {
 		public Population getPopulation() {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
 				if(Main.game.isExtendedWorkTime()) {
-					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
+					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
 				} else {
 					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
 				}
@@ -3588,7 +3611,7 @@ public class PlaceType {
 
 	public static final AbstractPlaceType RAT_WARRENS_DICE_DEN = new AbstractPlaceType(
 			"Dice Den",
-			"Bunkbeds line the walls of this damp and dingy room, while a few tables and chairs are scattered around the middle.",
+			"A place where gang members go to drink and gamble.",
 			"submission/ratWarrens/diceDen",
 			BaseColour.COPPER,
 			RatWarrensDialogue.DICE_DEN,
@@ -3614,22 +3637,34 @@ public class PlaceType {
 	public static final AbstractPlaceType RAT_WARRENS_MILKING_ROOM = new AbstractPlaceType(
 			"Milking Room",
 			"This is the final destination for humans unfortunate enough to have been kidnapped by Vengar's gang.",
-			"submission/ratWarrens/milkingRoom",
-			BaseColour.YELLOW_LIGHT,
+			"submission/ratWarrens/stocks",
+			BaseColour.MAGENTA,
 			RatWarrensDialogue.MILKING_ROOM,
 			null,
 			"in the Rat Warrens") {
 		@Override
-		public Population getPopulation() {
-			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
-				if(Main.game.isExtendedWorkTime()) {
-					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
-				} else {
-					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
-				}
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+				dialogue = RatWarrensCaptiveDialogue.STOCKS_NIGHT;
+			} else {
+				dialogue = RatWarrensDialogue.MILKING_ROOM;
 			}
-			return null;
+			return super.getDialogue(withRandomEncounter, forceEncounter);
 		}
+		@Override
+		public boolean isDangerous() {
+			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensHostile) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft);
+		}
+	}.initWeatherImmune();
+
+	public static final AbstractPlaceType RAT_WARRENS_MILKING_STORAGE = new AbstractPlaceType(
+			"Milk Storage",
+			"A huge number of metal milk pails are being stored in this area; each one is marked with a bodily fluid type of one sort or another, along with what flavour it is.",
+			"submission/ratWarrens/milkingRoom",
+			BaseColour.YELLOW_LIGHT,
+			RatWarrensDialogue.MILKING_STORAGE,
+			null,
+			"in the Rat Warrens") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensHostile) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft);
@@ -3644,6 +3679,22 @@ public class PlaceType {
 			RatWarrensDialogue.VENGARS_HALL,
 			null,
 			"in the Rat Warrens") {
+		@Override
+		public Encounter getEncounterType() {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+				return Encounter.VENGAR_CAPTIVE_HALL;
+			}
+			return null;
+		}
+		@Override
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+				dialogue = VengarCaptiveDialogue.VENGARS_HALL;
+			} else {
+				dialogue = RatWarrensDialogue.VENGARS_HALL;
+			}
+			return super.getDialogue(withRandomEncounter, forceEncounter);
+		}
 		@Override
 		public Population getPopulation() {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
@@ -3661,14 +3712,34 @@ public class PlaceType {
 		}
 	}.initWeatherImmune();
 
-	public static final AbstractPlaceType RAT_WARRENS_VENGARS_BEDROOM = new AbstractPlaceType(
-			"Vengar's Bedroom",
-			"vengar's private bedroom is located adjacent to the main hall.",
+	public static final AbstractPlaceType RAT_WARRENS_PRIVATE_BEDCHAMBERS = new AbstractPlaceType(
+			"Private Bed-chambers",
+			"The private bed-chambers used by Vengar and his bodyguards are located adjacent to the main hall.",
 			"submission/ratWarrens/bedroom",
 			BaseColour.PURPLE_LIGHT,
 			RatWarrensDialogue.VENGARS_BEDROOM,
 			null,
 			"in the Rat Warrens") {
+		@Override
+		public Encounter getEncounterType() {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+				return Encounter.VENGAR_CAPTIVE_BEDROOM;
+			}
+			return null;
+		}
+		@Override
+		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+				dialogue = VengarCaptiveDialogue.VENGARS_BEDROOM;
+			} else {
+				dialogue = RatWarrensDialogue.VENGARS_BEDROOM;
+			}
+			return super.getDialogue(withRandomEncounter, forceEncounter);
+		}
+		@Override
+		public boolean isDangerous() {
+			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensHostile);
+		}
 	}.initWeatherImmune();
 	
 	
@@ -3962,6 +4033,7 @@ public class PlaceType {
 	private static Map<String, AbstractPlaceType> idToPlaceMap = new HashMap<>();
 	
 	public static AbstractPlaceType getPlaceTypeFromId(String id) {
+		id.replaceAll("ALEXA", "HELENA");
 		id = Util.getClosestStringMatch(id, idToPlaceMap.keySet());
 		return idToPlaceMap.get(id);
 	}

@@ -97,6 +97,7 @@ public class GenericSexualPartner extends NPC {
 						&& s.getRace()!=Race.ANGEL
 						&& s.getRace()!=Race.ELEMENTAL
 						&& s!=Subspecies.FOX_ASCENDANT
+						&& s!=Subspecies.FOX_ASCENDANT_ARCTIC
 						&& s!=Subspecies.FOX_ASCENDANT_FENNEC
 						&& s!=Subspecies.SLIME) {
 					if(Subspecies.getMainSubspeciesOfRace(s.getRace())==s) {
@@ -107,7 +108,7 @@ public class GenericSexualPartner extends NPC {
 				}
 			}
 			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces, true);
+			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, subspeciesRemovalFilter==null);
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	

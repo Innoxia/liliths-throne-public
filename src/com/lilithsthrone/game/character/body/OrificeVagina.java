@@ -242,7 +242,7 @@ public class OrificeVagina implements OrificeInterface {
 		
 		orificeModifiers.add(modifier);
 		
-		if(owner==null) {
+		if(owner==null || owner.getBody()==null) {
 			return "";
 		}
 		if(!owner.hasVagina()) {

@@ -12,12 +12,11 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.2.8
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class Clitoris implements BodyPartInterface {
 
-	
 	protected int clitSize;
 	protected int girth;
 	protected Set<PenetrationModifier> clitModifiers;
@@ -42,6 +41,14 @@ public class Clitoris implements BodyPartInterface {
 	@Override
 	public String getName(GameCharacter gc) {
 		return UtilText.returnStringAtRandom("clit", "clit", "clit", "nub", "button");
+	}
+	
+	@Override
+	public String getName(GameCharacter gc, boolean withDescriptor) {
+		String name = getName(gc);
+		return 
+//				UtilText.generateSingularDeterminer(name)+" "+
+				name;
 	}
 
 	@Override

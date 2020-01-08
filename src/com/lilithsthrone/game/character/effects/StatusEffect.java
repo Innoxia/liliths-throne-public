@@ -34,6 +34,8 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.npc.submission.Shadow;
+import com.lilithsthrone.game.character.npc.submission.Silence;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
@@ -774,9 +776,9 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
 					"[npc.NameIsFull] completely and utterly corrupted"
-						+ (owner.getSubspeciesOverride()!=null && owner.getSubspeciesOverride().getRace()==Race.DEMON
-						?", as is fitting for [npc.a_race]."
-						:", and desperately [npc.verb(wish)] that [npc.she] [npc.was] a demon.")
+						+ (owner.getSubspeciesOverrideRace()==Race.DEMON
+							?", as is fitting for [npc.a_race]."
+							:", and desperately [npc.verb(wish)] that [npc.she] [npc.was] a demon.")
 					+ " The lewd thoughts and fantasies that continuously run through [npc.her] mind have unlocked the full power of the arcane, making [npc.her] body hyper-fertile and virile.");
 		}
 
@@ -4356,7 +4358,7 @@ public enum StatusEffect {
 			}
 			
 			if (target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
-				recoveringEffects.add("[style.boldVagina(Vagina recovering:)]");
+				recoveringEffects.add("[style.boldVagina(Vagina "+recoveringText+":)]");
 				recoveringEffects.add(from1+" [style.boldBad("+Units.size(target.getVaginaStretchedCapacity())+")] "+from2+" [style.boldGood("+Units.size(target.getVaginaRawCapacityValue())+")]");
 				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaPlasticity().getRecoveryModifier())+")]");
 			}
@@ -6671,7 +6673,6 @@ public enum StatusEffect {
 			}
 			return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.nameIsFull] able to accurately predict how angels will behave.");
 		}
-		
 	},
 	
 	COMBAT_BONUS_CAT_MORPH(
@@ -6999,6 +7000,54 @@ public enum StatusEffect {
 	
 
 	// COMBAT EFFECTS:
+
+	SPECIAL_SILENCE_TRANCE(
+			70,
+			"Silence's Trance",
+			"glowingEyes",
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.ACTION_POINTS, 1f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 50f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 5f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return "Upon witnessing the defeat of her beloved friend, Shadow, Silence has summoned an air elemental and entered into an intense trance, granting her improved combat abilities!";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isInCombat()
+					&& target.equals(Main.game.getNpc(Silence.class))
+					&& !Combat.getEnemies(Main.game.getPlayer()).contains(Main.game.getNpc(Shadow.class));
+		}
+	},
+
+	SPECIAL_SHADOW_BESERK(
+			70,
+			"Shadow's Rage",
+			"glowingEyes",
+			Colour.BASE_CRIMSON,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.ACTION_POINTS, 3f),
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 150f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_MELEE_WEAPON, 50f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 10f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return "Upon witnessing the defeat of her beloved friend, Silence, Shadow has entered into a state of frenzied beserker rage, granting her massively improved combat abilities!";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isInCombat()
+					&& target.equals(Main.game.getNpc(Shadow.class))
+					&& Combat.getEnemies(Main.game.getPlayer()).size()==1;
+		}
+	},
 	
 	COMBAT_HIDDEN(
 			70,
@@ -7008,14 +7057,10 @@ public enum StatusEffect {
 			false,
 			null,
 			null) {
-
 		@Override
 		public String getDescription(GameCharacter target) {
 			return "You don't know what perks, status effects, spells, or special attacks your opponent has available. You require the "+Perk.OBSERVANT.getName(target)+" perk to reveal such information.";
 		}
-
-		
-		
 		@Override
 		public boolean isCombatEffect() {
 			return true;

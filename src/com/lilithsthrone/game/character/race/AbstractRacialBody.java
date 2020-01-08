@@ -365,7 +365,11 @@ public abstract class AbstractRacialBody {
 		
 		for(PersonalityTrait trait : PersonalityTrait.values()) {
 			if(trait.getPersonalityCategory()==PersonalityCategory.SPEECH) {
-				map.put(trait, 0.01f); // Speech-related traits should be rare for a normal race.
+				if(trait==PersonalityTrait.MUTE) {
+					map.put(trait, 0.001f); // Mute should be very rare.
+				} else {
+					map.put(trait, 0.01f); // Speech-related traits should be rare for a normal race.
+				}
 				
 			} else if(trait.getPersonalityCategory()==PersonalityCategory.SEX && trait!=PersonalityTrait.LEWD) {
 				map.put(trait, 0.02f); // Smaller chance for people to be prude or innocent.

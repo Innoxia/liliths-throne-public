@@ -15,7 +15,7 @@ public class Dildo {
 			PenisType.DILDO,
 			8,
 			false,
-			PenisGirth.ONE_THIN.getValue(),
+			PenisGirth.ONE_SLENDER.getValue(),
 			TesticleSize.ONE_TINY.getValue(),
 			0,
 			2);

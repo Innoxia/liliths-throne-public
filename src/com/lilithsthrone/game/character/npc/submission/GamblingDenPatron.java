@@ -82,7 +82,7 @@ public class GamblingDenPatron extends NPC {
 				}
 			}
 			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces, true);
+			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	

@@ -336,6 +336,13 @@ public class Lyssieth extends NPC {
 	}
 	
 	@Override
+	public void turnUpdate() {
+		if(!Main.game.getCharactersPresent().contains(this)) {
+			this.setStartingBody(false);
+		}
+	}
+	
+	@Override
 	protected Set<GameCharacter> getChildren() {
 		Set<GameCharacter> children = super.getChildren();
 		
@@ -346,6 +353,22 @@ public class Lyssieth extends NPC {
 		}
 		
 		return children;
+	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if(this.getSkinType().getRace()==Race.HUMAN) {
+			if(this.isVisiblyPregnant()) {
+				return "LyssiethHumanPregnant";
+			}
+			return "LyssiethHuman";
+			
+		} else {
+			if(this.isVisiblyPregnant()) {
+				return "LyssiethDemonPregnant";
+			}
+			return "LyssiethDemon";
+		}
 	}
 	
 	@Override

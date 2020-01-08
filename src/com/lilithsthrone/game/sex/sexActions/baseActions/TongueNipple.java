@@ -49,6 +49,7 @@ public class TongueNipple {
 					} else {
 						return "Kiss lipples";
 					}
+				case INVERTED:
 				case NORMAL:
 					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Suckle nipples";
@@ -72,6 +73,7 @@ public class TongueNipple {
 				case LIPS:
 					sb.append("Press your [npc.lips] up to [npc2.namePos] [npc2.breast+] and start kissing [npc2.her] lip-like nipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Press your [npc.lips] up to [npc2.namePos] [npc2.breast+] and start sucking on [npc2.her] [npc2.nipple+].");
 					break;
@@ -109,6 +111,7 @@ public class TongueNipple {
 						UtilText.nodeContentSB.append(" Just like a real mouth, [npc2.namePos] lip-like nipples part to reveal a throat-like orifice, allowing [npc.name] to thrust [npc.her] tongue into [npc2.her] [npc2.breast].");
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] "+desc[0]+" [npc.verb(press)] [npc.her] [npc.lips+] against one of [npc2.namePos] [npc2.breasts+], before starting to "+desc[1]+" suck and kiss [npc2.her] [npc2.nipple+].",
@@ -238,6 +241,7 @@ public class TongueNipple {
 						"making out with [npc2.her] mouth-like lipple",
 						"kissing [npc2.her] lipple");
 				break;
+			case INVERTED:
 			case NORMAL:
 				if(Sex.getCharacterTargetedForSexAction(action).getBreastRawStoredMilkValue()>0) {
 					actionDescription = UtilText.returnStringAtRandom(
@@ -331,6 +335,7 @@ public class TongueNipple {
 					} else {
 						return "Gentle lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
 					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Gentle nipple suckle";
@@ -354,6 +359,7 @@ public class TongueNipple {
 				case LIPS:
 					sb.append("Gently kiss and make-out with [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Gently kiss and suck [npc2.namePos] nipples.");
 					break;
@@ -389,6 +395,7 @@ public class TongueNipple {
 										+ " before starting to make out with it and drink down the [npc2.milk] which flows forth."));
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
 					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -454,6 +461,7 @@ public class TongueNipple {
 					} else {
 						return "Lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
 					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Nipple suckle";
@@ -477,6 +485,7 @@ public class TongueNipple {
 				case LIPS:
 					sb.append("Kiss and make-out with [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Kiss and suck [npc2.namePos] nipples.");
 					break;
@@ -512,6 +521,7 @@ public class TongueNipple {
 										+ " before starting to make out with it and drink down the [npc2.milk] which flows forth."));
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
 					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -577,6 +587,7 @@ public class TongueNipple {
 					} else {
 						return "Rough lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
 					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Rough nipple suckle";
@@ -600,6 +611,7 @@ public class TongueNipple {
 				case LIPS:
 					sb.append("Roughly kiss and make-out with [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Roughly kiss and suck [npc2.namePos] nipples.");
 					break;
@@ -635,6 +647,7 @@ public class TongueNipple {
 										+ " before starting to make out with it and drink down the [npc2.milk] which flows forth."));
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
 					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -700,6 +713,7 @@ public class TongueNipple {
 					} else {
 						return "Resist lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
 					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Resist nipple suckle";
@@ -723,6 +737,7 @@ public class TongueNipple {
 				case LIPS:
 					sb.append("Try to pull away from [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Try to pull away from [npc2.namePos] nipples.");
 					break;
@@ -791,6 +806,7 @@ public class TongueNipple {
 					} else {
 						return "Lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
 					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Nipple suckle";
@@ -814,6 +830,7 @@ public class TongueNipple {
 				case LIPS:
 					sb.append("Kiss and make-out with [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Kiss and suck [npc2.namePos] nipples.");
 					break;
@@ -849,6 +866,7 @@ public class TongueNipple {
 										+ " before starting to make out with it and drink down the [npc2.milk] which flows forth."));
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
 					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -914,6 +932,7 @@ public class TongueNipple {
 					} else {
 						return "Eager lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
 					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Eager nipple suckle";
@@ -937,6 +956,7 @@ public class TongueNipple {
 				case LIPS:
 					sb.append("Eagerly kiss and make-out with [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Eagerly kiss and suck [npc2.namePos] nipples.");
 					break;
@@ -972,6 +992,7 @@ public class TongueNipple {
 										+ " before starting to make out with it and drink down the [npc2.milk] which flows forth."));
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
 					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1036,6 +1057,7 @@ public class TongueNipple {
 					} else {
 						return "Stop lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
 					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Stop nipple suckle";
@@ -1059,6 +1081,7 @@ public class TongueNipple {
 				case LIPS:
 					sb.append("Pull away from [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Pull away from [npc2.namePos] nipples.");
 					break;
@@ -1130,6 +1153,7 @@ public class TongueNipple {
 			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
 					return "Pull [npc2.namePos] face into your [npc.breasts] and get [npc2.herHim] to start kissing your lipples.";
+				case INVERTED:
 				case NORMAL:
 					return "Pull [npc2.namePos] face into your [npc.breasts] and get [npc2.herHim] to start kissing and sucking your nipples.";
 				case VAGINA:
@@ -1166,6 +1190,7 @@ public class TongueNipple {
 						UtilText.nodeContentSB.append(" Just like a real mouth, [npc.namePos] lip-like nipples part to reveal a throat-like orifice, allowing [npc2.name] to thrust [npc2.her] tongue into [npc.her] [npc.breast].");
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Taking hold of [npc2.namePos] head, [npc.name] "+desc[0]+" [npc.verb(guide)] [npc2.her] [npc2.lips+] up to one of [npc.her] [npc.breasts+], before "+desc[1]+" getting [npc2.herHim] to suck and kiss [npc.her] [npc.nipple+].",
@@ -1242,6 +1267,7 @@ public class TongueNipple {
 					case LIPS:
 						suckleDesc = "[npc2.verb(kiss)]";
 						break;
+					case INVERTED:
 					case NORMAL:
 						suckleDesc = "[npc2.verb(suck)] and [npc2.verb(kiss)]";
 						break;
@@ -1307,6 +1333,7 @@ public class TongueNipple {
 						"making out with [npc.her] mouth-like lipple",
 						"kissing [npc.her] lipple");
 				break;
+			case INVERTED:
 			case NORMAL:
 				if(Sex.getCharacterTargetedForSexAction(action).getBreastRawStoredMilkValue()>0) {
 					actionDescription = UtilText.returnStringAtRandom(
@@ -1393,6 +1420,7 @@ public class TongueNipple {
 				case LIPS:
 					sb.append("Gently push your lipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and make-out with them.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Gently push your nipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and suck on them.");
 					break;
@@ -1417,6 +1445,7 @@ public class TongueNipple {
 							"With [npc.a_moan+], [npc.name] gently [npc.verb(press)] [npc.her] lipple against [npc2.namePos] mouth, before kissing [npc2.herHim] fully on the [npc2.lips+].",
 							"Letting out a soft [npc.moan], [npc.name] [npc.verb(use)] [npc.her] control over [npc.her] lipple to kiss [npc2.name] fully on the [npc2.lips]."));
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] gently [npc.verb(push)] [npc.her] [npc.nipple+] against [npc2.namePos] [npc2.lips+].",
@@ -1466,6 +1495,7 @@ public class TongueNipple {
 				case LIPS:
 					sb.append("Push your lipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and make-out with them.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Push your nipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and suck on them.");
 					break;
@@ -1490,6 +1520,7 @@ public class TongueNipple {
 							"With [npc.a_moan+], [npc.name] [npc.verb(press)] [npc.her] lipple against [npc2.namePos] mouth, before passionately kissing [npc2.herHim] fully on the [npc2.lips+].",
 							"Letting out [npc.a_moan+], [npc.name] [npc.verb(use)] [npc.her] control over [npc.her] lipple to passionately kiss [npc2.name] fully on the [npc2.lips]."));
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] eagerly [npc.verb(push)] [npc.her] [npc.nipple+] against [npc2.namePos] [npc2.lips+].",
@@ -1539,6 +1570,7 @@ public class TongueNipple {
 				case LIPS:
 					sb.append("Roughly push your lipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and make-out with them.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Roughly push your nipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and suck on them.");
 					break;
@@ -1563,6 +1595,7 @@ public class TongueNipple {
 							"With [npc.a_moan+], [npc.name] roughly [npc.verb(press)] [npc.her] lipple against [npc2.namePos] mouth, before forcefully kissing [npc2.herHim] fully on the [npc2.lips+].",
 							"Letting out [npc.a_moan+], [npc.name] [npc.verb(use)] [npc.her] control over [npc.her] lipple to forcefully kiss [npc2.name] fully on the [npc2.lips]."));
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] roughly [npc.verb(push)] [npc.her] [npc.nipple+] against [npc2.namePos] [npc2.lips+].",
@@ -1674,6 +1707,7 @@ public class TongueNipple {
 				case LIPS:
 					sb.append("Push your lipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and make-out with them.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Push your nipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and suck on them.");
 					break;
@@ -1698,6 +1732,7 @@ public class TongueNipple {
 							"With [npc.a_moan+], [npc.name] [npc.verb(press)] [npc.her] lipple against [npc2.namePos] mouth, before passionately kissing [npc2.herHim] fully on the [npc2.lips+].",
 							"Letting out [npc.a_moan+], [npc.name] [npc.verb(use)] [npc.her] control over [npc.her] lipple to passionately kiss [npc2.name] fully on the [npc2.lips]."));
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(push)] [npc.her] [npc.nipple+] against [npc2.namePos] [npc2.lips+].",
@@ -1747,6 +1782,7 @@ public class TongueNipple {
 				case LIPS:
 					sb.append("Eagerly push your lipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and make-out with them.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Eagerly push your nipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and suck on them.");
 					break;
@@ -1771,6 +1807,7 @@ public class TongueNipple {
 							"With [npc.a_moan+], [npc.name] [npc.verb(press)] [npc.her] lipple against [npc2.namePos] mouth, before passionately kissing [npc2.herHim] fully on the [npc2.lips+].",
 							"Letting out [npc.a_moan+], [npc.name] [npc.verb(use)] [npc.her] control over [npc.her] lipple to passionately kiss [npc2.name] fully on the [npc2.lips]."));
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] eagerly [npc.verb(push)] [npc.her] [npc.nipple+] against [npc2.namePos] [npc2.lips+].",

@@ -182,7 +182,10 @@ public class UtilText {
 		
 		modifiedSentence = splitOnConditional[splitOnConditional.length-1];
 		
-		if(!parserTags.contains(ParserTag.SEX_ALLOW_MUFFLED_SPEECH)
+		if(target.hasPersonalityTrait(PersonalityTrait.MUTE)) {
+			modifiedSentence = Util.replaceWithMute(modifiedSentence, Main.game.isInSex() && Sex.getAllParticipants().contains(target));
+			
+		} else if(!parserTags.contains(ParserTag.SEX_ALLOW_MUFFLED_SPEECH)
 				&& Main.game.isInSex()
 				&& Sex.getAllParticipants().contains(target)
 				&& target.isSpeechMuffled()) {
@@ -197,6 +200,10 @@ public class UtilText {
 				} else {
 					modifiedSentence = Util.addBro(modifiedSentence, 6);
 				}
+			}
+			
+			if(target.hasPersonalityTrait(PersonalityTrait.SLOVENLY)) {
+				modifiedSentence = Util.applySlovenlySpeech(modifiedSentence);
 			}
 			
 			if(target.getAlcoholLevel().getSlurredSpeechFrequency()>0) {
@@ -490,15 +497,15 @@ public class UtilText {
 	}
 	
 	public static String formatVirginityLoss(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'><i>"+s+"</i></p>";
 	}
 	
 	public static String formatTooLoose(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'><i>"+s+"</i></p>";
 	}
 	
 	public static String formatStretching(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'><i>"+s+"</i></p>";
 	}
 
 	public static boolean isVowel(char c) {
@@ -1609,7 +1616,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 				try {
-					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), null);
+					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), specialNPCs);
 					Set<Relationship> set = character.getRelationshipsTo(targetedCharacter);
 					if(set.size()>=1) {
 						return set.iterator().next().getName(character);
@@ -1637,7 +1644,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 				try {
-					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), null);
+					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), specialNPCs);
 					return character.getRelationshipStrTo(targetedCharacter);
 					
 				} catch(Exception ex) {
@@ -3139,7 +3146,8 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"eagerly",
 						"gently",
-						"roughly"),
+						"roughly",
+						"sexPaceVerb"),
 				true,
 				false,
 				"(Alternative start string)",
@@ -3432,6 +3440,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "your";
+					
 				} else {
 					if(character.isFeminine()) {
 						if(character.isPlayer()) {
@@ -6850,7 +6859,7 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				try {
-					return getBodyPartFromType(bodyPart,character).getType().getRace().getName(getBodyPartFromType(bodyPart,character).isBestial(character));
+					return getBodyPartFromType(bodyPart,character).getType().getRace().getName(character, getBodyPartFromType(bodyPart, character).isBestial(character));
 				} catch(Exception ex) {
 					return "null_body_part";
 				}
@@ -7222,15 +7231,15 @@ public class UtilText {
 		return (descriptor.length() > 0 ? descriptor + " " : (UtilText.isVowel(input.charAt(0))?"an ":"a ")) + input;
 	}
 
-	private static String getSubspeciesName(Subspecies race, GameCharacter character) {
-		if(race==null) {
+	private static String getSubspeciesName(Subspecies subspecies, GameCharacter character) {
+		if(subspecies==null) {
 			return "";
 		}
 		
 		if (character.isFeminine()) {
-			return race.getSingularFemaleName(character);
+			return subspecies.getSingularFemaleName(character);
 		} else {
-			return race.getSingularMaleName(character);
+			return subspecies.getSingularMaleName(character);
 		}
 	}
 	

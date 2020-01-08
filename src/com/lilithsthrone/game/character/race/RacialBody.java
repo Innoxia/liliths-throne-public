@@ -485,6 +485,7 @@ public class RacialBody {
 		public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
 			Map<PersonalityTrait, Float> map = super.getPersonalityTraitChances();
 			map.put(PersonalityTrait.COWARDLY, 0.1f);// Slightly higher chance than normal to be cowardly
+			map.put(PersonalityTrait.SLOVENLY, 0.2f);// Higher chance to be slovenly
 			return map;
 		}
 	};
@@ -571,7 +572,7 @@ public class RacialBody {
 			BodyMaterial.FLESH,
 			HornLength.ZERO_TINY,
 			HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
-			PenisType.AVIAN, 5, PenisGirth.ONE_THIN,
+			PenisType.AVIAN, 5, PenisGirth.ONE_SLENDER,
 			TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.ONE_TRICKLE,
 			Util.newArrayListOfValues(TailType.HARPY), TentacleType.NONE, VaginaType.HARPY,
 			Wetness.THREE_WET,

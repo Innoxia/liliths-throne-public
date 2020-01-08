@@ -21,7 +21,7 @@
 		<name><![CDATA[tactical combat boots]]></name>
 		
 		<!-- The plural form of the name. The attribute 'pluralByDefault' determines whther this item is naturally referred to as a plural (use true for things like socks or gloves).-->
-		<namePlural pluralByDefault="false"><![CDATA[tactical combat boots]]></namePlural> 
+		<namePlural pluralByDefault="true"><![CDATA[tactical combat boots]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
 		<description><![CDATA[A pair of sturdy combat boots. Unlike their traditional counterparts, these take elements from athletic shoes to improve the wearer's speed and agility at the expense of some durability.]]></description> 
@@ -36,7 +36,7 @@
 		<slot>FOOT</slot> 
 		
 		<!-- The rarity of this item. Anything less than EPIC may end up being modified in the code. Possible rarities are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
-		<rarity>COMMON</rarity> 
+		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
 		<clothingSet>ENFORCER</clothingSet> 

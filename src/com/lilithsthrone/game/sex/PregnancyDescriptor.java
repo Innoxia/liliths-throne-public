@@ -20,7 +20,7 @@ public enum PregnancyDescriptor {
 			
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("<p>");
+			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
 				if(characterProvidingCum==null) {
 					sb.append("You feel cum ");
@@ -34,14 +34,14 @@ public enum PregnancyDescriptor {
 				} else {
 					sb.append("You feel ");
 					if(selfcest) {
-						sb.append("your own");
+						sb.append("your own [npc.cum+]");
 					} else {
-						sb.append("[npc.namePos]");
+						sb.append("[npc2.namePos] [npc2.cum+]");
 					}
 					if(isSlime) {
-						sb.append("[npc.cum+] dispersing through your slimy body, seeking to impregnate your core");
+						sb.append(" dispersing through your slimy body, seeking to impregnate your core");
 					} else {
-						sb.append("[npc.cum+] deep in your [pc.pussy+]");
+						sb.append(" deep in your [pc.pussy+]");
 					}
 					sb.append(", but because [style.boldSex(you're already pregnant, you don't have to worry about it)]!");
 				}
@@ -92,7 +92,7 @@ public enum PregnancyDescriptor {
 			
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("<p>");
+			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
 				if(characterProvidingCum==null) {
 					sb.append("Despite feeling cum ");
@@ -106,14 +106,14 @@ public enum PregnancyDescriptor {
 				} else {
 					sb.append("Despite feeling ");
 					if(selfcest) {
-						sb.append("your own");
+						sb.append("your own [npc.cum+]");
 					} else {
-						sb.append("[npc.namePos]");
+						sb.append("[npc2.namePos] [npc2.cum+]");
 					}
 					if(isSlime) {
-						sb.append("[npc.cum+] dispersing through your slimy body, seeking to impregnate your core");
+						sb.append(" dispersing through your slimy body, seeking to impregnate your core");
 					} else {
-						sb.append("[npc.cum+] deep in your womb");
+						sb.append(" deep in your womb");
 					}
 					sb.append(", you feel that [style.boldSex(you aren't going to get pregnant from this)].");
 				}
@@ -164,7 +164,7 @@ public enum PregnancyDescriptor {
 			
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("<p>");
+			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
 				sb.append("You feel ");
 				if(selfcest) {
@@ -227,7 +227,7 @@ public enum PregnancyDescriptor {
 
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("<p>");
+			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
 				sb.append("You feel ");
 				if(selfcest) {
@@ -290,7 +290,7 @@ public enum PregnancyDescriptor {
 
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("<p>");
+			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
 				sb.append("You feel ");
 				if(selfcest) {
@@ -353,7 +353,7 @@ public enum PregnancyDescriptor {
 
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("<p>");
+			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
 				sb.append("You feel ");
 				if(selfcest) {

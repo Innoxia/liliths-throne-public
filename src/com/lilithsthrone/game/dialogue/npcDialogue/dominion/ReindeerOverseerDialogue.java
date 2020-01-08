@@ -99,7 +99,7 @@ public class ReindeerOverseerDialogue {
 				}
 				@Override
 				public DialogueNode getNextDialogue(){
-					return Main.game.getDefaultDialogueNoEncounter();
+					return Main.game.getDefaultDialogue(false);
 				}
 			};
 			

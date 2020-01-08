@@ -1,0 +1,1250 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- STOCKS_INITIAL -->
+	
+	<htmlContent tag="STOCKS_INITIAL"><![CDATA[
+	<p>
+		You (and your companion) are exhausted from your defeat and the subsequent fucking. After they've left, Murk appears and attaches a heavy metal chain to your collar, before unlocking the stocks and telling you that you can sleep on the straw bedding behind you.
+	</p>
+	<p>
+		With no strength left in your body, you do just that, and despite the discomfort, you soon fall asleep on the straw...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_SLEEP -->
+	
+	<htmlContent tag="STOCKS_SLEEP"><![CDATA[
+	<p>
+		You (and companion) curl up on your respective straw bedding and drift off to sleep...
+	</p>
+	<p>
+		...
+	</p>
+	<p>
+		The next morning, you find yourself being woken by Murk tugging on your chain. He tells you to get back in the milking stocks, and you have little option but to do as he says.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_INTRO_FEMININE"><![CDATA[
+	<p>
+		Murk says that he's going to turn you into another one of his milkers. Rat-girl enters and overhears, saying that Murk should do something more fun with you (and companion).
+	</p>
+	<p>
+		They argue, but when the rat-girl threatens Murk, you sense that he's afraid. Running out of options, he passes the choice onto you, asking if you want him to turn you into a female. The rat-girl says that you want to be a futa so she can come and milk your cock. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_INTRO_MASCULINE"><![CDATA[
+	<p>
+		Murk says that he's got enough female milkers, and that he's going to turn you and your companion into masculine cum milkers. To see how docile you are, he steps up behind you and presses his cock against your ass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_SELF_TF_DEMAND"><![CDATA[
+	<p>
+		Murk says that you're going to perform some self-transformations for him. As you've gained the transformation fetish, you're happy to oblige.
+	</p>
+	<p>
+		He unclasps your collar, and warns you that if you do anything other than exactly what he says, you'll be in serious trouble.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_POTION"><![CDATA[
+	<p>
+		Murk produces a potion and says that you need some more adjustments. If ring-gag, you cannot spit. If no ring-gag, you can spit.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_MILKING_FIRST_FUCK"><![CDATA[
+	<p>
+		Murk has finished transforming you. Comments on your new form.
+	</p>
+	#IF(pc.hasVagina())
+		<p>
+			He moves around behind you and starts stroking your pussy. Gets you turned on and desperate for sex.
+		</p>
+		<p>
+			Starts teasing his cock over your labia. Says you have to beg for it if you want it.
+		</p>
+	#ELSEIF(game.isAnalContentEnabled())
+		<p>
+			He moves around behind you and starts stroking your cock. Gets you turned on and desperate for sex.
+		</p>
+		<p>
+			Starts teasing his cock over your asshole. Says you have to beg for it if you want it.
+		</p>
+	#ELSE
+		<p>
+			He moves around in front of you and makes you kiss his cock. Gets you turned on and desperate for sex.
+		</p>
+		<p>
+			Starts teasing his cock over your lips. Says you have to beg for it if you want it.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_MILKING_CHECK_FIRST"><![CDATA[
+	<p>
+		Murk says that now you've been broken in, it's time for your first day of milking.
+	</p>
+	<p>
+		If producing milk, he attaches the milking equipment, before going around behind you. If player has pussy, inserts arcane-powered vibrator (turned off). If player has only cock (and anal content on), he inserts it into ass instead. If gape content, Murk comments on player's capacity.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_MILKING_CHECK"><![CDATA[
+	<p>
+		If producing milk, he attaches the milking equipment, before going around behind you. If player has pussy, inserts enchanted insertable dildo. If player has only cock, he inserts enchanted butt-plug. Murk comments on player's capacity.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_TF_FEMALE"><![CDATA[
+	<p>
+		You look up at Murk, signalling that you'd prefer not to become a futa. The rat-girl storms off.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_TF_FUTA"><![CDATA[
+	<p>
+		You look up at the rat-girl, signalling that you'd prefer to become a futa. Murk seems annoyed, but the rat-girl insists.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_TF_MASCULINE"><![CDATA[
+	<p>
+		You pull away from Murk's cock, making him laugh. He says it's more fun to break you in, and that he's going to make you really manly so that you feel ashamed at being owned and dominated by him.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_TF_SISSY"><![CDATA[
+	<p>
+		You push your ass back against Murk's cock. He laughs and says he was thinking about turning you into his sissy fucktoy, and your behaviour has decided your fate.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_ALREADY_TF_COMPLETE"><![CDATA[
+	<p>
+		Murk says taht you're already perfect the way you are, and he won't need to transform you at all.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_SELF"><![CDATA[
+	<p>
+		You do as Murk says, and prepare to transform yourself for him...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_NEXT"><![CDATA[
+	<p>
+		Murk heads over to [npc.name], saying that [npc.she] needs to be transformed...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="STOCKS_TRANSFORM_SWALLOW"><![CDATA[
+	<p>
+		You swallow the potion. If ring-gag, you have no choice.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_REFUSE"><![CDATA[
+	<p>
+		You spit out the potion. Ring-gag fitted.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_MILKING_FIRST_TIME"><![CDATA[
+	<p>
+		Murk fondles you and makes you beg to have the machine turned on. Teases you that this is the last moment before you get addicted to the pleasure of being milked.
+	</p>
+	<p>
+		He turns it on and it starts milking you of milk/cum.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_MILKING"><![CDATA[
+	<p>
+		Murk fondles you and makes you beg to have the machine turned on.
+	</p>
+	<p>
+		He turns it on and it starts milking you of milk/cum.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_SELF"><![CDATA[
+	<p>
+		Your companion self-transforms...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_SWALLOW"><![CDATA[
+	<p>
+		Your companion swallows the potion. If ring-gag, they have no choice.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_REFUSE"><![CDATA[
+	<p>
+		Your companion spits out the potion. Ring-gag fitted.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_FIRST_FUCK"><![CDATA[
+	<p>
+		Murk has finished transforming your companion. You hear Murk saying that it's time to break [npc.herHim] in...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_MILKING"><![CDATA[
+	<p>
+		Murk hooks your companion up to the milking machine. Gropes them while doing it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_MILKING_START"><![CDATA[
+	<p>
+		Murk hooks your companion up to the milking machine for the first time. Gropes them while doing it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_FIRST_FUCK -->
+	
+	<htmlContent tag="STOCKS_FIRST_FUCK"><![CDATA[
+	#IF(pc.hasVagina())
+		<p>
+			You beg for Murk to fuck your pussy. He makes you call him master.
+		</p>
+		#IF(game.isGapeContentEnabled())
+			<p>
+				He tells you that his fat cock is going to ruin your pussy so that only he can satisfy you. Walks around in front of you and says he likes his broken-in cock-sleeves to look well-used. Forces you to drink one last potion.
+			</p>
+			[#SPECIAL_PARSE_0]
+			<p>
+				Murk steps back behind you to say that your huge labia have grown in nicely; your tight cunt will soon be gaping and only fit for his massive cock.
+			</p>
+			<p>
+				Makes you beg for him to make you his. He tells you to raise your ass.
+			</p>
+		#ELSE
+			<p>
+				He tells you that once you've had a feel of his fat cock, no other rat is going to satisfy you. Makes you beg for him to make you his. He tells you to raise your ass.
+			</p>
+		#ENDIF
+	#ELSEIF(game.isAnalContentEnabled())
+		<p>
+			You beg for Murk to fuck your ass. He makes you call him master.
+		</p>
+		#IF(game.isGapeContentEnabled())
+			<p>
+				He tells you that his fat cock is going to ruin your ass so that only he can satisfy you. Makes you beg for him to make you his. He tells you to raise your ass.
+			</p>
+		#ELSE
+			<p>
+				He tells you that once you've had a feel of his fat cock, no other rat is going to satisfy you. Makes you beg for him to make you his. He tells you to raise your ass.
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			You beg for Murk's cock. He makes you call him master.
+		</p>
+		<p>
+			He tells you that once you've had a taste of his fat cock, no other rat is going to satisfy you. Makes you beg for him to make you his. He tells you to open your mouth.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_FUCK_SEX_START"><![CDATA[
+	#IF(pc.hasVagina())
+		#IF(game.isGapeContentEnabled())
+			<p>
+				Murk penetrates your tight pussy, stretching it out around his fat cock. He says he can feel your pussy moulding to the shape of his cock, making you his. Pulls back and thrusts in again, telling you to savour every moment of having your cunt ruined.
+			</p>
+		#ELSE
+			<p>
+				Murk penetrates your tight pussy, stretching it out around his fat cock. Starts thrusting and telling you that you're his now.
+			</p>
+		#ENDIF
+	#ELSEIF(game.isAnalContentEnabled())
+		#IF(game.isGapeContentEnabled())
+			<p>
+				Murk penetrates your tight ass, stretching it out around his fat cock. He says he can feel your asshole moulding to the shape of his cock, making you his. Pulls back and thrusts in again, telling you to savour every moment of having your ass ruined.
+			</p>
+		#ELSE
+			<p>
+				Murk penetrates your tight ass, stretching it out around his fat cock. Starts thrusting and telling you that you're his now.
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Murk pushes his cock into your mouth, stretching your lips out around his fat cock. Starts thrusting down your throat and telling you that you're his now.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- FIRST_FUCK_AFTER_SEX -->
+	
+	<htmlContent tag="FIRST_FUCK_AFTER_SEX"><![CDATA[
+	<p>
+		Murk pulls back, drawing his fat cock out of your cum-stuffed cunt. As it slides free, you find yourself feeling extremely empty, and let out a pleading moan for the rat-boy to fill you again.
+	</p>
+	<p>
+		#IF(game.isGapeContentEnabled())
+			Murk laughs and says that you now know your place; you're nothing more than his horny cock-sleeve. He says that your huge labia have helped to make your gaping cunt look well and truly ruined. He says how you need to worship his cock if you want to be filled again...
+		#ELSE
+			Murk laughs and says that you now know your place; you're nothing more than his horny cock-sleeve. He says how you need to worship his cock if you want to be filled again...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_FUCK_AFTER_SEX_ANAL"><![CDATA[
+	#IF(game.isGapeContentEnabled())
+		<p>
+			Murk pulls back, drawing his fat cock out of your cum-stuffed asshole. As it slides free, you find yourself feeling extremely empty, and let out a pleading moan for the rat-boy to fill you again.
+		</p>
+		<p>
+			Murk laughs and says that you now know your place; you're nothing more than his horny cock-sleeve. He comments on how your asshole is ruined and that you'll only get pleasure from his cock filling you. He says how you need to worship his cock if you want to be filled again...
+		</p>
+	#ELSE
+		<p>
+			Murk pulls back, drawing his fat cock out of your cum-stuffed cunt. As it slides free, you find yourself feeling extremely empty, and let out a pleading moan for the rat-boy to fill you again.
+		</p>
+		<p>
+			Murk laughs and says that you now know your place; you're nothing more than his horny cock-sleeve. He says how you need to worship his cock if you want to be filled again...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_FUCK_AFTER_SEX_BLOWJOB"><![CDATA[
+	<p>
+		Murk pulls back, drawing his fat cock out of your throat. As it slides free, you find yourself feeling extremely empty, and let out a pleading moan for the rat-boy to fill you again.
+	</p>
+	<p>
+		Murk laughs and says that you now know your place; you're nothing more than his horny cock-sleeve. He says how you need to worship his cock if you want to be filled again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- FIRST_FUCK_AFTER_SEX_NEXT -->
+	
+	<htmlContent tag="FIRST_FUCK_SECOND_SEX_MORE_VAGINAL"><![CDATA[
+	#IF(game.isGapeContentEnabled())
+		<p>
+			You beg Murk to fill your gaping pussy again. He says that he's happy to fuck your ruined cunt, but that nobody else will be stretching your ass out. Inserts sealed buttplug.
+		</p>
+		<p>
+			Comments again on how your ruined pussy is only good for his cock now. Tells you to tell him that you submit to his cock.
+		</p>
+	#ELSE
+		<p>
+			You beg Murk to fill your pussy again. He says that he's happy to fuck your cunt, but that first you need to tell him that you submit to his cock.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_FUCK_SECOND_SEX_ANAL"><![CDATA[
+	#IF(game.isGapeContentEnabled())
+		<p>
+			You beg Murk to fill your ass. He says that he's happy to stretch your ass out as well, so that both of your holes will only be good for his cock. Tells you to tell him that you submit to his cock.
+		</p>
+	#ELSE
+		<p>
+			You beg Murk to fill your ass. He says that he's happy to fuck your asshole, but that first you need to tell him that you submit to his cock.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_FUCK_SECOND_SEX_ORAL"><![CDATA[
+	<p>
+		You beg Murk to fuck your throat. He says that he's happy to receive a blowjob from you, but that first you need to tell him that you submit to his cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_FUCK_SECOND_SEX_MORE_ANAL"><![CDATA[
+	#IF(game.isGapeContentEnabled())
+		<p>
+			You beg Murk to fill your gaping ass again. He says that he's happy to fuck your ruined asshole, but that first you need to tell him that you submit to his cock.
+		</p>
+	#ELSE
+		<p>
+			You beg Murk to fill your ass again. He says that he's happy to fuck your asshole, but that first you need to tell him that you submit to his cock.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_FUCK_SECOND_SEX_MORE_BLOWJOB"><![CDATA[
+	<p>
+		You beg Murk for another taste of his cock. He says that he's happy to fuck your face again, but that first you need to tell him that you submit to his cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_FUCK_SECOND_SEX_START"><![CDATA[
+	#IF(game.isGapeContentEnabled())
+		<p>
+			You tell Murk that you submit to his cock. He fills you again and starts fucking your ruined cunt...
+		</p>
+	#ELSE
+		<p>
+			You tell Murk that you submit to his cock. He fills you again and starts fucking your cunt...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_FUCK_SECOND_SEX_ANUS_START"><![CDATA[
+	#IF(game.isGapeContentEnabled())
+		<p>
+			You tell Murk that you submit to his cock. He fills you again and starts fucking your ruined asshole...
+		</p>
+	#ELSE
+		<p>
+			You tell Murk that you submit to his cock. He fills you again and starts fucking your asshole...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_FUCK_SECOND_SEX_ORAL_START"><![CDATA[
+	<p>
+		You tell Murk that you submit to his cock. He makes you kiss his cock before starting to fuck your throat...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- FIRST_FUCK_END -->
+	
+	<htmlContent tag="FIRST_FUCK_END"><![CDATA[
+	#IF(game.isGapeContentEnabled())
+		<p>
+			Pulling out of your thoroughly-fucked cunt, Murk again remarks on how he's ruined it. Rubbing his fingers over your fat labia and gaping hole, he tells you that now he's marked you as his, you're going to be whored out to other rats looking for a quick fuck.
+		</p>
+		<p>
+			Tells you that tomorrow he'll get you hooked up to the milking machines for the first time. Gives your ruined pussy a little slap, before walking off... 
+		</p>
+	#ELSE
+		<p>
+			Pulling out of your thoroughly-fucked cunt, Murk remarks on how full of cum it is. Rubbing his fingers over your dripping hole, he tells you that now he's marked you as his, you're going to be whored out to other rats looking for a quick fuck.
+		</p>
+		<p>
+			Tells you that tomorrow he'll get you hooked up to the milking machines for the first time. Gives your pussy a little slap, before walking off... 
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_FUCK_END_ANAL"><![CDATA[
+	#IF(game.isGapeContentEnabled())
+		<p>
+			Pulling out of your thoroughly-fucked ass, Murk again remarks on how he's ruined it. Rubbing his fingers over your puffy rim and gaping hole, he tells you that now he's marked you as his, you're going to be whored out to other rats looking for a quick fuck.
+		</p>
+		<p>
+			Tells you that tomorrow he'll get you hooked up to the milking machines for the first time. Gives your ruined asshole a little slap, before walking off... 
+		</p>
+	#ELSE
+		<p>
+			Pulling out of your thoroughly-fucked ass, Murk remarks on how full of cum it is. Rubbing his fingers over your dripping hole, he tells you that now he's marked you as his, you're going to be whored out to other rats looking for a quick fuck.
+		</p>
+		<p>
+			Tells you that tomorrow he'll get you hooked up to the milking machines for the first time. Gives your ass a little slap, before walking off... 
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIRST_FUCK_END_ORAL"><![CDATA[
+	<p>
+		Pulling out of your thoroughly-fucked throat, Murk remarks on how hungry for his cum you are. Rubbing his fingers over your lips, he tells you that now he's marked you as his, you're going to be whored out to other rats looking for a quick fuck.
+	</p>
+	<p>
+		Tells you that tomorrow he'll get you hooked up to the milking machines for the first time. Gives your ass a little slap, before walking off... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_TRANSFORM -->
+	
+	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_TRANSFORM"><![CDATA[
+	<p>
+		You listen as Murk tells [npc.name] that it's time to be transformed...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_FIRST_FUCK_COMPANION_START"><![CDATA[
+	#IF(game.isGapeContentEnabled())
+		<p>
+			You overhear Murk teasing [npc.namePos] pussy. He makes [npc.herHim] drink one last potion, which gives [npc.herHim] huge labia.
+		</p>
+		[#SPECIAL_PARSE_0]
+		<p>
+			[npc.Name] begs to be fucked, and after Murk makes [npc.herHim] call [npc.herHim] master, he penetrates [npc.herHim]. He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim]. He steps back and comments about [npc.her] pussy's fat labia helping to make [npc.her] gaping hole look well and truly ruined.
+		</p>
+		<p>
+			He then makes [npc.herHim] worship his cock and beg for more sex...
+		</p>
+	#ELSE
+		<p>
+			You overhear Murk teasing [npc.namePos] pussy. [npc.Name] begs to be fucked, and after Murk makes [npc.herHim] call [npc.herHim] master, he penetrates [npc.herHim].
+		</p>
+		<p>
+			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim]. He then makes [npc.herHim] worship his cock and beg for more sex...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_FIRST_FUCK_COMPANION_START_ANAL"><![CDATA[
+	#IF(game.isGapeContentEnabled())
+		<p>
+			You overhear Murk teasing [npc.namePos] ass. [npc.Name] begs to be fucked, and after Murk makes [npc.herHim] call [npc.herHim] master, he penetrates [npc.herHim].
+		</p>
+		<p>
+			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim]. He then comments about [npc.her] asshole has been stretched out and ruined by his fat cock.
+		</p>
+		<p>
+			He then makes [npc.herHim] worship his cock and beg for more sex...
+		</p>
+	#ELSE
+		<p>
+			You overhear Murk teasing [npc.namePos] ass. [npc.Name] begs to be fucked, and after Murk makes [npc.herHim] call [npc.herHim] master, he penetrates [npc.herHim].
+		</p>
+		<p>
+			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim]. He then makes [npc.herHim] worship his cock and beg for more sex...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_FIRST_FUCK_COMPANION_START_BLOWJOB"><![CDATA[
+	<p>
+		You overhear Murk teasing [npc.name] with the promise of getting to suck his cock. [npc.Name] begs for it, and after Murk makes [npc.herHim] call [npc.herHim] master, he starts fucking [npc.her] face.
+	</p>
+	<p>
+		He fucks [npc.herHim] for a while, before cumming down [npc.her] throat. He then makes [npc.herHim] worship his cock and beg for more sex...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_FIRST_FUCK_COMPANION -->
+	
+	<htmlContent tag="STOCKS_FIRST_FUCK_COMPANION_SECOND_FUCK_ANAL"><![CDATA[
+	#IF(game.isGapeContentEnabled())
+		<p>
+			After a while of [npc.name] begging or more sex, Murk makes [npc.herHim] submit to his cock before penetrating [npc.her] ass.
+		</p>
+		<p>
+			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim]. He then comments about [npc.her] asshole has been stretched out and ruined by his fat cock.
+		</p>
+		<p>
+			He says that that now he's marked [npc.name] as his, [npc.sheIs] going to be whored out to other rats looking for a quick fuck. Tomorrow he'll get [npc.herHim] hooked up to the milking machines for the first time. Gives [npc.her] ass a little slap, before walking off... 
+		</p>
+	#ELSE
+		<p>
+			After a while of [npc.name] begging or more sex, Murk makes [npc.herHim] submit to his cock before penetrating [npc.her] ass.
+		</p>
+		<p>
+			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim].
+		</p>
+		<p>
+			He says that that now he's marked [npc.name] as his, [npc.sheIs] going to be whored out to other rats looking for a quick fuck. Tomorrow he'll get [npc.herHim] hooked up to the milking machines for the first time. Gives [npc.her] ass a little slap, before walking off... 
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_FIRST_FUCK_COMPANION_SECOND_FUCK_MORE_ANAL"><![CDATA[
+	#IF(game.isGapeContentEnabled())
+		<p>
+			After a while of [npc.name] begging or more sex, Murk makes [npc.herHim] submit to his cock before penetrating [npc.her] ass.
+		</p>
+		<p>
+			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim]. He then comments about [npc.her] asshole has been stretched out and ruined by his fat cock.
+		</p>
+		<p>
+			He says that that now he's marked [npc.name] as his, [npc.sheIs] going to be whored out to other rats looking for a quick fuck. Tomorrow he'll get [npc.herHim] hooked up to the milking machines for the first time. Gives [npc.her] ass a little slap, before walking off... 
+		</p>
+	#ELSE
+		<p>
+			After a while of [npc.name] begging or more sex, Murk makes [npc.herHim] submit to his cock before penetrating [npc.her] ass.
+		</p>
+		<p>
+			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim].
+		</p>
+		<p>
+			He says that that now he's marked [npc.name] as his, [npc.sheIs] going to be whored out to other rats looking for a quick fuck. Tomorrow he'll get [npc.herHim] hooked up to the milking machines for the first time. Gives [npc.her] ass a little slap, before walking off... 
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_FIRST_FUCK_COMPANION_SECOND_FUCK_BLOWJOB"><![CDATA[
+	<p>
+		After a while of [npc.name] begging or more sex, Murk makes [npc.herHim] submit to his cock before fucking [npc.her] throat.
+	</p>
+	<p>
+		He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim].
+	</p>
+	<p>
+		He says that that now he's marked [npc.name] as his, [npc.sheIs] going to be whored out to other rats looking for a quick fuck. Tomorrow he'll get [npc.herHim] hooked up to the milking machines for the first time. Gives [npc.her] ass a little slap, before walking off... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_GIVE_BIRTH -->
+	
+	<htmlContent tag="STOCKS_GIVE_BIRTH_EGGS"><![CDATA[
+	<p>
+		Murk fetches Silence, who helps you to deliver. Laying eggs and then guard on bedding.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_GIVE_BIRTH"><![CDATA[
+	<p>
+		Murk fetches Silence, who helps you to deliver. You pass out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_GIVE_BIRTH_PROTECT_THE_EGGS -->
+	
+	<htmlContent tag="STOCKS_GIVE_BIRTH_PROTECT_THE_EGGS"><![CDATA[
+	<p>
+		You guard your eggs. Eggs hatch. You pass out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_GIVE_BIRTH_FINISHED -->
+	
+	<htmlContent tag="STOCKS_GIVE_BIRTH_FINISHED_EGGS"><![CDATA[
+	<p>
+		Wake up later and get locked back into milking stall.
+		#IF(game.getDialogueFlags().getMurkTfStage(pc)>=3)
+			 Murk gives you a potion to tighten your pussy back up again.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_GIVE_BIRTH_FINISHED"><![CDATA[
+	<p>
+		Wake up later and get locked back into milking stall.
+		#IF(game.getDialogueFlags().getMurkTfStage(pc)>=3)
+			 Murk gives you a potion to tighten your pussy back up again.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_WAITING -->
+	
+	<htmlContent tag="STOCKS_WAITING_START"><![CDATA[
+	<p>
+		Being locked into the milking stall, there's nothing to do but wait and see what happens to you next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_END_PREGNANACY"><![CDATA[
+	<p>
+		Your companion, having been impregnated, is taken away by Silence and helped to give birth. After an hour or so, she returns...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_MILKING"><![CDATA[
+	<p>
+		Your companion is milked by Murk.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_PUNISHMENT"><![CDATA[
+	<p>
+		Murk punishes your companion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_SEX"><![CDATA[
+	<p>
+		A rat pays Murk to fuck one of the milkers. They step up to your companion and fuck them.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_SEX_THREESOME"><![CDATA[
+	<p>
+		A couple of rats pay Murk to fuck one of the milkers. They step up to your companion and fuck them.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_TEASE"><![CDATA[
+	<p>
+		Murk teases your companion with his cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_INSPECTION"><![CDATA[
+	<p>
+		Murk inspects your companion, commenting on [npc.her] appearance.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_MURK_SEX"><![CDATA[
+	<p>
+		Murk decides to fuck your companion. Mounts [npc.herHim] and starts fucking [npc.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_COMPANION_MURK_SEX_AFTER_OTHER"><![CDATA[
+	<p>
+		Murk gets your companion to beg for his cock, then fucks [npc.herHim].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_MILKING"><![CDATA[
+	<p>
+		Murk milks you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_PUNISHMENT"><![CDATA[
+	<p>
+		Murk punishes you. If player does not have masochist fetish, it's quite tame.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_SEX"><![CDATA[
+	<p>
+		A rat pays Murk to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_SEX_THREESOME"><![CDATA[
+	<p>
+		A couple of rats pay Murk to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_TEASE_VAGINA"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveFuckedByMurk))
+		<p>
+			#IF(game.isGapeContentEnabled())
+				Murk teases your gaping pussy with his cock. Comments on how he's ruined your cunt and makes you call him master, before leaving.
+			#ELSE
+				Murk teases your pussy with his cock. Comments on how your cunt belongs to him and makes you call him master, before leaving.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			#IF(game.isGapeContentEnabled())
+				Murk teases your pussy with his cock. Comments on how he's going to ruin your tight(?), pretty little cunt, before leaving.
+			#ELSE
+				Murk teases your pussy with his cock. Comments on how he's going to enjoy fucking your tight(?), pretty little cunt, before leaving.
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_TEASE_ANUS"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveFuckedByMurk))
+		<p>
+			#IF(game.isGapeContentEnabled())
+				Murk teases your gaping ass with his cock. Comments on how he's ruined your asshole and makes you call him master, before leaving.
+			#ELSE
+				Murk teases your ass with his cock. Comments on how your ass belongs to him and makes you call him master, before leaving.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			#IF(game.isGapeContentEnabled())
+				Murk teases your ass with his cock. Comments on how he's going to ruin your tight(?), pretty little asshole, before leaving.
+			#ELSE
+				Murk teases your ass with his cock. Comments on how he's going to enjoy fucking your tight(?), pretty little asshole, before leaving.
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_TEASE"><![CDATA[
+	<p>
+		Murk teases your lips with his cock. Makes you kiss it before leaving.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_TEASE_VAGINA_SEX"><![CDATA[
+	<p>
+		#IF(game.isGapeContentEnabled())
+			Murk teases your gaping pussy with his cock. Comments on how he's ruined your cunt and makes you call him master, before telling you to beg for him to fuck you.
+		#ELSE
+			Murk teases your pussy with his cock. Comments on how your cunt belongs to him and makes you call him master, before telling you to beg for him to fuck you.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_TEASE_ANUS_SEX"><![CDATA[
+	<p>
+		#IF(game.isGapeContentEnabled())
+			Murk teases your gaping ass with his cock. Comments on how he's ruined your asshole and makes you call him master, before telling you to beg for him to fuck you.
+		#ELSE
+			Murk teases your ass with his cock. Comments on how your ass belongs to him and makes you call him master, before telling you to beg for him to fuck you.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_TEASE_SEX"><![CDATA[
+	<p>
+		Murk teases your lips with his cock. Makes you kiss it before telling you to beg for him to fuck your throat.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_INSPECTION"><![CDATA[
+	<p>
+		Murk inspects you and comments on your appearance.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_MURK_SEX"><![CDATA[
+	<p>
+		Murk makes you beg for his cock and then moves to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_MURK_LEAVES"><![CDATA[
+	<p>
+		Having had his fun, Murk departs, leaving you with little else to do but wait...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_REFUSE_TO_BEG"><![CDATA[
+	<p>
+		You refuse to beg for Murk to fuck you. Annoyed, he says that he's going to give a discount to anyone else who wants to fuck you, before leaving.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_MURK_LEAVES"><![CDATA[
+	<p>
+		Having finished with you, Murk leaves.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX"><![CDATA[
+	<p>
+		You beg for Murk to fuck you. This is a backup dialogue node, and should never be seen.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_ANAL"><![CDATA[
+	<p>
+		You beg for Murk to fuck your ass. Add variation for if you are stretched to his size.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_VAGINAL"><![CDATA[
+	<p>
+		You beg for Murk to fuck you. Add variation for if you are stretched to his size.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_BLOWJOB"><![CDATA[
+	<p>
+		You beg for Murk to fuck your throat.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_ANILINGUS"><![CDATA[
+	<p>
+		You beg for Murk to let you lick his ass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_RECEIVE_ANILINGUS"><![CDATA[
+	<p>
+		You beg for Murk to lick your ass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_RECEIVE_HANDJOB"><![CDATA[
+	<p>
+		You beg for Murk to give you a handjob.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_RECEIVE_FINGERING"><![CDATA[
+	<p>
+		You beg for Murk to finger you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEG_FOR_SEX_RECEIVE_CUNNILINGUS"><![CDATA[
+	<p>
+		You beg for Murk to eat you out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_SOLO_SEX"><![CDATA[
+	<p>
+		The rat steps up behind you, slapping your ass before wondering aloud how to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_WAITING_THREESOME_SEX"><![CDATA[
+	<p>
+		[npc.Name] steps up behind you, slapping your ass before wondering aloud how to fuck you...
+	</p>
+	<p>
+		[npc2.Name] moves around in front...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_AFTER_SEX -->
+	
+	<htmlContent tag="STOCKS_AFTER_SEX_MURK"><![CDATA[
+	<p>
+		Murk has finished with you. Comments on gape.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_AFTER_SEX_THREESOME"><![CDATA[
+	<p>
+		The rats have finished with you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_AFTER_SEX_SOLO"><![CDATA[
+	<p>
+		[npc.Name] has finished with you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_NIGHT -->
+	
+	<htmlContent tag="STOCKS_NIGHT"><![CDATA[
+	<p>
+		Murk unlocks you all from milking stalls and tells you to sleep. Chain linked to collar prevents you from moving far, but as your stall is closest to the milking storage room, you think you could step inside if you wanted to...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_NIGHT_BREAK_LOCK"><![CDATA[
+	<p>
+		You use your raw strength to rip the chain out of the wall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_NIGHT_BREAK_LOCK_SPELL"><![CDATA[
+	<p>
+		You use a spell to break the chain out of the wall. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_BROKEN_FREE -->
+	
+	<htmlContent tag="STOCKS_BROKEN_FREE"><![CDATA[
+	<p>
+		Murk comes in and sees what's happened. He tells you that if you submit to him, he'll forget about it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_BROKEN_FREE_SUBMIT_ORAL"><![CDATA[
+	<p>
+		You decide that fighting Murk would be a bad idea, so you do as he says and submit to him.
+	</p>
+	<p>
+		Murk makes you get down on all fours, before moving around in front of you and making you kiss his cock. He then starts fucking your throat.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_BROKEN_FREE_SUBMIT_SEX"><![CDATA[
+	<p>
+		You decide that fighting Murk would be a bad idea, so you do as he says and submit to him.
+	</p>
+	<p>
+		#IF(game.isGapeContentEnabled())
+			#IF(pc.hasVagina())
+				Murk makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your gaping pussy, he makes you beg to be filled. Slamming down, he starts fucking your ruined cunt...
+			#ELSE
+				Murk makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your gaping asshole, he makes you beg to be filled. Slamming down, he starts fucking your ruined ass...
+			#ENDIF
+		#ELSE
+			#IF(pc.hasVagina())
+				Murk makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your wet pussy, he makes you beg to be filled. Slamming down, he starts fucking your cunt...
+			#ELSE
+				Murk makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your asshole, he makes you beg to be filled. Slamming down, he starts fucking your ass...
+			#ENDIF
+
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_CALL_OUT -->
+	
+	<htmlContent tag="STOCKS_CALL_OUT"><![CDATA[
+	<p>
+		You shout out for Murk. He comes and is annoyed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_CALL_OUT_CHOKE"><![CDATA[
+	<p>
+		You pretend to be choking. Murk reluctantly unlocks the chain from your collar and gives you a bottle of water. He then says that he expects something in return for his help...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_CALL_OUT_SEDUCE"><![CDATA[
+	<p>
+		You tell Murk that you're desperate for his cock. Say that if he unchains you, you can really show him what you're capable of. Blinded by lust, he unlocks the chain from your collar and then demands sex...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_CALL_OUT_RELEASED -->
+	
+	<htmlContent tag="STOCKS_CALL_OUT_RELEASED_ORAL"><![CDATA[
+	<p>
+		You submit to Murk and get down on all fours, before he moves around in front of you and makes you kiss his cock. He then starts fucking your throat.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_CALL_OUT_RELEASED_SEX"><![CDATA[
+	<p>
+		#IF(game.isGapeContentEnabled())
+			#IF(pc.hasVagina())
+				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your gaping pussy, he makes you beg to be filled. Slamming down, he starts fucking your ruined cunt...
+			#ELSE
+				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your gaping asshole, he makes you beg to be filled. Slamming down, he starts fucking your ruined ass...
+			#ENDIF
+		#ELSE
+			#IF(pc.hasVagina())
+				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your wet pussy, he makes you beg to be filled. Slamming down, he starts fucking your cunt...
+			#ELSE
+				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your asshole, he makes you beg to be filled. Slamming down, he starts fucking your ass...
+			#ENDIF
+
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_RELEASED_AFTER_SEX -->
+	
+	<htmlContent tag="STOCKS_RELEASED_AFTER_SEX"><![CDATA[
+	<p>
+		Murk says it's time to lock you up again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_RELEASED_AFTER_SEX_LOCKED_UP"><![CDATA[
+	<p>
+		You allow Murk to lock you back up.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_RELEASED_OFFER_COMPANY -->
+	
+	<htmlContent tag="STOCKS_RELEASED_OFFER_COMPANY"><![CDATA[
+	<p>
+		You offer to spend the night with Murk. He accepts and fondles you before sleeping.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_RELEASED_OFFER_COMPANY_SLIP_AWAY"><![CDATA[
+	<p>
+		You take the opportunity to escape, and release your companion and get your gear back.
+	</p>
+	<p>
+		You travel through the tunnels.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_RELEASED_OFFER_COMPANY_LOCKED_UP"><![CDATA[
+	<p>
+		You stay with Murk. After a while he wakes back up and then locks you back up again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_ESCAPE_FIGHT_VICTORY -->
+	
+	<htmlContent tag="STOCKS_ESCAPE_FIGHT_VICTORY"><![CDATA[
+	<p>
+		You beat Murk. No time to do anything, as guards will arrive soon. Get gear, free companion, and escape.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STOCKS_ESCAPE_FIGHT_VICTORY_ESCAPING"><![CDATA[
+	<p>
+		You travel through the tunnels.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_ESCAPE_FIGHT_DEFEAT -->
+	
+	<htmlContent tag="STOCKS_ESCAPE_FIGHT_DEFEAT"><![CDATA[
+	<p>
+		You are defeated. Murk says you're going to pay. Orders you to submit.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEAT_SEX_ORAL_START"><![CDATA[
+	<p>
+		You submit to Murk and get down on all fours, before he moves around in front of you and makes you kiss his cock. He then starts fucking your throat.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEFEAT_SEX_START"><![CDATA[
+	<p>
+		#IF(game.isGapeContentEnabled())
+			#IF(pc.hasVagina())
+				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your gaping pussy, he makes you beg to be filled. Slamming down, he starts fucking your ruined cunt...
+			#ELSE
+				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your gaping asshole, he makes you beg to be filled. Slamming down, he starts fucking your ruined ass...
+			#ENDIF
+		#ELSE
+			#IF(pc.hasVagina())
+				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your wet pussy, he makes you beg to be filled. Slamming down, he starts fucking your cunt...
+			#ELSE
+				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your asshole, he makes you beg to be filled. Slamming down, he starts fucking your ass...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- STOCKS_AFTER_DEFEAT_SEX -->
+	
+	<htmlContent tag="STOCKS_AFTER_DEFEAT_SEX"><![CDATA[
+	<p>
+		Murk attaches the chain to your collar, before letting you sleep on the straw again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STOCKS_INITIAL -->
+	
+	<htmlContent tag="STOCKS_INITIAL"><![CDATA[
+	<p>
+		Murk attaches a chain to your collar, before freeing you from the stocks. Tells you (and companion) to sleep on the straw near your stocks. He'll get transformative potions prepared for you tomorrow...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ESCAPING -->
+	
+	<htmlContent tag="ESCAPING"><![CDATA[
+	<p>
+		Shadow and Silence lead you (and companion) down tunnels.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

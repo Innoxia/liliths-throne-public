@@ -1860,6 +1860,13 @@ public class OptionsDialogue {
 								"Enchantment Capacity",
 								"Toggle the 'enchantment capacity' mechanic, which restricts how many enchanted items you can wear. This is on by default, and you will potentially break the balance of the game's combat by turning it off.",
 								Main.getProperties().hasValue(PropertyValue.enchantmentLimits)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+								"LEVEL_DRAIN",
+								Colour.GENERIC_TERRIBLE,
+								"Level Drain",
+								"Toggle the use of the 'orgasmic level drain' perk by unique NPCs (such as some scenes with Amber), which causes them to drain your level for each orgasm you have in sex with them.",
+								Main.getProperties().hasValue(PropertyValue.levelDrain)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 								"ARTWORK",
@@ -1998,6 +2005,13 @@ public class OptionsDialogue {
 							"When disabled, removes all anal-related actions from being available during sex.",
 							Main.getProperties().hasValue(PropertyValue.analContent)));
 
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"GAPE",
+							Colour.BASE_PINK_DEEP,
+							"Gape Content",
+							"When disabled, changes descriptions of gaping orifices to simply be 'loose', and also hides any special gape-related content.",
+							Main.getProperties().hasValue(PropertyValue.gapeContent)));
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"FOOT",
 							Colour.BASE_TAN,

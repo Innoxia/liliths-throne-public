@@ -537,9 +537,12 @@ public class Perk {
 			"royal jelly",
 			PerkCategory.JOB,
 			"perks/jobs/npc_slime_queen",
-			Colour.SLIME_PINK,
+			Util.newArrayListOfValues(Colour.CLOTHING_GOLD, Colour.CLOTHING_RED_VERY_DARK, Colour.CLOTHING_GOLD),
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50)),
+			null,
+			null,
+			null,
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -607,7 +610,7 @@ public class Perk {
 	
 	public static AbstractPerk JOB_GANG_BODY_GUARD = new AbstractPerk(20,
 			true,
-			"proven loyalty",
+			"sharpest fangs",
 			PerkCategory.JOB,
 			"perks/jobs/npc_rat_gang",
 			Util.newArrayListOfValues(
@@ -624,7 +627,7 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"[npc.NameHasFull] proven [npc.herself] to be unquestionably loyal to [npc.her] gang, and as such, has earned the position of bodyguard of [npc.her] leader.");
+					"Having been recognised as one of the most powerful members of [npc.her] gang, [npc.name] has earned the position of being a bodyguard of [npc.her] leader.");
 		}
 	};
 	
@@ -1997,10 +2000,11 @@ public class Perk {
 			"irresistible appeals",
 			PerkCategory.LUST,
 			"perks/convincing_requests",
-			Colour.GENERIC_SEX,
+			Util.newArrayListOfValues(Colour.GENERIC_SEX, Colour.BASE_GOLD),
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)),
-			Util.newArrayListOfValues("Requests during sex are no longer denied by sadists or rough dominants")) {
+			Util.newArrayListOfValues("Requests during sex are no longer denied by sadists or rough dominants"),
+			null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] mastered the art of sexual persuasion, and [npc.is] able to convince even the cruelest of dominant partners to do as [npc.she] [npc.verb(ask)].");
@@ -2020,6 +2024,30 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameIsFull] so astoundingly "+(owner.getFemininity()==Femininity.ANDROGYNOUS?"attractive":(owner.isFeminine()?"beautiful":"handsome"))
 					+" that [npc.her] sexual partners can't help but keep on fucking well after they've had their first orgasm.");
+		}
+	};
+
+	public static AbstractPerk ORGASMIC_LEVEL_DRAIN = new AbstractPerk(20,
+			false,
+			"orgasmic level drain",
+			PerkCategory.LUST,
+			"perks/orgasmic_level_drain",
+			Util.newArrayListOfValues(Colour.GENERIC_SEX, Colour.GENERIC_EXPERIENCE),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
+					"[style.boldTerrible(-95% to all)] [style.boldExperience(experience gains)]",
+					"In all [style.boldSex(sex scenes)]:",
+					"Can choose to [style.boldTerrible(drain 1 level)]",
+					"from orgasming partners",
+					"You gain [style.boldExcellent(50%)] [style.boldExperience(experience)]",
+					"value of levels drained"),
+			null, null, null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"Via a complex manipulation of [npc.her] arcane aura, [npc.name] [npc.has] become far slower to learn from new experiences,"
+					+ " but in return [npc.is] now able to drain the experience of both defeated and victorious foes who orgasm in [npc.her] presence.");
 		}
 	};
 	
@@ -2360,6 +2388,31 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] had countless sexual partners, and [npc.has] performed all manner of lewd acts with them.");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
+			return true;
+		}
+	};
+	
+	public static AbstractPerk SPECIAL_MEGA_SLUT = new AbstractPerk(20,
+			false,
+			"debauched",
+			PerkCategory.ARCANE,
+			"perks/attSeduction3",
+			Colour.ATTRIBUTE_LUST,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
+					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 75)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "When not partaking in it with complete strangers, [npc.nameIsFull] almost always fantasising about sex, and thinks of little else but what sort of lewd act [npc.she] should perform with [npc.her] next partner.");
 		}
 		@Override
 		public boolean isHiddenPerk() {

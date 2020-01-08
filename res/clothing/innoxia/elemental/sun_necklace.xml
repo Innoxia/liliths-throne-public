@@ -67,7 +67,7 @@
       <![CDATA[[npc.Name] [npc.verb(fasten)] the sun necklace around [npc2.namePos] neck.]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before [npc.verb(fasten)] the sun necklace around [npc2.her] neck.]]>
+      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before fastening the sun necklace around [npc2.her] neck.]]>
     </otherRough>
   </replacementText>
   <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
