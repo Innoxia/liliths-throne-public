@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -55,7 +54,6 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -298,7 +296,7 @@ public class HarpyDominant extends NPC {
 	@Override
 	public String getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target){
 		if(user.isPlayer() && !target.isPlayer() && (item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED))){
-			if(Sex.isDom(Main.game.getPlayer())) {
+			if(Main.sex.isDom(Main.game.getPlayer())) {
 				return "<p>"
 							+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 							+ " Seeing what you're offering [npc.herHim], [npc.she] lets out a little laugh, "

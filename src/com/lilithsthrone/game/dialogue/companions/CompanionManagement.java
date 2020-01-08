@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.companions;
-
-import java.text.DecimalFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.clothing;
-
-import java.io.File;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.EnumMap;

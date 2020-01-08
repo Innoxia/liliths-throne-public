@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ;
-
-import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;

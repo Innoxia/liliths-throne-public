@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
-
-import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 

@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.sex.positions.slots;
-
-import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.main.Main;
 
 /**
  * All SexSlots that are used in the AGAINST_WALL position.
@@ -94,7 +93,7 @@ public class SexSlotAgainstWall {
 			false) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 
@@ -105,7 +104,7 @@ public class SexSlotAgainstWall {
 			false) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 
@@ -116,7 +115,7 @@ public class SexSlotAgainstWall {
 			false) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 
@@ -127,7 +126,7 @@ public class SexSlotAgainstWall {
 			false) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 }

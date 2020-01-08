@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.utils;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +15,6 @@ import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -239,12 +237,12 @@ public class CharactersPresentDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getAllParticipants().size()>2) {
-				List<GameCharacter> parsingCharacters = new ArrayList<>(Sex.getAllParticipants());
+			if(Main.sex.getAllParticipants().size()>2) {
+				List<GameCharacter> parsingCharacters = new ArrayList<>(Main.sex.getAllParticipants());
 				parsingCharacters.remove(Main.game.getPlayer());
 				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_THREESOME", parsingCharacters);
 				
-			} else if(Sex.getNumberOfOrgasms(getCharacterViewed()) >= getCharacterViewed().getOrgasmsBeforeSatisfied()) {
+			} else if(Main.sex.getNumberOfOrgasms(getCharacterViewed()) >= getCharacterViewed().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX", getTargetedCharacterForSex());
 				
 			} else {

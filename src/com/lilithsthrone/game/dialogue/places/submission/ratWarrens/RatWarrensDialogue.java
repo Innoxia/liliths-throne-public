@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission.ratWarrens;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +56,6 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -537,9 +535,9 @@ public class RatWarrensDialogue {
 		@Override
 		public String getContent() {
 			if(isCompanionDialogue()) {
-				if(Sex.getSubmissiveSpectators().contains(getMainCompanion())) {
+				if(Main.sex.getSubmissiveSpectators().contains(getMainCompanion())) {
 					return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AFTER_ENTRANCE_SEX_COMPANION_WATCHING", getGuards(true));
-				} else if(Sex.getSubmissiveSpectators().contains(Main.game.getPlayer())) {
+				} else if(Main.sex.getSubmissiveSpectators().contains(Main.game.getPlayer())) {
 					return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AFTER_ENTRANCE_SEX_PLAYER_WATCHING", getGuards(true));
 				} else {
 					return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AFTER_ENTRANCE_SEX_BOTH", getGuards(true));
@@ -803,8 +801,8 @@ public class RatWarrensDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getAllParticipants(false).contains(Main.game.getPlayer())) {
-				if(isCompanionDialogue() && Sex.getAllParticipants(false).contains(getMainCompanion())) {
+			if(Main.sex.getAllParticipants(false).contains(Main.game.getPlayer())) {
+				if(isCompanionDialogue() && Main.sex.getAllParticipants(false).contains(getMainCompanion())) {
 					return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_AFTER_SEX_BOTH", getGuards(true));
 				} else {
 					return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_AFTER_SEX_SOLO", getGuards(true));
@@ -970,10 +968,10 @@ public class RatWarrensDialogue {
 			public void assignNPCTarget(GameCharacter targeter) {
 				if(isCompanionDialogue()) {
 					if(targeter.equals(guards.get(0))) {
-						Sex.setTargetedPartner(targeter, Main.game.getPlayer());
+						Main.sex.setTargetedPartner(targeter, Main.game.getPlayer());
 						
 					} else if(isCompanionDialogue() && targeter.equals(guards.get(1))) {
-						Sex.setTargetedPartner(targeter, getMainCompanion());
+						Main.sex.setTargetedPartner(targeter, getMainCompanion());
 						
 					} else {
 						super.assignNPCTarget(targeter);
@@ -1630,7 +1628,7 @@ public class RatWarrensDialogue {
 							}
 							@Override
 							public SexControl getSexControl(GameCharacter character) {
-								if(!Sex.isDom(character)) {
+								if(!Main.sex.isDom(character)) {
 									return SexControl.ONGOING_ONLY;
 								}
 								return super.getSexControl(character);
@@ -1645,7 +1643,7 @@ public class RatWarrensDialogue {
 							}
 							@Override
 							public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-								return Sex.getNumberOfOrgasms(bartender)>=bartender.getOrgasmsBeforeSatisfied();
+								return Main.sex.getNumberOfOrgasms(bartender)>=bartender.getOrgasmsBeforeSatisfied();
 							}
 							@Override
 							public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
@@ -1722,7 +1720,7 @@ public class RatWarrensDialogue {
 										}
 										@Override
 										public SexControl getSexControl(GameCharacter character) {
-											if(!Sex.isDom(character)) {
+											if(!Main.sex.isDom(character)) {
 												return SexControl.ONGOING_ONLY;
 											}
 											return super.getSexControl(character);
@@ -1737,7 +1735,7 @@ public class RatWarrensDialogue {
 										}
 										@Override
 										public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-											return Sex.getNumberOfOrgasms(bartender)>=bartender.getOrgasmsBeforeSatisfied();
+											return Main.sex.getNumberOfOrgasms(bartender)>=bartender.getOrgasmsBeforeSatisfied();
 										}
 										@Override
 										public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
@@ -1805,7 +1803,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			if(Sex.getSubmissiveParticipants(false).containsKey(getMainCompanion())) {
+			if(Main.sex.getSubmissiveParticipants(false).containsKey(getMainCompanion())) {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AFTER_DICE_DEN_ORAL_COMPANION", getGuards(true));
 			}
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AFTER_DICE_DEN_ORAL", getGuards(true));
@@ -3009,17 +3007,17 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			if(Sex.getSexPositionSlot(Main.game.getPlayer())!=SexSlotAllFours.ALL_FOURS) {
+			if(Main.sex.getSexPositionSlot(Main.game.getPlayer())!=SexSlotAllFours.ALL_FOURS) {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_DOUBLE_PLAYER_NEXT");
 			}
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_DOUBLE_COMPANION_NEXT");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> previousWetAreas = new HashMap<>(Sex.getAllWetAreas()); // Starting lube from saliva
+			Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> previousWetAreas = new HashMap<>(Main.sex.getAllWetAreas()); // Starting lube from saliva
 			
 			if(index==1) {
-				if(Sex.getSexPositionSlot(Main.game.getPlayer())!=SexSlotAllFours.ALL_FOURS) {
+				if(Main.sex.getSexPositionSlot(Main.game.getPlayer())!=SexSlotAllFours.ALL_FOURS) {
 					return new ResponseSex("Fucked",
 							UtilText.parse(getMainCompanion(),
 								!isMouthAccess(Main.game.getPlayer())

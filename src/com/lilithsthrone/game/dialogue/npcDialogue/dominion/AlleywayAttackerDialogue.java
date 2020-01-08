@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +28,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
@@ -1959,7 +1957,7 @@ public class AlleywayAttackerDialogue {
 		public String getContent() {
 			if((getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
 					&& !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-				if(Sex.getNumberOfOrgasms(getMugger()) >= getMugger().getOrgasmsBeforeSatisfied()) {
+				if(Main.sex.getNumberOfOrgasms(getMugger()) >= getMugger().getOrgasmsBeforeSatisfied()) {
 					return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_SEX_VICTORY", getAllCharacters());
 				} else {
 					return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_SEX_VICTORY_NO_ORGASM", getAllCharacters());

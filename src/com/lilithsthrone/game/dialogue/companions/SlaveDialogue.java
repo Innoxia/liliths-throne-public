@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.companions;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -23,7 +22,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMilkingStall;
@@ -3056,10 +3054,10 @@ public class SlaveDialogue {
 						+ "</p>");
 				
 			} else {
-				if(Sex.getNumberOfOrgasms(getSlave()) >= getSlave().getOrgasmsBeforeSatisfied()) {
+				if(Main.sex.getNumberOfOrgasms(getSlave()) >= getSlave().getOrgasmsBeforeSatisfied()) {
 					return UtilText.parse(getSlave(),
 							"<p>"
-								+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(getSlave()) > 1?"s":"")+"."
+								+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Main.sex.getNumberOfOrgasms(getSlave()) > 1?"s":"")+"."
 								+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
 							+ "</p>");
 				} else {

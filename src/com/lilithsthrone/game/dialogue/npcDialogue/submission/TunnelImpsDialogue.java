@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.submission;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -29,7 +28,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -1406,7 +1404,7 @@ public class TunnelImpsDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getAllParticipants().contains(getMainCompanion())) {
+			if(Main.sex.getAllParticipants().contains(getMainCompanion())) {
 				return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_DEFEAT_SEX_WITH_COMPANION", getAllCharacters());
 			} else {
 				return UtilText.parseFromXMLFile("encounters/submission/impAttack"+getImpEncounterId(), "AFTER_DEFEAT_SEX", getAllCharacters());

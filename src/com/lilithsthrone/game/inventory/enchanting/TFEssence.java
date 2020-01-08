@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.enchanting;
-
-import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import com.lilithsthrone.game.inventory.Rarity;

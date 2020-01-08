@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.race;
-
-import java.util.List;
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;

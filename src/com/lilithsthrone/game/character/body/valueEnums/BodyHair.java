@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.effects;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,6 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
@@ -62,7 +60,7 @@ public class PositioningMenu {
 		
 		for(Entry<GameCharacter, SexSlot> e : positioningSlots.entrySet()) {
 //			System.out.println(e.getKey().getName()+", "+e.getValue().getName(e.getKey()));
-			if(Sex.isDom(e.getKey()) || Sex.getDominantSpectators().contains(e.getKey())) {
+			if(Main.sex.isDom(e.getKey()) || Main.sex.getDominantSpectators().contains(e.getKey())) {
 				if(e.getValue()==SexSlotGeneric.MISC_WATCHING) {
 					dominantSpectators.add(e.getKey());
 				} else {
@@ -77,7 +75,7 @@ public class PositioningMenu {
 			}
 		}
 		
-		Sex.setSexManager(
+		Main.sex.setSexManager(
 				new SexManagerDefault(
 						position,
 						dominants,
@@ -86,7 +84,7 @@ public class PositioningMenu {
 				dominantSpectators,
 				submissiveSpectators);
 		
-		Sex.setPositionRequest(null);
+		Main.sex.setPositionRequest(null);
 	}
 	
 	@SuppressWarnings("fallthrough")
@@ -104,8 +102,8 @@ public class PositioningMenu {
 		List<SexSlot> slotsEleven = new ArrayList<>();
 		List<SexSlot> slotsTwelve = new ArrayList<>();
 		
-		Map<GameCharacter, SexSlot> doms = Sex.getDominantParticipants(true);
-		Map<GameCharacter, SexSlot> subs = Sex.getSubmissiveParticipants(true);
+		Map<GameCharacter, SexSlot> doms = Main.sex.getDominantParticipants(true);
+		Map<GameCharacter, SexSlot> subs = Main.sex.getSubmissiveParticipants(true);
 		
 		if(position==SexPosition.STANDING) {
 			int sizeSlots = (doms.size()+subs.size())-1;
@@ -403,16 +401,16 @@ public class PositioningMenu {
 	}
 	
 	private static Value<Boolean, String> isSlotsAcceptable() {
-		if(!Sex.isMasturbation()) {
+		if(!Main.sex.isMasturbation()) {
 			boolean domsAcceptable = false;
-			for(GameCharacter c : Sex.getDominantParticipants(true).keySet()) {
+			for(GameCharacter c : Main.sex.getDominantParticipants(true).keySet()) {
 				if(positioningSlots.get(c)!=SexSlotGeneric.MISC_WATCHING) {
 					domsAcceptable = true;
 					break;
 				}
 			}
 			boolean subsAcceptable = false;
-			for(GameCharacter c : Sex.getSubmissiveParticipants(true).keySet()) {
+			for(GameCharacter c : Main.sex.getSubmissiveParticipants(true).keySet()) {
 				if(positioningSlots.get(c)!=SexSlotGeneric.MISC_WATCHING) {
 					subsAcceptable = true;
 					break;
@@ -431,9 +429,9 @@ public class PositioningMenu {
 		
 		sb.append("<div class='container-half-width'>");
 			sb.append("<p style='text-align:center;'>");
-			if(Sex.getDominantParticipants(true).size()>0) {
+			if(Main.sex.getDominantParticipants(true).size()>0) {
 				sb.append("[style.boldDominant(Dominants)]</b>");
-					for(GameCharacter c : Sex.getDominantParticipants(true).keySet()) {
+					for(GameCharacter c : Main.sex.getDominantParticipants(true).keySet()) {
 						sb.append(UtilText.parse(c,
 								"<br/><b style='color:"+c.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b><b>:</b> "
 										+(positioningSlots.get(c)==SexSlotGeneric.MISC_WATCHING
@@ -452,9 +450,9 @@ public class PositioningMenu {
 		
 		sb.append("<div class='container-half-width'>");
 			sb.append("<p style='text-align:center;'>");
-			if(Sex.getSubmissiveParticipants(true).size()>0) {
+			if(Main.sex.getSubmissiveParticipants(true).size()>0) {
 				sb.append("[style.boldSubmissive(Submissives)]</b>");
-					for(GameCharacter c : Sex.getSubmissiveParticipants(true).keySet()) {
+					for(GameCharacter c : Main.sex.getSubmissiveParticipants(true).keySet()) {
 						sb.append(UtilText.parse(c,
 								"<br/><b style='color:"+c.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b><b>:</b> "
 										+(positioningSlots.get(c)==SexSlotGeneric.MISC_WATCHING
@@ -499,7 +497,7 @@ public class PositioningMenu {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.isDom(Main.game.getPlayer())) {
+			if(Main.sex.isDom(Main.game.getPlayer())) {
 				UtilText.nodeContentSB.append(getDominantsDiv());
 				UtilText.nodeContentSB.append(getSubmissivesDiv());
 				
@@ -567,17 +565,17 @@ public class PositioningMenu {
 						
 						positioningSB.append(
 								"Wanting to switch into a new position, "
-									+(Sex.isMasturbation()
+									+(Main.sex.isMasturbation()
 										?"you move around until you've assumed the posture you had in mind..."
-										:(Sex.getAllParticipants(false).size()==2
-											?UtilText.parse(Sex.getTargetedPartner(Main.game.getPlayer()), "you manoeuvre [npc.name] into [npc.her] new place")
+										:(Main.sex.getAllParticipants(false).size()==2
+											?UtilText.parse(Main.sex.getTargetedPartner(Main.game.getPlayer()), "you manoeuvre [npc.name] into [npc.her] new place")
 											:"you manoeuvre your partners into their new places")
 										+", before assuming the posture you had in mind..."));
 
 						SexActionUtility.POSITION_SELECTION.applyEffects();
-						Sex.endSexTurn(SexActionUtility.POSITION_SELECTION);
-						Main.game.setContent(new Response("", "", Sex.SEX_DIALOGUE));
-//						Sex.endSexTurn(PlayerTalk.DIRTY_TALK);
+						Main.sex.endSexTurn(SexActionUtility.POSITION_SELECTION);
+						Main.game.setContent(new Response("", "", Main.sex.SEX_DIALOGUE));
+//						Main.sex.endSexTurn(PlayerTalk.DIRTY_TALK);
 //						Main.game.setContent(SexActionUtility.POSITION_SELECTION.toResponse());
 //						
 					}
@@ -590,7 +588,7 @@ public class PositioningMenu {
 						POSITIONING_MENU){
 					@Override
 					public void effects() {
-						List<GameCharacter> characters = Sex.getAllParticipants(true);
+						List<GameCharacter> characters = Main.sex.getAllParticipants(true);
 						
 						for(int i=0; i<characters.size(); i++) {
 							if(characters.get(i).equals(targetedCharacter)) {
@@ -679,10 +677,10 @@ public class PositioningMenu {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.STANDING);
+			return Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.STANDING);
 		}
 		
 		@Override
@@ -705,11 +703,11 @@ public class PositioningMenu {
 			position = SexPosition.STANDING;
 			SexSlot[] domSlots = new SexSlot[] {SexSlotStanding.STANDING_DOMINANT, SexSlotStanding.STANDING_DOMINANT_TWO, SexSlotStanding.STANDING_DOMINANT_THREE, SexSlotStanding.STANDING_DOMINANT_FOUR};
 			SexSlot[] subSlots = new SexSlot[] {SexSlotStanding.STANDING_SUBMISSIVE, SexSlotStanding.STANDING_SUBMISSIVE_TWO, SexSlotStanding.STANDING_SUBMISSIVE_THREE, SexSlotStanding.STANDING_SUBMISSIVE_FOUR};
-			List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
-			List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+			List<GameCharacter> doms = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
+			List<GameCharacter> subs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
 			
-			if(Sex.getSexManager().getPosition()==SexPosition.STANDING) {
-				positioningSlots = new HashMap<>(Sex.getAllOccupiedSlots(true));
+			if(Main.sex.getSexManager().getPosition()==SexPosition.STANDING) {
+				positioningSlots = new HashMap<>(Main.sex.getAllOccupiedSlots(true));
 				
 			} else {
 				positioningSlots = new HashMap<>();
@@ -720,15 +718,15 @@ public class PositioningMenu {
 					positioningSlots.put(subs.get(i), subSlots[i]);
 				}
 				
-				for(GameCharacter c : Sex.getDominantSpectators()) {
+				for(GameCharacter c : Main.sex.getDominantSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
-				for(GameCharacter c : Sex.getSubmissiveSpectators()) {
+				for(GameCharacter c : Main.sex.getSubmissiveSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
 			}
 			
-			targetedCharacter = Main.game.getPlayer();//Sex.getCharacterTargetedForSexAction(this);
+			targetedCharacter = Main.game.getPlayer();//Main.sex.getCharacterTargetedForSexAction(this);
 			availableSlots = getAvailableSlots(targetedCharacter);
 			
 			performAcceptableSlotsCheck();
@@ -747,10 +745,10 @@ public class PositioningMenu {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.AGAINST_WALL);
+			return Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.AGAINST_WALL);
 		}
 		
 		@Override
@@ -773,11 +771,11 @@ public class PositioningMenu {
 			position = SexPosition.AGAINST_WALL;
 			SexSlot[] domSlots = new SexSlot[] {SexSlotAgainstWall.STANDING_WALL, SexSlotAgainstWall.STANDING_WALL_TWO, SexSlotAgainstWall.STANDING_WALL_THREE, SexSlotAgainstWall.STANDING_WALL_FOUR};
 			SexSlot[] subSlots = new SexSlot[] {SexSlotAgainstWall.FACE_TO_WALL, SexSlotAgainstWall.FACE_TO_WALL_TWO, SexSlotAgainstWall.FACE_TO_WALL_THREE, SexSlotAgainstWall.FACE_TO_WALL_FOUR};
-			List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
-			List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+			List<GameCharacter> doms = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
+			List<GameCharacter> subs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
 			
-			if(Sex.getSexManager().getPosition()==SexPosition.AGAINST_WALL) {
-				positioningSlots = new HashMap<>(Sex.getAllOccupiedSlots(true));
+			if(Main.sex.getSexManager().getPosition()==SexPosition.AGAINST_WALL) {
+				positioningSlots = new HashMap<>(Main.sex.getAllOccupiedSlots(true));
 				
 			} else {
 				positioningSlots = new HashMap<>();
@@ -788,15 +786,15 @@ public class PositioningMenu {
 					positioningSlots.put(subs.get(i), subSlots[i]);
 				}
 				
-				for(GameCharacter c : Sex.getDominantSpectators()) {
+				for(GameCharacter c : Main.sex.getDominantSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
-				for(GameCharacter c : Sex.getSubmissiveSpectators()) {
+				for(GameCharacter c : Main.sex.getSubmissiveSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
 			}
 
-			targetedCharacter = Main.game.getPlayer();//Sex.getCharacterTargetedForSexAction(this);
+			targetedCharacter = Main.game.getPlayer();//Main.sex.getCharacterTargetedForSexAction(this);
 			availableSlots = getAvailableSlots(targetedCharacter);
 			
 			performAcceptableSlotsCheck();
@@ -816,17 +814,17 @@ public class PositioningMenu {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			int taurs = 0;
-			for(GameCharacter participant : Sex.getAllParticipants(true)) {
+			for(GameCharacter participant : Main.sex.getAllParticipants(true)) {
 				if(participant.isTaur()) {
 					taurs++;
 				}
 			}
-			return Sex.getAllParticipants(true).size()!=taurs // Need at least one non-taur
+			return Main.sex.getAllParticipants(true).size()!=taurs // Need at least one non-taur
 					&& taurs<=4 // Cannot have more than 4 taurs
-					&& Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.SITTING);
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.SITTING);
 		}
 		
 		@Override
@@ -850,11 +848,11 @@ public class PositioningMenu {
 			SexSlot[] domSlots = new SexSlot[] {SexSlotSitting.SITTING, SexSlotSitting.SITTING_TWO, SexSlotSitting.SITTING_THREE, SexSlotSitting.SITTING_FOUR};
 			SexSlot[] subSlots = new SexSlot[] {SexSlotSitting.SITTING_IN_LAP, SexSlotSitting.SITTING_IN_LAP_TWO, SexSlotSitting.SITTING_IN_LAP_THREE, SexSlotSitting.SITTING_IN_LAP_FOUR};
 			
-			List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
-			List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+			List<GameCharacter> doms = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
+			List<GameCharacter> subs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
 			
-			if(Sex.getSexManager().getPosition()==SexPosition.SITTING) {
-				positioningSlots = new HashMap<>(Sex.getAllOccupiedSlots(true));
+			if(Main.sex.getSexManager().getPosition()==SexPosition.SITTING) {
+				positioningSlots = new HashMap<>(Main.sex.getAllOccupiedSlots(true));
 				
 			} else {
 				positioningSlots = new HashMap<>();
@@ -880,15 +878,15 @@ public class PositioningMenu {
 					}
 				}
 				
-				for(GameCharacter c : Sex.getDominantSpectators()) {
+				for(GameCharacter c : Main.sex.getDominantSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
-				for(GameCharacter c : Sex.getSubmissiveSpectators()) {
+				for(GameCharacter c : Main.sex.getSubmissiveSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
 			}
 
-			targetedCharacter = Main.game.getPlayer();//Sex.getCharacterTargetedForSexAction(this);
+			targetedCharacter = Main.game.getPlayer();//Main.sex.getCharacterTargetedForSexAction(this);
 			availableSlots = getAvailableSlots(targetedCharacter);
 			
 			performAcceptableSlotsCheck();
@@ -907,10 +905,10 @@ public class PositioningMenu {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.OVER_DESK);
+			return Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.OVER_DESK);
 		}
 		
 		@Override
@@ -933,11 +931,11 @@ public class PositioningMenu {
 			position = SexPosition.OVER_DESK;
 			SexSlot[] domSlots = new SexSlot[] {SexSlotDesk.BETWEEN_LEGS, SexSlotDesk.BETWEEN_LEGS_TWO, SexSlotDesk.BETWEEN_LEGS_THREE, SexSlotDesk.BETWEEN_LEGS_FOUR};
 			SexSlot[] subSlots = new SexSlot[] {SexSlotDesk.OVER_DESK_ON_FRONT, SexSlotDesk.OVER_DESK_ON_FRONT_TWO, SexSlotDesk.OVER_DESK_ON_FRONT_THREE, SexSlotDesk.OVER_DESK_ON_FRONT_FOUR};
-			List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
-			List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+			List<GameCharacter> doms = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
+			List<GameCharacter> subs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
 			
-			if(Sex.getSexManager().getPosition()==SexPosition.OVER_DESK) {
-				positioningSlots = new HashMap<>(Sex.getAllOccupiedSlots(true));
+			if(Main.sex.getSexManager().getPosition()==SexPosition.OVER_DESK) {
+				positioningSlots = new HashMap<>(Main.sex.getAllOccupiedSlots(true));
 				
 			} else {
 				positioningSlots = new HashMap<>();
@@ -948,15 +946,15 @@ public class PositioningMenu {
 					positioningSlots.put(subs.get(i), subSlots[i]);
 				}
 				
-				for(GameCharacter c : Sex.getDominantSpectators()) {
+				for(GameCharacter c : Main.sex.getDominantSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
-				for(GameCharacter c : Sex.getSubmissiveSpectators()) {
+				for(GameCharacter c : Main.sex.getSubmissiveSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
 			}
 
-			targetedCharacter = Main.game.getPlayer();//Sex.getCharacterTargetedForSexAction(this);
+			targetedCharacter = Main.game.getPlayer();//Main.sex.getCharacterTargetedForSexAction(this);
 			availableSlots = getAvailableSlots(targetedCharacter);
 			
 			performAcceptableSlotsCheck();
@@ -975,10 +973,10 @@ public class PositioningMenu {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.ALL_FOURS);
+			return Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.ALL_FOURS);
 		}
 		
 		@Override
@@ -1001,11 +999,11 @@ public class PositioningMenu {
 			position = SexPosition.ALL_FOURS;
 			SexSlot[] domSlots = new SexSlot[] {SexSlotAllFours.BEHIND, SexSlotAllFours.BEHIND_TWO, SexSlotAllFours.BEHIND_THREE, SexSlotAllFours.BEHIND_FOUR};
 			SexSlot[] subSlots = new SexSlot[] {SexSlotAllFours.ALL_FOURS, SexSlotAllFours.ALL_FOURS_TWO, SexSlotAllFours.ALL_FOURS_THREE, SexSlotAllFours.ALL_FOURS_FOUR};
-			List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
-			List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+			List<GameCharacter> doms = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
+			List<GameCharacter> subs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
 			
-			if(Sex.getSexManager().getPosition()==SexPosition.ALL_FOURS) {
-				positioningSlots = new HashMap<>(Sex.getAllOccupiedSlots(true));
+			if(Main.sex.getSexManager().getPosition()==SexPosition.ALL_FOURS) {
+				positioningSlots = new HashMap<>(Main.sex.getAllOccupiedSlots(true));
 				
 			} else {
 				positioningSlots = new HashMap<>();
@@ -1016,15 +1014,15 @@ public class PositioningMenu {
 					positioningSlots.put(subs.get(i), subSlots[i]);
 				}
 				
-				for(GameCharacter c : Sex.getDominantSpectators()) {
+				for(GameCharacter c : Main.sex.getDominantSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
-				for(GameCharacter c : Sex.getSubmissiveSpectators()) {
+				for(GameCharacter c : Main.sex.getSubmissiveSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
 			}
 
-			targetedCharacter = Main.game.getPlayer();//Sex.getCharacterTargetedForSexAction(this);
+			targetedCharacter = Main.game.getPlayer();//Main.sex.getCharacterTargetedForSexAction(this);
 			availableSlots = getAvailableSlots(targetedCharacter);
 			
 			performAcceptableSlotsCheck();
@@ -1043,10 +1041,10 @@ public class PositioningMenu {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.LYING_DOWN);
+			return Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.LYING_DOWN);
 		}
 		
 		@Override
@@ -1069,11 +1067,11 @@ public class PositioningMenu {
 			position = SexPosition.LYING_DOWN;
 			SexSlot[] domSlots = new SexSlot[] {SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.MISSIONARY_TWO, SexSlotLyingDown.MISSIONARY_THREE, SexSlotLyingDown.MISSIONARY_FOUR};
 			SexSlot[] subSlots = new SexSlot[] {SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.LYING_DOWN_TWO, SexSlotLyingDown.LYING_DOWN_THREE, SexSlotLyingDown.LYING_DOWN_FOUR};
-			List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
-			List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+			List<GameCharacter> doms = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
+			List<GameCharacter> subs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
 			
-			if(Sex.getSexManager().getPosition()==SexPosition.LYING_DOWN) {
-				positioningSlots = new HashMap<>(Sex.getAllOccupiedSlots(true));
+			if(Main.sex.getSexManager().getPosition()==SexPosition.LYING_DOWN) {
+				positioningSlots = new HashMap<>(Main.sex.getAllOccupiedSlots(true));
 				
 			} else {
 				positioningSlots = new HashMap<>();
@@ -1084,15 +1082,15 @@ public class PositioningMenu {
 					positioningSlots.put(subs.get(i), subSlots[i]);
 				}
 				
-				for(GameCharacter c : Sex.getDominantSpectators()) {
+				for(GameCharacter c : Main.sex.getDominantSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
-				for(GameCharacter c : Sex.getSubmissiveSpectators()) {
+				for(GameCharacter c : Main.sex.getSubmissiveSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
 			}
 
-			targetedCharacter = Main.game.getPlayer();//Sex.getCharacterTargetedForSexAction(this);
+			targetedCharacter = Main.game.getPlayer();//Main.sex.getCharacterTargetedForSexAction(this);
 			availableSlots = getAvailableSlots(targetedCharacter);
 			
 			performAcceptableSlotsCheck();
@@ -1111,10 +1109,10 @@ public class PositioningMenu {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.STOCKS);
+			return Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.STOCKS);
 		}
 		
 		@Override
@@ -1137,11 +1135,11 @@ public class PositioningMenu {
 			position = SexPosition.STOCKS;
 			SexSlot[] domSlots = new SexSlot[] {SexSlotStocks.BEHIND_STOCKS, SexSlotStocks.BEHIND_STOCKS_TWO, SexSlotStocks.BEHIND_STOCKS_THREE, SexSlotStocks.BEHIND_STOCKS_FOUR};
 			SexSlot[] subSlots = new SexSlot[] {SexSlotStocks.LOCKED_IN_STOCKS, SexSlotStocks.LOCKED_IN_STOCKS_TWO, SexSlotStocks.LOCKED_IN_STOCKS_THREE, SexSlotStocks.LOCKED_IN_STOCKS_FOUR};
-			List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
-			List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+			List<GameCharacter> doms = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
+			List<GameCharacter> subs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
 			
-			if(Sex.getSexManager().getPosition()==SexPosition.STOCKS) {
-				positioningSlots = new HashMap<>(Sex.getAllOccupiedSlots(true));
+			if(Main.sex.getSexManager().getPosition()==SexPosition.STOCKS) {
+				positioningSlots = new HashMap<>(Main.sex.getAllOccupiedSlots(true));
 				
 			} else {
 				positioningSlots = new HashMap<>();
@@ -1152,15 +1150,15 @@ public class PositioningMenu {
 					positioningSlots.put(subs.get(i), subSlots[i]);
 				}
 				
-				for(GameCharacter c : Sex.getDominantSpectators()) {
+				for(GameCharacter c : Main.sex.getDominantSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
-				for(GameCharacter c : Sex.getSubmissiveSpectators()) {
+				for(GameCharacter c : Main.sex.getSubmissiveSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
 			}
 
-			targetedCharacter = Main.game.getPlayer();//Sex.getCharacterTargetedForSexAction(this);
+			targetedCharacter = Main.game.getPlayer();//Main.sex.getCharacterTargetedForSexAction(this);
 			availableSlots = getAvailableSlots(targetedCharacter);
 			
 			performAcceptableSlotsCheck();
@@ -1179,10 +1177,10 @@ public class PositioningMenu {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.MILKING_STALL);
+			return Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.isPositionMenuChangingAllowed(Main.game.getPlayer())
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(SexPosition.MILKING_STALL);
 		}
 		
 		@Override
@@ -1205,11 +1203,11 @@ public class PositioningMenu {
 			position = SexPosition.MILKING_STALL;
 			SexSlot[] domSlots = new SexSlot[] {SexSlotMilkingStall.BEHIND_MILKING_STALL, SexSlotMilkingStall.BEHIND_MILKING_STALL_TWO, SexSlotMilkingStall.BEHIND_MILKING_STALL_THREE, SexSlotMilkingStall.BEHIND_MILKING_STALL_FOUR};
 			SexSlot[] subSlots = new SexSlot[] {SexSlotMilkingStall.LOCKED_IN_MILKING_STALL, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_TWO, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_THREE, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_FOUR};
-			List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
-			List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+			List<GameCharacter> doms = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
+			List<GameCharacter> subs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
 			
-			if(Sex.getSexManager().getPosition()==SexPosition.MILKING_STALL) {
-				positioningSlots = new HashMap<>(Sex.getAllOccupiedSlots(true));
+			if(Main.sex.getSexManager().getPosition()==SexPosition.MILKING_STALL) {
+				positioningSlots = new HashMap<>(Main.sex.getAllOccupiedSlots(true));
 				
 			} else {
 				positioningSlots = new HashMap<>();
@@ -1220,15 +1218,15 @@ public class PositioningMenu {
 					positioningSlots.put(subs.get(i), subSlots[i]);
 				}
 				
-				for(GameCharacter c : Sex.getDominantSpectators()) {
+				for(GameCharacter c : Main.sex.getDominantSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
-				for(GameCharacter c : Sex.getSubmissiveSpectators()) {
+				for(GameCharacter c : Main.sex.getSubmissiveSpectators()) {
 					positioningSlots.put(c, SexSlotGeneric.MISC_WATCHING);
 				}
 			}
 
-			targetedCharacter = Main.game.getPlayer();//Sex.getCharacterTargetedForSexAction(this);
+			targetedCharacter = Main.game.getPlayer();//Main.sex.getCharacterTargetedForSexAction(this);
 			availableSlots = getAvailableSlots(targetedCharacter);
 			
 			performAcceptableSlotsCheck();

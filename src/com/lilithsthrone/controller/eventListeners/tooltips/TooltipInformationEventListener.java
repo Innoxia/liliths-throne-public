@@ -1,6 +1,5 @@
 package com.lilithsthrone.controller.eventListeners.tooltips;
-
-import java.util.HashSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;

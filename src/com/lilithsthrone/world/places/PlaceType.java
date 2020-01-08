@@ -1,6 +1,5 @@
 package com.lilithsthrone.world.places;
-
-import java.lang.reflect.Field;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,9 +24,9 @@ import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemograp
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallProperty;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.BraxOffice;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.EnforcerHQDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestHelena;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
+import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestHelena;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestsDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;

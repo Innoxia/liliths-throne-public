@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission.ratWarrens;
-
-import java.util.LinkedHashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;

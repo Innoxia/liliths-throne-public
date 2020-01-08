@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission;
-
-import java.util.List;
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.gender.Gender;

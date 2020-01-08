@@ -1,6 +1,5 @@
 package com.lilithsthrone.controller.eventListeners;
-
-import org.w3c.dom.events.Event;
+import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
 import com.lilithsthrone.game.dialogue.responses.Response;

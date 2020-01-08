@@ -1,6 +1,5 @@
 package com.lilithsthrone.controller;
-
-import java.net.URL;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -83,7 +82,6 @@ import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -318,9 +316,9 @@ public class MainController implements Initializable {
 				return;
 			}
 			openInventory(
-					Sex.isMasturbation()
+					Main.sex.isMasturbation()
 						?null
-						:(NPC) Sex.getTargetedPartner(Main.game.getPlayer()),
+						:(NPC) Main.sex.getTargetedPartner(Main.game.getPlayer()),
 					InventoryInteraction.SEX);
 			
 		} else if(Main.game.getDialogueFlags().getManagementCompanion() != null) {
@@ -1570,8 +1568,8 @@ public class MainController implements Initializable {
 		
 		List<GameCharacter> charactersBeingRendered = new ArrayList<>();
 		if(Main.game.isInSex()) {
-			charactersBeingRendered.addAll(Sex.getDominantParticipants(true).keySet());
-			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants(true).keySet());
+			charactersBeingRendered.addAll(Main.sex.getDominantParticipants(true).keySet());
+			charactersBeingRendered.addAll(Main.sex.getSubmissiveParticipants(true).keySet());
 		} else if(Main.game.isInCombat()) {
 			charactersBeingRendered.add(Main.game.getPlayer());
 			charactersBeingRendered.addAll(Combat.getAllies(Main.game.getPlayer()));
@@ -1656,8 +1654,8 @@ public class MainController implements Initializable {
 						
 					} else { //TODO display NPC perk tree
 						if(Main.game.isInSex()) {
-							Sex.setTargetedPartner(Main.game.getPlayer(), character);
-							Sex.recalculateSexActions();
+							Main.sex.setTargetedPartner(Main.game.getPlayer(), character);
+							Main.sex.recalculateSexActions();
 							updateUI();
 							Main.game.updateResponses();
 								
@@ -1789,12 +1787,12 @@ public class MainController implements Initializable {
 
 	private static void setStatusEffectSexTargetChangeListener(Document document, String id, GameCharacter character, SexAreaInterface si) {
 		((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-			GameCharacter target = Sex.getCharactersHavingOngoingActionWith(character, si).isEmpty()
+			GameCharacter target = Main.sex.getCharactersHavingOngoingActionWith(character, si).isEmpty()
 					?null
-					:Sex.getCharactersHavingOngoingActionWith(character, si).get(0);
+					:Main.sex.getCharactersHavingOngoingActionWith(character, si).get(0);
 			if(target!=null && target instanceof NPC) {
-				Sex.setTargetedPartner(Main.game.getPlayer(), target);
-				Sex.recalculateSexActions();
+				Main.sex.setTargetedPartner(Main.game.getPlayer(), target);
+				Main.sex.recalculateSexActions();
 				updateUI();
 				Main.game.updateResponses();
 			}
@@ -1927,8 +1925,8 @@ public class MainController implements Initializable {
 		
 		List<GameCharacter> charactersBeingRendered = new ArrayList<>();
 		if(Main.game.isInSex()) {
-			charactersBeingRendered.addAll(Sex.getDominantParticipants(true).keySet());
-			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants(true).keySet());
+			charactersBeingRendered.addAll(Main.sex.getDominantParticipants(true).keySet());
+			charactersBeingRendered.addAll(Main.sex.getSubmissiveParticipants(true).keySet());
 			
 		} else if(Main.game.isInCombat()) {
 			charactersBeingRendered.addAll(Combat.getEnemies(Main.game.getPlayer()));
@@ -1981,8 +1979,8 @@ public class MainController implements Initializable {
 					
 				} else if(Main.game.isInSex()) {
 					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
-						Sex.setTargetedPartner(Main.game.getPlayer(), character);
-						Sex.recalculateSexActions();
+						Main.sex.setTargetedPartner(Main.game.getPlayer(), character);
+						Main.sex.recalculateSexActions();
 						updateUI();
 						Main.game.updateResponses();
 					}, false);

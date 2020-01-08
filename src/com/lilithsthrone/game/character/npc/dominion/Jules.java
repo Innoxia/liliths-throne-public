@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -48,7 +47,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -254,7 +252,7 @@ public class Jules extends NPC {
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexPositionSlot(Main.game.getNpc(Jules.class))==SexSlotStanding.STANDING_DOMINANT && this.hasPenis()) {
+		if(Main.sex.getSexPositionSlot(Main.game.getNpc(Jules.class))==SexSlotStanding.STANDING_DOMINANT && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 		
@@ -263,7 +261,7 @@ public class Jules extends NPC {
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(Sex.getSexPositionSlot(Main.game.getNpc(Jules.class))==SexSlotStanding.STANDING_DOMINANT && this.hasPenis()) {
+		if(Main.sex.getSexPositionSlot(Main.game.getNpc(Jules.class))==SexSlotStanding.STANDING_DOMINANT && this.hasPenis()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 

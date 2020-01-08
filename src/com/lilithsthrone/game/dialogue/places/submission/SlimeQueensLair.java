@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission;
-
-import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -22,7 +21,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
@@ -1296,7 +1294,7 @@ public class SlimeQueensLair {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getNpc(SlimeQueen.class))>=Main.game.getNpc(SlimeQueen.class).getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(SlimeQueen.class))>=Main.game.getNpc(SlimeQueen.class).getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "AFTER_SLIME_QUEEN_SEX");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "AFTER_SLIME_QUEEN_SEX_NO_ORGASM");

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +17,6 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -119,7 +117,7 @@ public class Penis implements BodyPartInterface {
 			list.add(type.getDescriptor(owner));
 		}
 		
-		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
+		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(owner)) {
 			if(owner.hasErection()) {
 				list.add("hard");
 				if(this.getType()!=PenisType.DILDO) {

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.List;
 import java.util.Map.Entry;
 

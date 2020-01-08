@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -50,7 +49,6 @@ import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemograp
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -273,13 +271,13 @@ public class Vanessa extends NPC {
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotSitting.SITTING) {
+		if(Main.sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotSitting.SITTING) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
 		}
-		if(Sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotSitting.PERFORMING_ORAL) {
+		if(Main.sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotSitting.PERFORMING_ORAL) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
 		}
-		if(Sex.getPosition()==SexPosition.OVER_DESK) {
+		if(Main.sex.getPosition()==SexPosition.OVER_DESK) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
 		}
 		
@@ -303,7 +301,7 @@ public class Vanessa extends NPC {
 	
 	@Override
 	public void endSex() {
-		if(!(Sex.getSexManager() instanceof SMVanessaOral) || !Sex.isDom(Main.game.getNpc(Vanessa.class))) {
+		if(!(Main.sex.getSexManager() instanceof SMVanessaOral) || !Main.sex.isDom(Main.game.getNpc(Vanessa.class))) {
 			Main.game.getNpc(Vanessa.class).cleanAllDirtySlots();
 			Main.game.getNpc(Vanessa.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_ACCESSORIES));
 		}

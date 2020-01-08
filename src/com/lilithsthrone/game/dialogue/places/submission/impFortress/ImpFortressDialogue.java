@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission.impFortress;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +50,6 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
 import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
@@ -3034,7 +3032,7 @@ public class ImpFortressDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getAllParticipants().contains(getMainCompanion())) {
+			if(Main.sex.getAllParticipants().contains(getMainCompanion())) {
 				return UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_SEX_AUDIENCE_WITH_COMPANION", getAllCharacters());
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_SEX_AUDIENCE", getAllCharacters());
@@ -3773,7 +3771,7 @@ public class ImpFortressDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getAllParticipants().contains(getMainCompanion())) {
+			if(Main.sex.getAllParticipants().contains(getMainCompanion())) {
 				return UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_SEX_PACIFIED_WITH_COMPANION", getAllCharacters());
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_AFTER_SEX_PACIFIED", getAllCharacters());
@@ -3884,7 +3882,7 @@ public class ImpFortressDialogue {
 										+Main.game.getPlayer().getClothingInSlot(ringGag.getClothingType().getEquipSlots().get(0)).getDisplayName(true)+ "</p>");
 							}
 							
-							if(ImpFortressDialogue.getMainCompanion()!=null && Sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
+							if(ImpFortressDialogue.getMainCompanion()!=null && Main.sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
 									&& (boss).isAbleToEquipGag(ImpFortressDialogue.getMainCompanion())) {
 								AbstractClothing ringGag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, Colour.CLOTHING_STEEL, Colour.CLOTHING_BROWN_DARK, Colour.CLOTHING_BLACK_STEEL, effects);
 								ringGag.setName(UtilText.parse(boss,"[npc.NamePos] 'Cock-Sucker' Ring gag"));
@@ -3913,7 +3911,7 @@ public class ImpFortressDialogue {
 										+Main.game.getPlayer().getClothingInSlot(buttPlug.getClothingType().getEquipSlots().get(0)).getDisplayName(true)+ "</p>");
 							}
 							
-							if(ImpFortressDialogue.getMainCompanion()!=null && Sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
+							if(ImpFortressDialogue.getMainCompanion()!=null && Main.sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
 									&& boss.isAbleToEquipButtPlug(ImpFortressDialogue.getMainCompanion())) {
 								AbstractClothing buttPlug = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_heart"),
 										Colour.CLOTHING_SILVER, Colour.CLOTHING_PERIWINKLE, Colour.CLOTHING_PERIWINKLE, effects);
@@ -3949,7 +3947,7 @@ public class ImpFortressDialogue {
 										+Main.game.getPlayer().getClothingInSlot(dildo.getClothingType().getEquipSlots().get(0)).getDisplayName(true)+ "</p>");
 							}
 							
-							if(ImpFortressDialogue.getMainCompanion()!=null && Sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
+							if(ImpFortressDialogue.getMainCompanion()!=null && Main.sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
 									&& boss.isAbleToEquipThong(ImpFortressDialogue.getMainCompanion())) {
 								AbstractClothing thong = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_PINK_LIGHT, effects);
 								thong.setName(UtilText.parse(boss,"[npc.NamePos] 'Breeder' Crotchless thong"));

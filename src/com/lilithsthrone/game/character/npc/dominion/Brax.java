@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.List;
 import java.util.Map;
 
@@ -455,7 +454,7 @@ public class Brax extends NPC {
 //			return super.getPenetrationDescription(initialPenetration, characterPenetrating, penetrationType, characterPenetrated, orifice);
 //		}
 //		if(Math.random()>0.3) {
-//			if(Sex.getSexPositionSlot(characterPenetrated)==SexSlotLyingDown.COWGIRL){
+//			if(Main.sex.getSexPositionSlot(characterPenetrated)==SexSlotLyingDown.COWGIRL){
 //				if(orifice == SexAreaOrifice.VAGINA) {
 //					if(penetrationType == SexAreaPenetration.PENIS && characterPenetrated.equals(this)) {
 //						return UtilText.returnStringAtRandom(

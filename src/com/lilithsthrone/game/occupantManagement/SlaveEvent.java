@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.occupantManagement;
-
-import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.2.2

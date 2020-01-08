@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
-
-import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.AbstractEarType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;

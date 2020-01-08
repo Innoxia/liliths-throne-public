@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.markings;
-
-import java.util.List;
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

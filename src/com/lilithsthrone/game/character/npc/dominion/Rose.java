@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -52,7 +51,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -255,7 +253,7 @@ public class Rose extends NPC {
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexManager() instanceof SMRoseHands) {
+		if(Main.sex.getSexManager() instanceof SMRoseHands) {
 			return null;
 		}
 		return super.getForeplayPreference(target);
@@ -263,7 +261,7 @@ public class Rose extends NPC {
 	
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(Sex.getSexManager() instanceof SMRoseHands) {
+		if(Main.sex.getSexManager() instanceof SMRoseHands) {
 			return null;
 		}
 		
@@ -279,7 +277,7 @@ public class Rose extends NPC {
 	
 	@Override
 	public int calculateSexTypeWeighting(SexType type, GameCharacter target, List<SexType> request, boolean lustOrArousalCalculation) {
-		if(Sex.getSexManager() instanceof SMRoseHands) {
+		if(Main.sex.getSexManager() instanceof SMRoseHands) {
 			return super.calculateSexTypeWeighting(type, target, request, lustOrArousalCalculation);
 		}
 		

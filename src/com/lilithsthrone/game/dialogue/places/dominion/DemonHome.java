@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
-
-import java.time.Month;
+import java.time.Month;
 
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;

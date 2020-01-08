@@ -1,6 +1,5 @@
 package com.lilithsthrone.controller.eventListeners.buttons;
-
-import java.awt.Toolkit;
+import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc;
-
-import java.lang.reflect.Field;
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -81,7 +80,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexType;
@@ -2641,7 +2639,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		boolean isConvincing = Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS);
 		
 		if(Main.game.isInSex() && !isConvincing) {
-			if(Sex.getSexControl(Main.game.getPlayer()).getValue()<=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue() && Sex.getSexPace(this)==SexPace.DOM_ROUGH) {
+			if(Main.sex.getSexControl(Main.game.getPlayer()).getValue()<=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue() && Main.sex.getSexPace(this)==SexPace.DOM_ROUGH) {
 				return true;
 			}
 		}
@@ -2661,7 +2659,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, SexSlot targetSlot, GameCharacter target) {
 		SexType targetSexPreference = this.getForeplayPreference(target);
-		if(!Sex.isInForeplay(this)) {
+		if(!Main.sex.isInForeplay(this)) {
 			targetSexPreference = this.getMainSexPreference(target);
 		}
 		if(targetSexPreference==null) {
@@ -2695,7 +2693,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				}
 				
 				if (getHistory() == Occupation.NPC_PROSTITUTE) {
-					if(Sex.isConsensual()) {
+					if(Main.sex.isConsensual()) {
 						return SexPace.SUB_NORMAL;
 					}
 				}
@@ -2821,7 +2819,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								|| target.getAffectionLevel(user)==AffectionLevel.POSITIVE_FIVE_WORSHIP
 								|| (target.getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isPositive() && item.getItemType().isTransformative())
 								|| (target.getFetishDesire(Fetish.FETISH_KINK_RECEIVING).isPositive() && item.getItemType().isFetishGiving())
-								|| (Main.game.isInSex() && !Sex.isConsensual() && Sex.isDom(user) && !Sex.isDom(target)))) {
+								|| (Main.game.isInSex() && !Main.sex.isConsensual() && Main.sex.isDom(user) && !Main.sex.isDom(target)))) {
 					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
 					
 				} else {

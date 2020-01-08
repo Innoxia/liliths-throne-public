@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.misc;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

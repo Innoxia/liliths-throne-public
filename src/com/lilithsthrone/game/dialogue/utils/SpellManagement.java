@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.utils;
-
-import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;

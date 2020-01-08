@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.sex.positions.slots;
-
-import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * All SexSlots that are used in the OVER_DESK position.

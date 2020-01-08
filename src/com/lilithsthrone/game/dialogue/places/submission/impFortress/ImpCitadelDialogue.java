@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission.impFortress;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +48,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
 import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
@@ -1052,9 +1050,9 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getAllParticipants().contains(getArcanist())) {
-				if(isCompanionDialogue() && Sex.getAllParticipants().contains(getMainCompanion())) {
-					if(Sex.getAllParticipants().contains(Main.game.getPlayer())) {
+			if(Main.sex.getAllParticipants().contains(getArcanist())) {
+				if(isCompanionDialogue() && Main.sex.getAllParticipants().contains(getMainCompanion())) {
+					if(Main.sex.getAllParticipants().contains(Main.game.getPlayer())) {
 						return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "AFTER_IMP_DEFEAT_ARCANIST_SEX_BOTH", getAllCharacters());
 					} else {
 						return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "AFTER_IMP_DEFEAT_ARCANIST_SEX_COMPANION", getAllCharacters());
@@ -1063,7 +1061,7 @@ public class ImpCitadelDialogue {
 					return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "AFTER_IMP_DEFEAT_ARCANIST_SEX", getAllCharacters());
 				}
 			}
-			if(Sex.getAllParticipants().contains(getMainCompanion())) {
+			if(Main.sex.getAllParticipants().contains(getMainCompanion())) {
 				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "AFTER_IMP_DEFEAT_SEX_WITH_COMPANION", getAllCharacters());
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "AFTER_IMP_DEFEAT_SEX", getAllCharacters());
@@ -1711,8 +1709,8 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getAllParticipants().contains(Main.game.getPlayer())) {
-				if(Sex.getAllParticipants().contains(getMainCompanion())) {
+			if(Main.sex.getAllParticipants().contains(Main.game.getPlayer())) {
+				if(Main.sex.getAllParticipants().contains(getMainCompanion())) {
 					return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_POST_SEX_BOTH", getAllCharacters());
 				} else {
 					return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_POST_SEX_SOLO", getAllCharacters());

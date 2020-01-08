@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.submission;
-
-import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +62,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.main.Main;
@@ -388,8 +386,8 @@ public class Murk extends NPC {
 	public String getDirtyTalkPenisPenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
 		
-		if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.PENIS, target).isEmpty()) {
-			for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.PENIS, target)) {
+		if(!Main.sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.PENIS, target).isEmpty()) {
+			for(SexAreaOrifice orifice : Main.sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.PENIS, target)) {
 				if(Main.game.isGapeContentEnabled()) {
 					switch(orifice) {
 						case ANUS:
