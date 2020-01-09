@@ -544,7 +544,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		availableActions.removeIf(si -> !si.isAddedToAvailableSexActions() && !si.isAbleToAccessParts(performingCharacter));
 		
 		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
-		if(!performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
+		if(!performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING)
+				|| !performingCharacter.hasFetish(Fetish.FETISH_ORAL_GIVING)) {
 			bannedActions.add(PartnerSelfTailMouth.PARTNER_SELF_TAIL_MOUTH_PENETRATION);
 		}
 		

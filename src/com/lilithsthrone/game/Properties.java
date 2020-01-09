@@ -614,6 +614,12 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.3.3.9")) {
 						values.add(PropertyValue.enchantmentLimits);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.5.8")) {
+						values.add(PropertyValue.gapeContent);
+					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.5.9")) {
+						values.add(PropertyValue.levelDrain);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						

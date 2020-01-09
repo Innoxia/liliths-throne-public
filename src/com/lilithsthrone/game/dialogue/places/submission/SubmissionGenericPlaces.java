@@ -1069,6 +1069,7 @@ public class SubmissionGenericPlaces {
 				
 			} else if(index==5
 					&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)
+					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_COOPERATION)
 					&& !Main.game.getPlayer().isSubQuestCompleted(Quest.VENGAR_OPTIONAL_CLAIRE, QuestLine.SIDE_VENGAR)) {
 				return new Response("Vengar", "Ask for Claire's help with dealing with Vengar.", CLAIRE_VENGAR_HELP) {
 					@Override

@@ -100,6 +100,14 @@ public class Murk extends NPC {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			setStartingBody(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
+			this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_BROWN_DARK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_PALE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_DARK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_PALE), false);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
+			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+		}
 	}
 
 	@Override
@@ -123,7 +131,8 @@ public class Murk extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.COWARDLY,
 					PersonalityTrait.LEWD,
-					PersonalityTrait.SELFISH);
+					PersonalityTrait.SELFISH,
+					PersonalityTrait.SLOVENLY);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -150,15 +159,15 @@ public class Murk extends NPC {
 		
 		// Coverings:
 		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, Colour.EYE_YELLOW), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_GREY), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_LIGHT), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_LIGHT), false);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BLACK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_BROWN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_PALE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_PALE), false);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
 		this.setHairLength(0);
 		this.setHairStyle(HairStyle.NONE);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, Colour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
 		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
@@ -275,16 +284,16 @@ public class Murk extends NPC {
 		
 		// Coverings:
 		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, Colour.EYE_YELLOW), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_BROWN_DARK), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_LIGHT), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_EBONY), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_EBONY), false);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BLACK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_PALE), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_PINK_PALE), false);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH);
 		this.setHairStyle(HairStyle.LOOSE);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, Colour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
@@ -329,6 +338,11 @@ public class Murk extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+
+	@Override
+	public String getSpeechColour() {
+		return Colour.BASE_BROWN.toWebHexString();
 	}
 	
 	@Override

@@ -5273,7 +5273,7 @@ public class InventoryDialogue {
 										INVENTORY_MENU){
 									@Override
 									public void effects(){
-										inventoryNPC.unequipWeaponIntoVoid(weaponSlot, weapon);
+										inventoryNPC.unequipWeaponIntoVoid(weaponSlot, weapon, true);
 										Main.game.getTextEndStringBuilder().append(
 												"<p style='text-align:center;'>"
 													+ (Main.game.getPlayer().addWeapon(weapon, false))
@@ -8009,24 +8009,20 @@ public class InventoryDialogue {
 						}
 						
 						
+
+						owner.unequipWeaponIntoVoid(weaponSlot, weapon, true);
+						AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+						modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+						modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+						modifiedWeapon.setTertiaryColour(dyePreviewTertiary);
 						
 						if(weaponSlot==InventorySlot.WEAPON_MAIN_1
 								|| weaponSlot==InventorySlot.WEAPON_MAIN_2
 								|| weaponSlot==InventorySlot.WEAPON_MAIN_3) {
-							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
-							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
-							modifiedWeapon.setTertiaryColour(dyePreviewTertiary);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 							
 						} else {
-							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
-							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
-							modifiedWeapon.setTertiaryColour(dyePreviewTertiary);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 						}
@@ -8081,20 +8077,18 @@ public class InventoryDialogue {
 											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to reforge the " + weapon.getName() + " without needing to use a reforging hammer!"
 										+ "</p>");
 						}
+
+						owner.unequipWeaponIntoVoid(weaponSlot, weapon, true);
+						AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+						modifiedWeapon.setDamageType(damageTypePreview);
 						
 						if(weaponSlot==InventorySlot.WEAPON_MAIN_1
 								|| weaponSlot==InventorySlot.WEAPON_MAIN_2
 								|| weaponSlot==InventorySlot.WEAPON_MAIN_3) {
-							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
-							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 							
 						} else {
-							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
-							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 						}
@@ -8164,24 +8158,20 @@ public class InventoryDialogue {
 											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye and reforge the " + weapon.getName() + " without needing to use a dye-brush or reforging hammer!"
 										+ "</p>");
 						}
+
+						owner.unequipWeaponIntoVoid(weaponSlot, weapon, true);
+						AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+						modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+						modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+						modifiedWeapon.setDamageType(damageTypePreview);
 						
 						if(weaponSlot==InventorySlot.WEAPON_MAIN_1
 								|| weaponSlot==InventorySlot.WEAPON_MAIN_2
 								|| weaponSlot==InventorySlot.WEAPON_MAIN_3) {
-							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
-							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
-							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 							
 						} else {
-							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
-							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
-							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 						}
@@ -8320,12 +8310,14 @@ public class InventoryDialogue {
 		}
 		if(Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSelfTransformationInhibiting())) {
 			return new Response("Unjinx",
-					"Although you are normally able to unjinx clothing, you cannot do so due to an enchantment on one or more pieces of your equipped clothing!",
+					"Although you are normally able to unjinx clothing, you cannot do so due to an enchantment on one or more pieces of your equipped clothing!"
+					+ "<br/>[style.italicsArcane(Visit Lilaya to get your jinxed clothing removed!)]",
 					null);
 		}
 		if(Main.game.getPlayer().getTattoos().values().stream().anyMatch(c -> c.isSelfTransformationInhibiting())) {
 			return new Response("Unjinx",
-					"Although you are normally able to unjinx clothing, you cannot do so due to an enchantment on one or more of your tattoos!",
+					"Although you are normally able to unjinx clothing, you cannot do so due to an enchantment on one or more of your tattoos!"
+							+ "<br/>[style.italicsArcane(Visit Kate to get the tattoo removed!)]",
 					null);
 		}
 		return null;

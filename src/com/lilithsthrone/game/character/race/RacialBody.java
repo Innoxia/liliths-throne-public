@@ -485,6 +485,7 @@ public class RacialBody {
 		public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
 			Map<PersonalityTrait, Float> map = super.getPersonalityTraitChances();
 			map.put(PersonalityTrait.COWARDLY, 0.1f);// Slightly higher chance than normal to be cowardly
+			map.put(PersonalityTrait.SLOVENLY, 0.2f);// Higher chance to be slovenly
 			return map;
 		}
 	};

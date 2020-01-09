@@ -3465,7 +3465,7 @@ public class Body implements XMLSaving {
 		}
 		
 		if(ass.isBestial(owner)) {
-			descriptionSB.append(" [style.colourBestial(Being a part of [npc.her] bestial lower body, it is entirely feral in form, and is no different to that of a regular [npc.assRace]'s.)]");
+			descriptionSB.append(" [style.colourBestial(Being a part of [npc.her] bestial lower body, it is entirely feral in form, and is no different to that of a feral [npc.assRace]'s.)]");
 		}
 
 		descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is "+Capacity.getCapacityFromValue(ass.getAnus().getOrificeAnus().getStretchedCapacity()).getDescriptor(true)+", and can comfortably take "

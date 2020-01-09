@@ -25,7 +25,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
-import com.lilithsthrone.game.character.persona.OccupationTag;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
@@ -460,7 +459,7 @@ public class OccupancyUtil implements XMLSaving {
 			for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
 				try {
 					NPC occupant = (NPC) Main.game.getNPCById(id);
-					if(!occupant.getHistory().getOccupationTags().contains(OccupationTag.LOWLIFE)) {
+					if(occupant.hasJob()) {
 						generatedIncome += PlaceUpgrade.LILAYA_GUEST_ROOM.getUpkeep();
 					}
 				} catch (Exception e) {

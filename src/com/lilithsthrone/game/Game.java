@@ -48,13 +48,11 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
 import com.lilithsthrone.game.character.npc.dominion.Angel;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
@@ -72,6 +70,7 @@ import com.lilithsthrone.game.character.npc.dominion.HarpyDominant;
 import com.lilithsthrone.game.character.npc.dominion.HarpyDominantCompanion;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
+import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Jules;
 import com.lilithsthrone.game.character.npc.dominion.Kalahari;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
@@ -852,54 +851,58 @@ public class Game implements XMLSaving {
 								if(Main.isVersionOlderThan(loadingVersion, "0.3")) {
 									className = className.replace("FortressDemonLeader", "DarkSiren");
 								}
-								if(Main.isVersionOlderThan(loadingVersion, "0.3.5.6")) {
-									className = className.replace("Alexa", "Helena");
-								}
 								
-								NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
-								if(npc!=null)  {
-									if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
-											|| (npc.getClass()!=DarkSiren.class
-											&& npc.getClass()!=FortressAlphaLeader.class
-											&& npc.getClass()!=FortressMalesLeader.class
-											&& npc.getClass()!=FortressFemalesLeader.class)) {
-										Main.game.safeAddNPC(npc, true);
+								if(!Main.isVersionOlderThan(loadingVersion, "0.3.5.9") || !id.contains("Helena")) {
+									if(Main.isVersionOlderThan(loadingVersion, "0.3.5.9")) {
+										className = className.replace("Alexa", "Helena");
 									}
-
-									// To fix issues with older versions hair length:
-									if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
-										npc.getBody().getHair().setLength(null, npc.isFeminine()?RacialBody.valueOfRace(npc.getRace()).getFemaleHairLength():RacialBody.valueOfRace(npc.getRace()).getMaleHairLength());
-									}
-									// Generate desires in non-unique NPCs:
-									if(Main.isVersionOlderThan(loadingVersion, "0.1.98.5") && !npc.isUnique() && npc.getFetishDesireMap().isEmpty()) {
-										CharacterUtils.generateDesires(npc);
-									}
-
-									if(Main.isVersionOlderThan(loadingVersion, "0.2.0") && npc.getFetishDesireMap().size()>10) {
-										npc.clearFetishDesires();
-										CharacterUtils.generateDesires(npc);
-									}
-									if(Main.isVersionOlderThan(loadingVersion, "0.3.5.4") && npc.getWorldLocation()==WorldType.GAMBLING_DEN) {
-										if(npc instanceof Roxy) {
-											npc.setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER, true);
-											
-										} else if(npc instanceof Axel) {
-											npc.setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE, true);
-											
-										} else if(npc instanceof Epona) {
-											npc.setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE, true);
-											
-										} else {
-											npc.setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_GAMBLING, true);
+									NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
+									if(npc!=null)  {
+										if(!Main.isVersionOlderThan(loadingVersion, "0.2.11.5")
+												|| (npc.getClass()!=DarkSiren.class
+												&& npc.getClass()!=FortressAlphaLeader.class
+												&& npc.getClass()!=FortressMalesLeader.class
+												&& npc.getClass()!=FortressFemalesLeader.class)) {
+											Main.game.safeAddNPC(npc, true);
 										}
+	
+										// To fix issues with older versions hair length:
+										if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
+											npc.getBody().getHair().setLength(null, npc.isFeminine()?RacialBody.valueOfRace(npc.getRace()).getFemaleHairLength():RacialBody.valueOfRace(npc.getRace()).getMaleHairLength());
+										}
+										// Generate desires in non-unique NPCs:
+										if(Main.isVersionOlderThan(loadingVersion, "0.1.98.5") && !npc.isUnique() && npc.getFetishDesireMap().isEmpty()) {
+											CharacterUtils.generateDesires(npc);
+										}
+	
+										if(Main.isVersionOlderThan(loadingVersion, "0.2.0") && npc.getFetishDesireMap().size()>10) {
+											npc.clearFetishDesires();
+											CharacterUtils.generateDesires(npc);
+										}
+										if(Main.isVersionOlderThan(loadingVersion, "0.3.5.4") && npc.getWorldLocation()==WorldType.GAMBLING_DEN) {
+											if(npc instanceof Roxy) {
+												npc.setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER, true);
+												
+											} else if(npc instanceof Axel) {
+												npc.setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE, true);
+												
+											} else if(npc instanceof Epona) {
+												npc.setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE, true);
+												
+											} else {
+												npc.setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_GAMBLING, true);
+											}
+										}
+	
+									} else {
+										System.err.println("LOADNPC returned null: "+id);
+										System.err.println("CLASS: " + className);
 									}
-
-								} else {
-									System.err.println("LOADNPC returned null: "+id);
-									System.err.println("CLASS: " + className);
 								}
 							} else {
-								System.err.println("duplicate character attempted to be imported");
+								if(!id.contains("Helena")) {
+									System.err.println("duplicate character attempted to be imported");
+								}
 							}
 						});
 				
@@ -1532,11 +1535,15 @@ public class Game implements XMLSaving {
 				getNpc(Shadow.class).setAffection(getNpc(Vengar.class), -10);
 				getNpc(Shadow.class).setAffection(getNpc(Silence.class), 80);
 				getNpc(Silence.class).setAffection(getNpc(Vengar.class), 20);
-				getNpc(Silence.class).setAffection(getNpc(Silence.class), 100);
+				getNpc(Silence.class).setAffection(getNpc(Shadow.class), 100);
 			}
 			if(Main.isVersionOlderThan(loadingVersion, "0.3.5.6")) {
 				getNpc(Roxy.class).setAffection(getNpc(Vengar.class), -80);
 				getNpc(Vengar.class).setAffection(getNpc(Roxy.class), 50);
+			}
+			if(Main.isVersionOlderThan(loadingVersion, "0.3.5.9")) {
+				getNpc(Silence.class).setAffection(getNpc(Shadow.class), 100);
+				getNpc(Silence.class).getAffectionMap().remove(getNpc(Silence.class).getId());
 			}
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Murk.class))) { addNPC(new Murk(), false); addedNpcs.add(Murk.class); }
 			
@@ -1785,26 +1792,7 @@ public class Game implements XMLSaving {
 			
 				if(npc.isPendingTransformationToGenderIdentity()
 						&& !npc.getLocation().equals(Main.game.getPlayer().getLocation())) {
-					boolean assVirgin = npc.isAssVirgin();
-					boolean faceVirgin = npc.isFaceVirgin();
-					boolean nippleVirgin = npc.isNippleVirgin();
-					boolean penisVirgin = npc.isPenisVirgin();
-					boolean urethraVirgin = npc.isUrethraVirgin();
-					boolean vaginaVirgin = npc.isVaginaVirgin();
-					boolean vaginaUrethraVirgin = npc.isVaginaUrethraVirgin();
-					
-					BodyMaterial material = npc.getBodyMaterial();
-					npc.setBody(npc.getGenderIdentity(), RacialBody.valueOfRace(Subspecies.getFleshSubspecies(npc).getRace()), npc.getBody().getRaceStageFromPartWeighting(), false);
-					npc.setBodyMaterial(material);
-					CharacterUtils.randomiseBody(npc, false);
-					
-					npc.setAssVirgin(assVirgin);
-					npc.setFaceVirgin(faceVirgin);
-					npc.setNippleVirgin(nippleVirgin);
-					npc.setPenisVirgin(penisVirgin);
-					npc.setUrethraVirgin(urethraVirgin);
-					npc.setVaginaVirgin(vaginaVirgin);
-					npc.setVaginaUrethraVirgin(vaginaUrethraVirgin);
+					npc.setBodyToGenderIdentity(false);
 				}
 				
 				// Prostitutes stay on promiscuity pills to avoid pregnancies, and, if the NPC is male, to avoid knocking up their clients
@@ -3867,6 +3855,10 @@ public class Game implements XMLSaving {
 
 	public boolean isEnchantmentCapacityEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.enchantmentLimits);
+	}
+
+	public boolean isLevelDrainContentEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.levelDrain);
 	}
 	
 	public boolean isSillyModeEnabled() {

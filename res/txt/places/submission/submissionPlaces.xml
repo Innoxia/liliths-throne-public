@@ -672,7 +672,7 @@
 		Wanting to see if you can gain access to the Rat Warrens, you step up to the heavy oaken doors, before reaching out and giving them a sharp knock.
 	</p>
 	<p>
-		After just a few moments, you hear sounds of movement coming from beyond, followed by the noise of a heavy metal bolt sliding to one side. With a deafening creak of rusted hinges, the weathered doors slowly open inwards to reveal a small hallway, with yet another set of wooden doors set into the far wall. Set into the stone on either side of this interior pair of doors, you see a couple of small, open hatches, and as you step forwards, cocked crossbows suddenly poke out from them, aiming in your general direction.
+		After just a few moments, you hear sounds of movement coming from beyond, followed by the noise of a heavy metal bolt sliding to one side. With a deafening creak of rusted hinges, the weathered doors slowly open inwards to reveal a small hallway, with yet another pair of wooden doors built into the far wall. Set into the stone on either side of this interior pair of doors, you see a couple of small, open hatches, and as you step forwards, cocked crossbows suddenly poke out from them, aiming in your general direction.
 	</p>
 	#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensEntryWhore))
 		<p>

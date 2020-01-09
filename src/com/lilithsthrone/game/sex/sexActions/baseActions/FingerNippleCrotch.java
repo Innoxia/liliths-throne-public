@@ -155,7 +155,7 @@ public class FingerNippleCrotch {
 					break;
 			}
 			
-			switch (Sex.getCharacterTargetedForSexAction(this).getBreastStoredMilk()) {
+			switch (Sex.getCharacterTargetedForSexAction(this).getBreastCrotchStoredMilk()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" As [npc.name] [npc.verb(start)] pinching [npc2.namePos] [npc2.crotchNipples], a small trickle of [npc2.milk] leaks out to run down [npc2.her] [npc2.crotchBoobs+].");
 					break;
@@ -253,7 +253,7 @@ public class FingerNippleCrotch {
 					break;
 			}
 			
-			switch (Sex.getCharacterTargetedForSexAction(this).getBreastStoredMilk()) {
+			switch (Sex.getCharacterTargetedForSexAction(this).getBreastCrotchStoredMilk()) {
 				case ZERO_NONE://Shouldn't be able to be reached
 					UtilText.nodeContentSB.append(" no [npc2.milk] from [npc2.namePos] [npc2.crotchBoobs+].");
 					break;
@@ -401,7 +401,7 @@ public class FingerNippleCrotch {
 					break;
 			}
 			
-			switch (Sex.getCharacterPerformingAction().getBreastStoredMilk()) {
+			switch (Sex.getCharacterPerformingAction().getBreastCrotchStoredMilk()) {
 				case ZERO_NONE:
 					UtilText.nodeContentSB.append(" no [npc.milk] from [npc.namePos] [npc.crotchBoobs+]."); //Shouldn't be able to be reached
 					break;
@@ -694,7 +694,7 @@ public class FingerNippleCrotch {
 
 		@Override
 		public String getActionDescription() {
-			return "Gently finger [npc2.namePos] nipple.";
+			return "Gently finger [npc2.namePos] [npc2.crotchNipple].";
 		}
 		
 		@Override
@@ -780,7 +780,7 @@ public class FingerNippleCrotch {
 
 		@Override
 		public String getActionDescription() {
-			return "Roughly finger [npc2.namePos] nipple.";
+			return "Roughly finger [npc2.namePos] [npc2.crotchNipple].";
 		}
 		
 		@Override
@@ -824,7 +824,7 @@ public class FingerNippleCrotch {
 
 		@Override
 		public String getActionDescription() {
-			return "Continue fingering [npc2.namePos] nipple.";
+			return "Continue fingering [npc2.namePos] [npc2.crotchNipple].";
 		}
 		
 		@Override
@@ -867,7 +867,7 @@ public class FingerNippleCrotch {
 
 		@Override
 		public String getActionDescription() {
-			return "Eagerly finger [npc2.namePos] nipple.";
+			return "Eagerly finger [npc2.namePos] [npc2.crotchNipple].";
 		}
 		
 		@Override
@@ -980,7 +980,7 @@ public class FingerNippleCrotch {
 
 		@Override
 		public String getActionDescription() {
-			return "Pull your [npc.fingers] out of [npc2.namePos] nipple and stop fingering [npc2.her] breast.";
+			return "Pull your [npc.fingers] out of [npc2.namePos] [npc2.crotchNipple] and stop fingering [npc2.her] [npc2.crotchBoob].";
 		}
 
 		@Override
@@ -997,7 +997,7 @@ public class FingerNippleCrotch {
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Sliding [npc.her] [npc.fingers] out of [npc2.namePos] nipple, [npc.name] [npc.verb(give)] [npc2.namePos] [npc2.crotchBoob] one last squeeze as [npc.she] stops fingering [npc2.her] chest.",
+							"Sliding [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.crotchNipple], [npc.name] [npc.verb(give)] [npc2.namePos] [npc2.crotchBoob] one last squeeze as [npc.she] stops fingering [npc2.her] chest.",
 
 							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc.namePos] [npc.scent+] as before sliding [npc.her] [npc.fingers] out of [npc2.her] [npc2.crotchNipple]."));
 					break;
@@ -1449,7 +1449,7 @@ public class FingerNippleCrotch {
 
 		@Override
 		public String getActionDescription() {
-			return "Get [npc2.name] to pull [npc2.her] [npc2.fingers] out of your nipple and stop fingering your [npc.crotchNipples].";
+			return "Get [npc2.name] to pull [npc2.her] [npc2.fingers] out of your [npc.crotchNipple] and stop fingering your [npc.crotchBoobs].";
 		}
 
 		@Override

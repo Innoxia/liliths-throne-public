@@ -1239,7 +1239,7 @@ public class OccupantManagementDialogue {
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ "<b>"+Util.capitaliseSentence(occupant.getHistory().getName())+"</b><br/>"
-							+ "[style.boldDisabled(N/A)]"
+							+ UtilText.formatAsMoney(occupant.hasJob()?PlaceUpgrade.LILAYA_GUEST_ROOM.getUpkeep():0)+"/day"
 						+"</div>"
 							
 				+ "<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"

@@ -1182,7 +1182,7 @@ public class ItemEffectType {
 			
 			Map<AbstractClothingType, Integer> clothingMap = new HashMap<>();
 			// Common clothing (55%):
-			clothingMap.put(ClothingType.HEAD_ANTLER_HEADBAND, 11);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_head_antler_headband"), 11);
 			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_elemental_snowflake_necklace"), 11);
 			clothingMap.put(ClothingType.PIERCING_EAR_SNOW_FLAKES, 11);
 			clothingMap.put(ClothingType.PIERCING_NOSE_SNOWFLAKE_STUD, 11);
@@ -2551,9 +2551,10 @@ public class ItemEffectType {
 				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
-			if(target.getSubspecies()!=Subspecies.FOX_ASCENDANT && target.getSubspecies()!=Subspecies.FOX_ASCENDANT_FENNEC) {
+			if(target.getSubspecies()!=Subspecies.FOX_ASCENDANT && target.getSubspecies()!=Subspecies.FOX_ASCENDANT_ARCTIC && target.getSubspecies()!=Subspecies.FOX_ASCENDANT_FENNEC) {
 				CharacterUtils.reassignBody(target, target.getBody(), target.getGender(), Subspecies.FOX_ASCENDANT, RaceStage.PARTIAL_FULL, true);
 				return UtilText.parse(target, "<p style='text-align:center; color:"+Colour.RACE_FOX_MORPH.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
+				
 			} else {
 				return UtilText.parse(target, target.incrementTailCount(1, true));
 			}
