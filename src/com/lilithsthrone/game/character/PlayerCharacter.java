@@ -282,7 +282,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					NodeList charactersEncounteredIds = charactersEncounteredElement.getElementsByTagName("id");
 					for(int i=0; i<charactersEncounteredIds.getLength(); i++){
 						Element e = (Element) charactersEncounteredIds.item(i);
-						character.addCharacterEncountered(e.getAttribute("value"));
+						String id = e.getAttribute("value");
+						if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
+							id = id.replaceAll("Alexa", "Helena");
+						}
+						character.addCharacterEncountered(id);
 					}
 				}
 				

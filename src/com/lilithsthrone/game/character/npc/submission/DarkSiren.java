@@ -391,6 +391,22 @@ public class DarkSiren extends NPC {
 			return "The ruler of Submission's central imp citadel, this 'Dark Siren' is an incredibly powerful arcane user...";
 		}
 	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if(this.getSkinType().getRace()==Race.HUMAN) {
+			if(this.isVisiblyPregnant()) {
+				return "MeraxisPregnant";
+			}
+			return "Meraxis";
+			
+		} else {
+			if(this.isVisiblyPregnant()) {
+				return "MeraxisDemonPregnant";
+			}
+			return "MeraxisDemon";
+		}
+	}
 	
 	@Override
 	public void changeFurryLevel(){

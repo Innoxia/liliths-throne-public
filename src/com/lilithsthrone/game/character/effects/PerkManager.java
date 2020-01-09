@@ -135,6 +135,7 @@ public enum PerkManager {
 		leftMidA = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.SEDUCTION_BOOST, both1);
 		
 		leftMidB = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.SEDUCTION_BOOST, leftMidA);
+		addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.ORGASMIC_LEVEL_DRAIN, leftMidA);
 		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.SEDUCTION_DEFENCE_BOOST, leftMidA);
 
 		leftMidB = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.SEDUCTION_BOOST, leftMidB);
@@ -540,6 +541,7 @@ public enum PerkManager {
 				// Perks that should not be chosen outside of requirements:
 				List<AbstractPerk> deniedPerks = new ArrayList<>();
 				deniedPerks.add(Perk.OBSERVANT);
+				deniedPerks.add(Perk.ORGASMIC_LEVEL_DRAIN);
 				deniedPerks.add(Perk.CHUUNI);
 				deniedPerks.add(Perk.BARREN);
 				deniedPerks.add(Perk.FIRING_BLANKS);

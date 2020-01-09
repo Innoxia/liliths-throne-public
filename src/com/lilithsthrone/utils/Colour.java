@@ -442,6 +442,7 @@ public enum Colour {
 	SKIN_AMBER(false, BaseColour.AMBER, "amber"),
 	SKIN_PINK(false, BaseColour.PINK, "pink"),
 	SKIN_PINK_LIGHT(false, BaseColour.PINK_LIGHT, "light pink"),
+	SKIN_PINK_PALE(false, BaseColour.PINK_PALE, "pale pink"),
 	SKIN_GREEN(false, BaseColour.GREEN, "green"),
 	SKIN_GREEN_DARK(false, BaseColour.GREEN_DARK, "dark green"),
 	SKIN_BLUE_LIGHT(false, BaseColour.BLUE_LIGHT, "light blue"),
@@ -741,7 +742,7 @@ public enum Colour {
 			Colour.SKIN_EBONY);
 
 	public static List<Colour> ratSkinColours = Util.newArrayListOfValues(
-			Colour.SKIN_PINK_LIGHT);
+			Colour.SKIN_PINK_PALE);
 	
 	public static List<Colour> demonSkinColours = Util.newArrayListOfValues(
 			Colour.SKIN_PALE,
@@ -770,6 +771,7 @@ public enum Colour {
 			Colour.SKIN_LILAC,
 			Colour.SKIN_PURPLE,
 			Colour.SKIN_PURPLE_DARK,
+			Colour.SKIN_PINK_PALE,
 			Colour.SKIN_PINK_LIGHT,
 			Colour.SKIN_PINK);
 
@@ -800,6 +802,7 @@ public enum Colour {
 			Colour.SKIN_LILAC,
 			Colour.SKIN_PURPLE,
 			Colour.SKIN_PURPLE_DARK,
+			Colour.SKIN_PINK_PALE,
 			Colour.SKIN_PINK_LIGHT,
 			Colour.SKIN_PINK,
 			Colour.COVERING_RAINBOW,
@@ -829,6 +832,7 @@ public enum Colour {
 			Colour.SLIME_PURPLE,
 			Colour.SLIME_PURPLE_DARK,
 			Colour.SLIME_PINK_DARK,
+			Colour.SKIN_PINK_PALE,
 			Colour.SLIME_PINK,
 			Colour.SLIME_PINK_LIGHT
 			);
@@ -880,7 +884,7 @@ public enum Colour {
 			Colour.COVERING_RAINBOW,
 			Colour.COVERING_RAINBOW_PASTEL
 			);
-			
+	
 	public static List<Colour> naturalFurColours = Util.newArrayListOfValues(
 			Colour.COVERING_WHITE,
 			Colour.COVERING_SILVER,

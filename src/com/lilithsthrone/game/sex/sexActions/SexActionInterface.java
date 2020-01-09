@@ -919,7 +919,8 @@ public interface SexActionInterface {
 				return convertToResponse();
 				
 			
-			} else if(getActionType()==SexActionType.SPEECH) {
+			} else if(getActionType()==SexActionType.SPEECH
+					|| getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE) {
 				// Check penetrations:
 				if(Sex.getCharacterPerformingAction().hasPersonalityTrait(PersonalityTrait.MUTE)) {//Sex.isOngoingActionsBlockingSpeech(Sex.getCharacterPerformingAction())) {
 					return convertToNullResponse();
@@ -1037,7 +1038,9 @@ public interface SexActionInterface {
 	}
 	
 	public default Response convertToResponse() {
-		if(getCategory()!=SexActionCategory.CHARACTER_SWITCH && getActionType()!=SexActionType.POSITIONING_MENU) {
+		if(getCategory()!=SexActionCategory.CHARACTER_SWITCH
+				&& getActionType()!=SexActionType.MISC_NO_TURN_END
+				&& getActionType()!=SexActionType.POSITIONING_MENU) {
 			
 //			if(getActionDescription()==null) {
 //				System.out.println(this.getClass().getName());

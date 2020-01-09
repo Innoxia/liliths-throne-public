@@ -24,7 +24,7 @@ import com.lilithsthrone.utils.Util;
 public class PartnerTalk {
 	
 	public static final SexAction PARTNER_DIRTY_TALK = new SexAction(
-			SexActionType.SPEECH,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,

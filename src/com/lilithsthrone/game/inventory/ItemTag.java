@@ -48,6 +48,8 @@ public enum ItemTag {
 	
 	WEAPON_BLADE(false), // Should be added to all weapons that use an arcane blade
 	
+	WEAPON_UNARMED(false), // Should be added to all weapons that should use unarmed damage calculations instead of melee
+	
 	DRESS(false), // For helping to generate clothing in CharacterUtils
 
 	SPREADS_FEET( // Prevents double foot actions, like wrap-around footjobs
