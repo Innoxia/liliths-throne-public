@@ -239,6 +239,11 @@ public class Elemental extends NPC {
 	public boolean isUnique() {
 		return false;
 	}
+
+	@Override
+	public boolean isElemental() {
+		return true;
+	}
 	
 	@Override
 	public String getSurname() {

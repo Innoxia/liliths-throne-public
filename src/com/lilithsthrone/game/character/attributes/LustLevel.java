@@ -170,6 +170,9 @@ public enum LustLevel {
 	
 	public List<String> getStatusEffectModifierDescription(boolean consensual, GameCharacter character) {
 		List<String> modifiersList = new ArrayList<>();
+
+		Colour levelColour = LustLevel.getLustLevelFromValue(character.getRestingLust()).getColour();
+		modifiersList.add("Resting lust: <b style='color:"+levelColour.toWebHexString()+";'>"+character.getRestingLust()+"</b>");
 		
 		if(Main.game.isInSex()) {
 			switch(this.getSexPace(consensual, character)) {

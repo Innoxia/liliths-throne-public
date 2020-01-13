@@ -2381,7 +2381,7 @@ public class Perk {
 			Colour.ATTRIBUTE_LUST,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 25)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 40)),
 			null) {
 
 		@Override

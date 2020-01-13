@@ -15,7 +15,6 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
@@ -1107,7 +1106,7 @@ public class ImpFortressDialogue {
 						if(!isOralAvailableCompanion()) {
 							return new Response("Offer oral (both)", UtilText.parse(getMainCompanion(), "As [npc.nameIsFull] unable to access [npc.her] mouth, [npc.she] cannot perform oral sex on the imps!"), null);
 						}
-						if(!getMainCompanion().isAttractedTo(getImpGuardLeader()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+						if(!getMainCompanion().isAttractedTo(getImpGuardLeader()) && getMainCompanion().isAbleToRefuseSexAsCompanion()) {
 							return new Response("Offer oral (both)",
 									UtilText.parse(getMainCompanion(), "[npc.Name] is not interested in performing oral sex on the imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 							
@@ -1227,7 +1226,7 @@ public class ImpFortressDialogue {
 					if(!isOralAvailableCompanion()) {
 						return new Response("Offer oral (both)", UtilText.parse(getMainCompanion(), "As [npc.nameIsFull] unable to access [npc.her] mouth, [npc.she] cannot perform oral sex on the imps!"), null);
 					}
-					if(!getMainCompanion().isAttractedTo(getImpGuardLeader()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+					if(!getMainCompanion().isAttractedTo(getImpGuardLeader()) && getMainCompanion().isAbleToRefuseSexAsCompanion()) {
 						return new Response("Offer oral (both)",
 								UtilText.parse(getMainCompanion(), "[npc.Name] is not interested in performing oral sex on the imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 						
@@ -1528,7 +1527,7 @@ public class ImpFortressDialogue {
 					} else if (index == 6) {
 						GameCharacter companion = getMainCompanion();
 
-						if(!companion.isAttractedTo(getImpGuardLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getImpGuardLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response("Group sex",
 									UtilText.parse(companion, "[npc.Name] is not interested in having sex with the imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 							
@@ -1547,7 +1546,7 @@ public class ImpFortressDialogue {
 					} else if (index == 7) {
 						GameCharacter companion = getMainCompanion();
 
-						if(!companion.isAttractedTo(getImpGuardLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getImpGuardLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response("Group submission",
 									UtilText.parse(companion, "[npc.Name] is not interested in having sex with the imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 							
@@ -1566,7 +1565,7 @@ public class ImpFortressDialogue {
 					} else if (index == 8) {
 						GameCharacter companion = getMainCompanion();
 
-						if(!companion.isAttractedTo(getImpGuardLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getImpGuardLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response(UtilText.parse(companion, "Give to [npc.name]"),
 									UtilText.parse(companion, "[npc.Name] is not interested in having sex with the imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 							
@@ -1585,9 +1584,9 @@ public class ImpFortressDialogue {
 					} else if (index == 9 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
 						GameCharacter companion = getMainCompanion();
 						
-						if(!companion.isAttractedTo(getImpGuardLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getImpGuardLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response(UtilText.parse(companion, "Offer [npc.name]"),
-									UtilText.parse(companion, "You can tell that [npc.name] isn't at all interested in having sex with the imps, and as [npc.sheIs] not your slave, you can't force [npc.herHim] to do so..."),
+									UtilText.parse(companion, "You can tell that [npc.name] isn't at all interested in having sex with the imps, and you can't force [npc.herHim] to do so..."),
 									null);
 							
 						} else {
@@ -2075,7 +2074,7 @@ public class ImpFortressDialogue {
 					}
 					
 					
-					if(!getMainCompanion().isAttractedTo(getBoss()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+					if(!getMainCompanion().isAttractedTo(getBoss()) && getMainCompanion().isAbleToRefuseSexAsCompanion()) {
 						return new Response(title,
 								UtilText.parse(getMainCompanion(), getBoss(), "[npc.Name] is not interested in having sex with [npc2.name], and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 						
@@ -2453,7 +2452,7 @@ public class ImpFortressDialogue {
 				};
 				
 			} else if(index==3 && isCompanionDialogue() && Main.game.isNonConEnabled()) {
-				if(!((NPC) getMainCompanion()).isWillingToRape() && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+				if(!((NPC) getMainCompanion()).isWillingToRape() && getMainCompanion().isAbleToRefuseSexAsCompanion()) {
 					return new Response("Rape (companion)", 
 							UtilText.parse(getMainCompanion(), getBoss(), "[npc.Name] is not interested in raping [npc2.name], and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 				}
@@ -2496,7 +2495,7 @@ public class ImpFortressDialogue {
 				};
 				
 			} else if(index==4 && isCompanionDialogue() && Main.game.isNonConEnabled()) {
-				if(!((NPC) getMainCompanion()).isWillingToRape() && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+				if(!((NPC) getMainCompanion()).isWillingToRape() && getMainCompanion().isAbleToRefuseSexAsCompanion()) {
 					return new Response("Rape (both)", 
 							UtilText.parse(getMainCompanion(), getBoss(), "[npc.Name] is not interested in raping [npc2.name], and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 				}
@@ -2650,7 +2649,7 @@ public class ImpFortressDialogue {
 						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO_SEX", getAllCharacters()));
 				
 			} else if(index==3 && isCompanionDialogue() && Main.game.isNonConEnabled()) {
-				if(!((NPC) getMainCompanion()).isAttractedTo(getBoss()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+				if(!((NPC) getMainCompanion()).isAttractedTo(getBoss()) && getMainCompanion().isAbleToRefuseSexAsCompanion()) {
 					return new Response("Sex (companion)", 
 							UtilText.parse(getMainCompanion(), getBoss(), "[npc.Name] is not interested in having sex with [npc2.name], and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 				}
@@ -2667,7 +2666,7 @@ public class ImpFortressDialogue {
 						UtilText.parseFromXMLFile("places/submission/fortress"+getDialogueEncounterId(), "KEEP_FEMALES_NYMPHO_SEX_WITH_COMPANION", getAllCharacters()));
 				
 			} else if(index==4 && isCompanionDialogue() && Main.game.isNonConEnabled()) {
-				if(!((NPC) getMainCompanion()).isAttractedTo(getBoss()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+				if(!((NPC) getMainCompanion()).isAttractedTo(getBoss()) && getMainCompanion().isAbleToRefuseSexAsCompanion()) {
 					return new Response("Sex (both)", 
 							UtilText.parse(getMainCompanion(), getBoss(), "[npc.Name] is not interested in having sex with [npc2.name], and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 				}
@@ -3369,7 +3368,7 @@ public class ImpFortressDialogue {
 					} else if (index == 6) {
 						GameCharacter companion = getMainCompanion();
 
-						if(!companion.isAttractedTo(getBoss()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getBoss()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response("Group sex",
 									UtilText.parse(companion, getBoss(),
 											"[npc.Name] is not interested in having sex with [npc2.name] and [npc2.her] imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
@@ -3390,7 +3389,7 @@ public class ImpFortressDialogue {
 					} else if (index == 7) {
 						GameCharacter companion = getMainCompanion();
 
-						if(!companion.isAttractedTo(getBoss()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getBoss()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response("Group submission",
 									UtilText.parse(companion, getBoss(), "[npc.Name] is not interested in having sex with [npc2.name] and [npc2.her] imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 							
@@ -3464,7 +3463,7 @@ public class ImpFortressDialogue {
 					} else if (index == 8) {
 						GameCharacter companion = getMainCompanion();
 
-						if(!companion.isAttractedTo(getBoss()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getBoss()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response(UtilText.parse(companion, "Give to [npc.name]"),
 									UtilText.parse(companion, getBoss(), "[npc.Name] is not interested in having sex with [npc2.name] and [npc2.her] imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 							
@@ -3483,10 +3482,10 @@ public class ImpFortressDialogue {
 					} else if (index == 9 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
 						GameCharacter companion = getMainCompanion();
 						
-						if(!companion.isAttractedTo(getBoss()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getBoss()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response(UtilText.parse(companion, "Offer [npc.name]"),
 									UtilText.parse(companion, getBoss(),
-											"You can tell that [npc.name] isn't at all interested in having sex with [npc2.name] and [npc2.her] imps, and as [npc.sheIs] not your slave, you can't force [npc.herHim] to do so..."),
+											"You can tell that [npc.name] isn't at all interested in having sex with [npc2.name] and [npc2.her] imps, and you can't force [npc.herHim] to do so..."),
 									null);
 							
 						} else { 

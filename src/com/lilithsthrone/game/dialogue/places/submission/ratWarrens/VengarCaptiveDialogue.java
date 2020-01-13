@@ -223,7 +223,7 @@ public class VengarCaptiveDialogue {
 		return sb.toString();
 	}
 	
-	private static String applyTransformation(GameCharacter target) {
+	private static String applyTransformation(GameCharacter target) { //TODO returning emptry string
 		StringBuilder sb = new StringBuilder();
 		
 		if(target.isAbleToHaveRaceTransformed()) {

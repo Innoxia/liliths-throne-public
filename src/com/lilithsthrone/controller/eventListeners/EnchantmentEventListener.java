@@ -50,8 +50,8 @@ public class EnchantmentEventListener implements EventListener {
 		if(!EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPrimaryModifiers().contains(EnchantmentDialogue.getPrimaryMod())) {
 			EnchantmentDialogue.setPrimaryMod(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPrimaryModifiers().get(0));
 		}
-		if(!EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getPrimaryMod()).contains(EnchantmentDialogue.getSecondaryMod())) {
-			EnchantmentDialogue.setSecondaryMod(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getPrimaryMod()).get(0));
+		if(!EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getPrimaryMod()).contains(EnchantmentDialogue.getSecondaryMod())) {
+			EnchantmentDialogue.setSecondaryMod(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getPrimaryMod()).get(0));
 		}
 		if(!EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPotencyModifiers(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod()).contains(EnchantmentDialogue.getPotency())) {
 			EnchantmentDialogue.setPotency(TFPotency.MINOR_BOOST);

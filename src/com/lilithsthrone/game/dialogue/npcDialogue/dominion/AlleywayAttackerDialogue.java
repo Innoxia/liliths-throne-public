@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.QuickTransformations;
@@ -86,7 +85,7 @@ public class AlleywayAttackerDialogue {
 		List<GameCharacter> allCharacters = new ArrayList<>();
 		allCharacters.add(getMugger());
 		allCharacters.addAll(Main.game.getPlayer().getCompanions());
-		Collections.sort(allCharacters, (c1, c2) -> c1 instanceof Elemental?(c2 instanceof Elemental?0:1):(c2 instanceof Elemental?-1:0));
+		Collections.sort(allCharacters, (c1, c2) -> c1.isElemental()?(c2.isElemental()?0:1):(c2.isElemental()?-1:0));
 		return allCharacters;
 	}
 	
@@ -326,9 +325,9 @@ public class AlleywayAttackerDialogue {
 								UtilText.parse(getMugger(), companion, "You can tell that [npc.name] isn't at all interested in having sex with [npc2.name], so wouldn't want to have a threesome..."),
 								null);
 						
-					} else if(!companion.isAttractedTo(getMugger()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+					} else if(!companion.isAttractedTo(getMugger()) && companion.isAbleToRefuseSexAsCompanion()) {
 						return new Response(UtilText.parse(companion, "Offer threesome"),
-								UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and as [npc2.sheIs] not your slave, you can't force [npc2.herHim] to have sex..."),
+								UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and you can't force [npc2.herHim] to do so..."),
 								null);
 						
 					} else {
@@ -358,9 +357,9 @@ public class AlleywayAttackerDialogue {
 								UtilText.parse(getMugger(), companion, "You can tell that [npc.name] isn't at all interested in having sex with [npc2.name]..."),
 								null);
 						
-					} else if(!companion.isAttractedTo(getMugger()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+					} else if(!companion.isAttractedTo(getMugger()) && companion.isAbleToRefuseSexAsCompanion()) {
 						return new Response(UtilText.parse(companion, "Offer [npc.name]"),
-								UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and as [npc2.sheIs] not your slave, you can't force [npc2.herHim] to have sex..."),
+								UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and you can't force [npc2.herHim] to do so..."),
 								null);
 						
 					} else {
@@ -505,9 +504,9 @@ public class AlleywayAttackerDialogue {
 								UtilText.parse(getMugger(), companion, "You can tell that [npc.name] isn't at all interested in having sex with [npc2.name], so wouldn't want to have a threesome..."),
 								null);
 						
-					} else if(!companion.isAttractedTo(getMugger()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+					} else if(!companion.isAttractedTo(getMugger()) && companion.isAbleToRefuseSexAsCompanion()) {
 						return new Response(UtilText.parse(companion, "Offer threesome"),
-								UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and as [npc2.sheIs] not your slave, you can't force [npc2.herHim] to have sex..."),
+								UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and you can't force [npc2.herHim] to do so..."),
 								null);
 						
 					} else {
@@ -536,9 +535,9 @@ public class AlleywayAttackerDialogue {
 								UtilText.parse(getMugger(), companion, "You can tell that [npc.name] isn't at all interested in having sex with [npc2.name]..."),
 								null);
 						
-					} else if(!companion.isAttractedTo(getMugger()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+					} else if(!companion.isAttractedTo(getMugger()) && companion.isAbleToRefuseSexAsCompanion()) {
 						return new Response(UtilText.parse(companion, "Offer [npc.name]"),
-								UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and as [npc2.sheIs] not your slave, you can't force [npc2.herHim] to have sex..."),
+								UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and you can't force [npc2.herHim] to do so..."),
 								null);
 						
 					} else {
@@ -831,9 +830,9 @@ public class AlleywayAttackerDialogue {
 							UtilText.parse(getMugger(), companion, "You can tell that [npc.name] isn't at all interested in having sex with [npc2.name], so wouldn't want to have a threesome..."),
 							null);
 					
-				} else if(!companion.isAttractedTo(getMugger()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+				} else if(!companion.isAttractedTo(getMugger()) && companion.isAbleToRefuseSexAsCompanion()) {
 					return new Response(UtilText.parse(companion, "Offer threesome"),
-							UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and as [npc2.sheIs] not your slave, you can't force [npc2.herHim] to have sex..."),
+							UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and you can't force [npc2.herHim] to do so..."),
 							null);
 					
 				} else {
@@ -858,9 +857,9 @@ public class AlleywayAttackerDialogue {
 							UtilText.parse(getMugger(), companion, "You can tell that [npc.name] isn't at all interested in having sex with [npc2.name]..."),
 							null);
 					
-				} else if(!companion.isAttractedTo(getMugger()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+				} else if(!companion.isAttractedTo(getMugger()) && companion.isAbleToRefuseSexAsCompanion()) {
 					return new Response(UtilText.parse(companion, "Offer [npc.name]"),
-							UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and as [npc2.sheIs] not your slave, you can't force [npc2.herHim] to have sex..."),
+							UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and you can't force [npc2.herHim] to do so..."),
 							null);
 					
 				} else {
@@ -1138,9 +1137,9 @@ public class AlleywayAttackerDialogue {
 				} else if(!getMugger().isAttractedTo(companion)) {
 					return new Response(UtilText.parse(companion, "Offer [npc.name]"), UtilText.parse(companion, getMugger(), "[npc2.Name] has no interest in having sex with [npc.name]!"), null);
 					
-				} else if(!companion.isAttractedTo(getMugger()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+				} else if(!companion.isAttractedTo(getMugger()) && companion.isAbleToRefuseSexAsCompanion()) {
 					return new Response(UtilText.parse(companion, "Offer [npc.name]"),
-							UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and as [npc2.sheIs] not your slave, you can't force [npc2.herHim] to have sex..."),
+							UtilText.parse(getMugger(), companion, "You can tell that [npc2.name] isn't at all interested in having sex with [npc.name], and you can't force [npc2.herHim] to do so..."),
 							null);
 					
 				} else {

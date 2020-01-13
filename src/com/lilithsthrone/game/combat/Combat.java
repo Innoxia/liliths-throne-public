@@ -12,7 +12,6 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -316,7 +315,7 @@ public enum Combat {
 			}
 			
 			for(NPC ally : allies) {
-				if(!(ally instanceof Elemental)) {
+				if(!(ally.isElemental())) {
 					postCombatStringBuilder.append(ally.incrementExperience(xp, true));
 				}
 			}
@@ -437,7 +436,7 @@ public enum Combat {
 			int xpGain = (Main.game.getPlayer().getLevel()*2);
 			
 			for(NPC enemy : enemies) {
-				if(!(enemy instanceof Elemental)) {
+				if(!(enemy.isElemental())) {
 					postCombatStringBuilder.append(enemy.incrementExperience(xpGain, true));
 				}
 			}

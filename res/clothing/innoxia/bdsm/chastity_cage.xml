@@ -56,6 +56,7 @@
 
     <itemTags>
       <tag>SOLD_BY_FINCH</tag>
+      <tag>ENABLE_SEX_EQUIP</tag>
       <tag>REQUIRES_PENIS</tag>
       <tag>PREVENTS_ERECTION_PHYSICAL</tag>
       <tag>TRANSPARENT</tag>

@@ -787,7 +787,7 @@ public class SlaveDialogue {
 					if(index == 1) {
 						if((!characterForSex.isSlave() || !characterForSex.getOwner().isPlayer())
 								&& !characterForSex.isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Sex", UtilText.parse(characterForSex, "[npc.Name] is not attracted to you, and as [npc.she] is not your slave, you cannot force [npc.herHim] to have sex with you..."), null);
+							return new Response("Sex", UtilText.parse(characterForSex, "[npc.Name] is not attracted to you, and you cannot force [npc.herHim] to have sex with you..."), null);
 							
 						} else if(Main.game.isNonConEnabled() && !characterForSex.isAttractedTo(Main.game.getPlayer())) {
 							return new ResponseSex("Rape", UtilText.parse(characterForSex, "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter..."), 
@@ -835,7 +835,7 @@ public class SlaveDialogue {
 					if (index == 1) { //TODO improve descriptions and affection hit from rape
 						if((!characterForSex.isSlave() || !characterForSex.getOwner().isPlayer())
 								&& !characterForSex.isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Sex", UtilText.parse(characterForSex, "[npc.Name] is not attracted to you, and as [npc.she] is not your slave, you cannot force [npc.herHim] to have sex with you..."), null);
+							return new Response("Sex", UtilText.parse(characterForSex, "[npc.Name] is not attracted to you, and you cannot force [npc.herHim] to have sex with you..."), null);
 							
 						} else if(Main.game.isNonConEnabled() && !characterForSex.isAttractedTo(Main.game.getPlayer())) {
 							return new ResponseSex("Rape", UtilText.parse(characterForSex, "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter..."), 

@@ -11,6 +11,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -105,12 +106,15 @@ public class Brax extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
-			this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.BRAVE);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 25);
 		}
 	}
 
@@ -122,6 +126,7 @@ public class Brax extends NPC {
 		}
 		
 		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
+		this.setAttribute(Attribute.MAJOR_CORRUPTION, 25);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(

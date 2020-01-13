@@ -935,10 +935,14 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	}
 	
 	public List<Spell> getSpells(DamageType damageType) {
-		if(spells.containsKey(damageType)) {
-			return new ArrayList<>(spells.get(damageType));
+		List<Spell> damageTypeSpells = new ArrayList<>();
+		if(spells.containsKey(null)) {
+			damageTypeSpells.addAll(spells.get(null));
 		}
-		return new ArrayList<>();
+		if(spells.containsKey(damageType)) {
+			damageTypeSpells.addAll(spells.get(damageType));
+		}
+		return damageTypeSpells;
 	}
 
 	public List<Colour> getAvailablePrimaryColours() {

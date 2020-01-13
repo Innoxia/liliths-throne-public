@@ -323,7 +323,7 @@ public enum Attack {
 			return 0;
 		}
 			
-		if(attacker instanceof Elemental) {
+		if(attacker.isElemental()) {
 			switch(attacker.getBodyMaterial()) {
 				case AIR:
 					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_AIR_SERVANT_OF_AIR_ELEMENTAL_BUFF);

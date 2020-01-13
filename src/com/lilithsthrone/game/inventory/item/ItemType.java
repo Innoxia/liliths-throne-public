@@ -11,7 +11,6 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
@@ -5122,7 +5121,7 @@ public class ItemType {
 				@Override
 				public boolean isAbleToBeUsed(GameCharacter target) {
 					return (target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue())
-							&& !(target instanceof Elemental);
+							&& !(target.isElemental());
 				}
 		
 				@Override
@@ -5130,7 +5129,7 @@ public class ItemType {
 					if(target.isPlayer()) {
 						return "You already know how to cast this spell!";
 						
-					} else if(target instanceof Elemental) {
+					} else if(target.isElemental()) {
 						return UtilText.parse(target, "[npc.Name], like all elementals, cannot learn spells from books."
 								+ " Instead, [npc.she] will need to focus on improving [npc.her] understanding of the arcane in order to learn new spells."
 								+ " (Elementals gain new spells via the perk tree.)");

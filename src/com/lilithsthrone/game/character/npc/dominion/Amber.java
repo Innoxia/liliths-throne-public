@@ -136,13 +136,15 @@ public class Amber extends NPC {
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.BRAVE);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
 		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
+		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
+		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
 						Perk.ORGASMIC_LEVEL_DRAIN,

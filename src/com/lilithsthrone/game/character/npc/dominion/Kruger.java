@@ -96,7 +96,7 @@ public class Kruger extends NPC {
 			resetBodyAfterVersion_2_10_5();
 		}
 		this.setHomeLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_VIP_AREA);
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
 		}
 	}
@@ -104,6 +104,7 @@ public class Kruger extends NPC {
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
+		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),

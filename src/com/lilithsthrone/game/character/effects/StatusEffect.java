@@ -1618,7 +1618,7 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -100f)),
 			Util.newArrayListOfValues(
 					"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-					"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Overwhelming Lust</b>",
+					"[style.boldLust(+75)] Resting lust",
 					"[style.boldExcellent(Double)] <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
 
 		@Override
@@ -3426,7 +3426,7 @@ public enum StatusEffect {
 					&& target.hasVagina()
 					&& target.getAgeValue()>=52
 					&& (target.getSubspecies()==Subspecies.ANGEL || target.getSubspeciesOverride()==null) // Angels and demons are immune
-					&& !(target instanceof Elemental);
+					&& !(target.isElemental());
 		}
 	},
 	
@@ -3455,7 +3455,6 @@ public enum StatusEffect {
 		public String extraRemovalEffects(GameCharacter target) {
 			
 			StringBuilder sb = new StringBuilder();
-			
 			
 			if (target.isPregnant()) {
 				target.addStatusEffect(PREGNANT_1, 60 * 60 * (72 + Util.random.nextInt(13)));
@@ -7636,7 +7635,7 @@ public enum StatusEffect {
 				List<GameCharacter> enemies = Combat.getEnemies(target);
 				
 				for(GameCharacter combatant : enemies) {
-					if(combatant instanceof Elemental
+					if(combatant.isElemental()
 							&& ((Elemental)combatant).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_2)
 							&& ((Elemental)combatant).getCurrentSchool()==SpellSchool.FIRE) {
 						return true;
@@ -7710,7 +7709,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target instanceof Elemental
+			return target.isElemental()
 					&& ((Elemental)target).getSummoner()!=null
 					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3A)
 					&& ((Elemental)target).getCurrentSchool()==SpellSchool.FIRE;
@@ -8153,7 +8152,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target instanceof Elemental
+			return target.isElemental()
 					&& ((Elemental)target).getSummoner()!=null
 					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3A)
 					&& ((Elemental)target).getCurrentSchool()==SpellSchool.WATER;
@@ -8665,7 +8664,7 @@ public enum StatusEffect {
 				List<GameCharacter> enemies = Combat.getEnemies(target);
 				
 				for(GameCharacter combatant : enemies) {
-					if(combatant instanceof Elemental
+					if(combatant.isElemental()
 							&& ((Elemental)combatant).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_1)
 							&& ((Elemental)combatant).getCurrentSchool()==SpellSchool.AIR) {
 						return true;
@@ -8796,7 +8795,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target instanceof Elemental
+			return target.isElemental()
 					&& ((Elemental)target).getSummoner()!=null
 					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A)
 					&& ((Elemental)target).getCurrentSchool()==SpellSchool.AIR;
@@ -9340,7 +9339,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target instanceof Elemental
+			return target.isElemental()
 					&& ((Elemental)target).getSummoner()!=null
 					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3A)
 					&& ((Elemental)target).getCurrentSchool()==SpellSchool.EARTH;
@@ -9815,7 +9814,7 @@ public enum StatusEffect {
 				List<GameCharacter> enemies = Combat.getEnemies(target);
 				
 				for(GameCharacter combatant : enemies) {
-					if(combatant instanceof Elemental
+					if(combatant.isElemental()
 							&& ((Elemental)combatant).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_2)
 							&& ((Elemental)combatant).getCurrentSchool()==SpellSchool.ARCANE) {
 						return true;
@@ -9889,7 +9888,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target instanceof Elemental
+			return target.isElemental()
 					&& ((Elemental)target).getSummoner()!=null
 					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3A)
 					&& ((Elemental)target).getCurrentSchool()==SpellSchool.ARCANE;

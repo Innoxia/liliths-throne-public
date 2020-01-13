@@ -3196,6 +3196,10 @@ public class Body implements XMLSaving {
 			default:
 				break;
 		}
+		
+		if(target!=null && Main.game.isStarted()) { // Apparently this is needed to stop Lyssieth from losing her status effect???
+			target.addStatusEffect(StatusEffect.SUBSPECIES_BONUS, -1);
+		}
 	}
 
 	public Race getRaceFromPartWeighting() {

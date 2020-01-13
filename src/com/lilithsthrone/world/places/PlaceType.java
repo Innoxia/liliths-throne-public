@@ -3697,11 +3697,7 @@ public class PlaceType {
 		@Override
 		public Population getPopulation() {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
-				if(Main.game.isExtendedWorkTime()) {
-					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
-				} else {
-					return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
-				}
+				return new Population(PopulationType.GANG_MEMBERS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON)));
 			}
 			return null;
 		}

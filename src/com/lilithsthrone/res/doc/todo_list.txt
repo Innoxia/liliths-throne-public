@@ -53,35 +53,74 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Engine:
+		Removed all of the Sex class's static methods. Sex methods are now called via 'Main.sex.' in the code, or 'sex.' in the parsing engine. This was done to enable sex methods to be referenced in text file parsing.
+	
+	Items:
+		Chastity cages are now tagged as being able to be equipped during sex.
+		All clothing types which can be equipped during sex (and so are assumed to be sex toys), or which fit into the 'groin' slot, can now be enchanted with a 'vibration' effect (as a secondary modifier to a 'special effect' primary modifier), increasing the wearer's resting lust value and also giving them bonus arousal increases every turn in sex.
+		The item 'Mother's Milk' now advances pregnancy directly to the next stage, instead of skipping it forwards to an hour before the next stage.
+	
 	Other:
-		Added a small chance (0.5%) for the 'finding an item' encounter in Dominion's alleyways to give you a joke burger item if you are playing in silly mode. The 'eggplant' joke item is now also restricted to being found only in silly mode.	
+		Added a small chance (0.5%) for the 'finding an item' encounter in Dominion's alleyways to give you a joke burger item if you are playing in silly mode. The 'eggplant' joke item is now also restricted to being found only in silly mode.
+		Improved colouring of post-sex stretch effects text.
+		Added indication of a character's resting lust value in their lust bar tooltip.
+		Arcane storm vulnerability now gives +75 to resting lust level, instead of setting it to a base of 75.
 	
 	Bugs:
 		Fixed issue where unique NPCs were not immune to 'orgasmic level drain', but normal random characters were, instead of the other way around.
 		Fixed some minor incorrect text in the 'orgasmic level drain' perk description.
 		Fixed incorrect clothing on the four 'milkers' in the Rat Warrens.
+		Fixed issue where there was more than one removal button for when an effect has multiple descriptions in the enchantment screen, with the duplicate buttons doing nothing.
+		Fixed issues with Murk's 'milkers' clothing not being equipped or lacking correct colours/enchantments.
+		Fixed bug where some weapons (such as the broomstick and the scythe) would not grant the wielder the spells they were meant to unlock.
+		Fixed several issues in the Rat Warrens regarding hostile rats not spawning correctly at checkpoints or in the dice den. Also fixed some actions incorrectly being available at the entrance after clearing out the entrance guards.
+		Corrected corruption values of all unique NPCs.
+		Fixed issue where Lyssieth would sometimes not have her elder lilin subspecies status effect applied to her.
 	
 	
-	Need Sex hooks
+	
+	
+	Masochist fetish is supposed to reduce incoming damage by 25% and cause lust damage equal to the amount of damage reduced (as the tooltip states), yet anyone with that fetish recieves the damage reduction while only taking 1.0 lust damage, no matter how high the damage actually was or how low it was.
+	
+	there is no sex scene during the player "stay" in Musk's rat cave???
+	
+	Add Silence/Shadow interactions when being fucked
+	
+	Give Shadow a resonance stone
+	
+	Did you notice that "wetness" under Cum category is production but "wetness" under the Penis category is storage?
+	
+	Add relation parsing for "your companion"
+	
+	Text about Enforcers in Vengar public sex
+	
+	can you not transform your elemental's haircut?
+	
+	Stay in any tile (Any tile really) and use the debug command, then go to Item View and select Head
+	
+	Long sleeve T-shirt
+	Milker descriptions needed (with extended description for if asked Murk about them)
+	Chonk tails
+	enchantment on clothing that autoclean them
+	
+	Somehow slave sending to Kate is bugged? hard to reproduce error.
+	
+	Make skin colours a shade darker for orifices
+	
+	When captive, Milkers updates needed:
+		Getting used by randoms
+		Getting used by Murk
+		Having pregnancy resolved
+	
 	Make no-breast NPCs not use 'get nipples sucked'
 	
-	FINISH RAT WARRENS DIALOGUE
-		BY DINNER!!!!!!
-	ADD VENGAR SLAVE DIALOGUE
-		BEFORE BED!!!!
+	How does enslavement enchantment work when equipped during sex...
 	
-	Need vibrating enchantment?
-	
-	Make Silence/Shadow on pills
-	
-	Chonk tails
+	Quick sex level drains
+	Quick sex orgasm count (check with Murk)
 	
 	If spectator is disliking voyeurism, or not attracted to participants, they should always do nothing
-	
-	Check "Autosave_Madam" for bug where:
-		When managing people in the house, when you choose send to kate it bugs out and replays the last fight/sex scene you had on an alley tile
-	
-	Karl and Wolfgang have 0 corruption
 	
 	Make spa its own room?
 	

@@ -353,7 +353,7 @@
 		[style.speechMasculineStrong(Umm...)] the two voices say in unison.
 	</p>
 	<p>
-		[style.speechFeminine(You two don't have a brain between you... [pc.SheIs] human, get it? Since when could a human use that kind of arcane power? Hell, only a Lilin could just appear out of thin air like that. This little runt obviously pissed off one of Lilith's daughters, or messed with some artefact [pc.she] didn't understand. In other words, [pc.sheIs] fair game, so just hold [pc.herHim] still until the storm starts.)]
+		[style.speechFeminine(You two don't have a brain between you... [pc.SheIs] human, get it? Since when could a human use that kind of arcane power? Hell, only a Lilin could just appear out of thin air like that. This little runt obviously pissed off a lilin, or messed with some artefact [pc.she] didn't understand. In other words, [pc.sheIs] fair game, so just hold [pc.herHim] still until the storm starts.)]
 	</p>
 	<p>
 		As the people reach the end of their conversation, you're surprised to find that most of the pain in your head has already faded away. You open your eyes to see what's going on, but as you do, you're suddenly grabbed by two pairs of strong hands.
@@ -414,9 +414,10 @@
 	</p>
 	<p>
 		Seeing that you've surrendered, she grins and leans down, her cat-like pupils dilating as she pushes your head to the ground and delivers a long, slow lick up your cheek.
-		#IF pc.isFeminine()
-		#THEN [style.speechFeminineStrong(Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little pussy.)]
-		#ELSE [style.speechFeminineStrong(Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little ass.)]
+		#IF(pc.isFeminine())
+			 [style.speechFeminineStrong(~Mmm!~ You taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little pussy.)]
+		#ELSE
+			 [style.speechFeminineStrong(~Mmm!~ You taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little ass.)]
 		#ENDIF
 	</p>
 	<p>
@@ -437,9 +438,10 @@
 	</p>
 	<p>
 		She leans down, her cat-like pupils dilating as she pushes your head to the ground and delivers a long, slow lick up your cheek.
-		#IF pc.isFeminine()
-		#THEN [style.speechFeminineStrong(Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little pussy.)]
-		#ELSE [style.speechFeminineStrong(Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little ass.)]
+		#IF(pc.isFeminine())
+			 [style.speechFeminineStrong(~Mmm!~ You taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little pussy.)]
+		#ELSE
+			 [style.speechFeminineStrong(~Mmm!~ You taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little ass.)]
 		#ENDIF
 	</p>
 	<p>

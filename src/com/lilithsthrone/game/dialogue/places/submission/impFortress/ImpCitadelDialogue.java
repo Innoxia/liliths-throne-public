@@ -14,7 +14,6 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
@@ -690,7 +689,7 @@ public class ImpCitadelDialogue {
 					} else if (index == 6) {
 						GameCharacter companion = getMainCompanion();
 
-						if(!companion.isAttractedTo(getImpGroupLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getImpGroupLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response("Group sex",
 									UtilText.parse(companion, "[npc.Name] is not interested in having sex with the imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 							
@@ -709,7 +708,7 @@ public class ImpCitadelDialogue {
 					} else if (index == 7) {
 						GameCharacter companion = getMainCompanion();
 
-						if(!companion.isAttractedTo(getImpGroupLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getImpGroupLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response("Group submission",
 									UtilText.parse(companion, "[npc.Name] is not interested in having sex with the imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 							
@@ -728,7 +727,7 @@ public class ImpCitadelDialogue {
 					} else if (index == 8) {
 						GameCharacter companion = getMainCompanion();
 
-						if(!companion.isAttractedTo(getImpGroupLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getImpGroupLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response(UtilText.parse(companion, "Give to [npc.name]"),
 									UtilText.parse(companion, "[npc.Name] is not interested in having sex with the imps, and as [npc.sheIs] not a slave, you can't force [npc.herHim] to do so..."), null);
 							
@@ -747,9 +746,9 @@ public class ImpCitadelDialogue {
 					} else if (index == 9 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
 						GameCharacter companion = getMainCompanion();
 						
-						if(!companion.isAttractedTo(getImpGroupLeader()) && !companion.isSlave() && !(companion instanceof Elemental)) {
+						if(!companion.isAttractedTo(getImpGroupLeader()) && companion.isAbleToRefuseSexAsCompanion()) {
 							return new Response(UtilText.parse(companion, "Offer [npc.name]"),
-									UtilText.parse(companion, "You can tell that [npc.name] isn't at all interested in having sex with the imps, and as [npc.sheIs] not your slave, you can't force [npc.herHim] to do so..."),
+									UtilText.parse(companion, "You can tell that [npc.name] isn't at all interested in having sex with the imps, and you can't force [npc.herHim] to do so..."),
 									null);
 							
 						} else {
@@ -1340,11 +1339,11 @@ public class ImpCitadelDialogue {
 			// If already drank TF potion, or is already a fox-morph, action is for getting companion to perform oral sex.
 			} else if(index==3 && isCompanionDialogue()) {
 				if((Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelArcanistAcceptedTF) || getMainCompanion().getRace()==Race.FOX_MORPH) && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
-					if(!getMainCompanion().isAttractedTo(getArcanist()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+					if(!getMainCompanion().isAttractedTo(getArcanist()) && getMainCompanion().isAbleToRefuseSexAsCompanion()) {
 						return new Response(
 								UtilText.parse(getMainCompanion(), "Oral ([npc.name])"),
 								UtilText.parse(getArcanist(), getMainCompanion(),
-									"As [npc2.name] is not attracted to [npc.name], [npc2.she] will refuse to have sex with [npc.herHim]. As [npc2.she] is not your slave, you can't force [npc2.herHim] to do it, either..."),
+									"As [npc2.name] is not attracted to [npc.name], [npc2.she] will refuse to have sex with [npc.herHim]. You can't force [npc2.herHim] to do it, either..."),
 								null);
 						
 					} else if(!getMainCompanion().isFeminine()) {
@@ -1373,11 +1372,11 @@ public class ImpCitadelDialogue {
 								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "ARCANIST_COMPANION_START_SEX", getAllCharacters()));
 					}
 				}
-				if(!getMainCompanion().getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isPositive() && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+				if(!getMainCompanion().getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isPositive() && getMainCompanion().isAbleToRefuseSexAsCompanion()) {
 					return new Response(
 							UtilText.parse(getMainCompanion(), "Accept ([npc.name])"),
 							UtilText.parse(getArcanist(), getMainCompanion(),
-								"As [npc2.name] doesn't like being transformed, [npc2.she] will refuse to drink [npc.namePos] potion. As [npc2.she] is not your slave, you can't force [npc2.herHim] to do it, either..."),
+								"As [npc2.name] doesn't like being transformed, [npc2.she] will refuse to drink [npc.namePos] potion. You can't force [npc2.herHim] to do it, either..."),
 							null);
 				}
 				if(getMainCompanion().getRace()==Race.FOX_MORPH) {
@@ -1387,7 +1386,7 @@ public class ImpCitadelDialogue {
 								"As [npc2.name] is already a fox-morph, [npc.name] is unwilling to use a potion on [npc2.herHim]..."),
 							null);
 				}
-				if(getMainCompanion().getRace()==Race.DEMON || (getMainCompanion() instanceof Elemental)) {
+				if(getMainCompanion().getRace()==Race.DEMON || (getMainCompanion().isElemental())) {
 					return new Response(UtilText.parse(
 							getMainCompanion(), "Accept ([npc.name])"),
 							UtilText.parse(getArcanist(), getMainCompanion(),
@@ -1421,11 +1420,11 @@ public class ImpCitadelDialogue {
 			// If already drank TF potion, or both are already fox-morphs, action is for performing oral sex.
 			} else if(index==4 && isCompanionDialogue()) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impCitadelArcanistAcceptedTF) || (Main.game.getPlayer().getRace()==Race.FOX_MORPH && getMainCompanion().getRace()==Race.FOX_MORPH)) {
-					if(!getMainCompanion().isAttractedTo(getArcanist()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+					if(!getMainCompanion().isAttractedTo(getArcanist()) && getMainCompanion().isAbleToRefuseSexAsCompanion()) {
 						return new Response(
 								"Oral (both)",
 								UtilText.parse(getArcanist(), getMainCompanion(),
-									"As [npc2.name] is not attracted to [npc.name], [npc2.she] will refuse to have sex with [npc.herHim]. As [npc2.she] is not your slave, you can't force [npc2.herHim] to do it, either..."),
+									"As [npc2.name] is not attracted to [npc.name], [npc2.she] will refuse to have sex with [npc.herHim]. You can't force [npc2.herHim] to do it, either..."),
 								null);
 						
 					} else if(!Main.game.getPlayer().isFeminine()) {
@@ -1469,7 +1468,7 @@ public class ImpCitadelDialogue {
 								"As [npc2.name] is already a fox-morph, [npc.name] is unwilling to use a potion on [npc2.herHim]..."),
 							null);
 				}
-				if(getMainCompanion().getRace()==Race.DEMON || (getMainCompanion() instanceof Elemental)) {
+				if(getMainCompanion().getRace()==Race.DEMON || (getMainCompanion().isElemental())) {
 					return new Response(UtilText.parse(
 							getMainCompanion(), "Accept (both)"),
 							UtilText.parse(getArcanist(), getMainCompanion(),
@@ -1483,11 +1482,11 @@ public class ImpCitadelDialogue {
 								"As you are already a fox-morph, [npc.name] is unwilling to use a potion on you..."),
 							null);
 				}
-				if(!getMainCompanion().getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isPositive() && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+				if(!getMainCompanion().getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isPositive() && getMainCompanion().isAbleToRefuseSexAsCompanion()) {
 					return new Response(UtilText.parse(
 							getMainCompanion(), "Accept (both)"),
 							UtilText.parse(getArcanist(), getMainCompanion(),
-								"As [npc2.name] doesn't like being transformed, [npc2.she] will refuse to drink [npc.namePos] potion. As [npc2.she] is not your slave, you can't force [npc2.herHim] to do it, either..."),
+								"As [npc2.name] doesn't like being transformed, [npc2.she] will refuse to drink [npc.namePos] potion. You can't force [npc2.herHim] to do it, either..."),
 							null);
 				}
 				return new Response("Accept (both)", 
@@ -1619,11 +1618,11 @@ public class ImpCitadelDialogue {
 				};
 				
 			} else if(index==2 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
-				if(!getMainCompanion().isAttractedTo(getArcanist()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+				if(!getMainCompanion().isAttractedTo(getArcanist()) && getMainCompanion().isAbleToRefuseSexAsCompanion()) {
 					return new Response(
 							UtilText.parse(getMainCompanion(), "Agree"),
 							UtilText.parse(getArcanist(), getMainCompanion(),
-								"As [npc2.name] is not attracted to [npc.name], [npc2.she] will refuse to have sex with [npc.herHim]. As [npc2.she] is not your slave, you can't force [npc2.herHim] to do it, either..."),
+								"As [npc2.name] is not attracted to [npc.name], [npc2.she] will refuse to have sex with [npc.herHim]. You can't force [npc2.herHim] to do it, either..."),
 							null);
 				} 
 				return new ResponseSex("Agree",
@@ -1669,11 +1668,11 @@ public class ImpCitadelDialogue {
 				};
 				
 			} else if(index==2) {
-				if(!getMainCompanion().isAttractedTo(getArcanist()) && !getMainCompanion().isSlave() && !(getMainCompanion() instanceof Elemental)) {
+				if(!getMainCompanion().isAttractedTo(getArcanist()) && getMainCompanion().isAbleToRefuseSexAsCompanion()) {
 					return new Response(
 							UtilText.parse(getMainCompanion(), "Agree"),
 							UtilText.parse(getArcanist(), getMainCompanion(),
-								"As [npc2.name] is not attracted to [npc.name], [npc2.she] will refuse to have sex with [npc.herHim]. As [npc2.she] is not your slave, you can't force [npc2.herHim] to do it, either..."),
+								"As [npc2.name] is not attracted to [npc.name], [npc2.she] will refuse to have sex with [npc.herHim]. You can't force [npc2.herHim] to do it, either..."),
 							null);
 				} 
 				return new ResponseSex("Agree",

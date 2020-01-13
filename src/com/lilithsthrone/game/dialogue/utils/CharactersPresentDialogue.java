@@ -7,7 +7,6 @@ import java.util.Objects;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
@@ -301,7 +300,7 @@ public class CharactersPresentDialogue {
 			
 			UtilText.nodeContentSB.append("</div>");
 			
-			if(!(characterViewed instanceof Elemental)) {
+			if(!(characterViewed.isElemental())) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='padding:8px; text-align:center;'>"
 							+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
 						+ "</div>");

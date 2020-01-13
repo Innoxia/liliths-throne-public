@@ -51,7 +51,6 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
@@ -706,7 +705,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		for(Spell spell : this.getAllSpells()) {
 			if(this.getMana()>spell.getModifiedCost(this)) {
-				if(this instanceof Elemental) {
+				if(this.isElemental()) {
 					if(spell!=Spell.ELEMENTAL_AIR
 							&& spell!=Spell.ELEMENTAL_ARCANE
 							&& spell!=Spell.ELEMENTAL_EARTH
@@ -859,7 +858,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case ELEMENTAL_EARTH:
 				case ELEMENTAL_FIRE:
 				case ELEMENTAL_WATER:
-					if(!(this instanceof Elemental) && !this.isElementalSummoned()) {
+					if(!(this.isElemental()) && !this.isElementalSummoned()) {
 						weightedSpellMap.put(spell, 1);
 					}
 					break;
@@ -1200,7 +1199,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public boolean isPendingTransformationToGenderIdentity() {
 		return this.getGender()!=this.getGenderIdentity()
-				&& !(this instanceof Elemental)
+				&& !(this.isElemental())
 				&& !this.isPregnant()
 				&& !this.isUnique()
 				&& !this.isSlave()
@@ -2794,7 +2793,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				//Player uses item on NPC:
 				boolean isItemOrdinary = !item.getItemType().isTransformative() && !item.getItemType().isFetishGiving();
 				
-				if(target instanceof Elemental) {
+				if(target.isElemental()) {
 					if(item.getItemType().isTransformative()) {
 						return "<p>"
 									+ UtilText.parse(this, "As you move to get [npc.name] to "+item.getItemType().getUseName()+" the "+item.getName()+", [npc.she] calmly states,"

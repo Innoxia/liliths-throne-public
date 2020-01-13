@@ -267,7 +267,7 @@ public abstract class GameCharacter implements XMLSaving {
 	/** Calculations description as used in getAttributeValue() */
 	public static final String HEALTH_CALCULATION = "10 + (5*level) + (2*Physique) + Bonus Energy";
 	public static final String MANA_CALCULATION = "5 + (2*level) + (5*Arcane) + Bonus Aura";
-	public static final String RESTING_LUST_CALCULATION = "Corruption/2";
+	public static final String RESTING_LUST_CALCULATION = "(Corruption/2) + Bonuses";
 
 	public static final int LEVEL_CAP = 50;
 	public static final int MAX_TRAITS = 6;
@@ -2983,6 +2983,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public abstract boolean isUnique();
+
+	public boolean isElemental() {
+		return false;
+	}
 	
 	public boolean isRaceConcealed() {
 		return raceConcealed;
@@ -4039,6 +4043,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return true;
 	}
 	
+	public boolean isAbleToRefuseSexAsCompanion() {
+		return !Main.game.isNonConEnabled() || (!getMainCompanion().isSlave() && !getMainCompanion().isElemental());
+	}
+	
 	// Obedience:
 	
 	public ObedienceLevel getObedience() {
@@ -4591,7 +4599,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return
 	 */
 	public boolean addCompanion(GameCharacter character) {
-		if(!character.isPlayer() && (getPartyLeader() == null || character instanceof Elemental)) {
+		if(!character.isPlayer() && (getPartyLeader() == null || character.isElemental())) {
 			if(character.getPartyLeader() != null) {
 				character.getPartyLeader().removeCompanion(character);
 			}
@@ -4756,7 +4764,7 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 				}
 			}
-			Collections.sort(listToReturn, (c1, c2) -> c1 instanceof Elemental?(c2 instanceof Elemental?0:1):(c2 instanceof Elemental?-1:0));
+			Collections.sort(listToReturn, (c1, c2) -> c1.isElemental()?(c2.isElemental()?0:1):(c2.isElemental()?-1:0));
 		}
 		return listToReturn;
 	}
@@ -4766,7 +4774,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public List<GameCharacter> getNonElementalCompanions() {
 		List<GameCharacter> listToReturn = getCompanions();
-		listToReturn.removeIf((com) -> com instanceof Elemental);
+		listToReturn.removeIf((com) -> com.isElemental());
 		return listToReturn;
 	}
 	
@@ -4776,7 +4784,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean canHaveMoreCompanions() {
 		int elementals = 0;
 		for(GameCharacter companion : getCompanions()) {
-			if(companion instanceof Elemental) {
+			if(companion.isElemental()) {
 				elementals++;
 			}
 		}
@@ -4822,7 +4830,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		return (this.isSlave() && this.getOwner().equals(partyLeader))
 				|| (Main.game.getPlayer().getFriendlyOccupants().contains(this.getId()))
-				|| (this instanceof Elemental && ((Elemental)this).getSummoner().equals(partyLeader));
+				|| (this.isElemental() && ((Elemental)this).getSummoner().equals(partyLeader));
 	}
 	
 	/**
@@ -4906,7 +4914,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(charactersImmediatelyPresent) {
 			for(GameCharacter character : Main.game.getCharactersPresent()) {
-				if(!character.isSlave() && !(character instanceof Elemental) && (this.getPartyLeader()==null || !this.getPartyLeader().getCompanions().contains(character))) {
+				if(!character.isSlave() && !(character.isElemental()) && (this.getPartyLeader()==null || !this.getPartyLeader().getCompanions().contains(character))) {
 					return new Value<>(false, UtilText.parse(character, "You can't have sex in front of [npc.name]!"));
 				}
 			}
@@ -4922,7 +4930,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(Main.game.getSavedDialogueNode() != null && !Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))) {
 			return "You're in the middle of something right now!";
 		}
-		if(this instanceof Elemental) {
+		if(this.isElemental()) {
 			switch(this.getBodyMaterial()) {
 				case AIR:
 					if(((Elemental)this).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A) && companionIsSub) {
@@ -16121,10 +16129,31 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public int getRestingLust() {
+		int restingLust = (int) Math.round(getAttributeValue(Attribute.MAJOR_CORRUPTION)/2);
+		
 		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
-			return 75;
+			restingLust += 75;
 		}
-		return (int) Math.round(getAttributeValue(Attribute.MAJOR_CORRUPTION)/2);
+		
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			if(c.isVibrator()) {
+				switch(c.getVibratorIntensity()) {
+					case MINOR_BOOST:
+						restingLust+=5;
+						break;
+					case BOOST:
+						restingLust+=10;
+						break;
+					case MAJOR_BOOST:
+						restingLust+=20;
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		
+		return restingLust;
 	}
 	
 	public String setLust(float lust) {
@@ -16280,7 +16309,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination) {
-		if(partner instanceof Elemental) {
+		if(partner.isElemental()) {
 			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination)
 					+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot impregnate anyone!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals later on!)]</p>";
 		}
@@ -20113,7 +20142,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * Elementals, demons, and slimes can't have their race transformed.
 	 */
 	public boolean isAbleToHaveRaceTransformed() {
-		return !(this instanceof Elemental)
+		return !(this.isElemental())
 				&& this.getRace()!=Race.DEMON
 				&& this.getRace()!=Race.SLIME;
 	}
@@ -20131,7 +20160,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String getUnableToTransformDescription() {
 		if((this.getSubspeciesOverrideRace()!=Race.DEMON)
 				&& this.getRace()!=Race.SLIME
-				&& !(this instanceof Elemental)) {
+				&& !(this.isElemental())) {
 			return "Only demons, slimes, and elementals can transform their bodies at will!";
 		}
 		if(this.getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSelfTransformationInhibiting())) {

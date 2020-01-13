@@ -10,7 +10,6 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Pathing;
@@ -431,7 +430,7 @@ public enum PerkManager {
 	}
 	
 	public Map<Integer, Map<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>>> getPerkTree(GameCharacter character) {
-		if(character instanceof Elemental) {
+		if(character.isElemental()) {
 			return elementalPerkTree;
 		} else {
 			return perkTree;
@@ -439,7 +438,7 @@ public enum PerkManager {
 	}
 	
 	public static List<TreeEntry<PerkCategory, AbstractPerk>> getStartingPerks(GameCharacter character) {
-		if(character instanceof Elemental) {
+		if(character.isElemental()) {
 			return MANAGER.elementalStartingPerks;
 		} else {
 			return MANAGER.standardStartingPerks;
@@ -454,7 +453,7 @@ public enum PerkManager {
 		Random rnd = new Random((character.getId()).hashCode());
 
 		// Add a unique background perk based on weighting:
-		if(!character.isUnique() && !(character instanceof Elemental) && rnd.nextInt(100)<=50) {
+		if(!character.isUnique() && !(character.isElemental()) && rnd.nextInt(100)<=50) {
 			Map<PerkCategory, Integer> perkWeightingMap = new HashMap<>(character.getSubspecies().getPerkWeighting(character));
 			
 			PerkCategory pc = Util.getRandomObjectFromWeightedMap(perkWeightingMap, rnd);
@@ -521,7 +520,7 @@ public enum PerkManager {
 			character.addPerk(perk.getRow(), perk.getEntry());
 		}
 		
-		if(character instanceof Elemental) {
+		if(character.isElemental()) {
 			
 		} else {
 			if(!character.isPlayer() && autoSelectPerks) {

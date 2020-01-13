@@ -485,6 +485,14 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
+							System.out.println(Main.isVersionOlderThan("0.3.5.9", "0.3.5.10"));
+//							for(NPC npc : Main.game.getAllNPCs()) {
+//								if(npc.isUnique()) {
+//									System.out.println(npc.getNameIgnoresPlayerKnowledge()+": "+npc.getAttributeValue(Attribute.MAJOR_CORRUPTION));
+//								}
+//							}
+//							Main.game.getNpc(Lyssieth.class).getSubspecies();
+							
 //							Main.game.getPlayer().setInventory(Main.game.getSavedInventories().get(Main.game.getPlayer().getId()));
 //							for(SolarElevationAngle sea : SolarElevationAngle.values()) {
 //								LocalDateTime[] ldt = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), sea, Game.DOMINION_LONGITUDE, Game.DOMINION_LATITUDE);
