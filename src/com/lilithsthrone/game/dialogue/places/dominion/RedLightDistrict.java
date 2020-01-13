@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -20,7 +19,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
@@ -490,7 +488,7 @@ public class RedLightDistrict {
 			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
 			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
 			
-			if(Sex.getNumberOfOrgasms(charactersPresent.get(0))==0) {
+			if(Main.sex.getNumberOfOrgasms(charactersPresent.get(0))==0) {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "PROSTITUTE_AFTER_SEX_NO_ORGASM");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "PROSTITUTE_AFTER_SEX");
@@ -775,7 +773,7 @@ public class RedLightDistrict {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Bunny.class)) == 0) {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(Bunny.class)) == 0) {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_AFTER_SEX_NO_ORGASM");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_BUNNY_AFTER_SEX");
@@ -928,7 +926,7 @@ public class RedLightDistrict {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Loppy.class)) == 0) {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(Loppy.class)) == 0) {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_AFTER_SEX_NO_ORGASM");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_AFTER_SEX");

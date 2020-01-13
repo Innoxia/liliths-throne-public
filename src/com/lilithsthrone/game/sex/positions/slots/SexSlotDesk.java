@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.sex.positions.slots;
-
-import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * All SexSlots that are used in the OVER_DESK position.
@@ -41,7 +40,8 @@ public class SexSlotDesk {
 			"Bent over",
 			"bent over",
 			"[npc.Name] [npc.verb(collapse)] down onto the desk's surface, before letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			false);
+			false,
+			SexSlotTag.OVER_DESK_FRONT);
 	public static final SexSlot OVER_DESK_ON_FRONT_TWO = new SexSlot(OVER_DESK_ON_FRONT) {
 		@Override
 		public String getDescription() {

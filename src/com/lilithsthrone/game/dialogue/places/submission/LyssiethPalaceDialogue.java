@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission;
-
-import java.util.List;
+import java.util.List;
 
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -27,7 +26,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -514,7 +512,7 @@ public class LyssiethPalaceDialogue {
 				};
 				
 			} else if(index==8) {
-				if(Main.game.getPlayer().getSubspeciesOverride().getRace()==Race.DEMON) {
+				if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 					return new ResponseSex("Lilin sex (pussy)",
 							"Tell Lyssieth that you want her to take on her lilin form, and that you want to use her pussy.",
 							true,
@@ -560,7 +558,7 @@ public class LyssiethPalaceDialogue {
 					}
 				}
 				
-			} else if(index==9 && Main.game.getPlayer().getSubspeciesOverride().getRace()==Race.DEMON) {
+			} else if(index==9 && Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 				return new ResponseSex("Lilin sex (cock)",
 						"Tell Lyssieth that you want her to take on her lilin form, and that she should grow a cock and fuck you.",
 						true,
@@ -702,7 +700,7 @@ public class LyssiethPalaceDialogue {
 	public static final DialogueNode AFTER_SEX = new DialogueNode("", "", true) {
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))>=Main.game.getNpc(Lyssieth.class).getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))>=Main.game.getNpc(Lyssieth.class).getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "AFTER_SEX");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/lyssiethsPalace", "AFTER_SEX_NOT_SATISFIED");

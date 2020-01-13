@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc;
-
-import java.lang.reflect.Field;
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -51,12 +50,14 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
+import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.Spell;
@@ -78,7 +79,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexType;
@@ -705,7 +705,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		for(Spell spell : this.getAllSpells()) {
 			if(this.getMana()>spell.getModifiedCost(this)) {
-				if(this instanceof Elemental) {
+				if(this.isElemental()) {
 					if(spell!=Spell.ELEMENTAL_AIR
 							&& spell!=Spell.ELEMENTAL_ARCANE
 							&& spell!=Spell.ELEMENTAL_EARTH
@@ -858,7 +858,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case ELEMENTAL_EARTH:
 				case ELEMENTAL_FIRE:
 				case ELEMENTAL_WATER:
-					if(!(this instanceof Elemental) && !this.isElementalSummoned()) {
+					if(!(this.isElemental()) && !this.isElementalSummoned()) {
 						weightedSpellMap.put(spell, 1);
 					}
 					break;
@@ -952,6 +952,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					
 				case FOX_MORPH:
 				case FOX_ASCENDANT:
+				case FOX_ASCENDANT_ARCTIC:
 				case FOX_ASCENDANT_FENNEC:
 				case FOX_MORPH_FENNEC:
 				case FOX_MORPH_ARCTIC:
@@ -1198,12 +1199,78 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public boolean isPendingTransformationToGenderIdentity() {
 		return this.getGender()!=this.getGenderIdentity()
-				&& !(this instanceof Elemental)
+				&& !(this.isElemental())
 				&& !this.isPregnant()
 				&& !this.isUnique()
 				&& !this.isSlave()
 				&& !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
 				&& this.isAbleToSelfTransform();
+	}
+	
+	/**
+	 * Resets this character's body to align with their gender identity.
+	 * @param completeReset True if you want them to completely regenerate a new body. False if you just want femininity, breasts, and genitals altered.
+	 */
+	public void setBodyToGenderIdentity(boolean completeReset) {
+		if(completeReset) {
+			boolean assVirgin = this.isAssVirgin();
+			boolean faceVirgin = this.isFaceVirgin();
+			boolean nippleVirgin = this.isNippleVirgin();
+			boolean penisVirgin = this.isPenisVirgin();
+			boolean urethraVirgin = this.isUrethraVirgin();
+			boolean vaginaVirgin = this.isVaginaVirgin();
+			boolean vaginaUrethraVirgin = this.isVaginaUrethraVirgin();
+			
+			BodyMaterial material = this.getBodyMaterial();
+			this.setBody(this.getGenderIdentity(), Subspecies.getFleshSubspecies(this), this.getBody().getRaceStageFromPartWeighting(), false);
+			this.setBodyMaterial(material);
+			CharacterUtils.randomiseBody(this, false);
+			
+			this.setAssVirgin(assVirgin);
+			this.setFaceVirgin(faceVirgin);
+			this.setNippleVirgin(nippleVirgin);
+			this.setPenisVirgin(penisVirgin);
+			this.setUrethraVirgin(urethraVirgin);
+			this.setVaginaVirgin(vaginaVirgin);
+			this.setVaginaUrethraVirgin(vaginaUrethraVirgin);
+			
+		} else {
+			AbstractRacialBody racialBody = RacialBody.valueOfRace(Subspecies.getFleshSubspecies(this).getRace());
+			if(this.getGenderIdentity().getType()==PronounType.FEMININE) {
+				this.setFemininity(racialBody.getFemaleFemininity());
+				
+			} else if(this.getGenderIdentity().getType()==PronounType.NEUTRAL) {
+				this.setFemininity(50);
+				
+			} else {
+				this.setFemininity(racialBody.getMaleFemininity());
+			}
+			
+			if(this.getGenderIdentity().getGenderName().isHasBreasts()) {
+				this.setBreastSize(racialBody.getBreastSize());
+			} else {
+				this.setBreastSize(racialBody.getNoBreastSize());
+			}
+			
+			boolean largeGenitals = this.isTaur();
+			if(this.getGenderIdentity().getGenderName().isHasPenis()) {
+				this.setPenisType(racialBody.getPenisType());
+				this.setPenisSize((int) (racialBody.getPenisSize()*(largeGenitals?2.5f:1)));
+				this.setPenisGirth(racialBody.getPenisGirth()+(largeGenitals?1:0));
+				this.setPenisCumStorage(racialBody.getCumProduction()*(largeGenitals?10:1));
+				this.setTesticleSize(racialBody.getTesticleSize()+(largeGenitals?1:0));
+				this.setTesticleCount(racialBody.getTesticleQuantity());
+			} else {
+				this.setPenisType(PenisType.NONE);
+			}
+			
+			if(this.getGenderIdentity().getGenderName().isHasVagina()) {
+				this.setVaginaType(racialBody.getVaginaType());
+				this.setVaginaWetness(racialBody.getVaginaWetness());
+			} else {
+				this.setVaginaType(VaginaType.NONE);
+			}
+		}
 	}
 	
 	public long getLastTimeEncountered() {
@@ -1305,6 +1372,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 				case FOX_MORPH:
 				case FOX_ASCENDANT:
+				case FOX_ASCENDANT_ARCTIC:
 				case FOX_ASCENDANT_FENNEC:
 				case FOX_MORPH_FENNEC:
 				case FOX_MORPH_ARCTIC:
@@ -1393,10 +1461,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(!skipGenitalsTF) {
 			// Sexual transformations:
-			if(!target.isHasAnyPregnancyEffects() && !vaginaSet) { // Vagina cannot be transformed if pregnant, so skip this
+			if(!vaginaSet) {
 				if(body.getVagina().getType()==VaginaType.NONE) {
-					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1),
-							"Say goodbye to your cunt; you're not going to be needing it anymore!");
+					if(!target.isHasAnyPregnancyEffects()) { // Vagina cannot be transformed if pregnant, so skip this
+						possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1),
+								"Say goodbye to your cunt; you're not going to be needing it anymore!");
+					}
 					
 				} else {
 					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
@@ -2568,7 +2638,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		boolean isConvincing = Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS);
 		
 		if(Main.game.isInSex() && !isConvincing) {
-			if(Sex.getSexControl(Main.game.getPlayer()).getValue()<=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue() && Sex.getSexPace(this)==SexPace.DOM_ROUGH) {
+			if(Main.sex.getSexControl(Main.game.getPlayer()).getValue()<=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue() && Main.sex.getSexPace(this)==SexPace.DOM_ROUGH) {
 				return true;
 			}
 		}
@@ -2588,7 +2658,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, SexSlot targetSlot, GameCharacter target) {
 		SexType targetSexPreference = this.getForeplayPreference(target);
-		if(!Sex.isInForeplay(this)) {
+		if(!Main.sex.isInForeplay(this)) {
 			targetSexPreference = this.getMainSexPreference(target);
 		}
 		if(targetSexPreference==null) {
@@ -2622,7 +2692,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				}
 				
 				if (getHistory() == Occupation.NPC_PROSTITUTE) {
-					if(Sex.isConsensual()) {
+					if(Main.sex.isConsensual()) {
 						return SexPace.SUB_NORMAL;
 					}
 				}
@@ -2723,7 +2793,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				//Player uses item on NPC:
 				boolean isItemOrdinary = !item.getItemType().isTransformative() && !item.getItemType().isFetishGiving();
 				
-				if(target instanceof Elemental) {
+				if(target.isElemental()) {
 					if(item.getItemType().isTransformative()) {
 						return "<p>"
 									+ UtilText.parse(this, "As you move to get [npc.name] to "+item.getItemType().getUseName()+" the "+item.getName()+", [npc.she] calmly states,"
@@ -2737,7 +2807,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 					
 				} else if(isItemOrdinary
-						|| (!Main.game.isInCombat() && Combat.isPlayerVictory() && Combat.getEnemies(Main.game.getPlayer()).contains(target))
+						|| (!target.isUnique() && !Main.game.isInCombat() && Combat.isPlayerVictory() && Combat.getEnemies(Main.game.getPlayer()).contains(target))
 						|| (target.isSlave() && target.getOwner()!=null && target.getOwner().equals(user))) {
 					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
 					
@@ -2748,7 +2818,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								|| target.getAffectionLevel(user)==AffectionLevel.POSITIVE_FIVE_WORSHIP
 								|| (target.getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isPositive() && item.getItemType().isTransformative())
 								|| (target.getFetishDesire(Fetish.FETISH_KINK_RECEIVING).isPositive() && item.getItemType().isFetishGiving())
-								|| (Main.game.isInSex() && !Sex.isConsensual() && Sex.isDom(user) && !Sex.isDom(target)))) {
+								|| (Main.game.isInSex() && !Main.sex.isConsensual() && Main.sex.isDom(user) && !Main.sex.isDom(target)))) {
 					return this.getItemUseEffectsAllowingUse(item, itemOwner, user, target);
 					
 				} else {
@@ -2964,7 +3034,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 									+ "</p>"
 									+ "<p>"
 										+ "Hearing [npc.namePos] willing response, [npc2.name] [npc2.verb(remove)] the bottle's stopper, before handing it over to [npc.herHim]."
-										+ " Eager to please, [npc.she] happily [npc.verb(wrap)] [npc.her] [npc.lips] around the bottle's opening, before gullping down all of the liquid in one huge swig."
+										+ " Eager to please, [npc.she] happily [npc.verb(wrap)] [npc.her] [npc.lips] around the bottle's opening, before gulping down all of the liquid in one huge swig."
 									+ " [npc.She] [npc.verb(cough)] and [npc.verb(splutter)] for a moment, before letting out a startled cry as [npc.she] [npc.verb(start)] to feel the liquid's effects taking root deep in [npc.her] mind..."
 									+ "</p>"));
 							}

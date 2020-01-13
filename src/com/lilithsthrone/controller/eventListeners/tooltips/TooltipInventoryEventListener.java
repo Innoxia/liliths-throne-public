@@ -1,6 +1,5 @@
 package com.lilithsthrone.controller.eventListeners.tooltips;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -970,7 +969,12 @@ public class TooltipInventoryEventListener implements EventListener {
 		// Attribute modifiers:
 		tooltipSB.append("<div class='container-full-width'>"
 				+ "<div class='container-half-width titular' style='width:calc(66.6% - 16px);'>"
-				+ "<span style='color:" + absWep.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absWep.getRarity().getName())+"</span>"+ " | "+(absWep.getWeaponType().isMelee()?"Melee":"Ranged")+"</br>"
+				+ "<span style='color:" + absWep.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absWep.getRarity().getName())+"</span>"+ " | "
+				+(absWep.getWeaponType().isUsingUnarmedCalculation()
+						?"Unarmed"
+						:(absWep.getWeaponType().isMelee()
+							?"Melee"
+							:"Ranged"))+"</br>"
 				+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")+"</br>"
 				);
 

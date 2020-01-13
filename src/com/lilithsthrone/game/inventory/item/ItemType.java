@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.item;
-
-import java.lang.reflect.Field;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +11,6 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
@@ -4173,6 +4171,42 @@ public class ItemType {
 		}
 	};
 
+	// Why did I make this?
+	public static AbstractItemType FEMININE_BURGER = new AbstractItemType(
+			25,
+			null,
+			false,
+			"'Unlikely-Whammer'",
+			"'Unlikely-Whammers'",
+			"Although this may look and taste like an ordinary burger, the packaging declares this 'Unlikely-Whammer' to be 100% meat free."
+			+ " Printed in very small, hard-to-read text, there's a disclaimer which states that the meat substitute is 'dangerously high in female hormones'...",
+			"raceRatMorphBurger",
+			Colour.GENERIC_SEX,
+			null,
+			null,
+			Rarity.LEGENDARY,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FEMININE_BURGER)), null) {
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Unwrapping the paper covering, you quickly reveal the greasy cheeseburger within."
+							+ " Bringing it up to your mouth, you take a big bite, and discover that it's absolutely delicious."
+							+ " Encouraged by the taste, it only takes you a few moments to wolf down the meal.",
+					"Unwrapping the paper covering, you quickly reveal the greasy cheeseburger within."
+							+ " Bringing it up to [npc.namePos] mouth, you force [npc.herHim] to eat the entire burger.",
+					"[npc.Name] pulls out a 'Brown Rat's Burger', and, after peeling off the wrapper, quickly wolfs down the contents.",
+					"[npc.Name] pulls out a 'Brown Rat's Burger', and, after peeling off the wrapper, forces you to eat the contents."
+							+ " You quickly discover that it's absolutely delicious, and it only takes you a moment to finish off the entire burger.");
+		}
+	};
+	
 
 	public static AbstractItemType ARTHURS_PACKAGE = new AbstractItemType(0,
 			"",
@@ -5087,7 +5121,7 @@ public class ItemType {
 				@Override
 				public boolean isAbleToBeUsed(GameCharacter target) {
 					return (target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue())
-							&& !(target instanceof Elemental);
+							&& !(target.isElemental());
 				}
 		
 				@Override
@@ -5095,7 +5129,7 @@ public class ItemType {
 					if(target.isPlayer()) {
 						return "You already know how to cast this spell!";
 						
-					} else if(target instanceof Elemental) {
+					} else if(target.isElemental()) {
 						return UtilText.parse(target, "[npc.Name], like all elementals, cannot learn spells from books."
 								+ " Instead, [npc.she] will need to focus on improving [npc.her] understanding of the arcane in order to learn new spells."
 								+ " (Elementals gain new spells via the perk tree.)");

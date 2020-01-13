@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body.types;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -103,7 +102,7 @@ public enum NippleType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("nipple", "teat");
 					
 				} else {
-					return "nipples";
+					return "nipple";
 				}
 			case VAGINA:
 				return UtilText.returnStringAtRandom("nipple-cunt", "nipple-pussy");

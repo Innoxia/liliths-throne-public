@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.item;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;

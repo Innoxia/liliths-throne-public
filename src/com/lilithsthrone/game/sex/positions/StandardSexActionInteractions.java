@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.sex.positions;
-
-import java.util.Map;
+import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
@@ -1045,9 +1044,10 @@ public class StandardSexActionInteractions {
 	public static VariableInteractions missionary = new VariableInteractions() {
 			@Override
 			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+				GameCharacter performer = getCharacter(performerSlot);
 				GameCharacter target = getCharacter(targetSlot);
 				
-				if(!target.isTaur()) {
+				if(!performer.isTaur() && !target.isTaur()) {
 					return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 							new SexActionInteractions(
 							Util.mergeMaps(
@@ -1080,7 +1080,9 @@ public class StandardSexActionInteractions {
 									SexActionPresets.groinToGroin,
 									SexActionPresets.tailToLowerHalf,
 									SexActionPresets.tentacleToLowerHalf,
-									SexActionPresets.appendagesToLowerHalf),
+									performer.isTaur()
+										?null
+										:SexActionPresets.appendagesToLowerHalf),
 							Util.newArrayListOfValues(
 									OrgasmCumTarget.ASS,
 									OrgasmCumTarget.GROIN,

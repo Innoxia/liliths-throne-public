@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission;
-
-import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -22,8 +21,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
@@ -1099,7 +1096,7 @@ public class SlimeQueensLair {
 							if(crown!=null) {
 								Main.game.getNpc(SlimeQueen.class).unequipClothingIntoVoid(crown, true, Main.game.getNpc(SlimeQueen.class));
 							}
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_SLIME_QUEENS_TIARA, false), true));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_head_slime_queens_tiara", false), true));
 							
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_CONVINCE));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_SIX_CONVINCE));
@@ -1117,7 +1114,7 @@ public class SlimeQueensLair {
 							if(crown!=null) {
 								Main.game.getNpc(SlimeQueen.class).unequipClothingIntoVoid(crown, true, Main.game.getNpc(SlimeQueen.class));
 							}
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_SLIME_QUEENS_TIARA, false), true));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_head_slime_queens_tiara", false), true));
 							
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_FORCE));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_SIX_FORCE));
@@ -1135,7 +1132,7 @@ public class SlimeQueensLair {
 							if(crown!=null) {
 								Main.game.getNpc(SlimeQueen.class).unequipClothingIntoVoid(crown, true, Main.game.getNpc(SlimeQueen.class));
 							}
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_SLIME_QUEENS_TIARA, false), true));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("innoxia_head_slime_queens_tiara", false), true));
 							
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_SUBMIT));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_SIX_SUBMIT));
@@ -1297,7 +1294,7 @@ public class SlimeQueensLair {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getNpc(SlimeQueen.class))>=Main.game.getNpc(SlimeQueen.class).getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(SlimeQueen.class))>=Main.game.getNpc(SlimeQueen.class).getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "AFTER_SLIME_QUEEN_SEX");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "AFTER_SLIME_QUEEN_SEX_NO_ORGASM");

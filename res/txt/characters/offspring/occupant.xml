@@ -227,7 +227,7 @@
 			#ENDIF
 		</p>
 		<p>
-			[#playerPositioning] [pc.speech(That's my good [npc.girl], getting along well with your [npc.relation(npc2)]! Now it's time to show me how much you love your [pc.mommy]!)]
+			[#playerPositioning] [pc.speech(That's my good [npc.girl], getting along well with your [npc2.relation(npc)]! Now it's time to show me how much you love your [pc.mommy]!)]
 		</p>
 		<p>
 			With an enthusiastic [npc.moan], [npc.name] prepares to do just that...
@@ -335,7 +335,7 @@
 			#ENDIF
 		</p>
 		<p>
-			[#playerPositioning] [pc.speech(That's my good [npc.girl], wanting to get along well with your [npc.relation(npc2)]! Now it's time for your [pc.mommy] to show you just how much [pc.she] loves you!)]
+			[#playerPositioning] [pc.speech(That's my good [npc.girl], wanting to get along well with your [npc2.relation(npc)]! Now it's time for your [pc.mommy] to show you just how much [pc.she] loves you!)]
 		</p>
 		<p>
 			With an enthusiastic [npc.moan], [npc.name] prepares for the two of you to use [npc.herHim]...

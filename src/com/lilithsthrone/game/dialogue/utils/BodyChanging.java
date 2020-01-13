@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.utils;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,6 @@ import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -203,7 +201,7 @@ public class BodyChanging {
 		List<Race> faceSkinOptions = Util.newArrayListOfValues();
 		GameCharacter target = BodyChanging.getTarget();
 		
-		if(BodyChanging.getTarget() instanceof Elemental) {
+		if(BodyChanging.getTarget().isElemental()) {
 			faceSkinOptions = Util.newArrayListOfValues(Race.values());
 			
 		} else if(isHalfDemon()) {
@@ -225,7 +223,7 @@ public class BodyChanging {
 		List<Race> armLegOptions = Util.newArrayListOfValues();
 		GameCharacter target = BodyChanging.getTarget();
 		
-		if(BodyChanging.getTarget() instanceof Elemental) {
+		if(BodyChanging.getTarget().isElemental()) {
 			armLegOptions = Util.newArrayListOfValues(Race.values());
 			
 		} else if(isHalfDemon()) {
@@ -250,7 +248,7 @@ public class BodyChanging {
 		List<Race> minorPartsOptions = Util.newArrayListOfValues();
 		GameCharacter target = BodyChanging.getTarget();
 		
-		if(BodyChanging.getTarget() instanceof Elemental) {
+		if(BodyChanging.getTarget().isElemental()) {
 			minorPartsOptions = Util.newArrayListOfValues(Race.values());
 			
 		} else if(isHalfDemon()) {
@@ -273,14 +271,14 @@ public class BodyChanging {
 	}
 	
 	private static boolean removeNoneFromTailChoices() {
-		if(isHalfDemon() && !(BodyChanging.getTarget() instanceof Elemental)) {
+		if(isHalfDemon() && !(BodyChanging.getTarget().isElemental())) {
 			return !RacialBody.valueOfRace(target.getHalfDemonSubspecies().getRace()).getTailType().contains(TailType.NONE);
 		}
 		return false;
 	}
 	
 	private static boolean removeNoneFromWingChoices() {
-		if(isHalfDemon() && !(BodyChanging.getTarget() instanceof Elemental)) {
+		if(isHalfDemon() && !(BodyChanging.getTarget().isElemental())) {
 			return !RacialBody.valueOfRace(target.getHalfDemonSubspecies().getRace()).getWingTypes().contains(WingType.NONE);
 		}
 		return false;
@@ -290,7 +288,7 @@ public class BodyChanging {
 		return !debugMenu
 				&& (BodyChanging.getTarget().getRace()==Race.DEMON
 					|| BodyChanging.getTarget().getSubspecies()==Subspecies.DEMON
-					|| BodyChanging.getTarget() instanceof Elemental);
+					|| BodyChanging.getTarget().isElemental());
 	}
 	
 	private static boolean isHalfDemon() {
@@ -300,7 +298,7 @@ public class BodyChanging {
 	private static Map<BodyCoveringType, List<String>> getMainCoveringsMap() {
 		Map<BodyCoveringType, List<String>> coveringsNamesMap = new LinkedHashMap<>();
 		
-		if(getTarget() instanceof Elemental) {
+		if(getTarget().isElemental()) {
 			switch(getTarget().getBodyMaterial()) {
 				case AIR:
 					coveringsNamesMap.put(BodyCoveringType.AIR, Util.newArrayListOfValues("AIR"));
@@ -418,7 +416,7 @@ public class BodyChanging {
 
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(
-									(getTarget() instanceof Elemental)
+									(getTarget().isElemental())
 										?allRaces
 										:(!removeNoneFromTailChoices()
 											?Util.newArrayListOfValues(Race.DEMON)
@@ -429,7 +427,7 @@ public class BodyChanging {
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(
-									(getTarget() instanceof Elemental)
+									(getTarget().isElemental())
 										?allRaces
 										:(!removeNoneFromWingChoices()
 											?Util.newArrayListOfValues(Race.DEMON)
@@ -660,7 +658,7 @@ public class BodyChanging {
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformEyeChoiceDiv(
-									(getTarget() instanceof Elemental)
+									(getTarget().isElemental())
 										?allRaces
 										:getMinorPartsDemonRaces(false))
 							+ CharacterModificationUtils.getSelfTransformEyeCountDiv()
@@ -691,7 +689,7 @@ public class BodyChanging {
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(
-									(getTarget() instanceof Elemental)
+									(getTarget().isElemental())
 										?allRaces
 										:getMinorPartsDemonRaces(true))
 							+ CharacterModificationUtils.getSelfTransformHairLengthDiv()
@@ -699,18 +697,18 @@ public class BodyChanging {
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(
-									(getTarget() instanceof Elemental)
+									(getTarget().isElemental())
 										?allRaces
 										:getMinorPartsDemonRaces(true))
 							+ CharacterModificationUtils.getSelfTransformEarChoiceDiv(
-									(getTarget() instanceof Elemental)
+									(getTarget().isElemental())
 										?allRaces
 										:getMinorPartsDemonRaces(true))
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(
-									(getTarget() instanceof Elemental)
+									(getTarget().isElemental())
 										?allRaces
 										:Util.mergeLists(getMinorPartsDemonRaces(true), Util.newArrayListOfValues(Race.DEMON)))
 							+ CharacterModificationUtils.getSelfTransformHornSizeDiv()
@@ -886,7 +884,7 @@ public class BodyChanging {
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformAssChoiceDiv(
-									(getTarget() instanceof Elemental)
+									(getTarget().isElemental())
 										?allRaces
 										:getMinorPartsDemonRaces(false))
 							+ CharacterModificationUtils.getSelfTransformAnusModifiersDiv()
@@ -997,7 +995,7 @@ public class BodyChanging {
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformBreastChoiceDiv(
-									(getTarget() instanceof Elemental)
+									(getTarget().isElemental())
 										?allRaces
 										:getMinorPartsDemonRaces(false))
 							+ CharacterModificationUtils.getSelfTransformNippleModifiersDiv()
@@ -1139,7 +1137,7 @@ public class BodyChanging {
 	
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformVaginaChoiceDiv(
-									(getTarget() instanceof Elemental)
+									(getTarget().isElemental())
 										?allRaces
 										:getMinorPartsDemonRaces(false))
 							+ CharacterModificationUtils.getSelfTransformVaginaModifiersDiv()
@@ -1280,7 +1278,7 @@ public class BodyChanging {
 	
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(
-									(getTarget() instanceof Elemental)
+									(getTarget().isElemental())
 										?allRaces
 										:getMinorPartsDemonRaces(false),
 									true)
@@ -1434,7 +1432,7 @@ public class BodyChanging {
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformBreastCrotchChoiceDiv(
-									(getTarget() instanceof Elemental)
+									(getTarget().isElemental())
 										?allRaces
 										:getMinorPartsDemonRaces(false))
 							+ CharacterModificationUtils.getSelfTransformNippleCrotchModifiersDiv()

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.submission;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,7 +46,6 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -69,6 +67,8 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
@@ -347,9 +347,13 @@ public class Silence extends NPC {
 	}
 
 	@Override
+	public void hourlyUpdate() {
+		this.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
+	}
+	
+	@Override
 	public void turnUpdate() {
-		if(!Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)
-				&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_COOPERATION_END)) {
+		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
 			if(!Main.game.getCharactersPresent().contains(this)
 					&& Main.game.getPlayer().isCaptive()
 					&& !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
@@ -367,7 +371,7 @@ public class Silence extends NPC {
 	
 	@Override
 	public boolean isAbleToBeImpregnated(){
-		return true;
+		return Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR);
 	}
 
 	@Override

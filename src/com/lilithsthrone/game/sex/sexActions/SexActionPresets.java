@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.sex.sexActions;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +14,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.FingerBreastsCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerClit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FingerNippleCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
@@ -399,6 +399,7 @@ public class SexActionPresets {
 		sexActions.add(FingerBreastsCrotch.class);
 		sexActions.add(FingerMouth.class);
 		sexActions.add(FingerNipple.class);
+		sexActions.add(FingerNippleCrotch.class);
 		sexActions.add(FingerVagina.class);
 		sexActions.add(FingerClit.class);
 		sexActions.add(FingerPenis.class);

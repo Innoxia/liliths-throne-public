@@ -1,6 +1,5 @@
 package com.lilithsthrone.world.places;
-
-import java.util.Map;
+import java.util.Map;
 
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;

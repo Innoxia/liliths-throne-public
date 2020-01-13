@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.sex.managers.dominion;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +7,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.dominion.Jules;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
@@ -41,7 +39,7 @@ public class SMJulesCockSucking extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Sex.getNumberOfOrgasms(Main.game.getNpc(Jules.class))>=Main.game.getNpc(Jules.class).getOrgasmsBeforeSatisfied();
+		return Main.sex.getNumberOfOrgasms(Main.game.getNpc(Jules.class))>=Main.game.getNpc(Jules.class).getOrgasmsBeforeSatisfied();
 	}
 
 	@Override

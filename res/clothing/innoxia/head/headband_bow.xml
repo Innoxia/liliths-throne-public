@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>50</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[bow headband]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[bow headbands]]></namePlural>
+		<description><![CDATA[A plain headband, designed to keep the wearer's hair pushed back out of their face.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>HEAD</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>headband_bow.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours values="JUST_GREY"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="ALL"/>
+		<tertiaryColoursDye/>
+	
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(place)] the headband onto [npc.her] head.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(place)] the headband onto [npc2.namePos] head.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] the headband onto [npc2.namePos] head.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] headband.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] headband.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(snatch)] off [npc2.namePos] headband.]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>

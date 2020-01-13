@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.encounters;
-
-import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -302,6 +301,7 @@ public enum Encounter {
 						npc-> ((npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
 								|| npc.getSubspecies()==Subspecies.ANGEL
 								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
+								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
 								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)
 							&& (npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()!=Race.HARPY)));
 					
@@ -322,10 +322,15 @@ public enum Encounter {
 
 			} else if (node == EncounterType.DOMINION_FIND_ITEM) {
 				
-				if(Math.random()<0.995f) {
+				if(!Main.game.isSillyModeEnabled() || Math.random()<0.99f) {
 					randomItem = AbstractItemType.generateItem(ItemType.getDominionAlleywayItems().get(Util.random.nextInt(ItemType.getDominionAlleywayItems().size())));
+					
 				} else {
-					randomItem = AbstractItemType.generateItem(ItemType.EGGPLANT);
+					if(Math.random()<0.5f) {
+						randomItem = AbstractItemType.generateItem(ItemType.EGGPLANT);
+					} else {
+						randomItem = AbstractItemType.generateItem(ItemType.FEMININE_BURGER);
+					}
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);
@@ -350,7 +355,9 @@ public enum Encounter {
 				return DominionEncounterDialogue.ALLEY_FIND_CLOTHING;
 				
 			} else if (node == EncounterType.DOMINION_FIND_WEAPON) {
-				randomWeapon = AbstractWeaponType.generateWeapon(WeaponType.rareWeapons.get(Util.random.nextInt(WeaponType.rareWeapons.size())));
+				List<AbstractWeaponType> weapons = new ArrayList<>(WeaponType.getAllWeapons());
+				weapons.removeIf(w -> !w.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN));
+				randomWeapon = AbstractWeaponType.generateWeapon(weapons.get(Util.random.nextInt(weapons.size())));
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon(randomWeapon);
 				return DominionEncounterDialogue.ALLEY_FIND_WEAPON;

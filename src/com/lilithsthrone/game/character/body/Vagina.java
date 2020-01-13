@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -21,7 +20,6 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -102,8 +100,8 @@ public class Vagina implements BodyPartInterface {
 		}
 		
 		String wetnessDescriptor = orificeVagina.getWetness(owner).getDescriptor();
-		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
-			if(Sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.VAGINA)) {
+		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(owner)) {
+			if(Main.sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.VAGINA)) {
 				wetnessDescriptor = "wet";
 			}
 		}
@@ -120,7 +118,7 @@ public class Vagina implements BodyPartInterface {
 			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
 					(this.getType().getRace()==Race.HORSE_MORPH?"mare":null),
 					"feral",
-					owner.getVaginaRace().getName(true)+"-",
+					owner.getVaginaRace().getName(owner, true)+"-",
 					"bestial",
 					"animalistic")));
 		} else {

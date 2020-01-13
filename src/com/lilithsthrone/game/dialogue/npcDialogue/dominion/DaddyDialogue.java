@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
-
-import java.util.HashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +19,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.dominion.SMDaddyDinnerOral;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
@@ -1071,7 +1069,7 @@ public class DaddyDialogue {
 							}
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
-								return Sex.getAllParticipants().size()==2;
+								return Main.sex.getAllParticipants().size()==2;
 							}
 							@Override
 							public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
@@ -1102,7 +1100,7 @@ public class DaddyDialogue {
 							}
 							@Override
 							public SexControl getSexControl(GameCharacter character) {
-								if(!Sex.isDom(character)) {
+								if(!Main.sex.isDom(character)) {
 									return SexControl.ONGOING_ONLY;
 								}
 								return super.getSexControl(character);

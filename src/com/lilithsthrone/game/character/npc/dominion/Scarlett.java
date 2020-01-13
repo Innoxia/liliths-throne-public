@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -57,7 +56,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.2.11
+ * @version 0.3.5.8
  * @author Innoxia
  */
 public class Scarlett extends NPC {
@@ -249,13 +248,12 @@ public class Scarlett extends NPC {
 	
 	@Override
 	public void turnUpdate() {
-		if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY) && !this.isSlave()) {
-			if(!Main.game.getCharactersPresent().contains(this)) {
-				if(Main.game.isExtendedWorkTime()) {
-					this.returnToHome();
-				} else {
-					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
-				}
+		if(!this.isSlave() && !Main.game.getCharactersPresent().contains(this)) {
+			if(Main.game.isExtendedWorkTime() || Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
+				this.returnToHome();
+				
+			} else {
+				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 			}
 		}
 	}

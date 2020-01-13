@@ -1,6 +1,5 @@
 package com.lilithsthrone.world.places;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.npc.dominion.Arthur;

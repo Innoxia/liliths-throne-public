@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission.gamblingDen;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +37,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -460,7 +458,7 @@ public class GamblingDenDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> previousWetAreas = new HashMap<>(Sex.getAllWetAreas()); // Starting lube from foreplay
+			Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> previousWetAreas = new HashMap<>(Main.sex.getAllWetAreas()); // Starting lube from foreplay
 			
 			if(index==1
 					&& (Main.game.isAnalContentEnabled() || (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)))) {
@@ -953,7 +951,7 @@ public class GamblingDenDialogue {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelExplainedVengar)) {
 						return new Response("Offer help",
 								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar."
-										+ "<br/>[style.italicsBad(This quest is in a very rough state in this version! I advise waiting for the next update before playing through it properly!)]",
+										+"<br/>[style.italicsBad(This quest is in a very rough state in this version! I advise waiting for the next update before playing through it properly!)]",
 								AXEL_VENGAR) {
 							@Override
 							public Colour getHighlightColour() {

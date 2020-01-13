@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body.types;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -588,7 +587,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							true,
 							startingBodyType.getPenisGirth()+(largeGenitals?1:0),
 							startingBodyType.getTesticleSize()+(largeGenitals?1:0),
-							startingBodyType.getCumProduction()*(largeGenitals?4:1),
+							startingBodyType.getCumProduction()*(largeGenitals?10:1),
 							startingBodyType.getTesticleQuantity())
 						: new Penis(PenisType.NONE, 0, false, 0, 0, 0, 2));
 				body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);

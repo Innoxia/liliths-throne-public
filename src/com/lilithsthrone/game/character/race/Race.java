@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.race;
-
-import java.util.List;
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -87,12 +86,16 @@ public enum Race {
 			false) {
 		public String getName(GameCharacter character, boolean bestial) {
 			if(bestial) {
-				Race r = character.getLegType().getRace();
-				return character.getLegConfiguration()!=LegConfiguration.BIPEDAL
-						?r==Race.DEMON
-							?"demonic-horse"
-							:"demonic-"+r.getName(bestial)
-						:"demon";
+				if(character!=null) {
+					Race r = character.getLegType().getRace();
+					return character.getLegConfiguration()!=LegConfiguration.BIPEDAL
+							?r==Race.DEMON
+								?"demonic-horse"
+								:"demonic-"+r.getName(bestial)
+							:"demon";
+				} else {
+					return getName(true);
+				}
 			}
 			return "demon";
 		}

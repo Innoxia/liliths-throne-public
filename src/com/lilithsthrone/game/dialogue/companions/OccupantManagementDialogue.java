@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.companions;
-
-import java.math.RoundingMode;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -1239,7 +1238,7 @@ public class OccupantManagementDialogue {
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ "<b>"+Util.capitaliseSentence(occupant.getHistory().getName())+"</b><br/>"
-							+ "[style.boldDisabled(N/A)]"
+							+ UtilText.formatAsMoney(occupant.hasJob()?PlaceUpgrade.LILAYA_GUEST_ROOM.getUpkeep():0)+"/day"
 						+"</div>"
 							
 				+ "<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"

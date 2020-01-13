@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.clothing;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -876,11 +875,14 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 					: getName());
 		}
 		
-		return Util.capitaliseSentence(getColourName()) + " "
+		Colour c = !this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour();
+		return Util.capitaliseSentence(getColourName())
+//				+(isVibrator()?", vibrating ":" ")
 				+ (!this.getPattern().equalsIgnoreCase("none")?Pattern.getPattern(this.getPattern()).getNiceName():"")
 				+ (withRarityColour
-					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + getName() + "</span>")
-					: getName())
+					? (" <span style='color: " + c.toWebHexString() + "; "+(this.isVibrator()?"text-shadow: 2px 2px "+c.getShades()[0]+";":"")+"'>" + (this.isVibrator()?"vibrating ":"")+getName() + "</span>")
+					: (this.isVibrator()?"<span style='text-shadow: 2px 2px "+c.getShades()[0]+";'>"+"vibrating "+getName()+"</span>":getName()))
+//						getName())
 				+(!this.getEffects().isEmpty() && this.isEnchantmentKnown() && this.getRarity()!=Rarity.QUEST && this.getRarity()!=Rarity.LEGENDARY && this.getRarity()!=Rarity.EPIC
 						? " "+getEnchantmentPostfix(withRarityColour, "span")
 						: "");
@@ -1282,6 +1284,22 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		}
 		return ItemEffect.SEALED_COST_MINOR_BOOST;
 	}
+
+	public TFPotency getVibratorIntensity() {
+		for(ItemEffect effect : this.getEffects()) {
+			if(effect!=null && effect.getSecondaryModifier()==TFModifier.CLOTHING_VIBRATION) {
+				return effect.getPotency();
+				
+			} else if(effect==null) {
+				System.err.println("AbstractClothing.getVibratorIntensity() for "+this.getName()+" is encountering a null ItemEffect!");
+			}
+		}
+		return null;
+	}
+	
+	public boolean isVibrator() {
+		return getVibratorIntensity()!=null;
+	}
 	
 	public boolean isDirty() {
 		return dirty;
@@ -1412,7 +1430,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				} else if(ie.getSecondaryModifier() == TFModifier.CLOTHING_SEALING) {
 					return "of "+(coloured?"<"+tag+" style='color:"+Colour.SEALED.toWebHexString()+";'>sealing</"+tag+">":"sealing");
 					
-				} else {
+				} else if(ie.getSecondaryModifier() != TFModifier.CLOTHING_VIBRATION) {
 					return "of "+(coloured?"<"+tag+" style='color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'>transformation</"+tag+">":"transformation");
 				}
 			}
@@ -1446,7 +1464,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public List<ItemEffect> getEffects() {
 		return effects;
 	}
-
+	
 	/**
 	 * <b>Do not call when equipped to someone!</b> (It will not update the wearer's attributes.)
 	 */

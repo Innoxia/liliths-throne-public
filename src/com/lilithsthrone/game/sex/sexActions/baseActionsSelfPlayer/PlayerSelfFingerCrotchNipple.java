@@ -1,9 +1,7 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
-
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -32,9 +30,9 @@ public class PlayerSelfFingerCrotchNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING
-					&& Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs();
+			return Main.sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs();
 		}
 		
 		@Override
@@ -55,9 +53,9 @@ public class PlayerSelfFingerCrotchNipple {
 					"You reach down to your [pc.crotchBoobs] and start playing with your hard [pc.crotchNipples], pinching and rubbing them as you moan with arousal.",
 					"Your fingertips tease over your [pc.crotchBoobs], stopping to pinch and tug at your [pc.crotchNipples] as you moan and sigh in delight.",
 					"You reach down to your [pc.crotchBoobs], and, with eager fingers, start to pinch and rub at your exposed [pc.crotchNipples].",
-					Sex.isMasturbation()
+					Main.sex.isMasturbation()
 						?"Your [pc.crotchNipples] are just begging for some attention, and you whine in delight as you reach down to start pinching them."
-						:UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
+						:UtilText.parse(Main.sex.getCharacterTargetedForSexAction(this),
 								"Your [pc.crotchNipples] are just begging for some attention, and you reach down and start to pinch at them, whining in delight as [npc.name] smirks at you.")));
 			
 			switch (Main.game.getPlayer().getBreastCrotchStoredMilk()) {
@@ -179,8 +177,8 @@ public class PlayerSelfFingerCrotchNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer())
-					&& Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs();
+			return Main.sex.isDom(Main.game.getPlayer())
+					&& Main.sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs();
 		}
 		
 		@Override
@@ -219,8 +217,8 @@ public class PlayerSelfFingerCrotchNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer())
-					&& Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs();
+			return Main.sex.isDom(Main.game.getPlayer())
+					&& Main.sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs();
 		}
 		
 		@Override
@@ -259,8 +257,8 @@ public class PlayerSelfFingerCrotchNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer())
-					&& Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs();
+			return Main.sex.isDom(Main.game.getPlayer())
+					&& Main.sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs();
 		}
 		
 		@Override
@@ -299,8 +297,8 @@ public class PlayerSelfFingerCrotchNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer())
-					&& Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs();
+			return !Main.sex.isDom(Main.game.getPlayer())
+					&& Main.sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs();
 		}
 		
 		@Override
@@ -339,8 +337,8 @@ public class PlayerSelfFingerCrotchNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer())
-					&& Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs();
+			return !Main.sex.isDom(Main.game.getPlayer())
+					&& Main.sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs();
 		}
 		
 		@Override

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory;
-
-import java.util.AbstractMap.SimpleEntry;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -36,7 +35,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
@@ -1367,7 +1365,7 @@ public class CharacterInventory implements XMLSaving {
 					
 					equipTextSB.append((equipTextSB.length() == 0 ? "" : "<br/>")
 								+ (!clothingToRemove.containsKey(c) || clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP
-									? c.onUnequipText(characterClothingOwner, characterClothingEquipper, (Main.game.isInSex()?Sex.getSexPace(characterClothingEquipper)==SexPace.DOM_ROUGH:false))
+									? c.onUnequipText(characterClothingOwner, characterClothingEquipper, (Main.game.isInSex()?Main.sex.getSexPace(characterClothingEquipper)==SexPace.DOM_ROUGH:false))
 									: (characterClothingOwner.isPlayer()
 											?"You " + clothingToRemove.get(c).getDescription() + " your " + c.getName() + "."
 											:"[npc.Name] " + clothingToRemove.get(c).getDescriptionThirdPerson() + " [npc.her] " + c.getName() + ".")));
@@ -1424,7 +1422,7 @@ public class CharacterInventory implements XMLSaving {
 				newClothing.setSlotEquippedTo(slotToEquipInto);
 				
 				equipTextSB.append((equipTextSB.length() == 0 ? "" : "<br/>")
-						+ newClothing.onEquipApplyEffects(characterClothingOwner, characterClothingEquipper, (Main.game.isInSex()?Sex.getSexPace(characterClothingEquipper)==SexPace.DOM_ROUGH:false)));
+						+ newClothing.onEquipApplyEffects(characterClothingOwner, characterClothingEquipper, (Main.game.isInSex()?Main.sex.getSexPace(characterClothingEquipper)==SexPace.DOM_ROUGH:false)));
 
 				clothingToBeReplaced.sort(new ReverseClothingZLayerComparator());
 				if (!clothingToBeReplaced.isEmpty()) {// clothingCountToBeReplaced-incompatibleUnequippableClothing.size()>0)
@@ -1596,9 +1594,9 @@ public class CharacterInventory implements XMLSaving {
 			// Description of each clothing item that is removed/displaced:
 			for (AbstractClothing c : tempClothingList) {
 				equipTextSB.append((equipTextSB.length() == 0 ? "" : "<br/>") + (clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP
-						? (c == clothing ? c.onUnequipApplyEffects(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
-								: c.onUnequipText(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false)))
-						: c.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, c.getSlotEquippedTo(), clothingToRemove.get(c), (Main.game.isInSex()?Sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))));
+						? (c == clothing ? c.onUnequipApplyEffects(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
+								: c.onUnequipText(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false)))
+						: c.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, c.getSlotEquippedTo(), clothingToRemove.get(c), (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))));
 				// if(c==clothing)
 				// unequipTextSB.append("<br/>"+(isInventoryFull()?characterClothingOwner.droppedItemText(clothing):characterClothingOwner.addedItemToInventoryText(clothing)));
 			}
@@ -1714,7 +1712,7 @@ public class CharacterInventory implements XMLSaving {
 														:!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType))
 												&& !isDisplacementAvailableFromElsewhere(characterClothingOwner, equippedClothing, caBlocked)) {
 											
-											if (bpEquipped.displacementType != DisplacementType.REMOVE_OR_EQUIP && !clothingToRemove.containsKey(equippedClothing)) { // Can be displaced:
+											if (bpEquipped.displacementType != DisplacementType.REMOVE_OR_EQUIP /*&& !clothingToRemove.containsKey(equippedClothing)*/) { // Can be displaced:
 												if (!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)){ // Not already displaced:
 													if(automaticClothingManagement) {
 														clothingToRemove.put(equippedClothing, bpEquipped.displacementType);
@@ -1774,15 +1772,15 @@ public class CharacterInventory implements XMLSaving {
 							? ""
 							: "<br/>")
 						+ (clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP
-							? c.onUnequipText(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
-							: c.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, c.getSlotEquippedTo(), clothingToRemove.get(c), (Main.game.isInSex()?Sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))));
+							? c.onUnequipText(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
+							: c.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, c.getSlotEquippedTo(), clothingToRemove.get(c), (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))));
 			}
 
 			unableToDisplaceText.append(
 					(unableToDisplaceText.length() == 0
 						? ""
 						: "<br/><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>")
-					+ clothing.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, clothing.getSlotEquippedTo(), dt, (Main.game.isInSex()?Sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
+					+ clothing.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, clothing.getSlotEquippedTo(), dt, (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
 					+ "</span>");
 
 			List<AbstractClothing> replaceClothingList = new ArrayList<>();
@@ -1891,16 +1889,16 @@ public class CharacterInventory implements XMLSaving {
 				unableToReplaceText.append((unableToReplaceText.length() == 0 ? "" : "<br/>")
 						+ (clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP
 							? (c == clothing
-								? c.onUnequipApplyEffects(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
-								: c.onUnequipText(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false)))
-							: c.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, c.getSlotEquippedTo(), clothingToRemove.get(c), (Main.game.isInSex()?Sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))));
+								? c.onUnequipApplyEffects(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
+								: c.onUnequipText(characterClothingOwner, characterRemovingClothing, (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false)))
+							: c.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, c.getSlotEquippedTo(), clothingToRemove.get(c), (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))));
 
 			unableToReplaceText
 					.append(
 							(unableToReplaceText.length() == 0
 								? ""
 								: "<br/><span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>")
-							+ clothing.getClothingType().replaceText(characterClothingOwner, characterRemovingClothing, clothing.getSlotEquippedTo(), dt, (Main.game.isInSex()?Sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
+							+ clothing.getClothingType().replaceText(characterClothingOwner, characterRemovingClothing, clothing.getSlotEquippedTo(), dt, (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
 							+ "</span>");
 
 			List<AbstractClothing> replaceClothingList = new ArrayList<>();

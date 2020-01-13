@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission.ratWarrens;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +42,6 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
@@ -138,8 +136,8 @@ public class RatWarrensCaptiveDialogue {
 		return getMainCompanion()!=null;
 	}
 
-	public static String equipCollar(GameCharacter character) {
-		AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_BLACK_STEEL, Colour.CLOTHING_STEEL, Colour.CLOTHING_GUNMETAL, false);
+	public static String equipCollar(GameCharacter character, Colour collarColour) {
+		AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", collarColour, Colour.CLOTHING_STEEL, Colour.CLOTHING_GUNMETAL, false);
 		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_ENSLAVEMENT, TFPotency.MINOR_BOOST, 0));
 		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_BOOST, 0));
 		collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_DRAIN, 0));
@@ -993,7 +991,7 @@ public class RatWarrensCaptiveDialogue {
 										new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))) {
 							@Override
 							public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-								if(Sex.getNumberOfOrgasms(partner)==0) {
+								if(Main.sex.getNumberOfOrgasms(partner)==0) {
 									return false;
 								}
 								if(playerFuckedSexType.getValue().getTargetedSexArea()==SexAreaOrifice.VAGINA) {
@@ -1691,10 +1689,10 @@ public class RatWarrensCaptiveDialogue {
 	public static final DialogueNode STOCKS_AFTER_SEX = new DialogueNode("Finished", "", true) {
 		@Override
 		public String getDescription() {
-			if(Sex.getDominantParticipants(false).containsKey(getOwner())) {
+			if(Main.sex.getDominantParticipants(false).containsKey(getOwner())) {
 				return UtilText.parse(getOwner(), "[npc.NameHasFull] finished with you for now...");
 			}
-			if(Sex.getDominantParticipants(false).size()>1) {
+			if(Main.sex.getDominantParticipants(false).size()>1) {
 				return "The rats have finished with you...";
 			}
 			return UtilText.parse(getCharacters(false, false), "[npc.Name] has finished with you...");
@@ -1705,10 +1703,10 @@ public class RatWarrensCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			if(Sex.getDominantParticipants(false).containsKey(getOwner())) {
+			if(Main.sex.getDominantParticipants(false).containsKey(getOwner())) {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_AFTER_SEX_MURK", getCharacters(false, false));
 				
-			} else if(Sex.getDominantParticipants(false).size()>1) {
+			} else if(Main.sex.getDominantParticipants(false).size()>1) {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_AFTER_SEX_THREESOME", getCharacters(false, false));
 				
 			}
@@ -1725,7 +1723,7 @@ public class RatWarrensCaptiveDialogue {
 					@Override
 					public void effects() {
 						banishRats();
-						if(Sex.getDominantParticipants(false).containsKey(getOwner())) {
+						if(Main.sex.getDominantParticipants(false).containsKey(getOwner())) {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveOwnerSex, true);
 						}
 						getOwner().returnToHome();
@@ -1920,7 +1918,7 @@ public class RatWarrensCaptiveDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_RELEASED_AFTER_SEX_LOCKED_UP", getCharacters(true, false)));
-						equipCollar(Main.game.getPlayer());
+						equipCollar(Main.game.getPlayer(), Colour.CLOTHING_PINK_LIGHT);
 					}
 				};
 				
@@ -1958,7 +1956,7 @@ public class RatWarrensCaptiveDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_RELEASED_OFFER_COMPANY_LOCKED_UP", getCharacters(true, false)));
-						equipCollar(Main.game.getPlayer());
+						equipCollar(Main.game.getPlayer(), Colour.CLOTHING_PINK_LIGHT);
 					}
 				};
 			}

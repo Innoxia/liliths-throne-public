@@ -28,7 +28,7 @@ public class BackToWall {
 //
 //		@Override
 //		public boolean isBaseRequirementsMet() {
-//			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)==(PenetrationType.FINGER) && partnerCumOnLegs;
+//			return Main.sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)==(PenetrationType.FINGER) && partnerCumOnLegs;
 //		}
 //
 //		@Override
@@ -36,7 +36,7 @@ public class BackToWall {
 //			descriptionSB = new StringBuilder();
 //
 //			
-//			switch (Sex.getPartner().getRace()) {
+//			switch (Main.sex.getPartner().getRace()) {
 //				case DOG_MORPH:
 //					descriptionSB.append("As you feel the dog-boy's sticky cum sliding down around the entrance to your pussy, a fun idea suddenly springs into your mind."
 //							+ " You reach down and take hold of his hand, grinning devilishly as you pull his fingers out of your slit."

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.combat;
-
-import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;

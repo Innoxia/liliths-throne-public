@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
-
-import java.util.List;
+import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;

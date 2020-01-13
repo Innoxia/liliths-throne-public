@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.submission;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -76,7 +75,7 @@ public class SlimeRoyalGuard extends NPC {
 	}
 	
 	public SlimeRoyalGuard(boolean isImported) {
-		super(isImported, new NameTriplet("Maximilian", "Max", "Maxine"), "Klinge",
+		super(isImported, new NameTriplet("Maximilian", "Max", "Maxine"), "Lunettemartu",
 				"An incredibly rare and powerful demonic slime, [npc.name] prides [npc.herself] on [npc.her] skill with the sword.",
 				35, Month.APRIL, 14,
 				20, Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER,
@@ -104,6 +103,9 @@ public class SlimeRoyalGuard extends NPC {
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.KIND,
 					PersonalityTrait.CONFIDENT);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
+			this.setSurname("Lunettemartu");
 		}
 		setStartingCombatMoves();
 	}

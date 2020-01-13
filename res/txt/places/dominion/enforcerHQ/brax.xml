@@ -160,7 +160,7 @@
 	</p>
 	<p>
 		You can't help but laugh at [brax.namePos] stuttering denial of his all-too-apparent weakness,
-		#IF(pc.getRace()==RACE_WOLF_MORPH && Main.game.getPlayer().isFeminine())
+		#IF(pc.getRace()==RACE_WOLF_MORPH && pc.isFeminine())
 			 [pc.speech(Oh, please! I see the way you keep glancing at my body! You couldn't make it any more obvious if you painted a big sign on your head reading '[brax.name] is a bitch for wolf-girls'!)]
 		#ELSE
 			 [pc.speech(Oh, please! You couldn't make it any more obvious if you painted a big sign on your head reading '[brax.name] is a bitch for wolf-girls'!)]

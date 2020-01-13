@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.submission;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -9,6 +8,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -92,9 +92,6 @@ public class Axel extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
-			this.resetPerksMap(true);
-		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.7")) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelSissified)) {
 				this.applySissification();
@@ -107,10 +104,15 @@ public class Axel extends NPC {
 			}
 			this.setName( new NameTriplet("Axel", "Lexa", "Lexa"));
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.resetPerksMap(true);
+		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
+		this.setAttribute(Attribute.MAJOR_CORRUPTION, 15);
+		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(
@@ -393,14 +395,14 @@ public class Axel extends NPC {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_thighhigh_socks", Colour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK_JET, Colour.CLOTHING_TAN, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND_BOW, Colour.CLOTHING_WHITE, Colour.CLOTHING_GREY, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_headband_bow", Colour.CLOTHING_WHITE, Colour.CLOTHING_GREY, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_heart_necklace", Colour.CLOTHING_SILVER, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_finger_ring", Colour.CLOTHING_SILVER, false), true, this);
 				
 			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelClothingWhore)) {
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_headband", Colour.CLOTHING_BLACK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_SILVER, Colour.CLOTHING_PURPLE, null, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_heart_necklace", Colour.CLOTHING_GOLD, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, Colour.CLOTHING_BLACK, false), true, this);
@@ -436,7 +438,7 @@ public class Axel extends NPC {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_low_top_skater_shoes", Colour.CLOTHING_PURPLE_VERY_DARK, Colour.CLOTHING_WHITE, Colour.CLOTHING_STEEL, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_tie", Colour.CLOTHING_BLACK, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_headband", Colour.CLOTHING_BLACK, false), true, this);
 			}
 		}
 

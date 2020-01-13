@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
-
-import java.util.List;
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
@@ -10,7 +9,6 @@ import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexFlags;
@@ -50,8 +48,8 @@ public class PixShower {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isOrificeFree(Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH) && Sex.isOrificeFree(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
+			return Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.isOrificeFree(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH) && Main.sex.isOrificeFree(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
 		}
 
 		@Override
@@ -88,7 +86,7 @@ public class PixShower {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer()
+			return Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.game.getPlayer().hasBreasts();
 		}
 
@@ -121,7 +119,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -164,7 +162,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -205,7 +203,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -255,7 +253,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -300,7 +298,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -339,7 +337,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isPlayer();
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -375,7 +373,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isPlayer();
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -416,7 +414,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isPlayer()
+			return !Main.sex.getCharacterPerformingAction().isPlayer()
 					&& Main.game.getPlayer().hasBreasts();
 		}
 		
@@ -500,8 +498,8 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.isPenetrationTypeFree(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER);
+			return !Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.isPenetrationTypeFree(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER);
 		}
 		
 		@Override
@@ -516,7 +514,7 @@ public class PixShower {
 
 		@Override
 		public String getDescription() {
-			return UtilText.parse(Sex.getCharacterPerformingAction(),
+			return UtilText.parse(Main.sex.getCharacterPerformingAction(),
 					UtilText.returnStringAtRandom(
 					"Reaching around between your legs, Pix suddenly grabs your [pc.cock+], and as she starts stroking up and down its length, you find yourself letting out [pc.a_moan+] and leaning back into her.",
 					
@@ -539,7 +537,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isPlayer();
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -559,7 +557,7 @@ public class PixShower {
 
 		@Override
 		public String getDescription() {
-			return UtilText.parse(Sex.getCharacterPerformingAction(),
+			return UtilText.parse(Main.sex.getCharacterPerformingAction(),
 					"You feel Pix press heavily into your back, and as she growls menacingly into your ear, she reaches around with [pix.a_hand+] to start stroking and probing at your outer labia."
 						+ " With [pc.a_moan+], you lean back into her, and as the sound of falling water echoes off the walls all around you, she suddenly thrusts her [pix.fingers+] up, penetrating your [pc.pussy+] in one swift strike.");
 		}
@@ -575,7 +573,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isPlayer();
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -617,7 +615,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isPlayer();
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -664,7 +662,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isPlayer();
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -708,7 +706,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isPlayer()
+			return !Main.sex.getCharacterPerformingAction().isPlayer()
 					&& !SexFlags.pixDemandedPromise
 					&& Main.game.getPlayer().getArousal()>=ArousalLevel.FOUR_PASSIONATE.getMinimumValue();
 		}
@@ -759,8 +757,8 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
+			return !Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
 		}
 		
 		@Override
@@ -806,7 +804,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -835,7 +833,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -943,7 +941,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -995,7 +993,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isPlayer();
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -1025,7 +1023,7 @@ public class PixShower {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isPlayer();
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override

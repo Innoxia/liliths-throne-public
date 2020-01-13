@@ -1,6 +1,5 @@
 package com.lilithsthrone.rendering;
-
-import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.EnumMap;
 import java.util.HashMap;

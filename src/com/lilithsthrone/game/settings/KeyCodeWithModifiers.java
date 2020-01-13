@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.settings;
-
-import java.util.regex.Pattern;
+import java.util.regex.Pattern;
 
 import com.lilithsthrone.utils.Util;
 

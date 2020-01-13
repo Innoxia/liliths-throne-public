@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory;
-
-import java.util.List;
+import java.util.List;
 
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -47,6 +46,8 @@ public enum ItemTag {
 			false),
 	
 	WEAPON_BLADE(false), // Should be added to all weapons that use an arcane blade
+	
+	WEAPON_UNARMED(false), // Should be added to all weapons that should use unarmed damage calculations instead of melee
 	
 	DRESS(false), // For helping to generate clothing in CharacterUtils
 

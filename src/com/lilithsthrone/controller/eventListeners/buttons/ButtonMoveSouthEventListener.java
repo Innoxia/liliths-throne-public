@@ -1,6 +1,5 @@
 package com.lilithsthrone.controller.eventListeners.buttons;
-
-import org.w3c.dom.events.Event;
+import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
 import com.lilithsthrone.main.Main;
