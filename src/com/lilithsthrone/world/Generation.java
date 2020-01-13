@@ -1,13 +1,14 @@
 package com.lilithsthrone.world;
-
-import java.awt.Color;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.places.GenericPlace;
+
 import javafx.concurrent.Task;
 
 /**

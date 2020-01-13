@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -3196,6 +3195,10 @@ public class Body implements XMLSaving {
 				break;
 			default:
 				break;
+		}
+		
+		if(target!=null && Main.game.isStarted()) { // Apparently this is needed to stop Lyssieth from losing her status effect???
+			target.addStatusEffect(StatusEffect.SUBSPECIES_BONUS, -1);
 		}
 	}
 

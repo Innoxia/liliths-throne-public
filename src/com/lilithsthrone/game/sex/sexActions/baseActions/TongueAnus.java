@@ -1,15 +1,14 @@
 package com.lilithsthrone.game.sex.sexActions.baseActions;
-
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -43,7 +42,7 @@ public class TongueAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.assCloaca+], [npc.name] [npc.verb(plant)] a series soft kisses on [npc2.her] cheeks,"
@@ -82,7 +81,7 @@ public class TongueAnus {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] in response, gently bucking [npc2.her] [npc2.assCloaca] out against [npc.namePos] [npc.face] as [npc2.she] [npc2.verb(beg)] for [npc.herHim] to keep going.",
@@ -129,7 +128,7 @@ public class TongueAnus {
 	};
 	
 	private static String getTargetedCharacterResponse(SexAction action) {
-		switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(action))) {
+		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
 			case SUB_EAGER:
 			case DOM_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -337,7 +336,7 @@ public class TongueAnus {
 
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(try)] to pull [npc.her] [npc.face] back, but [npc2.name] [npc2.verb(continue)] gently pressing [npc2.her] [npc2.asshole+] down against [npc.her] [npc.lips+],"
@@ -483,7 +482,7 @@ public class TongueAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 			case DOM_ROUGH:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With one last rough lick, [npc.name] [npc.verb(pull)] [npc.her] [npc.face] away from [npc2.namePos] [npc2.asshole+].",
@@ -498,7 +497,7 @@ public class TongueAnus {
 				break;
 		}
 		
-		switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 			case SUB_RESISTING:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] [npc2.verb(continue)] to struggle against [npc.name], [npc2.sobbing] and squirming in discomfort as [npc2.she] realise that [npc.name] isn't completely finished with [npc2.herHim] just yet.",
@@ -543,7 +542,7 @@ public class TongueAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Gently pressing [npc.her] [npc.assCloaca+] down against [npc2.namePos] [npc2.face],"
@@ -588,7 +587,7 @@ public class TongueAnus {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] slowly [npc2.verb(slide)] [npc2.her] [npc2.tongue+] into [npc.namePos] [npc.asshole+], letting out a muffled [npc2.moan] as [npc2.she] [npc2.verb(start)] gently licking and kissing [npc.her] [npc.assCloaca+].",
@@ -641,7 +640,7 @@ public class TongueAnus {
 	};
 	
 	private static String getTargetedCharacterReceivingResponse(SexAction action) {
-		switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(action))) {
+		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
 			case SUB_EAGER:
 			case DOM_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -839,7 +838,7 @@ public class TongueAnus {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] desperately [npc.verb(try)] to pull [npc.her] [npc.assCloaca] away from [npc2.namePos] [npc2.face],"
@@ -982,7 +981,7 @@ public class TongueAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Roughly yanking [npc2.namePos] head away from [npc.her] [npc.asshole+], [npc.name] [npc.verb(order)] [npc2.herHim] to stop performing anilingus on [npc.herHim].",
@@ -997,7 +996,7 @@ public class TongueAnus {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" With tears streaming down [npc2.her] [npc2.face], [npc2.name] [npc2.verb(let)] out [npc2.a_sob+] as [npc2.she] realises that [npc.nameIsFull]n't finished with [npc2.herHim] just yet.",

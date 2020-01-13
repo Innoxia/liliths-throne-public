@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.clothing;
-
-import java.util.HashMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 

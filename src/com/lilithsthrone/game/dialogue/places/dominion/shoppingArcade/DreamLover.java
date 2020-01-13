@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
-
-import com.lilithsthrone.game.character.npc.dominion.Ashley;
+import com.lilithsthrone.game.character.npc.dominion.Ashley;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;

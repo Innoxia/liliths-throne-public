@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.sex;
-
-import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 
 /**

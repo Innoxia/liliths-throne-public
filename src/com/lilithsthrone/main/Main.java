@@ -1,6 +1,5 @@
 package com.lilithsthrone.main;
-
-import java.io.File;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.nio.file.Paths;
@@ -59,7 +58,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	public static Game game;
-	public static Sex sexEngine;
+	public static Sex sex;
 
 	public static MainController mainController;
 
@@ -69,7 +68,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.5.9";
+	public static final String VERSION_NUMBER = "0.3.5.10";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -793,7 +792,7 @@ public class Main extends Application {
 		Main.primaryStage.setScene(mainScene);
 		Main.primaryStage.show();
 		Main.game = new Game();
-		Main.sexEngine = new Sex();
+		Main.sex = new Sex();
 		
 		loader = new FXMLLoader(getClass().getResource("/com/lilithsthrone/res/fxml/main.fxml"));
 		try {

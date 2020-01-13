@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.race;
-
-import java.util.HashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.body.types.AntennaType;

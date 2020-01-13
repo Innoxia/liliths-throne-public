@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.combat;
-
-import java.util.List;
+import java.util.List;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;

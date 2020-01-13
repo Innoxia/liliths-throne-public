@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.weapon;
-
-import java.io.File;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -932,10 +931,14 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	}
 	
 	public List<Spell> getSpells(DamageType damageType) {
-		if(spells.containsKey(damageType)) {
-			return new ArrayList<>(spells.get(damageType));
+		List<Spell> damageTypeSpells = new ArrayList<>();
+		if(spells.containsKey(null)) {
+			damageTypeSpells.addAll(spells.get(null));
 		}
-		return new ArrayList<>();
+		if(spells.containsKey(damageType)) {
+			damageTypeSpells.addAll(spells.get(damageType));
+		}
+		return damageTypeSpells;
 	}
 
 	public List<Colour> getAvailablePrimaryColours() {

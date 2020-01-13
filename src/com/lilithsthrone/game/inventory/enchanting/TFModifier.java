@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.enchanting;
-
-import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -282,6 +281,13 @@ public enum TFModifier {
 			"modifier_circle_resistance",
 			Colour.BASE_GREEN,
 			Rarity.COMMON),
+
+	CLOTHING_VIBRATION("vibration",
+			"Makes this piece of clothing vibrate when worn.",
+			"vibration",
+			"modifier_circle_vibration",
+			Colour.BASE_PINK,
+			Rarity.EPIC),
 	
 	// Racial parts:
 

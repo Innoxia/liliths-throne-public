@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission.ratWarrens;
-
-import java.util.LinkedHashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -384,11 +383,27 @@ public enum CaptiveTransformation {
 		@Override
 		public Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects) {
 			Map<String, String> map = new LinkedHashMap<>();
+
+			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE_HEAVY) {
+				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+				if(target.getFemininityValue() < 90) {
+					map.put("It's only fittin' fer a milker ta be nice an' womanly!"
+							+(!selfTransform?"":" Go on, make yerself more feminine!"),
+							target.setFemininity(90));
+				}
+			} else {
+				if(target.getFemininityValue() < Femininity.FEMININE.getMedianFemininity()) {
+					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+					map.put("It's only fittin' fer a milker ta be nice an' womanly!"
+							+(!selfTransform?"":" Go on, make yerself more feminine!"),
+							target.setFemininity(Femininity.FEMININE.getMedianFemininity()));
+				}
+			}
 			
 			if(target.getBreastSize().getMeasurement()<CupSize.DD.getMeasurement()) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-				map.put("Let's get a start on growin' yer tits! We'll make 'em even bigger later on, but fer now, let's just make 'em a bit bigga!"
-						+(!selfTransform?"":" Go on, make 'em into some nice double-D's!"),
+				map.put("Let's get a start on growin' yer tits! We'll make 'em even bigger later on, but fer now, let's just make 'em double-D's!"
+						+(!selfTransform?"":" Go on, grow 'em in already!"),
 						target.setBreastSize(CupSize.DD));
 			}
 
@@ -412,22 +427,6 @@ public enum CaptiveTransformation {
 					map.put("Yer teats are gonna need ta be bigger'n that!"
 							+(!selfTransform?"":" Make 'em nice and plump!"),
 							target.setNippleCrotchSize(NippleSize.THREE_LARGE.getValue()));
-				}
-			}
-			
-			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE_HEAVY) {
-				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-				if(target.getFemininityValue() < Femininity.FEMININE_STRONG.getMinimumFemininity()) {
-					map.put("It's only fittin' fer a milker ta be nice an' womanly!"
-							+(!selfTransform?"":" Go on, make yerself more feminine!"),
-							target.setFemininity(90));
-				}
-			} else {
-				if(target.getFemininityValue() < Femininity.FEMININE.getMedianFemininity()) {
-					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-					map.put("It's only fittin' fer a milker ta be nice an' womanly!"
-							+(!selfTransform?"":" Go on, make yerself more feminine!"),
-							target.setFemininity(Femininity.FEMININE.getMedianFemininity()));
 				}
 			}
 

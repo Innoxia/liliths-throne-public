@@ -1,6 +1,5 @@
 package com.lilithsthrone.rendering;
-
-import java.io.File;
+import java.io.File;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;

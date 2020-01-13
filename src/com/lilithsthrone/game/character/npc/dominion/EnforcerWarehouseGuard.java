@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,7 +31,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -190,8 +188,8 @@ public class EnforcerWarehouseGuard extends NPC {
 	
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexManager().getPosition() == SexPosition.STOCKS) {
-			if(Sex.getSexPositionSlot(this)==SexSlotStocks.BEHIND_STOCKS) {
+		if(Main.sex.getSexManager().getPosition() == SexPosition.STOCKS) {
+			if(Main.sex.getSexPositionSlot(this)==SexSlotStocks.BEHIND_STOCKS) {
 				if(this.hasPenis()) {
 					if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && target.hasVagina()) {
 						return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
@@ -222,7 +220,7 @@ public class EnforcerWarehouseGuard extends NPC {
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(Sex.getSexManager().getPosition() == SexPosition.STOCKS) {
+		if(Main.sex.getSexManager().getPosition() == SexPosition.STOCKS) {
 			return getForeplayPreference(target);
 		}
 

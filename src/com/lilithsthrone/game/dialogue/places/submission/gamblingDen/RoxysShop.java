@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission.gamblingDen;
-
-import java.util.List;
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -25,7 +24,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -398,7 +396,7 @@ public class RoxysShop {
 		}
 		@Override
 		public String getContent() {
-			if(Sex.isDom(Main.game.getPlayer())) {
+			if(Main.sex.isDom(Main.game.getPlayer())) {
 				return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "AFTER_VENGAR_SEX_AS_DOM");
 			}
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "AFTER_VENGAR_SEX_AS_SUB");

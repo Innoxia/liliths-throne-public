@@ -1,9 +1,7 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
-
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -33,7 +31,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -178,7 +176,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -220,7 +218,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -262,7 +260,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -304,7 +302,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
+			return !Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -346,7 +344,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
+			return !Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override

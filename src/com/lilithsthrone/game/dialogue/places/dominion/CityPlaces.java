@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

@@ -53,82 +53,84 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Contributions:
-		Fixed NullPointerException bug when visiting Lyssieth. (by Stadler)
-		Fixed several bugs and typos. (PR#1250 by LewdAlt)
-		Added finger to crotch-nipple interactions. (PR#1243 by LewdAlt)
-		Fixed issue with sex in an apartment being public when the occupant has just moved in. (PR#1251 by AceXP)
-	
-	Artwork:
-		Added artwork of Meraxis, drawn by FriendlyAlienFriend. There are 6 images of her as a half-demon, and 6 variations for when she's a full demon. These include pregnant and non-pregnant variations.
-	
-	Gameplay:
-		Filled in some of the Axel's quest placeholders, although there are still a lot of placeholders left (will all be filled in for the next update).
-		Added 'slovenly' speech modifier, which converts all speech into a representation of speaking with poor pronunciation. There is a 25% chance for muggers and alleyway prostitutes to have this modifier.
+	Engine:
+		Removed all of the Sex class's static methods. Sex methods are now called via 'Main.sex.' in the code, or 'sex.' in the parsing engine. This was done to enable sex methods to be referenced in text file parsing.
 	
 	Items:
-		Moved demonstone melee weapons out into external res folder.
-		Added support for weapon mods to have spells based on their damage type, and also a variable to set whether spells should regenerate when the weapon's damage type is changed.
-		Added support for weapons to use unarmed damage calculations. Demonstones and knuckle dusters now use unarmed damage calculations instead of those for melee weapon.
-		Slightly improved the 'arm wraps' icon.
-		Moved all 'head' slot clothing items out into external res folder. Slightly tweaked some base values of these items, and the 'circlet' is now unisex. Added dye options to the 'antler headband'.
-		Added 'paw-print' and 'horse-shoe' tattoos.
-		
+		Chastity cages are now tagged as being able to be equipped during sex.
+		All clothing types which can be equipped during sex (and so are assumed to be sex toys), or which fit into the 'groin' slot, can now be enchanted with a 'vibration' effect (as a secondary modifier to a 'special effect' primary modifier), increasing the wearer's resting lust value and also giving them bonus arousal increases every turn in sex.
+		The item 'Mother's Milk' now advances pregnancy directly to the next stage, instead of skipping it forwards to an hour before the next stage.
+	
 	Other:
-		Added 'pale pink' as a skin colour, and changed default rat tail skin colour from light pink to pale pink.
-		Random attackers in Submission's tunnels now have a 5% chance to be taurs.
-		Arctic-fox-morphs now have white hair and pale skin by default.
-		NPCs who are able to self-transform back into their preferred gender identity (after you've transformed them into something else), will now only alter their femininity, breast size, and genitals. They will no longer completely reset all aspects of their bodies.
-		The 'Slap ass' sex action can now be used on characters bent over a desk/table by the character standing behind.
-		Scarlett (and Helena) now close their slave shop at 22:00 and open it again at 06:00.
-		If you equipped jinxed clothing which also has the 'servitude' enchantment (preventing you from unjinxing clothing), you can now visit Lilaya to have your clothing unjinxed.
-		Added 'arctic-youko-morph' subspecies detection.
-		Added a small warning about there being a potential fight in the tile outside Brax's office.
-		Improved naturally-spawning wolf-morph fur colours to be closer to realistic values.
-		NPCs now require both oral fetishes to start sucking their own tails.
-		Slightly improved 'Object of desire' perk icon, and changed 'Convincing requests' perk icon.
-		Added 'orgasmic level drain' perk, which allows you (and NPCs) to drain levels from orgasming partners in sex. (NPCs will not randomly spawn with this perk, and you can disable unique NPC usage of this perk in the content settings.)
-		Amber now drains your levels in sex while you're wearing her collar (but only if the 'Level drain' setting is enabled).
-		
+		Added a small chance (0.5%) for the 'finding an item' encounter in Dominion's alleyways to give you a joke burger item if you are playing in silly mode. The 'eggplant' joke item is now also restricted to being found only in silly mode.
+		Improved colouring of post-sex stretch effects text.
+		Added indication of a character's resting lust value in their lust bar tooltip.
+		Arcane storm vulnerability now gives +75 to resting lust level, instead of setting it to a base of 75.
+	
 	Bugs:
-		Typo and parsing fixes.
-		Fixed issues with fetish tease attack descriptions not making much sense when enemies were using them.
-		Using the fast travel actions in Lilaya's house now correctly sets the response tab to 'actions' upon arrival.
-		Fixed missing dialogue when playing without a companion and offering your body to a random attacker in Dominion's alleyways.
-		Fixed issue where random demonic attackers could spawn as taurs, even if you had taurs turned off.
-		Fixed bug where performing any action in your room would cause the 'Bathroom' tab to disappear.
-		Fixed bug where you could rape non-slave companions via interacting with a slave in that slave's room.
-		Lyssieth now correctly reverts to her human form after having sex with her in her lilin form.
-		Fixed issue where demons encountered in Dominion's 'dark alleyway' tiles would disappear after sex, and would also be unable to be talked to.
-		Fixed feral half-demon taur genitals always being referred to as being that of a 'demonic-horse', and not the subspecies that was appropriate.
-		Fixed speech actions which had 'blocked mouth' alternative text being unavailable when the performing character's mouth was blocked in sex.
-		Unique NPCs can no longer be fed transformative or fetish-altering consumables during post-combat-victory sex scenes.
-		Fixed issue where requesting to perform oral on a taur would sometimes result in them responding with a blank action.
-		Fixed Helena being duplicated if loading in from an older version.
-		Fixed Silence's high affection towards Shadow incorrectly being set as being towards herself.
-		Arcane feathers now correctly grant spells when equipped, based on their damage type (like they used to a version or two ago).
-		Fixed Maximillian's surname to properly reflect his demonic heritage.
-		Fixed bug where selection of randomly spawned weapons in Dominion's alleyways was very limited.
-		Shadow now spawns wearing both arm wraps and a stomach sarachi (so that her crotch boobs (if enabled) are not exposed). 
-		Fixed 'addiction satisfied' and' psychoactive effect applied' descriptions being displayed every turn in sex when you were eating someone out who had those appropriate modifiers on their girlcum (although the effects are still applied).
-		Fixed bug where using the 'Quick sex' action would not count participants having orgasmed, causing post-sex scenes to show the 'not satisfied' variant (if one existed).
-		Fixed related bug to the one above where dominant partners would not use the correct number of sex actions corresponding to their desired orgasms when using the 'Quick sex' action.
-		Fixed several issues with sex actions being incorrectly available when in missionary sex with a taur.
-		Fixed the debug menu's 'Centaur' action sometimes spawning a human.
-		Fixed bug where characters could have their birthday set to February 29th in a non-leap year.
-		Fixed cause of an issue where the game would sometimes randomly freeze for seemingly no reason. (This was being caused by pregnant NPCs with sealed clothing giving birth in the background update loop.)
-		Fixed bug where passing into a new year would cause the game to think it was always night time.
-		Fixed Murk's penis shrinking transformation incorrectly causing your penis to grow.
-		Characters can now take less than 1 lust damage from the self-inflicting lust damage effect of masochist and sadist fetishes.
-		Sex count tracking is now only incremented for non-spectators (so watching two people have sex no longer counts as you having had sex as well).
-		Fixed 'quick sex' not counting creampies correctly, causing tattoo counters to not increment.
-		Fixed bug where dying/reforging equipped unique weapons would duplicate the weapon into your inventory.
-		Friendly occupants who have a job are now correctly displayed as generating 100 flames per day (to cover their room's upkeep cost).
-		Fixed an issue in clothing displacement method which could sometimes cause bugs.
+		Fixed issue where unique NPCs were not immune to 'orgasmic level drain', but normal random characters were, instead of the other way around.
+		Fixed some minor incorrect text in the 'orgasmic level drain' perk description.
+		Fixed incorrect clothing on the four 'milkers' in the Rat Warrens.
+		Fixed issue where there was more than one removal button for when an effect has multiple descriptions in the enchantment screen, with the duplicate buttons doing nothing.
+		Fixed issues with Murk's 'milkers' clothing not being equipped or lacking correct colours/enchantments.
+		Fixed bug where some weapons (such as the broomstick and the scythe) would not grant the wielder the spells they were meant to unlock.
+		Fixed several issues in the Rat Warrens regarding hostile rats not spawning correctly at checkpoints or in the dice den. Also fixed some actions incorrectly being available at the entrance after clearing out the entrance guards.
+		Corrected corruption values of all unique NPCs.
+		Fixed issue where Lyssieth would sometimes not have her elder lilin subspecies status effect applied to her.
 	
 	
 	
 	
+	Masochist fetish is supposed to reduce incoming damage by 25% and cause lust damage equal to the amount of damage reduced (as the tooltip states), yet anyone with that fetish recieves the damage reduction while only taking 1.0 lust damage, no matter how high the damage actually was or how low it was.
+	
+	there is no sex scene during the player "stay" in Musk's rat cave???
+	
+	Add Silence/Shadow interactions when being fucked
+	
+	Give Shadow a resonance stone
+	
+	Did you notice that "wetness" under Cum category is production but "wetness" under the Penis category is storage?
+	
+	Add relation parsing for "your companion"
+	
+	Text about Enforcers in Vengar public sex
+	
+	can you not transform your elemental's haircut?
+	
+	Stay in any tile (Any tile really) and use the debug command, then go to Item View and select Head
+	
+	Long sleeve T-shirt
+	Milker descriptions needed (with extended description for if asked Murk about them)
+	Chonk tails
+	enchantment on clothing that autoclean them
+	
+	Somehow slave sending to Kate is bugged? hard to reproduce error.
+	
+	Make skin colours a shade darker for orifices
+	
+	When captive, Milkers updates needed:
+		Getting used by randoms
+		Getting used by Murk
+		Having pregnancy resolved
+	
+	Make no-breast NPCs not use 'get nipples sucked'
+	
+	How does enslavement enchantment work when equipped during sex...
+	
+	Quick sex level drains
+	Quick sex orgasm count (check with Murk)
+	
+	If spectator is disliking voyeurism, or not attracted to participants, they should always do nothing
+	
+	Make spa its own room?
+	
+	Amber collar subservience enchantment?
+		And submission demons?
+	
+	When managing people in the house, when you choose send to kate it bugs out and replays the last fight/sex scene you had on an alley tile
+	
+	Make level drain remove perks
+	Make certain unique NPCs susceptible to level drain
 	
 	Affection of characters present includes milkers?
 	
@@ -153,6 +155,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			Painfully (Rough & sadist limit)
 		Make stretch just a factor of girth (so larger cocks still stretch more, but it's independent of how much length they take)
 		Need to make minimum stretch higher, or based on elasticity, as it goes on for too long when nearing max stretch
+		Knot Her/Him option should assist in gaping whichever orifice is being knotted
 	
 	Add Arthur quest to acquire potion to set gender identity to: Current gender, Male, Female
 	

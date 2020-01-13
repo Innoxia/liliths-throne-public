@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.combat;
-
-import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -324,7 +323,7 @@ public enum Attack {
 			return 0;
 		}
 			
-		if(attacker instanceof Elemental) {
+		if(attacker.isElemental()) {
 			switch(attacker.getBodyMaterial()) {
 				case AIR:
 					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_AIR_SERVANT_OF_AIR_ELEMENTAL_BUFF);

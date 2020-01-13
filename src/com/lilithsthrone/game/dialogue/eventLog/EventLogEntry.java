@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.eventLog;
-
-import org.w3c.dom.Document;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;

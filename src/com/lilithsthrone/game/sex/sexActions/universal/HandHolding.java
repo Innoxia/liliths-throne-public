@@ -1,9 +1,7 @@
 package com.lilithsthrone.game.sex.sexActions.universal;
-
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -187,7 +185,7 @@ public class HandHolding {
 		}
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isOrificeFree(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
+			return Main.sex.isOrificeFree(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
 		}
 		@Override
 		public String getDescription() {
@@ -472,8 +470,8 @@ public class HandHolding {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getNumberOfOrgasms(Sex.getCharacterPerformingAction())>=Sex.getCharacterPerformingAction().getOrgasmsBeforeSatisfied()
-					&& Sex.getNumberOfOrgasms(Main.game.getPlayer())>=Main.game.getPlayer().getOrgasmsBeforeSatisfied();
+			return Main.sex.getNumberOfOrgasms(Main.sex.getCharacterPerformingAction())>=Main.sex.getCharacterPerformingAction().getOrgasmsBeforeSatisfied()
+					&& Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>=Main.game.getPlayer().getOrgasmsBeforeSatisfied();
 		}
 
 		@Override

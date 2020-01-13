@@ -1,7 +1,5 @@
 package com.lilithsthrone.game.character.body;
-
-
-import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;

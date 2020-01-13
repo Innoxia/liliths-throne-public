@@ -1,6 +1,5 @@
 package com.lilithsthrone.utils;
-
-import java.awt.Desktop;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
