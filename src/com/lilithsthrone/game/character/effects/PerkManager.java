@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.effects;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Pathing;
@@ -135,6 +133,7 @@ public enum PerkManager {
 		leftMidA = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.SEDUCTION_BOOST, both1);
 		
 		leftMidB = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.SEDUCTION_BOOST, leftMidA);
+		addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.ORGASMIC_LEVEL_DRAIN, leftMidA);
 		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.SEDUCTION_DEFENCE_BOOST, leftMidA);
 
 		leftMidB = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.SEDUCTION_BOOST, leftMidB);
@@ -431,7 +430,7 @@ public enum PerkManager {
 	}
 	
 	public Map<Integer, Map<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>>> getPerkTree(GameCharacter character) {
-		if(character instanceof Elemental) {
+		if(character.isElemental()) {
 			return elementalPerkTree;
 		} else {
 			return perkTree;
@@ -439,7 +438,7 @@ public enum PerkManager {
 	}
 	
 	public static List<TreeEntry<PerkCategory, AbstractPerk>> getStartingPerks(GameCharacter character) {
-		if(character instanceof Elemental) {
+		if(character.isElemental()) {
 			return MANAGER.elementalStartingPerks;
 		} else {
 			return MANAGER.standardStartingPerks;
@@ -454,7 +453,7 @@ public enum PerkManager {
 		Random rnd = new Random((character.getId()).hashCode());
 
 		// Add a unique background perk based on weighting:
-		if(!character.isUnique() && !(character instanceof Elemental) && rnd.nextInt(100)<=50) {
+		if(!character.isUnique() && !(character.isElemental()) && rnd.nextInt(100)<=50) {
 			Map<PerkCategory, Integer> perkWeightingMap = new HashMap<>(character.getSubspecies().getPerkWeighting(character));
 			
 			PerkCategory pc = Util.getRandomObjectFromWeightedMap(perkWeightingMap, rnd);
@@ -521,7 +520,7 @@ public enum PerkManager {
 			character.addPerk(perk.getRow(), perk.getEntry());
 		}
 		
-		if(character instanceof Elemental) {
+		if(character.isElemental()) {
 			
 		} else {
 			if(!character.isPlayer() && autoSelectPerks) {
@@ -540,6 +539,7 @@ public enum PerkManager {
 				// Perks that should not be chosen outside of requirements:
 				List<AbstractPerk> deniedPerks = new ArrayList<>();
 				deniedPerks.add(Perk.OBSERVANT);
+				deniedPerks.add(Perk.ORGASMIC_LEVEL_DRAIN);
 				deniedPerks.add(Perk.CHUUNI);
 				deniedPerks.add(Perk.BARREN);
 				deniedPerks.add(Perk.FIRING_BLANKS);

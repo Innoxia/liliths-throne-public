@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +11,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -106,12 +106,15 @@ public class Brax extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
-			this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.BRAVE);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 25);
 		}
 	}
 
@@ -123,6 +126,7 @@ public class Brax extends NPC {
 		}
 		
 		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
+		this.setAttribute(Attribute.MAJOR_CORRUPTION, 25);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
@@ -279,7 +283,7 @@ public class Brax extends NPC {
 			
 			if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)) {
 				if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-					this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
+					this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_crystal_epic", DamageType.FIRE));
 					this.setEssenceCount(TFEssence.ARCANE, 10);
 					this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_pbweap_pbpistol")));
 				}
@@ -455,7 +459,7 @@ public class Brax extends NPC {
 //			return super.getPenetrationDescription(initialPenetration, characterPenetrating, penetrationType, characterPenetrated, orifice);
 //		}
 //		if(Math.random()>0.3) {
-//			if(Sex.getSexPositionSlot(characterPenetrated)==SexSlotLyingDown.COWGIRL){
+//			if(Main.sex.getSexPositionSlot(characterPenetrated)==SexSlotLyingDown.COWGIRL){
 //				if(orifice == SexAreaOrifice.VAGINA) {
 //					if(penetrationType == SexAreaPenetration.PENIS && characterPenetrated.equals(this)) {
 //						return UtilText.returnStringAtRandom(

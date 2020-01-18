@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion.zaranixHome;
-
-import java.util.List;
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -30,7 +29,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMPetMounting;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMPetOral;
@@ -513,7 +511,7 @@ public class ZaranixHomeGroundFloorRepeat {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getNumberOfOrgasms(Main.game.getNpc(ZaranixMaidKatherine.class)) == 0) {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(ZaranixMaidKatherine.class)) == 0) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "AFTER_KATHERINE_SEX_NO_ORGASM"));
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "AFTER_KATHERINE_SEX"));

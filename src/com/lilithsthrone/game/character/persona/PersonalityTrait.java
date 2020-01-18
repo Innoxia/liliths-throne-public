@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.persona;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -127,9 +126,20 @@ public enum PersonalityTrait {
 			"[style.italicsBad(All of [npc.namePos] in-game speech will be removed!)]", Colour.BASE_CRIMSON) {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
-			return Util.newArrayListOfValues(LISP, STUTTER);
+			return Util.newArrayListOfValues(LISP, STUTTER, SLOVENLY);
 		}
-	};
+	},
+
+	SLOVENLY(false,
+			PersonalityCategory.SPEECH,
+			"slovenly",
+			"[npc.Name] [npc.verb(speak)] in a very slovenly manner; dropping syllables and with poor pronunciation, [npc.her] speech can often be very hard to understand.",
+			"[style.italicsBad(All of [npc.namePos] in-game speech will be affected by this!)]", Colour.BASE_BROWN) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(MUTE);
+		}
+	},;
 	
 	private boolean specialRequirements;
 	private PersonalityCategory personalityCategory;

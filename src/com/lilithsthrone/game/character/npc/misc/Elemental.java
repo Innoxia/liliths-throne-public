@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.misc;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -240,6 +239,11 @@ public class Elemental extends NPC {
 	public boolean isUnique() {
 		return false;
 	}
+
+	@Override
+	public boolean isElemental() {
+		return true;
+	}
 	
 	@Override
 	public String getSurname() {
@@ -256,7 +260,7 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	protected int getTrueLevel() {
+	public int getTrueLevel() {
 		if(this.getSummoner()==null) {
 			return level;
 		}

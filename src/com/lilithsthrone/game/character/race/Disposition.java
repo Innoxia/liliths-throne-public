@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.race;
-
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.0

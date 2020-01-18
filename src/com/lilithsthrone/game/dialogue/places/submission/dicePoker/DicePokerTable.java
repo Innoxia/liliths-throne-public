@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission.dicePoker;
-
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.2.6

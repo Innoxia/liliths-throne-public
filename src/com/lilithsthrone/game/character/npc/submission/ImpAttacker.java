@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.submission;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +28,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -126,6 +126,7 @@ public class ImpAttacker extends NPC {
 			loadImages();
 
 			initHealthAndManaToMax();
+			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 		}
 	}
 	
@@ -135,7 +136,10 @@ public class ImpAttacker extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
 			this.setHomeLocation();
 		}
-		
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
+			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+		}
 		setStartingCombatMoves();
 	}
 	

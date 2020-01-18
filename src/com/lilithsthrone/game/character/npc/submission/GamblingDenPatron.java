@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.submission;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,7 +81,7 @@ public class GamblingDenPatron extends NPC {
 				}
 			}
 			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces, true);
+			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	

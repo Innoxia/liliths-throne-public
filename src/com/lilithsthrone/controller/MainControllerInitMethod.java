@@ -1,6 +1,5 @@
 package com.lilithsthrone.controller;
-
-import java.io.File;
+import java.io.File;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
@@ -1155,8 +1154,13 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 
+					String blockedString = EnchantmentDialogue.getEnchantmentEffectBlockedReason(EnchantmentDialogue.getCurrentEffect());
 					TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Add Effect",
-							EnchantmentDialogue.getEffects().size() >= EnchantmentDialogue.getIngredient().getEnchantmentLimit()?"You have already added the maximum number of effects for this item!":"");
+							EnchantmentDialogue.getEffects().size() >= EnchantmentDialogue.getIngredient().getEnchantmentLimit()
+								?"You have already added the maximum number of effects for this item!"
+								:(blockedString!=null
+									?blockedString
+									:""));
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 
@@ -1175,7 +1179,7 @@ public class MainControllerInitMethod {
 					}
 				}
 				// Choosing a secondary modifier:
-				for (TFModifier tfMod : EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getPrimaryMod())) {
+				for (TFModifier tfMod : EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getPrimaryMod())) {
 					if (((EventTarget) MainController.document.getElementById("MOD_SECONDARY_" + tfMod.hashCode())) != null) {
 
 						EnchantmentEventListener el = new EnchantmentEventListener().setSecondaryModifier(tfMod);
@@ -1727,168 +1731,170 @@ public class MainControllerInitMethod {
 						Util.logGetNpcByIdError("initMainControllerListeners(), instance 2.", slaveId);
 						continue;
 					}
-					
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementInspectSlaveDialogue(slave)) {
-								@Override
-								public void effects() {
-									CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), slave);
-									Main.game.setResponseTab(CompanionManagement.getDefaultResponseTab());
-								}
-							});
-						}, false);
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-	
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Inspect Slave",
-								UtilText.parse(slave, "Inspect [npc.name]."));
-						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-					}
-					
-					id = slaveId+"_JOB";
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(slave)) {
-								@Override
-								public void effects() {
-									CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), slave);
-									Main.game.setResponseTab(CompanionManagement.getDefaultResponseTab());
-								}
-							});
-						}, false);
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-	
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Manage Slave's Job",
-								UtilText.parse(slave, "Set [npc.namePos] job and work hours."));
-						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-					}
-					
-					id = slaveId+"_PERMISSIONS";
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlavePermissionsDialogue(slave)) {
-								@Override
-								public void effects() {
-									CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), slave);
-									Main.game.setResponseTab(CompanionManagement.getDefaultResponseTab());
-								}
-							});
-						}, false);
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-	
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Manage Slave's Permissions",
-								UtilText.parse(slave, "Manage [npc.namePos] permissions."));
-						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-					}
-					
-					id = slaveId+"_INVENTORY";
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), slave);
-//							Main.game.getDialogueFlags().setManagementCompanion(slave);
-							Main.mainController.openInventory(slave, InventoryInteraction.FULL_MANAGEMENT);
-						}, false);
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-	
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Manage Slave's Inventory",
-								UtilText.parse(slave, "Manage [npc.namePos] inventory."));
-						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-					}
-					
-					id = slaveId+"_TRANSFER";
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
-								@Override
-								public void effects() {
-									slave.setHomeLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation());
-									slave.returnToHome();
-								}
-							});
-						}, false);
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-	
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Move Slave Here",
-								UtilText.parse(slave, "Move [npc.name] to your current location."));
-						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-					}
-					
-					id = slaveId+"_TRANSFER_DISABLED";
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-	
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Move Slave Here",
-								UtilText.parse(slave, "You cannot move [npc.name] to this location, as there's no room for [npc.herHim] here."));
-						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-					}
-					
-					id = slaveId+"_SELL";
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
-								@Override
-								public void effects() {
-									Main.game.getPlayer().incrementMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()));
-									Main.game.getDialogueFlags().getSlaveTrader().addSlave(slave);
-									slave.setLocation(Main.game.getDialogueFlags().getSlaveTrader().getWorldLocation(), Main.game.getDialogueFlags().getSlaveTrader().getLocation(), true);
-								}
-							});
-						}, false);
+
+					if(slave!=null) { // slave shouldn't be null...
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementInspectSlaveDialogue(slave)) {
+									@Override
+									public void effects() {
+										CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), slave);
+										Main.game.setResponseTab(CompanionManagement.getDefaultResponseTab());
+									}
+								});
+							}, false);
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Inspect Slave",
+									UtilText.parse(slave, "Inspect [npc.name]."));
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
 						
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-	
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell Slave",
-								UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(true), "b", Colour.GENERIC_GOOD)+"<br/>"
-										+ "However, "+Main.game.getDialogueFlags().getSlaveTrader().getName(true)+" will buy [npc.herHim] for "
-											+UtilText.formatAsMoney((int)(slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)+"."));
-						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-					}
-					
-					id = slaveId+"_SELL_DISABLED";
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-	
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell Slave",
-								UtilText.parse(slave, "You cannot sell [npc.name], as there's nobody here to sell [npc.herHim] to."));
-						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-					}
-					
-					id = slaveId+"_COSMETICS";
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.setContent(new Response("", "", CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_HAIR) {
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().setManagementCompanion(slave);
-									BodyChanging.setTarget(slave);
-								}
-							});
-						}, false);
+						id = slaveId+"_JOB";
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(slave)) {
+									@Override
+									public void effects() {
+										CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), slave);
+										Main.game.setResponseTab(CompanionManagement.getDefaultResponseTab());
+									}
+								});
+							}, false);
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Manage Slave's Job",
+									UtilText.parse(slave, "Set [npc.namePos] job and work hours."));
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
 						
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-	
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Send Slave to Kate",
-								UtilText.parse(slave, "Send [npc.name] to Kate's beauty salon, 'Succubi's Secrets', to get [npc.her] appearance changed."));
-						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-					}
-					
-					id = slaveId+"_COSMETICS_DISABLED";
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-	
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Send Slave to Kate",
-								UtilText.parse(slave, "You haven't met Kate yet!"));
-						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						id = slaveId+"_PERMISSIONS";
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlavePermissionsDialogue(slave)) {
+									@Override
+									public void effects() {
+										CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), slave);
+										Main.game.setResponseTab(CompanionManagement.getDefaultResponseTab());
+									}
+								});
+							}, false);
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Manage Slave's Permissions",
+									UtilText.parse(slave, "Manage [npc.namePos] permissions."));
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+						
+						id = slaveId+"_INVENTORY";
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), slave);
+	//							Main.game.getDialogueFlags().setManagementCompanion(slave);
+								Main.mainController.openInventory(slave, InventoryInteraction.FULL_MANAGEMENT);
+							}, false);
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Manage Slave's Inventory",
+									UtilText.parse(slave, "Manage [npc.namePos] inventory."));
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+						
+						id = slaveId+"_TRANSFER";
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
+									@Override
+									public void effects() {
+										slave.setHomeLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation());
+										slave.returnToHome();
+									}
+								});
+							}, false);
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Move Slave Here",
+									UtilText.parse(slave, "Move [npc.name] to your current location."));
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+						
+						id = slaveId+"_TRANSFER_DISABLED";
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Move Slave Here",
+									UtilText.parse(slave, "You cannot move [npc.name] to this location, as there's no room for [npc.herHim] here."));
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+						
+						id = slaveId+"_SELL";
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
+									@Override
+									public void effects() {
+										Main.game.getPlayer().incrementMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()));
+										Main.game.getDialogueFlags().getSlaveTrader().addSlave(slave);
+										slave.setLocation(Main.game.getDialogueFlags().getSlaveTrader().getWorldLocation(), Main.game.getDialogueFlags().getSlaveTrader().getLocation(), true);
+									}
+								});
+							}, false);
+							
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell Slave",
+									UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(true), "b", Colour.GENERIC_GOOD)+"<br/>"
+											+ "However, "+Main.game.getDialogueFlags().getSlaveTrader().getName(true)+" will buy [npc.herHim] for "
+												+UtilText.formatAsMoney((int)(slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)+"."));
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+						
+						id = slaveId+"_SELL_DISABLED";
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell Slave",
+									UtilText.parse(slave, "You cannot sell [npc.name], as there's nobody here to sell [npc.herHim] to."));
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+						
+						id = slaveId+"_COSMETICS";
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.game.setContent(new Response("", "", CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_HAIR) {
+									@Override
+									public void effects() {
+										Main.game.getDialogueFlags().setManagementCompanion(slave);
+										BodyChanging.setTarget(slave);
+									}
+								});
+							}, false);
+							
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Send to Kate",
+									UtilText.parse(slave, "Send [npc.name] to Kate's beauty salon, 'Succubi's Secrets', to get [npc.her] appearance changed."));
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+						
+						id = slaveId+"_COSMETICS_DISABLED";
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+		
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Send Slave to Kate",
+									UtilText.parse(slave, "You haven't met Kate yet!"));
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
 					}
 				}
 				
@@ -2008,7 +2014,7 @@ public class MainControllerInitMethod {
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 	
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Send to Kate", "Will be added soon!");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Send to Kate", "You haven't met Kate yet!");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -5713,6 +5719,7 @@ public class MainControllerInitMethod {
 			
 			Map<String, PropertyValue> settingsMap = Util.newHashMapOfValues(
 					new Value<>("ENCHANTMENT_LIMITS", PropertyValue.enchantmentLimits),
+					new Value<>("LEVEL_DRAIN", PropertyValue.levelDrain),
 					new Value<>("ARTWORK", PropertyValue.artwork),
 					new Value<>("THUMBNAIL", PropertyValue.thumbnail),
 					new Value<>("SILLY", PropertyValue.sillyMode),

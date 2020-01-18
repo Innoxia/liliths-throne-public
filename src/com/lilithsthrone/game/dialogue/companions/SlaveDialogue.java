@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.companions;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -23,7 +22,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMilkingStall;
@@ -784,43 +782,48 @@ public class SlaveDialogue {
 				}
 			
 			} else if(responseTab == 1) {
+				//TODO add group sex (front & back)
 				if(Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
 					if(index == 1) {
-						if(Main.game.isNonConEnabled() && !getSlave().isAttractedTo(Main.game.getPlayer())) {
-							return new ResponseSex("Rape", UtilText.parse(getSlave(), "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter..."), 
+						if((!characterForSex.isSlave() || !characterForSex.getOwner().isPlayer())
+								&& !characterForSex.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Sex", UtilText.parse(characterForSex, "[npc.Name] is not attracted to you, and you cannot force [npc.herHim] to have sex with you..."), null);
+							
+						} else if(Main.game.isNonConEnabled() && !characterForSex.isAttractedTo(Main.game.getPlayer())) {
+							return new ResponseSex("Rape", UtilText.parse(characterForSex, "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter..."), 
 									false, false,
 									new SMMilkingStall(
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
-											Util.newHashMapOfValues(new Value<>(getSlave(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
+											Util.newHashMapOfValues(new Value<>(characterForSex, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
 									getDominantSpectators(),
 									getSubmissiveSpectators(),
 									getAfterSexDialogue(),
-									UtilText.parseFromXMLFile(getTextFilePath(), "RAPE_START_MILKING_ROOM", getSlave())) {
+									UtilText.parseFromXMLFile(getTextFilePath(), "RAPE_START_MILKING_ROOM", characterForSex)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
-									if(getSlave().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
-										Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), 5));
+									if(characterForSex.getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
+										Main.game.getTextEndStringBuilder().append(characterForSex.incrementAffection(Main.game.getPlayer(), 5));
 									} else {
-										Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), -25));
+										Main.game.getTextEndStringBuilder().append(characterForSex.incrementAffection(Main.game.getPlayer(), -25));
 									}
 								}
 							};
 							
 						} else {
-							return new ResponseSex("Sex", UtilText.parse(getSlave(), "Have sex with [npc.name]."), 
+							return new ResponseSex("Sex", UtilText.parse(characterForSex, "Have sex with [npc.name]."), 
 									true, false,
 									new SMMilkingStall(
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
-											Util.newHashMapOfValues(new Value<>(getSlave(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
+											Util.newHashMapOfValues(new Value<>(characterForSex, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))),
 									getDominantSpectators(),
 									getSubmissiveSpectators(),
 									getAfterSexDialogue(),
-									UtilText.parseFromXMLFile(getTextFilePath(), "SEX_START_MILKING_ROOM", getSlave())) {
+									UtilText.parseFromXMLFile(getTextFilePath(), "SEX_START_MILKING_ROOM", characterForSex)) {
 								@Override
 								public void effects() {
 									applyReactionReset();
-									Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), 5));
+									Main.game.getTextEndStringBuilder().append(characterForSex.incrementAffection(Main.game.getPlayer(), 5));
 								}
 							};
 						}
@@ -830,7 +833,11 @@ public class SlaveDialogue {
 					
 				} else {
 					if (index == 1) { //TODO improve descriptions and affection hit from rape
-						if(Main.game.isNonConEnabled() && !characterForSex.isAttractedTo(Main.game.getPlayer())) {
+						if((!characterForSex.isSlave() || !characterForSex.getOwner().isPlayer())
+								&& !characterForSex.isAttractedTo(Main.game.getPlayer())) {
+							return new Response("Sex", UtilText.parse(characterForSex, "[npc.Name] is not attracted to you, and you cannot force [npc.herHim] to have sex with you..."), null);
+							
+						} else if(Main.game.isNonConEnabled() && !characterForSex.isAttractedTo(Main.game.getPlayer())) {
 							return new ResponseSex("Rape", UtilText.parse(characterForSex, "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter..."), 
 									false, false,
 									new SMGeneric(
@@ -947,7 +954,7 @@ public class SlaveDialogue {
 							 if((!Main.game.isNonConEnabled() || !characterForSex.isSlave()) && !characterForSex.isAttractedTo(Main.game.getPlayer())) {
 								return new Response("Spitroast (behind)",
 										UtilText.parse(characterForSex,
-												"[npc2.Name] is not attracted to you, and so would not be willing to be in a threesome position in which [npc2.she] interacts with you..."),
+												"[npc.Name] is not attracted to you, and so would not be willing to be in a threesome position in which [npc.she] interacts with you..."),
 										null);
 								
 							} else if((!Main.game.isNonConEnabled() || !characterForSex.isSlave()) && !characterForSex.isAttractedTo(characterForSexSecondary)) {
@@ -3047,10 +3054,10 @@ public class SlaveDialogue {
 						+ "</p>");
 				
 			} else {
-				if(Sex.getNumberOfOrgasms(getSlave()) >= getSlave().getOrgasmsBeforeSatisfied()) {
+				if(Main.sex.getNumberOfOrgasms(getSlave()) >= getSlave().getOrgasmsBeforeSatisfied()) {
 					return UtilText.parse(getSlave(),
 							"<p>"
-								+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(getSlave()) > 1?"s":"")+"."
+								+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Main.sex.getNumberOfOrgasms(getSlave()) > 1?"s":"")+"."
 								+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
 							+ "</p>");
 				} else {

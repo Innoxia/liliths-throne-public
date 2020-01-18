@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.submission;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.List;
 import java.util.Set;
 
@@ -389,6 +388,22 @@ public class DarkSiren extends NPC {
 					+ " Having been enslaved, she is now legally the property of her mother, Lyssieth, and had been expressly forbidden from leaving her room without supervision."));
 		} else {
 			return "The ruler of Submission's central imp citadel, this 'Dark Siren' is an incredibly powerful arcane user...";
+		}
+	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if(this.getSkinType().getRace()==Race.HUMAN) {
+			if(this.isVisiblyPregnant()) {
+				return "MeraxisPregnant";
+			}
+			return "Meraxis";
+			
+		} else {
+			if(this.isVisiblyPregnant()) {
+				return "MeraxisDemonPregnant";
+			}
+			return "MeraxisDemon";
 		}
 	}
 	

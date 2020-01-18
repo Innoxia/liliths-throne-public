@@ -1,10 +1,8 @@
 package com.lilithsthrone.game.dialogue.utils;
-
-import java.util.List;
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
 import com.lilithsthrone.game.character.npc.dominion.Angel;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
@@ -20,6 +18,7 @@ import com.lilithsthrone.game.character.npc.dominion.HarpyDominant;
 import com.lilithsthrone.game.character.npc.dominion.HarpyDominantCompanion;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
+import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.dominion.Jules;
 import com.lilithsthrone.game.character.npc.dominion.Kalahari;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
@@ -67,7 +66,6 @@ import com.lilithsthrone.game.character.npc.submission.SlimeRoyalGuard;
 import com.lilithsthrone.game.character.npc.submission.SubmissionCitadelArcanist;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -136,7 +134,7 @@ public enum ParserTarget {
 						return Combat.getActiveNPC();
 						
 					} else if (Main.game.isInSex()) {
-						return Sex.getTargetedPartner(Main.game.getPlayer());
+						return Main.sex.getTargetedPartner(Main.game.getPlayer());
 						
 					} else if (Main.game.getCurrentDialogueNode()!=null) {
 						if(Main.game.getCurrentDialogueNode()==CharactersPresentDialogue.MENU

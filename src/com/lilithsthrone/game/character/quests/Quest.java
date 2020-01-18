@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.quests;
-
-import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.lilithsthrone.main.Main;

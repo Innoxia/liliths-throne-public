@@ -1,6 +1,5 @@
 package com.lilithsthrone.rendering;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -50,7 +49,6 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.settings.KeyboardAction;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -1066,22 +1064,22 @@ public enum RenderingEngine {
 			uiAttributeSB.append(
 				"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
 					+ "<div class='full-width-container'>"
-						+ "<p class='character-name' style='color:"+ (Sex.isDom(Main.game.getPlayer())
-								?Colour.DOMINANT.toWebHexString()+";'>Dominant"+(Sex.getDominantParticipants(true).size()>1?"s":"")+"</b>"
-								:Colour.SUBMISSIVE.toWebHexString()+";'>Submissive"+(Sex.getSubmissiveParticipants(true).size()>1?"s":"")+"</b>")
+						+ "<p class='character-name' style='color:"+ (Main.sex.isDom(Main.game.getPlayer())
+								?Colour.DOMINANT.toWebHexString()+";'>Dominant"+(Main.sex.getDominantParticipants(true).size()>1?"s":"")+"</b>"
+								:Colour.SUBMISSIVE.toWebHexString()+";'>Submissive"+(Main.sex.getSubmissiveParticipants(true).size()>1?"s":"")+"</b>")
 						+"</p>"
 					+ "</div>"
 				+ "</div>"
 				+ "<div class='full-width-container' style='height: calc(100% - 128vw); overflow-y: auto;'>");
 			
-			if(Sex.isDom(Main.game.getPlayer())) {
-				for(GameCharacter character : Sex.getDominantParticipants(true).keySet()) {
-					uiAttributeSB.append(getCharacterPanelSexDiv(Sex.getDominantParticipants(true).size()>1, character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
+			if(Main.sex.isDom(Main.game.getPlayer())) {
+				for(GameCharacter character : Main.sex.getDominantParticipants(true).keySet()) {
+					uiAttributeSB.append(getCharacterPanelSexDiv(Main.sex.getDominantParticipants(true).size()>1, character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
 				}
 				
 			} else {
-				for(GameCharacter character : Sex.getSubmissiveParticipants(true).keySet()) {
-					uiAttributeSB.append(getCharacterPanelSexDiv(Sex.getSubmissiveParticipants(true).size()>1, character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
+				for(GameCharacter character : Main.sex.getSubmissiveParticipants(true).keySet()) {
+					uiAttributeSB.append(getCharacterPanelSexDiv(Main.sex.getSubmissiveParticipants(true).size()>1, character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
 				}
 			}
 			
@@ -1226,10 +1224,10 @@ public enum RenderingEngine {
 		}
 		
 		if(Main.game.isInSex()) {
-			if(Sex.isMasturbation()) {
+			if(Main.sex.isMasturbation()) {
 				return null;
 			}
-			return Sex.getTargetedPartner(Main.game.getPlayer());
+			return Main.sex.getTargetedPartner(Main.game.getPlayer());
 		}
 		
 		if(Main.game.isInCombat()) {
@@ -1284,22 +1282,22 @@ public enum RenderingEngine {
 				uiAttributeSB.append(
 						"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
 						+ "<div class='full-width-container'>"
-							+ "<p class='character-name' style='color:"+ (!Sex.isDom(Main.game.getPlayer())
-									?Colour.BASE_CRIMSON.toWebHexString()+";'>Dominant"+(Sex.getDominantParticipants(true).size()>1?"s":"")
-									:Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissive"+(Sex.getSubmissiveParticipants(true).size()>1?"s":""))
+							+ "<p class='character-name' style='color:"+ (!Main.sex.isDom(Main.game.getPlayer())
+									?Colour.BASE_CRIMSON.toWebHexString()+";'>Dominant"+(Main.sex.getDominantParticipants(true).size()>1?"s":"")
+									:Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissive"+(Main.sex.getSubmissiveParticipants(true).size()>1?"s":""))
 							+"</p>"
 						+ "</div>"
 					+ "</div>"
 					+ "<div class='full-width-container' style='height: calc(100% - 128vw); overflow-y: auto;'>");
 				
-				if(!Sex.isDom(Main.game.getPlayer())) {
-					for(GameCharacter character : Sex.getDominantParticipants(true).keySet()) {
-						uiAttributeSB.append(getCharacterPanelSexDiv(Sex.getDominantParticipants(true).size()>1, "NPC_"+character.getId()+"_", character));
+				if(!Main.sex.isDom(Main.game.getPlayer())) {
+					for(GameCharacter character : Main.sex.getDominantParticipants(true).keySet()) {
+						uiAttributeSB.append(getCharacterPanelSexDiv(Main.sex.getDominantParticipants(true).size()>1, "NPC_"+character.getId()+"_", character));
 					}
 					
 				} else {
-					for(GameCharacter character : Sex.getSubmissiveParticipants(true).keySet()) {
-						uiAttributeSB.append(getCharacterPanelSexDiv(Sex.getSubmissiveParticipants(true).size()>1, "NPC_"+character.getId()+"_", character));
+					for(GameCharacter character : Main.sex.getSubmissiveParticipants(true).keySet()) {
+						uiAttributeSB.append(getCharacterPanelSexDiv(Main.sex.getSubmissiveParticipants(true).size()>1, "NPC_"+character.getId()+"_", character));
 					}
 				}
 				uiAttributeSB.append("</div>");
@@ -1386,7 +1384,11 @@ public enum RenderingEngine {
 			uiAttributeSB.append("<div class='attribute-container effects'>"
 								+ "<p style='text-align:center;padding:0;margin:0;'><b>Characters Present</b></p>");
 			List <NPC> charactersPresent = Main.game.getCharactersPresent();
-			if(charactersPresent.isEmpty() && (place.getPopulation()==null || place.getPopulation().getSpecies().isEmpty())) {
+			Set<Subspecies> subspeciesSet = new HashSet<>();
+			for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
+				subspeciesSet.addAll(pop.getSpecies().keySet());
+			}
+			if(charactersPresent.isEmpty() && (place.getPopulation()==null || subspeciesSet.isEmpty())) {
 				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>None...</span></p>");
 				
 			} else {
@@ -1424,25 +1426,26 @@ public enum RenderingEngine {
 //					}//The commented section remove the ability to click the character to see the character present dialogue and the overlay that contain the stats. Clicking on the icon will still bring you to the character present dialogue
 					count++;
 				}
-				
-				Population pop = place.getPopulation();
-				if(pop!=null && !pop.getSpecies().isEmpty()) {
-					uiAttributeSB.append(
-								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(count%2==0)+";'>"
-									+ "<div class='icon' style='width:11%; left:0; top:0; margin:0 8px 0 0; padding:0;'>"
-										+ "<div class='icon-content'>"
-											+ (pop.getSpecies().size()>1
-													?SVGImages.SVG_IMAGE_PROVIDER.getPeopleIcon()
-													:pop.getSpecies().keySet().iterator().next().getSVGString(null))
+
+				int i=0;
+				for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
+					if(pop!=null && !pop.getSpecies().isEmpty()) {
+						uiAttributeSB.append(
+									"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(count%2==0)+";'>"
+										+ "<div class='icon' style='width:11%; left:0; top:0; margin:0 8px 0 0; padding:0;'>"
+											+ "<div class='icon-content'>"
+												+ (pop.getSpecies().size()>1
+														?SVGImages.SVG_IMAGE_PROVIDER.getPeopleIcon()
+														:pop.getSpecies().keySet().iterator().next().getSVGString(null))
+											+ "</div>"
 										+ "</div>"
-									+ "</div>"
-									+" <div style='color:"+Colour.BASE_GREY.toWebHexString()+";'>"
-										+Util.capitaliseSentence(pop.getDensity().getName())+" "+pop.getType().getName()
-										+ "<div class='overlay-inventory' id='PLACE_POPULATION' style='width:100%;'></div>"
-									+"</div>"
-								+ "</div>");
-									
-//								"<p style='text-align:center;padding:0;margin:0;'>"+Util.capitaliseSentence(pop.getDensity().getName())+" "+pop.getType().getName()+"</p>");
+										+" <div style='color:"+Colour.BASE_GREY.toWebHexString()+";'>"
+											+Util.capitaliseSentence(pop.getDensity().getName())+" "+pop.getType().getName()
+											+ "<div class='overlay-inventory' id='PLACE_POPULATION_"+i+"' style='width:100%;'></div>"
+										+"</div>"
+									+ "</div>");
+					}
+					i++;
 				}
 			}
 			uiAttributeSB.append("</div>");
@@ -2507,7 +2510,7 @@ public enum RenderingEngine {
 	
 	
 	private static boolean isLimitedSpectatorPanel(GameCharacter character) {
-		return Sex.getSexPositionSlot(character)==SexSlotGeneric.MISC_WATCHING && !character.isPlayer();
+		return Main.sex.getSexPositionSlot(character)==SexSlotGeneric.MISC_WATCHING && !character.isPlayer();
 	}
 	
 	private static String getCharacterPanelSexDiv(boolean compact, String idPrefix, GameCharacter character) {
@@ -2515,7 +2518,7 @@ public enum RenderingEngine {
 		
 		panelSB.append(
 				"<div class='attribute-container' style='overflow: auto;"
-						+ (Sex.getTargetedPartner(Main.game.getPlayer())!=null && Sex.getTargetedPartner(Main.game.getPlayer()).equals(character)
+						+ (Main.sex.getTargetedPartner(Main.game.getPlayer())!=null && Main.sex.getTargetedPartner(Main.game.getPlayer()).equals(character)
 							?"border:2px solid "+Colour.GENERIC_ARCANE.toWebHexString()+";"
 							:"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";")
 						+ "'>"
@@ -2537,7 +2540,7 @@ public enum RenderingEngine {
 								+"</b>"
 									+ (isLimitedSpectatorPanel(character)
 										?""
-										:" - <span style='color:"+Sex.getSexPace(character).getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(Sex.getSexPace(character).getName())+"</span>")
+										:" - <span style='color:"+Main.sex.getSexPace(character).getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(Main.sex.getSexPace(character).getName())+"</span>")
 							+"</div>"
 							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;background:#333; border-radius: 2px;'>"
 								+ (character.getLevel() != GameCharacter.LEVEL_CAP
@@ -2550,12 +2553,12 @@ public enum RenderingEngine {
 						+(isLimitedSpectatorPanel(character)
 							?""
 							:"<div class='full-width-container' style='text-align:center;'>"
-								+ Util.capitaliseSentence(Sex.getSexPositionSlot(character).getName(character))
+								+ Util.capitaliseSentence(Main.sex.getSexPositionSlot(character).getName(character))
 							+ "</div>")
 					+"</div>");
 		
 		if(isLimitedSpectatorPanel(character)) {
-			panelSB.append("<p style='padding:0;margin:auto 0;text-align:center;color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.capitaliseSentence(Sex.getSexPositionSlot(character).getName(character))+"</p>");
+			panelSB.append("<p style='padding:0;margin:auto 0;text-align:center;color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.capitaliseSentence(Main.sex.getSexPositionSlot(character).getName(character))+"</p>");
 
 			panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>");
 			
@@ -2644,7 +2647,7 @@ public enum RenderingEngine {
 						break;
 				}
 				if(Main.game.isInSex() && si!=null) {
-					if(!Sex.getCharactersHavingOngoingActionWith(character, si).isEmpty()) {
+					if(!Main.sex.getCharactersHavingOngoingActionWith(character, si).isEmpty()) {
 						pointer = true;
 					}
 				}

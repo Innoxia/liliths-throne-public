@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.combat;
-
-import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.utils.Colour;
 
 /**

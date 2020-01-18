@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.effects;
-
-import java.lang.reflect.Field;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -2000,10 +1999,11 @@ public class Perk {
 			"irresistible appeals",
 			PerkCategory.LUST,
 			"perks/convincing_requests",
-			Colour.GENERIC_SEX,
+			Util.newArrayListOfValues(Colour.GENERIC_SEX, Colour.BASE_GOLD),
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)),
-			Util.newArrayListOfValues("Requests during sex are no longer denied by sadists or rough dominants")) {
+			Util.newArrayListOfValues("Requests during sex are no longer denied by sadists or rough dominants"),
+			null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] mastered the art of sexual persuasion, and [npc.is] able to convince even the cruelest of dominant partners to do as [npc.she] [npc.verb(ask)].");
@@ -2023,6 +2023,30 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameIsFull] so astoundingly "+(owner.getFemininity()==Femininity.ANDROGYNOUS?"attractive":(owner.isFeminine()?"beautiful":"handsome"))
 					+" that [npc.her] sexual partners can't help but keep on fucking well after they've had their first orgasm.");
+		}
+	};
+
+	public static AbstractPerk ORGASMIC_LEVEL_DRAIN = new AbstractPerk(20,
+			false,
+			"orgasmic level drain",
+			PerkCategory.LUST,
+			"perks/orgasmic_level_drain",
+			Util.newArrayListOfValues(Colour.GENERIC_SEX, Colour.GENERIC_EXPERIENCE),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
+					"[style.boldTerrible(-95% to all)] [style.boldExperience(experience gains)]",
+					"In all [style.boldSex(sex scenes)]:",
+					"Can choose to [style.boldTerrible(drain 1 level)]",
+					"from orgasming partners",
+					"You gain [style.boldExcellent(50%)] [style.boldExperience(experience)]",
+					"value of levels drained"),
+			null, null, null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"Via a complex manipulation of [npc.her] arcane aura, [npc.name] [npc.has] become far slower to learn from new experiences,"
+					+ " but in return [npc.is] now able to drain the experience of sexual partners who orgasm in [npc.her] presence.");
 		}
 	};
 	
@@ -2357,7 +2381,7 @@ public class Perk {
 			Colour.ATTRIBUTE_LUST,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 25)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 40)),
 			null) {
 
 		@Override

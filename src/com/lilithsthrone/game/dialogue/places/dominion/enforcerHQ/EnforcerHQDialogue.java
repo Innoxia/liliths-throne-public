@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ;
-
-import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
@@ -98,7 +97,15 @@ public class EnforcerHQDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "CORRIDOR");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "CORRIDOR"));
+			try {
+				if(Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()+1).getPlace().getPlaceType()==PlaceType.ENFORCER_HQ_BRAXS_OFFICE) {
+					sb.append(UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "CORRIDOR_BRAX_WARNING"));
+				}
+			} catch(Exception ex) {
+			}
+			return sb.toString();
 		}
 		
 		@Override

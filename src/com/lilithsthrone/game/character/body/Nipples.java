@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -16,7 +15,6 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -131,8 +129,8 @@ public class Nipples implements BodyPartInterface {
 			}
 		}
 		
-		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
-			if(Sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.NIPPLE)) {
+		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(owner)) {
+			if(Main.sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.NIPPLE)) {
 				descriptorList.add("wet");
 			}
 		}

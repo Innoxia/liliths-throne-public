@@ -1,10 +1,8 @@
 package com.lilithsthrone.game.sex.sexActions.universal;
-
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -12,6 +10,7 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -32,12 +31,12 @@ public class KneelingOral {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.PERFORMING_ORAL);
+			return Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.PERFORMING_ORAL);
 		}
 		
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getCreampieLockedBy()!=null) {
+			if(Main.sex.getCreampieLockedBy()!=null) {
 				return SexActionPriority.UNIQUE_MAX;
 			}
 			return super.getPriority();
@@ -64,14 +63,14 @@ public class KneelingOral {
 					+ " [npc2.NameIsFull] quickly slammed to the floor, and suddenly [npc2.verb(find)] [npc.name] sitting on [npc2.her] face,"
 						+ " screaming in ecstasy as [npc.her] [npc.pussy+] spasms and clenches down around the [npc2.tongue+] that's being forced deep into [npc.her] soft folds.");
 			
-			if(Sex.getCharacterPerformingAction().hasPenis()) {
+			if(Main.sex.getCharacterPerformingAction().hasPenis()) {
 				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "As [npc.she] [npc.verb(grind)] [npc.her] [npc.pussy+] down against [npc2.namePos] [npc2.lips], [npc.name] [npc.verb(feel)] [npc.her] other sexual organ start to react to [npc.her] climax.");
 				
-				if(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)) {
+				if(Main.sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 					UtilText.nodeContentSB.append(" [npc.She] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] the knot at the base of [npc.her] [npc.cock+] swelling up as [npc.she] [npc.verb(prepare)] to cum,");
 					
-				} else if(Sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.FLARED)) {
+				} else if(Main.sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.FLARED)) {
 					UtilText.nodeContentSB.append(" [npc.She] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] the wide, flared head of [npc.her] [npc.cock+] swelling up as [npc.she] [npc.verb(prepare)] to cum,");
 					
 				} else {
@@ -81,7 +80,7 @@ public class KneelingOral {
 				// Describe cum amount:
 				UtilText.nodeContentSB.append(" and as [npc.her] [npc.balls+] tense up");
 				
-				switch (Sex.getCharacterPerformingAction().getPenisOrgasmCumQuantity()) {
+				switch (Main.sex.getCharacterPerformingAction().getPenisOrgasmCumQuantity()) {
 					case ZERO_NONE:
 						UtilText.nodeContentSB.append(", [npc.she] [npc.verb(realise)] that [npc.sheIs] not able to produce even one drop of cum.");
 						break;

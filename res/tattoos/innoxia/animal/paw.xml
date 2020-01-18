@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<name><![CDATA[paw-print]]></name>
+		
+		<description><![CDATA[A stylised silhouette of an animal's paw-print.]]></description> 
+		
+		<imageName>paw.svg</imageName> 
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<slotAvailability/>
+		
+		<primaryColours values="ALL"/> 
+		<secondaryColours/>
+		<tertiaryColours/>
+		
+	</coreAttributes>
+	
+</tattoo>

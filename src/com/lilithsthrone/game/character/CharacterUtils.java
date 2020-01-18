@@ -1,8 +1,8 @@
 package com.lilithsthrone.game.character;
-
-import java.io.File;
+import java.io.File;
 import java.io.StringWriter;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -1143,6 +1143,7 @@ public class CharacterUtils {
 						case ELEMENTAL_FIRE:
 						case ELEMENTAL_WATER:
 						case FOX_ASCENDANT:
+						case FOX_ASCENDANT_ARCTIC:
 						case FOX_ASCENDANT_FENNEC:
 						case SLIME:
 						case ANGEL:
@@ -1588,6 +1589,7 @@ public class CharacterUtils {
 //				case BIMBO:
 //				case BRO:
 				case LISP:
+				case SLOVENLY:
 					break;
 				case STUTTER:
 					characterAdjectives.add("stuttering");
@@ -1623,7 +1625,12 @@ public class CharacterUtils {
 	public static void randomiseBody(GameCharacter character, boolean randomiseAge) {
 		
 		if(randomiseAge) {
-			character.setBirthday(LocalDateTime.of(Main.game.getStartingDate().getYear()-AgeCategory.getAgeFromPreferences(character.getGender()), character.getBirthMonth(), character.getDayOfBirth(), 12, 0));
+			int dayOfMonth = character.getDayOfBirth();
+			if(character.getBirthMonth() == Month.FEBRUARY) { // Don't set a character's birthday to a leap day as otherwise it ends up causing messy issues.
+				dayOfMonth = Math.min(dayOfMonth, 28);
+			}
+			character.setBirthday(LocalDateTime.of(Main.game.getStartingDate().getYear()-AgeCategory.getAgeFromPreferences(character.getGender()), character.getBirthMonth(), dayOfMonth, 12, 0));
+			
 			if(character.getRace()==Race.DEMON || character.getRace()==Race.HARPY) {
 				character.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(9));
 			}
@@ -1868,6 +1875,11 @@ public class CharacterUtils {
 		 //TODO Set personality based on history. (Or vice-versa, but one should lead to the other.)
 		
 		if(lowlife) {
+			// High chance to be slovenly:
+			if(Math.random()<0.25f) {
+				character.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+			}
+			
 			double prostituteChance = 0.15f; // Base 0.15% chance for any random to be a prostitute.
 			 			
 			 if(character.isFeminine()) {

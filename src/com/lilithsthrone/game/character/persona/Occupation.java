@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.persona;
-
-import java.time.DayOfWeek;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 

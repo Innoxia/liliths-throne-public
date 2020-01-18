@@ -1,6 +1,5 @@
 package com.lilithsthrone.utils;
-
-import java.math.BigDecimal;
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.time.ZoneId;
@@ -335,7 +334,7 @@ public enum Units {
      */
     public static String sizeAsMetric(double cm, ValueType vType, UnitType uType) {
         double m = cm / 100;
-        return valueWithUnit(cm, "cm", "centimetre", m, "m", "metre", vType, uType, false);
+        return valueWithUnit(cm, "cm", "centimetre"+(cm!=1?"s":""), m, "m", "metre"+(cm!=100?"s":""), vType, uType, false);
     }
 
     /**
@@ -509,7 +508,7 @@ public enum Units {
                 if (Math.abs(usedValue) > 1 || usedValue == 0.0) output.append("s");
                 break;
             case LONG_SINGULAR:
-                output.append("-").append((wrap ? wrappedUnit : unit));
+                output.append(" ").append((wrap ? wrappedUnit : unit));
         }
 
         return output.toString();
