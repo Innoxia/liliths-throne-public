@@ -477,6 +477,7 @@ public class UtilText {
 				 && !word.startsWith("Unicorn") && !word.startsWith("unicorn")
 				 && !word.startsWith("Used") && !word.startsWith("used")) {
 			return "an";
+			
 		} else {
 			return "a";
 		}
@@ -1554,6 +1555,35 @@ public class UtilText {
 				} catch(Exception ex) {
 					ex.printStackTrace();
 					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: affection command character argument not found! ("+arguments+")</i>";
+				}
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"companion"),
+				true,
+				true,
+				"",
+				"Prints out the most important name of this character's relation towards their party's leader (it will cut off multiple relation names) for half of the time. The other half will return 'companion'."
+				+ " e.g. If the player's companion is their daughter, then 'npc.companion' would print 'daughter', otherwise 'companion'."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				try {
+					GameCharacter targetedCharacter = character.getPartyLeader();
+					if(targetedCharacter==null) {
+						return "companion";
+					}
+					Set<Relationship> set = character.getRelationshipsTo(targetedCharacter);
+					if(set.size()>=1 && Math.random()<0.5f) {
+						return set.iterator().next().getName(character);
+					} else {
+						return "companion";
+					}
+					
+				} catch(Exception ex) {
+					ex.printStackTrace();
+					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: relation command character argument not found! ("+arguments+")</i>";
 				}
 			}
 		});
@@ -7179,10 +7209,13 @@ public class UtilText {
 	 * Some methods might return a null or empty string for a determiner. This method accounts for that, applying a special determiner if one is available and then returning the descriptor + name combination.
 	 */
 	private static String applyDeterminer(String descriptor, String input) {
-		if(descriptor==null)
+		if(descriptor==null) {
 			return input;
+		}
 		
-		return (descriptor.length() > 0 ? descriptor + " " : (UtilText.isVowel(input.charAt(0))?"an ":"a ")) + input;
+		return descriptor.length()>0
+				? descriptor + " "
+				: UtilText.generateSingularDeterminer(input) + input;
 	}
 
 	private static String getSubspeciesName(Subspecies subspecies, GameCharacter character) {

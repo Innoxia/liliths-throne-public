@@ -29,7 +29,7 @@
 	
 	<htmlContent tag="ENTER_SUBMISSION_FIRST_TIME"><![CDATA[
 	<p>
-		As the door swings shut behind you, a short, pink-furred, greater cat-girl Enforcer rushes forwards. Even with the high heels that she's currently wearing, she can't be any more than five-feet tall, but her breasts, hips, and thighs are without doubt the largest of any of the Enforcers in the room. As she comes to a rather unsteady halt in front of you, a big grin breaks out across her face, and she cries out in a very friendly voice, [claire.speech(Hey, I haven't seen you down here before, so this must be your first time in Submission!)]
+		As the door swings shut behind you, a short, pink-furred, greater cat-girl Enforcer rushes forwards. Even with the high heels that she's currently wearing, she can't be any more than [units.size(152)] in height, but her breasts, hips, and thighs are without doubt the largest of any of the Enforcers in the room. As she comes to a rather unsteady halt in front of you, a big grin breaks out across her face, and she cries out in a very friendly voice, [claire.speech(Hey, I haven't seen you down here before, so this must be your first time in Submission!)]
 	</p>
 	]]>
 	</htmlContent>

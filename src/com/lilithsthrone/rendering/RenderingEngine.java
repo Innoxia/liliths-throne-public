@@ -1384,7 +1384,11 @@ public enum RenderingEngine {
 			uiAttributeSB.append("<div class='attribute-container effects'>"
 								+ "<p style='text-align:center;padding:0;margin:0;'><b>Characters Present</b></p>");
 			List <NPC> charactersPresent = Main.game.getCharactersPresent();
-			if(charactersPresent.isEmpty() && (place.getPopulation()==null || place.getPopulation().getSpecies().isEmpty())) {
+			Set<Subspecies> subspeciesSet = new HashSet<>();
+			for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
+				subspeciesSet.addAll(pop.getSpecies().keySet());
+			}
+			if(charactersPresent.isEmpty() && (place.getPopulation()==null || subspeciesSet.isEmpty())) {
 				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>None...</span></p>");
 				
 			} else {
@@ -1422,25 +1426,26 @@ public enum RenderingEngine {
 //					}//The commented section remove the ability to click the character to see the character present dialogue and the overlay that contain the stats. Clicking on the icon will still bring you to the character present dialogue
 					count++;
 				}
-				
-				Population pop = place.getPopulation();
-				if(pop!=null && !pop.getSpecies().isEmpty()) {
-					uiAttributeSB.append(
-								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(count%2==0)+";'>"
-									+ "<div class='icon' style='width:11%; left:0; top:0; margin:0 8px 0 0; padding:0;'>"
-										+ "<div class='icon-content'>"
-											+ (pop.getSpecies().size()>1
-													?SVGImages.SVG_IMAGE_PROVIDER.getPeopleIcon()
-													:pop.getSpecies().keySet().iterator().next().getSVGString(null))
+
+				int i=0;
+				for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
+					if(pop!=null && !pop.getSpecies().isEmpty()) {
+						uiAttributeSB.append(
+									"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(count%2==0)+";'>"
+										+ "<div class='icon' style='width:11%; left:0; top:0; margin:0 8px 0 0; padding:0;'>"
+											+ "<div class='icon-content'>"
+												+ (pop.getSpecies().size()>1
+														?SVGImages.SVG_IMAGE_PROVIDER.getPeopleIcon()
+														:pop.getSpecies().keySet().iterator().next().getSVGString(null))
+											+ "</div>"
 										+ "</div>"
-									+ "</div>"
-									+" <div style='color:"+Colour.BASE_GREY.toWebHexString()+";'>"
-										+Util.capitaliseSentence(pop.getDensity().getName())+" "+pop.getType().getName()
-										+ "<div class='overlay-inventory' id='PLACE_POPULATION' style='width:100%;'></div>"
-									+"</div>"
-								+ "</div>");
-									
-//								"<p style='text-align:center;padding:0;margin:0;'>"+Util.capitaliseSentence(pop.getDensity().getName())+" "+pop.getType().getName()+"</p>");
+										+" <div style='color:"+Colour.BASE_GREY.toWebHexString()+";'>"
+											+Util.capitaliseSentence(pop.getDensity().getName())+" "+pop.getType().getName()
+											+ "<div class='overlay-inventory' id='PLACE_POPULATION_"+i+"' style='width:100%;'></div>"
+										+"</div>"
+									+ "</div>");
+					}
+					i++;
 				}
 			}
 			uiAttributeSB.append("</div>");

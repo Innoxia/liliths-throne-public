@@ -234,7 +234,8 @@ public class RatGangMember extends NPC {
 					} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_DORMITORY_RIGHT) {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensClearedRight, true);
 						
-					} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_DICE_DEN) {
+					} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_DICE_DEN
+							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_ENTRANCE) {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensClearedCentre, true);
 						
 					} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_CHECKPOINT_LEFT) {

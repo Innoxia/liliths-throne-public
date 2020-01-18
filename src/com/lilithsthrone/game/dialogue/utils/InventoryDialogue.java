@@ -149,28 +149,12 @@ public class InventoryDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (inventoryNPC!=null && interactionType == InventoryInteraction.TRADING) {
+			if(inventoryNPC!=null && interactionType==InventoryInteraction.TRADING) {
 				UtilText.nodeContentSB.append(inventoryNPC.getTraderDescription());
 				
 			} else if(interactionType==InventoryInteraction.CHARACTER_CREATION) {
 				return CharacterCreation.getCheckingClothingDescription();
 			}
-//			if(item!=null) {
-//				return ITEM_INVENTORY.getResponse(responseTab, index);
-//			} else if(clothing!=null) {
-//				if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(clothing) || (inventoryNPC!=null && inventoryNPC.getClothingCurrentlyEquipped().contains(clothing))) {
-//					return CLOTHING_EQUIPPED.getResponse(responseTab, index);
-//				} else {
-//					return CLOTHING_INVENTORY.getResponse(responseTab, index);
-//				}
-//			} else if(weapon!=null) {
-//				if((Main.game.getPlayer().getMainWeapon().equals(weapon) || Main.game.getPlayer().getOffhandWeapon().equals(weapon))
-//						 || (inventoryNPC!=null && (inventoryNPC.getMainWeapon().equals(weapon) || inventoryNPC.getOffhandWeapon().equals(weapon)))) {
-//					return WEAPON_EQUIPPED.getResponse(responseTab, index);
-//				} else {
-//					return WEAPON_INVENTORY.getResponse(responseTab, index);
-//				}
-//			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -181,9 +165,6 @@ public class InventoryDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			//TODO sex end
-			// What does that even mean? BlobSweats
-			
 			if (index == 0) {
 				return getCloseInventoryResponse();
 			}
@@ -191,12 +172,14 @@ public class InventoryDialogue {
 			if(responseTab==1) {
 				if(item!=null) {
 					return ITEM_INVENTORY.getResponse(responseTab, index);
+					
 				} else if(clothing!=null) {
 					if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(clothing) || (inventoryNPC!=null && inventoryNPC.getClothingCurrentlyEquipped().contains(clothing))) {
 						return CLOTHING_EQUIPPED.getResponse(responseTab, index);
 					} else {
 						return CLOTHING_INVENTORY.getResponse(responseTab, index);
 					}
+					
 				} else if(weapon!=null) {
 					if(Main.game.getPlayer().hasWeaponEquipped(weapon)
 							|| (inventoryNPC!=null && inventoryNPC.hasWeaponEquipped(weapon))) {
@@ -204,6 +187,7 @@ public class InventoryDialogue {
 					} else {
 						return WEAPON_INVENTORY.getResponse(responseTab, index);
 					}
+					
 				} else {
 					return null;
 				}
@@ -233,6 +217,17 @@ public class InventoryDialogue {
 						}
 						return new Response("Drop all", "You can't do this during combat!", null);
 
+					} else if(index==11) {
+						if(Main.game.getPlayer().getUnlockKeyMap().isEmpty()) {
+							return new Response("Keys", "You do not currently own any keys which are used for unlocking certain items of clothing.", null);
+							
+						} else if(Main.game.getCurrentDialogueNode()==INVENTORY_MENU_KEYS) {
+							return new Response("Keys", "You are already viewing a list of all the keys that you own which are used for unlocking certain items of clothing.", null);
+							
+						} else {
+							return new Response("Keys", "View a list of all the keys that you currently own which are used for unlocking certain items of clothing.", INVENTORY_MENU_KEYS);
+						}
+						
 					} else {
 						return null;
 					}
@@ -468,6 +463,17 @@ public class InventoryDialogue {
 					} else if (index == 10 && !Main.game.isInSex() && !Main.game.isInCombat()) {
 						return getQuickTradeResponse();
 
+					} else if(index==11) {
+						if(Main.game.getPlayer().getUnlockKeyMap().isEmpty()) {
+							return new Response("Keys", "You do not currently own any keys which are used for unlocking certain items of clothing.", null);
+							
+						} else if(Main.game.getCurrentDialogueNode()==INVENTORY_MENU_KEYS) {
+							return new Response("Keys", "You are already viewing a list of all the keys that you own which are used for unlocking certain items of clothing.", null);
+							
+						} else {
+							return new Response("Keys", "View a list of all the keys that you currently own which are used for unlocking certain items of clothing.", INVENTORY_MENU_KEYS);
+						}
+						
 					} else {
 						return null;
 					}
@@ -614,6 +620,17 @@ public class InventoryDialogue {
 					} else if (index == 10 && !Main.game.isInSex() && !Main.game.isInCombat()) {
 						return getQuickTradeResponse();
 
+					} else if(index==11) {
+						if(Main.game.getPlayer().getUnlockKeyMap().isEmpty()) {
+							return new Response("Keys", "You do not currently own any keys which are used for unlocking certain items of clothing.", null);
+							
+						} else if(Main.game.getCurrentDialogueNode()==INVENTORY_MENU_KEYS) {
+							return new Response("Keys", "You are already viewing a list of all the keys that you own which are used for unlocking certain items of clothing.", null);
+							
+						} else {
+							return new Response("Keys", "View a list of all the keys that you currently own which are used for unlocking certain items of clothing.", INVENTORY_MENU_KEYS);
+						}
+						
 					} else {
 						return null;
 					}
@@ -736,6 +753,17 @@ public class InventoryDialogue {
 							};
 						}
 
+					} else if(index==11) {
+						if(Main.game.getPlayer().getUnlockKeyMap().isEmpty()) {
+							return new Response("Keys", "You do not currently own any keys which are used for unlocking certain items of clothing.", null);
+							
+						} else if(Main.game.getCurrentDialogueNode()==INVENTORY_MENU_KEYS) {
+							return new Response("Keys", "You are already viewing a list of all the keys that you own which are used for unlocking certain items of clothing.", null);
+							
+						} else {
+							return new Response("Keys", "View a list of all the keys that you currently own which are used for unlocking certain items of clothing.", INVENTORY_MENU_KEYS);
+						}
+						
 					} else {
 						return null;
 					}
@@ -749,7 +777,78 @@ public class InventoryDialogue {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
+	
+	public static final DialogueNode INVENTORY_MENU_KEYS = new DialogueNode("Inventory", "Return to inventory menu.", true) {
+		@Override
+		public String getLabel() {
+			if(!Main.game.isInNewWorld()) {
+				return "Evening's Attire";
+			}
+			
+			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+			} else {
+				return "Inventory";
+			}
+		}
 
+		@Override
+		public String getHeaderContent() {
+			return inventoryView();
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("<p>");
+			UtilText.nodeContentSB.append("[style.boldMinorGood(Keys owned:)]");
+			if(Main.game.getPlayer().getUnlockKeyMap().isEmpty()) {
+				UtilText.nodeContentSB.append("<br/>[style.italicsDisabled(None...)]");
+				
+			} else {
+				for(Entry<String, List<InventorySlot>> entry : Main.game.getPlayer().getUnlockKeyMap().entrySet()) {
+					try {
+						GameCharacter npc = Main.game.getNPCById(entry.getKey());
+						List<String> slots = new ArrayList<>();
+						for(InventorySlot slot : entry.getValue()) {
+							AbstractClothing slotClothing = npc.getClothingInSlot(slot);
+							if(slotClothing!=null) {
+								slots.add(Util.capitaliseSentence(slotClothing.getName())+" ('"+slot.getName()+"' slot)");
+							}
+						}
+						if(!slots.isEmpty()) {
+							UtilText.nodeContentSB.append(UtilText.parse(npc, "<br/><b style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> ("+slots.size()+"): "));
+							int i=0;
+							for(String s : slots) {
+								UtilText.nodeContentSB.append((i>0?", ":"")+s);
+								i++;
+							}
+						}
+					} catch (Exception e) {
+					}
+				}
+			}
+			UtilText.nodeContentSB.append("</p>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		public String getResponseTabTitle(int index) {
+			return getGeneralResponseTabTitle(index);
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return INVENTORY_MENU.getResponse(responseTab, index);
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.INVENTORY;
+		}
+	};
+	
 	public static final DialogueNode ITEM_INVENTORY = new DialogueNode("Item", "", true) {
 
 		@Override
@@ -1730,7 +1829,7 @@ public class InventoryDialogue {
 					}
 				}
 				
-			// ****************************** ITEM DOES NOT BELONG TO PLAYER ****************************** TODO
+			// ****************************** ITEM DOES NOT BELONG TO PLAYER ******************************
 				
 			} else {
 				// ****************************** Interacting with the ground ******************************
@@ -4776,7 +4875,7 @@ public class InventoryDialogue {
 								}
 								return new Response("Enchant", "You can't enchant someone else's clothing, especially not while having sex with them!", null);
 
-							} else if(index >= 6 && index <= 9 && index-6<clothing.getClothingType().getEquipSlots().size()) { //TODO
+							} else if(index >= 6 && index <= 9 && index-6<clothing.getClothingType().getEquipSlots().size()) { //TODO ???
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
 								if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 									if(clothing.getClothingType().isAbleToBeEquippedDuringSex(slot) && !inventoryNPC.isTrader()) {
@@ -5442,12 +5541,8 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(getJinxRemovalBlockedResponse()==null) {
-									return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You can't unjinx clothing in combat!", null);
+								return getJinxRemovalResponse();
 									
-								} else {
-									return getJinxRemovalBlockedResponse();
-								}
 							} else {
 								if(clothing.isCondom()) {
 									if(clothing.getCondomEffect().getPotency().isNegative()) {
@@ -5535,30 +5630,8 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(getJinxRemovalBlockedResponse()==null) {
-									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
-										return new Response("Unjinx ([style.italicsArcane("+clothing.getJinxRemovalCost()+" Essences)])",
-												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.", INVENTORY_MENU) {
-											@Override
-											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												Main.game.getTextEndStringBuilder().append(
-														"<p>"
-															+ "You channel the power of your arcane essences into your "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
-														+ "</p>"
-														+ "<p style='text-align:center;'>"
-															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
-														+ "</p>");
-												clothing.setSealed(false);
-											}
-										};
-									} else {
-										return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx this piece of clothing!", null);
-									}
-									
-								} else {
-									return getJinxRemovalBlockedResponse();
-								}
+								return getJinxRemovalResponse();
+								
 							} else {
 								if(clothing.isCondom()) {
 									if(clothing.getCondomEffect().getPotency().isNegative()) {
@@ -5736,33 +5809,8 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(getJinxRemovalBlockedResponse()==null) {
-									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
-										return new Response("Unjinx ([style.italicsArcane("+clothing.getJinxRemovalCost()+" Essences)])",
-												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.",
-												Main.sex.SEX_DIALOGUE) {
-											@Override
-											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												Main.sex.setJinxRemovalClothingText(clothing,
-														"<p>"
-															+ "You channel the power of your arcane essences into your "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
-														+ "</p>"
-														+ "<p style='text-align:center;'>"
-															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
-														+ "</p>");
-												clothing.setSealed(false);
-												Main.mainController.openInventory();
-												Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-												Main.sex.setSexStarted(true);
-											}
-										};
-									} else {
-										return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx a piece of clothing!", null);
-									}
-								} else {
-									return getJinxRemovalBlockedResponse();
-								}
+								return getJinxRemovalResponse();
+								
 							} else {
 								if(clothing.isCondom()) {
 									if(clothing.getCondomEffect().getPotency().isNegative()) {
@@ -5857,11 +5905,8 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(getJinxRemovalBlockedResponse()==null) {
-									return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You can't unjinx someone's clothing while fighting them!", null);
-								} else {
-									return getJinxRemovalBlockedResponse();
-								}
+								return getJinxRemovalResponse();
+								
 							} else {
 								if(clothing.isCondom()) {
 									if(clothing.getCondomEffect().getPotency().isNegative()) {
@@ -5978,29 +6023,8 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(getJinxRemovalBlockedResponse()==null) {
-									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
-										return new Response("Unjinx ([style.italicsArcane("+clothing.getJinxRemovalCost()+" Essences)])",
-												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.", INVENTORY_MENU) {
-											@Override
-											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												Main.game.getTextEndStringBuilder().append(UtilText.parse(inventoryNPC,
-														"<p>"
-															+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
-														+ "</p>"
-														+ "<p style='text-align:center;'>"
-															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
-														+ "</p>"));
-												clothing.setSealed(false);
-											}
-										};
-									} else {
-										return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx this piece of clothing!", null);
-									}
-								} else {
-									return getJinxRemovalBlockedResponse();
-								}
+								return getJinxRemovalResponse();
+								
 							} else {
 								if(clothing.isCondom()) {
 									if(clothing.getCondomEffect().getPotency().isNegative()) {
@@ -6136,32 +6160,8 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(getJinxRemovalBlockedResponse()==null) {
-									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
-										return new Response("Unjinx ([style.italicsArcane("+clothing.getJinxRemovalCost()+" Essences)])",
-												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.", Main.sex.SEX_DIALOGUE) {
-											@Override
-											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												Main.sex.setJinxRemovalClothingText(clothing, UtilText.parse(inventoryNPC,
-														"<p>"
-															+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
-														+ "</p>"
-														+ "<p style='text-align:center;'>"
-															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
-														+ "</p>"));
-												clothing.setSealed(false);
-												Main.mainController.openInventory();
-												Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-												Main.sex.setSexStarted(true);
-											}
-										};
-									} else {
-										return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx this piece of clothing!", null);
-									}
-								} else {
-									return getJinxRemovalBlockedResponse();
-								}
+								return getJinxRemovalResponse();
+								
 							} else {
 								if(clothing.isCondom()) {
 									if(clothing.getCondomEffect().getPotency().isNegative()) {
@@ -8302,23 +8302,75 @@ public class InventoryDialogue {
 //		}
 	}
 	
-	private static Response getJinxRemovalBlockedResponse() {
-		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-			return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit and ask her about it...", null);
-		}
-		if(Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSelfTransformationInhibiting())) {
-			return new Response("Unjinx",
-					"Although you are normally able to unjinx clothing, you cannot do so due to an enchantment on one or more pieces of your equipped clothing!"
-					+ "<br/>[style.italicsArcane(Visit Lilaya to get your jinxed clothing removed!)]",
+	private static Response getJinxRemovalResponse() {
+		boolean ownsKey = Main.game.getPlayer().getUnlockKeyMap().containsKey(owner.getId()) && Main.game.getPlayer().getUnlockKeyMap().get(owner.getId()).contains(clothing.getSlotEquippedTo());
+		int removalCost = clothing.getJinxRemovalCost();
+		
+		if(interactionType==InventoryInteraction.COMBAT) {
+			return new Response("Unjinx"+(ownsKey?"(Use key)":"(<i>"+removalCost+" Essences</i>)"),
+					"You can't unjinx clothing in combat!",
 					null);
 		}
-		if(Main.game.getPlayer().getTattoos().values().stream().anyMatch(c -> c.isSelfTransformationInhibiting())) {
-			return new Response("Unjinx",
-					"Although you are normally able to unjinx clothing, you cannot do so due to an enchantment on one or more of your tattoos!"
-							+ "<br/>[style.italicsArcane(Visit Kate to get the tattoo removed!)]",
+		
+		if(!ownsKey) {
+			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+				return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit and ask her about it...", null);
+			}
+			if(Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSelfTransformationInhibiting())) {
+				return new Response("Unjinx",
+						"Although you are normally able to unjinx clothing, you cannot do so due to an enchantment on one or more pieces of your equipped clothing!"
+						+ "<br/>[style.italicsArcane(Visit Lilaya to get your jinxed clothing removed!)]",
+						null);
+			}
+			if(Main.game.getPlayer().getTattoos().values().stream().anyMatch(c -> c.isSelfTransformationInhibiting())) {
+				return new Response("Unjinx",
+						"Although you are normally able to unjinx clothing, you cannot do so due to an enchantment on one or more of your tattoos!"
+								+ "<br/>[style.italicsArcane(Visit Kate to get the tattoo removed!)]",
+						null);
+			}
+		}
+		
+		if(ownsKey || Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=removalCost) {
+			return new Response("Unjinx "+(ownsKey?"([style.italicsGood(Use key)])":"([style.italicsArcane("+removalCost+" Essences)])"),
+						ownsKey
+							?"As you own the key which unlocks this piece of clothing, you can remove it without having to spend any arcane essences!"
+							:"Spend "+removalCost+" arcane essences on removing the jinx from this piece of clothing.",
+						interactionType==InventoryInteraction.SEX
+							?Main.sex.SEX_DIALOGUE
+							:INVENTORY_MENU) {
+				@Override
+				public void effects() {
+					if(ownsKey) {
+						Main.game.getPlayer().removeFromUnlockKeyMap(owner.getId(), clothing.getSlotEquippedTo());
+						Main.game.getTextEndStringBuilder().append(
+								"<p>"
+									+ "Using the key which is in your possession, you unlock the "+clothing.getName()+"!"
+								+ "</p>");
+						
+					} else {
+						Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -removalCost, false);
+						Main.game.getTextEndStringBuilder().append(UtilText.parse(owner,
+								"<p>"
+									+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
+								+ "</p>"
+								+ "<p style='text-align:center;'>"
+									+ "Removing the jinx has cost you [style.boldBad("+removalCost+")] [style.boldArcane(Arcane Essences)]!"
+								+ "</p>"));
+					}
+					clothing.setSealed(false);
+					if(interactionType==InventoryInteraction.SEX) {
+						Main.mainController.openInventory();
+						Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+						Main.sex.setSexStarted(true);
+					}
+				}
+			};
+			
+		} else {
+			return new Response("Unjinx (<i>"+removalCost+" Essences</i>)",
+					"You need at least "+removalCost+" arcane essences in order to unjinx this piece of clothing!",
 					null);
 		}
-		return null;
 	}
 	
 	

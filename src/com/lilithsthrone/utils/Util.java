@@ -989,6 +989,9 @@ public class Util {
 		
 		slovenlySpeechReplacementMap.put("Very", "Real");
 		slovenlySpeechReplacementMap.put("very", "real");
+		
+		slovenlySpeechReplacementMap.put("Yes", "Yeah");
+		slovenlySpeechReplacementMap.put("yes", "yeah");
 	}
 	/**
 	 * Replaces words in the sentence to give the impression that the speaker is talking in a slovenly manner. The replacements are:
@@ -1023,6 +1026,7 @@ public class Util {
 			<br/>For -> Fer
 			<br/>Here -> 'ere
 			<br/>Very -> Real
+			<br/>Yes -> Yeah
 	 *
 	 * @param sentence The speech to which the lisp should be applied.
 	 * @return The modified sentence.

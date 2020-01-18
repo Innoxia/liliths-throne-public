@@ -57,6 +57,7 @@
 
 	<itemTags>
 		<tag>SOLD_BY_FINCH</tag>
+		<tag>PROVIDES_KEY</tag>
 	</itemTags>
 	</coreAttributes>
 

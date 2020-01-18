@@ -38,7 +38,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.6
  * @author Innoxia
  */
 public abstract class AbstractClothing extends AbstractCoreItem implements XMLSaving {
@@ -52,6 +52,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	private Colour tertiaryColour;
 	private boolean dirty;
 	private boolean enchantmentKnown;
+	private boolean unlocked;
 	private List<DisplacementType> displacedList;
 	
 	private String pattern; // name of the pattern. 
@@ -78,6 +79,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		
 		dirty = false;
 		enchantmentKnown = true;
+		unlocked = false;
 		
 		this.secondaryColour = secondaryColour;
 		this.tertiaryColour = tertiaryColour;
@@ -139,6 +141,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 
 		dirty = false;
 		enchantmentKnown = true;
+		unlocked = false;
 
 		this.secondaryColour = secondaryColour;
 		this.tertiaryColour = tertiaryColour;
@@ -170,6 +173,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		this.dirty = clothing.isDirty();
 
 		this.slotEquippedTo = clothing.getSlotEquippedTo();
+		this.unlocked = clothing.isUnlocked();
 		
 		if(!clothing.name.isEmpty()) {
 			this.setName(clothing.name);
@@ -830,31 +834,30 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public String getName(boolean withDeterminer) {
 		return (withDeterminer
 				? (getClothingType().isPlural()
-						? getClothingType().getDeterminer() + " "
-						: (Util.isVowel(getColourName().charAt(0))
-								? "an "
-								: "a "))
-				: "") + getColourName() + " " + getName();
+						? getClothingType().getDeterminer()
+						: UtilText.generateSingularDeterminer(getColourName()))
+				: "")
+				+" "+ getColourName() + " " + getName();
 	}
 	
 	public String getName(boolean withDeterminer, boolean withRarityColour) {
 		if (!enchantmentKnown) {
 			return (withDeterminer
 						? (getClothingType().isPlural()
-								? getClothingType().getDeterminer() + " "
-								: (Util.isVowel(getColourName().charAt(0)) ? "an " : "a "))
+								? getClothingType().getDeterminer()
+								: UtilText.generateSingularDeterminer(getColourName()))
 						: "")
-					+ getColourName()
+					+ " "+getColourName()
 					+ (withRarityColour
 							? (" <span style='color: " + Colour.RARITY_UNKNOWN.toWebHexString() + ";'>" + getName() + "</span>")
 							: " "+getName());
 		} else {
 			return (withDeterminer
 					? (getClothingType().isPlural()
-							? getClothingType().getDeterminer() + " "
-							: (Util.isVowel(getColourName().charAt(0)) ? "an " : "a "))
+							? getClothingType().getDeterminer()
+							: UtilText.generateSingularDeterminer(getColourName()))
 					: "")
-					+ getColourName()
+					+ " "+getColourName()
 					+ (withRarityColour
 							? (" <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>" + getName() + "</span>")
 							: " "+getName());
@@ -1244,6 +1247,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	public boolean isSealed() {
+		if(this.isUnlocked()) {
+			return false;
+		}
 		for(ItemEffect effect : this.getEffects()) {
 			if(effect!=null && effect.getSecondaryModifier()==TFModifier.CLOTHING_SEALING) {
 				return true;
@@ -1254,15 +1260,26 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return false;
 	}
 
+	/**
+	 * <b>Warning:</b> If this clothing is not equipped, and is held in a character's inventory, this method will cause the Map of AbstractClothing in the character's inventory to break.
+	 */
 	public void setSealed(boolean sealed) {
-		// If this clothing is not equipped, adding/removing effects will cause the Map of AbstractClothing in the owner's inventory to break.
 		if(sealed) {
 			this.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_BOOST, 0));
 		} else {
-			this.getEffects().removeIf(e -> e.getSecondaryModifier() == TFModifier.CLOTHING_SEALING);
+			setUnlocked(true);
+//			this.getEffects().removeIf(e -> e.getSecondaryModifier() == TFModifier.CLOTHING_SEALING);
 		}
 	}
+
+	public void setUnlocked(boolean unlocked) {
+		this.unlocked = unlocked;
+	}
 	
+	public boolean isUnlocked() {
+		return unlocked;
+	}
+
 	public int getJinxRemovalCost() {
 		for(ItemEffect effect : this.getEffects()) {
 			if(effect.getSecondaryModifier()==TFModifier.CLOTHING_SEALING) {
