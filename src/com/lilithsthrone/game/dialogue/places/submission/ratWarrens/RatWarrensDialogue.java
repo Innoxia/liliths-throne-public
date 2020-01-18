@@ -127,7 +127,8 @@ public class RatWarrensDialogue {
 		}
 		
 		// Spawn humans:
-		if(Main.game.getCharactersPresent(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM).isEmpty()) {
+		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)
+				&& Main.game.getCharactersPresent(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM).isEmpty()) {
 			try {
 				String[] adjectives = new String[] {"brainwashed", "submissive", "obedient", "docile"};
 				for(int i=0;i<4;i++) {
@@ -1344,26 +1345,33 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
+			StringBuilder sb = new StringBuilder();
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensHostile)) {
 				if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_CHECKPOINT_LEFT) {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)!=Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
-						return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CHECKPOINT_FIGHT", getGuards(true));
+						sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CHECKPOINT_FIGHT", getGuards(true)));
+						
 					} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
-						return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CORRIDOR_CLEARED", getGuards(true));
+						sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CORRIDOR_CLEARED", getGuards(true)));
 					}
 					
 				} else if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_CHECKPOINT_RIGHT) {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)!=Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
-						return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CHECKPOINT_FIGHT", getGuards(true));
+						sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CHECKPOINT_FIGHT", getGuards(true)));
+						
 					} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
-						return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CORRIDOR_CLEARED", getGuards(true));
+						sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CORRIDOR_CLEARED", getGuards(true)));
 					}
 					
 				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
-					return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CORRIDOR_CLEARED", getGuards(true));
+					sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CORRIDOR_CLEARED", getGuards(true)));
 				}
+				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CORRIDOR_HOSTILE_WARNING", getGuards(true)));
+				
+			} else {
+				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CORRIDOR", getGuards(true)));
 			}
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CORRIDOR", getGuards(true));
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -2370,6 +2378,11 @@ public class RatWarrensDialogue {
 					};
 					
 				} else if(index==2 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelSissified)) {
+					if(!Main.game.getNpc(Axel.class).getSexualOrientation().isAttractedToFeminine()
+							&& Main.game.getPlayer().isFeminine()
+							&& !Main.game.isVoluntaryNTREnabled()) {
+						return new Response("Lexa", "Lexa is not attracted to you, so you'd be unable to have sex with her while visiting with Vengar...", null);
+					}
 					return new Response("Lexa", "Join Vengar in paying Lexa an unannounced visit...", LEXA_VISIT) {
 						@Override
 						public void effects() {
@@ -2381,9 +2394,6 @@ public class RatWarrensDialogue {
 							}
 						}
 					};
-					
-				} else if(index==3 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vengarPersuaded)) {
-					return new Response("Footrest", "Submissively get down on all fours and let Vengar use you as a foot-rest again...", null);//TODO
 					
 				} else if(index==0) {
 					return new Response("Leave", "Tell Vengar that you didn't need anything at the moment, but that you might be back some other time.", PlaceType.RAT_WARRENS_CORRIDOR_RIGHT.getDialogue(false)) {
@@ -3317,13 +3327,7 @@ public class RatWarrensDialogue {
 											?"Unlocked from having the '"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"' trait."
 											:"Unlocked from having over 75 unarmed damage."))
 									+ ")]",
-							VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT) {
-						@Override
-						public void effects() {
-							Main.game.getNpc(Silence.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
-							Main.game.getNpc(Shadow.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
-						}
-					};
+							VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT);
 					
 				} else {
 					return new Response("Knock out",
@@ -3436,6 +3440,7 @@ public class RatWarrensDialogue {
 			
 			Main.game.getNpc(Silence.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
 			Main.game.getNpc(Shadow.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
+			Main.game.getNpc(Shadow.class).removeItemByType(ItemType.RESONANCE_STONE);
 			
 			Main.game.getNpc(Axel.class).addSlave(Main.game.getNpc(Vengar.class));
 			Main.game.getNpc(Vengar.class).unequipAllClothingIntoVoid(true, true);
@@ -3471,14 +3476,18 @@ public class RatWarrensDialogue {
 	public static final DialogueNode VENGARS_HALL_APPROACH_SEDUCE = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return 5*60;
 		}
 		@Override
 		public String getContent() {
+			StringBuilder sb = new StringBuilder();
 			if(Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_3)) {
-				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_TELEPATHY");
+				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_TELEPATHY"));
+			} else {
+				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE"));
 			}
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE");
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_END"));
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3536,7 +3545,10 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_NO_SEX");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_NO_SEX"));
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK"));
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3562,7 +3574,10 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX"));
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK"));
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3584,7 +3599,7 @@ public class RatWarrensDialogue {
 	public static final DialogueNode VENGARS_HALL_RESONANCE_STONE = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 2*60;
+			return 5*60;
 		}
 		@Override
 		public String getContent() {
@@ -3593,36 +3608,7 @@ public class RatWarrensDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Stall", "Stall for time while you wait for the Enforcers to show up.", VENGARS_HALL_RESONANCE_STONE_RAID) {
-					@Override
-					public void effects() {
-						Main.game.getNpc(Claire.class).setLocation(Main.game.getPlayer(), false);
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_ENFORCERS));
-					}
-				};
-			}
-			return null;
-		}
-	};
-	
-	public static final DialogueNode VENGARS_HALL_RESONANCE_STONE_RAID = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 10*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_RESONANCE_STONE_RAID");
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Follow", "You don't have much choice but to follow Claire out of the Rat Warrens...", SWORD_RAID_EXIT) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(applyConflictQuestEnd());
-					}
-				};
+				return new Response("Defend", "Defend yourself against the rat-girls!", VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_CHAOS);
 			}
 			return null;
 		}
@@ -3666,8 +3652,7 @@ public class RatWarrensDialogue {
 						"It looks like you'll have to deal with both Silence and her newly-summoned elemental!",
 						Main.game.getNpc(Silence.class),
 						Util.newArrayListOfValues(Main.game.getNpc(Silence.class), Main.game.getNpc(Silence.class).getElemental()),
-						Util.newHashMapOfValues(
-								new Value<>(Main.game.getNpc(Silence.class), ""))); //TODO
+						null);
 			}
 			return null;
 		}
@@ -3695,8 +3680,7 @@ public class RatWarrensDialogue {
 						"It looks like you'll have to deal with an enraged Shadow!",
 						Main.game.getNpc(Shadow.class),
 						Util.newArrayListOfValues(Main.game.getNpc(Shadow.class)),
-						Util.newHashMapOfValues(
-								new Value<>(Main.game.getNpc(Shadow.class), ""))); //TODO
+						null);
 			}
 			return null;
 		}
@@ -3716,10 +3700,7 @@ public class RatWarrensDialogue {
 			if(index==1) {
 				return new ResponseCombat("Vengar",
 						"Now that you've dealt with his bodyguards, you're going to need to take on Vengar himself!",
-						Main.game.getNpc(Vengar.class),
-						Util.newArrayListOfValues(Main.game.getNpc(Vengar.class)),
-						Util.newHashMapOfValues(
-								new Value<>(Main.game.getNpc(Vengar.class), ""))); //TODO
+						Main.game.getNpc(Vengar.class));
 			}
 			return null;
 		}
@@ -3732,20 +3713,16 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
+			if(!Main.game.isNonConEnabled()) {
+				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_DEFEAT_NO_NON_CON");
+			}
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_DEFEAT");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(!Main.game.isNonConEnabled()) {
 				if(index==1) {
-					return new Response("Prepare", "Prepare yourself for whatever is coming!", POST_DEFEAT_SWORD_RAID) {
-						@Override
-						public void effects() {
-							Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
-							Main.game.getNpc(Shadow.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
-							Main.game.getNpc(Silence.class).setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);
-						}
-					};
+					return new Response("Defend", "Defend yourself against the rat-girls!", VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_CHAOS);
 				}
 				
 			} else {
@@ -3766,7 +3743,7 @@ public class RatWarrensDialogue {
 						&& !Main.game.isInvoluntaryNTREnabled()) {
 					return new Response(UtilText.parse(getMainCompanion(), "Save [npc.name]"),
 							UtilText.parse(getMainCompanion(), "Use the last of your energy to hold off the rats long enough for [npc.name] to escape."
-									+ "<br/>[style.italicsMinorGood(Unlocked having the 'Involuntary NTR' content setting turned off."
+									+ "<br/>[style.italicsMinorGood(Unlocked by having the 'Involuntary NTR' content setting turned off."
 										+ " [npc.Name] will safely return home, but the rest of the loss route will proceed as normal.)]"),
 							VengarCaptiveDialogue.FINAL_COMBAT_DEFEAT_STRIPPED) {
 						@Override
@@ -3799,12 +3776,7 @@ public class RatWarrensDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Prepare", "Prepare yourself for whatever is coming!", FINAL_COMBAT_VICTORY_SWORD_RAID) {
-					@Override
-					public void effects() {
-						Main.game.getNpc(Claire.class).setLocation(Main.game.getPlayer(), false);
-					}
-				};
+				return new Response("Defend", "Defend yourself against the rat-girls!", VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_CHAOS);
 			}
 			return null;
 		}
@@ -3825,29 +3797,6 @@ public class RatWarrensDialogue {
 		}
 	};
 	
-	public static final DialogueNode FINAL_COMBAT_VICTORY_SWORD_RAID = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 5*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "FINAL_COMBAT_VICTORY_SWORD_RAID");
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Follow", "You don't have much choice but to follow Claire out of the Rat Warrens...", SWORD_RAID_EXIT) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(applyConflictQuestEnd());
-					}
-				};
-			}
-			return null;
-		}
-	};
-	
 	public static final DialogueNode VENGARS_BEDROOM = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
@@ -3855,9 +3804,6 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().getSexCount(Main.game.getNpc(Vengar.class)).getTotalTimesHadSex()>0) {
-				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_BEDROOM_REPEAT");
-			}
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_BEDROOM");
 		}
 		@Override
@@ -3936,14 +3882,14 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			if(Main.game.getNpc(Axel.class).getSexCount(Main.game.getNpc(Vengar.class)).getTotalTimesHadSex()>0) {
-				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "LEXA_VISIT_REPEAT");
-			}
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "LEXA_VISIT");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
+				if(!Main.game.getNpc(Axel.class).getSexualOrientation().isAttractedToFeminine() && Main.game.getPlayer().isFeminine()) {
+					return new Response("Threesome", "[axel.Name] is only attracted to masculine people, and as such, is unwilling to have sex with you...", null);
+				}
 				return new ResponseSex(
 						"Threesome",
 						"Join Vengar in having dominant sex with [axel.name]...",
@@ -4025,7 +3971,7 @@ public class RatWarrensDialogue {
 		}
 	};
 	
-	// After captivity enforcer raid:
+	// After captivity enforcer raid: TODO
 	
 	public static final DialogueNode POST_CAPTIVITY_SWORD_RAID = new DialogueNode("", "", true) {
 		@Override

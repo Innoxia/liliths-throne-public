@@ -5587,7 +5587,8 @@ public class ClothingType {
 			null,
 			Util.newArrayListOfValues(
 					ItemTag.HINDERS_ARM_MOVEMENT,
-					ItemTag.SOLD_BY_FINCH)){
+					ItemTag.SOLD_BY_FINCH,
+					ItemTag.PROVIDES_KEY)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5648,7 +5649,8 @@ public class ClothingType {
 					ItemTag.SPREADS_FEET,
 					ItemTag.HINDERS_LEG_MOVEMENT,
 					ItemTag.SOLD_BY_FINCH,
-					ItemTag.REVEALS_CONCEALABLE_SLOT)){
+					ItemTag.REVEALS_CONCEALABLE_SLOT,
+					ItemTag.PROVIDES_KEY)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5706,7 +5708,8 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL,
 			Util.newArrayListOfValues(
 					ItemTag.SOLD_BY_FINCH,
-					ItemTag.RIGID_MATERIAL)){
+					ItemTag.RIGID_MATERIAL,
+					ItemTag.PROVIDES_KEY)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5768,7 +5771,8 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL,
 			Util.newArrayListOfValues(
 					ItemTag.SOLD_BY_FINCH,
-					ItemTag.RIGID_MATERIAL)){
+					ItemTag.RIGID_MATERIAL,
+					ItemTag.PROVIDES_KEY)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {

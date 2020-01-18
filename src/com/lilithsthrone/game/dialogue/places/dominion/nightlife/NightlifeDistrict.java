@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.dialogue.places.dominion.nightlife;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -977,10 +979,13 @@ public class NightlifeDistrict {
 				return new Response("Back", "Decide to look for a different gender.", WATERING_HOLE_SEARCH_GENDER);
 			}
 			int count = 1;
-
-			Population pop = Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation();
-			if(pop!=null && !pop.getSpecies().isEmpty()) {
-				for(Subspecies subspecies : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation().getSpecies().keySet()) {
+			
+			Set<Subspecies> subspeciesSet = new HashSet<>();
+			for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
+				subspeciesSet.addAll(pop.getSpecies().keySet());
+			}
+			if(!subspeciesSet.isEmpty()) {
+				for(Subspecies subspecies : subspeciesSet) {
 					if(count==index) {
 						return new Response(Util.capitaliseSentence(subspecies.getName(null)),
 								"Look for "+UtilText.generateSingularDeterminer(subspecies.getName(null))+" "+subspecies.getName(null)+" in amongst the crowds of revellers.",

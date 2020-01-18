@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -47,6 +48,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatBehaviour;
+import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -100,9 +102,11 @@ public class Shadow extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
-		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
 			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")
+				&& !this.hasItemType(ItemType.RESONANCE_STONE)) {
+			this.addItem(AbstractItemType.generateItem(ItemType.RESONANCE_STONE), false);
 		}
 	}
 
@@ -278,6 +282,8 @@ public class Shadow extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_TUBE_TOP, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_wraps", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_SARASHI, Colour.CLOTHING_BLACK, false), true, this);
+
+		this.addItem(AbstractItemType.generateItem(ItemType.RESONANCE_STONE), false);
 		
 //		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_fishnet_gloves", Colour.CLOTHING_GREEN_VERY_DARK, false), true, this);
 //		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_fishnets", Colour.CLOTHING_GREEN_VERY_DARK, false), true, this);
@@ -397,6 +403,15 @@ public class Shadow extends NPC {
 	@Override
 	public CombatBehaviour getCombatBehaviour() {
 		return CombatBehaviour.ATTACK;
+	}
+	
+	@Override
+	public float getMoveWeight(CombatMove move, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		if((move ==CombatMove.getMove("block") || move ==CombatMove.getMove("avert"))
+				&& !Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))) { // Shadow does not block when beserk
+			return 0;
+		}
+		return super.getMoveWeight(move, enemies, allies);
 	}
 
 	@Override

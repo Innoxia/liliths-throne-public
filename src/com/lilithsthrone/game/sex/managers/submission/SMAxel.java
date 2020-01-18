@@ -47,18 +47,13 @@ public class SMAxel extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToStopSex() {
-		return false;
-	}
-	
-	@Override
 	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
-		return false;
+		return character.isPlayer() || !Main.sex.isInForeplay(character);
 	}
 	
 	@Override
 	public boolean isPositionChangingAllowed(GameCharacter character) {
-		return false;
+		return character.isPlayer() || !Main.sex.isInForeplay(character);
 	}
 	
 	@Override
@@ -69,11 +64,4 @@ public class SMAxel extends SexManagerDefault {
 		return character.getForeplayPreference(targetedCharacter);
 	}
 	
-	@Override
-	public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
-		if(Main.sex.isDom(character)) {
-			return character.getForeplayPreference(targetedCharacter);
-		}
-		return character.getMainSexPreference(targetedCharacter);
-	}
 }

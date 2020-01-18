@@ -6,7 +6,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.1
- * @version 0.3.4
+ * @version 0.3.6
  * @author Innoxia
  */
 public enum ItemTag {
@@ -51,6 +51,11 @@ public enum ItemTag {
 	
 	DRESS(false), // For helping to generate clothing in CharacterUtils
 
+	PROVIDES_KEY( // The person whi equips this clothing will get an unlock key, making the removal cost for jinxes equal to 0
+			Util.newArrayListOfValues(
+					"[style.colourGood(Provides equipper with key)]"),
+			false),
+	
 	SPREADS_FEET( // Prevents double foot actions, like wrap-around footjobs
 			Util.newArrayListOfValues(
 					"[style.colourBad(Restricts sex actions)]"),

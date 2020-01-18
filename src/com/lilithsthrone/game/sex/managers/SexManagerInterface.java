@@ -33,6 +33,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.places.Population;
+import com.lilithsthrone.world.places.PopulationType;
 
 /**
  * @since 0.1.0
@@ -381,14 +382,13 @@ public interface SexManagerInterface {
 	}
 
 	public default String getPublicSexStartingDescription() {
-		List<Subspecies> speciesPresent = null;
-		Population pop = Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation();
-		if(pop!=null) {
-			speciesPresent = new ArrayList<>(pop.getSpecies().keySet());
+		Set<Subspecies> subspeciesSet = new HashSet<>();
+		for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
+			subspeciesSet.addAll(pop.getSpecies().keySet());
 		}
-		if(speciesPresent!=null && !speciesPresent.isEmpty()) {
+		if(!subspeciesSet.isEmpty()) {
 			List<Race> racesPresent = new ArrayList<>();
-			for(Subspecies species : speciesPresent) {
+			for(Subspecies species : subspeciesSet) {
 				if(!racesPresent.contains(species.getRace())) {
 					racesPresent.add(species.getRace());
 				}
@@ -418,12 +418,21 @@ public interface SexManagerInterface {
 	}
 	
 	public default String getRandomPublicSexDescription() {
+		boolean enforcersPresent = false;
+		for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
+			if(pop.getType()==PopulationType.ENFORCERS) {
+				enforcersPresent = true;
+				break;
+			}
+		}
 		if(Main.sex.isMasturbation()) {
 			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 						+ UtilText.returnStringAtRandom(
 							"The crowd of onlookers laugh and cheer as they look on.",
 							"You hear someone in the crowd wolf-whistling as they watch you masturbating.",
-							"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance.",
+							enforcersPresent
+								?"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance."
+								:"",
 							"You hear the crowd that's gathered to watch you commenting on your performance.",
 							"Cheering and laughing, the crowd of onlookers watch as you continue masturbating.",
 							"You glance across to see several members of the crowd touching themselves as they watch you go at it.",
@@ -437,7 +446,9 @@ public interface SexManagerInterface {
 							UtilText.returnStringAtRandom(
 								"The crowd of onlookers laugh and cheer as they look on.",
 								"You hear someone in the crowd wolf-whistling as they watch you having sex.",
-								"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance.",
+								enforcersPresent
+									?"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance."
+									:"",
 								"You hear the crowd that's gathered to watch you commenting on your performance.",
 								"You hear the crowd that's gathered to watch you commenting on [npc.namePos] performance.",
 								"Cheering and laughing, the crowd of onlookers watch as you continue having sex with [npc.name].",
@@ -455,7 +466,9 @@ public interface SexManagerInterface {
 						UtilText.returnStringAtRandom(
 							"The crowd of onlookers laugh and cheer as they look on.",
 							"You hear someone in the crowd wolf-whistling as they watch [npc.name] fucking [npc2.name].",
-//							"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to your fun, they join the onlookers in laughing and commenting on your performance.",
+							enforcersPresent
+								?"A pair of Enforcers shove their way through the crowd, but instead of putting a stop to the fun, they join the onlookers in laughing and commenting on your performance."
+								:"",
 							"You hear the crowd that's gathered to watch [npc.name] commenting on [npc.her] performance.",
 							"You hear the crowd that's gathered to watch [npc2.name] commenting on [npc2.her] performance.",
 							"Cheering and laughing, the crowd of onlookers watch as [npc.name] continues having sex with [npc2.name].",
@@ -465,7 +478,6 @@ public interface SexManagerInterface {
 							"Several members of the crowd shout and cheer as [npc.name] and [npc2.name] carry on having sex in front of them.",
 							"Several members of the crowd cheer [npc.name] on as [npc.she] carries on fucking [npc2.name] in front of them."))
 				+"</p>";
-			
 		}
 	}
 	

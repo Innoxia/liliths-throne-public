@@ -24,7 +24,7 @@
 			#ENDIF
 		</p>
 		<p>
-			Unable to keep their hands to themselves, the pair of rats step closer and reach around to grope both your and [npc.namePos] asses. Leaning in to grind up against your companion, [npc3.name] growls, [npc3.speech(Wot's it ta us is that we want a piece o' this sweet ass! Ya goin' ta let us get ya warmed up fer Vengar, ain't ya?)]
+			Unable to keep their hands to themselves, the pair of rats step closer and reach around to grope both your and [npc.namePos] asses. Leaning in to grind up against your [npc.companion], [npc3.name] growls, [npc3.speech(Wot's it ta us is that we want a piece o' this sweet ass! Ya goin' ta let us get ya warmed up fer Vengar, ain't ya?)]
 		</p>
 	#ELSE
 		<p>
@@ -51,7 +51,7 @@
 	<htmlContent tag="ENTRANCE_REPEAT"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Telling the guards that you do indeed have more business with Vengar, you patiently wait as they activate the mechanism to shut the doors behind you, before opening the interior ones to grant you and your companion access to the Rat Warrens.
+			Telling the guards that you do indeed have more business with Vengar, you patiently wait as they activate the mechanism to shut the doors behind you, before opening the interior ones to grant you and your [npc.companion] access to the Rat Warrens.
 		</p>
 		<p>
 			As you step inside, the rats quickly move around in front of you and [npc.name], blocking the way forwards. Narrowing [npc2.her] eyes, [npc2.name] sneers and suspiciously asks, [npc2.speech(So, wot business ya got with Vengar, huh?)]
@@ -82,7 +82,7 @@
 			Reappearing at the hatch, [npc2.name] growls out, [npc2.speech(Right, we's goin' ta let yer in. Just stay there; these inner doors can't open unless them outer ones are shut first. It's security. Ya wouldn't understand, so don' ya be questionin' it.)]
 		</p>
 		<p>
-			Convinced that these two guards don't have the mental capacity to trap you in this hallway, you allow them to activate the mechanism which shuts the doors behind you, and, sure enough, once they're firmly closed, the interior ones slowly open to grant you and your companion access to the Rat Warrens.
+			Convinced that these two guards don't have the mental capacity to trap you in this hallway, you allow them to activate the mechanism which shuts the doors behind you, and, sure enough, once they're firmly closed, the interior ones slowly open to grant you and your [npc.companion] access to the Rat Warrens.
 		</p>
 		<p>
 			As you step inside, the rats quickly move around in front of you and [npc.name], blocking the way forwards. Narrowing [npc2.her] eyes, [npc2.name] sneers and suspiciously asks, [npc2.speech(So, before we let ya get any further, exactly wot business is it ya got with Vengar, huh?)]
@@ -216,7 +216,7 @@
 			#ENDIF
 		</p>
 		<p>
-			Looking across at one another, the pair of rats let devious smiles settle on their faces, and as one, they step forwards and reach around to grope both your and [npc.namePos] asses. Leaning in to grind up against your companion, [npc3.name] growls, [npc3.speech(The boss is real lucky, gettin' ta plough such a sweet ass! Ya goin' ta let us get ya warmed up fer him, ain't ya?)]
+			Looking across at one another, the pair of rats let devious smiles settle on their faces, and as one, they step forwards and reach around to grope both your and [npc.namePos] asses. Leaning in to grind up against your [npc.companion], [npc3.name] growls, [npc3.speech(The boss is real lucky, gettin' ta plough such a sweet ass! Ya goin' ta let us get ya warmed up fer him, ain't ya?)]
 		</p>
 	#ELSE
 		<p>
@@ -268,7 +268,7 @@
 			Thinking that it might be fun to get fucked by these guards, you bite your lip and explain, [pc.speech(You know, that does sound like fun, but at least one of us needs to be unspoiled for Vengar... [npc.Name], you just stand back and watch, ok?)]
 		</p>
 		<p>
-			[npc.speech(Ok,)] your companion replies, stepping away from the two rats before turning to watch.
+			[npc.speech(Ok,)] your [npc.companion] replies, stepping away from the two rats before turning to watch.
 		</p>
 		<p>
 			[npc2.speech(What a horny little slut,)] [npc2.name] groans into your [pc.ear], [npc2.speech(Ya gonna love the feelin' o' my cock!)]
@@ -311,7 +311,7 @@
 		[npc2.speech(What a horny little slut,)] [npc2.name] groans into your [pc.ear], [npc2.speech(Ya gonna love the feelin' o' my cock!)]
 	</p>
 	<p>
-		[npc3.speech(This is gonna be good!)] [npc3.name] [npc3.moans], groping your companion's [npc.ass+] as [npc3.she] grinds up against [npc.herHim].
+		[npc3.speech(This is gonna be good!)] [npc3.name] [npc3.moans], groping your [npc.companion]'s [npc.ass+] as [npc3.she] grinds up against [npc.herHim].
 	</p>
 	<p>
 		Letting out a horny [pc.moan], you tell the two guards that they can do whatever they want with the two of you...
@@ -321,7 +321,7 @@
 	
 	<htmlContent tag="RAT_WARREN_INITIAL_ENTRY_WHORE_COMPANION"><![CDATA[
 	<p>
-		Thinking that it might be fun to watch your companion being fucked by these guards, you bite your lip and explain, [pc.speech(You know, that does sound like fun, but at least one of us needs to be unspoiled for Vengar... [npc.Name], you don't mind letting these two have some fun with you, do you?)]
+		Thinking that it might be fun to watch your [npc.companion] being fucked by these guards, you bite your lip and explain, [pc.speech(You know, that does sound like fun, but at least one of us needs to be unspoiled for Vengar... [npc.Name], you don't mind letting these two have some fun with you, do you?)]
 	</p>
 	<p>
 		#IF(!npc.isAttractedTo(npc2))
@@ -331,7 +331,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[npc2.speech(You horny little slut,)] [npc2.name] groans into your companion's [npc.ear], [npc2.speech(Ya gonna love the feelin' o' my cock!)]
+		[npc2.speech(You horny little slut,)] [npc2.name] groans into your [npc.companion]'s [npc.ear], [npc2.speech(Ya gonna love the feelin' o' my cock!)]
 	</p>
 	<p>
 		[npc3.speech(This is gonna be good!)] [npc3.name] [npc3.moans], groping [npc.namePos] [npc.ass+] as [npc3.she] grinds up against [npc.herHim].
@@ -356,7 +356,7 @@
 		[npc3.speech(Yeah, come back at any time an' we can give yer a real good fuckin' again!)] [npc3.name] laughs, clearly happy with how things turned out.
 	</p>
 	<p>
-		Copying the two rats, you get your things back in order, before stepping over to your companion. Looking across at you, [npc.name] asks, [npc.speech(So, feeling satisfied?)]
+		Copying the two rats, you get your things back in order, before stepping over to your [npc.companion]. Looking across at you, [npc.name] asks, [npc.speech(So, feeling satisfied?)]
 	</p>
 	<p>
 		#IF(pc.isSatisfiedFromLastSex())
@@ -373,13 +373,13 @@
 		Having had their fun, the two guards step back, leaving [npc.name] panting and [npc.moaning] as [npc.she] tries to quickly recover [npc.her] breath.
 	</p>
 	<p>
-		[npc2.speech(Not bad,)] [npc2.name] growls, grinning at your companion as [npc2.she] gets [npc2.her] clothing back in order.
+		[npc2.speech(Not bad,)] [npc2.name] growls, grinning at your [npc.companion] as [npc2.she] gets [npc2.her] clothing back in order.
 	</p>
 	<p>
 		[npc3.speech(Yeah, come back at any time an' we can give yer a real good fuckin' again!)] [npc3.name] laughs, clearly happy with how things turned out.
 	</p>
 	<p>
-		Copying the two rats, [npc.name] gets [npc.her] things back in order, before stepping over to you. Looking across at your companion, you ask, [pc.speech(So, feeling satisfied?)]
+		Copying the two rats, [npc.name] gets [npc.her] things back in order, before stepping over to you. Looking across at your [npc.companion], you ask, [pc.speech(So, feeling satisfied?)]
 	</p>
 	<p>
 		#IF(npc.isSatisfiedFromLastSex())
@@ -429,7 +429,7 @@
 	<htmlContent tag="GUARD_COMBAT_VICTORY"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			You and [npc.name] watch as the last of the rats staggers back, before collapsing to the floor alongside the other five. First making sure that there are no other combatants ready to spring a trap, you and your companion lower your guard and step forwards towards your vanquished foes.
+			You and [npc.name] watch as the last of the rats staggers back, before collapsing to the floor alongside the other five. First making sure that there are no other combatants ready to spring a trap, you and your [npc.companion] lower your guard and step forwards towards your vanquished foes.
 		</p>
 	#ELSE
 		<p>
@@ -462,7 +462,7 @@
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Turning back to address your companion, you say, [pc.speech(You just stand back and keep watch, [npc.name]. I wouldn't want any surprises to interrupt my fun!)]
+			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Turning back to address your [npc.companion], you say, [pc.speech(You just stand back and keep watch, [npc.name]. I wouldn't want any surprises to interrupt my fun!)]
 		</p>
 		<p>
 			Nodding in confirmation, [npc.name] steps back and watches as you step up to [npc2.name] and [pc.moan], [pc.speech(You're hoping to get fucked, huh? I think I can help you with that...)]
@@ -484,7 +484,7 @@
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Turning back to address your companion, you say, [pc.speech(You just stand back and keep watch, [npc.name]. I wouldn't want any surprises to interrupt my fun!)]
+			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Turning back to address your [npc.companion], you say, [pc.speech(You just stand back and keep watch, [npc.name]. I wouldn't want any surprises to interrupt my fun!)]
 		</p>
 		<p>
 			Nodding in confirmation, [npc.name] steps back and watches as you step up to [npc2.name] and softly [pc.moan], [pc.speech(You want some nice gentle fun, hmm? I think I can help you with that...)]
@@ -506,7 +506,7 @@
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a predatory growl as you advance on them with lewd thoughts in your mind. Turning back to address your companion, you say, [pc.speech(You just stand back and keep watch, [npc.name]. I wouldn't want any surprises to interrupt my fun!)]
+			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a predatory growl as you advance on them with lewd thoughts in your mind. Turning back to address your [npc.companion], you say, [pc.speech(You just stand back and keep watch, [npc.name]. I wouldn't want any surprises to interrupt my fun!)]
 		</p>
 		<p>
 			Nodding in confirmation, [npc.name] steps back and watches as you step up to [npc2.name] and snarl, [pc.speech(You want to be fucked like a bitch, huh? I'll give you what you want alright!)]
@@ -528,7 +528,7 @@
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Looking down at the defeated gang members sprawled across the floor, you start to feel a desperate desire to let them reverse the situation and have their way with you. Not wanting your companion to get involved in your scheme, you turn to face [npc.herHim] and say, [pc.speech(I'm going to let these rats have a little fun with me, so you just step back and keep watch until they're finished...)]
+			Looking down at the defeated gang members sprawled across the floor, you start to feel a desperate desire to let them reverse the situation and have their way with you. Not wanting your [npc.companion] to get involved in your scheme, you turn to face [npc.herHim] and say, [pc.speech(I'm going to let these rats have a little fun with me, so you just step back and keep watch until they're finished...)]
 		</p>
 		<p>
 			[npc.speech(If you're sure about this...)] [npc.name] replies, before stepping back and doing as [npc.sheIs] told.
@@ -558,7 +558,7 @@
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GROUP"><![CDATA[
 	<p>
-		Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Turning back to address your companion, you tell [npc.herHim] to join you in having dominant sex with them.
+		Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Turning back to address your [npc.companion], you tell [npc.herHim] to join you in having dominant sex with them.
 	</p>
 	<p>
 		#IF(!npc.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
@@ -568,14 +568,14 @@
 		#ENDIF
 	</p>
 	<p>
-		Stepping up in front of the defeated gang members, you and your companion smirk as they submissively shuffle closer and start begging to be the one who's fucked first...
+		Stepping up in front of the defeated gang members, you and your [npc.companion] smirk as they submissively shuffle closer and start begging to be the one who's fucked first...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GROUP_SUBMIT"><![CDATA[
 	<p>
-		Looking down at the defeated gang members sprawled across the floor, you start to feel a desperate desire to let them reverse the situation and have their way with you and your companion. Turning to face [npc.name], you reveal your plan and tell [npc.herHim] to join you in submitting to them.
+		Looking down at the defeated gang members sprawled across the floor, you start to feel a desperate desire to let them reverse the situation and have their way with you and your [npc.companion]. Turning to face [npc.name], you reveal your plan and tell [npc.herHim] to join you in submitting to them.
 	</p>
 	<p>
 		#IF(!npc.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
@@ -585,7 +585,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Joined by your companion, you step forwards and kneel down beside the group of rats, before asking [npc2.name], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use the two of us however you'd like...)] 
+		Joined by your [npc.companion], you step forwards and kneel down beside the group of rats, before asking [npc2.name], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use the two of us however you'd like...)] 
 	</p>
 	<p>
 		Quick to take advantage of your suggestion, [npc2.name] pushes [npc2.herself] up onto [npc2.her] feet, before asking, [npc2.speech(Are ya fer real? Ya gonna let us fuck ya after beatin' us like that?)]
@@ -598,7 +598,7 @@
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GIVE_TO_COMPANION"><![CDATA[
 	<p>
-		Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as a particularly lewd thought enters your mind. Turning to address your companion, you tell [npc.herHim], [pc.speech(Go on, [npc.name], have sex with them while I watch...)]
+		Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as a particularly lewd thought enters your mind. Turning to address your [npc.companion], you tell [npc.herHim], [pc.speech(Go on, [npc.name], have sex with them while I watch...)]
 	</p>
 	<p>
 		#IF(!npc.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
@@ -608,28 +608,28 @@
 		#ENDIF
 	</p>
 	<p>
-		Stepping up in front of the defeated gang members, your companion smirks as they submissively shuffle closer and start begging to be the one who's fucked first. Stepping back a little, you can't help but let out a [pc.moan] as you prepare to watch [npc.name] fuck all of them at once...
+		Stepping up in front of the defeated gang members, your [npc.companion] smirks as they submissively shuffle closer and start begging to be the one who's fucked first. Stepping back a little, you can't help but let out a [pc.moan] as you prepare to watch [npc.name] fuck all of them at once...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_OFFER_COMPANION"><![CDATA[
 	<p>
-		Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as a particularly lewd thought enters your mind. Turning to address your companion, you tell [npc.herHim], [pc.speech(Go on, [npc.name], submit to them and let them fuck you while I watch...)]
+		Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as a particularly lewd thought enters your mind. Turning to address your [npc.companion], you tell [npc.herHim], [pc.speech(Go on, [npc.name], submit to them and let them fuck you while I watch...)]
 	</p>
 	#IF(!npc.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
 		<p>
 			Letting out an exasperated sigh, [npc.name] mutters, [npc.speech(I don't really have a choice, do I...)]
 		</p>
 		<p>
-			Stepping up in front of the defeated gang members, your companion reluctantly informs the rats that they can do whatever they want to [npc.herHim]. Letting out a chorus of lewd comments, the group immediately advances on [npc.name], and you can't help but let out a [pc.moan] as you prepare to watch [npc.herHim] get fucked by all of them at once...
+			Stepping up in front of the defeated gang members, your [npc.companion] reluctantly informs the rats that they can do whatever they want to [npc.herHim]. Letting out a chorus of lewd comments, the group immediately advances on [npc.name], and you can't help but let out a [pc.moan] as you prepare to watch [npc.herHim] get fucked by all of them at once...
 		</p>
 	#ELSE
 		<p>
 			Letting out an eager [npc.moan], [npc.name] enthusiastically replies, [npc.speech(This is going to be good!)]
 		</p>
 		<p>
-			Stepping up in front of the defeated gang members, your companion lets out a submissive whine before informing the rats that they can do whatever they want to [npc.herHim]. Letting out a chorus of lewd comments, the group immediately advances on [npc.name], and you can't help but let out a [pc.moan] as you prepare to watch [npc.herHim] get fucked by all of them at once...
+			Stepping up in front of the defeated gang members, your [npc.companion] lets out a submissive whine before informing the rats that they can do whatever they want to [npc.herHim]. Letting out a chorus of lewd comments, the group immediately advances on [npc.name], and you can't help but let out a [pc.moan] as you prepare to watch [npc.herHim] get fucked by all of them at once...
 		</p>
 	#ENDIF
 	]]>
@@ -700,7 +700,7 @@
 		</p>
 		#IF(!game.isInvoluntaryNTREnabled())
 			<p>
-				<i>You feel as though you might be able to summon just enough energy to fight the rats off long enough to buy [npc.name] time to escape. [style.italicsSex(This will be your only opportunity to prevent your companion from being used without your consent!)]</i>
+				<i>You feel as though you might be able to summon just enough energy to fight the rats off long enough to buy [npc.name] time to escape. [style.italicsSex(This will be your only opportunity to prevent your [npc.companion] from being used without your consent!)]</i>
 			</p>
 		#ENDIF
 	#ELSE
@@ -738,10 +738,10 @@
 	
 	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_COMPANION_ESCAPE"><![CDATA[
 	<p>
-		Desperately wanting to avoid an unpleasant fate for your companion, you summon the last of your energy and push the rats back, before turning to [npc.name] and shouting, [pc.speech(Get out of here, now!)]
+		Desperately wanting to avoid an unpleasant fate for your [npc.companion], you summon the last of your energy and push the rats back, before turning to [npc.name] and shouting, [pc.speech(Get out of here, now!)]
 	</p>
 	<p>
-		Realising the desperate state you're both in, [npc.name] does as you command, and manages to rush away to safety while you hold the rats off. Only once you feel confident that you've bought enough time for your companion to make a getaway, do you allow your fatigue to wash over you, and, collapsing to the ground ocne more, you're soon grabbed by the rats and pinned to the floor.
+		Realising the desperate state you're both in, [npc.name] does as you command, and manages to rush away to safety while you hold the rats off. Only once you feel confident that you've bought enough time for your [npc.companion] to make a getaway, do you allow your fatigue to wash over you, and, collapsing to the ground once more, you're soon grabbed by the rats and pinned to the floor.
 	</p>
 	<p>
 		[npc2.speech(Ya gonna pay fer that!)] [npc2.name] angrily shouts at you, before turning once again to [npc2.her] subordinates and ordering, [npc2.speech(Yous lot, go let the others know the situation's really been dealt with this time! I'm gonna drag this 'un to Murk! We may have lost [pc.her] friend, but this 'un's gonna be more than enough ta trade with Murk in order to write off me debt.)]
@@ -752,14 +752,14 @@
 	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Hurrying to do as they're told, four of the rats run off into the tunnels to tell the rest of the gang that you and [npc.name] have been dealt with, while the two which remain roughly grab hold of you and your companion and start dragging you off in a different direction. Letting out cruel laugh, [npc2.name] sneers, [npc2.speech(You's gonna love havin' Murk as yer master! I's seen it 'appen a couple o' times now; he's gonna transform the two o' ya into milkin' bitches, an' get yer broken in an' worshippin' 'is cock!)]
+			Hurrying to do as they're told, four of the rats run off into the tunnels to tell the rest of the gang that you and [npc.name] have been dealt with, while the two which remain roughly grab hold of you and your [npc.companion] and start dragging you off in a different direction. Letting out cruel laugh, [npc2.name] sneers, [npc2.speech(You's gonna love havin' Murk as yer master! I's seen it 'appen a couple o' times now; he's gonna transform the two o' ya into milkin' bitches, an' get yer broken in an' worshippin' 'is cock!)]
 		</p>
 		<p>
 			[npc3.speech(That's right,)] [npc3.name] joins in, laughing at the thought of what's going to happen to you, [npc3.speech(Once yer both nothin' but 'is obedient sluts, he'll start rentin' yer out, so all o' us in the gang can come an' 'ave a go fuckin' ya!)]
 		</p>
 		#IF(game.getDialogueFlags().hasFlag(FLAG_murkIntroduced))
 			<p>
-				The rats' taunts and mocking laughter fills the twisting passageways as they continue dragging you and your companion towards your fate at the hands of Murk. Knowing all too well the sort of vile character he is, you know that what the gang members are saying is true, but you aren't given too long to think about your future, as the rats suddenly come to a stop and throw the two of you down to the hard ground.
+				The rats' taunts and mocking laughter fills the twisting passageways as they continue dragging you and your [npc.companion] towards your fate at the hands of Murk. Knowing all too well the sort of vile character he is, you know that what the gang members are saying is true, but you aren't given too long to think about your future, as the rats suddenly come to a stop and throw the two of you down to the hard ground.
 			</p>
 			<p>
 				Looking up, you see that you're once again in the milk storage room, with dozens of metal pails stacked up against the walls. Sitting on his tatty old red sofa, you see Murk staring at you and [npc.name] with a wicked gleam in his eye. Just like the last time you were here, the rat-boy's massive, sheathed cock and huge balls are fully on display, and as he stands up and walks towards you, his disproportionately-large testicles swing ponderously from side to side.
@@ -775,7 +775,7 @@
 			</p>
 		#ELSE
 			<p>
-				The rats' taunts and mocking laughter fills the twisting passageways as they continue dragging you and your companion towards your fate at the hands of this 'Murk' character, whoever he may be. You aren't sure whether the gang members are making all of this up to scare you, but you aren't given too long to think about it, as the rats suddenly come to a stop and throw the two of you down to the hard ground.
+				The rats' taunts and mocking laughter fills the twisting passageways as they continue dragging you and your [npc.companion] towards your fate at the hands of this 'Murk' character, whoever he may be. You aren't sure whether the gang members are making all of this up to scare you, but you aren't given too long to think about it, as the rats suddenly come to a stop and throw the two of you down to the hard ground.
 			</p>
 			<p>
 				Looking up, you see that you're in a relatively small, well-lit room, with the most striking feature being dozens of metal milk-pails stacked up against the walls. Over on the far side of the earth-packed floor, directly ahead of you, there's a collection of old, tatty-looking furniture arrayed next to an old wooden door. A couple of worn, wooden tables are haphazardly surrounded by half a dozen stools and chairs, while pushed up against the far wall are several crates and cabinets. Finishing off this assortment of furnishings is an old, faded, red sofa, which catches your eye both due to its splash of colour, as well as due to there being a greater rat-boy sitting in the middle of it.
@@ -852,13 +852,13 @@
 			Still completely exhausted from your fight, neither you nor [npc.name] are able to put up an effective resistance as the rats set about stripping each of you of all your clothes and belongings. Setting about their task with much enthusiasm, the horny gang members take full advantage of the situation to grope and squeeze every part of your naked bodies. Their lewd comments and hungry growls are broken only by Murk reminding them that all of your possessions are now his, and to place them in a nearby storage crate which he's opened specially for this occasion.
 		</p>
 		<p>
-			Once you and your companion have been completely stripped of all of your flames, clothing, and other belongings, Murk securely locks the crate into which they were placed, before turning to your captors and snarling, [murk.speechNoEffects(Don't think fer a moment that this is goin' towards payin' off yer debts! I ain't gonna be touchin' this stuff we took 'til I get the chance ta discuss it with Vengar, and seein' as me and 'im ain't on the best o' terms right now, that might be a while. Anyways, yous lot just watch over these two while I get their new 'outfits'... Heh-heh-heh...)]
+			Once you and your [npc.companion] have been completely stripped of all of your flames, clothing, and other belongings, Murk securely locks the crate into which they were placed, before turning to your captors and snarling, [murk.speechNoEffects(Don't think fer a moment that this is goin' towards payin' off yer debts! I ain't gonna be touchin' this stuff we took 'til I get the chance ta discuss it with Vengar, and seein' as me and 'im ain't on the best o' terms right now, that might be a while. Anyways, yous lot just watch over these two while I get their new 'outfits'... Heh-heh-heh...)]
 		</p>
 		<p>
 			Chuckling to himself, Murk walks off to the other crates stacked up against the far side of the room, before opening the nearest one and starting to rummage about inside of it. After a moment of being forced to wait down on your knees beside the four rats, you watch as Murk pulls something out of the crate, and as he starts walking back over towards you and [npc.name], you're able to see that he's holding a matching pair of heavy metal collars, each of which is coloured in a very feminine shade of light pink.
 		</p>
 		<p>
-			Dealing with your companion first, the chubby rat-boy locks one of these collars in place around [npc.namePos] neck, before stepping over to you and doing the same. As the jinxed item of clothing locks into place, you feel the effects of the collar's powerful enchantment seeping into your mind and making you unable to bring yourself to either attempt to unjinx it, or use any self-transformative powers you might possess in order to slip out of it.
+			Dealing with your [npc.companion] first, the chubby rat-boy locks one of these collars in place around [npc.namePos] neck, before stepping over to you and doing the same. As the jinxed item of clothing locks into place, you feel the effects of the collar's powerful enchantment seeping into your mind and making you unable to bring yourself to either attempt to unjinx it, or use any self-transformative powers you might possess in order to slip out of it.
 		</p>
 		<p>
 			[murk.speechNoEffects(Hmm, yeah, these two are gonna do nicely,)] Murk muses to himself, before addressing [npc2.name] and continuing, [murk.speechNoEffects(I'll write off yer debts if ya let me keep the two o' 'em. I'm doin' ya a favour 'ere; I'm sure I don't need ta remind ya 'ow much ya owe me!)]
@@ -1271,7 +1271,7 @@
 	<htmlContent tag="GUARD_COMBAT_DEFEAT_STOCKS_AFTER_SEX"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Having had their fun, the two rats step back from you and your companion, bringing an end to your oral sex session. While [npc3.name] is quick to get [npc3.her] clothing back in place and take [npc3.her] leave, [npc2.name] takes a moment to mock you one last time, [npc2.speech(This is wot ya deserve fer tryin' ta fight us! Murk's gonna get ya turned into an obedient bitch beggin' fer 'is fat cock soon enough! I's give ya no more than five days before ya just like the rest o' these milkers; callin' Murk ya master an' pleading fer 'im ta rut ya all day long! Heh-heh-heh!)]
+			Having had their fun, the two rats step back from you and your [npc.companion], bringing an end to your oral sex session. While [npc3.name] is quick to get [npc3.her] clothing back in place and take [npc3.her] leave, [npc2.name] takes a moment to mock you one last time, [npc2.speech(This is wot ya deserve fer tryin' ta fight us! Murk's gonna get ya turned into an obedient bitch beggin' fer 'is fat cock soon enough! I's give ya no more than five days before ya just like the rest o' these milkers; callin' Murk ya master an' pleading fer 'im ta rut ya all day long! Heh-heh-heh!)]
 		</p>
 		<p>
 			With that, [npc2.name] follows [npc2.her] subordinate out of the milking room, leaving you and [npc.name] alone with Murk...
@@ -1364,6 +1364,13 @@
 		#ELSE
 			Although rare, you sometimes encounter one or two rat-morphs, either travelling in the opposite direction, or getting intimate with one another in a dimly-lit hollow. While the ones not too busy with one another sometimes take a moment to question who you are, they don't really seem to care what answer you give, and quickly scurry off on their business. 
 		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR_HOSTILE_WARNING"><![CDATA[
+	<p>
+		[style.italicsBad(The residents of the Rat Warrens have been alerted to your hostile presence, and will likely be plotting to ambush you in certain parts of the tunnels!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1707,7 +1714,7 @@
 	<htmlContent tag="DICE_DEN_RUM_ORAL_COMPANION"><![CDATA[
 	#IF(npc2.hasPenis())
 		<p>
-			Thinking that it would be a good idea for [npc.name] to help you get your flames back, you turn to your companion and say, [pc.speech(Go on, [npc.name]. Suck [npc2.her] cock so that I can get those flames back.)]
+			Thinking that it would be a good idea for [npc.name] to help you get your flames back, you turn to your [npc.companion] and say, [pc.speech(Go on, [npc.name]. Suck [npc2.her] cock so that I can get those flames back.)]
 		</p>
 		<p>
 			#IF(!npc.isAttractedTo(npc2))
@@ -1720,17 +1727,17 @@
 			Letting out a triumphant laugh as [npc2.she] hears what it is the two of you are saying, [npc2.name] looks [npc.name] and commands, [npc2.speech(Get round 'ere then an' drop down onto ya knees. Yer friend 'ere can come round an' watch as well!)]
 		</p>
 		<p>
-			Walking around to the end of the bar, you and [npc.name] step around behind it and move up to [npc2.name]. Doing as [npc.sheIs] told, your companion drops down onto [npc.her] knees in front of the [npc2.race] while you keep your distance and watch.
+			Walking around to the end of the bar, you and [npc.name] step around behind it and move up to [npc2.name]. Doing as [npc.sheIs] told, your [npc.companion] drops down onto [npc.her] knees in front of the [npc2.race] while you keep your distance and watch.
 		</p>
 		<p>
-			[npc2.speech(Get it out then, slut,)] [npc2.name] commands. Doing as [npc.sheIs] told, [npc.name] quickly displaces [npc2.namePos] clothing, and after just a moment, [npc2.her] [npc2.cock+] flops free in front of your companion's face. Impatiently thrusting [npc2.her] hips forwards a little, [npc2.name] continues, [npc2.speech(Get me hard with yer tongue, slut, then ya can take me cock down yer throat.)]
+			[npc2.speech(Get it out then, slut,)] [npc2.name] commands. Doing as [npc.sheIs] told, [npc.name] quickly displaces [npc2.namePos] clothing, and after just a moment, [npc2.her] [npc2.cock+] flops free in front of your [npc.companion]'s face. Impatiently thrusting [npc2.her] hips forwards a little, [npc2.name] continues, [npc2.speech(Get me hard with yer tongue, slut, then ya can take me cock down yer throat.)]
 		</p>
 		<p>
-			Leaning in to [npc2.her] groin, [npc.name] starts licking [npc2.namePos] cock, and is rewarded for [npc.her] efforts as it quickly stiffens to full erectness. Opening wide, [npc.she] then wraps [npc.her] [npc.lips+] around the head, before taking the [npc2.race]'s throbbing length into [npc.her] mouth and down [npc.her] throat. As your companion starts giving [npc2.name] a blowjob, the [npc2.race] [npc2.moans], [npc2.speech(Good slut. Keep this up an' I'll be bustin' a nut down yer throat in no time!)]
+			Leaning in to [npc2.her] groin, [npc.name] starts licking [npc2.namePos] cock, and is rewarded for [npc.her] efforts as it quickly stiffens to full erectness. Opening wide, [npc.she] then wraps [npc.her] [npc.lips+] around the head, before taking the [npc2.race]'s throbbing length into [npc.her] mouth and down [npc.her] throat. As your [npc.companion] starts giving [npc2.name] a blowjob, the [npc2.race] [npc2.moans], [npc2.speech(Good slut. Keep this up an' I'll be bustin' a nut down yer throat in no time!)]
 		</p>
 	#ELSE
 		<p>
-			Thinking that it would be a good idea for [npc.name] to help you get your flames back, you turn to your companion and say, [pc.speech(Go on, [npc.name]. Eat [npc2.herHim] out so that I can get those flames back.)]
+			Thinking that it would be a good idea for [npc.name] to help you get your flames back, you turn to your [npc.companion] and say, [pc.speech(Go on, [npc.name]. Eat [npc2.herHim] out so that I can get those flames back.)]
 		</p>
 		<p>
 			#IF(!npc.isAttractedTo(npc2))
@@ -1743,13 +1750,13 @@
 			Letting out a triumphant laugh as [npc2.she] hears what it is the two of you are saying, [npc2.name] looks [npc.name] and commands, [npc2.speech(Get round 'ere then an' drop down onto ya knees. Yer friend 'ere can come round an' watch as well!)]
 		</p>
 		<p>
-			Walking around to the end of the bar, you and [npc.name] step around behind it and move up to [npc2.name]. Doing as [npc.sheIs] told, your companion drops down onto [npc.her] knees in front of the [npc2.race] while you keep your distance and watch.
+			Walking around to the end of the bar, you and [npc.name] step around behind it and move up to [npc2.name]. Doing as [npc.sheIs] told, your [npc.companion] drops down onto [npc.her] knees in front of the [npc2.race] while you keep your distance and watch.
 		</p>
 		<p>
 			[npc2.speech(Get it out then, slut,)] [npc2.name] commands. Doing as [npc.sheIs] told, [npc.name] quickly displaces [npc2.namePos] clothing in order to gain access to [npc2.her] [npc2.pussy+]. Impatiently thrusting [npc2.her] hips forwards a little, [npc2.name] continues, [npc2.speech(Use yer tongue a bit first, slut, then ya can get tucked in an' start eatin' me out proper.)]
 		</p>
 		<p>
-			Leaning in to the [npc2.race]'s groin, [npc.name] does as [npc.sheIs] instructed and starts licking [npc2.namePos] [npc2.labia+], before teasing [npc2.her] clit with the tip of [npc.her] tongue. Quickly wanting more than what your companion is giving to [npc2.herHim], [npc2.name] suddenly grabs the back of [npc.namePos] head and pulls [npc.herHim] into [npc2.her] groin. Finding [npc.her] lips pressed up against [npc2.namePos] [npc2.pussy+], [npc.name] starts eating [npc2.herHim] out, causing the [npc2.race] to [npc2.moanVerb] out from above, [npc2.speech(That's it, slut! Keep this up an' I'll be squirtin' all over ya face in no time!)]
+			Leaning in to the [npc2.race]'s groin, [npc.name] does as [npc.sheIs] instructed and starts licking [npc2.namePos] [npc2.labia+], before teasing [npc2.her] clit with the tip of [npc.her] tongue. Quickly wanting more than what your [npc.companion] is giving to [npc2.herHim], [npc2.name] suddenly grabs the back of [npc.namePos] head and pulls [npc.herHim] into [npc2.her] groin. Finding [npc.her] lips pressed up against [npc2.namePos] [npc2.pussy+], [npc.name] starts eating [npc2.herHim] out, causing the [npc2.race] to [npc2.moanVerb] out from above, [npc2.speech(That's it, slut! Keep this up an' I'll be squirtin' all over ya face in no time!)]
 		</p>
 	#ENDIF
 	]]>
@@ -1761,15 +1768,15 @@
 	<htmlContent tag="AFTER_DICE_DEN_ORAL_COMPANION"><![CDATA[
 	#IF(npc2.hasPenis())
 		<p>
-			Letting out a satisfied sigh, [npc2.name] makes your companion lick the head of [npc2.her] [npc2.cock+] one last time before pushing [npc.herHim] away and sneering, [npc2.speech(Ya know how ta please a rat's cock, I'll give yer that!)]
+			Letting out a satisfied sigh, [npc2.name] makes your [npc.companion] lick the head of [npc2.her] [npc2.cock+] one last time before pushing [npc.herHim] away and sneering, [npc2.speech(Ya know how ta please a rat's cock, I'll give yer that!)]
 		</p>
 	#ELSE
 		<p>
-			Letting out a satisfied sigh, [npc2.name] makes your companion lick [npc2.her] sopping-wet pussy one last time before pushing [npc.herHim] away and sneering, [npc2.speech(Ya know how ta please a rat's cunt, I'll give yer that!)]
+			Letting out a satisfied sigh, [npc2.name] makes your [npc.companion] lick [npc2.her] sopping-wet pussy one last time before pushing [npc.herHim] away and sneering, [npc2.speech(Ya know how ta please a rat's cunt, I'll give yer that!)]
 		</p>
 	#ENDIF
 	<p>
-		As [npc.name] cleans [npc.herself] up a little, you walk around to the other side of the bar and collect the money which you paid for the glass of rum. After just a moment more, your companion walks around to return to your side, and after throwing [npc.her] a lustful grin, [npc2.name] turns to you and says, [npc2.speech(Ya welcome ta buy another drink whenever ya want! Perhaps next time yer gonna be the one who's down on yer knees, eh?!)]
+		As [npc.name] cleans [npc.herself] up a little, you walk around to the other side of the bar and collect the money which you paid for the glass of rum. After just a moment more, your [npc.companion] walks around to return to your side, and after throwing [npc.her] a lustful grin, [npc2.name] turns to you and says, [npc2.speech(Ya welcome ta buy another drink whenever ya want! Perhaps next time yer gonna be the one who's down on yer knees, eh?!)]
 	</p>
 	<p>
 		With the [npc2.race]'s cackling laughter ringing out over the counter-top, you wonder what to do next...
@@ -1918,7 +1925,7 @@
 	</p>
 	#IF(pc.hasCompanions())
 		<p>
-			Although you and [npc.name] are able to quite quickly catch up with him, Murk's cries end up attracting the attention of numerous rats who, fortuitously for the chubby rat-boy, must have been loitering nearby. As you and your companion come to halt in the passageway and prepare to defend yourselves, Murk cries out, [murk.speechNoEffects(You's lot! These two cunts are tryin' ta attack me! Beat 'em down an' I'll give yer all a free fuck with me milkers!)]
+			Although you and [npc.name] are able to quite quickly catch up with him, Murk's cries end up attracting the attention of numerous rats who, fortuitously for the chubby rat-boy, must have been loitering nearby. As you and your [npc.companion] come to halt in the passageway and prepare to defend yourselves, Murk cries out, [murk.speechNoEffects(You's lot! These two cunts are tryin' ta attack me! Beat 'em down an' I'll give yer all a free fuck with me milkers!)]
 		</p>
 		<p>
 			Obviously liking the sound of Murk's offer, the rats quickly advance on you and [npc.name]. With this new threat demanding all of your attention, Murk shows his cowardly nature once again by slipping past and running off into the tunnels, leaving his comrades to deal with the two of you without his help...
@@ -2129,7 +2136,7 @@
 	
 	<htmlContent tag="MILKING_ROOM_SEX_COMPANION"><![CDATA[
 	<p>
-		Deciding that you want to watch [npc.name] fuck [npc2.name], you move into a position from which you can see everything that's going to be going on and then tell your companion to get to it.
+		Deciding that you want to watch [npc.name] fuck [npc2.name], you move into a position from which you can see everything that's going to be going on and then tell your [npc.companion] to get to it.
 		#IF(!npc.isAttractedTo(npc2))
 			 Letting out a disgruntled sigh, [npc.name] reluctantly moves forwards, muttering, [npc.speech(I suppose I don't have a choice...)]
 		#ELSE
@@ -2144,7 +2151,7 @@
 	
 	<htmlContent tag="MILKING_ROOM_SEX_COMPANION_AFTER_CLEARED"><![CDATA[
 	<p>
-		Deciding that you want to watch [npc.name] fuck [npc2.name], you move into a position from which you can see everything that's going to be going on and then tell your companion to get to it.
+		Deciding that you want to watch [npc.name] fuck [npc2.name], you move into a position from which you can see everything that's going to be going on and then tell your [npc.companion] to get to it.
 		#IF(!npc.isAttractedTo(npc2))
 			 Letting out a disgruntled sigh, [npc.name] reluctantly moves forwards, muttering, [npc.speech(I suppose I don't have a choice...)]
 		#ELSE
@@ -2156,7 +2163,7 @@
 	
 	<htmlContent tag="MILKING_ROOM_SEX_BOTH_AFTER_CLEARED"><![CDATA[
 	<p>
-		Deciding that you want [npc.name] to join you in fucking [npc2.name], you move into a position behind the moaning milker and then tell your companion to move around to [npc2.her] front.
+		Deciding that you want [npc.name] to join you in fucking [npc2.name], you move into a position behind the moaning milker and then tell your [npc.companion] to move around to [npc2.her] front.
 		#IF(!npc.isAttractedTo(npc2))
 			 Letting out a disgruntled sigh, [npc.name] reluctantly moves forwards, muttering, [npc.speech(I suppose I don't have a choice...)]
 		#ELSE
@@ -2190,7 +2197,7 @@
 	</p>
 	#IF(pc.hasCompanions())
 		<p>
-			Murk's cries end up attracting the attention of numerous rats who, fortuitously for the chubby rat-boy, must have been loitering nearby. As you and your companion come to halt in the passageway and prepare to defend yourselves, Murk cries out, [murk.speechNoEffects(You's lot! These two cunts are tryin' ta attack me! Beat 'em down an' I'll give yer all a free fuck with me milkers!)]
+			Murk's cries end up attracting the attention of numerous rats who, fortuitously for the chubby rat-boy, must have been loitering nearby. As you and your [npc.companion] come to halt in the passageway and prepare to defend yourselves, Murk cries out, [murk.speechNoEffects(You's lot! These two cunts are tryin' ta attack me! Beat 'em down an' I'll give yer all a free fuck with me milkers!)]
 		</p>
 		<p>
 			Obviously liking the sound of Murk's offer, the rats quickly advance on you and [npc.name]. With this new threat demanding all of your attention, Murk shows his cowardly nature once again by slipping past and running off into the tunnels, leaving his comrades to deal with the two of you without his help...
@@ -2231,7 +2238,7 @@
 	<htmlContent tag="AFTER_MILKER_SEX"><![CDATA[
 	<p>
 		#IF(pc.hasCompanions())
-			#IF(sex.getDominantParticipants(false).contains(npc))
+			#IF(sex.getDominantParticipants(false).containsKey(npc))
 				Having finished with [npc2.name], you and [npc.name] step away from her and turn towards the exit. Clearly not too happy with having had to watch you and [npc.name] use one of his milkers, Murk spits on the ground and sneers,
 			#ELSE
 				Having finished with [npc2.name], you step away from her and call out for [npc.name] to join you as you turn towards the exit. Clearly not too happy with having had to watch you use one of his milkers, Murk spits on the ground and sneers,
@@ -2473,9 +2480,9 @@
 		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_vengarPersuaded))
 			<p>
 				#IF(game.getDialogueFlags().hasFlag(FLAG_axelSissified))
-					[vengar.speechNoEffects(Well, well, well, if it ain't me subby little [pc.race]! Come back ta 'ave me use ya as a foot rest, have ya?)] Vengar mockingly calls out, while staring hungrily at your body. [vengar.speechNoEffects(Or if ya want ta skip yer 'umiliatin' foreplay, I can go right ta givin' ya a good, 'ard fuck, so just say the word an' we can go back into me bedroom! Or perhaps we can go pay '[axel.name]' a visit together, hmm? Teamin' up ta fuck that 'gator sounds good, don't it?)]
+					[vengar.speechNoEffects(Well, well, well, if it ain't me subby little [pc.race]!)] Vengar mockingly calls out, while staring hungrily at your body. [vengar.speechNoEffects(Ya 'ere ta get a good, 'ard fuckin'? If so, just say the word an' we can go back into me bedroom! Or perhaps we can go pay '[axel.name]' a visit together, hmm? Teamin' up ta fuck that 'gator sounds good, don't it?)]
 				#ELSE
-					[vengar.speechNoEffects(Well, well, well, if it ain't me subby little [pc.race]! Come back ta 'ave me use ya as a foot rest, have ya?)] Vengar mockingly calls out, while staring hungrily at your body. [vengar.speechNoEffects(Or if ya want ta skip yer 'umiliatin' foreplay, I can go right ta givin' ya a good, 'ard fuck, so just say the word an' we can go back into me bedroom!)]
+					[vengar.speechNoEffects(Well, well, well, if it ain't me subby little [pc.race]!)] Vengar mockingly calls out, while staring hungrily at your body. [vengar.speechNoEffects(Ya 'ere ta get a good, 'ard fuckin'? If so, just say the word an' we can go back into me bedroom!)]
 				#ENDIF
 			</p>
 		#ELSE
@@ -2493,16 +2500,16 @@
 				Continuing forwards, you approach the dais upon which Vengar is standing, and as you get nearer, you're able to get a better look at the leader of this gang of rats. Standing at [vengar.heightValue] tall, and covered in dark brown fur, the greater rat-boy holds himself confidently, striking an imposing figure as he looks down at you from his higher vantage point. His short-sleeve shirt is unbuttoned, revealing a pair of muscular pecs and a well-defined six-pack. His arms, too, are very muscular, hinting at an ability to cause significant damage with the brass knuckle dusters clenched in his hands. 
 			</p>
 			<p>
-				[vengar.speechNoEffects(You's thinkin' ya can barge in 'ere an' start causin' trouble without bein' punished for it?!)] Vengar snarls, before stepping to one side to allow a white-furred rat-girl to move forwards towards you. [vengar.speech(This 'ere is Silence; I ain't gonna waste me time beatin' ya down when she's gonna prove ta be more'n a match for ya!)]
+				[vengar.speechNoEffects(You's thinkin' ya can barge in 'ere an' start causin' trouble without bein' punished for it?!)] Vengar snarls, before stepping to one side to allow a white-furred rat-girl to move forwards towards you. [vengar.speechNoEffects(This 'ere is Silence; I ain't gonna waste me time beatin' ya down when she's gonna prove ta be more'n a match for ya!)]
 			</p>
 			<p>
 				Looking up at your designated opponent, you see that not only is the rat-girl's fur a brilliant white, but the skin covering her paw pads, nose, and tail is a ghostly pale colour. It isn't her white fur which draws your attention the most, however, as instead you find yourself marvelling at the fact that her pink eyes are giving off a steady, luminescent glow. This, combined with the fact that she's wearing what appears to be a pink shard of demonstone on a thin chain around her neck, as well as the fact that an ominous green glow starts to appear around her clenched fists, hints at the fact that this rat-girl is an arcane user.
 			</p>
 			<p>
 				#IF(pc.hasCompanions())
-					As her name would suggest, 'Silence' doesn't say a word as she advances on you, leaving Vengar to be the one to taunt, [vengar.speech(Once ya 'ad a taste o' 'er power, I think I's gonna 'ave ya turned into a slutty rat-girl, an' let all me gang members use ya as a public cock-sleeve! Hah!)]
+					As her name would suggest, 'Silence' doesn't say a word as she advances on you, leaving Vengar to be the one to taunt, [vengar.speechNoEffects(Once the two o' ya 'ave 'ad a taste o' 'er power, I think I's gonna #IF(pc.isAbleToHaveRaceTransformed())'ave ya both turned into slutty rat-girls, an' #ENDIFlet all me gang members use ya as public cock-sleeves! Hah!)]
 				#ELSE
-					As her name would suggest, 'Silence' doesn't say a word as she advances on you, leaving Vengar to be the one to taunt, [vengar.speech(Once the two o' ya 'ave 'ad a taste o' 'er power, I think I's gonna 'ave ya both turned into slutty rat-girls, an' let all me gang members use ya as public cock-sleeves! Hah!)]
+					As her name would suggest, 'Silence' doesn't say a word as she advances on you, leaving Vengar to be the one to taunt, [vengar.speechNoEffects(Once ya 'ad a taste o' 'er power, I think I's gonna #IF(pc.isAbleToHaveRaceTransformed())'ave ya turned into a slutty rat-girl, an' #ENDIFlet all me gang members use ya as a public cock-sleeve! Hah!)]
 				#ENDIF
 			</p>
 		#ELSE
@@ -2544,10 +2551,10 @@
 	
 	<htmlContent tag="VENGARS_HALL_FIGHT_SURPRISED_COMPANION"><![CDATA[
 	<p>
-		As you and [npc.name] prepare to fight Silence, you suddenly hear something moving behind you. Too late, you start to turn around, but you're not able to face your unseen assailant before a pair of ghostly green flashes slash downwards and strike your companion fully in the back. Collapsing down under the force of the unexpected strike, [npc.name] is only saved from being instantly defeated thanks to the fact that you throw yourself forwards and drive the shadowy attacker back.
+		As you and [npc.name] prepare to fight Silence, you suddenly hear something moving behind you. Too late, you start to turn around, but you're not able to face your unseen assailant before a pair of ghostly green flashes slash downwards and strike your [npc.companion] fully in the back. Collapsing down under the force of the unexpected strike, [npc.name] is only saved from being instantly defeated thanks to the fact that you throw yourself forwards and drive the shadowy attacker back.
 	</p>
 	<p>
-		Letting out a wounded gasp, your companion turns around to face this new threat, and finds [npc.herself] joining you in staring at a figure who's the complete opposite in appearance to Silence. With fur as black as pitch, and ebony skin covering her paw pads, nose, and tail, there's not a single inch of the maniacally-grinning rat-girl standing before the two of you that isn't as dark as the night sky.
+		Letting out a wounded gasp, your [npc.companion] turns around to face this new threat, and finds [npc.herself] joining you in staring at a figure who's the complete opposite in appearance to Silence. With fur as black as pitch, and ebony skin covering her paw pads, nose, and tail, there's not a single inch of the maniacally-grinning rat-girl standing before the two of you that isn't as dark as the night sky.
 	</p>
 	<p>
 		[shadow.speechNoEffects('Ow impressive, managin' ta free yer little friend from Shadow's lovin' kiss! I do wish [npc.she] would'a made a bit more noise, though; there ain't nothin' betta than hearin' me prey scream as I strike 'em down!)] this 'Shadow' teases, her voice dripping with malice. Lifting her kerambits up into a posture from which she's ready to strike at either one of you for a second time, you see the green glow of Shadow's poisoned ethereal blades lighting up first her black miniskirt, then her equally-dark tube top. Casting a glance across at Silence, this black-furred rat-girl calls out, [shadow.speechNoEffects(Don't ya worry, love, I ain't gonna let any 'arm come ta ya. Let's finish this quick!)]
@@ -2562,7 +2569,7 @@
 	#IF(pc.hasCompanions())
 		#IF(!pc.hasTraitActivated(PERK_OBSERVANT))
 			<p>
-				As you prepare to fight Silence, your companion suddenly notices a dark blur swiftly moving around in [npc.her] peripheral vision. As [npc.she] spins around to face this new threat, you too turn to see what [npc.sheHas] seen, and find yourself staring at a figure who's the complete opposite in appearance to Silence. With fur as black as pitch, and ebony skin covering her paw pads, nose, and tail, there's not a single inch of the maniacally-grinning rat-girl standing before you that isn't as dark as the night sky.
+				As you prepare to fight Silence, your [npc.companion] suddenly notices a dark blur swiftly moving around in [npc.her] peripheral vision. As [npc.she] spins around to face this new threat, you too turn to see what [npc.sheHas] seen, and find yourself staring at a figure who's the complete opposite in appearance to Silence. With fur as black as pitch, and ebony skin covering her paw pads, nose, and tail, there's not a single inch of the maniacally-grinning rat-girl standing before you that isn't as dark as the night sky.
 			</p>
 			<p>
 				[shadow.speechNoEffects('Ow observant of ya, seein' little ol' Shadow movin' around ta give ya a lovin' kiss!)] this 'Shadow' teases, her voice dripping with malice. Dropping her hands to her hips, she unsheathes a pair of keramits; the green glow of their poisoned ethereal blades lights up first Shadow's black miniskirt, then her equally-dark tube top as she lifts the weapons up into a posture from which she's ready to strike at you. Casting a glance across at Silence, this black-furred rat-girl calls out, [shadow.speechNoEffects(Don't ya worry, love, I ain't gonna let any 'arm come ta ya. Let's finish this quick!)]
@@ -2598,7 +2605,7 @@
 	<htmlContent tag="VENGARS_HALL_CHALLENGE"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Wanting to get right to business, you step forwards and tell Vengar that you and [npc.name] are here to defeat him and put an end to his criminal activities. Letting out a mocking laugh, the rat-boy sneers, [vengar.speechNoEffects(You's stupider than ya look! Shadow, Silence! Beat these cheeky fuckers ta the ground! Once they's down, I think I's gonna 'ave 'em turned into slutty rat-girls, an' let all me gang members use 'em as public cock-sleeves! Hah!)]
+			Wanting to get right to business, you step forwards and tell Vengar that you and [npc.name] are here to defeat him and put an end to his criminal activities. Letting out a mocking laugh, the rat-boy sneers, [vengar.speechNoEffects(You's stupider than ya look! Shadow, Silence! Beat these cheeky fuckers ta the ground! Once they's down, I think I's gonna #IF(pc.isAbleToHaveRaceTransformed())'ave 'em turned into slutty rat-girls, an' #ENDIFlet all me gang members use 'em as public cock-sleeves! Hah!)]
 		</p>
 		<p>
 			Obediently moving to obey their leader's command, Shadow and Silence step forwards together. True to her name, the white-furred rat-girl doesn't say a word, leaving her black-furred companion to cruelly sneer, [shadow.speechNoEffects(I's gonna enjoy this! Make sure ta scream fer me, won't ya? It ain't no fun if the two o' ya go down without makin' a noise!)]
@@ -2608,7 +2615,7 @@
 		</p>
 	#ELSE
 		<p>
-			Wanting to get right to business, you step forwards and tell Vengar that you're here to defeat him and put an end to his criminal activities. Letting out a mocking laugh, the rat-boy sneers, [vengar.speechNoEffects(You's stupider than ya look! Shadow, Silence! Beat this cheeky fucker ta the ground! Once [pc.sheIs] down, I think I's gonna 'ave [pc.her] turned into a slutty rat-girl, an' let all me gang members use [pc.herHim] as a public cock-sleeve! Hah!)]
+			Wanting to get right to business, you step forwards and tell Vengar that you're here to defeat him and put an end to his criminal activities. Letting out a mocking laugh, the rat-boy sneers, [vengar.speechNoEffects(You's stupider than ya look! Shadow, Silence! Beat this cheeky fucker ta the ground! Once [pc.sheIs] down, I think I's gonna #IF(pc.isAbleToHaveRaceTransformed())'ave [pc.her] turned into a slutty rat-girl, an' #ENDIFlet all me gang members use [pc.herHim] as a public cock-sleeve! Hah!)]
 		</p>
 		<p>
 			Obediently moving to obey their leader's command, Shadow and Silence step forwards together. True to her name, the white-furred rat-girl doesn't say a word, leaving her black-furred companion to cruelly sneer, [shadow.speechNoEffects(I's gonna enjoy this! Make sure ta scream fer me, won't ya? It ain't no fun if ya go down without makin' a noise!)]
@@ -2645,9 +2652,9 @@
 	<p>
 		Unwilling to either kneel down before Vengar, or pay him the money he's demanding, you choose to simply once again tell him to stop extorting the businesses throughout Submission. As he realises that you're not going to do as he asks, the rat-boy's face turns up into a snarl, and he barks out an order to his bodyguards,
 		#IF(pc.hasCompanions())
-		 [vengar.speechNoEffects(Shadow, Silence! Give these cunts a real good beatin'! Once ya done with 'em, I's gonna turn 'em into slutty rat-girls, an' let all me gang members use 'em as public cock-sleeves! Hah!)]
+		 [vengar.speechNoEffects(Shadow, Silence! Give these cunts a real good beatin'! Once ya done with 'em, I's gonna #IF(pc.isAbleToHaveRaceTransformed())turn 'em into slutty rat-girls, an' #ENDIFlet all me gang members use 'em as public cock-sleeves! Hah!)]
 		#ELSE
-		 [vengar.speechNoEffects(Shadow, Silence! Give this [pc.bitch] a real good beatin'! Once ya done with [pc.herHim], I's gonna turn [pc.herHim] into a slutty rat-girl, an' let all me gang members use [pc.herHim] as public a cock-sleeve! Hah!)]
+		 [vengar.speechNoEffects(Shadow, Silence! Give this [pc.bitch] a real good beatin'! Once ya done with [pc.herHim], I's gonna #IF(pc.isAbleToHaveRaceTransformed())turn [pc.herHim] into a slutty rat-girl, an' #ENDIFlet all me gang members use [pc.herHim] as public a cock-sleeve! Hah!)]
 		#ENDIF
 	</p>
 	<p>
@@ -2693,7 +2700,7 @@
 		[pc.speech(So how do I help you with that?)] you again ask, hoping that Vangar is soon going to get to the point.
 	</p>
 	<p>
-		[vengar.speechNoEffects(Right, well, I's thought o' a plan, ya see, but I was needin' someone 'o could convince Axel ta take part in it. That's where I's needin' someone like yerself,)] the rat-boy says, [vengar.speechNoEffects(There ain't no chance he'd listen to me or any o' me gang members, but if ya can convince that 'gator ta come 'ere an' publicly declare 'is submission ta me, then I's can set me other plans in motion. I's not gonna go inta any details, but trust me when I's sayin' that if me gang sees Axel submit, then I's can be gettin' rid o' the rats what might be prepared ta challenge me leadership. As fer the Enforcers, well, you's just gonna 'ave ta believe me when I's sayin' they won't be no trouble once all this done.)]
+		[vengar.speechNoEffects(Right, well, I's thought o' a plan, ya see, but I was needin' someone 'o could convince Axel ta take part in it. That's where I's needin' someone like yerself,)] the rat-boy says, [vengar.speechNoEffects(There ain't no chance he'd listen to me or any o' me gang members, but if ya can convince that 'gator ta come 'ere an' publicly declare 'is submission ta me, then I's can set me other plans in motion. I's not gonna go inta any details, but trust me when I's sayin' that if me gang sees Axel submit, then I's can be gettin' rid o' the rats what might be prepared ta challenge me leadership. As fer the Enforcers, well, you's just gonna 'ave ta believe me when I's sayin' they won't be no trouble once all this is done.)]
 	</p>
 	<p>
 		[pc.speech(So you want me to convince Axel to come here and publicly submit to you, and then you'll be able to dismantle your gang and turn this place into a legitimate rum distillery?)] you ask.
@@ -2726,7 +2733,7 @@
 			[vengar.speechNoEffects(Once ya shown that yer serious 'bout submittin' ta me, then yeah, I's gonna listen an' think about yer request,)] Vengar snarls, [vengar.speechNoEffects(Now 'urry up an' kneel down before me, an' then I's wantin' ta 'ear the two o' ya tellin me that ya submit!)]
 		</p>
 		<p>
-			Looking across to your companion, you tell [npc.her] to follow your lead, before kneeling down at the base of the dais. Doing as you've instructed, [npc.name] joins you in kneeling before the rat-boy, and then together you both tell him that you submit to him.
+			Looking across to your [npc.companion], you tell [npc.her] to follow your lead, before kneeling down at the base of the dais. Doing as you've instructed, [npc.name] joins you in kneeling before the rat-boy, and then together you both tell him that you submit to him.
 		</p>
 		<p>
 			[vengar.speechNoEffects(Hah! Did ya all 'ear that? These two is sayin' that they's submittin' ta me!)] Vengar exclaims, drawing a deafening response of jeers, taunts, and laughter from all the rats assembled in the hall. After a minute of forcing you to endure this humiliation on your knees, the rat-boy once again raises his hand, silencing the hall and enabling him to speak down to you, [vengar.speechNoEffects(Now show us that ya really mean it; crawl up these steps an' let me use the two o' ya as me footrests fer a while!)]
@@ -2758,9 +2765,9 @@
 	<p>
 		Unwilling to do something so humiliating, you stand up and tell Vengar that he's already gone too far, before telling him once again to stop extorting the businesses throughout Submission. As he realises that you're not going to do as he asks, the rat-boy's face turns up into a snarl, and he barks out an order to his bodyguards,
 		#IF(pc.hasCompanions())
-		 [vengar.speechNoEffects(Shadow, Silence! Give these cunts a real good beatin'! Once ya done with 'em, I's gonna turn 'em into slutty rat-girls, an' let all me gang members use 'em as public cock-sleeves! Hah!)]
+		 [vengar.speechNoEffects(Shadow, Silence! Give these cunts a real good beatin'! Once ya done with 'em, I's gonna #IF(pc.isAbleToHaveRaceTransformed())turn 'em into slutty rat-girls, an' #ENDIFlet all me gang members use 'em as public cock-sleeves! Hah!)]
 		#ELSE
-		 [vengar.speechNoEffects(Shadow, Silence! Give this [pc.bitch] a real good beatin'! Once ya done with [pc.herHim], I's gonna turn [pc.herHim] into a slutty rat-girl, an' let all me gang members use [pc.herHim] as public a cock-sleeve! Hah!)]
+		 [vengar.speechNoEffects(Shadow, Silence! Give this [pc.bitch] a real good beatin'! Once ya done with [pc.herHim], I's gonna #IF(pc.isAbleToHaveRaceTransformed())turn [pc.herHim] into a slutty rat-girl, an' #ENDIFlet all me gang members use [pc.herHim] as public a cock-sleeve! Hah!)]
 		#ENDIF
 	</p>
 	<p>
@@ -2810,7 +2817,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Having already done more than enough to show your submission to him, you think that you could refuse Vengar's demand without risking things getting violent. Then again, if you really wanted to, you could allow him to fuck you in front of everyone in the hall...
+		Having already done more than enough to show your submission to him, you think that you could reasonably refuse Vengar's demand. Then again, if you really wanted to, you could allow him to fuck you in front of everyone in the hall...
 	</p>
 	]]>
 	</htmlContent>
@@ -2821,9 +2828,9 @@
 	</p>
 	<p>
 		#IF(game.isVoluntaryNTREnabled())
-			Seemingly not interested in your companion, Vengar ignores [npc.name] as he continues to roughly fondle and grope your rear-end, before grabbing your hips and pulling you slightly back towards him. Having already done more than enough to show your submission to him, you think that you could refuse Vengar's demand without risking things getting violent. Then again, if you really wanted to, you could allow him to fuck you in front of everyone in the hall...
+			Seemingly not interested in your [npc.companion], Vengar ignores [npc.name] as he continues to roughly fondle and grope your rear-end, before grabbing your hips and pulling you slightly back towards him. Having already done more than enough to show your submission to him, you think that you could reasonably refuse Vengar's demand. Then again, if you really wanted to, you could allow him to fuck you in front of everyone in the hall...
 		#ELSE
-			Not being able to gain access to your companion's #IF(npc.hasVagina())pussy#ELSEasshole#ENDIF, Vengar ignores [npc.name] as he continues to roughly fondle and grope your rear-end, before grabbing your hips and pulling you slightly back towards him. Having already done more than enough to show your submission to him, you think that you could refuse Vengar's demand without risking things getting violent. Then again, if you really wanted to, you could allow him to fuck you in front of everyone in the hall...
+			Not being able to gain access to your [npc.companion]'s #IF(npc.hasVagina())pussy#ELSEasshole#ENDIF, Vengar ignores [npc.name] as he continues to roughly fondle and grope your rear-end, before grabbing your hips and pulling you slightly back towards him. Having already done more than enough to show your submission to him, you think that you could reasonably refuse Vengar's demand. Then again, if you really wanted to, you could allow him to fuck you in front of everyone in the hall...
 		#ENDIF
 	</p>
 	]]>
@@ -2834,14 +2841,14 @@
 		After a while of being humiliated like this, you feel Vengar lifting his feet off of your back, but instead of telling you that you can stand up again, he leans forwards and roughly grabs your ass with both hands. As you let out a shocked gasp, the rat-boy releases his grip and slides his thumb down over your #IF(pc.hasVagina())pussy, pressing down between your [pc.labia+]#ELSEasshole, before pressing down a little#ENDIF and growling, [vengar.speechNoEffects(I's can tell that yer gettin' real turned on by all this! Present yerself ta me, an' I'll give yer the fuckin' yer desperate for, right in front o' everyone else in this 'ere 'all!)]
 	</p>
 	<p>
-		Having already done more than enough to show your submission to him, you think that you could refuse Vengar's demand without risking things getting violent. Then again, if you really wanted to, you could allow him to fuck you in front of everyone in the hall...
+		Having already done more than enough to show your submission to him, you think that you could reasonably refuse Vengar's demand. Then again, if you really wanted to, you could allow him to fuck you in front of everyone in the hall...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="VENGARS_HALL_SUB_SEX_PLAYER_WATCHING"><![CDATA[
 	<p>
-		After a while of being humiliated like this, you feel Vengar lifting his feet off of your back, but instead of telling you that you can stand up again, he leans forwards and roughly grabs your companion's ass with both hands. As [npc.name] lets out a shocked gasp, the rat-boy releases his grip and slides his thumb down over [npc.her] #IF(npc.hasVagina())pussy, pressing down between [npc.her] [npc.labia+]#ELSEasshole, before pressing down a little#ENDIF and growling, [vengar.speechNoEffects(I's can tell that yer gettin' real turned on by all this! Present yerself ta me, an' I'll give yer the fuckin' yer desperate for, right in front o' yer friend an' everyone else in this 'ere 'all!)]
+		After a while of being humiliated like this, you feel Vengar lifting his feet off of your back, but instead of telling you that you can stand up again, he leans forwards and roughly grabs your [npc.companion]'s ass with both hands. As [npc.name] lets out a shocked gasp, the rat-boy releases his grip and slides his thumb down over [npc.her] #IF(npc.hasVagina())pussy, pressing down between [npc.her] [npc.labia+]#ELSEasshole, before pressing down a little#ENDIF and growling, [vengar.speechNoEffects(I's can tell that yer gettin' real turned on by all this! Present yerself ta me, an' I'll give yer the fuckin' yer desperate for, right in front o' yer friend an' everyone else in this 'ere 'all!)]
 	</p>
 	<p>
 		#IF(npc.isAttractedTo(vengar))
@@ -2857,9 +2864,9 @@
 	</p>
 	<p>
 		#IF(!npc.isAttractedTo(vengar) && npc.isAbleToRefuseSexAsCompanion())
-			Having already done more than enough to show your submission to him, you think that you could refuse Vengar's demand without risking things getting violent. As [npc.name] is clearly unwilling to have sex with teh rat-boy, it looks like this is your only option anyhow...
+			Having already done more than enough to show your submission to him, you think that you could reasonably refuse Vengar's demand. As [npc.name] is clearly unwilling to have sex with teh rat-boy, it looks like this is your only option anyhow...
 		#ELSE
-			Having already done more than enough to show your submission to him, you think that you could refuse Vengar's demand without risking things getting violent. Then again, if you really wanted to, you could allow him to fuck your companion in front of everyone in the hall...
+			Having already done more than enough to show your submission to him, you think that you could reasonably refuse Vengar's demand. Then again, if you really wanted to, you could allow him to fuck your [npc.companion] in front of everyone in the hall...
 		#ENDIF
 	</p>
 	]]>
@@ -2882,9 +2889,9 @@
 	<htmlContent tag="VENGARS_HALL_SUB_SEX_REFUSE_WATCH"><![CDATA[
 	<p>
 		#IF(!npc.isAttractedTo(vengar))
-			As [npc.name] is clearly unwilling to have sex with Vengar, you push yourself up onto your feet and tell your companion to do the same, before turning to face the rat-boy and saying, [pc.speech(We've done as you asked, but that's going too far.)]
+			As [npc.name] is clearly unwilling to have sex with Vengar, you push yourself up onto your feet and tell your [npc.companion] to do the same, before turning to face the rat-boy and saying, [pc.speech(We've done as you asked, but that's going too far.)]
 		#ELSE
-			Although [npc.name] is clearly willing to have sex with Vengar, you push yourself up onto your feet and tell your companion to do the same, before turning to face the rat-boy and saying, [pc.speech(We've done as you asked, but that's going too far.)]
+			Although [npc.name] is clearly willing to have sex with Vengar, you push yourself up onto your feet and tell your [npc.companion] to do the same, before turning to face the rat-boy and saying, [pc.speech(We've done as you asked, but that's going too far.)]
 		#ENDIF
 	</p>
 	<p>
@@ -2896,21 +2903,21 @@
 	<htmlContent tag="VENGARS_HALL_SUB_SEX_WATCH"><![CDATA[
 	#IF(!npc.isAttractedTo(vengar))
 		<p>
-			Although [npc.name] quite clearly doesn't want to have sex with Vengar, you think that it would be a bad idea to refuse the rat-boy at this point. Telling your companion to just bear with it, you shuffle to one side and watch as Vengar bends down to growl in [npc.her] ear, [vengar.speechNoEffects(So what ya waitin' for, slut? Present yerself an' get ready ta feel yer cunt bein' fucked by me fat cock!)]
+			Although [npc.name] quite clearly doesn't want to have sex with Vengar, you think that it would be a bad idea to refuse the rat-boy at this point. Telling your [npc.companion] to just bear with it, you shuffle to one side and watch as Vengar bends down to growl in [npc.her] ear, [vengar.speechNoEffects(So what ya waitin' for, slut? Present yerself an' get ready ta feel yer cunt bein' fucked by me fat cock!)]
 		</p>
 		<p>
-			With little choice but to do as [npc.sheIs] told, [npc.name] reluctantly exposes [npc.herself] and lifts [npc.her] [npc.ass+] up to present [npc.her] [npc.pussy+] to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind [npc.name]. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards, but whether it's because they want to get a better view of your companion being fucked, or whether to make sure you don't make a move to interrupt Vengar, you're not quite sure.
+			With little choice but to do as [npc.sheIs] told, [npc.name] reluctantly exposes [npc.herself] and lifts [npc.her] [npc.ass+] up to present [npc.her] [npc.pussy+] to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind [npc.name]. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards, but whether it's because they want to get a better view of your [npc.companion] being fucked, or whether to make sure you don't make a move to interrupt Vengar, you're not quite sure.
 		</p>
 	#ELSE
 		<p>
-			As [npc.name] is quite clearly eager to have sex with Vengar, you decide that it would be best for all parties to give the rat-boy what he wants. Telling your companion to have fun, you shuffle to one side and watch as Vengar bends down to growl in [npc.her] ear, [vengar.speechNoEffects(So what ya waitin' for, slut? Present yerself an' get ready ta feel yer cunt bein' fucked by me fat cock!)]
+			As [npc.name] is quite clearly eager to have sex with Vengar, you decide that it would be best for all parties to give the rat-boy what he wants. Telling your [npc.companion] to have fun, you shuffle to one side and watch as Vengar bends down to growl in [npc.her] ear, [vengar.speechNoEffects(So what ya waitin' for, slut? Present yerself an' get ready ta feel yer cunt bein' fucked by me fat cock!)]
 		</p>
 		<p>
-			More than happy to do as [npc.sheIs] told, [npc.name] quickly exposes [npc.herself] and lifts [npc.her] [npc.ass+] up to present [npc.her] [npc.pussy+] to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind [npc.name]. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards, but whether it's because they want to get a better view of your companion being fucked, or whether to make sure you don't make a move to interrupt Vengar, you're not quite sure.
+			More than happy to do as [npc.sheIs] told, [npc.name] quickly exposes [npc.herself] and lifts [npc.her] [npc.ass+] up to present [npc.her] [npc.pussy+] to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind [npc.name]. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards, but whether it's because they want to get a better view of your [npc.companion] being fucked, or whether to make sure you don't make a move to interrupt Vengar, you're not quite sure.
 		</p>
 	#ENDIF
 	<p>
-		Reaching down to take hold of his [vengar.cock+], Vengar takes a moment to tease the head up and down between [npc.namePos] [npc.labia+], and then, to the shouts of encouragement from all the rats in the hall, he thrusts forwards and fills your companion's [npc.pussyCapacity] pussy with his hard cock...
+		Reaching down to take hold of his [vengar.cock+], Vengar takes a moment to tease the head up and down between [npc.namePos] [npc.labia+], and then, to the shouts of encouragement from all the rats in the hall, he thrusts forwards and fills your [npc.companion]'s [npc.pussyCapacity] pussy with his hard cock...
 	</p>
 	]]>
 	</htmlContent>
@@ -2918,21 +2925,21 @@
 	<htmlContent tag="VENGARS_HALL_SUB_SEX_WATCH_ANAL"><![CDATA[
 	#IF(!npc.isAttractedTo(vengar))
 		<p>
-			Although [npc.name] quite clearly doesn't want to have sex with Vengar, you think that it would be a bad idea to refuse the rat-boy at this point. Telling your companion to just bear with it, you shuffle to one side and watch as Vengar bends down to growl in [npc.her] ear, [vengar.speechNoEffects(So what ya waitin' for, slut? Present yerself an' get ready ta feel yer asshole bein' fucked by me fat cock!)]
+			Although [npc.name] quite clearly doesn't want to have sex with Vengar, you think that it would be a bad idea to refuse the rat-boy at this point. Telling your [npc.companion] to just bear with it, you shuffle to one side and watch as Vengar bends down to growl in [npc.her] ear, [vengar.speechNoEffects(So what ya waitin' for, slut? Present yerself an' get ready ta feel yer asshole bein' fucked by me fat cock!)]
 		</p>
 		<p>
-			With little choice but to do as [npc.sheIs] told, [npc.name] reluctantly exposes [npc.herself] and lifts [npc.her] [npc.hips] up to present [npc.her] [npc.ass+] to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind [npc.name]. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards, but whether it's because they want to get a better view of your companion being fucked, or whether to make sure you don't make a move to interrupt Vengar, you're not quite sure.
+			With little choice but to do as [npc.sheIs] told, [npc.name] reluctantly exposes [npc.herself] and lifts [npc.her] [npc.hips] up to present [npc.her] [npc.ass+] to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind [npc.name]. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards, but whether it's because they want to get a better view of your [npc.companion] being fucked, or whether to make sure you don't make a move to interrupt Vengar, you're not quite sure.
 		</p>
 	#ELSE
 		<p>
-			As [npc.name] is quite clearly eager to have sex with Vengar, you decide that it would be best for all parties to give the rat-boy what he wants. Telling your companion to have fun, you shuffle to one side and watch as Vengar bends down to growl in [npc.her] ear, [vengar.speechNoEffects(So what ya waitin' for, slut? Present yerself an' get ready ta feel yer asshole bein' fucked by me fat cock!)]
+			As [npc.name] is quite clearly eager to have sex with Vengar, you decide that it would be best for all parties to give the rat-boy what he wants. Telling your [npc.companion] to have fun, you shuffle to one side and watch as Vengar bends down to growl in [npc.her] ear, [vengar.speechNoEffects(So what ya waitin' for, slut? Present yerself an' get ready ta feel yer asshole bein' fucked by me fat cock!)]
 		</p>
 		<p>
-			More than happy to do as [npc.sheIs] told, [npc.name] quickly exposes [npc.herself] and lifts [npc.her] [npc.hips] up to present [npc.her] [npc.ass+] to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind [npc.name]. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards, but whether it's because they want to get a better view of your companion being fucked, or whether to make sure you don't make a move to interrupt Vengar, you're not quite sure.
+			More than happy to do as [npc.sheIs] told, [npc.name] quickly exposes [npc.herself] and lifts [npc.her] [npc.hips] up to present [npc.her] [npc.ass+] to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind [npc.name]. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards, but whether it's because they want to get a better view of your [npc.companion] being fucked, or whether to make sure you don't make a move to interrupt Vengar, you're not quite sure.
 		</p>
 	#ENDIF
 	<p>
-		Reaching down to take hold of his [vengar.cock+], Vengar takes a moment to tease the head up and down over [npc.namePos] [npc.asshole+], and then, to the shouts of encouragement from all the rats in the hall, he thrusts forwards and fills your companion's [npc.assCapacity] ass with his hard cock...
+		Reaching down to take hold of his [vengar.cock+], Vengar takes a moment to tease the head up and down over [npc.namePos] [npc.asshole+], and then, to the shouts of encouragement from all the rats in the hall, he thrusts forwards and fills your [npc.companion]'s [npc.assCapacity] ass with his hard cock...
 	</p>
 	]]>
 	</htmlContent>
@@ -2940,7 +2947,7 @@
 	<htmlContent tag="VENGARS_HALL_SUB_SEX_REFUSED"><![CDATA[
 	<p>
 		#IF(pc.hasCompanions())
-			Unwilling to give in to Vengar's outrageous request, you push yourself up onto your feet and tell your companion to do the same, before turning to face the rat-boy and saying, [pc.speech(We've done as you asked, but that's going too far.)]
+			Unwilling to give in to Vengar's outrageous request, you push yourself up onto your feet and tell your [npc.companion] to do the same, before turning to face the rat-boy and saying, [pc.speech(We've done as you asked, but that's going too far.)]
 		#ELSE
 			Unwilling to give in to Vengar's outrageous request, you push yourself up onto your feet, before turning to face the rat-boy and saying, [pc.speech(We've done as you asked, but that's going too far.)]
 		#ENDIF
@@ -2954,10 +2961,10 @@
 	<htmlContent tag="VENGARS_HALL_SUB_SEX_SOLO_START"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Deciding that it would be a bad idea to refuse the rat-boy at this point, you tell your companion to stand back and wait for you to finish. As [npc.name] shuffles to one side and prepares to watch, Vengar bends down to growl in your ear, [vengar.speechNoEffects(So what ya waitin' for, slut? Present yerself an' get ready ta feel yer cunt bein' fucked by me fat cock!)]
+			Deciding that it would be a bad idea to refuse the rat-boy at this point, you tell your [npc.companion] to stand back and wait for you to finish. As [npc.name] shuffles to one side and prepares to watch, Vengar bends down to growl in your ear, [vengar.speechNoEffects(So what ya waitin' for, slut? Present yerself an' get ready ta feel yer cunt bein' fucked by me fat cock!)]
 		</p>
 		<p>
-			With your companion looking on, you expose yourself and lift your [pc.ass+] up to present your [pc.pussy+] to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind you. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards, but whether it's because they want to get a better view of you being fucked, or whether to make sure your companion doesn't make a move to interrupt Vengar, you're not quite sure.
+			With your [npc.companion] looking on, you expose yourself and lift your [pc.ass+] up to present your [pc.pussy+] to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind you. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards, but whether it's because they want to get a better view of you being fucked, or whether to make sure your [npc.companion] doesn't make a move to interrupt Vengar, you're not quite sure.
 		</p>
 	#ELSE
 		<p>
@@ -2976,10 +2983,10 @@
 	<htmlContent tag="VENGARS_HALL_SUB_SEX_SOLO_START_ANAL"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Deciding that it would be a bad idea to refuse the rat-boy at this point, you tell your companion to stand back and wait for you to finish. As [npc.name] shuffles to one side and prepares to watch, Vengar bends down to growl in your ear, [vengar.speechNoEffects(So what ya waitin' for, slut? Present yerself an' get ready ta feel yer asshole bein' fucked by me fat cock!)]
+			Deciding that it would be a bad idea to refuse the rat-boy at this point, you tell your [npc.companion] to stand back and wait for you to finish. As [npc.name] shuffles to one side and prepares to watch, Vengar bends down to growl in your ear, [vengar.speechNoEffects(So what ya waitin' for, slut? Present yerself an' get ready ta feel yer asshole bein' fucked by me fat cock!)]
 		</p>
 		<p>
-			With your companion looking on, you expose yourself and lift your [pc.hips] up to present your [pc.ass+] to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind you. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards, but whether it's because they want to get a better view of you being fucked, or whether to make sure your companion doesn't make a move to interrupt Vengar, you're not quite sure.
+			With your [npc.companion] looking on, you expose yourself and lift your [pc.hips] up to present your [pc.ass+] to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind you. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards, but whether it's because they want to get a better view of you being fucked, or whether to make sure your [npc.companion] doesn't make a move to interrupt Vengar, you're not quite sure.
 		</p>
 	#ELSE
 		<p>
@@ -3001,14 +3008,14 @@
 	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_SEX_DOUBLE_CHOICE"><![CDATA[
 	#IF(!npc.isAttractedTo(vengar))
 		<p>
-			Although [npc.name] quite clearly doesn't want to have sex with Vengar, you think that it would be a bad idea to refuse the rat-boy at this point. Telling your companion to just bear with it, you shuffle up beside [npc.herHim] and listen as Vengar bends down to growl, [vengar.speechNoEffects(So what ya waitin' for, sluts? Present yerselves an' get ready ta feel yer 'oles bein' fucked by me fat cock!)]
+			Although [npc.name] quite clearly doesn't want to have sex with Vengar, you think that it would be a bad idea to refuse the rat-boy at this point. Telling your [npc.companion] to just bear with it, you shuffle up beside [npc.herHim] and listen as Vengar bends down to growl, [vengar.speechNoEffects(So what ya waitin' for, sluts? Present yerselves an' get ready ta feel yer 'oles bein' fucked by me fat cock!)]
 		</p>
 		<p>
 			With little choice but to do as [npc.sheIs] told, [npc.name] reluctantly follows your lead and joins you in exposing [npc.herself] and then lifting [npc.her] [npc.hips] up to present [npc.her] rear end to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind the two of you. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards in order to get a better view of you and [npc.name] being fucked.
 		</p>
 	#ELSE
 		<p>
-			As [npc.name] is quite clearly eager to have sex with Vengar, you decide that it would be best for all parties to give the rat-boy what he wants. Telling your companion to follow your lead, you shuffle up beside [npc.herHim] and listen as Vengar bends down to growl, [vengar.speechNoEffects(So what ya waitin' for, sluts? Present yerselves an' get ready ta feel yer 'oles bein' fucked by me fat cock!)]
+			As [npc.name] is quite clearly eager to have sex with Vengar, you decide that it would be best for all parties to give the rat-boy what he wants. Telling your [npc.companion] to follow your lead, you shuffle up beside [npc.herHim] and listen as Vengar bends down to growl, [vengar.speechNoEffects(So what ya waitin' for, sluts? Present yerselves an' get ready ta feel yer 'oles bein' fucked by me fat cock!)]
 		</p>
 		<p>
 			More than happy to do as [npc.sheIs] told, [npc.name] follows your lead and joins you in exposing [npc.herself] and then lifting [npc.her] [npc.hips] up to present [npc.her] rear end to the dominant rat-boy. Reaching down to his groin, Vengar similarly exposes his genitals, and as his thick, rapidly-hardening cock flops free, he sinks down onto his knees behind the two of you. Silence and Shadow, up until now lurking in the background, choose this moment to step forwards in order to get a better view of you and [npc.name] being fucked.
@@ -3047,11 +3054,11 @@
 				Reaching across to slap [npc.her] ass, Vengar barks out to [npc.name], [vengar.speechNoEffects(Present yerself to yer friend 'ere! I want yer nice an' lubed up so's me cock can slip right inta yer 'ole once I's ready fer ya!)]
 			</p>
 			<p>
-				Moving to obey, your companion crawls around in front of you, before pushing [npc.her] [npc.pussy+] back into your face. As Vengar draws back and starts rhythmically thrusting into
+				Moving to obey, your [npc.companion] crawls around in front of you, before pushing [npc.her] [npc.pussy+] back into your face. As Vengar draws back and starts rhythmically thrusting into
 				#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-					 your [pc.pussy+], you lean forwards and start enthusiastically eating your companion out...
+					 your [pc.pussy+], you lean forwards and start enthusiastically eating your [npc.companion] out...
 				#ELSE
-					 your [pc.asshole+], you lean forwards and start enthusiastically eating your companion out...
+					 your [pc.asshole+], you lean forwards and start enthusiastically eating your [npc.companion] out...
 				#ENDIF
 			</p>
 		#ELSEIF(game.isAnalContentEnabled())
@@ -3059,11 +3066,11 @@
 				Reaching across to slap [npc.her] ass, Vengar barks out to [npc.name], [vengar.speechNoEffects(Present yerself to yer friend 'ere! I want yer nice an' lubed up so's me cock can slip right inta yer 'ole once I's ready fer ya!)]
 			</p>
 			<p>
-				Moving to obey, your companion crawls around in front of you, before pushing [npc.her] [npc.ass+] back into your face. As Vengar draws back and starts rhythmically thrusting into
+				Moving to obey, your [npc.companion] crawls around in front of you, before pushing [npc.her] [npc.ass+] back into your face. As Vengar draws back and starts rhythmically thrusting into
 				#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-					 your [pc.pussy+], you lean forwards and start enthusiastically performing anilingus on your companion...
+					 your [pc.pussy+], you lean forwards and start enthusiastically performing anilingus on your [npc.companion]...
 				#ELSE
-					 your [pc.asshole+], you lean forwards and start enthusiastically performing anilingus on your companion...
+					 your [pc.asshole+], you lean forwards and start enthusiastically performing anilingus on your [npc.companion]...
 				#ENDIF
 			</p>
 		#ELSE
@@ -3092,9 +3099,9 @@
 	<htmlContent tag="VENGARS_HALL_SUB_SEX_BOTH_COMPANION_FIRST"><![CDATA[
 	<p>
 		#IF(npc.hasVagina() && npc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-			Not wanting to go first, you shuffle away from Vengar's cock and let him switch back over to teasing your companion. Looking back, you can't help but let out an exited [pc.moan] as you see the rat-boy grabbing [npc.namePos] hips before slamming his thick shaft deep into [npc.her] hungry cunt.
+			Not wanting to go first, you shuffle away from Vengar's cock and let him switch back over to teasing your [npc.companion]. Looking back, you can't help but let out an exited [pc.moan] as you see the rat-boy grabbing [npc.namePos] hips before slamming his thick shaft deep into [npc.her] hungry cunt.
 		#ELSE
-			Not wanting to go first, you shuffle away from Vengar's cock and let him switch back over to teasing your companion. Looking back, you can't help but let out an exited [pc.moan] as you see the rat-boy grabbing [npc.namePos] hips before slamming his thick shaft deep into [npc.her] hungry asshole.
+			Not wanting to go first, you shuffle away from Vengar's cock and let him switch back over to teasing your [npc.companion]. Looking back, you can't help but let out an exited [pc.moan] as you see the rat-boy grabbing [npc.namePos] hips before slamming his thick shaft deep into [npc.her] hungry asshole.
 		#ENDIF
 	</p>
 	#IF(npc.isAbleToAccessCoverableArea(CA_MOUTH, true))
@@ -3105,9 +3112,9 @@
 			<p>
 				Moving to obey, you crawl around in front of [npc.name], before pushing your [pc.pussy+] back into [npc.her] face. As Vengar draws back and starts rhythmically thrusting into
 				#IF(npc.hasVagina() && npc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-					 your companion's [npc.pussy+], you feel [npc.herHim] lean forwards and start to enthusiastically eat you out...
+					 your [npc.companion]'s [npc.pussy+], you feel [npc.herHim] lean forwards and start to enthusiastically eat you out...
 				#ELSE
-					 your companion's [npc.asshole+], you feel [npc.herHim] lean forwards and start to enthusiastically eat you out...
+					 your [npc.companion]'s [npc.asshole+], you feel [npc.herHim] lean forwards and start to enthusiastically eat you out...
 				#ENDIF
 			</p>
 		#ELSEIF(game.isAnalContentEnabled())
@@ -3117,18 +3124,18 @@
 			<p>
 				Moving to obey, you crawl around in front of [npc.name], before pushing your [pc.ass+] back into [npc.her] face. As Vengar draws back and starts rhythmically thrusting into
 				#IF(npc.hasVagina() && npc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-					 your companion's [npc.pussy+], you feel [npc.herHim] lean forwards and start to enthusiastically perform anilingus on you...
+					 your [npc.companion]'s [npc.pussy+], you feel [npc.herHim] lean forwards and start to enthusiastically perform anilingus on you...
 				#ELSE
-					 your companion's [npc.asshole+], you feel [npc.herHim] lean forwards and start to enthusiastically perform anilingus on you...
+					 your [npc.companion]'s [npc.asshole+], you feel [npc.herHim] lean forwards and start to enthusiastically perform anilingus on you...
 				#ENDIF
 			</p>
 		#ELSE
 			<p>
 				With little else to do but wait your turn, you watch as Vengar pulls back and starts rhythmically thrusting into
 				#IF(npc.hasVagina() && npc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-					 your companion's [npc.pussy+]...
+					 your [npc.companion]'s [npc.pussy+]...
 				#ELSE
-					 your companion's [npc.asshole+]...
+					 your [npc.companion]'s [npc.asshole+]...
 				#ENDIF
 			</p>
 		#ENDIF
@@ -3136,9 +3143,9 @@
 		<p>
 			With little else to do but wait your turn, you watch as Vengar pulls back and starts rhythmically thrusting into
 			#IF(npc.hasVagina() && npc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				 your companion's [npc.pussy+]...
+				 your [npc.companion]'s [npc.pussy+]...
 			#ELSE
-				 your companion's [npc.asshole+]...
+				 your [npc.companion]'s [npc.asshole+]...
 			#ENDIF
 		</p>
 	#ENDIF
@@ -3153,12 +3160,12 @@
 		#IF(npc.hasVagina() && npc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 			[npc.Name] lets out a deep, satisfied sigh as Vengar slides his thick cock out of her well-fucked and creampied cunt.
 			#IF(npc.isVisiblyPregnant())
-				 Grinning at his handiwork, Vengar delivers a sharp slap to your companion's ass, before growling, [vengar.speechNoEffects(Ya cunt was made fer takin' rat cock! Now get out me way; it's time fer ya friend's turn!)]
+				 Grinning at his handiwork, Vengar delivers a sharp slap to your [npc.companion]'s ass, before growling, [vengar.speechNoEffects(Ya cunt was made fer takin' rat cock! Now get out me way; it's time fer ya friend's turn!)]
 			#ELSE
-				 Grinning at his handiwork, Vengar delivers a sharp slap to your companion's ass, before growling, [vengar.speechNoEffects('Opefully all that potent jizz I's stuffed inta yer 'ungry cunt is gonna get ya knocked up! Now get out me way; it's time fer ya friend's turn!)]
+				 Grinning at his handiwork, Vengar delivers a sharp slap to your [npc.companion]'s ass, before growling, [vengar.speechNoEffects('Opefully all that potent jizz I's stuffed inta yer 'ungry cunt is gonna get ya knocked up! Now get out me way; it's time fer ya friend's turn!)]
 			#ENDIF
 		#ELSE
-			[npc.Name] lets out a deep, satisfied sigh as Vengar slides his thick cock out of her well-fucked and creampied asshole. Grinning at his handiwork, Vengar delivers a sharp slap to your companion's ass, before growling, [vengar.speechNoEffects(Yer slutty butt was made fer takin' rat cock! Now get out me way; it's time fer ya friend's turn!)]
+			[npc.Name] lets out a deep, satisfied sigh as Vengar slides his thick cock out of her well-fucked and creampied asshole. Grinning at his handiwork, Vengar delivers a sharp slap to your [npc.companion]'s ass, before growling, [vengar.speechNoEffects(Yer slutty butt was made fer takin' rat cock! Now get out me way; it's time fer ya friend's turn!)]
 		#ENDIF
 	</p>
 	<p>
@@ -3207,12 +3214,12 @@
 	<p>
 		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
 			#IF(npc.hasVagina() && npc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				Planting one last wet kiss on [npc.namePos] saliva-coated [npc.labia], you obediently crawl to one side, allowing Vengar to shuffle up behind your companion. Reaching down, he wastes no time in sliding two of his fingers into [npc.her] [npc.pussy+], coaxing [npc.a_moan+] out from between [npc.her] lips. Quickly withdrawing his digits, he moves forwards and starts teasing the cum-coated head of his cock up against [npc.namePos] wet pussy, 
+				Planting one last wet kiss on [npc.namePos] saliva-coated [npc.labia], you obediently crawl to one side, allowing Vengar to shuffle up behind your [npc.companion]. Reaching down, he wastes no time in sliding two of his fingers into [npc.her] [npc.pussy+], coaxing [npc.a_moan+] out from between [npc.her] lips. Quickly withdrawing his digits, he moves forwards and starts teasing the cum-coated head of his cock up against [npc.namePos] wet pussy, 
 			#ELSE
-				Planting one last wet kiss on [npc.namePos] saliva-coated asshole, you obediently crawl to one side, allowing Vengar to shuffle up behind your companion. Reaching down, he wastes no time in sliding two of his fingers into [npc.her] [npc.ass+], coaxing [npc.a_moan+] out from between [npc.her] lips. Quickly withdrawing his digits, he moves forwards and starts teasing the cum-coated head of his cock up against [npc.namePos] wet asshole, 
+				Planting one last wet kiss on [npc.namePos] saliva-coated asshole, you obediently crawl to one side, allowing Vengar to shuffle up behind your [npc.companion]. Reaching down, he wastes no time in sliding two of his fingers into [npc.her] [npc.ass+], coaxing [npc.a_moan+] out from between [npc.her] lips. Quickly withdrawing his digits, he moves forwards and starts teasing the cum-coated head of his cock up against [npc.namePos] wet asshole, 
 			#ENDIF
 		#ELSE
-			Letting out another satisfied sigh, you obediently crawl to one side, allowing Vengar to shuffle up behind your companion.
+			Letting out another satisfied sigh, you obediently crawl to one side, allowing Vengar to shuffle up behind your [npc.companion].
 			#IF(npc.hasVagina() && npc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 				 Reaching down, he wastes no time in sliding two of his fingers deep into [npc.her] [npc.pussy+], coaxing [npc.a_moan+] out from between [npc.her] lips. Quickly withdrawing his digits, he moves forwards and starts teasing the cum-coated head of his cock up against [npc.namePos] hungry pussy, 
 			#ELSE
@@ -3242,9 +3249,9 @@
 			</p>
 			<p>
 				#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-					Craning your neck forwards, you do as Vengar says and start licking his cum out of [npc.namePos] freshly-creampied pussy. From behind, you hear the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes you to jolt forwards, and you end up letting out a muffled [pc.moan] into your companion's cum-stuffed pussy as you feel the rat-boy's thick cock pushing its way into your [pc.pussyCapacity] cunt. With a firm grip on your hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' the inside o' yer cunt white with me thick rat jizz!)]
+					Craning your neck forwards, you do as Vengar says and start licking his cum out of [npc.namePos] freshly-creampied pussy. From behind, you hear the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes you to jolt forwards, and you end up letting out a muffled [pc.moan] into your [npc.companion]'s cum-stuffed pussy as you feel the rat-boy's thick cock pushing its way into your [pc.pussyCapacity] cunt. With a firm grip on your hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' the inside o' yer cunt white with me thick rat jizz!)]
 				#ELSE
-					Craning your neck forwards, you do as Vengar says and start licking his cum out of [npc.namePos] freshly-creampied pussy. From behind, you hear the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes you to jolt forwards, and you end up letting out a muffled [pc.moan] into your companion's cum-stuffed pussy as you feel the rat-boy's thick cock pushing its way into your [pc.assCapacity] asshole. With a firm grip on your hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' yer insides white with me thick rat jizz!)]
+					Craning your neck forwards, you do as Vengar says and start licking his cum out of [npc.namePos] freshly-creampied pussy. From behind, you hear the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes you to jolt forwards, and you end up letting out a muffled [pc.moan] into your [npc.companion]'s cum-stuffed pussy as you feel the rat-boy's thick cock pushing its way into your [pc.assCapacity] asshole. With a firm grip on your hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' yer insides white with me thick rat jizz!)]
 				#ENDIF
 			</p>
 		#ELSEIF(game.isAnalContentEnabled())
@@ -3253,9 +3260,9 @@
 			</p>
 			<p>
 				#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-					Craning your neck forwards, you do as Vengar says and start licking his cum out of [npc.namePos] freshly-creampied ass. From behind, you hear the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes you to jolt forwards, and you end up letting out a muffled [pc.moan] into your companion's cum-stuffed ass as you feel the rat-boy's thick cock pushing its way into your [pc.pussyCapacity] cunt. With a firm grip on your hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' the inside o' yer cunt white with me thick rat jizz!)]
+					Craning your neck forwards, you do as Vengar says and start licking his cum out of [npc.namePos] freshly-creampied ass. From behind, you hear the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes you to jolt forwards, and you end up letting out a muffled [pc.moan] into your [npc.companion]'s cum-stuffed ass as you feel the rat-boy's thick cock pushing its way into your [pc.pussyCapacity] cunt. With a firm grip on your hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' the inside o' yer cunt white with me thick rat jizz!)]
 				#ELSE
-					Craning your neck forwards, you do as Vengar says and start licking his cum out of [npc.namePos] freshly-creampied ass. From behind, you hear the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes you to jolt forwards, and you end up letting out a muffled [pc.moan] into your companion's cum-stuffed ass as you feel the rat-boy's thick cock pushing its way into your [pc.assCapacity] butt. With a firm grip on your hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' yer insides white with me thick rat jizz!)]
+					Craning your neck forwards, you do as Vengar says and start licking his cum out of [npc.namePos] freshly-creampied ass. From behind, you hear the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes you to jolt forwards, and you end up letting out a muffled [pc.moan] into your [npc.companion]'s cum-stuffed ass as you feel the rat-boy's thick cock pushing its way into your [pc.assCapacity] butt. With a firm grip on your hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' yer insides white with me thick rat jizz!)]
 				#ENDIF
 			</p>
 		#ELSE
@@ -3289,47 +3296,47 @@
 	#IF(npc.isAbleToAccessCoverableArea(CA_MOUTH, true))
 		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 			<p>
-				Obeying Vengar's command, you shuffle around in front of [npc.name], before presenting [npc.herHim] with your cum-dripping pussy. From behind your companion, the rat-boy looks down and growls out, [vengar.speechNoEffects(Get to it, slut, I's wantin' ta see ya lickin' up me cum while I's fuckin' ya from behind!)]
+				Obeying Vengar's command, you shuffle around in front of [npc.name], before presenting [npc.herHim] with your cum-dripping pussy. From behind your [npc.companion], the rat-boy looks down and growls out, [vengar.speechNoEffects(Get to it, slut, I's wantin' ta see ya lickin' up me cum while I's fuckin' ya from behind!)]
 			</p>
 			<p>
 				#IF(npc.hasVagina() && npc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-					Craning [npc.her] neck forwards, [npc.name] does as Vengar says and starts licking his cum out of your freshly-creampied pussy. Grinning down at your companion, the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes [npc.name] to jolt forwards, and [npc.she] ends up letting out a muffled [npc.moan] into your cum-stuffed pussy as the rat-boy's thick cock pushes its way into [npc.her] [npc.pussyCapacity] cunt. With a firm grip on your companion's hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' the inside o' yer cunt white with me thick rat jizz!)]
+					Craning [npc.her] neck forwards, [npc.name] does as Vengar says and starts licking his cum out of your freshly-creampied pussy. Grinning down at your [npc.companion], the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes [npc.name] to jolt forwards, and [npc.she] ends up letting out a muffled [npc.moan] into your cum-stuffed pussy as the rat-boy's thick cock pushes its way into [npc.her] [npc.pussyCapacity] cunt. With a firm grip on your [npc.companion]'s hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' the inside o' yer cunt white with me thick rat jizz!)]
 				#ELSE
-					Craning [npc.her] neck forwards, [npc.name] does as Vengar says and starts licking his cum out of your freshly-creampied pussy. Grinning down at your companion, the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes [npc.name] to jolt forwards, and [npc.she] ends up letting out a muffled [npc.moan] into your cum-stuffed pussy as the rat-boy's thick cock pushes its way into [npc.her] [npc.assCapacity] ass. With a firm grip on your companion's hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' yer insides white with me thick rat jizz!)]
+					Craning [npc.her] neck forwards, [npc.name] does as Vengar says and starts licking his cum out of your freshly-creampied pussy. Grinning down at your [npc.companion], the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes [npc.name] to jolt forwards, and [npc.she] ends up letting out a muffled [npc.moan] into your cum-stuffed pussy as the rat-boy's thick cock pushes its way into [npc.her] [npc.assCapacity] ass. With a firm grip on your [npc.companion]'s hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' yer insides white with me thick rat jizz!)]
 				#ENDIF
 			</p>
 		#ELSEIF(game.isAnalContentEnabled())
 			<p>
-				Obeying Vengar's command, you shuffle around in front of [npc.name], before presenting [npc.herHim] with your cum-dripping asshole. From behind your companion, the rat-boy looks down and growls out, [vengar.speechNoEffects(Get to it, slut, I's wantin' ta see ya lickin' up me cum while I's fuckin' ya from behind!)]
+				Obeying Vengar's command, you shuffle around in front of [npc.name], before presenting [npc.herHim] with your cum-dripping asshole. From behind your [npc.companion], the rat-boy looks down and growls out, [vengar.speechNoEffects(Get to it, slut, I's wantin' ta see ya lickin' up me cum while I's fuckin' ya from behind!)]
 			</p>
 			<p>
 				#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-					Craning [npc.her] neck forwards, [npc.name] does as Vengar says and starts licking his cum out of your freshly-creampied asshole. Grinning down at your companion, the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes [npc.name] to jolt forwards, and [npc.she] ends up letting out a muffled [npc.moan] into your cum-stuffed ass as the rat-boy's thick cock pushes its way into [npc.her] [npc.pussyCapacity] cunt. With a firm grip on your companion's hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' the inside o' yer cunt white with me thick rat jizz!)]
+					Craning [npc.her] neck forwards, [npc.name] does as Vengar says and starts licking his cum out of your freshly-creampied asshole. Grinning down at your [npc.companion], the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes [npc.name] to jolt forwards, and [npc.she] ends up letting out a muffled [npc.moan] into your cum-stuffed ass as the rat-boy's thick cock pushes its way into [npc.her] [npc.pussyCapacity] cunt. With a firm grip on your [npc.companion]'s hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' the inside o' yer cunt white with me thick rat jizz!)]
 				#ELSE
-					Craning [npc.her] neck forwards, [npc.name] does as Vengar says and starts licking his cum out of your freshly-creampied asshole. Grinning down at your companion, the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes [npc.name] to jolt forwards, and [npc.she] ends up letting out a muffled [npc.moan] into your cum-stuffed ass as the rat-boy's thick cock pushes its way into [npc.her] [npc.assCapacity] butt. With a firm grip on your companion's hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' yer insides white with me thick rat jizz!)]
+					Craning [npc.her] neck forwards, [npc.name] does as Vengar says and starts licking his cum out of your freshly-creampied asshole. Grinning down at your [npc.companion], the rat-boy let out an approving growl, which is quickly followed by a rough thrust forwards of his hips. The sudden movement causes [npc.name] to jolt forwards, and [npc.she] ends up letting out a muffled [npc.moan] into your cum-stuffed ass as the rat-boy's thick cock pushes its way into [npc.her] [npc.assCapacity] butt. With a firm grip on your [npc.companion]'s hips, the gang leader calls out, [vengar.speechNoEffects(Yer friend 'ere did a good job o' lubin' ya up! It won't take me long before I's paintin' yer insides white with me thick rat jizz!)]
 				#ENDIF
 			</p>
 		#ELSE
 			<p>
-				With nothing more to do, you shuffle to one side and look on as [npc.name] prepares to get fucked by Vengar. From behind your companion, the rat-boy looks down and growls, [vengar.speechNoEffects(You's ready ta find out why yer friend was moanin' so much? Ya gonna love the feelin' o' gettin' pounded by me fat cock from behind!)]
+				With nothing more to do, you shuffle to one side and look on as [npc.name] prepares to get fucked by Vengar. From behind your [npc.companion], the rat-boy looks down and growls, [vengar.speechNoEffects(You's ready ta find out why yer friend was moanin' so much? Ya gonna love the feelin' o' gettin' pounded by me fat cock from behind!)]
 			</p>
 			<p>
 				#IF(npc.hasVagina() && npc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-					Before [npc.she] can respond, the rat-bot suddenly thrusts his hips forwards, causing [npc.name] to let out [npc.a_moan+] as [npc.she] feels the rat-boy's thick cock pushing its way into [npc.her] [npc.pussy+]. With a tight grip on your companion's hips, the gang leader calls out, [vengar.speechNoEffects(Yer pussy was made ta take me thick rat cock! It won't take me long before I's paintin' the inside o' yer cunt white with me thick rat jizz!)]
+					Before [npc.she] can respond, the rat-bot suddenly thrusts his hips forwards, causing [npc.name] to let out [npc.a_moan+] as [npc.she] feels the rat-boy's thick cock pushing its way into [npc.her] [npc.pussy+]. With a tight grip on your [npc.companion]'s hips, the gang leader calls out, [vengar.speechNoEffects(Yer pussy was made ta take me thick rat cock! It won't take me long before I's paintin' the inside o' yer cunt white with me thick rat jizz!)]
 				#ELSE
-					Before [npc.she] can respond, the rat-bot suddenly thrusts his hips forwards, causing [npc.name] to let out [npc.a_moan+] as [npc.she] feels the rat-boy's thick cock pushing its way into [npc.her] [npc.asshole+]. With a tight grip on your companion's hips, the gang leader calls out, [vengar.speechNoEffects(Yer butt was made ta take me thick rat cock! It won't take me long before I's paintin' yer insides white with me thick rat jizz!)]
+					Before [npc.she] can respond, the rat-bot suddenly thrusts his hips forwards, causing [npc.name] to let out [npc.a_moan+] as [npc.she] feels the rat-boy's thick cock pushing its way into [npc.her] [npc.asshole+]. With a tight grip on your [npc.companion]'s hips, the gang leader calls out, [vengar.speechNoEffects(Yer butt was made ta take me thick rat cock! It won't take me long before I's paintin' yer insides white with me thick rat jizz!)]
 				#ENDIF
 			</p>
 		#ENDIF
 	#ELSE
 		<p>
-			With nothing more to do, you shuffle to one side and look on as [npc.name] prepares to get fucked by Vengar. From behind your companion, the rat-boy looks down and growls, [vengar.speechNoEffects(You's ready ta find out why yer friend was moanin' so much? Ya gonna love the feelin' o' gettin' pounded by me fat cock from behind!)]
+			With nothing more to do, you shuffle to one side and look on as [npc.name] prepares to get fucked by Vengar. From behind your [npc.companion], the rat-boy looks down and growls, [vengar.speechNoEffects(You's ready ta find out why yer friend was moanin' so much? Ya gonna love the feelin' o' gettin' pounded by me fat cock from behind!)]
 		</p>
 		<p>
 			#IF(npc.hasVagina() && npc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				Before [npc.she] can respond, the rat-bot suddenly thrusts his hips forwards, causing [npc.name] to let out [npc.a_moan+] as [npc.she] feels the rat-boy's thick cock pushing its way into [npc.her] [npc.pussy+]. With a tight grip on your companion's hips, the gang leader calls out, [vengar.speechNoEffects(Yer pussy was made ta take me thick rat cock! It won't take me long before I's paintin' the inside o' yer cunt white with me thick rat jizz!)]
+				Before [npc.she] can respond, the rat-bot suddenly thrusts his hips forwards, causing [npc.name] to let out [npc.a_moan+] as [npc.she] feels the rat-boy's thick cock pushing its way into [npc.her] [npc.pussy+]. With a tight grip on your [npc.companion]'s hips, the gang leader calls out, [vengar.speechNoEffects(Yer pussy was made ta take me thick rat cock! It won't take me long before I's paintin' the inside o' yer cunt white with me thick rat jizz!)]
 			#ELSE
-				Before [npc.she] can respond, the rat-bot suddenly thrusts his hips forwards, causing [npc.name] to let out [npc.a_moan+] as [npc.she] feels the rat-boy's thick cock pushing its way into [npc.her] [npc.asshole+]. With a tight grip on your companion's hips, the gang leader calls out, [vengar.speechNoEffects(Yer butt was made ta take me thick rat cock! It won't take me long before I's paintin' yer insides white with me thick rat jizz!)]
+				Before [npc.she] can respond, the rat-bot suddenly thrusts his hips forwards, causing [npc.name] to let out [npc.a_moan+] as [npc.she] feels the rat-boy's thick cock pushing its way into [npc.her] [npc.asshole+]. With a tight grip on your [npc.companion]'s hips, the gang leader calls out, [vengar.speechNoEffects(Yer butt was made ta take me thick rat cock! It won't take me long before I's paintin' yer insides white with me thick rat jizz!)]
 			#ENDIF
 		</p>
 	#ENDIF
@@ -3341,10 +3348,10 @@
 	
 	<htmlContent tag="VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_COMPANION"><![CDATA[
 	<p>
-		#IF(sex.getDominantParticipants(false).contains(pc))
-			Having had his fun, Vengar draws his cock out of your companion, before wiping the excess cum on [npc.her] ass. As you and [npc.name] seek to recover your breath from the public fucking each of you have just received, Vengar stands up and shouts out to the rats, [vengar.speechNoEffects(Treat these 'uns as me guests if ya see 'em walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
+		#IF(sex.getDominantParticipants(false).containsKey(pc))
+			Having had his fun, Vengar draws his cock out of your [npc.companion], before wiping the excess cum on [npc.her] ass. As you and [npc.name] seek to recover your breath from the public fucking each of you have just received, Vengar stands up and shouts out to the rats, [vengar.speechNoEffects(Treat these 'uns as me guests if ya see 'em walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
 		#ELSE
-			Having had his fun, Vengar draws his cock out of your companion, before wiping the excess cum on [npc.her] ass. As [npc.name] seeks to recover [npc.her] breath from the public fucking [npc.sheHas] just received, Vengar stands up and shouts out to the rats, [vengar.speechNoEffects(Treat these 'uns as me guests if ya see 'em walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
+			Having had his fun, Vengar draws his cock out of your [npc.companion], before wiping the excess cum on [npc.her] ass. As [npc.name] seeks to recover [npc.her] breath from the public fucking [npc.sheHas] just received, Vengar stands up and shouts out to the rats, [vengar.speechNoEffects(Treat these 'uns as me guests if ya see 'em walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
 		#ENDIF
 	</p>
 	<p>
@@ -3357,14 +3364,14 @@
 	<p>
 		#IF(!pc.hasCompanions())
 			Having had his fun, Vengar draws his cock out of you, before wiping the excess cum on your ass. As you seek to recover your breath from the public fucking you've just received, Vengar stands up and shouts out to the rats, [vengar.speechNoEffects(Treat this 'un as me guest if ya see 'em walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
-		#ELSEIF(sex.getDominantParticipants(false).contains(npc))
+		#ELSEIF(sex.getDominantParticipants(false).containsKey(npc))
 			Having had his fun, Vengar draws his cock out of you, before wiping the excess cum on your ass. As you and [npc.name] seek to recover your breath from the public fucking each of you have just received, Vengar stands up and shouts out to the rats, [vengar.speechNoEffects(Treat these 'uns as me guests if ya see 'em walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
 		#ELSE
 			Having had his fun, Vengar draws his cock out of you, before wiping the excess cum on your ass. As you seek to recover your breath from the public fucking you've just received, Vengar stands up and shouts out to the rats, [vengar.speechNoEffects(Treat these 'uns as me guests if ya see 'em walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
 		#ENDIF
 	</p>
 	<p>
-		Seeing that the potential for any further entertainment has passed, the rats in the hall turn back to their business of eating, drinking, and chatting away with one another. With their attention gone, Vengar looks down at you#IF(!pc.hasCompanions()) and [npc.name]#ENDIF, and with a big grin on his face, he says, [vengar.speechNoEffects(That were a real good fuck! Now get up an' follow me if yer still wantin' ta discuss that business concernin' Axel.)]
+		Seeing that the potential for any further entertainment has passed, the rats in the hall turn back to their business of eating, drinking, and chatting away with one another. With their attention gone, Vengar looks down at you#IF(pc.hasCompanions()) and [npc.name]#ENDIF, and with a big grin on his face, he says, [vengar.speechNoEffects(That were a real good fuck! Now get up an' follow me if yer still wantin' ta discuss that business concernin' Axel.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -3401,7 +3408,7 @@
 		#ENDIF
 	#ENDIF
 	<p>
-		Exactly as would be expected of mere mortals suddenly being made aware of your immense powers, the rats in the hall start nervously chattering amongst themselves as they hear your challenge to Vengar. With a pained expression on his face, which you assume must be from his fear of being confronted by you, the rat-boy shouts out to his subordinates, [vengar.speechNoEffects(Shut it, ya fuckin' idiots! This 'un is just makin' all that shit up! They ain't nowhere near strong enough ta challenge me! Once I's given [pc.herHim] a taste o' me power, I's gonna 'ave [pc.herHim] turned into a slutty rat-girl, an' let all o' yous use [pc.herHim] as a public cock-sleeve!)]
+		Exactly as would be expected of mere mortals suddenly being made aware of your immense powers, the rats in the hall start nervously chattering amongst themselves as they hear your challenge to Vengar. With a pained expression on his face, which you assume must be from his fear of being confronted by you, the rat-boy shouts out to his subordinates, [vengar.speechNoEffects(Shut it, ya fuckin' idiots! This 'un is just makin' all that shit up! They ain't nowhere near strong enough ta challenge me! Once I's given [pc.herHim] a taste o' me power, I's gonna #IF(pc.isAbleToHaveRaceTransformed())'ave [pc.herHim] turned into a slutty rat-girl, an' #ENDIFlet all o' yous use [pc.herHim] as a public cock-sleeve!)]
 	</p>
 	<p>
 		Marching confidently down the steps of the dais, Vengar clenches his fists around his knuckle-dusters, before raising them up and assuming a fighting pose. Rushing forwards, the rat-boy gives you only a moment in which to react!
@@ -3472,7 +3479,7 @@
 	
 	<htmlContent tag="VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_END"><![CDATA[
 	<p>
-		A heavy silence fills the hall as the rats see that Vengar has been so swiftly defeated. Beginning as a background murmur, and very quickly growing into a deafening roar, the gang members start arguing amongst themselves over who's going to be the next leader. Before you can make a move to silence them, the first punch has already been thrown, and as a bottle flies over your head to smash against the far wall, you realise that you have a riot on your hands.
+		A heavy silence fills the hall as the rats see that Vengar has been so swiftly defeated. Beginning as a background murmur, and very quickly growing into a deafening roar, the gang members start arguing amongst themselves over who's now their rightful leader. Before you can make a move to silence them, the first punch has already been thrown, and as a bottle flies over your head to smash against the far wall, you realise that you have a riot on your hands.
 	</p>
 	<p>
 		The vast majority of the gang members seem more interested in fighting one another than choosing to directly challenge the person who just so effortlessly dispatched their leader, but as you turn to look back up at Vengar's throne, you see that his two rats-girl bodyguards have their gaze fixed squarely on you. Putting something away in her pocket, Shadow reaches down to draw her glowing green kerambits, and with Silence reaching up to cast a spell behind her, she suddenly dashes forwards directly at you!
@@ -3482,7 +3489,6 @@
 	
 	
 	<!-- VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_CHAOS -->
-	
 	
 	<htmlContent tag="VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_CHAOS"><![CDATA[
 	<p>
@@ -3536,7 +3542,11 @@
 		Peering around the edge of the throne, you see the beams of at least a dozen arcane-powered flashlights shining out from the entrance and sweeping across the hall. Without giving the rats any time at all in which to obey their orders, the Enforcers of the SWORD division start firing their pepperball rifles at anyone in their sights who isn't down on the ground, filling the cavernous chamber with echoing bangs. Deploying their cryoprism guns, streaks of light blue arcane-laser fire are shot out by the Enforcers at any rat foolish enough to try and run, and within a matter of moments, every gang member in the hall has been forced down onto the ground.
 	</p>
 	<p>
-		[shadow.speechNoEffects(Stay still fer a moment, love,)] Shadow hisses to Silence, before standing up and retrieving a small, dark-purple sphere from her pocket. Holding this sphere up to the Enforcers advancing on your location, she clears her throat, before shouting out to them in a refined accent almost completely unrecognisable from her previous, slovenly voice, [shadow.speechNoEffects(You took your time, didn't you, pet? A few moments more, and I might have been in serious trouble; these rats are no joke when they decide to gang up on someone.)]
+		[shadow.speechNoEffects(Stay still fer a moment, love,)] Shadow hisses to Silence, before standing up and retrieving a small, dark-purple sphere
+		#IF(pc.hasQuestInLine(QUEST_VENGAR_OPTIONAL_CLAIRE))
+			, identical to the resonance stone which Claire gave to you,
+		#ENDIF
+		 from her pocket. Holding this sphere up to the Enforcers advancing on your location, she clears her throat, before shouting out to them in a refined accent almost completely unrecognisable from her previous, slovenly voice, [shadow.speechNoEffects(You took your time, didn't you, pet? A few moments more, and I might have been in serious trouble; these rats are no joke when they decide to gang up on someone.)]
 	</p>
 	<p>
 		At that moment, power is returned to the lights in the hall, and you see that leading the small group of SWORD Enforcers up to your hiding place is a muscular German-shepherd-boy. With the rest of the Enforcers setting about their task of arresting all of the rats in the hall, this imposing character marches right up to Shadow and snatches the small sphere out of her hands, before barking an order back to his group, [style.speechMasculineStrong(Clear those back rooms! I don't want a single fucking rat slipping out of our net!)]
@@ -3633,34 +3643,73 @@
 	
 	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_TELEPATHY"><![CDATA[
 	<p>
-		You seduce Vengar by using your telepathic abilities. Convince him to take you to his bedroom.
+		Recognising Vengar as being just the sort of person who's highly susceptible to being seduced, you focus your arcane power on projecting lewd telepathic thoughts into his head. Erotically running your [pc.hand] up the length of your torso, you speak directly into his mind and ask, [pc.thought(Perhaps it would be best if the two of us could go somewhere a little more private?)]
 	</p>
 	<p>
-		You enter his bedroom, leaving behind companion (if applicable).
+		Focusing again on making the most out of your telepathic abilities, you project a phantasmal force, making Vengar feel as though you're stroking his leg while simultaneously planting kisses of his neck and lips. From the lustful gleam in his eyes, you can tell that your efforts are having a profound effect, and without having to say a single word out loud, you cause Vengar to announce to the hall, [vengar.speechNoEffects(Treat this 'un as me guest if ya see [pc.herHim] walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE"><![CDATA[
 	<p>
-		You seduce Vengar. Convince him to take you to his bedroom.
+		Recognising Vengar as being just the sort of person who's highly susceptible to being seduced, you erotically run your [pc.hand] up the length of your torso, before putting on your most seductive tone and asking, [pc.speech(Perhaps it would be best if the two of us could go somewhere a little more private?)]
 	</p>
 	<p>
-		You enter his bedroom, leaving behind companion (if applicable).
+		Locking your gaze with Vengar's, you wink at him and blow him a little kiss. From the lustful gleam in his eyes, you can tell that your efforts are having a profound effect, and without to do anything else, you smile as Vengar announces to the hall, [vengar.speechNoEffects(Treat this 'un as me guest if ya see [pc.herHim] walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_END"><![CDATA[
+	<p>
+		Seeing that the potential for a fight or other form of entertainment has passed, the rats in the hall turn back to their business of eating, drinking, and chatting away with one another. With their attention gone, Vengar motions for you to join him as he walks over to a doorway on the far side of the dais. Following in his footsteps, you move to step through the door which the rat-boy is holding open for you, but before you get there, Shadow quietly steps up beside you and hisses,
+		#IF(pc.hasCompanions())
+			 [shadow.speechNoEffects(Ya ain't takin' yer little friend in there with ya; [npc.sheIs] stayin' 'ere with me an' Silence. Don't ya even think 'bout doin' anything stupid in there!)]
+		#ELSE
+			 [shadow.speechNoEffects(Don't ya even think 'bout doin' anything stupid in there!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasCompanions())
+			Leaving [npc.name] behind in the care of the two rat-girl bodyguards,
+		#ELSE
+			Leaving the two rat-girl bodyguards behind,
+		#ENDIF
+		 you step forwards into the next room, only to discover that it's a small corridor with a couple of doors on each side. Moving past you, Vengar opens the nearest door on the left, and you step through into this next room to finally find yourself in a large, well-furnished bedroom. Pressing himself up against you, the rat-boy guides you over to the large, four-poster bed that dominates the room, growling in your ear as he does so,
+		#IF(pc.hasVagina() && !pc.isVisiblyPregnant())
+		 [vengar.speechNoEffects(So, ya came all this way ta 'ave a good, 'ard fuck, did ya? I's gonna giva ya cunt a good poundin' an' then breed ya!)]
+		#ELSE
+		 [vengar.speechNoEffects(So, ya came all this way just ta 'ave a good, 'ard fuck, did ya? I's gonna give ya a good poundin'!)]
+		#ENDIF
+	</p>
+	<p>
+		Although he's quite clearly desperate to fuck you, you know that you could use your skill at persuasive seduction to manoeuvre your way out of this situation. Then again, you could always give this rat-boy what he wants and have sex with him...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_SEX_SUBMISSIVE"><![CDATA[
 	<p>
-		You submit to Vengar, allowing him to fuck you.
+		Feeling turned on and more than happy to submit to Vengar, you let out an encouraging [pc.moan] as the rat-boy continues to grope you. Running his hands up over your [pc.breasts+], he growls,
+		#IF(pc.hasVagina() && !pc.isVisiblyPregnant())
+		 [vengar.speechNoEffects(I's gonna stuff yer cunt full o' me seed! I 'ope ya ready fer me ta make ya a mother!)]
+		#ELSE
+		 [vengar.speechNoEffects(I's gonna stuff ya full o' me seed! I 'ope ya ready fer a real good, 'ard fuckin'!)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_SEX_DOMINANT"><![CDATA[
 	<p>
-		You tell Vengar that you're in charge. He's so horny that he accepts, allowing you to dom him.
+		Although you're feeling turned on and more than happy to have sex with Vengar, you aren't going to let him take the dominant role. Reaching down to grab the rat-boy's hips, you pull him along with you as you turn on the spot, before pushing him back down onto his bed. Stepping forwards, you say, [pc.speech(You might be the leader while out there sitting on your throne, but in here, you're going to do exactly what I say, understand?)]
+	</p>
+	<p>
+		By now absolutely desperate to have sex with you, Vengar nods his head and replies, [vengar.speechNoEffects(Just get over 'ere so we's can fuck already!)]
+	</p>
+	<p>
+		Smiling down at the rat-boy, you prepare to show him just what getting to fuck you entails...
 	</p>
 	]]>
 	</htmlContent>
@@ -3670,17 +3719,23 @@
 	
 	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_NO_SEX"><![CDATA[
 	<p>
-		You continue to lead Vengar on, but don't allow him to get physical with you. You get him to reveal that he was intending to stop illegal activities and focus on the rum distillery business that he 'acquired' a few months ago.
+		Having succeeded in seducing Vengar and getting this opportunity to be alone with him, you now decide that things have gone quite far enough. Reaching down to grab the rat-boy's hips, you pull him along with you as you turn on the spot, before pushing him back down onto his bed. Stepping forwards, you say, [pc.speech(You want to fuck me, do you? Perhaps in time you'll get what you want, but you're going to have to do something for me first.)]
 	</p>
 	<p>
-		Says that before he can do this, he needs the more powerful shop keepers to come and show their submission, otherwise his gang members will lose respect. Vengar strides towards you, ready to press you on the issue.
+		Still absolutely desperate to have sex with you, Vengar agrees to listen to what you have to say. Pacing back and forth in front of the rat-boy as he remains seated on his bed, you proceed to explain how Axel is struggling to make his payments, before asking him to stop extorting money from Submission's honest businesses.
+	</p>
+	<p>
+		Leaning back on his bed, Vengar lets out a sigh and replies, [vengar.speechNoEffects(Fact is, I's been thinkin' about packin' in this whole business fer a while now, an' maybe with yer 'elp, I's can finally see it done.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_NO_SEX_LEAVE"><![CDATA[
 	<p>
-		You agree to do as Vengar asks, before leaving.
+		As you've already decided on taking a non-confrontational course of action, you decide to agree to Vengar's request, and tell him that you'll convince Axel to come and submit to him. Grinning from ear to ear, the rat-boy stands up and says, [vengar.speechNoEffects(I's gonna owe ya one fer this. Just don't go around blabbin' ta me gang members about this plan, or else yer gonna ruin everythin' fer both me an' Axel!)]
+	</p>
+	<p>
+		Telling Vengar not to worry about that, you tell him that you'll be back with Axel as soon as you can. Giving the gang leader a further hint of being allowed to fuck you once this whole business is resolved, you have him lead you back out into his grand hall, where you say farewell and head back into the twisting tunnels of the Rat Warrens. As you leave the bright lights and chattering din of the hall behind, you wonder to yourself if you should go and see Axel right away, or whether you should leave it for later...
 	</p>
 	]]>
 	</htmlContent>
@@ -3690,17 +3745,23 @@
 	
 	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX"><![CDATA[
 	<p>
-		You finish having sex. Vengar reveals that he was intending to stop illegal activities and focus on the rum distillery business that he 'acquired' a few months ago.
+		With deeply satisfied sighs, you and Vengar collapse down onto his bed, where you lie next to one another, panting for breath. Being the first to recover, you roll over next to your partner and lean down over the top of him. Giving him a passionate kiss, you pull back and say, [pc.speech(Now that I've given you what you wanted, it's time for you to return the favour.)]
 	</p>
 	<p>
-		Says that before he can do this, he needs the more powerful shop keepers to come and show their submission, otherwise his gang members will lose respect. Vengar strides towards you, ready to press you on the issue.
+		Obviously wanting to have a chance at repeating this performance with you at some point in the future, Vengar agrees to listen to what you have to say. Teasing your fingers over his furry chest, you proceed to explain how Axel is struggling to make his payments, before asking him to stop extorting money from Submission's honest businesses.
+	</p>
+	<p>
+		Sitting upright, Vengar lets out a sigh and replies, [vengar.speechNoEffects(Fact is, I's been thinkin' about packin' in this whole business fer a while now, an' maybe with yer 'elp, I's can finally see it done.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX_LEAVE"><![CDATA[
 	<p>
-		You agree to do as Vengar asks, before leaving.
+		As you've already decided on taking a non-confrontational course of action, you decide to agree to Vengar's request, and tell him that you'll convince Axel to come and submit to him. Grinning from ear to ear, the rat-boy stands up and says, [vengar.speechNoEffects(I's gonna owe ya one fer this. Just don't go around blabbin' ta me gang members about this plan, or else yer gonna ruin everythin' fer both me an' Axel!)]
+	</p>
+	<p>
+		Telling Vengar not to worry about that, you tell him that you'll be back with Axel as soon as you can. After getting your things back in order and cleaning yourselves up, you have the rat-boy lead you back out into his grand hall, where you say farewell and head back into the twisting tunnels of the Rat Warrens. As you leave the bright lights and chattering din of the hall behind, you wonder to yourself if you should go and see Axel right away, or whether you should leave it for later...
 	</p>
 	]]>
 	</htmlContent>
@@ -3710,17 +3771,16 @@
 	
 	<htmlContent tag="VENGARS_HALL_RESONANCE_STONE"><![CDATA[
 	<p>
-		Seeing that Vengar is here, you activate the resonance stone which Claire gave to you. Now to stall for time until the SWORD Enforcers show up...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="VENGARS_HALL_RESONANCE_STONE_RAID"><![CDATA[
-	<p>
-		You stall for time. There is a loud explosion, before moments later SWORD enters.
+		Having got confirmation that Vengar is here, you take hold of the resonance stone which Claire gave to you, before following her instructions and twisting the two halves in opposite ways. Thankfully, the device only vibrates for a moment as an indication that it's been activated, which prevents Vengar or any of the rats surrounding you from noticing what you've just done.
 	</p>
 	<p>
-		Claire is with them, tells you to follow her out.
+		As you start to stall for time while you wait for the Enforcers to show up, however, you suddenly see that the black-furred bodyguard, Shadow, is staring at you with an alarming intensity. Turning to whisper something into her albino companion's ear, she reaches down to her hips and draws her pair of glowing green kerambits. Catching everyone in the hall, including yourself, completely off-guard, the rat-girl suddenly dashes forwards, and in a display of complete betrayal, drives the arcane blades into Vengar's back. Caught off-guard, he's unable to react to this attack before all of his energy is drained, and with a faint groan, he collapses down onto the floor.
+	</p>
+	<p>
+		A heavy silence fills the hall as the rats see that Vengar has been so swiftly defeated. Beginning as a background murmur, and very quickly growing into a deafening roar, the gang members start arguing amongst themselves over who's now their rightful leader. Before you can make a move to silence them, the first punch has already been thrown, and as a bottle flies over your head to smash against the far wall, you realise that you have a riot on your hands.
+	</p>
+	<p>
+		The vast majority of the gang members seem more interested in fighting one another than choosing to challenge you, but as you turn to look back up at Vengar's throne, you see that Shadow and Silence are both staring at you with what you assume to be malicious intent. As Silence reaches up to cast a spell, Shadow lifts her kerambits and suddenly dashes forwards directly at you!
 	</p>
 	]]>
 	</htmlContent>
@@ -3730,7 +3790,16 @@
 	
 	<htmlContent tag="BODYGUARDS_COMBAT_SHADOW_DEFEATED"><![CDATA[
 	<p>
-		As Shadow falls to the ground, Silence staggers back, looking like she's about to collapse as well. She goes into a trance and summons an air elemental, which speaks for her and says she will destroy you. Her eyes glow with increased intensity as she attacks you once again.
+		Staggering back, Shadow releases her grip on her kerambits, and with a ringing, metallic clatter, they slip out of her hands and fall to the ground. With a deep sigh, the rat-girl mimics her weapons' sudden descent, and collapses down onto her knees, before keeling over onto the cold floor.
+	</p>
+	<p>
+		Instead of launching into her next attack and attempting to avenge her companion, Silence staggers back, looking like she's about to collapse herself. Staring down at the defeated form of Shadow, the albino rat-girl lets out a pathetic mewling noise, which very quickly increases in volume and shifts into a guttural, anguished scream. Grabbing hold of the shard of demonstone hung around her neck, Silence's eyes suddenly appear to be wreathed in phantasmal, purple flames, and with an upwards swipe of her free hand, she casts what turns out to be an immensely powerful spell.
+	</p>
+	<p>
+		At first, the only sign of any spell being cast is an unnatural gust of wind which suddenly blows throughout the grand hall. Quickly increasing in strength, this arcane wind causes the fires burning in the hall's hearths to gutter and flicker, before they suddenly change colour into bright greens and purples. Reaching upwards with her free hand, Silence suddenly clenches her fist, and right there, before your eyes, the ethereal form of a demonic wind elemental takes shape. Speaking through this arcane creature, Silence projects a chilling, grief-stricken voice throughout the hall, [silence.speechNoEffects(You'll pay for what you've done!)]
+	</p>
+	<p>
+		With flickering arcane flames still streaming from her glowing pink eyes, Silence is joined by this elemental as she once again launches into attacking you!
 	</p>
 	]]>
 	</htmlContent>
@@ -3740,7 +3809,13 @@
 	
 	<htmlContent tag="BODYGUARDS_COMBAT_SILENCE_DEFEATED"><![CDATA[
 	<p>
-		As Silence falls to the ground, Shadow lets out a furious scream. Seemingly filled with a renewed vigour, she launches back into combat alone.
+		Unable to continue fighting for a single moment longer, Silence staggers back, and with a faint, mewling whimper, she sinks down and collapses onto the floor.
+	</p>
+	<p>
+		Seeing that her dear companion has been defeated, Shadow lets out a furious scream. Pointing one of her arcane kerambits at you, and with a wild, maniacal gleam in her eyes, the black-furred rat-girl calls out, [shadow.speechNoEffects(I's gonna make ya pay fer what yer done! There ain't no stoppin' me 'til I's 'ad me revenge!)]
+	</p>
+	<p>
+		Seemingly filled with a renewed vigour, and with an apparent lack of concern for her own safety, Shadow launches herself directly at you!
 	</p>
 	]]>
 	</htmlContent>
@@ -3750,7 +3825,10 @@
 	
 	<htmlContent tag="BODYGUARDS_COMBAT_VICTORY"><![CDATA[
 	<p>
-		Having defeated both Shadow and Silence, you look up at Vengar to see that he's advancing on you. With no time to prepare, you must now defend yourself against his attacks!
+		Unable to continue fighting for a single moment longer, Shadow and Silence slump down to the floor beside one another. You have little time in which to celebrate your victory, however, as Vengar himself now steps forwards, clenching his fists around his brass knuckle dusters and calling out, [vengar.speechNoEffects(Ya may 'ave got the best o' me girls, but ya ain't gonna stand a chance against me!)]
+	</p>
+	<p>
+		With no time to prepare or recover your strength, you must now defend yourself against the rat-boy's incoming attack!
 	</p>
 	]]>
 	</htmlContent>
@@ -3758,16 +3836,70 @@
 	
 	<!-- BODYGUARDS_COMBAT_DEFEAT -->
 	
-	<htmlContent tag="BODYGUARDS_COMBAT_DEFEAT"><![CDATA[
+	<htmlContent tag="BODYGUARDS_COMBAT_DEFEAT_NO_NON_CON"><![CDATA[
 	<p>
-		You are defeated by the rat-girls. If non-con disabled, explosion in heard before anyone can make a move on you. If non-con is on, Shadow strips you (Silence strips companion, if applicable) in front of everyone in the hall.
+		Seeing that you're out of energy and unable to continue fighting any longer, Shadow dashes forwards, and with one final kick, drives you to the ground. Looking up as the rat-girl looms over you, you see her reach down into her pocket, before producing a small, dark-purple sphere and twisting the two halves in opposite directions.
+		#IF(pc.hasQuestInLine(QUEST_VENGAR_OPTIONAL_CLAIRE))
+			 Recognising this sphere to be a resonance stone just like the one Claire gave to you, you listen as Shadow leans down to hiss,
+		#ELSE
+			 Recognising that this sphere's activation marks, you listen as Shadow leans down to hiss,
+		#ENDIF
+		 [shadow.speechNoEffects(I's just wanted ta know I could beat ya; no 'ard feelin's.)]
 	</p>
+	<p>
+		[vengar.speechNoEffects(Get out me way! I's gonna 'ave some real fun with this 'un!)] Vengar shouts out from somewhere behind Shadow, and, moving to obey, she steps aside and clears the way for the rat-boy to advance upon you.
+	</p>
+	<p>
+		Moving over to stand next to Silence, Shadow whispers something into her albino companion's ear, before reaching down to her hips and once again drawing her pair of glowing green kerambits. Catching everyone in the hall completely off-guard, the rat-girl suddenly dashes forwards, and in a display of complete betrayal, drives the arcane blades into Vengar's back. Caught off-guard, he's unable to react to this attack before all of his energy is drained, and with a faint groan, he collapses down onto the floor.
+	</p>
+	<p>
+		A heavy silence fills the hall as the rats see that Vengar has been so swiftly defeated. Beginning as a background murmur, and very quickly growing into a deafening roar, the gang members start arguing amongst themselves over who's now their rightful leader. Wearily standing back up, you witness the first punch being thrown, and as a bottle flies over your head to smash against the far wall, you realise that you have a riot on your hands. Looking over to the rat-girl bodyguards, you see that Shadow is still wielding her kerambits, and after throwing a maniacal grin your way, she suddenly dashes directly at you!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BODYGUARDS_COMBAT_DEFEAT"><![CDATA[
+	#IF(pc.hasCompanions())
+		<p>
+			Seeing that you're out of energy and unable to continue fighting any longer, Shadow dashes forwards, and with a couple of final kicks, drives you and [npc.name] to the ground. Letting out a victorious laugh, she taunts, [shadow.speechNoEffects(That were too easy! Now you's two is gonna pay fer darin' ta challenge us!)]
+		</p>
+		<p>
+			#IF(pc.isAbleToHaveRaceTransformed())
+				From behind the black-furred rat-girl, you see Vengar striding forwards, and with an evil snarl, he barks out an order, [vengar.speechNoEffects(Get these 'uns stripped naked! I's lookin' forwards ta watchin' as I 'ave 'em turned inta slutty rat-girls!)]
+			#ELSE
+				From behind the black-furred rat-girl, you see Vengar striding forwards, and with an evil snarl, he barks out an order, [vengar.speechNoEffects(Get these 'uns stripped naked! I's lookin' forwards ta fuckin' these sluts!)]
+			#ENDIF
+		</p>
+		<p>
+			Moving to obey, Shadow and Silence advance on you and [npc.name], ready to carry out their leader's order and strip the two of you naked...
+		</p>
+	#ELSE
+		<p>
+			Seeing that you're out of energy and unable to continue fighting any longer, Shadow dashes forwards, and with one final kick, drives you to the ground. Letting out a victorious laugh, she taunts, [shadow.speechNoEffects(That were too easy! Now you's gonna pay fer darin' ta challenge us!)]
+		</p>
+		<p>
+			#IF(pc.isAbleToHaveRaceTransformed())
+				From behind the black-furred rat-girl, you see Vengar striding forwards, and with an evil snarl, he barks out an order, [vengar.speechNoEffects(Get this 'un stripped naked! I's lookin' forwards ta watchin' as I 'ave [pc.herHim] turned inta a slutty rat-girl!)]
+			#ELSE
+				From behind the black-furred rat-girl, you see Vengar striding forwards, and with an evil snarl, he barks out an order, [vengar.speechNoEffects(Get this 'un stripped naked! I's lookin' forwards ta fuckin' this slut!)]
+			#ENDIF
+		</p>
+		<p>
+			Moving to obey, Shadow and Silence advance on you, ready to carry out their leader's order and strip you naked...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="BODYGUARDS_COMBAT_DEFEAT_COMPANION_ESCAPE"><![CDATA[
 	<p>
-		You manage to hold off the rats long enough for [npc.name] to escape.
+		Desperately wanting to avoid an unpleasant fate for your [npc.companion], you summon the last of your energy and manage to push the rat-girls back, before turning to [npc.name] and shouting, [pc.speech(Get out of here, now!)]
+	</p>
+	<p>
+		Realising the desperate state you're both in, [npc.name] does as you command, and manages to rush away to safety while you hold the rats off. Only once you feel confident that you've bought enough time for your [npc.companion] to make a getaway, do you allow your fatigue to wash over you, and, collapsing to the ground once more, you're soon grabbed by Shadow and roughly pinned to the floor.
+	</p>
+	<p>
+		[shadow.speechNoEffects(Ya gonna pay fer that!)] the black-furred rat-girl angrily snarls, before turning back to face Silence and ordering, [shadow.speechNoEffects(Come on, love, 'elp me strip this 'un naked!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -3777,10 +3909,13 @@
 	
 	<htmlContent tag="VENGAR_COMBAT_VICTORY"><![CDATA[
 	<p>
-		You have defeated the rats. A large commotion breaks out, with some rats starting to fight each other as they argue about if Vengar is still the leader. You notice that the two rat-girl bodyguards have disappeared.
+		Staggering backwards, Vengar lets out a pathetic groan, before sinking down onto his knees and feebly growling, [vengar.speechNoEffect(Y-Ya can't... Defeat... M-Me...)]
 	</p>
 	<p>
-		A large explosion is suddenly heard throughout the Warrens.
+		A heavy silence fills the hall as the rats watch their leader keel over and collapse down onto the floor. Beginning as a background murmur, and very quickly growing into a deafening roar, the gang members start arguing amongst themselves over who's now their rightful leader. Before you can make a move to silence them, the first punch has already been thrown, and as a bottle flies over your head to smash against the far wall, you realise that you have a riot on your hands.
+	</p>
+	<p>
+		The vast majority of the gang members seem more interested in fighting one another than choosing to directly challenge the person who just so effortlessly dispatched their leader, but as you turn to look back up at Vengar's throne, you see that his two rats-girl bodyguards have not only regained enough strength to be standing upright, but also have their gaze fixed squarely on you. Putting something away in her pocket, Shadow reaches down to draw her glowing green kerambits, and with Silence reaching up to cast a spell behind her, she suddenly dashes forwards directly at you!
 	</p>
 	]]>
 	</htmlContent>
@@ -3789,50 +3924,86 @@
 	<!-- VENGAR_COMBAT_DEFEAT -->
 	
 	<htmlContent tag="VENGAR_COMBAT_DEFEAT"><![CDATA[
-	<p>
-		You are defeated by Vengar. If non-con disabled, explosion in heard before anyone can make a move on you. If non-con is on, Shadow recovers and strips you (Silence strips companion, if applicable) in front of everyone in the hall. Essence extraction somehow.
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- FINAL_COMBAT_VICTORY_SWORD_RAID -->
-	
-	<htmlContent tag="FINAL_COMBAT_VICTORY_SWORD_RAID"><![CDATA[
-	
-	<p>
-		SWORD squad enters. Claire is with them, tells you to follow her out.
-	</p>
+	#IF(pc.hasCompanions())
+		<p>
+			Seeing that you're out of energy and unable to continue fighting any longer, Vengar dashes forwards, and with a couple of final punches, drives you and [npc.name] to the ground. Letting out a victorious laugh, he taunts, [shadow.speechNoEffects(That were too easy! Ain't nobody strong enough ta challenge me!)]
+		</p>
+		<p>
+			#IF(pc.isAbleToHaveRaceTransformed())
+				Turning back to address his rat-girl bodyguards, Vengar barks out an order, [vengar.speechNoEffects(Get these 'uns stripped naked! I's lookin' forwards ta watchin' as I 'ave 'em turned inta slutty rat-girls!)]
+			#ELSE
+				Turning back to address his rat-girl bodyguards, Vengar barks out an order, [vengar.speechNoEffects(Get these 'uns stripped naked! I's lookin' forwards ta fuckin' these sluts!)]
+			#ENDIF
+		</p>
+		<p>
+			Moving to obey, Shadow and Silence advance on you and [npc.name], ready to carry out their leader's order and strip the two of you naked...
+		</p>
+	#ELSE
+		<p>
+			Seeing that you're out of energy and unable to continue fighting any longer, Vengar dashes forwards, and with a final punch, drives you to the ground. Letting out a victorious laugh, he taunts, [shadow.speechNoEffects(That were too easy! Ain't nobody strong enough ta challenge me!)]
+		</p>
+		<p>
+			#IF(pc.isAbleToHaveRaceTransformed())
+				Turning back to address his rat-girl bodyguards, Vengar barks out an order, [vengar.speechNoEffects(Get this 'un stripped naked! I's lookin' forwards ta watchin' as I 'ave [pc.herHim] turned inta a slutty rat-girl!)]
+			#ELSE
+				Turning back to address his rat-girl bodyguards, Vengar barks out an order, [vengar.speechNoEffects(Get this 'un stripped naked! I's lookin' forwards ta fuckin' this slut!)]
+			#ENDIF
+		</p>
+		<p>
+			Moving to obey, Shadow and Silence advance on you, ready to carry out their leader's order and strip you naked...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	
 	<!-- VENGARS_BEDROOM -->
 	
-	<htmlContent tag="VENGARS_BEDROOM_REPEAT"><![CDATA[
-	<p>
-		Accepting Vengar's offer (and leaving your companion with Shadow and Silence), you soon once again find yourself in his bedroom with him. Kissing one another, you wonder if you should take the lead or let Vengar dom...
-	</p>
-	]]>
-	</htmlContent>
-	
 	<htmlContent tag="VENGARS_BEDROOM"><![CDATA[
 	<p>
-		Accepting Vengar's offer (and leaving your companion with Shadow and Silence), you find yourself in his bedroom with him. Kissing one another, you wonder if you should take the lead or let Vengar dom...
+		Deciding that it would be fun to take Vengar up on his offer, you tell him that you'd like to share some private time with him in his bedroom. A lustful grin spreads across Vengar's face as he hears you say this, and he crassly asks, [vengar.speechNoEffects('Ungry fer a taste o' me fat rat cock, are ya? Come on then, I'll give it to ya back in 'ere!)]
+	</p>
+	<p>
+		Walking over to a doorway on the far side of the dais, Vengar motions for you to follow him.
+		#IF(pc.hasCompanions())
+			Telling [npc.name] to stay behind in the hall and wait for your return,
+		#ELSE
+			Doing as you're instructed,
+		#ENDIF
+		 you quickly move over to where the rat-boy is standing, before stepping forwards into the small corridor beyond. Moving past you, Vengar opens the nearest door on the left, and you step through into this next room to finally find yourself in a large, well-furnished bedroom. Pressing himself up against you, the rat-boy guides you over to the large, four-poster bed that dominates the room, growling in your ear as he does so,
+		#IF(pc.hasVagina() && !pc.isVisiblyPregnant())
+		 [vengar.speechNoEffects(I's gonna giva ya cunt a good poundin' an' then breed ya!)]
+		#ELSE
+		 [vengar.speechNoEffects(I's gonna give ya a good poundin'!)]
+		#ENDIF
+	</p>
+	<p>
+		Although he's quite clearly desperate to be the one dominantly fucking you, you know that you could always turn things around and dominate Vengar if you wanted to...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="VENGARS_BEDROOM_SEX_SUBMISSIVE"><![CDATA[
 	<p>
-		You submit to Vengar.
+		Feeling turned on and more than happy to submit to Vengar, you let out an encouraging [pc.moan] as the rat-boy continues to grope you. Running his hands up over your [pc.breasts+], he growls,
+		#IF(pc.hasVagina() && !pc.isVisiblyPregnant())
+		 [vengar.speechNoEffects(I's gonna stuff yer cunt full o' me seed! I 'ope ya ready fer me ta make ya a mother!)]
+		#ELSE
+		 [vengar.speechNoEffects(I's gonna stuff ya full o' me seed! I 'ope ya ready fer a real good, 'ard fuckin'!)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="VENGARS_BEDROOM_SEX_DOMINANT"><![CDATA[
 	<p>
-		You dominate Vengar.
+		Although you're feeling turned on and more than happy to have sex with Vengar, you aren't going to let him take the dominant role. Reaching down to grab the rat-boy's hips, you pull him along with you as you turn on the spot, before pushing him back down onto his bed. Stepping forwards, you say, [pc.speech(You might be the leader while out there sitting on your throne, but in here, you're going to do exactly what I say, understand?)]
+	</p>
+	<p>
+		By now absolutely desperate to have sex with you, Vengar nods his head and replies, [vengar.speechNoEffects(Just get over 'ere so we's can fuck already!)]
+	</p>
+	<p>
+		Smiling down at the rat-boy, you prepare to show him just what getting to fuck you entails...
 	</p>
 	]]>
 	</htmlContent>
@@ -3842,14 +4013,20 @@
 	
 	<htmlContent tag="VENGARS_BEDROOM_AFTER_SEX"><![CDATA[
 	<p>
-		You finish having sex.
+		With deeply satisfied sighs, you and Vengar collapse down onto his bed, where you lie next to one another, panting for breath. Being the first to recover, you roll over next to your partner and lean down over the top of him. Giving him a passionate kiss, you pull back and say, [pc.speech(We should do this again some time.)]
+	</p>
+	<p>
+		Obviously wanting to repeat this performance with you at some point in the future, Vengar lets out a sigh and replies, [vengar.speechNoEffects(Ya know ya can come back any time ya want.)]
+	</p>
+	<p>
+		After spending a further few minutes lying next to one another, you finally decide that it's time to leave...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="VENGARS_BEDROOM_AFTER_SEX_LEAVE"><![CDATA[
 	<p>
-		You head back into the Rat Warrens.
+		After getting your things back in order and cleaning yourselves up, you and Vengar head back out into his grand hall, where you say farewell before continuing on into the twisting tunnels of the Rat Warrens. As you leave the bright lights and chattering din of the hall behind, you wonder to yourself where you should go next...
 	</p>
 	]]>
 	</htmlContent>
@@ -3857,37 +4034,68 @@
 	
 	<!-- LEXA_VISIT -->
 	
-	<htmlContent tag="LEXA_VISIT_REPEAT"><![CDATA[
-	<p>
-		You and Vengar go to the Gambling den to pay Lexa another visit. Upon arriving, she once again shows the two of you into her office (companion waits outside).
-	</p>
-	]]>
-	</htmlContent>
-	
 	<htmlContent tag="LEXA_VISIT"><![CDATA[
 	<p>
-		You and Vengar go to the Gambling den to pay Lexa a visit. Upon arriving, she shows the two of you into her office (companion waits outside).
+		Liking the sound of Vengar's suggestion, you tell him that you'd like to take him up on his offer of paying [axel.name] a visit together. A lewd grin quickly spreads across the rat-boy's face, and, walking down from the dais, he motions for you to join him as he sets off in the direction of the exit. Turning his head as you walk alongside him, Vengar hungrily growls, [vengar.speechNoEffects(I's can't wait ta be makin' that 'gator slut choke on me fat cock! Hah!)]
+	</p>
+	<p>
+		The two of you proceed through the tunnels of the Rat Warrens, before exiting out into Submission and making your way to the Gambling Den. On the way, Vengar continues making lewd comments about what he's planning to do with [axel.name], and by the time the two of you step into her premises, you think that you've heard every obscene word ever used to describe a person's cock.
+	</p>
+	<p>
+		Catching sight of you and Vengar as the two of you enter the Gambling Den, [axel.name] hurrys forwards to greet you, [axel.speech(Oh, fancy the two of you coming to visit here together! Is there anything I can offer you today?)]
+	</p>
+	<p>
+		Stepping forwards, Vengar dominantly grabs a handful of [lexa.namePos] [lexa.ass+], before hungrily growling, [vengar.speechNoEffects(Yeah, ya can offer us this fine piece o' ass! Yer 'ungry fer a taste o' me fat rat cock, ain't ya, ya 'gator slut?)]
+	</p>
+	<p>
+		Unable to conceal her arousal at being dominantly handled in such a manner, [axel.namePos] cheeks flush red, and with a horny little moan, she replies, [axel.speech(W-Well, if that's the sort of thing you're here for, we could step back into my office for a moment...)]
+	</p>
+	<p>
+		#IF(pc.hasCompanions())
+			Telling [npc.name] to wait for you outside, you and Vengar follow [lexa.name] into her office.
+		#ELSE
+			With [npc.name] leading the two of you on, you and Vengar follow [lexa.name] into her office.
+		#ENDIF
+		#IF(!axel.getSexualOrientation().isAttractedToFeminine() && pc.isFeminine())
+			 As the rat-boy closes the door behind you, [axel.name] turns to face and you and mumbles, [axel.speech(Erm... [pc.Name]... I like you and everything, but I'm only really attracted to... well... masculine people. You can watch though, if you'd like...)]
+			</p>
+			<p>
+				As Vengar steps up to start groping the [axel.race], you wonder if you should hang around and watch, or take your leave before they start having sex...
+			</p>
+		#ELSE
+			 As the rat-boy closes the door behind you, [axel.name] steps forwards and grinds herself against you, moaning, [axel.speech(Come on, you two! Give me a good, hard fucking already!)]
+			</p>
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LEXA_VISIT_THREESOME"><![CDATA[
 	<p>
-		You and Vengar move to start having sex with Lexa
+		Vengar steps up beside you to start groping [axel.name], and as the two of you prepare to fuck the [axel.race], she lets out another eager moan...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LEXA_VISIT_WATCH"><![CDATA[
 	<p>
-		You decide against having sex with Lexa, and instead stand back and watch Vengar fuck her.
+		#IF(!axel.getSexualOrientation().isAttractedToFeminine() && pc.isFeminine())
+			Although [axel.name] isn't interested in having sex with you, you decide that you can still get something out of this visit by watching her get fucked by Vengar. Stepping over to one side of the room, you look on as the rat-boy prepares to dominate her...
+		#ELSE
+			You decide that you don't want to have sex with [axel.name] after all, but instead want to watch her get fucked by Vengar. Stepping over to one side of the room, you look on as the rat-boy prepares to dominate her...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="LEXA_VISIT_LEAVE"><![CDATA[
 	<p>
-		You decide against having sex with Lexa, and instead leave Vengar to fuck her.
+		You decide that you don't want to have sex with [axel.name] after all, and, leaving Vengar to fuck her, you step out of her office.
+		#IF(pc.hasCompanions())
+			 Meeting up with [npc.name] again, the two of you continue on out of the Gambling Den, and once you're back in Submission's tunnels once again, you wonder where to go to next...
+		#ELSE
+			 Continuing on out of the Gambling Den, you soon find yourself standing in Submission's tunnels once again, wondering where to go to next...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -3897,7 +4105,31 @@
 	
 	<htmlContent tag="LEXA_VISIT_AFTER_SEX"><![CDATA[
 	<p>
-		Finish sex and step back out into entrance of the gambling den.
+		Sinking down onto a nearby chair and panting for breath, [axel.name] sighs, [axel.speech(~Oooh!~ That was so good...)]
+	</p>
+	<p>
+		Wanting to assert his dominance over the [axel.race] before leaving, Vengar steps up to [lexa.name] and pushes his softening cock in front of her face. Sneering down at her, he commands, [vengar.speechNoEffect(Give me cock one last kiss an' tell me that yer me horny little 'gator slut.)]
+	</p>
+	<p>
+		Craning her neck forwards, [lexa.name] does as [lexa.sheIs] told, and after wrapping her lips around the head of Vengar's cock and giving it one last suck, she kisses the tip and says, [axel.speech(I'm your horny little alligator slut!)]
+	</p>
+	<p>
+		Pleased with her display of submission, Vengar cleans himself up a little and puts his clothing back on, before turning to you and saying,
+		#IF(sex.getDominantParticipants(false).containsKey(pc))
+			 [vengar.speechNoEffects(Double-teamin' this slutty 'gator sure is fun! Come an' pay me another visit in me den whenever ya want ta do it again!)]
+		#ELSE
+			 [vengar.speechNoEffects(Fuckin' this slutty 'gator sure is fun! Come an' pay me another visit in me den whenever ya want ta watch me do it again!)]
+		#ENDIF
+	</p>
+	<p>
+		With that, the rat-boy exits [axel.namePos] office, leaving the two of you to get cleaned up. After a few moments, you're both done, and after planting a kiss on your cheek, [axel.name] leads you back out into the Gambling Den's entrance hall. Biting her lip at you, she says, [axel.speech(If you want anything else from me, all you have to do is ask!)]
+	</p>
+	<p>
+		#IF(pc.hasCompanions())
+			Skipping over to greet new visitors to the Gambling Den, [axel.name] leaves you to meet up with [npc.name] once again, and, after finding your [npc.companion], you wonder what to do next...
+		#ELSE
+			Skipping over to greet new visitors to the Gambling Den, [axel.name] leaves you to wonder what to do next...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
