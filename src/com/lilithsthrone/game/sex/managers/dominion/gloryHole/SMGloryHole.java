@@ -1,8 +1,10 @@
 package com.lilithsthrone.game.sex.managers.dominion.gloryHole;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -95,9 +97,12 @@ public class SMGloryHole extends SexManagerDefault {
 
 	@Override
 	public String getRandomPublicSexDescription() {
-		Population pop = Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation();
-		if(pop!=null && !pop.getSpecies().isEmpty()) {
-			Subspecies subspecies = Util.randomItemFrom(new ArrayList<>(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies().keySet()));
+		Set<Subspecies> subspeciesSet = new HashSet<>();
+		for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
+			subspeciesSet.addAll(pop.getSpecies().keySet());
+		}
+		if(!subspeciesSet.isEmpty()) {
+			Subspecies subspecies = Util.randomItemFrom(subspeciesSet);
 			
 			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 						+ UtilText.returnStringAtRandom(

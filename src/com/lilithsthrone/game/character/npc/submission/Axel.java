@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -83,7 +84,6 @@ public class Axel extends NPC {
 				new CharacterInventory(30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE, true);
 
 	}
-
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
@@ -102,7 +102,7 @@ public class Axel extends NPC {
 			} else {
 				setStartingBody(true);
 			}
-			this.setName( new NameTriplet("Axel", "Lexa", "Lexa"));
+			this.setName(new NameTriplet("Axel", "Lexa", "Lexa"));
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
@@ -225,6 +225,17 @@ public class Axel extends NPC {
 	}
 	
 	public void applySissification() {
+		this.clearFetishes();
+		this.addFetish(Fetish.FETISH_SUBMISSIVE);
+		this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+
+		this.clearFetishDesires();
+		this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.THREE_LIKE);
+		this.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
+		this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
+		this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
+		
+		
 		this.setHeight(177);
 		this.setFemininity(50);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
@@ -251,7 +262,7 @@ public class Axel extends NPC {
 
 		// Face:
 		this.setFaceVirgin(true);
-		this.setLipSize(LipSize.TWO_FULL);
+		this.setLipSize(LipSize.ONE_AVERAGE);
 		this.setFaceCapacity(Capacity.TWO_TIGHT, true);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
@@ -310,7 +321,7 @@ public class Axel extends NPC {
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_SCALES_ALLIGATOR, Colour.COVERING_GREY), false);
 		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-		this.setHairStyle(HairStyle.DREADLOCKS);
+		this.setHairStyle(HairStyle.LOOSE);
 
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_SCALES_ALLIGATOR, Colour.COVERING_GREY), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
@@ -320,7 +331,7 @@ public class Axel extends NPC {
 
 		// Face:
 		this.setFaceVirgin(true);
-		this.setLipSize(LipSize.THREE_PLUMP);
+		this.setLipSize(LipSize.ONE_AVERAGE);
 //		this.setFaceCapacity(Capacity.ZERO_IMPENETRABLE, true);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
@@ -354,7 +365,7 @@ public class Axel extends NPC {
 		this.fillCumToMaxStorage();
 	}
 	
-	public void applyCage(boolean equip) {
+	public void applyCage(boolean equip, GameCharacter equipper) {
 		AbstractClothing cage = this.getClothingInSlot(InventorySlot.PENIS);
 		
 		if(cage==null && !equip) {
@@ -367,21 +378,27 @@ public class Axel extends NPC {
 		if(equip) {
 			AbstractClothing newCage = AbstractClothingType.generateClothing("innoxia_bdsm_chastity_cage", Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_ROSE_GOLD, Colour.CLOTHING_STEEL, false);
 			newCage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_DRAIN, 0));
-			this.equipClothingFromNowhere(newCage, true, this);
+			this.equipClothingFromNowhere(newCage, true, equipper);
 			
 		} else {
-			this.forceUnequipClothingIntoVoid(this, cage);
+			this.forceUnequipClothingIntoVoid(equipper, cage);
 		}
 	}
 	
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-
+		boolean cage = this.getClothingInSlot(InventorySlot.PENIS)!=null;
+		
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		inventory.setMoney(650);
 		
-		if(!this.isFeminine()) {
+		if(cage) {
+			this.applyCage(true, Main.game.getPlayer());
+		}
+		
+		if((!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelSissified) && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelFeminised))
+				|| this.getWorldLocation()==WorldType.RAT_WARRENS) {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_JOCKSTRAP, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_jeans", Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_WHITE, false), true, this);

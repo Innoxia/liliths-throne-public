@@ -61,6 +61,7 @@
       <tag>PREVENTS_ERECTION_PHYSICAL</tag>
       <tag>TRANSPARENT</tag>
       <tag>RIGID_MATERIAL</tag>
+      <tag>PROVIDES_KEY</tag>
     </itemTags>
 
   </coreAttributes>

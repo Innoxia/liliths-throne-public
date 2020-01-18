@@ -66,6 +66,9 @@ public class CharacterInventory implements XMLSaving {
 
 	private final Map<TFEssence, Integer> essenceMap;
 	
+	/**Maps character IDs to the slots which have free unlocks.*/
+	private final Map<String, List<InventorySlot>> unlockKeyMap;
+	
 	protected int money;
 	
 	private Set<InventorySlot> dirtySlots;
@@ -105,6 +108,8 @@ public class CharacterInventory implements XMLSaving {
 			essenceMap.put(essence, 0);
 		}
 		
+		unlockKeyMap = new HashMap<>();
+		
 		mainWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
 		offhandWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
 		
@@ -128,6 +133,8 @@ public class CharacterInventory implements XMLSaving {
 		
 		essenceMap = new HashMap<>(inventoryToCopy.essenceMap);
 
+		unlockKeyMap = new HashMap<>(inventoryToCopy.unlockKeyMap);
+		
 		mainWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
 		for(int i=0; i<mainWeapon.length; i++) {
 			mainWeapon[i] = inventoryToCopy.mainWeapon[i];
@@ -167,6 +174,22 @@ public class CharacterInventory implements XMLSaving {
 			Element element = doc.createElement("dirtySlot");
 			dirtySlotsElement.appendChild(element);
 			CharacterUtils.addAttribute(doc, element, "slot", slot.toString());
+		}
+
+		if(!unlockKeyMap.isEmpty()) {
+			Element innerElement = doc.createElement("unlockKeyMap");
+			characterInventory.appendChild(innerElement);
+			for(Entry<String, List<InventorySlot>> entry : unlockKeyMap.entrySet()) {
+				Element element = doc.createElement("character");
+				innerElement.appendChild(element);
+				CharacterUtils.addAttribute(doc, element, "id", entry.getKey());
+				
+				for(InventorySlot slot : entry.getValue()) {
+					Element elementSlot = doc.createElement("slot");
+					element.appendChild(elementSlot);
+					CharacterUtils.addAttribute(doc, elementSlot, "id", slot.toString());
+				}
+			}
 		}
 		
 		for(int i=0;i<this.mainWeapon.length;i++) {
@@ -262,6 +285,29 @@ public class CharacterInventory implements XMLSaving {
 				Element e = ((Element)dirtySlotEntries.item(i));
 				InventorySlot slot = InventorySlot.valueOf(e.getAttribute("slot"));
 				inventory.addDirtySlot(slot);
+			}
+		}
+
+		nodes = parentElement.getElementsByTagName("unlockKeyMap");
+		Element unlockKeyMapContainerElement = (Element) nodes.item(0);
+		if(unlockKeyMapContainerElement!=null) {
+			NodeList characterIDs = unlockKeyMapContainerElement.getElementsByTagName("character");
+			for(int i=0; i<characterIDs.getLength(); i++){
+				Element e = ((Element)characterIDs.item(i));
+				
+				String id = e.getAttribute("id");
+				
+				NodeList slots = e.getElementsByTagName("slot");
+				List<InventorySlot> loadedSlots = new ArrayList<>();
+				for(int j=0; j<slots.getLength(); j++){
+					Element slotElement = ((Element)slots.item(j));
+					try {
+						InventorySlot slot = InventorySlot.valueOf(slotElement.getAttribute("id"));
+						loadedSlots.add(slot);
+					}catch(IllegalArgumentException ex){
+					}
+				}
+				inventory.unlockKeyMap.put(id, loadedSlots);
 			}
 		}
 		
@@ -423,6 +469,29 @@ public class CharacterInventory implements XMLSaving {
 		essenceMap.merge(essence, increment, (currentCount, added) -> Math.max(0, currentCount + added));
 	}
 
+	/**
+	 * @return A Map of IDs to InventorySlots, representing which slots this inventory can unlock for free. (i.e. Having a key to unlock clothing in that slot.)
+	 */
+	public Map<String, List<InventorySlot>> getUnlockKeyMap() {
+		return unlockKeyMap;
+	}
+
+	public void addToUnlockKeyMap(String id, InventorySlot slot) {
+		unlockKeyMap.putIfAbsent(id, new ArrayList<>());
+		unlockKeyMap.get(id).add(slot);
+	}
+	
+	public boolean removeFromUnlockKeyMap(String id, InventorySlot slot) {
+		if(unlockKeyMap.containsKey(id)) {
+			boolean removed = unlockKeyMap.get(id).remove(slot);
+			if(unlockKeyMap.get(id).isEmpty()) {
+				unlockKeyMap.remove(id);
+			}
+			return removed;
+		}
+		return false;
+	}
+	
 	public int getMaximumInventorySpace() {
 //		return maxInventorySpace;
 		return RenderingEngine.INVENTORY_PAGES * RenderingEngine.ITEMS_PER_PAGE;
@@ -1430,6 +1499,11 @@ public class CharacterInventory implements XMLSaving {
 							?"<br/>You replace your " + Util.clothesToStringList(clothingToBeReplaced, false) + "."
 							:UtilText.parse(characterClothingOwner,
 									"<br/>[npc.Name] replaces [npc.her] " + Util.clothesToStringList(clothingToBeReplaced, false) + "."));
+				}
+				
+				if(newClothing.getItemTags().contains(ItemTag.PROVIDES_KEY) && newClothing.isSealed()) {
+					equipTextSB.append(UtilText.parse(characterClothingEquipper,
+							"<br/>[style.italicsGood([npc.Name] obtained a key to unlock the "+newClothing.getName()+"!)]"));
 				}
 				
 				// Check for clothing sets:

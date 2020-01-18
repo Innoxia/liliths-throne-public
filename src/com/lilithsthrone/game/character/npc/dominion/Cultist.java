@@ -248,15 +248,7 @@ public class Cultist extends NPC {
 	public boolean isUnique() {
 		return false;
 	}
-//	
-//	public boolean isSealedSex() {
-//		return sealedSex;
-//	}
-//
-//	public void setSealedSex(boolean sealedSex) {
-//		this.sealedSex = sealedSex;
-//	}
-
+	
 	public boolean isRequestedAnal() {
 		return requestedAnal;
 	}

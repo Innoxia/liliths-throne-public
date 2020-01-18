@@ -4,11 +4,13 @@ import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventListener;
@@ -48,6 +50,7 @@ import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.Spell;
@@ -109,6 +112,7 @@ import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
+import com.lilithsthrone.world.places.Population;
 
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
@@ -1945,16 +1949,22 @@ public class MainController implements Initializable {
 		} else {
 			charactersBeingRendered.addAll(Main.game.getCharactersPresent());
 			
-			id = "PLACE_POPULATION";
-			if (((EventTarget) documentRight.getElementById(id)) != null) {
-				addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
-				addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-				
-				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
-						"Races Present",
-						Util.subspeciesToStringList(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies().keySet(), true)+".",
-						(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies().size()/3)*16);
-				addEventListener(documentRight, id, "mouseenter", el, false);
+			int i=0;
+			for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
+				id = "PLACE_POPULATION_"+i;
+				if (((EventTarget) documentRight.getElementById(id)) != null) {
+					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
+					
+					Set<Subspecies> subspecies = new HashSet<>();
+					subspecies.addAll(pop.getSpecies().keySet());
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
+							"Races Present",
+							Util.subspeciesToStringList(subspecies, true)+".",
+							(subspecies.size()/3)*16);
+					addEventListener(documentRight, id, "mouseenter", el, false);
+				}
+				i++;
 			}
 		}
 		
