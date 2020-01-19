@@ -16230,9 +16230,9 @@ public abstract class GameCharacter implements XMLSaving {
 								+ " and <b>"+increment+"</b> <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b>"
 								+ " as [npc.she] [npc.verb(struggle)] to control [npc.her] burning desire for sex!</b>"
 						+ "</p>"));
-
-			this.incrementHealth(-increment*2);
-			this.incrementMana(-increment);
+			
+			this.setHealth(this.getHealth() - (increment*2));
+			this.setMana(this.getMana() - (increment));
 		}
 		
 		sb.append(setLust(getLust() + increment));

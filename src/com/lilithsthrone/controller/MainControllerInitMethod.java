@@ -5033,7 +5033,7 @@ public class MainControllerInitMethod {
 					|| Main.game.getCurrentDialogueNode() == CharactersPresentDialogue.MENU
 					|| Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
 				
-				GameCharacter character = Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_PERK_TREE
+				GameCharacter character = Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_PERK_TREE || Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_APPEARANCE
 						?Main.game.getPlayer()
 						:(Main.game.getCurrentDialogueNode() == CompanionManagement.SLAVE_MANAGEMENT_PERKS
 							?OccupantManagementDialogue.characterSelected()

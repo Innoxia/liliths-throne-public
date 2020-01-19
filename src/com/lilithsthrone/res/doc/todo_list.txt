@@ -53,65 +53,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Engine:
-		Removed all of the Sex class's static methods. Sex methods are now called via 'Main.sex.' in the code, or 'sex.' in the parsing engine. This was done to enable sex methods to be referenced in text file parsing.
-		Added parsing command 'companion', which returns either your companion's relation to you (i.e. 'son', 'daughter', etc.) or the word 'companion'.
-		Added support for tiles to contain multiple generic Population types.
-	
-	Gameplay:
-		Filled in a lot of Axel's quest placeholders. (The two loss routes and the post-quest interactions with Vengar & MUrk still need to be filled in...)
-		Added tail girth. You can alter tail girth via enchanting potions or the self-TF menu (for demons and slimes).
-	
-	Items:
-		Some items of clothing now provide a key to the equipping character when equipped (such as chastity cages, chastity belts, other bondage gear). While in possession of this key, unjinxing (i.e. unlocking) the clothing costs no essences.
-		For modders: Items of clothing can be defined as providing a key with the new PROVIDES_KEY tag.
-		Unjinxing sealed clothing no longer removes the sealing enchantment. Instead, it simply unlocks the clothing so that it can be removed, but if put on again, will seal itself back onto the character. Seals can still be removed via the enchanting menu.
-		Chastity cages are now tagged as being able to be equipped during sex.
-		All clothing types which can be equipped during sex (and so are assumed to be sex toys), or which fit into the 'groin' slot, can now be enchanted with a 'vibration' effect (as a secondary modifier to a 'special effect' primary modifier), increasing the wearer's resting lust value and also giving them bonus arousal increases every turn in sex.
-		The item 'Mother's Milk' now advances pregnancy directly to the next stage, instead of skipping it forwards to an hour before the next stage.
-		
-	Sex:
-		NPCs will no longer start ongoing mouth-nipple actions if the character whose nipples are to be sucked does not have breasts.
-		Quick sex: NPCs will now take into account the sex scene's special preferences when choosing what their foreplay/main sex actions are.
-		Quick sex: NPCs' action choice should no longer select actions that are meant to be banned from your content options.
-		Quick sex: In consensual sex, characters will no longer creampie others if their pregnancy fetish is negative.
-		Quick sex: In consensual sex, dominant partners will go past their orgasm limit to make sure the subs are also satisfied.
-		Quick sex: The dominant character now automatically uses 'Orgasmic level drain' (if available) when using quick sex.
-		
-	Other:
-		Added a small chance (0.5%) for the 'finding an item' encounter in Dominion's alleyways to give you a joke burger item if you are playing in silly mode. The 'eggplant' joke item is now also restricted to being found only in silly mode.
-		Improved colouring of post-sex stretch effects text.
-		Added indication of a character's resting lust value in their lust bar tooltip.
-		Arcane storm vulnerability now gives +75 to resting lust level, instead of setting it to a base of 75.
-		Lust gains from sadist & masochist fetishes are now capped to a maximum of 25.
-		Characters will no longer refer to a penis as a 'shaft' in speech (as I thought it sounded quite awkward).
-	
 	Bugs:
-		Parsing & typo fixes.
-		Fixed issue where unique NPCs were not immune to 'orgasmic level drain', but normal random characters were, instead of the other way around.
-		Fixed some minor incorrect text in the 'orgasmic level drain' perk description.
-		Fixed incorrect clothing on the four 'milkers' in the Rat Warrens.
-		Fixed issue where there was more than one removal button for when an effect has multiple descriptions in the enchantment screen, with the duplicate buttons doing nothing.
-		Fixed issues with Murk's 'milkers' clothing not being equipped or lacking correct colours/enchantments.
-		Fixed bug where some weapons (such as the broomstick and the scythe) would not grant the wielder the spells they were meant to unlock.
-		Fixed several issues in the Rat Warrens regarding hostile rats not spawning correctly at checkpoints or in the dice den. Also fixed some actions incorrectly being available at the entrance after clearing out the entrance guards.
-		Corrected corruption values of all unique NPCs.
-		Fixed issue where Lyssieth would sometimes not have her elder lilin subspecies status effect applied to her.
-		Fixed multiple minor issues with the flow of dialogue in scenes in the Rat Warrens.
-		Fixed bug (from 0.3.5.10) where newly-spawned characters would throw a background error.
-		Fixed issue with lust gains from sadist & masochist fetishes always defaulting to 1.
-		Lust damage from masochist and sadist fetishes now correctly damages energy and aura when lust is at 100.
-		Fixed issues of 'feet' being displayed in some scenes even if your game was meant to be using metric values for length.
-		Corrected minor issue of Lyssieth's breast size incorrectly being described as increasing during her demonic transformation scenes.
-		Fixed issue where Enforcers were described as being present in group sex scenes in areas where Enforcers should not have been present.
-		Fixed issue where cum 'wetness' enchantment was described as increasing cum production instead of cum storage.
-		Fixed issue where the magnitude of potion effects would be doubled every time you loaded a game while playing with the 'chef' background.
-		Fixed bug (from 0.3.5.11) where encounters with a companion in your party would bug out and not initialise correctly.
-		Fixed numerous parsing errors (from 0.3.5.11) when in the Rat Warrens with a companion.
-		Fixed an issue where using 'Quick sex' could sometimes cause the game to freeze.
-		Fixed debug menu's clothing spawn 'head' category not working.
-		
+		Fixed issue where the game would sometimes freeze or throw other errors when opening the player's selfie menu.
+		Fixed game freeze in combat when sadist/masochist dealt/took damage while at 100 lust.
+		Fixed a parsing bug in the Rat Warrens' Milking Room.
+		Fixed bug where Helena would add three new slaves to her shop every day and never remove the old ones, which was eventually causing a huge number of slaves to stack up on that tile.
 	
+	
+	Update master branch, TFGS
 	
 	Chonk tails
 		[x] Add to body description

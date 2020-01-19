@@ -923,10 +923,10 @@
 			#ENDIF
 		</p>
 		<p>
-			[npc4.speech(Master! Please, fill my pussy!)] one of them whines.
+			[npc3.speech(Master! Please, fill my pussy!)] one of them whines.
 		</p>
 		<p>
-			[npc6.speech(Please, master! I need your cock!)] the one beside the first cries out.
+			[npc5.speech(Please, master! I need your cock!)] the one beside the first cries out.
 		</p>
 		<p>
 			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
@@ -972,10 +972,10 @@
 			#ENDIF
 		</p>
 		<p>
-			[npc4.speech(Master! Please, fill my pussy!)] one of them whines.
+			[npc2.speech(Master! Please, fill my pussy!)] one of them whines.
 		</p>
 		<p>
-			[npc6.speech(Please, master! I need your cock!)] the one beside the first cries out.
+			[npc4.speech(Please, master! I need your cock!)] the one beside the first cries out.
 		</p>
 		<p>
 			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))

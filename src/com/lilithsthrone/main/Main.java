@@ -68,7 +68,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.6";
+	public static final String VERSION_NUMBER = "0.3.6.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -95,7 +95,11 @@ public class Main extends Application {
 			
 		+ "<p>"
 			+ "Speaking of which, the next update will be focused around adding Helena's romance quest, as well as some Enforcer encounters and size difference mechanics/content."
-			+ " I'll try to get all that done as quickly as possible, so that I can then finally move on to adding mroe main quest content."
+			+ " I'll try to get all that done as quickly as possible, so that I can then finally move on to adding more main quest content."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "v0.3.6.1 was a hotfix to address some major bugs."
 		+ "</p>"
 			
 		+ "<br/>"
@@ -107,6 +111,16 @@ public class Main extends Application {
 
 		+ "<br/>"
 
+		+ "<list>"
+			+ "<h6>v0.3.6.1</h6>"
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed issue where the game would sometimes freeze or throw other errors when opening the player's selfie menu.</ul>"
+			+"<ul>Fixed game freeze in combat when sadist/masochist dealt/took damage while at 100 lust.</ul>"
+			+"<ul>Fixed a parsing bug in the Rat Warrens' Milking Room.</ul>"
+			+"<ul>Fixed bug where Helena would add three new slaves to her shop every day and never remove the old ones, which was eventually causing a huge number of slaves to stack up on that tile.</ul>"
+		+"</list>"
+
+		+ "<br/>"
 		+ "<list>"
 			+ "<h6>v0.3.6</h6>"
 			+"<li>Engine:</li>"
