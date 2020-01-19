@@ -21,7 +21,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.PerkCategory;
@@ -182,7 +182,7 @@ public class Zaranix extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenisGirth.THREE_THICK);
+		this.setPenisGirth(PenetrationGirth.THREE_THICK);
 		this.setPenisSize(25);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(550);

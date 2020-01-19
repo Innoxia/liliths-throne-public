@@ -80,7 +80,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
@@ -2858,7 +2858,7 @@ public class MainControllerInitMethod {
 				}
 
 				// Penis girth:
-				for(PenisGirth girth : PenisGirth.values()) {
+				for(PenetrationGirth girth : PenetrationGirth.values()) {
 					id = "PENIS_GIRTH_"+girth;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -3205,6 +3205,17 @@ public class MainControllerInitMethod {
 
 				for(int i=1; i <= Tail.MAXIMUM_COUNT; i++) {
 					MainController.setTailCountListener(i);
+				}
+
+				// Tail girth:
+				for(PenetrationGirth girth : PenetrationGirth.values()) {
+					id = "TAIL_GIRTH_"+girth;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setTailGirth(girth.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
 				}
 				
 				// Ass:

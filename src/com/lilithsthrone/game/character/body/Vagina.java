@@ -12,7 +12,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -44,7 +44,7 @@ public class Vagina implements BodyPartInterface {
 	public Vagina(VaginaType type, int labiaSize, int clitSize, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.labiaSize = labiaSize;
-		this.clitoris = new Clitoris(clitSize, PenisGirth.TWO_AVERAGE.getValue());
+		this.clitoris = new Clitoris(clitSize, PenetrationGirth.TWO_AVERAGE.getValue());
 		pierced = false;
 		
 		orificeVagina = new OrificeVagina(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());

@@ -16,7 +16,7 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
@@ -158,11 +158,11 @@ public enum CaptiveTransformation {
 							target.setPenisSize(PenisSize.ONE_TINY.getMedianValue()));
 				}
 
-				if(target.getPenisRawGirthValue()>PenisGirth.TWO_AVERAGE.getValue()) {
+				if(target.getPenisRawGirthValue()>PenetrationGirth.TWO_AVERAGE.getValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("I don't want no sissy cock bein' as thick as mine!"
 							+(!selfTransform?"":" Go on, I wanna see yer slim yer cock down!"),
-							target.setPenisGirth(PenisGirth.TWO_AVERAGE));
+							target.setPenisGirth(PenetrationGirth.TWO_AVERAGE));
 				}
 				
 			} else {
@@ -173,11 +173,11 @@ public enum CaptiveTransformation {
 							target.setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue()));
 				}
 
-				if(target.getPenisRawGirthValue()<PenisGirth.THREE_THICK.getValue()) {
+				if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("Let's make yer cock nice an' thick!"
 							+(!selfTransform?"":" Go on, I wanna see yer fatten it up!"),
-							target.setPenisGirth(PenisGirth.THREE_THICK));
+							target.setPenisGirth(PenetrationGirth.THREE_THICK));
 				}
 			}
 			
@@ -466,11 +466,11 @@ public enum CaptiveTransformation {
 							target.setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue()));
 				}
 				
-				if(target.getPenisRawGirthValue()<PenisGirth.THREE_THICK.getValue()) {
+				if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("Let's make yer cock nice an' thick!"
 							+(!selfTransform?"":" Go on, I wanna see yer fatten it up!"),
-							target.setPenisGirth(PenisGirth.THREE_THICK));
+							target.setPenisGirth(PenetrationGirth.THREE_THICK));
 				}
 				
 				if(Main.game.isFutanariTesticlesEnabled() && target.isInternalTesticles()) {

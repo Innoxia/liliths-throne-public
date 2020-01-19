@@ -2244,7 +2244,7 @@
 				Having finished with [npc2.name], you step away from her and call out for [npc.name] to join you as you turn towards the exit. Clearly not too happy with having had to watch you use one of his milkers, Murk spits on the ground and sneers,
 			#ENDIF
 		#ELSE
-			Having finished with [npc2.name], you step away from her and turn towards the exit. Clearly not too happy with having had to watch you use one of his milkers, Murk spits on the ground and sneers,
+			Having finished with [npc.name], you step away from her and turn towards the exit. Clearly not too happy with having had to watch you use one of his milkers, Murk spits on the ground and sneers,
 		#ENDIF
 		 [murk.speechNoEffects(Go on then, now's that ya 'ad yer fun, out ya go! I's gotta get these dildos shoved back in these sluts, an' I'm gonna 'ave ta take a minute ta empty me balls in that slut ya just used, so as she don't forget who 'er master is. If ya wantin' anythin' more from me, come back later!)]
 	</p>

@@ -797,7 +797,9 @@ public class TooltipInformationEventListener implements EventListener {
 						tooltipSB.append(getEmptyBodyPartDiv("Wings", "None"));
 					}
 					if (owner.getTailType() != TailType.NONE) {
-						tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getTailCount()))+" tail"+(owner.getTailCount()!=1?"s":""), owner.getTailRace(), owner.getTailCovering(), owner.isTailBestial()));
+						tooltipSB.append(
+								getBodyPartDiv(owner,
+										Util.capitaliseSentence(Util.intToString(owner.getTailCount()))+" "+(owner.getTailGirthDescriptor())+" tail"+(owner.getTailCount()!=1?"s":""), owner.getTailRace(), owner.getTailCovering(), owner.isTailBestial()));
 					} else {
 						tooltipSB.append(getEmptyBodyPartDiv("Tail", "None"));
 					}

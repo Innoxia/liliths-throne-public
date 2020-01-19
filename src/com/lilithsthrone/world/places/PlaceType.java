@@ -1968,7 +1968,7 @@ public class PlaceType {
 			if(Main.game.isExtendedWorkTime()) {
 				return Util.newArrayListOfValues(new Population(PopulationType.SHOPPERS, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies().get(WorldType.DOMINION)));
 			} else {
-				return null;
+				return new ArrayList<>();
 			}
 		}
 	}.initWeatherImmune();
@@ -2827,7 +2827,7 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			if(ImpCitadelDialogue.isImpsDefeated() || ImpCitadelDialogue.isDefeated()) {
-				return null;
+				return new ArrayList<>();
 			}
 			return Util.newArrayListOfValues(new Population(PopulationType.GUARDS, PopulationDensity.NUMEROUS,
 					Util.newHashMapOfValues(
@@ -2890,7 +2890,7 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			if(ImpCitadelDialogue.isImpsDefeated() || ImpCitadelDialogue.isDefeated()) {
-				return null;
+				return new ArrayList<>();
 			}
 			return Util.newArrayListOfValues(new Population(PopulationType.GUARDS, PopulationDensity.FEW,
 					Util.newHashMapOfValues(
@@ -3604,7 +3604,7 @@ public class PlaceType {
 					return Util.newArrayListOfValues(new Population(PopulationType.GANG_MEMBERS, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
 				}
 			}
-			return null;
+			return new ArrayList<>();
 		}
 		@Override
 		public boolean isDangerous() {
@@ -3629,7 +3629,7 @@ public class PlaceType {
 					return Util.newArrayListOfValues(new Population(PopulationType.GANG_MEMBERS, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
 				}
 			}
-			return null;
+			return new ArrayList<>();
 		}
 		@Override
 		public boolean isDangerous() {
@@ -3654,7 +3654,7 @@ public class PlaceType {
 					return Util.newArrayListOfValues(new Population(PopulationType.GANG_MEMBERS, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
 				}
 			}
-			return null;
+			return new ArrayList<>();
 		}
 		@Override
 		public boolean isDangerous() {
@@ -3728,7 +3728,7 @@ public class PlaceType {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
 				return Util.newArrayListOfValues(new Population(PopulationType.GANG_MEMBERS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
 			}
-			return null;
+			return new ArrayList<>();
 		}
 		@Override
 		public boolean isDangerous() {

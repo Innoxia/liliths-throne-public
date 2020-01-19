@@ -959,7 +959,7 @@ public class RatWarrensDialogue {
 							?new Value<>(getMainCompanion(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_TWO)
 							:null)) {
 			@Override
-			public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+			public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 				if(guards.contains(character)) {
 					if(character.hasPenis()) {
 						return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
@@ -971,7 +971,7 @@ public class RatWarrensDialogue {
 				return character.getForeplayPreference(targetedCharacter);
 			}
 			@Override
-			public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+			public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 				return character.getForeplayPreference(targetedCharacter);
 			}
 			@Override
@@ -1692,7 +1692,7 @@ public class RatWarrensDialogue {
 								}
 							}
 							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(!character.isPlayer()) {
 									if(character.hasPenis()) {
 										return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
@@ -1703,7 +1703,7 @@ public class RatWarrensDialogue {
 								return super.getForeplayPreference(character, targetedCharacter);
 							}
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								return getForeplayPreference(character, targetedCharacter);
 							}
 							@Override
@@ -1784,7 +1784,7 @@ public class RatWarrensDialogue {
 											}
 										}
 										@Override
-										public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+										public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 											if(!character.equals(companion)) {
 												if(character.hasPenis()) {
 													return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
@@ -1795,7 +1795,7 @@ public class RatWarrensDialogue {
 											return super.getForeplayPreference(character, targetedCharacter);
 										}
 										@Override
-										public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+										public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 											return getForeplayPreference(character, targetedCharacter);
 										}
 										@Override
@@ -2121,6 +2121,7 @@ public class RatWarrensDialogue {
 							MILKING_ROOM_BACKGROUND) {
 						@Override
 						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensMilkersBackground, true);
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM_BACKGROUND", getMilkers()));
 						}
 					};
@@ -2729,8 +2730,8 @@ public class RatWarrensDialogue {
 							return new Response("Continue", "As Vengar is unable to fuck either of you, he's content to simply inform you what he wants you to do for him.", VENGARS_HALL_APPROACH_PERSUADE_FINISH) {
 								@Override
 								public void effects() {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_NO_SEX_FINISH"));
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK"));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_NO_SEX_FINISH", getGuards(true)));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK", getGuards(true)));
 								}
 							};
 						}
@@ -2742,8 +2743,8 @@ public class RatWarrensDialogue {
 								return new Response("Continue", "As Vengar is unable to fuck you, he's content to simply inform you what he wants you to do for him.", VENGARS_HALL_APPROACH_PERSUADE_FINISH) {
 									@Override
 									public void effects() {
-										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_NO_SEX_FINISH"));
-										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK"));
+										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_NO_SEX_FINISH", getGuards(true)));
+										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK", getGuards(true)));
 									}
 								};
 							}
@@ -2756,9 +2757,9 @@ public class RatWarrensDialogue {
 										VENGARS_HALL_APPROACH_PERSUADE_FINISH) {
 									@Override
 									public void effects() {
-										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_SEX_REFUSE_WATCH"));
-										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_NO_SEX_FINISH"));
-										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK"));
+										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_SEX_REFUSE_WATCH", getGuards(true)));
+										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_NO_SEX_FINISH", getGuards(true)));
+										Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK", getGuards(true)));
 									}
 								};
 								
@@ -2785,7 +2786,7 @@ public class RatWarrensDialogue {
 										Util.newArrayListOfValues(
 												Main.game.getPlayer()),
 										VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX,
-										UtilText.parseFromXMLFile("places/submission/ratWarrens/core", isVaginaAccess(getMainCompanion())?"VENGARS_HALL_SUB_SEX_WATCH":"VENGARS_HALL_SUB_SEX_WATCH_ANAL")) {
+										UtilText.parseFromXMLFile("places/submission/ratWarrens/core", isVaginaAccess(getMainCompanion())?"VENGARS_HALL_SUB_SEX_WATCH":"VENGARS_HALL_SUB_SEX_WATCH_ANAL", getGuards(true))) {
 									@Override
 									public List<InitialSexActionInformation> getInitialSexActions() {
 										if(isVaginaAccess(getMainCompanion())) {
@@ -2824,8 +2825,8 @@ public class RatWarrensDialogue {
 						VENGARS_HALL_APPROACH_PERSUADE_FINISH) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_SEX_REFUSED"));
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_SEX_REFUSED", getGuards(true)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK", getGuards(true)));
 					}
 				};
 				
@@ -2851,7 +2852,7 @@ public class RatWarrensDialogue {
 						Util.newArrayListOfValues(
 								getMainCompanion()),
 						VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", isVaginaAccess(Main.game.getPlayer())?"VENGARS_HALL_SUB_SEX_SOLO_START":"VENGARS_HALL_SUB_SEX_SOLO_START_ANAL")) {
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", isVaginaAccess(Main.game.getPlayer())?"VENGARS_HALL_SUB_SEX_SOLO_START":"VENGARS_HALL_SUB_SEX_SOLO_START_ANAL", getGuards(true))) {
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
 						if(isVaginaAccess(Main.game.getPlayer())) {
@@ -2909,7 +2910,7 @@ public class RatWarrensDialogue {
 							Util.newArrayListOfValues(
 									Main.game.getPlayer()),
 							VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", isVaginaAccess(getMainCompanion())?"VENGARS_HALL_SUB_SEX_WATCH":"VENGARS_HALL_SUB_SEX_WATCH_ANAL")) {
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", isVaginaAccess(getMainCompanion())?"VENGARS_HALL_SUB_SEX_WATCH":"VENGARS_HALL_SUB_SEX_WATCH_ANAL", getGuards(true))) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							if(isVaginaAccess(getMainCompanion())) {
@@ -2934,7 +2935,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_SEX_DOUBLE_CHOICE");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_SEX_DOUBLE_CHOICE", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -2975,7 +2976,7 @@ public class RatWarrensDialogue {
 											?null
 											:getMainCompanion())),
 						VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_DOUBLE,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_SEX_BOTH_PLAYER_FIRST")) {
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_SEX_BOTH_PLAYER_FIRST", getGuards(true))) {
 					
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
@@ -3042,7 +3043,7 @@ public class RatWarrensDialogue {
 											?null
 											:Main.game.getPlayer())),
 						VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_DOUBLE,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_SEX_BOTH_COMPANION_FIRST")) {
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_SEX_BOTH_COMPANION_FIRST", getGuards(true))) {
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
 						List<InitialSexActionInformation> list = new ArrayList<>();
@@ -3083,9 +3084,9 @@ public class RatWarrensDialogue {
 		@Override
 		public String getContent() {
 			if(Main.sex.getSexPositionSlot(Main.game.getPlayer())!=SexSlotAllFours.ALL_FOURS) {
-				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_DOUBLE_PLAYER_NEXT");
+				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_DOUBLE_PLAYER_NEXT", getGuards(true));
 			}
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_DOUBLE_COMPANION_NEXT");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_DOUBLE_COMPANION_NEXT", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3133,7 +3134,7 @@ public class RatWarrensDialogue {
 											?null
 											:getMainCompanion())),
 							VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_SEX_BOTH_PLAYER_SECOND_START")) {
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_SEX_BOTH_PLAYER_SECOND_START", getGuards(true))) {
 						
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
@@ -3202,7 +3203,7 @@ public class RatWarrensDialogue {
 											?null
 											:Main.game.getPlayer())),
 							VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_SEX_BOTH_COMPANION_SECOND_START")) {
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_SUB_SEX_BOTH_COMPANION_SECOND_START", getGuards(true))) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							List<InitialSexActionInformation> list = new ArrayList<>();
@@ -3244,9 +3245,9 @@ public class RatWarrensDialogue {
 		@Override
 		public String getContent() {
 			if(Main.sex.getSexPositionSlot(Main.game.getPlayer())!=SexSlotAllFours.ALL_FOURS) {
-				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_COMPANION");
+				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_COMPANION", getGuards(true));
 			}
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3254,8 +3255,8 @@ public class RatWarrensDialogue {
 				return new Response("Stand up", "Stand up and await Vengar's next command...", VENGARS_HALL_APPROACH_PERSUADE_FINISH) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_FINISH"));
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_AFTER_SEX_FINISH", getGuards(true)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK", getGuards(true)));
 					}
 				};
 			}
@@ -3278,7 +3279,7 @@ public class RatWarrensDialogue {
 				return new Response("Agree", "Having already decided to take a non-violent approach, agreeing to get Axel to come and show his submission seems to be the only option left to you.", VENGARS_HALL_CORRIDOR_EXIT_NO_CONTENT) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_END_AND_LEAVE"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_PERSUADE_END_AND_LEAVE", getGuards(true)));
 						Main.game.getPlayer().setNearestLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CORRIDOR_RIGHT, false);
 					}
 				};
@@ -3297,12 +3298,12 @@ public class RatWarrensDialogue {
 			StringBuilder sb = new StringBuilder();
 			
 			if(Main.game.getPlayer().hasTraitActivated(Perk.CHUUNI)) {
-				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_CHUUNI"));
+				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_CHUUNI", getGuards(true)));
 				
 			} else if(Main.game.getPlayer().getRace()==Race.DEMON) {
-				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_DEMON"));
+				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_DEMON", getGuards(true)));
 			} else {
-				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN"));
+				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN", getGuards(true)));
 			}
 			
 			return sb.toString();
@@ -3351,11 +3352,11 @@ public class RatWarrensDialogue {
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
 			if(Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.SLAM_3)) {
-				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_SLAM"));
+				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_SLAM", getGuards(true)));
 			} else {
-				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT"));
+				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT", getGuards(true)));
 			}
-			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_END"));
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_END", getGuards(true)));
 			return sb.toString();
 		}
 		@Override
@@ -3374,7 +3375,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_CHAOS");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_CHAOS", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3392,7 +3393,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_SWORD_RAID");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_SWORD_RAID", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3415,7 +3416,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_SWORD_RAID_CLAIRE");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT_SWORD_RAID_CLAIRE", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3465,7 +3466,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "SWORD_RAID_EXIT");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "SWORD_RAID_EXIT", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3482,11 +3483,11 @@ public class RatWarrensDialogue {
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
 			if(Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_3)) {
-				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_TELEPATHY"));
+				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_TELEPATHY", getGuards(true)));
 			} else {
-				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE"));
+				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE", getGuards(true)));
 			}
-			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_END"));
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_END", getGuards(true)));
 			return sb.toString();
 		}
 		@Override
@@ -3513,7 +3514,7 @@ public class RatWarrensDialogue {
 								}
 							},
 						VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_SEX_SUBMISSIVE"));
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_SEX_SUBMISSIVE", getGuards(true)));
 				
 			} else if(index==3) {
 				return new ResponseSex(
@@ -3532,7 +3533,7 @@ public class RatWarrensDialogue {
 								}
 							},
 						VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_SEX_DOMINANT"));	
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_SEX_DOMINANT", getGuards(true)));	
 			}
 			return null;
 		}
@@ -3546,8 +3547,8 @@ public class RatWarrensDialogue {
 		@Override
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
-			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_NO_SEX"));
-			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK"));
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_NO_SEX", getGuards(true)));
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK", getGuards(true)));
 			return sb.toString();
 		}
 		@Override
@@ -3556,7 +3557,7 @@ public class RatWarrensDialogue {
 				return new Response("Agree", "Having already decided to take a non-violent approach, agreeing to get Axel to come and show his submission seems to be the only option left to you.", VENGARS_HALL_CORRIDOR_EXIT_NO_CONTENT) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_NO_SEX_LEAVE"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_NO_SEX_LEAVE", getGuards(true)));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_COOPERATION));
 						Main.game.getNpc(Vengar.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL, false);
 						Main.game.getPlayer().setNearestLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CORRIDOR_RIGHT, false);
@@ -3575,8 +3576,8 @@ public class RatWarrensDialogue {
 		@Override
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
-			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX"));
-			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK"));
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX", getGuards(true)));
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_QUITTING_TALK", getGuards(true)));
 			return sb.toString();
 		}
 		@Override
@@ -3585,7 +3586,7 @@ public class RatWarrensDialogue {
 				return new Response("Agree", "Having already decided to take a non-violent approach, agreeing to get Axel to come and show his submission seems to be the only option left to you.", VENGARS_HALL_CORRIDOR_EXIT_NO_CONTENT) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX_LEAVE"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_SEDUCE_AFTER_SEX_LEAVE", getGuards(true)));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_COOPERATION));
 						Main.game.getNpc(Vengar.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL, false);
 						Main.game.getPlayer().setNearestLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CORRIDOR_RIGHT, false);
@@ -3603,7 +3604,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_RESONANCE_STONE");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_RESONANCE_STONE", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3643,7 +3644,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_SHADOW_DEFEATED");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_SHADOW_DEFEATED", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3671,7 +3672,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_SILENCE_DEFEATED");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_SILENCE_DEFEATED", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3693,7 +3694,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_VICTORY");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_VICTORY", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3714,9 +3715,9 @@ public class RatWarrensDialogue {
 		@Override
 		public String getContent() {
 			if(!Main.game.isNonConEnabled()) {
-				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_DEFEAT_NO_NON_CON");
+				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_DEFEAT_NO_NON_CON", getGuards(true));
 			}
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_DEFEAT");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_DEFEAT", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3771,7 +3772,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGAR_COMBAT_VICTORY");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGAR_COMBAT_VICTORY", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3789,7 +3790,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGAR_COMBAT_DEFEAT");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGAR_COMBAT_DEFEAT", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3804,7 +3805,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_BEDROOM");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_BEDROOM", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3825,7 +3826,7 @@ public class RatWarrensDialogue {
 								}
 							},
 						VENGARS_BEDROOM_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_BEDROOM_SEX_SUBMISSIVE"));
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_BEDROOM_SEX_SUBMISSIVE", getGuards(true)));
 				
 			} else if(index==2) {
 				return new ResponseSex(
@@ -3844,7 +3845,7 @@ public class RatWarrensDialogue {
 								}
 							},
 						VENGARS_BEDROOM_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_BEDROOM_SEX_DOMINANT"));	
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_BEDROOM_SEX_DOMINANT", getGuards(true)));	
 			}
 			return null;
 		}
@@ -3857,7 +3858,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_BEDROOM_AFTER_SEX");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_BEDROOM_AFTER_SEX", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3882,7 +3883,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "LEXA_VISIT");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "LEXA_VISIT", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3909,7 +3910,7 @@ public class RatWarrensDialogue {
 							}
 						},
 						LEXA_VISIT_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "LEXA_VISIT_THREESOME"));
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "LEXA_VISIT_THREESOME", getGuards(true)));
 				
 			} else if(index==2) {
 				return new ResponseSex(
@@ -3928,13 +3929,13 @@ public class RatWarrensDialogue {
 								}
 							},
 						LEXA_VISIT_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "LEXA_VISIT_WATCH"));
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "LEXA_VISIT_WATCH", getGuards(true)));
 				
 			} else if(index==3) {
 				return new Response("Leave", "Decide against doing anything lewd with Vengar and [axel.name], and instead leave the two of them to it...", PlaceType.SUBMISSION_GAMBLING_DEN.getDialogue(false)) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "LEXA_VISIT_LEAVE"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "LEXA_VISIT_LEAVE", getGuards(true)));
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_GAMBLING_DEN, false);
 						Main.game.getNpc(Vengar.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL, false);
 						Main.game.getNpc(Axel.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE, false);
@@ -3953,7 +3954,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "LEXA_VISIT_AFTER_SEX");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "LEXA_VISIT_AFTER_SEX", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -3980,7 +3981,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "POST_CAPTIVITY_SWORD_RAID");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "POST_CAPTIVITY_SWORD_RAID", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -4004,7 +4005,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "POST_CAPTIVITY_SWORD_RAID_FINISH");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "POST_CAPTIVITY_SWORD_RAID_FINISH", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -4027,7 +4028,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "POST_DEFEAT_SWORD_RAID");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "POST_DEFEAT_SWORD_RAID", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -4051,7 +4052,7 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "POST_CAPTIVITY_SWORD_RAID_FINISH");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "POST_CAPTIVITY_SWORD_RAID_FINISH", getGuards(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {

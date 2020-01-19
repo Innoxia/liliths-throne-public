@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.Axel;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
@@ -57,7 +56,7 @@ public class SMAxel extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+	public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 		if(Main.sex.isDom(character)) {
 			return axelSexTypePreference;
 		}

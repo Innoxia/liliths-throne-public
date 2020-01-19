@@ -37,7 +37,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
@@ -240,7 +240,7 @@ public class Amber extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenisGirth.FOUR_FAT);
+		this.setPenisGirth(PenetrationGirth.FOUR_FAT);
 		this.setPenisSize(25);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(550);
@@ -611,6 +611,24 @@ public class Amber extends NPC {
 	public boolean isLevelDrainAvailableToUse() {
 		return Main.game.isLevelDrainContentEnabled()
 				&& Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).getClothingType()==ClothingType.AMBERS_BITCH_CHOKER;
+	}
+
+	@Override
+	public String getLevelDrainDescription(GameCharacter target) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(UtilText.returnStringAtRandom(
+				"Letting out a mocking laugh, Amber roughly grabs hold of you and growls, ",
+				"Amber's glowing eyes open wide, and with a cruel laugh, she reveals, ",
+				"Letting out a cruel, mocking laugh, Amber greedily absorbs your energy and taunts, "
+				));
+		
+		sb.append(UtilText.returnStringAtRandom(
+				"[npc.speech(I'm going to drain all of your power! You'll be nothing but my worthless pet by the time I'm done with you!)]",
+				"[npc.speech(You pathetic bitch! All of your power will be mine!)]",
+				"[npc.speech(What a pathetic bitch you are! Having your power drained away like this!)]"));
+		
+		return UtilText.parse(this, target, sb.toString());
 	}
 	
 	@Override

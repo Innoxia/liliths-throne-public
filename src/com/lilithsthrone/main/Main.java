@@ -68,7 +68,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.5.11";
+	public static final String VERSION_NUMBER = "0.3.6";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -85,18 +85,17 @@ public class Main extends Application {
 	public static String patchNotes =
 		
 		"<p>"
-			+ "Hello again!"
+			+ "Hello once again!"
 		+ "</p>"
 		
 		+ "<p>"
-			+ "I was a little busier over the Christmas period than I expected, so I didn't really get much time in which I could sit down and get on with the writing for Axel's quest."
-			+ " I did manage to grab time here and there in which to fix bugs, however, and then over this weekend I've got as much writing done as I could, but there is still a lot left to add..."
+			+ "I've got all of the core dialogue for Axel's quest filled in, although the loss scenes (involving the player being held captive by wither Murk or Vengar) are still all placeholders."
+			+ " I've really been struggling to get this writing finished, and I think that it's already cost me far too much time, so I'm going to go on and push ahead with other content, and will come back and fill it in another time."
 		+ "</p>"
 			
 		+ "<p>"
-			+ "So, with that in mind, please be aware that there is still a lot of placeholder dialogue in this version of Axel's quest."
-			+ " [style.italicsBad(I would advise only playing through Axel's quest if you want a sneak peek of the sort of content involved!)]"
-			+ " A more polished version (v0.3.6) will be released as soon as possible!"
+			+ "Speaking of which, the next update will be focused around adding Helena's romance quest, as well as some Enforcer encounters and size difference mechanics/content."
+			+ " I'll try to get all that done as quickly as possible, so that I can then finally move on to adding mroe main quest content."
 		+ "</p>"
 			
 		+ "<br/>"
@@ -108,6 +107,69 @@ public class Main extends Application {
 
 		+ "<br/>"
 
+		+ "<list>"
+			+ "<h6>v0.3.6</h6>"
+			+"<li>Engine:</li>"
+			+"<ul>Removed all of the Sex class's static methods. Sex methods are now called via 'Main.sex.' in the code, or 'sex.' in the parsing engine. This was done to enable sex methods to be referenced in text file parsing.</ul>"
+			+"<ul>Added parsing command 'companion', which returns either your companion's relation to you (i.e. 'son', 'daughter', etc.) or the word 'companion'.</ul>"
+			+"<ul>Added support for tiles to contain multiple generic Population types.</ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul>Filled in a lot of Axel's quest placeholders. (The two loss routes and the post-quest interactions with Vengar & MUrk still need to be filled in...)</ul>"
+			+"<ul>Added tail girth. You can alter tail girth via enchanting potions or the self-TF menu (for demons and slimes).</ul>"
+			
+			+"<li>Items:</li>"
+			+"<ul>Some items of clothing now provide a key to the equipping character when equipped (such as chastity cages, chastity belts, other bondage gear). While in possession of this key, unjinxing (i.e. unlocking) the clothing costs no essences.</ul>"
+			+"<ul>For modders: Items of clothing can be defined as providing a key with the new PROVIDES_KEY tag.</ul>"
+			+"<ul>Unjinxing sealed clothing no longer removes the sealing enchantment. Instead, it simply unlocks the clothing so that it can be removed, but if put on again, will seal itself back onto the character. Seals can still be removed via the enchanting menu.</ul>"
+			+"<ul>Chastity cages are now tagged as being able to be equipped during sex.</ul>"
+			+"<ul>All clothing types which can be equipped during sex (and so are assumed to be sex toys), or which fit into the 'groin' slot, can now be enchanted with a 'vibration' effect (as a secondary modifier to a 'special effect' primary modifier), increasing the wearer's resting lust value and also giving them bonus arousal increases every turn in sex.</ul>"
+			+"<ul>The item 'Mother's Milk' now advances pregnancy directly to the next stage, instead of skipping it forwards to an hour before the next stage.</ul>"
+			
+			+"<li>Sex:</li>"
+			+"<ul>NPCs will no longer start ongoing mouth-nipple actions if the character whose nipples are to be sucked does not have breasts.</ul>"
+			+"<ul>Quick sex: NPCs will now take into account the sex scene's special preferences when choosing what their foreplay/main sex actions are.</ul>"
+			+"<ul>Quick sex: NPCs' action choice should no longer select actions that are meant to be banned from your content options.</ul>"
+			+"<ul>Quick sex: In consensual sex, characters will no longer creampie others if their pregnancy fetish is negative.</ul>"
+			+"<ul>Quick sex: In consensual sex, dominant partners will go past their orgasm limit to make sure the subs are also satisfied.</ul>"
+			+"<ul>Quick sex: The dominant character now automatically uses 'Orgasmic level drain' (if available) when using quick sex.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added a small chance (0.5%) for the 'finding an item' encounter in Dominion's alleyways to give you a joke burger item if you are playing in silly mode. The 'eggplant' joke item is now also restricted to being found only in silly mode.</ul>"
+			+"<ul>Improved colouring of post-sex stretch effects text.</ul>"
+			+"<ul>Added indication of a character's resting lust value in their lust bar tooltip.</ul>"
+			+"<ul>Arcane storm vulnerability now gives +75 to resting lust level, instead of setting it to a base of 75.</ul>"
+			+"<ul>Lust gains from sadist & masochist fetishes are now capped to a maximum of 25.</ul>"
+			+"<ul>Characters will no longer refer to a penis as a 'shaft' in speech (as I thought it sounded quite awkward).</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Parsing & typo fixes.</ul>"
+			+"<ul>Fixed issue where unique NPCs were not immune to 'orgasmic level drain', but normal random characters were, instead of the other way around.</ul>"
+			+"<ul>Fixed some minor incorrect text in the 'orgasmic level drain' perk description.</ul>"
+			+"<ul>Fixed incorrect clothing on the four 'milkers' in the Rat Warrens.</ul>"
+			+"<ul>Fixed issue where there was more than one removal button for when an effect has multiple descriptions in the enchantment screen, with the duplicate buttons doing nothing.</ul>"
+			+"<ul>Fixed issues with Murk's 'milkers' clothing not being equipped or lacking correct colours/enchantments.</ul>"
+			+"<ul>Fixed bug where some weapons (such as the broomstick and the scythe) would not grant the wielder the spells they were meant to unlock.</ul>"
+			+"<ul>Fixed several issues in the Rat Warrens regarding hostile rats not spawning correctly at checkpoints or in the dice den. Also fixed some actions incorrectly being available at the entrance after clearing out the entrance guards.</ul>"
+			+"<ul>Corrected corruption values of all unique NPCs.</ul>"
+			+"<ul>Fixed issue where Lyssieth would sometimes not have her elder lilin subspecies status effect applied to her.</ul>"
+			+"<ul>Fixed multiple minor issues with the flow of dialogue in scenes in the Rat Warrens.</ul>"
+			+"<ul>Fixed bug (from 0.3.5.10) where newly-spawned characters would throw a background error.</ul>"
+			+"<ul>Fixed issue with lust gains from sadist & masochist fetishes always defaulting to 1.</ul>"
+			+"<ul>Lust damage from masochist and sadist fetishes now correctly damages energy and aura when lust is at 100.</ul>"
+			+"<ul>Fixed issues of 'feet' being displayed in some scenes even if your game was meant to be using metric values for length.</ul>"
+			+"<ul>Corrected minor issue of Lyssieth's breast size incorrectly being described as increasing during her demonic transformation scenes.</ul>"
+			+"<ul>Fixed issue where Enforcers were described as being present in group sex scenes in areas where Enforcers should not have been present.</ul>"
+			+"<ul>Fixed issue where cum 'wetness' enchantment was described as increasing cum production instead of cum storage.</ul>"
+			+"<ul>Fixed issue where the magnitude of potion effects would be doubled every time you loaded a game while playing with the 'chef' background.</ul>"
+			+"<ul>Fixed bug (from 0.3.5.11) where encounters with a companion in your party would bug out and not initialise correctly.</ul>"
+			+"<ul>Fixed numerous parsing errors (from 0.3.5.11) when in the Rat Warrens with a companion.</ul>"
+			+"<ul>Fixed an issue where using 'Quick sex' could sometimes cause the game to freeze.</ul>"
+			+"<ul>Fixed debug menu's clothing spawn 'head' category not working.</ul>"
+		+"</list>"
+			
+		+ "<br/>"
+		
 		+ "<list>"
 			+ "<h6>v0.3.5.9</h6>"
 			+"<li>Contributions:</li>"

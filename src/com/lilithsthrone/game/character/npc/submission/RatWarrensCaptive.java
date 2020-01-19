@@ -19,7 +19,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -109,8 +109,8 @@ public class RatWarrensCaptive extends NPC {
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
-			this.setVaginaCapacity(32*PenisGirth.FOUR_FAT.getOrificeStretchFactor(), true);
-			this.setAssCapacity(32*PenisGirth.FOUR_FAT.getOrificeStretchFactor(), true);
+			this.setVaginaCapacity(32*PenetrationGirth.FOUR_FAT.getOrificeStretchFactor(), true);
+			this.setAssCapacity(32*PenetrationGirth.FOUR_FAT.getOrificeStretchFactor(), true);
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
 		}
@@ -143,19 +143,33 @@ public class RatWarrensCaptive extends NPC {
 		
 		// From anal sex:
 		if(Main.game.isAnalContentEnabled()) {
-			this.setAssCapacity(32*PenisGirth.FOUR_FAT.getOrificeStretchFactor(), true);
+			this.setAssCapacity(32*PenetrationGirth.FOUR_FAT.getOrificeStretchFactor(), true);
 			this.setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 			this.setAssPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		}
 
 		// From vaginal sex:
 		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
-		this.setVaginaCapacity(32*PenisGirth.FOUR_FAT.getOrificeStretchFactor(), true);
+		this.setVaginaCapacity(32*PenetrationGirth.FOUR_FAT.getOrificeStretchFactor(), true);
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		
 	}
 
+	@Override
+	public String getDescription() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("This woman is one of Murk's 'milkers', and is whored out to anyone who can afford her."
+				+ " While not being fucked by Murk or some stranger, this 'milker' earns her name by having her breasts milked by an arcane-powered machine.");
+		
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensMilkersBackground)) {
+			sb.append("<br/>"
+					+ "After asking Murk about the milkers, you discovered that they were originally kidnapped and forced to be milked against their will."
+					+ " Over time, however, the rat-boy totally broke their will to resist, to the point where they now desperately plead to get fucked by him...");
+		}
+		return sb.toString();
+	}
+	
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.clearNonEquippedInventory(false);
@@ -168,7 +182,7 @@ public class RatWarrensCaptive extends NPC {
 		this.equipClothingFromNowhere(collar, true, this);
 	}
 	
-	public void applyDilos(boolean equip) {
+	public void applyDildos(boolean equip) {
 		if(equip) {
 			AbstractClothing dildo = AbstractClothingType.generateClothing("norin_dildos_realistic_dildo", Colour.CLOTHING_PINK_HOT, false);
 			dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
@@ -198,10 +212,10 @@ public class RatWarrensCaptive extends NPC {
 		// If the player is not a captive, and Murk has not been enslaved, then keep rolling for sex effects:
 		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive) && !Main.game.getNpc(Murk.class).isSlave()) {
 			float rnd = (float) Math.random();
-			if(rnd<0.1f && Main.game.isAnalContentEnabled()) {
+			if(rnd<0.005f && Main.game.isAnalContentEnabled()) { // Average fucked once every week
 				this.ingestFluid(null, Subspecies.RAT_MORPH, Subspecies.RAT_MORPH, new FluidCum(FluidType.CUM_RAT_MORPH), SexAreaOrifice.ANUS, 20+Util.random.nextInt(100));
 				
-			} else if(rnd<0.5f) {
+			} else if(rnd<0.05f) { // Average fucked once or twice a day
 				this.ingestFluid(null, Subspecies.RAT_MORPH, Subspecies.RAT_MORPH, new FluidCum(FluidType.CUM_RAT_MORPH), SexAreaOrifice.VAGINA, 20+Util.random.nextInt(100));
 			}
 		}

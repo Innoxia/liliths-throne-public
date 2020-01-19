@@ -20,7 +20,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
@@ -75,7 +75,7 @@ public class SALyssiethSpecials {
 	public static final void playerGrowDemonicPenis() {
 		Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 		Main.game.getPlayer().setPenisSize(20);
-		Main.game.getPlayer().setPenisGirth(PenisGirth.THREE_THICK.getValue());
+		Main.game.getPlayer().setPenisGirth(PenetrationGirth.THREE_THICK.getValue());
 		Main.game.getPlayer().setTesticleSize(TesticleSize.THREE_LARGE);
 		Main.game.getPlayer().setPenisCumStorage(750);
 		Main.game.getPlayer().setPenisCumExpulsion(FluidExpulsion.FOUR_HUGE.getMedianValue());

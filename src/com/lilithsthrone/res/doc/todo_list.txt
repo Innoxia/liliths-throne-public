@@ -59,7 +59,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added support for tiles to contain multiple generic Population types.
 	
 	Gameplay:
-		Filled in all of the Axel's quest placeholders (minus the two loss routes).
+		Filled in a lot of Axel's quest placeholders. (The two loss routes and the post-quest interactions with Vengar & MUrk still need to be filled in...)
+		Added tail girth. You can alter tail girth via enchanting potions or the self-TF menu (for demons and slimes).
 	
 	Items:
 		Some items of clothing now provide a key to the equipping character when equipped (such as chastity cages, chastity belts, other bondage gear). While in possession of this key, unjinxing (i.e. unlocking) the clothing costs no essences.
@@ -69,12 +70,21 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		All clothing types which can be equipped during sex (and so are assumed to be sex toys), or which fit into the 'groin' slot, can now be enchanted with a 'vibration' effect (as a secondary modifier to a 'special effect' primary modifier), increasing the wearer's resting lust value and also giving them bonus arousal increases every turn in sex.
 		The item 'Mother's Milk' now advances pregnancy directly to the next stage, instead of skipping it forwards to an hour before the next stage.
 		
+	Sex:
+		NPCs will no longer start ongoing mouth-nipple actions if the character whose nipples are to be sucked does not have breasts.
+		Quick sex: NPCs will now take into account the sex scene's special preferences when choosing what their foreplay/main sex actions are.
+		Quick sex: NPCs' action choice should no longer select actions that are meant to be banned from your content options.
+		Quick sex: In consensual sex, characters will no longer creampie others if their pregnancy fetish is negative.
+		Quick sex: In consensual sex, dominant partners will go past their orgasm limit to make sure the subs are also satisfied.
+		Quick sex: The dominant character now automatically uses 'Orgasmic level drain' (if available) when using quick sex.
+		
 	Other:
 		Added a small chance (0.5%) for the 'finding an item' encounter in Dominion's alleyways to give you a joke burger item if you are playing in silly mode. The 'eggplant' joke item is now also restricted to being found only in silly mode.
 		Improved colouring of post-sex stretch effects text.
 		Added indication of a character's resting lust value in their lust bar tooltip.
 		Arcane storm vulnerability now gives +75 to resting lust level, instead of setting it to a base of 75.
 		Lust gains from sadist & masochist fetishes are now capped to a maximum of 25.
+		Characters will no longer refer to a penis as a 'shaft' in speech (as I thought it sounded quite awkward).
 	
 	Bugs:
 		Parsing & typo fixes.
@@ -94,44 +104,50 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issues of 'feet' being displayed in some scenes even if your game was meant to be using metric values for length.
 		Corrected minor issue of Lyssieth's breast size incorrectly being described as increasing during her demonic transformation scenes.
 		Fixed issue where Enforcers were described as being present in group sex scenes in areas where Enforcers should not have been present.
+		Fixed issue where cum 'wetness' enchantment was described as increasing cum production instead of cum storage.
+		Fixed issue where the magnitude of potion effects would be doubled every time you loaded a game while playing with the 'chef' background.
+		Fixed bug (from 0.3.5.11) where encounters with a companion in your party would bug out and not initialise correctly.
+		Fixed numerous parsing errors (from 0.3.5.11) when in the Rat Warrens with a companion.
+		Fixed an issue where using 'Quick sex' could sometimes cause the game to freeze.
+		Fixed debug menu's clothing spawn 'head' category not working.
+		
 	
 	
+	Chonk tails
+		[x] Add to body description
+		[x] Girth descriptor specific to tail
+		[x] Add to tooltip
+		[x] Lilaya/Lyssieth/Meraxis tail chonk
+		[x] Girth TF text needs to be tail-specific
+		[] Tail girth penetration stretch effects (requires capacity rework to calculate length)
+	
+	Capacity:
+		Add maximum length orifice can take:
+			Comfortably (Gentle and normal limit)
+			Painfully (Rough & sadist limit)
+		Make stretch just a factor of girth (so larger cocks still stretch more, but it's independent of how much length they take)
+		Need to make minimum stretch higher, or based on elasticity, as it goes on for too long when nearing max stretch
+		Knot Her/Him option should assist in gaping whichever orifice is being knotted
 	
 	Finish gambling den dialogue
 		Test Murk getting enslaved (co-op route)
 		Post-win Vengar/Murk scenes
 	
-	Did you notice that "wetness" under Cum category is production but "wetness" under the Penis category is storage?
+	Add bath/spa dialogue
 	
-	chef drink potion, quicksave then quickload, and buffs double
-		do it enough times, and it'll get into the 1.489312E+409813 territory, at that point, letting it expire will reduce your max physique
+	[] NPCs can start(NPC1)/stop(NPC2) indefinitely when player watching two of them interacting
+	[] If NPC is willing at start, but goes to 0 lust and they end sex, they get -200 affection and it counts as rape?
+	[] Lyssieth took ages to decide to remove butt plug when wanting to fuck ass, even though it was not jinxed...
 	
-	Milker descriptions needed (with extended description for if asked Murk about them)
+	[] After sex threesome, quick-sexing when Vengar is fucking companion makes him fuck you.
+		Define target preferences for SexManagers via a getPreferredSexTarget() method and make sure quick sex uses them.
+		Also make quick sex subs get each other off if consensual
+		
+	[] Tattoos are not being given default names on tooltips
+	[] Encounter initialisation is being called many times on one encounter. This could be causing issues.
 	
-	Chonk tails
-	Make Rose not catch you during Pany Masturbation at night
-	
-	Make no-breast NPCs not use 'get nipples sucked'
-	
-	Quick sex level drains
-	Quick sex orgasm count (check with Murk)
-	
-	Bugs
-		[x] All enemies just use resist lust damage when player is down but companion is fighting
-		[x] Cannot skip sex when spectator
-		[] Quick sex: Add a check to see if the sex is consensual and the other partner dislikes the pregnancy fetish, then prevent cumming inside. (If selfish and impregnation fetish, chance to do it anyway. Lilaya catch.)
-		[] Quick sex does not use sex manager's preference
-		[] Quick sex does not properly check action availability based on content toggles.
-		[] When spectating, second dom only performed foreplay on companion when skipping sex
-		[] Lyssieth did not remove butt plug when wanting to fuck ass, even though it was not jinxed...
-		[] Check Lilaya birthing delivering scenes for parsing errors
-		[] NPCs can start(NPC1)/stop(NPC2) indefinitely when player watching two of them interacting
-		[] IF NPC is willing at start, but goes to 0 lust and they end sex, they get -200 affection and it counts as rape?
-		[] After sex threesome, quick-sexing when Vengar is fucking companion makes him fuck you. (Define target preferences and make sure quick sex uses them. Also make quick sex subs get each other off if consensual)
-		[] Remove odd penis names from dialogue parsing (such as 'shaft')
-		[] Tattoos are not being given default names on tooltips
-		[] Encounter initialisation is being called many times on one encounter. This could be causing issues.
-	
+	Make Rose not catch you during Panty Masturbation at night
+
 	Very rarely it seems like Silence spams the protective gusts spell on herself...
 	
 	Vengar captive
@@ -143,7 +159,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Getting used by Murk
 		Having pregnancy resolved
 	
-	
 	enchantment on clothing that autoclean them
 	
 	Long sleeve T-shirt
@@ -151,8 +166,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	clubbing dress
 	
 	can you not transform your elemental's haircut?
-	
-	Stay in any tile (Any tile really) and use the debug command, then go to Item View and select Head
 	
 	Somehow slave sending to Kate is bugged? hard to reproduce error.
 	
@@ -188,14 +201,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	add fluid modifiers (addictive, alcoholic, etc.) to the self-TF menu soon
 	
 	Is it a bug if Candi's bimbo intro dosen't have any lisping if you have one or oversized lips and are also a bimbo?
-	
-	Capacity:
-		Add maximum length orifice can take:
-			Comfortably (Gentle and normal limit)
-			Painfully (Rough & sadist limit)
-		Make stretch just a factor of girth (so larger cocks still stretch more, but it's independent of how much length they take)
-		Need to make minimum stretch higher, or based on elasticity, as it goes on for too long when nearing max stretch
-		Knot Her/Him option should assist in gaping whichever orifice is being knotted
 	
 	Add Arthur quest to acquire potion to set gender identity to: Current gender, Male, Female
 	

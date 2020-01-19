@@ -6,7 +6,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -95,7 +95,7 @@ public enum PenisType implements BodyPartTypeInterface {
 		if(this==PenisType.DILDO) {
 			return UtilText.returnStringAtRandom("dildo", "cock");
 		} else {
-			return UtilText.returnStringAtRandom("cock", "cock", "cock", "dick", "dick", "shaft");
+			return UtilText.returnStringAtRandom("cock", "cock", "cock", "dick", "dick", UtilText.isInSpeech()?"":"shaft");
 		}
 	}
 	
@@ -104,7 +104,7 @@ public enum PenisType implements BodyPartTypeInterface {
 		if(this==PenisType.DILDO) {
 			return UtilText.returnStringAtRandom("dildoes", "cocks");
 		} else {
-			return UtilText.returnStringAtRandom("cocks", "cocks", "cocks", "dicks", "dicks", "shafts");
+			return UtilText.returnStringAtRandom("cocks", "cocks", "cocks", "dicks", "dicks", UtilText.isInSpeech()?"":"shafts");
 		}
 	}
 
@@ -155,14 +155,14 @@ public enum PenisType implements BodyPartTypeInterface {
 			case 1:
 				return UtilText.returnStringAtRandom(
 						gc.getPenisSize()==PenisSize.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
-						gc.getPenisGirth()==PenisGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
+						gc.getPenisGirth()==PenetrationGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
 			default:
 				if(Main.game.isInSex() && this!=PenisType.DILDO) {
 					return UtilText.returnStringAtRandom("hard", "throbbing");
 				} else {
 					return UtilText.returnStringAtRandom(
 							gc.getPenisSize()==PenisSize.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
-							gc.getPenisGirth()==PenisGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
+							gc.getPenisGirth()==PenetrationGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
 				}
 		}
 		return "";
