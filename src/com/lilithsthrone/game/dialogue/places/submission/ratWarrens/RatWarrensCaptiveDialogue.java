@@ -320,14 +320,14 @@ public class RatWarrensCaptiveDialogue {
 						return new ArrayList<>();
 					}
 					@Override
-					public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+					public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 						if(character.isPlayer()) {
 							return super.getForeplayPreference(character, targetedCharacter);
 						}
 						return playerFuckedSexType.getValue();
 					}
 					@Override
-					public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+					public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 						if(character.isPlayer()) {
 							return super.getMainSexPreference(character, targetedCharacter);
 						}
@@ -429,14 +429,14 @@ public class RatWarrensCaptiveDialogue {
 						return new ArrayList<>();
 					}
 					@Override
-					public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+					public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 						if(character.isPlayer()) {
 							return super.getForeplayPreference(character, targetedCharacter);
 						}
 						return playerFuckedSexType.getValue();
 					}
 					@Override
-					public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+					public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 						if(character.isPlayer()) {
 							return super.getMainSexPreference(character, targetedCharacter);
 						}
@@ -1036,14 +1036,14 @@ public class RatWarrensCaptiveDialogue {
 								return !character.isPlayer();
 							}
 							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(character.isPlayer()) {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								return playerFuckedSexType.getValue();
 							}
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(character.isPlayer()) {
 									return super.getMainSexPreference(character, targetedCharacter);
 								}
@@ -1224,14 +1224,14 @@ public class RatWarrensCaptiveDialogue {
 								return new ArrayList<>();
 							}
 							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(character.isPlayer()) {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								return playerFuckedSexType.getValue();
 							}
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(character.isPlayer()) {
 									return super.getMainSexPreference(character, targetedCharacter);
 								}

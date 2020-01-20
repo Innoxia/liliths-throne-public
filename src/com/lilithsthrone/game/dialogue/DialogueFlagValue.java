@@ -254,6 +254,7 @@ public enum DialogueFlagValue {
 	ratWarrensHostile,
 	ratWarrensEntranceGuardsFight,
 	ratWarrensSeenMilkers,
+	ratWarrensMilkersBackground,
 	
 	ratWarrensClearedLeft,
 	ratWarrensClearedCentre,
