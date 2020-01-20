@@ -53,7 +53,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
@@ -161,6 +161,9 @@ public class Lyssieth extends NPC {
 					PersonalityTrait.KIND,
 					PersonalityTrait.LEWD);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.setTailGirth(PenetrationGirth.THREE_THICK);
+		}
 	}
 
 	@Override
@@ -216,6 +219,7 @@ public class Lyssieth extends NPC {
 //		this.setTailType(TailType.DEMON_COMMON);
 //		this.setWingType(WingType.DEMON_COMMON);
 //		this.setHornType(HornType.CURLED);
+		this.setTailGirth(PenetrationGirth.THREE_THICK);
 
 		// Core:
 		this.setHeight(184);
@@ -390,6 +394,7 @@ public class Lyssieth extends NPC {
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_RED), true);
 		
 		Main.game.getPlayer().setTailType(TailType.DEMON_COMMON);
+		Main.game.getPlayer().setTailGirth(PenetrationGirth.THREE_THICK);
 		Main.game.getPlayer().setHornType(HornType.SWEPT_BACK);
 		Main.game.getPlayer().setMinimumHornsPerRow(2);
 		Main.game.getPlayer().getLegConfiguration().setWingsToDemon(Main.game.getPlayer());
@@ -406,7 +411,7 @@ public class Lyssieth extends NPC {
 		if(Main.game.getPlayer().hasPenis()) {
 			Main.game.getPlayer().fillCumToMaxStorage();
 		}
-
+		
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK, Colour.SKIN_RED_DARK), false);
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_RED_DARK, Colour.SKIN_RED_DARK), false);
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, Colour.SKIN_RED_DARK, Colour.SKIN_RED_DARK), false);
@@ -423,6 +428,7 @@ public class Lyssieth extends NPC {
 		Main.game.getNpc(daughterClass).setSkinType(SkinType.DEMON_COMMON);
 		Main.game.getNpc(daughterClass).setFaceType(FaceType.DEMON_COMMON);
 		Main.game.getNpc(daughterClass).setSubspeciesOverride(Subspecies.DEMON);
+		Main.game.getNpc(daughterClass).setTailGirth(PenetrationGirth.THREE_THICK);
 
 		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK, Colour.SKIN_RED_DARK), false);
 		Main.game.getNpc(daughterClass).setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_RED_DARK, Colour.SKIN_RED_DARK), false);
@@ -756,12 +762,12 @@ public class Lyssieth extends NPC {
 		this.setPenisType(type);
 		this.setPenisVirgin(false);
 		if(type.getRace()==Race.HUMAN) {
-			this.setPenisGirth(PenisGirth.THREE_THICK);
+			this.setPenisGirth(PenetrationGirth.THREE_THICK);
 			this.setPenisSize(18);
 			this.setTesticleSize(TesticleSize.THREE_LARGE);
 			this.setPenisCumStorage(500);
 		} else {
-			this.setPenisGirth(PenisGirth.FOUR_FAT);
+			this.setPenisGirth(PenetrationGirth.FOUR_FAT);
 			this.setPenisSize(30);
 			this.setTesticleSize(TesticleSize.FOUR_HUGE);
 			this.setPenisCumStorage(2500);
@@ -787,6 +793,7 @@ public class Lyssieth extends NPC {
 		this.setSubspeciesOverride(Subspecies.ELDER_LILIN);
 		this.setAgeAppearanceDifferenceToAppearAsAge(45);
 		this.setTailType(TailType.DEMON_COMMON);
+		this.setTailGirth(PenetrationGirth.THREE_THICK);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setWingSize(WingSize.FOUR_HUGE.getValue());
 		this.setHornType(HornType.SWEPT_BACK);

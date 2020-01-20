@@ -8,7 +8,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -42,10 +42,8 @@ public class GenericActions {
 	
 	private static String quickSexDescription = "";
 
-
 	private static SexType getForeplayPreference(GameCharacter dom, GameCharacter sub) {
-		SexType preference = dom.getForeplayPreference(sub);
-		//TODO check for sex manager restrictions
+		SexType preference = Main.sex.getForeplayPreference(dom, sub);
 		if(preference==null) {
 			preference = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH);
 		}
@@ -53,8 +51,7 @@ public class GenericActions {
 	}
 	
 	private static SexType getMainSexPreference(GameCharacter dom, GameCharacter sub) {
-		SexType preference = dom.getMainSexPreference(sub);
-		//TODO check for sex manager restrictions
+		SexType preference = Main.sex.getMainSexPreference(dom, sub);
 		if(preference==null) {
 			if(dom.hasPenis()) {
 				if(sub.hasVagina()) {
@@ -83,6 +80,19 @@ public class GenericActions {
 			}
 		}
 		return preference;
+	}
+	
+	private static boolean preventCreampie(SexType sexType, GameCharacter dom, GameCharacter sub) {
+		if(sexType.equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))
+				&& Main.sex.isConsensual()
+				&& sub.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+			return true;
+		}
+		if(sexType.equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS))
+				&& dom.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+			return true;
+		}
+		return false;
 	}
 	
 	private static String generateQuickSexDescription() {
@@ -144,29 +154,35 @@ public class GenericActions {
 								+"<b style='color:"+sub.getFemininity().getColour().toWebHexString()+";'>[npc2.name]</b></b>"
 						+ "</p>"));
 				
+				boolean preventCreampie = false;
+				
 				// Foreplay:
 				SexType preference;
 				if(Main.sex.isInForeplay(dom)) {
 					preference = getForeplayPreference(dom, sub);
+					preventCreampie = preventCreampie(preference, dom, sub);
 					sb.append("<p style='margin:0; padding:0; text-align:center;'>");
 					sb.append("[style.boldPurpleLight(Foreplay)] ([style.colourSexDom("+Util.capitaliseSentence(preference.getPerformingSexArea().getName(dom, true))+")]-[style.colourSexSub("+preference.getTargetedSexArea().getName(sub, true)+")]): ");
-					sb.append(dom.calculateGenericSexEffects(true, false, sub, preference, GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED));
+					sb.append(dom.calculateGenericSexEffects(true, false, sub, preference, GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED, (preventCreampie?GenericSexFlag.PREVENT_CREAMPIE:null)));
 					sb.append("</p>");
 				}
 				
 				// Main sex:
 				preference = getMainSexPreference(dom, sub);
+				preventCreampie = preventCreampie(preference, dom, sub);
 				// If equal sex control, dom should satisfy subs:
-				int orgamsNeeded = !Main.sex.isConsensual()?1:(dom.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(dom));
-						//Math.max(Main.sex.isConsensual()?0:(sub.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(sub)), dom.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(dom));
+				int orgamsNeeded = !Main.sex.isConsensual()
+						?(dom.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(dom))
+						:Math.max((sub.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(sub)), (dom.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(dom)));
 				for(int i=0; i<orgamsNeeded; i++) {
 					sb.append("<p style='margin:0; padding:0; text-align:center;'>");
 					sb.append("[style.boldPurple(Sex)] ([style.colourSexDom("+Util.capitaliseSentence(preference.getPerformingSexArea().getName(dom, true))+")]-[style.colourSexSub("+preference.getTargetedSexArea().getName(sub, true)+")]): ");
-					sb.append(dom.calculateGenericSexEffects(true, true, sub, preference, GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED)); // This increments orgasms
+					sb.append(dom.calculateGenericSexEffects(true, true, sub, preference, GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED, (preventCreampie?GenericSexFlag.PREVENT_CREAMPIE:null))); // This increments orgasms
 					sb.append("</p>");
 					if(orgamsNeeded>1) {
 						dom.generateSexChoices(false, sub);
 						preference = getMainSexPreference(dom, sub);
+						preventCreampie = preventCreampie(preference, dom, sub);
 					}
 				}
 			}
@@ -177,8 +193,14 @@ public class GenericActions {
 				}
 			}
 			
-			if(!Main.sex.isConsensual() && domsNotSatisfied.isEmpty()) { // If the doms don't care about satisfying all the subs, treat all subs assigned as being true
-				allSubsAssigned = true;
+			if(!Main.sex.isConsensual()) { // If the doms don't care about satisfying all the subs, treat all subs assigned as being true
+				if(domsNotSatisfied.isEmpty()) {
+					allSubsAssigned = true;
+				}
+			} else {
+				if(domsNotSatisfied.isEmpty() && !allSubsAssigned) {
+					domsNotSatisfied = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
+				}
 			}
 		}
 		
@@ -486,8 +508,8 @@ public class GenericActions {
 			} else {
 				Main.sex.getCharacterTargetedForSexAction(this).setTesticleSize(TesticleSize.THREE_LARGE);
 			}
-			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisGirth().getValue() < PenisGirth.THREE_THICK.getValue()) {
-				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisGirth(PenisGirth.THREE_THICK));
+			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisGirth().getValue() < PenetrationGirth.THREE_THICK.getValue()) {
+				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisGirth(PenetrationGirth.THREE_THICK));
 			}
 			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisRawSizeValue() < 20) {
 				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisSize(20));

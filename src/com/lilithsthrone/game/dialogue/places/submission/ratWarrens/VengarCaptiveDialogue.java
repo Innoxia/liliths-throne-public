@@ -1296,7 +1296,7 @@ public class VengarCaptiveDialogue {
 								return false;
 							}
 							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(character.equals(getCharactersPresent(true).get(1))) {
 									if(character.hasPenis()) {
 										return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
@@ -1308,7 +1308,7 @@ public class VengarCaptiveDialogue {
 								return super.getForeplayPreference(character, targetedCharacter);
 							}
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								return getForeplayPreference(character, targetedCharacter);
 							}
 						},
@@ -1423,7 +1423,7 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(true).get(1))) {
 										if(targetedCharacter.isPlayer()) {
 											if(character.hasFetish(Fetish.FETISH_ANAL_GIVING)) {
@@ -1444,7 +1444,7 @@ public class VengarCaptiveDialogue {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return character.getForeplayPreference(targetedCharacter);
 									}
@@ -1505,7 +1505,7 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(true).get(1))) {
 										if(targetedCharacter.isPlayer()) {
 											return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
@@ -1520,7 +1520,7 @@ public class VengarCaptiveDialogue {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return character.getForeplayPreference(targetedCharacter);
 									}
@@ -1569,7 +1569,7 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(true).get(1))) {
 										if(targetedCharacter.isPlayer()) {
 											return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE);
@@ -1583,7 +1583,7 @@ public class VengarCaptiveDialogue {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return character.getForeplayPreference(targetedCharacter);
 									}
@@ -1691,7 +1691,7 @@ public class VengarCaptiveDialogue {
 								return false;
 							}
 							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(character.equals(getCharactersPresent(true).get(1))) {
 									if(targetedCharacter.equals(getCharactersPresent(true).get(0))) {
 										if(character.hasFetish(Fetish.FETISH_ANAL_GIVING)) {
@@ -1739,7 +1739,7 @@ public class VengarCaptiveDialogue {
 								return super.getForeplayPreference(character, targetedCharacter);
 							}
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(!character.isPlayer() && !character.equals(getMainCompanion())) {
 									return character.getForeplayPreference(targetedCharacter);
 								}
@@ -2519,7 +2519,7 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(false).get(0))) {
 										if(targetedCharacter.isPlayer()) {
 											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
@@ -2541,7 +2541,7 @@ public class VengarCaptiveDialogue {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return character.getForeplayPreference(targetedCharacter);
 									}
@@ -2604,7 +2604,7 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(false).get(0))) {
 										if(character.hasPenis()) {
 											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
@@ -2616,7 +2616,7 @@ public class VengarCaptiveDialogue {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									return getForeplayPreference(character, targetedCharacter);
 								}
 							},
@@ -2663,14 +2663,14 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(false).get(0))) {
 										return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 									}
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									return getForeplayPreference(character, targetedCharacter);
 								}
 							},
@@ -2813,7 +2813,7 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(false).get(0))) {
 										if(targetedCharacter.isPlayer()) {
 											if(character.hasFetish(Fetish.FETISH_ANAL_GIVING)) {
@@ -2825,7 +2825,7 @@ public class VengarCaptiveDialogue {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return character.getForeplayPreference(targetedCharacter);
 									}
@@ -2877,14 +2877,14 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(false).get(0))) {
 										return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
 									}
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return character.getForeplayPreference(targetedCharacter);
 									}
@@ -2999,7 +2999,7 @@ public class VengarCaptiveDialogue {
 								return false;
 							}
 							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(character.equals(getCharactersPresent(false).get(0))) {
 									if(targetedCharacter.isPlayer()) {
 										return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
@@ -3021,7 +3021,7 @@ public class VengarCaptiveDialogue {
 								return super.getForeplayPreference(character, targetedCharacter);
 							}
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(!character.isPlayer()) {
 									return character.getForeplayPreference(targetedCharacter);
 								}

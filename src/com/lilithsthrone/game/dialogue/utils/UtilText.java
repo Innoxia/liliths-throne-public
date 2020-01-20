@@ -644,6 +644,10 @@ public class UtilText {
 		return parse(Util.newArrayListOfValues(specialNPC1, specialNPC2), input, tags);
 	}
 	
+	public static boolean isInSpeech() {
+		return speechTarget!=null && !speechTarget.isEmpty();
+	}
+	
 	private static String speechTarget = "";
 	private static boolean suppressOutput = false;
 
@@ -5862,6 +5866,21 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getTailDeterminer();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tailGirth",
+						"tailsGirth"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.TAIL){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getTailGirthDescriptor();
 			}
 		});
 		

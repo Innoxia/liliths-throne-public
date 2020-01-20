@@ -558,11 +558,11 @@ public class PregnancyRoulette {
 								return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 							}
 							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 							}
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								return getForeplayPreference(character, targetedCharacter);
 							}
 						},
@@ -609,11 +609,11 @@ public class PregnancyRoulette {
 								return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 							}
 							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 							}
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								return getForeplayPreference(character, targetedCharacter);
 							}
 						},
@@ -676,11 +676,11 @@ public class PregnancyRoulette {
 									return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									return getForeplayPreference(character, targetedCharacter);
 								}
 							},
@@ -727,11 +727,11 @@ public class PregnancyRoulette {
 									return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									return getForeplayPreference(character, targetedCharacter);
 								}
 							},
@@ -920,11 +920,11 @@ public class PregnancyRoulette {
 								character.setLustNoText(80);
 							}
 							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
 							}
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								return getForeplayPreference(character, targetedCharacter);
 							}
 						},
@@ -1236,14 +1236,14 @@ public class PregnancyRoulette {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return getMainSexPreference(character, targetedCharacter);
 									}
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										if(targetedCharacter.hasVagina()) {
 											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
@@ -1477,14 +1477,14 @@ public class PregnancyRoulette {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return getMainSexPreference(character, targetedCharacter);
 									}
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										if(targetedCharacter.hasVagina()) {
 											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);

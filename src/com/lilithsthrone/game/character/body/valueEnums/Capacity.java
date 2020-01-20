@@ -122,7 +122,7 @@ public enum Capacity {
 	 * @param twoPenetrationsInOrifice Whether there are two objects penetrating the orifice.
 	 * @return The size of the penetrating object for use in stretch calculations.
 	 */
-	public static float calculateStretchSize(PenisGirth girth, int penisSize, boolean twoPenetrationsInOrifice) {
+	public static float calculateStretchSize(PenetrationGirth girth, int penisSize, boolean twoPenetrationsInOrifice) {
 		float penisSizeWithGirth = ((float)penisSize)*girth.getOrificeStretchFactor();
 		return Math.min(
 				PenisSize.SEVEN_STALLION.getMaximumValue(),
@@ -137,7 +137,7 @@ public enum Capacity {
 	 * @param twoPenisesInVagina Pass in true if there are two penises in the orifice.
 	 * @return true if the penis size is <=60% of the orifice capacity.
 	 */
-	public static boolean isPenisSizeTooSmall(float capacity, PenisGirth girth, int penisSize, boolean twoPenisesInVagina) {
+	public static boolean isPenisSizeTooSmall(float capacity, PenetrationGirth girth, int penisSize, boolean twoPenisesInVagina) {
 		return calculateStretchSize(girth, penisSize, twoPenisesInVagina) <= capacity*0.6f;
 	}
 
@@ -149,7 +149,7 @@ public enum Capacity {
 	 * @param twoPenisesInVagina Pass in true if there are two penises in the orifice.
 	 * @return true if the penis size (factoring in girth) is larger than the capacity can handle.
 	 */
-	public static boolean isPenisSizeTooBig(OrificeElasticity elasticity, float capacity, PenisGirth girth, int penisSize, boolean lubed, boolean twoPenises) {
+	public static boolean isPenisSizeTooBig(OrificeElasticity elasticity, float capacity, PenetrationGirth girth, int penisSize, boolean lubed, boolean twoPenises) {
 		float penisSizeUsed = calculateStretchSize(girth, penisSize, twoPenises);
 		
 		float tolerance = elasticity.getSizeTolerancePercentage();
