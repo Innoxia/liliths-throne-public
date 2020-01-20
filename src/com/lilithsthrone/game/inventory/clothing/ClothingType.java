@@ -74,59 +74,59 @@ public class ClothingType {
 	
 	// Special:
 	
-	public static AbstractClothingType HEAD_CHEATERS_CIRCLET = new AbstractClothingType(1000,
-			"a",
-			false,
-			"cheater's circlet",
-			"cheater's circlets",
-			"A thin band of metal that sits on top of your head. On the inside, an engraved message reads: 'FOR INTERNAL TESTING ONLY!'",
-			0,
-			null,
-			InventorySlot.HEAD,
-			Rarity.LEGENDARY,
-			null,
-			"clothing/head_circlet",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.INTELLIGENCE, TFPotency.MAJOR_DRAIN, 0)),
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.HEAD),
-							null,
-							null, null)),
-			null,
-			ColourListPresets.JUST_GOLD,
-			null,
-			null,
-			null,
-			null,
-			null,
-			null){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You place the circlet on your head.",
-					"You place the circlet on [npc.namePos] head.",
-					"You force the circlet onto [npc.namePos] head.",
-					"[npc.Name] places the circlet on [npc.her] head.",
-					"[npc.Name] places the circlet on your head.",
-					"[npc.Name] forces the circlet onto your head.", null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You take off your circlet.",
-					"You take off [npc.namePos] circlet.",
-					"You grab [npc.namePos] circlet and throw it to the floor.",
-					"[npc.Name] takes off [npc.her] circlet.",
-					"[npc.Name] takes off your circlet.",
-					"[npc.Name] grabs your circlet and throws it to the floor.", null, null);
-		}
-	};
+//	public static AbstractClothingType HEAD_CHEATERS_CIRCLET = new AbstractClothingType(1000,
+//			"a",
+//			false,
+//			"cheater's circlet",
+//			"cheater's circlets",
+//			"A thin band of metal that sits on top of your head. On the inside, an engraved message reads: 'FOR INTERNAL TESTING ONLY!'",
+//			0,
+//			null,
+//			InventorySlot.HEAD,
+//			Rarity.LEGENDARY,
+//			null,
+//			"clothing/head_circlet",
+//			Util.newArrayListOfValues(
+//					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0),
+//					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.INTELLIGENCE, TFPotency.MAJOR_DRAIN, 0)),
+//			Util.newArrayListOfValues(
+//					new BlockedParts(
+//							DisplacementType.REMOVE_OR_EQUIP,
+//							Util.newArrayListOfValues(
+//									ClothingAccess.HEAD),
+//							null,
+//							null, null)),
+//			null,
+//			ColourListPresets.JUST_GOLD,
+//			null,
+//			null,
+//			null,
+//			null,
+//			null,
+//			null){
+//		
+//		@Override
+//		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You place the circlet on your head.",
+//					"You place the circlet on [npc.namePos] head.",
+//					"You force the circlet onto [npc.namePos] head.",
+//					"[npc.Name] places the circlet on [npc.her] head.",
+//					"[npc.Name] places the circlet on your head.",
+//					"[npc.Name] forces the circlet onto your head.", null, null);
+//		}
+//
+//		@Override
+//		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+//					"You take off your circlet.",
+//					"You take off [npc.namePos] circlet.",
+//					"You grab [npc.namePos] circlet and throw it to the floor.",
+//					"[npc.Name] takes off [npc.her] circlet.",
+//					"[npc.Name] takes off your circlet.",
+//					"[npc.Name] grabs your circlet and throws it to the floor.", null, null);
+//		}
+//	};
 	
 	// PIERCINGS:
 	public static AbstractClothingType PIERCING_EAR_BASIC_RING = new AbstractClothingType(80,
@@ -7731,6 +7731,7 @@ public class ClothingType {
 		oldIdConversionMap.put("ANKLE_BRACELET", "innoxia_ankle_anklet");
 		oldIdConversionMap.put("ANKLE_SHIN_GUARDS", "innoxia_ankle_shin_guards");
 		
+		oldIdConversionMap.put("HEAD_CHEATERS_CIRCLET", "innoxia_head_circlet");
 		oldIdConversionMap.put("HEAD_CIRCLET", "innoxia_head_circlet");
 		oldIdConversionMap.put("HEAD_TIARA", "innoxia_head_tiara");
 		oldIdConversionMap.put("HEAD_CAP", "innoxia_head_cap");

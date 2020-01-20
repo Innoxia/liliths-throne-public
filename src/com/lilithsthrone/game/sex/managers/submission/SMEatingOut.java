@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -60,7 +59,7 @@ public class SMEatingOut extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+	public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 		if(Main.sex.isDom(character)) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
 		}
@@ -68,7 +67,7 @@ public class SMEatingOut extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+	public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 		if(Main.sex.isDom(character)) {
 			return character.getForeplayPreference(targetedCharacter);
 		}

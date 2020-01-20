@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -9,6 +10,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -250,6 +252,18 @@ public class Helena extends NPC {
 	@Override
 	public void dailyUpdate() {
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
+			for(String id : this.getSlavesOwned()) {
+				if(Main.game.isCharacterExisting(id)) {
+					Main.game.banishNPC(id);
+				}
+			}
+			for(GameCharacter character : new ArrayList<>(Main.game.getCharactersPresent(this.getCell()))) {
+				if(character.isSlave() && !character.getOwner().isPlayer() && character instanceof DominionAlleywayAttacker) {
+					Main.game.banishNPC((NPC) character);
+				}
+			}
+			this.removeAllSlaves();
+			
 			for(int i=0; i<3; i++) {
 				NPC newSlave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
 				newSlave.setHistory(Occupation.NPC_SLAVE);

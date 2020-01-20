@@ -422,7 +422,11 @@ public class BodyChanging {
 											?Util.newArrayListOfValues(Race.DEMON)
 											:getMinorPartsDemonRaces(true)),
 									removeNoneFromTailChoices())
+						+"</div>"
+						
+						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTailCountDiv()
+							+ CharacterModificationUtils.getSelfTransformTailGirthDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
@@ -485,9 +489,14 @@ public class BodyChanging {
 
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(allRaces, false)
+					+"</div>"
+						
+					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformTailCountDiv()
+						+ CharacterModificationUtils.getSelfTransformTailGirthDiv()
 					+"</div>"
 					
+						
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(allRaces, false)
 						+ CharacterModificationUtils.getSelfTransformWingSizeDiv()

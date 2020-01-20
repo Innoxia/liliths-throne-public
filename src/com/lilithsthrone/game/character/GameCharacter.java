@@ -123,7 +123,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
@@ -1987,7 +1987,7 @@ public abstract class GameCharacter implements XMLSaving {
 				Element e = ((Element)potionAttributesList.item(i));
 
 				try {
-					character.addPotionEffect(Attribute.getAttributeFromId(e.getAttribute("type")), Float.valueOf(e.getAttribute("value")));
+					character.addPotionEffect(Attribute.getAttributeFromId(e.getAttribute("type")), Float.valueOf(e.getAttribute("value")), false);
 					CharacterUtils.appendToImportLog(log, "<br/>Set Potion Attribute: "+Attribute.getAttributeFromId(e.getAttribute("type")).getName() +" to "+ Float.valueOf(e.getAttribute("value")));
 				}catch(IllegalArgumentException ex){
 				}
@@ -4045,7 +4045,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isAbleToRefuseSexAsCompanion() {
-		return !Main.game.isNonConEnabled() || (!getMainCompanion().isSlave() && !getMainCompanion().isElemental());
+		return !Main.game.isNonConEnabled() || (!this.isSlave() && !this.isElemental());
 	}
 	
 	// Obedience:
@@ -5476,8 +5476,12 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		this.removeStatusEffect(StatusEffect.POTION_EFFECTS);
 	}
-	
+
 	public String addPotionEffect(Attribute att, float value) {
+		return addPotionEffect(att, value, true);
+	}
+	
+	public String addPotionEffect(Attribute att, float value, boolean withExtaEffects) {
 		Map<Attribute, Float> savedPotionEffects = new EnumMap<>(Attribute.class);
 		savedPotionEffects.putAll(getPotionAttributes());
 		
@@ -5490,7 +5494,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		setPotionAttributes(savedPotionEffects);
 		
-		value *= this.isPlayer()&&this.hasTrait(Perk.JOB_CHEF, true)?2:1;
+		value *= this.isPlayer() && this.hasTrait(Perk.JOB_CHEF, true) && withExtaEffects?2:1;
 		
 		if(potionAttributes.containsKey(att)) {
 			setPotionAttribute(att, potionAttributes.get(att)+value);
@@ -5502,7 +5506,7 @@ public abstract class GameCharacter implements XMLSaving {
 			potionAttributes.remove(att);
 		}
 		
-		potionTimeRemaining += 30 * 60 * (this.isPlayer()&&this.hasTrait(Perk.JOB_CHEF, true)?2:1);
+		potionTimeRemaining += 30 * 60 * (this.isPlayer() && this.hasTrait(Perk.JOB_CHEF, true) && withExtaEffects?2:1);
 		
 		if(potionTimeRemaining>=12*60*60) {
 			addStatusEffect(StatusEffect.POTION_EFFECTS, 12*60*60);
@@ -6906,7 +6910,7 @@ public abstract class GameCharacter implements XMLSaving {
 						} else {
 							if(includesOrgasm) {
 								AbstractRacialBody body = RacialBody.valueOfRace(subspeciesBackup.getRace());
-								getStretchDescription(null, PenisGirth.getPenisGirthFromInt(body.getPenisGirth()), body.getPenisSize(), this, (SexAreaOrifice)performingArea);
+								getStretchDescription(null, PenetrationGirth.getGirthFromInt(body.getPenisGirth()), body.getPenisSize(), this, (SexAreaOrifice)performingArea);
 								this.ingestFluid(null,
 										subspeciesBackup,
 										halfDemonSubspeciesBackup,
@@ -7598,13 +7602,25 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		if(includesOrgasm) { // This is reset to 25 to factor in post-orgasm satisfaction.
+		String levelDrainDescription = "";
+		
+		if(includesOrgasm) { 
 			if(Main.game.isInSex()) {
 				Main.sex.incrementNumberOfOrgasms(this, 1);
 				if(partnerPresent) {
 					Main.sex.incrementNumberOfOrgasms(partner, 1);
 				}
 			}
+			if(isDom) {
+				if(this.hasPerkAnywhereInTree(Perk.ORGASMIC_LEVEL_DRAIN) && this.isLevelDrainAvailableToUse() && !flags.contains(GenericSexFlag.PREVENT_LEVEL_DRAIN)) {
+					levelDrainDescription = applyLevelDrain(partner);
+				}
+			} else {
+				if(partnerPresent && partner.hasPerkAnywhereInTree(Perk.ORGASMIC_LEVEL_DRAIN) && partner.isLevelDrainAvailableToUse() && !flags.contains(GenericSexFlag.PREVENT_LEVEL_DRAIN)) {
+					levelDrainDescription = partner.applyLevelDrain(this);
+				}
+			}
+			// This is reset to 25 to factor in post-orgasm satisfaction:
 			this.setArousal(25);
 			if(partnerPresent) {
 				partner.setArousal(25);
@@ -7614,10 +7630,11 @@ public abstract class GameCharacter implements XMLSaving {
 		return sexDescriptionSB.toString()
 				+ stretchDescription
 				+ orgasmSB.toString()
-				+ ingestFluidSB.toString();
+				+ ingestFluidSB.toString()
+				+ levelDrainDescription;
 	}
 	
-	private static String getStretchDescription(GameCharacter characterPenetrating, PenisGirth girth, int penisSize, GameCharacter orificeCharacter, SexAreaOrifice orifice) {
+	private static String getStretchDescription(GameCharacter characterPenetrating, PenetrationGirth girth, int penisSize, GameCharacter orificeCharacter, SexAreaOrifice orifice) {
 		int stretchCount = 5; // How many times the orifice should be stretched (based on its starting value).
 		// This method doens't simulate diminishing stretching, so while 5 seems small, it should be enough to simulate more like 10 or so 'real' stretches.
 		
@@ -8257,7 +8274,27 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isImmuneToLevelDrain() {
-		return this.isUnique();
+		return !this.isPlayer() && this.isUnique();
+	}
+	
+	public String applyLevelDrain(GameCharacter target) {
+		if(target.getTrueLevel()>1) {
+			int exp = target.getExperienceNeededForNextLevel();
+			target.levelDown();
+			return UtilText.parse(target, this,
+					"<p style='text-align:center; margin:0;'>"
+						+ this.getLevelDrainDescription(target)
+						+ "<br/>[style.italicsBad(As [npc.she] [npc.verb(orgasm)], [npc.name] [npc.verb(feel)] [npc.herself] getting weaker...)]"
+						+ "<br/>[style.italicsTerrible([npc.Name] [npc.verb(lose)] 1 level!)]"
+					+ "</p>"
+					+ this.incrementExperience(exp, false));
+			
+		} else {
+			return UtilText.parse(target, this,
+					"<p style='text-align:center'>"
+						+ "Although [npc2.nameHasFull] the '"+Perk.ORGASMIC_LEVEL_DRAIN.getName(this)+"' perk, [npc.nameIsFull] already at the minimum level, so [npc.her] experience cannot be drained..."
+					+ "</p>");
+		}
 	}
 	
 	/**
@@ -8266,20 +8303,16 @@ public abstract class GameCharacter implements XMLSaving {
 	public String getLevelDrainDescription(GameCharacter target) {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("<p>");
-
 		sb.append(UtilText.returnStringAtRandom(
 				"Licking [npc.her] [npc.lips], [npc.name] [npc.verb(let)] out a hungry [npc.moan] and [npc.verb(tease)], ",
 				"Greedily absorbing [npc2.namePos] energy, [npc.name] [npc.verb(let)] out an erotic [npc.moan] and [npc.verb(cry)] out, ",
-				"Letting out a deeply erotic [npc.moan], [npc.name] [npc.verb(relish)] in absorbing [npc2.namePos] energy and [npc.verb(tease)], "
+				"Letting out a deeply erotic [npc.moan], [npc.name] eagerly [npc.verb(absorb)] [npc2.namePos] energy and [npc.verb(tease)], "
 				));
 		
 		sb.append(UtilText.returnStringAtRandom(
 				"[npc.speech(That's right... You don't need to be this powerful anymore!)]",
 				"[npc.speech(Oh yes... Give me all your power!)]",
 				"[npc.speech(You'll be completely powerless once I'm done with you!)]"));
-		
-		sb.append("</p>");
 		
 		return UtilText.parse(this, target, sb.toString());
 	}
@@ -16198,9 +16231,9 @@ public abstract class GameCharacter implements XMLSaving {
 								+ " and <b>"+increment+"</b> <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b>"
 								+ " as [npc.she] [npc.verb(struggle)] to control [npc.her] burning desire for sex!</b>"
 						+ "</p>"));
-
-			this.incrementHealth(-increment*2);
-			this.incrementMana(-increment);
+			
+			this.setHealth(this.getHealth() - (increment*2));
+			this.setMana(this.getMana() - (increment));
 		}
 		
 		sb.append(setLust(getLust() + increment));
@@ -23505,7 +23538,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getPenisDescription(this);
 	}
 	// Penis girth:
-	public PenisGirth getPenisGirth() {
+	public PenetrationGirth getPenisGirth() {
 		return getCurrentPenis().getGirth();
 	}
 	public int getPenisRawGirthValue() {
@@ -23514,7 +23547,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setPenisGirth(int size) {
 		return getCurrentPenis().setPenisGirth(this, size);
 	}
-	public String setPenisGirth(PenisGirth size) {
+	public String setPenisGirth(PenetrationGirth size) {
 		return getCurrentPenis().setPenisGirth(this, size.getValue());
 	}
 	public String incrementPenisGirth(int increment) {
@@ -24251,6 +24284,25 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isTailBestial() {
 		return body.getTail().isBestial(this);
 	}
+	// Tail girth:
+	public PenetrationGirth getTailGirth() {
+		return body.getTail().getGirth();
+	}
+	public String getTailGirthDescriptor() {
+		return body.getTail().getType().getGirthDescriptor(this);
+	}
+	public int getTailRawGirthValue() {
+		return body.getTail().getRawGirthValue();
+	}
+	public String setTailGirth(int size) {
+		return body.getTail().setTailGirth(this, size);
+	}
+	public String setTailGirth(PenetrationGirth size) {
+		return body.getTail().setTailGirth(this, size.getValue());
+	}
+	public String incrementTailGirth(int increment) {
+		return setTailGirth(getTailRawGirthValue() + increment);
+	}
 	// Misc.:
 	public boolean isTailPrehensile(){
 		return body.getTail().getType().isPrehensile();
@@ -24516,7 +24568,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return setVaginaClitorisSize(getVaginaRawClitorisSizeValue() + increment);
 	}
 	// Clitoris girth:
-	public PenisGirth getClitorisGirth() {
+	public PenetrationGirth getClitorisGirth() {
 		return body.getVagina().getClitoris().getGirth();
 	}
 	public int getClitorisRawGirthValue() {

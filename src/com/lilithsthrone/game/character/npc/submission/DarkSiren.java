@@ -36,6 +36,7 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
@@ -161,6 +162,9 @@ public class DarkSiren extends NPC {
 			this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.ONE_DISLIKE);
 			setStartingCombatMoves();
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.setTailGirth(PenetrationGirth.THREE_THICK);
+		}
 	}
 
 	@Override
@@ -244,6 +248,7 @@ public class DarkSiren extends NPC {
 		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
 		this.setAgeAppearanceDifferenceToAppearAsAge(18);
 		this.setTailType(TailType.DEMON_COMMON);
+		this.setTailGirth(PenetrationGirth.THREE_THICK);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setWingSize(WingSize.ONE_SMALL.getValue());
 		this.setHornType(HornType.SWEPT_BACK);

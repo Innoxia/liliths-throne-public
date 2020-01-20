@@ -1949,22 +1949,24 @@ public class MainController implements Initializable {
 		} else {
 			charactersBeingRendered.addAll(Main.game.getCharactersPresent());
 			
-			int i=0;
-			for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
-				id = "PLACE_POPULATION_"+i;
-				if (((EventTarget) documentRight.getElementById(id)) != null) {
-					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
-					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-					
-					Set<Subspecies> subspecies = new HashSet<>();
-					subspecies.addAll(pop.getSpecies().keySet());
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
-							"Races Present",
-							Util.subspeciesToStringList(subspecies, true)+".",
-							(subspecies.size()/3)*16);
-					addEventListener(documentRight, id, "mouseenter", el, false);
+			if(Main.game.isStarted()) {
+				int i=0;
+				for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
+					id = "PLACE_POPULATION_"+i;
+					if (((EventTarget) documentRight.getElementById(id)) != null) {
+						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
+						
+						Set<Subspecies> subspecies = new HashSet<>();
+						subspecies.addAll(pop.getSpecies().keySet());
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
+								"Races Present",
+								Util.subspeciesToStringList(subspecies, true)+".",
+								(subspecies.size()/3)*16);
+						addEventListener(documentRight, id, "mouseenter", el, false);
+					}
+					i++;
 				}
-				i++;
 			}
 		}
 		
@@ -2351,11 +2353,11 @@ public class MainController implements Initializable {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 								}
 							},

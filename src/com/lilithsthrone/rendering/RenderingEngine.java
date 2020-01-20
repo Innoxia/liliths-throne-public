@@ -1385,10 +1385,10 @@ public enum RenderingEngine {
 								+ "<p style='text-align:center;padding:0;margin:0;'><b>Characters Present</b></p>");
 			List <NPC> charactersPresent = Main.game.getCharactersPresent();
 			Set<Subspecies> subspeciesSet = new HashSet<>();
-			for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
+			for(Population pop : place.getPopulation()) {
 				subspeciesSet.addAll(pop.getSpecies().keySet());
 			}
-			if(charactersPresent.isEmpty() && (place.getPopulation()==null || subspeciesSet.isEmpty())) {
+			if(charactersPresent.isEmpty() && (place.getPopulation()==null || place.getPopulation().isEmpty() || subspeciesSet.isEmpty())) {
 				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>None...</span></p>");
 				
 			} else {

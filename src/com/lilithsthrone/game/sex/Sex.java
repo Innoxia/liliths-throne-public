@@ -2515,23 +2515,7 @@ public class Sex {
 			}
 			for(GameCharacter drainer : levelDrains) {
 				if(drainer.isLevelDrainAvailableToUse()) {
-					if(Main.sex.getCharacterPerformingAction().getTrueLevel()>1) {
-						int exp = Main.sex.getCharacterPerformingAction().getExperienceNeededForNextLevel();
-						Main.sex.getCharacterPerformingAction().levelDown();
-						stringBuilderForAppendingDescriptions.append(UtilText.parse(Main.sex.getCharacterPerformingAction(), drainer,
-								drainer.getLevelDrainDescription(Main.sex.getCharacterPerformingAction())
-								+ "<p style='text-align:center; margin:0;'>"
-									+ "[style.italicsBad(As [npc.she] [npc.verb(orgasm)], [npc.name] [npc.verb(feel)] [npc.herself] getting weaker...)]"
-									+ "<br/>[style.italicsTerrible([npc.Name] [npc.verb(lose)] 1 level!)]"
-								+ "</p>"
-								+ drainer.incrementExperience(exp, false)));
-						
-					} else {
-						stringBuilderForAppendingDescriptions.append(UtilText.parse(Main.sex.getCharacterPerformingAction(), drainer,
-								"<p style='text-align:center'>"
-									+ "Although [npc2.nameHasFull] the '"+Perk.ORGASMIC_LEVEL_DRAIN.getName(drainer)+"' perk, [npc.nameIsFull] already at the minimum level, so [npc.her] experience cannot be drained..."
-								+ "</p>"));
-					}
+					stringBuilderForAppendingDescriptions.append(drainer.applyLevelDrain(Main.sex.getCharacterPerformingAction()));
 				}
 			}
 
@@ -4773,11 +4757,11 @@ public class Sex {
 		}
 	}
 
-	public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+	public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 		return Main.sex.getSexManager().getForeplayPreference(character, targetedCharacter);
 	}
 	
-	public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+	public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 		return Main.sex.getSexManager().getMainSexPreference(character, targetedCharacter);
 	}
 	
