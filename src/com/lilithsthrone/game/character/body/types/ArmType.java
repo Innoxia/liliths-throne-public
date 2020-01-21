@@ -500,3 +500,4 @@ public class ArmType {
 		return types;
 	}
 	
+}
