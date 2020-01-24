@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -20,6 +21,7 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
+import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
 import com.lilithsthrone.game.character.body.types.AbstractBreastType;
 import com.lilithsthrone.game.character.body.types.AbstractLegType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -1956,7 +1958,11 @@ public class Body implements XMLSaving {
 		// Hair:
 		
 		if (hair.getRawLengthValue() == 0) {
-			sb.append(" [npc.SheHasFull] no hair on [npc.her] head, revealing the [npc.faceSkin] that covers [npc.her] scalp.");
+			if (face.getTypeTags().contains(FaceTypeTag.NATURAL_BALDNESS)) {
+				sb.append(" [npc.Her] head is covered in [npc.faceFullDescription(true)].");
+			} else {
+				sb.append(" [npc.SheHasFull] no hair on [npc.her] head, revealing the [npc.faceSkin] that covers [npc.her] scalp.");
+			}
 			
 		} else {
 			sb.append(" [npc.SheHasFull] [npc.hairLength], [npc.hairColour(true)]");

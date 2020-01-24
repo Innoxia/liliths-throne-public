@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character;
-import java.io.File;
+
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -56,6 +57,7 @@ import com.lilithsthrone.game.character.body.FluidInterface;
 import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.Testicle;
+import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
 import com.lilithsthrone.game.character.body.types.AbstractArmType;
 import com.lilithsthrone.game.character.body.types.AbstractAssType;
 import com.lilithsthrone.game.character.body.types.AbstractBreastType;
@@ -22728,6 +22730,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setFaceType(FaceType type) {
 		return body.getFace().setType(this, type);
+	}
+	public List<FaceTypeTag> getFaceTypeTags() {
+		return body.getFace().getType().getTags();
 	}
 	public BodyCoveringType getFaceCovering() {
 		return getCovering(body.getFace());

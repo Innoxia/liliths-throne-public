@@ -1,8 +1,10 @@
 package com.lilithsthrone.game.combat;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.FootType;
@@ -15,6 +17,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import java.util.Collections;
 
 /**
  * @since 0.1.0
@@ -533,11 +536,13 @@ public class CMSpecialAttack {
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(
-            		source.getFaceRace()!=Race.HUMAN
-						&& source.getFaceRace()!=Race.ANGEL
-						&& source.getFaceRace()!=Race.DEMON
-						&& source.getFaceRace()!=Race.ELEMENTAL,
-					"Available to characters with an anthropomorphic face.");
+				!Collections.disjoint(source.getFaceTypeTags(), Util.newArrayListOfValues(
+					FaceTypeTag.MUZZLE,
+					FaceTypeTag.FANGS,
+					FaceTypeTag.SHARK_TEETH,
+					FaceTypeTag.BEAK
+				)),
+				"Available to characters with an anthropomorphic face.");
         }
 
         @Override
