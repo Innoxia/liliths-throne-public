@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.clothing;
-import java.io.File;
+
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -1378,7 +1379,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.FITS_ARM_WINGS)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
