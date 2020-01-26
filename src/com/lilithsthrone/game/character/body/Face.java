@@ -547,4 +547,8 @@ public class Face implements BodyPartInterface {
 		}
 		return owner.getLegConfiguration().getBestialParts().contains(Face.class) && getType().getRace().isBestialPartsAvailable();
 	}
+
+	public boolean isBaldnessNatural() {
+		return this.getTypeTags().contains(FaceTypeTag.NATURAL_BALDNESS);
+	}
 }

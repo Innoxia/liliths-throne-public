@@ -22743,6 +22743,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean isFaceBestial() {
 		return body.getFace().isBestial(this);
 	}
+	public boolean isFaceBaldnessNatural() {
+		return body.getFace().isBaldnessNatural();
+	}
 	// Names:
 	public String getFaceName() {
 		return body.getFace().getName(this);

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body;
-import com.lilithsthrone.game.character.GameCharacter;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
@@ -352,15 +353,24 @@ public class Hair implements BodyPartInterface {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The length of [npc.namePos] [npc.hair] doesn't change...)]</p>");
 			}
 		} else if (sizeChange < 0) {
+			String hairChangedText;
 			if(owner.isPlayer()) {
+				if (this.length == 0 && owner.isFaceBaldnessNatural()) {
+					hairChangedText = "no [pc.hair]";
+				} else {
+					hairChangedText = "[pc.hairLength], " + Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [pc.hair]";
+				}
 				return "<p>Your scalp itches for a moment as you feel your [pc.hair] [style.boldShrink(getting shorter)].<br/>"
-						+ "You now have [style.boldTfGeneric([pc.hairLength], "
-						+ Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [pc.hair])]!</p>"
+						+ "You now have [style.boldTfGeneric(" + hairChangedText + ")]!</p>"
 						+ styleChange;
 			} else {
+				if (this.length == 0 && owner.isFaceBaldnessNatural()) {
+					hairChangedText = "no [npc.hair]";
+				} else {
+					hairChangedText = "[npc.hairLength], " + Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [npc.hair]";
+				}
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry and rubs at [npc.her] scalp as [npc.her] [npc.hair] [style.boldShrink(gets shorter)].<br/>"
-						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "
-						+ Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [npc.hair])]!</p>"
+						+ "[npc.She] now has [style.boldTfGeneric(" + hairChangedText + ")]!</p>"
 						+ styleChange);
 			}
 			
