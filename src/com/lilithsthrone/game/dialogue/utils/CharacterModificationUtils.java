@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.utils;
-
-import java.time.Month;
+import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -76,7 +75,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
@@ -816,7 +815,7 @@ public class CharacterModificationUtils {
 						+ " (If the tail is furry, it is subject to the 'furry tail penetration' content option.)</i>"),
 				"TAIL_TYPE",
 				contentSB.toString(),
-				true);
+				false);
 	}
 
 	public static String getSelfTransformTailCountDiv() {
@@ -841,6 +840,32 @@ public class CharacterModificationUtils {
 				UtilText.parse(BodyChanging.getTarget(), "Change how many [npc.tails] [npc.name] [npc.has]."
 						+ "<br/><i>The number of tails is taken into consideration when checking to see if there's a tail available for penetrative actions during sex.</i>"),
 				"TAIL_COUNT",
+				contentSB.toString(),
+				true);
+	}
+	
+	public static String getSelfTransformTailGirthDiv() {
+		contentSB.setLength(0);
+		
+		for(PenetrationGirth girth : PenetrationGirth.values()) {
+			if(BodyChanging.getTarget().getTailGirth() == girth) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+girth.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getTailType().getGirthDescriptor(girth))+"</span>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='TAIL_GIRTH_"+girth+"' class='cosmetics-button'>"
+							+ "<span style='color:"+girth.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getTailType().getGirthDescriptor(girth))+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Tail Girth",
+				UtilText.parse(BodyChanging.getTarget(), "Change the girth of [npc.namePos] [npc.tail]."
+						+ "<br/><i>Tail girth has an impact in determining whether a tail is too large for the orifice it is penetrating.</i>"),
+				"TAIL_GIRTH",
 				contentSB.toString(),
 				true);
 	}
@@ -2982,7 +3007,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformPenisGirthDiv() {
 		contentSB.setLength(0);
 		
-		for(PenisGirth girth : PenisGirth.values()) {
+		for(PenetrationGirth girth : PenetrationGirth.values()) {
 			if(BodyChanging.getTarget().getPenisGirth() == girth) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"

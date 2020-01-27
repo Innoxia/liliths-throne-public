@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.inventory.weapon;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -485,10 +484,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	public String getName(boolean withDeterminer, boolean withRarityColour) {
 		return (withDeterminer
 				? (!weaponType.getDeterminer().equalsIgnoreCase("a") && !weaponType.getDeterminer().equalsIgnoreCase("an")
-					? weaponType.getDeterminer() + " "
-					: (Util.isVowel(damageType.getWeaponDescriptor().charAt(0)) ? "an " : "a "))
-				: " ")
-				+ damageType.getWeaponDescriptor() + (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
+					? weaponType.getDeterminer()
+					: UtilText.generateSingularDeterminer(damageType.getWeaponDescriptor()))
+				: "")
+				+ " "+damageType.getWeaponDescriptor() + (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
 	}
 	
 	public String getDisplayName(boolean withRarityColour) {

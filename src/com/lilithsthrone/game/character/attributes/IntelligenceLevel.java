@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.attributes;
-
-import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 

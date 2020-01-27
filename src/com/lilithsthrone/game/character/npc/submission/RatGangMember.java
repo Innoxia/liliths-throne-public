@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.submission;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -227,21 +226,31 @@ public class RatGangMember extends NPC {
 			return new Response("", "", RatWarrensDialogue.GUARD_COMBAT_VICTORY) {
 				@Override
 				public void effects() {
-					if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_CHECKPOINT_LEFT
-							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_CORRIDOR_LEFT
-							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_DORMITORY_LEFT
+					if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_DORMITORY_LEFT
 							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_MILKING_ROOM
 							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_MILKING_STORAGE) {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensClearedLeft, true);
 						
-					} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_CHECKPOINT_RIGHT
-							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_CORRIDOR_RIGHT
-							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_DORMITORY_RIGHT
-							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_DICE_DEN) {
+					} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_DORMITORY_RIGHT) {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensClearedRight, true);
 						
-					} else {
+					} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_DICE_DEN
+							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_ENTRANCE) {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensClearedCentre, true);
+						
+					} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_CHECKPOINT_LEFT) {
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensClearedLeft, true);
+						} else {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensClearedCentre, true);
+						}
+						
+					} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_CHECKPOINT_RIGHT) {
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensClearedRight, true);
+						} else {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensClearedCentre, true);
+						}
 					}
 				}
 			};
@@ -252,6 +261,7 @@ public class RatGangMember extends NPC {
 					@Override
 					public void effects() {
 						RatWarrensDialogue.applyCombatDefeatFlagsReset();
+						Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
 					}
 				};
 			}
@@ -259,6 +269,7 @@ public class RatGangMember extends NPC {
 				@Override
 				public void effects() {
 					RatWarrensDialogue.applyCombatDefeatFlagsReset();
+					Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
 				}
 			};
 		}

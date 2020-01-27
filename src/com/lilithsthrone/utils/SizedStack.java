@@ -1,6 +1,5 @@
 package com.lilithsthrone.utils;
-
-import java.util.Stack;
+import java.util.Stack;
 
 /**
  * @since 0.2.?

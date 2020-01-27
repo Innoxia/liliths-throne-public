@@ -1,15 +1,12 @@
 package com.lilithsthrone.game.sex.managers.submission;
-
-import java.util.HashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.Shadow;
 import com.lilithsthrone.game.character.npc.submission.Silence;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -56,7 +53,7 @@ public class SMShadowSilence extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+	public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 		if(character.equals(Main.game.getNpc(Silence.class))) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
 		}
@@ -67,8 +64,8 @@ public class SMShadowSilence extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
-		if(Sex.isDom(character)) {
+	public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
+		if(Main.sex.isDom(character)) {
 			return character.getForeplayPreference(targetedCharacter);
 		}
 		return character.getMainSexPreference(targetedCharacter);

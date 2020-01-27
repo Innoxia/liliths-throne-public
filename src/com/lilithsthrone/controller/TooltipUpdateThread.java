@@ -1,6 +1,5 @@
 package com.lilithsthrone.controller;
-
-import com.lilithsthrone.main.Main;
+import com.lilithsthrone.main.Main;
 
 import javafx.application.Platform;
 

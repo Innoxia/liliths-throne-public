@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +39,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
@@ -1578,11 +1576,11 @@ public class DebugDialogue {
 	public static final DialogueNode POST_SEX_2KOMA = new DialogueNode("", "", true) {
 		@Override
 		public String getContent() {
-			if(Sex.isDom(Main.game.getPlayer())) {
-				GameCharacter target = Sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
+			if(Main.sex.isDom(Main.game.getPlayer())) {
+				GameCharacter target = Main.sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
 				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_2KOMA", target);
 			} else {
-				GameCharacter target = Sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
+				GameCharacter target = Main.sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
 				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_2KOMA_AS_SUB", target);
 			}
 		}
@@ -1590,7 +1588,7 @@ public class DebugDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				if(Sex.isDom(Main.game.getPlayer())) {
+				if(Main.sex.isDom(Main.game.getPlayer())) {
 					return new Response("Continue", "Now that you've put this bitch in [npc.her] place, you can continue with what you were doing...", Main.game.getDefaultDialogue(false));
 				} else {
 					return new Response("Continue", "Now that you've been put in your place like the bitch you are, you can continue with what you were doing...", Main.game.getDefaultDialogue(false));
@@ -1660,11 +1658,11 @@ public class DebugDialogue {
 	public static final DialogueNode POST_SEX_CENTAUR = new DialogueNode("", "", true) {
 		@Override
 		public String getContent() {
-			if(Sex.isDom(Main.game.getPlayer())) {
-				GameCharacter target = Sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
+			if(Main.sex.isDom(Main.game.getPlayer())) {
+				GameCharacter target = Main.sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
 				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR", target);
 			} else {
-				GameCharacter target = Sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
+				GameCharacter target = Main.sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
 				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR_AS_SUB", target);
 			}
 		}
@@ -1673,7 +1671,7 @@ public class DebugDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				NPC centaur = Main.game.getActiveNPC();
-				if(Sex.isDom(Main.game.getPlayer())) {
+				if(Main.sex.isDom(Main.game.getPlayer())) {
 					return new Response("Continue", UtilText.parse(centaur, "Now that you've put this [npc.race] in [npc.her] place, you can continue with what you were doing..."), Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {

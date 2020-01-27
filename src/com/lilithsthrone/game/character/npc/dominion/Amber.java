@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +37,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
@@ -69,7 +68,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -138,13 +136,15 @@ public class Amber extends NPC {
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.BRAVE);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
 		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
+		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
+		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
 						Perk.ORGASMIC_LEVEL_DRAIN,
@@ -240,7 +240,7 @@ public class Amber extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenisGirth.FOUR_FAT);
+		this.setPenisGirth(PenetrationGirth.FOUR_FAT);
 		this.setPenisSize(25);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(550);
@@ -483,7 +483,7 @@ public class Amber extends NPC {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Amber.class)) >= Main.game.getNpc(Amber.class).getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(Amber.class)) >= Main.game.getNpc(Amber.class).getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Amber lets out a deeply satisfied sigh, before sinking to the floor in total exhaustion."
@@ -612,6 +612,24 @@ public class Amber extends NPC {
 		return Main.game.isLevelDrainContentEnabled()
 				&& Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).getClothingType()==ClothingType.AMBERS_BITCH_CHOKER;
 	}
+
+	@Override
+	public String getLevelDrainDescription(GameCharacter target) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(UtilText.returnStringAtRandom(
+				"Letting out a mocking laugh, Amber roughly grabs hold of you and growls, ",
+				"Amber's glowing eyes open wide, and with a cruel laugh, she reveals, ",
+				"Letting out a cruel, mocking laugh, Amber greedily absorbs your energy and taunts, "
+				));
+		
+		sb.append(UtilText.returnStringAtRandom(
+				"[npc.speech(I'm going to drain all of your power! You'll be nothing but my worthless pet by the time I'm done with you!)]",
+				"[npc.speech(You pathetic bitch! All of your power will be mine!)]",
+				"[npc.speech(What a pathetic bitch you are! Having your power drained away like this!)]"));
+		
+		return UtilText.parse(this, target, sb.toString());
+	}
 	
 	@Override
 	public List<Class<?>> getUniqueSexClasses() {
@@ -620,7 +638,7 @@ public class Amber extends NPC {
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Sex.getSexManager().getPosition() == SexPosition.ALL_FOURS) {
+		if(Main.sex.getSexManager().getPosition() == SexPosition.ALL_FOURS) {
 			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && target.hasVagina()) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA);
 			} else {
@@ -633,7 +651,7 @@ public class Amber extends NPC {
 
 	@Override
 	public SexType getMainSexPreference(GameCharacter target) {
-		if(Sex.getSexManager().getPosition() == SexPosition.ALL_FOURS) {
+		if(Main.sex.getSexManager().getPosition() == SexPosition.ALL_FOURS) {
 			if(target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && target.hasVagina()) {
 				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			} else {
@@ -646,7 +664,7 @@ public class Amber extends NPC {
 	
 	@Override
 	public GameCharacter getPreferredSexTarget() {
-		if(Sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) { // Assisting the player to suck Zaranix's cock:
+		if(Main.sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) { // Assisting the player to suck Zaranix's cock:
 			return Main.game.getPlayer();
 		}
 		return super.getPreferredSexTarget();
@@ -654,7 +672,7 @@ public class Amber extends NPC {
 	
 	@Override
 	public List<SexActionInterface> getLimitedSexClasses() {
-		if(Sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) { // Assisting the player to suck Zaranix's cock:
+		if(Main.sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) { // Assisting the player to suck Zaranix's cock:
 			List<SexActionInterface> actionsAvailable = new ArrayList<>();
 			
 			actionsAvailable.add(FingerMouth.PARTNER_ASSIST_BLOWJOB);
@@ -673,7 +691,7 @@ public class Amber extends NPC {
 	
 	@Override
 	public int getOrgasmsBeforeSatisfied() {
-		if(Sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) {
+		if(Main.sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) {
 			return 0;
 		}
 		return super.getOrgasmsBeforeSatisfied();
@@ -681,7 +699,7 @@ public class Amber extends NPC {
 	
 	@Override
 	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, GameCharacter target) {
-		if(Sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) {
+		if(Main.sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) {
 			return slot==SexSlotSitting.PERFORMING_ORAL_TWO;
 		}
 		return slot==SexSlotAllFours.BEHIND;
@@ -694,7 +712,7 @@ public class Amber extends NPC {
 	
 	@Override
 	public String getRoughTalk() {
-		if(Sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) { // Assisting the player to suck Zaranix's cock:
+		if(Main.sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) { // Assisting the player to suck Zaranix's cock:
 			if(Main.game.getNpc(Zaranix.class).getArousal()>=95) {
 				return "[npc.speech(Get ready for your [zaranix.master]'s cum, you worthless whore!)]";
 			}
@@ -709,7 +727,7 @@ public class Amber extends NPC {
 	
 	@Override
 	public String getDirtyTalk() {
-		if(Sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) { // Assisting the player to suck Zaranix's cock:
+		if(Main.sex.getSexManager().getDominants().containsKey(Main.game.getNpc(Zaranix.class))) { // Assisting the player to suck Zaranix's cock:
 			if(Main.game.getNpc(Zaranix.class).getArousal()>=95) {
 				return "[npc.speech(Get ready for your [zaranix.master]'s cum, you worthless whore!)]";
 			}

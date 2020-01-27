@@ -1,14 +1,11 @@
 package com.lilithsthrone.game.sex.managers.submission;
-
-import java.util.HashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.Axel;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
@@ -49,33 +46,21 @@ public class SMAxel extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToStopSex() {
-		return false;
-	}
-	
-	@Override
 	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
-		return false;
+		return character.isPlayer() || !Main.sex.isInForeplay(character);
 	}
 	
 	@Override
 	public boolean isPositionChangingAllowed(GameCharacter character) {
-		return false;
+		return character.isPlayer() || !Main.sex.isInForeplay(character);
 	}
 	
 	@Override
-	public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
-		if(Sex.isDom(character)) {
+	public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
+		if(Main.sex.isDom(character)) {
 			return axelSexTypePreference;
 		}
 		return character.getForeplayPreference(targetedCharacter);
 	}
 	
-	@Override
-	public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
-		if(Sex.isDom(character)) {
-			return character.getForeplayPreference(targetedCharacter);
-		}
-		return character.getMainSexPreference(targetedCharacter);
-	}
 }

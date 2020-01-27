@@ -1,6 +1,5 @@
 package com.lilithsthrone.utils.time;
-
-import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
 
 /**

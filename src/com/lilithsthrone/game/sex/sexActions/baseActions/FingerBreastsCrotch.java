@@ -1,12 +1,10 @@
 package com.lilithsthrone.game.sex.sexActions.baseActions;
-
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
@@ -14,6 +12,7 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -34,7 +33,7 @@ public class FingerBreastsCrotch {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterTargetedForSexAction(this).getBreastCrotchShape()==BreastShape.UDDERS) {
+			if(Main.sex.getCharacterTargetedForSexAction(this).getBreastCrotchShape()==BreastShape.UDDERS) {
 				return "Grope udders";
 			} else {
 				return "Grope crotch-boobs";
@@ -48,16 +47,16 @@ public class FingerBreastsCrotch {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()
-					&& Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
+			return Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()
+					&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
 
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.NIPPLES_CROTCH)){
+			if(!Main.sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.NIPPLES_CROTCH)){
 				UtilText.nodeContentSB.setLength(0);
 				
-				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(start)] fondling and groping [npc2.namePos] [npc2.crotchBoobsRows] [npc2.crotchBoobs+],"
@@ -111,7 +110,7 @@ public class FingerBreastsCrotch {
 					default:
 						break;
 				}
-				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] at [npc.namePos] touch, before gently encouraging [npc.herHim] to continue giving [npc2.her] [npc2.crotchBoobs+] [npc.her] full attention.",
@@ -168,7 +167,7 @@ public class FingerBreastsCrotch {
 						break;
 				}
 				
-				switch (Sex.getCharacterTargetedForSexAction(this).getBreastCrotchStoredMilk()) {
+				switch (Main.sex.getCharacterTargetedForSexAction(this).getBreastCrotchStoredMilk()) {
 					case ONE_TRICKLE:
 						UtilText.nodeContentSB.append(" A small trickle of [npc2.crotchMilk] leaks out into [npc2.namePos] [npc2.lowClothing(NIPPLES_CROTCH)] as [npc.name] squeezes down on [npc2.her] [npc2.crotchNipples+].");
 						break;
@@ -202,7 +201,7 @@ public class FingerBreastsCrotch {
 				
 				UtilText.nodeContentSB.setLength(0);
 				
-				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Reaching down between [npc2.namePos] [npc2.legs], [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(start)] gently fondling and groping [npc2.her] [npc2.crotchBoobsRows] [npc2.crotchBoobs+].",
@@ -251,7 +250,7 @@ public class FingerBreastsCrotch {
 					default:
 						break;
 				}
-				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] in response to [npc.namePos] touch,"
@@ -312,7 +311,7 @@ public class FingerBreastsCrotch {
 						break;
 				}
 				
-				switch (Sex.getCharacterTargetedForSexAction(this).getBreastCrotchStoredMilk()) {
+				switch (Main.sex.getCharacterTargetedForSexAction(this).getBreastCrotchStoredMilk()) {
 					case ONE_TRICKLE:
 						UtilText.nodeContentSB.append(" A small trickle of [npc2.crotchMilk] leaks out onto [npc.namePos] fingertips as [npc.she] squeezes down on [npc2.namePos] [npc2.crotchNipples+].");
 						break;
@@ -347,16 +346,16 @@ public class FingerBreastsCrotch {
 
 		@Override
 		public void applyEffects(){
-			if(!Sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.NIPPLES_CROTCH)
-					&& Sex.getCharacterTargetedForSexAction(this).getBreastCrotchStoredMilk().getMinimumValue()>=Lactation.ONE_TRICKLE.getMinimumValue()
-					&& Sex.getCharacterTargetedForSexAction(this).getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH)!=null) {
-				Sex.getCharacterTargetedForSexAction(this).getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).setDirty(Sex.getCharacterTargetedForSexAction(this), true);
+			if(!Main.sex.getCharacterTargetedForSexAction(this).isCoverableAreaExposed(CoverableArea.NIPPLES_CROTCH)
+					&& Main.sex.getCharacterTargetedForSexAction(this).getBreastCrotchStoredMilk().getMinimumValue()>=Lactation.ONE_TRICKLE.getMinimumValue()
+					&& Main.sex.getCharacterTargetedForSexAction(this).getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH)!=null) {
+				Main.sex.getCharacterTargetedForSexAction(this).getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).setDirty(Main.sex.getCharacterTargetedForSexAction(this), true);
 			}
 		}
 		
 		@Override
 		public String applyEffectsString() {
-			return Sex.getCharacterTargetedForSexAction(this).incrementBreastCrotchStoredMilk(-10);
+			return Main.sex.getCharacterTargetedForSexAction(this).incrementBreastCrotchStoredMilk(-10);
 		}
 		
 	};
@@ -372,7 +371,7 @@ public class FingerBreastsCrotch {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterPerformingAction().getBreastCrotchShape()==BreastShape.UDDERS) {
+			if(Main.sex.getCharacterPerformingAction().getBreastCrotchShape()==BreastShape.UDDERS) {
 				return "Have udders groped";
 			} else {
 				return "Have crotch-boobs groped";
@@ -386,18 +385,18 @@ public class FingerBreastsCrotch {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().hasBreastsCrotch()
-					&& Sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs()
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue();
+			return Main.sex.getCharacterPerformingAction().hasBreastsCrotch()
+					&& Main.sex.getCharacterPerformingAction().getLegConfiguration().isBipedalPositionedCrotchBoobs()
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue();
 		}
 
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.NIPPLES_CROTCH)){
+			if(!Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.NIPPLES_CROTCH)){
 
 				UtilText.nodeContentSB.setLength(0);
 				
-				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Taking [npc2.namePos] [npc2.hands] in [npc.hers], [npc.name] [npc.verb(guide)] them down to [npc.her] lower abdomen,"
@@ -461,7 +460,7 @@ public class FingerBreastsCrotch {
 					default:
 						break;
 				}
-				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] in response to [npc.namePos] eagerness, before gently pressing [npc2.her] [npc2.hands] into the flesh of [npc.her] [npc.crotchBoobs+].",
@@ -525,7 +524,7 @@ public class FingerBreastsCrotch {
 						break;
 				}
 				
-				switch (Sex.getCharacterPerformingAction().getBreastCrotchStoredMilk()) {
+				switch (Main.sex.getCharacterPerformingAction().getBreastCrotchStoredMilk()) {
 					case ONE_TRICKLE:
 						UtilText.nodeContentSB.append(" A small trickle of [npc.crotchMilk] leaks out into [npc.namePos] [npc.lowClothing(NIPPLES_CROTCH)] as [npc2.name] squeezes down on [npc.her] [npc.crotchNipples+].");
 						break;
@@ -558,7 +557,7 @@ public class FingerBreastsCrotch {
 				
 				UtilText.nodeContentSB.setLength(0);
 				
-				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Taking [npc2.namePos] [npc2.hands] in [npc.hers],"
@@ -608,7 +607,7 @@ public class FingerBreastsCrotch {
 					default:
 						break;
 				}
-				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] in response to [npc.namePos] eagerness, before gently pressing [npc2.her] [npc2.hands] into the flesh of [npc.her] [npc.crotchBoobs+].",
@@ -669,7 +668,7 @@ public class FingerBreastsCrotch {
 						break;
 				}
 				
-				switch (Sex.getCharacterPerformingAction().getBreastCrotchStoredMilk()) {
+				switch (Main.sex.getCharacterPerformingAction().getBreastCrotchStoredMilk()) {
 					case ONE_TRICKLE:
 						UtilText.nodeContentSB.append(" A small trickle of [npc.crotchMilk] leaks out onto [npc2.namePos] fingertips as [npc2.she] squeezes down on [npc.namePos] [npc.crotchNipples+].");
 						break;
@@ -705,16 +704,16 @@ public class FingerBreastsCrotch {
 
 		@Override
 		public void applyEffects(){
-			if(!Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.NIPPLES_CROTCH)
-					&& Sex.getCharacterPerformingAction().getBreastCrotchStoredMilk().getMinimumValue()>=Lactation.ONE_TRICKLE.getMinimumValue()
-					&& Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH)!=null) {
-				Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).setDirty(Sex.getCharacterPerformingAction(), true);
+			if(!Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.NIPPLES_CROTCH)
+					&& Main.sex.getCharacterPerformingAction().getBreastCrotchStoredMilk().getMinimumValue()>=Lactation.ONE_TRICKLE.getMinimumValue()
+					&& Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH)!=null) {
+				Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).setDirty(Main.sex.getCharacterPerformingAction(), true);
 			}
 		}
 		
 		@Override
 		public String applyEffectsString() {
-			return Sex.getCharacterPerformingAction().incrementBreastCrotchStoredMilk(-10);
+			return Main.sex.getCharacterPerformingAction().incrementBreastCrotchStoredMilk(-10);
 		}
 		
 	};

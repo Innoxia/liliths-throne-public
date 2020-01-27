@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -65,7 +64,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.StartingSkinTone;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
@@ -721,6 +720,7 @@ public class Body implements XMLSaving {
 		parentElement.appendChild(bodyTail);
 			CharacterUtils.addAttribute(doc, bodyTail, "type", this.tail.type.toString());
 			CharacterUtils.addAttribute(doc, bodyTail, "count", String.valueOf(this.tail.tailCount));
+			CharacterUtils.addAttribute(doc, bodyTail, "girth", String.valueOf(this.tail.girth));
 		
 		// Tail:
 		Element bodyTentacle = doc.createElement("tentacle");
@@ -1338,6 +1338,10 @@ public class Body implements XMLSaving {
 		Tail importedTail = new Tail(TailType.getTypeFromString(tail.getAttribute("type")));
 		
 		importedTail.tailCount = (Integer.valueOf(tail.getAttribute("count")));
+
+		if(tail.getAttribute("girth") != null && !tail.getAttribute("girth").isEmpty()) {
+			importedTail.girth = Integer.valueOf(tail.getAttribute("girth"));
+		}
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Tail: "
 				+ "<br/>type: "+importedTail.getType()
@@ -2906,6 +2910,8 @@ public class Body implements XMLSaving {
 					case NONE:
 						break;
 				}
+				sb.append(owner.getTailType().getGirthDescription(owner));
+				
 			} else {
 				sb.append(Util.intToString(owner.getTailCount())+" ");
 				switch(owner.getTailType()){
@@ -3054,6 +3060,7 @@ public class Body implements XMLSaving {
 					case NONE:
 						break;
 				}
+				sb.append(owner.getTailType().getGirthDescription(owner));
 			}
 			sb.append("</p>");
 		}
@@ -3196,6 +3203,10 @@ public class Body implements XMLSaving {
 				break;
 			default:
 				break;
+		}
+		
+		if(target!=null && target.getBody()!=null && Main.game.isStarted()) { // Apparently this is needed to stop Lyssieth from losing her status effect???
+			target.addStatusEffect(StatusEffect.SUBSPECIES_BONUS, -1);
 		}
 	}
 
@@ -4085,7 +4096,7 @@ public class Body implements XMLSaving {
 			viewedPenis = new Penis(penis.getType(),
 					(int) (penis.getRawSizeValue() * 2.25f),
 					false,
-					PenisGirth.FOUR_FAT.getValue(),
+					PenetrationGirth.FOUR_FAT.getValue(),
 					penis.getTesticle().getTesticleSize().getValue()*2,
 					(int) ((penis.getTesticle().getRawCumStorageValue()+100) * 3.25f),
 					penis.getTesticle().getTesticleCount());
@@ -4111,7 +4122,7 @@ public class Body implements XMLSaving {
 		}
 
 		descriptionSB.append(UtilText.generateSingularDeterminer(viewedPenis.getSize().getDescriptor())+" "+viewedPenis.getSize().getDescriptor()
-				+", "+(viewedPenis.getGirth()==PenisGirth.TWO_AVERAGE?"":viewedPenis.getGirth().getName()
+				+", "+(viewedPenis.getGirth()==PenetrationGirth.TWO_AVERAGE?"":viewedPenis.getGirth().getName()
 				+", ")+Units.size(viewedPenis.getRawSizeValue(), Units.UnitType.LONG_SINGULAR));
 		
 		switch (viewedPenis.getType()) {
@@ -4652,7 +4663,7 @@ public class Body implements XMLSaving {
 			descriptionSB.append(" [style.colourBestial(As it is located on the lower, animalistic part of [npc.her] body, [npc.her] [npc.pussy] is no different to that of a feral [npc.vaginaRace]'s.)]");
 		}
 		
-		descriptionSB.append(" [npc.She] [npc.has] [npc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [npc.clitGirth]")
+		descriptionSB.append(" [npc.She] [npc.has] [npc.a_clitSize]"+(owner.getClitorisGirth()==PenetrationGirth.TWO_AVERAGE?"":", [npc.clitGirth]")
 				+" clit, which measures [npc.clitSizeValue] in length.");
 		
 		for(PenetrationModifier pm : PenetrationModifier.values()) {

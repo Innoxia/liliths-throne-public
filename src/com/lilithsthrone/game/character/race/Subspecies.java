@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.race;
-
-import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -3235,9 +3234,7 @@ public enum Subspecies {
 	private String bookName;
 	private String bookNamePlural;
 	private String basicDescriptionId;
-	private String basicDescription;
 	private String advancedDescriptionId;
-	private String advancedDescription;
 	
 	private Race race;
 	private Colour colour;
@@ -3406,10 +3403,7 @@ public enum Subspecies {
 		this.bookNamePlural = bookNamePlural;
 		
 		this.basicDescriptionId = basicDescription;
-		this.basicDescription = UtilText.parseFromXMLFile("characters/raceInfo", basicDescription);
-
 		this.advancedDescriptionId = advancedDescription;
-		this.advancedDescription = UtilText.parseFromXMLFile("characters/raceInfo", advancedDescription);
 		
 		this.race = race;
 		this.colour = colour;
@@ -4266,11 +4260,11 @@ public enum Subspecies {
 	}
 
 	public String getBasicDescription(GameCharacter character) {
-		return basicDescription;
+		return UtilText.parseFromXMLFile("characters/raceInfo", getBasicDescriptionId());
 	}
 
 	public String getAdvancedDescription(GameCharacter character) {
-		return advancedDescription;
+		return UtilText.parseFromXMLFile("characters/raceInfo", getAdvancedDescriptionId());
 	}
 	
 	public String getBasicDescriptionId() {

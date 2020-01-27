@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.submission.gamblingDen;
-
-import java.util.List;
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -9,7 +8,6 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.effects.Addiction;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.Roxy;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -25,7 +23,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -313,7 +310,7 @@ public class RoxysShop {
 								null,
 								null){
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(!character.isPlayer()) {
 									if(targetedCharacter.hasPenis()) {
 										if(Main.game.isAnalContentEnabled()) {
@@ -356,7 +353,7 @@ public class RoxysShop {
 								return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vengar.class), Util.newArrayListOfValues(CoverableArea.PENIS)));
 							}
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(!character.isPlayer()) {
 									if(targetedCharacter.hasVagina()) {
 										return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
@@ -398,7 +395,7 @@ public class RoxysShop {
 		}
 		@Override
 		public String getContent() {
-			if(Sex.isDom(Main.game.getPlayer())) {
+			if(Main.sex.isDom(Main.game.getPlayer())) {
 				return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "AFTER_VENGAR_SEX_AS_DOM");
 			}
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "AFTER_VENGAR_SEX_AS_SUB");

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
-
-import java.util.List;
+import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.npc.NPC;

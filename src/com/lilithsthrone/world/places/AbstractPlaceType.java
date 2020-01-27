@@ -1,6 +1,5 @@
 package com.lilithsthrone.world.places;
-
-import java.io.IOException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -202,12 +201,19 @@ public class AbstractPlaceType {
 		return dialogue;
 	}
 	
-	public Population getPopulation() {
-		return null;
+	public List<Population> getPopulation() {
+		return new ArrayList<>();
 	}
 	
 	public boolean isPopulated() {
-		return getPopulation()!=null && !getPopulation().getSpecies().isEmpty();
+		if(getPopulation()!=null) {
+			for(Population pop : getPopulation()) {
+				if(!pop.getSpecies().isEmpty()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public boolean isLand() {

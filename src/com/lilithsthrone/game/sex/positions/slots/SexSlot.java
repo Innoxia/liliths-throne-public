@@ -1,13 +1,11 @@
 package com.lilithsthrone.game.sex.positions.slots;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexActionInteractions;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexType;
@@ -109,7 +107,7 @@ public class SexSlot {
 			}
 		}
 		
-		return Sex.getCharacterInPosition(targetedSlot);
+		return Main.sex.getCharacterInPosition(targetedSlot);
 	}
 		
 	public boolean isMeetsPreferenceCriteria(GameCharacter character, AbstractSexPosition position, SexSlot targetedSlot, SexType preference) {
