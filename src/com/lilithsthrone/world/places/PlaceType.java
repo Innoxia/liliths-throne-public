@@ -1,5 +1,6 @@
 package com.lilithsthrone.world.places;
-import java.lang.reflect.Field;
+
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -537,7 +538,7 @@ public class PlaceType {
 			BaseColour.CRIMSON,
 			SlaverAlleyDialogue.OUTSIDE,
 			null,
-			"in the alleyways near Slaver's Alley") {
+			"in the alleyways near Slaver Alley") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -2184,7 +2185,7 @@ public class PlaceType {
 			BaseColour.BLACK,
 			SlaverAlleyDialogue.ALLEYWAY,
 			null,
-			"in Slaver's Alley") {
+			"in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
 			List<Population> pop = new ArrayList<>();
@@ -2193,7 +2194,7 @@ public class PlaceType {
 			} else {
 				pop.add(new Population(PopulationType.PEOPLE, PopulationDensity.COUPLE, Subspecies.getWorldSpecies().get(WorldType.DOMINION)));
 			}
-			pop.add(new Population(PopulationType.ENFORCERS, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies().get(WorldType.DOMINION)));
+			pop.add(new Population(PopulationType.PRIVATE_SECURITY_GUARD, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies().get(WorldType.DOMINION)));
 			return pop;
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
@@ -2205,7 +2206,7 @@ public class PlaceType {
 			BaseColour.PINK_LIGHT,
 			SlaverAlleyDialogue.MARKET_STALL_FEMALE,
 			null,
-			"in Slaver's Alley") {
+			"in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
 			return SLAVER_ALLEY_PATH.getPopulation();
@@ -2219,7 +2220,7 @@ public class PlaceType {
 			BaseColour.BLUE_STEEL,
 			SlaverAlleyDialogue.MARKET_STALL_MALE,
 			null,
-			"in Slaver's Alley") {
+			"in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
 			return SLAVER_ALLEY_PATH.getPopulation();
@@ -2233,7 +2234,7 @@ public class PlaceType {
 			BaseColour.ORANGE,
 			SlaverAlleyDialogue.MARKET_STALL_ANAL,
 			null,
-			"in Slaver's Alley") {
+			"in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
 			return SLAVER_ALLEY_PATH.getPopulation();
@@ -2247,7 +2248,7 @@ public class PlaceType {
 			BaseColour.PINK,
 			SlaverAlleyDialogue.MARKET_STALL_VAGINAL,
 			null,
-			"in Slaver's Alley") {
+			"in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
 			return SLAVER_ALLEY_PATH.getPopulation();
@@ -2261,7 +2262,7 @@ public class PlaceType {
 			BaseColour.BLUE_LIGHT,
 			SlaverAlleyDialogue.MARKET_STALL_ORAL,
 			null,
-			"in Slaver's Alley") {
+			"in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
 			return SLAVER_ALLEY_PATH.getPopulation();
@@ -2275,7 +2276,7 @@ public class PlaceType {
 			BaseColour.BLACK,
 			SlaverAlleyDialogue.MARKET_STALL_STATUE,
 			null,
-			"in Slaver's Alley") {
+			"in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
 			return SLAVER_ALLEY_PATH.getPopulation();
@@ -2289,7 +2290,7 @@ public class PlaceType {
 			BaseColour.GREY,
 			SlaverAlleyDialogue.MARKET_STALL_EXCLUSIVE,
 			null,
-			"in Slaver's Alley") {
+			"in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
 			return SLAVER_ALLEY_PATH.getPopulation();
@@ -2303,7 +2304,7 @@ public class PlaceType {
 			BaseColour.BLUE,
 			SlaverAlleyDialogue.MARKET_STALL_BULK,
 			null,
-			"in Slaver's Alley") {
+			"in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
 			return SLAVER_ALLEY_PATH.getPopulation();
@@ -2317,7 +2318,7 @@ public class PlaceType {
 			BaseColour.BROWN,
 			SlaverAlleyDialogue.MARKET_STALL_CAFE,
 			null,
-			"in Slaver's Alley") {
+			"in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
 			return SLAVER_ALLEY_PATH.getPopulation();
@@ -2331,7 +2332,7 @@ public class PlaceType {
 			BaseColour.GOLD,
 			SlaverAlleyDialogue.AUCTION_BLOCK,
 			null,
-			"in Slaver's Alley") {
+			"in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies().get(WorldType.DOMINION)));
@@ -2345,7 +2346,7 @@ public class PlaceType {
 			BaseColour.TAN,
 			SlaverAlleyDialogue.PUBLIC_STOCKS,
 			null,
-			"in the stocks at Slaver's Alley") {
+			"in the stocks at Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies().get(WorldType.DOMINION)));
@@ -2359,7 +2360,7 @@ public class PlaceType {
 			BaseColour.RED_DARK,
 			SlaverAlleyDialogue.BOUNTY_HUNTERS,
 			null,
-			"in Slaver's Alley"){
+			"in Slaver Alley"){
 		@Override
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(PopulationType.PEOPLE, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies().get(WorldType.DOMINION)));
@@ -2373,7 +2374,7 @@ public class PlaceType {
 			BaseColour.PURPLE,
 			SlaveryAdministration.SLAVERY_ADMINISTRATION_EXTERIOR,
 			null,
-			"in Slaver's Alley"){
+			"in Slaver Alley"){
 		@Override
 		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
 			return Util.newArrayListOfValues(PlaceUpgrade.SLAVERY_ADMINISTRATION_CELLS);
@@ -2387,7 +2388,7 @@ public class PlaceType {
 			BaseColour.CRIMSON,
 			ScarlettsShop.SCARLETTS_SHOP_EXTERIOR,
 			null,
-			"in Slaver's Alley"){
+			"in Slaver Alley"){
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) { // Scarlett owns the shop:
@@ -2414,13 +2415,21 @@ public class PlaceType {
 			BaseColour.RED,
 			SlaverAlleyDialogue.GATEWAY,
 			null,
-			"in Slaver's Alley") {
+			"in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(PopulationType.PEOPLE, PopulationDensity.FEW, Subspecies.getWorldSpecies().get(WorldType.DOMINION)));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
-	
+
+	public static final AbstractPlaceType SLAVER_ALLEY_DESERTED_ALLEYWAY = new AbstractPlaceType(
+			"Deserted alleyway",
+			"A narrow alleyway snakes its way behind several shops, before coming to a sudden dead end.",
+			"dominion/slaverAlley/desertedAlleyway",
+			BaseColour.BLACK,
+			SlaverAlleyDialogue.DESERTED_ALLEYWAY,
+			null,
+			"in Slaver Alley").initWeatherImmune(Weather.MAGIC_STORM);
 	
 	
 	// Watering hole:

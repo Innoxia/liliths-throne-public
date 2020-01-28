@@ -1,5 +1,6 @@
 package com.lilithsthrone.controller;
-import java.net.URL;
+
+import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;

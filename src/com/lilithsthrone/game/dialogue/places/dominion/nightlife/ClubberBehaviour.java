@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.nightlife;
-import com.lilithsthrone.world.places.AbstractPlaceType;
+
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**

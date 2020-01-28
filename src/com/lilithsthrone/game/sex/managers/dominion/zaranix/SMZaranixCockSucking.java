@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.managers.dominion.zaranix;
-import java.util.Map;
+
+import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;

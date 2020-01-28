@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.Colour;
 
 /**
  * Defined according to how much fluid is replenished every day, in ml.

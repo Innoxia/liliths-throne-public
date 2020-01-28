@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.combat;
-import com.lilithsthrone.game.character.GameCharacter;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**

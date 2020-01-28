@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.quests;
-import com.lilithsthrone.utils.TreeNode;
+
+import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.99

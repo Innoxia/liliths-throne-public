@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.persona;
-import java.util.HashMap;
+
+import java.util.HashMap;
 import java.util.Map;
 
 import com.lilithsthrone.main.Main;

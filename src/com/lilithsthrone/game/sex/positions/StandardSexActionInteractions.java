@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.positions;
-import java.util.Map;
+
+import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
@@ -1108,6 +1109,7 @@ public class StandardSexActionInteractions {
 					return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 							new SexActionInteractions(
 							Util.mergeMaps(
+									SexActionPresets.kissing,
 									SexActionPresets.groinToAss,
 									SexActionPresets.groinToGroin,
 									SexActionPresets.tailToLowerHalf,
@@ -1130,6 +1132,7 @@ public class StandardSexActionInteractions {
 					return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 							new SexActionInteractions(
 							Util.mergeMaps(
+									SexActionPresets.kissing,
 									SexActionPresets.groinToAss,
 									SexActionPresets.groinToGroin,
 									SexActionPresets.tailToLowerHalf,
@@ -1204,6 +1207,7 @@ public class StandardSexActionInteractions {
 								SexActionPresets.mouthToPenis,
 								SexActionPresets.breastsToPenis,
 								SexActionPresets.mouthToVagina,
+								SexActionPresets.mouthToAss,
 								target.getLegConfiguration().isBipedalPositionedCrotchBoobs()!=target.isTaur()
 									?SexActionPresets.mouthToCrotchBoobs
 									:null,

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.utils;
-import java.awt.Toolkit;
+
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

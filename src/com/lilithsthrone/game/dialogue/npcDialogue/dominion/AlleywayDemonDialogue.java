@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -300,6 +301,7 @@ public class AlleywayDemonDialogue {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
+								
 							}
 						};
 						
@@ -1565,7 +1567,7 @@ public class AlleywayDemonDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int responseTab, int index) {
+		public Response getResponse(int responseTab, int index) { //TODO grow cock
 			if(isCompanionDialogue()) {
 				boolean companionHappyToHaveSex = getMainCompanion().isAttractedTo(getDemon()) || getMainCompanion().isAttractedTo(Main.game.getPlayer());
 				boolean companionSex = getDemon().isAttractedTo(getMainCompanion()) && (companionHappyToHaveSex || getDemon().isWillingToRape());

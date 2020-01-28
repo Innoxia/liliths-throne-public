@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
