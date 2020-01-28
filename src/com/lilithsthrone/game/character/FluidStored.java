@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character;
-import org.w3c.dom.Document;
+
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.attributes.Attribute;

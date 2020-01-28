@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.item;
-import java.io.IOException;
+
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.w3c.dom.Document;

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;

@@ -1,5 +1,6 @@
 package com.lilithsthrone.controller;
-import org.w3c.dom.events.EventListener;
+
+import org.w3c.dom.events.EventListener;
 
 /**
  * @since 0.1.075

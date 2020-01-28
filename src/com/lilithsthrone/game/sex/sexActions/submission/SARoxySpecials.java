@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.submission;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.effects.Addiction;
 import com.lilithsthrone.game.character.npc.submission.Roxy;

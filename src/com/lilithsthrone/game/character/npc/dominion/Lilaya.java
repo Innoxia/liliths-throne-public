@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
-import java.time.Month;
+
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -131,7 +132,7 @@ public class Lilaya extends NPC {
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4")) {
-			this.equipClothing(null);
+			this.equipClothing();
 			if(this.getSubspecies()!=Subspecies.DEMON) {
 				setupCoverings(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour());
 			}

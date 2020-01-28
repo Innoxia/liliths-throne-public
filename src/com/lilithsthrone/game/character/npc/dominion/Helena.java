@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
-import java.time.Month;
+
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class Helena extends NPC {
 	}
 	
 	public Helena(boolean isImported) {
-		super(isImported, new NameTriplet("Helena"), "Earna",
+		super(isImported, new NameTriplet("Helena"), "Labelle",
 				"Helena is an extremely powerful harpy matriarch, and is in control of one of the largest harpy flocks in Dominion."
 						+ " Her beauty rivals that of even the most gorgeous of succubi, which, combined with her sharp mind and regal personality, makes her somewhat of an idol in harpy society.",
 				26, Month.MAY, 3,
@@ -109,6 +110,10 @@ public class Helena extends NPC {
 			this.getCell().removeCharacterPresentId("-1,Alexa");
 			this.getCell().addCharacterPresentId("-1,Helena");
 			this.setId("-1,Helena");
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.2")) {
+			this.equipClothing();
+			this.setSurname("Labelle");
 		}
 	}
 
@@ -215,21 +220,16 @@ public class Helena extends NPC {
 	
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		// Tattoos
-		// Scars
-
 		this.setPiercedEar(true);
-		this.setPiercedNavel(true);
-		this.setPiercedNose(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BIKINI, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_BIKINI, Colour.CLOTHING_WHITE, false), true, this);
+		this.setPiercedNavel(false);
+		this.setPiercedNose(false);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_HOOPS, Colour.CLOTHING_GOLD, false), true, this);
+
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_PLUNGE_DRESS, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_tiara", Colour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_GOLD, false), true, this);
 
@@ -289,7 +289,7 @@ public class Helena extends NPC {
 	@Override
 	public void turnUpdate() {
 		if(!Main.game.getCharactersPresent().contains(this)) {
-			if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
+			if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_E_REPORT_TO_HELENA)) {
 				if(Main.game.isExtendedWorkTime()) {
 					this.setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST, true);
 					

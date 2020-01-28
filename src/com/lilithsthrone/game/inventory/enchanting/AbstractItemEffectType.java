@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.enchanting;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -1741,7 +1742,7 @@ public abstract class AbstractItemEffectType {
 							return applyRestoration(target, restorationType, -0.6f);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return "A sickly wave of arcane energy washes over you..."
+								return UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
 										+ "<br/>"
 										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -15);
 							}
@@ -1752,7 +1753,7 @@ public abstract class AbstractItemEffectType {
 							return applyRestoration(target, restorationType, -0.4f);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return "A sickly wave of arcane energy washes over you..."
+								return UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
 										+ "<br/>"
 										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -10);
 							}
@@ -1763,7 +1764,7 @@ public abstract class AbstractItemEffectType {
 							return applyRestoration(target, restorationType, -0.2f);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return "A sickly wave of arcane energy washes over you..."
+								return UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
 										+ "<br/>"
 										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -5);
 							}
@@ -1774,7 +1775,7 @@ public abstract class AbstractItemEffectType {
 							return applyRestoration(target, restorationType, 0.2f);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return "A soothing wave of arcane energy washes over you..."
+								return UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
 										+ "<br/>"
 										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 5);
 							}
@@ -1785,7 +1786,7 @@ public abstract class AbstractItemEffectType {
 							return applyRestoration(target, restorationType, 0.4f);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return "A soothing wave of arcane energy washes over you..."
+								return UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
 										+ "<br/>"
 										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 10);
 							}
@@ -1796,7 +1797,7 @@ public abstract class AbstractItemEffectType {
 							return applyRestoration(target, restorationType, 0.6f);
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return "A soothing wave of arcane energy washes over you..."
+								return UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
 										+ "<br/>"
 										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 15);
 							}

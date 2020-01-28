@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.positions;
-import java.util.Map;
+
+import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.SexActionInteractions;

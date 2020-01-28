@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
-import java.time.Month;
+
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -97,7 +98,7 @@ public class HarpyBimbo extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.LEWD);
-			equipClothing(null);
+			equipClothing();
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);

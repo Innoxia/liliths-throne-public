@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.submission;
-import java.time.Month;
+
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -365,7 +366,7 @@ public class Silence extends NPC {
 			}
 
 		} else {
-			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS);
+			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
 		}
 	}
 	

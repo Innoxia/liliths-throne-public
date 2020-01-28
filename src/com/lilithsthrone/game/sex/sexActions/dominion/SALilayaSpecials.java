@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
-import com.lilithsthrone.game.character.attributes.ArousalLevel;
+
+import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;

@@ -817,7 +817,7 @@
 	
 	<htmlContent tag="AXEL_VENGAR_VISIT_KNEEL"><![CDATA[
 	<p>
-		After a few minutes, your small party arrives at Vengar's hall, which is once again filled with the noise of at least fifty excitedly-chattering gang members. Upon seeing your arrival, their shouts and jeers raise significantly in volume, until Vengar eventually raises his hand to silence them. Calling out to you from atop his dais at the far end of the hall, the rat-boy shouts, [vengar.speechNoEffect(What ya waiting for? Come on, get over 'ere!)]
+		After a few minutes, your small party arrives at Vengar's hall, which is once again filled with the noise of at least fifty excitedly-chattering gang members. Upon seeing your arrival, their shouts and jeers raise significantly in volume, until Vengar eventually raises his hand to silence them. Calling out to you from atop his dais at the far end of the hall, the rat-boy shouts, [vengar.speechNoEffects(What ya waiting for? Come on, get over 'ere!)]
 	</p>
 	<p>
 		Walking down the length of the hall, under the piercing gaze of the gang of rats, you, Axel, and the two rat-girls eventually come to a halt in front of Vengar's throne. Looking down at you, he exclaims, [vengar.speechNoEffects(So, ya actually came?! I weren't expectin' ya to actually do it! But, now that yer here, I's wantin' ya to show everyone in this 'all that there ain't nobody in Submission who don't submit to me! You's the largest an' most powerful of all the businesses down 'ere, ain't ya?)]
@@ -920,7 +920,7 @@
 		[shadow.speechNoEffects(Heh-heh-heh!)] Shadow cackles, [shadow.speechNoEffects(Yer gonna find out 'ow it all plays out soon enough! Just stay calm if anythin' <i>unexpected</i> 'appens in the tunnels...)]
 	</p>
 	<p>
-		At that moment, Silence steps forwards, and with an angry look on her face, tugs at Shadow's arm. Turning to see what it is her companion wants, Shadow asks, [shadow.speechNoEfeects(What is it, love? Oh, ya want me ta give 'em them potions ya were showin' me earlier?)]
+		At that moment, Silence steps forwards, and with an angry look on her face, tugs at Shadow's arm. Turning to see what it is her companion wants, Shadow asks, [shadow.speechNoEffects(What is it, love? Oh, ya want me ta give 'em them potions ya were showin' me earlier?)]
 	</p>
 	<p>
 		Nodding her head, Silence pushes two bottles into Shadow's hands; one is a bright pink in colour, while the other, smaller one is a deep blue. Stepping forwards to hand them over to [axel.name], Shadow explains, [shadow.speechNoEffects(Me love 'ere wants ya ta 'ave these; that pink 'un will make ya fully feminine, while that other 'un will make yer cock grow back ta its old size. Anyway, we's got stuff ta get sorted, real quick like, so we'll be seein' ya!)]
@@ -998,7 +998,7 @@
 		[shadow.speechNoEffects(Heh-heh-heh!)] Shadow cackles, [shadow.speechNoEffects(Yer gonna find out 'ow it all plays out soon enough! Just stay calm if anythin' <i>unexpected</i> 'appens in the tunnels...)]
 	</p>
 	<p>
-		At that moment, Silence steps forwards, and with an angry look on her face, tugs at Shadow's arm. Turning to see what it is her companion wants, Shadow asks, [shadow.speechNoEfeects(What is it, love? Oh, ya want me ta give 'em them potions ya were showin' me earlier?)]
+		At that moment, Silence steps forwards, and with an angry look on her face, tugs at Shadow's arm. Turning to see what it is her companion wants, Shadow asks, [shadow.speechNoEffects(What is it, love? Oh, ya want me ta give 'em them potions ya were showin' me earlier?)]
 	</p>
 	<p>
 		Nodding her head, Silence pushes two bottles into Shadow's hands; one is a bright pink in colour, while the other, smaller one is a deep blue. Stepping forwards to hand them over to [axel.name], Shadow explains, [shadow.speechNoEffects(Me love 'ere wants ya ta 'ave these; that pink 'un will make ya fully feminine, while that other 'un will make yer cock grow back ta its old size. Anyway, we's got stuff ta get sorted, real quick like, so we'll be seein' ya!)]

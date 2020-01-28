@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission.dicePoker;
-import com.lilithsthrone.rendering.SVGImages;
+
+import com.lilithsthrone.rendering.SVGImages;
 
 /**
  * @since 0.2.6

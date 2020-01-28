@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.universal;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
+
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.main.Main;

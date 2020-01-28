@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.fetishes;
-import java.io.IOException;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -1230,6 +1231,14 @@ public enum Fetish {
 										+" <span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>with beneficial versions</span>"),
 			null) {
 
+		@Override
+		public String getShortDescriptor(GameCharacter target) {
+			if(target==null) {
+				return "exposing themself";
+			}
+			return UtilText.parse(target, "exposing [npc.herself]");
+		}
+		
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer())

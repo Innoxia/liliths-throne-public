@@ -1,5 +1,6 @@
 package com.lilithsthrone.world.places;
-import java.util.Map;
+
+import java.util.Map;
 
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
@@ -37,6 +38,19 @@ public class Population {
 		StringBuilder sb = new StringBuilder();
 		
 		switch(this.getDensity()) {
+			case OCCASIONAL:
+				if(getType().isPlural()) {
+					if(includeDeterminer) {
+						sb.append("a ");
+					}
+					sb.append("tiny");
+				} else {
+					if(includeDeterminer) {
+						sb.append("an ");
+					}
+					sb.append("occasional");
+				}
+				break;
 			case COUPLE:
 				if(includeDeterminer) {
 					sb.append("a ");

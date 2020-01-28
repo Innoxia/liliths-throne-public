@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.markings;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

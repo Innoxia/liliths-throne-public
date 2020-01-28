@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.encounters;
-import com.lilithsthrone.game.dialogue.DialogueNode;
+
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.ItemType;

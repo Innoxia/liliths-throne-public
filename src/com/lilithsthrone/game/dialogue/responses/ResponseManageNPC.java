@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.responses;
-import com.lilithsthrone.game.character.npc.NPC;
+
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.main.Main;
 

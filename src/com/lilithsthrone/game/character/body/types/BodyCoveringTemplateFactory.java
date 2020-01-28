@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.types;
-import java.util.Arrays;
+
+import java.util.Arrays;
 import java.util.List;
 
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.race;
-import java.io.IOException;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -3029,6 +3030,65 @@ public enum Subspecies {
 					"furies"};
 		}
 	},
+
+	HARPY_PHOENIX("statusEffects/race/raceHarpy",
+			"statusEffects/race/raceBackgroundPhoenix",
+			"phoenix-harpy",
+			"phoenix-harpies",
+			"phoenix-harpy",
+			"phoenix-harpy",
+			"phoenix-harpies",
+			"phoenix-harpies",
+			"phoenix",
+			"While just as obsessed with [npc.her] looks as other harpies, [npc.name] is also naturally talented at harnessing the arcane, allowing [npc.herHim] to learn and cast spells with relative ease."
+				+ " In particular, [npc.she] [npc.has] an exceptionally high affinity with arcane fire...",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 25f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 75f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			null,
+			"All About Harpies",
+			"All About Harpies'",
+			"HARPY_BASIC",
+			"HARPY_ADVANCED",
+			Race.HARPY,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 3),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 3),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			Colour.BASE_ORANGE,
+			SubspeciesPreference.ONE_LOW,
+			"An anthropomorphic, bipedal, mythological bird, whose feathers are either glowing red, orange, or yellow, or are actually made out of arcane fire. They are extremely rare and typically only possess non-human arms, legs, eyes, ears, and hair.",
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE))) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			CoveringPattern pattern = CoveringPattern.OMBRE;
+			if(Math.random()<0.5f) {
+				pattern = CoveringPattern.HIGHLIGHTS;
+			}
+			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, pattern, Colour.COVERING_ORANGE, true, Colour.COVERING_YELLOW, true));
+			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, pattern, Colour.COVERING_RED, true, Colour.COVERING_ORANGE, true));
+			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.COVERING_RED, true, Colour.COVERING_RED, true));
+		}
+		@Override
+		public String[] getHalfDemonName(GameCharacter character) {
+			return new String[] {
+					"phoenix-fury",
+					"phoenix-furies",
+					"phoenix-fury",
+					"phoenix-fury",
+					"phoenix-furies",
+					"phoenix-furies"};
+		}
+	},
 	
 	// ELEMENTALS:
 
@@ -3557,6 +3617,9 @@ public enum Subspecies {
 		
 		switch(body.getBodyMaterial()) {
 			case FIRE:
+				if(race==Race.HARPY) {
+					return Subspecies.HARPY_PHOENIX;
+				}
 				return Subspecies.ELEMENTAL_FIRE;
 			case ICE:
 			case WATER:
@@ -3760,6 +3823,12 @@ public enum Subspecies {
 				if(body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.COVERING_BROWN_DARK
 						&& body.getCoverings().get(BodyCoveringType.HAIR_HARPY).getPrimaryColour()==Colour.COVERING_WHITE) {
 					subspecies = Subspecies.HARPY_BALD_EAGLE;
+				}
+				if((body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.COVERING_RED
+						|| body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.COVERING_ORANGE
+						|| body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.COVERING_YELLOW)
+					&& body.getCoverings().get(BodyCoveringType.FEATHERS).isPrimaryGlowing()) {
+					subspecies = Subspecies.HARPY_PHOENIX;
 				}
 				break;
 			case FOX_MORPH:
@@ -4501,6 +4570,8 @@ public enum Subspecies {
 			case HARPY_BALD_EAGLE:
 			case HARPY_RAVEN:
 				return 12000;
+			case HARPY_PHOENIX:
+				return 50_000;
 			case HUMAN:
 				return 4000;
 			case SQUIRREL_MORPH:

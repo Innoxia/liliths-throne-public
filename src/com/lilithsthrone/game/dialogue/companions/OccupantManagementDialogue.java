@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.companions;
-import java.math.RoundingMode;
+
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.format.TextStyle;
 import java.util.ArrayList;

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.utils;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;

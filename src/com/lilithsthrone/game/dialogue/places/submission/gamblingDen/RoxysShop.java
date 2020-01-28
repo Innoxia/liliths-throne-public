@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission.gamblingDen;
-import java.util.List;
+
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;

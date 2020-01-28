@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
