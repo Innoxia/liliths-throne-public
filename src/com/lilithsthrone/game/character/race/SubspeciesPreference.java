@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.race;
-import com.lilithsthrone.rendering.SVGImages;
+
+import com.lilithsthrone.rendering.SVGImages;
 
 /**
  * @since 0.1.99

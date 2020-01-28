@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.0

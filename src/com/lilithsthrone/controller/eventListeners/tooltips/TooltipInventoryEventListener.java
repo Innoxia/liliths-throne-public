@@ -1,5 +1,6 @@
 package com.lilithsthrone.controller.eventListeners.tooltips;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 

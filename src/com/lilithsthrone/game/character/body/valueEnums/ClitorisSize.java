@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.Colour;
 
 /**
  * Anything over ZERO_AVERAGE is basically a pseudo penis

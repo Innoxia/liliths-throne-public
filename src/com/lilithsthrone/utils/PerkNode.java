@@ -1,5 +1,6 @@
 package com.lilithsthrone.utils;
-import com.lilithsthrone.game.character.effects.AbstractPerk;
+
+import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.TreeEntry;
 

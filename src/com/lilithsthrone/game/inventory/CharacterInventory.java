@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory;
-import java.util.AbstractMap.SimpleEntry;
+
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

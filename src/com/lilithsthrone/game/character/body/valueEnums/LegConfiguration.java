@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Anus;

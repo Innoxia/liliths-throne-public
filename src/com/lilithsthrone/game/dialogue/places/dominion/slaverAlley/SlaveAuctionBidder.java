@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.slaverAlley;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;

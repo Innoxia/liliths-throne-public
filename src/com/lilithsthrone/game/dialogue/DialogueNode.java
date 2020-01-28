@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue;
-import com.lilithsthrone.game.dialogue.responses.Response;
+
+import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
 
 /**

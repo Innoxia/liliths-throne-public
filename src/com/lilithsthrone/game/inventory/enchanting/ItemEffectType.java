@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.enchanting;
-import java.lang.reflect.Field;
+
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -558,7 +559,9 @@ public class ItemEffectType {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
 			return "<p style='text-align:center;'>"
-					+"A powerful wave of arcane energy washes over you..."
+					+(target.isPlayer()
+							?"A powerful wave of arcane energy washes over you..."
+							:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</p>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+ target.incrementAlcoholLevel(0.75f);
@@ -576,7 +579,9 @@ public class ItemEffectType {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
 			return "<p style='text-align:center;'>"
-						+"A powerful wave of arcane energy washes over you..."
+					+(target.isPlayer()
+							?"A powerful wave of arcane energy washes over you..."
+							:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</p>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+ target.incrementAlcoholLevel(0.5f);

@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.body.types;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +9,7 @@ import java.util.Map;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.tags.TailTag;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -19,57 +22,54 @@ import com.lilithsthrone.utils.Util;
  * @author Innoxia
  */
 public enum TailType implements BodyPartTypeInterface {
-	NONE(null, Race.NONE, PenetrationGirth.TWO_AVERAGE, false, false, false),
+	
+	NONE(null, Race.NONE, PenetrationGirth.TWO_AVERAGE),
 
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, PenetrationGirth.ZERO_THIN, true, true, true),
-	DEMON_HAIR_TIP(BodyCoveringType.DEMON_COMMON, Race.DEMON, PenetrationGirth.ONE_SLENDER, true, false, true),
-	DEMON_HORSE(BodyCoveringType.HAIR_DEMON, Race.DEMON, PenetrationGirth.TWO_AVERAGE, false, false, false),
+	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, PenetrationGirth.ZERO_THIN, TailTag.PREHENSILE, TailTag.SUTABLE_FOR_PENETRATION, TailTag.SLEEP_HUGGING),
+	DEMON_HAIR_TIP(BodyCoveringType.DEMON_COMMON, Race.DEMON, PenetrationGirth.ONE_SLENDER, TailTag.PREHENSILE, TailTag.SLEEP_HUGGING),
+	DEMON_HORSE(BodyCoveringType.HAIR_DEMON, Race.DEMON, PenetrationGirth.TWO_AVERAGE),
 
-	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, PenetrationGirth.TWO_AVERAGE, false, false, false),
-	DOG_MORPH_STUBBY(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, PenetrationGirth.TWO_AVERAGE, false, false, false),
+	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, PenetrationGirth.TWO_AVERAGE),
+	DOG_MORPH_STUBBY(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, PenetrationGirth.TWO_AVERAGE),
 	
-	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, PenetrationGirth.THREE_THICK, false, false, true),
+	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, PenetrationGirth.THREE_THICK, TailTag.SLEEP_HUGGING),
 	
-	FOX_MORPH(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, PenetrationGirth.THREE_THICK, false, false, true),
-	FOX_MORPH_MAGIC(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, PenetrationGirth.THREE_THICK, true, false, true),
+	FOX_MORPH(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, PenetrationGirth.THREE_THICK, TailTag.SLEEP_HUGGING),
+	FOX_MORPH_MAGIC(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, PenetrationGirth.THREE_THICK, TailTag.PREHENSILE, TailTag.SLEEP_HUGGING),
 
-	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH, PenetrationGirth.ONE_SLENDER, false, false, false),
+	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH, PenetrationGirth.ONE_SLENDER),
 	
-	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, PenetrationGirth.ONE_SLENDER, true, false, true),
-	CAT_MORPH_SHORT(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, PenetrationGirth.ONE_SLENDER, false, false, false),
-	CAT_MORPH_TUFTED(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, PenetrationGirth.TWO_AVERAGE, true, false, true),
+	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, PenetrationGirth.ONE_SLENDER, TailTag.PREHENSILE, TailTag.SLEEP_HUGGING),
+	CAT_MORPH_SHORT(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, PenetrationGirth.ONE_SLENDER),
+	CAT_MORPH_TUFTED(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, PenetrationGirth.TWO_AVERAGE, TailTag.PREHENSILE, TailTag.SLEEP_HUGGING),
 
-	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, PenetrationGirth.FOUR_FAT, false, false, true),
+	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, PenetrationGirth.FOUR_FAT, TailTag.SLEEP_HUGGING),
 
-	BAT_MORPH(BodyCoveringType.BAT_SKIN, Race.BAT_MORPH, PenetrationGirth.ZERO_THIN, true, false, false),
+	BAT_MORPH(BodyCoveringType.BAT_SKIN, Race.BAT_MORPH, PenetrationGirth.ZERO_THIN),
 	
-	RAT_MORPH(BodyCoveringType.RAT_SKIN, Race.RAT_MORPH, PenetrationGirth.TWO_AVERAGE, true, true, true),
+	RAT_MORPH(BodyCoveringType.RAT_SKIN, Race.RAT_MORPH, PenetrationGirth.TWO_AVERAGE, TailTag.PREHENSILE, TailTag.SUTABLE_FOR_PENETRATION, TailTag.SLEEP_HUGGING),
 	
-	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH, PenetrationGirth.THREE_THICK, false, false, false),
+	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH, PenetrationGirth.THREE_THICK),
 	
-	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH, PenetrationGirth.FOUR_FAT, false, false, true),
+	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH, PenetrationGirth.FOUR_FAT, TailTag.PREHENSILE, TailTag.SUTABLE_FOR_PENETRATION, TailTag.SLEEP_HUGGING),
 	
-	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, PenetrationGirth.TWO_AVERAGE, false, false, false),
-	HORSE_MORPH_ZEBRA(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, PenetrationGirth.TWO_AVERAGE, false, false, false),
+	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, PenetrationGirth.TWO_AVERAGE),
+	HORSE_MORPH_ZEBRA(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, PenetrationGirth.TWO_AVERAGE),
 
-	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH, PenetrationGirth.TWO_AVERAGE, false, false, false),
+	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH, PenetrationGirth.TWO_AVERAGE),
 	
-	HARPY(BodyCoveringType.FEATHERS, Race.HARPY, PenetrationGirth.THREE_THICK, false, false, true);
+	HARPY(BodyCoveringType.FEATHERS, Race.HARPY, PenetrationGirth.THREE_THICK, TailTag.SLEEP_HUGGING);
 
 	private BodyCoveringType skinType;
 	private Race race;
 	private int girth;
-	private boolean prehensile;
-	private boolean suitableForPenetration;
-	private boolean suitableForSleepHugging;
+	private List<TailTag> tags;
 
-	private TailType(BodyCoveringType skinType, Race race, PenetrationGirth girth, boolean prehensile, boolean suitableForPenetration, boolean suitableForSleepHugging) {
+	private TailType(BodyCoveringType skinType, Race race, PenetrationGirth girth, TailTag... tags) {
 		this.skinType = skinType;
 		this.race = race;
 		this.girth = girth.getValue();
-		this.prehensile = prehensile;
-		this.suitableForPenetration = suitableForPenetration;
-		this.suitableForSleepHugging = suitableForSleepHugging;
+		this.tags = new ArrayList<>(Arrays.asList(tags));
 	}
 
 	/**
@@ -290,7 +290,7 @@ public enum TailType implements BodyPartTypeInterface {
 				} else {
 					sb.append(UtilText.parse(owner, " [npc.Her] [npc.tail] is"));
 				}
-				switch(PenetrationGirth.getGirthFromInt(girth)) {
+				switch(owner.getTailGirth()) {
 					case ZERO_THIN:
 						sb.append(UtilText.parse(owner, " very thin in proportion to the rest of [npc.her] body."));
 						break;
@@ -317,7 +317,7 @@ public enum TailType implements BodyPartTypeInterface {
 				} else {
 					sb.append(UtilText.parse(owner, " [npc.Her] tufted tail is"));
 				}
-				switch(PenetrationGirth.getGirthFromInt(girth)) {
+				switch(owner.getTailGirth()) {
 					case ZERO_THIN:
 						sb.append(UtilText.parse(owner, " very small and significantly lacking in fluffiness in proportion to the rest of [npc.her] body."));
 						break;
@@ -343,7 +343,7 @@ public enum TailType implements BodyPartTypeInterface {
 				} else {
 					sb.append(UtilText.parse(owner, " [npc.Her] horse tail is"));
 				}
-				switch(PenetrationGirth.getGirthFromInt(girth)) {
+				switch(owner.getTailGirth()) {
 					case ZERO_THIN:
 						sb.append(UtilText.parse(owner, " very much lacking in volume in proportion to the rest of [npc.her] body."));
 						break;
@@ -368,7 +368,7 @@ public enum TailType implements BodyPartTypeInterface {
 				} else {
 					sb.append(UtilText.parse(owner, " [npc.Her] plume of feathers is"));
 				}
-				switch(PenetrationGirth.getGirthFromInt(girth)) {
+				switch(owner.getTailGirth()) {
 					case ZERO_THIN:
 						sb.append(UtilText.parse(owner, " very small and lacking in volume in proportion to the rest of [npc.her] body."));
 						break;
@@ -396,7 +396,7 @@ public enum TailType implements BodyPartTypeInterface {
 				} else {
 					sb.append(UtilText.parse(owner, " [npc.Her] bat tail is"));
 				}
-				switch(PenetrationGirth.getGirthFromInt(girth)) {
+				switch(owner.getTailGirth()) {
 					case ZERO_THIN:
 						sb.append(UtilText.parse(owner, " very small in proportion to the rest of [npc.her] body."));
 						break;
@@ -690,19 +690,18 @@ public enum TailType implements BodyPartTypeInterface {
 	}
 	
 	public boolean isPrehensile() {
-		return prehensile;
+		return tags.contains(TailTag.PREHENSILE);
 	}
 
 	/**
 	 * Takes into account whether player has 'Allow furry tail penetrations' turned on or off.
-	 * @return
 	 */
 	public boolean isSuitableForPenetration() {
-		return prehensile && (suitableForPenetration || Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent));
+		return this.isPrehensile() && (tags.contains(TailTag.SUTABLE_FOR_PENETRATION) || Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent));
 	}
 	
 	public boolean isSuitableForSleepHugging() {
-		return suitableForSleepHugging;
+		return tags.contains(TailTag.SLEEP_HUGGING);
 	}
 
 	private static Map<Race, List<TailType>> typesMap = new HashMap<>();

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.slaverAlley;
-import com.lilithsthrone.game.character.EquipClothingSetting;
+
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;

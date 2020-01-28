@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission.ratWarrens;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -1091,11 +1092,7 @@ public class RatWarrensDialogue {
 					public void effects() {
 						List<GameCharacter> parsingCharacters = new ArrayList<>(getGuards(true));
 						parsingCharacters.addAll(getMilkers());
-						if(Main.game.getWorlds().get(WorldType.RAT_WARRENS).getCell(PlaceType.RAT_WARRENS_MILKING_ROOM).isTravelledTo()) {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_DEFEAT_STOCKS_STRIPPED_END_VISITED", parsingCharacters));
-						} else {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_DEFEAT_STOCKS_STRIPPED_END", parsingCharacters));
-						}
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_DEFEAT_STOCKS_STRIPPED_END", parsingCharacters));
 						
 						List<GameCharacter> guards = getGuards(true);
 						for(GameCharacter npc : guards) {
@@ -1524,7 +1521,8 @@ public class RatWarrensDialogue {
 					return new Response("Rum ("+UtilText.formatAsMoney(price, "span")+")", "Buy a glass of rum from the rat behind the bar.", DICE_DEN_RUM) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "DICE_DEN_RUM", getGuards(true)));
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "DICE_DEN_RUM_DRINK", getGuards(true)));
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "DICE_DEN_RUM_OFFER", getGuards(true)));
 							Main.game.getTextEndStringBuilder().append(
 									ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1)
 									+ Main.game.getPlayer().incrementMoney(-price));
@@ -1548,7 +1546,8 @@ public class RatWarrensDialogue {
 							DICE_DEN_RUM) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "DICE_DEN_RUM_COMPANION", getGuards(true)));
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "DICE_DEN_RUM_DRINK_COMPANION", getGuards(true)));
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "DICE_DEN_RUM_OFFER", getGuards(true)));
 							Main.game.getTextEndStringBuilder().append(
 									ItemType.STR_INGREDIENT_BLACK_RATS_RUM.getEffects().get(0).applyEffect(getMainCompanion(), getMainCompanion(), 1)
 									+ Main.game.getPlayer().incrementMoney(-price));
@@ -1729,7 +1728,7 @@ public class RatWarrensDialogue {
 				GameCharacter companion = getMainCompanion();
 
 				if(!companion.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-					return new Response("Accept", UtilText.parse(companion, bartender, "As [npc.name] cannot access [npc.her] mouth, [npc.she] cannot perform oral on [npc2.name] in order to get your flames back..."), null);
+					return new Response("Offer [com.name]", UtilText.parse(companion, bartender, "As [npc.name] cannot access [npc.her] mouth, [npc.she] cannot perform oral on [npc2.name] in order to get your flames back..."), null);
 				}
 				if(!companion.isAttractedToGroup(getGuards(false)) && companion.isAbleToRefuseSexAsCompanion()) {
 					return new Response(UtilText.parse(companion, "Offer [npc.name]"),
@@ -1848,13 +1847,15 @@ public class RatWarrensDialogue {
 	public static final DialogueNode MILKING_STORAGE = new DialogueNode("Entrance", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			if(Main.game.getWorlds().get(WorldType.RAT_WARRENS).getCell(PlaceType.RAT_WARRENS_MILKING_ROOM).isTravelledTo()) {
+			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)
+					&& Main.game.getWorlds().get(WorldType.RAT_WARRENS).getCell(PlaceType.RAT_WARRENS_MILKING_ROOM).isTravelledTo()) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSeenMilkers, true);
 			}
 		}
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft);
+			return !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)
+					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1862,6 +1863,9 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
+				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_STORAGE_QUEST_COMPLETE");
+			}
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_STORAGE_CLEARED", getGuards(true));
 			}
@@ -1872,6 +1876,9 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
+				return null;
+			}
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
 				if(index==1) {
 					return new Response("Step back", "You can't get very far with the chain restricting your movements...", RatWarrensCaptiveDialogue.STOCKS_NIGHT) {
@@ -1931,7 +1938,8 @@ public class RatWarrensDialogue {
 	public static final DialogueNode MILKING_ROOM = new DialogueNode("Milking Room", "", false) {
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft);
+			return !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)
+					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1939,6 +1947,9 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getContent() {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
+				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM_QUEST_COMPLETE");
+			}
 			List<GameCharacter> characters = new ArrayList<>();
 			if(isCompanionDialogue()) {
 				characters.add(getMainCompanion());
@@ -1952,6 +1963,9 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public String getResponseTabTitle(int index) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
+				return null;
+			}
 			if(isCompanionDialogue()) {
 				switch(index) {
 					case 0:
@@ -1969,6 +1983,9 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
+				return null;
+			}
 			List<GameCharacter> milkers = getMilkers();
 			if(responseTab==0) {
 				if(index>=1 && index<=4) {

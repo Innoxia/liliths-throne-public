@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.managers.dominion.vanessa;
-import java.util.List;
+
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;

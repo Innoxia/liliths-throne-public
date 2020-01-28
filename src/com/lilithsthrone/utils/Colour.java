@@ -1,5 +1,6 @@
 package com.lilithsthrone.utils;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.main.Main;
@@ -619,8 +620,9 @@ public enum Colour {
 	},
 	COVERING_GREY(false, BaseColour.GREY, "grey"),
 	COVERING_DIRTY_BLONDE(false, BaseColour.TAN, "dirty-blonde"),
-	COVERING_BLONDE(false, BaseColour.YELLOW, "blonde"),
+	COVERING_BLONDE(false, BaseColour.YELLOW_LIGHT, "blonde"),
 	COVERING_BLEACH_BLONDE(false, BaseColour.YELLOW_LIGHT, "bleach-blonde"),
+	COVERING_SANDY(false, Util.newColour(0xddc48b), Util.newColour(0xddc48b), "sandy"),
 	COVERING_YELLOW(false, BaseColour.YELLOW, "yellow"),
 	COVERING_GINGER(false, BaseColour.GINGER, "ginger"),
 	COVERING_ORANGE(false, BaseColour.ORANGE, "orange"),
@@ -888,6 +890,7 @@ public enum Colour {
 			Colour.COVERING_WHITE,
 			Colour.COVERING_SILVER,
 			Colour.COVERING_BLONDE,
+			Colour.COVERING_SANDY,
 			Colour.COVERING_GINGER,
 			Colour.COVERING_BROWN,
 			Colour.COVERING_TAN,
@@ -917,6 +920,7 @@ public enum Colour {
 			Colour.COVERING_TAN,
 			Colour.COVERING_ORANGE,
 			Colour.COVERING_GINGER,
+			Colour.COVERING_SANDY,
 			Colour.COVERING_BLEACH_BLONDE,
 			Colour.COVERING_BLONDE,
 			Colour.COVERING_YELLOW,
@@ -999,6 +1003,7 @@ public enum Colour {
 			Colour.COVERING_WHITE,
 			Colour.COVERING_BLONDE,
 			Colour.COVERING_DIRTY_BLONDE,
+			Colour.COVERING_SANDY,
 			Colour.COVERING_GINGER,
 			Colour.COVERING_BROWN,
 			Colour.COVERING_BROWN_DARK,

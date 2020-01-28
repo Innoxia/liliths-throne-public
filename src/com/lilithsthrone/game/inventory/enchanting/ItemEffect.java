@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.enchanting;
-import java.util.List;
+
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

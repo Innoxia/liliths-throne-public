@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.eventLog;
-import com.lilithsthrone.game.inventory.AbstractCoreItem;
+
+import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.main.Main;

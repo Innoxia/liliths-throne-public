@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.universal;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -32,7 +33,8 @@ public class StocksSex {
 			return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
 					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BEHIND_STOCKS)
 					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.LOCKED_IN_STOCKS)
-					&& Main.sex.isDom(Main.sex.getCharacterPerformingAction());
+					&& Main.sex.isDom(Main.sex.getCharacterPerformingAction())
+					&& Main.sex.getTotalParticipantCount(false)==2;
 		}
 		
 		@Override
@@ -77,7 +79,8 @@ public class StocksSex {
 			return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
 					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.PERFORMING_ORAL_STOCKS)
 					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.LOCKED_IN_STOCKS)
-					&& Main.sex.isDom(Main.sex.getCharacterPerformingAction());
+					&& Main.sex.isDom(Main.sex.getCharacterPerformingAction())
+					&& Main.sex.getTotalParticipantCount(false)==2;
 		}
 		
 		@Override
@@ -121,7 +124,8 @@ public class StocksSex {
 			return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
 					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.RECEIVING_ORAL_STOCKS)
 					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.LOCKED_IN_STOCKS)
-					&& Main.sex.isDom(Main.sex.getCharacterPerformingAction());
+					&& Main.sex.isDom(Main.sex.getCharacterPerformingAction())
+					&& Main.sex.getTotalParticipantCount(false)==2;
 		}
 		
 		@Override

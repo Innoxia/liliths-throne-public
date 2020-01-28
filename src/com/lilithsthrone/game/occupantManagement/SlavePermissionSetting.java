@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.occupantManagement;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.utils.Util;
 

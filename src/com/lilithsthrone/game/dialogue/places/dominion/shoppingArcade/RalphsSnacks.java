@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
-import java.util.List;
+
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -467,7 +468,7 @@ public class RalphsSnacks {
 		}
 	};
 	
-	public static final DialogueNode CANDI_LIPSTICK_PURCHASE = new DialogueNode("Ralph's Snacks", "-", false) {
+	public static final DialogueNode CANDI_LIPSTICK_PURCHASE = new DialogueNode("Ralph's Snacks", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -521,7 +522,7 @@ public class RalphsSnacks {
 		}
 	};
 	
-	public static final DialogueNode CANDI_LIPSTICK_BACK_TO_INTERIOR = new DialogueNode("Ralph's Snacks", "-", false) {
+	public static final DialogueNode CANDI_LIPSTICK_BACK_TO_INTERIOR = new DialogueNode("Ralph's Snacks", "-", true) {
 
 		@Override
 		public String getContent() {

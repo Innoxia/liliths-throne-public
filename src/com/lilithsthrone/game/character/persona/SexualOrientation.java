@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.persona;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.79

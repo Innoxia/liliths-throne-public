@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
-import java.time.LocalDateTime;
+
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -515,7 +516,7 @@ public class RoomPlayer {
 								endGreetings.add("[npc.name] mutters in annoyance, before shuffling [npc.her] [npc.feet] and letting out another quiet curse.");
 								
 							} else if(npc.isSelfish()) {
-								speechGreetings.add("[npc.speech(Eugh, what do you want now, [pc.name)]?)]");
+								speechGreetings.add("[npc.speech(Eugh, what do you want now, [pc.name]?)]");
 								speechGreetings.add("[npc.speech(And what exactly do you want <i>this</i> time, [pc.name]?)]");
 								speechGreetings.add("[npc.speech(So, why are you back?)]");
 								speechGreetings.add("[npc.speech(Why did you have to come back?)]");

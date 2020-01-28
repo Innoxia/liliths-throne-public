@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.utils;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
