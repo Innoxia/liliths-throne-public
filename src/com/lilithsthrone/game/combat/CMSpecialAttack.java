@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.combat;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -17,7 +18,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import java.util.Collections;
 
 /**
  * @since 0.1.0
