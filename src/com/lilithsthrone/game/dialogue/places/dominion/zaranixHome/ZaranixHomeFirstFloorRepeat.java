@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.zaranixHome;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;

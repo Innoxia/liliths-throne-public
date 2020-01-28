@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -846,7 +847,8 @@ public class PositioningMenu {
 		public void applyEffects() {
 			position = SexPosition.SITTING;
 			SexSlot[] domSlots = new SexSlot[] {SexSlotSitting.SITTING, SexSlotSitting.SITTING_TWO, SexSlotSitting.SITTING_THREE, SexSlotSitting.SITTING_FOUR};
-			SexSlot[] subSlots = new SexSlot[] {SexSlotSitting.SITTING_IN_LAP, SexSlotSitting.SITTING_IN_LAP_TWO, SexSlotSitting.SITTING_IN_LAP_THREE, SexSlotSitting.SITTING_IN_LAP_FOUR};
+			SexSlot[] subSlots = new SexSlot[] {SexSlotSitting.SITTING_IN_LAP, SexSlotSitting.SITTING_IN_LAP_TWO, SexSlotSitting.SITTING_IN_LAP_THREE, SexSlotSitting.SITTING_IN_LAP_FOUR,
+					SexSlotSitting.PERFORMING_ORAL, SexSlotSitting.PERFORMING_ORAL_TWO, SexSlotSitting.PERFORMING_ORAL_THREE, SexSlotSitting.PERFORMING_ORAL_FOUR};
 			
 			List<GameCharacter> doms = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
 			List<GameCharacter> subs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
@@ -869,9 +871,10 @@ public class PositioningMenu {
 					}
 				}
 				for(int i=0; i<subs.size(); i++) {
-					if(!subs.get(i).isTaur()) {
+					if(sittingCount==0 && !subs.get(i).isTaur()) {
 						positioningSlots.put(subs.get(i), domSlots[sittingCount]);
 						sittingCount++;
+						
 					} else {
 						positioningSlots.put(subs.get(i), subSlots[inLapCount]);
 						inLapCount++;

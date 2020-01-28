@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places;
-import com.lilithsthrone.game.dialogue.DialogueNode;
+
+import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.world.WorldType;

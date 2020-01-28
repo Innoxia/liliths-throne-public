@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -1068,7 +1069,8 @@ public class SubmissionGenericPlaces {
 			} else if(index==5
 					&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)
 					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_COOPERATION)
-					&& !Main.game.getPlayer().isSubQuestCompleted(Quest.VENGAR_OPTIONAL_CLAIRE, QuestLine.SIDE_VENGAR)) {
+					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_OPTIONAL_CLAIRE)
+					&& !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
 				return new Response("Vengar", "Ask for Claire's help with dealing with Vengar.", CLAIRE_VENGAR_HELP) {
 					@Override
 					public void effects() {

@@ -1,5 +1,6 @@
 package com.lilithsthrone.world;
-import java.awt.Color;
+
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 

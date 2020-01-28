@@ -48,19 +48,151 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 		
 	
-	
+	Tuesday:
+		Fix reported bugs
+		Add repeatable stocks event
+		PRs
+	Wednesday:
+		Size-difference content
+	Thursday:
+		Plan Alexa's quest
+		Write Alexa's quest
+	Friday:
+		Write Alexa's quest
+		Polishing
 	
 	
 	Patch notes:
 	
+	Engine/Code:
+		Fixed issue with incorrect line endings at the top of most files.
+		Moved remaining Slaver Alley dialogue into the external .txt file.
+		Tidied up virginity loss code.
+		The 'companion' parser target has been shortened to 'com', and should now work correctly in conditional statements.
+	
+	Gameplay:
+		Added content for the 'Complain' action in Slaver Alley's public stocks tile, which includes a new unique Enforcer NPC. (There are some additional dialogue variations for if Brax is in your party.)
+	
+	Other:
+		The 'Tail swipe' combat move is now available to anyone who has a prehensile tail which has a girth of at least 'thick'.
+		Alligator-morph tails are now considered to be suitable for penetrative actions.
+		Added ability to have your companion join in on sex with slaves locked up in the stocks in Slaver Alley.
+		Added 'sandy' as a covering colour.
+		Slightly improved slovenly speech parsing.
+		Gave Helena a new surname and some clothes to wear.
+		Level drain option now defaults to 'off' in sex scenes which include your companion, slaves, or friendly occupants.
+		Scarlett and Brax can now have their levels drained via the use of the 'Orgasmic level drain' once they've been enslaved.
+		Added kissing interaction availability to 'mating press' + 'lying down' positions, and anilingus availability to 'face between legs' + 'lying down' positions.
+		Added 'phoenix-harpy' subspecies, which is just a harpy with glowing red, orange, or yellow feathers. They can only be found naturally spawning in the Harpy Nests as an extremely rare chance.
+		
 	Bugs:
-		Fixed issue where the game would sometimes freeze or throw other errors when opening the player's selfie menu.
-		Fixed game freeze in combat when sadist/masochist dealt/took damage while at 100 lust.
-		Fixed a parsing bug in the Rat Warrens' Milking Room.
-		Fixed bug where Helena would add three new slaves to her shop every day and never remove the old ones, which was eventually causing a huge number of slaves to stack up on that tile.
+		Numerous parsing fixes (most of them in the new Rat Warrens dialogue).
+		Feminising Murk will now correctly give her a vagina. (Fix is also retroactively applied if you've already feminised him.)
+		Fixed tail girth description in selfie/character viewer not updating to describe the character's actual tail girth.
+		Disabled unique position switching actions in stocks sex when there were more than two participants, as it was causing some issues. (You can still change position as the dom using the more in-depth position selection action.)
+		Quick sex now correctly takes into account each participant's banned areas. (i.e. In slaver alley stocks sex, the slave's orifices which are banned will be excluded from quick sex.)
+		Fixed more issues of quick sex ignoring the availability of sex areas.
+		Quick sex will no longer apply level drain to targets who should be immune (i.e. unique characters).
+		Characters with the deflowering fetish now correctly gain experience from taking virginities in quick sex.
+		Removed line in alleyway demon encounter which suggested that the demon grows a cock when you offer yourself to her.
+		Fixed bug where companions would go to work while being held as a captive (bug was present in the Rat Warrens loss scenes).
+		Parsing and dialogue flow fixes in scene where you get sent to the cells after losing in the Enforcer Warehouse.
+		Fixed bug in the post-loss Enforcer Warehouse cells scene, where you'd remain in the Enforcer HQ's cells after you were supposed to have been escorted outside by Claire.
+		Fixed inactive 'Continue' button being shown after Claire has warned you about the SWORD Enforcers in the Warehouse.
+		Your clothing now correctly gets unequipped when locked into the stocks (in the Enforcer Warehouse loss scene).
+		Fixed post-sex stretching information referring to every stretched orifice as the character's 'asshole', instead of the correct orifice.
+		Fixed issue with Helena returning to her nest when she should have been in Scarlett's Shop in Slaver Alley.
+		Fixed some minor issues with dialogue flow when talking to Candi and when getting the Lipsticks from Ralph (as part of the 'Buying Brax' quest).
+		Fixed awkward phrasing of the exhibitionist fetish's short description.
+		Quick sex should now display correct behaviour for if a sex scene is meant to end in a creampie or not.
+		Fixed issue with quick sex where it would sometimes throw a background error and not work.
+		Fixed bug in quick sex where characters with impregnation fetish would sometimes pull out of a partner willing to be impregnated.
+		Fixed 'ready for birthing' status effect having a nonsensical description for taur characters.
+		Fixed bug where you could request Claire's help in dealing with Vengar even after you'd completed his quest.
+		Fixed incorrect parsing in combat when sadistic characters took lust damage from dealing damage to their target.
+		Fixed bug where the breeder collar would spawn with a duplicate sealing enchantment.
+		Fixed bug where Murk's dialogue in the Rat Warrens would still be working even after he'd meant to have been enslaved.
+		Fixed Bree gaining a random colour for her vagina when undergoing her initial feminisation from Brax.
+		Fixed issue where opening the positioning menu on the 'sitting' position would place both doms and subs into sitting slots.
 	
 	
-	Update master branch, TFGS
+	
+	
+	
+	
+	Check:
+		itemTags with no slot defined as universal tags, then an empty element with itemTags overriding that and deleting universal tags
+		XML parser was parsing the first itemTags element correctly, but then seeing that next one and overriding the previously-loaded tags with an empty list
+	
+	After attempting to murder beat up Murk, enslaving one of his summoned goons causes the scene to end and the rest of the goons to remain there
+	After defeating Murk's first wave of goons, if you return to Murk's lounge, he pretends nothing happened. He also isn't in the 'characters present' list
+	
+	why doesn't the occupancy ledger note when a slave gives birth?
+	
+	Tried the non violent, not walk in and kick everyone's ass way. Seduced the rat boi, dominated him, can't end sex because the button's gone, have to click the quick option
+	
+	I also found that I can't free the milk slaves even though I've cleared out the warrens aside from Vinegar or get rid of Murk, and when I back out of the room he gives me dialogue like I paid to get in. Also can't loot the Dormitories either.
+	
+	
+	Need full dialogue change for Rat Warrens post-quest completion (become a Rum Distillery)
+	
+	
+	The whole Vendar's path seems broken time-wise, as sleeping doesn't progress time more than a few minutes.
+	Sleeping as Vengar's slave only makes 5 minutes pass and it resets when you're sent back to the hall.
+	
+	Generic German-shepherds don't get determiners because German is capitalised
+	
+	Double creampie does not take virginity of second target
+	
+	Different versions of greeting scene (second one is presented after visit by opening/closing inventory):
+		"Finding yourself near to where X lives, you decide to pay her a visit."
+		"Wanting to pay your daughter a visit to find out how she's getting on, ..."
+	
+	For example if I set forced tf to 0% and forced fetishes to 100% i still get nearly exclusively tf potions.
+	 Now as I'm typing this I realize it could be that it isn't changing things when I'm in the middle of the game (if it predetermines what spawns when you start) since
+	  it is handled by giving transformer or kink advocate fetish. Apologies if this has been brought up and addressed before
+	Yeh this is a bug. Seems like the rate of people that give tf pots is higher than it says the rate is set to.
+	
+	I mentioned you on the 31st regarding the ongoing TF setting % not working as expected, and after a recent report I checked the code and nothing was changed... should I elaborate what I meant by my cryptic and brief message ?
+		The short version is: NPC.java->isUsingForcedTransform(GameCharacter) will return true if the character has at least one of FETISH_TRANSFORMATION_GIVING or FETISH_KINK_GIVING,
+		 but the five encounter files that call that function expect it to return false when the character doesn't have the FETISH_TRANSFORMATION_GIVING one.
+		Removing the redundant FETISH_KINK_GIVING in that function should fix it (since there's a isUsingForcedFetish(GameCharacter) that checks only for that one and is called by the same files around the same places)
+	
+	Bug: imp gangs only seem to apply pussy wetness increases on their potions, even without a pussy. With a pussy it applies normally.
+	
+	
+	- Dominant partner against Lilaya yet I somehow "grew a penis" without clicking the option nor her doing anything..
+	
+	You never added an option to the debug menu to unlock all entries of the encyclopedia even though you said you would
+	
+	did you fix the issue with the not being able to use Internal Throat Muscles? Im pretty sure a while back there was a Throat Control button. Now its just Anal and Vaginal Control
+	
+	Add perk for beating all possible rat fights in warrens
+	
+	Quick sex: Oh wait if they are a prostitute do they level drain their clients
+	
+	no hair on furry heads body description is a little unwieldy
+	
+	Add toggle for no scaley hair/no furry hair
+	
+	Also shouldn't horse morphs have fluffy balls? this seems like an oversight.
+	Anyway I identified the fix, just have it so that any species that has balls covered in fur either has a separate fur option for their balls so that if thats
+		 your only TF you can mess with it or give access to the covering option for those species when you have a penis TF.
+	
+	I don't know if it's normal but I don't receive any arcane essence from crit-ing spells while having the Sadist fetish (melee and arcane strike crits works though) also I don't receive any lust penalty due to the Sadist fetish from dealing damage but my opponent does instead.
+	
+	I found an older bug that should have been dealt with a year ago, if you convince the Suppliers, it does not complete the quest only ends the scene, this happens with both the pay 500, and the offer sex branches.
+		(Quest is confusing a lot of people - needs rewrite)
+		
+	considering towards having the Maid occupation trait effect the milkmaid's set as well as the other maid/servant sets?
+	
+	If you use the stone to call SWORD are they supposed to give the same response and get lectured by Claire as if you just storm the place
+	
+	Add UI indication in a corner that quicksave is available or not
+		quicksave/load buttons in the bottom-right of the UI
+		Grey out when not available
+	
+	Suggestion: New Job for players to select at the start. Construction Worker, Halves Building cost of rooms, or plus physique or physical damage. Just something in-between Athlete/Soldier and officer worker.
 	
 	Chonk tails
 		[x] Add to body description

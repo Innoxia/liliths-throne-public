@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc;
-import java.lang.reflect.Field;
+
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -79,6 +80,8 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexType;
@@ -253,6 +256,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * <b>-</b> Foot structure.<br/>
 	 */
 	public abstract void setStartingBody(boolean setPersona);
+	
+	public final void equipClothing() {
+		equipClothing(new ArrayList<>());
+	}
 	
 	/**
 	 * Helper method that should be overridden and included in constructor. Should set starting clothing and piercings.<br/>
@@ -1011,6 +1018,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case HARPY:
 				case HARPY_BALD_EAGLE:
 				case HARPY_RAVEN:
+				case HARPY_PHOENIX:
 					raceIngredient = ItemType.SEX_INGREDIENT_HARPY_PERFUME;
 					raceTFIngredient = ItemType.RACE_INGREDIENT_HARPY;
 					break;
@@ -1381,6 +1389,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case HARPY:
 				case HARPY_BALD_EAGLE:
 				case HARPY_RAVEN:
+				case HARPY_PHOENIX:
 					itemType = ItemType.RACE_INGREDIENT_HARPY;
 					break;
 				case HORSE_MORPH:
@@ -2630,6 +2639,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	
 	// Sex:
+	
+	/**
+	 * Override this method to set a special virginity loss scene for the player.
+	 */
+	public String getSpecialPlayerVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating, GameCharacter receivingCharacter, SexAreaOrifice penetrated) {
+		return "";
+	}
 	
 	public void endSex() {
 	}

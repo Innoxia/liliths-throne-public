@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.submission;
-import com.lilithsthrone.game.character.PlayerCharacter;
+
+import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.AssType;

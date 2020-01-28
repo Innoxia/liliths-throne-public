@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-import com.lilithsthrone.game.character.body.Penis;
+
+import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 
