@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.encounters;
-import java.time.Month;
+
+import java.time.Month;
 
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;

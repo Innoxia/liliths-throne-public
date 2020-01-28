@@ -1,5 +1,6 @@
 package com.lilithsthrone.world;
-import java.time.Month;
+
+import java.time.Month;
 
 /**
  * @since 0.1.96

@@ -1486,9 +1486,9 @@
 				#ENDIF
 			#ELSE
 				#IF(game.isExtendedWorkTime())
-					You see that several rats are currently sitting around a few of the tables, either chatting with one another or playing some kind of dice game. Standing behind the bar, there's [npc2.a_race], who leans forwards on the counter-top and calls out to you, [npc.speech(Ya lookin' ta buy a drink? Or maybe ya want ta play some dice poker? Come over 'ere an' let me know if ya are.)]
+					You see that several rats are currently sitting around a few of the tables, either chatting with one another or playing some kind of dice game. Standing behind the bar, there's [npc.a_race], who leans forwards on the counter-top and calls out to you, [npc.speech(Ya lookin' ta buy a drink? Or maybe ya want ta play some dice poker? Come over 'ere an' let me know if ya are.)]
 				#ELSE
-					Despite the unsociable hour, you see that several rats are currently sitting around a few of the tables, either chatting with one another or playing some kind of dice game. Standing behind the bar, there's [npc2.a_race], who leans forwards on the counter-top and calls out to you, [npc.speech(Ya can't sleep either, huh? So long as ya awake, ya might as well come an' buy a drink, right? Or maybe ya want ta play some dice poker? Come over 'ere an' let me know if ya are.)]
+					Despite the unsociable hour, you see that several rats are currently sitting around a few of the tables, either chatting with one another or playing some kind of dice game. Standing behind the bar, there's [npc.a_race], who leans forwards on the counter-top and calls out to you, [npc.speech(Ya can't sleep either, huh? So long as ya awake, ya might as well come an' buy a drink, right? Or maybe ya want ta play some dice poker? Come over 'ere an' let me know if ya are.)]
 				#ENDIF
 			#ENDIF
 		</p>
@@ -1603,7 +1603,7 @@
 	
 	<!-- DICE_DEN_RUM -->
 	
-	<htmlContent tag="DICE_DEN_RUM"><![CDATA[
+	<htmlContent tag="DICE_DEN_RUM_DRINK"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
 			Feeling thirsty and with the temptation of the bar right in front of you, you ask [npc2.name] for a glass of rum, before handing over the flames [npc2.she] asks for. Grinning at you, the [npc2.race] leaves the flames sitting on the counter as [npc2.she] reaches under the counter to grab a glass. Turning around and picking up a half-empty bottle of rum, [npc2.she] pours your drink and then steps back, still leaving the money untouched on the counter-top.
@@ -1611,6 +1611,29 @@
 		<p>
 			Picking up the glass, you quickly drink down the rum, before placing the now-empty vessel back down on the counter and preparing to move off. Before you can go, however, [npc2.name] calls out for you stay, [npc2.speech(Hey, why don't ya 'ang around a little longer? I's bettin' ya'd like ta earn that money o' yours back, wouldn't ya?)]
 		</p>
+	#ELSE
+		<p>
+			Feeling thirsty and with the temptation of the bar right in front of you, you ask [npc.name] for a glass of rum, before handing over the flames [npc.she] asks for. Grinning at you, the [npc.race] leaves the flames sitting on the counter as [npc.she] reaches under the counter to grab a glass. Turning around and picking up a half-empty bottle of rum, [npc.she] pours your drink and then steps back, still leaving the money untouched on the counter-top.
+		</p>
+		<p>
+			Picking up the glass, you quickly drink down the rum, before placing the now-empty vessel back down on the counter and preparing to move off. Before you can go, however, [npc.name] calls out for you stay, [npc.speech(Hey, why don't ya 'ang around a little longer? I's bettin' ya'd like ta earn that money o' yours back, wouldn't ya?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DICE_DEN_RUM_DRINK_COMPANION"><![CDATA[
+	<p>
+		Thinking that your [com.companion] might be thirsty, and with this convenient bar right in front of you, you ask [npc2.name] for a glass of rum, before handing over the flames [npc2.she] asks for. Grinning at you, the [npc2.race] leaves the flames sitting on the counter as [npc2.she] reaches under the counter to grab a glass. Turning around and picking up a half-empty bottle of rum, [npc2.she] pours your drink and then steps back, still leaving the money untouched on the counter-top.
+	</p>
+	<p>
+		Sliding the glass over to [com.name], you tell [com.herHim] that you bought the drink for [npc.herHim]. After taking a moment to thank you, your [com.companion] drinks down the rum, before placing the now-empty vessel back down on the counter. Before you can say anything or make a move to leave, [npc2.name] asks, [npc2.speech(Hey, why don't ya 'ang around a little longer? I's bettin' ya'd like ta earn that money o' yours back, wouldn't ya?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DICE_DEN_RUM_OFFER"><![CDATA[
+	#IF(pc.hasCompanions())
 		#IF(npc2.hasPenis())
 			<p>
 				Looking down at the money still sitting on the counter, you ask [npc2.name] what it is you'd have to do. Leaning forwards and grinning at you, [npc2.she] says, [npc2.speech(Well, wot with 'avin' ta work behind this 'ere bar all day long, I don't get much time fer gettin' me dick wet. If ya want yer money back, all ya 'ave ta do is come round 'ere an' get down on yer knees, then wrap yer pretty little mouth 'round me cock an' get ta suckin'. Let me blow a load down yer throat or over ya face, an' ya can 'ave yer money back.)]
@@ -1631,12 +1654,6 @@
 			#ENDIF
 		#ENDIF
 	#ELSE
-		<p>
-			Feeling thirsty and with the temptation of the bar right in front of you, you ask [npc.name] for a glass of rum, before handing over the flames [npc.she] asks for. Grinning at you, the [npc.race] leaves the flames sitting on the counter as [npc.she] reaches under the counter to grab a glass. Turning around and picking up a half-empty bottle of rum, [npc.she] pours your drink and then steps back, still leaving the money untouched on the counter-top.
-		</p>
-		<p>
-			Picking up the glass, you quickly drink down the rum, before placing the now-empty vessel back down on the counter and preparing to move off. Before you can go, however, [npc.name] calls out for you stay, [npc.speech(Hey, why don't ya 'ang around a little longer? I's bettin' ya'd like ta earn that money o' yours back, wouldn't ya?)]
-		</p>
 		#IF(npc.hasPenis())
 			<p>
 				Looking down at the money still sitting on the counter, you ask [npc.name] what it is you'd have to do. Leaning forwards and grinning at you, [npc.she] says, [npc.speech(Well, wot with 'avin' ta work behind this 'ere bar all day long, I don't get much time fer gettin' me dick wet. If ya want yer money back, all ya 'ave ta do is come round 'ere an' get down on yer knees, then wrap yer pretty little mouth 'round me cock an' get ta suckin'. Let me blow a load down yer throat or over ya face, an' ya can 'ave yer money back.)]
@@ -1824,6 +1841,23 @@
 	
 	<!-- MILKING_STORAGE -->
 	
+	<htmlContent tag="MILKING_STORAGE_QUEST_COMPLETE"><![CDATA[
+	<p>
+		Branching off from a twist in a particularly damp and dingy section of the Rat Warren's tunnels, you follow a narrow passageway which ends up leading into a relatively small, well-lit room. Judging by the fact that the high ceiling is home to many naturally-formed stalactites, while the walls and floor form a uniform rectangular shape, this area seems to have been carved out from a smaller pre-existing cave.
+	</p>
+	<p>
+		Taking a look at your surroundings, you find that the most striking feature of this area is the dozens of metal milk-pails stacked up on shelving units against the walls. Over on the far side of the earth-packed floor, directly ahead of you, there's also an odd collection of old, tatty-looking furniture arrayed next to an old wooden door. A couple of worn, wooden tables are haphazardly surrounded by half a dozen stools and chairs, while pushed up against the far wall are several crates and cabinets. Finishing off this assortment of furnishings is an old, faded, red sofa, which, like the rest of the room, is absent of any sign of life.
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_murkIntroduced))
+			As Murk has been taken away as part of the deal Vengar struck with the Enforcers, there's nobody here to stop you from opening the old wooden door and heading through into the room beyond...
+		#ELSE
+			As there's nobody in this area, there's nothing stopping you from opening the old wooden door and heading through into the room beyond...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="MILKING_STORAGE_CLEARED"><![CDATA[
 	<p>
 		Branching off from a twist in a particularly damp and dingy section of the Rat Warren's tunnels, you follow a narrow passageway which ends up leading into a relatively small, well-lit room. Judging by the fact that the high ceiling is home to many naturally-formed stalactites, while the walls and floor form a uniform rectangular shape, this area seems to have been carved out from a smaller pre-existing cave.
@@ -1867,7 +1901,12 @@
 			Reaching his sofa, Murk spits on the ground before turning around and motioning to the milk pails stacked up against the walls. [murk.speechNoEffects(Me milkers provide a good income fer me; their milk sells fer a pretty penny up in the city. They's also real good at doin' milkin' themselves; milkin' me balls into their cunts that is! Heh-heh-heh!)]
 		</p>
 		<p>
-			Before you can think of what to say in response to this, the rat-boy jumps back up onto his sofa, and, leaning back and scratching his chubby belly once again, he says, [murk.speechNoEffects(It's five 'undred flames ta fuck one o' me milkers. They's through that door behind me, an' you's got ta pay up before ya gets ta see 'em. I's let ya choose which one ya want ta fuck, but there ain't no refunds if ya don't like any o' 'em, an' I's got a rule that only one o' you's can be fuckin' 'em at once, so yer friend 'ere is gonna 'ave ta watch. So, ya gonna pay up, or ya gonna go back the way ya came?)]
+			Before you can think of what to say in response to this, the rat-boy jumps back up onto his sofa, and, leaning back and scratching his chubby belly once again, he says,
+			#IF(pc.hasCompanions())
+				 [murk.speechNoEffects(It's five 'undred flames ta fuck one o' me milkers. They's through that door behind me, an' you's got ta pay up before ya gets ta see 'em. I's let ya choose which one ya want ta fuck, but there ain't no refunds if ya don't like any o' 'em, an' I's got a rule that only one o' you's can be fuckin' 'em at once, so yer friend 'ere is gonna 'ave ta watch. So, ya gonna pay up, or ya gonna go back the way ya came?)]
+			#ELSE
+				 [murk.speechNoEffects(It's five 'undred flames ta fuck one o' me milkers. They's through that door behind me, an' you's got ta pay up before ya gets ta see 'em. I's let ya choose which one ya want ta fuck, but there ain't no refunds if ya don't like any o' 'em. So, ya gonna pay up, or ya gonna go back the way ya came?)]
+			#ENDIF
 		</p>
 	#ELSE
 		<p>
@@ -2102,6 +2141,17 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="MILKING_ROOM_QUEST_COMPLETE"><![CDATA[
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSeenMilkers))
+			Heading through the old wooden door into the 'milking room', you're once again greeted by the familiar sight of the long series of metal-framed stalls running down the left-hand wall. There's nobody present in this area, leaving you wondering if this room will ever be used for anything more than temporary storage...
+		#ELSE
+			Curious to see what exactly is behind the wooden door on the far side of the room, you head over to it and push it open. Stepping through into the room beyond, the first thing which you immediately notice is that its proportions are more akin to a wide corridor than a conventional square or rectangular shape. The very next thing you register is that running down alongside the left-hand wall, there are a series of metal-framed stalls, each consisting of a padded bench plus surrounding supports to which an occupant's legs or arms can be chained.  There's nobody present in this area, leaving you wondering if this room will ever be used for anything more than temporary storage...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="MILKING_ROOM_SEX"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
@@ -2267,7 +2317,7 @@
 		#IF(pc.hasCompanions())
 			Having finished with [npc2.name], you and [npc.name] step away from her and start to get your things back in order.
 		#ELSE
-			Having finished with [npc2.name], you step away from her and start to get your things back in order.
+			Having finished with [npc.name], you step away from her and start to get your things back in order.
 		#ENDIF
 		 As you've cleared out this section of the Rat Warrens, there's nobody here to stop you from choosing another milker to fuck next. Then again, maybe you've had enough and want to get on with something else...
 	</p>
@@ -3543,7 +3593,7 @@
 	</p>
 	<p>
 		[shadow.speechNoEffects(Stay still fer a moment, love,)] Shadow hisses to Silence, before standing up and retrieving a small, dark-purple sphere
-		#IF(pc.hasQuestInLine(QUEST_VENGAR_OPTIONAL_CLAIRE))
+		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_VENGAR, QUEST_VENGAR_OPTIONAL_CLAIRE))
 			, identical to the resonance stone which Claire gave to you,
 		#ENDIF
 		 from her pocket. Holding this sphere up to the Enforcers advancing on your location, she clears her throat, before shouting out to them in a refined accent almost completely unrecognisable from her previous, slovenly voice, [shadow.speechNoEffects(You took your time, didn't you, pet? A few moments more, and I might have been in serious trouble; these rats are no joke when they decide to gang up on someone.)]
@@ -3607,7 +3657,7 @@
 	</p>
 	<p>
 		Thanking the SWORD Enforcer, Claire places her hands on her hips and sighs,
-		#IF(pc.hasQuestInLine(QUEST_VENGAR_OPTIONAL_CLAIRE))
+		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_VENGAR, QUEST_VENGAR_OPTIONAL_CLAIRE))
 			 [claire.speech(I don't know why you didn't use the Resonance Stone I gave to you, but at least you're safe... Anyway, hand it over to me and we can get out of here.)]
 		#ELSE
 			 [claire.speech(I don't know what you were thinking being in here, but at least you're safe... Anyway, let's get out of here.)]
@@ -3839,7 +3889,7 @@
 	<htmlContent tag="BODYGUARDS_COMBAT_DEFEAT_NO_NON_CON"><![CDATA[
 	<p>
 		Seeing that you're out of energy and unable to continue fighting any longer, Shadow dashes forwards, and with one final kick, drives you to the ground. Looking up as the rat-girl looms over you, you see her reach down into her pocket, before producing a small, dark-purple sphere and twisting the two halves in opposite directions.
-		#IF(pc.hasQuestInLine(QUEST_VENGAR_OPTIONAL_CLAIRE))
+		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_VENGAR, QUEST_VENGAR_OPTIONAL_CLAIRE))
 			 Recognising this sphere to be a resonance stone just like the one Claire gave to you, you listen as Shadow leans down to hiss,
 		#ELSE
 			 Recognising that this sphere's activation marks, you listen as Shadow leans down to hiss,
@@ -3909,7 +3959,7 @@
 	
 	<htmlContent tag="VENGAR_COMBAT_VICTORY"><![CDATA[
 	<p>
-		Staggering backwards, Vengar lets out a pathetic groan, before sinking down onto his knees and feebly growling, [vengar.speechNoEffect(Y-Ya can't... Defeat... M-Me...)]
+		Staggering backwards, Vengar lets out a pathetic groan, before sinking down onto his knees and feebly growling, [vengar.speechNoEffects(Y-Ya can't... Defeat... M-Me...)]
 	</p>
 	<p>
 		A heavy silence fills the hall as the rats watch their leader keel over and collapse down onto the floor. Beginning as a background murmur, and very quickly growing into a deafening roar, the gang members start arguing amongst themselves over who's now their rightful leader. Before you can make a move to silence them, the first punch has already been thrown, and as a bottle flies over your head to smash against the far wall, you realise that you have a riot on your hands.
@@ -4108,7 +4158,7 @@
 		Sinking down onto a nearby chair and panting for breath, [axel.name] sighs, [axel.speech(~Oooh!~ That was so good...)]
 	</p>
 	<p>
-		Wanting to assert his dominance over the [axel.race] before leaving, Vengar steps up to [lexa.name] and pushes his softening cock in front of her face. Sneering down at her, he commands, [vengar.speechNoEffect(Give me cock one last kiss an' tell me that yer me horny little 'gator slut.)]
+		Wanting to assert his dominance over the [axel.race] before leaving, Vengar steps up to [lexa.name] and pushes his softening cock in front of her face. Sneering down at her, he commands, [vengar.speechNoEffects(Give me cock one last kiss an' tell me that yer me horny little 'gator slut.)]
 	</p>
 	<p>
 		Craning her neck forwards, [lexa.name] does as [lexa.sheIs] told, and after wrapping her lips around the head of Vengar's cock and giving it one last suck, she kisses the tip and says, [axel.speech(I'm your horny little alligator slut!)]

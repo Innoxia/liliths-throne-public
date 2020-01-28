@@ -753,7 +753,7 @@
 		[pc.speech(Yeah, you should definitely use one! Right Bree?!)] you ask the submissive wolf-girl.
 	</p>
 	<p>
-		[brax.speech(I-If you want...)] she meekly replies.
+		[brax.speechNoEffects(I-If you want...)] she meekly replies.
 	</p>
 	<p>
 		[candi.speechNoEffects(Good girl, Bree!)] Candi squeals, excitedly pulling out a potion from beneath her desk. [candi.speechNoEffects(I got this made to be, like, pink flavour, so it's gonna taste good!)]

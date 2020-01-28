@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
-import java.time.Month;
+
+import java.time.Month;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +87,6 @@ public class Brax extends NPC {
 				30, Month.NOVEMBER, 27,
 				10, Gender.M_P_MALE,
 				Subspecies.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
-
 	}
 	
 	@Override
@@ -356,6 +356,11 @@ public class Brax extends NPC {
 		return true;
 	}
 
+	@Override
+	public boolean isImmuneToLevelDrain() {
+		return !this.isSlave();
+	}
+	
 	@Override
 	public SexPace getSexPaceDomPreference(){
 		if(this.isSlave() && this.getOwner().isPlayer()) {

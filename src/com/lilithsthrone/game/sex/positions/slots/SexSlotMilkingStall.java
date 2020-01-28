@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.positions.slots;
-import com.lilithsthrone.game.character.GameCharacter;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.main.Main;
 
 /**

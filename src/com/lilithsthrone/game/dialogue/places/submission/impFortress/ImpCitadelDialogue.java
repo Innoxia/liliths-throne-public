@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission.impFortress;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
@@ -2437,14 +2437,15 @@ public class ImpCitadelDialogue {
 							:PRISONER_STRIPPED) {
 					@Override
 					public void effects() {
-						List<AbstractClothing> clothingRemoved = Main.game.getPlayer().unequipAllClothing(getOwner(), true);
-
-						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED"+getOwnerDialogueIdEnding(), getAllCharacters()));
-						
-						for(AbstractClothing clothing : clothingRemoved) {
-							Main.game.getWorlds().get(WorldType.IMP_FORTRESS_DEMON).getCell(PlaceType.FORTRESS_DEMON_TREASURY).getInventory().addClothing(clothing);
-						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().getUnequipAllClothingDescription());
+						//TODO remove everything like in Rat Warrens captive
+//						List<AbstractClothing> clothingRemoved = Main.game.getPlayer().unequipAllClothing(getOwner(), true);
+//
+//						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED"+getOwnerDialogueIdEnding(), getAllCharacters()));
+//						
+//						for(AbstractClothing clothing : clothingRemoved) {
+//							Main.game.getWorlds().get(WorldType.IMP_FORTRESS_DEMON).getCell(PlaceType.FORTRESS_DEMON_TREASURY).getInventory().addClothing(clothing);
+//						}
+//						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().getUnequipAllClothingDescription());
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_END"+getOwnerDialogueIdEnding(), getAllCharacters()));
 						
@@ -2488,14 +2489,16 @@ public class ImpCitadelDialogue {
 						PRISONER_STRIPPED) {
 					@Override
 					public void effects() {
-						List<AbstractClothing> clothingRemoved = getMainCompanion().unequipAllClothing(getOwner(), true);
+						//TODO remove everything like in Rat Warrens captive
+//						List<AbstractClothing> clothingRemoved = getMainCompanion().unequipAllClothing(getOwner(), true);
+//						
+//						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_COMPANION"+getOwnerDialogueIdEnding(), getAllCharacters()));
+//						clothingRemoved = getMainCompanion().unequipAllClothing(getOwner(), true);
+//						for(AbstractClothing clothing : clothingRemoved) {
+//							Main.game.getWorlds().get(WorldType.IMP_FORTRESS_DEMON).getCell(PlaceType.FORTRESS_DEMON_TREASURY).getInventory().addClothing(clothing);
+//						}
+//						Main.game.getTextEndStringBuilder().append(getMainCompanion().getUnequipAllClothingDescription());
 						
-						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_COMPANION"+getOwnerDialogueIdEnding(), getAllCharacters()));
-						clothingRemoved = getMainCompanion().unequipAllClothing(getOwner(), true);
-						for(AbstractClothing clothing : clothingRemoved) {
-							Main.game.getWorlds().get(WorldType.IMP_FORTRESS_DEMON).getCell(PlaceType.FORTRESS_DEMON_TREASURY).getInventory().addClothing(clothing);
-						}
-						Main.game.getTextEndStringBuilder().append(getMainCompanion().getUnequipAllClothingDescription());
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_COMPANION_END"+getOwnerDialogueIdEnding(), getAllCharacters()));
 
 						// Equip collar and wrist restraints

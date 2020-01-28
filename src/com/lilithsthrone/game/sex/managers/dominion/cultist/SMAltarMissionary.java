@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.managers.dominion.cultist;
-import java.util.Map;
+
+import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;

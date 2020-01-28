@@ -2,7 +2,7 @@ package com.lilithsthrone.world.places;
 
 /**
  * @since 0.2.12
- * @version 0.3.5.5
+ * @version 0.3.6.2
  * @author Innoxia
  */
 public enum PopulationType {
@@ -16,6 +16,9 @@ public enum PopulationType {
 	CROWD("crowd", false),
 	
 	CROWDS("crowds", true),
+
+	PRIVATE_SECURITY_GUARD("private security guard", false),
+	PRIVATE_SECURITY_GUARDS("private security guards", true),
 	
 	ENFORCERS("Enforcers", true),
 	

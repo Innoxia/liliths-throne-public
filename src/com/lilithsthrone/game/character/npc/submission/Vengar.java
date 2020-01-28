@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.submission;
-import java.time.Month;
+
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -101,7 +102,7 @@ public class Vengar extends NPC {
 			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 			this.addPersonalityTrait(PersonalityTrait.LEWD);
 			if(!this.isSlave()) {
-				equipClothing(null);
+				equipClothing();
 			}
 			this.resetPerksMap(true);
 		}

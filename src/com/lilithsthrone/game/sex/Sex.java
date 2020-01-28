@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex;
-import java.lang.reflect.Field;
+
+import java.lang.reflect.Field;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -353,6 +354,14 @@ public class Sex {
 
 		resetAllOngoingActions(true);
 
+		for(GameCharacter character : Main.sex.getAllParticipants()) {
+			if(!character.isPlayer()
+					&& ((character.isSlave() && character.getOwner().isPlayer())
+							|| Main.game.getPlayer().getFriendlyOccupants().contains(character.getId())
+							|| Main.game.getPlayer().getCompanions().contains(character))) {
+				playerLevelDrain = false;
+			}
+		}
 		
 		lastUsedSexAction = new HashMap<>();
 		for(GameCharacter character : Main.sex.getAllParticipants()) {
@@ -704,10 +713,10 @@ public class Sex {
 		sexDescription = sexSB.toString();
 		
 		Main.sex.setCharacterPerformingAction(Main.game.getPlayer());
-
+		
 		// Populate available SexAction list:
 		populatePlayerSexLists();
-
+		
 		sexInitFinished = true;
 		
 		if(Main.sex.isMasturbation()) {
@@ -914,7 +923,7 @@ public class Sex {
 	
 	private static String getStretchPartialRecoveryDescription(boolean plural, String name, OrificeElasticity elasticity, Capacity capacityRaw, Capacity capacityStretched) {
 		return "<p style='text-align:center;'><i>"
-					+ "[npc.NamePos] "+ elasticity.getDescriptor()+" [style.italicsAsshole(asshole)] "+(plural?"have":"has")+" been [style.italicsPlasticity(stretched)] from "+(plural?"their":"its")+" ordeal, and "+(plural?"are":"is")+" currently"
+					+ "[npc.NamePos] "+ elasticity.getDescriptor()+" [style.italicsAsshole("+name+")] "+(plural?"have":"has")+" been [style.italicsPlasticity(stretched)] from "+(plural?"their":"its")+" ordeal, and "+(plural?"are":"is")+" currently"
 						+ " <span style='color:"+capacityStretched.getColour().toWebHexString()+";'>"+ capacityStretched.getDescriptor() + "</span>!"
 					+ "<br/>"+(plural?"They":"It")+" will recover [style.italicsMinorBad(only some)] of "+(plural?"their":"its")+" original size, eventually tightening back to being"
 						+ " <span style='color:"+capacityRaw.getColour().toWebHexString()+";'>" + capacityRaw.getDescriptor() + "</span>!"
@@ -923,7 +932,7 @@ public class Sex {
 	
 	private static String getStretchFullRecoveryDescription(boolean plural, String name, OrificeElasticity elasticity, Capacity capacityRaw, Capacity capacityStretched) {
 		return "<p style='text-align:center;'><i>"
-				+ "[npc.NamePos] "+ elasticity.getDescriptor()+" [style.italicsAsshole(asshole)] "+(plural?"have":"has")+" been [style.italicsPlasticity(stretched)] from "+(plural?"their":"its")+" ordeal, and "+(plural?"are":"is")+" currently"
+				+ "[npc.NamePos] "+ elasticity.getDescriptor()+" [style.italicsAsshole("+name+")] "+(plural?"have":"has")+" been [style.italicsPlasticity(stretched)] from "+(plural?"their":"its")+" ordeal, and "+(plural?"are":"is")+" currently"
 					+ " <span style='color:"+capacityStretched.getColour().toWebHexString()+";'>"+ capacityStretched.getDescriptor() + "</span>!"
 				+ "<br/>"+(plural?"They":"It")+" will recover [style.italicsMinorGood(all)] of "+(plural?"their":"its")+" original size, eventually tightening back to being"
 					+ " <span style='color:"+capacityRaw.getColour().toWebHexString()+";'>" + capacityRaw.getDescriptor() + "</span>!"
@@ -1844,7 +1853,7 @@ public class Sex {
 											?"ON)]"
 											:"OFF)]");
 							}
-							return "[style.colourSex(Level drain:)]"
+							return "[style.colourSex(Level drain:)] "
 									+(playerLevelDrain
 										?"[style.colourMinorGood(ON)]"
 										:"[style.colourMinorBad(OFF)]");
@@ -3167,7 +3176,7 @@ public class Sex {
 				if(characterPenetrating.isPenisVirgin()
 						&& characterPenetrating.hasPenisIgnoreDildo()
 						&& actualOrifice.isInternalOrifice()) {
-					penileVirginityLoss = characterPenetrating.getVirginityLossPenetrationDescription(characterPenetrating, SexAreaPenetration.PENIS, characterPenetrated, actualOrifice);
+					penileVirginityLoss = characterPenetrating.getVirginityLossPenetrationDescription(characterPenetrated, SexAreaPenetration.PENIS, actualOrifice);
 					if(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 						characterPenetrated.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated), true);
 					}
@@ -3204,7 +3213,7 @@ public class Sex {
 					
 					if (characterPenetrated.isAssVirgin()) {
 						if (penetrationType.isTakesVirginity()) {
-							penetrationSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, SexAreaOrifice.ANUS));
+							penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.ANUS));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 							}
@@ -3225,7 +3234,7 @@ public class Sex {
 					
 					if (characterPenetrated.isVaginaVirgin()) {
 						if (penetrationType.isTakesVirginity()) {
-							penetrationSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, SexAreaOrifice.VAGINA));
+							penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.VAGINA));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingVaginalVirginity(characterPenetrating), true);
 							}
@@ -3261,7 +3270,7 @@ public class Sex {
 					
 					if (characterPenetrated.isNippleVirgin()) {
 						if (penetrationType.isTakesVirginity()) {
-							penetrationSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, SexAreaOrifice.NIPPLE));
+							penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.NIPPLE));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 							}
@@ -3302,7 +3311,7 @@ public class Sex {
 					
 					if (characterPenetrated.isNippleCrotchVirgin()) {
 						if (penetrationType.isTakesVirginity()) {
-							penetrationSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, SexAreaOrifice.NIPPLE_CROTCH));
+							penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.NIPPLE_CROTCH));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 							}
@@ -3323,7 +3332,7 @@ public class Sex {
 						
 						if (characterPenetrated.isUrethraVirgin()) {
 							if (penetrationType.isTakesVirginity()) {
-								penetrationSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, SexAreaOrifice.URETHRA_PENIS));
+								penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.URETHRA_PENIS));
 								if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 									characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 								}
@@ -3344,7 +3353,7 @@ public class Sex {
 					
 					if (characterPenetrated.isVaginaUrethraVirgin()) {
 						if (penetrationType.isTakesVirginity()) {
-							penetrationSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, SexAreaOrifice.URETHRA_VAGINA));
+							penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.URETHRA_VAGINA));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 							}
@@ -3365,7 +3374,7 @@ public class Sex {
 						
 						if (characterPenetrated.isFaceVirgin()) {
 							if (penetrationType.isTakesVirginity()) {
-								penetrationSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, SexAreaOrifice.MOUTH));
+								penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.MOUTH));
 								if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 									characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 								}

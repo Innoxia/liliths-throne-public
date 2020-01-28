@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.fetishes;
-import java.io.IOException;
+
+import java.io.IOException;
 import java.io.InputStream;
 
 import com.lilithsthrone.utils.Colour;

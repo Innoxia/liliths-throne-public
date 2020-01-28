@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-import com.lilithsthrone.game.combat.DamageType;
+
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.utils.Colour;
 
 /**

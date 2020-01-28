@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.weapon;
-import java.io.File;
+
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;

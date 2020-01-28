@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.nightlife;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -2580,7 +2581,7 @@ public class NightlifeDistrict {
 						public void effects() {
 							Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, false);
-							Main.game.getNpc(Kalahari.class).equipClothing(null);
+							Main.game.getNpc(Kalahari.class).equipClothing();
 						}
 					};
 				}
@@ -2735,7 +2736,7 @@ public class NightlifeDistrict {
 						public void effects() {
 							Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kalahariWantsSex, false);
-							Main.game.getNpc(Kalahari.class).equipClothing(null);
+							Main.game.getNpc(Kalahari.class).equipClothing();
 						}
 					};
 				}

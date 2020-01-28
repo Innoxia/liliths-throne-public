@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-import com.lilithsthrone.game.character.gender.Gender;
+
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.settings.ContentPreferenceValue;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
