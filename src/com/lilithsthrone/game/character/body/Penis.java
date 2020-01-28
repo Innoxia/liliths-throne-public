@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,12 +12,11 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -50,7 +48,7 @@ public class Penis implements BodyPartInterface {
 		} else {
 			this.size = Math.min(PenisSize.SEVEN_STALLION.getMaximumValue(), size);
 		}
-		this.girth = Math.min(PenisGirth.FOUR_FAT.getValue(), girth);
+		this.girth = Math.min(PenetrationGirth.FOUR_FAT.getValue(), girth);
 		pierced = false;
 		virgin = true;
 		
@@ -119,7 +117,7 @@ public class Penis implements BodyPartInterface {
 			list.add(type.getDescriptor(owner));
 		}
 		
-		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
+		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(owner)) {
 			if(owner.hasErection()) {
 				list.add("hard");
 				if(this.getType()!=PenisType.DILDO) {
@@ -133,7 +131,7 @@ public class Penis implements BodyPartInterface {
 				}
 			}
 		}
-
+		
 		return Util.randomItemFrom(list);
 	}
 	
@@ -564,8 +562,8 @@ public class Penis implements BodyPartInterface {
 	
 	// Girth:
 
-	public PenisGirth getGirth() {
-		return PenisGirth.getPenisGirthFromInt(girth);
+	public PenetrationGirth getGirth() {
+		return PenetrationGirth.getGirthFromInt(girth);
 	}
 
 	public int getRawGirthValue() {
@@ -577,7 +575,7 @@ public class Penis implements BodyPartInterface {
 	 */
 	public String setPenisGirth(GameCharacter owner, int girth) {
 		if(owner==null) {
-			this.girth = Math.max(0, Math.min(girth, PenisGirth.FOUR_FAT.getValue()));
+			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.FOUR_FAT.getValue()));
 			return "";
 		}
 		
@@ -592,10 +590,10 @@ public class Penis implements BodyPartInterface {
 				girthChange = 0 - this.girth;
 				this.girth = 0;
 			}
-		} else if (girth >= PenisGirth.FOUR_FAT.getValue()) {
-			if (this.girth != PenisGirth.FOUR_FAT.getValue()) {
-				girthChange = PenisGirth.FOUR_FAT.getValue() - this.girth;
-				this.girth = PenisGirth.FOUR_FAT.getValue();
+		} else if (girth >= PenetrationGirth.FOUR_FAT.getValue()) {
+			if (this.girth != PenetrationGirth.FOUR_FAT.getValue()) {
+				girthChange = PenetrationGirth.FOUR_FAT.getValue() - this.girth;
+				this.girth = PenetrationGirth.FOUR_FAT.getValue();
 			}
 		} else {
 			if (this.girth != girth) {

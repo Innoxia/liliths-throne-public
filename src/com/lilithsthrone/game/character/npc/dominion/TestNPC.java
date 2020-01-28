@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -36,7 +35,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
@@ -573,7 +571,7 @@ public class TestNPC extends NPC {
 		public String getContent() {
 			if(Main.game.getNpc(TestNPC.class).isSatisfiedFromLastSex()) {
 				return "<p>"
-							+ "The [test.race] collapses to the floor, totally worn out and satisfied from the orgasm"+(Sex.getNumberOfOrgasms(Main.game.getNpc(TestNPC.class)) > 1?"s":"")+" you gave to [test.herHim]."
+							+ "The [test.race] collapses to the floor, totally worn out and satisfied from the orgasm"+(Main.sex.getNumberOfOrgasms(Main.game.getNpc(TestNPC.class)) > 1?"s":"")+" you gave to [test.herHim]."
 							+ " Grinning down at [test.her] delicate body, you turn to the door and prepare to make your exit."
 							+ " As you reach for the handle, you turn around and chuckle,"
 							+ " [pc.speech(That was fun! Maybe I'll pay you another visit some time!)]"

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.encounters;
-
-import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -323,10 +322,15 @@ public enum Encounter {
 
 			} else if (node == EncounterType.DOMINION_FIND_ITEM) {
 				
-				if(Math.random()<0.995f) {
+				if(!Main.game.isSillyModeEnabled() || Math.random()<0.99f) {
 					randomItem = AbstractItemType.generateItem(ItemType.getDominionAlleywayItems().get(Util.random.nextInt(ItemType.getDominionAlleywayItems().size())));
+					
 				} else {
-					randomItem = AbstractItemType.generateItem(ItemType.EGGPLANT);
+					if(Math.random()<0.5f) {
+						randomItem = AbstractItemType.generateItem(ItemType.EGGPLANT);
+					} else {
+						randomItem = AbstractItemType.generateItem(ItemType.FEMININE_BURGER);
+					}
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.persona;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;

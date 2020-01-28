@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body.types;
-
-import java.util.List;
+import java.util.List;
 
 /**
  * @since 0.3.1

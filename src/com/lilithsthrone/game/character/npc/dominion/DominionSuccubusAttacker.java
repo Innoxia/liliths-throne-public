@@ -33,7 +33,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.OutfitType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -221,7 +220,7 @@ public class DominionSuccubusAttacker extends NPC {
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
-			if((Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl()) && !target.isPlayer()) {
+			if((Main.sex.isDom(Main.game.getPlayer()) || Main.sex.isSubHasEqualControl()) && !target.isPlayer()) {
 				return UtilText.parse(equipper, target,
 						"<p>"
 							+ "Holding out a condom to [npc2.name], [npc.name] [npc.verb(force)] [npc2.herHim] to take it and put it on."
@@ -401,7 +400,7 @@ public class DominionSuccubusAttacker extends NPC {
 		
 		List<String> speech = new ArrayList<>();
 		
-		if(isPlayerDom && Sex.getSexPace(this)!=SexPace.SUB_RESISTING){
+		if(isPlayerDom && Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING){
 			speech.add("Come on, fuck me already!");
 			speech.add("Come on! What's taking so long?!");
 			speech.add("Fuck me already!");

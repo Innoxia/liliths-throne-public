@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.sex.positions;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +12,6 @@ import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexActionInteractions;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
@@ -47,7 +45,7 @@ public class SexPositionUnique {
 			null, Util.newArrayListOfValues(PetMounting.class)) {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
-			return UtilText.parse(Sex.getCharacterInPosition(SexSlotUnique.PET_MOUNTING_ON_ALL_FOURS), Sex.getCharacterInPosition(SexSlotUnique.PET_MOUNTING_HUMPING),
+			return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotUnique.PET_MOUNTING_ON_ALL_FOURS), Main.sex.getCharacterInPosition(SexSlotUnique.PET_MOUNTING_HUMPING),
 					"[npc.NameIs] down on all fours, and [npc.has] been mounted by [npc2.name], who's desperate to penetrate and start humping [npc.herHim].");
 		}
 		@Override
@@ -59,8 +57,8 @@ public class SexPositionUnique {
 		@Override
 		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character being fucked can use their tails or tentacles to force a creampie:
-			if(Sex.getSexPositionSlot(cumTarget)==SexSlotUnique.PET_MOUNTING_ON_ALL_FOURS
-				&& Sex.getSexPositionSlot(cumProvider)==SexSlotUnique.PET_MOUNTING_HUMPING) {
+			if(Main.sex.getSexPositionSlot(cumTarget)==SexSlotUnique.PET_MOUNTING_ON_ALL_FOURS
+				&& Main.sex.getSexPositionSlot(cumProvider)==SexSlotUnique.PET_MOUNTING_HUMPING) {
 				return Util.newHashMapOfValues(
 						new Value<>(Tail.class, genericGroinForceCreampieAreas),
 						new Value<>(Tentacle.class, genericGroinForceCreampieAreas));
@@ -75,7 +73,7 @@ public class SexPositionUnique {
 			null, Util.newArrayListOfValues(PetOral.class)) {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
-			return UtilText.parse(Sex.getCharacterInPosition(SexSlotUnique.PET_ORAL_ON_ALL_FOURS), Sex.getCharacterInPosition(SexSlotUnique.PET_ORAL_COCKED_LEG),
+			return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotUnique.PET_ORAL_ON_ALL_FOURS), Main.sex.getCharacterInPosition(SexSlotUnique.PET_ORAL_COCKED_LEG),
 					"[npc.NameIs] down on all fours, with [npc2.namePos] [npc2.leg] hooked over [npc.her] neck, leaving [npc.her] face just [unit.sizes] away from [npc2.namePos] [npc2.cock+].");
 		}
 		@Override
@@ -103,14 +101,14 @@ public class SexPositionUnique {
 		@Override
 		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character taking oral can use their arms to force a creampie:
-			if(Sex.getSexPositionSlot(cumTarget)==SexSlotUnique.RALPH_SUB
-				&& Sex.getSexPositionSlot(cumProvider)==SexSlotUnique.RALPH_DOM) {
+			if(Main.sex.getSexPositionSlot(cumTarget)==SexSlotUnique.RALPH_SUB
+				&& Main.sex.getSexPositionSlot(cumProvider)==SexSlotUnique.RALPH_DOM) {
 				return Util.newHashMapOfValues(
 						new Value<>(Arm.class, genericFaceForceCreampieAreas));
 			}
 			// The character being fucked can use their legs to force a creampie:
-			if(Sex.getSexPositionSlot(cumTarget)==SexSlotUnique.RALPH_SUB
-					&& Sex.getSexPositionSlot(cumProvider)==SexSlotUnique.RALPH_DOM) {
+			if(Main.sex.getSexPositionSlot(cumTarget)==SexSlotUnique.RALPH_SUB
+					&& Main.sex.getSexPositionSlot(cumProvider)==SexSlotUnique.RALPH_DOM) {
 					return Util.newHashMapOfValues(
 							new Value<>(Leg.class, genericGroinForceCreampieAreas));
 				}
@@ -168,8 +166,8 @@ public class SexPositionUnique {
 		@Override
 		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character taking oral can use their arms to force a creampie:
-			if(Sex.getSexPositionSlot(cumTarget)==SexSlotUnique.KNEELING_PERFORMING_ORAL_CULTIST
-				&& Sex.getSexPositionSlot(cumProvider)==SexSlotUnique.KNEELING_RECEIVING_ORAL_CULTIST) {
+			if(Main.sex.getSexPositionSlot(cumTarget)==SexSlotUnique.KNEELING_PERFORMING_ORAL_CULTIST
+				&& Main.sex.getSexPositionSlot(cumProvider)==SexSlotUnique.KNEELING_RECEIVING_ORAL_CULTIST) {
 				return Util.newHashMapOfValues(
 						new Value<>(Arm.class, genericFaceForceCreampieAreas));
 			}
@@ -183,14 +181,14 @@ public class SexPositionUnique {
 			null, Util.newArrayListOfValues(CultistSexActions.class)) {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {//TODO
-			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotUnique.MISSIONARY_ALTAR_LYING_ON_ALTAR) {
-				if(Sex.getSexPositionSlot(Sex.getTargetedPartner(Main.game.getPlayer()))==SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS) {
+			if(Main.sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotUnique.MISSIONARY_ALTAR_LYING_ON_ALTAR) {
+				if(Main.sex.getSexPositionSlot(Main.sex.getTargetedPartner(Main.game.getPlayer()))==SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS) {
 					return "You're lying back on top of the chapel's altar, and [npc.namePos] standing between your [pc.legs], ready to have some fun with you in the missionary position.";
 				} else {
 					return "You're lying back on top of the chapel's altar, and [npc.namePos] kneeling down between your [pc.legs], ready to have some oral fun with you in the missionary position.";
 				}
 				
-			} else if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS) {
+			} else if(Main.sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS) {
 				return "[npc.Name] is lying back on top of the chapel's altar, and you're standing between [npc.her] [npc.legs], ready to have some fun in the missionary position.";
 				
 			} else {
@@ -207,16 +205,16 @@ public class SexPositionUnique {
 		@Override
 		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character being fucked can use their legs, tails, or tentacles to force a creampie:
-			if(Sex.getSexPositionSlot(cumTarget)==SexSlotUnique.MISSIONARY_ALTAR_LYING_ON_ALTAR
-				&& Sex.getSexPositionSlot(cumProvider)==SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS) {
+			if(Main.sex.getSexPositionSlot(cumTarget)==SexSlotUnique.MISSIONARY_ALTAR_LYING_ON_ALTAR
+				&& Main.sex.getSexPositionSlot(cumProvider)==SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS) {
 				return Util.newHashMapOfValues(
 						new Value<>(Leg.class, genericGroinForceCreampieAreas),
 						new Value<>(Tail.class, genericGroinForceCreampieAreas),
 						new Value<>(Tentacle.class, genericGroinForceCreampieAreas));
 				
 			// The character on top can use their body weight to force a creampie:
-			} else if(Sex.getSexPositionSlot(cumTarget)==SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS
-					&& Sex.getSexPositionSlot(cumProvider)==SexSlotUnique.MISSIONARY_ALTAR_LYING_ON_ALTAR) {
+			} else if(Main.sex.getSexPositionSlot(cumTarget)==SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS
+					&& Main.sex.getSexPositionSlot(cumProvider)==SexSlotUnique.MISSIONARY_ALTAR_LYING_ON_ALTAR) {
 					return Util.newHashMapOfValues(
 							new Value<>(Skin.class, genericGroinForceCreampieAreas));
 			}
@@ -230,9 +228,9 @@ public class SexPositionUnique {
 			null, Util.newArrayListOfValues(CultistSexActions.class)) {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {//TODO
-			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR) {
+			if(Main.sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR) {
 				return "You're lying back on top of the chapel's altar, and [npc.namePos] standing between your [pc.legs], ready to have some fun with you in the missionary position.";
-			} else if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS) {
+			} else if(Main.sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS) {
 				return "[npc.Name] is lying back on top of the chapel's altar, and you're standing between [npc.her] [npc.legs], ready to have some fun in the missionary position.";
 			} else {
 				return "[npc.Name] is lying back on top of the chapel's altar, and you're kneeling down between [npc.her] [npc.legs], ready to have some oral fun in the missionary position.";
@@ -247,7 +245,7 @@ public class SexPositionUnique {
 		}
 		@Override
 		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
-			if(Sex.getSexPositionSlot(performer) == SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR) {
+			if(Main.sex.getSexPositionSlot(performer) == SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR) {
 				if((action.getActionType()==SexActionType.ONGOING
 						|| action.getActionType()==SexActionType.START_ONGOING
 						|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION
@@ -261,8 +259,8 @@ public class SexPositionUnique {
 		@Override
 		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character on top can use their body weight to force a creampie:
-			if(Sex.getSexPositionSlot(cumTarget)==SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS
-					&& Sex.getSexPositionSlot(cumProvider)==SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR) {
+			if(Main.sex.getSexPositionSlot(cumTarget)==SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS
+					&& Main.sex.getSexPositionSlot(cumProvider)==SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR) {
 					return Util.newHashMapOfValues(
 							new Value<>(Skin.class, genericGroinForceCreampieAreas));
 			}
@@ -278,11 +276,11 @@ public class SexPositionUnique {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			List<GameCharacter> characters = new ArrayList<>();
-			characters.add(Sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_KNEELING));
-			characters.add(Sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE));
+			characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_KNEELING));
+			characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE));
 			
-			if(Sex.getTotalParticipantCount(false)==3) {
-				characters.add(Sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO));
+			if(Main.sex.getTotalParticipantCount(false)==3) {
+				characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO));
 				return UtilText.parse(characters,
 						"[npc.NameIsFull] kneeling on the floor of the toilet, ready to serve [npc2.namePos] [npc2.cock+] on one side, an [npc3.namePos] [npc3.cock+] on the other.");
 			} else {
@@ -360,11 +358,11 @@ public class SexPositionUnique {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			List<GameCharacter> characters = new ArrayList<>();
-			characters.add(Sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_FUCKED));
-			characters.add(Sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_FUCKING));
+			characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_FUCKED));
+			characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_FUCKING));
 
-			if(Sex.getTotalParticipantCount(false)==3) {
-				characters.add(Sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE));
+			if(Main.sex.getTotalParticipantCount(false)==3) {
+				characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE));
 				return UtilText.parse(characters,
 						"[npc.NameIsFull] pressing [npc.her] [npc.ass+] up against [npc2.namePos] glory hole, ready to get penetrated by [npc2.her] [npc2.cock+],"
 								+ " while bringing [npc.her] mouth down to [npc3.namePos] [npc3.cock+] on the other side of the narrow toilet stall.");

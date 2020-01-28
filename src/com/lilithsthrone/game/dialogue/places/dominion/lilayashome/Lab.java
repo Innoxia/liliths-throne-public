@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
-
-import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -29,7 +28,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
@@ -603,7 +601,7 @@ public class Lab {
 					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
 				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_END_SEX_CREAMPIE");
 			} else {
-				if(Sex.getNumberOfOrgasms(Main.game.getNpc(Lilaya.class))==0) {
+				if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lilaya.class))==0) {
 					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_END_SEX_NO_ORGASM");
 				} else {
 					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_END_SEX");
@@ -828,7 +826,7 @@ public class Lab {
 				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "END_SEX_GEISHA_CREAMPIE");
 				
 			} else {
-				if(Sex.getNumberOfOrgasms(Main.game.getNpc(Lilaya.class))==0) {
+				if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lilaya.class))==0) {
 					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "END_SEX_GEISHA_NO_ORGASM");
 				} else {
 					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "END_SEX_GEISHA");

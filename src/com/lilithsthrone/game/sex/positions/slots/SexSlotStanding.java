@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.sex.positions.slots;
-
-import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.main.Main;
 
 /**
  * All SexSlots that are used in the STANDING position.
@@ -20,7 +19,7 @@ public class SexSlotStanding {
 			SexSlotTag.STANDING) {
 		@Override
 		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
-			SexSlot targetedSlot = Sex.getSexPositionSlot(targetedCharacter);
+			SexSlot targetedSlot = Main.sex.getSexPositionSlot(targetedCharacter);
 			if(targetedSlot.hasTag(SexSlotTag.PERFORMING_ORAL)) {
 				return "With a small thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] [npc2.face], before letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
 			}
@@ -127,7 +126,7 @@ public class SexSlotStanding {
 			SexSlotTag.PERFORMING_ORAL) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 	
@@ -139,7 +138,7 @@ public class SexSlotStanding {
 			SexSlotTag.PERFORMING_ORAL) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 
@@ -151,7 +150,7 @@ public class SexSlotStanding {
 			SexSlotTag.PERFORMING_ORAL) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 
@@ -163,7 +162,7 @@ public class SexSlotStanding {
 			SexSlotTag.PERFORMING_ORAL) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 
@@ -175,7 +174,7 @@ public class SexSlotStanding {
 			SexSlotTag.PERFORMING_ORAL_BEHIND) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 
@@ -187,7 +186,7 @@ public class SexSlotStanding {
 			SexSlotTag.PERFORMING_ORAL_BEHIND) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 
@@ -199,7 +198,7 @@ public class SexSlotStanding {
 			SexSlotTag.PERFORMING_ORAL_BEHIND) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 
@@ -211,7 +210,7 @@ public class SexSlotStanding {
 			SexSlotTag.PERFORMING_ORAL_BEHIND) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 }

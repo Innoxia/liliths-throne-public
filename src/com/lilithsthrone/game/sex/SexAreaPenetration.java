@@ -1,8 +1,8 @@
 package com.lilithsthrone.game.sex;
-
-import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
@@ -22,7 +22,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, SexAreaOrifice.URETHRA_PENIS) && Sex.isPenetrationTypeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, SexAreaOrifice.URETHRA_PENIS) && Main.sex.isPenetrationTypeFree(owner, this);
 		}
 
 		@Override
@@ -689,7 +689,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isPenetrationTypeFree(owner, this);
+			return Main.sex.isPenetrationTypeFree(owner, this);
 		}
 
 		@Override
@@ -1161,7 +1161,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, SexAreaOrifice.MOUTH) && Sex.isPenetrationTypeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, SexAreaOrifice.MOUTH) && Main.sex.isPenetrationTypeFree(owner, this);
 		}
 
 		@Override
@@ -1451,7 +1451,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isPenetrationTypeFree(owner, this);
+			return Main.sex.isPenetrationTypeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
@@ -1747,7 +1747,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isPenetrationTypeFree(owner, this);
+			return Main.sex.isPenetrationTypeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
@@ -1850,7 +1850,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isPenetrationTypeFree(owner, this);
+			return Main.sex.isPenetrationTypeFree(owner, this);
 		}
 
 		@Override

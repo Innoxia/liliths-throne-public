@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.combat;
-
-import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -324,7 +323,7 @@ public enum Attack {
 			return 0;
 		}
 			
-		if(attacker instanceof Elemental) {
+		if(attacker!=null && attacker.isElemental()) {
 			switch(attacker.getBodyMaterial()) {
 				case AIR:
 					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_AIR_SERVANT_OF_AIR_ELEMENTAL_BUFF);
@@ -356,7 +355,7 @@ public enum Attack {
 				damage += attackersDamage;
 			}
 			
-			if(attacker != null) { // Attacker modifiers:
+			if(attacker!=null) { // Attacker modifiers:
 				damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(damageType.getMultiplierAttribute()), 100)/100f);
 				
 				if(weapon!=null && !weapon.getWeaponType().isUsingUnarmedCalculation()) {
@@ -375,7 +374,7 @@ public enum Attack {
 				}
 			}
 
-//			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) { // Defender modifiers:
+//			if (defender!=null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) { // Defender modifiers:
 //				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
 //				
 //				if (damage < 1) {
@@ -390,17 +389,17 @@ public enum Attack {
 				damage += attackersDamage;
 			}
 			
-			if (attacker != null) { // Attacker modifiers:
+			if (attacker!=null) { // Attacker modifiers:
 				damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_SPELLS), 100)/100f);
 				damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(damageType.getMultiplierAttribute()), 100)/100f);
 			}
 
-//			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
+//			if (defender!=null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 //				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
 //			}
 			
 		} else {
-			if (attacker != null) { // Attacker modifiers:
+			if (attacker!=null) { // Attacker modifiers:
 				damage += attackersDamage * (1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_LUST), 100)/100f);
 				
 				if(defender!=null) {
@@ -412,9 +411,12 @@ public enum Attack {
 				if (damage < 1) {
 					damage = 1;
 				}
+				
+			} else {
+				damage = attackersDamage;
 			}
 
-			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
+			if (defender!=null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 				// Defender modifiers:
 //				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f;
 				if(attacker!=null) {
@@ -433,7 +435,7 @@ public enum Attack {
 			}
 		}
 		
-		if (attacker != null && defender!=null) {
+		if (attacker!=null && defender!=null) {
 			// Modifiers based on race damage:
 			damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(defender.getSubspecies().getDamageMultiplier()), 100)/100f);
 			

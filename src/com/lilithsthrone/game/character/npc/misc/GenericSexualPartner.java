@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.misc;
-
-import java.time.Month;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,7 +28,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.OutfitType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -186,7 +184,7 @@ public class GenericSexualPartner extends NPC {
 	
 	@Override
 	public void generateSexChoices(boolean resetPositioningBan, GameCharacter target, List<SexType> request) {
-		if(this.getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_TOILETS) && Sex.getTurn()>1) {
+		if(this.getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_TOILETS) && Main.sex.getTurn()>1) {
 			playerRequested = true;
 		}
 		
@@ -199,7 +197,7 @@ public class GenericSexualPartner extends NPC {
 			return super.isHappyToBeInSlot(position, slot, target);
 			
 		} else {
-			if(Sex.isInForeplay(this) || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
+			if(Main.sex.isInForeplay(this) || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
 				return slot==SexSlotUnique.GLORY_HOLE_KNEELING;
 			} else {
 				return slot==SexSlotUnique.GLORY_HOLE_FUCKED;

@@ -1,8 +1,8 @@
 package com.lilithsthrone.game.sex;
-
-import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.78
@@ -25,7 +25,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, SexAreaPenetration.TONGUE);
+			return Main.sex.isOrificeFree(owner, this) && Main.sex.isPenetrationTypeFree(owner, SexAreaPenetration.TONGUE);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
@@ -196,7 +196,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
@@ -399,7 +399,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
@@ -561,7 +561,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
@@ -760,7 +760,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
@@ -921,7 +921,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
@@ -1058,7 +1058,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
@@ -1227,7 +1227,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
@@ -1428,7 +1428,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public boolean isPlural() {
@@ -1511,7 +1511,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Main.sex.isOrificeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
@@ -1651,7 +1651,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, SexAreaPenetration.PENIS);
+			return Main.sex.isOrificeFree(owner, this) && Main.sex.isPenetrationTypeFree(owner, SexAreaPenetration.PENIS);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {

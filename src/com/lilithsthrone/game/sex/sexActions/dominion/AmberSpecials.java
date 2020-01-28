@@ -1,12 +1,11 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
-
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.95
@@ -35,9 +34,9 @@ public class AmberSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getInitialSexManager().isPartnerWantingToStopSex(Sex.getCharacterPerformingAction())
-					&& Sex.isDom(Sex.getCharacterPerformingAction())
-					&& !Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getInitialSexManager().isPartnerWantingToStopSex(Main.sex.getCharacterPerformingAction())
+					&& Main.sex.isDom(Main.sex.getCharacterPerformingAction())
+					&& !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override

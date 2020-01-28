@@ -140,7 +140,7 @@
 
 	<htmlContent tag="IMP_BASIC"><![CDATA[
 	<p>
-		Other than their diminutive height (with most individuals standing at around three feet tall), an imp's appearance is identical to that of a demon.
+		Other than their diminutive height (with most individuals standing at around [units.size(92)] tall), an imp's appearance is identical to that of a demon.
 		 Despite their similar appearances, however, imps are far more mischievous and aggressive than their larger counterparts.
 		 Due to these antisocial personality traits, Dominion's Enforcers always drive imps out of the city at first sight, with the vast majority of them ending up down in the undercity of Submission.
 	</p>
