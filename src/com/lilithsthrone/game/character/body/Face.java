@@ -1,7 +1,10 @@
 package com.lilithsthrone.game.character.body;
 
+import java.util.List;
+
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -49,6 +52,10 @@ public class Face implements BodyPartInterface {
 	@Override
 	public FaceType getType() {
 		return type;
+	}
+
+	public List<FaceTypeTag> getTypeTags() {
+		return type.getTags();
 	}
 	
 	@Override
@@ -539,5 +546,9 @@ public class Face implements BodyPartInterface {
 			return false;
 		}
 		return owner.getLegConfiguration().getBestialParts().contains(Face.class) && getType().getRace().isBestialPartsAvailable();
+	}
+
+	public boolean isBaldnessNatural() {
+		return this.getTypeTags().contains(FaceTypeTag.NATURAL_BALDNESS);
 	}
 }
