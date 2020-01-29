@@ -478,10 +478,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				if(itemTagsElement.getAttribute("slot").isEmpty()) {
 					for(InventorySlot slot : this.equipSlots) {
 						this.itemTags.putIfAbsent(slot, new ArrayList<>());
-						this.itemTags.get(slot).addAll(
-								itemTagsElement.getAllOf("tag").stream()
-									.map(Element::getTextContent).map(ItemTag::valueOf)
-									.collect(Collectors.toList()));
+						this.itemTags.get(slot).addAll(Util.toEnumList(itemTagsElement.getAllOf("tag"), ItemTag.class));
 						
 					}
 					
@@ -489,9 +486,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					InventorySlot relatedSlot = InventorySlot.valueOf(itemTagsElement.getAttribute("slot"));
 					this.itemTags.put(
 							relatedSlot,
-							itemTagsElement.getAllOf("tag").stream()
-								.map(Element::getTextContent).map(ItemTag::valueOf)
-								.collect(Collectors.toList()));
+							Util.toEnumList(itemTagsElement.getAllOf("tag"), ItemTag.class)
+						);
 				}
 			}
 
