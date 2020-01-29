@@ -2417,6 +2417,7 @@ public class Body implements XMLSaving {
 				}
 				sb.append(" and after being used, it "+face.getMouth().getOrificeMouth().getPlasticity().getDescription()+".");
 			}
+			
 		} else {
 			sb.append(" [style.colourDisabled(You don't know [npc.herHim] well enough to know how competent [npc.she] is at performing oral sex.)]");
 		}

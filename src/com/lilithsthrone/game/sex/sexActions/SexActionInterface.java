@@ -270,13 +270,13 @@ public interface SexActionInterface {
 						getActionType()!=SexActionType.START_ADDITIONAL_ONGOING);
 			}
 
-			if(SexActionInterface.this.getPerformingCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaOrifice.MOUTH))
-					|| SexActionInterface.this.getPerformingCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaPenetration.TONGUE))) {
-				Main.sex.getCharacterPerformingAction().setAreaKnownByCharacter(CoverableArea.MOUTH, Main.sex.getCharacterTargetedForSexAction(SexActionInterface.this), true);
+			if(getPerformingCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaOrifice.MOUTH))
+					|| getPerformingCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaPenetration.TONGUE))) {
+				Main.sex.getCharacterPerformingAction().setAreaKnownByCharacter(CoverableArea.MOUTH, Main.sex.getCharacterTargetedForSexAction(this), true);
 				
-			} else if(SexActionInterface.this.getTargetedCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaOrifice.MOUTH))
-					|| SexActionInterface.this.getTargetedCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaPenetration.TONGUE))) {
-				Main.sex.getCharacterTargetedForSexAction(SexActionInterface.this).setAreaKnownByCharacter(CoverableArea.MOUTH, Main.sex.getCharacterPerformingAction(), true);
+			} else if(getTargetedCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaOrifice.MOUTH))
+					|| getTargetedCharacterAreas().stream().anyMatch((area) -> area.equals(SexAreaPenetration.TONGUE))) {
+				Main.sex.getCharacterTargetedForSexAction(this).setAreaKnownByCharacter(CoverableArea.MOUTH, Main.sex.getCharacterPerformingAction(), true);
 			}
 		}
 		
