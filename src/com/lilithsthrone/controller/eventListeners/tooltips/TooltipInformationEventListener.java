@@ -33,6 +33,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -811,7 +812,11 @@ public class TooltipInformationEventListener implements EventListener {
 					
 					// SEXUAL:
 					if(!owner.isPlayer() && !owner.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())) {
-						tooltipSB.append(getEmptyBodyPartDiv("Vagina", "Unknown!"));
+						if (owner.getVaginaType() == VaginaType.NONE && Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true)) {
+							tooltipSB.append(getEmptyBodyPartDiv("Vagina", "None"));
+						} else {
+							tooltipSB.append(getEmptyBodyPartDiv("Vagina", "Unknown!"));
+						}
 					} else {
 						if (owner.getVaginaType() != VaginaType.NONE) {
 							tooltipSB.append(getBodyPartDiv(owner, "Vagina", owner.getVaginaRace(), owner.getVaginaCovering(), owner.isVaginaBestial()));
@@ -821,7 +826,11 @@ public class TooltipInformationEventListener implements EventListener {
 					}
 					
 					if(!owner.isPlayer() && !owner.isAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer())) {
-						tooltipSB.append(getEmptyBodyPartDiv("Penis", "Unknown!"));
+						if (!owner.hasPenis() && Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true)) {
+							tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
+						} else {
+							tooltipSB.append(getEmptyBodyPartDiv("Penis", "Unknown!"));
+						}
 					} else {
 						if (owner.hasPenisIgnoreDildo()) {
 							tooltipSB.append(getBodyPartDiv(owner, "Penis", owner.getPenisRace(), owner.getPenisCovering(), owner.isPenisBestial(), "[unit.sizes(" + owner.getPenisRawSizeValue()+ ")]"));
