@@ -24,7 +24,9 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -1270,5 +1272,15 @@ public class Util {
 	
 	public static String getFileIdentifier(String filePath) {
 		return filePath.substring(0, filePath.lastIndexOf('.')).replaceAll("'", "Q");
+	}
+
+	public static  <T extends Enum<T>> List<T> toEnumList(final Collection<Element> elements, final Class<T> enumType) {
+		return elements.stream()
+			.map(Element::getTextContent)
+			.map(x -> {
+				try { return T.valueOf(enumType, x); }
+				catch (Exception e) { return null; } })
+			.filter(x -> x != null)
+			.collect(Collectors.toList());
 	}
 }
