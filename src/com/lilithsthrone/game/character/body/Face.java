@@ -551,4 +551,20 @@ public class Face implements BodyPartInterface {
 	public boolean isBaldnessNatural() {
 		return this.getTypeTags().contains(FaceTypeTag.NATURAL_BALDNESS);
 	}
+	
+	public boolean isMuzzle() {
+		return this.getTypeTags().contains(FaceTypeTag.MUZZLE);
+	}
+	
+	public boolean isHasFangs() {
+		return this.getTypeTags().contains(FaceTypeTag.FANGS);
+	}
+	
+	public boolean isBeak() {
+		return this.getTypeTags().contains(FaceTypeTag.BEAK);
+	}
+	
+	public boolean isSharkTeeth() {
+		return this.getTypeTags().contains(FaceTypeTag.SHARK_TEETH);
+	}
 }
