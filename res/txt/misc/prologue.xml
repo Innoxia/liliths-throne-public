@@ -60,25 +60,18 @@
 	</htmlContent>
 
 	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_FEMALE_AS_MALE_START"><![CDATA[
-	<p>
-		You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body.
-		#IF pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible()
-		#THEN
-		  Never expecting something like this to happen today, you're glad that you always keep a condom in your purse 'just in case'.
-		#ELSE
-		#THEN
-		  Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands. [prologueFemale.speech(I'd rather you didn't, but if you want to, you can wear this.)]
-		#ENDIF
-	</p>
-	<p>
-		#IF pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible()
-		#THEN
-		  Looks like now would be a good time to put that condom to use!
-		#ELSE
-		#THEN
-		  You look down to see that you're holding a little square packet - a condom.
-		#ENDIF
-	</p>
+	#IF(pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible())
+		<p>
+			You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body. Never expecting something like this to happen today, you're glad that you always keep a condom in your purse 'just in case'. Now would be a good time to put it to use...
+		</p>
+	#ELSE
+		<p>
+			You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body. Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands and saying, [prologueFemale.speech(I'd rather you didn't, but if you want to, you can wear this.)]
+		</p>
+		<p>
+			You look down to see that you've just been given a condom, still sealed in its small square packet...
+		</p>
+	#ENDIF
 	<div class='container-full-width' style='text-align:center;'>
 		<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>
 		(Your penis will need to be exposed before it can be used!)</i>
@@ -95,24 +88,24 @@
 
 	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_MALE_START"><![CDATA[
 	<p>
-		You allow [prologueMale.name] to pull you into his strong, masculine torso, desperately moaning into his mouth as he dominantly gropes and fondles your body. Breaking off the kiss for a moment, he pulls something out of his pocket, before pushing it into your hands. [prologueMale.speech(I'd rather not, but if you want me to, I can wear this.)]
+		You allow [prologueMale.name] to pull you into his strong, masculine torso, desperately moaning into his mouth as he dominantly gropes and fondles your body. Breaking off the kiss for a moment, he pulls something out of his pocket, before pushing it into your hands and saying, [prologueMale.speech(I'd rather not, but if you want me to, I can wear this.)]
 	</p>
-	<p>
-		#IFpc.hasPenis()
-		#THEN
-		  #IF pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible()
-		  #THEN
-		    You look down to see that you're holding a little square packet - a condom. It's a good thing that you always keep a condom in your purse as well!
+		#IF(pc.hasPenis())
+		  #IF(pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible())
+		    You look down to see that you've just been given a condom, still sealed in its small square packet. It's a good thing that you always keep a condom in your purse as well, so that you've got one for both [prologueMale.name] and yourself if need be.
 		  #ELSE
-		  #THEN
-			You look down to see that you're holding a couple of little square packets - a pair of condoms.
+			You look down to see that you've just been given a pair of condoms, still sealed in their small square packets.
 		  #ENDIF
 		#ELSE
-			You look down to see that you're holding a little square packet - a condom.
+			You look down to see that you've just been given a condom, still sealed in its small square packet.
 		#ENDIF
 	</p>
 	<div class='container-full-width' style='text-align:center;'>
-		<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>([prologueMale.namePos] penis will need to be exposed before it can be used!)</i>
+		#IF(pc.hasPenis())
+			<i>If you'd like to use the condoms, open your inventory (by pressing 'i') and select them from the menu.<br/>([prologueMale.namePos] penis will need to be exposed before it can be equipped onto him, and the same applies for if you want to equip one yourself!)</i>
+		#ELSE
+			<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>([prologueMale.namePos] penis will need to be exposed before it can be used!)</i>
+		#ENDIF
 	</div>
 	]]>
 	</htmlContent>
