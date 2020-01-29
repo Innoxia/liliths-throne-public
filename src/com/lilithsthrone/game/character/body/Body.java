@@ -1957,7 +1957,11 @@ public class Body implements XMLSaving {
 		// Hair:
 		
 		if (hair.getRawLengthValue() == 0) {
-			sb.append(" [npc.SheHasFull] no hair on [npc.her] head, revealing the [npc.faceSkin] that covers [npc.her] scalp.");
+			if (face.isBaldnessNatural()) {
+				sb.append(" [npc.Her] head is covered in [npc.faceFullDescription(true)].");
+			} else {
+				sb.append(" [npc.SheHasFull] no hair on [npc.her] head, revealing the [npc.faceSkin] that covers [npc.her] scalp.");
+			}
 			
 		} else {
 			sb.append(" [npc.SheHasFull] [npc.hairLength], [npc.hairColour(true)]");
