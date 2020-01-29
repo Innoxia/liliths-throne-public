@@ -72,6 +72,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed the issue where the NPC in the prologue knows about the player's penis when this shouldn't be the case. (PR#1274 by AxeXP)
 		Improved interaction between wing-arms (as seen on harpies and bat-morphs) and clothing. (PR#1249 by Stadler)
 		Fixed the phone menu sex stats display for blowjobs performed and received being the wrong way around. (PR#1270 by AceXP)
+		Fixed bug where CoverableArea.MOUTH could never be discovered, blocking knowledge of NPCs' oral skills. (PR#1260 by AceXP)
 	
 	Bugs:
 		Fixed issue of the debug menu's self-TF function treating you as though you're a slime even if you weren't one.
@@ -84,6 +85,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Note down all bug reports
 	
 	Define Enforcer races in population types
+	
+	Bree keeps reverting to 25 Core Corruption every time I load my save. It's the Core Corruption, so it's not because of her Dirty Mind special perk. I'm on Version 0.3.6.1
 	
 	Check:
 		itemTags with no slot defined as universal tags, then an empty element with itemTags overriding that and deleting universal tags
