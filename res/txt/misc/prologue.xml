@@ -61,10 +61,23 @@
 
 	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_FEMALE_AS_MALE_START"><![CDATA[
 	<p>
-		You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body. Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands. [prologueFemale.speech(I'd rather you didn't, but if you want to, you can wear this.)]
+		You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body.
+		#IF pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible()
+		#THEN
+		  Never expecting something like this to happen today, you're glad that you always keep a condom in your purse 'just in case'.
+		#ELSE
+		#THEN
+		  Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands. [prologueFemale.speech(I'd rather you didn't, but if you want to, you can wear this.)]
+		#ENDIF
 	</p>
 	<p>
-		You look down to see that you're holding a little square packet - a condom.
+		#IF pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible()
+		#THEN
+		  Looks like now would be a good time to put that condom to use!
+		#ELSE
+		#THEN
+		  You look down to see that you're holding a little square packet - a condom.
+		#ENDIF
 	</p>
 	<div class='container-full-width' style='text-align:center;'>
 		<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>
@@ -87,9 +100,15 @@
 	<p>
 		#IFpc.hasPenis()
 		#THEN
+		  #IF pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible()
+		  #THEN
+		    You look down to see that you're holding a little square packet - a condom. It's a good thing that you always keep a condom in your purse as well!
+		  #ELSE
+		  #THEN
 			You look down to see that you're holding a couple of little square packets - a pair of condoms.
+		  #ENDIF
 		#ELSE
-			You look down to see that you're holding a little square packet - a condom.)
+			You look down to see that you're holding a little square packet - a condom.
 		#ENDIF
 	</p>
 	<div class='container-full-width' style='text-align:center;'>
