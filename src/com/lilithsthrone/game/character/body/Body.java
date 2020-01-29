@@ -3118,16 +3118,23 @@ public class Body implements XMLSaving {
 			if (owner.hasPenis()) {
 				sb.append("<p>" + getPenisDescription(owner) + "</p>");
 			}
+			
 		} else {
 			if (observant) {
-				if(owner.hasPenis()){
+				if(owner.hasPenis()) {
 					sb.append(" <p>"
-							+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] cock looks like.)]"
+								+ "[style.colourDisabled(Thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] has a cock,"
+										+ " but as you haven't seen [npc.her] naked groin before, you don't know what it looks like.)]"
 							+ "</p>");
+				} else {
+					sb.append(" <p>"
+							+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, but thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] doesn't have a cock.)]"
+						+ "</p>");
 				}
+				
 			} else {
 				sb.append(" <p>"
-						+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] cock looks like, or even if [npc.she] has one.)]"
+							+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] cock looks like, or even if [npc.she] has one.)]"
 						+ "</p>");
 			}
 
@@ -3142,12 +3149,19 @@ public class Body implements XMLSaving {
 			if (observant){
 				if(vagina.getType() != VaginaType.NONE){
 					sb.append(" <p>"
-							+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] pussy looks like.)]"
-							+ "</p>");
+							+ "[style.colourDisabled(Thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] has a pussy,"
+									+ " but as you haven't seen [npc.her] naked groin before, you don't know what it looks like.)]"
+						+ "</p>");
+					
+				} else {
+					sb.append(" <p>"
+							+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, but thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] doesn't have a pussy.)]"
+						+ "</p>");
 				}
+				
 			} else {
 				sb.append(" <p>"
-						+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] pussy looks like, or even if [npc.she] has one.)]"
+							+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] pussy looks like, or even if [npc.she] has one.)]"
 						+ "</p>");
 			}
 		}

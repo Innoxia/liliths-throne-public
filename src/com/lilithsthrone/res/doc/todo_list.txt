@@ -73,6 +73,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Improved interaction between wing-arms (as seen on harpies and bat-morphs) and clothing. (PR#1249 by Stadler)
 		Fixed the phone menu sex stats display for blowjobs performed and received being the wrong way around. (PR#1270 by AceXP)
 		Fixed bug where CoverableArea.MOUTH could never be discovered, blocking knowledge of NPCs' oral skills. (PR#1260 by AceXP)
+		Altered race tooltip to better reflect knowledge from 'observant', and improved some of the related text in the full appearance description page. (PR#1236 by NoStepOnSneks)
 	
 	Bugs:
 		Fixed issue of the debug menu's self-TF function treating you as though you're a slime even if you weren't one.
@@ -98,6 +99,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Defeating all the rats still won't let me free the milk slaves, it respawns Murk in the next room, and when I leave he says there's no refunds. Since I can't go back inside, and I haven't found them anywhere after the quest, I take it it's a bug
 	
 	why doesn't the occupancy ledger note when a slave gives birth?
+	
+	When you activate the resonance stone, there's no metnion of Shadow activating hers, but she acts as though she did later on
 	
 	 Is the feline special attack Scratch suppose to not have a cooldown or crit despite saying use it three times for a crit
 	 
