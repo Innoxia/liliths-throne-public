@@ -70,7 +70,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added graceful error handling for if an invalid ItemTag is detected when loading Clothing/Weapons from xml files. (PR#1278 by Stadler)
 		Fixed bug: Restocking of items sold by Vicky (Arcane Arts) produces wrong prices after buying all items of a single type. (PR#1276)
 		Fixed the issue where the NPC in the prologue knows about the player's penis when this shouldn't be the case. (PR#1274 by AxeXP)
-		Improved interaction between wing-arms (as seen on harpies and bat-morphs) and clothing.  (PR#1249 by Stadler)
+		Improved interaction between wing-arms (as seen on harpies and bat-morphs) and clothing. (PR#1249 by Stadler)
+		Fixed the phone menu sex stats display for blowjobs performed and received being the wrong way around. (PR#1270 by AceXP)
 	
 	Bugs:
 		Fixed issue of the debug menu's self-TF function treating you as though you're a slime even if you weren't one.
@@ -81,6 +82,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	PRs
 	
 	Note down all bug reports
+	
+	Define Enforcer races in population types
 	
 	Check:
 		itemTags with no slot defined as universal tags, then an empty element with itemTags overriding that and deleting universal tags
