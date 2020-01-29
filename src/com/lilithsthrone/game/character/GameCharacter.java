@@ -58,6 +58,7 @@ import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.Testicle;
 import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
+import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
 import com.lilithsthrone.game.character.body.types.AbstractArmType;
 import com.lilithsthrone.game.character.body.types.AbstractAssType;
 import com.lilithsthrone.game.character.body.types.AbstractBreastType;
@@ -20962,6 +20963,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setArmType(AbstractArmType type) {
 		return body.getArm().setType(this, type);
+	}
+	public List<ArmTypeTag> getArmTypeTags() {
+		return body.getArm().getType().getTags();
 	}
 	public BodyCoveringType getArmCovering() {
 		return getCovering(body.getArm());
