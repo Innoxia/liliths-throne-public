@@ -3,8 +3,6 @@ package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -25,7 +23,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.PossibleTFEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.SexControl;
@@ -1045,9 +1043,9 @@ public class TunnelAttackDialogue {
 	};
 
 	private static String applyTransformation(GameCharacter target,
-			Value<AbstractItemType, Map<ItemEffect,String>> potion,
+			Value<AbstractItemType, List<PossibleTFEffect>> potion,
 			boolean forcedTF,
-			Value<AbstractItemType, Map<ItemEffect,String>> fetishPotion,
+			Value<AbstractItemType, List<PossibleTFEffect>> fetishPotion,
 			boolean forcedFetish) {
 		
 		StringBuilder sb = new StringBuilder();
@@ -1058,14 +1056,14 @@ public class TunnelAttackDialogue {
 						+ "[npc.Name] steps back, grinning down at [npc2.name] as [npc2.she] obediently [npc2.verb(swallow)] the strange liquid."
 						+ " [npc.speech(Good [npc2.girl]! I'm going to turn you into my perfect "+getMugger().getPreferredBodyDescription("b")+"!)]"
 					+ "</p>"));
-			for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
+			for(PossibleTFEffect e : potion.getValue()) {
 				sb.append(UtilText.parse(getMugger(),
-						(e.getValue()!=null && !e.getValue().isEmpty()
+						(e.getMessage()!=null && !e.getMessage().isEmpty()
 							?"<p>"
-								+ "[npc.speech("+e.getValue()+")]"
+								+ "[npc.speech("+e.getMessage()+")]"
 							+ "</p>"
 							:"")
-						+ e.getKey().applyEffect(getMugger(), target, 1)));
+						+ e.getEffect().applyEffect(getMugger(), target, 1)));
 			}
 		}
 		
@@ -1075,14 +1073,14 @@ public class TunnelAttackDialogue {
 						+ "With a look of fiendish delight in [npc.her] [npc.eyes], [npc.name] excitedly cries out,"
 						+ " [npc.speech(That's right, swallow it all down! These changes are all for the better!)]"
 					+ "</p>"));
-			for(Entry<ItemEffect, String> e : fetishPotion.getValue().entrySet()) {
+			for(PossibleTFEffect e : fetishPotion.getValue()) {
 				sb.append(UtilText.parse(getMugger(),
-						(e.getValue()!=null && !e.getValue().isEmpty()
+						(e.getMessage()!=null && !e.getMessage().isEmpty()
 							?"<p>"
-								+ "[npc.speech("+e.getValue()+")]"
+								+ "[npc.speech("+e.getMessage()+")]"
 							+ "</p>"
 							:"")
-						+ e.getKey().applyEffect(getMugger(), target, 1)));
+						+ e.getEffect().applyEffect(getMugger(), target, 1)));
 			}
 		}
 		return sb.toString();
@@ -1090,10 +1088,10 @@ public class TunnelAttackDialogue {
 	
 	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", "", true) {
 
-		Value<AbstractItemType, Map<ItemEffect,String>> potion = null;
-		Value<AbstractItemType, Map<ItemEffect,String>> companionPotion = null;
-		Value<AbstractItemType, Map<ItemEffect,String>> fetishPotion = null;
-		Value<AbstractItemType, Map<ItemEffect,String>> companionFetishPotion = null;
+		Value<AbstractItemType, List<PossibleTFEffect>> potion = null;
+		Value<AbstractItemType, List<PossibleTFEffect>> companionPotion = null;
+		Value<AbstractItemType, List<PossibleTFEffect>> fetishPotion = null;
+		Value<AbstractItemType, List<PossibleTFEffect>> companionFetishPotion = null;
 		
 		public void applyPreParsingEffects() {
 			transformationsApplied = false;
