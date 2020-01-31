@@ -192,7 +192,7 @@ public enum CoverableArea {
 					InventorySlot.HORNS,
 					InventorySlot.HEAD)),
 	
-	MOUTH(false,
+	MOUTH(true,
 			"mouth",
 			Util.newArrayListOfValues(
 					InventorySlot.HAIR,
@@ -208,7 +208,7 @@ public enum CoverableArea {
 	private List<InventorySlot> associatedInventorySlots;
 
 	private CoverableArea(boolean saveDiscoveredStatus, String name, List<InventorySlot> associatedInventorySlots) {
-		this.saveDiscoveredStatus = saveDiscoveredStatus;
+		setSaveDiscoveredStatus(saveDiscoveredStatus);
 		this.name = name;
 		this.associatedInventorySlots = associatedInventorySlots;
 	}

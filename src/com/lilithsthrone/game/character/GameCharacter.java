@@ -57,6 +57,8 @@ import com.lilithsthrone.game.character.body.FluidInterface;
 import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.Testicle;
+import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
+import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
 import com.lilithsthrone.game.character.body.types.AbstractArmType;
 import com.lilithsthrone.game.character.body.types.AbstractAssType;
 import com.lilithsthrone.game.character.body.types.AbstractBreastType;
@@ -20962,6 +20964,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setArmType(AbstractArmType type) {
 		return body.getArm().setType(this, type);
 	}
+	public List<ArmTypeTag> getArmTypeTags() {
+		return body.getArm().getType().getTags();
+	}
 	public BodyCoveringType getArmCovering() {
 		return getCovering(body.getArm());
 	}
@@ -22619,6 +22624,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public String setFaceType(FaceType type) {
 		return body.getFace().setType(this, type);
 	}
+	public List<FaceTypeTag> getFaceTypeTags() {
+		return body.getFace().getType().getTags();
+	}
 	public BodyCoveringType getFaceCovering() {
 		return getCovering(body.getFace());
 	}
@@ -22627,6 +22635,21 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public boolean isFaceBestial() {
 		return body.getFace().isBestial(this);
+	}
+	public boolean isFaceBaldnessNatural() {
+		return body.getFace().isBaldnessNatural();
+	}
+	public boolean isFaceMuzzle() {
+		return body.getFace().isMuzzle();
+	}
+	public boolean isFaceHasFangs() {
+		return body.getFace().isHasFangs();
+	}
+	public boolean isFaceBeak() {
+		return body.getFace().isBeak();
+	}
+	public boolean isFaceSharkTeeth() {
+		return body.getFace().isSharkTeeth();
 	}
 	// Names:
 	public String getFaceName() {

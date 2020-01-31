@@ -130,11 +130,27 @@ public enum ItemTag {
 					"[style.colourBestial(Fits talons)]"),
 			false),
 	
-	FITS_HARPY_WINGS_EXCLUSIVE(
+	FITS_FEATHERED_ARM_WINGS_EXCLUSIVE(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Only fits feathered arm-wings)]"),
+			false),
+	FITS_FEATHERED_ARM_WINGS(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Fits feathered arm-wings)]"),
+			false),
+	FITS_LEATHERY_ARM_WINGS_EXCLUSIVE(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Only fits leathery arm-wings)]"),
+			false),
+	FITS_LEATHERY_ARM_WINGS(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Fits leathery arm-wings)]"),
+			false),
+	FITS_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
 					"[style.colourBestial(Only fits arm-wings)]"),
 			false),
-	FITS_HARPY_WINGS(
+	FITS_ARM_WINGS(
 			Util.newArrayListOfValues(
 					"[style.colourBestial(Fits arm-wings)]"),
 			false),

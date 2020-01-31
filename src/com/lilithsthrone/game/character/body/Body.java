@@ -1752,6 +1752,7 @@ public class Body implements XMLSaving {
 	 */
 	public String getDescription(GameCharacter owner) {
 		StringBuilder sb = new StringBuilder();
+		boolean observant = Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true);
 		// Describe race:
 		if (owner.isPlayer()) {
 			sb.append("<p>"
@@ -1771,7 +1772,7 @@ public class Body implements XMLSaving {
 						+ owner.getAppearsAsGenderDescription(true)
 						+ " Standing at full height, [npc.she] measures [npc.heightValue]");
 			} else {
-				if(Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true)) {
+				if(observant) {
 					sb.append("<p>"
 							+ "Thanks to your observant perk, you can detect that [npc.name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
 							+ owner.getAppearsAsGenderDescription(true)
@@ -1957,7 +1958,11 @@ public class Body implements XMLSaving {
 		// Hair:
 		
 		if (hair.getRawLengthValue() == 0) {
-			sb.append(" [npc.SheHasFull] no hair on [npc.her] head, revealing the [npc.faceSkin] that covers [npc.her] scalp.");
+			if (face.isBaldnessNatural()) {
+				sb.append(" [npc.Her] head is covered in [npc.faceFullDescription(true)].");
+			} else {
+				sb.append(" [npc.SheHasFull] no hair on [npc.her] head, revealing the [npc.faceSkin] that covers [npc.her] scalp.");
+			}
 			
 		} else {
 			sb.append(" [npc.SheHasFull] [npc.hairLength], [npc.hairColour(true)]");
@@ -2413,6 +2418,7 @@ public class Body implements XMLSaving {
 				}
 				sb.append(" and after being used, it "+face.getMouth().getOrificeMouth().getPlasticity().getDescription()+".");
 			}
+			
 		} else {
 			sb.append(" [style.colourDisabled(You don't know [npc.herHim] well enough to know how competent [npc.she] is at performing oral sex.)]");
 		}
@@ -3112,10 +3118,26 @@ public class Body implements XMLSaving {
 			if (owner.hasPenis()) {
 				sb.append("<p>" + getPenisDescription(owner) + "</p>");
 			}
+			
 		} else {
-			sb.append(" <p>"
-						+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] cock looks like, or even if [npc.she] has one.)]"
-					+ "</p>");
+			if (observant) {
+				if(owner.hasPenis()) {
+					sb.append(" <p>"
+								+ "[style.colourDisabled(Thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] has a cock,"
+										+ " but as you haven't seen [npc.her] naked groin before, you don't know what it looks like.)]"
+							+ "</p>");
+				} else {
+					sb.append(" <p>"
+							+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, but thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] doesn't have a cock.)]"
+						+ "</p>");
+				}
+				
+			} else {
+				sb.append(" <p>"
+							+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] cock looks like, or even if [npc.she] has one.)]"
+						+ "</p>");
+			}
+
 		}
 		
 		if(owner.isAreaKnownByCharacter(CoverableArea.VAGINA, Main.game.getPlayer())) {
@@ -3124,9 +3146,24 @@ public class Body implements XMLSaving {
 				sb.append("<p>" + getVaginaDescription(owner) + "</p>");
 			}
 		} else {
-			sb.append(" <p>"
-						+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] pussy looks like, or even if [npc.she] has one.)]"
-					+ "</p>");
+			if (observant){
+				if(vagina.getType() != VaginaType.NONE){
+					sb.append(" <p>"
+							+ "[style.colourDisabled(Thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] has a pussy,"
+									+ " but as you haven't seen [npc.her] naked groin before, you don't know what it looks like.)]"
+						+ "</p>");
+					
+				} else {
+					sb.append(" <p>"
+							+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, but thanks to your '"+Perk.OBSERVANT.getName(Main.game.getPlayer())+"' trait, you can tell that [npc.she] doesn't have a pussy.)]"
+						+ "</p>");
+				}
+				
+			} else {
+				sb.append(" <p>"
+							+ "[style.colourDisabled(You haven't seen [npc.her] naked groin before, so you don't know what [npc.her] pussy looks like, or even if [npc.she] has one.)]"
+						+ "</p>");
+			}
 		}
 		
 		

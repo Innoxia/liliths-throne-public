@@ -64,61 +64,30 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Engine/Code:
-		Fixed issue with incorrect line endings at the top of most files.
-		Moved remaining Slaver Alley dialogue into the external .txt file.
-		Tidied up virginity loss code.
-		The 'companion' parser target has been shortened to 'com', and should now work correctly in conditional statements.
 	
-	Gameplay:
-		Added content for the 'Complain' action in Slaver Alley's public stocks tile, which includes a new unique Enforcer NPC. (There are some additional dialogue variations for if Brax is in your party.)
+	Contributors:
+		Added FaceTypeTag enum for improved handling of face features. The 'Bite' special attack is now available to any face type which has a muzzle, fangs, beak, or shark teeth. (PR#1286 by Stadler)
+		Added graceful error handling for if an invalid ItemTag is detected when loading Clothing/Weapons from xml files. (PR#1278 by Stadler)
+		Fixed bug: Restocking of items sold by Vicky (Arcane Arts) produces wrong prices after buying all items of a single type. (PR#1276)
+		Fixed the issue where the NPC in the prologue knows about the player's penis when this shouldn't be the case. (PR#1274 by AxeXP)
+		Improved interaction between wing-arms (as seen on harpies and bat-morphs) and clothing. (PR#1249 by Stadler)
+		Fixed the phone menu sex stats display for blowjobs performed and received being the wrong way around. (PR#1270 by AceXP)
+		Fixed bug where CoverableArea.MOUTH could never be discovered, blocking knowledge of NPCs' oral skills. (PR#1260 by AceXP)
+		Altered race tooltip to better reflect knowledge from 'observant', and improved some of the related text in the full appearance description page. (PR#1236 by NoStepOnSneks)
 	
-	Other:
-		The 'Tail swipe' combat move is now available to anyone who has a prehensile tail which has a girth of at least 'thick'.
-		Alligator-morph tails are now considered to be suitable for penetrative actions.
-		Added ability to have your companion join in on sex with slaves locked up in the stocks in Slaver Alley.
-		Added 'sandy' as a covering colour.
-		Slightly improved slovenly speech parsing.
-		Gave Helena a new surname and some clothes to wear.
-		Level drain option now defaults to 'off' in sex scenes which include your companion, slaves, or friendly occupants.
-		Scarlett and Brax can now have their levels drained via the use of the 'Orgasmic level drain' once they've been enslaved.
-		Added kissing interaction availability to 'mating press' + 'lying down' positions, and anilingus availability to 'face between legs' + 'lying down' positions.
-		Added 'phoenix-harpy' subspecies, which is just a harpy with glowing red, orange, or yellow feathers. They can only be found naturally spawning in the Harpy Nests as an extremely rare chance.
-		
 	Bugs:
-		Numerous parsing fixes (most of them in the new Rat Warrens dialogue).
-		Feminising Murk will now correctly give her a vagina. (Fix is also retroactively applied if you've already feminised him.)
-		Fixed tail girth description in selfie/character viewer not updating to describe the character's actual tail girth.
-		Disabled unique position switching actions in stocks sex when there were more than two participants, as it was causing some issues. (You can still change position as the dom using the more in-depth position selection action.)
-		Quick sex now correctly takes into account each participant's banned areas. (i.e. In slaver alley stocks sex, the slave's orifices which are banned will be excluded from quick sex.)
-		Fixed more issues of quick sex ignoring the availability of sex areas.
-		Quick sex will no longer apply level drain to targets who should be immune (i.e. unique characters).
-		Characters with the deflowering fetish now correctly gain experience from taking virginities in quick sex.
-		Removed line in alleyway demon encounter which suggested that the demon grows a cock when you offer yourself to her.
-		Fixed bug where companions would go to work while being held as a captive (bug was present in the Rat Warrens loss scenes).
-		Parsing and dialogue flow fixes in scene where you get sent to the cells after losing in the Enforcer Warehouse.
-		Fixed bug in the post-loss Enforcer Warehouse cells scene, where you'd remain in the Enforcer HQ's cells after you were supposed to have been escorted outside by Claire.
-		Fixed inactive 'Continue' button being shown after Claire has warned you about the SWORD Enforcers in the Warehouse.
-		Your clothing now correctly gets unequipped when locked into the stocks (in the Enforcer Warehouse loss scene).
-		Fixed post-sex stretching information referring to every stretched orifice as the character's 'asshole', instead of the correct orifice.
-		Fixed issue with Helena returning to her nest when she should have been in Scarlett's Shop in Slaver Alley.
-		Fixed some minor issues with dialogue flow when talking to Candi and when getting the Lipsticks from Ralph (as part of the 'Buying Brax' quest).
-		Fixed awkward phrasing of the exhibitionist fetish's short description.
-		Quick sex should now display correct behaviour for if a sex scene is meant to end in a creampie or not.
-		Fixed issue with quick sex where it would sometimes throw a background error and not work.
-		Fixed bug in quick sex where characters with impregnation fetish would sometimes pull out of a partner willing to be impregnated.
-		Fixed 'ready for birthing' status effect having a nonsensical description for taur characters.
-		Fixed bug where you could request Claire's help in dealing with Vengar even after you'd completed his quest.
-		Fixed incorrect parsing in combat when sadistic characters took lust damage from dealing damage to their target.
-		Fixed bug where the breeder collar would spawn with a duplicate sealing enchantment.
-		Fixed bug where Murk's dialogue in the Rat Warrens would still be working even after he'd meant to have been enslaved.
-		Fixed Bree gaining a random colour for her vagina when undergoing her initial feminisation from Brax.
-		Fixed issue where opening the positioning menu on the 'sitting' position would place both doms and subs into sitting slots.
+		Fixed issue of the debug menu's self-TF function treating you as though you're a slime even if you weren't one.
 	
 	
 	
 	
+	PRs
 	
+	Note down all bug reports
+	
+	Define Enforcer races in population types
+	
+	Bree keeps reverting to 25 Core Corruption every time I load my save. It's the Core Corruption, so it's not because of her Dirty Mind special perk. I'm on Version 0.3.6.1
 	
 	Check:
 		itemTags with no slot defined as universal tags, then an empty element with itemTags overriding that and deleting universal tags
@@ -127,15 +96,43 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	After attempting to murder beat up Murk, enslaving one of his summoned goons causes the scene to end and the rest of the goons to remain there
 	After defeating Murk's first wave of goons, if you return to Murk's lounge, he pretends nothing happened. He also isn't in the 'characters present' list
 	
+	Defeating all the rats still won't let me free the milk slaves, it respawns Murk in the next room, and when I leave he says there's no refunds. Since I can't go back inside, and I haven't found them anywhere after the quest, I take it it's a bug
+	
 	why doesn't the occupancy ledger note when a slave gives birth?
+	
+	When you activate the resonance stone, there's no metnion of Shadow activating hers, but she acts as though she did later on
+	
+	 Is the feline special attack Scratch suppose to not have a cooldown or crit despite saying use it three times for a crit
+	 
+	Check that occupants don't accumulate rent debt once they have a job
+	 
+	Improve text on "You cannot purchase any modifications while your slavery balance is negative." to just referencing debt
+	 
+	Are slimes suppose to be showing as sub species like phoenix harpy despite not meeting the color requirement
+	
+	Can slap ass when mounting as taur
 	
 	Tried the non violent, not walk in and kick everyone's ass way. Seduced the rat boi, dominated him, can't end sex because the button's gone, have to click the quick option
 	
 	I also found that I can't free the milk slaves even though I've cleared out the warrens aside from Vinegar or get rid of Murk, and when I back out of the room he gives me dialogue like I paid to get in. Also can't loot the Dormitories either.
 	
+	unfortunately I can't use Lilith's throne light theme for now, because it doesn't show a brief overall of character's appearance in full list, it only shows everything but not the rest, beginning with vagina presence, but the most important part cuts off (I mean the information about pp existence)
+	
+	So I've gotten to where I would recruit Brax and, well, he's no longer here.
+	
+	Error: getContent() method is throwing an exception in the node: 'Public Stocks'
+		the getContent() error happens every time I get to the tile.
+	
+	there is also a rat girl stuck in the tile above the hidden alleyway
+	
+	debug menu setting demon sets to half-demon?
+	
+	If you knock up a dark alleyway demon with a pregnancy fetish, she speaks as though the resulting offspring will be imps even when they won't be.
+		"Yeah, before you ask, it was you! You got me knocked up! It feels so fantastic to be full of imps!"
 	
 	Need full dialogue change for Rat Warrens post-quest completion (become a Rum Distillery)
 	
+	Add way to influence speech traits
 	
 	The whole Vendar's path seems broken time-wise, as sleeping doesn't progress time more than a few minutes.
 	Sleeping as Vengar's slave only makes 5 minutes pass and it resets when you're sent back to the hall.

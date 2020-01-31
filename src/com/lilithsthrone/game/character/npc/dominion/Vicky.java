@@ -547,14 +547,30 @@ public class Vicky extends NPC {
 	
 	@Override
 	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice){
+		int oldCount;
 		if(weaponsForSale.containsKey(item)) {
-			weaponsForSale.put((AbstractWeapon) item, weaponsForSale.get(item)-count);
+			oldCount = weaponsForSale.get(item);
+			if(oldCount > count) {
+				weaponsForSale.put((AbstractWeapon) item, oldCount-count);
+			} else {
+				weaponsForSale.remove((AbstractWeapon) item);
+			}
 		}
 		if(clothingForSale.containsKey(item)) {
-			clothingForSale.put((AbstractClothing) item, clothingForSale.get(item)-count);
+			oldCount = clothingForSale.get(item);
+			if(oldCount > count) {
+				clothingForSale.put((AbstractClothing) item, oldCount-count);
+			} else {
+				clothingForSale.remove((AbstractClothing) item);
+			}
 		}
 		if(itemsForSale.containsKey(item)) {
-			itemsForSale.put((AbstractItem) item, itemsForSale.get(item)-count);
+			oldCount = itemsForSale.get(item);
+			if(oldCount > count) {
+				itemsForSale.put((AbstractItem) item, oldCount-count);
+			} else {
+				itemsForSale.remove((AbstractItem) item);
+			}
 		}
 	}
 	
