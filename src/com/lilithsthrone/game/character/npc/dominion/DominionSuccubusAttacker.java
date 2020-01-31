@@ -252,9 +252,9 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 	
 	@Override
-	public String getVirginityLossOrificeDescription(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice){
-		if(!characterPenetrated.isPlayer() || penetrationType!=SexAreaPenetration.PENIS || orifice!=SexAreaOrifice.VAGINA || !characterPenetrating.equals(this) || this.isSlave()) {
-			return super.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
+	public String getSpecialPlayerVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating, GameCharacter receivingCharacter, SexAreaOrifice penetrated) {
+		if(!receivingCharacter.isPlayer() || penetrating!=SexAreaPenetration.PENIS || penetrated!=SexAreaOrifice.VAGINA || !penetratingCharacter.equals(this) || this.isSlave()) {
+			return "";
 		}
 		
 		StringBuilder sb = new StringBuilder();
